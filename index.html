@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPEE LLM Error Debugging Console</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <h1>CPEE LLM Error Debug Console</h1>
+            <div class="instance-info">
+                <span id="instance-uuid">Loading...</span>
+                <div class="step-navigation">
+                    <button id="prev-step" disabled>← Previous</button>
+                    <span id="current-step">Step 1</span>
+                    <button id="next-step" disabled>Next →</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <aside class="sidebar">
+                <h3>Steps Overview</h3>
+                <div id="steps-timeline">
+                    <div class="loading">Loading steps...</div>
+                </div>
+                <div class="error-summary">
+                    <h4>Error Summary</h4>
+                    <div id="error-count">
+                        <span class="error-badge critical">0 Critical</span>
+                        <span class="error-badge warning">0 Warnings</span>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="content">
+                <div id="step-details">
+                    <div class="loading">
+                        <p>Please provide a UUID to start debugging:</p>
+                        <input type="text" id="uuid-input" placeholder="Enter CPEE instance UUID">
+                        <button id="load-instance">Load Instance</button>
+                    </div>
+                </div>
+
+                <div id="step-analysis" class="hidden">
+                    <div class="tabs">
+                        <button class="tab active" data-tab="overview">Overview</button>
+                        <button class="tab" data-tab="input">Input</button>
+                        <button class="tab" data-tab="output">Output</button>
+                        <button class="tab" data-tab="diff">Diff</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <div id="overview-tab" class="tab-panel active">
+                            <h3>Step Overview</h3>
+                            <div class="step-info">
+                                <div class="info-item">
+                                    <label>User Input:</label>
+                                    <span id="user-input">-</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>LLM Model:</label>
+                                    <span id="llm-model">-</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Timestamp:</label>
+                                    <span id="timestamp">-</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Status:</label>
+                                    <span id="step-status" class="status-badge">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="input-tab" class="tab-panel">
+                            <h3>Input State</h3>
+                            <div class="code-section">
+                                <h4>Current CPEE Tree</h4>
+                                <pre id="input-cpee-tree"><code></code></pre>
+                            </div>
+                            <div class="diagram-section">
+                                <h4>Current Process (Mermaid)</h4>
+                                <div id="input-mermaid" class="mermaid-diagram"></div>
+                            </div>
+                        </div>
+
+                        <div id="output-tab" class="tab-panel">
+                            <h3>Output State</h3>
+                            <div class="diagram-section">
+                                <h4>Modified Process (Mermaid)</h4>
+                                <div id="output-mermaid" class="mermaid-diagram"></div>
+                            </div>
+                            <div class="code-section">
+                                <h4>Generated CPEE Tree</h4>
+                                <pre id="output-cpee-tree"><code></code></pre>
+                            </div>
+                        </div>
+
+                        <div id="diff-tab" class="tab-panel">
+                            <h3>Changes Analysis</h3>
+                            <div class="diff-container">
+                                <div class="diff-section">
+                                    <h4>Process Changes</h4>
+                                    <div id="process-diff"></div>
+                                </div>
+                                <div class="errors-section">
+                                    <h4>Detected Issues</h4>
+                                    <div id="detected-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <p>CPEE LLM Error Debugging Console - Bachelor Thesis Project</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/logParser.js"></script>
+    <script src="js/stepAnalyzer.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

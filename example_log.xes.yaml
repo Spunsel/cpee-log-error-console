@@ -1,0 +1,558 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 193
+    cpee:name: Plain Instance
+    cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-16T13:07:38.821611+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-16T13:07:39.159543+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-16T13:07:39.171173+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-16T13:07:41.215451+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-16T13:07:41.259274+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 82b85f2f4ce027b4a411bba115066c6a5c5d3fe2
+  time:timestamp: '2025-10-16T13:07:59.543191+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b85f2f4ce027b4a411bba115066c6a5c5d3fe2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-16T13:07:59.543415+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b85f2f4ce027b4a411bba115066c6a5c5d3fe2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-16T13:07:59.544861+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b85f2f4ce027b4a411bba115066c6a5c5d3fe2
+  cpee:exposition: |-
+    # User Input:
+    add task A
+  time:timestamp: '2025-10-16T13:07:59.543558+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b85f2f4ce027b4a411bba115066c6a5c5d3fe2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Task A)
+      1:task:(Task A) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-16T13:07:59.545492+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b85f2f4ce027b4a411bba115066c6a5c5d3fe2
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-16T13:07:59.545193+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b85f2f4ce027b4a411bba115066c6a5c5d3fe2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-16T13:07:59.545668+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Task B</label>
+          <method/>
+          <type>:task</type>
+          <mid>'b'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: cda5efe28993332d85a73d9bb35af25c21d65edf
+  time:timestamp: '2025-10-16T13:12:34.488543+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cda5efe28993332d85a73d9bb35af25c21d65edf
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-16T13:12:34.488985+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cda5efe28993332d85a73d9bb35af25c21d65edf
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-16T13:12:34.489309+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cda5efe28993332d85a73d9bb35af25c21d65edf
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Task A)
+    a2:task:(Task A)-->b:task:(Task B)
+    b:task:(Task B)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-16T13:12:34.489602+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cda5efe28993332d85a73d9bb35af25c21d65edf
+  cpee:exposition: |-
+    # User Input:
+    add task B after A
+  time:timestamp: '2025-10-16T13:12:34.489215+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cda5efe28993332d85a73d9bb35af25c21d65edf
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Task A)
+    a2:task:(Task A)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-16T13:12:34.489461+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cda5efe28993332d85a73d9bb35af25c21d65edf
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Task B</label>
+          <method/>
+          <type>:task</type>
+          <mid>'b'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-16T13:12:34.489809+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-10-16T13:16:15.730095+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-16T13:16:15.808427+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-10-16T13:16:15.932450+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-16T13:16:16.025664+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Task B</label>
+          <method/>
+          <type>:task</type>
+          <mid>'b'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a1" endpoint="">
+        <parameters>
+          <label/>
+          <color/>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <code>
+          <signal/>
+          <prepare/>
+          <finalize output="result"/>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+    </description>
+  cpee:change_uuid: 1a5384a0513110db60c4a5f6155b9c8fe47b768c
+  time:timestamp: '2025-10-16T13:29:51.125134+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-10-16T16:16:45.906824+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-16T16:16:45.913513+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-16T16:16:46.022689+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-16T16:16:46.064129+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-10-16T17:21:37.126313+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-16T17:21:37.133356+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-16T17:21:37.217758+02:00'
+---
+event:
+  concept:instance: 193
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6eaae411-7654-40dd-b0c9-154d7c508deb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-16T17:21:37.286632+02:00'
