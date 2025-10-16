@@ -108,6 +108,14 @@ export class CPEEDebugConsole {
                 }
             });
         }
+
+        // App title click - return to home
+        const appTitle = document.getElementById('app-title');
+        if (appTitle) {
+            appTitle.addEventListener('click', () => {
+                this.returnToHome();
+            });
+        }
     }
 
     /**
@@ -206,6 +214,42 @@ export class CPEEDebugConsole {
     }
 
     /**
+     * Return to home page (default state)
+     */
+    returnToHome() {
+        console.log('Returning to home page...');
+        
+        // Clear any active instance selection
+        this.instanceService.setCurrentInstance(null);
+        
+        // Deactivate all tabs but keep instances loaded
+        const instanceTabs = document.getElementById('instance-tabs');
+        if (instanceTabs) {
+            instanceTabs.querySelectorAll('.instance-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+        }
+        
+        // Show default state (input form)
+        this.stepViewer.showDefaultState();
+        
+        // Hide raw log viewer if open
+        this.logViewer.hideRawLog();
+        
+        // Clear URL parameters
+        URLUtils.clearParameters();
+        
+        // Clear input field
+        const uuidInput = document.getElementById('uuid-input');
+        if (uuidInput) {
+            uuidInput.value = '';
+            uuidInput.focus(); // Focus on input for easy typing
+        }
+        
+        console.log('Returned to home page');
+    }
+
+    /**
      * Clear all data and reset to default state
      */
     reset() {
@@ -214,5 +258,11 @@ export class CPEEDebugConsole {
         this.stepViewer.showDefaultState();
         this.logViewer.hideRawLog();
         URLUtils.clearParameters();
+        
+        // Clear input field
+        const uuidInput = document.getElementById('uuid-input');
+        if (uuidInput) {
+            uuidInput.value = '';
+        }
     }
 }

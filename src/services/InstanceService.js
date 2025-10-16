@@ -64,10 +64,16 @@ export class InstanceService {
 
     /**
      * Set current active instance
-     * @param {string} uuid - Instance UUID
+     * @param {string|null} uuid - Instance UUID or null to clear
      * @param {number} stepIndex - Step index (optional)
      */
     setCurrentInstance(uuid, stepIndex = 0) {
+        if (uuid === null) {
+            this.currentUUID = null;
+            this.currentStepIndex = 0;
+            return true;
+        }
+        
         if (this.hasInstance(uuid)) {
             this.currentUUID = uuid;
             this.currentStepIndex = stepIndex;
