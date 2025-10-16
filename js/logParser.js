@@ -20,18 +20,47 @@ class LogParser {
         }
 
         const originalUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
-        const logUrl = `https://cors-anywhere.herokuapp.com/${originalUrl}`;
+        const proxies = [
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(originalUrl)}`,
+            `https://corsproxy.io/?${encodeURIComponent(originalUrl)}`,
+            `https://cors-anywhere.herokuapp.com/${originalUrl}`,
+            `https://thingproxy.freeboard.io/fetch/${originalUrl}`
+        ];
         
         try {
-            console.log(`Fetching log from: ${logUrl}`);
+            console.log(`Fetching log for parsing...`);
             
-            const response = await fetch(logUrl, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'text/plain, application/x-yaml, text/yaml',
-                    'X-Requested-With': 'XMLHttpRequest'
+            let response = null;
+            let lastError = null;
+            
+            // Try each proxy until one works
+            for (let i = 0; i < proxies.length; i++) {
+                const proxyUrl = proxies[i];
+                console.log(`LogParser attempting proxy ${i + 1}/${proxies.length}`);
+                
+                try {
+                    response = await fetch(proxyUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'text/plain, application/x-yaml, text/yaml'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        console.log(`LogParser success with proxy ${i + 1}`);
+                        break;
+                    } else {
+                        lastError = new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                } catch (error) {
+                    lastError = error;
+                    response = null;
                 }
-            });
+            }
+            
+            if (!response) {
+                response = { ok: false };
+            }
 
             if (!response.ok) {
                 if (response.status === 404) {

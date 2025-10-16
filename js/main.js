@@ -243,28 +243,49 @@ class CPEEDebugConsole {
                 throw new Error('Invalid UUID format');
             }
 
-            // Fetch raw log content using CORS proxy
+            // Try multiple CORS proxy services
             const originalUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
-            const proxyUrl = `https://cors-anywhere.herokuapp.com/${originalUrl}`;
+            const proxies = [
+                `https://api.allorigins.win/raw?url=${encodeURIComponent(originalUrl)}`,
+                `https://corsproxy.io/?${encodeURIComponent(originalUrl)}`,
+                `https://cors-anywhere.herokuapp.com/${originalUrl}`,
+                `https://thingproxy.freeboard.io/fetch/${originalUrl}`
+            ];
             
-            console.log(`Fetching via CORS proxy: ${proxyUrl}`);
+            let response = null;
+            let lastError = null;
             
-            const response = await fetch(proxyUrl, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'text/plain, application/x-yaml, text/yaml',
-                    'X-Requested-With': 'XMLHttpRequest'
+            // Try each proxy until one works
+            for (let i = 0; i < proxies.length; i++) {
+                const proxyUrl = proxies[i];
+                console.log(`Attempting proxy ${i + 1}/${proxies.length}: ${proxyUrl}`);
+                
+                try {
+                    response = await fetch(proxyUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'text/plain, application/x-yaml, text/yaml'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        console.log(`Success with proxy ${i + 1}: ${proxyUrl}`);
+                        break;
+                    } else {
+                        console.log(`Proxy ${i + 1} failed with status: ${response.status}`);
+                        lastError = new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                } catch (error) {
+                    console.log(`Proxy ${i + 1} failed with error:`, error.message);
+                    lastError = error;
+                    response = null;
                 }
-            });
-
-            if (!response.ok) {
-                if (response.status === 404) {
-                    throw new Error(`Log not found for UUID: ${uuid}`);
-                } else if (response.status === 403) {
-                    throw new Error('Access denied to log file');
-                } else {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
+            }
+            
+            // If all proxies failed, show fallback option
+            if (!response || !response.ok) {
+                this.showCORSFallback(uuid);
+                return;
             }
 
             const rawContent = await response.text();
@@ -371,6 +392,71 @@ class CPEEDebugConsole {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    /**
+     * Show CORS fallback options
+     * @param {string} uuid - UUID that failed to load
+     */
+    showCORSFallback(uuid) {
+        const rawLogSection = document.getElementById('raw-log-section');
+        const rawLogContent = document.getElementById('raw-log-content');
+        
+        if (rawLogSection) {
+            rawLogSection.classList.remove('hidden');
+        }
+        
+        if (rawLogContent) {
+            const originalUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
+            rawLogContent.innerHTML = `
+                <div style="color: var(--error-color); margin-bottom: 1rem;">
+                    <h4>❌ CORS Error: Cannot fetch log directly</h4>
+                    <p>All proxy services failed. Here are your options:</p>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <h5>🔗 Option 1: Open log manually</h5>
+                    <p>Click this link to view the log in a new tab:</p>
+                    <a href="${originalUrl}" target="_blank" style="color: var(--primary-color); text-decoration: underline;">
+                        ${originalUrl}
+                    </a>
+                    <p><small>Then copy-paste the content into the text area below:</small></p>
+                    <textarea id="manual-log-input" placeholder="Paste the log content here..." 
+                             style="width: 100%; height: 150px; font-family: monospace; margin: 0.5rem 0;"></textarea>
+                    <button id="load-manual-log" style="padding: 0.5rem 1rem; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Load Pasted Log
+                    </button>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <h5>🛠️ Option 2: Disable CORS (Development Only)</h5>
+                    <p>For Chrome, close browser completely and restart with:</p>
+                    <code style="background: #f0f0f0; padding: 0.5rem; display: block; margin: 0.5rem 0;">
+                        chrome.exe --disable-web-security --disable-features=VizDisplayCompositor --user-data-dir="C:/temp"
+                    </code>
+                </div>
+                
+                <div>
+                    <h5>🧩 Option 3: Browser Extension</h5>
+                    <p>Install a CORS extension like "CORS Unblock" from Chrome Web Store</p>
+                </div>
+            `;
+            
+            // Add event listener for manual log loading
+            const loadButton = document.getElementById('load-manual-log');
+            const textArea = document.getElementById('manual-log-input');
+            
+            if (loadButton && textArea) {
+                loadButton.addEventListener('click', () => {
+                    const content = textArea.value.trim();
+                    if (content) {
+                        this.showRawLog(content, uuid);
+                    } else {
+                        alert('Please paste the log content first!');
+                    }
+                });
+            }
+        }
     }
 
     /**
