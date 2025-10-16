@@ -88,14 +88,14 @@ class LogParser {
             // Debug: Show first few parsed events structure
             console.log('Sample parsed events:');
             events.slice(0, 5).forEach((event, index) => {
-                console.log(`Event ${index}:`, {
-                    keys: Object.keys(event),
-                    hasLifecycle: !!event['cpee:lifecycle:transition'],
-                    lifecycle: event['cpee:lifecycle:transition'],
-                    hasChangeUuid: !!event['cpee:change_uuid'],
-                    changeUuid: event['cpee:change_uuid'],
-                    hasExposition: !!event['cpee:exposition']
-                });
+                console.log(`Event ${index} full structure:`, event);
+                console.log(`Event ${index} keys:`, Object.keys(event));
+                
+                // Check if it's nested under 'event' key
+                if (event.event) {
+                    console.log(`Event ${index} nested structure:`, event.event);
+                    console.log(`Event ${index} nested keys:`, Object.keys(event.event || {}));
+                }
             });
             
             return events;
@@ -267,10 +267,21 @@ class LogParser {
      * @returns {Array} Filtered events
      */
     static filterEventsByTransition(events, transitionType) {
-        return events.filter(event => 
-            event && 
-            event['cpee:lifecycle:transition'] === transitionType
-        );
+        return events.filter(event => {
+            if (!event) return false;
+            
+            // Check direct structure
+            if (event['cpee:lifecycle:transition'] === transitionType) {
+                return true;
+            }
+            
+            // Check nested structure under 'event' key
+            if (event.event && event.event['cpee:lifecycle:transition'] === transitionType) {
+                return true;
+            }
+            
+            return false;
+        });
     }
 
     /**
@@ -283,12 +294,19 @@ class LogParser {
         const grouped = {};
 
         expositionEvents.forEach(event => {
-            const changeUUID = event['cpee:change_uuid'];
+            // Handle both nested and direct structure
+            let actualEvent = event;
+            if (event.event && typeof event.event === 'object') {
+                actualEvent = event.event;
+            }
+            
+            const changeUUID = actualEvent['cpee:change_uuid'];
             if (changeUUID) {
                 if (!grouped[changeUUID]) {
                     grouped[changeUUID] = [];
                 }
-                grouped[changeUUID].push(event);
+                // Store the actual event data, not the wrapper
+                grouped[changeUUID].push(actualEvent);
             }
         });
 
@@ -300,6 +318,8 @@ class LogParser {
                 return timeA - timeB;
             });
         });
+        
+        console.log('Grouped exposition events by change_uuid:', grouped);
 
         return grouped;
     }

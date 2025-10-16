@@ -152,10 +152,22 @@ class CPEEDebugConsole {
             console.log('Raw parsed events:', this.logData.length, 'events total');
             console.log('First few events:', this.logData.slice(0, 3));
             
-            // Check for exposition events specifically
-            const allExpositionEvents = this.logData.filter(event => 
-                event && event['cpee:lifecycle:transition'] === 'description/exposition'
-            );
+            // Check for exposition events specifically (handle nested structure)
+            const allExpositionEvents = this.logData.filter(event => {
+                if (!event) return false;
+                
+                // Check direct structure
+                if (event['cpee:lifecycle:transition'] === 'description/exposition') {
+                    return true;
+                }
+                
+                // Check nested structure under 'event' key
+                if (event.event && event.event['cpee:lifecycle:transition'] === 'description/exposition') {
+                    return true;
+                }
+                
+                return false;
+            });
             console.log('Found exposition events:', allExpositionEvents.length);
             console.log('Sample exposition event:', allExpositionEvents[0]);
             
