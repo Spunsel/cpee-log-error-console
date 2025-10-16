@@ -105,14 +105,6 @@ class CPEEDebugConsole {
             });
         }
 
-        // Hide log button
-        const hideLogButton = document.getElementById('hide-log');
-        if (hideLogButton) {
-            hideLogButton.addEventListener('click', () => {
-                this.hideRawLog();
-            });
-        }
-
         // Step navigation
         const prevButton = document.getElementById('prev-step');
         const nextButton = document.getElementById('next-step');
