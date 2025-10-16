@@ -95,8 +95,29 @@ class LogParser {
                 if (event.event) {
                     console.log(`Event ${index} nested structure:`, event.event);
                     console.log(`Event ${index} nested keys:`, Object.keys(event.event || {}));
+                    console.log(`Event ${index} ALL nested key-value pairs:`);
+                    Object.keys(event.event || {}).forEach(key => {
+                        console.log(`  "${key}": "${event.event[key]}"`);
+                    });
+                    console.log(`Event ${index} lifecycle:`, event.event['cpee:lifecycle:transition']);
+                    console.log(`Event ${index} change_uuid:`, event.event['cpee:change_uuid']);
+                    console.log(`Event ${index} isExposition:`, event.event['cpee:lifecycle:transition'] === 'description/exposition');
                 }
             });
+            
+            // Debug: Look for ANY exposition events in entire log
+            console.log('Searching for exposition events...');
+            let found = 0;
+            events.forEach((event, index) => {
+                if (event.event && event.event['cpee:lifecycle:transition'] === 'description/exposition') {
+                    found++;
+                    console.log(`Found exposition event at index ${index}:`, event.event);
+                    console.log(`  - Keys:`, Object.keys(event.event));
+                    console.log(`  - change_uuid:`, event.event['cpee:change_uuid']);
+                    console.log(`  - exposition:`, event.event['cpee:exposition']);
+                }
+            });
+            console.log(`Total exposition events found: ${found}`);
             
             return events;
 
@@ -144,88 +165,111 @@ class LogParser {
     }
 
     /**
-     * Simple YAML parser for our specific log format
+     * Simple CPEE YAML parser focused on exposition events
      * @param {string} yamlDoc - Single YAML document content
      * @returns {Object} Parsed object
      */
     static parseYAMLDocument(yamlDoc) {
-        const result = {};
         const lines = yamlDoc.split('\n');
-        let currentKey = null;
-        let currentValue = '';
+        const result = {};
+        let currentSection = null;
         let inMultiLineString = false;
-        let multiLineDelimiter = null;
-        let indentLevel = 0;
-
+        let multiLineKey = null;
+        let multiLineContent = '';
+        
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
+            const trimmed = line.trim();
+            
+            // Skip empty lines
+            if (!trimmed) continue;
             
             // Handle multi-line strings
             if (inMultiLineString) {
-                if (line.trim() === multiLineDelimiter || (line.trim() === '' && i === lines.length - 1)) {
-                    // End of multi-line string
-                    result[currentKey] = currentValue.trim();
-                    inMultiLineString = false;
-                    currentKey = null;
-                    currentValue = '';
-                    multiLineDelimiter = null;
-                } else {
-                    // Continue multi-line string
-                    currentValue += line.substring(indentLevel) + '\n';
-                }
-                continue;
-            }
-
-            // Skip empty lines and comments
-            if (!line.trim() || line.trim().startsWith('#')) {
-                continue;
-            }
-
-            // Parse key-value pairs
-            const colonIndex = line.indexOf(':');
-            if (colonIndex > 0) {
-                const key = line.substring(0, colonIndex).trim();
-                const value = line.substring(colonIndex + 1).trim();
-
-                if (value === '|-' || value === '|') {
-                    // Start of multi-line string
-                    currentKey = key;
-                    inMultiLineString = true;
-                    multiLineDelimiter = null;
-                    indentLevel = line.length - line.trimStart().length + 2; // Preserve indentation
-                    currentValue = '';
-                } else if (value.startsWith("'") && value.endsWith("'")) {
-                    // Single quoted string
-                    result[key] = value.slice(1, -1);
-                } else if (value.startsWith('"') && value.endsWith('"')) {
-                    // Double quoted string
-                    result[key] = value.slice(1, -1);
-                } else if (value === '') {
-                    // Empty value or start of nested object
-                    result[key] = null;
-                } else {
-                    // Regular value
-                    result[key] = LogParser.parseValue(value);
-                }
-            } else if (line.trim().startsWith('- ')) {
-                // Array item (simplified handling for our use case)
-                const value = line.trim().substring(2);
-                if (!result.data) result.data = [];
+                // Look for next key at same indentation level to end multi-line
+                const isNewKey = !line.startsWith('  ') && trimmed.includes(':') && !trimmed.startsWith('#');
+                const isEndOfDoc = i === lines.length - 1;
                 
-                // Try to parse as key-value if it contains ':'
-                const itemColonIndex = value.indexOf(':');
-                if (itemColonIndex > 0) {
-                    const itemKey = value.substring(0, itemColonIndex).trim();
-                    const itemValue = value.substring(itemColonIndex + 1).trim();
+                if (isNewKey || isEndOfDoc) {
+                    // End multi-line string
+                    const target = currentSection || result;
+                    target[multiLineKey] = multiLineContent.trim();
+                    inMultiLineString = false;
+                    multiLineKey = null;
+                    multiLineContent = '';
+                    
+                    if (isEndOfDoc) break;
+                    // Continue to process current line as new key
+                } else {
+                    // Add line to multi-line content (preserve original indentation for content)
+                    multiLineContent += line + '\n';
+                    continue;
+                }
+            }
+            
+            // Parse key:value pairs - handle colon-separated keys correctly
+            // Look for ': ' (colon + space) as the key-value separator
+            let colonIndex = trimmed.indexOf(': ');
+            if (colonIndex === -1) {
+                // Fallback to just colon if no space after
+                colonIndex = trimmed.lastIndexOf(':');
+                if (colonIndex === -1) continue;
+            }
+            
+            const key = trimmed.substring(0, colonIndex).trim();
+            const value = trimmed.substring(colonIndex + 1).trim();
+            
+            // Handle top-level sections like "event:" or "log:"
+            if (!line.startsWith('  ') && (value === '' || value === null)) {
+                currentSection = {};
+                result[key] = currentSection;
+                continue;
+            }
+            
+            // Determine target object
+            const target = currentSection || result;
+            
+            // Handle multi-line strings (|, |-)
+            if (value === '|' || value === '|-') {
+                inMultiLineString = true;
+                multiLineKey = key;
+                multiLineContent = '';
+                continue;
+            }
+            
+            // Handle array items
+            if (trimmed.startsWith('- ')) {
+                const arrayValue = trimmed.substring(2).trim();
+                if (!target.data) target.data = [];
+                
+                // Use proper colon detection for array items too
+                let arrayColonIndex = arrayValue.indexOf(': ');
+                if (arrayColonIndex === -1) {
+                    arrayColonIndex = arrayValue.lastIndexOf(':');
+                }
+                
+                if (arrayColonIndex > 0) {
+                    const itemKey = arrayValue.substring(0, arrayColonIndex).trim();
+                    const itemValue = arrayValue.substring(arrayColonIndex + 1).trim();
                     const item = {};
                     item[itemKey] = LogParser.parseValue(itemValue);
-                    result.data.push(item);
+                    target.data.push(item);
                 } else {
-                    result.data.push(LogParser.parseValue(value));
+                    target.data.push(LogParser.parseValue(arrayValue));
                 }
+                continue;
             }
+            
+            // Handle regular key-value pairs (preserve colon in key names like cpee:change_uuid)
+            target[key] = LogParser.parseValue(value);
         }
-
+        
+        // Handle any remaining multi-line string
+        if (inMultiLineString && multiLineKey) {
+            const target = currentSection || result;
+            target[multiLineKey] = multiLineContent.trim();
+        }
+        
         return result;
     }
 

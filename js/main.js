@@ -105,25 +105,7 @@ class CPEEDebugConsole {
             });
         }
 
-        // Step navigation
-        const prevButton = document.getElementById('prev-step');
-        const nextButton = document.getElementById('next-step');
-
-        if (prevButton) {
-            prevButton.addEventListener('click', () => {
-                if (this.currentStep > 1) {
-                    this.navigateToStep(this.currentStep - 1);
-                }
-            });
-        }
-
-        if (nextButton) {
-            nextButton.addEventListener('click', () => {
-                if (this.currentStep < this.steps.length) {
-                    this.navigateToStep(this.currentStep + 1);
-                }
-            });
-        }
+        // Header step navigation removed
 
         // Tab switching
         const tabs = document.querySelectorAll('.tab');
@@ -148,45 +130,223 @@ class CPEEDebugConsole {
             // Fetch and parse log data
             this.logData = await LogParser.fetchAndParseLog(uuid);
             
-            // Debug: Check what we actually parsed
             console.log('Raw parsed events:', this.logData.length, 'events total');
-            console.log('First few events:', this.logData.slice(0, 3));
             
-            // Check for exposition events specifically (handle nested structure)
-            const allExpositionEvents = this.logData.filter(event => {
-                if (!event) return false;
-                
-                // Check direct structure
-                if (event['cpee:lifecycle:transition'] === 'description/exposition') {
-                    return true;
-                }
-                
-                // Check nested structure under 'event' key
-                if (event.event && event.event['cpee:lifecycle:transition'] === 'description/exposition') {
-                    return true;
-                }
-                
-                return false;
-            });
-            console.log('Found exposition events:', allExpositionEvents.length);
-            console.log('Sample exposition event:', allExpositionEvents[0]);
+            // Parse steps from exposition events
+            const steps = this.parseStepsFromLog(this.logData);
             
-            // Extract exposition events grouped by change_uuid
-            const expositionGroups = LogParser.getExpositionEventsByChangeUUID(this.logData);
+            console.log(`Found ${steps.length} steps`);
+            console.log('Steps:', steps);
             
-            console.log(`Found ${Object.keys(expositionGroups).length} exposition groups`);
-            console.log('Exposition groups:', expositionGroups);
+            if (steps.length === 0) {
+                this.showInstanceError('No steps found in log');
+                return;
+            }
             
-            // Update current UUID
+            // Store steps and initialize navigation
+            this.steps = steps;
+            this.currentStepIndex = 0;
             this.currentUUID = uuid;
             
-            // Add instance tab and display content
+            // Add instance tab
             this.addInstanceTab(uuid);
-            this.displayInstanceContent(expositionGroups);
+            
+            // Display first step
+            this.displayStep(0);
+            
+            // Setup step navigation
+            this.setupStepNavigation();
             
         } catch (error) {
             console.error('Failed to load instance:', error);
             this.showInstanceError(`Failed to load instance: ${error.message}`);
+        }
+    }
+    
+    /**
+     * Parse steps from log data by grouping exposition events by change_uuid
+     * @param {Array} logData - Parsed log events
+     * @returns {Array} Array of step objects, sorted chronologically
+     */
+    parseStepsFromLog(logData) {
+        // Find all exposition events
+        const expositionEvents = logData.filter(event => {
+            return event.event && event.event['cpee:lifecycle:transition'] === 'description/exposition';
+        });
+        
+        console.log(`Found ${expositionEvents.length} exposition events`);
+        if (expositionEvents.length > 0) {
+            console.log('Sample exposition event:', expositionEvents[0]);
+        }
+        
+        // Group by change_uuid
+        const stepGroups = {};
+        expositionEvents.forEach(event => {
+            const changeUuid = event.event['cpee:change_uuid'];
+            const timestamp = event.event['time:timestamp'];
+            
+            if (changeUuid) {
+                if (!stepGroups[changeUuid]) {
+                    stepGroups[changeUuid] = {
+                        changeUuid: changeUuid,
+                        events: [],
+                        timestamp: timestamp // Use first event's timestamp for sorting
+                    };
+                }
+                stepGroups[changeUuid].events.push(event.event);
+                
+                // Keep earliest timestamp for step ordering
+                if (timestamp < stepGroups[changeUuid].timestamp) {
+                    stepGroups[changeUuid].timestamp = timestamp;
+                }
+            }
+        });
+        
+        // Convert to array and sort chronologically
+        const steps = Object.values(stepGroups).sort((a, b) => {
+            return new Date(a.timestamp) - new Date(b.timestamp);
+        });
+        
+        // Extract content from each step
+        return steps.map((step, index) => {
+            const content = this.extractStepContent(step.events);
+            return {
+                stepNumber: index + 1,
+                changeUuid: step.changeUuid,
+                timestamp: step.timestamp,
+                content: content
+            };
+        });
+    }
+    
+    /**
+     * Extract the 5 content types from step events
+     * @param {Array} events - Events for a single step
+     * @returns {Object} Content object with 5 sections
+     */
+    extractStepContent(events) {
+        const content = {
+            inputCpeeTree: 'Not found',
+            inputIntermediate: 'Not found', 
+            userInput: 'Not found',
+            outputIntermediate: 'Not found',
+            outputCpeeTree: 'Not found'
+        };
+        
+        events.forEach(event => {
+            const exposition = event['cpee:exposition'] || '';
+            
+            if (exposition.includes('<!-- Input CPEE-Tree -->')) {
+                content.inputCpeeTree = exposition;
+            } else if (exposition.includes('%% Input Intermediate')) {
+                content.inputIntermediate = exposition;
+            } else if (exposition.includes('# User Input:')) {
+                content.userInput = exposition;
+            } else if (exposition.includes('%% Output Intermediate')) {
+                content.outputIntermediate = exposition;
+            } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
+                content.outputCpeeTree = exposition;
+            }
+        });
+        
+        return content;
+    }
+    
+    /**
+     * Display a specific step
+     * @param {number} stepIndex - Index of step to display
+     */
+    displayStep(stepIndex) {
+        if (!this.steps || stepIndex < 0 || stepIndex >= this.steps.length) {
+            return;
+        }
+        
+        this.currentStepIndex = stepIndex;
+        const step = this.steps[stepIndex];
+        
+        console.log(`Displaying step ${stepIndex + 1}/${this.steps.length}`);
+        
+        // Hide step details, show process analysis
+        document.getElementById('step-details').classList.add('hidden');
+        document.getElementById('process-analysis').classList.remove('hidden');
+        
+        // Update step header
+        const stepHeader = document.querySelector('#process-analysis h2');
+        if (stepHeader) {
+            stepHeader.textContent = `Step ${step.stepNumber} of ${this.steps.length}`;
+        }
+        
+        // Update content sections
+        this.updateSectionContent('input-cpee-content', step.content.inputCpeeTree);
+        this.updateSectionContent('input-intermediate-content', step.content.inputIntermediate);  
+        this.updateSectionContent('user-input-content', step.content.userInput);
+        this.updateSectionContent('output-intermediate-content', step.content.outputIntermediate);
+        this.updateSectionContent('output-cpee-content', step.content.outputCpeeTree);
+        
+        // Update navigation buttons
+        this.updateStepNavigation();
+    }
+    
+    /**
+     * Setup step navigation UI
+     */
+    setupStepNavigation() {
+        // Add navigation controls if they don't exist
+        let navContainer = document.getElementById('step-navigation');
+        if (!navContainer) {
+            navContainer = document.createElement('div');
+            navContainer.id = 'step-navigation';
+            navContainer.className = 'step-navigation';
+            navContainer.innerHTML = `
+                <button id="prev-step" class="nav-btn">← Previous</button>
+                <span id="step-counter">Step 1 of 1</span>
+                <button id="next-step" class="nav-btn">Next →</button>
+            `;
+            
+            // Insert before process analysis
+            const processAnalysis = document.getElementById('process-analysis');
+            processAnalysis.parentNode.insertBefore(navContainer, processAnalysis);
+        }
+        
+        // Add event listeners
+        document.getElementById('prev-step').onclick = () => this.previousStep();
+        document.getElementById('next-step').onclick = () => this.nextStep();
+        
+        this.updateStepNavigation();
+    }
+    
+    /**
+     * Update step navigation state
+     */
+    updateStepNavigation() {
+        if (!this.steps) return;
+        
+        const prevBtn = document.getElementById('prev-step');
+        const nextBtn = document.getElementById('next-step');
+        const counter = document.getElementById('step-counter');
+        
+        if (prevBtn && nextBtn && counter) {
+            prevBtn.disabled = this.currentStepIndex === 0;
+            nextBtn.disabled = this.currentStepIndex === this.steps.length - 1;
+            counter.textContent = `Step ${this.currentStepIndex + 1} of ${this.steps.length}`;
+        }
+    }
+    
+    /**
+     * Navigate to previous step
+     */
+    previousStep() {
+        if (this.currentStepIndex > 0) {
+            this.displayStep(this.currentStepIndex - 1);
+        }
+    }
+    
+    /**
+     * Navigate to next step
+     */
+    nextStep() {
+        if (this.currentStepIndex < this.steps.length - 1) {
+            this.displayStep(this.currentStepIndex + 1);
         }
     }
 
@@ -268,78 +428,6 @@ class CPEEDebugConsole {
         // Here you could reload content for this UUID if needed
     }
 
-    /**
-     * Display instance content in 5 sections
-     * @param {Object} expositionGroups - Grouped exposition events
-     */
-    displayInstanceContent(expositionGroups) {
-        const stepDetails = document.getElementById('step-details');
-        const processAnalysis = document.getElementById('process-analysis');
-        
-        if (stepDetails) {
-            stepDetails.classList.add('hidden');
-        }
-        
-        if (processAnalysis) {
-            processAnalysis.classList.remove('hidden');
-        }
-
-        // Extract content from first group for now (we'll improve this later)
-        const firstGroup = Object.values(expositionGroups)[0];
-        if (!firstGroup || firstGroup.length === 0) {
-            this.showInstanceError('No exposition events found');
-            return;
-        }
-
-        // Extract the 5 types of content
-        const content = this.extractContentFromEvents(firstGroup);
-        
-        // Update each section
-        this.updateSectionContent('input-cpee-content', content.inputCpeeTree || 'No Input CPEE-Tree found');
-        this.updateSectionContent('input-intermediate-content', content.inputIntermediate || 'No Input Intermediate found');
-        this.updateSectionContent('user-input-content', content.userInput || 'No User Input found');
-        this.updateSectionContent('output-intermediate-content', content.outputIntermediate || 'No Output Intermediate found');
-        this.updateSectionContent('output-cpee-content', content.outputCpeeTree || 'No Output CPEE-Tree found');
-    }
-
-    /**
-     * Extract content from exposition events
-     * @param {Array} events - Array of exposition events
-     * @returns {Object} Extracted content
-     */
-    extractContentFromEvents(events) {
-        const content = {
-            inputCpeeTree: null,
-            inputIntermediate: null,
-            userInput: null,
-            outputIntermediate: null,
-            outputCpeeTree: null
-        };
-
-        events.forEach(event => {
-            const exposition = event['cpee:exposition'];
-            if (!exposition) return;
-
-            const text = exposition.trim();
-
-            // Identify content type and extract
-            if (text.includes('<!-- Input CPEE-Tree -->')) {
-                content.inputCpeeTree = exposition;
-            } else if (text.includes('# Used LLM:')) {
-                // Skip LLM model for now
-            } else if (text.includes('# User Input:')) {
-                content.userInput = exposition;
-            } else if (text.includes('%% Input Intermediate')) {
-                content.inputIntermediate = exposition;
-            } else if (text.includes('%% Output Intermediate')) {
-                content.outputIntermediate = exposition;
-            } else if (text.includes('<!-- Output CPEE-Tree -->')) {
-                content.outputCpeeTree = exposition;
-            }
-        });
-
-        return content;
-    }
 
     /**
      * Update content in a section
@@ -390,32 +478,11 @@ class CPEEDebugConsole {
         // Update UI
         UI.displayStep(this.steps[stepNumber - 1], stepNumber, this.steps.length);
         
-        // Update navigation buttons
-        this.updateNavigationButtons();
+        // Header navigation buttons removed
         
         console.log(`Navigated to step ${stepNumber}`);
     }
 
-    /**
-     * Update navigation button states
-     */
-    updateNavigationButtons() {
-        const prevButton = document.getElementById('prev-step');
-        const nextButton = document.getElementById('next-step');
-        const currentStepSpan = document.getElementById('current-step');
-
-        if (prevButton) {
-            prevButton.disabled = this.currentStep <= 1;
-        }
-
-        if (nextButton) {
-            nextButton.disabled = this.currentStep >= this.steps.length;
-        }
-
-        if (currentStepSpan) {
-            currentStepSpan.textContent = `Step ${this.currentStep} of ${this.steps.length}`;
-        }
-    }
 
     /**
      * Switch active tab

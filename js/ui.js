@@ -60,11 +60,7 @@ class UI {
      * @param {Array} steps - Array of steps
      */
     static displayInstance(uuid, steps) {
-        // Update instance UUID display
-        const instanceUuidElement = document.getElementById('instance-uuid');
-        if (instanceUuidElement) {
-            instanceUuidElement.textContent = uuid;
-        }
+        // Instance UUID display removed from header
 
         // Update steps timeline
         UI.renderStepsTimeline(steps);
