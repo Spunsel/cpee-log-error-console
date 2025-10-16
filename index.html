@@ -22,16 +22,9 @@
 
         <div class="main-container">
             <aside class="sidebar">
-                <h3>Steps Overview</h3>
-                <div id="steps-timeline">
-                    <div class="loading">Loading steps...</div>
-                </div>
-                <div class="error-summary">
-                    <h4>Error Summary</h4>
-                    <div id="error-count">
-                        <span class="error-badge critical">0 Critical</span>
-                        <span class="error-badge warning">0 Warnings</span>
-                    </div>
+                <h3>Process Instances</h3>
+                <div id="instance-tabs">
+                    <div class="no-instances">No instances loaded yet</div>
                 </div>
             </aside>
 
@@ -57,72 +50,41 @@
                     </div>
                 </div>
 
-                <div id="step-analysis" class="hidden">
-                    <div class="tabs">
-                        <button class="tab active" data-tab="overview">Overview</button>
-                        <button class="tab" data-tab="input">Input</button>
-                        <button class="tab" data-tab="output">Output</button>
-                        <button class="tab" data-tab="diff">Diff</button>
-                    </div>
-
-                    <div class="tab-content">
-                        <div id="overview-tab" class="tab-panel active">
-                            <h3>Step Overview</h3>
-                            <div class="step-info">
-                                <div class="info-item">
-                                    <label>User Input:</label>
-                                    <span id="user-input">-</span>
-                                </div>
-                                <div class="info-item">
-                                    <label>LLM Model:</label>
-                                    <span id="llm-model">-</span>
-                                </div>
-                                <div class="info-item">
-                                    <label>Timestamp:</label>
-                                    <span id="timestamp">-</span>
-                                </div>
-                                <div class="info-item">
-                                    <label>Status:</label>
-                                    <span id="step-status" class="status-badge">-</span>
-                                </div>
+                <!-- Process Analysis Sections -->
+                <div id="process-analysis" class="hidden">
+                    <div class="section-container">
+                        <div class="cpee-section">
+                            <h3>Input CPEE-Tree</h3>
+                            <div class="content-box">
+                                <pre id="input-cpee-content"><code>No content loaded</code></pre>
                             </div>
                         </div>
 
-                        <div id="input-tab" class="tab-panel">
-                            <h3>Input State</h3>
-                            <div class="code-section">
-                                <h4>Current CPEE Tree</h4>
-                                <pre id="input-cpee-tree"><code></code></pre>
-                            </div>
-                            <div class="diagram-section">
-                                <h4>Current Process (Mermaid)</h4>
-                                <div id="input-mermaid" class="mermaid-diagram"></div>
+                        <div class="cpee-section">
+                            <h3>Input Intermediate</h3>
+                            <div class="content-box">
+                                <pre id="input-intermediate-content"><code>No content loaded</code></pre>
                             </div>
                         </div>
 
-                        <div id="output-tab" class="tab-panel">
-                            <h3>Output State</h3>
-                            <div class="diagram-section">
-                                <h4>Modified Process (Mermaid)</h4>
-                                <div id="output-mermaid" class="mermaid-diagram"></div>
-                            </div>
-                            <div class="code-section">
-                                <h4>Generated CPEE Tree</h4>
-                                <pre id="output-cpee-tree"><code></code></pre>
+                        <div class="cpee-section">
+                            <h3>User Input</h3>
+                            <div class="content-box">
+                                <pre id="user-input-content"><code>No content loaded</code></pre>
                             </div>
                         </div>
 
-                        <div id="diff-tab" class="tab-panel">
-                            <h3>Changes Analysis</h3>
-                            <div class="diff-container">
-                                <div class="diff-section">
-                                    <h4>Process Changes</h4>
-                                    <div id="process-diff"></div>
-                                </div>
-                                <div class="errors-section">
-                                    <h4>Detected Issues</h4>
-                                    <div id="detected-errors"></div>
-                                </div>
+                        <div class="cpee-section">
+                            <h3>Output Intermediate</h3>
+                            <div class="content-box">
+                                <pre id="output-intermediate-content"><code>No content loaded</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="cpee-section">
+                            <h3>Output CPEE-Tree</h3>
+                            <div class="content-box">
+                                <pre id="output-cpee-content"><code>No content loaded</code></pre>
                             </div>
                         </div>
                     </div>

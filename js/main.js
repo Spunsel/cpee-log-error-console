@@ -143,28 +143,208 @@ class CPEEDebugConsole {
             console.log(`Loading instance: ${uuid}`);
             
             // Update UI to show loading state
-            UI.showLoading('Loading CPEE log data...');
+            this.showInstanceLoading();
             
             // Fetch and parse log data
             this.logData = await LogParser.fetchAndParseLog(uuid);
             
-            // Extract steps using StepAnalyzer
-            this.steps = StepAnalyzer.extractSteps(this.logData);
+            // Extract exposition events grouped by change_uuid
+            const expositionGroups = LogParser.getExpositionEventsByChangeUUID(this.logData);
             
-            console.log(`Found ${this.steps.length} steps`);
+            console.log(`Found ${Object.keys(expositionGroups).length} exposition groups`);
             
             // Update current UUID
             this.currentUUID = uuid;
             
-            // Update UI
-            UI.displayInstance(uuid, this.steps);
-            
-            // Navigate to current step
-            this.navigateToStep(this.currentStep);
+            // Add instance tab and display content
+            this.addInstanceTab(uuid);
+            this.displayInstanceContent(expositionGroups);
             
         } catch (error) {
             console.error('Failed to load instance:', error);
-            UI.showError(`Failed to load instance: ${error.message}`);
+            this.showInstanceError(`Failed to load instance: ${error.message}`);
+        }
+    }
+
+    /**
+     * Show loading state for instance
+     */
+    showInstanceLoading() {
+        const stepDetails = document.getElementById('step-details');
+        const processAnalysis = document.getElementById('process-analysis');
+        
+        if (stepDetails) {
+            stepDetails.classList.add('hidden');
+        }
+        
+        if (processAnalysis) {
+            processAnalysis.classList.remove('hidden');
+            this.updateSectionContent('input-cpee-content', 'Loading...');
+            this.updateSectionContent('input-intermediate-content', 'Loading...');
+            this.updateSectionContent('user-input-content', 'Loading...');
+            this.updateSectionContent('output-intermediate-content', 'Loading...');
+            this.updateSectionContent('output-cpee-content', 'Loading...');
+        }
+    }
+
+    /**
+     * Add instance tab to sidebar
+     * @param {string} uuid - Instance UUID
+     */
+    addInstanceTab(uuid) {
+        const instanceTabs = document.getElementById('instance-tabs');
+        if (!instanceTabs) return;
+
+        // Remove "no instances" message
+        const noInstances = instanceTabs.querySelector('.no-instances');
+        if (noInstances) {
+            noInstances.remove();
+        }
+
+        // Check if tab already exists
+        const existingTab = instanceTabs.querySelector(`[data-uuid="${uuid}"]`);
+        if (existingTab) {
+            // Just activate existing tab
+            this.setActiveTab(uuid);
+            return;
+        }
+
+        // Create new tab
+        const tabElement = document.createElement('div');
+        tabElement.className = 'instance-tab active';
+        tabElement.dataset.uuid = uuid;
+        tabElement.textContent = uuid;
+        
+        // Add click handler
+        tabElement.addEventListener('click', () => {
+            this.setActiveTab(uuid);
+        });
+
+        // Deactivate other tabs
+        instanceTabs.querySelectorAll('.instance-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        instanceTabs.appendChild(tabElement);
+    }
+
+    /**
+     * Set active tab
+     * @param {string} uuid - UUID of tab to activate
+     */
+    setActiveTab(uuid) {
+        const instanceTabs = document.getElementById('instance-tabs');
+        if (!instanceTabs) return;
+
+        instanceTabs.querySelectorAll('.instance-tab').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.uuid === uuid);
+        });
+
+        this.currentUUID = uuid;
+        // Here you could reload content for this UUID if needed
+    }
+
+    /**
+     * Display instance content in 5 sections
+     * @param {Object} expositionGroups - Grouped exposition events
+     */
+    displayInstanceContent(expositionGroups) {
+        const stepDetails = document.getElementById('step-details');
+        const processAnalysis = document.getElementById('process-analysis');
+        
+        if (stepDetails) {
+            stepDetails.classList.add('hidden');
+        }
+        
+        if (processAnalysis) {
+            processAnalysis.classList.remove('hidden');
+        }
+
+        // Extract content from first group for now (we'll improve this later)
+        const firstGroup = Object.values(expositionGroups)[0];
+        if (!firstGroup || firstGroup.length === 0) {
+            this.showInstanceError('No exposition events found');
+            return;
+        }
+
+        // Extract the 5 types of content
+        const content = this.extractContentFromEvents(firstGroup);
+        
+        // Update each section
+        this.updateSectionContent('input-cpee-content', content.inputCpeeTree || 'No Input CPEE-Tree found');
+        this.updateSectionContent('input-intermediate-content', content.inputIntermediate || 'No Input Intermediate found');
+        this.updateSectionContent('user-input-content', content.userInput || 'No User Input found');
+        this.updateSectionContent('output-intermediate-content', content.outputIntermediate || 'No Output Intermediate found');
+        this.updateSectionContent('output-cpee-content', content.outputCpeeTree || 'No Output CPEE-Tree found');
+    }
+
+    /**
+     * Extract content from exposition events
+     * @param {Array} events - Array of exposition events
+     * @returns {Object} Extracted content
+     */
+    extractContentFromEvents(events) {
+        const content = {
+            inputCpeeTree: null,
+            inputIntermediate: null,
+            userInput: null,
+            outputIntermediate: null,
+            outputCpeeTree: null
+        };
+
+        events.forEach(event => {
+            const exposition = event['cpee:exposition'];
+            if (!exposition) return;
+
+            const text = exposition.trim();
+
+            // Identify content type and extract
+            if (text.includes('<!-- Input CPEE-Tree -->')) {
+                content.inputCpeeTree = exposition;
+            } else if (text.includes('# Used LLM:')) {
+                // Skip LLM model for now
+            } else if (text.includes('# User Input:')) {
+                content.userInput = exposition;
+            } else if (text.includes('%% Input Intermediate')) {
+                content.inputIntermediate = exposition;
+            } else if (text.includes('%% Output Intermediate')) {
+                content.outputIntermediate = exposition;
+            } else if (text.includes('<!-- Output CPEE-Tree -->')) {
+                content.outputCpeeTree = exposition;
+            }
+        });
+
+        return content;
+    }
+
+    /**
+     * Update content in a section
+     * @param {string} elementId - ID of element to update
+     * @param {string} content - Content to display
+     */
+    updateSectionContent(elementId, content) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            const code = element.querySelector('code');
+            if (code) {
+                code.textContent = content;
+            }
+        }
+    }
+
+    /**
+     * Show instance error
+     * @param {string} message - Error message
+     */
+    showInstanceError(message) {
+        const processAnalysis = document.getElementById('process-analysis');
+        if (processAnalysis) {
+            processAnalysis.classList.remove('hidden');
+            this.updateSectionContent('input-cpee-content', `Error: ${message}`);
+            this.updateSectionContent('input-intermediate-content', '');
+            this.updateSectionContent('user-input-content', '');
+            this.updateSectionContent('output-intermediate-content', '');
+            this.updateSectionContent('output-cpee-content', '');
         }
     }
 
