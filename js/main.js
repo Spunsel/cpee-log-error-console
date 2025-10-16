@@ -58,6 +58,7 @@ class CPEEDebugConsole {
     setupEventListeners() {
         // Load instance button
         const loadButton = document.getElementById('load-instance');
+        const viewLogButton = document.getElementById('view-log');
         const uuidInput = document.getElementById('uuid-input');
         
         if (loadButton && uuidInput) {
@@ -80,6 +81,24 @@ class CPEEDebugConsole {
             if (this.currentUUID) {
                 uuidInput.value = this.currentUUID;
             }
+        }
+
+        // View Log button
+        if (viewLogButton && uuidInput) {
+            viewLogButton.addEventListener('click', () => {
+                const uuid = uuidInput.value.trim();
+                if (uuid) {
+                    this.viewRawLog(uuid);
+                }
+            });
+        }
+
+        // Hide log button
+        const hideLogButton = document.getElementById('hide-log');
+        if (hideLogButton) {
+            hideLogButton.addEventListener('click', () => {
+                this.hideRawLog();
+            });
         }
 
         // Step navigation
@@ -206,6 +225,147 @@ class CPEEDebugConsole {
         });
 
         console.log(`Switched to tab: ${tabName}`);
+    }
+
+    /**
+     * View raw log content
+     * @param {string} uuid - CPEE instance UUID
+     */
+    async viewRawLog(uuid) {
+        try {
+            console.log(`Viewing raw log for: ${uuid}`);
+            
+            // Show loading state
+            this.showRawLogLoading();
+            
+            // Validate UUID format
+            if (!this.isValidUUID(uuid)) {
+                throw new Error('Invalid UUID format');
+            }
+
+            // Fetch raw log content
+            const logUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
+            const response = await fetch(logUrl, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'text/plain, application/x-yaml, text/yaml'
+                }
+            });
+
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error(`Log not found for UUID: ${uuid}`);
+                } else if (response.status === 403) {
+                    throw new Error('Access denied to log file');
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            }
+
+            const rawContent = await response.text();
+            
+            if (!rawContent.trim()) {
+                throw new Error('Empty log file');
+            }
+
+            // Display raw log content
+            this.showRawLog(rawContent, uuid);
+            
+        } catch (error) {
+            console.error('Failed to fetch raw log:', error);
+            this.showRawLogError(error.message);
+        }
+    }
+
+    /**
+     * Show raw log loading state
+     */
+    showRawLogLoading() {
+        const rawLogSection = document.getElementById('raw-log-section');
+        const rawLogContent = document.getElementById('raw-log-content');
+        
+        if (rawLogSection) {
+            rawLogSection.classList.remove('hidden');
+        }
+        
+        if (rawLogContent) {
+            rawLogContent.innerHTML = '<code>Loading raw log content...</code>';
+        }
+    }
+
+    /**
+     * Display raw log content
+     * @param {string} content - Raw log content
+     * @param {string} uuid - UUID for reference
+     */
+    showRawLog(content, uuid) {
+        const rawLogSection = document.getElementById('raw-log-section');
+        const rawLogContent = document.getElementById('raw-log-content');
+        
+        if (rawLogSection) {
+            rawLogSection.classList.remove('hidden');
+        }
+        
+        if (rawLogContent) {
+            // Update header to show UUID
+            const header = document.querySelector('.raw-log-header h3');
+            if (header) {
+                header.textContent = `Raw Log Content - UUID: ${uuid}`;
+            }
+            
+            // Display content with proper escaping
+            rawLogContent.innerHTML = `<code>${this.escapeHtml(content)}</code>`;
+        }
+
+        console.log(`Raw log displayed: ${content.length} characters`);
+    }
+
+    /**
+     * Show raw log error
+     * @param {string} errorMessage - Error message to display
+     */
+    showRawLogError(errorMessage) {
+        const rawLogSection = document.getElementById('raw-log-section');
+        const rawLogContent = document.getElementById('raw-log-content');
+        
+        if (rawLogSection) {
+            rawLogSection.classList.remove('hidden');
+        }
+        
+        if (rawLogContent) {
+            rawLogContent.innerHTML = `<code style="color: var(--error-color);">Error: ${this.escapeHtml(errorMessage)}</code>`;
+        }
+    }
+
+    /**
+     * Hide raw log section
+     */
+    hideRawLog() {
+        const rawLogSection = document.getElementById('raw-log-section');
+        if (rawLogSection) {
+            rawLogSection.classList.add('hidden');
+        }
+    }
+
+    /**
+     * Validate UUID format
+     * @param {string} uuid - UUID to validate
+     * @returns {boolean} True if valid UUID format
+     */
+    isValidUUID(uuid) {
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        return uuidRegex.test(uuid);
+    }
+
+    /**
+     * Escape HTML to prevent XSS
+     * @param {string} text - Text to escape
+     * @returns {string} Escaped text
+     */
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 
     /**

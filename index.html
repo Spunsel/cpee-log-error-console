@@ -40,7 +40,21 @@
                     <div class="loading">
                         <p>Please provide a UUID to start debugging:</p>
                         <input type="text" id="uuid-input" placeholder="Enter CPEE instance UUID">
-                        <button id="load-instance">Load Instance</button>
+                        <div class="button-group">
+                            <button id="load-instance">Load Instance</button>
+                            <button id="view-log">View Log</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Raw Log Display Section -->
+                <div id="raw-log-section" class="hidden">
+                    <div class="raw-log-header">
+                        <h3>Raw Log Content</h3>
+                        <button id="hide-log">Hide Log</button>
+                    </div>
+                    <div class="raw-log-container">
+                        <pre id="raw-log-content"><code>Loading log...</code></pre>
                     </div>
                 </div>
 
