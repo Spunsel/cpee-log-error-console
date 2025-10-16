@@ -126,6 +126,9 @@ export class CPEEDebugConsole {
         try {
             console.log(`Loading instance: ${uuid}`);
             
+            // Hide raw log viewer when loading an instance
+            this.logViewer.hideRawLog();
+            
             // Check if already loaded
             if (this.instanceService.hasInstance(uuid)) {
                 this.sidebar.addInstanceTab(uuid);
