@@ -9,6 +9,7 @@ class CPEEDebugConsole {
         this.currentStep = 1;
         this.logData = null;
         this.steps = [];
+        this.instances = {};
         
         this.init();
     }
@@ -31,6 +32,9 @@ class CPEEDebugConsole {
         }
         
         console.log('CPEE Debug Console initialized');
+        
+        // Show default state initially (no instance selected)
+        this.showDefaultState();
     }
 
     /**
@@ -124,9 +128,6 @@ class CPEEDebugConsole {
         try {
             console.log(`Loading instance: ${uuid}`);
             
-            // Update UI to show loading state
-            this.showInstanceLoading();
-            
             // Fetch and parse log data
             this.logData = await LogParser.fetchAndParseLog(uuid);
             
@@ -139,27 +140,33 @@ class CPEEDebugConsole {
             console.log('Steps:', steps);
             
             if (steps.length === 0) {
-                this.showInstanceError('No steps found in log');
+                alert(`No steps found in log for instance ${uuid}`);
                 return;
             }
             
-            // Store steps and initialize navigation
-            this.steps = steps;
-            this.currentStepIndex = 0;
-            this.currentUUID = uuid;
+            // Store instance data
+            if (!this.instances) {
+                this.instances = {};
+            }
+            this.instances[uuid] = {
+                steps: steps,
+                uuid: uuid
+            };
             
-            // Add instance tab
+            // Add instance tab to sidebar (but don't display content yet)
             this.addInstanceTab(uuid);
             
-            // Display first step
-            this.displayStep(0);
+            // Clear the input field
+            const uuidInput = document.getElementById('uuid-input');
+            if (uuidInput) {
+                uuidInput.value = '';
+            }
             
-            // Setup step navigation
-            this.setupStepNavigation();
+            console.log(`Instance ${uuid} loaded successfully and added to sidebar`);
             
         } catch (error) {
             console.error('Failed to load instance:', error);
-            this.showInstanceError(`Failed to load instance: ${error.message}`);
+            alert(`Failed to load instance: ${error.message}`);
         }
     }
     
@@ -351,24 +358,24 @@ class CPEEDebugConsole {
     }
 
     /**
-     * Show loading state for instance
+     * Show default state when no instance is selected
      */
-    showInstanceLoading() {
+    showDefaultState() {
         const stepDetails = document.getElementById('step-details');
         const processAnalysis = document.getElementById('process-analysis');
         
         if (stepDetails) {
-            stepDetails.classList.add('hidden');
+            stepDetails.classList.remove('hidden');
         }
         
         if (processAnalysis) {
-            processAnalysis.classList.remove('hidden');
-            this.updateSectionContent('input-cpee-content', 'Loading...');
-            this.updateSectionContent('input-intermediate-content', 'Loading...');
-            this.updateSectionContent('user-input-content', 'Loading...');
-            this.updateSectionContent('output-intermediate-content', 'Loading...');
-            this.updateSectionContent('output-cpee-content', 'Loading...');
+            processAnalysis.classList.add('hidden');
         }
+        
+        // Clear current instance data
+        this.steps = null;
+        this.currentStepIndex = 0;
+        this.currentUUID = null;
     }
 
     /**
@@ -393,9 +400,9 @@ class CPEEDebugConsole {
             return;
         }
 
-        // Create new tab
+        // Create new tab (not active by default)
         const tabElement = document.createElement('div');
-        tabElement.className = 'instance-tab active';
+        tabElement.className = 'instance-tab';
         tabElement.dataset.uuid = uuid;
         tabElement.textContent = uuid;
         
@@ -404,16 +411,17 @@ class CPEEDebugConsole {
             this.setActiveTab(uuid);
         });
 
-        // Deactivate other tabs
-        instanceTabs.querySelectorAll('.instance-tab').forEach(tab => {
-            tab.classList.remove('active');
-        });
-
         instanceTabs.appendChild(tabElement);
+        
+        // Remove "no instances" message if it exists
+        const noInstancesMsg = instanceTabs.querySelector('.no-instances');
+        if (noInstancesMsg) {
+            noInstancesMsg.remove();
+        }
     }
 
     /**
-     * Set active tab
+     * Set active tab and display its content
      * @param {string} uuid - UUID of tab to activate
      */
     setActiveTab(uuid) {
@@ -424,8 +432,23 @@ class CPEEDebugConsole {
             tab.classList.toggle('active', tab.dataset.uuid === uuid);
         });
 
-        this.currentUUID = uuid;
-        // Here you could reload content for this UUID if needed
+        // Load and display the instance content
+        if (this.instances && this.instances[uuid]) {
+            console.log(`Displaying content for instance: ${uuid}`);
+            
+            // Set current instance data
+            this.steps = this.instances[uuid].steps;
+            this.currentStepIndex = 0;
+            this.currentUUID = uuid;
+            
+            // Display first step
+            this.displayStep(0);
+            
+            // Setup step navigation
+            this.setupStepNavigation();
+        } else {
+            console.error(`Instance ${uuid} not found in loaded instances`);
+        }
     }
 
 
