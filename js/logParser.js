@@ -270,17 +270,13 @@ class LogParser {
         return events.filter(event => {
             if (!event) return false;
             
-            // Check direct structure
-            if (event['cpee:lifecycle:transition'] === transitionType) {
-                return true;
+            // Check if this is an event document with nested event data
+            if (event.event && typeof event.event === 'object') {
+                return event.event['cpee:lifecycle:transition'] === transitionType;
             }
             
-            // Check nested structure under 'event' key
-            if (event.event && event.event['cpee:lifecycle:transition'] === transitionType) {
-                return true;
-            }
-            
-            return false;
+            // Check direct structure (fallback)
+            return event['cpee:lifecycle:transition'] === transitionType;
         });
     }
 
