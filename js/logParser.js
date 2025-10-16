@@ -19,7 +19,8 @@ class LogParser {
             throw new Error('Invalid UUID format');
         }
 
-        const logUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
+        const originalUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
+        const logUrl = `https://cors-anywhere.herokuapp.com/${originalUrl}`;
         
         try {
             console.log(`Fetching log from: ${logUrl}`);
@@ -27,7 +28,8 @@ class LogParser {
             const response = await fetch(logUrl, {
                 method: 'GET',
                 headers: {
-                    'Accept': 'text/plain, application/x-yaml, text/yaml'
+                    'Accept': 'text/plain, application/x-yaml, text/yaml',
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
             });
 

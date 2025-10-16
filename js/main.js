@@ -243,12 +243,17 @@ class CPEEDebugConsole {
                 throw new Error('Invalid UUID format');
             }
 
-            // Fetch raw log content
-            const logUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
-            const response = await fetch(logUrl, {
+            // Fetch raw log content using CORS proxy
+            const originalUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
+            const proxyUrl = `https://cors-anywhere.herokuapp.com/${originalUrl}`;
+            
+            console.log(`Fetching via CORS proxy: ${proxyUrl}`);
+            
+            const response = await fetch(proxyUrl, {
                 method: 'GET',
                 headers: {
-                    'Accept': 'text/plain, application/x-yaml, text/yaml'
+                    'Accept': 'text/plain, application/x-yaml, text/yaml',
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
             });
 
