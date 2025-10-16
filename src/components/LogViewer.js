@@ -32,39 +32,38 @@ export class LogViewer {
             // Show loading state
             this.showLogLoading();
             
-            // Fetch raw log
+            // Fetch raw log using the same approach as LogService
             const logUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
-            let content = null;
             
-            // Try CORS proxies
-            for (const proxy of LogService.CORS_PROXIES) {
-                try {
-                    const response = await fetch(proxy + encodeURIComponent(logUrl), {
-                        method: 'GET',
-                        headers: {
-                            'Accept': 'text/plain, application/x-yaml, text/yaml'
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        content = await response.text();
-                        break;
-                    }
-                } catch (error) {
-                    continue;
-                }
-            }
+            // Create timeout controller
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000);
             
-            if (content) {
+            const response = await fetch(LogService.CORS_PROXY + encodeURIComponent(logUrl), {
+                method: 'GET',
+                headers: {
+                    'Accept': 'text/plain, application/x-yaml, text/yaml'
+                },
+                signal: controller.signal
+            });
+            
+            clearTimeout(timeoutId);
+            
+            if (response.ok) {
+                const content = await response.text();
                 this.displayRawLog(content);
                 this.updateViewLogButton('Hide Log');
             } else {
-                this.showCORSFallback(uuid);
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
             
         } catch (error) {
             console.error('Error fetching raw log:', error);
-            this.showRawLogError(error.message);
+            if (error.name === 'AbortError') {
+                this.showRawLogError('Request timed out. The log file may be large or the server is slow.');
+            } else {
+                this.showCORSFallback(uuid);
+            }
         }
     }
 
