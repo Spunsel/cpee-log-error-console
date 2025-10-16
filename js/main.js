@@ -148,10 +148,22 @@ class CPEEDebugConsole {
             // Fetch and parse log data
             this.logData = await LogParser.fetchAndParseLog(uuid);
             
+            // Debug: Check what we actually parsed
+            console.log('Raw parsed events:', this.logData.length, 'events total');
+            console.log('First few events:', this.logData.slice(0, 3));
+            
+            // Check for exposition events specifically
+            const allExpositionEvents = this.logData.filter(event => 
+                event && event['cpee:lifecycle:transition'] === 'description/exposition'
+            );
+            console.log('Found exposition events:', allExpositionEvents.length);
+            console.log('Sample exposition event:', allExpositionEvents[0]);
+            
             // Extract exposition events grouped by change_uuid
             const expositionGroups = LogParser.getExpositionEventsByChangeUUID(this.logData);
             
             console.log(`Found ${Object.keys(expositionGroups).length} exposition groups`);
+            console.log('Exposition groups:', expositionGroups);
             
             // Update current UUID
             this.currentUUID = uuid;

@@ -85,6 +85,19 @@ class LogParser {
             
             console.log(`Parsed ${events.length} events from log`);
             
+            // Debug: Show first few parsed events structure
+            console.log('Sample parsed events:');
+            events.slice(0, 5).forEach((event, index) => {
+                console.log(`Event ${index}:`, {
+                    keys: Object.keys(event),
+                    hasLifecycle: !!event['cpee:lifecycle:transition'],
+                    lifecycle: event['cpee:lifecycle:transition'],
+                    hasChangeUuid: !!event['cpee:change_uuid'],
+                    changeUuid: event['cpee:change_uuid'],
+                    hasExposition: !!event['cpee:exposition']
+                });
+            });
+            
             return events;
 
         } catch (error) {
