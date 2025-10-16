@@ -119,22 +119,6 @@ URL Parameters → Core Controller → Services → Parsers → Components → U
 - Content updates
 - HTML escaping
 
-## 🔧 **Key Improvements**
-
-### **Before (Monolithic)**
-- Single 819-line main.js file
-- Mixed responsibilities
-- Tight coupling
-- Hard to test and maintain
-
-### **After (Modular)**
-- ✅ **Separation of Concerns**: Each module has a single responsibility
-- ✅ **Loose Coupling**: Components communicate through well-defined interfaces
-- ✅ **Testability**: Individual modules can be tested in isolation
-- ✅ **Maintainability**: Changes are localized to specific modules
-- ✅ **Reusability**: Components and services can be reused
-- ✅ **Scalability**: New features can be added as new modules
-
 ## 🚀 **Usage**
 
 The application is now initialized through ES6 modules:
@@ -155,23 +139,3 @@ window.app.goToStep(2);
 // Reset application
 window.app.reset();
 ```
-
-## 🧪 **Development**
-
-### **Adding New Features**
-1. Identify the appropriate layer (Service, Component, etc.)
-2. Create new module in the correct directory
-3. Import and integrate in the Core controller
-4. Update components as needed
-
-### **Testing**
-Each module can be tested independently:
-- Services: Mock external dependencies
-- Components: Mock service dependencies
-- Parsers: Test with sample data
-- Utils: Unit test individual functions
-
-### **Debugging**
-- Enable module-level logging
-- Use browser dev tools for ES6 module debugging
-- Access `window.app` for runtime inspection
