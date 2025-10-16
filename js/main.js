@@ -83,12 +83,24 @@ class CPEEDebugConsole {
             }
         }
 
-        // View Log button
+        // View Log button (toggle functionality)
         if (viewLogButton && uuidInput) {
             viewLogButton.addEventListener('click', () => {
-                const uuid = uuidInput.value.trim();
-                if (uuid) {
-                    this.viewRawLog(uuid);
+                const rawLogSection = document.getElementById('raw-log-section');
+                
+                if (rawLogSection && !rawLogSection.classList.contains('hidden')) {
+                    // Log is currently visible, hide it
+                    this.hideRawLog();
+                    viewLogButton.textContent = 'View Log';
+                } else {
+                    // Log is hidden, show it
+                    const uuid = uuidInput.value.trim();
+                    if (uuid) {
+                        this.viewRawLog(uuid);
+                        viewLogButton.textContent = 'Hide Log';
+                    } else {
+                        alert('Please enter a UUID first!');
+                    }
                 }
             });
         }
@@ -333,10 +345,10 @@ class CPEEDebugConsole {
         }
         
         if (rawLogContent) {
-            // Update header to show UUID
+            // Update header to show just "Raw Log Content"
             const header = document.querySelector('.raw-log-header h3');
             if (header) {
-                header.textContent = `Raw Log Content - UUID: ${uuid}`;
+                header.textContent = 'Raw Log Content';
             }
             
             // Display content with proper escaping
@@ -344,6 +356,12 @@ class CPEEDebugConsole {
         }
 
         console.log(`Raw log displayed: ${content.length} characters`);
+        
+        // Update button text to "Hide Log"
+        const viewLogButton = document.getElementById('view-log');
+        if (viewLogButton) {
+            viewLogButton.textContent = 'Hide Log';
+        }
     }
 
     /**
@@ -359,6 +377,12 @@ class CPEEDebugConsole {
         }
         
         if (rawLogContent) {
+            // Update header to show just "Raw Log Content" 
+            const header = document.querySelector('.raw-log-header h3');
+            if (header) {
+                header.textContent = 'Raw Log Content';
+            }
+            
             rawLogContent.innerHTML = `<code style="color: var(--error-color);">Error: ${this.escapeHtml(errorMessage)}</code>`;
         }
     }
@@ -368,8 +392,14 @@ class CPEEDebugConsole {
      */
     hideRawLog() {
         const rawLogSection = document.getElementById('raw-log-section');
+        const viewLogButton = document.getElementById('view-log');
+        
         if (rawLogSection) {
             rawLogSection.classList.add('hidden');
+        }
+        
+        if (viewLogButton) {
+            viewLogButton.textContent = 'View Log';
         }
     }
 
@@ -407,6 +437,12 @@ class CPEEDebugConsole {
         }
         
         if (rawLogContent) {
+            // Update header to show just "Raw Log Content"
+            const header = document.querySelector('.raw-log-header h3');
+            if (header) {
+                header.textContent = 'Raw Log Content';
+            }
+            
             const originalUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
             rawLogContent.innerHTML = `
                 <div style="color: var(--error-color); margin-bottom: 1rem;">
@@ -456,6 +492,12 @@ class CPEEDebugConsole {
                     }
                 });
             }
+        }
+        
+        // Update button text to "Hide Log" when fallback is shown
+        const viewLogButton = document.getElementById('view-log');
+        if (viewLogButton) {
+            viewLogButton.textContent = 'Hide Log';
         }
     }
 
