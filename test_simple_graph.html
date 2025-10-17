@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Graph Test - CPEE</title>
+    <link rel="stylesheet" href="src/libs/cpee-layout/wfadaptor.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .controls {
+            margin-bottom: 2rem;
+        }
+        .controls button {
+            padding: 0.5rem 1rem;
+            margin-right: 0.5rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .controls button:hover {
+            background: #e9ecef;
+        }
+        .graph-output {
+            min-height: 400px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+        .status {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Simple CPEE Graph Test</h1>
+    
+    <div class="container">
+        <div class="status" id="status">Ready to test graph rendering...</div>
+        
+        <div class="controls">
+            <button onclick="testSimple()">📝 Test Simple Process</button>
+            <button onclick="testComplex()">🔄 Test Complex Process</button>
+            <button onclick="testEmpty()">⭕ Test Empty Process</button>
+            <button onclick="testError()">❌ Test Error Case</button>
+            <button onclick="clearGraph()">🧹 Clear</button>
+        </div>
+        
+        <div id="graph-container" class="graph-output">
+            <!-- Graph will render here -->
+        </div>
+    </div>
+
+    <!-- Load the layout engine directly -->
+    <script src="src/libs/cpee-layout/wfadaptor.js"></script>
+    
+    <script>
+        let layoutEngine = null;
+        
+        // Simple DOM utilities (inline)
+        function setStatus(message) {
+            document.getElementById('status').textContent = message;
+            console.log('Status:', message);
+        }
+        
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+        
+        // Simple GraphService (inline version)
+        function convertCPEEToGraph(cpeeXML) {
+            if (!cpeeXML || cpeeXML.trim() === '' || cpeeXML === 'Not found') {
+                return {
+                    nodes: [{
+                        id: 'empty',
+                        type: 'info',
+                        label: 'Empty Process',
+                        x: 100,
+                        y: 50,
+                        width: 120,
+                        height: 40
+                    }],
+                    edges: [],
+                    layout: 'vertical',
+                    type: 'empty'
+                };
+            }
+            
+            try {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(cpeeXML, 'text/xml');
+                
+                const parseError = xmlDoc.querySelector('parsererror');
+                if (parseError) {
+                    return {
+                        nodes: [{
+                            id: 'error',
+                            type: 'error', 
+                            label: 'Parse Error',
+                            x: 100,
+                            y: 50,
+                            width: 140,
+                            height: 60
+                        }],
+                        edges: [],
+                        type: 'error'
+                    };
+                }
+                
+                const description = xmlDoc.querySelector('description');
+                if (!description) {
+                    return {
+                        nodes: [{
+                            id: 'error',
+                            type: 'error',
+                            label: 'No Description',
+                            x: 100,
+                            y: 50,
+                            width: 140,
+                            height: 60
+                        }],
+                        edges: [],
+                        type: 'error'
+                    };
+                }
+                
+                const nodes = [];
+                const edges = [];
+                
+                // Add start node
+                nodes.push({
+                    id: 'start',
+                    type: 'start',
+                    label: 'Start',
+                    x: 200,
+                    y: 50,
+                    width: 80,
+                    height: 40
+                });
+                
+                // Process call elements
+                const calls = Array.from(description.querySelectorAll('call'));
+                let previousId = 'start';
+                
+                calls.forEach((call, index) => {
+                    const id = call.getAttribute('id') || `call_${index}`;
+                    const label = call.querySelector('label')?.textContent || `Task ${index + 1}`;
+                    
+                    const node = {
+                        id: id,
+                        type: 'call',
+                        label: label,
+                        x: 200,
+                        y: 120 + (index * 100),
+                        width: 120,
+                        height: 60
+                    };
+                    
+                    nodes.push(node);
+                    
+                    // Add edge from previous node
+                    edges.push({
+                        id: `edge_${previousId}_${id}`,
+                        source: previousId,
+                        target: id,
+                        type: 'sequence'
+                    });
+                    
+                    previousId = id;
+                });
+                
+                // Add end node if we have tasks
+                if (nodes.length > 1) {
+                    const endNode = {
+                        id: 'end',
+                        type: 'end',
+                        label: 'End',
+                        x: 200,
+                        y: 120 + (calls.length * 100),
+                        width: 80,
+                        height: 40
+                    };
+                    nodes.push(endNode);
+                    
+                    edges.push({
+                        id: `edge_${previousId}_end`,
+                        source: previousId,
+                        target: 'end',
+                        type: 'sequence'
+                    });
+                }
+                
+                return {
+                    nodes: nodes,
+                    edges: edges,
+                    layout: 'vertical',
+                    type: 'cpee-process'
+                };
+                
+            } catch (error) {
+                console.error('Error parsing CPEE XML:', error);
+                return {
+                    nodes: [{
+                        id: 'error',
+                        type: 'error',
+                        label: 'Conversion Error',
+                        x: 100,
+                        y: 50,
+                        width: 140,
+                        height: 60
+                    }],
+                    edges: [],
+                    type: 'error'
+                };
+            }
+        }
+        
+        // Initialize layout engine
+        function initGraph() {
+            const container = document.getElementById('graph-container');
+            
+            if (window.CPEELayoutEngine) {
+                layoutEngine = new window.CPEELayoutEngine(container, {
+                    autoLayout: true,
+                    interactive: true
+                });
+                setStatus('Graph engine initialized successfully!');
+            } else {
+                setStatus('❌ Error: CPEELayoutEngine not available');
+                console.error('CPEELayoutEngine not found in window object');
+            }
+        }
+        
+        // Render graph from CPEE XML
+        function renderGraph(cpeeXML, title) {
+            try {
+                setStatus(`🔄 Converting XML to graph: ${title}`);
+                
+                const graph = convertCPEEToGraph(cpeeXML);
+                console.log('Generated graph:', graph);
+                
+                if (!layoutEngine) {
+                    setStatus('❌ Layout engine not initialized');
+                    return;
+                }
+                
+                setStatus(`🎨 Rendering graph: ${graph.nodes.length} nodes, ${graph.edges.length} edges`);
+                layoutEngine.render(graph);
+                setStatus(`✅ Graph rendered successfully: ${title}`);
+                
+            } catch (error) {
+                console.error('Error rendering graph:', error);
+                setStatus(`❌ Error rendering graph: ${error.message}`);
+            }
+        }
+        
+        // Test functions
+        function testSimple() {
+            const xml = `<?xml version="1.0"?>
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="a1" endpoint="">
+    <parameters>
+      <label>Simple Task</label>
+      <method/>
+      <type>:task</type>
+    </parameters>
+  </call>
+</description>`;
+            renderGraph(xml, 'Simple Process');
+        }
+        
+        function testComplex() {
+            const xml = `<?xml version="1.0"?>
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="a2" endpoint="">
+    <parameters>
+      <label>Task A</label>
+      <method/>
+      <type>:task</type>
+    </parameters>
+  </call>
+  <call id="a4" endpoint="">
+    <parameters>
+      <label>Task B</label>
+      <method/>
+      <type>:task</type>
+    </parameters>
+  </call>
+</description>`;
+            renderGraph(xml, 'Complex Process');
+        }
+        
+        function testEmpty() {
+            renderGraph('', 'Empty Process');
+        }
+        
+        function testError() {
+            renderGraph('<invalid>xml</invalid>', 'Error Case');
+        }
+        
+        function clearGraph() {
+            if (layoutEngine) {
+                layoutEngine.clear();
+                setStatus('Graph cleared');
+            }
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', () => {
+            console.log('Page loaded, checking for CPEELayoutEngine...');
+            console.log('CPEELayoutEngine available:', !!window.CPEELayoutEngine);
+            
+            setTimeout(() => {
+                initGraph();
+            }, 100);
+        });
+    </script>
+</body>
+</html>
