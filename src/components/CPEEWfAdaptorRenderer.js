@@ -165,6 +165,14 @@ export class CPEEWfAdaptorRenderer {
     /**
      * Render graph from CPEE XML using original WfAdaptor
      * @param {string} cpeeXML - CPEE XML description
+     * 
+     * logic:
+     *  1. Clean & validate XML
+     *  2. Load WfAdaptor library  
+     *  3. Parse XML with DOMParser
+     *  4. Create WfAdaptor instance
+     *  5. Pass XML to adaptor.draw()
+     *  6. Render as SVG in container
      */
     async renderGraph(cpeeXML) {
         try {

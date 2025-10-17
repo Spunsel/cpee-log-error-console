@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPEE Multiple Graph Test - XML to Graph Conversion</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --surface-color: #ffffff;
+            --border-color: #e5e7eb;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --error-color: #dc2626;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: var(--surface-color);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .dual-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .panel {
+            background: var(--surface-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .panel-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .xml-input-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .xml-input-section label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .xml-input {
+            width: 100%;
+            height: 200px;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.875rem;
+            resize: vertical;
+            background: #f8fafc;
+        }
+
+        .xml-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        .graph-container {
+            min-height: 400px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--surface-color);
+            overflow: auto;
+            position: relative;
+        }
+
+        .graph-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 400px;
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        .status-message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            display: none;
+        }
+
+        .status-loading {
+            background: rgba(59, 130, 246, 0.1);
+            color: #1e40af;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .status-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #065f46;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #991b1b;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .global-controls {
+            background: var(--surface-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .global-controls h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* SVG Graph Styling */
+        #graphcanvas-left svg, #graphcanvas-right svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .comparison-info {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-info h4 {
+            color: #0369a1;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-info p {
+            color: #0c4a6e;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 1024px) {
+            .dual-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+
+    <!-- Load jQuery first -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔄 CPEE Multiple Graph Test</h1>
+            <p>Compare two CPEE XML workflows side by side - Render multiple graphs simultaneously</p>
+        </div>
+
+        <!-- Info Section -->
+        <div class="comparison-info">
+            <h4>📊 Dual Graph Comparison</h4>
+            <p>This test page allows you to input two different CPEE XML workflows and render them side by side for visual comparison. Perfect for before/after analysis or comparing different process variants.</p>
+        </div>
+
+        <!-- Global Controls -->
+        <div class="global-controls">
+            <h3>🎮 Global Actions</h3>
+            <div class="controls">
+                <button class="btn btn-success" id="render-both">
+                    🎨 Render Both Graphs
+                </button>
+                <button class="btn btn-secondary" id="clear-both">
+                    🧹 Clear Both
+                </button>
+                <button class="btn btn-secondary" id="load-examples">
+                    📋 Load Example XMLs
+                </button>
+            </div>
+        </div>
+
+        <!-- Dual Panel Layout -->
+        <div class="dual-panel">
+            <!-- Left Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">🌳 Graph A (Left)</div>
+                        <div class="panel-subtitle">Input your first CPEE XML workflow</div>
+                    </div>
+                </div>
+
+                <div class="xml-input-section">
+                    <label for="xml-input-left">CPEE XML Description A:</label>
+                    <textarea 
+                        id="xml-input-left" 
+                        class="xml-input" 
+                        placeholder="Paste your CPEE XML description here..."
+                        spellcheck="false"><!-- Example: Simple Task -->
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="a1" endpoint="http://example.com/task-a">
+    <parameters>
+      <label>Execute Task A</label>
+      <method>post</method>
+      <type>:task</type>
+    </parameters>
+  </call>
+</description></textarea>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" id="render-left">
+                        🎨 Render Graph A
+                    </button>
+                    <button class="btn btn-secondary" id="clear-left">
+                        🧹 Clear A
+                    </button>
+                </div>
+
+                <div class="graph-container" id="graph-container-left">
+                    <div class="graph-placeholder">Click "Render Graph A" to visualize your CPEE workflow</div>
+                    <div id="graphcanvas-left"></div>
+                </div>
+
+                <div class="status-message" id="status-left"></div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">🌳 Graph B (Right)</div>
+                        <div class="panel-subtitle">Input your second CPEE XML workflow</div>
+                    </div>
+                </div>
+
+                <div class="xml-input-section">
+                    <label for="xml-input-right">CPEE XML Description B:</label>
+                    <textarea 
+                        id="xml-input-right" 
+                        class="xml-input" 
+                        placeholder="Paste your second CPEE XML description here..."
+                        spellcheck="false"><!-- Example: Parallel Tasks -->
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <parallel>
+    <call id="b1" endpoint="http://example.com/task-b1">
+      <parameters>
+        <label>Parallel Task B1</label>
+        <method>post</method>
+        <type>:task</type>
+      </parameters>
+    </call>
+    <call id="b2" endpoint="http://example.com/task-b2">
+      <parameters>
+        <label>Parallel Task B2</label>
+        <method>post</method>
+        <type>:task</type>
+      </parameters>
+    </call>
+  </parallel>
+</description></textarea>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" id="render-right">
+                        🎨 Render Graph B
+                    </button>
+                    <button class="btn btn-secondary" id="clear-right">
+                        🧹 Clear B
+                    </button>
+                </div>
+
+                <div class="graph-container" id="graph-container-right">
+                    <div class="graph-placeholder">Click "Render Graph B" to visualize your CPEE workflow</div>
+                    <div id="graphcanvas-right"></div>
+                </div>
+
+                <div class="status-message" id="status-right"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { CPEEWfAdaptorRenderer } from './src/components/CPEEWfAdaptorRenderer.js';
+
+        // Initialize two separate renderers
+        const rendererLeft = new CPEEWfAdaptorRenderer();
+        const rendererRight = new CPEEWfAdaptorRenderer();
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Initialize both renderers
+                await rendererLeft.initialize('graph-container-left', 'status-left', 'xml-input-left');
+                await rendererRight.initialize('graph-container-right', 'status-right', 'xml-input-right');
+                
+                console.log('🏛️ Both CPEE renderers ready');
+                
+            } catch (error) {
+                console.error('❌ Failed to initialize renderers:', error);
+            }
+        });
+
+        // Individual render buttons
+        document.getElementById('render-left').addEventListener('click', async () => {
+            const xmlContent = document.getElementById('xml-input-left').value.trim();
+            if (!xmlContent) {
+                alert('Please enter CPEE XML content in Graph A');
+                return;
+            }
+            
+            try {
+                await rendererLeft.renderGraph(xmlContent);
+            } catch (error) {
+                console.error('❌ Failed to render left graph:', error);
+            }
+        });
+
+        document.getElementById('render-right').addEventListener('click', async () => {
+            const xmlContent = document.getElementById('xml-input-right').value.trim();
+            if (!xmlContent) {
+                alert('Please enter CPEE XML content in Graph B');
+                return;
+            }
+            
+            try {
+                await rendererRight.renderGraph(xmlContent);
+            } catch (error) {
+                console.error('❌ Failed to render right graph:', error);
+            }
+        });
+
+        // Global render both button
+        document.getElementById('render-both').addEventListener('click', async () => {
+            const xmlLeft = document.getElementById('xml-input-left').value.trim();
+            const xmlRight = document.getElementById('xml-input-right').value.trim();
+            
+            if (!xmlLeft || !xmlRight) {
+                alert('Please enter CPEE XML content in both Graph A and Graph B');
+                return;
+            }
+            
+            try {
+                // Render both graphs simultaneously
+                await Promise.all([
+                    rendererLeft.renderGraph(xmlLeft),
+                    rendererRight.renderGraph(xmlRight)
+                ]);
+                
+                console.log('✅ Both graphs rendered successfully');
+            } catch (error) {
+                console.error('❌ Failed to render both graphs:', error);
+            }
+        });
+
+        // Clear individual graphs
+        document.getElementById('clear-left').addEventListener('click', () => {
+            rendererLeft.clearGraph();
+            document.getElementById('xml-input-left').value = '';
+        });
+
+        document.getElementById('clear-right').addEventListener('click', () => {
+            rendererRight.clearGraph();
+            document.getElementById('xml-input-right').value = '';
+        });
+
+        // Clear both graphs
+        document.getElementById('clear-both').addEventListener('click', () => {
+            rendererLeft.clearGraph();
+            rendererRight.clearGraph();
+            document.getElementById('xml-input-left').value = '';
+            document.getElementById('xml-input-right').value = '';
+        });
+
+        // Load example XMLs
+        document.getElementById('load-examples').addEventListener('click', () => {
+            // Complex workflow example for left side
+            const complexExample = `<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="start" endpoint="http://example.com/initialize">
+    <parameters>
+      <label>Initialize Process</label>
+      <method>post</method>
+      <type>:initialization</type>
+    </parameters>
+  </call>
+  
+  <parallel>
+    <call id="data_fetch" endpoint="http://example.com/fetch-data">
+      <parameters>
+        <label>Fetch Data</label>
+        <method>get</method>
+        <type>:data</type>
+      </parameters>
+    </call>
+    
+    <loop mode="pre_test" condition="$data.has_more">
+      <call id="process_item" endpoint="http://example.com/process">
+        <parameters>
+          <label>Process Item</label>
+          <method>post</method>
+          <type>:processing</type>
+        </parameters>
+      </call>
+    </loop>
+  </parallel>
+  
+  <choose>
+    <alternative condition="$result.success">
+      <call id="success_handler" endpoint="http://example.com/success">
+        <parameters>
+          <label>Handle Success</label>
+          <method>post</method>
+          <type>:success</type>
+        </parameters>
+      </call>
+    </alternative>
+    <otherwise>
+      <call id="error_handler" endpoint="http://example.com/error">
+        <parameters>
+          <label>Handle Error</label>
+          <method>post</method>
+          <type>:error</type>
+        </parameters>
+      </call>
+    </otherwise>
+  </choose>
+  
+  <call id="finalize" endpoint="http://example.com/finalize">
+    <parameters>
+      <label>Finalize Process</label>
+      <method>post</method>
+      <type>:finalization</type>
+    </parameters>
+  </call>
+</description>`;
+
+            // Simple workflow example for right side  
+            const simpleExample = `<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="task1" endpoint="http://example.com/simple-task-1">
+    <parameters>
+      <label>Simple Task 1</label>
+      <method>post</method>
+      <type>:task</type>
+    </parameters>
+  </call>
+  
+  <call id="task2" endpoint="http://example.com/simple-task-2">
+    <parameters>
+      <label>Simple Task 2</label>
+      <method>post</method>
+      <type>:task</type>
+    </parameters>
+  </call>
+  
+  <call id="task3" endpoint="http://example.com/simple-task-3">
+    <parameters>
+      <label>Simple Task 3</label>
+      <method>post</method>
+      <type>:task</type>
+    </parameters>
+  </call>
+</description>`;
+
+            document.getElementById('xml-input-left').value = complexExample;
+            document.getElementById('xml-input-right').value = simpleExample;
+            
+            console.log('📋 Example XMLs loaded - Complex workflow (left) vs Simple workflow (right)');
+        });
+    </script>
+</body>
+</html>
