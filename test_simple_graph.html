@@ -150,9 +150,9 @@
                     id: 'start',
                     type: 'start',
                     label: 'Start',
-                    x: 200,
-                    y: 50,
-                    width: 80,
+                    x: 50,
+                    y: 100,
+                    width: 40,
                     height: 40
                 });
                 
@@ -168,10 +168,10 @@
                         id: id,
                         type: 'call',
                         label: label,
-                        x: 200,
-                        y: 120 + (index * 100),
+                        x: 120 + (index * 150),
+                        y: 80,
                         width: 120,
-                        height: 60
+                        height: 40
                     };
                     
                     nodes.push(node);
@@ -193,9 +193,9 @@
                         id: 'end',
                         type: 'end',
                         label: 'End',
-                        x: 200,
-                        y: 120 + (calls.length * 100),
-                        width: 80,
+                        x: 120 + (calls.length * 150),
+                        y: 100,
+                        width: 40,
                         height: 40
                     };
                     nodes.push(endNode);
