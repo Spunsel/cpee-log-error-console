@@ -1,0 +1,68 @@
+{
+  "name": "cpee-log-error-console",
+  "version": "1.2.0",
+  "description": "A modern, modular web-based debugging console for the CPEE LLM service",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "vite serve --host 0.0.0.0 --port 8000",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src --ext .js",
+    "lint:fix": "eslint src --ext .js --fix",
+    "format": "prettier --write \"src/**/*.{js,html,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,html,css,md}\"",
+    "analyze": "npm-check-updates",
+    "validate": "npm run lint && npm run format:check && npm run test:coverage",
+    "clean": "rimraf dist coverage",
+    "serve": "python -m http.server 8000",
+    "docs": "jsdoc -c jsdoc.conf.json"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vitest/ui": "^1.0.0",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "jsdoc": "^4.0.2",
+    "npm-check-updates": "^16.14.0",
+    "prettier": "^3.1.0",
+    "rimraf": "^5.0.5",
+    "vite": "^5.0.0",
+    "vitest": "^1.0.0",
+    "@vitest/coverage-v8": "^1.0.0"
+  },
+  "keywords": [
+    "cpee",
+    "debugging",
+    "llm",
+    "process-modeling",
+    "javascript",
+    "es6-modules",
+    "bachelor-thesis",
+    "tum"
+  ],
+  "author": "Christian Horne <christian.horne@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/cpee-log-error-console.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/cpee-log-error-console/issues"
+  },
+  "homepage": "https://github.com/yourusername/cpee-log-error-console#readme",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not ie 11",
+    "not op_mini all"
+  ]
+}
