@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GraphViewer Test - CPEE Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .test-section {
+            margin-bottom: 3rem;
+        }
+        .controls {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .controls button {
+            padding: 0.5rem 1rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .controls button:hover {
+            background: #e9ecef;
+        }
+        .xml-preview {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .graph-container {
+            min-height: 400px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background: white;
+        }
+        .logs {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 CPEE GraphViewer Test</h1>
+    
+    <div class="test-container">
+        <h2>Interactive Graph Visualization Demo</h2>
+        <p>Test the complete CPEE XML to graph rendering pipeline with real data from your logs.</p>
+        
+        <div class="controls">
+            <button onclick="loadSimpleProcess()">📝 Simple Process</button>
+            <button onclick="loadComplexProcess()">🔄 Complex Process</button>
+            <button onclick="loadRealLogData()">📊 Real Log Data</button>
+            <button onclick="loadParallelProcess()">⚡ Parallel Process</button>
+            <button onclick="loadErrorExample()">❌ Error Example</button>
+            <button onclick="clearAll()">🧹 Clear All</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>Input CPEE XML:</h3>
+            <div id="xml-display" class="xml-preview">
+                Click a button above to load sample CPEE XML...
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Rendered Graph:</h3>
+            <div id="graph-output" class="graph-container">
+                <!-- Graph will be rendered here -->
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Console Logs:</h3>
+            <div id="log-output" class="logs">
+                Console output will appear here...
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { GraphViewer } from './src/components/GraphViewer.js';
+        import { GraphService } from './src/services/GraphService.js';
+        
+        // Initialize GraphViewer
+        const graphViewer = new GraphViewer();
+        let currentXML = '';
+        
+        // Sample CPEE XML data (based on your actual log data)
+        const sampleData = {
+            simple: `<?xml version="1.0"?>
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="a2" endpoint="">
+    <parameters>
+      <label>Task A</label>
+      <method/>
+      <type>:task</type>
+      <mid>'1'</mid>
+      <arguments/>
+    </parameters>
+  </call>
+</description>`,
+            
+            complex: `<?xml version="1.0"?>
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="a2" endpoint="">
+    <parameters>
+      <label>Task A</label>
+      <method/>
+      <type>:task</type>
+      <mid>'a2'</mid>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a4" endpoint="">
+    <parameters>
+      <label>Task B</label>
+      <method/>
+      <type>:task</type>
+      <mid>'b'</mid>
+      <arguments/>
+    </parameters>
+  </call>
+</description>`,
+            
+            realLog: `<?xml version="1.0"?>
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="a2" endpoint="">
+    <parameters>
+      <label>Task A</label>
+      <method/>
+      <type>:task</type>
+      <mid>'a2'</mid>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a4" endpoint="">
+    <parameters>
+      <label>Task B</label>
+      <method/>
+      <type>:task</type>
+      <mid>'b'</mid>
+      <arguments/>
+    </parameters>
+  </call>
+</description>`,
+            
+            parallel: `<?xml version="1.0"?>
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <parallel id="par1">
+    <call id="task1" endpoint="">
+      <parameters>
+        <label>Parallel Task 1</label>
+        <type>:task</type>
+      </parameters>
+    </call>
+    <call id="task2" endpoint="">
+      <parameters>
+        <label>Parallel Task 2</label>
+        <type>:task</type>
+      </parameters>
+    </call>
+  </parallel>
+  <call id="final" endpoint="">
+    <parameters>
+      <label>Final Task</label>
+      <type>:task</type>
+    </parameters>
+  </call>
+</description>`,
+            
+            error: `<invalid-xml>This is not valid CPEE XML</invalid>`
+        };
+        
+        // Override console.log to capture output
+        const originalLog = console.log;
+        const originalError = console.error;
+        const logOutput = document.getElementById('log-output');
+        
+        function appendLog(message, type = 'log') {
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? '#ff6b6b' : type === 'warn' ? '#ffa726' : '#81c784';
+            logOutput.innerHTML += `<div style="color: ${color};">[${timestamp}] ${message}</div>`;
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+        
+        console.log = (...args) => {
+            originalLog(...args);
+            appendLog(args.join(' '), 'log');
+        };
+        
+        console.error = (...args) => {
+            originalError(...args);
+            appendLog(args.join(' '), 'error');
+        };
+        
+        console.warn = (...args) => {
+            console.warn(...args);
+            appendLog(args.join(' '), 'warn');
+        };
+        
+        // Test functions
+        window.loadSimpleProcess = () => {
+            loadXMLData(sampleData.simple, 'Simple Process (Single Task)');
+        };
+        
+        window.loadComplexProcess = () => {
+            loadXMLData(sampleData.complex, 'Complex Process (Sequential Tasks)');
+        };
+        
+        window.loadRealLogData = () => {
+            loadXMLData(sampleData.realLog, 'Real Log Data (From Your CPEE Logs)');
+        };
+        
+        window.loadParallelProcess = () => {
+            loadXMLData(sampleData.parallel, 'Parallel Process (Gateway Example)');
+        };
+        
+        window.loadErrorExample = () => {
+            loadXMLData(sampleData.error, 'Error Example (Invalid XML)');
+        };
+        
+        window.clearAll = () => {
+            document.getElementById('xml-display').textContent = 'Click a button above to load sample CPEE XML...';
+            graphViewer.clearGraph('graph-output');
+            logOutput.innerHTML = 'Console output will appear here...';
+            currentXML = '';
+        };
+        
+        async function loadXMLData(xml, title) {
+            currentXML = xml;
+            
+            // Display XML
+            document.getElementById('xml-display').textContent = xml;
+            
+            // Clear previous logs
+            logOutput.innerHTML = '';
+            
+            console.log(`🚀 Loading: ${title}`);
+            console.log('📄 XML Content:', xml.substring(0, 100) + '...');
+            
+            // Test GraphService conversion
+            console.log('🔄 Converting XML to graph format...');
+            const graph = GraphService.convertCPEEToGraph(xml);
+            console.log('📊 Generated graph:', graph);
+            
+            // Render with GraphViewer
+            console.log('🎨 Rendering graph with GraphViewer...');
+            await graphViewer.renderCPEEGraph('graph-output', xml, title, {
+                theme: 'default',
+                interactive: true,
+                showControls: true
+            });
+            
+            console.log('✅ Graph rendering complete!');
+        }
+        
+        // Set up event listeners for graph interactions
+        document.getElementById('graph-output').addEventListener('graphNodeClick', (event) => {
+            console.log('🎯 Graph node clicked:', event.detail.node);
+            console.log('📋 Node details:', event.detail.node.details || 'No details available');
+        });
+        
+        // Initialize with simple example
+        console.log('🎯 GraphViewer Test initialized!');
+        console.log('👆 Click the buttons above to test different CPEE XML examples');
+    </script>
+</body>
+</html>
