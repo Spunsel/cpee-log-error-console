@@ -184,15 +184,29 @@ class CPEELayoutEngine {
         // Add label
         if (node.label && node.type !== 'start' && node.type !== 'end') {
             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            text.setAttribute('x', (node.width || 120) / 2);
+            // Position text to the right of the gear icon
+            text.setAttribute('x', node.type === 'call' ? 40 : (node.width || 120) / 2);
             text.setAttribute('y', (node.height || 40) / 2 + 5);
-            text.setAttribute('text-anchor', 'middle');
+            text.setAttribute('text-anchor', node.type === 'call' ? 'start' : 'middle');
             text.setAttribute('font-family', 'Arial, sans-serif');
             text.setAttribute('font-size', '11');
             text.setAttribute('font-weight', '500');
-            text.setAttribute('fill', '#2c3e50');
-            text.textContent = this.truncateText(node.label, 18);
+            text.setAttribute('fill', '#333');
+            text.textContent = this.truncateText(node.label, 15);
             group.appendChild(text);
+            
+            // Add node ID as smaller text below if it exists
+            if (node.details && (node.id !== 'start' && node.id !== 'end')) {
+                const idText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                idText.setAttribute('x', node.type === 'call' ? 40 : (node.width || 120) / 2);
+                idText.setAttribute('y', (node.height || 40) / 2 + 18);
+                idText.setAttribute('text-anchor', node.type === 'call' ? 'start' : 'middle');
+                idText.setAttribute('font-family', 'Arial, sans-serif');
+                idText.setAttribute('font-size', '9');
+                idText.setAttribute('fill', '#666');
+                idText.textContent = node.id;
+                group.appendChild(idText);
+            }
         }
         
         // Add interactivity
@@ -232,17 +246,37 @@ class CPEELayoutEngine {
     }
     
     createTaskNode(node, isLoop = false) {
+        const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        
+        // Main rectangle
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         rect.setAttribute('x', 0);
         rect.setAttribute('y', 0);
         rect.setAttribute('width', node.width || 120);
         rect.setAttribute('height', node.height || 40);
-        rect.setAttribute('rx', '4');
-        rect.setAttribute('fill', isLoop ? '#f0ad4e' : '#ffffff');
-        rect.setAttribute('stroke', isLoop ? '#ec971f' : '#4a90e2');
-        rect.setAttribute('stroke-width', '2');
+        rect.setAttribute('rx', '2');
+        rect.setAttribute('fill', isLoop ? '#f0ad4e' : '#e8e8e8');
+        rect.setAttribute('stroke', isLoop ? '#ec971f' : '#c0c0c0');
+        rect.setAttribute('stroke-width', '1');
         rect.setAttribute('class', isLoop ? 'cpee-loop-node' : 'cpee-task-node');
-        return rect;
+        group.appendChild(rect);
+        
+        // Gear icon area (left side)
+        const iconRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        iconRect.setAttribute('x', 0);
+        iconRect.setAttribute('y', 0);
+        iconRect.setAttribute('width', '32');
+        iconRect.setAttribute('height', node.height || 40);
+        iconRect.setAttribute('rx', '2');
+        iconRect.setAttribute('fill', isLoop ? '#ec971f' : '#d0d0d0');
+        iconRect.setAttribute('stroke', 'none');
+        group.appendChild(iconRect);
+        
+        // Gear icon (simplified representation)
+        const gear = this.createGearIcon(16, (node.height || 40) / 2);
+        group.appendChild(gear);
+        
+        return group;
     }
     
     createGatewayNode(node, symbol) {
@@ -284,6 +318,39 @@ class CPEELayoutEngine {
         rect.setAttribute('stroke-width', '2');
         rect.setAttribute('stroke-dasharray', '5,5');
         return rect;
+    }
+    
+    createGearIcon(cx, cy) {
+        const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        
+        // Outer gear teeth (simplified)
+        const outerGear = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        outerGear.setAttribute('cx', cx);
+        outerGear.setAttribute('cy', cy);
+        outerGear.setAttribute('r', '8');
+        outerGear.setAttribute('fill', 'none');
+        outerGear.setAttribute('stroke', '#666');
+        outerGear.setAttribute('stroke-width', '1.5');
+        outerGear.setAttribute('stroke-dasharray', '2,2');
+        group.appendChild(outerGear);
+        
+        // Inner circle
+        const innerGear = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        innerGear.setAttribute('cx', cx);
+        innerGear.setAttribute('cy', cy);
+        innerGear.setAttribute('r', '4');
+        innerGear.setAttribute('fill', '#666');
+        group.appendChild(innerGear);
+        
+        // Center hole
+        const centerHole = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        centerHole.setAttribute('cx', cx);
+        centerHole.setAttribute('cy', cy);
+        centerHole.setAttribute('r', '2');
+        centerHole.setAttribute('fill', '#fff');
+        group.appendChild(centerHole);
+        
+        return group;
     }
     
     createGenericNode(node) {
