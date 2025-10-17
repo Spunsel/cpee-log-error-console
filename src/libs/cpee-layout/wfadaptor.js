@@ -85,15 +85,15 @@ class CPEELayoutEngine {
         const nodes = this.graph.nodes;
         const levels = this.calculateLevels(nodes, this.graph.edges || []);
         
-        // Position nodes by levels
+        // Position nodes by levels (horizontal layout: left to right)
         levels.forEach((levelNodes, levelIndex) => {
-            const y = 50 + levelIndex * this.options.levelSpacing;
-            const totalWidth = levelNodes.length * this.options.nodeSpacing;
-            const startX = Math.max(50, (800 - totalWidth) / 2); // Center nodes
+            const x = 80 + levelIndex * this.options.levelSpacing; // Horizontal spacing
+            const totalHeight = levelNodes.length * this.options.nodeSpacing;
+            const startY = Math.max(50, (400 - totalHeight) / 2); // Center nodes vertically
             
             levelNodes.forEach((node, nodeIndex) => {
-                node.x = startX + nodeIndex * this.options.nodeSpacing;
-                node.y = y;
+                node.x = x;
+                node.y = startY + nodeIndex * this.options.nodeSpacing;
             });
         });
     }
@@ -182,15 +182,16 @@ class CPEELayoutEngine {
         group.appendChild(shape);
         
         // Add label
-        if (node.label) {
+        if (node.label && node.type !== 'start' && node.type !== 'end') {
             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            text.setAttribute('x', (node.width || 100) / 2);
-            text.setAttribute('y', (node.height || 60) / 2 + 5);
+            text.setAttribute('x', (node.width || 120) / 2);
+            text.setAttribute('y', (node.height || 40) / 2 + 5);
             text.setAttribute('text-anchor', 'middle');
             text.setAttribute('font-family', 'Arial, sans-serif');
-            text.setAttribute('font-size', '12');
-            text.setAttribute('fill', '#333');
-            text.textContent = this.truncateText(node.label, 15);
+            text.setAttribute('font-size', '11');
+            text.setAttribute('font-weight', '500');
+            text.setAttribute('fill', '#2c3e50');
+            text.textContent = this.truncateText(node.label, 18);
             group.appendChild(text);
         }
         
@@ -208,23 +209,25 @@ class CPEELayoutEngine {
     
     createStartNode(node) {
         const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        circle.setAttribute('cx', 30);
+        circle.setAttribute('cx', 20);
         circle.setAttribute('cy', 20);
-        circle.setAttribute('r', 15);
-        circle.setAttribute('fill', '#4CAF50');
-        circle.setAttribute('stroke', '#2E7D32');
+        circle.setAttribute('r', 12);
+        circle.setAttribute('fill', '#5cb85c');
+        circle.setAttribute('stroke', '#449d44');
         circle.setAttribute('stroke-width', '2');
+        circle.setAttribute('class', 'cpee-start-node');
         return circle;
     }
     
     createEndNode(node) {
         const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        circle.setAttribute('cx', 30);
+        circle.setAttribute('cx', 20);
         circle.setAttribute('cy', 20);
-        circle.setAttribute('r', 15);
-        circle.setAttribute('fill', '#F44336');
-        circle.setAttribute('stroke', '#C62828');
-        circle.setAttribute('stroke-width', '2');
+        circle.setAttribute('r', 12);
+        circle.setAttribute('fill', '#d9534f');
+        circle.setAttribute('stroke', '#c9302c');
+        circle.setAttribute('stroke-width', '3');
+        circle.setAttribute('class', 'cpee-end-node');
         return circle;
     }
     
@@ -232,12 +235,13 @@ class CPEELayoutEngine {
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         rect.setAttribute('x', 0);
         rect.setAttribute('y', 0);
-        rect.setAttribute('width', node.width || 100);
-        rect.setAttribute('height', node.height || 60);
-        rect.setAttribute('rx', '8');
-        rect.setAttribute('fill', isLoop ? '#FF9800' : '#2196F3');
-        rect.setAttribute('stroke', isLoop ? '#F57C00' : '#1976D2');
+        rect.setAttribute('width', node.width || 120);
+        rect.setAttribute('height', node.height || 40);
+        rect.setAttribute('rx', '4');
+        rect.setAttribute('fill', isLoop ? '#f0ad4e' : '#ffffff');
+        rect.setAttribute('stroke', isLoop ? '#ec971f' : '#4a90e2');
         rect.setAttribute('stroke-width', '2');
+        rect.setAttribute('class', isLoop ? 'cpee-loop-node' : 'cpee-task-node');
         return rect;
     }
     
@@ -301,24 +305,26 @@ class CPEELayoutEngine {
         
         if (!sourceNode || !targetNode) return;
         
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         
-        // Calculate connection points
-        const sourceX = sourceNode.x + (sourceNode.width || 100) / 2;
-        const sourceY = sourceNode.y + (sourceNode.height || 60);
-        const targetX = targetNode.x + (targetNode.width || 100) / 2;
-        const targetY = targetNode.y;
+        // Calculate connection points for horizontal layout
+        const sourceX = sourceNode.x + (sourceNode.width || 80);
+        const sourceY = sourceNode.y + (sourceNode.height || 40) / 2;
+        const targetX = targetNode.x - 5; // Small gap before target
+        const targetY = targetNode.y + (targetNode.height || 40) / 2;
         
-        line.setAttribute('x1', sourceX);
-        line.setAttribute('y1', sourceY);
-        line.setAttribute('x2', targetX);
-        line.setAttribute('y2', targetY - 5); // Small gap before target
-        line.setAttribute('stroke', '#666');
-        line.setAttribute('stroke-width', '2');
-        line.setAttribute('marker-end', 'url(#arrowhead)');
-        line.setAttribute('class', 'cpee-edge');
+        // Create smooth curved path for better CPEE-style appearance
+        const midX = sourceX + (targetX - sourceX) * 0.5;
+        const pathData = `M ${sourceX} ${sourceY} Q ${midX} ${sourceY} ${midX} ${targetY} Q ${midX} ${targetY} ${targetX} ${targetY}`;
         
-        this.svg.appendChild(line);
+        path.setAttribute('d', pathData);
+        path.setAttribute('stroke', '#4a90e2');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('fill', 'none');
+        path.setAttribute('marker-end', 'url(#arrowhead)');
+        path.setAttribute('class', 'cpee-edge');
+        
+        this.svg.appendChild(path);
     }
     
     renderError(message) {

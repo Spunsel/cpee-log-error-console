@@ -61,8 +61,8 @@ export class GraphService {
             type: 'start',
             label: 'Start',
             x: 50,
-            y: 50,
-            width: 80,
+            y: 100,
+            width: 40,
             height: 40
         };
         nodes.push(startNode);
@@ -94,9 +94,9 @@ export class GraphService {
                 id: 'end',
                 type: 'end',
                 label: 'End',
-                x: 50,
-                y: 200,
-                width: 80,
+                x: 300,
+                y: 100,
+                width: 40,
                 height: 40
             };
             nodes.push(endNode);
@@ -170,10 +170,10 @@ export class GraphService {
                 method: method,
                 elementType: type
             },
-            x: 50 + (index * 150),
-            y: 120,
+            x: 120 + (index * 150),
+            y: 80,
             width: 120,
-            height: 60
+            height: 40
         };
     }
     
