@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentic CPEE Graph Renderer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1400px;
+        }
+
+        .card {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 12px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        #graph-container {
+            min-height: 500px;
+            background: white;
+            border-radius: 8px;
+            overflow: auto;
+        }
+
+        .xml-input {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+        }
+
+        .graph-controls button {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .feature-badge {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ Authentic CPEE Graph Renderer</h1>
+            <p>Using original CPEE WfAdaptor system directly</p>
+            <span class="feature-badge">100% Original CPEE Code</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>📝 CPEE XML Input</h5>
+                    </div>
+                    <div class="card-body">
+                        <textarea id="xml-input" class="form-control xml-input" rows="20" placeholder="Paste your CPEE XML here..."><?xml version="1.0"?>
+<description xmlns="http://cpee.org/ns/properties/2.0">
+  <call id="a1" endpoint="service1">
+    <parameters>
+      <label>Initialize Process</label>
+      <arguments>
+        <data>Initial data</data>
+      </arguments>
+    </parameters>
+  </call>
+  <call id="a2" endpoint="service2">
+    <parameters>
+      <label>Process Data</label>
+      <arguments>
+        <input>processed data</input>
+      </arguments>
+    </parameters>
+  </call>
+  <choose>
+    <alternative condition="result == 'success'">
+      <call id="a3" endpoint="success_handler">
+        <parameters>
+          <label>Handle Success</label>
+        </parameters>
+      </call>
+    </alternative>
+    <otherwise>
+      <call id="a4" endpoint="error_handler">
+        <parameters>
+          <label>Handle Error</label>
+        </parameters>
+      </call>
+    </otherwise>
+  </choose>
+  <loop mode="post_test" condition="data.count > 0">
+    <call id="a5" endpoint="process_item">
+      <parameters>
+        <label>Process Item</label>
+        <arguments>
+          <item>current_item</item>
+        </arguments>
+      </parameters>
+    </call>
+  </loop>
+  <parallel>
+    <parallel_branch>
+      <call id="a6" endpoint="notification_service">
+        <parameters>
+          <label>Send Notifications</label>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="a7" endpoint="logging_service">
+        <parameters>
+          <label>Log Activity</label>
+        </parameters>
+      </call>
+    </parallel_branch>
+  </parallel>
+  <call id="a8" endpoint="finalize">
+    <parameters>
+      <label>Finalize Process</label>
+    </parameters>
+  </call>
+</description></textarea>
+                        
+                        <div class="mt-3">
+                            <button id="render-btn" class="btn btn-primary">
+                                🏛️ Render with CPEE WfAdaptor
+                            </button>
+                            <button id="clear-btn" class="btn btn-outline-secondary">
+                                🗑️ Clear
+                            </button>
+                            <button id="load-complex-btn" class="btn btn-outline-info">
+                                📋 Load Complex Example
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>🖼️ Authentic CPEE Graph Visualization</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="status-message" class="alert" style="display: none;"></div>
+                        <div id="graph-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>🏛️ Authentic CPEE Features</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6>✅ Original WfAdaptor</h6>
+                                <p>Uses the exact same <code>wfadaptor.js</code> from the CPEE repository</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>🎨 Original Themes</h6>
+                                <p>Preset theme with authentic SVG symbols and RNG schemas</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>🔧 Original Styling</h6>
+                                <p>Uses the original <code>wfadaptor.css</code> for authentic CPEE appearance</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>📐 Original Layout</h6>
+                                <p>Authentic CPEE positioning and connection algorithms</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6>📁 Files Used from Original CPEE:</h6>
+                                <ul class="mb-0">
+                                    <li><code>CPEE/cockpit/js/wfadaptor.js</code> - Main graph rendering engine</li>
+                                    <li><code>CPEE/cockpit/themes/base.js</code> - Base theme functionality</li>
+                                    <li><code>CPEE/cockpit/themes/preset/theme.js</code> - Preset theme implementation</li>
+                                    <li><code>CPEE/cockpit/css/wfadaptor.css</code> - Original CPEE styling</li>
+                                    <li><code>CPEE/cockpit/themes/preset/symbols/*.svg</code> - 39 authentic SVG symbols</li>
+                                    <li><code>CPEE/cockpit/themes/preset/rngs/*.rng</code> - 21 RelaxNG schema files</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { CPEEWfAdaptorRenderer } from './src/components/CPEEWfAdaptorRenderer.js';
+
+        // Initialize the authentic CPEE renderer
+        const renderer = new CPEEWfAdaptorRenderer();
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await renderer.initialize('graph-container', 'status-message', 'xml-input');
+                console.log('🏛️ Authentic CPEE renderer ready');
+                
+                // Auto-render the example after a short delay
+                setTimeout(() => {
+                    document.getElementById('render-btn').click();
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Failed to initialize renderer:', error);
+                document.getElementById('status-message').innerHTML = 
+                    '<div class="alert alert-danger">Failed to initialize CPEE renderer: ' + error.message + '</div>';
+                document.getElementById('status-message').style.display = 'block';
+            }
+        });
+
+        // Event handlers
+        document.getElementById('render-btn').addEventListener('click', async () => {
+            const xmlInput = document.getElementById('xml-input');
+            if (xmlInput.value.trim()) {
+                await renderer.renderGraph(xmlInput.value);
+            } else {
+                renderer.showStatus('❌ Please enter CPEE XML', 'error');
+            }
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            renderer.clearGraph();
+            document.getElementById('xml-input').value = '';
+        });
+
+        document.getElementById('load-complex-btn').addEventListener('click', () => {
+            const complexXML = `<?xml version="1.0"?>
+<description xmlns="http://cpee.org/ns/properties/2.0">
+  <call id="init" endpoint="initialization_service">
+    <parameters>
+      <label>Initialize Workflow</label>
+      <arguments>
+        <config>production</config>
+        <version>2.1</version>
+      </arguments>
+    </parameters>
+  </call>
+  <choose>
+    <alternative condition="config.environment == 'production'">
+      <call id="prod_setup" endpoint="production_setup">
+        <parameters>
+          <label>Production Setup</label>
+          <arguments>
+            <security_level>high</security_level>
+          </arguments>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="config.environment == 'staging'">
+      <call id="stage_setup" endpoint="staging_setup">
+        <parameters>
+          <label>Staging Setup</label>
+        </parameters>
+      </call>
+    </alternative>
+    <otherwise>
+      <call id="dev_setup" endpoint="development_setup">
+        <parameters>
+          <label>Development Setup</label>
+        </parameters>
+      </call>
+    </otherwise>
+  </choose>
+  <loop mode="pre_test" condition="batch.hasNext()">
+    <call id="process_batch" endpoint="batch_processor">
+      <parameters>
+        <label>Process Data Batch</label>
+        <arguments>
+          <batch_size>1000</batch_size>
+          <parallel_workers>4</parallel_workers>
+        </arguments>
+      </parameters>
+    </call>
+    <choose>
+      <alternative condition="batch.errors > 0">
+        <call id="handle_errors" endpoint="error_handler">
+          <parameters>
+            <label>Handle Batch Errors</label>
+            <arguments>
+              <retry_count>3</retry_count>
+              <escalate>true</escalate>
+            </arguments>
+          </parameters>
+        </call>
+      </alternative>
+      <otherwise>
+        <call id="log_success" endpoint="success_logger">
+          <parameters>
+            <label>Log Successful Batch</label>
+          </parameters>
+        </call>
+      </otherwise>
+    </choose>
+  </loop>
+  <parallel>
+    <parallel_branch>
+      <call id="generate_report" endpoint="report_generator">
+        <parameters>
+          <label>Generate Processing Report</label>
+          <arguments>
+            <format>PDF</format>
+            <include_charts>true</include_charts>
+          </arguments>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="send_notifications" endpoint="notification_service">
+        <parameters>
+          <label>Send Completion Notifications</label>
+          <arguments>
+            <recipients>administrators</recipients>
+            <priority>normal</priority>
+          </arguments>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="update_metrics" endpoint="metrics_service">
+        <parameters>
+          <label>Update Performance Metrics</label>
+          <arguments>
+            <dashboard_refresh>true</dashboard_refresh>
+          </arguments>
+        </parameters>
+      </call>
+    </parallel_branch>
+  </parallel>
+  <critical>
+    <call id="cleanup" endpoint="cleanup_service">
+      <parameters>
+        <label>Critical Cleanup</label>
+        <arguments>
+          <temp_files>delete</temp_files>
+          <connections>close</connections>
+          <locks>release</locks>
+        </arguments>
+      </parameters>
+    </call>
+  </critical>
+  <call id="finalize" endpoint="finalization_service">
+    <parameters>
+      <label>Finalize Workflow</label>
+      <arguments>
+        <archive_logs>true</archive_logs>
+        <status>completed</status>
+      </arguments>
+    </parameters>
+  </call>
+</description>`;
+            
+            document.getElementById('xml-input').value = complexXML;
+            setTimeout(() => {
+                document.getElementById('render-btn').click();
+            }, 100);
+        });
+    </script>
+</body>
+</html>
