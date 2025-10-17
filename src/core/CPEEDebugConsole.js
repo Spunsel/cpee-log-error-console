@@ -228,10 +228,10 @@ export class CPEEDebugConsole {
             // Add to sidebar (but don't display content yet)
             this.sidebar.addInstanceTab(uuid);
             
-            // Clear input field
-            const uuidInput = document.getElementById('uuid-input');
-            if (uuidInput) {
-                uuidInput.value = '';
+            // Clear process number input field only (keep UUID visible)
+            const processNumberInput = document.getElementById('process-number-input');
+            if (processNumberInput) {
+                processNumberInput.value = '';
             }
             
             console.log(`Instance ${uuid} loaded successfully`);
@@ -341,10 +341,10 @@ export class CPEEDebugConsole {
         this.logViewer.hideRawLog();
         URLUtils.clearParameters();
         
-        // Clear input field
-        const uuidInput = document.getElementById('uuid-input');
-        if (uuidInput) {
-            uuidInput.value = '';
+        // Clear process number input field only (keep UUID visible)
+        const processNumberInput = document.getElementById('process-number-input');
+        if (processNumberInput) {
+            processNumberInput.value = '';
         }
     }
 }
