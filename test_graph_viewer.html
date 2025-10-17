@@ -65,6 +65,29 @@
             max-height: 200px;
             overflow-y: auto;
         }
+        .custom-input-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        .custom-input-section h3 {
+            margin-top: 0;
+            color: #2196F3;
+        }
+        .custom-input-section p {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+        #custom-xml-input {
+            transition: border-color 0.2s ease;
+        }
+        #custom-xml-input:focus {
+            border-color: #2196F3;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -81,6 +104,28 @@
             <button onclick="loadParallelProcess()">⚡ Parallel Process</button>
             <button onclick="loadErrorExample()">❌ Error Example</button>
             <button onclick="clearAll()">🧹 Clear All</button>
+        </div>
+        
+        <div class="custom-input-section">
+            <h3>🎯 Custom CPEE XML Input</h3>
+            <p>Paste your own CPEE XML content below and click "Render Custom XML" to visualize it:</p>
+            <textarea id="custom-xml-input" placeholder="Paste your CPEE XML here...
+Example:
+<?xml version=&quot;1.0&quot;?>
+<description xmlns=&quot;http://cpee.org/ns/description/1.0&quot;>
+  <call id=&quot;task1&quot; endpoint=&quot;&quot;>
+    <parameters>
+      <label>Your Custom Task</label>
+      <method/>
+      <type>:task</type>
+    </parameters>
+  </call>
+</description>" style="width: 100%; height: 200px; font-family: 'Courier New', monospace; font-size: 0.9rem; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; resize: vertical;"></textarea>
+            <div style="margin-top: 1rem; display: flex; gap: 1rem; align-items: center;">
+                <button onclick="renderCustomXML()" style="padding: 0.75rem 1.5rem; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">🚀 Render Custom XML</button>
+                <button onclick="clearCustomInput()" style="padding: 0.75rem 1rem; background: #f0f0f0; color: #333; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">🧹 Clear Input</button>
+                <button onclick="loadSampleIntoCustom()" style="padding: 0.75rem 1rem; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 Load Sample</button>
+            </div>
         </div>
         
         <div class="test-section">
@@ -565,9 +610,46 @@
             console.log('📋 Node details:', event.detail.node.details || 'No details available');
         });
         
+        // Custom XML functions
+        window.renderCustomXML = () => {
+            const customInput = document.getElementById('custom-xml-input');
+            const xmlContent = customInput.value.trim();
+            
+            if (!xmlContent) {
+                alert('Please paste some CPEE XML content first!');
+                customInput.focus();
+                return;
+            }
+            
+            console.log('🎯 Rendering custom XML from user input');
+            loadXMLData(xmlContent, 'Custom CPEE XML');
+        };
+        
+        window.clearCustomInput = () => {
+            document.getElementById('custom-xml-input').value = '';
+            console.log('🧹 Custom input cleared');
+        };
+        
+        window.loadSampleIntoCustom = () => {
+            const sampleXML = sampleData.complex;
+            document.getElementById('custom-xml-input').value = sampleXML;
+            console.log('📋 Sample XML loaded into custom input');
+        };
+        
+        // Add keyboard shortcut for quick rendering
+        document.getElementById('custom-xml-input').addEventListener('keydown', (event) => {
+            // Ctrl+Enter or Cmd+Enter to render
+            if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+                event.preventDefault();
+                renderCustomXML();
+            }
+        });
+        
         // Initialize with simple example
         console.log('🎯 GraphViewer Test initialized!');
         console.log('👆 Click the buttons above to test different CPEE XML examples');
+        console.log('🎨 Or paste your own CPEE XML in the custom input section below');
+        console.log('💡 Tip: Use Ctrl+Enter in the text area to quickly render your XML');
     </script>
 </body>
 </html>
