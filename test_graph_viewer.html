@@ -248,18 +248,18 @@
             <div class="quick-examples">
                 <div class="example-btn" onclick="loadExample(193)">
                     <strong>Process 193</strong>
-                    <span>Progressive demo (5 steps)</span>
+                    <span>Progressive workflow (5 steps)</span>
                 </div>
                 <div class="example-btn" onclick="loadExample(200)">
                     <strong>Process 200</strong>
-                    <span>Complex workflow</span>
+                    <span>Complex evolution</span>
                 </div>
                 <div class="example-btn" onclick="loadExample(150)">
                     <strong>Process 150</strong>
-                    <span>Simple flow</span>
+                    <span>Simple workflow</span>
                 </div>
-                <div class="example-btn" onclick="showProgressiveControls()">
-                    <strong>Progressive Controls</strong>
+                <div class="example-btn" onclick="showKeyboardHelp()">
+                    <strong>Keyboard Controls</strong>
                     <span>Use ← → arrow keys</span>
                 </div>
             </div>
@@ -287,64 +287,38 @@
         </div>
 
         <div class="test-section">
-            <h2 class="section-title">🔧 Progressive SVG Technical Details</h2>
+            <h2 class="section-title">🔧 CPEE Graph Integration</h2>
             
             <div class="info-box">
-                <h3>How Progressive SVG Works</h3>
-                <p><strong>Concept:</strong> Fetch complete CPEE SVG and progressively reveal elements based on user modification steps</p>
-                <p><strong>SVG Source:</strong> <code>https://cpee.org/flow/graph.html?monitor=https://cpee.org/flow/engine/{processNumber}/</code></p>
-                <p><strong>Progressive Logic:</strong> Parse SVG elements with <code>data-step</code> attributes and control visibility</p>
+                <h3>How CPEE Graph Viewer Works</h3>
+                <p><strong>Direct Integration:</strong> Uses official CPEE graph viewer via iframe embedding</p>
+                <p><strong>Official Styling:</strong> Matches <a href="https://cpee.org/flow/graph.html?monitor=https://cpee.org/flow/engine/193/" target="_blank">official CPEE graph viewer</a> appearance</p>
+                <p><strong>Real-time Loading:</strong> Fetches live workflow data directly from CPEE servers</p>
             </div>
 
             <h3>Features:</h3>
             <ul>
-                <li>✅ <strong>Progressive Revelation:</strong> Shows elements step by step based on user modifications</li>
-                <li>✅ <strong>CPEE Authentic:</strong> Uses actual CPEE SVG styling and layout</li>
-                <li>✅ <strong>Step Navigation:</strong> Previous/Next navigation with keyboard support (← →)</li>
-                <li>✅ <strong>Animation:</strong> Smooth fade-in effects for newly revealed elements</li>
-                <li>✅ <strong>User Context:</strong> Shows user actions for each step</li>
-                <li>✅ <strong>Interactive:</strong> Click controls and keyboard navigation</li>
+                <li>✅ <strong>Direct Integration:</strong> Uses official CPEE graph viewer</li>
+                <li>✅ <strong>Live Data:</strong> Real-time workflow visualization</li>
+                <li>✅ <strong>Process Mapping:</strong> Convert process numbers to monitor URLs</li>
+                <li>✅ <strong>Official Styling:</strong> Native CPEE appearance and behavior</li>
+                <li>✅ <strong>Simple Interface:</strong> Enter process number and view graph</li>
             </ul>
 
             <h3>Implementation:</h3>
             <ul>
-                <li>📦 <code>SVGProgressiveService.js</code> - Handles SVG fetching and progressive logic</li>
-                <li>🎨 <code>data-step</code> attributes on SVG elements for step mapping</li>
-                <li>🔧 CSS classes: <code>.hidden</code>, <code>.revealing</code>, <code>.visible</code></li>
-                <li>⌨️ Keyboard navigation: Arrow left/right for step navigation</li>
-                <li>🖼️ Iframe embedding with postMessage communication</li>
-            </ul>
-
-            <h3>Progressive Steps Example:</h3>
-            <ul>
-                <li><strong>Step 1:</strong> Start node visible</li>
-                <li><strong>Step 2:</strong> Start → Task A (with connecting edge)</li>
-                <li><strong>Step 3:</strong> Start → Task A → Task B</li>
-                <li><strong>Step 4:</strong> Start → Task A → Task B → Task C</li>
-                <li><strong>Step 5:</strong> Complete flow with End node</li>
+                <li>🔗 Direct iframe integration with cpee.org</li>
+                <li>📊 Process number → Monitor URL mapping</li>
+                <li>🎨 Native CPEE styling and interactions</li>
+                <li>⚡ Fast loading with official CPEE infrastructure</li>
             </ul>
         </div>
     </div>
 
     <script type="module">
-        // Import SVG Progressive Service
-        import { SVGProgressiveService } from './src/services/SVGProgressiveService.js';
-        
-        // Test data for progressive steps
-        const testSteps = [
-            { userInput: "# User Input:\nInitialize process" },
-            { userInput: "# User Input:\nAdd Task A" },
-            { userInput: "# User Input:\nAdd Task B after A" },
-            { userInput: "# User Input:\nAdd Task C in parallel" },
-            { userInput: "# User Input:\nFinalize process flow" }
-        ];
-        
-        // Global state for progressive viewer
-        let currentSVGData = null;
-        let currentStep = 0;
 
         // Make functions available globally
-        window.loadGraph = async function() {
+        window.loadGraph = function() {
             const processNumberInput = document.getElementById('process-number');
             const processNumber = parseInt(processNumberInput.value);
             
@@ -354,26 +328,28 @@
             }
 
             try {
-                showStatus('Loading progressive CPEE graph...', 'loading');
+                showStatus('Loading CPEE graph...', 'loading');
                 
-                // Fetch SVG content
-                const svgContent = await SVGProgressiveService.fetchCPEESVG(processNumber);
-                showUrlDisplay(`Progressive SVG loaded for process ${processNumber}`);
+                const iframe = document.getElementById('graph-iframe');
+                const placeholder = document.getElementById('placeholder');
+                const graphUrl = `https://cpee.org/flow/graph.html?monitor=https://cpee.org/flow/engine/${processNumber}/`;
                 
-                // Parse SVG for progressive elements
-                currentSVGData = SVGProgressiveService.parseSVGElements(svgContent);
-                currentStep = 0;
+                showUrlDisplay(graphUrl);
                 
-                // Generate progressive viewer
-                updateProgressiveViewer();
+                iframe.src = graphUrl;
+                iframe.style.display = 'block';
+                placeholder.style.display = 'none';
                 
-                showStatus(`✅ Progressive graph loaded for process ${processNumber} (${currentSVGData.maxSteps} steps)`, 'success');
+                showStatus('✅ CPEE graph loaded successfully', 'success');
 
             } catch (error) {
-                console.error('Error loading progressive graph:', error);
-                showStatus(`❌ Failed to load progressive graph: ${error.message}`, 'error');
+                console.error('Error loading CPEE graph:', error);
+                showStatus(`❌ Failed to load graph: ${error.message}`, 'error');
             }
         };
+        
+        
+        
 
         window.clearGraph = function() {
             const iframe = document.getElementById('graph-iframe');
@@ -381,64 +357,15 @@
             const processNumberInput = document.getElementById('process-number');
             
             iframe.style.display = 'none';
+            iframe.src = '';
             placeholder.style.display = 'flex';
-            iframe.src = 'about:blank';
+            placeholder.innerHTML = 'Enter a process number above to load the CPEE graph visualization';
             processNumberInput.value = '';
-            
-            currentSVGData = null;
-            currentStep = 0;
             
             clearStatus();
             clearUrlDisplay();
         };
         
-        // Progressive navigation functions
-        window.previousStep = function() {
-            if (currentSVGData && currentStep > 0) {
-                currentStep--;
-                updateProgressiveViewer();
-                showStatus(`Showing step ${currentStep + 1} of ${currentSVGData.maxSteps}`, 'success');
-            }
-        };
-        
-        window.nextStep = function() {
-            if (currentSVGData && currentStep < currentSVGData.maxSteps - 1) {
-                currentStep++;
-                updateProgressiveViewer();
-                showStatus(`Showing step ${currentStep + 1} of ${currentSVGData.maxSteps}`, 'success');
-            }
-        };
-        
-        // Update progressive viewer
-        function updateProgressiveViewer() {
-            if (!currentSVGData) return;
-            
-            const iframe = document.getElementById('graph-iframe');
-            const placeholder = document.getElementById('placeholder');
-            
-            // Generate progressive HTML
-            const progressiveHTML = SVGProgressiveService.createProgressiveViewerHTML(
-                currentSVGData, 
-                currentStep, 
-                testSteps
-            );
-            
-            // Create data URL for iframe
-            const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(progressiveHTML)}`;
-            
-            iframe.src = dataUrl;
-            iframe.style.display = 'block';
-            placeholder.style.display = 'none';
-        }
-        
-        // Listen for messages from iframe
-        window.addEventListener('message', function(event) {
-            if (event.data.type === 'previousStep') {
-                previousStep();
-            } else if (event.data.type === 'nextStep') {
-                nextStep();
-            }
-        });
 
         window.loadExample = function(processNumber) {
             const processNumberInput = document.getElementById('process-number');
@@ -446,18 +373,6 @@
             loadGraph();
         };
         
-        // Add keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            if (currentSVGData) {
-                if (event.key === 'ArrowLeft') {
-                    event.preventDefault();
-                    previousStep();
-                } else if (event.key === 'ArrowRight') {
-                    event.preventDefault();
-                    nextStep();
-                }
-            }
-        });
 
         function showStatus(message, type) {
             const statusDiv = document.getElementById('status');
@@ -485,14 +400,6 @@
                 loadGraph();
             }
         });
-
-        // Additional helper functions
-        window.showProgressiveControls = function() {
-            showStatus('Use ← → arrow keys to navigate steps when a process is loaded', 'loading');
-            setTimeout(() => {
-                showStatus('💡 Tip: Load a process first, then use arrow keys for step navigation', 'success');
-            }, 2000);
-        };
 
         // Load example on page load
         window.addEventListener('load', function() {

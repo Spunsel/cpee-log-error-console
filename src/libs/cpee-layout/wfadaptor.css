@@ -1,0 +1,220 @@
+/**
+ * CPEE Layout Library - Workflow Adaptor Styles
+ * Based on official CPEE styling from cpee.org
+ */
+
+.cpee-workflow-graph {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+
+/* Node Styles */
+.cpee-node {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cpee-node:hover {
+    filter: brightness(1.1);
+}
+
+.cpee-start-node {
+    fill: #5cb85c;
+    stroke: #4cae4c;
+    stroke-width: 2;
+}
+
+.cpee-end-node {
+    fill: #d9534f;
+    stroke: #d43f3a;
+    stroke-width: 2;
+}
+
+.cpee-task-node {
+    fill: #f0ad4e;
+    stroke: #ec971f;
+    stroke-width: 2;
+}
+
+.cpee-node-label {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    fill: #333;
+    pointer-events: none;
+}
+
+/* Edge Styles */
+.cpee-edge {
+    stroke: #666;
+    stroke-width: 2;
+    fill: none;
+    transition: all 0.2s ease;
+}
+
+.cpee-edge:hover {
+    stroke: #2c3e50;
+    stroke-width: 3;
+}
+
+/* Container Styles */
+.cpee-graph-container {
+    width: 100%;
+    min-height: 300px;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cpee-graph-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.cpee-graph-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.cpee-graph-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.cpee-btn {
+    padding: 8px 15px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.cpee-btn:hover:not(:disabled) {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+.cpee-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.cpee-btn-secondary {
+    background: #6c757d;
+}
+
+.cpee-btn-secondary:hover:not(:disabled) {
+    background: #5a6268;
+}
+
+/* Progressive reveal animations */
+.cpee-node-hidden {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.5s ease;
+}
+
+.cpee-node-revealing {
+    opacity: 0.7;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 8px #3498db);
+}
+
+.cpee-node-visible {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.5s ease;
+}
+
+.cpee-edge-hidden {
+    opacity: 0;
+    stroke-dasharray: 5,5;
+    transition: all 0.5s ease;
+}
+
+.cpee-edge-visible {
+    opacity: 1;
+    stroke-dasharray: none;
+    transition: all 0.5s ease;
+}
+
+/* Step indicator */
+.cpee-step-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #3498db;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 100;
+}
+
+/* Loading state */
+.cpee-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+.cpee-loading::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid #dee2e6;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: cpee-spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes cpee-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error state */
+.cpee-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #f5c6cb;
+    margin: 10px 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .cpee-graph-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    
+    .cpee-graph-controls {
+        justify-content: center;
+    }
+    
+    .cpee-workflow-graph {
+        width: 100%;
+        height: auto;
+    }
+}
