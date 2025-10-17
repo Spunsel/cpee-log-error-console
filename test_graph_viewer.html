@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GraphViewer Test - CPEE Visualization</title>
+    <link rel="stylesheet" href="src/libs/cpee-layout/wfadaptor.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -104,12 +105,289 @@
         </div>
     </div>
     
-    <script type="module">
-        import { GraphViewer } from './src/components/GraphViewer.js';
-        import { GraphService } from './src/services/GraphService.js';
+    <!-- Load scripts directly instead of ES6 modules -->
+    <script src="src/libs/cpee-layout/wfadaptor.js"></script>
+    <script>
+        // Inline GraphService for simplicity (avoid ES6 module issues)
+        class SimpleGraphService {
+            static convertCPEEToGraph(cpeeXML) {
+                if (!cpeeXML || cpeeXML.trim() === '' || cpeeXML === 'Not found') {
+                    return {
+                        nodes: [{
+                            id: 'empty',
+                            type: 'info',
+                            label: 'Empty Process',
+                            x: 100,
+                            y: 50,
+                            width: 120,
+                            height: 40
+                        }],
+                        edges: [],
+                        layout: 'vertical',
+                        type: 'empty'
+                    };
+                }
+                
+                try {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(cpeeXML, 'text/xml');
+                    
+                    const parseError = xmlDoc.querySelector('parsererror');
+                    if (parseError) {
+                        return {
+                            nodes: [{
+                                id: 'error',
+                                type: 'error', 
+                                label: 'Parse Error',
+                                x: 100,
+                                y: 50,
+                                width: 140,
+                                height: 60
+                            }],
+                            edges: [],
+                            type: 'error'
+                        };
+                    }
+                    
+                    const description = xmlDoc.querySelector('description');
+                    if (!description) {
+                        return {
+                            nodes: [{
+                                id: 'error',
+                                type: 'error',
+                                label: 'No Description',
+                                x: 100,
+                                y: 50,
+                                width: 140,
+                                height: 60
+                            }],
+                            edges: [],
+                            type: 'error'
+                        };
+                    }
+                    
+                    const nodes = [];
+                    const edges = [];
+                    
+                    // Add start node
+                    nodes.push({
+                        id: 'start',
+                        type: 'start',
+                        label: 'Start',
+                        x: 200,
+                        y: 50,
+                        width: 80,
+                        height: 40
+                    });
+                    
+                    // Process call elements
+                    const calls = Array.from(description.querySelectorAll('call'));
+                    let previousId = 'start';
+                    
+                    calls.forEach((call, index) => {
+                        const id = call.getAttribute('id') || `call_${index}`;
+                        const label = call.querySelector('label')?.textContent || `Task ${index + 1}`;
+                        
+                        const node = {
+                            id: id,
+                            type: 'call',
+                            label: label,
+                            x: 200,
+                            y: 120 + (index * 100),
+                            width: 120,
+                            height: 60
+                        };
+                        
+                        nodes.push(node);
+                        
+                        edges.push({
+                            id: `edge_${previousId}_${id}`,
+                            source: previousId,
+                            target: id,
+                            type: 'sequence'
+                        });
+                        
+                        previousId = id;
+                    });
+                    
+                    // Add end node if we have tasks
+                    if (nodes.length > 1) {
+                        const endNode = {
+                            id: 'end',
+                            type: 'end',
+                            label: 'End',
+                            x: 200,
+                            y: 120 + (calls.length * 100),
+                            width: 80,
+                            height: 40
+                        };
+                        nodes.push(endNode);
+                        
+                        edges.push({
+                            id: `edge_${previousId}_end`,
+                            source: previousId,
+                            target: 'end',
+                            type: 'sequence'
+                        });
+                    }
+                    
+                    return {
+                        nodes: nodes,
+                        edges: edges,
+                        layout: 'vertical',
+                        type: 'cpee-process'
+                    };
+                    
+                } catch (error) {
+                    console.error('Error parsing CPEE XML:', error);
+                    return {
+                        nodes: [{
+                            id: 'error',
+                            type: 'error',
+                            label: 'Conversion Error',
+                            x: 100,
+                            y: 50,
+                            width: 140,
+                            height: 60
+                        }],
+                        edges: [],
+                        type: 'error'
+                    };
+                }
+            }
+        }
+
+        // Simple GraphViewer class (inline)
+        class SimpleGraphViewer {
+            constructor() {
+                this.layoutEngine = null;
+                this.containers = new Map();
+            }
+            
+            async renderCPEEGraph(containerId, cpeeXML, title = 'CPEE Process', options = {}) {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    console.error(`Container ${containerId} not found`);
+                    return;
+                }
+                
+                try {
+                    const graph = SimpleGraphService.convertCPEEToGraph(cpeeXML);
+                    this.createGraphContainer(container, title, options);
+                    
+                    const svgContainer = container.querySelector('.cpee-svg-container');
+                    if (!svgContainer) {
+                        throw new Error('SVG container not created');
+                    }
+                    
+                    if (!window.CPEELayoutEngine) {
+                        throw new Error('CPEELayoutEngine not available');
+                    }
+                    
+                    const layoutEngine = new window.CPEELayoutEngine(svgContainer, {
+                        theme: options.theme || 'default',
+                        autoLayout: options.autoLayout !== false,
+                        interactive: options.interactive !== false
+                    });
+                    
+                    layoutEngine.render(graph);
+                    
+                    this.containers.set(containerId, {
+                        container,
+                        layoutEngine,
+                        graph,
+                        title
+                    });
+                    
+                    console.log(`Graph rendered in ${containerId}:`, graph);
+                    
+                } catch (error) {
+                    console.error(`Error rendering graph in ${containerId}:`, error);
+                    this.renderError(container, `Failed to render graph: ${error.message}`, title);
+                }
+            }
+            
+            createGraphContainer(container, title, options) {
+                container.innerHTML = '';
+                
+                const graphContainer = document.createElement('div');
+                graphContainer.className = 'cpee-graph-container';
+                
+                const header = document.createElement('div');
+                header.className = 'cpee-graph-header';
+                
+                const titleElement = document.createElement('h4');
+                titleElement.className = 'cpee-graph-title';
+                titleElement.textContent = title;
+                
+                const controls = document.createElement('div');
+                controls.className = 'cpee-graph-controls';
+                
+                if (options.showControls !== false) {
+                    const buttons = [
+                        { id: 'zoom-in', text: '🔍+', title: 'Zoom In' },
+                        { id: 'zoom-out', text: '🔍−', title: 'Zoom Out' },
+                        { id: 'reset-zoom', text: '⌂', title: 'Reset View' },
+                        { id: 'export-svg', text: '💾', title: 'Export SVG' }
+                    ];
+                    
+                    buttons.forEach(btn => {
+                        const button = document.createElement('button');
+                        button.className = 'cpee-graph-btn';
+                        button.textContent = btn.text;
+                        button.title = btn.title;
+                        button.dataset.action = btn.id;
+                        controls.appendChild(button);
+                    });
+                }
+                
+                header.appendChild(titleElement);
+                header.appendChild(controls);
+                
+                const svgContainer = document.createElement('div');
+                svgContainer.className = 'cpee-svg-container';
+                svgContainer.style.minHeight = '300px';
+                
+                graphContainer.appendChild(header);
+                graphContainer.appendChild(svgContainer);
+                container.appendChild(graphContainer);
+            }
+            
+            renderError(container, errorMessage, title) {
+                container.innerHTML = `
+                    <div class="cpee-graph-container">
+                        <div class="cpee-graph-header">
+                            <h4 class="cpee-graph-title">${this.escapeHtml(title)}</h4>
+                        </div>
+                        <div class="cpee-svg-container" style="padding: 2rem; text-align: center;">
+                            <div style="color: #f44336; font-size: 1.1rem;">
+                                ⚠️ ${this.escapeHtml(errorMessage)}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            clearGraph(containerId) {
+                const containerData = this.containers.get(containerId);
+                if (containerData) {
+                    containerData.container.innerHTML = '';
+                    this.containers.delete(containerId);
+                }
+            }
+            
+            escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+        }
         
         // Initialize GraphViewer
-        const graphViewer = new GraphViewer();
+        const graphViewer = new SimpleGraphViewer();
         let currentXML = '';
         
         // Sample CPEE XML data (based on your actual log data)
@@ -267,7 +545,7 @@
             
             // Test GraphService conversion
             console.log('🔄 Converting XML to graph format...');
-            const graph = GraphService.convertCPEEToGraph(xml);
+            const graph = SimpleGraphService.convertCPEEToGraph(xml);
             console.log('📊 Generated graph:', graph);
             
             // Render with GraphViewer
