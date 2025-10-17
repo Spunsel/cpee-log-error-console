@@ -34,11 +34,17 @@ export class Sidebar {
             return;
         }
 
+        // Get instance data to extract process number
+        const instanceData = this.instanceService.getInstance(uuid);
+        const displayText = instanceData && instanceData.processNumber 
+            ? `${uuid} (${instanceData.processNumber})` 
+            : uuid;
+
         // Create new tab (not active by default)
         const tabElement = document.createElement('div');
         tabElement.className = 'instance-tab';
         tabElement.dataset.uuid = uuid;
-        tabElement.textContent = uuid;
+        tabElement.textContent = displayText;
         
         // Add click handler
         tabElement.addEventListener('click', () => {

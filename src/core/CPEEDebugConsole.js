@@ -147,24 +147,26 @@ export class CPEEDebugConsole {
     async fetchUUIDFromProcessNumber(processNumber) {
         try {
             console.log(`Fetching UUID for process number: ${processNumber}`);
-            
+
             // Show loading state
             const fetchButton = document.getElementById('fetch-uuid');
             const uuidInput = document.getElementById('uuid-input');
-            
+
             if (fetchButton) {
                 fetchButton.textContent = 'Fetching...';
                 fetchButton.disabled = true;
             }
-            
+
             // Fetch UUID from CPEE service
             const uuid = await CPEEService.fetchUUIDFromProcessNumber(processNumber);
-            
-            // Update UUID input field
+
+            // Update UUID input field and store the process number for later use
             if (uuidInput) {
                 uuidInput.value = uuid;
+                // Store process number as data attribute for later use
+                uuidInput.dataset.processNumber = processNumber;
                 console.log(`UUID fetched successfully: ${uuid}`);
-                
+
                 // Show success message
                 const processNumberInput = document.getElementById('process-number-input');
                 if (processNumberInput) {
@@ -174,11 +176,11 @@ export class CPEEDebugConsole {
                     }, 2000);
                 }
             }
-            
+
         } catch (error) {
             console.error('Error fetching UUID:', error);
             alert(`Failed to fetch UUID: ${error.message}`);
-            
+
             // Show error state
             const processNumberInput = document.getElementById('process-number-input');
             if (processNumberInput) {
@@ -222,8 +224,12 @@ export class CPEEDebugConsole {
                 return;
             }
             
+            // Get process number from UUID input (if it was fetched via process number)
+            const uuidInput = document.getElementById('uuid-input');
+            const processNumber = uuidInput?.dataset.processNumber ? parseInt(uuidInput.dataset.processNumber) : null;
+            
             // Store instance data
-            this.instanceService.addInstance(uuid, steps);
+            this.instanceService.addInstance(uuid, steps, processNumber);
             
             // Add to sidebar (but don't display content yet)
             this.sidebar.addInstanceTab(uuid);

@@ -14,11 +14,13 @@ export class InstanceService {
      * Add or update instance data
      * @param {string} uuid - Instance UUID
      * @param {Array} steps - Parsed steps data
+     * @param {number} processNumber - CPEE process number (optional)
      */
-    addInstance(uuid, steps) {
+    addInstance(uuid, steps, processNumber = null) {
         this.instances.set(uuid, {
             uuid: uuid,
             steps: steps,
+            processNumber: processNumber,
             loadedAt: new Date()
         });
     }
