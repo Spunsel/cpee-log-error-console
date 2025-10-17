@@ -6,6 +6,7 @@
 import { URLUtils } from '../utils/URLUtils.js';
 import { LogService } from '../services/LogService.js';
 import { InstanceService } from '../services/InstanceService.js';
+import { CPEEService } from '../services/CPEEService.js';
 import { Sidebar } from '../components/Sidebar.js';
 import { StepViewer } from '../components/StepViewer.js';
 import { LogViewer } from '../components/LogViewer.js';
@@ -73,25 +74,56 @@ export class CPEEDebugConsole {
      * Set up event listeners for UI interactions
      */
     setupEventListeners() {
-        // Load instance button
+        // Get UI elements
         const loadButton = document.getElementById('load-instance');
         const viewLogButton = document.getElementById('view-log');
+        const fetchUuidButton = document.getElementById('fetch-uuid');
         const uuidInput = document.getElementById('uuid-input');
+        const processNumberInput = document.getElementById('process-number-input');
         
+        // Load instance button
         if (loadButton && uuidInput) {
             loadButton.addEventListener('click', async () => {
                 const uuid = uuidInput.value.trim();
                 if (uuid) {
                     await this.loadInstance(uuid);
+                } else {
+                    alert('Please enter a UUID or use "Fetch UUID" from process number first.');
                 }
             });
+        }
+        
+        // Fetch UUID button
+        if (fetchUuidButton && processNumberInput && uuidInput) {
+            fetchUuidButton.addEventListener('click', async () => {
+                const processNumber = processNumberInput.value.trim();
+                if (processNumber) {
+                    await this.fetchUUIDFromProcessNumber(parseInt(processNumber, 10));
+                } else {
+                    alert('Please enter a process number first.');
+                }
+            });
+        }
 
-            // Allow Enter key in input
+        // Allow Enter key in UUID input
+        if (uuidInput) {
             uuidInput.addEventListener('keypress', async (e) => {
                 if (e.key === 'Enter') {
                     const uuid = uuidInput.value.trim();
                     if (uuid) {
                         await this.loadInstance(uuid);
+                    }
+                }
+            });
+        }
+        
+        // Allow Enter key in process number input
+        if (processNumberInput) {
+            processNumberInput.addEventListener('keypress', async (e) => {
+                if (e.key === 'Enter') {
+                    const processNumber = processNumberInput.value.trim();
+                    if (processNumber) {
+                        await this.fetchUUIDFromProcessNumber(parseInt(processNumber, 10));
                     }
                 }
             });
@@ -115,6 +147,63 @@ export class CPEEDebugConsole {
             appTitle.addEventListener('click', () => {
                 this.returnToHome();
             });
+        }
+    }
+
+    /**
+     * Fetch UUID from CPEE process number
+     * @param {number} processNumber - CPEE process instance number
+     */
+    async fetchUUIDFromProcessNumber(processNumber) {
+        try {
+            console.log(`Fetching UUID for process number: ${processNumber}`);
+            
+            // Show loading state
+            const fetchButton = document.getElementById('fetch-uuid');
+            const uuidInput = document.getElementById('uuid-input');
+            
+            if (fetchButton) {
+                fetchButton.textContent = 'Fetching...';
+                fetchButton.disabled = true;
+            }
+            
+            // Fetch UUID from CPEE service
+            const uuid = await CPEEService.fetchUUIDFromProcessNumber(processNumber);
+            
+            // Update UUID input field
+            if (uuidInput) {
+                uuidInput.value = uuid;
+                console.log(`UUID fetched successfully: ${uuid}`);
+                
+                // Show success message
+                const processNumberInput = document.getElementById('process-number-input');
+                if (processNumberInput) {
+                    processNumberInput.style.borderColor = '#28a745';
+                    setTimeout(() => {
+                        processNumberInput.style.borderColor = '';
+                    }, 2000);
+                }
+            }
+            
+        } catch (error) {
+            console.error('Error fetching UUID:', error);
+            alert(`Failed to fetch UUID: ${error.message}`);
+            
+            // Show error state
+            const processNumberInput = document.getElementById('process-number-input');
+            if (processNumberInput) {
+                processNumberInput.style.borderColor = '#dc3545';
+                setTimeout(() => {
+                    processNumberInput.style.borderColor = '';
+                }, 3000);
+            }
+        } finally {
+            // Reset button state
+            const fetchButton = document.getElementById('fetch-uuid');
+            if (fetchButton) {
+                fetchButton.textContent = 'Fetch UUID';
+                fetchButton.disabled = false;
+            }
         }
     }
 
