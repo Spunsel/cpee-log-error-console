@@ -248,15 +248,19 @@
             <div class="quick-examples">
                 <div class="example-btn" onclick="loadExample(193)">
                     <strong>Process 193</strong>
-                    <span>Example instance</span>
+                    <span>Progressive demo (5 steps)</span>
                 </div>
                 <div class="example-btn" onclick="loadExample(200)">
                     <strong>Process 200</strong>
-                    <span>Another example</span>
+                    <span>Complex workflow</span>
                 </div>
                 <div class="example-btn" onclick="loadExample(150)">
                     <strong>Process 150</strong>
-                    <span>Third example</span>
+                    <span>Simple flow</span>
+                </div>
+                <div class="example-btn" onclick="showProgressiveControls()">
+                    <strong>Progressive Controls</strong>
+                    <span>Use ← → arrow keys</span>
                 </div>
             </div>
 
@@ -283,71 +287,61 @@
         </div>
 
         <div class="test-section">
-            <h2 class="section-title">🔧 Technical Details</h2>
+            <h2 class="section-title">🔧 Progressive SVG Technical Details</h2>
             
             <div class="info-box">
-                <h3>URL Structure</h3>
-                <p><strong>Graph URL:</strong> <code>https://cpee.org/flow/graph.html?monitor=https://cpee.org/flow/engine/{processNumber}/</code></p>
-                <p><strong>UUID API:</strong> <code>https://cpee.org/flow/engine/{processNumber}/properties/attributes/uuid/</code></p>
+                <h3>How Progressive SVG Works</h3>
+                <p><strong>Concept:</strong> Fetch complete CPEE SVG and progressively reveal elements based on user modification steps</p>
+                <p><strong>SVG Source:</strong> <code>https://cpee.org/flow/graph.html?monitor=https://cpee.org/flow/engine/{processNumber}/</code></p>
+                <p><strong>Progressive Logic:</strong> Parse SVG elements with <code>data-step</code> attributes and control visibility</p>
             </div>
 
             <h3>Features:</h3>
             <ul>
-                <li>✅ Uses CPEE's official graph visualization</li>
-                <li>✅ No local library dependencies</li>
-                <li>✅ Always up-to-date with latest CPEE features</li>
-                <li>✅ Responsive iframe embedding</li>
-                <li>✅ Process number to UUID resolution</li>
-                <li>✅ Error handling for invalid process numbers</li>
+                <li>✅ <strong>Progressive Revelation:</strong> Shows elements step by step based on user modifications</li>
+                <li>✅ <strong>CPEE Authentic:</strong> Uses actual CPEE SVG styling and layout</li>
+                <li>✅ <strong>Step Navigation:</strong> Previous/Next navigation with keyboard support (← →)</li>
+                <li>✅ <strong>Animation:</strong> Smooth fade-in effects for newly revealed elements</li>
+                <li>✅ <strong>User Context:</strong> Shows user actions for each step</li>
+                <li>✅ <strong>Interactive:</strong> Click controls and keyboard navigation</li>
             </ul>
 
-            <h3>Integration with Main App:</h3>
+            <h3>Implementation:</h3>
             <ul>
-                <li>🔗 CPEEService.js handles process number to UUID conversion</li>
-                <li>🔗 CPEEService.getCPEEGraphURL() generates the graph URLs</li>
-                <li>🔗 StepViewer will use iframes to display Input/Output CPEE trees</li>
-                <li>🔗 Replaces the raw XML text with visual graphs</li>
+                <li>📦 <code>SVGProgressiveService.js</code> - Handles SVG fetching and progressive logic</li>
+                <li>🎨 <code>data-step</code> attributes on SVG elements for step mapping</li>
+                <li>🔧 CSS classes: <code>.hidden</code>, <code>.revealing</code>, <code>.visible</code></li>
+                <li>⌨️ Keyboard navigation: Arrow left/right for step navigation</li>
+                <li>🖼️ Iframe embedding with postMessage communication</li>
+            </ul>
+
+            <h3>Progressive Steps Example:</h3>
+            <ul>
+                <li><strong>Step 1:</strong> Start node visible</li>
+                <li><strong>Step 2:</strong> Start → Task A (with connecting edge)</li>
+                <li><strong>Step 3:</strong> Start → Task A → Task B</li>
+                <li><strong>Step 4:</strong> Start → Task A → Task B → Task C</li>
+                <li><strong>Step 5:</strong> Complete flow with End node</li>
             </ul>
         </div>
     </div>
 
     <script type="module">
-        // Import CPEEService for UUID fetching (when available)
-        // For this test, we'll simulate the service
-        class TestCPEEService {
-            static BASE_URL = 'https://cpee.org/flow/engine';
-
-            static async fetchUUIDFromProcessNumber(processNumber) {
-                if (!processNumber || isNaN(processNumber)) {
-                    throw new Error('Invalid process number provided.');
-                }
-
-                const uuidUrl = `${this.BASE_URL}/${processNumber}/properties/attributes/uuid/`;
-                
-                try {
-                    // For testing, we'll just return a simulated response
-                    // In the real app, this would use CORS proxy
-                    console.log(`Would fetch UUID from: ${uuidUrl}`);
-                    
-                    // Simulate API call delay
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    
-                    // Return a mock UUID for testing
-                    return `simulated-uuid-for-process-${processNumber}`;
-
-                } catch (error) {
-                    console.error(`TestCPEEService: Failed to fetch UUID for process ${processNumber}:`, error);
-                    throw new Error(`Could not fetch UUID for process number ${processNumber}. Reason: ${error.message}`);
-                }
-            }
-
-            static getCPEEGraphURL(processNumber) {
-                if (!processNumber || isNaN(processNumber)) {
-                    throw new Error('Invalid process number provided.');
-                }
-                return `https://cpee.org/flow/graph.html?monitor=${this.BASE_URL}/${processNumber}/`;
-            }
-        }
+        // Import SVG Progressive Service
+        import { SVGProgressiveService } from './src/services/SVGProgressiveService.js';
+        
+        // Test data for progressive steps
+        const testSteps = [
+            { userInput: "# User Input:\nInitialize process" },
+            { userInput: "# User Input:\nAdd Task A" },
+            { userInput: "# User Input:\nAdd Task B after A" },
+            { userInput: "# User Input:\nAdd Task C in parallel" },
+            { userInput: "# User Input:\nFinalize process flow" }
+        ];
+        
+        // Global state for progressive viewer
+        let currentSVGData = null;
+        let currentStep = 0;
 
         // Make functions available globally
         window.loadGraph = async function() {
@@ -360,34 +354,24 @@
             }
 
             try {
-                showStatus('Loading CPEE graph...', 'loading');
+                showStatus('Loading progressive CPEE graph...', 'loading');
                 
-                // Generate graph URL
-                const graphUrl = TestCPEEService.getCPEEGraphURL(processNumber);
-                showUrlDisplay(graphUrl);
+                // Fetch SVG content
+                const svgContent = await SVGProgressiveService.fetchCPEESVG(processNumber);
+                showUrlDisplay(`Progressive SVG loaded for process ${processNumber}`);
                 
-                // Load graph in iframe
-                const iframe = document.getElementById('graph-iframe');
-                const placeholder = document.getElementById('placeholder');
+                // Parse SVG for progressive elements
+                currentSVGData = SVGProgressiveService.parseSVGElements(svgContent);
+                currentStep = 0;
                 
-                iframe.src = graphUrl;
-                iframe.style.display = 'block';
-                placeholder.style.display = 'none';
+                // Generate progressive viewer
+                updateProgressiveViewer();
                 
-                showStatus(`✅ Graph loaded successfully for process ${processNumber}`, 'success');
-
-                // Optional: Try to fetch UUID for reference
-                try {
-                    const uuid = await TestCPEEService.fetchUUIDFromProcessNumber(processNumber);
-                    showStatus(`✅ Graph loaded for process ${processNumber} (UUID: ${uuid})`, 'success');
-                } catch (uuidError) {
-                    // UUID fetch failed, but graph might still load
-                    console.log('UUID fetch failed, but graph should still load:', uuidError.message);
-                }
+                showStatus(`✅ Progressive graph loaded for process ${processNumber} (${currentSVGData.maxSteps} steps)`, 'success');
 
             } catch (error) {
-                console.error('Error loading graph:', error);
-                showStatus(`❌ Failed to load graph: ${error.message}`, 'error');
+                console.error('Error loading progressive graph:', error);
+                showStatus(`❌ Failed to load progressive graph: ${error.message}`, 'error');
             }
         };
 
@@ -401,15 +385,79 @@
             iframe.src = 'about:blank';
             processNumberInput.value = '';
             
+            currentSVGData = null;
+            currentStep = 0;
+            
             clearStatus();
             clearUrlDisplay();
         };
+        
+        // Progressive navigation functions
+        window.previousStep = function() {
+            if (currentSVGData && currentStep > 0) {
+                currentStep--;
+                updateProgressiveViewer();
+                showStatus(`Showing step ${currentStep + 1} of ${currentSVGData.maxSteps}`, 'success');
+            }
+        };
+        
+        window.nextStep = function() {
+            if (currentSVGData && currentStep < currentSVGData.maxSteps - 1) {
+                currentStep++;
+                updateProgressiveViewer();
+                showStatus(`Showing step ${currentStep + 1} of ${currentSVGData.maxSteps}`, 'success');
+            }
+        };
+        
+        // Update progressive viewer
+        function updateProgressiveViewer() {
+            if (!currentSVGData) return;
+            
+            const iframe = document.getElementById('graph-iframe');
+            const placeholder = document.getElementById('placeholder');
+            
+            // Generate progressive HTML
+            const progressiveHTML = SVGProgressiveService.createProgressiveViewerHTML(
+                currentSVGData, 
+                currentStep, 
+                testSteps
+            );
+            
+            // Create data URL for iframe
+            const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(progressiveHTML)}`;
+            
+            iframe.src = dataUrl;
+            iframe.style.display = 'block';
+            placeholder.style.display = 'none';
+        }
+        
+        // Listen for messages from iframe
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'previousStep') {
+                previousStep();
+            } else if (event.data.type === 'nextStep') {
+                nextStep();
+            }
+        });
 
         window.loadExample = function(processNumber) {
             const processNumberInput = document.getElementById('process-number');
             processNumberInput.value = processNumber;
             loadGraph();
         };
+        
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (currentSVGData) {
+                if (event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    previousStep();
+                } else if (event.key === 'ArrowRight') {
+                    event.preventDefault();
+                    nextStep();
+                }
+            }
+        });
 
         function showStatus(message, type) {
             const statusDiv = document.getElementById('status');
@@ -437,6 +485,14 @@
                 loadGraph();
             }
         });
+
+        // Additional helper functions
+        window.showProgressiveControls = function() {
+            showStatus('Use ← → arrow keys to navigate steps when a process is loaded', 'loading');
+            setTimeout(() => {
+                showStatus('💡 Tip: Load a process first, then use arrow keys for step navigation', 'success');
+            }, 2000);
+        };
 
         // Load example on page load
         window.addEventListener('load', function() {
