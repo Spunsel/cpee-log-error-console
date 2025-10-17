@@ -230,9 +230,15 @@ export class StepViewer {
         
         if (this.progressiveStates.length > stepIndex) {
             const progressiveState = this.progressiveStates[stepIndex];
+            
+            // Get process number from instance data if available
+            const instance = this.instanceService.getCurrentInstance();
+            const processNumber = instance?.processNumber || null;
+            
             const iframeUrl = ProgressiveGraphService.generateVisualizationURL(
                 progressiveState.cpeeXml, 
-                progressiveState.stepNumber
+                progressiveState.stepNumber,
+                processNumber
             );
             
             // Create iframe container
@@ -305,9 +311,14 @@ export class StepViewer {
     updateProgressiveDisplay() {
         if (this.progressiveStates.length > this.currentProgressiveIndex) {
             const progressiveState = this.progressiveStates[this.currentProgressiveIndex];
+            // Get process number from instance data if available
+            const instance = this.instanceService.getCurrentInstance();
+            const processNumber = instance?.processNumber || null;
+            
             const iframeUrl = ProgressiveGraphService.generateVisualizationURL(
                 progressiveState.cpeeXml,
-                progressiveState.stepNumber
+                progressiveState.stepNumber,
+                processNumber
             );
             
             // Update iframe

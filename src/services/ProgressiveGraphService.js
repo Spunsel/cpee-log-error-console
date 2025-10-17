@@ -54,131 +54,162 @@ export class ProgressiveGraphService {
     }
     
     /**
-     * Generate iframe URL for CPEE XML visualization
-     * This is a workaround since we can't easily create temporary CPEE instances
-     * We'll use a data URL approach for testing
+     * Generate iframe URL for CPEE-style XML visualization
+     * Uses CPEE's graph viewer approach but with log XML content
      * @param {string} cpeeXml - CPEE XML content
      * @param {number} stepNumber - Step number for identification
+     * @param {string} processNumber - Original process number (optional)
      * @returns {string} URL for iframe visualization
      */
-    static generateVisualizationURL(cpeeXml, stepNumber) {
-        // For now, we'll create a simple HTML page that shows the XML
-        // In a real implementation, this could use a CPEE XML renderer
-        const htmlContent = this.createXMLVisualizationHTML(cpeeXml, stepNumber);
-        
-        // Create a data URL for the iframe
-        return `data:text/html;charset=utf-8,${encodeURIComponent(htmlContent)}`;
+    static generateVisualizationURL(cpeeXml, stepNumber, processNumber = null) {
+        // If we have a process number, try to use the actual CPEE graph viewer
+        // But modify it to show the specific step state
+        if (processNumber) {
+            // For now, create a CPEE-styled visualization that mimics the official viewer
+            const htmlContent = this.createCPEEStyleVisualizationHTML(cpeeXml, stepNumber, processNumber);
+            return `data:text/html;charset=utf-8,${encodeURIComponent(htmlContent)}`;
+        } else {
+            // Fallback to CPEE-styled visualization
+            const htmlContent = this.createCPEEStyleVisualizationHTML(cpeeXml, stepNumber);
+            return `data:text/html;charset=utf-8,${encodeURIComponent(htmlContent)}`;
+        }
     }
     
     /**
-     * Create HTML content for XML visualization
+     * Create CPEE-style HTML content for XML visualization
+     * Mimics the official CPEE graph viewer styling and layout
      * @param {string} cpeeXml - CPEE XML content
      * @param {number} stepNumber - Step number
+     * @param {string} processNumber - Process number (optional)
      * @returns {string} HTML content
      */
-    static createXMLVisualizationHTML(cpeeXml, stepNumber) {
-        // Parse CPEE XML to extract tasks for simple visualization
-        const tasks = this.extractTasksFromXML(cpeeXml);
-        const diagram = this.generateSimpleDiagram(tasks, stepNumber);
+    static createCPEEStyleVisualizationHTML(cpeeXml, stepNumber, processNumber = null) {
+        // Parse CPEE XML to extract tasks and structure
+        const processStructure = this.parseCPEEXMLStructure(cpeeXml);
+        const svgDiagram = this.generateCPEEStyleSVG(processStructure, stepNumber);
         
         return `
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CPEE Process - Step ${stepNumber}</title>
+    <title>CPEE Graph - Evolution Step ${stepNumber}</title>
     <style>
+        /* CPEE Graph Viewer Styles - Based on cpee.org styling */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            overflow: hidden;
         }
-        .process-container {
+        
+        .cpee-header {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            font-size: 14px;
+            border-bottom: 1px solid #34495e;
+        }
+        
+        .cpee-header .title {
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .cpee-header .info {
+            float: right;
+            opacity: 0.8;
+        }
+        
+        .cpee-graph-container {
+            width: 100%;
+            height: calc(100vh - 45px);
             background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: auto;
         }
-        .process-title {
-            color: #495057;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            border-bottom: 2px solid #e9ecef;
-            padding-bottom: 10px;
-        }
-        .process-diagram {
+        
+        .cpee-svg-container {
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
             justify-content: center;
-            margin: 20px 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
-        .node {
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 2px solid #dee2e6;
-            background: #f8f9fa;
-            font-size: 14px;
-            font-weight: 500;
-            min-width: 80px;
-            text-align: center;
-            transition: all 0.2s ease;
+        
+        /* CPEE Node Styles */
+        .cpee-node {
+            cursor: pointer;
         }
-        .node.start {
-            background: #d4edda;
-            border-color: #c3e6cb;
-            color: #155724;
+        
+        .cpee-node rect {
+            stroke-width: 1;
+            fill: #e8e8e8;
+            stroke: #c0c0c0;
         }
-        .node.task {
-            background: #cce5ff;
-            border-color: #99d6ff;
-            color: #0056b3;
+        
+        .cpee-node.start rect {
+            fill: #5cb85c;
+            stroke: #4cae4c;
         }
-        .node.end {
-            background: #f8d7da;
-            border-color: #f5c6cb;
-            color: #721c24;
+        
+        .cpee-node.end rect {
+            fill: #d9534f;
+            stroke: #d43f3a;
         }
-        .arrow {
-            font-size: 18px;
-            color: #6c757d;
-            font-weight: bold;
+        
+        .cpee-node.task rect {
+            fill: #f0ad4e;
+            stroke: #ec971f;
         }
-        .xml-section {
-            margin-top: 30px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border: 1px solid #e9ecef;
+        
+        .cpee-node text {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            fill: #333;
+            text-anchor: middle;
+            pointer-events: none;
         }
-        .xml-title {
-            font-weight: 600;
-            color: #495057;
-            margin-bottom: 10px;
+        
+        .cpee-edge {
+            fill: none;
+            stroke: #666;
+            stroke-width: 1.5;
+            marker-end: url(#arrowhead);
         }
-        .xml-content {
-            font-family: 'Courier New', monospace;
+        
+        .cpee-edge:hover {
+            stroke: #2c3e50;
+            stroke-width: 2;
+        }
+        
+        /* Evolution indicator */
+        .evolution-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
             font-size: 12px;
-            white-space: pre-wrap;
-            color: #6c757d;
-            max-height: 200px;
-            overflow-y: auto;
+            font-weight: bold;
+            z-index: 100;
         }
     </style>
 </head>
 <body>
-    <div class="process-container">
-        <div class="process-title">
-            🔄 CPEE Process Evolution - Step ${stepNumber}
-        </div>
-        
-        <div class="process-diagram">
-            ${diagram}
-        </div>
-        
-        <div class="xml-section">
-            <div class="xml-title">📋 CPEE XML Definition:</div>
-            <div class="xml-content">${this.escapeHtml(cpeeXml)}</div>
+    <div class="cpee-header">
+        <span class="title">CPEE Process Graph</span>
+        <span class="info">Evolution Step ${stepNumber}${processNumber ? ` | Process ${processNumber}` : ''}</span>
+    </div>
+    
+    <div class="cpee-graph-container">
+        <div class="evolution-badge">Step ${stepNumber}</div>
+        <div class="cpee-svg-container">
+            ${svgDiagram}
         </div>
     </div>
 </body>
@@ -217,23 +248,108 @@ export class ProgressiveGraphService {
     }
     
     /**
-     * Generate simple diagram HTML
-     * @param {Array} tasks - Array of tasks
-     * @param {number} stepNumber - Step number
-     * @returns {string} HTML for diagram
+     * Parse CPEE XML to extract process structure
+     * @param {string} xml - CPEE XML content
+     * @returns {Object} Process structure with nodes and edges
      */
-    static generateSimpleDiagram(tasks, stepNumber) {
-        let diagram = '<div class="node start">🟢 Start</div>';
+    static parseCPEEXMLStructure(xml) {
+        if (!xml) return { nodes: [], edges: [] };
         
+        const structure = {
+            nodes: [
+                { id: 'start', type: 'start', label: 'Start', x: 50, y: 100 }
+            ],
+            edges: []
+        };
+        
+        // Extract tasks from XML
+        const tasks = this.extractTasksFromXML(xml);
+        let currentX = 150;
+        
+        // Add task nodes
         tasks.forEach((task, index) => {
-            diagram += '<div class="arrow">→</div>';
-            diagram += `<div class="node task">⚙️ ${task.label}</div>`;
+            const nodeId = `task_${index}`;
+            structure.nodes.push({
+                id: nodeId,
+                type: 'task', 
+                label: task.label,
+                x: currentX,
+                y: 100
+            });
+            currentX += 120;
         });
         
-        diagram += '<div class="arrow">→</div>';
-        diagram += '<div class="node end">🔴 End</div>';
+        // Add end node
+        structure.nodes.push({
+            id: 'end',
+            type: 'end',
+            label: 'End',
+            x: currentX,
+            y: 100
+        });
         
-        return diagram;
+        // Create edges (start -> tasks -> end)
+        for (let i = 0; i < structure.nodes.length - 1; i++) {
+            structure.edges.push({
+                from: structure.nodes[i].id,
+                to: structure.nodes[i + 1].id
+            });
+        }
+        
+        return structure;
+    }
+    
+    /**
+     * Generate CPEE-style SVG diagram
+     * @param {Object} structure - Process structure
+     * @param {number} stepNumber - Step number
+     * @returns {string} SVG content
+     */
+    static generateCPEEStyleSVG(structure, stepNumber) {
+        if (!structure.nodes.length) return '<p>No process structure found</p>';
+        
+        // Calculate SVG dimensions
+        const maxX = Math.max(...structure.nodes.map(n => n.x)) + 100;
+        const maxY = Math.max(...structure.nodes.map(n => n.y)) + 50;
+        
+        let svg = `
+<svg width="${maxX}" height="200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+        </marker>
+    </defs>
+`;
+
+        // Draw edges first (so they appear behind nodes)
+        structure.edges.forEach(edge => {
+            const fromNode = structure.nodes.find(n => n.id === edge.from);
+            const toNode = structure.nodes.find(n => n.id === edge.to);
+            
+            if (fromNode && toNode) {
+                const fromX = fromNode.x + (fromNode.type === 'start' ? 40 : 60);
+                const toX = toNode.x;
+                const y = fromNode.y + 20;
+                
+                svg += `<line x1="${fromX}" y1="${y}" x2="${toX}" y2="${y}" class="cpee-edge" />`;
+            }
+        });
+        
+        // Draw nodes
+        structure.nodes.forEach(node => {
+            const width = node.type === 'start' || node.type === 'end' ? 40 : 120;
+            const height = 40;
+            
+            svg += `
+    <g class="cpee-node ${node.type}">
+        <rect x="${node.x}" y="${node.y}" width="${width}" height="${height}" rx="3" />
+        <text x="${node.x + width/2}" y="${node.y + height/2 + 4}">${node.label}</text>
+    </g>`;
+        });
+        
+        svg += '</svg>';
+        return svg;
     }
     
     /**
