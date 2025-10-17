@@ -88,7 +88,7 @@ export class CPEEDebugConsole {
                 if (uuid) {
                     await this.loadInstance(uuid);
                 } else {
-                    alert('Please enter a UUID or use "Fetch UUID" from process number first.');
+                    alert('Please use "Fetch UUID" from process number first.');
                 }
             });
         }
@@ -105,17 +105,7 @@ export class CPEEDebugConsole {
             });
         }
 
-        // Allow Enter key in UUID input
-        if (uuidInput) {
-            uuidInput.addEventListener('keypress', async (e) => {
-                if (e.key === 'Enter') {
-                    const uuid = uuidInput.value.trim();
-                    if (uuid) {
-                        await this.loadInstance(uuid);
-                    }
-                }
-            });
-        }
+        // UUID input is now readonly, so no need for Enter key handler
         
         // Allow Enter key in process number input
         if (processNumberInput) {
