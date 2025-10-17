@@ -30,7 +30,6 @@ export class StepViewer {
         console.log(`Displaying step ${step.stepNumber}`);
 
         // Show process analysis section
-        DOMUtils.removeClass('step-details', 'hidden');
         DOMUtils.addClass('step-details', 'hidden');
         DOMUtils.removeClass('process-analysis', 'hidden');
 

@@ -6,11 +6,15 @@
 import { YAMLParser } from '../parsers/YAMLParser.js';
 
 export class LogService {
-    // Use a single, reliable CORS proxy
-    static CORS_PROXY = 'https://corsproxy.io/?';
+    // Multiple CORS proxies with fallback
+    static CORS_PROXIES = [
+        'https://corsproxy.io/?',
+        'https://api.allorigins.win/raw?url=',
+        'https://cors-anywhere.herokuapp.com/'
+    ];
 
     /**
-     * Fetch and parse log for given UUID
+     * Fetch and parse log for given UUID with fallback proxies
      * @param {string} uuid - CPEE instance UUID
      * @returns {Promise<Array>} Parsed log events
      */
@@ -19,42 +23,55 @@ export class LogService {
         
         const logUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
         
-        try {
-            console.log('Fetching log via CORS proxy...');
+        // Try each proxy in sequence
+        for (let i = 0; i < this.CORS_PROXIES.length; i++) {
+            const proxy = this.CORS_PROXIES[i];
             
-            // Create timeout controller for fetch request
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-            
-            const response = await fetch(this.CORS_PROXY + encodeURIComponent(logUrl), {
-                method: 'GET',
-                headers: {
-                    'Accept': 'text/plain, application/x-yaml, text/yaml'
-                },
-                signal: controller.signal
-            });
-            
-            clearTimeout(timeoutId);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            try {
+                console.log(`Trying proxy ${i + 1}/${this.CORS_PROXIES.length}: ${proxy}`);
+                
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000);
+                
+                const response = await fetch(proxy + encodeURIComponent(logUrl), {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'text/plain, application/x-yaml, text/yaml'
+                    },
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                console.log(`Log fetched successfully via proxy ${i + 1}`);
+                const yamlContent = await response.text();
+                
+                if (!yamlContent || yamlContent.length < 10) {
+                    throw new Error('Received empty or invalid response');
+                }
+                
+                console.log(`Log content size: ${yamlContent.length} characters`);
+                
+                const events = YAMLParser.parseMultiDocument(yamlContent);
+                console.log(`Parsed ${events.length} events from log`);
+                
+                return events;
+                
+            } catch (error) {
+                console.warn(`Proxy ${i + 1} failed:`, error.message);
+                
+                // If this is the last proxy, throw the error
+                if (i === this.CORS_PROXIES.length - 1) {
+                    if (error.name === 'AbortError') {
+                        throw new Error('All proxies timed out. The log file may be large or servers are slow.');
+                    }
+                    throw new Error(`All proxies failed. Last error: ${error.message}. Please check if the UUID is correct.`);
+                }
             }
-            
-            console.log('Log fetched successfully via CORS proxy');
-            const yamlContent = await response.text();
-            
-            console.log(`Log content size: ${yamlContent.length} characters`);
-            
-            const events = YAMLParser.parseMultiDocument(yamlContent);
-            console.log(`Parsed ${events.length} events from log`);
-            
-            return events;
-            
-        } catch (error) {
-            if (error.name === 'AbortError') {
-                throw new Error('Request timed out. The log file may be large or the server is slow.');
-            }
-            throw new Error(`Failed to fetch log: ${error.message}. Please try again or check if the UUID is correct.`);
         }
     }
 
