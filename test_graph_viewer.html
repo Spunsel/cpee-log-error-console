@@ -106,26 +106,11 @@
             color: white;
         }
 
-        .btn-primary:hover:not(:disabled) {
+        .btn-primary:hover {
             background: #5a67d8;
             transform: translateY(-1px);
         }
 
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover:not(:disabled) {
-            background: #5a6268;
-            transform: translateY(-1px);
-        }
-
-        .btn:disabled {
-            background: #adb5bd;
-            cursor: not-allowed;
-            transform: none;
-        }
 
         .graph-container {
             border: 2px solid #e2e8f0;
@@ -165,57 +150,6 @@
             border: 1px solid #bee5eb;
         }
 
-        .quick-examples {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .example-btn {
-            padding: 1rem;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-        }
-
-        .example-btn:hover {
-            background: #e9ecef;
-            border-color: #667eea;
-        }
-
-        .example-btn strong {
-            display: block;
-            color: #495057;
-            margin-bottom: 0.5rem;
-        }
-
-        .example-btn span {
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        .info-box {
-            background: #e7f3ff;
-            border: 1px solid #b8daff;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .info-box h3 {
-            margin: 0 0 1rem 0;
-            color: #004085;
-        }
-
-        .info-box p {
-            margin: 0.5rem 0;
-            color: #004085;
-        }
-
         .url-display {
             background: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -231,38 +165,12 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔍 CPEE Graph Viewer Test</h1>
+            <h1>CPEE Graph Viewer Test</h1>
             <p>Test the new CPEE built-in graph visualization using process numbers</p>
         </div>
 
-        <div class="info-box">
-            <h3>🎯 About This Test</h3>
-            <p><strong>New Approach:</strong> This test uses CPEE's built-in graph viewer instead of the local cpee-layout library.</p>
-            <p><strong>How it works:</strong> Enter a CPEE process number and view the official CPEE graph visualization in an embedded iframe.</p>
-            <p><strong>Benefits:</strong> Always up-to-date with CPEE's latest visualization features, no local dependencies.</p>
-        </div>
-
         <div class="test-section">
-            <h2 class="section-title">📊 CPEE Graph Viewer</h2>
-            
-            <div class="quick-examples">
-                <div class="example-btn" onclick="loadExample(193)">
-                    <strong>Process 193</strong>
-                    <span>Progressive workflow (5 steps)</span>
-                </div>
-                <div class="example-btn" onclick="loadExample(200)">
-                    <strong>Process 200</strong>
-                    <span>Complex evolution</span>
-                </div>
-                <div class="example-btn" onclick="loadExample(150)">
-                    <strong>Process 150</strong>
-                    <span>Simple workflow</span>
-                </div>
-                <div class="example-btn" onclick="showKeyboardHelp()">
-                    <strong>Keyboard Controls</strong>
-                    <span>Use ← → arrow keys</span>
-                </div>
-            </div>
+            <h2 class="section-title">CPEE Graph Viewer</h2>
 
             <div class="controls">
                 <div class="input-group">
@@ -271,7 +179,6 @@
                 </div>
                 <div>
                     <button class="btn btn-primary" onclick="loadGraph()">Load Graph</button>
-                    <button class="btn btn-secondary" onclick="clearGraph()">Clear</button>
                 </div>
             </div>
 
@@ -284,34 +191,6 @@
                     Enter a process number above to load the CPEE graph visualization
                 </div>
             </div>
-        </div>
-
-        <div class="test-section">
-            <h2 class="section-title">🔧 CPEE Graph Integration</h2>
-            
-            <div class="info-box">
-                <h3>How CPEE Graph Viewer Works</h3>
-                <p><strong>Direct Integration:</strong> Uses official CPEE graph viewer via iframe embedding</p>
-                <p><strong>Official Styling:</strong> Matches <a href="https://cpee.org/flow/graph.html?monitor=https://cpee.org/flow/engine/193/" target="_blank">official CPEE graph viewer</a> appearance</p>
-                <p><strong>Real-time Loading:</strong> Fetches live workflow data directly from CPEE servers</p>
-            </div>
-
-            <h3>Features:</h3>
-            <ul>
-                <li>✅ <strong>Direct Integration:</strong> Uses official CPEE graph viewer</li>
-                <li>✅ <strong>Live Data:</strong> Real-time workflow visualization</li>
-                <li>✅ <strong>Process Mapping:</strong> Convert process numbers to monitor URLs</li>
-                <li>✅ <strong>Official Styling:</strong> Native CPEE appearance and behavior</li>
-                <li>✅ <strong>Simple Interface:</strong> Enter process number and view graph</li>
-            </ul>
-
-            <h3>Implementation:</h3>
-            <ul>
-                <li>🔗 Direct iframe integration with cpee.org</li>
-                <li>📊 Process number → Monitor URL mapping</li>
-                <li>🎨 Native CPEE styling and interactions</li>
-                <li>⚡ Fast loading with official CPEE infrastructure</li>
-            </ul>
         </div>
     </div>
 
@@ -348,50 +227,15 @@
             }
         };
         
-        
-        
-
-        window.clearGraph = function() {
-            const iframe = document.getElementById('graph-iframe');
-            const placeholder = document.getElementById('placeholder');
-            const processNumberInput = document.getElementById('process-number');
-            
-            iframe.style.display = 'none';
-            iframe.src = '';
-            placeholder.style.display = 'flex';
-            placeholder.innerHTML = 'Enter a process number above to load the CPEE graph visualization';
-            processNumberInput.value = '';
-            
-            clearStatus();
-            clearUrlDisplay();
-        };
-        
-
-        window.loadExample = function(processNumber) {
-            const processNumberInput = document.getElementById('process-number');
-            processNumberInput.value = processNumber;
-            loadGraph();
-        };
-        
 
         function showStatus(message, type) {
             const statusDiv = document.getElementById('status');
             statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
         }
 
-        function clearStatus() {
-            const statusDiv = document.getElementById('status');
-            statusDiv.innerHTML = '';
-        }
-
         function showUrlDisplay(url) {
             const urlDiv = document.getElementById('url-display');
             urlDiv.innerHTML = `<div class="url-display"><strong>Graph URL:</strong><br>${url}</div>`;
-        }
-
-        function clearUrlDisplay() {
-            const urlDiv = document.getElementById('url-display');
-            urlDiv.innerHTML = '';
         }
 
         // Allow Enter key to load graph
@@ -404,7 +248,8 @@
         // Load example on page load
         window.addEventListener('load', function() {
             setTimeout(() => {
-                loadExample(193);
+                document.getElementById('process-number').value = 193;
+                loadGraph();
             }, 1000);
         });
     </script>

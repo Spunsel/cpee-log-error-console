@@ -349,77 +349,8 @@ export class CPEEWfAdaptorRenderer {
             existingControls.remove();
         }
         
-        const controlsDiv = document.createElement('div');
-        controlsDiv.className = 'graph-controls';
-        controlsDiv.style.cssText = `
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-            border: 1px solid #ddd;
-        `;
-        
-        // Export SVG button
-        const exportBtn = document.createElement('button');
-        exportBtn.textContent = '📥 Export SVG';
-        exportBtn.className = 'btn btn-sm btn-outline-primary';
-        exportBtn.style.cssText = 'font-size: 0.8rem; padding: 0.25rem 0.5rem;';
-        exportBtn.onclick = () => this.exportSVG();
-        
-        // Reset view button
-        const resetBtn = document.createElement('button');
-        resetBtn.textContent = '🔄 Reset';
-        resetBtn.className = 'btn btn-sm btn-outline-secondary';
-        resetBtn.style.cssText = 'font-size: 0.8rem; padding: 0.25rem 0.5rem;';
-        resetBtn.onclick = () => this.resetView();
-        
-        controlsDiv.appendChild(exportBtn);
-        controlsDiv.appendChild(resetBtn);
-        
-        this.container.appendChild(controlsDiv);
-    }
-    
-    /**
-     * Export the current graph as SVG
-     */
-    exportSVG() {
-        if (!this.svgContainer) return;
-        
-        try {
-            const svgContent = new XMLSerializer().serializeToString(this.svgContainer);
-            const blob = new Blob([svgContent], { type: 'image/svg+xml' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `cpee-graph-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.svg`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            this.showStatus('📥 SVG exported successfully', 'success');
-        } catch (error) {
-            this.showStatus('❌ Failed to export SVG', 'error');
-            console.error('Export error:', error);
-        }
-    }
-    
-    /**
-     * Reset the graph view
-     */
-    resetView() {
-        if (this.xmlInput && this.xmlInput.value.trim()) {
-            this.renderGraph(this.xmlInput.value);
-        } else {
-            this.resetContainer();
-        }
+        // Graph controls have been removed as requested
+        // The graph will display without additional control buttons
     }
     
     /**

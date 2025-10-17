@@ -194,56 +194,6 @@ export class CPEEGraphRenderer {
 </description>`;
     }
 
-    /**
-     * Create complex sample CPEE XML with parallel branches
-     */
-    createComplexSampleXML() {
-        return `<?xml version="1.0"?>
-<description xmlns="http://cpee.org/ns/description/1.0">
-  <call id="start" endpoint="">
-    <parameters>
-      <label>Initialize Process</label>
-      <method>post</method>
-      <type>:task</type>
-      <mid>'start'</mid>
-      <arguments/>
-    </parameters>
-  </call>
-  <parallel>
-    <parallel_branch>
-      <call id="task1" endpoint="">
-        <parameters>
-          <label>Parallel Task 1</label>
-          <method>post</method>
-          <type>:task</type>
-          <mid>'p1'</mid>
-          <arguments/>
-        </parameters>
-      </call>
-    </parallel_branch>
-    <parallel_branch>
-      <call id="task2" endpoint="">
-        <parameters>
-          <label>Parallel Task 2</label>
-          <method>post</method>
-          <type>:task</type>
-          <mid>'p2'</mid>
-          <arguments/>
-        </parameters>
-      </call>
-    </parallel_branch>
-  </parallel>
-  <call id="final" endpoint="">
-    <parameters>
-      <label>Finalize Process</label>
-      <method>post</method>
-      <type>:task</type>
-      <mid>'final'</mid>
-      <arguments/>
-    </parameters>
-  </call>
-</description>`;
-    }
 
     /**
      * Load sample CPEE XML for testing
@@ -253,17 +203,6 @@ export class CPEEGraphRenderer {
             const sampleXML = this.createSampleXML();
             this.xmlInput.value = sampleXML;
             this.renderGraph(sampleXML);
-        }
-    }
-    
-    /**
-     * Load complex sample CPEE XML
-     */
-    loadComplexSample() {
-        if (this.xmlInput) {
-            const complexXML = this.createComplexSampleXML();
-            this.xmlInput.value = complexXML;
-            this.renderGraph(complexXML);
         }
     }
     
@@ -278,20 +217,6 @@ export class CPEEGraphRenderer {
                 return;
             }
             this.renderGraph(xml);
-        }
-    }
-    
-    /**
-     * Clear the rendered graph
-     */
-    clearGraph() {
-        CPEEGraphService.clearGraph(this.container);
-        this.currentAdaptor = null;
-        this.isRendered = false;
-        this.clearStatus();
-        
-        if (this.xmlInput) {
-            this.xmlInput.value = '';
         }
     }
     
