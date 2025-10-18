@@ -121,20 +121,20 @@ export class CPEEWfAdaptorRenderer {
             height: auto;
         `;
         
-        // Create SVG container matching CPEE structure
+        // Create SVG container matching CPEE structure with unique IDs
         const graphDiv = document.createElement('div');
-        graphDiv.id = 'modelling';
+        graphDiv.id = `modelling-${this.container.id}`;
         graphDiv.style.cssText = 'width: 100%; height: auto; position: relative; min-height: 100px;';
         
         const gridDiv = document.createElement('div');
-        gridDiv.id = 'graphgrid';
+        gridDiv.id = `graphgrid-${this.container.id}`;
         gridDiv.style.cssText = 'width: 100%; height: auto; min-height: 100px;';
         
-        // Create SVG element for CPEE rendering - let it size naturally
+        // Create SVG element for CPEE rendering with unique ID
         this.svgContainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        this.svgContainer.id = 'graphcanvas';
-        this.svgContainer.setAttribute('width', 'auto');
-        this.svgContainer.setAttribute('height', 'auto');
+        this.svgContainer.id = `graphcanvas-${this.container.id}`;
+        this.svgContainer.setAttribute('width', '100%');
+        this.svgContainer.setAttribute('height', '500');
         this.svgContainer.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         this.svgContainer.setAttribute('version', '1.1');
         this.svgContainer.setAttribute('xmlns:x', 'http://www.w3.org/1999/xlink');
@@ -171,20 +171,20 @@ export class CPEEWfAdaptorRenderer {
             
             this.showStatus('🎨 Rendering graph with CPEE WfAdaptor...', 'loading');
             
+            // Store reference to self for use in callback
+            const self = this;
+            
             // Create WfAdaptor instance
             this.adaptor = new WfAdaptor('src/libs/cpee/themes/preset/theme.js', (graphrealization) => {
                 console.log('🎨 WfAdaptor loaded, rendering graph...');
                 
-                // Set the SVG container
-                graphrealization.set_svg_container($('#graphcanvas'));
+                // Set the SVG container with unique ID
+                graphrealization.set_svg_container($(`#graphcanvas-${self.container.id}`));
                 
-                // Initialize label container for hover functionality  
-                if (!graphrealization.illustrator.svg.label_container) {
-                    // Create a hidden container for labels that WfAdaptor expects
-                    const labelContainer = $('<div id="graph-labels" style="display: none;"></div>');
-                    $('#modelling').append(labelContainer);
-                    graphrealization.illustrator.svg.label_container = labelContainer;
-                }
+                // Always initialize label container for hover functionality with unique ID
+                const labelContainer = $(`<div id="graph-labels-${self.container.id}" style="display: none;"></div>`);
+                $(`#modelling-${self.container.id}`).append(labelContainer);
+                graphrealization.illustrator.svg.label_container = labelContainer;
                 
                 // Prevent WfAdaptor from interfering with main form inputs
                 // Override any global event handlers that might capture form inputs
@@ -360,7 +360,8 @@ export class CPEEWfAdaptorRenderer {
      */
     resetContainer() {
         this.isRendered = false;
-        this.adaptor = null;
+        // Don't nullify adaptor to avoid conflicts between multiple instances
+        // this.adaptor = null;
         this.setupContainer();
     }
     

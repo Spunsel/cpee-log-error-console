@@ -10,7 +10,8 @@ export class StepViewer {
     constructor(instanceService) {
         this.instanceService = instanceService;
         this.onStepChange = null;
-        this.graphRenderer = null;
+        this.inputGraphRenderer = null;
+        this.outputGraphRenderer = null;
         this.currentGraphContainer = null;
     }
 
@@ -48,7 +49,11 @@ export class StepViewer {
         this.updateSectionContent('input-intermediate-content', step.getContent('inputIntermediate'));
         this.updateSectionContent('user-input-content', step.getContent('userInput'));
         this.updateSectionContent('output-intermediate-content', step.getContent('outputIntermediate'));
-        this.updateSectionContent('output-cpee-content', step.getContent('outputCpeeTree'));
+        
+        // Small delay to prevent renderer conflicts, then render output graph
+        setTimeout(async () => {
+            await this.updateOutputCpeeSection(step.getContent('outputCpeeTree'));
+        }, 100);
 
         // Setup/update navigation
         this.setupStepNavigation();
@@ -223,16 +228,16 @@ export class StepViewer {
             inputCpeeElement.appendChild(modellingDiv);
             inputCpeeElement.appendChild(graphContainer);
             
-            // Initialize or reuse graph renderer
-            if (!this.graphRenderer) {
-                this.graphRenderer = new CPEEWfAdaptorRenderer();
+            // Initialize or reuse input graph renderer
+            if (!this.inputGraphRenderer) {
+                this.inputGraphRenderer = new CPEEWfAdaptorRenderer();
             }
             
             // Initialize the renderer with the container and required elements
-            await this.graphRenderer.initialize(`${uniqueId}-graph-container`, null, `${uniqueId}-input`);
+            await this.inputGraphRenderer.initialize(`${uniqueId}-graph-container`, null, `${uniqueId}-input`);
             
             // Render the graph
-            await this.graphRenderer.renderGraph(cpeeXml);
+            await this.inputGraphRenderer.renderGraph(cpeeXml);
             
             console.log('✅ CPEE graph rendered in step viewer');
             
@@ -258,6 +263,115 @@ export class StepViewer {
             // Reset height after error content is set
             setTimeout(() => {
                 inputCpeeElement.style.height = 'auto';
+            }, 50);
+        }
+    }
+
+    /**
+     * Update the Output CPEE Tree section with a rendered graph
+     * @param {string} cpeeXml - CPEE XML content to render as graph
+     */
+    async updateOutputCpeeSection(cpeeXml) {
+        const outputCpeeElement = DOMUtils.getElementById('output-cpee-content');
+        if (!outputCpeeElement) return;
+
+        // Check if we have valid CPEE XML
+        if (!cpeeXml || cpeeXml === 'Not found' || cpeeXml === 'No content available') {
+            // Store current height to prevent flickering
+            const currentHeight = outputCpeeElement.offsetHeight;
+            if (currentHeight > 100) {
+                outputCpeeElement.style.height = currentHeight + 'px';
+            }
+            
+            outputCpeeElement.innerHTML = '<div class="no-content">No output CPEE tree available for this step</div>';
+            
+            // Reset height after content is set
+            setTimeout(() => {
+                outputCpeeElement.style.height = 'auto';
+            }, 50);
+            return;
+        }
+
+        try {
+            // Store current height to prevent flickering during transition
+            const currentHeight = outputCpeeElement.offsetHeight;
+            if (currentHeight > 100) {
+                outputCpeeElement.style.height = currentHeight + 'px';
+            }
+            
+            // Clear the existing content and create graph container
+            outputCpeeElement.innerHTML = '';
+            
+            // Create unique IDs to avoid conflicts with input graph and main form
+            const uniqueId = `output-step-${Date.now()}`;
+            
+            // Create a container for the output graph
+            const graphContainer = document.createElement('div');
+            graphContainer.id = `${uniqueId}-graph-container`;
+            graphContainer.style.cssText = `
+                width: 100%;
+                min-height: 100px;
+                height: auto;
+                border: none;
+                border-radius: 0;
+                background: white;
+                position: relative;
+                margin: 0;
+                padding: 0;
+            `;
+            
+            // Create elements that CPEE WfAdaptor expects for hover functionality
+            
+            const inputElement = document.createElement('textarea');
+            inputElement.id = `${uniqueId}-input`;
+            inputElement.style.cssText = 'display: none; pointer-events: none; position: absolute; left: -9999px;';
+            inputElement.value = cpeeXml; // Provide the XML content
+            inputElement.setAttribute('readonly', true); // Make it readonly to prevent interference
+            
+            // Create modelling container structure that WfAdaptor expects
+            const modellingDiv = document.createElement('div');
+            modellingDiv.id = `${uniqueId}-modelling`;
+            modellingDiv.style.cssText = 'display: none;';
+            
+            outputCpeeElement.appendChild(inputElement);
+            outputCpeeElement.appendChild(modellingDiv);
+            outputCpeeElement.appendChild(graphContainer);
+            
+            // Initialize or reuse output graph renderer
+            if (!this.outputGraphRenderer) {
+                this.outputGraphRenderer = new CPEEWfAdaptorRenderer();
+            }
+            
+            // Initialize the renderer with the container and required elements
+            await this.outputGraphRenderer.initialize(`${uniqueId}-graph-container`, null, `${uniqueId}-input`);
+            
+            // Render the graph
+            await this.outputGraphRenderer.renderGraph(cpeeXml);
+            
+            console.log('✅ Output CPEE graph rendered in step viewer');
+            
+            // Reset height to auto after graph is rendered to allow natural sizing
+            setTimeout(() => {
+                outputCpeeElement.style.height = 'auto';
+            }, 100);
+            
+        } catch (error) {
+            console.error('❌ Failed to render output CPEE graph in step viewer:', error);
+            
+            // Fallback to text display with error message
+            outputCpeeElement.innerHTML = `
+                <div class="graph-error">
+                    <p><strong>Failed to render output graph:</strong> ${error.message}</p>
+                    <details>
+                        <summary>Show raw XML content</summary>
+                        <pre><code>${cpeeXml}</code></pre>
+                    </details>
+                </div>
+            `;
+            
+            // Reset height after error content is set
+            setTimeout(() => {
+                outputCpeeElement.style.height = 'auto';
             }, 50);
         }
     }
@@ -294,12 +408,22 @@ export class StepViewer {
             if (currentHeight > 100) {
                 inputCpeeElement.style.height = currentHeight + 'px';
             }
-            inputCpeeElement.innerHTML = '<div class="loading-graph">Loading graph...</div>';
+            inputCpeeElement.innerHTML = '<div class="loading-graph">Loading input graph...</div>';
         }
+        
+        const outputCpeeElement = DOMUtils.getElementById('output-cpee-content');
+        if (outputCpeeElement) {
+            // Store current height to prevent flickering during loading
+            const currentHeight = outputCpeeElement.offsetHeight;
+            if (currentHeight > 100) {
+                outputCpeeElement.style.height = currentHeight + 'px';
+            }
+            outputCpeeElement.innerHTML = '<div class="loading-graph">Loading output graph...</div>';
+        }
+        
         this.updateSectionContent('input-intermediate-content', 'Loading...');
         this.updateSectionContent('user-input-content', 'Loading...');
         this.updateSectionContent('output-intermediate-content', 'Loading...');
-        this.updateSectionContent('output-cpee-content', 'Loading...');
     }
 
     /**
@@ -317,16 +441,31 @@ export class StepViewer {
             if (currentHeight > 100) {
                 inputCpeeElement.style.height = currentHeight + 'px';
             }
-            inputCpeeElement.innerHTML = `<div class="error-message">Error: ${message}</div>`;
+            inputCpeeElement.innerHTML = `<div class="error-message">Input Error: ${message}</div>`;
             
             // Reset height after error content is set
             setTimeout(() => {
                 inputCpeeElement.style.height = 'auto';
             }, 50);
         }
+        
+        const outputCpeeElement = DOMUtils.getElementById('output-cpee-content');
+        if (outputCpeeElement) {
+            // Store current height to prevent flickering during error display
+            const currentHeight = outputCpeeElement.offsetHeight;
+            if (currentHeight > 100) {
+                outputCpeeElement.style.height = currentHeight + 'px';
+            }
+            outputCpeeElement.innerHTML = `<div class="error-message">Output Error: ${message}</div>`;
+            
+            // Reset height after error content is set
+            setTimeout(() => {
+                outputCpeeElement.style.height = 'auto';
+            }, 50);
+        }
+        
         this.updateSectionContent('input-intermediate-content', '');
         this.updateSectionContent('user-input-content', '');
         this.updateSectionContent('output-intermediate-content', '');
-        this.updateSectionContent('output-cpee-content', '');
     }
 }
