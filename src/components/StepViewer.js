@@ -4,11 +4,14 @@
  */
 
 import { DOMUtils } from '../utils/DOMUtils.js';
+import { CPEEWfAdaptorRenderer } from './CPEEWfAdaptorRenderer.js';
 
 export class StepViewer {
     constructor(instanceService) {
         this.instanceService = instanceService;
         this.onStepChange = null;
+        this.graphRenderer = null;
+        this.currentGraphContainer = null;
     }
 
     /**
@@ -24,7 +27,7 @@ export class StepViewer {
      * @param {CPEEStep} step - Step data
      * @param {Object} navInfo - Navigation info
      */
-    displayStep(step, navInfo) {
+    async displayStep(step, navInfo) {
         if (!step) return;
 
         console.log(`Displaying ${step.getDisplayName()}`);
@@ -40,7 +43,8 @@ export class StepViewer {
         }
 
         // Update content sections using CPEEStep methods
-        this.updateSectionContent('input-cpee-content', step.getContent('inputCpeeTree'));
+        // For input CPEE tree, render as graph instead of raw XML
+        await this.updateInputCpeeSection(step.getContent('inputCpeeTree'));
         this.updateSectionContent('input-intermediate-content', step.getContent('inputIntermediate'));
         this.updateSectionContent('user-input-content', step.getContent('userInput'));
         this.updateSectionContent('output-intermediate-content', step.getContent('outputIntermediate'));
@@ -122,11 +126,11 @@ export class StepViewer {
     /**
      * Navigate to previous step
      */
-    previousStep() {
+    async previousStep() {
         if (this.instanceService.previousStep()) {
             const step = this.instanceService.getCurrentStep();
             const navInfo = this.instanceService.getNavigationInfo();
-            this.displayStep(step, navInfo);
+            await this.displayStep(step, navInfo);
             
             if (this.onStepChange) {
                 this.onStepChange(this.instanceService.currentStepIndex);
@@ -137,15 +141,99 @@ export class StepViewer {
     /**
      * Navigate to next step
      */
-    nextStep() {
+    async nextStep() {
         if (this.instanceService.nextStep()) {
             const step = this.instanceService.getCurrentStep();
             const navInfo = this.instanceService.getNavigationInfo();
-            this.displayStep(step, navInfo);
+            await this.displayStep(step, navInfo);
             
             if (this.onStepChange) {
                 this.onStepChange(this.instanceService.currentStepIndex);
             }
+        }
+    }
+
+    /**
+     * Update the Input CPEE Tree section with a rendered graph
+     * @param {string} cpeeXml - CPEE XML content to render as graph
+     */
+    async updateInputCpeeSection(cpeeXml) {
+        const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
+        if (!inputCpeeElement) return;
+
+        // Check if we have valid CPEE XML
+        if (!cpeeXml || cpeeXml === 'Not found' || cpeeXml === 'No content available') {
+            inputCpeeElement.innerHTML = '<div class="no-content">No CPEE tree available for this step</div>';
+            return;
+        }
+
+        try {
+            // Clear the existing content and create graph container
+            inputCpeeElement.innerHTML = '';
+            
+            // Create unique IDs to avoid conflicts with main form
+            const uniqueId = `step-${Date.now()}`;
+            
+            // Create a container for the graph
+            const graphContainer = document.createElement('div');
+            graphContainer.id = `${uniqueId}-graph-container`;
+            graphContainer.style.cssText = `
+                width: 100%;
+                min-height: 400px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                background: white;
+                position: relative;
+            `;
+            
+            // Create elements that CPEE WfAdaptor expects for hover functionality
+            
+            const statusElement = document.createElement('div');
+            statusElement.id = `${uniqueId}-status`;
+            statusElement.style.cssText = 'display: none; position: absolute; z-index: 1000;';
+            
+            const inputElement = document.createElement('textarea');
+            inputElement.id = `${uniqueId}-input`;
+            inputElement.style.cssText = 'display: none; pointer-events: none; position: absolute; left: -9999px;';
+            inputElement.value = cpeeXml; // Provide the XML content
+            inputElement.setAttribute('readonly', true); // Make it readonly to prevent interference
+            
+            // Create modelling container structure that WfAdaptor expects
+            const modellingDiv = document.createElement('div');
+            modellingDiv.id = `${uniqueId}-modelling`;
+            modellingDiv.style.cssText = 'display: none;';
+            
+            inputCpeeElement.appendChild(statusElement);
+            inputCpeeElement.appendChild(inputElement);
+            inputCpeeElement.appendChild(modellingDiv);
+            inputCpeeElement.appendChild(graphContainer);
+            
+            // Initialize or reuse graph renderer
+            if (!this.graphRenderer) {
+                this.graphRenderer = new CPEEWfAdaptorRenderer();
+            }
+            
+            // Initialize the renderer with the container and required elements
+            await this.graphRenderer.initialize(`${uniqueId}-graph-container`, `${uniqueId}-status`, `${uniqueId}-input`);
+            
+            // Render the graph
+            await this.graphRenderer.renderGraph(cpeeXml);
+            
+            console.log('✅ CPEE graph rendered in step viewer');
+            
+        } catch (error) {
+            console.error('❌ Failed to render CPEE graph in step viewer:', error);
+            
+            // Fallback to text display with error message
+            inputCpeeElement.innerHTML = `
+                <div class="graph-error">
+                    <p><strong>Failed to render graph:</strong> ${error.message}</p>
+                    <details>
+                        <summary>Show raw XML content</summary>
+                        <pre><code>${cpeeXml}</code></pre>
+                    </details>
+                </div>
+            `;
         }
     }
 
@@ -174,7 +262,10 @@ export class StepViewer {
         DOMUtils.addClass('step-details', 'hidden');
 
         // Show loading in all sections
-        this.updateSectionContent('input-cpee-content', 'Loading...');
+        const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
+        if (inputCpeeElement) {
+            inputCpeeElement.innerHTML = '<div class="loading-graph">Loading graph...</div>';
+        }
         this.updateSectionContent('input-intermediate-content', 'Loading...');
         this.updateSectionContent('user-input-content', 'Loading...');
         this.updateSectionContent('output-intermediate-content', 'Loading...');
@@ -189,7 +280,10 @@ export class StepViewer {
         DOMUtils.removeClass('process-analysis', 'hidden');
         DOMUtils.addClass('step-details', 'hidden');
 
-        this.updateSectionContent('input-cpee-content', `Error: ${message}`);
+        const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
+        if (inputCpeeElement) {
+            inputCpeeElement.innerHTML = `<div class="error-message">Error: ${message}</div>`;
+        }
         this.updateSectionContent('input-intermediate-content', '');
         this.updateSectionContent('user-input-content', '');
         this.updateSectionContent('output-intermediate-content', '');

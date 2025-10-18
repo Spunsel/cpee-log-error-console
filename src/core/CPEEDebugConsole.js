@@ -45,7 +45,7 @@ export class CPEEDebugConsole {
             await this.loadInstance(urlParams.uuid);
             if (this.instanceService.hasInstance(urlParams.uuid)) {
                 this.sidebar.setActiveTab(urlParams.uuid);
-                this.displayInstance(urlParams.uuid, urlParams.step - 1);
+                await this.displayInstance(urlParams.uuid, urlParams.step - 1);
             }
         } else {
             // Show default state
@@ -60,8 +60,8 @@ export class CPEEDebugConsole {
      */
     setupComponentCallbacks() {
         // When instance is selected in sidebar
-        this.sidebar.setOnInstanceSelect((uuid) => {
-            this.displayInstance(uuid);
+        this.sidebar.setOnInstanceSelect(async (uuid) => {
+            await this.displayInstance(uuid);
         });
 
         // When step changes in step viewer
@@ -253,7 +253,7 @@ export class CPEEDebugConsole {
      * @param {string} uuid - Instance UUID
      * @param {number} stepIndex - Step index (optional)
      */
-    displayInstance(uuid, stepIndex = 0) {
+    async displayInstance(uuid, stepIndex = 0) {
         console.log(`Displaying instance: ${uuid}, step: ${stepIndex + 1}`);
         
         // Hide raw log viewer when selecting an instance
@@ -268,7 +268,7 @@ export class CPEEDebugConsole {
         const navInfo = this.instanceService.getNavigationInfo();
         
         if (step) {
-            this.stepViewer.displayStep(step, navInfo);
+            await this.stepViewer.displayStep(step, navInfo);
             URLUtils.updateURL(uuid, stepIndex + 1);
         } else {
             this.stepViewer.showError('Failed to load step data');
@@ -279,11 +279,11 @@ export class CPEEDebugConsole {
      * Navigate to specific step
      * @param {number} stepIndex - Step index
      */
-    goToStep(stepIndex) {
+    async goToStep(stepIndex) {
         if (this.instanceService.goToStep(stepIndex)) {
             const step = this.instanceService.getCurrentStep();
             const navInfo = this.instanceService.getNavigationInfo();
-            this.stepViewer.displayStep(step, navInfo);
+            await this.stepViewer.displayStep(step, navInfo);
             URLUtils.updateURL(this.instanceService.currentUUID, stepIndex + 1);
         }
     }

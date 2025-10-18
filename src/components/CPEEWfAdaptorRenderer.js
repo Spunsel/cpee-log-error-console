@@ -198,6 +198,20 @@ export class CPEEWfAdaptorRenderer {
                 // Set the SVG container
                 graphrealization.set_svg_container($('#graphcanvas'));
                 
+                // Initialize label container for hover functionality  
+                if (!graphrealization.illustrator.svg.label_container) {
+                    // Create a hidden container for labels that WfAdaptor expects
+                    const labelContainer = $('<div id="graph-labels" style="display: none;"></div>');
+                    $('#modelling').append(labelContainer);
+                    graphrealization.illustrator.svg.label_container = labelContainer;
+                }
+                
+                // Prevent WfAdaptor from interfering with main form inputs
+                // Override any global event handlers that might capture form inputs
+                const originalKeydown = $(document).off('keydown.wfadaptor');
+                const originalKeyup = $(document).off('keyup.wfadaptor');
+                const originalKeypress = $(document).off('keypress.wfadaptor');
+                
                 // Parse XML properly for WfAdaptor
                 const parser = new DOMParser();
                 const xmlDoc = parser.parseFromString(cleanedXML, 'text/xml');
