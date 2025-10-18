@@ -162,6 +162,33 @@ export class StepViewer {
     }
 
     /**
+     * Preserve container height and hide overflow during transitions
+     * @param {HTMLElement} element - The container element
+     * @returns {function} - Cleanup function to restore normal state
+     */
+    preserveHeightDuringTransition(element) {
+        // Store current height to prevent bouncing
+        const currentHeight = element.offsetHeight;
+        const contentBox = element.closest('.content-box') || element;
+        
+        // Add transitioning class to hide overflow
+        contentBox.classList.add('transitioning');
+        
+        // Preserve height only if it's significant
+        if (currentHeight > 100) {
+            element.style.height = currentHeight + 'px';
+        }
+        
+        // Return cleanup function
+        return () => {
+            setTimeout(() => {
+                element.style.height = 'auto';
+                contentBox.classList.remove('transitioning');
+            }, 100);
+        };
+    }
+
+    /**
      * Update the Input CPEE Tree section with a rendered graph
      * @param {string} cpeeXml - CPEE XML content to render as graph
      */
@@ -171,27 +198,19 @@ export class StepViewer {
 
         // Check if we have valid CPEE XML
         if (!cpeeXml || cpeeXml === 'Not found' || cpeeXml === 'No content available') {
-            // Store current height to prevent flickering
-            const currentHeight = inputCpeeElement.offsetHeight;
-            if (currentHeight > 100) {
-                inputCpeeElement.style.height = currentHeight + 'px';
-            }
+            // Preserve height and hide overflow during transition
+            const cleanup = this.preserveHeightDuringTransition(inputCpeeElement);
             
             inputCpeeElement.innerHTML = '<div class="no-content">No CPEE tree available for this step</div>';
             
-            // Reset height after content is set
-            setTimeout(() => {
-                inputCpeeElement.style.height = 'auto';
-            }, 50);
+            // Restore normal state
+            cleanup();
             return;
         }
 
         try {
-            // Store current height to prevent flickering during transition
-            const currentHeight = inputCpeeElement.offsetHeight;
-            if (currentHeight > 100) {
-                inputCpeeElement.style.height = currentHeight + 'px';
-            }
+            // Preserve height and hide overflow during transition
+            const cleanup = this.preserveHeightDuringTransition(inputCpeeElement);
             
             // Clear the existing content and create graph container
             inputCpeeElement.innerHTML = '';
@@ -244,10 +263,8 @@ export class StepViewer {
             
             console.log('✅ CPEE graph rendered in step viewer');
             
-            // Reset height to auto after graph is rendered to allow natural sizing
-            setTimeout(() => {
-                inputCpeeElement.style.height = 'auto';
-            }, 100);
+            // Restore normal state after graph is rendered
+            cleanup();
             
         } catch (error) {
             console.error('❌ Failed to render CPEE graph in step viewer:', error);
@@ -263,10 +280,8 @@ export class StepViewer {
                 </div>
             `;
             
-            // Reset height after error content is set
-            setTimeout(() => {
-                inputCpeeElement.style.height = 'auto';
-            }, 50);
+            // Restore normal state after error content is set
+            cleanup();
         }
     }
 
@@ -280,27 +295,19 @@ export class StepViewer {
 
         // Check if we have valid CPEE XML
         if (!cpeeXml || cpeeXml === 'Not found' || cpeeXml === 'No content available') {
-            // Store current height to prevent flickering
-            const currentHeight = outputCpeeElement.offsetHeight;
-            if (currentHeight > 100) {
-                outputCpeeElement.style.height = currentHeight + 'px';
-            }
+            // Preserve height and hide overflow during transition
+            const cleanup = this.preserveHeightDuringTransition(outputCpeeElement);
             
             outputCpeeElement.innerHTML = '<div class="no-content">No output CPEE tree available for this step</div>';
             
-            // Reset height after content is set
-            setTimeout(() => {
-                outputCpeeElement.style.height = 'auto';
-            }, 50);
+            // Restore normal state
+            cleanup();
             return;
         }
 
         try {
-            // Store current height to prevent flickering during transition
-            const currentHeight = outputCpeeElement.offsetHeight;
-            if (currentHeight > 100) {
-                outputCpeeElement.style.height = currentHeight + 'px';
-            }
+            // Preserve height and hide overflow during transition
+            const cleanup = this.preserveHeightDuringTransition(outputCpeeElement);
             
             // Clear the existing content and create graph container
             outputCpeeElement.innerHTML = '';
@@ -353,10 +360,8 @@ export class StepViewer {
             
             console.log('✅ Output CPEE graph rendered in step viewer');
             
-            // Reset height to auto after graph is rendered to allow natural sizing
-            setTimeout(() => {
-                outputCpeeElement.style.height = 'auto';
-            }, 100);
+            // Restore normal state after graph is rendered
+            cleanup();
             
         } catch (error) {
             console.error('❌ Failed to render output CPEE graph in step viewer:', error);
@@ -372,10 +377,8 @@ export class StepViewer {
                 </div>
             `;
             
-            // Reset height after error content is set
-            setTimeout(() => {
-                outputCpeeElement.style.height = 'auto';
-            }, 50);
+            // Restore normal state after error content is set
+            cleanup();
         }
     }
 
@@ -389,21 +392,21 @@ export class StepViewer {
 
         // Check if content is just a comment header without actual content
         if (this.isOnlyCommentHeader(content)) {
+            // Preserve height and hide overflow during transition
+            const cleanup = this.preserveHeightDuringTransition(inputIntermediateElement);
+            
             inputIntermediateElement.innerHTML = '<div class="no-content">Empty Mermaid graph</div>';
-            // Reset height to auto for no-content case
-            inputIntermediateElement.style.height = 'auto';
-            inputIntermediateElement.style.minHeight = 'auto';
+            
+            // Restore normal state
+            cleanup();
             return;
         }
 
         // Check if content contains Mermaid syntax
         if (this.containsMermaidSyntax(content)) {
             try {
-                // Store current height to prevent flickering
-                const currentHeight = inputIntermediateElement.offsetHeight;
-                if (currentHeight > 100) {
-                    inputIntermediateElement.style.height = currentHeight + 'px';
-                }
+                // Preserve height and hide overflow during transition
+                const cleanup = this.preserveHeightDuringTransition(inputIntermediateElement);
                 
                 // Clear existing content and create graph container
                 inputIntermediateElement.innerHTML = '';
@@ -442,15 +445,15 @@ export class StepViewer {
                 
                 console.log('✅ Input intermediate Mermaid graph rendered');
                 
-                // Reset height to auto after graph is rendered
-                setTimeout(() => {
-                    inputIntermediateElement.style.height = 'auto';
-                }, 100);
+                // Restore normal state after graph is rendered
+                cleanup();
                 
             } catch (error) {
                 console.error('❌ Error rendering input intermediate Mermaid:', error);
                 // Fallback to raw content display
                 this.updateSectionContent('input-intermediate-content', content);
+                // Restore normal state after error
+                cleanup();
             }
         } else {
             // Display as regular text content
@@ -468,21 +471,21 @@ export class StepViewer {
 
         // Check if content is just a comment header without actual content
         if (this.isOnlyCommentHeader(content)) {
+            // Preserve height and hide overflow during transition
+            const cleanup = this.preserveHeightDuringTransition(outputIntermediateElement);
+            
             outputIntermediateElement.innerHTML = '<div class="no-content">Empty Mermaid graph</div>';
-            // Reset height to auto for no-content case
-            outputIntermediateElement.style.height = 'auto';
-            outputIntermediateElement.style.minHeight = 'auto';
+            
+            // Restore normal state
+            cleanup();
             return;
         }
 
         // Check if content contains Mermaid syntax
         if (this.containsMermaidSyntax(content)) {
             try {
-                // Store current height to prevent flickering
-                const currentHeight = outputIntermediateElement.offsetHeight;
-                if (currentHeight > 100) {
-                    outputIntermediateElement.style.height = currentHeight + 'px';
-                }
+                // Preserve height and hide overflow during transition
+                const cleanup = this.preserveHeightDuringTransition(outputIntermediateElement);
                 
                 // Clear existing content and create graph container
                 outputIntermediateElement.innerHTML = '';
@@ -521,15 +524,15 @@ export class StepViewer {
                 
                 console.log('✅ Output intermediate Mermaid graph rendered');
                 
-                // Reset height to auto after graph is rendered
-                setTimeout(() => {
-                    outputIntermediateElement.style.height = 'auto';
-                }, 100);
+                // Restore normal state after graph is rendered
+                cleanup();
                 
             } catch (error) {
                 console.error('❌ Error rendering output intermediate Mermaid:', error);
                 // Fallback to raw content display
                 this.updateSectionContent('output-intermediate-content', content);
+                // Restore normal state after error
+                cleanup();
             }
         } else {
             // Display as regular text content
@@ -584,6 +587,12 @@ export class StepViewer {
     updateUserInputSection(content) {
         const userInputElement = DOMUtils.getElementById('user-input-content');
         if (!userInputElement) return;
+
+        // Add class to parent content-box to identify user input section
+        const contentBox = userInputElement.closest('.content-box');
+        if (contentBox) {
+            contentBox.classList.add('user-input-content-box');
+        }
 
         // Check if there's valid user input content
         if (!content || content === 'Not found' || content === 'No content available') {
@@ -685,21 +694,15 @@ export class StepViewer {
         // Show loading in all sections
         const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
         if (inputCpeeElement) {
-            // Store current height to prevent flickering during loading
-            const currentHeight = inputCpeeElement.offsetHeight;
-            if (currentHeight > 100) {
-                inputCpeeElement.style.height = currentHeight + 'px';
-            }
+            // Preserve height and hide overflow during loading
+            this.preserveHeightDuringTransition(inputCpeeElement);
             inputCpeeElement.innerHTML = '<div class="loading-graph">Loading input graph...</div>';
         }
         
         const outputCpeeElement = DOMUtils.getElementById('output-cpee-content');
         if (outputCpeeElement) {
-            // Store current height to prevent flickering during loading
-            const currentHeight = outputCpeeElement.offsetHeight;
-            if (currentHeight > 100) {
-                outputCpeeElement.style.height = currentHeight + 'px';
-            }
+            // Preserve height and hide overflow during loading
+            this.preserveHeightDuringTransition(outputCpeeElement);
             outputCpeeElement.innerHTML = '<div class="loading-graph">Loading output graph...</div>';
         }
         

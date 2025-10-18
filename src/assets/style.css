@@ -352,7 +352,7 @@ body {
 }
 
 .cpee-section h3 {
-    background: #f1f5f9;
+    background: #cbced1;
     padding: 1rem 1.5rem;
     margin: 0;
     border-bottom: 1px solid var(--border-color);
@@ -371,7 +371,7 @@ body {
 }
 
 .mermaid-section h3 {
-    background: #f1f5f9;
+    background: #cbced1;
     padding: 1rem 1.5rem;
     margin: 0;
     border-bottom: 1px solid var(--border-color);
@@ -385,17 +385,70 @@ body {
     height: auto;
     min-height: auto;
     max-height: none;
-    overflow-x: auto;
-    overflow-y: visible;
+    overflow-x: scroll;  /* Always show horizontal scrollbar when needed */
+    overflow-y: scroll;  /* Always show vertical scrollbar when needed */
     white-space: nowrap;
     display: flex;
     align-items: flex-start;
 }
 
+/* Mermaid sections - transition overflow control */
+.mermaid-section .content-box.transitioning {
+    overflow: hidden !important;
+    white-space: normal;
+}
+
 .content-box {
     padding: 1rem;
-    max-height: 300px;
+    max-height: 500px;
     overflow-y: auto;
+}
+
+/* Prevent scrollbars during transitions */
+.content-box.transitioning {
+    overflow: hidden !important;
+}
+
+/* CPEE sections - specific overflow control with horizontal scroll */
+.cpee-section .content-box {
+    overflow-y: scroll;  /* Always show vertical scrollbar when needed */
+    overflow-x: scroll;  /* Always show horizontal scrollbar when needed */
+    position: relative;
+}
+
+.cpee-section .content-box.transitioning {
+    overflow: hidden !important;
+}
+
+/* User Input section - never show scrollbars */
+#user-input-content {
+    overflow: hidden !important;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: none !important;
+}
+
+/* Target the user input content-box specifically using the class added by JavaScript */
+.user-input-content-box {
+    overflow: hidden !important;
+    max-height: none !important;
+}
+
+/* CPEE graph containers - allow horizontal overflow for wide SVGs */
+.cpee-section [id*="-graph-container"] {
+    overflow-x: visible;
+    overflow-y: visible;
+    min-width: 100%;
+    width: auto;
+    position: relative;
+}
+
+/* CPEE SVG elements - allow natural width expansion */
+.cpee-section [id*="-graph-container"] svg {
+    min-width: 100%;
+    width: auto !important;
+    max-width: none !important;
+    display: block;
 }
 
 .content-box pre {

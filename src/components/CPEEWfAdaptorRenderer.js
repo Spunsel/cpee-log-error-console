@@ -134,11 +134,11 @@ export class CPEEWfAdaptorRenderer {
         this.svgContainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.svgContainer.id = `graphcanvas-${this.container.id}`;
         this.svgContainer.setAttribute('width', '100%');
-        this.svgContainer.setAttribute('height', '500');
+        this.svgContainer.setAttribute('height', 'auto');
         this.svgContainer.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         this.svgContainer.setAttribute('version', '1.1');
         this.svgContainer.setAttribute('xmlns:x', 'http://www.w3.org/1999/xlink');
-        this.svgContainer.style.cssText = 'display: block; max-width: 100%;';
+        this.svgContainer.style.cssText = 'display: block; max-width: 100%; height: auto;';
         
         gridDiv.appendChild(this.svgContainer);
         graphDiv.appendChild(gridDiv);
@@ -226,6 +226,11 @@ export class CPEEWfAdaptorRenderer {
                 console.log('✅ CPEE graph rendered successfully');
                 // Success message removed as requested
                 this.isRendered = true;
+                
+                // Dynamically adjust SVG height based on actual content dimensions
+                setTimeout(() => {
+                    self.adjustSVGHeight();
+                }, 100);
                 
                 // Add controls
                 this.addGraphControls();
@@ -362,7 +367,37 @@ export class CPEEWfAdaptorRenderer {
         // this.adaptor = null;
         this.setupContainer();
     }
-    
+
+    /**
+     * Dynamically adjust SVG height based on actual content dimensions
+     */
+    adjustSVGHeight() {
+        if (!this.svgContainer) return;
+
+        try {
+            // Get the SVG element
+            const svg = this.svgContainer;
+            
+            // Get the bounding box of all SVG content
+            const bbox = svg.getBBox();
+            
+            // Calculate required height with some padding
+            const requiredHeight = Math.max(bbox.height + bbox.y + 20, 100); // 20px padding, min 100px
+            
+            // Update SVG height attributes
+            svg.setAttribute('height', requiredHeight.toString());
+            svg.style.height = requiredHeight + 'px';
+            
+            console.log(`📏 SVG height adjusted to ${requiredHeight}px (content: ${bbox.height}px)`);
+            
+        } catch (error) {
+            console.warn('⚠️ Could not adjust SVG height:', error);
+            // Fallback to a reasonable default height
+            this.svgContainer.setAttribute('height', '400');
+            this.svgContainer.style.height = '400px';
+        }
+    }
+
     /**
      * Show status message
      * @param {string} message - Status message

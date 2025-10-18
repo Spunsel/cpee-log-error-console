@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Mermaid Renderer Fix Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-input {
+            width: 100%;
+            min-height: 200px;
+            font-family: monospace;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .result-container {
+            min-height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            position: relative;
+        }
+        .button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background: #1d4ed8;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        .status.error {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Mermaid Renderer Fix Test</h1>
+        <p>Testing the fix for empty edge labels in CPEE-generated Mermaid syntax</p>
+        
+        <h3>📝 Problematic Mermaid Code:</h3>
+        <textarea id="mermaid-input" class="test-input" placeholder="Paste your Mermaid code here...">flowchart LR
+    se:startevent:((startevent))-->a2:task:(Task X)
+    a2:task:(Task X)-->a6:task:(Task abc)
+    a6:task:(Task abc)-->a4:task:(Task Z)
+    a4:task:(Task Z)-->a8:task:(Task a)
+    a8:task:(Task a)-->a9:task:(Task b)
+    a9:task:(Task b)-->a10:exclusivegateway:{x}
+    a10:exclusivegateway:{x}-->|count < 10| a9:task: (Task b)
+    a10:exclusivegateway:{x}-->|count >= 10| ee:endevent:(((endevent)))</textarea>
+
+        <div>
+            <button class="button" onclick="testRender()">🧪 Test Fixed Renderer</button>
+            <button class="button" onclick="clearResult()">🗑️ Clear Result</button>
+        </div>
+
+        <div id="status" class="status"></div>
+
+        <h3>📊 Render Result:</h3>
+        <div id="result-container" class="result-container"></div>
+    </div>
+
+    <script type="module">
+        import { MermaidRenderer } from './src/components/MermaidRenderer.js';
+
+        let renderer = null;
+
+        window.testRender = async function() {
+            const input = document.getElementById('mermaid-input').value;
+            const resultContainer = document.getElementById('result-container');
+            const status = document.getElementById('status');
+
+            try {
+                // Clear previous result
+                resultContainer.innerHTML = '';
+                status.style.display = 'none';
+
+                // Create unique container ID
+                const containerId = `test-container-${Date.now()}`;
+                resultContainer.innerHTML = `<div id="${containerId}" style="width: 100%; height: 100%;"></div>`;
+
+                // Initialize renderer
+                renderer = new MermaidRenderer();
+                await renderer.initialize(containerId);
+
+                // Show loading status
+                status.textContent = '🎨 Rendering Mermaid graph with fixed renderer...';
+                status.className = 'status';
+                status.style.display = 'block';
+
+                // Render the graph
+                await renderer.renderGraph(input);
+
+                // Show success
+                status.textContent = '✅ Graph rendered successfully with fixed renderer!';
+                status.className = 'status success';
+
+            } catch (error) {
+                console.error('❌ Test failed:', error);
+                status.textContent = `❌ Render failed: ${error.message}`;
+                status.className = 'status error';
+                status.style.display = 'block';
+
+                // Show fallback
+                resultContainer.innerHTML = `
+                    <div style="padding: 20px;">
+                        <h4>⚠️ Rendering Failed</h4>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <details>
+                            <summary>Show original code</summary>
+                            <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px; white-space: pre-wrap;">${input}</pre>
+                        </details>
+                    </div>
+                `;
+            }
+        };
+
+        window.clearResult = function() {
+            document.getElementById('result-container').innerHTML = '';
+            document.getElementById('status').style.display = 'none';
+        };
+
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            setTimeout(testRender, 1000);
+        });
+    </script>
+</body>
+</html>
