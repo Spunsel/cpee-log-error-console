@@ -168,9 +168,7 @@ export class CPEEWfAdaptorRenderer {
             
             // Load the WfAdaptor and theme system
             await this.loadWfAdaptor();
-            
-            this.showStatus('🎨 Rendering graph with CPEE WfAdaptor...', 'loading');
-            
+                        
             // Store reference to self for use in callback
             const self = this;
             
