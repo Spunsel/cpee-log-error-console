@@ -102,36 +102,69 @@ export class MermaidRenderer {
     initializeMermaid() {
         if (!window.mermaid) return;
 
-        // Configure mermaid for SVG output
+        // Configure mermaid for SVG output with dynamic sizing and custom colors
         window.mermaid.initialize({
             startOnLoad: false,
-            theme: 'default',
+            theme: 'base',
+            themeVariables: {
+                // Event (circle) styling - white background, black border
+                primaryColor: '#ffffff',
+                primaryBorderColor: '#000000',
+                primaryTextColor: '#000000',
+                // Start/End event styling
+                cScale0: '#ffffff',
+                cScale1: '#ffffff',
+                cScale2: '#ffffff',
+                // Task (rectangle) styling - white background, black border
+                mainBkg: '#ffffff',
+                secondBkg: '#ffffff',
+                tertiaryColor: '#ffffff',
+                // Gateway/decision styling - white background, black border
+                altBackground: '#ffffff',
+                // Border colors - all black
+                nodeBorder: '#000000',
+                primaryBorderColor: '#000000',
+                secondaryBorderColor: '#000000',
+                tertiaryBorderColor: '#000000',
+                // Text colors
+                primaryTextColor: '#000000',
+                secondaryTextColor: '#000000',
+                tertiaryTextColor: '#000000',
+                // Cluster styling
+                clusterBkg: 'none',
+                clusterBorder: '#000000'
+            },
             securityLevel: 'loose',
             fontFamily: 'Arial, Helvetica, sans-serif',
-            fontSize: 14,
+            fontSize: 11,
             flowchart: {
                 htmlLabels: true,
                 curve: 'basis',
-                padding: 20
+                padding: 15,
+                nodeSpacing: 25,
+                rankSpacing: 35,
+                useMaxWidth: false
             },
             sequence: {
-                diagramMarginX: 50,
-                diagramMarginY: 10,
-                actorMargin: 50,
-                width: 150,
-                height: 65,
-                boxMargin: 10,
-                boxTextMargin: 5,
-                noteMargin: 10,
-                messageMargin: 35
+                diagramMarginX: 25,
+                diagramMarginY: 6,
+                actorMargin: 25,
+                width: 100,
+                height: 40,
+                boxMargin: 6,
+                boxTextMargin: 3,
+                noteMargin: 6,
+                messageMargin: 20,
+                useMaxWidth: false
             },
             gantt: {
-                titleTopMargin: 25,
-                barHeight: 20,
-                fontSize: 11,
+                titleTopMargin: 15,
+                barHeight: 12,
+                fontSize: 8,
                 fontFamily: '"Open Sans", sans-serif',
                 numberSectionStyles: 4,
-                axisFormat: '%Y-%m-%d'
+                axisFormat: '%Y-%m-%d',
+                useMaxWidth: false
             }
         });
 
@@ -162,11 +195,16 @@ export class MermaidRenderer {
             // Create container for the graph
             const graphDiv = document.createElement('div');
             graphDiv.id = graphId;
+            
+            // Check if this is an intermediate graph and adjust padding accordingly
+            const isIntermediateGraph = this.container.id.includes('intermediate');
+            const padding = isIntermediateGraph ? '15px' : '20px';
+            
             graphDiv.style.cssText = `
                 width: 100%;
                 height: auto;
                 text-align: center;
-                padding: 20px;
+                padding: ${padding};
                 box-sizing: border-box;
             `;
 
@@ -185,14 +223,38 @@ export class MermaidRenderer {
 
             // Style the SVG for consistent appearance
             const svgElement = graphDiv.querySelector('svg');
+            
             if (svgElement) {
-                svgElement.style.cssText = `
-                    max-width: 100%;
-                    height: auto;
-                    display: block;
-                    margin: 0 auto;
-                    background: white;
-                `;
+                if (isIntermediateGraph) {
+                    // Allow natural growth for intermediate graphs
+                    svgElement.style.cssText = `
+                        width: auto;
+                        height: auto;
+                        display: inline-block;
+                        margin: 0;
+                        background: white;
+                        vertical-align: top;
+                    `;
+                    
+                    // Adjust container height to match SVG height after rendering
+                    setTimeout(() => {
+                        const svgHeight = svgElement.getBoundingClientRect().height;
+                        if (svgHeight > 0) {
+                            const paddingValue = isIntermediateGraph ? 30 : 40; // Account for top + bottom padding
+                            this.container.style.minHeight = (svgHeight + paddingValue) + 'px';
+                            this.container.style.height = 'auto';
+                        }
+                    }, 100);
+                } else {
+                    // Constrain other graphs to container width
+                    svgElement.style.cssText = `
+                        max-width: 100%;
+                        height: auto;
+                        display: block;
+                        margin: 0 auto;
+                        background: white;
+                    `;
+                }
             }
 
             console.log('✅ Mermaid graph rendered successfully');
@@ -215,7 +277,7 @@ export class MermaidRenderer {
 
     /**
      * Clean and validate Mermaid code
-     * @param {string} code - Raw mermaid code
+     * @param {string} code - Raw mermaid code (can be markdown-wrapped or plain)
      * @returns {string} Cleaned and validated code
      */
     cleanAndValidateMermaid(code) {
@@ -226,11 +288,25 @@ export class MermaidRenderer {
         // Remove HTML comments and extra whitespace
         let cleanedCode = code.replace(/<!--[\s\S]*?-->/g, '').trim();
 
-        // Remove any leading/trailing whitespace
+        // Remove CPEE-style comments (e.g., "%% Output Intermediate", "%% Input Intermediate")
+        cleanedCode = cleanedCode.replace(/^\s*%%.*$/gm, '').trim();
+
+        // Extract Mermaid code from markdown code blocks
+        const mermaidBlockMatch = cleanedCode.match(/```mermaid\s*\n([\s\S]*?)\n\s*```/);
+        if (mermaidBlockMatch) {
+            cleanedCode = mermaidBlockMatch[1].trim();
+        }
+
+        // Remove any remaining markdown code block syntax that might be incomplete
+        cleanedCode = cleanedCode.replace(/^```.*$/gm, '').trim();
+        cleanedCode = cleanedCode.replace(/```\s*$/gm, '').trim();
+
+        // Remove any leading/trailing whitespace and normalize line endings
         cleanedCode = cleanedCode.replace(/^\s+|\s+$/g, '');
+        cleanedCode = cleanedCode.replace(/\r\n/g, '\n');
 
         if (cleanedCode.length === 0) {
-            throw new Error('Empty Mermaid code provided');
+            throw new Error('Empty Mermaid code provided after cleaning');
         }
 
         // Basic validation - check for common mermaid diagram types
@@ -245,10 +321,12 @@ export class MermaidRenderer {
         );
 
         if (!hasValidType) {
-            throw new Error('Mermaid code does not contain a recognized diagram type');
+            console.warn('⚠️ Cleaned Mermaid code:', JSON.stringify(cleanedCode));
+            throw new Error(`Mermaid code does not contain a recognized diagram type. Cleaned content: "${cleanedCode.substring(0, 100)}..."`);
         }
 
         console.log('✅ Mermaid code validation successful');
+        console.log('🔍 Cleaned Mermaid code:', cleanedCode);
         return cleanedCode;
     }
 

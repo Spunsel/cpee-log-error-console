@@ -5,6 +5,7 @@
 
 import { DOMUtils } from '../utils/DOMUtils.js';
 import { CPEEWfAdaptorRenderer } from './CPEEWfAdaptorRenderer.js';
+import { MermaidRenderer } from './MermaidRenderer.js';
 
 export class StepViewer {
     constructor(instanceService) {
@@ -12,6 +13,8 @@ export class StepViewer {
         this.onStepChange = null;
         this.inputGraphRenderer = null;
         this.outputGraphRenderer = null;
+        this.inputMermaidRenderer = null;
+        this.outputMermaidRenderer = null;
         this.currentGraphContainer = null;
     }
 
@@ -46,9 +49,9 @@ export class StepViewer {
         // Update content sections using CPEEStep methods
         // For input CPEE tree, render as graph instead of raw XML
         await this.updateInputCpeeSection(step.getContent('inputCpeeTree'));
-        this.updateSectionContent('input-intermediate-content', step.getContent('inputIntermediate'));
-        this.updateSectionContent('user-input-content', step.getContent('userInput'));
-        this.updateSectionContent('output-intermediate-content', step.getContent('outputIntermediate'));
+        await this.updateInputIntermediateSection(step.getContent('inputIntermediate'));
+        this.updateUserInputSection(step.getContent('userInput'));
+        await this.updateOutputIntermediateSection(step.getContent('outputIntermediate'));
         
         // Small delay to prevent renderer conflicts, then render output graph
         setTimeout(async () => {
@@ -377,6 +380,285 @@ export class StepViewer {
     }
 
     /**
+     * Update the Input Intermediate section with Mermaid graph or raw content
+     * @param {string} content - Content from the log (may contain Mermaid syntax)
+     */
+    async updateInputIntermediateSection(content) {
+        const inputIntermediateElement = DOMUtils.getElementById('input-intermediate-content');
+        if (!inputIntermediateElement) return;
+
+        // Check if content is just a comment header without actual content
+        if (this.isOnlyCommentHeader(content)) {
+            inputIntermediateElement.innerHTML = '<div class="no-content">Empty Mermaid graph</div>';
+            // Reset height to auto for no-content case
+            inputIntermediateElement.style.height = 'auto';
+            inputIntermediateElement.style.minHeight = 'auto';
+            return;
+        }
+
+        // Check if content contains Mermaid syntax
+        if (this.containsMermaidSyntax(content)) {
+            try {
+                // Store current height to prevent flickering
+                const currentHeight = inputIntermediateElement.offsetHeight;
+                if (currentHeight > 100) {
+                    inputIntermediateElement.style.height = currentHeight + 'px';
+                }
+                
+                // Clear existing content and create graph container
+                inputIntermediateElement.innerHTML = '';
+                
+                // Create unique IDs for this intermediate graph
+                const uniqueId = `input-intermediate-${Date.now()}`;
+                
+                // Create container for the Mermaid graph
+                const graphContainer = document.createElement('div');
+                graphContainer.id = `${uniqueId}-graph-container`;
+                graphContainer.style.cssText = `
+                    width: 100%;
+                    min-height: 100px;
+                    height: auto;
+                    border: none;
+                    border-radius: 0;
+                    background: white;
+                    position: relative;
+                    margin: 0;
+                    padding: 0;
+                `;
+                
+                inputIntermediateElement.appendChild(graphContainer);
+                
+                // Initialize or reuse input mermaid renderer
+                if (!this.inputMermaidRenderer) {
+                    this.inputMermaidRenderer = new MermaidRenderer();
+                }
+                
+                // Initialize the renderer with the container
+                await this.inputMermaidRenderer.initialize(`${uniqueId}-graph-container`);
+                
+                // Extract Mermaid code and render
+                const mermaidCode = this.extractMermaidCode(content);
+                await this.inputMermaidRenderer.renderGraph(mermaidCode);
+                
+                console.log('✅ Input intermediate Mermaid graph rendered');
+                
+                // Reset height to auto after graph is rendered
+                setTimeout(() => {
+                    inputIntermediateElement.style.height = 'auto';
+                }, 100);
+                
+            } catch (error) {
+                console.error('❌ Error rendering input intermediate Mermaid:', error);
+                // Fallback to raw content display
+                this.updateSectionContent('input-intermediate-content', content);
+            }
+        } else {
+            // Display as regular text content
+            this.updateSectionContent('input-intermediate-content', content);
+        }
+    }
+
+    /**
+     * Update the Output Intermediate section with Mermaid graph or raw content
+     * @param {string} content - Content from the log (may contain Mermaid syntax)
+     */
+    async updateOutputIntermediateSection(content) {
+        const outputIntermediateElement = DOMUtils.getElementById('output-intermediate-content');
+        if (!outputIntermediateElement) return;
+
+        // Check if content is just a comment header without actual content
+        if (this.isOnlyCommentHeader(content)) {
+            outputIntermediateElement.innerHTML = '<div class="no-content">Empty Mermaid graph</div>';
+            // Reset height to auto for no-content case
+            outputIntermediateElement.style.height = 'auto';
+            outputIntermediateElement.style.minHeight = 'auto';
+            return;
+        }
+
+        // Check if content contains Mermaid syntax
+        if (this.containsMermaidSyntax(content)) {
+            try {
+                // Store current height to prevent flickering
+                const currentHeight = outputIntermediateElement.offsetHeight;
+                if (currentHeight > 100) {
+                    outputIntermediateElement.style.height = currentHeight + 'px';
+                }
+                
+                // Clear existing content and create graph container
+                outputIntermediateElement.innerHTML = '';
+                
+                // Create unique IDs for this intermediate graph
+                const uniqueId = `output-intermediate-${Date.now()}`;
+                
+                // Create container for the Mermaid graph
+                const graphContainer = document.createElement('div');
+                graphContainer.id = `${uniqueId}-graph-container`;
+                graphContainer.style.cssText = `
+                    width: 100%;
+                    min-height: 100px;
+                    height: auto;
+                    border: none;
+                    border-radius: 0;
+                    background: white;
+                    position: relative;
+                    margin: 0;
+                    padding: 0;
+                `;
+                
+                outputIntermediateElement.appendChild(graphContainer);
+                
+                // Initialize or reuse output mermaid renderer
+                if (!this.outputMermaidRenderer) {
+                    this.outputMermaidRenderer = new MermaidRenderer();
+                }
+                
+                // Initialize the renderer with the container
+                await this.outputMermaidRenderer.initialize(`${uniqueId}-graph-container`);
+                
+                // Extract Mermaid code and render
+                const mermaidCode = this.extractMermaidCode(content);
+                await this.outputMermaidRenderer.renderGraph(mermaidCode);
+                
+                console.log('✅ Output intermediate Mermaid graph rendered');
+                
+                // Reset height to auto after graph is rendered
+                setTimeout(() => {
+                    outputIntermediateElement.style.height = 'auto';
+                }, 100);
+                
+            } catch (error) {
+                console.error('❌ Error rendering output intermediate Mermaid:', error);
+                // Fallback to raw content display
+                this.updateSectionContent('output-intermediate-content', content);
+            }
+        } else {
+            // Display as regular text content
+            this.updateSectionContent('output-intermediate-content', content);
+        }
+    }
+
+    /**
+     * Check if content contains Mermaid diagram syntax
+     * @param {string} content - Content to check
+     * @returns {boolean} True if content contains Mermaid syntax
+     */
+    containsMermaidSyntax(content) {
+        if (!content || typeof content !== 'string') {
+            return false;
+        }
+
+        const mermaidTypes = [
+            'graph', 'flowchart', 'sequenceDiagram', 'classDiagram', 
+            'stateDiagram', 'erDiagram', 'gantt', 'pie', 'journey',
+            'gitgraph', 'mindmap', 'timeline'
+        ];
+
+        return mermaidTypes.some(type => 
+            content.toLowerCase().includes(type.toLowerCase())
+        );
+    }
+
+    /**
+     * Extract Mermaid code from content (removes CPEE-style comment headers)
+     * @param {string} content - Raw content from logs
+     * @returns {string} Clean Mermaid code
+     */
+    extractMermaidCode(content) {
+        if (!content || typeof content !== 'string') {
+            return '';
+        }
+
+        // Remove CPEE-style comment headers like "%% Input Intermediate" or "%% Output Intermediate"
+        let cleanedCode = content.replace(/^\s*%%.*$/gm, '').trim();
+        
+        // Remove any other comment patterns that might interfere
+        cleanedCode = cleanedCode.replace(/<!--[\s\S]*?-->/g, '').trim();
+        
+        return cleanedCode;
+    }
+
+    /**
+     * Update the User Input section with clean text (removes log formatting)
+     * @param {string} content - Raw user input content from logs
+     */
+    updateUserInputSection(content) {
+        const userInputElement = DOMUtils.getElementById('user-input-content');
+        if (!userInputElement) return;
+
+        // Check if there's valid user input content
+        if (!content || content === 'Not found' || content === 'No content available') {
+            const codeElement = userInputElement.querySelector('code');
+            if (codeElement) {
+                codeElement.textContent = 'No user input available';
+            } else {
+                userInputElement.textContent = 'No user input available';
+            }
+            return;
+        }
+
+        try {
+            // Extract clean user input text
+            const cleanText = this.extractUserInputText(content);
+            
+            // Update the content with clean text
+            const codeElement = userInputElement.querySelector('code');
+            if (codeElement) {
+                codeElement.textContent = cleanText || 'No user input available';
+            } else {
+                userInputElement.textContent = cleanText || 'No user input available';
+            }
+            
+        } catch (error) {
+            console.error('❌ Error processing user input:', error);
+            // Fallback to raw content display
+            this.updateSectionContent('user-input-content', content);
+        }
+    }
+
+    /**
+     * Extract clean user input text from raw log content
+     * @param {string} content - Raw content from logs
+     * @returns {string} Clean user input text
+     */
+    extractUserInputText(content) {
+        if (!content || typeof content !== 'string') {
+            return '';
+        }
+
+        // Remove the "# User Input:" header and get the content after it
+        let cleanedText = content.replace(/^#\s*User\s*Input\s*:\s*/i, '').trim();
+        
+        // Remove any additional comment patterns
+        cleanedText = cleanedText.replace(/<!--[\s\S]*?-->/g, '').trim();
+        
+        // Remove any markdown-style formatting if present
+        cleanedText = cleanedText.replace(/```[\s\S]*?```/g, '').trim();
+        
+        // Clean up extra whitespace and normalize line endings
+        cleanedText = cleanedText.replace(/\r\n/g, '\n');
+        cleanedText = cleanedText.replace(/\n\s*\n/g, '\n');
+        
+        return cleanedText;
+    }
+
+    /**
+     * Check if content is only a comment header without actual content
+     * @param {string} content - Content to check
+     * @returns {boolean} True if content is only a comment header
+     */
+    isOnlyCommentHeader(content) {
+        if (!content || typeof content !== 'string') {
+            return true;
+        }
+
+        // Remove CPEE-style comment headers and whitespace
+        const cleanedContent = content.replace(/^\s*%%.*$/gm, '').trim();
+        
+        // If nothing remains after removing comment headers, it's only a header
+        return cleanedContent.length === 0;
+    }
+
+    /**
      * Update content in a section
      * @param {string} elementId - Element ID
      * @param {string} content - Content to display
@@ -421,9 +703,26 @@ export class StepViewer {
             outputCpeeElement.innerHTML = '<div class="loading-graph">Loading output graph...</div>';
         }
         
-        this.updateSectionContent('input-intermediate-content', 'Loading...');
-        this.updateSectionContent('user-input-content', 'Loading...');
-        this.updateSectionContent('output-intermediate-content', 'Loading...');
+        // Show loading for intermediate sections (will be handled by their specific methods)
+        const inputIntermediateElement = DOMUtils.getElementById('input-intermediate-content');
+        if (inputIntermediateElement) {
+            inputIntermediateElement.innerHTML = '<div class="no-content">Loading...</div>';
+        }
+        
+        const userInputElement = DOMUtils.getElementById('user-input-content');
+        if (userInputElement) {
+            const codeElement = userInputElement.querySelector('code');
+            if (codeElement) {
+                codeElement.textContent = 'Loading...';
+            } else {
+                userInputElement.textContent = 'Loading...';
+            }
+        }
+        
+        const outputIntermediateElement = DOMUtils.getElementById('output-intermediate-content');
+        if (outputIntermediateElement) {
+            outputIntermediateElement.innerHTML = '<div class="no-content">Loading...</div>';
+        }
     }
 
     /**
@@ -464,8 +763,25 @@ export class StepViewer {
             }, 50);
         }
         
-        this.updateSectionContent('input-intermediate-content', '');
-        this.updateSectionContent('user-input-content', '');
-        this.updateSectionContent('output-intermediate-content', '');
+        // Clear intermediate sections (will be handled by their specific methods)
+        const inputIntermediateElement = DOMUtils.getElementById('input-intermediate-content');
+        if (inputIntermediateElement) {
+            inputIntermediateElement.innerHTML = '';
+        }
+        
+        const userInputElement = DOMUtils.getElementById('user-input-content');
+        if (userInputElement) {
+            const codeElement = userInputElement.querySelector('code');
+            if (codeElement) {
+                codeElement.textContent = '';
+            } else {
+                userInputElement.textContent = '';
+            }
+        }
+        
+        const outputIntermediateElement = DOMUtils.getElementById('output-intermediate-content');
+        if (outputIntermediateElement) {
+            outputIntermediateElement.innerHTML = '';
+        }
     }
 }

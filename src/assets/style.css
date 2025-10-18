@@ -361,6 +361,37 @@ body {
     font-weight: 600;
 }
 
+/* Mermaid sections for intermediate graphs - horizontal scrolling */
+.mermaid-section {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.mermaid-section h3 {
+    background: #f1f5f9;
+    padding: 1rem 1.5rem;
+    margin: 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.mermaid-section .content-box {
+    padding: 0;
+    height: auto;
+    min-height: auto;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: visible;
+    white-space: nowrap;
+    display: flex;
+    align-items: flex-start;
+}
+
 .content-box {
     padding: 1rem;
     max-height: 300px;
@@ -562,7 +593,7 @@ body {
 }
 
 /* Graph integration styles for step viewer */
-.loading-graph, .no-content, .error-message {
+.loading-graph, .error-message {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -575,6 +606,32 @@ body {
     border: none;
     margin: 0;
     padding: 1rem;
+}
+
+.no-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    height: auto;
+    color: #9ca3af;
+    font-style: italic;
+    font-size: 0.875rem;
+    background: white;
+    border-radius: 0;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure no-content messages work well in mermaid sections */
+.mermaid-section .no-content {
+    width: 100%;
+    white-space: normal;
+    min-height: 40px;
+    height: auto;
+    padding-left: 15px;
+    justify-content: flex-start;
 }
 
 .error-message {
@@ -615,6 +672,13 @@ body {
     height: auto;
 }
 
+/* Remove padding from intermediate content sections */
+#input-intermediate-content,
+#output-intermediate-content {
+    padding: 0;
+}
+
+
 #input-cpee-content .content-box,
 #output-cpee-content .content-box {
     padding: 0;
@@ -631,11 +695,105 @@ body {
     height: auto;
 }
 
+/* Mermaid graph containers for intermediate sections - allow dynamic width growth */
+[id*="input-intermediate-"][id*="-graph-container"],
+[id*="output-intermediate-"][id*="-graph-container"] {
+    background: white;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 5px;
+    height: auto;
+    min-height: auto;
+    text-align: left;
+    display: inline-block;
+    white-space: nowrap;
+    width: auto;
+    min-width: 200px;
+    overflow-y: visible;
+}
+
 /* Ensure SVG elements size naturally within containers */
 [id*="-graph-container"] svg {
     display: block;
     max-width: 100%;
     height: auto;
+}
+
+/* Dynamic size for Mermaid graphs in intermediate sections - allow natural growth */
+[id*="input-intermediate-"][id*="-graph-container"] svg,
+[id*="output-intermediate-"][id*="-graph-container"] svg {
+    display: inline-block;
+    width: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    min-width: 200px;
+    max-height: none !important;
+    vertical-align: top;
+}
+
+/* Custom styling for Mermaid elements - white background, black borders */
+
+/* Events (circles) */
+[id*="input-intermediate-"][id*="-graph-container"] .node circle,
+[id*="output-intermediate-"][id*="-graph-container"] .node circle {
+    fill: #ffffff !important;
+    stroke: #000000 !important;
+    stroke-width: 2px !important;
+}
+
+/* Tasks (rectangles) */
+[id*="input-intermediate-"][id*="-graph-container"] .node rect,
+[id*="output-intermediate-"][id*="-graph-container"] .node rect {
+    fill: #ffffff !important;
+    stroke: #000000 !important;
+    stroke-width: 2px !important;
+}
+
+/* Gateways (polygons/diamonds) */
+[id*="input-intermediate-"][id*="-graph-container"] .node polygon,
+[id*="output-intermediate-"][id*="-graph-container"] .node polygon,
+[id*="input-intermediate-"][id*="-graph-container"] .node path,
+[id*="output-intermediate-"][id*="-graph-container"] .node path {
+    fill: #ffffff !important;
+    stroke: #000000 !important;
+    stroke-width: 2px !important;
+}
+
+/* Style for start/end events specifically */
+[id*="input-intermediate-"][id*="-graph-container"] g[id*="startevent"] circle,
+[id*="input-intermediate-"][id*="-graph-container"] g[id*="endevent"] circle,
+[id*="output-intermediate-"][id*="-graph-container"] g[id*="startevent"] circle,
+[id*="output-intermediate-"][id*="-graph-container"] g[id*="endevent"] circle {
+    fill: #ffffff !important;
+    stroke: #000000 !important;
+    stroke-width: 2px !important;
+}
+
+/* Style for task elements specifically */
+[id*="input-intermediate-"][id*="-graph-container"] g[id*="task"] rect,
+[id*="output-intermediate-"][id*="-graph-container"] g[id*="task"] rect {
+    fill: #ffffff !important;
+    stroke: #000000 !important;
+    stroke-width: 2px !important;
+}
+
+/* Style for gateway/decision elements */
+[id*="input-intermediate-"][id*="-graph-container"] g[id*="gateway"] *,
+[id*="input-intermediate-"][id*="-graph-container"] g[id*="decision"] *,
+[id*="output-intermediate-"][id*="-graph-container"] g[id*="gateway"] *,
+[id*="output-intermediate-"][id*="-graph-container"] g[id*="decision"] * {
+    fill: #ffffff !important;
+    stroke: #000000 !important;
+    stroke-width: 2px !important;
+}
+
+/* Additional shape types that might be used */
+[id*="input-intermediate-"][id*="-graph-container"] .node ellipse,
+[id*="output-intermediate-"][id*="-graph-container"] .node ellipse {
+    fill: #ffffff !important;
+    stroke: #000000 !important;
+    stroke-width: 2px !important;
 }
 
 [id*="-graph-container"] [id*="modelling"],
