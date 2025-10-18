@@ -163,11 +163,28 @@ export class StepViewer {
 
         // Check if we have valid CPEE XML
         if (!cpeeXml || cpeeXml === 'Not found' || cpeeXml === 'No content available') {
+            // Store current height to prevent flickering
+            const currentHeight = inputCpeeElement.offsetHeight;
+            if (currentHeight > 100) {
+                inputCpeeElement.style.height = currentHeight + 'px';
+            }
+            
             inputCpeeElement.innerHTML = '<div class="no-content">No CPEE tree available for this step</div>';
+            
+            // Reset height after content is set
+            setTimeout(() => {
+                inputCpeeElement.style.height = 'auto';
+            }, 50);
             return;
         }
 
         try {
+            // Store current height to prevent flickering during transition
+            const currentHeight = inputCpeeElement.offsetHeight;
+            if (currentHeight > 100) {
+                inputCpeeElement.style.height = currentHeight + 'px';
+            }
+            
             // Clear the existing content and create graph container
             inputCpeeElement.innerHTML = '';
             
@@ -179,18 +196,17 @@ export class StepViewer {
             graphContainer.id = `${uniqueId}-graph-container`;
             graphContainer.style.cssText = `
                 width: 100%;
-                min-height: 400px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
+                min-height: 100px;
+                height: auto;
+                border: none;
+                border-radius: 0;
                 background: white;
                 position: relative;
+                margin: 0;
+                padding: 0;
             `;
             
             // Create elements that CPEE WfAdaptor expects for hover functionality
-            
-            const statusElement = document.createElement('div');
-            statusElement.id = `${uniqueId}-status`;
-            statusElement.style.cssText = 'display: none; position: absolute; z-index: 1000;';
             
             const inputElement = document.createElement('textarea');
             inputElement.id = `${uniqueId}-input`;
@@ -203,7 +219,6 @@ export class StepViewer {
             modellingDiv.id = `${uniqueId}-modelling`;
             modellingDiv.style.cssText = 'display: none;';
             
-            inputCpeeElement.appendChild(statusElement);
             inputCpeeElement.appendChild(inputElement);
             inputCpeeElement.appendChild(modellingDiv);
             inputCpeeElement.appendChild(graphContainer);
@@ -214,12 +229,17 @@ export class StepViewer {
             }
             
             // Initialize the renderer with the container and required elements
-            await this.graphRenderer.initialize(`${uniqueId}-graph-container`, `${uniqueId}-status`, `${uniqueId}-input`);
+            await this.graphRenderer.initialize(`${uniqueId}-graph-container`, null, `${uniqueId}-input`);
             
             // Render the graph
             await this.graphRenderer.renderGraph(cpeeXml);
             
             console.log('✅ CPEE graph rendered in step viewer');
+            
+            // Reset height to auto after graph is rendered to allow natural sizing
+            setTimeout(() => {
+                inputCpeeElement.style.height = 'auto';
+            }, 100);
             
         } catch (error) {
             console.error('❌ Failed to render CPEE graph in step viewer:', error);
@@ -234,6 +254,11 @@ export class StepViewer {
                     </details>
                 </div>
             `;
+            
+            // Reset height after error content is set
+            setTimeout(() => {
+                inputCpeeElement.style.height = 'auto';
+            }, 50);
         }
     }
 
@@ -264,6 +289,11 @@ export class StepViewer {
         // Show loading in all sections
         const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
         if (inputCpeeElement) {
+            // Store current height to prevent flickering during loading
+            const currentHeight = inputCpeeElement.offsetHeight;
+            if (currentHeight > 100) {
+                inputCpeeElement.style.height = currentHeight + 'px';
+            }
             inputCpeeElement.innerHTML = '<div class="loading-graph">Loading graph...</div>';
         }
         this.updateSectionContent('input-intermediate-content', 'Loading...');
@@ -282,7 +312,17 @@ export class StepViewer {
 
         const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
         if (inputCpeeElement) {
+            // Store current height to prevent flickering during error display
+            const currentHeight = inputCpeeElement.offsetHeight;
+            if (currentHeight > 100) {
+                inputCpeeElement.style.height = currentHeight + 'px';
+            }
             inputCpeeElement.innerHTML = `<div class="error-message">Error: ${message}</div>`;
+            
+            // Reset height after error content is set
+            setTimeout(() => {
+                inputCpeeElement.style.height = 'auto';
+            }, 50);
         }
         this.updateSectionContent('input-intermediate-content', '');
         this.updateSectionContent('user-input-content', '');

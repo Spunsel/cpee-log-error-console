@@ -113,53 +113,36 @@ export class CPEEWfAdaptorRenderer {
      */
     setupContainer() {
         this.container.innerHTML = '';
+        // Don't override container styling - let parent determine size
         this.container.style.cssText = `
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            min-height: 500px;
-            padding: 0;
             background: #ffffff;
             position: relative;
-            overflow: auto;
+            width: 100%;
+            height: auto;
         `;
         
         // Create SVG container matching CPEE structure
         const graphDiv = document.createElement('div');
         graphDiv.id = 'modelling';
-        graphDiv.style.cssText = 'width: 100%; height: 100%; position: relative;';
+        graphDiv.style.cssText = 'width: 100%; height: auto; position: relative; min-height: 100px;';
         
         const gridDiv = document.createElement('div');
         gridDiv.id = 'graphgrid';
-        gridDiv.style.cssText = 'width: 100%; height: 100%;';
+        gridDiv.style.cssText = 'width: 100%; height: auto; min-height: 100px;';
         
-        // Create SVG element for CPEE rendering
+        // Create SVG element for CPEE rendering - let it size naturally
         this.svgContainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.svgContainer.id = 'graphcanvas';
-        this.svgContainer.setAttribute('width', '100%');
-        this.svgContainer.setAttribute('height', '500');
+        this.svgContainer.setAttribute('width', 'auto');
+        this.svgContainer.setAttribute('height', 'auto');
         this.svgContainer.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         this.svgContainer.setAttribute('version', '1.1');
         this.svgContainer.setAttribute('xmlns:x', 'http://www.w3.org/1999/xlink');
+        this.svgContainer.style.cssText = 'display: block; max-width: 100%;';
         
         gridDiv.appendChild(this.svgContainer);
         graphDiv.appendChild(gridDiv);
         this.container.appendChild(graphDiv);
-        
-        // Add placeholder message
-        const placeholder = document.createElement('div');
-        placeholder.style.cssText = `
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #6c757d;
-            font-size: 1.1rem;
-            text-align: center;
-        `;
-        placeholder.innerHTML = 'Enter CPEE XML above to generate authentic CPEE graph visualization';
-        this.container.appendChild(placeholder);
-        
-        this.placeholder = placeholder;
     }
     
     /**
@@ -181,10 +164,7 @@ export class CPEEWfAdaptorRenderer {
             // Validate XML first
             const cleanedXML = this.cleanAndValidateXML(cpeeXML);
             
-            // Hide placeholder
-            if (this.placeholder) {
-                this.placeholder.style.display = 'none';
-            }
+            // Placeholder removed as requested
             
             // Load the WfAdaptor and theme system
             await this.loadWfAdaptor();
@@ -246,7 +226,7 @@ export class CPEEWfAdaptorRenderer {
                 }
                 
                 console.log('✅ CPEE graph rendered successfully');
-                this.showStatus('✅ CPEE graph rendered successfully using authentic WfAdaptor', 'success');
+                // Success message removed as requested
                 this.isRendered = true;
                 
                 // Add controls
