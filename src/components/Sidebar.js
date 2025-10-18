@@ -36,8 +36,8 @@ export class Sidebar {
 
         // Get instance data to extract process number
         const instanceData = this.instanceService.getInstance(uuid);
-        const displayText = instanceData && instanceData.processNumber 
-            ? `${uuid} (${instanceData.processNumber})` 
+        const displayText = instanceData 
+            ? instanceData.getDisplayName()
             : uuid;
 
         // Create new tab (not active by default)

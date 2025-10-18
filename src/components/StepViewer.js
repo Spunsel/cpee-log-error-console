@@ -21,13 +21,13 @@ export class StepViewer {
 
     /**
      * Display step content
-     * @param {Object} step - Step data
+     * @param {CPEEStep} step - Step data
      * @param {Object} navInfo - Navigation info
      */
     displayStep(step, navInfo) {
         if (!step) return;
 
-        console.log(`Displaying step ${step.stepNumber}`);
+        console.log(`Displaying ${step.getDisplayName()}`);
 
         // Show process analysis section
         DOMUtils.addClass('step-details', 'hidden');
@@ -36,15 +36,15 @@ export class StepViewer {
         // Update step header
         const stepHeader = DOMUtils.querySelector('#process-analysis h2');
         if (stepHeader) {
-            stepHeader.textContent = `Step ${step.stepNumber} of ${navInfo.totalSteps}`;
+            stepHeader.textContent = `${step.getDisplayName()} of ${navInfo.totalSteps}`;
         }
 
-        // Update content sections
-        this.updateSectionContent('input-cpee-content', step.content.inputCpeeTree);
-        this.updateSectionContent('input-intermediate-content', step.content.inputIntermediate);
-        this.updateSectionContent('user-input-content', step.content.userInput);
-        this.updateSectionContent('output-intermediate-content', step.content.outputIntermediate);
-        this.updateSectionContent('output-cpee-content', step.content.outputCpeeTree);
+        // Update content sections using CPEEStep methods
+        this.updateSectionContent('input-cpee-content', step.getContent('inputCpeeTree'));
+        this.updateSectionContent('input-intermediate-content', step.getContent('inputIntermediate'));
+        this.updateSectionContent('user-input-content', step.getContent('userInput'));
+        this.updateSectionContent('output-intermediate-content', step.getContent('outputIntermediate'));
+        this.updateSectionContent('output-cpee-content', step.getContent('outputCpeeTree'));
 
         // Setup/update navigation
         this.setupStepNavigation();

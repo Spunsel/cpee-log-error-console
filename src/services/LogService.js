@@ -4,6 +4,7 @@
  */
 
 import { YAMLParser } from '../parsers/YAMLParser.js';
+import { CPEEStep } from '../modules/CPEEStep.js';
 
 export class LogService {
     // Multiple CORS proxies with fallback
@@ -161,15 +162,15 @@ export class LogService {
             return new Date(a.timestamp) - new Date(b.timestamp);
         });
         
-        // Extract content from each step
+        // Extract content from each step and create CPEEStep objects
         return steps.map((step, index) => {
             const content = this.extractStepContent(step.events);
-            return {
-                stepNumber: index + 1,
-                changeUuid: step.changeUuid,
-                timestamp: step.timestamp,
-                content: content
-            };
+            return new CPEEStep(
+                index + 1,
+                step.changeUuid,
+                step.timestamp,
+                content
+            );
         });
     }
 

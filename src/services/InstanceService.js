@@ -3,6 +3,8 @@
  * Manages CPEE instance data and state
  */
 
+import { CPEEInstance } from '../modules/CPEEInstance.js';
+
 export class InstanceService {
     constructor() {
         this.instances = new Map();
@@ -13,22 +15,18 @@ export class InstanceService {
     /**
      * Add or update instance data
      * @param {string} uuid - Instance UUID
-     * @param {Array} steps - Parsed steps data
+     * @param {Array} steps - Parsed steps data (CPEEStep objects)
      * @param {number} processNumber - CPEE process number (optional)
      */
     addInstance(uuid, steps, processNumber = null) {
-        this.instances.set(uuid, {
-            uuid: uuid,
-            steps: steps,
-            processNumber: processNumber,
-            loadedAt: new Date()
-        });
+        const instance = new CPEEInstance(uuid, steps, processNumber);
+        this.instances.set(uuid, instance);
     }
 
     /**
      * Get instance data by UUID
      * @param {string} uuid - Instance UUID
-     * @returns {Object|null} Instance data or null
+     * @returns {CPEEInstance|null} CPEEInstance object or null
      */
     getInstance(uuid) {
         return this.instances.get(uuid) || null;
@@ -76,9 +74,13 @@ export class InstanceService {
             return true;
         }
         
-        if (this.hasInstance(uuid)) {
+        const instance = this.getInstance(uuid);
+        if (instance) {
             this.currentUUID = uuid;
             this.currentStepIndex = stepIndex;
+            
+            // Update the instance's current step index
+            instance.goToStep(stepIndex);
             return true;
         }
         return false;
@@ -86,7 +88,7 @@ export class InstanceService {
 
     /**
      * Get current instance data
-     * @returns {Object|null} Current instance data
+     * @returns {CPEEInstance|null} Current CPEEInstance or null
      */
     getCurrentInstance() {
         return this.currentUUID ? this.getInstance(this.currentUUID) : null;
@@ -94,12 +96,12 @@ export class InstanceService {
 
     /**
      * Get current step data
-     * @returns {Object|null} Current step data
+     * @returns {CPEEStep|null} Current step data
      */
     getCurrentStep() {
         const instance = this.getCurrentInstance();
-        if (instance && instance.steps[this.currentStepIndex]) {
-            return instance.steps[this.currentStepIndex];
+        if (instance) {
+            return instance.getCurrentStep();
         }
         return null;
     }
@@ -110,8 +112,8 @@ export class InstanceService {
      */
     nextStep() {
         const instance = this.getCurrentInstance();
-        if (instance && this.currentStepIndex < instance.steps.length - 1) {
-            this.currentStepIndex++;
+        if (instance && instance.nextStep()) {
+            this.currentStepIndex = instance.currentStepIndex;
             return true;
         }
         return false;
@@ -122,8 +124,9 @@ export class InstanceService {
      * @returns {boolean} True if navigation was successful
      */
     previousStep() {
-        if (this.currentStepIndex > 0) {
-            this.currentStepIndex--;
+        const instance = this.getCurrentInstance();
+        if (instance && instance.previousStep()) {
+            this.currentStepIndex = instance.currentStepIndex;
             return true;
         }
         return false;
@@ -136,8 +139,8 @@ export class InstanceService {
      */
     goToStep(stepIndex) {
         const instance = this.getCurrentInstance();
-        if (instance && stepIndex >= 0 && stepIndex < instance.steps.length) {
-            this.currentStepIndex = stepIndex;
+        if (instance && instance.goToStep(stepIndex)) {
+            this.currentStepIndex = instance.currentStepIndex;
             return true;
         }
         return false;
@@ -158,12 +161,7 @@ export class InstanceService {
             };
         }
 
-        return {
-            canGoNext: this.currentStepIndex < instance.steps.length - 1,
-            canGoPrevious: this.currentStepIndex > 0,
-            currentStep: this.currentStepIndex + 1,
-            totalSteps: instance.steps.length
-        };
+        return instance.getNavigationInfo();
     }
 
     /**
