@@ -6,9 +6,23 @@
 import { DOMUtils } from '../utils/DOMUtils.js';
 
 export class Sidebar {
-    constructor(instanceService) {
+    constructor(instanceService, domRegistry = null) {
         this.instanceService = instanceService;
+        this.domRegistry = domRegistry;
         this.onInstanceSelect = null;
+    }
+
+    /**
+     * Get DOM element by key with fallback to direct ID access for backward compatibility
+     * @param {string} key - Registry key or element ID
+     * @returns {Element|null} DOM element or null if not found
+     */
+    getElement(key) {
+        if (this.domRegistry) {
+            return this.domRegistry.getElementSafe(key);
+        }
+        // Fallback to direct DOM access for backward compatibility
+        return DOMUtils.getElementById(key);
     }
 
     /**
@@ -24,7 +38,7 @@ export class Sidebar {
      * @param {string} uuid - Instance UUID
      */
     addInstanceTab(uuid) {
-        const instanceTabs = DOMUtils.getElementById('instance-tabs');
+        const instanceTabs = this.getElement('instanceTabs');
         if (!instanceTabs) return;
 
         // Check if tab already exists
@@ -68,7 +82,7 @@ export class Sidebar {
      * @param {string} uuid - UUID of tab to activate
      */
     setActiveTab(uuid) {
-        const instanceTabs = DOMUtils.getElementById('instance-tabs');
+        const instanceTabs = this.getElement('instanceTabs');
         if (!instanceTabs) return;
 
         // Update tab styles
@@ -85,7 +99,7 @@ export class Sidebar {
      * @param {string} uuid - Instance UUID
      */
     removeInstanceTab(uuid) {
-        const instanceTabs = DOMUtils.getElementById('instance-tabs');
+        const instanceTabs = this.getElement('instanceTabs');
         if (!instanceTabs) return;
 
         const tab = instanceTabs.querySelector(`[data-uuid="${uuid}"]`);
@@ -108,7 +122,7 @@ export class Sidebar {
      * @returns {string|null} Active UUID or null
      */
     getActiveTab() {
-        const instanceTabs = DOMUtils.getElementById('instance-tabs');
+        const instanceTabs = this.getElement('instanceTabs');
         if (!instanceTabs) return null;
 
         const activeTab = instanceTabs.querySelector('.instance-tab.active');
@@ -119,7 +133,7 @@ export class Sidebar {
      * Clear all tabs
      */
     clearAllTabs() {
-        const instanceTabs = DOMUtils.getElementById('instance-tabs');
+        const instanceTabs = this.getElement('instanceTabs');
         if (!instanceTabs) return;
 
         // Remove all tabs
@@ -138,7 +152,7 @@ export class Sidebar {
      * @param {string} displayName - Display name
      */
     updateTabDisplayName(uuid, displayName) {
-        const instanceTabs = DOMUtils.getElementById('instance-tabs');
+        const instanceTabs = this.getElement('instanceTabs');
         if (!instanceTabs) return;
 
         const tab = instanceTabs.querySelector(`[data-uuid="${uuid}"]`);

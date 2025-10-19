@@ -8,14 +8,28 @@ import { CPEEWfAdaptorRenderer } from './CPEEWfAdaptorRenderer.js';
 import { MermaidRenderer } from './MermaidRenderer.js';
 
 export class StepViewer {
-    constructor(instanceService) {
+    constructor(instanceService, domRegistry = null) {
         this.instanceService = instanceService;
+        this.domRegistry = domRegistry;
         this.onStepChange = null;
         this.inputGraphRenderer = null;
         this.outputGraphRenderer = null;
         this.inputMermaidRenderer = null;
         this.outputMermaidRenderer = null;
         this.currentGraphContainer = null;
+    }
+
+    /**
+     * Get DOM element by key with fallback to direct ID access for backward compatibility
+     * @param {string} key - Registry key or element ID
+     * @returns {Element|null} DOM element or null if not found
+     */
+    getElement(key) {
+        if (this.domRegistry) {
+            return this.domRegistry.getElementSafe(key);
+        }
+        // Fallback to direct DOM access for backward compatibility
+        return DOMUtils.getElementById(key);
     }
 
     /**
@@ -41,9 +55,12 @@ export class StepViewer {
         DOMUtils.removeClass('process-analysis', 'hidden');
 
         // Update step header
-        const stepHeader = DOMUtils.querySelector('#process-analysis h2');
-        if (stepHeader) {
-            stepHeader.textContent = `${step.getDisplayName()} of ${navInfo.totalSteps}`;
+        const processAnalysis = this.getElement('processAnalysis');
+        if (processAnalysis) {
+            const stepHeader = processAnalysis.querySelector('h2');
+            if (stepHeader) {
+                stepHeader.textContent = `${step.getDisplayName()} of ${navInfo.totalSteps}`;
+            }
         }
 
         // Update content sections using CPEEStep methods
@@ -71,7 +88,7 @@ export class StepViewer {
         DOMUtils.addClass('process-analysis', 'hidden');
         
         // Remove navigation if exists
-        const navContainer = DOMUtils.getElementById('step-navigation');
+        const navContainer = this.getElement('stepNavigation');
         if (navContainer) {
             navContainer.remove();
         }
@@ -81,7 +98,7 @@ export class StepViewer {
      * Setup step navigation UI
      */
     setupStepNavigation() {
-        let navContainer = DOMUtils.getElementById('step-navigation');
+        let navContainer = this.getElement('stepNavigation');
         if (!navContainer) {
             navContainer = document.createElement('div');
             navContainer.id = 'step-navigation';
@@ -93,15 +110,15 @@ export class StepViewer {
             `;
             
             // Insert before process analysis
-            const processAnalysis = DOMUtils.getElementById('process-analysis');
+            const processAnalysis = this.getElement('processAnalysis');
             if (processAnalysis) {
                 processAnalysis.parentNode.insertBefore(navContainer, processAnalysis);
             }
         }
 
         // Add event listeners
-        const prevBtn = DOMUtils.getElementById('prev-step');
-        const nextBtn = DOMUtils.getElementById('next-step');
+        const prevBtn = this.getElement('prevStep');
+        const nextBtn = this.getElement('nextStep');
 
         if (prevBtn) {
             prevBtn.onclick = () => this.previousStep();
@@ -116,9 +133,9 @@ export class StepViewer {
      * @param {Object} navInfo - Navigation info
      */
     updateStepNavigation(navInfo) {
-        const prevBtn = DOMUtils.getElementById('prev-step');
-        const nextBtn = DOMUtils.getElementById('next-step');
-        const counter = DOMUtils.getElementById('step-counter');
+        const prevBtn = this.getElement('prevStep');
+        const nextBtn = this.getElement('nextStep');
+        const counter = this.getElement('stepCounter');
 
         if (prevBtn) {
             prevBtn.disabled = !navInfo.canGoPrevious;
@@ -193,7 +210,7 @@ export class StepViewer {
      * @param {string} cpeeXml - CPEE XML content to render as graph
      */
     async updateInputCpeeSection(cpeeXml) {
-        const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
+        const inputCpeeElement = this.getElement('inputCpeeContent');
         if (!inputCpeeElement) return;
 
         // Check if we have valid CPEE XML
@@ -277,7 +294,7 @@ export class StepViewer {
      * @param {string} cpeeXml - CPEE XML content to render as graph
      */
     async updateOutputCpeeSection(cpeeXml) {
-        const outputCpeeElement = DOMUtils.getElementById('output-cpee-content');
+        const outputCpeeElement = this.getElement('outputCpeeContent');
         if (!outputCpeeElement) return;
 
         // Check if we have valid CPEE XML
@@ -374,7 +391,7 @@ export class StepViewer {
      * @param {string} content - Content from the log (may contain Mermaid syntax)
      */
     async updateInputIntermediateSection(content) {
-        const inputIntermediateElement = DOMUtils.getElementById('input-intermediate-content');
+        const inputIntermediateElement = this.getElement('inputIntermediateContent');
         if (!inputIntermediateElement) return;
 
         // Check if content is just a comment header without actual content
@@ -453,7 +470,7 @@ export class StepViewer {
      * @param {string} content - Content from the log (may contain Mermaid syntax)
      */
     async updateOutputIntermediateSection(content) {
-        const outputIntermediateElement = DOMUtils.getElementById('output-intermediate-content');
+        const outputIntermediateElement = this.getElement('outputIntermediateContent');
         if (!outputIntermediateElement) return;
 
         // Check if content is just a comment header without actual content
@@ -572,7 +589,7 @@ export class StepViewer {
      * @param {string} content - Raw user input content from logs
      */
     updateUserInputSection(content) {
-        const userInputElement = DOMUtils.getElementById('user-input-content');
+        const userInputElement = this.getElement('userInputContent');
         if (!userInputElement) return;
 
         // Add class to parent content-box to identify user input section
@@ -679,13 +696,13 @@ export class StepViewer {
         DOMUtils.addClass('step-details', 'hidden');
 
         // Show loading in all sections
-        const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
+        const inputCpeeElement = this.getElement('inputCpeeContent');
         if (inputCpeeElement) {
             // No transition effects needed - input section has fixed height
             inputCpeeElement.innerHTML = '<div class="loading-graph">Loading input graph...</div>';
         }
         
-        const outputCpeeElement = DOMUtils.getElementById('output-cpee-content');
+        const outputCpeeElement = this.getElement('outputCpeeContent');
         if (outputCpeeElement) {
             // Preserve height and hide overflow during loading
             this.preserveHeightDuringTransition(outputCpeeElement);
@@ -693,12 +710,12 @@ export class StepViewer {
         }
         
         // Show loading for intermediate sections (will be handled by their specific methods)
-        const inputIntermediateElement = DOMUtils.getElementById('input-intermediate-content');
+        const inputIntermediateElement = this.getElement('inputIntermediateContent');
         if (inputIntermediateElement) {
             inputIntermediateElement.innerHTML = '<div class="no-content">Loading...</div>';
         }
         
-        const userInputElement = DOMUtils.getElementById('user-input-content');
+        const userInputElement = this.getElement('userInputContent');
         if (userInputElement) {
             const codeElement = userInputElement.querySelector('code');
             if (codeElement) {
@@ -708,7 +725,7 @@ export class StepViewer {
             }
         }
         
-        const outputIntermediateElement = DOMUtils.getElementById('output-intermediate-content');
+        const outputIntermediateElement = this.getElement('outputIntermediateContent');
         if (outputIntermediateElement) {
             outputIntermediateElement.innerHTML = '<div class="no-content">Loading...</div>';
         }
@@ -722,13 +739,13 @@ export class StepViewer {
         DOMUtils.removeClass('process-analysis', 'hidden');
         DOMUtils.addClass('step-details', 'hidden');
 
-        const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
+        const inputCpeeElement = this.getElement('inputCpeeContent');
         if (inputCpeeElement) {
             // No transition effects needed - input section has fixed height
             inputCpeeElement.innerHTML = `<div class="error-message">Input Error: ${message}</div>`;
         }
         
-        const outputCpeeElement = DOMUtils.getElementById('output-cpee-content');
+        const outputCpeeElement = this.getElement('outputCpeeContent');
         if (outputCpeeElement) {
             // Store current height to prevent flickering during error display
             const currentHeight = outputCpeeElement.offsetHeight;
@@ -744,12 +761,12 @@ export class StepViewer {
         }
         
         // Clear intermediate sections (will be handled by their specific methods)
-        const inputIntermediateElement = DOMUtils.getElementById('input-intermediate-content');
+        const inputIntermediateElement = this.getElement('inputIntermediateContent');
         if (inputIntermediateElement) {
             inputIntermediateElement.innerHTML = '';
         }
         
-        const userInputElement = DOMUtils.getElementById('user-input-content');
+        const userInputElement = this.getElement('userInputContent');
         if (userInputElement) {
             const codeElement = userInputElement.querySelector('code');
             if (codeElement) {
@@ -759,7 +776,7 @@ export class StepViewer {
             }
         }
         
-        const outputIntermediateElement = DOMUtils.getElementById('output-intermediate-content');
+        const outputIntermediateElement = this.getElement('outputIntermediateContent');
         if (outputIntermediateElement) {
             outputIntermediateElement.innerHTML = '';
         }

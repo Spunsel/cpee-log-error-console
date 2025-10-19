@@ -10,22 +10,62 @@ import { CPEEService } from '../services/CPEEService.js';
 import { Sidebar } from '../components/Sidebar.js';
 import { StepViewer } from '../components/StepViewer.js';
 import { LogViewer } from '../components/LogViewer.js';
+import { DOMRegistry, DEFAULT_DOM_MAPPINGS } from './DOMRegistry.js';
 
 export class CPEEDebugConsole {
     constructor() {
+        // Initialize DOM registry for dependency injection
+        this.domRegistry = new DOMRegistry();
+        this.setupDOMRegistry();
+        
         // Initialize services
         this.instanceService = new InstanceService();
         
-        // Initialize components
-        this.sidebar = new Sidebar(this.instanceService);
-        this.stepViewer = new StepViewer(this.instanceService);
-        this.logViewer = new LogViewer();
+        // Initialize components with DOM registry
+        this.sidebar = new Sidebar(this.instanceService, this.domRegistry);
+        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry);
+        this.logViewer = new LogViewer(this.domRegistry);
         
         // Set up component callbacks
         this.setupComponentCallbacks();
         
         // Initialize application
         this.init();
+    }
+
+    /**
+     * Get DOM element by key with fallback to direct ID access for backward compatibility
+     * @param {string} key - Registry key or element ID
+     * @returns {Element|null} DOM element or null if not found
+     */
+    getElement(key) {
+        if (this.domRegistry) {
+            return this.domRegistry.getElementSafe(key);
+        }
+        // Fallback to direct DOM access for backward compatibility
+        return document.getElementById(key);
+    }
+
+    /**
+     * Setup DOM registry with default mappings
+     * This provides a centralized way to manage DOM element access
+     */
+    setupDOMRegistry() {
+        try {
+            // Register all default DOM mappings
+            this.domRegistry.registerBatch(DEFAULT_DOM_MAPPINGS);
+            
+            // Validate that all required elements exist
+            const validation = this.domRegistry.validateRegistry();
+            if (validation.missing.length > 0) {
+                console.warn('DOMRegistry: Some registered elements are missing from DOM:', validation.missing);
+            }
+            
+            console.log(`DOMRegistry: Initialized with ${validation.total} elements (${validation.valid.length} found, ${validation.missing.length} missing)`);
+        } catch (error) {
+            console.error('DOMRegistry: Failed to initialize:', error);
+            // In case of failure, components will fall back to direct DOM access
+        }
     }
 
     /**
@@ -75,11 +115,11 @@ export class CPEEDebugConsole {
      */
     setupEventListeners() {
         // Get UI elements
-        const loadButton = document.getElementById('load-instance');
-        const viewLogButton = document.getElementById('view-log');
-        const fetchUuidButton = document.getElementById('fetch-uuid');
-        const uuidInput = document.getElementById('uuid-input');
-        const processNumberInput = document.getElementById('process-number-input');
+        const loadButton = this.getElement('loadInstance');
+        const viewLogButton = this.getElement('viewLog');
+        const fetchUuidButton = this.getElement('fetchUuid');
+        const uuidInput = this.getElement('uuidInput');
+        const processNumberInput = this.getElement('processNumberInput');
         
         // Load instance button
         if (loadButton && uuidInput) {
@@ -132,7 +172,7 @@ export class CPEEDebugConsole {
         }
 
         // App title click - return to home
-        const appTitle = document.getElementById('app-title');
+        const appTitle = this.getElement('appTitle');
         if (appTitle) {
             appTitle.addEventListener('click', () => {
                 this.returnToHome();
@@ -149,8 +189,8 @@ export class CPEEDebugConsole {
             console.log(`Fetching UUID for process number: ${processNumber}`);
 
             // Show loading state
-            const fetchButton = document.getElementById('fetch-uuid');
-            const uuidInput = document.getElementById('uuid-input');
+            const fetchButton = this.getElement('fetchUuid');
+            const uuidInput = this.getElement('uuidInput');
 
             if (fetchButton) {
                 fetchButton.textContent = 'Fetching...';
@@ -168,7 +208,7 @@ export class CPEEDebugConsole {
                 console.log(`UUID fetched successfully: ${uuid}`);
 
                 // Show success message
-                const processNumberInput = document.getElementById('process-number-input');
+                const processNumberInput = this.getElement('processNumberInput');
                 if (processNumberInput) {
                     processNumberInput.style.borderColor = '#28a745';
                     setTimeout(() => {
@@ -182,7 +222,7 @@ export class CPEEDebugConsole {
             alert(`Failed to fetch UUID: ${error.message}`);
 
             // Show error state
-            const processNumberInput = document.getElementById('process-number-input');
+            const processNumberInput = this.getElement('processNumberInput');
             if (processNumberInput) {
                 processNumberInput.style.borderColor = '#dc3545';
                 setTimeout(() => {
@@ -191,7 +231,7 @@ export class CPEEDebugConsole {
             }
         } finally {
             // Reset button state
-            const fetchButton = document.getElementById('fetch-uuid');
+            const fetchButton = this.getElement('fetchUuid');
             if (fetchButton) {
                 fetchButton.textContent = 'Fetch UUID';
                 fetchButton.disabled = false;
@@ -225,7 +265,7 @@ export class CPEEDebugConsole {
             }
             
             // Get process number from UUID input (if it was fetched via process number)
-            const uuidInput = document.getElementById('uuid-input');
+            const uuidInput = this.getElement('uuidInput');
             const processNumber = uuidInput?.dataset.processNumber ? parseInt(uuidInput.dataset.processNumber) : null;
             
             // Store instance data
@@ -235,7 +275,7 @@ export class CPEEDebugConsole {
             this.sidebar.addInstanceTab(uuid);
             
             // Clear process number input field only (keep UUID visible)
-            const processNumberInput = document.getElementById('process-number-input');
+            const processNumberInput = this.getElement('processNumberInput');
             if (processNumberInput) {
                 processNumberInput.value = '';
             }
@@ -311,7 +351,7 @@ export class CPEEDebugConsole {
         this.instanceService.setCurrentInstance(null);
         
         // Deactivate all tabs but keep instances loaded
-        const instanceTabs = document.getElementById('instance-tabs');
+        const instanceTabs = this.getElement('instanceTabs');
         if (instanceTabs) {
             instanceTabs.querySelectorAll('.instance-tab').forEach(tab => {
                 tab.classList.remove('active');
@@ -328,7 +368,7 @@ export class CPEEDebugConsole {
         URLUtils.clearParameters();
         
         // Clear input field
-        const uuidInput = document.getElementById('uuid-input');
+        const uuidInput = this.getElement('uuidInput');
         if (uuidInput) {
             uuidInput.value = '';
             uuidInput.focus(); // Focus on input for easy typing
@@ -348,7 +388,7 @@ export class CPEEDebugConsole {
         URLUtils.clearParameters();
         
         // Clear process number input field only (keep UUID visible)
-        const processNumberInput = document.getElementById('process-number-input');
+        const processNumberInput = this.getElement('processNumberInput');
         if (processNumberInput) {
             processNumberInput.value = '';
         }

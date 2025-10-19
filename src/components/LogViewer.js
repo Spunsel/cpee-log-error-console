@@ -7,8 +7,22 @@ import { DOMUtils } from '../utils/DOMUtils.js';
 import { LogService } from '../services/LogService.js';
 
 export class LogViewer {
-    constructor() {
+    constructor(domRegistry = null) {
+        this.domRegistry = domRegistry;
         this.isVisible = false;
+    }
+
+    /**
+     * Get DOM element by key with fallback to direct ID access for backward compatibility
+     * @param {string} key - Registry key or element ID
+     * @returns {Element|null} DOM element or null if not found
+     */
+    getElement(key) {
+        if (this.domRegistry) {
+            return this.domRegistry.getElementSafe(key);
+        }
+        // Fallback to direct DOM access for backward compatibility
+        return DOMUtils.getElementById(key);
     }
 
     /**
@@ -80,8 +94,8 @@ export class LogViewer {
      * Show loading state for log
      */
     showLogLoading() {
-        const rawLogSection = DOMUtils.getElementById('raw-log-section');
-        const rawLogContent = DOMUtils.getElementById('raw-log-content');
+        const rawLogSection = this.getElement('rawLogSection');
+        const rawLogContent = this.getElement('rawLogContent');
         
         if (rawLogSection && rawLogContent) {
             DOMUtils.removeClass('raw-log-section', 'hidden');
@@ -95,8 +109,8 @@ export class LogViewer {
      * @param {string} content - Raw log content
      */
     displayRawLog(content) {
-        const rawLogSection = DOMUtils.getElementById('raw-log-section');
-        const rawLogContent = DOMUtils.getElementById('raw-log-content');
+        const rawLogSection = this.getElement('rawLogSection');
+        const rawLogContent = this.getElement('rawLogContent');
         
         if (rawLogSection && rawLogContent) {
             DOMUtils.removeClass('raw-log-section', 'hidden');
@@ -118,8 +132,8 @@ export class LogViewer {
      * @param {string} errorMessage - Error message
      */
     showRawLogError(errorMessage) {
-        const rawLogSection = DOMUtils.getElementById('raw-log-section');
-        const rawLogContent = DOMUtils.getElementById('raw-log-content');
+        const rawLogSection = this.getElement('rawLogSection');
+        const rawLogContent = this.getElement('rawLogContent');
         
         if (rawLogSection && rawLogContent) {
             DOMUtils.removeClass('raw-log-section', 'hidden');
@@ -140,8 +154,8 @@ export class LogViewer {
      * @param {string} uuid - Instance UUID
      */
     showCORSFallback(uuid) {
-        const rawLogSection = DOMUtils.getElementById('raw-log-section');
-        const rawLogContent = DOMUtils.getElementById('raw-log-content');
+        const rawLogSection = this.getElement('rawLogSection');
+        const rawLogContent = this.getElement('rawLogContent');
         
         if (rawLogSection && rawLogContent) {
             DOMUtils.removeClass('raw-log-section', 'hidden');
@@ -179,10 +193,10 @@ export class LogViewer {
             `;
             
             // Add event listener for pasted log
-            const loadButton = DOMUtils.getElementById('load-pasted-log');
+            const loadButton = this.getElement('loadPastedLog');
             if (loadButton) {
                 loadButton.addEventListener('click', () => {
-                    const textarea = DOMUtils.getElementById('manual-log-input');
+                    const textarea = this.getElement('manualLogInput');
                     if (textarea && textarea.value.trim()) {
                         this.displayRawLog(textarea.value.trim());
                     }
@@ -199,7 +213,7 @@ export class LogViewer {
      * @param {string} text - Button text
      */
     updateViewLogButton(text) {
-        const viewLogBtn = DOMUtils.getElementById('view-log');
+        const viewLogBtn = this.getElement('viewLog');
         if (viewLogBtn) {
             viewLogBtn.textContent = text;
         }
