@@ -4,8 +4,6 @@
     --primary-color: #2563eb;
     --primary-dark: #1d4ed8;
     --secondary-color: #64748b;
-    --success-color: #10b981;
-    --warning-color: #f59e0b;
     --error-color: #ef4444;
     --background-color: #f8fafc;
     --surface-color: #ffffff;
@@ -14,6 +12,16 @@
     --border-color: #e2e8f0;
     --border-radius: 8px;
     --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    
+    --text-color: var(--text-primary);
+    --primary-color-alpha: rgba(37, 99, 235, 0.1);
+    --font-monospace: 'Monaco', 'Menlo', 'Consolas', monospace;
+    
+    --error-text: #dc2626;
+    
+    /* Additional semantic colors */
+    --disabled-bg: var(--text-secondary);
+    --section-header-bg: #bfbfbf;
 }
 
 * {
@@ -63,9 +71,6 @@ body {
 }
 
 
-
-
-
 /* Main Layout */
 .main-container {
     flex: 1;
@@ -109,7 +114,7 @@ body {
     cursor: pointer;
     transition: all 0.2s;
     background: var(--surface-color);
-    font-family: 'Monaco', 'Menlo', monospace;
+    font-family: var(--font-monospace);
     font-size: 0.875rem;
     word-break: break-all;
 }
@@ -121,7 +126,7 @@ body {
 
 .instance-tab.active {
     background: var(--primary-color);
-    color: white;
+    color: var(--surface-color);
     border-color: var(--primary-color);
 }
 
@@ -145,42 +150,7 @@ body {
     color: var(--text-secondary);
 }
 
-#uuid-input {
-    width: 100%;
-    max-width: 400px;
-    padding: 0.75rem;
-    margin: 1rem 0;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    font-family: 'Monaco', 'Menlo', monospace;
-    font-size: 0.875rem;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 1rem 0;
-}
-
-.input-row {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    flex-wrap: wrap;
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 12px;
-    border: 1px solid #e9ecef;
-}
-
-.input-row label {
-    font-weight: 600;
-    color: var(--text-color);
-    white-space: nowrap;
-    font-size: 0.9rem;
-}
-
+/* Shared input styles for both UUID and process number inputs */
 #uuid-input,
 #process-number-input {
     padding: 0.75rem;
@@ -195,17 +165,51 @@ body {
     width: 120px;
 }
 
+/* UUID input - consolidated styling from multiple declarations */
 #uuid-input {
+    width: 100%;
+    max-width: 400px;
     flex: 1;
     min-width: 300px;
-    background: #f8f9fa;
-    color: #495057;
-    border-color: #ced4da;
+    margin: 1rem 0;
+    background: var(--background-color);
+    color: var(--text-primary);
+    border-color: var(--border-color);
 }
 
+/* UUID input state variants */
 #uuid-input:read-only {
-    background: #e9ecef;
+    background: var(--background-color);
     cursor: not-allowed;
+}
+
+#uuid-input:focus {
+    outline: none;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.input-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    background: var(--background-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.input-row label {
+    font-weight: 600;
+    color: var(--text-color);
+    white-space: nowrap;
+    font-size: 0.9rem;
 }
 
 #process-number-input:focus {
@@ -214,15 +218,10 @@ body {
     box-shadow: 0 0 0 3px var(--primary-color-alpha);
 }
 
-#uuid-input:focus {
-    outline: none;
-    /* No focus styles for readonly field */
-}
-
 #fetch-uuid {
     padding: 0.75rem 1rem;
-    background: var(--secondary-color, #6c757d);
-    color: white;
+    background: var(--secondary-color);
+    color: var(--surface-color);
     border: none;
     border-radius: 8px;
     font-size: 0.9rem;
@@ -232,12 +231,12 @@ body {
 }
 
 #fetch-uuid:hover:not(:disabled) {
-    background: #5a6268;
+    background: var(--secondary-color);
     transform: translateY(-1px);
 }
 
 #fetch-uuid:disabled {
-    background: #adb5bd;
+    background: var(--disabled-bg);
     cursor: not-allowed;
 }
 
@@ -251,7 +250,7 @@ body {
 #load-instance, #view-log {
     padding: 0.75rem 1.5rem;
     background: var(--primary-color);
-    color: white;
+    color: var(--surface-color);
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
@@ -260,7 +259,7 @@ body {
 }
 
 #load-instance:hover, #view-log:hover {
-    background: #1d4ed8;
+    background: var(--primary-dark);
 }
 
 #view-log {
@@ -268,7 +267,7 @@ body {
 }
 
 #view-log:hover {
-    background: #475569;
+    background: var(--secondary-color);
 }
 
 /* Raw Log Display Styles */
@@ -298,7 +297,7 @@ body {
 #hide-log {
     padding: 0.5rem 1rem;
     background: var(--secondary-color);
-    color: white;
+    color: var(--surface-color);
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
@@ -306,7 +305,7 @@ body {
 }
 
 #hide-log:hover {
-    background: #475569;
+    background: var(--secondary-color);
 }
 
 .raw-log-container {
@@ -318,10 +317,10 @@ body {
 #raw-log-content {
     margin: 0;
     padding: 1.5rem;
-    background: #f8fafc;
+    background: var(--background-color);
     border: none;
     border-radius: 0;
-    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-family: var(--font-monospace);
     font-size: 0.75rem;
     line-height: 1.4;
     color: var(--text-primary);
@@ -343,7 +342,8 @@ body {
     gap: 1.5rem;
 }
 
-.cpee-section {
+/* Base section styles - shared by all section types */
+.section {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
@@ -351,8 +351,9 @@ body {
     box-shadow: var(--shadow);
 }
 
-.cpee-section h3 {
-    background: #cbced1;
+/* Shared header styles for all sections */
+.section h3 {
+    background: var(--section-header-bg);
     padding: 1rem 1.5rem;
     margin: 0;
     border-bottom: 1px solid var(--border-color);
@@ -361,91 +362,63 @@ body {
     font-weight: 600;
 }
 
-/* Mermaid sections for intermediate graphs - horizontal scrolling */
-.mermaid-section {
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-}
+/* CPEE and Mermaid sections inherit all styles from .section base class */
 
-.mermaid-section h3 {
-    background: #cbced1;
-    padding: 1rem 1.5rem;
-    margin: 0;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-primary);
-    font-size: 1rem;
-    font-weight: 600;
-}
-
+/* Mermaid section content-box - horizontal scrolling for wide graphs */
 .mermaid-section .content-box {
     padding: 0;
     height: auto;
     min-height: auto;
     max-height: 400px;
-    overflow-x: scroll;  /* Always show horizontal scrollbar when needed */
-    overflow-y: scroll;  /* Always show vertical scrollbar when needed */
+    overflow-x: scroll;
+    overflow-y: scroll;
     white-space: nowrap;
     display: flex;
     align-items: flex-start;
 }
 
-/* Mermaid sections - transition overflow control */
-.mermaid-section .content-box.transitioning {
-    overflow: hidden !important;
-    white-space: normal;
-}
-
+/* Base content-box styles - designed to be overridden by specific sections */
 .content-box {
     padding: 1rem;
-    max-height: 500px;
-    overflow-y: auto;
 }
 
 /* Prevent scrollbars during transitions */
 .content-box.transitioning {
     overflow: hidden !important;
+    white-space: normal;
 }
 
 /* CPEE sections - specific overflow control with horizontal scroll */
 .cpee-section .content-box {
-    height: 400px !important;
-    max-height: 400px !important;
-    min-height: 400px !important;
-    overflow-y: scroll;  /* Always show vertical scrollbar when needed */
-    overflow-x: scroll;  /* Always show horizontal scrollbar when needed */
+    height: 400px;
+    max-height: 400px;
+    min-height: 400px;
+    overflow-y: scroll;
+    overflow-x: scroll;
     position: relative;
 }
 
-.cpee-section .content-box.transitioning {
-    overflow: hidden !important;
-}
-
-/* User Input section - never show scrollbars, auto-adjust height */
+/* User Input content styling - text formatting only */
 #user-input-content {
-    overflow: hidden !important;
     white-space: pre-wrap;
     word-wrap: break-word;
-    max-height: none !important;
-    height: auto !important; /* Allow content to determine height */
 }
 
-/* Target the user input content-box specifically - auto-adjust to content height */
-.user-input-content-box {
-    overflow: hidden !important;
-    max-height: none !important;
-    height: auto !important; /* Allow container to adjust to content height */
-    min-height: auto !important; /* Remove any minimum height constraints */
+/* User Input section inherits all styles from .section base class */
+
+/* Default content-box behavior for sections without specific overrides */
+.section .content-box {
+    max-height: 500px;
+    overflow-y: auto;
 }
 
-/* User Input section override - ensure it's not affected by CPEE section constraints */
-.cpee-section .user-input-content-box {
-    height: auto !important;
-    max-height: none !important;
-    min-height: auto !important;
-    overflow: hidden !important;
+/* User Input section content-box - unified container styling */
+.user-input-section .content-box {
+    height: auto;
+    max-height: none;
+    min-height: auto;
+    overflow: hidden;
+    padding: 1rem;
 }
 
 /* CPEE graph containers - allow horizontal overflow for wide SVGs */
@@ -467,10 +440,10 @@ body {
 
 .content-box pre {
     margin: 0;
-    background: #f8fafc;
+    background: var(--background-color);
     padding: 1rem;
     border-radius: var(--border-radius);
-    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-family: var(--font-monospace);
     font-size: 0.75rem;
     line-height: 1.4;
     color: var(--text-primary);
@@ -483,95 +456,6 @@ body {
     font-size: inherit;
     background: none;
     padding: 0;
-}
-
-/* Step Info */
-.step-info {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.info-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.info-item label {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-}
-
-.status-badge {
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--border-radius);
-    font-size: 0.75rem;
-    font-weight: 500;
-    width: fit-content;
-}
-
-.status-badge.success {
-    background: #f0fdf4;
-    color: var(--success-color);
-    border: 1px solid #bbf7d0;
-}
-
-.status-badge.error {
-    background: #fef2f2;
-    color: var(--error-color);
-    border: 1px solid #fecaca;
-}
-
-/* Code Sections */
-.code-section, .diagram-section {
-    margin-bottom: 2rem;
-}
-
-.code-section h4, .diagram-section h4 {
-    margin-bottom: 0.75rem;
-    color: var(--text-primary);
-}
-
-.code-section pre {
-    background: #f1f5f9;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 1rem;
-    overflow-x: auto;
-    font-family: 'Monaco', 'Menlo', monospace;
-    font-size: 0.875rem;
-    line-height: 1.5;
-}
-
-.mermaid-diagram {
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 1rem;
-    background: var(--surface-color);
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-}
-
-/* Diff Container */
-.diff-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.diff-section, .errors-section {
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
 }
 
 /* Footer */
@@ -597,7 +481,6 @@ body {
         padding: 1rem;
     }
 
-
     .main-container {
         grid-template-columns: 1fr;
     }
@@ -606,14 +489,6 @@ body {
         order: 2;
         border-right: none;
         border-top: 1px solid var(--border-color);
-    }
-
-    .step-info {
-        grid-template-columns: 1fr;
-    }
-
-    .diff-container {
-        grid-template-columns: 1fr;
     }
 }
 
@@ -632,7 +507,7 @@ body {
 
 .nav-btn {
     background: var(--primary-color);
-    color: white;
+    color: var(--surface-color);
     border: none;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
@@ -648,7 +523,7 @@ body {
 }
 
 .nav-btn:disabled {
-    background: #ccc;
+    background: var(--disabled-bg);
     cursor: not-allowed;
     opacity: 0.6;
 }
@@ -666,9 +541,9 @@ body {
     justify-content: center;
     min-height: 100px;
     height: auto;
-    color: #6b7280;
+    color: var(--text-secondary);
     font-style: italic;
-    background: #f9fafb;
+    background: var(--background-color);
     border-radius: 0;
     border: none;
     margin: 0;
@@ -681,10 +556,10 @@ body {
     justify-content: center;
     min-height: 40px;
     height: auto;
-    color: #9ca3af;
+    color: var(--text-secondary);
     font-style: italic;
     font-size: 0.875rem;
-    background: white;
+    background: var(--surface-color);
     border-radius: 0;
     border: none;
     margin: 0;
@@ -702,17 +577,17 @@ body {
 }
 
 .error-message {
-    color: #dc2626;
-    background: #fef2f2;
+    color: var(--error-text);
+    background: var(--background-color);
     border: none;
 }
 
 .graph-error {
     padding: 1rem;
-    background: #fef2f2;
+    background: var(--background-color);
     border: none;
     border-radius: 0;
-    color: #dc2626;
+    color: var(--error-text);
     margin: 0;
 }
 
@@ -724,8 +599,8 @@ body {
 
 .graph-error pre {
     margin-top: 0.5rem;
-    background: #f7fafc;
-    color: #374151;
+    background: var(--background-color);
+    color: var(--text-secondary);
     font-size: 0.75rem;
     max-height: 200px;
     overflow-y: auto;
@@ -746,17 +621,15 @@ body {
 }
 
 
+/* CPEE content specific overrides - only unique properties */
 #input-cpee-content .content-box,
 #output-cpee-content .content-box {
     padding: 0;
-    max-height: none;
-    min-height: 100px;
-    height: auto;
 }
 
 /* Step graph containers - ensure they don't interfere with main form */
 [id*="-graph-container"] {
-    margin: 0; /* Remove margins for direct placement in content-box */
+    margin: 0;
     isolation: isolate; /* Create new stacking context */
     min-height: 100px;
     height: auto;
@@ -765,7 +638,7 @@ body {
 /* Mermaid graph containers for intermediate sections - allow dynamic width growth */
 [id*="input-intermediate-"][id*="-graph-container"],
 [id*="output-intermediate-"][id*="-graph-container"] {
-    background: white;
+    background: var(--surface-color);
     border: none;
     border-radius: 0;
     margin: 0;
@@ -792,7 +665,7 @@ body {
     display: block;
     max-width: 100%;
     height: auto;
-    min-height: 100px; /* Ensure visibility even for small graphs */
+    min-height: 100px;
 }
 
 /* Dynamic size for Mermaid graphs in intermediate sections - allow natural growth */
@@ -812,16 +685,16 @@ body {
 /* Events (circles) */
 [id*="input-intermediate-"][id*="-graph-container"] .node circle,
 [id*="output-intermediate-"][id*="-graph-container"] .node circle {
-    fill: #ffffff !important;
-    stroke: #000000 !important;
+    fill: var(--surface-color) !important;
+    stroke: var(--text-primary) !important;
     stroke-width: 2px !important;
 }
 
 /* Tasks (rectangles) */
 [id*="input-intermediate-"][id*="-graph-container"] .node rect,
 [id*="output-intermediate-"][id*="-graph-container"] .node rect {
-    fill: #ffffff !important;
-    stroke: #000000 !important;
+    fill: var(--surface-color) !important;
+    stroke: var(--text-primary) !important;
     stroke-width: 2px !important;
 }
 
@@ -830,8 +703,8 @@ body {
 [id*="output-intermediate-"][id*="-graph-container"] .node polygon,
 [id*="input-intermediate-"][id*="-graph-container"] .node path,
 [id*="output-intermediate-"][id*="-graph-container"] .node path {
-    fill: #ffffff !important;
-    stroke: #000000 !important;
+    fill: var(--surface-color) !important;
+    stroke: var(--text-primary) !important;
     stroke-width: 2px !important;
 }
 
@@ -840,16 +713,16 @@ body {
 [id*="input-intermediate-"][id*="-graph-container"] g[id*="endevent"] circle,
 [id*="output-intermediate-"][id*="-graph-container"] g[id*="startevent"] circle,
 [id*="output-intermediate-"][id*="-graph-container"] g[id*="endevent"] circle {
-    fill: #ffffff !important;
-    stroke: #000000 !important;
+    fill: var(--surface-color) !important;
+    stroke: var(--text-primary) !important;
     stroke-width: 2px !important;
 }
 
 /* Style for task elements specifically */
 [id*="input-intermediate-"][id*="-graph-container"] g[id*="task"] rect,
 [id*="output-intermediate-"][id*="-graph-container"] g[id*="task"] rect {
-    fill: #ffffff !important;
-    stroke: #000000 !important;
+    fill: var(--surface-color) !important;
+    stroke: var(--text-primary) !important;
     stroke-width: 2px !important;
 }
 
@@ -858,16 +731,16 @@ body {
 [id*="input-intermediate-"][id*="-graph-container"] g[id*="decision"] *,
 [id*="output-intermediate-"][id*="-graph-container"] g[id*="gateway"] *,
 [id*="output-intermediate-"][id*="-graph-container"] g[id*="decision"] * {
-    fill: #ffffff !important;
-    stroke: #000000 !important;
+    fill: var(--surface-color) !important;
+    stroke: var(--text-primary) !important;
     stroke-width: 2px !important;
 }
 
 /* Additional shape types that might be used */
 [id*="input-intermediate-"][id*="-graph-container"] .node ellipse,
 [id*="output-intermediate-"][id*="-graph-container"] .node ellipse {
-    fill: #ffffff !important;
-    stroke: #000000 !important;
+    fill: var(--surface-color) !important;
+    stroke: var(--text-primary) !important;
     stroke-width: 2px !important;
 }
 
@@ -888,7 +761,7 @@ body {
     visibility: hidden !important;
 }
 
-/* Ensure main form inputs are not affected */
+/* Override isolation rules - ensure main form inputs remain interactive */
 #process-number-input,
 #uuid-input {
     pointer-events: auto !important;
