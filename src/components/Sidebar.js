@@ -4,12 +4,16 @@
  */
 
 import { DOMUtils } from '../utils/DOMUtils.js';
+import { DOMElementManager } from '../utils/DOMElementManager.js';
 
 export class Sidebar {
     constructor(instanceService, domRegistry = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.onInstanceSelect = null;
+        
+        // Initialize utility managers (Phase 1: Add alongside existing code)
+        this.domManager = new DOMElementManager(domRegistry);
     }
 
     /**
@@ -18,11 +22,29 @@ export class Sidebar {
      * @returns {Element|null} DOM element or null if not found
      */
     getElement(key) {
-        if (this.domRegistry) {
-            return this.domRegistry.getElementSafe(key);
-        }
-        // Fallback to direct DOM access for backward compatibility
-        return DOMUtils.getElementById(key);
+        // Phase 1: Use new utility while maintaining existing interface
+        return this.domManager.getElement(key);
+        
+        // Legacy code (keeping as fallback comment):
+        // if (this.domRegistry) {
+        //     return this.domRegistry.getElementSafe(key);
+        // }
+        // return DOMUtils.getElementById(key);
+    }
+
+    /**
+     * Create tab element using utility (new method for improved maintainability)
+     * @param {string} uuid - Instance UUID
+     * @param {string} displayText - Display text for tab
+     * @returns {HTMLElement} Created tab element
+     */
+    createTabElement(uuid, displayText) {
+        // Use new utility for element creation
+        return this.domManager.createElement('div', {
+            className: 'instance-tab',
+            'data-uuid': uuid,
+            textContent: displayText
+        });
     }
 
     /**

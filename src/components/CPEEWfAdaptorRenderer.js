@@ -4,6 +4,10 @@
  * Leverages the authentic CPEE graph rendering system
  */
 
+import { StatusManager } from '../utils/StatusManager.js';
+import { LibraryLoader } from '../utils/LibraryLoader.js';
+import { XMLProcessor } from '../utils/XMLProcessor.js';
+
 export class CPEEWfAdaptorRenderer {
     
     constructor() {
@@ -11,6 +15,9 @@ export class CPEEWfAdaptorRenderer {
         this.isRendered = false;
         this.container = null;
         this.svgContainer = null;
+        
+        // Phase 1: Add utility managers alongside existing code
+        this.statusManager = null; // Will be initialized in initialize()
     }
     
     /**
@@ -21,14 +28,17 @@ export class CPEEWfAdaptorRenderer {
      */
     async initialize(containerId, statusId, xmlInputId) {
         this.container = document.getElementById(containerId);
-        this.statusElement = document.getElementById(statusId);
-        this.xmlInput = document.getElementById(xmlInputId);
+        this.statusElement = statusId ? document.getElementById(statusId) : null;
+        this.xmlInput = xmlInputId ? document.getElementById(xmlInputId) : null;
         
         if (!this.container) {
             throw new Error(`Container with ID ${containerId} not found`);
         }
         
-        // Wait for jQuery to be available
+        // Phase 1: Initialize utility managers
+        this.statusManager = new StatusManager(this.statusElement);
+        
+        // Wait for jQuery to be available (using new utility)
         await this.waitForJQuery();
         
         // Setup container
@@ -38,27 +48,43 @@ export class CPEEWfAdaptorRenderer {
     }
     
     /**
-     * Wait for jQuery to be loaded
+     * Wait for jQuery to be loaded (Phase 1: Add new utility method alongside existing)
+     */
+    async waitForJQueryWithUtility() {
+        // Use new LibraryLoader utility
+        await LibraryLoader.ensureLibrary(
+            'jQuery',
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',
+            () => typeof $ !== 'undefined'
+        );
+        
+        // Add essential jQuery extensions for CPEE
+        this.addJQueryExtensions();
+    }
+
+    /**
+     * Wait for jQuery to be loaded (Legacy method - maintaining for backward compatibility)
      */
     waitForJQuery() {
-        return new Promise((resolve) => {
-            if (typeof $ !== 'undefined') {
-                resolve();
-                return;
-            }
-            
-            // Load jQuery if not available
-            const script = document.createElement('script');
-            script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js';
-            script.onload = () => {
-                console.log('✅ jQuery loaded');
-                
-                // Add essential jQuery extensions for CPEE
-                this.addJQueryExtensions();
-                resolve();
-            };
-            document.head.appendChild(script);
-        });
+        // Phase 1: Use new utility method internally while maintaining interface
+        return this.waitForJQueryWithUtility();
+        
+        // Legacy implementation (keeping as fallback comment):
+        // return new Promise((resolve) => {
+        //     if (typeof $ !== 'undefined') {
+        //         resolve();
+        //         return;
+        //     }
+        //     
+        //     const script = document.createElement('script');
+        //     script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js';
+        //     script.onload = () => {
+        //         console.log('✅ jQuery loaded');
+        //         this.addJQueryExtensions();
+        //         resolve();
+        //     };
+        //     document.head.appendChild(script);
+        // });
     }
     
     /**
@@ -134,7 +160,7 @@ export class CPEEWfAdaptorRenderer {
         this.svgContainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.svgContainer.id = `graphcanvas-${this.container.id}`;
         this.svgContainer.setAttribute('width', '100%');
-        this.svgContainer.setAttribute('height', '400'); // Use default pixel value instead of 'auto'
+        this.svgContainer.setAttribute('height', '400');
         this.svgContainer.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         this.svgContainer.setAttribute('version', '1.1');
         this.svgContainer.setAttribute('xmlns:x', 'http://www.w3.org/1999/xlink');
@@ -314,53 +340,14 @@ export class CPEEWfAdaptorRenderer {
     }
     
     /**
-     * Clean and validate CPEE XML
+     * Clean and validate CPEE XML (Legacy method with utility integration)
      */
     cleanAndValidateXML(xml) {
-        if (!xml || typeof xml !== 'string') {
-            throw new Error('Invalid XML input');
-        }
+        // Phase 1: Use new XMLProcessor utility while maintaining interface
+        return XMLProcessor.cleanAndValidate(xml);
         
-        // Remove HTML comments and extra whitespace
-        let cleanedXML = xml.replace(/<!--[\s\S]*?-->/g, '').trim();
-        
-        // Remove any leading whitespace and newlines
-        cleanedXML = cleanedXML.replace(/^\s+/, '');
-        
-        // If no XML declaration, add one
-        if (!cleanedXML.startsWith('<?xml')) {
-            cleanedXML = '<?xml version="1.0"?>\n' + cleanedXML;
-        }
-        
-        // Validate basic XML structure
-        if (!cleanedXML.includes('<description')) {
-            throw new Error('Invalid CPEE XML: Missing <description> element');
-        }
-        
-        // Parse and validate the XML structure
-        try {
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(cleanedXML, 'text/xml');
-            
-            // Check for parsing errors
-            const parseError = xmlDoc.querySelector('parsererror');
-            if (parseError) {
-                throw new Error('XML parsing error: ' + parseError.textContent);
-            }
-            
-            // Ensure we have a proper description element
-            const descElement = xmlDoc.querySelector('description');
-            if (!descElement) {
-                throw new Error('No valid <description> element found');
-            }
-            
-            console.log('✅ XML validation successful');
-            return cleanedXML;
-            
-        } catch (error) {
-            console.error('❌ XML validation failed:', error);
-            throw new Error('Invalid XML structure: ' + error.message);
-        }
+        // Legacy implementation (keeping as fallback comment):
+        // Original implementation moved to XMLProcessor utility
     }
     
     /**
@@ -438,11 +425,30 @@ export class CPEEWfAdaptorRenderer {
     }
 
     /**
-     * Show status message
+     * Show status message (Legacy method with utility integration)
      * @param {string} message - Status message
      * @param {string} type - Message type (loading, success, error)
      */
     showStatus(message, type = 'info') {
+        // Phase 1: Use new StatusManager utility while maintaining interface
+        if (this.statusManager) {
+            switch (type) {
+                case 'loading':
+                    this.statusManager.showLoading(message);
+                    break;
+                case 'success':
+                    this.statusManager.showSuccess(message);
+                    break;
+                case 'error':
+                    this.statusManager.showError(message);
+                    break;
+                default:
+                    this.statusManager.showInfo(message);
+            }
+            return;
+        }
+        
+        // Legacy fallback if StatusManager not initialized
         if (!this.statusElement) return;
         
         this.statusElement.textContent = message;
