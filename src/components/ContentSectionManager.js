@@ -311,15 +311,48 @@ export class ContentSectionManager {
      * @returns {string} Formatted HTML content
      */
     formatUserInputContent(content) {
+        // Clean the content first - remove "# User Input:" header and extra whitespace
+        let cleanedContent = this.extractCleanUserInput(content);
+        
         try {
             // Try to parse as JSON for better formatting
-            const parsed = JSON.parse(content);
+            const parsed = JSON.parse(cleanedContent);
             return `<pre><code>${JSON.stringify(parsed, null, 2)}</code></pre>`;
         } catch {
             // If not JSON, display as plain text with proper escaping
-            const escaped = this.escapeHtml(content);
+            const escaped = this.escapeHtml(cleanedContent);
             return `<pre><code>${escaped}</code></pre>`;
         }
+    }
+
+    /**
+     * Extract clean user input text from raw log content
+     * @param {string} content - Raw content from logs
+     * @returns {string} Clean user input text
+     */
+    extractCleanUserInput(content) {
+        if (!content || typeof content !== 'string') {
+            return '';
+        }
+
+        // Remove the "# User Input:" header line
+        let cleanedText = content.replace(/^#\s*User\s*Input\s*:\s*$/gm, '').trim();
+        
+        // Remove any leading whitespace from each line (handles indentation)
+        cleanedText = cleanedText.split('\n').map(line => line.trimStart()).join('\n');
+        
+        // Remove any additional comment patterns that might be present
+        cleanedText = cleanedText.replace(/<!--[\s\S]*?-->/g, '').trim();
+        
+        // Remove any markdown-style formatting if present
+        cleanedText = cleanedText.replace(/```[\s\S]*?```/g, '').trim();
+        
+        // Clean up extra whitespace and normalize line endings
+        cleanedText = cleanedText.replace(/\r\n/g, '\n');
+        cleanedText = cleanedText.replace(/\n\s*\n/g, '\n');
+        cleanedText = cleanedText.trim();
+        
+        return cleanedText;
     }
 
     /**

@@ -173,6 +173,8 @@ export class StepNavigator {
             const button = this.domManager.getElement(key) || document.getElementById(id);
             if (button) {
                 button.onclick = handler;
+                // Apply initial gray styling (enabled state)
+                this.applyDisabledStyling(button, false);
             }
         });
     }
@@ -215,22 +217,87 @@ export class StepNavigator {
     applyDisabledStyling(button, isDisabled) {
         if (!button) return;
 
+        // Common button styling for both states
+        const commonStyles = {
+            padding: '8px 12px',
+            borderRadius: '4px',
+            fontSize: '14px',
+            fontWeight: '500',
+            transition: 'all 0.2s ease',
+            outline: 'none',
+            minWidth: '32px',
+            height: '32px'
+        };
+
+        // Check if this is a left/right navigation button (← or →)
+        const isLeftRightButton = button.id === 'prev-step' || button.id === 'next-step';
+
         if (isDisabled) {
+            // Light gray for all disabled buttons
             this.domManager.applyStyles(button, {
-                opacity: '0.5',
-                color: '#6c757d',
-                backgroundColor: '#e9ecef',
-                borderColor: '#d6d9dc',
+                ...commonStyles,
+                color: '#999999',
+                backgroundColor: '#f5f5f5',
+                border: '1px solid #e0e0e0',
                 cursor: 'not-allowed',
                 pointerEvents: 'none'
             });
         } else {
-            // Reset to default styling
-            this.domManager.applyStyles(button, {
-                opacity: '',
-                cursor: 'pointer',
-                pointerEvents: 'auto'
-            });
+            if (isLeftRightButton) {
+                // Blue for enabled left/right buttons (← →) - same as process instance selection
+                this.domManager.applyStyles(button, {
+                    ...commonStyles,
+                    color: 'white',
+                    backgroundColor: '#2563eb',
+                    border: '1px solid #1d4ed8',
+                    cursor: 'pointer',
+                    pointerEvents: 'auto'
+                });
+                
+                // Add blue hover effect for enabled left/right buttons
+                button.onmouseenter = () => {
+                    if (!button.disabled) {
+                        this.domManager.applyStyles(button, {
+                            backgroundColor: '#1d4ed8'
+                        });
+                    }
+                };
+                
+                button.onmouseleave = () => {
+                    if (!button.disabled) {
+                        this.domManager.applyStyles(button, {
+                            backgroundColor: '#2563eb'
+                        });
+                    }
+                };
+            } else {
+                // Gray for enabled start/end buttons (⏮ ⏭)
+                this.domManager.applyStyles(button, {
+                    ...commonStyles,
+                    color: '#333333',
+                    backgroundColor: '#d4d4d4',
+                    border: '1px solid #b8b8b8',
+                    cursor: 'pointer',
+                    pointerEvents: 'auto'
+                });
+                
+                // Add gray hover effect for enabled start/end buttons
+                button.onmouseenter = () => {
+                    if (!button.disabled) {
+                        this.domManager.applyStyles(button, {
+                            backgroundColor: '#c0c0c0'
+                        });
+                    }
+                };
+                
+                button.onmouseleave = () => {
+                    if (!button.disabled) {
+                        this.domManager.applyStyles(button, {
+                            backgroundColor: '#d4d4d4'
+                        });
+                    }
+                };
+            }
         }
     }
 
