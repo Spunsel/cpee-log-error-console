@@ -198,20 +198,13 @@ export class StepViewer {
 
         // Check if we have valid CPEE XML
         if (!cpeeXml || cpeeXml === 'Not found' || cpeeXml === 'No content available') {
-            // Preserve height and hide overflow during transition
-            const cleanup = this.preserveHeightDuringTransition(inputCpeeElement);
-            
+            // No transition effects needed - input section has fixed height
             inputCpeeElement.innerHTML = '<div class="no-content">No CPEE tree available for this step</div>';
-            
-            // Restore normal state
-            cleanup();
             return;
         }
 
         try {
-            // Preserve height and hide overflow during transition
-            const cleanup = this.preserveHeightDuringTransition(inputCpeeElement);
-            
+            // No transition effects needed - input section has fixed height
             // Clear the existing content and create graph container
             inputCpeeElement.innerHTML = '';
             
@@ -263,9 +256,6 @@ export class StepViewer {
             
             console.log('✅ CPEE graph rendered in step viewer');
             
-            // Restore normal state after graph is rendered
-            cleanup();
-            
         } catch (error) {
             console.error('❌ Failed to render CPEE graph in step viewer:', error);
             
@@ -279,9 +269,6 @@ export class StepViewer {
                     </details>
                 </div>
             `;
-            
-            // Restore normal state after error content is set
-            cleanup();
         }
     }
 
@@ -694,8 +681,7 @@ export class StepViewer {
         // Show loading in all sections
         const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
         if (inputCpeeElement) {
-            // Preserve height and hide overflow during loading
-            this.preserveHeightDuringTransition(inputCpeeElement);
+            // No transition effects needed - input section has fixed height
             inputCpeeElement.innerHTML = '<div class="loading-graph">Loading input graph...</div>';
         }
         
@@ -738,17 +724,8 @@ export class StepViewer {
 
         const inputCpeeElement = DOMUtils.getElementById('input-cpee-content');
         if (inputCpeeElement) {
-            // Store current height to prevent flickering during error display
-            const currentHeight = inputCpeeElement.offsetHeight;
-            if (currentHeight > 100) {
-                inputCpeeElement.style.height = currentHeight + 'px';
-            }
+            // No transition effects needed - input section has fixed height
             inputCpeeElement.innerHTML = `<div class="error-message">Input Error: ${message}</div>`;
-            
-            // Reset height after error content is set
-            setTimeout(() => {
-                inputCpeeElement.style.height = 'auto';
-            }, 50);
         }
         
         const outputCpeeElement = DOMUtils.getElementById('output-cpee-content');

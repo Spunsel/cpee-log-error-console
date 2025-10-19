@@ -384,7 +384,7 @@ body {
     padding: 0;
     height: auto;
     min-height: auto;
-    max-height: none;
+    max-height: 400px;
     overflow-x: scroll;  /* Always show horizontal scrollbar when needed */
     overflow-y: scroll;  /* Always show vertical scrollbar when needed */
     white-space: nowrap;
@@ -411,6 +411,9 @@ body {
 
 /* CPEE sections - specific overflow control with horizontal scroll */
 .cpee-section .content-box {
+    height: 400px !important;
+    max-height: 400px !important;
+    min-height: 400px !important;
     overflow-y: scroll;  /* Always show vertical scrollbar when needed */
     overflow-x: scroll;  /* Always show horizontal scrollbar when needed */
     position: relative;
@@ -420,18 +423,29 @@ body {
     overflow: hidden !important;
 }
 
-/* User Input section - never show scrollbars */
+/* User Input section - never show scrollbars, auto-adjust height */
 #user-input-content {
     overflow: hidden !important;
     white-space: pre-wrap;
     word-wrap: break-word;
     max-height: none !important;
+    height: auto !important; /* Allow content to determine height */
 }
 
-/* Target the user input content-box specifically using the class added by JavaScript */
+/* Target the user input content-box specifically - auto-adjust to content height */
 .user-input-content-box {
     overflow: hidden !important;
     max-height: none !important;
+    height: auto !important; /* Allow container to adjust to content height */
+    min-height: auto !important; /* Remove any minimum height constraints */
+}
+
+/* User Input section override - ensure it's not affected by CPEE section constraints */
+.cpee-section .user-input-content-box {
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
+    overflow: hidden !important;
 }
 
 /* CPEE graph containers - allow horizontal overflow for wide SVGs */
@@ -771,6 +785,14 @@ body {
     display: block;
     max-width: 100%;
     height: auto;
+}
+
+/* Input CPEE graph SVGs - ensure they scale properly within fixed 400px container */
+#input-cpee-content [id*="-graph-container"] svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    min-height: 100px; /* Ensure visibility even for small graphs */
 }
 
 /* Dynamic size for Mermaid graphs in intermediate sections - allow natural growth */
