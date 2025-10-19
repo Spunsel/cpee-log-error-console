@@ -134,7 +134,7 @@ export class CPEEWfAdaptorRenderer {
         this.svgContainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.svgContainer.id = `graphcanvas-${this.container.id}`;
         this.svgContainer.setAttribute('width', '100%');
-        this.svgContainer.setAttribute('height', 'auto');
+        this.svgContainer.setAttribute('height', '400'); // Use default pixel value instead of 'auto'
         this.svgContainer.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         this.svgContainer.setAttribute('version', '1.1');
         this.svgContainer.setAttribute('xmlns:x', 'http://www.w3.org/1999/xlink');
@@ -176,64 +176,83 @@ export class CPEEWfAdaptorRenderer {
             this.adaptor = new WfAdaptor('src/libs/cpee/themes/preset/theme.js', (graphrealization) => {
                 console.log('🎨 WfAdaptor loaded, rendering graph...');
                 
-                // Set the SVG container with unique ID
-                graphrealization.set_svg_container($(`#graphcanvas-${self.container.id}`));
-                
-                // Always initialize label container for hover functionality with unique ID
-                const labelContainer = $(`<div id="graph-labels-${self.container.id}" style="display: none;"></div>`);
-                $(`#modelling-${self.container.id}`).append(labelContainer);
-                graphrealization.illustrator.svg.label_container = labelContainer;
-                
-                // Prevent WfAdaptor from interfering with main form inputs
-                // Override any global event handlers that might capture form inputs
-                const originalKeydown = $(document).off('keydown.wfadaptor');
-                const originalKeyup = $(document).off('keyup.wfadaptor');
-                const originalKeypress = $(document).off('keypress.wfadaptor');
-                
-                // Parse XML properly for WfAdaptor
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(cleanedXML, 'text/xml');
-                
-                // Debug logging
-                console.log('📋 Parsed XML document:', xmlDoc);
-                console.log('📋 Document element:', xmlDoc.documentElement);
-                console.log('📋 Document children:', xmlDoc.documentElement ? xmlDoc.documentElement.children : 'none');
-                
-                // Create jQuery object from the parsed document
-                const jqueryXmlDoc = $(xmlDoc);
-                
-                console.log('📋 jQuery XML object:', jqueryXmlDoc);
-                console.log('📋 Description children:', jqueryXmlDoc.find('description'));
-                console.log('📋 Description element:', jqueryXmlDoc.find('description').get(0));
-                
-                // Verify the structure before passing to WfAdaptor
-                const descElement = jqueryXmlDoc.find('description');
-                if (descElement.length === 0) {
-                    // If description is not found as a child, it might be the root element
-                    if (xmlDoc.documentElement && xmlDoc.documentElement.tagName === 'description') {
-                        console.log('📋 Description is root element');
-                        const rootDesc = $(xmlDoc.documentElement);
-                        const wrapperDoc = $('<xml></xml>').append(rootDesc.clone());
-                        graphrealization.set_description(wrapperDoc, true);
-                    } else {
-                        throw new Error('No description element found in XML');
-                    }
-                } else {
-                    console.log('📋 Found description as child element');
-                    graphrealization.set_description(jqueryXmlDoc, true);
-                }
-                
-                console.log('✅ CPEE graph rendered successfully');
-                // Success message removed as requested
-                this.isRendered = true;
-                
-                // Dynamically adjust SVG height based on actual content dimensions
+                // Small delay to ensure DOM is fully updated
                 setTimeout(() => {
-                    self.adjustSVGHeight();
-                }, 100);
-                
-                // Add controls
-                this.addGraphControls();
+                    try {
+                        // Set the SVG container with unique ID - ensure element exists before jQuery wrapping
+                        const svgElementId = `graphcanvas-${self.container.id}`;
+                        const svgElement = document.getElementById(svgElementId);
+                        
+                        if (!svgElement) {
+                            throw new Error(`SVG container with ID '${svgElementId}' not found`);
+                        }
+                        
+                        console.log('🔍 SVG element found:', svgElement);
+                        const jquerySvgContainer = $(svgElement);
+                        console.log('🔍 jQuery SVG container:', jquerySvgContainer, 'jQuery length:', jquerySvgContainer.length);
+                        
+                        if (jquerySvgContainer.length === 0) {
+                            throw new Error(`jQuery could not wrap SVG element with ID '${svgElementId}'`);
+                        }
+                        
+                        graphrealization.set_svg_container(jquerySvgContainer);
+                        
+                        // Always initialize label container for hover functionality with unique ID
+                        const labelContainer = $(`<div id="graph-labels-${self.container.id}" style="display: none;"></div>`);
+                        $(`#modelling-${self.container.id}`).append(labelContainer);
+                        graphrealization.illustrator.svg.label_container = labelContainer;
+            
+                        // Parse XML properly for WfAdaptor
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(cleanedXML, 'text/xml');
+                        
+                        // Debug logging
+                        console.log('📋 Parsed XML document:', xmlDoc);
+                        console.log('📋 Document element:', xmlDoc.documentElement);
+                        console.log('📋 Document children:', xmlDoc.documentElement ? xmlDoc.documentElement.children : 'none');
+                        
+                        // Create jQuery object from the parsed document
+                        const jqueryXmlDoc = $(xmlDoc);
+                        
+                        console.log('📋 jQuery XML object:', jqueryXmlDoc);
+                        console.log('📋 Description children:', jqueryXmlDoc.find('description'));
+                        console.log('📋 Description element:', jqueryXmlDoc.find('description').get(0));
+                        
+                        // Verify the structure before passing to WfAdaptor
+                        const descElement = jqueryXmlDoc.find('description');
+                        if (descElement.length === 0) {
+                            // If description is not found as a child, it might be the root element
+                            if (xmlDoc.documentElement && xmlDoc.documentElement.tagName === 'description') {
+                                console.log('📋 Description is root element');
+                                const rootDesc = $(xmlDoc.documentElement);
+                                const wrapperDoc = $('<xml></xml>').append(rootDesc.clone());
+                                graphrealization.set_description(wrapperDoc, true);
+                            } else {
+                                throw new Error('No description element found in XML');
+                            }
+                        } else {
+                            console.log('📋 Found description as child element');
+                            graphrealization.set_description(jqueryXmlDoc, true);
+                        }
+                        
+                        console.log('✅ CPEE graph rendered successfully');
+                        // Success message removed as requested
+                        self.isRendered = true;
+                        
+                        // Dynamically adjust SVG height based on actual content dimensions
+                        setTimeout(() => {
+                            self.adjustSVGHeight();
+                        }, 100);
+                        
+                        // Add controls
+                        self.addGraphControls();
+                        
+                    } catch (error) {
+                        console.error('❌ Error in WfAdaptor callback:', error);
+                        self.showStatus(`❌ Failed to render graph: ${error.message}`, 'error');
+                        self.resetContainer();
+                    }
+                }, 50); // Small delay to ensure DOM is ready
             });
             
         } catch (error) {
@@ -372,14 +391,34 @@ export class CPEEWfAdaptorRenderer {
      * Dynamically adjust SVG height based on actual content dimensions
      */
     adjustSVGHeight() {
-        if (!this.svgContainer) return;
+        if (!this.svgContainer) {
+            console.warn('⚠️ No SVG container available for height adjustment');
+            return;
+        }
 
         try {
             // Get the SVG element
             const svg = this.svgContainer;
             
+            // Check if SVG has any content before trying to get bbox
+            const svgChildren = svg.children;
+            if (!svgChildren || svgChildren.length === 0) {
+                console.log('📏 SVG has no content yet, using default height');
+                svg.setAttribute('height', '400');
+                svg.style.height = '400px';
+                return;
+            }
+            
             // Get the bounding box of all SVG content
             const bbox = svg.getBBox();
+            
+            // Validate bbox
+            if (!bbox || isNaN(bbox.height) || bbox.height <= 0) {
+                console.warn('⚠️ Invalid SVG bounding box, using default height');
+                svg.setAttribute('height', '400');
+                svg.style.height = '400px';
+                return;
+            }
             
             // Calculate required height with some padding
             const requiredHeight = Math.max(bbox.height + bbox.y + 20, 100); // 20px padding, min 100px

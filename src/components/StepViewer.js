@@ -87,8 +87,8 @@ export class StepViewer {
         DOMUtils.removeClass('step-details', 'hidden');
         DOMUtils.addClass('process-analysis', 'hidden');
         
-        // Remove navigation if exists
-        const navContainer = this.getElement('stepNavigation');
+        // Remove navigation if exists (check DOM directly since it may not be registered yet)
+        const navContainer = document.getElementById('step-navigation');
         if (navContainer) {
             navContainer.remove();
         }
@@ -98,33 +98,86 @@ export class StepViewer {
      * Setup step navigation UI
      */
     setupStepNavigation() {
-        let navContainer = this.getElement('stepNavigation');
+        // Check DOM directly first since element may not be registered yet
+        let navContainer = document.getElementById('step-navigation');
         if (!navContainer) {
             navContainer = document.createElement('div');
             navContainer.id = 'step-navigation';
             navContainer.className = 'step-navigation';
             navContainer.innerHTML = `
-                <button id="prev-step" class="nav-btn">← Previous</button>
-                <span id="step-counter">Step 1 of 1</span>
-                <button id="next-step" class="nav-btn">Next →</button>
+                <div class="nav-left">
+                    <button id="go-to-start" class="nav-btn nav-btn-start">⏮</button>
+                </div>
+                <div class="nav-center">
+                    <button id="prev-step" class="nav-btn nav-btn-prev">←</button>
+                    <span id="step-counter">Step 1 of 1</span>
+                    <button id="next-step" class="nav-btn nav-btn-next">→</button>
+                </div>
+                <div class="nav-right">
+                    <button id="go-to-end" class="nav-btn nav-btn-end">⏭</button>
+                </div>
             `;
+            
+            // Add CSS for the new navigation layout
+            navContainer.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 20px;
+                margin: 10px 0;
+                background: #f8f9fa;
+                border: 1px solid #dee2e6;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            `;
+            
+            // Style navigation sections
+            const navLeft = navContainer.querySelector('.nav-left');
+            const navCenter = navContainer.querySelector('.nav-center');
+            const navRight = navContainer.querySelector('.nav-right');
+            
+            if (navLeft) navLeft.style.cssText = 'flex: 1; display: flex; justify-content: flex-start;';
+            if (navCenter) navCenter.style.cssText = 'flex: 2; display: flex; justify-content: center; align-items: center; gap: 15px;';
+            if (navRight) navRight.style.cssText = 'flex: 1; display: flex; justify-content: flex-end;';
             
             // Insert before process analysis
             const processAnalysis = this.getElement('processAnalysis');
             if (processAnalysis) {
                 processAnalysis.parentNode.insertBefore(navContainer, processAnalysis);
             }
+            
+            // Register new DOM elements if DOMRegistry is available
+            if (this.domRegistry) {
+                this.domRegistry.register('stepNavigation', 'step-navigation');
+                this.domRegistry.register('goToStartBtn', 'go-to-start');
+                this.domRegistry.register('prevStepBtn', 'prev-step');
+                this.domRegistry.register('nextStepBtn', 'next-step');
+                this.domRegistry.register('goToEndBtn', 'go-to-end');
+                this.domRegistry.register('stepCounter', 'step-counter');
+                
+                // Also register with the old key names for backward compatibility
+                this.domRegistry.register('prevStep', 'prev-step');
+                this.domRegistry.register('nextStep', 'next-step');
+            }
         }
 
-        // Add event listeners
-        const prevBtn = this.getElement('prevStep');
-        const nextBtn = this.getElement('nextStep');
+        // Add event listeners for all navigation buttons
+        const goToStartBtn = this.getElement('goToStartBtn') || document.getElementById('go-to-start');
+        const prevBtn = this.getElement('prevStepBtn') || document.getElementById('prev-step');
+        const nextBtn = this.getElement('nextStepBtn') || document.getElementById('next-step');
+        const goToEndBtn = this.getElement('goToEndBtn') || document.getElementById('go-to-end');
 
+        if (goToStartBtn) {
+            goToStartBtn.onclick = () => this.goToStart();
+        }
         if (prevBtn) {
             prevBtn.onclick = () => this.previousStep();
         }
         if (nextBtn) {
             nextBtn.onclick = () => this.nextStep();
+        }
+        if (goToEndBtn) {
+            goToEndBtn.onclick = () => this.goToEnd();
         }
     }
 
@@ -133,18 +186,66 @@ export class StepViewer {
      * @param {Object} navInfo - Navigation info
      */
     updateStepNavigation(navInfo) {
-        const prevBtn = this.getElement('prevStep');
-        const nextBtn = this.getElement('nextStep');
-        const counter = this.getElement('stepCounter');
+        const goToStartBtn = this.getElement('goToStartBtn') || document.getElementById('go-to-start');
+        const prevBtn = this.getElement('prevStepBtn') || document.getElementById('prev-step');
+        const nextBtn = this.getElement('nextStepBtn') || document.getElementById('next-step');
+        const goToEndBtn = this.getElement('goToEndBtn') || document.getElementById('go-to-end');
+        const counter = this.getElement('stepCounter') || document.getElementById('step-counter');
 
+        // Determine disable states
+        const isFirstStep = !navInfo.canGoPrevious;
+        const isLastStep = !navInfo.canGoNext;
+
+        // Update button states and apply styling
+        if (goToStartBtn) {
+            goToStartBtn.disabled = isFirstStep;
+            this.applyDisabledStyling(goToStartBtn, isFirstStep);
+        }
         if (prevBtn) {
-            prevBtn.disabled = !navInfo.canGoPrevious;
+            prevBtn.disabled = isFirstStep;
+            this.applyDisabledStyling(prevBtn, isFirstStep);
         }
         if (nextBtn) {
-            nextBtn.disabled = !navInfo.canGoNext;
+            nextBtn.disabled = isLastStep;
+            this.applyDisabledStyling(nextBtn, isLastStep);
+        }
+        if (goToEndBtn) {
+            goToEndBtn.disabled = isLastStep;
+            this.applyDisabledStyling(goToEndBtn, isLastStep);
         }
         if (counter) {
             counter.textContent = `Step ${navInfo.currentStep} of ${navInfo.totalSteps}`;
+        }
+    }
+
+    /**
+     * Apply disabled styling to navigation buttons
+     * @param {HTMLElement} button - Button element
+     * @param {boolean} isDisabled - Whether button should appear disabled
+     */
+    applyDisabledStyling(button, isDisabled) {
+        if (!button) return;
+
+        if (isDisabled) {
+            button.style.cssText += `
+                opacity: 0.5;
+                color: #6c757d;
+                background-color: #e9ecef;
+                border-color: #d6d9dc;
+                cursor: not-allowed;
+                pointer-events: none;
+            `;
+        } else {
+            // Reset to default styling
+            button.style.cssText = button.style.cssText.replace(/opacity:[^;]*;?/g, '')
+                                                       .replace(/color:[^;]*;?/g, '')
+                                                       .replace(/background-color:[^;]*;?/g, '')
+                                                       .replace(/border-color:[^;]*;?/g, '')
+                                                       .replace(/cursor:[^;]*;?/g, '')
+                                                       .replace(/pointer-events:[^;]*;?/g, '');
+            button.style.opacity = '';
+            button.style.cursor = 'pointer';
+            button.style.pointerEvents = 'auto';
         }
     }
 
@@ -168,6 +269,36 @@ export class StepViewer {
      */
     async nextStep() {
         if (this.instanceService.nextStep()) {
+            const step = this.instanceService.getCurrentStep();
+            const navInfo = this.instanceService.getNavigationInfo();
+            await this.displayStep(step, navInfo);
+            
+            if (this.onStepChange) {
+                this.onStepChange(this.instanceService.currentStepIndex);
+            }
+        }
+    }
+
+    /**
+     * Navigate to first step
+     */
+    async goToStart() {
+        if (this.instanceService.goToFirstStep()) {
+            const step = this.instanceService.getCurrentStep();
+            const navInfo = this.instanceService.getNavigationInfo();
+            await this.displayStep(step, navInfo);
+            
+            if (this.onStepChange) {
+                this.onStepChange(this.instanceService.currentStepIndex);
+            }
+        }
+    }
+
+    /**
+     * Navigate to last step
+     */
+    async goToEnd() {
+        if (this.instanceService.goToLastStep()) {
             const step = this.instanceService.getCurrentStep();
             const navInfo = this.instanceService.getNavigationInfo();
             await this.displayStep(step, navInfo);

@@ -147,6 +147,26 @@ export class InstanceService {
     }
 
     /**
+     * Navigate to first step
+     * @returns {boolean} True if navigation was successful
+     */
+    goToFirstStep() {
+        return this.goToStep(0);
+    }
+
+    /**
+     * Navigate to last step
+     * @returns {boolean} True if navigation was successful
+     */
+    goToLastStep() {
+        const instance = this.getCurrentInstance();
+        if (instance && instance.steps.length > 0) {
+            return this.goToStep(instance.steps.length - 1);
+        }
+        return false;
+    }
+
+    /**
      * Get navigation info for current instance
      * @returns {Object} Navigation info
      */

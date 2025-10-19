@@ -172,12 +172,6 @@ export class DOMRegistry {
  * Maps semantic keys to actual DOM element IDs
  */
 export const DEFAULT_DOM_MAPPINGS = {
-    // Navigation elements (may be created dynamically)
-    stepNavigation: 'step-navigation',
-    prevStep: 'prev-step',
-    nextStep: 'next-step',
-    stepCounter: 'step-counter',
-    
     // Content sections
     processAnalysis: 'process-analysis',
     stepDetails: 'step-details',
@@ -190,12 +184,10 @@ export const DEFAULT_DOM_MAPPINGS = {
     // Log display
     rawLogSection: 'raw-log-section',
     rawLogContent: 'raw-log-content',
-    hideLog: 'hide-log',
     viewLog: 'view-log',
     
-    // Dynamic log elements (created at runtime)
-    loadPastedLog: 'load-pasted-log',
-    manualLogInput: 'manual-log-input',
+    // Note: Dynamic elements like step navigation, hideLog, loadPastedLog, manualLogInput
+    // are registered by their respective components when created
     
     // Form elements
     uuidInput: 'uuid-input',
