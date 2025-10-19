@@ -3,16 +3,11 @@
  * Handles fetching and processing of CPEE logs
  */
 
-import { YAMLParser } from '../parsers/YAMLParser.js';
+import { YAMLParser } from '../utils/YAMLParser.js';
 import { CPEEStep } from '../modules/CPEEStep.js';
+import { CORS_CONFIG, buildLogUrl } from '../config/api.js';
 
 export class LogService {
-    // Multiple CORS proxies with fallback
-    static CORS_PROXIES = [
-        'https://corsproxy.io/?',
-        'https://api.allorigins.win/raw?url=',
-        'https://cors-anywhere.herokuapp.com/'
-    ];
 
     /**
      * Fetch and parse log for given UUID with fallback proxies
@@ -22,14 +17,14 @@ export class LogService {
     static async fetchAndParseLog(uuid) {
         console.log('Fetching log for parsing...');
         
-        const logUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
+        const logUrl = buildLogUrl(uuid);
         
         // Try each proxy in sequence
-        for (let i = 0; i < this.CORS_PROXIES.length; i++) {
-            const proxy = this.CORS_PROXIES[i];
+        for (let i = 0; i < CORS_CONFIG.PROXIES.length; i++) {
+            const proxy = CORS_CONFIG.PROXIES[i];
             
             try {
-                console.log(`Trying proxy ${i + 1}/${this.CORS_PROXIES.length}: ${proxy}`);
+                console.log(`Trying proxy ${i + 1}/${CORS_CONFIG.PROXIES.length}: ${proxy}`);
                 
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 15000);
@@ -66,7 +61,7 @@ export class LogService {
                 console.warn(`Proxy ${i + 1} failed:`, error.message);
                 
                 // If this is the last proxy, throw the error
-                if (i === this.CORS_PROXIES.length - 1) {
+                if (i === CORS_CONFIG.PROXIES.length - 1) {
                     if (error.name === 'AbortError') {
                         throw new Error('All proxies timed out. The log file may be large or servers are slow.');
                     }

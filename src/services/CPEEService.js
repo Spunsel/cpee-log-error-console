@@ -3,9 +3,9 @@
  * Handles communication with CPEE endpoints for process instance data
  */
 
+import { API_ENDPOINTS, CORS_CONFIG, buildUuidUrl, buildGraphUrl, buildInstanceUrl } from '../config/api.js';
+
 export class CPEEService {
-    static BASE_URL = 'https://cpee.org/flow/engine';
-    static CORS_PROXY = 'https://corsproxy.io/?';
     
     /**
      * Fetch UUID for a given process instance number
@@ -17,14 +17,14 @@ export class CPEEService {
             throw new Error('Invalid process number provided');
         }
         
-        const uuidUrl = `${this.BASE_URL}/${processNumber}/properties/attributes/uuid/`;
+        const uuidUrl = buildUuidUrl(processNumber);
         
         try {
             console.log(`Fetching UUID for process number: ${processNumber}`);
             console.log(`URL: ${uuidUrl}`);
             
             // Use CORS proxy to fetch the UUID
-            const response = await fetch(this.CORS_PROXY + encodeURIComponent(uuidUrl), {
+            const response = await fetch(CORS_CONFIG.PROXIES[0] + encodeURIComponent(uuidUrl), {
                 method: 'GET',
                 headers: {
                     'Accept': 'text/plain, application/json, */*'
@@ -58,7 +58,7 @@ export class CPEEService {
      * @returns {string} CPEE graph URL
      */
     static getCPEEGraphURL(processNumber) {
-        return `https://cpee.org/flow/graph.html?monitor=${this.BASE_URL}/${processNumber}/`;
+        return buildGraphUrl(processNumber);
     }
     
     /**
@@ -67,7 +67,7 @@ export class CPEEService {
      * @returns {string} CPEE engine URL
      */
     static getCPEEEngineURL(processNumber) {
-        return `${this.BASE_URL}/${processNumber}/`;
+        return buildInstanceUrl(processNumber);
     }
     
     /**

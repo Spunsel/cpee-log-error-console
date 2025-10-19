@@ -1,26 +1,10 @@
 /**
  * Application Constants
- * Centralized configuration values for the CPEE Debug Console
+ * UI-specific configuration values for the CPEE Debug Console
+ * Note: API endpoints are now in src/config/api.js
  */
 
-export const API_CONFIG = {
-    // CPEE API endpoints
-    CPEE_BASE_URL: 'https://cpee.org/flow/engine',
-    CPEE_LOGS_BASE_URL: 'https://cpee.org/logs',
-    CPEE_GRAPH_BASE_URL: 'https://cpee.org/flow/graph.html',
-    
-    // CORS proxy services (with fallback)
-    CORS_PROXIES: [
-        'https://corsproxy.io/?',
-        'https://api.allorigins.win/raw?url=',
-        'https://cors-anywhere.herokuapp.com/'
-    ]
-};
-
 export const UI_CONFIG = {
-    // Timeouts
-    REQUEST_TIMEOUT: 15000,
-    
     // Display limits
     UUID_DISPLAY_LENGTH: 8,
     

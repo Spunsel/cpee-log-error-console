@@ -5,6 +5,7 @@
 
 import { DOMUtils } from '../utils/DOMUtils.js';
 import { LogService } from '../services/LogService.js';
+import { buildLogUrl, CORS_CONFIG } from '../config/api.js';
 
 export class LogViewer {
     constructor(domRegistry = null) {
@@ -47,13 +48,13 @@ export class LogViewer {
             this.showLogLoading();
             
             // Fetch raw log using the same approach as LogService
-            const logUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
+            const logUrl = buildLogUrl(uuid);
             
             // Create timeout controller
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 15000);
             
-            const response = await fetch(LogService.CORS_PROXY + encodeURIComponent(logUrl), {
+            const response = await fetch(CORS_CONFIG.PROXIES[0] + encodeURIComponent(logUrl), {
                 method: 'GET',
                 headers: {
                     'Accept': 'text/plain, application/x-yaml, text/yaml'
@@ -165,7 +166,7 @@ export class LogViewer {
                 header.textContent = 'Raw Log Content';
             }
             
-            const originalUrl = `https://cpee.org/logs/${uuid}.xes.yaml`;
+            const originalUrl = buildLogUrl(uuid);
             rawLogContent.innerHTML = `
                 <div style="color: var(--error-color); margin-bottom: 1rem;">
                     <strong>CORS Error:</strong> Unable to fetch log directly. Try these options:
