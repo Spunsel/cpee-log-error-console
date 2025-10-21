@@ -5,10 +5,16 @@
  * Similar interface to CPEEWfAdaptorRenderer for consistency
  */
 
+import { StatusManager } from '../utils/StatusManager.js';
+import { LibraryLoader } from '../utils/LibraryLoader.js';
+import { DOMUtils } from '../utils/DOMUtils.js';
+import { MermaidSyntaxProcessor } from '../utils/MermaidSyntaxProcessor.js';
+import { MermaidConfigManager } from '../utils/MermaidConfigManager.js';
+
 export class MermaidRenderer {
     constructor() {
         this.container = null;
-        this.statusElement = null;
+        this.statusManager = null;
         this.inputElement = null;
         this.isRendered = false;
         this.mermaidLoaded = false;
@@ -28,8 +34,10 @@ export class MermaidRenderer {
                 throw new Error(`Container element with ID '${containerId}' not found`);
             }
 
+            // Initialize status manager
             if (statusId) {
-                this.statusElement = document.getElementById(statusId);
+                const statusElement = document.getElementById(statusId);
+                this.statusManager = new StatusManager(statusElement);
             }
 
             if (inputId) {
@@ -64,36 +72,21 @@ export class MermaidRenderer {
     }
 
     /**
-     * Load Mermaid.js library
+     * Load Mermaid.js library using LibraryLoader
      */
     async loadMermaid() {
         if (this.mermaidLoaded && window.mermaid) {
             return;
         }
 
-        return new Promise((resolve, reject) => {
-            // Check if mermaid is already loaded
-            if (window.mermaid) {
-                this.mermaidLoaded = true;
-                this.initializeMermaid();
-                resolve();
-                return;
-            }
+        await LibraryLoader.ensureLibrary(
+            'Mermaid',
+            'https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js',
+            () => typeof window.mermaid !== 'undefined'
+        );
 
-            // Load mermaid from CDN
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js';
-            script.onload = () => {
-                console.log('✅ Mermaid.js loaded successfully');
-                this.mermaidLoaded = true;
-                this.initializeMermaid();
-                resolve();
-            };
-            script.onerror = () => {
-                reject(new Error('Failed to load Mermaid.js from CDN'));
-            };
-            document.head.appendChild(script);
-        });
+        this.mermaidLoaded = true;
+        this.initializeMermaid();
     }
 
     /**
@@ -102,71 +95,9 @@ export class MermaidRenderer {
     initializeMermaid() {
         if (!window.mermaid) return;
 
-        // Configure mermaid for SVG output with dynamic sizing and custom colors
-        window.mermaid.initialize({
-            startOnLoad: false,
-            theme: 'base',
-            themeVariables: {
-                // Event (circle) styling - white background, black border
-                primaryColor: '#ffffff',
-                primaryBorderColor: '#000000',
-                primaryTextColor: '#000000',
-                // Start/End event styling
-                cScale0: '#ffffff',
-                cScale1: '#ffffff',
-                cScale2: '#ffffff',
-                // Task (rectangle) styling - white background, black border
-                mainBkg: '#ffffff',
-                secondBkg: '#ffffff',
-                tertiaryColor: '#ffffff',
-                // Gateway/decision styling - white background, black border
-                altBackground: '#ffffff',
-                // Border colors - all black
-                nodeBorder: '#000000',
-                primaryBorderColor: '#000000',
-                secondaryBorderColor: '#000000',
-                tertiaryBorderColor: '#000000',
-                // Text colors
-                primaryTextColor: '#000000',
-                secondaryTextColor: '#000000',
-                tertiaryTextColor: '#000000',
-                // Cluster styling
-                clusterBkg: 'none',
-                clusterBorder: '#000000'
-            },
-            securityLevel: 'loose',
-            fontFamily: 'Arial, Helvetica, sans-serif',
-            fontSize: 11,
-            flowchart: {
-                htmlLabels: true,
-                curve: 'basis',
-                padding: 15,
-                nodeSpacing: 25,
-                rankSpacing: 35,
-                useMaxWidth: false
-            },
-            sequence: {
-                diagramMarginX: 25,
-                diagramMarginY: 6,
-                actorMargin: 25,
-                width: 100,
-                height: 40,
-                boxMargin: 6,
-                boxTextMargin: 3,
-                noteMargin: 6,
-                messageMargin: 20,
-                useMaxWidth: false
-            },
-            gantt: {
-                titleTopMargin: 15,
-                barHeight: 12,
-                fontSize: 8,
-                fontFamily: '"Open Sans", sans-serif',
-                numberSectionStyles: 4,
-                axisFormat: '%Y-%m-%d',
-                useMaxWidth: false
-            }
-        });
+        // Use configuration manager for consistent setup
+        const config = MermaidConfigManager.getDefaultConfig();
+        window.mermaid.initialize(config);
 
         console.log('✅ Mermaid initialized with configuration');
     }
@@ -177,10 +108,12 @@ export class MermaidRenderer {
      */
     async renderGraph(mermaidCode) {
         try {
-            this.showStatus('🎨 Rendering Mermaid graph...', 'loading');
+            if (this.statusManager) {
+                this.statusManager.showLoading('🎨 Rendering Mermaid graph...');
+            }
 
-            // Validate mermaid code
-            const cleanedCode = this.cleanAndValidateMermaid(mermaidCode);
+            // Validate mermaid code using syntax processor
+            const cleanedCode = MermaidSyntaxProcessor.cleanAndValidate(mermaidCode);
 
             // Ensure mermaid is loaded
             await this.loadMermaid();
@@ -196,9 +129,15 @@ export class MermaidRenderer {
             const graphDiv = document.createElement('div');
             graphDiv.id = graphId;
             
-            // Check if this is an intermediate graph and adjust padding accordingly
+            // Check if this is an intermediate graph and adjust configuration accordingly
             const isIntermediateGraph = this.container.id.includes('intermediate');
             const padding = isIntermediateGraph ? '15px' : '20px';
+            
+            // Use container-specific configuration for intermediate graphs
+            if (isIntermediateGraph) {
+                const intermediateConfig = MermaidConfigManager.getContainerConfig(true);
+                window.mermaid.initialize(intermediateConfig);
+            }
             
             graphDiv.style.cssText = `
                 width: 100%;
@@ -258,15 +197,10 @@ export class MermaidRenderer {
             }
 
             console.log('✅ Mermaid graph rendered successfully');
-            this.showStatus('✅ Mermaid graph rendered successfully', 'success');
+            if (this.statusManager) {
+                this.statusManager.showSuccess('✅ Mermaid graph rendered successfully');
+            }
             this.isRendered = true;
-
-            // Auto-hide success message after a short delay
-            setTimeout(() => {
-                if (this.statusElement) {
-                    this.statusElement.style.display = 'none';
-                }
-            }, 2000);
 
         } catch (error) {
             console.error('❌ Error rendering Mermaid graph:', error);
@@ -277,130 +211,13 @@ export class MermaidRenderer {
                 stack: error.stack
             });
             
-            this.showStatus(`❌ Failed to render graph: ${error.message}`, 'error');
+            if (this.statusManager) {
+                this.statusManager.showError(`❌ Failed to render graph: ${error.message}`);
+            }
             this.showFallbackContent(mermaidCode);
         }
     }
 
-    /**
-     * Clean and validate Mermaid code
-     * @param {string} code - Raw mermaid code (can be markdown-wrapped or plain)
-     * @returns {string} Cleaned and validated code
-     */
-    cleanAndValidateMermaid(code) {
-        if (!code || typeof code !== 'string') {
-            throw new Error('Invalid Mermaid code input');
-        }
-
-        // Remove HTML comments and extra whitespace
-        let cleanedCode = code.replace(/<!--[\s\S]*?-->/g, '').trim();
-
-        // Remove CPEE-style comments (e.g., "%% Output Intermediate", "%% Input Intermediate")
-        cleanedCode = cleanedCode.replace(/^\s*%%.*$/gm, '').trim();
-
-        // Extract Mermaid code from markdown code blocks
-        const mermaidBlockMatch = cleanedCode.match(/```mermaid\s*\n([\s\S]*?)\n\s*```/);
-        if (mermaidBlockMatch) {
-            cleanedCode = mermaidBlockMatch[1].trim();
-        }
-
-        // Remove any remaining markdown code block syntax that might be incomplete
-        cleanedCode = cleanedCode.replace(/^```.*$/gm, '').trim();
-        cleanedCode = cleanedCode.replace(/```\s*$/gm, '').trim();
-
-        // Remove any leading/trailing whitespace and normalize line endings
-        cleanedCode = cleanedCode.replace(/^\s+|\s+$/g, '');
-        cleanedCode = cleanedCode.replace(/\r\n/g, '\n');
-
-        // Fix common CPEE-to-Mermaid conversion issues
-        cleanedCode = this.preprocessMermaidSyntax(cleanedCode);
-
-        if (cleanedCode.length === 0) {
-            throw new Error('Empty Mermaid code provided after cleaning');
-        }
-
-        // Basic validation - check for common mermaid diagram types
-        const mermaidTypes = [
-            'graph', 'flowchart', 'sequenceDiagram', 'classDiagram', 
-            'stateDiagram', 'erDiagram', 'gantt', 'pie', 'journey',
-            'gitgraph', 'mindmap', 'timeline'
-        ];
-
-        const hasValidType = mermaidTypes.some(type => 
-            cleanedCode.toLowerCase().includes(type.toLowerCase())
-        );
-
-        if (!hasValidType) {
-            console.warn('⚠️ Cleaned Mermaid code:', JSON.stringify(cleanedCode));
-            throw new Error(`Mermaid code does not contain a recognized diagram type. Cleaned content: "${cleanedCode.substring(0, 100)}..."`);
-        }
-
-        console.log('✅ Mermaid code validation successful');
-        console.log('🔍 Cleaned Mermaid code:', cleanedCode);
-        return cleanedCode;
-    }
-
-    /**
-     * Preprocess Mermaid syntax to fix common CPEE-to-Mermaid conversion issues
-     * @param {string} code - Raw mermaid code
-     * @returns {string} Preprocessed code
-     */
-    preprocessMermaidSyntax(code) {
-        let processedCode = code;
-
-        // Fix 1: Remove empty edge labels that cause parse errors
-        // Pattern: -->|""| becomes -->
-        processedCode = processedCode.replace(/-->\|\"\"\|/g, '-->');
-        
-        // Also handle variations with single quotes or no quotes
-        processedCode = processedCode.replace(/-->\|''\|/g, '-->');
-        processedCode = processedCode.replace(/-->\|\|\|/g, '-->');
-        
-        // Fix 2: Handle problematic node IDs starting with numbers or special chars
-        // Pattern: -1:escalate becomes N1_escalate (prefix with N, replace special chars)
-        processedCode = processedCode.replace(/(\W|^)(-\d+)(:\w+)/g, function(match, prefix, number, suffix) {
-            return prefix + 'N' + number.replace('-', '') + suffix.replace(':', '_');
-        });
-        
-        // Fix 3: Remove spaces after node IDs that cause parsing issues
-        // Pattern: "a9:task: (Task b)" becomes "a9:task:(Task b)"
-        processedCode = processedCode.replace(/(\w+:\w+:)\s+(\([^)]+\))/g, '$1$2');
-        
-        // Fix 4: Handle triple parentheses in node shapes
-        // Pattern: (((text))) becomes ((text))
-        processedCode = processedCode.replace(/\(\(\(([^)]+)\)\)\)/g, '(($1))');
-        
-        // Fix 5: Handle malformed node references in edge labels
-        // Ensure node IDs in edge targets don't have extra spaces
-        processedCode = processedCode.replace(/(\|\s*[^|]*\s*\|\s*)(\w+:\w+:)\s+(\([^)]+\))/g, '$1$2$3');
-        
-        console.log('🔧 Mermaid preprocessing applied');
-        if (code !== processedCode) {
-            console.log('📝 Preprocessing changes detected');
-            console.log('Original length:', code.length, 'Processed length:', processedCode.length);
-            
-            // Show specific changes for debugging
-            const changes = [];
-            if (code.includes('|""|') && !processedCode.includes('|""|')) {
-                changes.push('✅ Removed empty edge labels |""|');
-            }
-            if (code.includes(': (') && !processedCode.includes(': (')) {
-                changes.push('✅ Fixed spaces after node IDs');
-            }
-            if (code.includes('(((') && !processedCode.includes('(((')) {
-                changes.push('✅ Fixed triple parentheses');
-            }
-            if (code.includes('-1:escalate') && !processedCode.includes('-1:escalate')) {
-                changes.push('✅ Fixed problematic node IDs');
-            }
-            
-            if (changes.length > 0) {
-                console.log('🔧 Applied fixes:', changes);
-            }
-        }
-        
-        return processedCode;
-    }
 
     /**
      * Show fallback content when rendering fails
@@ -422,33 +239,12 @@ export class MermaidRenderer {
 
         fallbackDiv.innerHTML = `
             <h6>Graph rendering failed - showing raw code:</h6>
-            <pre style="white-space: pre-wrap; margin-top: 10px; background: #f8f9fa; padding: 10px; border-radius: 4px;">${this.escapeHtml(originalCode)}</pre>
+            <pre style="white-space: pre-wrap; margin-top: 10px; background: #f8f9fa; padding: 10px; border-radius: 4px;">${DOMUtils.escapeHtml(originalCode)}</pre>
         `;
 
         this.container.appendChild(fallbackDiv);
     }
 
-    /**
-     * Escape HTML for safe display
-     */
-    escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    /**
-     * Show status message
-     * @param {string} message - Status message
-     * @param {string} type - Message type (loading, success, error)
-     */
-    showStatus(message, type = 'info') {
-        if (!this.statusElement) return;
-
-        this.statusElement.textContent = message;
-        this.statusElement.className = `alert alert-${type === 'loading' ? 'info' : type === 'success' ? 'success' : 'danger'}`;
-        this.statusElement.style.display = 'block';
-    }
 
     /**
      * Reset container to initial state
@@ -463,11 +259,7 @@ export class MermaidRenderer {
      * @returns {string[]} Array of supported diagram types
      */
     getSupportedDiagramTypes() {
-        return [
-            'graph', 'flowchart', 'sequenceDiagram', 'classDiagram', 
-            'stateDiagram', 'erDiagram', 'gantt', 'pie', 'journey',
-            'gitgraph', 'mindmap', 'timeline'
-        ];
+        return MermaidSyntaxProcessor.getSupportedDiagramTypes();
     }
 
     /**
