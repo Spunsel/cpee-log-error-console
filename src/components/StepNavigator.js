@@ -68,60 +68,10 @@ export class StepNavigator {
             `
         });
 
-        // Apply main container styling
-        this.domManager.applyStyles(navContainer, {
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '15px 20px',
-            margin: '10px 0',
-            background: '#f8f9fa',
-            border: '1px solid #dee2e6',
-            borderRadius: '8px',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        });
-
-        // Style navigation sections
-        this.styleNavigationSections(navContainer);
-
+        // Note: Styling is now handled by CSS classes in style.css
         return navContainer;
     }
 
-    /**
-     * Apply styling to navigation sections
-     * @param {HTMLElement} navContainer - Navigation container
-     */
-    styleNavigationSections(navContainer) {
-        const navLeft = navContainer.querySelector('.nav-left');
-        const navCenter = navContainer.querySelector('.nav-center');
-        const navRight = navContainer.querySelector('.nav-right');
-
-        if (navLeft) {
-            this.domManager.applyStyles(navLeft, {
-                flex: '1',
-                display: 'flex',
-                justifyContent: 'flex-start'
-            });
-        }
-
-        if (navCenter) {
-            this.domManager.applyStyles(navCenter, {
-                flex: '2',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '8px'
-            });
-        }
-
-        if (navRight) {
-            this.domManager.applyStyles(navRight, {
-                flex: '1',
-                display: 'flex',
-                justifyContent: 'flex-end'
-            });
-        }
-    }
 
     /**
      * Insert navigation container into DOM
@@ -173,7 +123,7 @@ export class StepNavigator {
             const button = this.domManager.getElement(key) || document.getElementById(id);
             if (button) {
                 button.onclick = handler;
-                // Apply initial gray styling (enabled state)
+                // Initial state is enabled (CSS handles the styling)
                 this.applyDisabledStyling(button, false);
             }
         });
@@ -197,7 +147,6 @@ export class StepNavigator {
         buttons.forEach(({ key, id, disabled }) => {
             const button = this.domManager.getElement(key) || document.getElementById(id);
             if (button) {
-                button.disabled = disabled;
                 this.applyDisabledStyling(button, disabled);
             }
         });
@@ -210,95 +159,16 @@ export class StepNavigator {
     }
 
     /**
-     * Apply disabled styling to navigation buttons
+     * Apply disabled styling to navigation buttons using CSS classes
      * @param {HTMLElement} button - Button element
      * @param {boolean} isDisabled - Whether button should appear disabled
      */
     applyDisabledStyling(button, isDisabled) {
         if (!button) return;
 
-        // Common button styling for both states
-        const commonStyles = {
-            padding: '8px 12px',
-            borderRadius: '4px',
-            fontSize: '14px',
-            fontWeight: '500',
-            transition: 'all 0.2s ease',
-            outline: 'none',
-            minWidth: '32px',
-            height: '32px'
-        };
-
-        // Check if this is a left/right navigation button (← or →)
-        const isLeftRightButton = button.id === 'prev-step' || button.id === 'next-step';
-
-        if (isDisabled) {
-            // Light gray for all disabled buttons
-            this.domManager.applyStyles(button, {
-                ...commonStyles,
-                color: '#999999',
-                backgroundColor: '#f5f5f5',
-                border: '1px solid #e0e0e0',
-                cursor: 'not-allowed',
-                pointerEvents: 'none'
-            });
-        } else {
-            if (isLeftRightButton) {
-                // Blue for enabled left/right buttons (← →) - same as process instance selection
-                this.domManager.applyStyles(button, {
-                    ...commonStyles,
-                    color: 'white',
-                    backgroundColor: '#2563eb',
-                    border: '1px solid #1d4ed8',
-                    cursor: 'pointer',
-                    pointerEvents: 'auto'
-                });
-                
-                // Add blue hover effect for enabled left/right buttons
-                button.onmouseenter = () => {
-                    if (!button.disabled) {
-                        this.domManager.applyStyles(button, {
-                            backgroundColor: '#1d4ed8'
-                        });
-                    }
-                };
-                
-                button.onmouseleave = () => {
-                    if (!button.disabled) {
-                        this.domManager.applyStyles(button, {
-                            backgroundColor: '#2563eb'
-                        });
-                    }
-                };
-            } else {
-                // Gray for enabled start/end buttons (⏮ ⏭)
-                this.domManager.applyStyles(button, {
-                    ...commonStyles,
-                    color: '#333333',
-                    backgroundColor: '#d4d4d4',
-                    border: '1px solid #b8b8b8',
-                    cursor: 'pointer',
-                    pointerEvents: 'auto'
-                });
-                
-                // Add gray hover effect for enabled start/end buttons
-                button.onmouseenter = () => {
-                    if (!button.disabled) {
-                        this.domManager.applyStyles(button, {
-                            backgroundColor: '#c0c0c0'
-                        });
-                    }
-                };
-                
-                button.onmouseleave = () => {
-                    if (!button.disabled) {
-                        this.domManager.applyStyles(button, {
-                            backgroundColor: '#d4d4d4'
-                        });
-                    }
-                };
-            }
-        }
+        // Toggle disabled state - CSS handles all styling and hover effects
+        button.disabled = isDisabled;
+        button.classList.toggle('disabled', isDisabled);
     }
 
     /**
