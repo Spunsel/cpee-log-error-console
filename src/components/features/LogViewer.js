@@ -3,9 +3,9 @@
  * Handles display of raw log content
  */
 
-import { DOMUtils } from '../utils/DOMUtils.js';
-import { LogService } from '../services/LogService.js';
-import { buildLogUrl, CORS_CONFIG } from '../config/api.js';
+import { DOMUtils } from '../../utils/dom/DOMUtils.js';
+import { LogService } from '../../services/LogService.js';
+import { buildLogUrl, CORS_CONFIG } from '../../config/api.js';
 
 export class LogViewer {
     constructor(domRegistry = null) {

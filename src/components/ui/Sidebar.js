@@ -3,8 +3,8 @@
  * Manages the instance tabs in the sidebar
  */
 
-import { DOMUtils } from '../utils/DOMUtils.js';
-import { DOMElementManager } from '../utils/DOMElementManager.js';
+import { DOMUtils } from '../../utils/dom/DOMUtils.js';
+import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
 
 export class Sidebar {
     constructor(instanceService, domRegistry = null) {

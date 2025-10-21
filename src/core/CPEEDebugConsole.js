@@ -3,13 +3,13 @@
  * Coordinates all components and services
  */
 
-import { URLUtils } from '../utils/URLUtils.js';
+import { URLUtils } from '../utils/system/URLUtils.js';
 import { LogService } from '../services/LogService.js';
 import { InstanceService } from '../services/InstanceService.js';
 import { CPEEService } from '../services/CPEEService.js';
-import { Sidebar } from '../components/Sidebar.js';
-import { StepViewer } from '../components/StepViewer.js';
-import { LogViewer } from '../components/LogViewer.js';
+import { Sidebar } from '../components/ui/Sidebar.js';
+import { StepViewer } from '../components/features/StepViewer.js';
+import { LogViewer } from '../components/features/LogViewer.js';
 import { DOMRegistry, DEFAULT_DOM_MAPPINGS } from './DOMRegistry.js';
 
 export class CPEEDebugConsole {

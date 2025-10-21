@@ -4,10 +4,10 @@
  * Refactored to follow Single Responsibility Principle
  */
 
-import { DOMUtils } from '../utils/DOMUtils.js';
-import { DOMElementManager } from '../utils/DOMElementManager.js';
-import { StepNavigator } from './StepNavigator.js';
-import { ContentSectionManager } from './ContentSectionManager.js';
+import { DOMUtils } from '../../utils/dom/DOMUtils.js';
+import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
+import { StepNavigator } from '../ui/StepNavigator.js';
+import { ContentSectionManager } from '../managers/ContentSectionManager.js';
 
 export class StepViewer {
     constructor(instanceService, domRegistry = null) {

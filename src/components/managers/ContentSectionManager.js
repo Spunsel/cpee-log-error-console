@@ -5,9 +5,9 @@
  * Extracted from StepViewer to improve separation of concerns
  */
 
-import { DOMElementManager } from '../utils/DOMElementManager.js';
-import { CPEEWfAdaptorRenderer } from './CPEEWfAdaptorRenderer.js';
-import { MermaidRenderer } from './MermaidRenderer.js';
+import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
+import { CPEEWfAdaptorRenderer } from '../renderers/CPEEWfAdaptorRenderer.js';
+import { MermaidRenderer } from '../renderers/MermaidRenderer.js';
 
 export class ContentSectionManager {
     constructor(domRegistry = null) {

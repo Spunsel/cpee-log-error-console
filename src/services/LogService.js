@@ -3,7 +3,7 @@
  * Handles fetching and processing of CPEE logs
  */
 
-import { YAMLParser } from '../utils/YAMLParser.js';
+import { YAMLParser } from '../utils/parsers/YAMLParser.js';
 import { CPEEStep } from '../modules/CPEEStep.js';
 import { CORS_CONFIG, buildLogUrl } from '../config/api.js';
 

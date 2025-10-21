@@ -4,7 +4,7 @@
  * Extracted from StepViewer to follow Single Responsibility Principle
  */
 
-import { DOMElementManager } from '../utils/DOMElementManager.js';
+import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
 
 export class StepNavigator {
     constructor(instanceService, domRegistry = null) {

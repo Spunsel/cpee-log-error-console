@@ -4,11 +4,11 @@
  * Leverages the authentic CPEE graph rendering system
  */
 
-import { StatusManager } from '../utils/StatusManager.js';
-import { LibraryLoader } from '../utils/LibraryLoader.js';
-import { XMLProcessor } from '../utils/XMLProcessor.js';
-import { SvgElementProcessor } from '../utils/SvgElementProcessor.js';
-import { CPEEJQueryExtensions } from '../utils/CPEEJQueryExtensions.js';
+import { StatusManager } from '../../utils/dom/StatusManager.js';
+import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
+import { XMLProcessor } from '../../utils/parsers/XMLProcessor.js';
+import { SvgElementProcessor } from '../../utils/integrations/cpee/SvgElementProcessor.js';
+import { CPEEJQueryExtensions } from '../../utils/integrations/cpee/CPEEJQueryExtensions.js';
 
 export class CPEEWfAdaptorRenderer {
     

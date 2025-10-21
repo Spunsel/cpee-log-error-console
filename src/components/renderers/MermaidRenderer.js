@@ -5,11 +5,11 @@
  * Similar interface to CPEEWfAdaptorRenderer for consistency
  */
 
-import { StatusManager } from '../utils/StatusManager.js';
-import { LibraryLoader } from '../utils/LibraryLoader.js';
-import { DOMUtils } from '../utils/DOMUtils.js';
-import { MermaidSyntaxProcessor } from '../utils/MermaidSyntaxProcessor.js';
-import { MermaidConfigManager } from '../utils/MermaidConfigManager.js';
+import { StatusManager } from '../../utils/dom/StatusManager.js';
+import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
+import { DOMUtils } from '../../utils/dom/DOMUtils.js';
+import { MermaidSyntaxProcessor } from '../../utils/integrations/mermaid/MermaidSyntaxProcessor.js';
+import { MermaidConfigManager } from '../../utils/integrations/mermaid/MermaidConfigManager.js';
 
 export class MermaidRenderer {
     constructor() {
