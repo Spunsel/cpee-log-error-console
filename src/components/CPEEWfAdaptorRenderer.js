@@ -7,6 +7,8 @@
 import { StatusManager } from '../utils/StatusManager.js';
 import { LibraryLoader } from '../utils/LibraryLoader.js';
 import { XMLProcessor } from '../utils/XMLProcessor.js';
+import { SvgElementProcessor } from '../utils/SvgElementProcessor.js';
+import { CPEEJQueryExtensions } from '../utils/CPEEJQueryExtensions.js';
 
 export class CPEEWfAdaptorRenderer {
     
@@ -16,8 +18,8 @@ export class CPEEWfAdaptorRenderer {
         this.container = null;
         this.svgContainer = null;
         
-        // Phase 1: Add utility managers alongside existing code
         this.statusManager = null; // Will be initialized in initialize()
+        this.svgProcessor = new SvgElementProcessor(); // Handles SVG element processing and caching
     }
     
     /**
@@ -35,104 +37,30 @@ export class CPEEWfAdaptorRenderer {
             throw new Error(`Container with ID ${containerId} not found`);
         }
         
-        // Phase 1: Initialize utility managers
         this.statusManager = new StatusManager(this.statusElement);
         
-        // Wait for jQuery to be available (using new utility)
+        // Wait for jQuery to be available
         await this.waitForJQuery();
         
         // Setup container
         this.setupContainer();
         
-        console.log('✅ CPEEWfAdaptorRenderer initialized');
     }
     
     /**
-     * Wait for jQuery to be loaded (Phase 1: Add new utility method alongside existing)
+     * Wait for jQuery to be loaded and add CPEE extensions
      */
-    async waitForJQueryWithUtility() {
-        // Use new LibraryLoader utility
+    async waitForJQuery() {
         await LibraryLoader.ensureLibrary(
             'jQuery',
             'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',
             () => typeof $ !== 'undefined'
         );
         
-        // Add essential jQuery extensions for CPEE
-        this.addJQueryExtensions();
-    }
-
-    /**
-     * Wait for jQuery to be loaded (Legacy method - maintaining for backward compatibility)
-     */
-    waitForJQuery() {
-        // Phase 1: Use new utility method internally while maintaining interface
-        return this.waitForJQueryWithUtility();
-        
-        // Legacy implementation (keeping as fallback comment):
-        // return new Promise((resolve) => {
-        //     if (typeof $ !== 'undefined') {
-        //         resolve();
-        //         return;
-        //     }
-        //     
-        //     const script = document.createElement('script');
-        //     script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js';
-        //     script.onload = () => {
-        //         console.log('✅ jQuery loaded');
-        //         this.addJQueryExtensions();
-        //         resolve();
-        //     };
-        //     document.head.appendChild(script);
-        // });
+        // Initialize essential jQuery extensions for CPEE
+        CPEEJQueryExtensions.initialize();
     }
     
-    /**
-     * Add essential jQuery extensions needed by CPEE
-     */
-    addJQueryExtensions() {
-        // Add $X function for XML manipulation (enhanced version)
-        window.$X = function(xmlString) {
-            if (typeof xmlString === 'string') {
-                if (xmlString.startsWith('<')) {
-                    // Parse XML string
-                    const parser = new DOMParser();
-                    const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
-                    return $(xmlDoc.documentElement);
-                } else {
-                    // Create element with proper namespace
-                    const elem = document.createElementNS('http://www.w3.org/2000/svg', xmlString);
-                    return $(elem);
-                }
-            }
-            return $(xmlString);
-        };
-        
-        // Add serializeXML extension
-        $.fn.serializeXML = function() {
-            if (this[0]) {
-                return new XMLSerializer().serializeToString(this[0]);
-            }
-            return '';
-        };
-        
-        // Add serializePrettyXML extension (simplified)
-        $.fn.serializePrettyXML = function() {
-            return this.serializeXML();
-        };
-        
-        // Add parseQuerySimple function that CPEE uses
-        $.parseQuerySimple = function() {
-            const params = {};
-            const urlParams = new URLSearchParams(window.location.search);
-            for (const [key, value] of urlParams) {
-                params[key] = value;
-            }
-            return params;
-        };
-        
-        console.log('✅ jQuery extensions added');
-    }
     
     /**
      * Setup container with proper structure for CPEE graph
@@ -172,25 +100,38 @@ export class CPEEWfAdaptorRenderer {
     }
     
     /**
+     * Parse and set XML description for the graph
+     */
+    setGraphDescription(graphrealization, cleanedXML) {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(cleanedXML, 'text/xml');
+        const jqueryXmlDoc = $(xmlDoc);
+        
+        const descElement = jqueryXmlDoc.find('description');
+        if (descElement.length === 0) {
+            // Description is root element
+            if (xmlDoc.documentElement && xmlDoc.documentElement.tagName === 'description') {
+                const rootDesc = $(xmlDoc.documentElement);
+                const wrapperDoc = $('<xml></xml>').append(rootDesc.clone());
+                graphrealization.set_description(wrapperDoc, true);
+            } else {
+                throw new Error('No description element found in XML');
+            }
+        } else {
+            graphrealization.set_description(jqueryXmlDoc, true);
+        }
+    }
+    
+    /**
      * Render graph from CPEE XML using original WfAdaptor
      * @param {string} cpeeXML - CPEE XML description
-     * 
-     * logic:
-     *  1. Clean & validate XML
-     *  2. Load WfAdaptor library  
-     *  3. Parse XML with DOMParser
-     *  4. Create WfAdaptor instance
-     *  5. Pass XML to adaptor.draw()
-     *  6. Render as SVG in container
      */
     async renderGraph(cpeeXML) {
         try {
-            this.showStatus('🎨 Loading CPEE WfAdaptor...', 'loading');
+            this.showStatus('Loading CPEE WfAdaptor...', 'loading');
             
             // Validate XML first
             const cleanedXML = this.cleanAndValidateXML(cpeeXML);
-            
-            // Placeholder removed as requested
             
             // Load the WfAdaptor and theme system
             await this.loadWfAdaptor();
@@ -200,168 +141,115 @@ export class CPEEWfAdaptorRenderer {
             
             // Create WfAdaptor instance
             this.adaptor = new WfAdaptor('src/libs/cpee/themes/preset/theme.js', (graphrealization) => {
-                console.log('🎨 WfAdaptor loaded, rendering graph...');
-                
-                // Small delay to ensure DOM is fully updated
-                setTimeout(() => {
-                    try {
-                        // Set the SVG container with unique ID - ensure element exists before jQuery wrapping
-                        const svgElementId = `graphcanvas-${self.container.id}`;
-                        const svgElement = document.getElementById(svgElementId);
-                        
-                        if (!svgElement) {
-                            throw new Error(`SVG container with ID '${svgElementId}' not found`);
-                        }
-                        
-                        console.log('🔍 SVG element found:', svgElement);
-                        const jquerySvgContainer = $(svgElement);
-                        console.log('🔍 jQuery SVG container:', jquerySvgContainer, 'jQuery length:', jquerySvgContainer.length);
-                        
-                        if (jquerySvgContainer.length === 0) {
-                            throw new Error(`jQuery could not wrap SVG element with ID '${svgElementId}'`);
-                        }
-                        
-                        graphrealization.set_svg_container(jquerySvgContainer);
-                        
-                        // Always initialize label container for hover functionality with unique ID
-                        const labelContainer = $(`<div id="graph-labels-${self.container.id}" style="display: none;"></div>`);
-                        $(`#modelling-${self.container.id}`).append(labelContainer);
-                        graphrealization.illustrator.svg.label_container = labelContainer;
-            
-                        // Parse XML properly for WfAdaptor
-                        const parser = new DOMParser();
-                        const xmlDoc = parser.parseFromString(cleanedXML, 'text/xml');
-                        
-                        // Debug logging
-                        console.log('📋 Parsed XML document:', xmlDoc);
-                        console.log('📋 Document element:', xmlDoc.documentElement);
-                        console.log('📋 Document children:', xmlDoc.documentElement ? xmlDoc.documentElement.children : 'none');
-                        
-                        // Create jQuery object from the parsed document
-                        const jqueryXmlDoc = $(xmlDoc);
-                        
-                        console.log('📋 jQuery XML object:', jqueryXmlDoc);
-                        console.log('📋 Description children:', jqueryXmlDoc.find('description'));
-                        console.log('📋 Description element:', jqueryXmlDoc.find('description').get(0));
-                        
-                        // Verify the structure before passing to WfAdaptor
-                        const descElement = jqueryXmlDoc.find('description');
-                        if (descElement.length === 0) {
-                            // If description is not found as a child, it might be the root element
-                            if (xmlDoc.documentElement && xmlDoc.documentElement.tagName === 'description') {
-                                console.log('📋 Description is root element');
-                                const rootDesc = $(xmlDoc.documentElement);
-                                const wrapperDoc = $('<xml></xml>').append(rootDesc.clone());
-                                graphrealization.set_description(wrapperDoc, true);
-                            } else {
-                                throw new Error('No description element found in XML');
-                            }
-                        } else {
-                            console.log('📋 Found description as child element');
-                            graphrealization.set_description(jqueryXmlDoc, true);
-                        }
-                        
-                        console.log('✅ CPEE graph rendered successfully');
-                        // Success message removed as requested
-                        self.isRendered = true;
-                        
-                        // Dynamically adjust SVG height based on actual content dimensions
-                        setTimeout(() => {
-                            self.adjustSVGHeight();
-                        }, 100);
-                        
-                        // Add controls
-                        self.addGraphControls();
-                        
-                    } catch (error) {
-                        console.error('❌ Error in WfAdaptor callback:', error);
-                        self.showStatus(`❌ Failed to render graph: ${error.message}`, 'error');
-                        self.resetContainer();
+                try {
+                    // Get and validate SVG container element
+                    const svgElementId = `graphcanvas-${self.container.id}`;
+                    const svgElement = document.getElementById(svgElementId);
+                    
+                    if (!svgElement) {
+                        throw new Error(`SVG container with ID '${svgElementId}' not found`);
                     }
-                }, 50); // Small delay to ensure DOM is ready
+                    
+                    const jquerySvgContainer = $(svgElement);
+                    if (jquerySvgContainer.length === 0) {
+                        throw new Error(`jQuery could not wrap SVG element with ID '${svgElementId}'`);
+                    }
+                    
+                    // Process SVG elements using dedicated processor (handles caching and validation)
+                    const illustratorElements = graphrealization.illustrator.elements;
+                    const success = self.svgProcessor.transferAndValidateElements(
+                        illustratorElements, 
+                        manifestation, 
+                        self.svgProcessor.getCache()
+                    );
+                    
+                    if (!success) {
+                        throw new Error('Failed to process SVG elements');
+                    }
+                    
+                    // Final validation to prevent wfadaptor.js split() errors
+                    self.svgProcessor.validateClassAttributes(illustratorElements);
+                    
+                    // Set SVG container
+                    graphrealization.set_svg_container(jquerySvgContainer);
+                    
+                    // Initialize label container for hover functionality
+                    const labelContainer = $(`<div id="graph-labels-${self.container.id}" style="display: none;"></div>`);
+                    $(`#modelling-${self.container.id}`).append(labelContainer);
+                    graphrealization.illustrator.svg.label_container = labelContainer;
+            
+                    // Parse and set XML description using helper method
+                    self.setGraphDescription(graphrealization, cleanedXML);
+                    
+                    // Mark as rendered and adjust height
+                    self.isRendered = true;
+                    self.adjustSVGHeight();
+                    
+                } catch (error) {
+                    console.error('Graph rendering error:', error.message);
+                    self.showStatus(`Failed to render graph: ${error.message}`, 'error');
+                    self.resetContainer();
+                }
             });
             
         } catch (error) {
-            console.error('❌ Error rendering CPEE graph:', error);
-            this.showStatus(`❌ Failed to render graph: ${error.message}`, 'error');
+            console.error('CPEE graph error:', error.message);
+            this.showStatus(`Failed to render graph: ${error.message}`, 'error');
             this.resetContainer();
         }
     }
     
     /**
-     * Load the WfAdaptor and required dependencies
+     * Load the WfAdaptor and required dependencies (optimized for parallel loading)
      */
     async loadWfAdaptor() {
-        return new Promise((resolve, reject) => {
-            // Load CSS first
-            if (!document.querySelector('link[href*="wfadaptor.css"]')) {
-                const cssLink = document.createElement('link');
-                cssLink.rel = 'stylesheet';
-                cssLink.href = 'src/libs/cpee/css/wfadaptor.css';
-                document.head.appendChild(cssLink);
-            }
-            
-            // Load base theme
-            if (typeof WFAdaptorManifestationBase === 'undefined') {
+        const promises = [];
+        
+        // Load CSS (non-blocking)
+        if (!document.querySelector('link[href*="wfadaptor.css"]')) {
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = 'src/libs/cpee/css/wfadaptor.css';
+            document.head.appendChild(cssLink);
+        }
+        
+        // Load base theme if needed
+        if (typeof WFAdaptorManifestationBase === 'undefined') {
+            promises.push(new Promise((resolve, reject) => {
                 const baseScript = document.createElement('script');
                 baseScript.src = 'src/libs/cpee/themes/base.js';
                 baseScript.onload = () => {
-                    console.log('✅ Base theme loaded');
-                    
-                    // Load WfAdaptor
-                    if (typeof WfAdaptor === 'undefined') {
-                        const wfScript = document.createElement('script');
-                        wfScript.src = 'src/libs/cpee/wfadaptor.js';
-                        wfScript.onload = () => {
-                            console.log('✅ WfAdaptor loaded');
-                            resolve();
-                        };
-                        wfScript.onerror = () => reject(new Error('Failed to load WfAdaptor'));
-                        document.head.appendChild(wfScript);
-                    } else {
-                        resolve();
-                    }
+                    resolve();
                 };
                 baseScript.onerror = () => reject(new Error('Failed to load base theme'));
                 document.head.appendChild(baseScript);
-            } else if (typeof WfAdaptor === 'undefined') {
+            }));
+        }
+        
+        // Load WfAdaptor if needed
+        if (typeof WfAdaptor === 'undefined') {
+            promises.push(new Promise((resolve, reject) => {
                 const wfScript = document.createElement('script');
                 wfScript.src = 'src/libs/cpee/wfadaptor.js';
                 wfScript.onload = () => {
-                    console.log('✅ WfAdaptor loaded');
                     resolve();
                 };
                 wfScript.onerror = () => reject(new Error('Failed to load WfAdaptor'));
                 document.head.appendChild(wfScript);
-            } else {
-                resolve();
-            }
-        });
-    }
-    
-    /**
-     * Clean and validate CPEE XML (Legacy method with utility integration)
-     */
-    cleanAndValidateXML(xml) {
-        // Phase 1: Use new XMLProcessor utility while maintaining interface
-        return XMLProcessor.cleanAndValidate(xml);
-        
-        // Legacy implementation (keeping as fallback comment):
-        // Original implementation moved to XMLProcessor utility
-    }
-    
-    /**
-     * Add additional controls for the rendered graph
-     */
-    addGraphControls() {
-        // Remove existing controls
-        const existingControls = this.container.querySelector('.graph-controls');
-        if (existingControls) {
-            existingControls.remove();
+            }));
         }
         
-        // Graph controls have been removed as requested
-        // The graph will display without additional control buttons
+        // Wait for all dependencies to load
+        if (promises.length > 0) {
+            await Promise.all(promises);
+        }
+    }
+    
+    /**
+     * Clean and validate CPEE XML
+     */
+    cleanAndValidateXML(xml) {
+        return XMLProcessor.cleanAndValidate(xml);
     }
     
     /**
@@ -369,8 +257,6 @@ export class CPEEWfAdaptorRenderer {
      */
     resetContainer() {
         this.isRendered = false;
-        // Don't nullify adaptor to avoid conflicts between multiple instances
-        // this.adaptor = null;
         this.setupContainer();
     }
 
@@ -379,7 +265,6 @@ export class CPEEWfAdaptorRenderer {
      */
     adjustSVGHeight() {
         if (!this.svgContainer) {
-            console.warn('⚠️ No SVG container available for height adjustment');
             return;
         }
 
@@ -390,7 +275,6 @@ export class CPEEWfAdaptorRenderer {
             // Check if SVG has any content before trying to get bbox
             const svgChildren = svg.children;
             if (!svgChildren || svgChildren.length === 0) {
-                console.log('📏 SVG has no content yet, using default height');
                 svg.setAttribute('height', '400');
                 svg.style.height = '400px';
                 return;
@@ -401,7 +285,6 @@ export class CPEEWfAdaptorRenderer {
             
             // Validate bbox
             if (!bbox || isNaN(bbox.height) || bbox.height <= 0) {
-                console.warn('⚠️ Invalid SVG bounding box, using default height');
                 svg.setAttribute('height', '400');
                 svg.style.height = '400px';
                 return;
@@ -414,10 +297,8 @@ export class CPEEWfAdaptorRenderer {
             svg.setAttribute('height', requiredHeight.toString());
             svg.style.height = requiredHeight + 'px';
             
-            console.log(`📏 SVG height adjusted to ${requiredHeight}px (content: ${bbox.height}px)`);
             
         } catch (error) {
-            console.warn('⚠️ Could not adjust SVG height:', error);
             // Fallback to a reasonable default height
             this.svgContainer.setAttribute('height', '400');
             this.svgContainer.style.height = '400px';
@@ -425,12 +306,12 @@ export class CPEEWfAdaptorRenderer {
     }
 
     /**
-     * Show status message (Legacy method with utility integration)
+     * Show status message
      * @param {string} message - Status message
      * @param {string} type - Message type (loading, success, error)
      */
     showStatus(message, type = 'info') {
-        // Phase 1: Use new StatusManager utility while maintaining interface
+        // Use StatusManager utility if available
         if (this.statusManager) {
             switch (type) {
                 case 'loading':
@@ -487,3 +368,4 @@ export class CPEEWfAdaptorRenderer {
         };
     }
 }
+

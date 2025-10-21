@@ -39,13 +39,11 @@ export class ContentSectionManager {
             // Update user input (synchronous)
             this.updateUserInputSection(stepContent.userInput);
             
-            // Update output intermediate
-            await this.updateOutputIntermediateSection(stepContent.outputIntermediate);
-            
-            // Small delay to prevent renderer conflicts, then render output graph
-            setTimeout(async () => {
-                await this.updateOutputCpeeSection(stepContent.outputCpeeTree);
-            }, 100);
+            // Update output intermediate and output graph in parallel
+            await Promise.all([
+                this.updateOutputIntermediateSection(stepContent.outputIntermediate),
+                this.updateOutputCpeeSection(stepContent.outputCpeeTree)
+            ]);
             
         } catch (error) {
             console.error('❌ Error updating content sections:', error);
