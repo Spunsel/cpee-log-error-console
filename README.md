@@ -55,8 +55,8 @@ src/
 │       ├── LibraryLoader.js
 │       └── URLUtils.js
 ├── config/              # Configuration management
-│   ├── api.js
-│   └── constants.js
+│   ├── service-config.js
+│   └── ui-config.js
 ├── libs/                # External libraries
 │   └── cpee/           # CPEE WfAdaptor & themes
 └── assets/             # Static resources

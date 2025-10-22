@@ -3,7 +3,7 @@
  * Handles communication with CPEE endpoints for process instance data
  */
 
-import { API_ENDPOINTS, CORS_CONFIG, buildUuidUrl, buildGraphUrl, buildInstanceUrl } from '../config/api.js';
+import { API_ENDPOINTS, CORS_CONFIG, buildUuidUrl, buildGraphUrl, buildInstanceUrl } from '../config/service-config.js';
 
 export class CPEEService {
     

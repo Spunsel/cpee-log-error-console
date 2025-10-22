@@ -5,7 +5,7 @@
 
 import { YAMLParser } from '../utils/parsers/YAMLParser.js';
 import { CPEEStep } from '../modules/CPEEStep.js';
-import { CORS_CONFIG, buildLogUrl } from '../config/api.js';
+import { CORS_CONFIG, buildLogUrl } from '../config/service-config.js';
 
 export class LogService {
 
