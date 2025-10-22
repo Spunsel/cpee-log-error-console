@@ -178,6 +178,28 @@ export class CPEEDebugConsole {
                 this.returnToHome();
             });
         }
+
+        // Keyboard navigation for step viewing (arrow keys)
+        document.addEventListener('keydown', (e) => {
+            // Don't trigger if user is typing in an input or textarea
+            const activeElement = document.activeElement;
+            if (activeElement && (
+                activeElement.tagName === 'INPUT' ||
+                activeElement.tagName === 'TEXTAREA' ||
+                activeElement.isContentEditable
+            )) {
+                return;
+            }
+
+            // Navigate with arrow keys
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                this.stepViewer.navigator.previousStep();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                this.stepViewer.navigator.nextStep();
+            }
+        });
     }
 
     /**
