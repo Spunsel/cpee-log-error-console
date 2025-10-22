@@ -1,7 +1,6 @@
 /**
- * Step Viewer Component (Refactored)
+ * Step Viewer Component
  * Coordinates step content display and navigation using extracted components
- * Refactored to follow Single Responsibility Principle
  */
 
 import { DOMUtils } from '../../utils/dom/DOMUtils.js';
