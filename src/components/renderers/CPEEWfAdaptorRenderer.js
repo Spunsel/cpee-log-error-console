@@ -87,12 +87,10 @@ export class CPEEWfAdaptorRenderer {
         // Create SVG element for CPEE rendering with unique ID
         this.svgContainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.svgContainer.id = `graphcanvas-${this.container.id}`;
-        this.svgContainer.setAttribute('width', '100%');
-        this.svgContainer.setAttribute('height', '400');
         this.svgContainer.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         this.svgContainer.setAttribute('version', '1.1');
         this.svgContainer.setAttribute('xmlns:x', 'http://www.w3.org/1999/xlink');
-        this.svgContainer.style.cssText = 'display: block; max-width: 100%; height: auto;';
+        this.svgContainer.style.cssText = 'display: block; width: auto; height: auto;';
         
         gridDiv.appendChild(this.svgContainer);
         graphDiv.appendChild(gridDiv);

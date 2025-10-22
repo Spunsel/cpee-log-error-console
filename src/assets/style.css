@@ -521,8 +521,8 @@ body {
     height: 400px;
     max-height: 400px;
     min-height: 400px;
-    overflow-y: scroll;
-    overflow-x: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
     position: relative;
 }
 
@@ -703,21 +703,18 @@ body {
 
 [id*="-graph-container"] svg {
     display: block;
-    max-width: 100%;
+    width: auto;
     height: auto;
 }
 
 /* CPEE Graph Containers */
 .cpee-section [id*="-graph-container"] {
-    overflow-x: visible;
-    overflow-y: visible;
     min-width: 100%;
-    width: auto;
+    width: max-content;
     position: relative;
 }
 
 .cpee-section [id*="-graph-container"] svg {
-    min-width: 100%;
     width: auto !important;
     max-width: none !important;
     display: block;
@@ -725,7 +722,7 @@ body {
 
 #input-cpee-content [id*="-graph-container"] svg {
     display: block;
-    max-width: 100%;
+    width: auto;
     height: auto;
     min-height: 100px;
 }
