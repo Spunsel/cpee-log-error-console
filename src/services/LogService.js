@@ -13,8 +13,13 @@ export class LogService {
      * Fetch and parse log for given UUID with fallback proxies
      * @param {string} uuid - CPEE instance UUID
      * @returns {Promise<Array>} Parsed log events
+     * @throws {Error} If UUID is invalid or fetch fails
      */
     static async fetchAndParseLog(uuid) {
+        if (!uuid || typeof uuid !== 'string' || uuid.trim() === '') {
+            throw new Error('LogService: Invalid UUID provided - must be a non-empty string');
+        }
+        
         console.log('Fetching log for parsing...');
         
         const logUrl = buildLogUrl(uuid);
@@ -40,14 +45,14 @@ export class LogService {
                 clearTimeout(timeoutId);
                 
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    throw new Error(`LogService: HTTP ${response.status} - ${response.statusText}`);
                 }
                 
                 console.log(`Log fetched successfully via proxy ${i + 1}`);
                 const yamlContent = await response.text();
                 
                 if (!yamlContent || yamlContent.length < 10) {
-                    throw new Error('Received empty or invalid response');
+                    throw new Error('LogService: Received empty or invalid log response');
                 }
                 
                 console.log(`Log content size: ${yamlContent.length} characters`);
@@ -63,9 +68,9 @@ export class LogService {
                 // If this is the last proxy, throw the error
                 if (i === CORS_CONFIG.PROXIES.length - 1) {
                     if (error.name === 'AbortError') {
-                        throw new Error('All proxies timed out. The log file may be large or servers are slow.');
+                        throw new Error('LogService: All proxies timed out - log file may be large or servers are slow');
                     }
-                    throw new Error(`All proxies failed. Last error: ${error.message}. Please check if the UUID is correct.`);
+                    throw new Error(`LogService: All proxies failed - ${error.message}`);
                 }
             }
         }
@@ -76,8 +81,17 @@ export class LogService {
      * @param {Array} events - Array of events
      * @param {string} transitionType - Lifecycle transition type to filter
      * @returns {Array} Filtered events
+     * @throws {Error} If parameters are invalid
      */
     static filterEventsByTransition(events, transitionType) {
+        if (!Array.isArray(events)) {
+            throw new Error('LogService: Events must be an array');
+        }
+        
+        if (!transitionType || typeof transitionType !== 'string') {
+            throw new Error('LogService: Transition type must be a non-empty string');
+        }
+        
         return events.filter(event => {
             return event.event && event.event['cpee:lifecycle:transition'] === transitionType;
         });
@@ -87,8 +101,13 @@ export class LogService {
      * Get exposition events grouped by change UUID
      * @param {Array} events - Array of all events
      * @returns {Object} Events grouped by cpee:change_uuid
+     * @throws {Error} If events parameter is invalid
      */
     static getExpositionEventsByChangeUUID(events) {
+        if (!Array.isArray(events)) {
+            throw new Error('LogService: Events must be an array');
+        }
+        
         const expositionEvents = this.filterEventsByTransition(events, 'description/exposition');
         const grouped = {};
 
@@ -120,8 +139,13 @@ export class LogService {
      * Parse steps from log data
      * @param {Array} logData - Parsed log events
      * @returns {Array} Array of step objects, sorted chronologically
+     * @throws {Error} If logData is invalid
      */
     static parseStepsFromLog(logData) {
+        if (!Array.isArray(logData)) {
+            throw new Error('LogService: Log data must be an array');
+        }
+        
         // Find all exposition events
         const expositionEvents = logData.filter(event => {
             return event.event && event.event['cpee:lifecycle:transition'] === 'description/exposition';
@@ -173,8 +197,13 @@ export class LogService {
      * Extract the 5 content types from step events
      * @param {Array} events - Events for a single step
      * @returns {Object} Content object with 5 sections
+     * @throws {Error} If events parameter is invalid
      */
     static extractStepContent(events) {
+        if (!Array.isArray(events)) {
+            throw new Error('LogService: Events must be an array');
+        }
+        
         const content = {
             inputCpeeTree: 'Not found',
             inputIntermediate: 'Not found', 

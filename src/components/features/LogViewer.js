@@ -69,7 +69,7 @@ export class LogViewer {
                 this.displayRawLog(content);
                 this.updateViewLogButton('Hide Log');
             } else {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                throw new Error(`LogViewer: HTTP ${response.status} - ${response.statusText}`);
             }
             
         } catch (error) {

@@ -119,7 +119,7 @@ export class LibraryLoader {
         
         // Verify library is now available
         if (!checkFunction()) {
-            throw new Error(`Library ${libraryName} failed to initialize after loading`);
+            throw new Error(`LibraryLoader: Library ${libraryName} failed to initialize after loading`);
         }
     }
 

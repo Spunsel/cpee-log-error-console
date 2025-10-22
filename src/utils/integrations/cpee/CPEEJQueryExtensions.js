@@ -18,7 +18,7 @@ export class CPEEJQueryExtensions {
         }
         
         if (typeof $ === 'undefined') {
-            throw new Error('jQuery must be loaded before initializing CPEE extensions');
+            throw new Error('CPEEJQueryExtensions: jQuery must be loaded before initializing CPEE extensions');
         }
         
         this.addXMLExtensions();

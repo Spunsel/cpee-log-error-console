@@ -11,10 +11,11 @@ export class CPEEService {
      * Fetch UUID for a given process instance number
      * @param {number} processNumber - CPEE process instance number
      * @returns {Promise<string>} UUID of the process instance
+     * @throws {Error} If process number is invalid or fetch fails
      */
     static async fetchUUIDFromProcessNumber(processNumber) {
         if (!processNumber || isNaN(processNumber)) {
-            throw new Error('Invalid process number provided');
+            throw new Error('CPEEService: Invalid process number - must be a valid number');
         }
         
         const uuidUrl = buildUuidUrl(processNumber);
@@ -32,7 +33,7 @@ export class CPEEService {
             });
             
             if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                throw new Error(`CPEEService: HTTP ${response.status} - ${response.statusText}`);
             }
             
             const uuid = await response.text();
@@ -40,7 +41,7 @@ export class CPEEService {
             
             // Validate UUID format
             if (!this.isValidUUID(cleanUuid)) {
-                throw new Error(`Invalid UUID format received: ${cleanUuid}`);
+                throw new Error(`CPEEService: Invalid UUID format received - ${cleanUuid}`);
             }
             
             console.log(`Successfully fetched UUID: ${cleanUuid}`);
@@ -48,7 +49,7 @@ export class CPEEService {
             
         } catch (error) {
             console.error('Error fetching UUID from process number:', error);
-            throw new Error(`Failed to fetch UUID for process ${processNumber}: ${error.message}`);
+            throw new Error(`CPEEService: Failed to fetch UUID for process ${processNumber} - ${error.message}`);
         }
     }
     
@@ -56,8 +57,13 @@ export class CPEEService {
      * Get the CPEE graph URL for a process instance number
      * @param {number} processNumber - CPEE process instance number
      * @returns {string} CPEE graph URL
+     * @throws {Error} If process number is invalid
      */
     static getCPEEGraphURL(processNumber) {
+        if (!this.isValidProcessNumber(processNumber)) {
+            throw new Error('CPEEService: Invalid process number - must be a positive integer');
+        }
+        
         return buildGraphUrl(processNumber);
     }
     
@@ -65,8 +71,13 @@ export class CPEEService {
      * Get the CPEE engine URL for a process instance number
      * @param {number} processNumber - CPEE process instance number
      * @returns {string} CPEE engine URL
+     * @throws {Error} If process number is invalid
      */
     static getCPEEEngineURL(processNumber) {
+        if (!this.isValidProcessNumber(processNumber)) {
+            throw new Error('CPEEService: Invalid process number - must be a positive integer');
+        }
+        
         return buildInstanceUrl(processNumber);
     }
     
@@ -76,6 +87,10 @@ export class CPEEService {
      * @returns {boolean} True if valid UUID format
      */
     static isValidUUID(uuid) {
+        if (!uuid || typeof uuid !== 'string') {
+            return false;
+        }
+        
         const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
         return uuidRegex.test(uuid);
     }
@@ -86,6 +101,10 @@ export class CPEEService {
      * @returns {number|null} Process number or null if not found
      */
     static extractProcessNumberFromURL(url) {
+        if (!url || typeof url !== 'string') {
+            return null;
+        }
+        
         const match = url.match(/\/flow\/engine\/(\d+)\//);
         return match ? parseInt(match[1], 10) : null;
     }

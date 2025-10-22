@@ -34,7 +34,7 @@ export class CPEEWfAdaptorRenderer {
         this.xmlInput = xmlInputId ? document.getElementById(xmlInputId) : null;
         
         if (!this.container) {
-            throw new Error(`Container with ID ${containerId} not found`);
+            throw new Error(`CPEEWfAdaptorRenderer: Container with ID ${containerId} not found`);
         }
         
         this.statusManager = new StatusManager(this.statusElement);
@@ -115,7 +115,7 @@ export class CPEEWfAdaptorRenderer {
                 const wrapperDoc = $('<xml></xml>').append(rootDesc.clone());
                 graphrealization.set_description(wrapperDoc, true);
             } else {
-                throw new Error('No description element found in XML');
+                throw new Error('CPEEWfAdaptorRenderer: No description element found in XML');
             }
         } else {
             graphrealization.set_description(jqueryXmlDoc, true);
@@ -147,12 +147,12 @@ export class CPEEWfAdaptorRenderer {
                     const svgElement = document.getElementById(svgElementId);
                     
                     if (!svgElement) {
-                        throw new Error(`SVG container with ID '${svgElementId}' not found`);
+                        throw new Error(`CPEEWfAdaptorRenderer: SVG container with ID '${svgElementId}' not found`);
                     }
                     
                     const jquerySvgContainer = $(svgElement);
                     if (jquerySvgContainer.length === 0) {
-                        throw new Error(`jQuery could not wrap SVG element with ID '${svgElementId}'`);
+                        throw new Error(`CPEEWfAdaptorRenderer: jQuery could not wrap SVG element with ID '${svgElementId}'`);
                     }
                     
                     // Process SVG elements using dedicated processor (handles caching and validation)
@@ -164,7 +164,7 @@ export class CPEEWfAdaptorRenderer {
                     );
                     
                     if (!success) {
-                        throw new Error('Failed to process SVG elements');
+                        throw new Error('CPEEWfAdaptorRenderer: Failed to process SVG elements');
                     }
                     
                     // Final validation to prevent wfadaptor.js split() errors

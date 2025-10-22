@@ -17,8 +17,21 @@ export class InstanceService {
      * @param {string} uuid - Instance UUID
      * @param {Array} steps - Parsed steps data (CPEEStep objects)
      * @param {number} processNumber - CPEE process number (optional)
+     * @throws {Error} If parameters are invalid
      */
     addInstance(uuid, steps, processNumber = null) {
+        if (!uuid || typeof uuid !== 'string') {
+            throw new Error('InstanceService: UUID must be a non-empty string');
+        }
+        
+        if (!Array.isArray(steps)) {
+            throw new Error('InstanceService: Steps must be an array');
+        }
+        
+        if (processNumber !== null && (typeof processNumber !== 'number' || processNumber <= 0)) {
+            throw new Error('InstanceService: Process number must be a positive number or null');
+        }
+        
         const instance = new CPEEInstance(uuid, steps, processNumber);
         this.instances.set(uuid, instance);
     }
@@ -27,8 +40,13 @@ export class InstanceService {
      * Get instance data by UUID
      * @param {string} uuid - Instance UUID
      * @returns {CPEEInstance|null} CPEEInstance object or null
+     * @throws {Error} If UUID is invalid
      */
     getInstance(uuid) {
+        if (!uuid || typeof uuid !== 'string') {
+            throw new Error('InstanceService: UUID must be a non-empty string');
+        }
+        
         return this.instances.get(uuid) || null;
     }
 
@@ -44,16 +62,26 @@ export class InstanceService {
      * Check if instance exists
      * @param {string} uuid - Instance UUID
      * @returns {boolean} True if instance exists
+     * @throws {Error} If UUID is invalid
      */
     hasInstance(uuid) {
+        if (!uuid || typeof uuid !== 'string') {
+            throw new Error('InstanceService: UUID must be a non-empty string');
+        }
+        
         return this.instances.has(uuid);
     }
 
     /**
      * Remove instance
      * @param {string} uuid - Instance UUID
+     * @throws {Error} If UUID is invalid
      */
     removeInstance(uuid) {
+        if (!uuid || typeof uuid !== 'string') {
+            throw new Error('InstanceService: UUID must be a non-empty string');
+        }
+        
         this.instances.delete(uuid);
         
         if (this.currentUUID === uuid) {
@@ -66,12 +94,22 @@ export class InstanceService {
      * Set current active instance
      * @param {string|null} uuid - Instance UUID or null to clear
      * @param {number} stepIndex - Step index (optional)
+     * @returns {boolean} True if successful, false if instance not found
+     * @throws {Error} If stepIndex is invalid
      */
     setCurrentInstance(uuid, stepIndex = 0) {
+        if (typeof stepIndex !== 'number' || stepIndex < 0 || !Number.isInteger(stepIndex)) {
+            throw new Error('InstanceService: Step index must be a non-negative integer');
+        }
+        
         if (uuid === null) {
             this.currentUUID = null;
             this.currentStepIndex = 0;
             return true;
+        }
+        
+        if (typeof uuid !== 'string' || uuid.trim() === '') {
+            throw new Error('InstanceService: UUID must be a non-empty string or null');
         }
         
         const instance = this.getInstance(uuid);
@@ -136,8 +174,13 @@ export class InstanceService {
      * Navigate to specific step
      * @param {number} stepIndex - Step index
      * @returns {boolean} True if navigation was successful
+     * @throws {Error} If stepIndex is invalid
      */
     goToStep(stepIndex) {
+        if (typeof stepIndex !== 'number' || stepIndex < 0 || !Number.isInteger(stepIndex)) {
+            throw new Error('InstanceService: Step index must be a non-negative integer');
+        }
+        
         const instance = this.getCurrentInstance();
         if (instance && instance.goToStep(stepIndex)) {
             this.currentStepIndex = instance.currentStepIndex;

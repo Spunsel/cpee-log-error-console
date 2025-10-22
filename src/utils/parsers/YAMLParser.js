@@ -8,10 +8,11 @@ export class YAMLParser {
      * Parse multi-document YAML content
      * @param {string} yamlContent - Full YAML content
      * @returns {Array} Array of parsed events
+     * @throws {Error} If YAML content is invalid
      */
     static parseMultiDocument(yamlContent) {
         if (!yamlContent || typeof yamlContent !== 'string') {
-            throw new Error('Invalid YAML content provided');
+            throw new Error('YAMLParser: Invalid YAML content - must be a non-empty string');
         }
 
         // Split by document separator and filter empty documents

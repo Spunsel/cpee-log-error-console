@@ -26,7 +26,7 @@ export class MermaidSyntaxProcessor {
      */
     static cleanAndValidate(code) {
         if (!code || typeof code !== 'string') {
-            throw new Error('Invalid Mermaid code input');
+            throw new Error('MermaidSyntaxProcessor: Invalid Mermaid code input - must be a non-empty string');
         }
 
         // Remove HTML comments and extra whitespace
@@ -53,7 +53,7 @@ export class MermaidSyntaxProcessor {
         cleanedCode = this.preprocessSyntax(cleanedCode);
 
         if (cleanedCode.length === 0) {
-            throw new Error('Empty Mermaid code provided after cleaning');
+            throw new Error('MermaidSyntaxProcessor: Empty Mermaid code provided after cleaning');
         }
 
         // Basic validation - check for common mermaid diagram types
@@ -63,7 +63,7 @@ export class MermaidSyntaxProcessor {
 
         if (!hasValidType) {
             console.warn('⚠️ Cleaned Mermaid code:', JSON.stringify(cleanedCode));
-            throw new Error(`Mermaid code does not contain a recognized diagram type. Cleaned content: "${cleanedCode.substring(0, 100)}..."`);
+            throw new Error(`MermaidSyntaxProcessor: Mermaid code does not contain a recognized diagram type - cleaned content: "${cleanedCode.substring(0, 100)}..."`);
         }
 
         console.log('✅ Mermaid code validation successful');

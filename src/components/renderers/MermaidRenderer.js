@@ -31,7 +31,7 @@ export class MermaidRenderer {
         try {
             this.container = document.getElementById(containerId);
             if (!this.container) {
-                throw new Error(`Container element with ID '${containerId}' not found`);
+                throw new Error(`MermaidRenderer: Container element with ID '${containerId}' not found`);
             }
 
             // Initialize status manager

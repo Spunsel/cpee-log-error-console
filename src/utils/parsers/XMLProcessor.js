@@ -13,7 +13,7 @@ export class XMLProcessor {
      */
     static cleanAndValidate(xml) {
         if (!xml || typeof xml !== 'string') {
-            throw new Error('Invalid XML input: must be a non-empty string');
+            throw new Error('XMLProcessor: Invalid XML input - must be a non-empty string');
         }
 
         // Remove HTML comments and extra whitespace
@@ -29,7 +29,7 @@ export class XMLProcessor {
         
         // Validate basic XML structure
         if (!cleanedXML.includes('<description')) {
-            throw new Error('Invalid CPEE XML: Missing <description> element');
+            throw new Error('XMLProcessor: Invalid CPEE XML - missing <description> element');
         }
         
         // Parse and validate the XML structure
@@ -39,13 +39,13 @@ export class XMLProcessor {
             // Check for parsing errors
             const parseError = xmlDoc.querySelector('parsererror');
             if (parseError) {
-                throw new Error('XML parsing error: ' + parseError.textContent);
+                throw new Error('XMLProcessor: XML parsing error - ' + parseError.textContent);
             }
             
             // Ensure we have a proper description element
             const descElement = xmlDoc.querySelector('description');
             if (!descElement) {
-                throw new Error('No valid <description> element found');
+                throw new Error('XMLProcessor: No valid <description> element found');
             }
             
             console.log('✅ XML validation successful');
@@ -53,7 +53,7 @@ export class XMLProcessor {
             
         } catch (error) {
             console.error('❌ XML validation failed:', error);
-            throw new Error('Invalid XML structure: ' + error.message);
+            throw new Error('XMLProcessor: Invalid XML structure - ' + error.message);
         }
     }
 
@@ -64,6 +64,10 @@ export class XMLProcessor {
      * @throws {Error} If parsing fails
      */
     static parseXML(xmlString) {
+        if (!xmlString || typeof xmlString !== 'string') {
+            throw new Error('XMLProcessor: XML string must be a non-empty string');
+        }
+        
         try {
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
@@ -76,7 +80,7 @@ export class XMLProcessor {
             
             return xmlDoc;
         } catch (error) {
-            throw new Error(`Failed to parse XML: ${error.message}`);
+            throw new Error(`XMLProcessor: Failed to parse XML - ${error.message}`);
         }
     }
 
@@ -88,7 +92,7 @@ export class XMLProcessor {
      */
     static parseForWfAdaptor(xmlString) {
         if (typeof $ === 'undefined') {
-            throw new Error('jQuery is required for WfAdaptor XML processing');
+            throw new Error('XMLProcessor: jQuery is required for WfAdaptor XML processing');
         }
 
         const xmlDoc = this.parseXML(xmlString);
@@ -190,10 +194,11 @@ export class XMLProcessor {
      * Clean Mermaid code from various formats
      * @param {string} code - Raw mermaid code
      * @returns {string} Cleaned mermaid code
+     * @throws {Error} If code is invalid
      */
     static cleanMermaidCode(code) {
         if (!code || typeof code !== 'string') {
-            throw new Error('Invalid Mermaid code input');
+            throw new Error('XMLProcessor: Invalid Mermaid code input - must be a non-empty string');
         }
 
         // Remove HTML comments and extra whitespace
