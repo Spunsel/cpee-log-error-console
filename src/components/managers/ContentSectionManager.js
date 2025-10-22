@@ -64,7 +64,11 @@ export class ContentSectionManager {
             return;
         }
 
+        let cleanup;
         try {
+            // Preserve container height during transition
+            cleanup = this.preserveHeightDuringTransition(inputCpeeElement);
+            
             // Clear the existing content and create graph container
             inputCpeeElement.innerHTML = '';
             
@@ -81,11 +85,16 @@ export class ContentSectionManager {
             await this.inputGraphRenderer.initialize(graphContainer.id, null, null);
             await this.inputGraphRenderer.renderGraph(cpeeXml);
             
+            // Restore normal height behavior
+            cleanup();
+            
             console.log('✅ Input CPEE section updated with graph');
             
         } catch (error) {
             console.error('❌ Error updating input CPEE section:', error);
             this.showSectionError(inputCpeeElement, 'Failed to render CPEE graph', error.message);
+            // Still need to call cleanup on error
+            if (typeof cleanup === 'function') cleanup();
         }
     }
 
@@ -154,7 +163,11 @@ export class ContentSectionManager {
             return;
         }
 
+        let cleanup;
         try {
+            // Preserve container height during transition
+            cleanup = this.preserveHeightDuringTransition(inputIntermediateElement);
+            
             // Clear existing content
             inputIntermediateElement.innerHTML = '';
             
@@ -169,12 +182,17 @@ export class ContentSectionManager {
             await this.inputMermaidRenderer.initialize(graphContainer.id);
             await this.inputMermaidRenderer.renderGraph(content);
             
+            // Restore normal height behavior
+            cleanup();
+            
             console.log('✅ Input intermediate section updated with Mermaid');
             
         } catch (error) {
             console.error('❌ Error updating input intermediate section:', error);
             // Show fallback with raw content instead of error
             inputIntermediateElement.innerHTML = `<pre><code>${this.escapeHtml(content)}</code></pre>`;
+            // Still need to call cleanup on error
+            if (typeof cleanup === 'function') cleanup();
         }
     }
 
@@ -198,9 +216,10 @@ export class ContentSectionManager {
             return;
         }
 
+        let cleanup;
         try {
             // Preserve container height during transition
-            const cleanup = this.preserveHeightDuringTransition(outputIntermediateElement);
+            cleanup = this.preserveHeightDuringTransition(outputIntermediateElement);
             
             // Clear existing content
             outputIntermediateElement.innerHTML = '';
@@ -310,7 +329,7 @@ export class ContentSectionManager {
      */
     formatUserInputContent(content) {
         // Clean the content first - remove "# User Input:" header and extra whitespace
-        let cleanedContent = this.extractCleanUserInput(content);
+        const cleanedContent = this.extractCleanUserInput(content);
         
         try {
             // Try to parse as JSON for better formatting
