@@ -125,8 +125,9 @@ export class DOMRegistry {
     }
 
     /**
-     * Get element with fallback to DOMUtils for backward compatibility
-     * @param {string} key - Semantic key for the element
+     * Get element with fallback to direct ID lookup
+     * Attempts registry lookup first, then falls back to direct DOM ID access
+     * @param {string} key - Semantic key for the element or direct element ID
      * @returns {Element|null} DOM element or null if not found
      */
     getElementSafe(key) {
@@ -135,9 +136,9 @@ export class DOMRegistry {
             return element;
         }
 
-        // Fallback: try to use key as direct ID for backward compatibility
+        // Fallback: try to use key as direct element ID
         if (this.warningsEnabled) {
-            console.warn(`DOMRegistry: Falling back to direct ID lookup for '${key}'`);
+            console.warn(`DOMRegistry: No registry entry for '${key}', attempting direct ID lookup`);
         }
         return document.getElementById(key);
     }

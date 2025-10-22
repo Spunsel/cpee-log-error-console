@@ -97,7 +97,7 @@ export class StepNavigator {
                 'nextStepBtn': 'next-step',
                 'goToEndBtn': 'go-to-end',
                 'stepCounter': 'step-counter',
-                // Backward compatibility
+                // Alternative keys for navigation buttons
                 'prevStep': 'prev-step',
                 'nextStep': 'next-step'
             };

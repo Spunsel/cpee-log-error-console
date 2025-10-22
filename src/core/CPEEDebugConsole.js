@@ -34,7 +34,7 @@ export class CPEEDebugConsole {
     }
 
     /**
-     * Get DOM element by key with fallback to direct ID access for backward compatibility
+     * Get DOM element by key with fallback to direct ID access
      * @param {string} key - Registry key or element ID
      * @returns {Element|null} DOM element or null if not found
      */
@@ -42,7 +42,7 @@ export class CPEEDebugConsole {
         if (this.domRegistry) {
             return this.domRegistry.getElementSafe(key);
         }
-        // Fallback to direct DOM access for backward compatibility
+        // No registry available, use direct DOM access
         return document.getElementById(key);
     }
 

@@ -13,6 +13,7 @@ export class DOMElementManager {
 
     /**
      * Get DOM element by key with fallback to direct ID access
+     * Uses registry if available, otherwise performs direct DOM lookup
      * @param {string} key - Registry key or element ID
      * @returns {Element|null} DOM element or null if not found
      */
@@ -20,7 +21,7 @@ export class DOMElementManager {
         if (this.domRegistry) {
             return this.domRegistry.getElementSafe(key);
         }
-        // Fallback to direct DOM access for backward compatibility
+        // No registry available, use direct DOM access
         return DOMUtils.getElementById(key);
     }
 

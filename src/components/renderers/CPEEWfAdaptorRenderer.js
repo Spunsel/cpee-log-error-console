@@ -329,7 +329,7 @@ export class CPEEWfAdaptorRenderer {
             return;
         }
         
-        // Legacy fallback if StatusManager not initialized
+        // Fallback: Direct DOM manipulation if StatusManager not initialized
         if (!this.statusElement) return;
         
         this.statusElement.textContent = message;

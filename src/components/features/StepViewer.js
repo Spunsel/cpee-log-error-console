@@ -31,17 +31,10 @@ export class StepViewer {
                 this.onStepChange(this.instanceService.currentStepIndex);
             }
         });
-        
-        // Legacy properties for backward compatibility (deprecated but maintained)
-        this.inputGraphRenderer = null;
-        this.outputGraphRenderer = null;
-        this.inputMermaidRenderer = null;
-        this.outputMermaidRenderer = null;
-        this.currentGraphContainer = null;
     }
 
     /**
-     * Get DOM element by key with fallback to direct ID access for backward compatibility
+     * Get DOM element by key with fallback to direct ID access
      * @param {string} key - Registry key or element ID
      * @returns {Element|null} DOM element or null if not found
      */
@@ -88,9 +81,6 @@ export class StepViewer {
         // Setup/update navigation using StepNavigator
         this.navigator.setupNavigation();
         this.navigator.updateNavigation(navInfo);
-
-        // Update legacy renderer references for backward compatibility
-        this.updateLegacyRendererReferences();
     }
 
     /**
@@ -109,17 +99,6 @@ export class StepViewer {
     }
 
     /**
-     * Update legacy renderer references for backward compatibility
-     */
-    updateLegacyRendererReferences() {
-        const renderers = this.contentManager.getRenderers();
-        this.inputGraphRenderer = renderers.inputGraphRenderer;
-        this.outputGraphRenderer = renderers.outputGraphRenderer;
-        this.inputMermaidRenderer = renderers.inputMermaidRenderer;
-        this.outputMermaidRenderer = renderers.outputMermaidRenderer;
-    }
-
-    /**
      * Show default state (no instance selected)
      */
     showDefaultState() {
@@ -132,129 +111,6 @@ export class StepViewer {
         // Clear all content sections
         this.contentManager.clearAllSections();
     }
-
-    // ========================================
-    // LEGACY DELEGATION METHODS
-    // These methods maintain backward compatibility by delegating to extracted components
-    // ========================================
-
-    /**
-     * Setup step navigation UI (Legacy method - now delegates to StepNavigator)
-     * @deprecated Use this.navigator.setupNavigation() directly
-     */
-    setupStepNavigation() {
-        return this.navigator.setupNavigation();
-    }
-
-    /**
-     * Update step navigation state (Legacy method - now delegates to StepNavigator)
-     * @param {Object} navInfo - Navigation info
-     * @deprecated Use this.navigator.updateNavigation() directly
-     */
-    updateStepNavigation(navInfo) {
-        return this.navigator.updateNavigation(navInfo);
-    }
-
-    /**
-     * Apply disabled styling to navigation buttons (Legacy method - now handled by StepNavigator)
-     * @param {HTMLElement} button - Button element
-     * @param {boolean} isDisabled - Whether button should appear disabled
-     * @deprecated This is now handled internally by StepNavigator
-     */
-    applyDisabledStyling(button, isDisabled) {
-        return this.navigator.applyDisabledStyling(button, isDisabled);
-    }
-
-    /**
-     * Navigate to previous step (Legacy method - now delegates to StepNavigator)
-     * @deprecated Use this.navigator.previousStep() directly
-     */
-    async previousStep() {
-        return await this.navigator.previousStep();
-    }
-
-    /**
-     * Navigate to next step (Legacy method - now delegates to StepNavigator)
-     * @deprecated Use this.navigator.nextStep() directly
-     */
-    async nextStep() {
-        return await this.navigator.nextStep();
-    }
-
-    /**
-     * Navigate to first step (Legacy method - now delegates to StepNavigator)
-     * @deprecated Use this.navigator.goToStart() directly
-     */
-    async goToStart() {
-        return await this.navigator.goToStart();
-    }
-
-    /**
-     * Navigate to last step (Legacy method - now delegates to StepNavigator)
-     * @deprecated Use this.navigator.goToEnd() directly
-     */
-    async goToEnd() {
-        return await this.navigator.goToEnd();
-    }
-
-    /**
-     * Preserve container height and hide overflow during transitions
-     * @param {HTMLElement} element - The container element
-     * @returns {function} - Cleanup function to restore normal state
-     * @deprecated This method is now handled by ContentSectionManager
-     */
-    preserveHeightDuringTransition(element) {
-        return this.contentManager.preserveHeightDuringTransition(element);
-    }
-
-    /**
-     * Update the Input CPEE Tree section with a rendered graph
-     * @param {string} cpeeXml - CPEE XML content to render as graph
-     * @deprecated Use this.contentManager.updateInputCpeeSection() directly
-     */
-    async updateInputCpeeSection(cpeeXml) {
-        return await this.contentManager.updateInputCpeeSection(cpeeXml);
-    }
-
-    /**
-     * Update the Output CPEE Tree section with a rendered graph
-     * @param {string} cpeeXml - CPEE XML content to render as graph
-     * @deprecated Use this.contentManager.updateOutputCpeeSection() directly
-     */
-    async updateOutputCpeeSection(cpeeXml) {
-        return await this.contentManager.updateOutputCpeeSection(cpeeXml);
-    }
-
-    /**
-     * Update the Input Intermediate section with Mermaid diagram
-     * @param {string} content - Mermaid diagram content
-     * @deprecated Use this.contentManager.updateInputIntermediateSection() directly
-     */
-    async updateInputIntermediateSection(content) {
-        return await this.contentManager.updateInputIntermediateSection(content);
-    }
-
-    /**
-     * Update the Output Intermediate section with Mermaid diagram
-     * @param {string} content - Mermaid diagram content
-     * @deprecated Use this.contentManager.updateOutputIntermediateSection() directly
-     */
-    async updateOutputIntermediateSection(content) {
-        return await this.contentManager.updateOutputIntermediateSection(content);
-    }
-
-    /**
-     * Update the User Input section with text content
-     * @param {string} content - User input content
-     * @deprecated Use this.contentManager.updateUserInputSection() directly
-     */
-    updateUserInputSection(content) {
-        return this.contentManager.updateUserInputSection(content);
-    }
-
-    // ========================================
-    // ACCESSOR METHODS FOR EXTRACTED COMPONENTS
-    // ========================================
 
     /**
      * Get navigation component
