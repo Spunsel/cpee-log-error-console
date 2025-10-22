@@ -88,8 +88,12 @@ export class ContentSectionManager {
             await this.inputGraphRenderer.renderGraph(cpeeXml);
             
             // Restore normal height behavior
-            cleanup();            
+            cleanup();
+            
+            console.log('✅ Input CPEE section updated with graph');
+            
         } catch (error) {
+            console.error('❌ Error updating input CPEE section:', error);
             this.showSectionError(inputCpeeElement, 'Failed to render CPEE graph', error.message);
             // Still need to call cleanup on error
             if (typeof cleanup === 'function') {
@@ -136,8 +140,11 @@ export class ContentSectionManager {
             
             // Restore normal height behavior
             cleanup();
-                        
+            
+            console.log('✅ Output CPEE section updated with graph');
+            
         } catch (error) {
+            console.error('❌ Error updating output CPEE section:', error);
             this.showSectionError(outputCpeeElement, 'Failed to render CPEE graph', error.message);
         }
     }
@@ -185,8 +192,11 @@ export class ContentSectionManager {
             
             // Restore normal height behavior
             cleanup();
-                        
+            
+            console.log('✅ Input intermediate section updated with Mermaid');
+            
         } catch (error) {
+            console.error('❌ Error updating input intermediate section:', error);
             // Show fallback with raw content instead of error
             inputIntermediateElement.innerHTML = `<pre><code>${this.escapeHtml(content)}</code></pre>`;
             // Still need to call cleanup on error
@@ -238,8 +248,12 @@ export class ContentSectionManager {
             await this.outputMermaidRenderer.renderGraph(content);
             
             // Restore normal height behavior
-            cleanup();  
+            cleanup();
+            
+            console.log('✅ Output intermediate section updated with Mermaid');
+            
         } catch (error) {
+            console.error('❌ Error updating output intermediate section:', error);
             // Show fallback with raw content instead of error
             outputIntermediateElement.innerHTML = `<pre><code>${this.escapeHtml(content)}</code></pre>`;
             // Still need to call cleanup on error
@@ -274,8 +288,11 @@ export class ContentSectionManager {
             if (contentBox) {
                 contentBox.classList.add('user-input-section');
             }
-                        
+            
+            console.log('✅ User input section updated');
+            
         } catch (error) {
+            console.error('❌ Error updating user input section:', error);
             this.showSectionError(userInputElement, 'Failed to display user input', error.message);
         }
     }

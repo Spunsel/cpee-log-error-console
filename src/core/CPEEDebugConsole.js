@@ -10,7 +10,7 @@ import { CPEEService } from '../services/CPEEService.js';
 import { Sidebar } from '../components/ui/Sidebar.js';
 import { StepViewer } from '../components/features/StepViewer.js';
 import { LogViewer } from '../components/features/LogViewer.js';
-import { DOMRegistry, DEFAULT_DOM_MAPPINGS } from '../utils/dom/DOMRegistry.js';
+import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from '../utils/dom/DOMRegistry.js';
 
 export class CPEEDebugConsole {
     constructor() {
