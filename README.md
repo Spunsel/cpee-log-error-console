@@ -1,34 +1,26 @@
 # CPEE Log Error Console
 
-A sophisticated debugging interface for CPEE (Cloud Process Execution Engine) that provides visual workflow analysis, step-by-step execution tracking, and intelligent graph rendering.
+A debugging interface for LLM  CPEE extension with visual graph analysis and step-by-step tracking
 
-## 🚀 Features
+## Features
 
-### 📊 **Visual Workflow Analysis**
-- **Authentic CPEE Graphs**: Native CPEE WfAdaptor integration for accurate process visualization
-- **Mermaid Diagrams**: Interactive flowchart rendering for intermediate workflow states
-- **Multi-Instance Support**: Debug multiple CPEE processes simultaneously
-- **Responsive Design**: Horizontal scrolling and adaptive layouts for complex workflows
+### Visual Workflow Analysis
+- **CPEE Graphs**: Native CPEE WfAdaptor integration for process visualization
+- **Mermaid Diagrams**: Rendering of intermediate graph format
+- **Multi-Instance Support**: Possible to debug multiple CPEE processes simultaneously
 
-### 🔍 **Step-by-Step Debugging**
-- **Process Navigation**: Navigate through execution steps with next/previous controls
-- **Content Sections**: Organized display of input trees, intermediate states, user inputs, and output trees
-- **Real-time Rendering**: Dynamic graph generation from CPEE XML and Mermaid syntax
-- **Error Handling**: Graceful fallbacks with detailed error messages and raw content display
+### Step-by-Step Debugging
+- **Process Navigation**: Navigate through execution steps with step controls
+- **Content Sections**: Organized display of input svgs, intermediate states, user inputs, and output svgs
 
-### 🎨 **Modern Interface**
-- **Clean Design**: Minimalist interface focused on workflow visualization
-- **Loading States**: Visual feedback during graph rendering and data processing
-- **Custom Styling**: Consistent white backgrounds and black borders for all graph elements
-- **URL Routing**: Direct linking to specific instances and steps
+## Architecture
 
-## 🏗️ Architecture
-
-### **Project Structure**
+### Project Structure
 ```
 src/
 ├── core/                 # Core application logic
-│   └── CPEEDebugConsole.js
+│   ├── CPEEDebugConsole.js
+│   └── DOMRegistry.js
 ├── modules/              # Business logic classes
 │   ├── CPEEStep.js      
 │   └── CPEEInstance.js  
@@ -36,146 +28,93 @@ src/
 │   ├── LogService.js    
 │   ├── InstanceService.js
 │   └── CPEEService.js   
-├── components/           # UI components and renderers
-│   ├── Sidebar.js       
-│   ├── StepViewer.js    
-│   ├── CPEEWfAdaptorRenderer.js
-│   └── MermaidRenderer.js
-├── parsers/              # Data parsing utilities
-│   └── YAMLParser.js    
-├── utils/                # Helper utilities
-│   └── DOMUtils.js      
-└── assets/               # Styles and static resources
+├── components/           # UI components organized by responsibility
+│   ├── ui/              # Pure UI components
+│   │   ├── Sidebar.js
+│   │   └── StepNavigator.js
+│   ├── renderers/       # Graph rendering components
+│   │   ├── CPEEWfAdaptorRenderer.js
+│   │   └── MermaidRenderer.js
+│   ├── features/        # Feature-specific components
+│   │   ├── LogViewer.js
+│   │   └── StepViewer.js
+│   └── managers/        # Content coordination
+│       └── ContentSectionManager.js
+├── utils/               # Helper utilities organized by domain
+│   ├── dom/            # DOM manipulation
+│   │   ├── DOMUtils.js
+│   │   ├── DOMElementManager.js
+│   │   └── StatusManager.js
+│   ├── parsers/        # Data parsing
+│   │   ├── XMLProcessor.js
+│   │   └── YAMLParser.js
+│   ├── integrations/   # Third-party integrations
+│   │   ├── cpee/      # CPEE-specific utilities
+│   │   └── mermaid/   # Mermaid-specific utilities
+│   └── system/        # System-level utilities
+│       ├── LibraryLoader.js
+│       └── URLUtils.js
+├── config/              # Configuration management
+│   ├── api.js
+│   └── constants.js
+├── libs/                # External libraries
+│   └── cpee/           # CPEE WfAdaptor & themes
+└── assets/             # Static resources
     └── style.css        
 ```
 
-### **Key Components**
+### Core Architecture
 
-#### **CPEEStep & CPEEInstance** (`/modules/`)
-Object-oriented representation of CPEE processes with navigation, content management, and step tracking capabilities.
+#### Modules Layer
+- **CPEEStep & CPEEInstance**: Object-oriented representation of CPEE instance and user modification step
 
-#### **Graph Renderers** (`/components/`)
-- **CPEEWfAdaptorRenderer**: Authentic CPEE graph visualization using the official WfAdaptor library
-- **MermaidRenderer**: Mermaid.js integration for flowchart diagrams with custom theming
+#### Service Layer  
+- **LogService**: YAML/text log parsing and step extraction with CORS handling
+- **InstanceService**: Multi-instance management and navigation state
+- **CPEEService**: CPEE server communication and UUID resolution
 
-#### **Service Layer** (`/services/`)
-- **LogService**: YAML/text log parsing and step extraction
-- **InstanceService**: Multi-instance management and navigation
-- **CPEEService**: CPEE server communication utilities
+#### Component Layer
+- **UI Components**: Pure interface elements (sidebar navigation, step controls)
+- **Renderers**: Isolated graph rendering (CPEE WfAdaptor, Mermaid.js integration)
+- **Features**: Complete functionality modules (log viewing, step navigation)
+- **Managers**: Content coordination and section management
 
-## 🚀 Quick Start
+#### Utility Layer
+- **Domain-organized**: Utilities grouped by responsibility (DOM, parsing, integrations, system)
 
-### **1. Setup**
+### Technologies Used
+- **Frontend**: JavaScript (ES6+), HTML5, CSS3
+- **Graph Rendering**: Mermaid.js, CPEE WfAdaptor
+- **Data Processing**: Custom YAML/XML parsers
+
+## Quick Start
+
+### Setup
 ```bash
 # Clone the repository
 git clone <repository-url>
 cd cpee-log-error-console
 
-**Start local server** (required for ES6 modules)
-run: python -m http.server 8000
+# Start local server (required for ES6 modules)
+python -m http.server 8000
+
 # Open in browser
-open index.html
+open http://localhost:8000
 ```
 
-### **2. Usage**
-1. **Load Process**: Enter CPEE process number or paste log data
-2. **Navigate Steps**: Use next/previous buttons to explore execution
+### Usage
+1. **Load Process**: Enter CPEE process number fetchUUID and load process
+2. **Navigate Steps**: Use next/previous buttons to explore user llm modifications
 3. **View Graphs**: Automatic rendering of CPEE trees and Mermaid diagrams
 4. **Debug Issues**: Examine intermediate states and error messages
 
-### **3. Testing**
-- **CPEE Graphs**: Open `test_cpee_graph_from_xml.html` to test CPEE visualization
-- **Mermaid Graphs**: Open `test_mermaid_graph_from_raw.html` to test Mermaid rendering
-
-## 🔧 Configuration
-
-### **Graph Rendering Options**
-Customize graph appearance in `MermaidRenderer.js`:
-```javascript
-// Font and spacing
-fontSize: 11,
-flowchart: {
-    padding: 15,
-    nodeSpacing: 25,
-    rankSpacing: 35
-}
-
-// Colors and theme
-themeVariables: {
-    primaryColor: '#ffffff',      // Node backgrounds
-    primaryBorderColor: '#000000', // Node borders
-    // ... additional styling options
-}
-```
-
-### **CPEE Integration**
-Configure CPEE server connection in `CPEEService.js`:
-```javascript
-// Server settings
-const CPEE_BASE_URL = 'your-cpee-server-url';
-const DEFAULT_HEADERS = {
-    'Content-Type': 'application/json',
-    // ... authentication headers
-};
-```
-
-## 📝 Data Formats
-
-### **Supported Log Formats**
-- **YAML**: Structured CPEE execution logs
-- **Plain Text**: Simple step-by-step process logs
-- **XML**: Direct CPEE process definitions
-
-### **Graph Types**
-- **CPEE Trees**: Native CPEE workflow visualization
-- **Mermaid Flowcharts**: Intermediate state diagrams
-- **Custom Formats**: Extensible parser system
-
-## 🧪 Development
-
-### **Running Tests**
-```bash
-# Test CPEE graph rendering
-open test_cpee_graph_from_xml.html
-
-# Test Mermaid graph rendering  
-open test_mermaid_graph_from_raw.html
-
-# View in development
-open index.html
-```
-
-### **Adding Features**
-1. **New Renderers**: Extend `components/` with additional graph types
-2. **Data Parsers**: Add parsers in `parsers/` for new log formats
-3. **UI Components**: Create reusable components in `components/`
-
-### **Debugging**
-- Open browser DevTools for console logs and network requests
-- Use `?uuid=<process-id>&step=<step-number>` URL parameters for direct navigation
-- Check graph container elements for rendering issues
-
-## 🤝 Contributing
-
-### **Code Style**
-- Use modern ES6+ JavaScript features
-- Follow existing naming conventions
-- Add JSDoc comments for public methods
-- Test changes with provided test files
-
-### **Pull Requests**
-1. Fork the repository
-2. Create feature branch
-3. Test thoroughly with sample data
-4. Submit PR with clear description
-
-## 📄 License
+## License
 
 This project is part of a Bachelor's thesis at TUM (Technical University of Munich).
 
-## 🔗 Dependencies
+## Dependencies
 
 - **Mermaid.js**: Diagram and flowchart rendering
 - **CPEE WfAdaptor**: Authentic CPEE graph visualization  
-- **jQuery**: DOM manipulation and utilities
-- **Bootstrap**: UI styling and components
+- **jQuery**: DOM manipulation and utilities (legacy, being modernized)
+- **Custom CSS**: No external UI frameworks
