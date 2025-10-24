@@ -26,7 +26,9 @@ export class StatusManager {
      * @param {number} hideDelay - Delay in milliseconds before hiding
      */
     showStatus(message, type = 'info', autoHide = false, hideDelay = 3000) {
-        if (!this.statusElement) return;
+        if (!this.statusElement) { 
+            return;
+        }
 
         // Clear any existing hide timeout
         if (this.hideTimeout) {

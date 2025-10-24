@@ -9,9 +9,10 @@ import { StepNavigator } from '../ui/StepNavigator.js';
 import { ContentSectionManager } from '../managers/ContentSectionManager.js';
 
 export class StepViewer {
-    constructor(instanceService, domRegistry = null) {
+    constructor(instanceService, domRegistry = null, rawContentViewManager = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
+        this.rawContentViewManager = rawContentViewManager;
         this.onStepChange = null;
         
         // Initialize utility managers
@@ -55,7 +56,9 @@ export class StepViewer {
      * @param {Object} navInfo - Navigation info
      */
     async displayStep(step, navInfo) {
-        if (!step) return;
+        if (!step) {
+            return;
+        }
 
         console.log(`Displaying ${step.getDisplayName()}`);
 
@@ -76,6 +79,11 @@ export class StepViewer {
         };
 
         await this.contentManager.updateAllSections(stepContent);
+
+        // Initialize raw content view features for this step
+        if (this.rawContentViewManager) {
+            this.rawContentViewManager.setupForStep(step);
+        }
 
         // Setup/update navigation using StepNavigator
         this.navigator.setupNavigation();

@@ -4,7 +4,7 @@
  */
 
 import { YAMLParser } from '../utils/parsers/YAMLParser.js';
-import { CPEEStep } from '../modules/CPEEStep.js';
+import { CPEEStep } from '../models/CPEEStep.js';
 import { CORS_CONFIG, buildLogUrl } from '../config/service-config.js';
 
 export class LogService {
@@ -184,12 +184,31 @@ export class LogService {
         // Extract content from each step and create CPEEStep objects
         return steps.map((step, index) => {
             const content = this.extractStepContent(step.events);
-            return new CPEEStep(
+            const cpeeStep = new CPEEStep(
                 index + 1,
                 step.changeUuid,
                 step.timestamp,
                 content
             );
+            
+            // Populate raw content for each section from exposition events
+            step.events.forEach(event => {
+                const exposition = event['cpee:exposition'] || '';
+                
+                if (exposition.includes('<!-- Input CPEE-Tree -->')) {
+                    cpeeStep.setInputCpeeTreeRaw(exposition);
+                } else if (exposition.includes('%% Input Intermediate')) {
+                    cpeeStep.setInputMermaidRaw(exposition);
+                } else if (exposition.includes('# User Input:')) {
+                    cpeeStep.setUserInputRaw(exposition);
+                } else if (exposition.includes('%% Output Intermediate')) {
+                    cpeeStep.setOutputMermaidRaw(exposition);
+                } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
+                    cpeeStep.setOutputCpeeTreeRaw(exposition);
+                }
+            });
+            
+            return cpeeStep;
         });
     }
 

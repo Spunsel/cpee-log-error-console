@@ -10,6 +10,7 @@ import { CPEEService } from '../services/CPEEService.js';
 import { Sidebar } from '../components/ui/Sidebar.js';
 import { StepViewer } from '../components/features/StepViewer.js';
 import { LogViewer } from '../components/features/LogViewer.js';
+import { RawContentViewManager } from '../components/managers/RawContentViewManager.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from '../utils/dom/DOMRegistry.js';
 
 export class CPEEDebugConsole {
@@ -21,9 +22,12 @@ export class CPEEDebugConsole {
         // Initialize services
         this.instanceService = new InstanceService();
         
+        // Initialize managers
+        this.rawContentViewManager = new RawContentViewManager(this.instanceService, this.domRegistry);
+        
         // Initialize components with DOM registry
         this.sidebar = new Sidebar(this.instanceService, this.domRegistry);
-        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry);
+        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentViewManager);
         this.logViewer = new LogViewer(this.domRegistry);
         
         // Set up component callbacks

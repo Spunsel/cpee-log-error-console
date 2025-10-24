@@ -3,7 +3,7 @@
  * Manages CPEE instance data and state
  */
 
-import { CPEEInstance } from '../modules/CPEEInstance.js';
+import { CPEEInstance } from '../models/CPEEInstance.js';
 
 export class InstanceService {
     constructor() {

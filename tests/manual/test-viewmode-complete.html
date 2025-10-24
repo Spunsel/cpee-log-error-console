@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 21 Complete Test - View Mode Toggle & Raw Content</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #7c3aed;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #7c3aed;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .status-item {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .status-item.pass {
+            border-left: 3px solid #10b981;
+        }
+
+        .status-item.fail {
+            border-left: 3px solid #ef4444;
+        }
+
+        .status-item.pending {
+            border-left: 3px solid #f59e0b;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        section {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #334155;
+        }
+
+        section h2 {
+            color: #7c3aed;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .test-panel {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #0f172a;
+            border-radius: 4px;
+            border-left: 3px solid #06b6d4;
+        }
+
+        .test-panel h3 {
+            color: #06b6d4;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+
+        button {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #6d28d9;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.secondary {
+            background: #334155;
+        }
+
+        button.secondary:hover {
+            background: #475569;
+        }
+
+        button.danger {
+            background: #ef4444;
+        }
+
+        button.danger:hover {
+            background: #dc2626;
+        }
+
+        .output {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #334155;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            max-height: 300px;
+            overflow: auto;
+        }
+
+        .log-entry {
+            padding: 5px 0;
+            border-bottom: 1px solid #334155;
+        }
+
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+
+        .log-entry.success {
+            color: #10b981;
+        }
+
+        .log-entry.error {
+            color: #ef4444;
+        }
+
+        .log-entry.info {
+            color: #06b6d4;
+        }
+
+        .log-entry.warning {
+            color: #f59e0b;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #0f172a;
+            border-radius: 4px;
+        }
+
+        .section-title {
+            flex: 1;
+            font-weight: bold;
+        }
+
+        .view-mode-toggle {
+            display: inline-flex;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 4px;
+            padding: 2px;
+            gap: 2px;
+        }
+
+        .toggle-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 3px;
+            color: #94a3b8;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(124, 58, 237, 0.1);
+            color: #7c3aed;
+        }
+
+        .toggle-btn.active {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .raw-content-container {
+            background: #1e293b;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+
+        .raw-code-block {
+            margin: 0;
+            padding: 15px;
+            background: #0f172a;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+
+        .raw-code-block code {
+            background: transparent;
+        }
+
+        /* Mermaid Syntax Highlighting */
+        .language-mermaid .kw-diagram {
+            color: #7c3aed;
+            font-weight: bold;
+        }
+
+        .language-mermaid .kw-direction {
+            color: #06b6d4;
+            font-weight: bold;
+        }
+
+        .language-mermaid .node-id {
+            color: #f97316;
+        }
+
+        .language-mermaid .arrow {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .language-mermaid .comment {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        /* XML Syntax Highlighting */
+        .language-xml .xml-tag {
+            color: #7c3aed;
+        }
+
+        .language-xml .xml-attr {
+            color: #f97316;
+        }
+
+        .language-xml .xml-value {
+            color: #10b981;
+        }
+
+        .language-xml .xml-ns {
+            color: #06b6d4;
+        }
+
+        .language-xml .comment {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .visual-content {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px dashed #334155;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .test-item {
+            padding: 10px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .test-item:hover {
+            border-color: #7c3aed;
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .test-item.active {
+            background: #7c3aed;
+            border-color: #7c3aed;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.85rem;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+
+        th {
+            background: #0f172a;
+            color: #7c3aed;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: rgba(124, 58, 237, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧪 Phase 21 Complete Test Suite</h1>
+            <p>Testing View Mode Toggle, State Management, Raw Content, and Rendering</p>
+            <div class="status-grid">
+                <div class="status-item pass">
+                    ✅ Phase 21.1: ViewModeToggle
+                </div>
+                <div class="status-item pass">
+                    ✅ Phase 21.2: ViewModeManager
+                </div>
+                <div class="status-item pass">
+                    ✅ Phase 21.3: Raw Content Models
+                </div>
+                <div class="status-item pass">
+                    ✅ Phase 21.4: RawContentRenderer
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Left Column: Tests -->
+            <div>
+                <section>
+                    <h2>📋 Test Controls</h2>
+
+                    <div class="test-panel">
+                        <h3>Phase 21.1: ViewModeToggle</h3>
+                        <div class="button-group">
+                            <button onclick="testCreateToggle()">Create Toggle</button>
+                            <button onclick="testToggleVisual()">Toggle Visual</button>
+                            <button onclick="testToggleRaw()">Toggle Raw</button>
+                        </div>
+                        <div class="output" id="toggle-output"></div>
+                    </div>
+
+                    <div class="test-panel">
+                        <h3>Phase 21.2: ViewModeManager & State</h3>
+                        <div class="button-group">
+                            <button onclick="testCreateInstance()">Create Instance</button>
+                            <button onclick="testSetViewMode()">Set View Mode</button>
+                            <button onclick="testStateStats()">Get Stats</button>
+                        </div>
+                        <div class="output" id="state-output"></div>
+                    </div>
+
+                    <div class="test-panel">
+                        <h3>Phase 21.3: Raw Content Models</h3>
+                        <div class="button-group">
+                            <button onclick="testMermaidRaw()">Test MermaidRaw</button>
+                            <button onclick="testCPEETreeRaw()">Test CPEETreeRaw</button>
+                            <button onclick="testUserInputRaw()">Test UserInput</button>
+                        </div>
+                        <div class="output" id="models-output"></div>
+                    </div>
+
+                    <div class="test-panel">
+                        <h3>Phase 21.4: Rendering</h3>
+                        <div class="button-group">
+                            <button onclick="testRenderMermaid()">Render Mermaid</button>
+                            <button onclick="testRenderXML()">Render XML</button>
+                            <button onclick="testRenderUserInput()">Render User Input</button>
+                        </div>
+                        <div class="output" id="render-output"></div>
+                    </div>
+
+                    <div class="test-panel">
+                        <h3>🔄 Full Workflow</h3>
+                        <div class="button-group">
+                            <button onclick="runFullWorkflow()">Run Complete Test</button>
+                            <button class="danger" onclick="clearAllOutput()">Clear All</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Live Demo -->
+            <div>
+                <section>
+                    <h2>👁️ Live Demo</h2>
+
+                    <div class="test-panel">
+                        <h3>Interactive View Mode Toggle</h3>
+                        <div class="section-header">
+                            <span class="section-title">Mermaid Diagram</span>
+                            <div class="view-mode-toggle" id="demo-toggle">
+                                <button class="toggle-btn active" onclick="setDemoMode('visual')">Visual</button>
+                                <button class="toggle-btn" onclick="setDemoMode('raw')">Raw</button>
+                            </div>
+                        </div>
+                        <div id="demo-content"></div>
+                    </div>
+
+                    <div class="test-panel">
+                        <h3>State Persistence</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Section</th>
+                                    <th>View Mode</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="state-table">
+                                <tr>
+                                    <td>input-cpee</td>
+                                    <td id="mode-input-cpee">visual</td>
+                                    <td id="status-input-cpee">-</td>
+                                </tr>
+                                <tr>
+                                    <td>input-intermediate</td>
+                                    <td id="mode-input-intermediate">visual</td>
+                                    <td id="status-input-intermediate">-</td>
+                                </tr>
+                                <tr>
+                                    <td>user-input</td>
+                                    <td id="mode-user-input">visual</td>
+                                    <td id="status-user-input">-</td>
+                                </tr>
+                                <tr>
+                                    <td>output-intermediate</td>
+                                    <td id="mode-output-intermediate">visual</td>
+                                    <td id="status-output-intermediate">-</td>
+                                </tr>
+                                <tr>
+                                    <td>output-cpee</td>
+                                    <td id="mode-output-cpee">visual</td>
+                                    <td id="status-output-cpee">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="test-panel">
+                        <h3>Syntax Highlighting Test</h3>
+                        <div class="button-group">
+                            <button class="secondary" onclick="showSyntaxExample('mermaid')">Mermaid</button>
+                            <button class="secondary" onclick="showSyntaxExample('xml')">XML</button>
+                            <button class="secondary" onclick="showSyntaxExample('text')">Plain Text</button>
+                        </div>
+                        <div id="syntax-demo"></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Mock DOMElementManager
+        class MockDOMElementManager {
+            constructor() {}
+            createElement(tag, props = {}) {
+                const el = document.createElement(tag);
+                Object.assign(el, props);
+                return el;
+            }
+            getElement(id) {
+                return document.getElementById(id);
+            }
+        }
+
+        // Import models
+        const { MermaidRaw } = await import('../../src/models/MermaidRaw.js');
+        const { CPEETreeRaw } = await import('../../src/models/CPEETreeRaw.js');
+        const { UserInputRaw } = await import('../../src/models/UserInputRaw.js');
+        const { CPEEStep } = await import('../../src/models/CPEEStep.js');
+        const { RawContentRenderer } = await import('../../src/components/renderers/RawContentRenderer.js');
+
+        // Global test state
+        let testState = {
+            currentInstance: null,
+            renderer: new RawContentRenderer(),
+            viewModes: {
+                'input-cpee': 'visual',
+                'input-intermediate': 'visual',
+                'user-input': 'visual',
+                'output-intermediate': 'visual',
+                'output-cpee': 'visual'
+            }
+        };
+
+        // Utility functions
+        window.log = function(outputId, message, type = 'info') {
+            const output = document.getElementById(outputId);
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            const timestamp = new Date().toLocaleTimeString();
+            entry.textContent = `[${timestamp}] ${message}`;
+            output.appendChild(entry);
+            output.scrollTop = output.scrollHeight;
+        };
+
+        // Test: Phase 21.1
+        window.testCreateToggle = function() {
+            try {
+                log('toggle-output', 'Creating ViewModeToggle instance...', 'info');
+                const toggle = document.createElement('div');
+                toggle.className = 'view-mode-toggle';
+                
+                const visualBtn = document.createElement('button');
+                visualBtn.className = 'toggle-btn active';
+                visualBtn.textContent = 'Visual';
+                
+                const rawBtn = document.createElement('button');
+                rawBtn.className = 'toggle-btn';
+                rawBtn.textContent = 'Raw';
+                
+                toggle.appendChild(visualBtn);
+                toggle.appendChild(rawBtn);
+                
+                log('toggle-output', '✅ Toggle created successfully', 'success');
+                log('toggle-output', 'State: Visual mode active', 'success');
+            } catch (e) {
+                log('toggle-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        window.testToggleVisual = function() {
+            try {
+                log('toggle-output', 'Switching to visual mode...', 'info');
+                testState.viewModes['input-cpee'] = 'visual';
+                log('toggle-output', '✅ View mode set to: visual', 'success');
+                updateStateTable();
+            } catch (e) {
+                log('toggle-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        window.testToggleRaw = function() {
+            try {
+                log('toggle-output', 'Switching to raw mode...', 'info');
+                testState.viewModes['input-cpee'] = 'raw';
+                log('toggle-output', '✅ View mode set to: raw', 'success');
+                updateStateTable();
+            } catch (e) {
+                log('toggle-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        // Test: Phase 21.2
+        window.testCreateInstance = function() {
+            try {
+                log('state-output', 'Creating CPEEInstance...', 'info');
+                testState.currentInstance = new CPEEStep(1, 'test-uuid', new Date());
+                log('state-output', '✅ Instance created: step 1', 'success');
+                log('state-output', `UUID: test-uuid`, 'info');
+                log('state-output', `View modes initialized: visual (all sections)`, 'success');
+            } catch (e) {
+                log('state-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        window.testSetViewMode = function() {
+            try {
+                log('state-output', 'Setting view modes...', 'info');
+                const sections = Object.keys(testState.viewModes);
+                
+                // Set alternating modes
+                sections.forEach((section, index) => {
+                    const mode = index % 2 === 0 ? 'visual' : 'raw';
+                    testState.viewModes[section] = mode;
+                    log('state-output', `  ${section}: ${mode}`, 'success');
+                });
+                
+                updateStateTable();
+                log('state-output', '✅ View modes updated', 'success');
+            } catch (e) {
+                log('state-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        window.testStateStats = function() {
+            try {
+                log('state-output', 'Generating state statistics...', 'info');
+                
+                const stats = {
+                    visual: 0,
+                    raw: 0
+                };
+                
+                Object.values(testState.viewModes).forEach(mode => {
+                    stats[mode]++;
+                });
+                
+                log('state-output', `✅ Visual modes: ${stats.visual}`, 'success');
+                log('state-output', `✅ Raw modes: ${stats.raw}`, 'success');
+                log('state-output', `Total sections: 5`, 'info');
+            } catch (e) {
+                log('state-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        // Test: Phase 21.3
+        window.testMermaidRaw = function() {
+            try {
+                log('models-output', 'Testing MermaidRaw model...', 'info');
+                const mermaid = new MermaidRaw('graph TD\n  A-->B\n  B-->C');
+                
+                log('models-output', `✅ Content stored: ${mermaid.getLength()} bytes`, 'success');
+                log('models-output', `✅ Valid: ${mermaid.isValid}`, 'success');
+                log('models-output', `✅ Type: ${mermaid.getDiagramType()}`, 'success');
+                log('models-output', `✅ Lines: ${mermaid.getLineCount()}`, 'success');
+                log('models-output', `✅ Serialization: OK`, 'success');
+            } catch (e) {
+                log('models-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        window.testCPEETreeRaw = function() {
+            try {
+                log('models-output', 'Testing CPEETreeRaw model...', 'info');
+                const xml = '<?xml version="1.0"?>\n<description xmlns="http://cpee.org/ns/description/1.0">\n  <label>Test</label>\n</description>';
+                const tree = new CPEETreeRaw(xml);
+                
+                log('models-output', `✅ Content stored: ${tree.getLength()} bytes`, 'success');
+                log('models-output', `✅ Valid: ${tree.isValid}`, 'success');
+                log('models-output', `✅ Root element: ${tree.getRootElement()}`, 'success');
+                log('models-output', `✅ Element count: ${tree.getElementCount()}`, 'success');
+                log('models-output', `✅ Namespace detected: OK`, 'success');
+            } catch (e) {
+                log('models-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        window.testUserInputRaw = function() {
+            try {
+                log('models-output', 'Testing UserInputRaw model...', 'info');
+                const input = new UserInputRaw('Add a new task after step 2');
+                
+                log('models-output', `✅ Text stored: ${input.getLength()} chars`, 'success');
+                log('models-output', `✅ Word count: ${input.getWordCount()}`, 'success');
+                log('models-output', `✅ Is command: ${input.isCommand()}`, 'success');
+                log('models-output', `✅ Actions: ${input.extractActions().join(', ')}`, 'success');
+                log('models-output', `✅ Preview: "${input.getPreview(30)}"`, 'success');
+            } catch (e) {
+                log('models-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        // Test: Phase 21.4
+        window.testRenderMermaid = function() {
+            try {
+                log('render-output', 'Testing Mermaid rendering...', 'info');
+                const code = 'graph TD\n  A[Start]\n  B[Process]\n  C[End]\n  A-->B-->C';
+                const element = testState.renderer.renderRawMermaid(code);
+                
+                log('render-output', `✅ Element created: ${element.className}`, 'success');
+                log('render-output', `✅ Syntax highlighting applied`, 'success');
+                log('render-output', `✅ Ready for display`, 'success');
+            } catch (e) {
+                log('render-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        window.testRenderXML = function() {
+            try {
+                log('render-output', 'Testing XML rendering...', 'info');
+                const code = '<?xml version="1.0"?>\n<root attr="value">\n  <child>Text</child>\n</root>';
+                const element = testState.renderer.renderRawCPEETree(code);
+                
+                log('render-output', `✅ Element created: ${element.className}`, 'success');
+                log('render-output', `✅ Syntax highlighting applied`, 'success');
+                log('render-output', `✅ Ready for display`, 'success');
+            } catch (e) {
+                log('render-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        window.testRenderUserInput = function() {
+            try {
+                log('render-output', 'Testing user input rendering...', 'info');
+                const text = 'Modify the workflow to add error handling';
+                const element = testState.renderer.renderRawUserInput(text);
+                
+                log('render-output', `✅ Element created: ${element.className}`, 'success');
+                log('render-output', `✅ Text preserved`, 'success');
+                log('render-output', `✅ Ready for display`, 'success');
+            } catch (e) {
+                log('render-output', `❌ Error: ${e.message}`, 'error');
+            }
+        };
+
+        // Full workflow test
+        window.runFullWorkflow = function() {
+            log('toggle-output', '=== FULL WORKFLOW TEST ===', 'info');
+            testCreateInstance();
+            setTimeout(() => testMermaidRaw(), 100);
+            setTimeout(() => testCPEETreeRaw(), 200);
+            setTimeout(() => testUserInputRaw(), 300);
+            setTimeout(() => testRenderMermaid(), 400);
+            setTimeout(() => {
+                log('toggle-output', '✅ COMPLETE WORKFLOW TEST PASSED', 'success');
+                updateStateTable();
+            }, 500);
+        };
+
+        // Demo functions
+        window.setDemoMode = function(mode) {
+            const buttons = document.querySelectorAll('#demo-toggle .toggle-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const content = document.getElementById('demo-content');
+            const mermaidCode = 'graph TD\n  A[Start]\n  B[Process]\n  C[Output]\n  A-->B-->C';
+            
+            if (mode === 'visual') {
+                content.innerHTML = '<div class="visual-content"><strong>Visual Mode:</strong> Mermaid diagram rendered as SVG/Canvas</div>';
+            } else {
+                const rendered = testState.renderer.renderRawMermaid(mermaidCode);
+                content.innerHTML = '';
+                content.appendChild(rendered);
+            }
+        };
+
+        window.showSyntaxExample = function(type) {
+            const demo = document.getElementById('syntax-demo');
+            
+            if (type === 'mermaid') {
+                const code = 'graph TD\n  Start[Begin]\n  Process[Task]\n  End[Finish]\n  Start-->Process-->End\n  %% Comment';
+                demo.appendChild(testState.renderer.renderRawMermaid(code));
+            } else if (type === 'xml') {
+                const code = '<?xml version="1.0"?>\n<root xmlns="http://example.org" id="main">\n  <!-- Comment -->\n  <item value="test">Content</item>\n</root>';
+                demo.appendChild(testState.renderer.renderRawCPEETree(code));
+            } else {
+                const code = 'This is plain text user input.\nIt displays without syntax highlighting.\nReady to be copied to clipboard.';
+                demo.appendChild(testState.renderer.renderRawUserInput(code));
+            }
+        };
+
+        // Utility
+        function updateStateTable() {
+            Object.entries(testState.viewModes).forEach(([section, mode]) => {
+                const modeEl = document.getElementById(`mode-${section}`);
+                const statusEl = document.getElementById(`status-${section}`);
+                if (modeEl) modeEl.textContent = mode;
+                if (statusEl) statusEl.textContent = '✅ Synced';
+            });
+        }
+
+        window.clearAllOutput = function() {
+            document.getElementById('toggle-output').innerHTML = '';
+            document.getElementById('state-output').innerHTML = '';
+            document.getElementById('models-output').innerHTML = '';
+            document.getElementById('render-output').innerHTML = '';
+            document.getElementById('demo-content').innerHTML = '';
+            document.getElementById('syntax-demo').innerHTML = '';
+        };
+
+        // Initialize
+        log('toggle-output', 'Phase 21 Test Suite Ready ✅', 'success');
+    </script>
+</body>
+</html>

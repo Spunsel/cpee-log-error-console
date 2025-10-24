@@ -5,6 +5,7 @@
  */
 
 import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
+import { ICONS } from '../../assets/icons.js';
 
 export class StepNavigator {
     constructor(instanceService, domRegistry = null) {
@@ -55,15 +56,15 @@ export class StepNavigator {
             className: 'step-navigation',
             innerHTML: `
                 <div class="nav-left">
-                    <button id="go-to-start" class="nav-btn nav-btn-start">⏮</button>
+                    <button id="go-to-start" class="nav-btn nav-btn-start">${ICONS.NAV_START}</button>
                 </div>
                 <div class="nav-center">
-                    <button id="prev-step" class="nav-btn nav-btn-prev">←</button>
+                    <button id="prev-step" class="nav-btn nav-btn-prev">${ICONS.NAV_BACKWARD}</button>
                     <span id="step-counter">Step 1 of 1</span>
-                    <button id="next-step" class="nav-btn nav-btn-next">→</button>
+                    <button id="next-step" class="nav-btn nav-btn-next">${ICONS.NAV_FORWARD}</button>
                 </div>
                 <div class="nav-right">
-                    <button id="go-to-end" class="nav-btn nav-btn-end">⏭</button>
+                    <button id="go-to-end" class="nav-btn nav-btn-end">${ICONS.NAV_END}</button>
                 </div>
             `
         });
@@ -134,7 +135,9 @@ export class StepNavigator {
      * @param {Object} navInfo - Navigation info with canGoPrevious, canGoNext, currentStep, totalSteps
      */
     updateNavigation(navInfo) {
-        if (!this.isSetup) return;
+        if (!this.isSetup) {
+            return;
+        }
 
         const buttons = [
             { key: 'goToStartBtn', id: 'go-to-start', disabled: !navInfo.canGoPrevious },
@@ -164,7 +167,9 @@ export class StepNavigator {
      * @param {boolean} isDisabled - Whether button should appear disabled
      */
     applyDisabledStyling(button, isDisabled) {
-        if (!button) return;
+        if (!button) {
+            return;
+        }
 
         // Toggle disabled state - CSS handles all styling and hover effects
         button.disabled = isDisabled;
