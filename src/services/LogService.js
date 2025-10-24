@@ -5,7 +5,7 @@
 
 import { YAMLParser } from '../utils/parsers/YAMLParser.js';
 import { CPEEStep } from '../models/CPEEStep.js';
-import { CORS_CONFIG, buildLogUrl } from '../config/service-config.js';
+import { buildLogUrl, CORS_CONFIG } from '../config/service-config.js';
 
 export class LogService {
 
@@ -92,9 +92,9 @@ export class LogService {
             throw new Error('LogService: Transition type must be a non-empty string');
         }
         
-        return events.filter(event => {
-            return event.event && event.event['cpee:lifecycle:transition'] === transitionType;
-        });
+        return events.filter(event => 
+            event.event && event.event['cpee:lifecycle:transition'] === transitionType
+        );
     }
 
     /**
@@ -147,9 +147,9 @@ export class LogService {
         }
         
         // Find all exposition events
-        const expositionEvents = logData.filter(event => {
-            return event.event && event.event['cpee:lifecycle:transition'] === 'description/exposition';
-        });
+        const expositionEvents = logData.filter(event => 
+            event.event && event.event['cpee:lifecycle:transition'] === 'description/exposition'
+        );
         
         console.log(`Found ${expositionEvents.length} exposition events`);
         
@@ -177,9 +177,9 @@ export class LogService {
         });
         
         // Convert to array and sort chronologically
-        const steps = Object.values(stepGroups).sort((a, b) => {
-            return new Date(a.timestamp) - new Date(b.timestamp);
-        });
+        const steps = Object.values(stepGroups).sort((a, b) => 
+            new Date(a.timestamp) - new Date(b.timestamp)
+        );
         
         // Extract content from each step and create CPEEStep objects
         return steps.map((step, index) => {
@@ -196,15 +196,19 @@ export class LogService {
                 const exposition = event['cpee:exposition'] || '';
                 
                 if (exposition.includes('<!-- Input CPEE-Tree -->')) {
-                    cpeeStep.setInputCpeeTreeRaw(exposition);
+                    const cleanedContent = this.cleanCPEETreeContent(exposition, 'input');
+                    cpeeStep.setInputCpeeTreeRaw(cleanedContent);
                 } else if (exposition.includes('%% Input Intermediate')) {
-                    cpeeStep.setInputMermaidRaw(exposition);
+                    const cleanedContent = this.cleanMermaidContent(exposition, 'input');
+                    cpeeStep.setInputMermaidRaw(cleanedContent);
                 } else if (exposition.includes('# User Input:')) {
                     cpeeStep.setUserInputRaw(exposition);
                 } else if (exposition.includes('%% Output Intermediate')) {
-                    cpeeStep.setOutputMermaidRaw(exposition);
+                    const cleanedContent = this.cleanMermaidContent(exposition, 'output');
+                    cpeeStep.setOutputMermaidRaw(cleanedContent);
                 } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
-                    cpeeStep.setOutputCpeeTreeRaw(exposition);
+                    const cleanedContent = this.cleanCPEETreeContent(exposition, 'output');
+                    cpeeStep.setOutputCpeeTreeRaw(cleanedContent);
                 }
             });
             
@@ -248,5 +252,61 @@ export class LogService {
         });
         
         return content;
+    }
+
+    /**
+     * Clean CPEE tree content by removing HTML comments
+     * @param {string} content - Raw content from exposition
+     * @param {string} type - 'input' or 'output'
+     * @returns {string} Cleaned content
+     */
+    static cleanCPEETreeContent(content, type) {
+        if (!content) { 
+            return content;
+        }
+        
+        let cleaned = content;
+        
+        // Remove HTML comments
+        if (type === 'input') {
+            cleaned = cleaned.replace(/<!-- Input CPEE-Tree -->\s*/g, '');
+        } else if (type === 'output') {
+            cleaned = cleaned.replace(/<!-- Output CPEE-Tree -->\s*/g, '');
+        }
+        
+        // Remove any leading/trailing whitespace
+        cleaned = cleaned.trim();
+        
+        return cleaned;
+    }
+
+    /**
+     * Clean Mermaid content by removing markdown formatting and comments
+     * @param {string} content - Raw content from exposition
+     * @param {string} type - 'input' or 'output'
+     * @returns {string} Cleaned content
+     */
+    static cleanMermaidContent(content, type) {
+        if (!content) { 
+            return content;
+        }
+        
+        let cleaned = content;
+        
+        // Remove Mermaid comments
+        if (type === 'input') {
+            cleaned = cleaned.replace(/%% Input Intermediate\s*/g, '');
+        } else if (type === 'output') {
+            cleaned = cleaned.replace(/%% Output Intermediate\s*/g, '');
+        }
+        
+        // Remove markdown code block markers
+        cleaned = cleaned.replace(/```mermaid\s*/g, '');
+        cleaned = cleaned.replace(/```\s*$/g, '');
+        
+        // Remove any leading/trailing whitespace
+        cleaned = cleaned.trim();
+        
+        return cleaned;
     }
 }

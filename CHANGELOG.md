@@ -768,8 +768,25 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
   - [x] Remove slideUp animations
   - [x] Preserve SVG rendering state by keeping DOM intact
   - [x] Auto-scroll to top before displaying raw content (smooth scroll with 300ms delay)
+  - [x] Auto-scroll to left for Mermaid sections before displaying raw content
+  - [x] Clean raw content extraction by removing unwanted comments and markdown formatting
 
-### 21.13 CSS Cleanup and Optimization
+### 21.13 Raw Content Cleaning
+- [x] **Clean CPEE tree content extraction**
+  - [x] Remove `<!-- Input CPEE-Tree -->` from input CPEE tree content
+  - [x] Remove `<!-- Output CPEE-Tree -->` from output CPEE tree content
+  - [x] Trim whitespace after comment removal
+- [x] **Clean Mermaid content extraction**
+  - [x] Remove `%% Input Intermediate` from input Mermaid content
+  - [x] Remove `%% Output Intermediate` from output Mermaid content
+  - [x] Remove markdown code block markers (`\`\`\`mermaid` and `\`\`\``)
+  - [x] Trim whitespace after cleaning
+- [x] **Add content cleaning methods to LogService**
+  - [x] Create `cleanCPEETreeContent()` method for XML content
+  - [x] Create `cleanMermaidContent()` method for Mermaid syntax
+  - [x] Apply cleaning during raw content extraction in `parseStepsFromLog()`
+
+### 21.14 CSS Cleanup and Optimization
 - [x] **Clean up redundant CSS**
   - [x] Remove duplicate `.raw-content-container` definitions
   - [x] Remove duplicate `.raw-code-block` and `.raw-text-block` definitions

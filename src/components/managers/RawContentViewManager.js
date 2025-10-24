@@ -90,9 +90,9 @@ export class RawContentViewManager {
         }
 
         if (mode === 'raw') {
-            // Scroll to top before showing raw content
             contentContainer.scrollTo({
                 top: 0,
+                left: 0,
             });
             this.displayRawContent(sectionId, contentContainer);
         } else {
