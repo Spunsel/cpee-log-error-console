@@ -25,7 +25,9 @@ export class YAMLParser {
         for (let i = 0; i < documents.length; i++) {
             const docContent = documents[i].trim();
             
-            if (!docContent) continue;
+            if (!docContent) {
+                continue;
+            }
             
             try {
                 const parsed = this.parseSingleDocument(docContent);
@@ -60,7 +62,9 @@ export class YAMLParser {
             const trimmed = line.trim();
             
             // Skip empty lines
-            if (!trimmed) continue;
+            if (!trimmed) {
+                continue;
+            }
             
             // Handle multi-line strings
             if (inMultiLineString) {
@@ -74,7 +78,9 @@ export class YAMLParser {
                     multiLineKey = null;
                     multiLineContent = '';
                     
-                    if (isEndOfDoc) break;
+                    if (isEndOfDoc) {
+                        break;
+                    }
                 } else {
                     multiLineContent += line + '\n';
                     continue;
@@ -85,7 +91,9 @@ export class YAMLParser {
             let colonIndex = trimmed.indexOf(': ');
             if (colonIndex === -1) {
                 colonIndex = trimmed.lastIndexOf(':');
-                if (colonIndex === -1) continue;
+                if (colonIndex === -1) {
+                    continue;
+                }
             }
             
             const key = trimmed.substring(0, colonIndex).trim();
@@ -111,7 +119,9 @@ export class YAMLParser {
             // Handle array items
             if (trimmed.startsWith('- ')) {
                 const arrayValue = trimmed.substring(2).trim();
-                if (!target.data) target.data = [];
+                if (!target.data) {
+                    target.data = [];
+                }
                 
                 let arrayColonIndex = arrayValue.indexOf(': ');
                 if (arrayColonIndex === -1) {
@@ -153,8 +163,12 @@ export class YAMLParser {
             return null;
         }
         
-        if (value === 'true') return true;
-        if (value === 'false') return false;
+        if (value === 'true') {
+            return true;
+        }
+        if (value === 'false') {
+            return false;
+        }
         
         // Remove quotes
         if ((value.startsWith("'") && value.endsWith("'")) || 

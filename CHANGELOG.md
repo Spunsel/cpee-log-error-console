@@ -865,11 +865,6 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
 - [ ] **Debug YAML log parsing**
   - [ ] Add console logging to YAMLParser.js
   - [ ] Verify exposition event extraction
-  - [ ] Check for edge cases in log structure
-- [ ] **Test with multiple instances**
-  - [ ] Test with instance 214
-  - [ ] Test with other known instances
-  - [ ] Identify patterns in missing content
 
 ### 22.3 Data Extraction Fix
 - [ ] **Fix CPEEStep.js content extraction**

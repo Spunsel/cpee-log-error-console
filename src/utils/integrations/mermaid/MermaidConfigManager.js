@@ -46,11 +46,9 @@ export class MermaidConfigManager {
             altBackground: '#ffffff',
             // Border colors - all black
             nodeBorder: '#000000',
-            primaryBorderColor: '#000000',
             secondaryBorderColor: '#000000',
             tertiaryBorderColor: '#000000',
             // Text colors
-            primaryTextColor: '#000000',
             secondaryTextColor: '#000000',
             tertiaryTextColor: '#000000',
             // Cluster styling
@@ -181,7 +179,7 @@ export class MermaidConfigManager {
         const result = { ...target };
         
         for (const key in source) {
-            if (source.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
                 if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
                     result[key] = this.deepMerge(result[key] || {}, source[key]);
                 } else {
@@ -205,7 +203,7 @@ export class MermaidConfigManager {
 
         // Check required properties
         const requiredProps = ['startOnLoad', 'theme', 'securityLevel'];
-        return requiredProps.every(prop => config.hasOwnProperty(prop));
+        return requiredProps.every(prop => Object.prototype.hasOwnProperty.call(config, prop));
     }
 
     /**

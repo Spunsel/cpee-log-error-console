@@ -23,7 +23,9 @@ export class URLUtils {
      * @param {number} step - Current step number
      */
     static updateURL(uuid, step) {
-        if (!uuid) return;
+        if (!uuid) {
+            return;
+        }
         
         const url = new URL(window.location);
         url.searchParams.set('uuid', uuid);

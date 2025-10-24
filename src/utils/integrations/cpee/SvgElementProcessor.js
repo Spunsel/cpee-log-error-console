@@ -17,15 +17,15 @@ export class SvgElementProcessor {
      * @param {string} elementName - Name of the element (for logging)
      * @returns {Object} Processed jQuery-wrapped SVG element
      */
-    processElement(svgElement, elementName) {
+    processElement(svgElement, _elementName) {
         // Ensure proper jQuery wrapping
         if (typeof svgElement.clone !== 'function') {
             if (svgElement.length && svgElement[0]) {
-                svgElement = $(svgElement[0]);
+                svgElement = window.$(svgElement[0]);
             } else if (svgElement.nodeType) {
-                svgElement = $(svgElement);
+                svgElement = window.$(svgElement);
             } else {
-                svgElement = $(svgElement);
+                svgElement = window.$(svgElement);
             }
         }
         
@@ -157,7 +157,7 @@ export class SvgElementProcessor {
                 // If SVG doesn't have attr method, try to wrap it again
                 console.warn(`Element ${elementName} SVG missing attr method, attempting to fix`);
                 if (element.svg) {
-                    element.svg = $(element.svg);
+                    element.svg = window.$(element.svg);
                     if (typeof element.svg.attr === 'function') {
                         element.svg.attr('class', 'cpee-element');
                     }

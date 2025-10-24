@@ -103,14 +103,14 @@ export class CPEEWfAdaptorRenderer {
     setGraphDescription(graphrealization, cleanedXML) {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(cleanedXML, 'text/xml');
-        const jqueryXmlDoc = $(xmlDoc);
+        const jqueryXmlDoc = window.$(xmlDoc);
         
         const descElement = jqueryXmlDoc.find('description');
         if (descElement.length === 0) {
             // Description is root element
             if (xmlDoc.documentElement && xmlDoc.documentElement.tagName === 'description') {
-                const rootDesc = $(xmlDoc.documentElement);
-                const wrapperDoc = $('<xml></xml>').append(rootDesc.clone());
+                const rootDesc = window.$(xmlDoc.documentElement);
+                const wrapperDoc = window.$('<xml></xml>').append(rootDesc.clone());
                 graphrealization.set_description(wrapperDoc, true);
             } else {
                 throw new Error('CPEEWfAdaptorRenderer: No description element found in XML');
@@ -138,7 +138,7 @@ export class CPEEWfAdaptorRenderer {
             const self = this;
             
             // Create WfAdaptor instance
-            this.adaptor = new WfAdaptor('src/libs/cpee/themes/preset/theme.js', (graphrealization) => {
+            this.adaptor = new window.WfAdaptor('src/libs/cpee/themes/preset/theme.js', (graphrealization) => {
                 try {
                     // Get and validate SVG container element
                     const svgElementId = `graphcanvas-${self.container.id}`;
@@ -148,7 +148,7 @@ export class CPEEWfAdaptorRenderer {
                         throw new Error(`CPEEWfAdaptorRenderer: SVG container with ID '${svgElementId}' not found`);
                     }
                     
-                    const jquerySvgContainer = $(svgElement);
+                    const jquerySvgContainer = window.$(svgElement);
                     if (jquerySvgContainer.length === 0) {
                         throw new Error(`CPEEWfAdaptorRenderer: jQuery could not wrap SVG element with ID '${svgElementId}'`);
                     }
@@ -172,8 +172,8 @@ export class CPEEWfAdaptorRenderer {
                     graphrealization.set_svg_container(jquerySvgContainer);
                     
                     // Initialize label container for hover functionality
-                    const labelContainer = $(`<div id="graph-labels-${self.container.id}" style="display: none;"></div>`);
-                    $(`#modelling-${self.container.id}`).append(labelContainer);
+                    const labelContainer = window.$(`<div id="graph-labels-${self.container.id}" style="display: none;"></div>`);
+                    window.$(`#modelling-${self.container.id}`).append(labelContainer);
                     graphrealization.illustrator.svg.label_container = labelContainer;
             
                     // Parse and set XML description using helper method
@@ -328,7 +328,9 @@ export class CPEEWfAdaptorRenderer {
         }
         
         // Fallback: Direct DOM manipulation if StatusManager not initialized
-        if (!this.statusElement) return;
+        if (!this.statusElement) {
+            return;
+        }
         
         this.statusElement.textContent = message;
         this.statusElement.className = `alert alert-${type === 'loading' ? 'info' : type === 'success' ? 'success' : 'danger'}`;
@@ -358,7 +360,9 @@ export class CPEEWfAdaptorRenderer {
      * Get current graph state
      */
     getGraphState() {
-        if (!this.adaptor || !this.isRendered) return null;
+        if (!this.adaptor || !this.isRendered) {
+            return null;
+        }
         
         return {
             xml: this.xmlInput ? this.xmlInput.value : null,

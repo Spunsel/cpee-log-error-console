@@ -58,7 +58,9 @@ export class MermaidRenderer {
      * Setup the container with proper structure
      */
     setupContainer() {
-        if (!this.container) return;
+        if (!this.container) {
+            return;
+        }
 
         this.container.style.cssText = `
             width: 100%;
@@ -93,7 +95,9 @@ export class MermaidRenderer {
      * Initialize Mermaid with configuration
      */
     initializeMermaid() {
-        if (!window.mermaid) return;
+        if (!window.mermaid) {
+            return;
+        }
 
         // Use configuration manager for consistent setup
         const config = MermaidConfigManager.getDefaultConfig();
@@ -224,7 +228,9 @@ export class MermaidRenderer {
      * @param {string} originalCode - Original mermaid code
      */
     showFallbackContent(originalCode) {
-        if (!this.container) return;
+        if (!this.container) {
+            return;
+        }
 
         const fallbackDiv = document.createElement('div');
         fallbackDiv.className = 'alert alert-warning';

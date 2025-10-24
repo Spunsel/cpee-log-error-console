@@ -4,7 +4,6 @@
  */
 
 import { DOMUtils } from '../../utils/dom/DOMUtils.js';
-import { LogService } from '../../services/LogService.js';
 import { buildLogUrl, CORS_CONFIG } from '../../config/service-config.js';
 
 export class LogViewer {

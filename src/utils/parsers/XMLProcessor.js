@@ -96,7 +96,7 @@ export class XMLProcessor {
         }
 
         const xmlDoc = this.parseXML(xmlString);
-        const jqueryXmlDoc = $(xmlDoc);
+        const jqueryXmlDoc = window.$(xmlDoc);
         
         console.log('📋 jQuery XML object created:', jqueryXmlDoc);
         return jqueryXmlDoc;
@@ -109,7 +109,7 @@ export class XMLProcessor {
      */
     static extractDescription(xmlString) {
         const xmlDoc = this.parseXML(xmlString);
-        const jqueryXmlDoc = $(xmlDoc);
+        const jqueryXmlDoc = window.$(xmlDoc);
         
         // Look for description as child element
         const descElement = jqueryXmlDoc.find('description');
@@ -121,8 +121,8 @@ export class XMLProcessor {
                 return {
                     found: true,
                     isRoot: true,
-                    element: $(xmlDoc.documentElement),
-                    wrapperDoc: $('<xml></xml>').append($(xmlDoc.documentElement).clone())
+                    element: window.$(xmlDoc.documentElement),
+                    wrapperDoc: window.$('<xml></xml>').append(window.$(xmlDoc.documentElement).clone())
                 };
             } else {
                 return {

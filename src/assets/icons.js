@@ -10,48 +10,7 @@
  */
 
 // ============================================
-// ICON PATHS (Internal - used by complete icons)
-// ============================================
-
-const ICON_PATH_COPY = `
-    <rect x="9" y="9" width="13" height="13" rx="2.5"></rect>
-    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-`;
-
-const ICON_PATH_CHECK = `
-    <path d="M5 12.5l5 5L20 7.5"></path>
-`;
-
-const ICON_PATH_VISUAL = `
-    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-    <circle cx="12" cy="12" r="3"></circle>
-`;
-
-const ICON_PATH_RAW = `
-    <polyline points="16 18 22 12 16 6"></polyline>
-    <polyline points="8 6 2 12 8 18"></polyline>
-`;
-
-const ICON_PATH_NAV_FORWARD = `
-    <path d="M4.25 3l1.166-.624 8 5.333v1.248l-8 5.334-1.166-.624V3z"></path>
-`;
-
-const ICON_PATH_NAV_BACKWARD = `
-    <path d="M4.25 3l1.166-.624 8 5.333v1.248l-8 5.334-1.166-.624V3z"></path>
-`;
-
-const ICON_PATH_NAV_START = `
-    <path d="M2.125 2H4.375v12H2.125V2z"></path>
-    <path d="M6.25 3l1.186-.61 7 5v1.22l-7 5L6.25 13V3z"></path>
-`;
-
-const ICON_PATH_NAV_END = `
-    <path d="M2.125 2H4.375v12H2.125V2z"></path>
-    <path d="M6.25 3l1.186-.61 7 5v1.22l-7 5L6.25 13V3z"></path>
-`;
-
-// ============================================
-// COMPLETE SVG ICONS (Ready to use)
+// SVG ICONS (Ready to use)
 // ============================================
 
 /**
@@ -60,7 +19,8 @@ const ICON_PATH_NAV_END = `
  */
 export const ICON_COPY = `
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        ${ICON_PATH_COPY}
+        <rect x="9" y="9" width="13" height="13" rx="2.5"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
     </svg>
 `;
 
@@ -70,7 +30,7 @@ export const ICON_COPY = `
  */
 export const ICON_CHECK = `
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        ${ICON_PATH_CHECK}
+        <path d="M5 12.5l5 5L20 7.5"></path>
     </svg>
 `;
 
@@ -80,7 +40,8 @@ export const ICON_CHECK = `
  */
 export const ICON_VISUAL = `
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        ${ICON_PATH_VISUAL}
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
     </svg>
 `;
 
@@ -90,7 +51,8 @@ export const ICON_VISUAL = `
  */
 export const ICON_RAW = `
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        ${ICON_PATH_RAW}
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
     </svg>
 `;
 
@@ -100,7 +62,7 @@ export const ICON_RAW = `
  */
 export const ICON_NAV_FORWARD = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
-        ${ICON_PATH_NAV_FORWARD}
+        <path d="M4.25 3l1.166-.624 8 5.333v1.248l-8 5.334-1.166-.624V3z"></path>
     </svg>
 `;
 
@@ -110,7 +72,7 @@ export const ICON_NAV_FORWARD = `
  */
 export const ICON_NAV_BACKWARD = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" transform="matrix(-1, 0, 0, 1, 0, 0)">
-        ${ICON_PATH_NAV_BACKWARD}
+        <path d="M4.25 3l1.166-.624 8 5.333v1.248l-8 5.334-1.166-.624V3z"></path>
     </svg>
 `;
 
@@ -120,7 +82,8 @@ export const ICON_NAV_BACKWARD = `
  */
 export const ICON_NAV_START = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" transform="matrix(-1, 0, 0, 1, 0, 0)">
-        ${ICON_PATH_NAV_START}
+        <path d="M2.125 2H4.375v12H2.125V2z"></path>
+        <path d="M6.25 3l1.186-.61 7 5v1.22l-7 5L6.25 13V3z"></path>
     </svg>
 `;
 
@@ -130,7 +93,8 @@ export const ICON_NAV_START = `
  */
 export const ICON_NAV_END = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
-        ${ICON_PATH_NAV_END}
+        <path d="M2.125 2H4.375v12H2.125V2z"></path>
+        <path d="M6.25 3l1.186-.61 7 5v1.22l-7 5L6.25 13V3z"></path>
     </svg>
 `;
 

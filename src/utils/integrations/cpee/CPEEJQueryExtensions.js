@@ -40,14 +40,14 @@ export class CPEEJQueryExtensions {
                     // Parse XML string
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
-                    return $(xmlDoc.documentElement);
+                    return window.$(xmlDoc.documentElement);
                 } else {
                     // Create element with proper namespace
                     const elem = document.createElementNS('http://www.w3.org/2000/svg', xmlString);
-                    return $(elem);
+                    return window.$(elem);
                 }
             }
-            return $(xmlString);
+            return window.$(xmlString);
         };
     }
     
@@ -57,7 +57,7 @@ export class CPEEJQueryExtensions {
      */
     static addSerializationExtensions() {
         // Add serializeXML extension
-        $.fn.serializeXML = function() {
+        window.$.fn.serializeXML = function() {
             if (this[0]) {
                 return new XMLSerializer().serializeToString(this[0]);
             }
@@ -65,7 +65,7 @@ export class CPEEJQueryExtensions {
         };
         
         // Add serializePrettyXML extension (simplified)
-        $.fn.serializePrettyXML = function() {
+        window.$.fn.serializePrettyXML = function() {
             return this.serializeXML();
         };
     }
@@ -76,7 +76,7 @@ export class CPEEJQueryExtensions {
      */
     static addQueryExtensions() {
         // Add parseQuerySimple function that CPEE uses
-        $.parseQuerySimple = function() {
+        window.$.parseQuerySimple = function() {
             const params = {};
             const urlParams = new URLSearchParams(window.location.search);
             for (const [key, value] of urlParams) {
@@ -101,9 +101,9 @@ export class CPEEJQueryExtensions {
     static verifyExtensions() {
         const checks = [
             typeof window.$X === 'function',
-            typeof $.fn.serializeXML === 'function',
-            typeof $.fn.serializePrettyXML === 'function',
-            typeof $.parseQuerySimple === 'function'
+            typeof window.$.fn.serializeXML === 'function',
+            typeof window.$.fn.serializePrettyXML === 'function',
+            typeof window.$.parseQuerySimple === 'function'
         ];
         
         return checks.every(check => check === true);

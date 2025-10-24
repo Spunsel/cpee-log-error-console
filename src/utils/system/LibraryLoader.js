@@ -14,7 +14,7 @@ export class LibraryLoader {
      * @param {string} libraryName - Library identifier for caching
      * @returns {Promise} Promise that resolves when script is loaded
      */
-    static async loadScript(url, libraryName = null) {
+    static loadScript(url, libraryName = null) {
         // Use URL as library name if not provided
         const name = libraryName || url;
 
@@ -57,7 +57,7 @@ export class LibraryLoader {
      * @param {string} libraryName - Library identifier for caching
      * @returns {Promise} Promise that resolves when CSS is loaded
      */
-    static async loadCSS(url, libraryName = null) {
+    static loadCSS(url, libraryName = null) {
         const name = libraryName || url;
 
         // Return cached result if already loaded
@@ -168,7 +168,7 @@ export class LibraryLoader {
      * @param {Array} scripts - Array of {url, name} objects
      * @returns {Promise} Promise that resolves when all scripts are loaded
      */
-    static async loadMultiple(scripts) {
+    static loadMultiple(scripts) {
         const promises = scripts.map(script => 
             this.loadScript(script.url, script.name || script.url)
         );

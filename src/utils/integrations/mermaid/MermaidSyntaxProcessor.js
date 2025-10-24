@@ -81,7 +81,7 @@ export class MermaidSyntaxProcessor {
 
         // Fix 1: Remove empty edge labels that cause parse errors
         // Pattern: -->|""| becomes -->
-        processedCode = processedCode.replace(/-->\|\"\"\|/g, '-->');
+        processedCode = processedCode.replace(/-->\|""\|/g, '-->');
         
         // Also handle variations with single quotes or no quotes
         processedCode = processedCode.replace(/-->\|''\|/g, '-->');
@@ -89,9 +89,7 @@ export class MermaidSyntaxProcessor {
         
         // Fix 2: Handle problematic node IDs starting with numbers or special chars
         // Pattern: -1:escalate becomes N1_escalate (prefix with N, replace special chars)
-        processedCode = processedCode.replace(/(\W|^)(-\d+)(:\w+)/g, function(match, prefix, number, suffix) {
-            return prefix + 'N' + number.replace('-', '') + suffix.replace(':', '_');
-        });
+        processedCode = processedCode.replace(/(\W|^)(-\d+)(:\w+)/g, (match, prefix, number, suffix) => prefix + 'N' + number.replace('-', '') + suffix.replace(':', '_'));
         
         // Fix 3: Remove spaces after node IDs that cause parsing issues
         // Pattern: "a9:task: (Task b)" becomes "a9:task:(Task b)"

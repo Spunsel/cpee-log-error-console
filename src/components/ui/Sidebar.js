@@ -3,7 +3,6 @@
  * Manages the instance tabs in the sidebar
  */
 
-import { DOMUtils } from '../../utils/dom/DOMUtils.js';
 import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
 
 export class Sidebar {
@@ -54,7 +53,9 @@ export class Sidebar {
      */
     addInstanceTab(uuid) {
         const instanceTabs = this.getElement('instanceTabs');
-        if (!instanceTabs) return;
+        if (!instanceTabs) {
+            return;
+        }
 
         // Check if tab already exists
         const existingTab = instanceTabs.querySelector(`[data-uuid="${uuid}"]`);
@@ -98,7 +99,9 @@ export class Sidebar {
      */
     setActiveTab(uuid) {
         const instanceTabs = this.getElement('instanceTabs');
-        if (!instanceTabs) return;
+        if (!instanceTabs) {
+            return;
+        }
 
         // Update tab styles
         instanceTabs.querySelectorAll('.instance-tab').forEach(tab => {
@@ -115,7 +118,9 @@ export class Sidebar {
      */
     removeInstanceTab(uuid) {
         const instanceTabs = this.getElement('instanceTabs');
-        if (!instanceTabs) return;
+        if (!instanceTabs) {
+            return;
+        }
 
         const tab = instanceTabs.querySelector(`[data-uuid="${uuid}"]`);
         if (tab) {
@@ -138,7 +143,9 @@ export class Sidebar {
      */
     getActiveTab() {
         const instanceTabs = this.getElement('instanceTabs');
-        if (!instanceTabs) return null;
+        if (!instanceTabs) {
+            return null;
+        }
 
         const activeTab = instanceTabs.querySelector('.instance-tab.active');
         return activeTab ? activeTab.dataset.uuid : null;
@@ -149,7 +156,9 @@ export class Sidebar {
      */
     clearAllTabs() {
         const instanceTabs = this.getElement('instanceTabs');
-        if (!instanceTabs) return;
+        if (!instanceTabs) {
+            return;
+        }
 
         // Remove all tabs
         instanceTabs.querySelectorAll('.instance-tab').forEach(tab => tab.remove());
@@ -168,7 +177,9 @@ export class Sidebar {
      */
     updateTabDisplayName(uuid, displayName) {
         const instanceTabs = this.getElement('instanceTabs');
-        if (!instanceTabs) return;
+        if (!instanceTabs) {
+            return;
+        }
 
         const tab = instanceTabs.querySelector(`[data-uuid="${uuid}"]`);
         if (tab) {
