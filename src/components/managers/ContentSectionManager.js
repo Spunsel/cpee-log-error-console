@@ -1,8 +1,12 @@
 /**
  * Content Section Manager
- * Handles display and rendering of different content sections
- * Manages CPEE graphs, Mermaid diagrams, and text content
- * Extracted from StepViewer to improve separation of concerns
+ * Handles visual content rendering only
+ * Responsibilities:
+ * - CPEE graph rendering and management
+ * - Mermaid diagram rendering and management
+ * - Visual content DOM updates
+ * - Renderer lifecycle management
+ * - Visual content error handling
  */
 
 import { CPEEWfAdaptorRenderer } from '../renderers/CPEEWfAdaptorRenderer.js';
@@ -446,6 +450,39 @@ export class ContentSectionManager {
                 element.innerHTML = '<div class="no-content">No content available</div>';
             }
         });
+    }
+
+    /**
+     * Restore visual content for a section when switching from raw to visual mode
+     * @param {string} sectionId - Section identifier
+     */
+    restoreVisualContent(sectionId) {
+        const sectionElement = document.getElementById(sectionId);
+        if (!sectionElement) {
+            return;
+        }
+
+        const contentBox = sectionElement.querySelector('.content-box');
+        if (!contentBox) {
+            return;
+        }
+
+        // Ensure positioning context for overlaid content
+        contentBox.style.position = 'relative';
+
+        // Restore parent container's scrollbar (visual content needs it)
+        contentBox.style.overflow = 'auto';
+
+        // Show all visual content
+        const visualElements = contentBox.querySelectorAll('[data-content-type="visual"]');
+        visualElements.forEach(el => {
+            el.style.display = 'block';
+            el.style.visibility = 'visible';
+            el.style.pointerEvents = 'auto';
+            el.style.zIndex = '1';
+        });
+
+        console.log(`✅ Restored visual content for ${sectionId}`);
     }
 
     /**

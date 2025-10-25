@@ -1,6 +1,11 @@
 /**
  * Step Viewer Component
- * Coordinates step content display and navigation using extracted components
+ * Main coordinator for step content display and navigation
+ * Responsibilities:
+ * - Orchestrates ContentSectionManager (visual content) and RawContentViewManager (raw content)
+ * - Coordinates step navigation and content updates
+ * - Manages step header and navigation state
+ * - Delegates specific rendering to specialized managers
  */
 
 import { DOMUtils } from '../../utils/dom/DOMUtils.js';
@@ -17,6 +22,11 @@ export class StepViewer {
         // Initialize extracted components
         this.navigator = new StepNavigator(instanceService, domRegistry);
         this.contentManager = new ContentSectionManager(domRegistry);
+        
+        // Pass ContentSectionManager to RawContentViewManager for coordination
+        if (this.rawContentViewManager) {
+            this.rawContentViewManager.contentSectionManager = this.contentManager;
+        }
         
         // Setup navigation callback to handle step changes
         this.navigator.setOnStepChange(async (step, navInfo) => {

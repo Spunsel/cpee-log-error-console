@@ -1,7 +1,12 @@
 /**
  * Raw Content View Manager
- * Coordinates all raw content viewing functionality (View Mode Toggle, Raw Content, Copy)
- * Integrates into ContentSectionManager and StepViewer
+ * Handles raw content viewing functionality only
+ * Responsibilities:
+ * - View mode toggle management
+ * - Raw content display and rendering
+ * - Copy functionality
+ * - Raw content DOM updates
+ * - View mode state coordination
  */
 
 import { ViewModeToggle } from '../ui/ViewModeToggle.js';
@@ -10,9 +15,10 @@ import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
 import { ViewModeManager } from './ViewModeManager.js';
 
 export class RawContentViewManager {
-    constructor(instanceService, domRegistry = null) {
+    constructor(instanceService, domRegistry = null, contentSectionManager = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
+        this.contentSectionManager = contentSectionManager;
 
         // Content View Components
         this.viewModeToggle = new ViewModeToggle(domRegistry);
@@ -95,7 +101,9 @@ export class RawContentViewManager {
             });
             this.displayRawContent(sectionId, contentContainer);
         } else {
-            this.displayVisualContent(sectionId, contentContainer);
+            // Visual mode - ContentSectionManager handles this
+            // Just ensure raw content is hidden
+            this.hideRawContent(contentContainer);
         }
     }
 
@@ -202,38 +210,16 @@ export class RawContentViewManager {
     }
 
     /**
-     * Display visual content for a section
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} _container - Content container
+     * Hide raw content when switching to visual mode
+     * @param {HTMLElement} container - Content container
      */
-    displayVisualContent(sectionId, _container) {
-        const sectionElement = document.getElementById(sectionId);
-        if (!sectionElement) {
+    hideRawContent(container) {
+        if (!container) {
             return;
         }
 
-        const contentBox = sectionElement.querySelector('.content-box');
-        if (!contentBox) {
-            return;
-        }
-
-        // Ensure positioning context for overlaid content
-        contentBox.style.position = 'relative';
-
-        // Restore parent container's scrollbar (visual content needs it)
-        contentBox.style.overflow = 'auto';
-
-        // Show all visual content
-        const visualElements = contentBox.querySelectorAll('[data-content-type="visual"]');
-        visualElements.forEach(el => {
-            el.style.display = 'block';
-            el.style.visibility = 'visible';
-            el.style.pointerEvents = 'auto';
-            el.style.zIndex = '1';
-        });
-
-        // Hide and send raw content to back
-        const rawElements = contentBox.querySelectorAll('[data-content-type="raw"]');
+        // Hide raw content elements
+        const rawElements = container.querySelectorAll('[data-content-type="raw"]');
         rawElements.forEach(el => {
             el.style.display = 'none';
             el.style.visibility = 'hidden';
@@ -241,7 +227,13 @@ export class RawContentViewManager {
             el.style.zIndex = '0';
         });
 
-        console.log(`✅ Restored visual content for ${sectionId}`);
+        // Delegate visual content restoration to ContentSectionManager
+        if (this.contentSectionManager) {
+            const sectionId = container.closest('[id]')?.id;
+            if (sectionId) {
+                this.contentSectionManager.restoreVisualContent(sectionId);
+            }
+        }
     }
 
     /**
