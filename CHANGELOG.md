@@ -1471,3 +1471,37 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
   - [x] Class names reflect their actual responsibilities
   - [x] Directory structure matches functional organization
   - [x] Reduced confusion about where to find specific utilities
+
+## Phase 26: Core Architecture Reorganization
+
+### 26.1 Core Infrastructure Consolidation ✅
+- [x] **Moved core architectural components**
+  - [x] `DOMRegistry.js` → `src/core/DOMRegistry.js` (central dependency injection system)
+  - [x] `JQueryExtensions.js` → `src/core/JQueryExtensions.js` (essential jQuery infrastructure)
+- [x] **Updated import statements**
+  - [x] `CPEEDebugConsole.js` - Updated to import from `./DOMRegistry.js`
+  - [x] `CPEEWfAdaptorRenderer.js` - Updated to import from `../../core/JQueryExtensions.js`
+
+### 26.2 Configuration Management Consolidation ✅
+- [x] **Moved configuration components**
+  - [x] `MermaidRenderer.js` → `src/config/MermaidConfig.js` (renamed for clarity)
+- [x] **Updated import statements**
+  - [x] `MermaidRenderer.js` - Updated to import from `../../config/MermaidConfig.js`
+  - [x] Updated method calls to use `MermaidConfig` class name
+
+### 26.3 Business Logic Service Consolidation ✅
+- [x] **Moved business logic services**
+  - [x] `MermaidValidator.js` → `src/services/MermaidValidationService.js` (renamed for clarity)
+  - [x] `SVGProcessor.js` → `src/services/SVGProcessingService.js` (renamed for clarity)
+- [x] **Updated import statements**
+  - [x] `CPEEWfAdaptorRenderer.js` - Updated to import `SVGProcessingService` and `JQueryExtensions`
+  - [x] Updated class instantiations to use new service names
+
+### 26.4 Bug Fixes and Error Resolution ✅
+- [x] **Fixed MermaidRenderer.js line 268 error**
+  - [x] Replaced `MermaidSyntaxProcessor.getSupportedDiagramTypes()` call
+  - [x] Implemented direct return of `['flowchart', 'graph']` array
+  - [x] Fixed validation logic to accept both `graph` and `flowchart` syntax
+
+
+

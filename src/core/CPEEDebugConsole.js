@@ -10,7 +10,7 @@ import { Sidebar } from '../components/ui/Sidebar.js';
 import { StepViewer } from '../components/features/StepViewer.js';
 import { LogViewer } from '../components/features/LogViewer.js';
 import { RawContentViewManager } from '../components/managers/RawContentViewManager.js';
-import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from '../utils/dom/DOMRegistry.js';
+import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 
 export class CPEEDebugConsole {
     constructor() {
@@ -63,6 +63,15 @@ export class CPEEDebugConsole {
         url.searchParams.set('uuid', uuid);
         url.searchParams.set('step', step);
         
+        window.history.replaceState({}, '', url);
+    }
+
+    /**
+     * Clear URL parameters
+     */
+    clearURLParameters() {
+        const url = new URL(window.location);
+        url.search = '';
         window.history.replaceState({}, '', url);
     }
 

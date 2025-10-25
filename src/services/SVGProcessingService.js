@@ -1,10 +1,10 @@
 /**
- * SVG Processor
+ * SVG Processing Service
  * Handles SVG element validation, jQuery wrapping, and class attribute management
- * Separates complex SVG manipulation logic from rendering orchestration
+ * Provides business logic for processing SVG elements with caching and state management
  */
 
-export class SVGProcessor {
+export class SVGProcessingService {
     
     constructor() {
         this.cache = {}; // Use simple object for compatibility

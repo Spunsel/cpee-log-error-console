@@ -15,7 +15,6 @@ export class ViewModeToggle {
         this.sectionModes = {
             'input-cpee': 'visual',
             'input-intermediate': 'visual',
-            'user-input': 'visual',
             'output-intermediate': 'visual',
             'output-cpee': 'visual'
         };
@@ -149,7 +148,6 @@ export class ViewModeToggle {
         const sections = [
             { id: 'input-cpee', title: 'Input CPEE-Tree', selector: '#input-cpee h3' },
             { id: 'input-intermediate', title: 'Input Intermediate', selector: '#input-intermediate h3' },
-            { id: 'user-input', title: 'User Input', selector: '#user-input h3' },
             { id: 'output-intermediate', title: 'Output Intermediate', selector: '#output-intermediate h3' },
             { id: 'output-cpee', title: 'Output CPEE-Tree', selector: '#output-cpee h3' }
         ];

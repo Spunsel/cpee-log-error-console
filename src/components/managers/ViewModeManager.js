@@ -20,7 +20,6 @@ export class ViewModeManager {
         this.defaultModes = {
             'input-cpee': 'visual',
             'input-intermediate': 'visual',
-            'user-input': 'visual',
             'output-intermediate': 'visual',
             'output-cpee': 'visual'
         };

@@ -239,7 +239,94 @@ export class ContentCleaner {
         // Remove any leading/trailing whitespace
         cleaned = cleaned.trim();
         
+        // Format XML with proper indentation
+        cleaned = this.formatXML(cleaned);
+        
         return cleaned;
+    }
+    
+    /**
+     * Format XML with proper indentation
+     * @param {string} xml - XML string to format
+     * @returns {string} Formatted XML with proper indentation
+     */
+    static formatXML(xml) {
+        if (!xml || typeof xml !== 'string') {
+            return xml;
+        }
+        
+        try {
+            // Parse the XML
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xml, 'text/xml');
+            
+            // Check for parsing errors
+            const parseError = xmlDoc.querySelector('parsererror');
+            if (parseError) {
+                // If parsing fails, return original XML
+                return xml;
+            }
+            
+            // Format with proper indentation using a simpler approach
+            return this.formatXMLWithIndentation(xmlDoc.documentElement);
+        } catch (error) {
+            // If any error occurs, return original XML
+            return xml;
+        }
+    }
+    
+    /**
+     * Format XML element with proper indentation
+     * @param {Element} element - XML element to format
+     * @param {number} indentLevel - Current indentation level
+     * @returns {string} Formatted XML string
+     */
+    static formatXMLWithIndentation(element, indentLevel = 0) {
+        const indentSize = 2;
+        const indent = ' '.repeat(indentLevel * indentSize);
+        
+        if (!element) {
+            return '';
+        }
+        
+        // Handle text nodes
+        if (element.nodeType === Node.TEXT_NODE) {
+            return element.textContent.trim();
+        }
+        
+        // Handle element nodes
+        if (element.nodeType === Node.ELEMENT_NODE) {
+            const tagName = element.tagName;
+            const attributes = Array.from(element.attributes)
+                .map(attr => `${attr.name}="${attr.value}"`)
+                .join(' ');
+            
+            const hasAttributes = attributes.length > 0;
+            const hasChildren = element.children.length > 0;
+            const hasTextContent = element.textContent.trim() && element.children.length === 0;
+            
+            if (hasTextContent) {
+                // Element with only text content - keep inline
+                const textContent = element.textContent.trim();
+                return `${indent}<${tagName}${hasAttributes ? ' ' + attributes : ''}>${textContent}</${tagName}>\n`;
+            } else if (hasChildren) {
+                // Element with child elements
+                let result = `${indent}<${tagName}${hasAttributes ? ' ' + attributes : ''}>\n`;
+                
+                // Process child elements
+                for (const child of element.children) {
+                    result += this.formatXMLWithIndentation(child, indentLevel + 1);
+                }
+                
+                result += `${indent}</${tagName}>\n`;
+                return result;
+            } else {
+                // Self-closing element
+                return `${indent}<${tagName}${hasAttributes ? ' ' + attributes : ''}/>\n`;
+            }
+        }
+        
+        return '';
     }
     
     /**

@@ -1,10 +1,10 @@
 /**
- * Mermaid Validator
+ * Mermaid Validation Service
  * Handles Mermaid code validation and preprocessing
- * Focused on validation and syntax fixing for flowchart diagrams
+ * Provides business logic for validating and fixing Mermaid syntax
  */
 
-export class MermaidValidator {
+export class MermaidValidationService {
     
     /**
      * Preprocess Mermaid syntax to fix common CPEE-to-Mermaid conversion issues

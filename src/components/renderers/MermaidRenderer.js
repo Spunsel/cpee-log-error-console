@@ -9,7 +9,7 @@ import { StatusManager } from '../../utils/dom/StatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { DOMUtils } from '../../utils/dom/DOMUtils.js';
 import { ContentCleaner } from '../../utils/content/ContentCleaner.js';
-import { MermaidRenderer as MermaidConfig } from '../../utils/rendering/MermaidRenderer.js';
+import { MermaidConfig } from '../../config/MermaidConfig.js';
 
 export class MermaidRenderer {
     constructor() {
@@ -265,7 +265,7 @@ export class MermaidRenderer {
      * @returns {string[]} Array of supported diagram types
      */
     getSupportedDiagramTypes() {
-        return MermaidSyntaxProcessor.getSupportedDiagramTypes();
+        return ['flowchart', 'graph'];
     }
 
     /**

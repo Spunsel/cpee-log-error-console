@@ -7,8 +7,8 @@
 import { StatusManager } from '../../utils/dom/StatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { ContentCleaner } from '../../utils/content/ContentCleaner.js';
-import { SVGProcessor } from '../../utils/rendering/SVGProcessor.js';
-import { JQueryExtensions } from '../../utils/integration/JQueryExtensions.js';
+import { SVGProcessingService } from '../../services/SVGProcessingService.js';
+import { JQueryExtensions } from '../../core/JQueryExtensions.js';
 
 export class CPEEWfAdaptorRenderer {
     
@@ -19,7 +19,7 @@ export class CPEEWfAdaptorRenderer {
         this.svgContainer = null;
         
         this.statusManager = null; // Will be initialized in initialize()
-        this.svgProcessor = new SVGProcessor(); // Handles SVG element processing and caching
+        this.svgProcessor = new SVGProcessingService(); // Handles SVG element processing and caching
     }
     
     /**
