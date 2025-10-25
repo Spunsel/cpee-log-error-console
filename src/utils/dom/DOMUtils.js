@@ -1,11 +1,23 @@
 /**
  * DOM Utilities
- * Helper functions for DOM manipulation
+ * Pure utility functions for DOM manipulation
+ * Note: For element access and manipulation, use DOMRegistry instead
  */
 
 export class DOMUtils {
     /**
-     * Safely get element by ID
+     * Escape HTML for safe display
+     * @param {string} text - Text to escape
+     * @returns {string} Escaped HTML
+     */
+    static escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    /**
+     * Safely get element by ID (fallback for components without DOMRegistry)
      * @param {string} id - Element ID
      * @returns {Element|null} Element or null if not found
      */
@@ -14,7 +26,7 @@ export class DOMUtils {
     }
 
     /**
-     * Safely query selector
+     * Safely query selector (fallback for components without DOMRegistry)
      * @param {string} selector - CSS selector
      * @returns {Element|null} Element or null if not found
      */
@@ -23,40 +35,7 @@ export class DOMUtils {
     }
 
     /**
-     * Safely query all selectors
-     * @param {string} selector - CSS selector
-     * @returns {NodeList} NodeList of elements
-     */
-    static querySelectorAll(selector) {
-        return document.querySelectorAll(selector);
-    }
-
-    /**
-     * Update text content of element
-     * @param {string} elementId - Element ID
-     * @param {string} content - Text content
-     */
-    static updateTextContent(elementId, content) {
-        const element = this.getElementById(elementId);
-        if (element) {
-            element.textContent = content;
-        }
-    }
-
-    /**
-     * Update HTML content of element
-     * @param {string} elementId - Element ID
-     * @param {string} content - HTML content
-     */
-    static updateHTMLContent(elementId, content) {
-        const element = this.getElementById(elementId);
-        if (element) {
-            element.innerHTML = content;
-        }
-    }
-
-    /**
-     * Add CSS class to element
+     * Add CSS class to element by ID
      * @param {string} elementId - Element ID
      * @param {string} className - CSS class name
      */
@@ -68,7 +47,7 @@ export class DOMUtils {
     }
 
     /**
-     * Remove CSS class from element
+     * Remove CSS class from element by ID
      * @param {string} elementId - Element ID
      * @param {string} className - CSS class name
      */
@@ -77,28 +56,5 @@ export class DOMUtils {
         if (element) {
             element.classList.remove(className);
         }
-    }
-
-    /**
-     * Toggle CSS class on element
-     * @param {string} elementId - Element ID
-     * @param {string} className - CSS class name
-     */
-    static toggleClass(elementId, className) {
-        const element = this.getElementById(elementId);
-        if (element) {
-            element.classList.toggle(className);
-        }
-    }
-
-    /**
-     * Escape HTML for safe display
-     * @param {string} text - Text to escape
-     * @returns {string} Escaped HTML
-     */
-    static escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
     }
 }

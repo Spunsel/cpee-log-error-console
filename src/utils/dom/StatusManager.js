@@ -1,6 +1,6 @@
 /**
  * Status Manager
- * Handles consistent status message display across components
+ * Simplified status message display for renderers
  * Provides standardized status states and auto-hide functionality
  */
 
@@ -113,35 +113,6 @@ export class StatusManager {
             case 'info':
             default:
                 return 'alert alert-info';
-        }
-    }
-
-    /**
-     * Check if status is currently visible
-     * @returns {boolean} True if status is visible
-     */
-    isVisible() {
-        return this.statusElement && 
-               this.statusElement.style.display !== 'none' &&
-               this.statusElement.style.display !== '';
-    }
-
-    /**
-     * Get current status message
-     * @returns {string} Current status message
-     */
-    getCurrentMessage() {
-        return this.statusElement ? this.statusElement.textContent : '';
-    }
-
-    /**
-     * Update button text (for components that have view/hide buttons)
-     * @param {HTMLElement} buttonElement - Button element to update
-     * @param {string} text - Button text
-     */
-    static updateButtonText(buttonElement, text) {
-        if (buttonElement) {
-            buttonElement.textContent = text;
         }
     }
 }

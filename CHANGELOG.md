@@ -1331,29 +1331,13 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
 - [x] Remove duplicate view mode synchronization code
 - [x] Standardize view mode state management across components
 
-### 24.4 Service Layer Base Class Creation (Medium Priority)
-- [ ] Create BaseService class with common HTTP/CORS logic
-- [ ] Extract shared request patterns from LogService and CPEEService
-- [ ] Standardize error handling across services
-- [ ] Consolidate CORS proxy usage patterns
-- [ ] Reduce duplication in service request methods
-- [ ] Create consistent service response handling
-
-### 24.5 Renderer Interface Standardization (Medium Priority)
-- [ ] Create BaseRenderer class with common initialization patterns
-- [ ] Standardize renderer initialization across CPEEWfAdaptorRenderer, MermaidRenderer, RawContentRenderer
-- [ ] Consolidate container setup and status management
-- [ ] Standardize error handling and loading states
-- [ ] Create consistent renderer lifecycle management
-- [ ] Reduce duplication in renderer setup code
-
-### 24.6 Utility Function Consolidation (Low Priority)
-- [ ] Review necessity of all utility classes
-- [ ] Consider merging small utility classes (URLUtils, StatusManager)
-- [ ] Consolidate similar utility functions across classes
-- [ ] Remove redundant utility methods
-- [ ] Optimize utility class dependencies
-- [ ] Standardize utility function naming and patterns
+### 24.4 Utility Function Consolidation (Low Priority)
+- [x] Review necessity of all utility classes
+- [x] Consider merging small utility classes (URLUtils, StatusManager)
+- [x] Consolidate similar utility functions across classes
+- [x] Remove redundant utility methods
+- [x] Optimize utility class dependencies
+- [x] Standardize utility function naming and patterns
 
 ## Future Enhancements (Backlog)
 

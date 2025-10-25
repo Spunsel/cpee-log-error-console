@@ -3,7 +3,6 @@
  * Coordinates all components and services
  */
 
-import { URLUtils } from '../utils/system/URLUtils.js';
 import { LogService } from '../services/LogService.js';
 import { InstanceService } from '../services/InstanceService.js';
 import { CPEEService } from '../services/CPEEService.js';
@@ -35,6 +34,45 @@ export class CPEEDebugConsole {
         
         // Initialize application
         this.init();
+    }
+
+    /**
+     * Parse URL parameters
+     * @returns {Object} Parsed parameters
+     */
+    parseURLParameters() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        return {
+            uuid: urlParams.get('uuid'),
+            step: parseInt(urlParams.get('step'), 10) || 1
+        };
+    }
+
+    /**
+     * Update URL with current state
+     * @param {string} uuid - Current UUID
+     * @param {number} step - Current step number
+     */
+    updateURL(uuid, step) {
+        if (!uuid) {
+            return;
+        }
+        
+        const url = new URL(window.location);
+        url.searchParams.set('uuid', uuid);
+        url.searchParams.set('step', step);
+        
+        window.history.replaceState({}, '', url);
+    }
+
+    /**
+     * Clear URL parameters
+     */
+    clearURLParameters() {
+        const url = new URL(window.location);
+        url.search = '';
+        window.history.replaceState({}, '', url);
     }
 
     /**
@@ -79,7 +117,7 @@ export class CPEEDebugConsole {
         console.log('Initializing CPEE Debug Console...');
         
         // Parse URL parameters
-        const urlParams = URLUtils.parseParameters();
+        const urlParams = this.parseURLParameters();
         
         // Set up event listeners
         this.setupEventListeners();
@@ -110,7 +148,7 @@ export class CPEEDebugConsole {
 
         // When step changes in step viewer
         this.stepViewer.setOnStepChange((stepIndex) => {
-            URLUtils.updateURL(this.instanceService.currentUUID, stepIndex + 1);
+            this.updateURL(this.instanceService.currentUUID, stepIndex + 1);
         });
     }
 
@@ -335,7 +373,7 @@ export class CPEEDebugConsole {
         
         if (step) {
             await this.stepViewer.displayStep(step, navInfo);
-            URLUtils.updateURL(uuid, stepIndex + 1);
+            this.updateURL(uuid, stepIndex + 1);
         } else {
             this.stepViewer.showError('Failed to load step data');
         }
@@ -350,7 +388,7 @@ export class CPEEDebugConsole {
             const step = this.instanceService.getCurrentStep();
             const navInfo = this.instanceService.getNavigationInfo();
             await this.stepViewer.displayStep(step, navInfo);
-            URLUtils.updateURL(this.instanceService.currentUUID, stepIndex + 1);
+            this.updateURL(this.instanceService.currentUUID, stepIndex + 1);
         }
     }
 
@@ -391,7 +429,7 @@ export class CPEEDebugConsole {
         this.logViewer.hideRawLog();
         
         // Clear URL parameters
-        URLUtils.clearParameters();
+        this.clearURLParameters();
         
         // Clear input field
         const uuidInput = this.getElement('uuidInput');
@@ -411,7 +449,7 @@ export class CPEEDebugConsole {
         this.sidebar.clearAllTabs();
         this.stepViewer.showDefaultState();
         this.logViewer.hideRawLog();
-        URLUtils.clearParameters();
+        this.clearURLParameters();
         
         // Clear process number input field only (keep UUID visible)
         const processNumberInput = this.getElement('processNumberInput');
