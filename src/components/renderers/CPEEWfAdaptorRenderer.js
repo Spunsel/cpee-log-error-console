@@ -6,9 +6,9 @@
 
 import { StatusManager } from '../../utils/dom/StatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
-import { XMLProcessor } from '../../utils/parsers/XMLProcessor.js';
-import { SvgElementProcessor } from '../../utils/integrations/cpee/SvgElementProcessor.js';
-import { CPEEJQueryExtensions } from '../../utils/integrations/cpee/CPEEJQueryExtensions.js';
+import { ContentCleaner } from '../../utils/content/ContentCleaner.js';
+import { SVGProcessor } from '../../utils/rendering/SVGProcessor.js';
+import { JQueryExtensions } from '../../utils/integration/JQueryExtensions.js';
 
 export class CPEEWfAdaptorRenderer {
     
@@ -19,7 +19,7 @@ export class CPEEWfAdaptorRenderer {
         this.svgContainer = null;
         
         this.statusManager = null; // Will be initialized in initialize()
-        this.svgProcessor = new SvgElementProcessor(); // Handles SVG element processing and caching
+        this.svgProcessor = new SVGProcessor(); // Handles SVG element processing and caching
     }
     
     /**
@@ -58,7 +58,7 @@ export class CPEEWfAdaptorRenderer {
         );
         
         // Initialize essential jQuery extensions for CPEE
-        CPEEJQueryExtensions.initialize();
+            JQueryExtensions.initialize();
     }
     
     
@@ -129,7 +129,7 @@ export class CPEEWfAdaptorRenderer {
             this.showStatus('Loading CPEE WfAdaptor...', 'loading');
             
             // Validate XML first
-            const cleanedXML = this.cleanAndValidateXML(cpeeXML);
+            const cleanedXML = ContentCleaner.cleanAndValidateXML(cpeeXML);
             
             // Load the WfAdaptor and theme system
             await this.loadWfAdaptor();
@@ -241,13 +241,6 @@ export class CPEEWfAdaptorRenderer {
         if (promises.length > 0) {
             await Promise.all(promises);
         }
-    }
-    
-    /**
-     * Clean and validate CPEE XML
-     */
-    cleanAndValidateXML(xml) {
-        return XMLProcessor.cleanAndValidate(xml);
     }
     
     /**

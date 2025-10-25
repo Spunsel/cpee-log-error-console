@@ -3,8 +3,9 @@
  * Handles fetching and processing of CPEE logs
  */
 
-import { YAMLParser } from '../utils/parsers/YAMLParser.js';
+import { ContentCleaner } from '../utils/content/ContentCleaner.js';
 import { CPEEStep } from '../models/CPEEStep.js';
+import { YAMLParser } from '../utils/content/YAMLParser.js';
 import { buildLogUrl, CORS_CONFIG } from '../config/service-config.js';
 
 export class LogService {
@@ -200,21 +201,21 @@ export class LogService {
             step.events.forEach(event => {
                 const exposition = event['cpee:exposition'] || '';
                 
-                if (exposition.includes('<!-- Input CPEE-Tree -->')) {
-                    const cleanedContent = this.cleanCPEETreeContent(exposition, 'input');
-                    cpeeStep.setInputCpeeTreeRaw(cleanedContent);
-                } else if (exposition.includes('%% Input Intermediate')) {
-                    const cleanedContent = this.cleanMermaidContent(exposition, 'input');
-                    cpeeStep.setInputMermaidRaw(cleanedContent);
-                } else if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
-                    cpeeStep.setUserInputRaw(exposition);
-                } else if (exposition.includes('%% Output Intermediate')) {
-                    const cleanedContent = this.cleanMermaidContent(exposition, 'output');
-                    cpeeStep.setOutputMermaidRaw(cleanedContent);
-                } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
-                    const cleanedContent = this.cleanCPEETreeContent(exposition, 'output');
-                    cpeeStep.setOutputCpeeTreeRaw(cleanedContent);
-                }
+                    if (exposition.includes('<!-- Input CPEE-Tree -->')) {
+                        const cleanedContent = ContentCleaner.cleanCPEETreeContent(exposition, 'input');
+                        cpeeStep.setInputCpeeTreeRaw(cleanedContent);
+                    } else if (exposition.includes('%% Input Intermediate')) {
+                        const cleanedContent = ContentCleaner.cleanMermaidContent(exposition, 'input');
+                        cpeeStep.setInputMermaidRaw(cleanedContent);
+                    } else if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
+                        cpeeStep.setUserInputRaw(exposition);
+                    } else if (exposition.includes('%% Output Intermediate')) {
+                        const cleanedContent = ContentCleaner.cleanMermaidContent(exposition, 'output');
+                        cpeeStep.setOutputMermaidRaw(cleanedContent);
+                    } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
+                        const cleanedContent = ContentCleaner.cleanCPEETreeContent(exposition, 'output');
+                        cpeeStep.setOutputCpeeTreeRaw(cleanedContent);
+                    }
             });
             
             return cpeeStep;
@@ -263,61 +264,5 @@ export class LogService {
         });
         
         return content;
-    }
-
-    /**
-     * Clean CPEE tree content by removing HTML comments
-     * @param {string} content - Raw content from exposition
-     * @param {string} type - 'input' or 'output'
-     * @returns {string} Cleaned content
-     */
-    static cleanCPEETreeContent(content, type) {
-        if (!content) { 
-            return content;
-        }
-        
-        let cleaned = content;
-        
-        // Remove HTML comments
-        if (type === 'input') {
-            cleaned = cleaned.replace(/<!-- Input CPEE-Tree -->\s*/g, '');
-        } else if (type === 'output') {
-            cleaned = cleaned.replace(/<!-- Output CPEE-Tree -->\s*/g, '');
-        }
-        
-        // Remove any leading/trailing whitespace
-        cleaned = cleaned.trim();
-        
-        return cleaned;
-    }
-
-    /**
-     * Clean Mermaid content by removing markdown formatting and comments
-     * @param {string} content - Raw content from exposition
-     * @param {string} type - 'input' or 'output'
-     * @returns {string} Cleaned content
-     */
-    static cleanMermaidContent(content, type) {
-        if (!content) { 
-            return content;
-        }
-        
-        let cleaned = content;
-        
-        // Remove Mermaid comments
-        if (type === 'input') {
-            cleaned = cleaned.replace(/%% Input Intermediate\s*/g, '');
-        } else if (type === 'output') {
-            cleaned = cleaned.replace(/%% Output Intermediate\s*/g, '');
-        }
-        
-        // Remove markdown code block markers
-        cleaned = cleaned.replace(/```mermaid\s*/g, '');
-        cleaned = cleaned.replace(/```\s*$/g, '');
-        
-        // Remove any leading/trailing whitespace
-        cleaned = cleaned.trim();
-        
-        return cleaned;
     }
 }

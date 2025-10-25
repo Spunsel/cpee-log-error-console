@@ -8,8 +8,8 @@
 import { StatusManager } from '../../utils/dom/StatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { DOMUtils } from '../../utils/dom/DOMUtils.js';
-import { MermaidSyntaxProcessor } from '../../utils/integrations/mermaid/MermaidSyntaxProcessor.js';
-import { MermaidConfigManager } from '../../utils/integrations/mermaid/MermaidConfigManager.js';
+import { ContentCleaner } from '../../utils/content/ContentCleaner.js';
+import { MermaidRenderer as MermaidConfig } from '../../utils/rendering/MermaidRenderer.js';
 
 export class MermaidRenderer {
     constructor() {
@@ -100,7 +100,7 @@ export class MermaidRenderer {
         }
 
         // Use configuration manager for consistent setup
-        const config = MermaidConfigManager.getDefaultConfig();
+        const config = MermaidConfig.getDefaultConfig();
         window.mermaid.initialize(config);
 
         console.log('✅ Mermaid initialized with configuration');
@@ -117,7 +117,7 @@ export class MermaidRenderer {
             }
 
             // Validate mermaid code using syntax processor
-            const cleanedCode = MermaidSyntaxProcessor.cleanAndValidate(mermaidCode);
+            const cleanedCode = ContentCleaner.cleanAndValidateMermaid(mermaidCode);
 
             // Ensure mermaid is loaded
             await this.loadMermaid();
@@ -139,7 +139,7 @@ export class MermaidRenderer {
             
             // Use container-specific configuration for intermediate graphs
             if (isIntermediateGraph) {
-                const intermediateConfig = MermaidConfigManager.getContainerConfig(true);
+                const intermediateConfig = MermaidConfig.getContainerConfig(true);
                 window.mermaid.initialize(intermediateConfig);
             }
             

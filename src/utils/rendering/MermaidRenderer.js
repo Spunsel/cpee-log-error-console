@@ -1,10 +1,10 @@
 /**
- * Mermaid Configuration Manager
- * Handles Mermaid.js configuration and theme management
- * Separates configuration concerns from rendering logic
+ * Mermaid Renderer
+ * Handles Mermaid.js configuration and rendering utilities
+ * Combines configuration management with rendering support
  */
 
-export class MermaidConfigManager {
+export class MermaidRenderer {
     
     /**
      * Get default Mermaid configuration

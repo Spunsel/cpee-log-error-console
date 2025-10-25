@@ -1,10 +1,10 @@
 /**
- * CPEE jQuery Extensions
+ * jQuery Extensions
  * Manages jQuery extensions required by the CPEE system
  * Centralizes global extension registration and prevents pollution
  */
 
-export class CPEEJQueryExtensions {
+export class JQueryExtensions {
     
     static initialized = false;
     
@@ -18,7 +18,7 @@ export class CPEEJQueryExtensions {
         }
         
         if (typeof $ === 'undefined') {
-            throw new Error('CPEEJQueryExtensions: jQuery must be loaded before initializing CPEE extensions');
+            throw new Error('JQueryExtensions: jQuery must be loaded before initializing CPEE extensions');
         }
         
         this.addXMLExtensions();

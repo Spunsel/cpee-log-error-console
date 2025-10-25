@@ -1353,72 +1353,32 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
 - [x] **Improved performance** - leverages DOMRegistry caching and validation
 - [x] **Enhanced maintainability** - all DOM operations centralized
 
-### 24.6 Content Processing Consolidation (High Priority)
-- [ ] Merge cleaning logic from multiple files:
-  - XMLProcessor.js - cleanAndValidate(), cleanMermaidCode()
-  - MermaidSyntaxProcessor.js - cleanAndValidate()
-  - CPEEWfAdaptorRenderer.js - cleanAndValidateXML() wrapper
-  - LogService.js - cleanCPEETreeContent(), cleanMermaidContent()
-- [ ] Create ContentProcessor base class with unified cleaning methods
-- [ ] Standardize content validation patterns across XML and Mermaid
-- [ ] Consolidate comment removal logic (HTML comments, CPEE comments, markdown blocks)
-- [ ] Remove duplicate whitespace and formatting cleanup code
-- [ ] Create consistent content preprocessing pipeline
+### 24.6 Content Processing Consolidation (High Priority) - COMPLETED
+- [x] **Created ContentProcessor class with unified cleaning methods:**
+  - Consolidated XMLProcessor.cleanAndValidate() and cleanMermaidCode() functionality
+  - Consolidated MermaidSyntaxProcessor.cleanAndValidate() functionality  
+  - Consolidated LogService.cleanCPEETreeContent() and cleanMermaidContent() functionality
+  - Consolidated CPEEWfAdaptorRenderer.cleanAndValidateXML() wrapper functionality
+- [x] **Updated all components to use ContentProcessor without breaking existing functionality:**
+  - LogService.js - now uses ContentProcessor.cleanCPEETreeContent() and cleanMermaidContent()
+  - MermaidRenderer.js - now uses ContentProcessor.cleanAndValidateMermaid()
+  - CPEEWfAdaptorRenderer.js - now uses ContentProcessor.cleanAndValidateXML()
+- [x] **Implemented direct logic instead of delegation for better performance:**
+  - Moved all cleaning logic directly into ContentProcessor methods
+  - Removed dependency on XMLProcessor and MermaidSyntaxProcessor imports
+  - Added parseXML(), preprocessSyntax(), and getSupportedDiagramTypes() methods
+  - Eliminated unnecessary delegation overhead
+- [x] **Standardized content validation patterns across XML and Mermaid processing**
+- [x] **Consolidated comment removal logic (HTML comments, CPEE comments, markdown blocks)**
+- [x] **Removed duplicate whitespace and formatting cleanup code**
+- [x] **Created consistent content preprocessing pipeline with unified API**
+- [x] **Improved performance and maintainability with direct implementation**
+- [x] **Removed deprecated methods from original classes:**
+  - Removed XMLProcessor.cleanAndValidate() and cleanMermaidCode() methods
+  - Removed MermaidSyntaxProcessor.cleanAndValidate() method
+  - Removed LogService.cleanCPEETreeContent() and cleanMermaidContent() methods
+  - Eliminated all delegation dependencies and redundant code
 
-### 24.7 Service Layer Consolidation (High Priority)
-- [ ] Create BaseService class with common HTTP/CORS logic
-- [ ] Extract shared request patterns from LogService and CPEEService:
-  - CORS proxy handling with retry logic
-  - Timeout and AbortController management
-  - Error handling and response validation
-  - UUID format validation
-- [ ] Consolidate log fetching logic between LogService and LogViewer
-- [ ] Standardize error handling across all services
-- [ ] Create consistent service response handling patterns
-- [ ] Remove duplicate fetch implementations
-
-### 24.8 Status Management Standardization (Medium Priority)
-- [ ] Complete StatusManager migration across all components:
-  - CPEEWfAdaptorRenderer.js - remove showStatus() wrapper method
-  - CopyButton.js - migrate showError() to use StatusManager
-  - MermaidRenderer.js - ensure consistent StatusManager usage
-- [ ] Standardize status message display patterns
-- [ ] Remove duplicate status display implementations
-- [ ] Create consistent status message interface
-- [ ] Consolidate error message formatting
-
-### 24.9 Renderer Pattern Consolidation (Medium Priority)
-- [ ] Create BaseRenderer class with common initialization patterns
-- [ ] Standardize renderer initialization across:
-  - MermaidRenderer.js - initialize() method
-  - CPEEWfAdaptorRenderer.js - initialize() method
-  - RawContentRenderer.js - constructor pattern
-- [ ] Consolidate container setup and status management
-- [ ] Standardize error handling and loading states
-- [ ] Create consistent renderer lifecycle management
-- [ ] Remove duplicate renderer setup code
-
-### 24.10 Raw Content Model Consolidation (Low Priority)
-- [ ] Create BaseRawContent class with common patterns
-- [ ] Consolidate similar patterns across raw content models:
-  - MermaidRaw.js - empty content creation, validation
-  - CPEETreeRaw.js - empty content creation, validation
-  - UserInputRaw.js - empty content creation, validation
-- [ ] Standardize content validation logic
-- [ ] Consolidate common raw content operations
-- [ ] Remove duplicate getter/setter patterns
-- [ ] Create consistent raw content interface
-
-### 24.11 Configuration Management Consolidation (Low Priority)
-- [ ] Create ConfigManager base class with common patterns
-- [ ] Consolidate configuration validation across:
-  - service-config.js - service configuration
-  - ui-config.js - UI configuration  
-  - MermaidConfigManager.js - Mermaid-specific configuration
-- [ ] Standardize configuration patterns and validation
-- [ ] Consolidate default value handling
-- [ ] Remove duplicate configuration logic
-- [ ] Create unified configuration management interface
 
   
 
@@ -1450,3 +1410,64 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
   - [ ] AI-powered error explanations
   - [ ] Suggest fixes for common errors
   - [ ] Link to documentation
+
+## Phase 25: Utilities Reorganization and Structure Improvement
+
+### 25.1 Directory Structure Reorganization ✅
+- [x] **Created logical directory structure**
+  - [x] `utils/content/` - Content processing and parsing utilities
+  - [x] `utils/rendering/` - Rendering and visualization utilities  
+  - [x] `utils/integration/` - External system integration utilities
+  - [x] `utils/system/` - System-level utilities (kept existing)
+  - [x] `utils/dom/` - DOM manipulation utilities (kept existing)
+
+### 25.2 Class Renaming and Responsibility Clarification ✅
+- [x] **Content processing consolidation**
+  - [x] `ContentProcessor` → `ContentCleaner` (more descriptive name)
+  - [x] `XMLProcessor` → `XMLParser` (focused on parsing, not processing)
+  - [x] `YAMLParser` → `YAMLParser` (moved to content/, kept name)
+- [x] **Rendering utilities reorganization**
+  - [x] `MermaidConfigManager` → `MermaidRenderer` (combined config + rendering)
+  - [x] `MermaidSyntaxProcessor` → `MermaidValidator` (focused on validation)
+  - [x] `SvgElementProcessor` → `SVGProcessor` (simplified name)
+- [x] **Integration utilities simplification**
+  - [x] `CPEEJQueryExtensions` → `JQueryExtensions` (removed CPEE prefix)
+
+### 25.3 Import Statement Updates ✅
+- [x] **Updated all import statements**
+  - [x] `LogService.js` - Updated to use `ContentCleaner` and new `YAMLParser` location
+  - [x] `MermaidRenderer.js` - Updated to use `ContentCleaner` and `MermaidRenderer` config
+  - [x] `CPEEWfAdaptorRenderer.js` - Updated to use `ContentCleaner`, `SVGProcessor`, `JQueryExtensions`
+- [x] **Method call updates**
+  - [x] Updated all `ContentProcessor.*` calls to `ContentCleaner.*`
+  - [x] Updated all `MermaidConfigManager.*` calls to `MermaidRenderer.*`
+  - [x] Updated all `SvgElementProcessor` instantiations to `SVGProcessor`
+  - [x] Updated all `CPEEJQueryExtensions` calls to `JQueryExtensions`
+
+### 25.4 Cleanup and File Removal ✅
+- [x] **Removed old files**
+  - [x] Deleted `utils/processors/ContentProcessor.js`
+  - [x] Deleted `utils/parsers/XMLProcessor.js`
+  - [x] Deleted `utils/parsers/YAMLParser.js`
+  - [x] Deleted `utils/integrations/mermaid/MermaidConfigManager.js`
+  - [x] Deleted `utils/integrations/mermaid/MermaidSyntaxProcessor.js`
+  - [x] Deleted `utils/integrations/cpee/SvgElementProcessor.js`
+  - [x] Deleted `utils/integrations/cpee/CPEEJQueryExtensions.js`
+- [x] **Directory cleanup**
+  - [x] Removed empty `utils/processors/` directory
+  - [x] Removed empty `utils/parsers/` directory
+  - [x] Removed empty `utils/integrations/` directory structure
+
+### 25.5 Benefits Achieved ✅
+- [x] **Improved maintainability**
+  - [x] Clear separation of concerns by directory
+  - [x] More descriptive class names following best practices
+  - [x] Reduced cognitive load when navigating codebase
+- [x] **Better organization**
+  - [x] Related functionality grouped together
+  - [x] Easier to find and understand utilities
+  - [x] Consistent naming conventions
+- [x] **Enhanced clarity**
+  - [x] Class names reflect their actual responsibilities
+  - [x] Directory structure matches functional organization
+  - [x] Reduced confusion about where to find specific utilities
