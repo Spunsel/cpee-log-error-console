@@ -16,16 +16,6 @@ export class CPEEInstance {
         this.steps = steps.map(step => 
             step instanceof CPEEStep ? step : CPEEStep.fromObject(step)
         );
-        
-        // View mode state for each content section (Phase 21.2)
-        // Possible values: 'visual' or 'raw'
-        this.viewModes = {
-            'input-cpee': 'visual',
-            'input-intermediate': 'visual',
-            'user-input': 'visual',
-            'output-intermediate': 'visual',
-            'output-cpee': 'visual'
-        };
     }
 
     /**
@@ -203,8 +193,7 @@ export class CPEEInstance {
             processNumber: this.processNumber,
             loadedAt: this.loadedAt,
             currentStepIndex: this.currentStepIndex,
-            steps: this.steps.map(step => step.toObject()),
-            viewModes: { ...this.viewModes } // Phase 21.2: Include view modes
+            steps: this.steps.map(step => step.toObject())
         };
     }
 
@@ -226,11 +215,6 @@ export class CPEEInstance {
         
         if (typeof obj.currentStepIndex === 'number') {
             instance.currentStepIndex = obj.currentStepIndex;
-        }
-        
-        // Phase 21.2: Restore view modes if present
-        if (obj.viewModes) {
-            instance.viewModes = { ...instance.viewModes, ...obj.viewModes };
         }
         
         return instance;
@@ -256,75 +240,5 @@ export class CPEEInstance {
             const stepTime = new Date(step.timestamp);
             return stepTime >= startTime && stepTime <= endTime;
         });
-    }
-
-    /**
-     * Get view mode for a specific section
-     * @param {string} sectionId - Section identifier
-     * @returns {string} View mode ('visual' or 'raw')
-     */
-    getViewMode(sectionId) {
-        return this.viewModes[sectionId] || 'visual';
-    }
-
-    /**
-     * Set view mode for a specific section
-     * @param {string} sectionId - Section identifier
-     * @param {string} mode - View mode ('visual' or 'raw')
-     * @returns {boolean} True if mode was set successfully
-     */
-    setViewMode(sectionId, mode) {
-        if (sectionId in this.viewModes && (mode === 'visual' || mode === 'raw')) {
-            this.viewModes[sectionId] = mode;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Get all view modes
-     * @returns {Object} Object mapping section IDs to their view modes
-     */
-    getAllViewModes() {
-        return { ...this.viewModes };
-    }
-
-    /**
-     * Set multiple view modes at once
-     * @param {Object} modes - Object mapping section IDs to view modes
-     */
-    setViewModes(modes) {
-        Object.entries(modes).forEach(([sectionId, mode]) => {
-            this.setViewMode(sectionId, mode);
-        });
-    }
-
-    /**
-     * Reset all view modes to visual
-     */
-    resetViewModesToVisual() {
-        Object.keys(this.viewModes).forEach(sectionId => {
-            this.viewModes[sectionId] = 'visual';
-        });
-    }
-
-    /**
-     * Check if any section is in raw mode
-     * @returns {boolean} True if at least one section is in raw mode
-     */
-    hasRawModes() {
-        return Object.values(this.viewModes).some(mode => mode === 'raw');
-    }
-
-    /**
-     * Get count of sections in each mode
-     * @returns {Object} Object with visual and raw counts
-     */
-    getViewModeStats() {
-        const stats = { visual: 0, raw: 0 };
-        Object.values(this.viewModes).forEach(mode => {
-            stats[mode]++;
-        });
-        return stats;
     }
 }
