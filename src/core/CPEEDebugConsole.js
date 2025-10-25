@@ -7,8 +7,8 @@ import { LogService } from '../services/LogService.js';
 import { InstanceService } from '../services/InstanceService.js';
 import { CPEEService } from '../services/CPEEService.js';
 import { Sidebar } from '../components/ui/Sidebar.js';
-import { StepViewer } from '../components/features/StepViewer.js';
-import { LogViewer } from '../components/features/LogViewer.js';
+import { StepViewer } from '../components/views/StepViewer.js';
+import { LogViewer } from '../components/views/LogViewer.js';
 import { RawContentViewManager } from '../components/coordinators/RawContentViewManager.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 
