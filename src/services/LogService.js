@@ -6,7 +6,7 @@
 import { ContentCleaner } from '../utils/content/ContentCleaner.js';
 import { CPEEStep } from '../models/CPEEStep.js';
 import { YAMLParser } from '../utils/content/YAMLParser.js';
-import { buildLogUrl, CORS_CONFIG } from '../config/service-config.js';
+import { buildLogUrl, CORS_CONFIG } from '../config/ServiceConfig.js';
 
 export class LogService {
 

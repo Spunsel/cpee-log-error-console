@@ -9,7 +9,7 @@
  */
 
 import { StepNavigator } from '../ui/StepNavigator.js';
-import { ContentSectionManager } from '../managers/ContentSectionManager.js';
+import { ContentSectionManager } from '../coordinators/ContentSectionManager.js';
 
 export class StepViewer {
     constructor(instanceService, domRegistry = null, rawContentViewManager = null) {

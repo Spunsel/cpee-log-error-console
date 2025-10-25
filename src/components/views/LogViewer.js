@@ -3,7 +3,7 @@
  * Handles display of raw log content
  */
 
-import { buildLogUrl, CORS_CONFIG } from '../../config/service-config.js';
+import { buildLogUrl, CORS_CONFIG } from '../../config/ServiceConfig.js';
 
 export class LogViewer {
     constructor(domRegistry = null) {
