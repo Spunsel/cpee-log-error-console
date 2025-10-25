@@ -4,7 +4,6 @@
  * Extracted from StepViewer to follow Single Responsibility Principle
  */
 
-import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
 import { ICONS } from '../../assets/icons.js';
 
 export class StepNavigator {
@@ -12,9 +11,6 @@ export class StepNavigator {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.onStepChange = null;
-        
-        // Initialize DOM utilities
-        this.domManager = new DOMElementManager(domRegistry);
         
         // Navigation state
         this.isSetup = false;
@@ -51,7 +47,7 @@ export class StepNavigator {
      * @returns {HTMLElement} Navigation container element
      */
     createNavigationContainer() {
-        const navContainer = this.domManager.createElement('div', {
+        const navContainer = this.domRegistry.createElement('div', {
             id: 'step-navigation',
             className: 'step-navigation',
             innerHTML: `
@@ -80,7 +76,7 @@ export class StepNavigator {
      */
     insertNavigationIntoDOM(navContainer) {
         // Insert before process analysis
-        const processAnalysis = this.domManager.getElement('processAnalysis');
+        const processAnalysis = this.domRegistry.getElementSafe('processAnalysis');
         if (processAnalysis) {
             processAnalysis.parentNode.insertBefore(navContainer, processAnalysis);
         }
@@ -121,7 +117,7 @@ export class StepNavigator {
         ];
 
         buttons.forEach(({ key, id, handler }) => {
-            const button = this.domManager.getElement(key) || document.getElementById(id);
+            const button = this.domRegistry.getElementSafe(key) || document.getElementById(id);
             if (button) {
                 button.onclick = handler;
                 // Initial state is enabled (CSS handles the styling)
@@ -148,14 +144,14 @@ export class StepNavigator {
 
         // Update button states
         buttons.forEach(({ key, id, disabled }) => {
-            const button = this.domManager.getElement(key) || document.getElementById(id);
+            const button = this.domRegistry.getElementSafe(key) || document.getElementById(id);
             if (button) {
                 this.applyDisabledStyling(button, disabled);
             }
         });
 
         // Update step counter
-        const counter = this.domManager.getElement('stepCounter') || document.getElementById('step-counter');
+        const counter = this.domRegistry.getElementSafe('stepCounter') || document.getElementById('step-counter');
         if (counter) {
             counter.textContent = `Step ${navInfo.currentStep} of ${navInfo.totalSteps}`;
         }

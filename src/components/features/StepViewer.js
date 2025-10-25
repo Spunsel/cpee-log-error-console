@@ -4,7 +4,6 @@
  */
 
 import { DOMUtils } from '../../utils/dom/DOMUtils.js';
-import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
 import { StepNavigator } from '../ui/StepNavigator.js';
 import { ContentSectionManager } from '../managers/ContentSectionManager.js';
 
@@ -14,9 +13,6 @@ export class StepViewer {
         this.domRegistry = domRegistry;
         this.rawContentViewManager = rawContentViewManager;
         this.onStepChange = null;
-        
-        // Initialize utility managers
-        this.domManager = new DOMElementManager(domRegistry);
         
         // Initialize extracted components
         this.navigator = new StepNavigator(instanceService, domRegistry);
@@ -39,7 +35,10 @@ export class StepViewer {
      * @returns {Element|null} DOM element or null if not found
      */
     getElement(key) {
-        return this.domManager.getElement(key);
+        if (this.domRegistry) {
+            return this.domRegistry.getElementSafe(key);
+        }
+        return DOMUtils.getElementById(key);
     }
 
     /**

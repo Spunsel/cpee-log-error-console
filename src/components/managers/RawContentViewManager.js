@@ -8,13 +8,11 @@ import { ViewModeToggle } from '../ui/ViewModeToggle.js';
 import { CopyButton } from '../ui/CopyButton.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
 import { ViewModeManager } from './ViewModeManager.js';
-import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
 
 export class RawContentViewManager {
     constructor(instanceService, domRegistry = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
-        this.domManager = new DOMElementManager(domRegistry);
 
         // Content View Components
         this.viewModeToggle = new ViewModeToggle(domRegistry);
@@ -270,7 +268,7 @@ export class RawContentViewManager {
         const button = copyBtn.createButton(contentToCopy, 'Copy');
 
         // Add button to container
-        const buttonContainer = this.domManager.createElement('div', {
+        const buttonContainer = this.domRegistry.createElement('div', {
             className: 'raw-content-actions'
         });
         buttonContainer.appendChild(button);

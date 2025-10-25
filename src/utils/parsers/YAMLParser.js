@@ -4,6 +4,12 @@
  */
 
 export class YAMLParser {
+    // Block scalar indicators
+    static BLOCK_SCALARS = ['|', '|-', '|+'];
+    
+    // Special values that should be parsed as null
+    static NULL_VALUES = ['null', '__NOTSPECIFIED__'];
+
     /**
      * Parse multi-document YAML content
      * @param {string} yamlContent - Full YAML content
@@ -15,33 +21,23 @@ export class YAMLParser {
             throw new Error('YAMLParser: Invalid YAML content - must be a non-empty string');
         }
 
-        // Split by document separator and filter empty documents
-        const documents = yamlContent.split(/^---$/m)
+        return yamlContent
+            .split(/^---$/m)
             .map(doc => doc.trim())
-            .filter(doc => doc.length > 0);
-
-        const events = [];
-
-        for (let i = 0; i < documents.length; i++) {
-            const docContent = documents[i].trim();
-            
-            if (!docContent) {
-                continue;
-            }
-            
-            try {
-                const parsed = this.parseSingleDocument(docContent);
-                
-                if (parsed && typeof parsed === 'object') {
-                    parsed._documentIndex = i + 1;
-                    events.push(parsed);
+            .filter(doc => doc.length > 0)
+            .map((docContent, index) => {
+                try {
+                    const parsed = this.parseSingleDocument(docContent);
+                    if (parsed && typeof parsed === 'object') {
+                        parsed._documentIndex = index + 1;
+                        return parsed;
+                    }
+                } catch (error) {
+                    console.warn(`Failed to parse document ${index + 1}:`, error.message);
                 }
-            } catch (error) {
-                console.warn(`Failed to parse document ${i + 1}:`, error.message);
-            }
-        }
-
-        return events;
+                return null;
+            })
+            .filter(Boolean);
     }
 
     /**
@@ -53,58 +49,38 @@ export class YAMLParser {
         const lines = yamlDoc.split('\n');
         const result = {};
         let currentSection = null;
-        let inMultiLineString = false;
-        let multiLineKey = null;
-        let multiLineContent = '';
+        let multiLineState = null; // { key, content, inProgress }
         
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
             const trimmed = line.trim();
             
-            // Skip empty lines
             if (!trimmed) {
                 continue;
             }
             
             // Handle multi-line strings
-            if (inMultiLineString) {
-                const isNewKey = !line.startsWith('  ') && trimmed.includes(':') && !trimmed.startsWith('#');
-                const isEndOfDoc = i === lines.length - 1;
-                
-                if (isNewKey || isEndOfDoc) {
-                    const target = currentSection || result;
-                    target[multiLineKey] = multiLineContent.trim();
-                    inMultiLineString = false;
-                    multiLineKey = null;
-                    multiLineContent = '';
+            if (multiLineState?.inProgress) {
+                if (this.isNewKeyLine(line, trimmed) || i === lines.length - 1) {
+                    this.finalizeMultiLineString(result, currentSection, multiLineState);
+                    multiLineState = null;
                     
-                    if (isEndOfDoc) {
+                    if (i === lines.length - 1) {
                         break;
                     }
                 } else {
-                    // Filter out timestamp lines from multi-line content
-                    const isTimestamp = trimmed.startsWith('time:timestamp:');
-                    if (!isTimestamp) {
-                        multiLineContent += line + '\n';
-                    }
+                    this.addToMultiLineContent(multiLineState, line, trimmed);
                     continue;
                 }
             }
             
-            // Parse key:value pairs with proper colon handling
-            let colonIndex = trimmed.indexOf(': ');
-            if (colonIndex === -1) {
-                colonIndex = trimmed.lastIndexOf(':');
-                if (colonIndex === -1) {
-                    continue;
-                }
+            const { key, value } = this.parseKeyValue(trimmed);
+            if (!key) {
+                continue;
             }
             
-            const key = trimmed.substring(0, colonIndex).trim();
-            const value = trimmed.substring(colonIndex + 1).trim();
-            
-            // Handle top-level sections like "event:" or "log:"
-            if (!line.startsWith('  ') && (value === '' || value === null)) {
+            // Handle top-level sections
+            if (!line.startsWith('  ') && (!value || value === '')) {
                 currentSection = {};
                 result[key] = currentSection;
                 continue;
@@ -112,35 +88,15 @@ export class YAMLParser {
             
             const target = currentSection || result;
             
-            // Handle multi-line strings (|, |-, |+)
-            if (value === '|' || value === '|-' || value === '|+') {
-                inMultiLineString = true;
-                multiLineKey = key;
-                multiLineContent = '';
+            // Handle block scalars
+            if (this.BLOCK_SCALARS.includes(value)) {
+                multiLineState = { key, content: '', inProgress: true };
                 continue;
             }
             
             // Handle array items
             if (trimmed.startsWith('- ')) {
-                const arrayValue = trimmed.substring(2).trim();
-                if (!target.data) {
-                    target.data = [];
-                }
-                
-                let arrayColonIndex = arrayValue.indexOf(': ');
-                if (arrayColonIndex === -1) {
-                    arrayColonIndex = arrayValue.lastIndexOf(':');
-                }
-                
-                if (arrayColonIndex > 0) {
-                    const itemKey = arrayValue.substring(0, arrayColonIndex).trim();
-                    const itemValue = arrayValue.substring(arrayColonIndex + 1).trim();
-                    const item = {};
-                    item[itemKey] = this.parseValue(itemValue);
-                    target.data.push(item);
-                } else {
-                    target.data.push(this.parseValue(arrayValue));
-                }
+                this.handleArrayItem(target, trimmed.substring(2).trim());
                 continue;
             }
             
@@ -148,13 +104,75 @@ export class YAMLParser {
             target[key] = this.parseValue(value);
         }
         
-        // Handle remaining multi-line string
-        if (inMultiLineString && multiLineKey) {
-            const target = currentSection || result;
-            target[multiLineKey] = multiLineContent.trim();
+        // Finalize any remaining multi-line string
+        if (multiLineState?.inProgress) {
+            this.finalizeMultiLineString(result, currentSection, multiLineState);
         }
         
         return result;
+    }
+    
+    /**
+     * Check if line represents a new key (not part of multi-line content)
+     */
+    static isNewKeyLine(line, trimmed) {
+        return !line.startsWith('  ') && trimmed.includes(':') && !trimmed.startsWith('#');
+    }
+    
+    /**
+     * Add content to multi-line string, filtering timestamps
+     */
+    static addToMultiLineContent(multiLineState, line, trimmed) {
+        if (!trimmed.startsWith('time:timestamp:')) {
+            multiLineState.content += line + '\n';
+        }
+    }
+    
+    /**
+     * Finalize multi-line string and add to target object
+     */
+    static finalizeMultiLineString(result, currentSection, multiLineState) {
+        const target = currentSection || result;
+        target[multiLineState.key] = multiLineState.content.trim();
+    }
+    
+    /**
+     * Parse key:value from trimmed line
+     */
+    static parseKeyValue(trimmed) {
+        let colonIndex = trimmed.indexOf(': ');
+        if (colonIndex === -1) {
+            colonIndex = trimmed.lastIndexOf(':');
+            if (colonIndex === -1) {
+                return { key: null, value: null };
+            }
+        }
+        
+        return {
+            key: trimmed.substring(0, colonIndex).trim(),
+            value: trimmed.substring(colonIndex + 1).trim()
+        };
+    }
+    
+    /**
+     * Handle array item parsing
+     */
+    static handleArrayItem(target, arrayValue) {
+        if (!target.data) {
+            target.data = [];
+        }
+        
+        const colonIndex = arrayValue.indexOf(': ') !== -1 
+            ? arrayValue.indexOf(': ') 
+            : arrayValue.lastIndexOf(':');
+        
+        if (colonIndex > 0) {
+            const itemKey = arrayValue.substring(0, colonIndex).trim();
+            const itemValue = arrayValue.substring(colonIndex + 1).trim();
+            target.data.push({ [itemKey]: this.parseValue(itemValue) });
+        } else {
+            target.data.push(this.parseValue(arrayValue));
+        }
     }
 
     /**
@@ -163,7 +181,7 @@ export class YAMLParser {
      * @returns {any} Parsed value with appropriate type
      */
     static parseValue(value) {
-        if (!value || value === 'null' || value === '__NOTSPECIFIED__') {
+        if (!value || this.NULL_VALUES.includes(value)) {
             return null;
         }
         

@@ -4,13 +4,11 @@
  * Provides toggle interface for switching between rendered and raw code views
  */
 
-import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
 import { ICONS } from '../../assets/icons.js';
 
 export class ViewModeToggle {
     constructor(domRegistry = null) {
         this.domRegistry = domRegistry;
-        this.domManager = new DOMElementManager(domRegistry);
         
         // Track view modes for each section
         // Possible values: 'visual' or 'raw'
@@ -41,13 +39,13 @@ export class ViewModeToggle {
      * @returns {HTMLElement} Toggle button container
      */
     createToggleButton(sectionId, sectionTitle) {
-        const toggleContainer = this.domManager.createElement('div', {
+        const toggleContainer = this.domRegistry.createElement('div', {
             className: 'view-mode-toggle',
             'data-section-id': sectionId
         });
 
         // Create visual mode button
-        const visualBtn = this.domManager.createElement('button', {
+        const visualBtn = this.domRegistry.createElement('button', {
             className: 'toggle-btn toggle-btn-visual active',
             'data-mode': 'visual',
             'aria-label': `Show ${sectionTitle} as rendered visualization`,
@@ -56,7 +54,7 @@ export class ViewModeToggle {
         visualBtn.innerHTML = ICONS.VISUAL;
 
         // Create raw mode button
-        const rawBtn = this.domManager.createElement('button', {
+        const rawBtn = this.domRegistry.createElement('button', {
             className: 'toggle-btn toggle-btn-raw',
             'data-mode': 'raw',
             'aria-label': `Show ${sectionTitle} as raw code`,
@@ -162,17 +160,17 @@ export class ViewModeToggle {
                 const toggleBtn = this.createToggleButton(section.id, section.title);
                 
                 // Create a flex container for title and toggle
-                const headerContainer = this.domManager.createElement('div', {
+                const headerContainer = this.domRegistry.createElement('div', {
                     className: 'section-header-container'
                 });
                 
                 // Create left side for title
-                const leftSide = this.domManager.createElement('div', {
+                const leftSide = this.domRegistry.createElement('div', {
                     className: 'left-title-side'
                 });
                 
                 // Create right side for toggle
-                const rightSide = this.domManager.createElement('div', {
+                const rightSide = this.domRegistry.createElement('div', {
                     className: 'right-title-side'
                 });
                 
@@ -180,7 +178,7 @@ export class ViewModeToggle {
                 const titleText = header.textContent;
                 header.textContent = '';
                 
-                const titleSpan = this.domManager.createElement('span', {
+                const titleSpan = this.domRegistry.createElement('span', {
                     className: 'section-title',
                     textContent: titleText
                 });

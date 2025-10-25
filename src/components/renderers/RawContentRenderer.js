@@ -4,12 +4,9 @@
  * Phase 21.4: Raw View Rendering
  */
 
-import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
-
 export class RawContentRenderer {
     constructor(domRegistry = null) {
         this.domRegistry = domRegistry;
-        this.domManager = new DOMElementManager(domRegistry);
     }
 
     /**
@@ -19,15 +16,15 @@ export class RawContentRenderer {
      * @returns {HTMLElement} Container with rendered content
      */
     renderRawMermaid(mermaidText, _options = {}) {
-        const container = this.domManager.createElement('div', {
+        const container = this.domRegistry.createElement('div', {
             className: 'raw-content-container mermaid-raw'
         });
 
-        const codeElement = this.domManager.createElement('pre', {
+        const codeElement = this.domRegistry.createElement('pre', {
             className: 'raw-code-block'
         });
 
-        const codeContent = this.domManager.createElement('code', {
+        const codeContent = this.domRegistry.createElement('code', {
             className: 'language-mermaid',
             textContent: mermaidText
         });
@@ -45,15 +42,15 @@ export class RawContentRenderer {
      * @returns {HTMLElement} Container with rendered content
      */
     renderRawCPEETree(xmlText, _options = {}) {
-        const container = this.domManager.createElement('div', {
+        const container = this.domRegistry.createElement('div', {
             className: 'raw-content-container cpee-raw'
         });
 
-        const codeElement = this.domManager.createElement('pre', {
+        const codeElement = this.domRegistry.createElement('pre', {
             className: 'raw-code-block'
         });
 
-        const codeContent = this.domManager.createElement('code', {
+        const codeContent = this.domRegistry.createElement('code', {
             className: 'language-xml',
             textContent: xmlText
         });
@@ -71,15 +68,15 @@ export class RawContentRenderer {
      * @returns {HTMLElement} Container with rendered content
      */
     renderRawUserInput(userInputText, _options = {}) {
-        const container = this.domManager.createElement('div', {
+        const container = this.domRegistry.createElement('div', {
             className: 'raw-content-container user-input-raw'
         });
 
-        const textElement = this.domManager.createElement('pre', {
+        const textElement = this.domRegistry.createElement('pre', {
             className: 'raw-text-block'
         });
 
-        const textContent = this.domManager.createElement('code', {
+        const textContent = this.domRegistry.createElement('code', {
             className: 'language-text',
             textContent: userInputText
         });

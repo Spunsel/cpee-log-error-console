@@ -4,13 +4,11 @@
  * Phase 21.5: Copy Functionality
  */
 
-import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
 import { ICONS } from '../../assets/icons.js';
 
 export class CopyButton {
     constructor(domRegistry = null, options = {}) {
         this.domRegistry = domRegistry;
-        this.domManager = new DOMElementManager(domRegistry);
         
         // Configuration
         this.options = {
@@ -36,7 +34,7 @@ export class CopyButton {
     createButton(content, buttonText = 'Copy') {
         this.content = content;
         
-        const button = this.domManager.createElement('button', {
+        const button = this.domRegistry.createElement('button', {
             className: 'copy-btn',
             type: 'button',
             title: 'Copy to clipboard'
@@ -46,13 +44,13 @@ export class CopyButton {
         this.originalContent = buttonText;
         
         // Create button content
-        const buttonContainer = this.domManager.createElement('span', {
+        const buttonContainer = this.domRegistry.createElement('span', {
             className: 'copy-btn-content'
         });
 
         if (this.options.showIcon) {
             // Create a wrapper span for the icon
-            const iconWrapper = this.domManager.createElement('span', {
+            const iconWrapper = this.domRegistry.createElement('span', {
                 className: 'copy-icon-wrapper',
                 innerHTML: ICONS.COPY
             });
@@ -60,7 +58,7 @@ export class CopyButton {
         }
 
         if (this.options.showText) {
-            const text = this.domManager.createElement('span', {
+            const text = this.domRegistry.createElement('span', {
                 className: 'copy-text',
                 textContent: buttonText
             });

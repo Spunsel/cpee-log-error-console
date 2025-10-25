@@ -1283,6 +1283,78 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
 
 ---
 
+## Phase 23: YAML Parser Refactoring and Simplification
+
+### 23.1 YAML Parser Code Simplification
+- [x] Extract constants for block scalars, null values, and boolean values
+- [x] Simplify parseMultiDocument using functional programming approach
+- [x] Refactor parseSingleDocument to use cleaner state management
+- [x] Extract helper methods for better code organization:
+  - `isNewKeyLine()` - Check if line represents a new key
+  - `addToMultiLineContent()` - Add content with timestamp filtering
+  - `finalizeMultiLineString()` - Complete multi-line string processing
+  - `parseKeyValue()` - Extract key-value pairs from lines
+  - `handleArrayItem()` - Process array items
+- [x] Consolidate multi-line string state into single object
+- [x] Improve readability and maintainability
+- [x] Fix linter errors for single-line if statements
+- [x] Maintain all existing functionality while reducing complexity
+
+---
+
+## Phase 24: Code Architecture Consolidation and Overlap Resolution
+
+### 24.1 DOM Management Consolidation (High Priority)
+- [x] Remove DOMElementManager.js (thin wrapper around DOMRegistry)
+- [x] Keep DOMRegistry as the main DOM management system
+- [x] Retain DOMUtils.js for pure utility functions only
+- [x] Update all components to use DOMRegistry directly
+- [x] Remove redundant DOM access patterns across components
+- [x] Consolidate DOM element caching and registration logic
+- [x] Simplify DOM element access patterns in managers and renderers
+
+### 24.2 Content Management Architecture Clarification (High Priority)
+- [ ] Define clear boundaries between content managers:
+  - StepViewer: Main coordinator and orchestrator
+  - ContentSectionManager: Visual content rendering only
+  - RawContentViewManager: Raw content viewing only
+- [ ] Remove overlapping content update responsibilities
+- [ ] Consolidate content section update logic
+- [ ] Simplify content rendering coordination
+- [ ] Remove duplicate content management patterns
+
+### 24.3 View Mode State Consolidation (High Priority)
+- [ ] Make ViewModeManager the single source of truth for view mode state
+- [ ] Remove view mode storage from CPEEInstance model
+- [ ] Simplify RawContentViewManager view mode coordination
+- [ ] Consolidate view mode persistence logic
+- [ ] Remove duplicate view mode synchronization code
+- [ ] Standardize view mode state management across components
+
+### 24.4 Service Layer Base Class Creation (Medium Priority)
+- [ ] Create BaseService class with common HTTP/CORS logic
+- [ ] Extract shared request patterns from LogService and CPEEService
+- [ ] Standardize error handling across services
+- [ ] Consolidate CORS proxy usage patterns
+- [ ] Reduce duplication in service request methods
+- [ ] Create consistent service response handling
+
+### 24.5 Renderer Interface Standardization (Medium Priority)
+- [ ] Create BaseRenderer class with common initialization patterns
+- [ ] Standardize renderer initialization across CPEEWfAdaptorRenderer, MermaidRenderer, RawContentRenderer
+- [ ] Consolidate container setup and status management
+- [ ] Standardize error handling and loading states
+- [ ] Create consistent renderer lifecycle management
+- [ ] Reduce duplication in renderer setup code
+
+### 24.6 Utility Function Consolidation (Low Priority)
+- [ ] Review necessity of all utility classes
+- [ ] Consider merging small utility classes (URLUtils, StatusManager)
+- [ ] Consolidate similar utility functions across classes
+- [ ] Remove redundant utility methods
+- [ ] Optimize utility class dependencies
+- [ ] Standardize utility function naming and patterns
+
 ## Future Enhancements (Backlog)
 
 ### Potential Features for Future Phases

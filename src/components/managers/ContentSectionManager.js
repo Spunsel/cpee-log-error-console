@@ -5,14 +5,12 @@
  * Extracted from StepViewer to improve separation of concerns
  */
 
-import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
 import { CPEEWfAdaptorRenderer } from '../renderers/CPEEWfAdaptorRenderer.js';
 import { MermaidRenderer } from '../renderers/MermaidRenderer.js';
 
 export class ContentSectionManager {
     constructor(domRegistry = null) {
         this.domRegistry = domRegistry;
-        this.domManager = new DOMElementManager(domRegistry);
         
         // Renderer instances
         this.inputGraphRenderer = null;
@@ -55,7 +53,7 @@ export class ContentSectionManager {
      * @param {string} cpeeXml - CPEE XML content to render as graph
      */
     async updateInputCpeeSection(cpeeXml) {
-        const inputCpeeElement = this.domManager.getElement('inputCpeeContent');
+        const inputCpeeElement = this.domRegistry.getElementSafe('inputCpeeContent');
         if (!inputCpeeElement) {
             return;
         }
@@ -107,7 +105,7 @@ export class ContentSectionManager {
      * @param {string} cpeeXml - CPEE XML content to render as graph
      */
     async updateOutputCpeeSection(cpeeXml) {
-        const outputCpeeElement = this.domManager.getElement('outputCpeeContent');
+        const outputCpeeElement = this.domRegistry.getElementSafe('outputCpeeContent');
         if (!outputCpeeElement) {
             return;
         }
@@ -154,7 +152,7 @@ export class ContentSectionManager {
      * @param {string} content - Mermaid diagram content
      */
     async updateInputIntermediateSection(content) {
-        const inputIntermediateElement = this.domManager.getElement('inputIntermediateContent');
+        const inputIntermediateElement = this.domRegistry.getElementSafe('inputIntermediateContent');
         if (!inputIntermediateElement) {
             return;
         }
@@ -211,7 +209,7 @@ export class ContentSectionManager {
      * @param {string} content - Mermaid diagram content
      */
     async updateOutputIntermediateSection(content) {
-        const outputIntermediateElement = this.domManager.getElement('outputIntermediateContent');
+        const outputIntermediateElement = this.domRegistry.getElementSafe('outputIntermediateContent');
         if (!outputIntermediateElement) {
             return;
         }
@@ -268,7 +266,7 @@ export class ContentSectionManager {
      * @param {string} content - User input content
      */
     updateUserInputSection(content) {
-        const userInputElement = this.domManager.getElement('userInputContent');
+        const userInputElement = this.domRegistry.getElementSafe('userInputContent');
         if (!userInputElement) {
             return;
         }
@@ -305,7 +303,7 @@ export class ContentSectionManager {
     createGraphContainer(type) {
         const uniqueId = `${type}-${Date.now()}`;
         
-        return this.domManager.createElement('div', {
+        return this.domRegistry.createElement('div', {
             id: uniqueId,
             className: 'graph-container'
         }, {
@@ -414,7 +412,7 @@ export class ContentSectionManager {
         
         // Preserve height only if it's significant
         if (currentHeight > 100) {
-            this.domManager.applyStyles(element, {
+            this.domRegistry.applyStyles(element, {
                 height: currentHeight + 'px'
             });
         }
@@ -422,7 +420,7 @@ export class ContentSectionManager {
         // Return cleanup function
         return () => {
             setTimeout(() => {
-                this.domManager.applyStyles(element, {
+                this.domRegistry.applyStyles(element, {
                     height: 'auto'
                 });
                 contentBox.classList.remove('transitioning');
@@ -443,7 +441,7 @@ export class ContentSectionManager {
         ];
 
         sections.forEach(sectionKey => {
-            const element = this.domManager.getElement(sectionKey);
+            const element = this.domRegistry.getElementSafe(sectionKey);
             if (element) {
                 element.innerHTML = '<div class="no-content">No content available</div>';
             }

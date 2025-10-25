@@ -3,16 +3,11 @@
  * Manages the instance tabs in the sidebar
  */
 
-import { DOMElementManager } from '../../utils/dom/DOMElementManager.js';
-
 export class Sidebar {
     constructor(instanceService, domRegistry = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.onInstanceSelect = null;
-        
-        // Initialize utility managers (Phase 1: Add alongside existing code)
-        this.domManager = new DOMElementManager(domRegistry);
     }
 
     /**
@@ -21,7 +16,10 @@ export class Sidebar {
      * @returns {Element|null} DOM element or null if not found
      */
     getElement(key) {
-        return this.domManager.getElement(key);
+        if (this.domRegistry) {
+            return this.domRegistry.getElementSafe(key);
+        }
+        return document.getElementById(key);
     }
 
     /**
@@ -32,7 +30,7 @@ export class Sidebar {
      */
     createTabElement(uuid, displayText) {
         // Use new utility for element creation
-        return this.domManager.createElement('div', {
+        return this.domRegistry.createElement('div', {
             className: 'instance-tab',
             'data-uuid': uuid,
             textContent: displayText
