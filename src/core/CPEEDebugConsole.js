@@ -67,26 +67,15 @@ export class CPEEDebugConsole {
     }
 
     /**
-     * Clear URL parameters
-     */
-    clearURLParameters() {
-        const url = new URL(window.location);
-        url.search = '';
-        window.history.replaceState({}, '', url);
-    }
-
-    /**
      * Get DOM element by key with fallback to direct ID access
+     * Delegates to DOMRegistry for centralized DOM management
      * @param {string} key - Registry key or element ID
      * @returns {Element|null} DOM element or null if not found
      */
     getElement(key) {
-        if (this.domRegistry) {
-            return this.domRegistry.getElementSafe(key);
-        }
-        // No registry available, use direct DOM access
-        return document.getElementById(key);
+        return this.domRegistry.getElementSafe(key);
     }
+
 
     /**
      * Setup DOM registry with default mappings

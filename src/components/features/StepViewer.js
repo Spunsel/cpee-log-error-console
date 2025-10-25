@@ -8,7 +8,6 @@
  * - Delegates specific rendering to specialized managers
  */
 
-import { DOMUtils } from '../../utils/dom/DOMUtils.js';
 import { StepNavigator } from '../ui/StepNavigator.js';
 import { ContentSectionManager } from '../managers/ContentSectionManager.js';
 
@@ -39,8 +38,10 @@ export class StepViewer {
         });
     }
 
+
     /**
      * Get DOM element by key with fallback to direct ID access
+     * Delegates to DOMRegistry for centralized DOM management
      * @param {string} key - Registry key or element ID
      * @returns {Element|null} DOM element or null if not found
      */
@@ -48,7 +49,8 @@ export class StepViewer {
         if (this.domRegistry) {
             return this.domRegistry.getElementSafe(key);
         }
-        return DOMUtils.getElementById(key);
+        // Fallback to direct DOM access
+        return document.getElementById(key);
     }
 
     /**
@@ -57,6 +59,15 @@ export class StepViewer {
      */
     setOnStepChange(callback) {
         this.onStepChange = callback;
+    }
+
+    /**
+     * Show error message
+     * @param {string} message - Error message
+     */
+    showError(message) {
+        console.error('StepViewer Error:', message);
+        // Could be enhanced to show UI error message
     }
 
     /**
@@ -72,8 +83,8 @@ export class StepViewer {
         console.log(`Displaying ${step.getDisplayName()}`);
 
         // Show process analysis section
-        DOMUtils.addClass('step-details', 'hidden');
-        DOMUtils.removeClass('process-analysis', 'hidden');
+        this.domRegistry.addClass('stepDetails', 'hidden');
+        this.domRegistry.removeClass('processAnalysis', 'hidden');
 
         // Update step header
         this.updateStepHeader(step, navInfo);
@@ -119,8 +130,8 @@ export class StepViewer {
      * Show default state (no instance selected)
      */
     showDefaultState() {
-        DOMUtils.removeClass('step-details', 'hidden');
-        DOMUtils.addClass('process-analysis', 'hidden');
+        this.domRegistry.removeClass('stepDetails', 'hidden');
+        this.domRegistry.addClass('processAnalysis', 'hidden');
         
         // Remove navigation using StepNavigator
         this.navigator.removeNavigation();

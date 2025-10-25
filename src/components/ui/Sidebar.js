@@ -10,8 +10,10 @@ export class Sidebar {
         this.onInstanceSelect = null;
     }
 
+
     /**
      * Get DOM element by key with fallback to direct ID access
+     * Delegates to DOMRegistry for centralized DOM management
      * @param {string} key - Registry key or element ID
      * @returns {Element|null} DOM element or null if not found
      */
@@ -19,22 +21,8 @@ export class Sidebar {
         if (this.domRegistry) {
             return this.domRegistry.getElementSafe(key);
         }
+        // Fallback to direct DOM access
         return document.getElementById(key);
-    }
-
-    /**
-     * Create tab element using utility (new method for improved maintainability)
-     * @param {string} uuid - Instance UUID
-     * @param {string} displayText - Display text for tab
-     * @returns {HTMLElement} Created tab element
-     */
-    createTabElement(uuid, displayText) {
-        // Use new utility for element creation
-        return this.domRegistry.createElement('div', {
-            className: 'instance-tab',
-            'data-uuid': uuid,
-            textContent: displayText
-        });
     }
 
     /**

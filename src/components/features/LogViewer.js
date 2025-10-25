@@ -3,7 +3,6 @@
  * Handles display of raw log content
  */
 
-import { DOMUtils } from '../../utils/dom/DOMUtils.js';
 import { buildLogUrl, CORS_CONFIG } from '../../config/service-config.js';
 
 export class LogViewer {
@@ -12,8 +11,10 @@ export class LogViewer {
         this.isVisible = false;
     }
 
+
     /**
      * Get DOM element by key with fallback to direct ID access
+     * Delegates to DOMRegistry for centralized DOM management
      * @param {string} key - Registry key or element ID
      * @returns {Element|null} DOM element or null if not found
      */
@@ -21,8 +22,8 @@ export class LogViewer {
         if (this.domRegistry) {
             return this.domRegistry.getElementSafe(key);
         }
-        // No registry available, use direct DOM access
-        return DOMUtils.getElementById(key);
+        // Fallback to direct DOM access
+        return document.getElementById(key);
     }
 
     /**
@@ -85,7 +86,7 @@ export class LogViewer {
      * Hide raw log
      */
     hideRawLog() {
-        DOMUtils.addClass('raw-log-section', 'hidden');
+        this.domRegistry.addClass('rawLogSection', 'hidden');
         this.isVisible = false;
         this.updateViewLogButton('View Log');
     }
@@ -98,7 +99,7 @@ export class LogViewer {
         const rawLogContent = this.getElement('rawLogContent');
         
         if (rawLogSection && rawLogContent) {
-            DOMUtils.removeClass('raw-log-section', 'hidden');
+            this.domRegistry.removeClass('rawLogSection', 'hidden');
             rawLogContent.innerHTML = '<code>Loading log...</code>';
             this.isVisible = true;
         }
@@ -113,16 +114,16 @@ export class LogViewer {
         const rawLogContent = this.getElement('rawLogContent');
         
         if (rawLogSection && rawLogContent) {
-            DOMUtils.removeClass('raw-log-section', 'hidden');
+            this.domRegistry.removeClass('rawLogSection', 'hidden');
             
             // Update header
-            const header = DOMUtils.querySelector('.raw-log-header h3');
+            const header = this.domRegistry.querySelector('.raw-log-header h3');
             if (header) {
                 header.textContent = 'Raw Log Content';
             }
             
             // Display content
-            rawLogContent.innerHTML = `<code>${DOMUtils.escapeHtml(content)}</code>`;
+            rawLogContent.innerHTML = `<code>${this.domRegistry.escapeHtml(content)}</code>`;
             this.isVisible = true;
         }
     }
@@ -136,15 +137,15 @@ export class LogViewer {
         const rawLogContent = this.getElement('rawLogContent');
         
         if (rawLogSection && rawLogContent) {
-            DOMUtils.removeClass('raw-log-section', 'hidden');
+            this.domRegistry.removeClass('rawLogSection', 'hidden');
             
             // Update header
-            const header = DOMUtils.querySelector('.raw-log-header h3');
+            const header = this.domRegistry.querySelector('.raw-log-header h3');
             if (header) {
                 header.textContent = 'Raw Log Content';
             }
             
-            rawLogContent.innerHTML = `<code style="color: var(--error-color);">Error: ${DOMUtils.escapeHtml(errorMessage)}</code>`;
+            rawLogContent.innerHTML = `<code style="color: var(--error-color);">Error: ${this.domRegistry.escapeHtml(errorMessage)}</code>`;
             this.isVisible = true;
         }
     }
@@ -158,9 +159,9 @@ export class LogViewer {
         const rawLogContent = this.getElement('rawLogContent');
         
         if (rawLogSection && rawLogContent) {
-            DOMUtils.removeClass('raw-log-section', 'hidden');
+            this.domRegistry.removeClass('rawLogSection', 'hidden');
             
-            const header = DOMUtils.querySelector('.raw-log-header h3');
+            const header = this.domRegistry.querySelector('.raw-log-header h3');
             if (header) {
                 header.textContent = 'Raw Log Content';
             }

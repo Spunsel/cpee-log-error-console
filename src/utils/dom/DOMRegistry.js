@@ -276,14 +276,60 @@ export class DOMRegistry {
     }
 
     /**
-     * Remove element if it exists
+     * Add CSS class to element
      * @param {string} key - Element key or ID
+     * @param {string} className - CSS class name to add
      */
-    removeElement(key) {
+    addClass(key, className) {
         const element = this.getElementSafe(key);
         if (element) {
-            element.remove();
+            element.classList.add(className);
         }
+    }
+
+    /**
+     * Remove CSS class from element
+     * @param {string} key - Element key or ID
+     * @param {string} className - CSS class name to remove
+     */
+    removeClass(key, className) {
+        const element = this.getElementSafe(key);
+        if (element) {
+            element.classList.remove(className);
+        }
+    }
+
+    /**
+     * Escape HTML characters for safe display
+     * @param {string} text - Text to escape
+     * @returns {string} Escaped HTML
+     */
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    /**
+     * Query selector with fallback
+     * @param {string} selector - CSS selector
+     * @param {Element} context - Context element (optional)
+     * @returns {Element|null} Found element or null
+     */
+    querySelector(selector, context = null) {
+        const searchContext = context || document;
+        return searchContext.querySelector(selector);
+    }
+
+    /**
+     * Query selector all with fallback
+     * @param {string} selector - CSS selector
+     * @param {Element} context - Context element (optional)
+     * @returns {NodeList} Found elements
+     */
+    querySelectorAll(selector, context = null) {
+        const searchContext = context || document;
+        return searchContext.querySelectorAll(selector);
     }
 }
 
