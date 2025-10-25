@@ -11,6 +11,7 @@
 
 import { CPEEWfAdaptorRenderer } from '../renderers/CPEEWfAdaptorRenderer.js';
 import { MermaidRenderer } from '../renderers/MermaidRenderer.js';
+import { configManager } from '../../config/ConfigManager.js';
 
 export class ContentSectionManager {
     constructor(domRegistry = null) {
@@ -306,21 +307,12 @@ export class ContentSectionManager {
      */
     createGraphContainer(type) {
         const uniqueId = `${type}-${Date.now()}`;
+        const containerConfig = configManager.get('rendering.containers.graphContainer');
         
         return this.domRegistry.createElement('div', {
             id: uniqueId,
             className: 'graph-container'
-        }, {
-            width: '100%',
-            minHeight: '100px',
-            height: 'auto',
-            border: 'none',
-            borderRadius: '0',
-            background: 'white',
-            position: 'relative',
-            margin: '0',
-            padding: '0'
-        });
+        }, containerConfig);
     }
 
     /**
@@ -415,7 +407,10 @@ export class ContentSectionManager {
         contentBox.classList.add('transitioning');
         
         // Preserve height only if it's significant
-        if (currentHeight > 100) {
+        const minHeightThreshold = configManager.get('rendering.containers.graphContainer.minHeight', '100px');
+        const minHeightValue = parseInt(minHeightThreshold);
+        
+        if (currentHeight > minHeightValue) {
             this.domRegistry.applyStyles(element, {
                 height: currentHeight + 'px'
             });
@@ -427,8 +422,8 @@ export class ContentSectionManager {
                 this.domRegistry.applyStyles(element, {
                     height: 'auto'
                 });
-                contentBox.classList.remove('transitioning');
-            }, 100);
+                contentBox.classList.remove(configManager.get('dom.classes.transitioning'));
+            }, configManager.get('timing.delays.heightPreservation'));
         };
     }
 

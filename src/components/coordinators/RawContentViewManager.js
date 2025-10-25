@@ -13,6 +13,7 @@ import { ViewModeToggle } from '../ui/ViewModeToggle.js';
 import { CopyButton } from '../ui/CopyButton.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
 import { ViewModeManager } from './ViewModeManager.js';
+import { configManager } from '../../config/ConfigManager.js';
 
 export class RawContentViewManager {
     constructor(instanceService, domRegistry = null, contentSectionManager = null) {
@@ -241,7 +242,7 @@ export class RawContentViewManager {
 
         // Create copy button
         const copyBtn = new CopyButton(this.domRegistry, {
-            successDuration: 2000,
+            successDuration: configManager.get('ui.notifications.successDuration'),
             onCopySuccess: (content) => {
                 console.log(`✓ Copied ${sectionId}:`, content.substring(0, 50) + '...');
             },
@@ -254,7 +255,7 @@ export class RawContentViewManager {
 
         // Add button to container
         const buttonContainer = this.domRegistry.createElement('div', {
-            className: 'raw-content-actions'
+            className: configManager.get('dom.classes.rawContentActions')
         });
         buttonContainer.appendChild(button);
 

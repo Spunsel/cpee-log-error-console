@@ -11,6 +11,7 @@ import { StepViewer } from '../components/views/StepViewer.js';
 import { LogViewer } from '../components/views/LogViewer.js';
 import { RawContentViewManager } from '../components/coordinators/RawContentViewManager.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
+import { configManager } from '../config/ConfigManager.js';
 
 export class CPEEDebugConsole {
     constructor() {
@@ -272,10 +273,10 @@ export class CPEEDebugConsole {
                 // Show success message
                 const processNumberInput = this.getElement('processNumberInput');
                 if (processNumberInput) {
-                    processNumberInput.style.borderColor = '#28a745';
+                    processNumberInput.style.borderColor = configManager.get('styling.colors.success');
                     setTimeout(() => {
                         processNumberInput.style.borderColor = '';
-                    }, 2000);
+                    }, configManager.get('ui.notifications.successDuration'));
                 }
             }
 
@@ -286,10 +287,10 @@ export class CPEEDebugConsole {
             // Show error state
             const processNumberInput = this.getElement('processNumberInput');
             if (processNumberInput) {
-                processNumberInput.style.borderColor = '#dc3545';
+                processNumberInput.style.borderColor = configManager.get('styling.colors.error');
                 setTimeout(() => {
                     processNumberInput.style.borderColor = '';
-                }, 3000);
+                }, configManager.get('ui.notifications.errorDuration'));
             }
         } finally {
             // Reset button state

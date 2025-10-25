@@ -18,74 +18,97 @@ A debugging interface for LLM  CPEE extension with visual graph analysis and ste
 ### Project Structure
 ```
 src/
-├── core/                 # Core application logic
+├── core/                    # Core application logic
 │   ├── CPEEDebugConsole.js
-│   └── DOMRegistry.js
-├── modules/              # Business logic classes
-│   ├── CPEEStep.js      
-│   └── CPEEInstance.js  
-├── services/             # Data management services
-│   ├── LogService.js    
+│   ├── DOMRegistry.js
+│   └── JQueryExtensions.js
+├── config/                  # Configuration management
+│   ├── MermaidConfig.js
+│   └── ServiceConfig.js
+├── models/                  # Data models
+│   ├── CPEEInstance.js
+│   ├── CPEEStep.js
+│   ├── CPEETreeRaw.js
+│   ├── MermaidRaw.js
+│   └── UserInputRaw.js
+├── services/                # Business logic services
+│   ├── CPEEService.js
 │   ├── InstanceService.js
-│   └── CPEEService.js   
-├── components/           # UI components organized by responsibility
-│   ├── ui/              # Pure UI components
+│   ├── LogService.js
+│   ├── MermaidValidationService.js
+│   └── SVGProcessingService.js
+├── components/              # UI components organized by responsibility
+│   ├── ui/                 # Pure UI components
+│   │   ├── CopyButton.js
 │   │   ├── Sidebar.js
-│   │   └── StepNavigator.js
-│   ├── renderers/       # Graph rendering components
-│   │   ├── CPEEWfAdaptorRenderer.js
-│   │   └── MermaidRenderer.js
-│   ├── features/        # Feature-specific components
+│   │   ├── StepNavigator.js
+│   │   └── ViewModeToggle.js
+│   ├── views/              # Main view components
 │   │   ├── LogViewer.js
 │   │   └── StepViewer.js
-│   └── managers/        # Content coordination
-│       └── ContentSectionManager.js
-├── utils/               # Helper utilities organized by domain
-│   ├── dom/            # DOM manipulation
-│   │   ├── DOMUtils.js
-│   │   ├── DOMElementManager.js
-│   │   └── StatusManager.js
-│   ├── parsers/        # Data parsing
-│   │   ├── XMLProcessor.js
+│   ├── renderers/          # Graph rendering components
+│   │   ├── CPEEWfAdaptorRenderer.js
+│   │   ├── MermaidRenderer.js
+│   │   └── RawContentRenderer.js
+│   └── coordinators/       # Content coordination
+│       ├── ContentSectionManager.js
+│       ├── RawContentViewManager.js
+│       └── ViewModeManager.js
+├── utils/                   # Helper utilities organized by domain
+│   ├── content/            # Content processing utilities
+│   │   ├── ContentCleaner.js
+│   │   ├── XMLParser.js
 │   │   └── YAMLParser.js
-│   ├── integrations/   # Third-party integrations
-│   │   ├── cpee/      # CPEE-specific utilities
-│   │   └── mermaid/   # Mermaid-specific utilities
-│   └── system/        # System-level utilities
-│       ├── LibraryLoader.js
-│       └── URLUtils.js
-├── config/              # Configuration management
-│   ├── service-config.js
-│   └── ui-config.js
-├── libs/                # External libraries
-│   └── cpee/           # CPEE WfAdaptor & themes
-└── assets/             # Static resources
-    └── style.css        
+│   ├── dom/                # DOM manipulation utilities
+│   │   ├── DOMUtils.js
+│   │   └── StatusManager.js
+│   └── system/             # System-level utilities
+│       └── LibraryLoader.js
+├── libs/                    # External libraries
+│   └── cpee/               # CPEE WfAdaptor & themes
+│       ├── css/
+│       ├── themes/
+│       └── wfadaptor.js
+└── assets/                  # Static resources
+    ├── icons.js
+    └── style.css
 ```
 
 ### Core Architecture
 
-#### Modules Layer
+#### Core Layer
+- **CPEEDebugConsole**: Main application controller coordinating all components
+- **DOMRegistry**: Centralized DOM element management and manipulation
+- **JQueryExtensions**: jQuery integration utilities for CPEE system
+
+#### Models Layer
 - **CPEEStep & CPEEInstance**: Object-oriented representation of CPEE instance and user modification step
+- **Raw Content Models**: Specialized models for different content types (CPEETreeRaw, MermaidRaw, UserInputRaw)
 
 #### Service Layer  
 - **LogService**: YAML/text log parsing and step extraction with CORS handling
 - **InstanceService**: Multi-instance management and navigation state
 - **CPEEService**: CPEE server communication and UUID resolution
+- **MermaidValidationService**: Mermaid diagram validation and preprocessing
+- **SVGProcessingService**: SVG element processing and jQuery integration
 
 #### Component Layer
-- **UI Components**: Pure interface elements (sidebar navigation, step controls)
-- **Renderers**: Isolated graph rendering (CPEE WfAdaptor, Mermaid.js integration)
-- **Features**: Complete functionality modules (log viewing, step navigation)
-- **Managers**: Content coordination and section management
+- **UI Components**: Pure interface elements (sidebar navigation, step controls, copy button, view mode toggle)
+- **Views**: Main view components (log viewing, step navigation)
+- **Renderers**: Graph rendering components (CPEE WfAdaptor, Mermaid.js integration, raw content display)
+- **Coordinators**: Content coordination and section management
 
 #### Utility Layer
-- **Domain-organized**: Utilities grouped by responsibility (DOM, parsing, integrations, system)
+- **Content Processing**: XML/YAML parsing and content cleaning utilities
+- **DOM Utilities**: DOM manipulation and status management
+- **System Utilities**: Library loading and system-level functions
 
 ### Technologies Used
 - **Frontend**: JavaScript (ES6+), HTML5, CSS3
 - **Graph Rendering**: Mermaid.js, CPEE WfAdaptor
-- **Data Processing**: Custom YAML/XML parsers
+- **Data Processing**: Custom YAML/XML parsers with content cleaning
+- **DOM Management**: Centralized DOM registry pattern
+- **Architecture**: Component-based design with clear separation of concerns
 
 ## Quick Start
 

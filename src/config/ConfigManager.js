@@ -1,0 +1,696 @@
+/**
+ * Centralized Configuration Manager
+ * Consolidates all configuration settings from scattered files and hardcoded values
+ * Provides a single source of truth for all application configuration
+ */
+
+export class ConfigManager {
+    constructor() {
+        this.config = this.loadAllConfigurations();
+        this.observers = new Map(); // For configuration change notifications
+    }
+
+    /**
+     * Load and consolidate all configuration from various sources
+     * @returns {Object} Complete configuration object
+     */
+    loadAllConfigurations() {
+        return {
+            api: this.loadAPIConfig(),
+            ui: this.loadUIConfig(),
+            rendering: this.loadRenderingConfig(),
+            network: this.loadNetworkConfig(),
+            mermaid: this.loadMermaidConfig(),
+            cpee: this.loadCPEEConfig(),
+            dom: this.loadDOMConfig(),
+            timing: this.loadTimingConfig(),
+            styling: this.loadStylingConfig()
+        };
+    }
+
+    /**
+     * Load API configuration
+     * @returns {Object} API configuration
+     */
+    loadAPIConfig() {
+        return {
+            endpoints: {
+                cpeeBase: 'https://cpee.org/flow/engine',
+                cpeeLogs: 'https://cpee.org/logs',
+                cpeeGraph: 'https://cpee.org/flow/graph.html'
+            },
+            cors: {
+                proxies: [
+                    'https://corsproxy.io/?',
+                    'https://api.allorigins.win/raw?url=',
+                    'https://cors-anywhere.herokuapp.com/'
+                ],
+                timeout: 15000,
+                retryCount: 3
+            },
+            headers: {
+                yamlAccept: 'text/plain, application/x-yaml, text/yaml',
+                jsonAccept: 'text/plain, application/json, */*'
+            }
+        };
+    }
+
+    /**
+     * Load UI configuration
+     * @returns {Object} UI configuration
+     */
+    loadUIConfig() {
+        return {
+            layout: {
+                minHeight: '100vh',
+                maxWidth: '1200px',
+                containerPadding: '20px',
+                sectionSpacing: '20px'
+            },
+            forms: {
+                uuidInput: {
+                    maxWidth: '400px',
+                    minWidth: '300px',
+                    flex: 1
+                },
+                processNumberInput: {
+                    width: '120px'
+                }
+            },
+            navigation: {
+                stepControls: {
+                    buttonSpacing: '10px',
+                    fontSize: '0.9rem'
+                },
+                sidebar: {
+                    width: '250px',
+                    minWidth: '200px'
+                }
+            },
+            notifications: {
+                successDuration: 2000,
+                errorDuration: 3000,
+                warningDuration: 2500,
+                autoHideDelay: 100
+            }
+        };
+    }
+
+    /**
+     * Load rendering configuration
+     * @returns {Object} Rendering configuration
+     */
+    loadRenderingConfig() {
+        return {
+            containers: {
+                graphContainer: {
+                    minHeight: '100px',
+                    width: '100%',
+                    height: 'auto',
+                    border: 'none',
+                    borderRadius: '0',
+                    background: 'white',
+                    position: 'relative',
+                    margin: '0',
+                    padding: '0'
+                },
+                cpeeSection: {
+                    height: '400px',
+                    maxHeight: '400px',
+                    minHeight: '400px',
+                    overflowY: 'auto',
+                    overflowX: 'auto'
+                },
+                mermaidSection: {
+                    maxHeight: '400px',
+                    overflowX: 'auto',
+                    overflowY: 'auto',
+                    padding: '0'
+                },
+                intermediateGraph: {
+                    padding: '15px',
+                    nodeSpacing: '20px',
+                    rankSpacing: '25px',
+                    fontSize: '10px'
+                },
+                regularGraph: {
+                    padding: '20px',
+                    nodeSpacing: '25px',
+                    rankSpacing: '35px',
+                    fontSize: '11px'
+                }
+            },
+            svg: {
+                defaultHeight: '400px',
+                minHeight: '100px',
+                padding: '20px',
+                namespace: 'http://www.w3.org/2000/svg',
+                version: '1.1',
+                xmlnsX: 'http://www.w3.org/1999/xlink'
+            },
+            fallback: {
+                errorMessage: {
+                    margin: '20px',
+                    padding: '15px',
+                    border: '1px solid #ffc107',
+                    backgroundColor: '#fff3cd',
+                    color: '#856404',
+                    borderRadius: '4px'
+                }
+            }
+        };
+    }
+
+    /**
+     * Load network configuration
+     * @returns {Object} Network configuration
+     */
+    loadNetworkConfig() {
+        return {
+            timeouts: {
+                default: 15000,
+                libraryLoad: 10000,
+                uiAutoHide: 3000,
+                transitionDelay: 100
+            },
+            retries: {
+                maxAttempts: 3,
+                backoffMultiplier: 1.5,
+                initialDelay: 1000
+            }
+        };
+    }
+
+    /**
+     * Load Mermaid configuration
+     * @returns {Object} Mermaid configuration
+     */
+    loadMermaidConfig() {
+        return {
+            default: {
+                startOnLoad: false,
+                theme: 'base',
+                securityLevel: 'loose',
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                fontSize: 11
+            },
+            themeVariables: {
+                primaryColor: '#ffffff',
+                primaryBorderColor: '#000000',
+                primaryTextColor: '#000000',
+                mainBkg: '#ffffff',
+                secondBkg: '#ffffff',
+                tertiaryColor: '#ffffff',
+                altBackground: '#ffffff',
+                nodeBorder: '#000000',
+                secondaryBorderColor: '#000000',
+                tertiaryBorderColor: '#000000',
+                secondaryTextColor: '#000000',
+                tertiaryTextColor: '#000000',
+                clusterBkg: 'none',
+                clusterBorder: '#000000'
+            },
+            flowchart: {
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 25,
+                rankSpacing: 35,
+                useMaxWidth: false
+            },
+            sequence: {
+                diagramMarginX: 25,
+                diagramMarginY: 6,
+                actorMargin: 25,
+                width: 100,
+                height: 40,
+                boxMargin: 6,
+                boxTextMargin: 3,
+                noteMargin: 6,
+                messageMargin: 20,
+                useMaxWidth: false
+            },
+            gantt: {
+                titleTopMargin: 15,
+                barHeight: 12,
+                fontSize: 8,
+                fontFamily: '"Open Sans", sans-serif',
+                numberSectionStyles: 4,
+                axisFormat: '%Y-%m-%d',
+                useMaxWidth: false
+            },
+            availableThemes: ['base', 'default', 'dark', 'forest', 'neutral']
+        };
+    }
+
+    /**
+     * Load CPEE-specific configuration
+     * @returns {Object} CPEE configuration
+     */
+    loadCPEEConfig() {
+        return {
+            wfadaptor: {
+                themePath: 'src/libs/cpee/themes/preset/theme.js',
+                cssPath: 'src/libs/cpee/css/wfadaptor.css',
+                baseThemePath: 'src/libs/cpee/themes/base.js',
+                wfadaptorPath: 'src/libs/cpee/wfadaptor.js'
+            },
+            rendering: {
+                minHeight: '100px',
+                defaultHeight: '400px',
+                padding: '20px',
+                backgroundColor: '#ffffff'
+            },
+            validation: {
+                requireDescription: true,
+                validateXMLStructure: true,
+                checkElementExistence: true
+            }
+        };
+    }
+
+    /**
+     * Load DOM-related configuration
+     * @returns {Object} DOM configuration
+     */
+    loadDOMConfig() {
+        return {
+            elementIds: {
+                // Content sections
+                processAnalysis: 'process-analysis',
+                stepDetails: 'step-details',
+                inputCpeeContent: 'input-cpee-content',
+                outputCpeeContent: 'output-cpee-content',
+                inputIntermediateContent: 'input-intermediate-content',
+                outputIntermediateContent: 'output-intermediate-content',
+                userInputContent: 'user-input-content',
+                
+                // Log display
+                rawLogSection: 'raw-log-section',
+                rawLogContent: 'raw-log-content',
+                viewLog: 'view-log',
+                
+                // Form elements
+                uuidInput: 'uuid-input',
+                processNumberInput: 'process-number-input',
+                fetchUuid: 'fetch-uuid',
+                loadInstance: 'load-instance',
+                
+                // Instance management
+                instanceTabs: 'instance-tabs',
+                
+                // Main app structure
+                app: 'app',
+                appTitle: 'app-title'
+            },
+            classes: {
+                hidden: 'hidden',
+                transitioning: 'transitioning',
+                noContent: 'no-content',
+                contentError: 'content-error',
+                userInputSection: 'user-input-section',
+                rawContentActions: 'raw-content-actions'
+            },
+            attributes: {
+                contentType: 'data-content-type',
+                processNumber: 'data-process-number'
+            }
+        };
+    }
+
+    /**
+     * Load timing configuration
+     * @returns {Object} Timing configuration
+     */
+    loadTimingConfig() {
+        return {
+            transitions: {
+                fadeIn: 150,
+                fadeOut: 100,
+                slideIn: 200,
+                slideOut: 150
+            },
+            delays: {
+                successMessage: 2000,
+                errorMessage: 3000,
+                warningMessage: 2500,
+                autoHide: 100,
+                heightPreservation: 100
+            },
+            intervals: {
+                statusCheck: 1000,
+                progressUpdate: 500,
+                cacheCleanup: 300000 // 5 minutes
+            }
+        };
+    }
+
+    /**
+     * Load styling configuration
+     * @returns {Object} Styling configuration
+     */
+    loadStylingConfig() {
+        return {
+            colors: {
+                primary: '#007bff',
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#17a2b8',
+                background: '#ffffff',
+                surface: '#f8f9fa',
+                border: '#dee2e6',
+                textPrimary: '#212529',
+                textSecondary: '#6c757d'
+            },
+            spacing: {
+                xs: '4px',
+                sm: '8px',
+                md: '16px',
+                lg: '24px',
+                xl: '32px'
+            },
+            borderRadius: {
+                sm: '4px',
+                md: '8px',
+                lg: '12px'
+            },
+            shadows: {
+                sm: '0 1px 2px rgba(0,0,0,0.1)',
+                md: '0 2px 4px rgba(0,0,0,0.1)',
+                lg: '0 4px 8px rgba(0,0,0,0.1)'
+            },
+            typography: {
+                fontFamily: {
+                    primary: 'Arial, Helvetica, sans-serif',
+                    monospace: 'Monaco, Consolas, "Courier New", monospace'
+                },
+                fontSize: {
+                    xs: '0.75rem',
+                    sm: '0.875rem',
+                    md: '1rem',
+                    lg: '1.125rem',
+                    xl: '1.25rem'
+                },
+                fontWeight: {
+                    normal: '400',
+                    medium: '500',
+                    semibold: '600',
+                    bold: '700'
+                }
+            }
+        };
+    }
+
+    /**
+     * Get configuration value by path
+     * @param {string} path - Dot-separated path to configuration value
+     * @param {*} defaultValue - Default value if path not found
+     * @returns {*} Configuration value or default
+     */
+    get(path, defaultValue = null) {
+        try {
+            return path.split('.').reduce((obj, key) => {
+                if (obj && typeof obj === 'object' && key in obj) {
+                    return obj[key];
+                }
+                return defaultValue;
+            }, this.config);
+        } catch (error) {
+            console.warn(`ConfigManager: Error accessing path '${path}':`, error);
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Set configuration value by path
+     * @param {string} path - Dot-separated path to configuration value
+     * @param {*} value - Value to set
+     */
+    set(path, value) {
+        try {
+            const keys = path.split('.');
+            const lastKey = keys.pop();
+            const target = keys.reduce((obj, key) => {
+                if (!obj[key] || typeof obj[key] !== 'object') {
+                    obj[key] = {};
+                }
+                return obj[key];
+            }, this.config);
+            
+            const oldValue = target[lastKey];
+            target[lastKey] = value;
+            
+            // Notify observers of the change
+            this.notifyObservers(path, value, oldValue);
+            
+        } catch (error) {
+            console.error(`ConfigManager: Error setting path '${path}':`, error);
+        }
+    }
+
+    /**
+     * Check if configuration path exists
+     * @param {string} path - Dot-separated path to check
+     * @returns {boolean} True if path exists
+     */
+    has(path) {
+        return this.get(path, undefined) !== undefined;
+    }
+
+    /**
+     * Get entire configuration object
+     * @returns {Object} Complete configuration
+     */
+    getAll() {
+        return JSON.parse(JSON.stringify(this.config)); // Deep clone
+    }
+
+    /**
+     * Get configuration section
+     * @param {string} section - Section name (api, ui, rendering, etc.)
+     * @returns {Object} Configuration section
+     */
+    getSection(section) {
+        return this.get(section, {});
+    }
+
+    /**
+     * Merge configuration with existing values
+     * @param {string} path - Dot-separated path to merge into
+     * @param {Object} values - Values to merge
+     */
+    merge(path, values) {
+        const existing = this.get(path, {});
+        const merged = this.deepMerge(existing, values);
+        this.set(path, merged);
+    }
+
+    /**
+     * Subscribe to configuration changes
+     * @param {string} path - Path to watch (supports wildcards with *)
+     * @param {Function} callback - Callback function
+     * @returns {Function} Unsubscribe function
+     */
+    subscribe(path, callback) {
+        if (!this.observers.has(path)) {
+            this.observers.set(path, new Set());
+        }
+        
+        this.observers.get(path).add(callback);
+        
+        // Return unsubscribe function
+        return () => {
+            const observers = this.observers.get(path);
+            if (observers) {
+                observers.delete(callback);
+                if (observers.size === 0) {
+                    this.observers.delete(path);
+                }
+            }
+        };
+    }
+
+    /**
+     * Notify observers of configuration changes
+     * @param {string} path - Changed path
+     * @param {*} newValue - New value
+     * @param {*} oldValue - Old value
+     */
+    notifyObservers(path, newValue, oldValue) {
+        // Notify exact path matches
+        const exactObservers = this.observers.get(path);
+        if (exactObservers) {
+            exactObservers.forEach(callback => {
+                try {
+                    callback(newValue, oldValue, path);
+                } catch (error) {
+                    console.error('ConfigManager: Observer callback error:', error);
+                }
+            });
+        }
+
+        // Notify wildcard matches
+        this.observers.forEach((observers, observerPath) => {
+            if (observerPath.includes('*')) {
+                const pattern = observerPath.replace(/\*/g, '.*');
+                const regex = new RegExp(`^${pattern}$`);
+                if (regex.test(path)) {
+                    observers.forEach(callback => {
+                        try {
+                            callback(newValue, oldValue, path);
+                        } catch (error) {
+                            console.error('ConfigManager: Observer callback error:', error);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    /**
+     * Deep merge utility for configuration objects
+     * @param {Object} target - Target object
+     * @param {Object} source - Source object
+     * @returns {Object} Merged object
+     */
+    deepMerge(target, source) {
+        const result = { ...target };
+        
+        for (const key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+                if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+                    result[key] = this.deepMerge(result[key] || {}, source[key]);
+                } else {
+                    result[key] = source[key];
+                }
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Validate configuration object
+     * @param {Object} config - Configuration to validate
+     * @returns {Object} Validation result with errors and warnings
+     */
+    validate(config = this.config) {
+        const result = {
+            valid: true,
+            errors: [],
+            warnings: []
+        };
+
+        // Validate required sections
+        const requiredSections = ['api', 'ui', 'rendering', 'network'];
+        requiredSections.forEach(section => {
+            if (!config[section]) {
+                result.errors.push(`Missing required section: ${section}`);
+                result.valid = false;
+            }
+        });
+
+        // Validate API configuration
+        if (config.api) {
+            if (!config.api.endpoints?.cpeeBase) {
+                result.errors.push('Missing API endpoint: cpeeBase');
+                result.valid = false;
+            }
+            if (!config.api.cors?.proxies?.length) {
+                result.warnings.push('No CORS proxies configured');
+            }
+        }
+
+        // Validate timing configuration
+        if (config.timing) {
+            Object.entries(config.timing).forEach(([category, timings]) => {
+                Object.entries(timings).forEach(([key, value]) => {
+                    if (typeof value === 'number' && value < 0) {
+                        result.errors.push(`Invalid timing value: ${category}.${key} = ${value}`);
+                        result.valid = false;
+                    }
+                });
+            });
+        }
+
+        return result;
+    }
+
+    /**
+     * Reset configuration to defaults
+     */
+    reset() {
+        this.config = this.loadAllConfigurations();
+        this.notifyObservers('*', this.config, null);
+    }
+
+    /**
+     * Export configuration to JSON string
+     * @returns {string} JSON string representation
+     */
+    export() {
+        return JSON.stringify(this.config, null, 2);
+    }
+
+    /**
+     * Import configuration from JSON string
+     * @param {string} jsonString - JSON string to import
+     * @returns {boolean} True if import successful
+     */
+    import(jsonString) {
+        try {
+            const importedConfig = JSON.parse(jsonString);
+            const validation = this.validate(importedConfig);
+            
+            if (validation.valid) {
+                this.config = this.deepMerge(this.config, importedConfig);
+                this.notifyObservers('*', this.config, null);
+                return true;
+            } else {
+                console.error('ConfigManager: Import validation failed:', validation.errors);
+                return false;
+            }
+        } catch (error) {
+            console.error('ConfigManager: Import failed:', error);
+            return false;
+        }
+    }
+
+    /**
+     * Get configuration summary for debugging
+     * @returns {Object} Configuration summary
+     */
+    getSummary() {
+        return {
+            sections: Object.keys(this.config),
+            totalKeys: this.countKeys(this.config),
+            observers: this.observers.size,
+            validation: this.validate()
+        };
+    }
+
+    /**
+     * Count total configuration keys recursively
+     * @param {Object} obj - Object to count keys in
+     * @returns {number} Total key count
+     */
+    countKeys(obj) {
+        let count = 0;
+        for (const key in obj) {
+            if (Object.prototype.hasOwnProperty.call(obj, key)) {
+                count++;
+                if (typeof obj[key] === 'object' && obj[key] !== null) {
+                    count += this.countKeys(obj[key]);
+                }
+            }
+        }
+        return count;
+    }
+}
+
+// Create singleton instance
+export const configManager = new ConfigManager();
+
+// Export for backward compatibility
+export default configManager;

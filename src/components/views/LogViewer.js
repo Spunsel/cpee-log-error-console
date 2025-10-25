@@ -3,7 +3,7 @@
  * Handles display of raw log content
  */
 
-import { buildLogUrl, CORS_CONFIG } from '../../config/ServiceConfig.js';
+import { configManager } from '../../config/ConfigManager.js';
 
 export class LogViewer {
     constructor(domRegistry = null) {
@@ -48,16 +48,17 @@ export class LogViewer {
             this.showLogLoading();
             
             // Fetch raw log using the same approach as LogService
-            const logUrl = buildLogUrl(uuid);
+            const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
             
             // Create timeout controller
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 15000);
+            const timeoutId = setTimeout(() => controller.abort(), configManager.get('network.timeouts.default'));
             
-            const response = await fetch(CORS_CONFIG.PROXIES[0] + encodeURIComponent(logUrl), {
+            const proxies = configManager.get('api.cors.proxies');
+            const response = await fetch(proxies[0] + encodeURIComponent(logUrl), {
                 method: 'GET',
                 headers: {
-                    'Accept': 'text/plain, application/x-yaml, text/yaml'
+                    'Accept': configManager.get('api.headers.yamlAccept')
                 },
                 signal: controller.signal
             });
@@ -166,7 +167,7 @@ export class LogViewer {
                 header.textContent = 'Raw Log Content';
             }
             
-            const originalUrl = buildLogUrl(uuid);
+            const originalUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
             rawLogContent.innerHTML = `
                 <div style="color: var(--error-color); margin-bottom: 1rem;">
                     <strong>CORS Error:</strong> Unable to fetch log directly. Try these options:

@@ -9,6 +9,7 @@ import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { ContentCleaner } from '../../utils/content/ContentCleaner.js';
 import { SVGProcessingService } from '../../services/SVGProcessingService.js';
 import { JQueryExtensions } from '../../core/JQueryExtensions.js';
+import { configManager } from '../../config/ConfigManager.js';
 
 export class CPEEWfAdaptorRenderer {
     
@@ -69,27 +70,28 @@ export class CPEEWfAdaptorRenderer {
         this.container.innerHTML = '';
         // Don't override container styling - let parent determine size
         this.container.style.cssText = `
-            background: #ffffff;
+            background: ${configManager.get('rendering.containers.graphContainer.background')};
             position: relative;
-            width: 100%;
+            width: ${configManager.get('rendering.containers.graphContainer.width')};
             height: auto;
         `;
         
         // Create SVG container matching CPEE structure with unique IDs
         const graphDiv = document.createElement('div');
         graphDiv.id = `modelling-${this.container.id}`;
-        graphDiv.style.cssText = 'width: 100%; height: auto; position: relative; min-height: 100px;';
+        const minHeight = configManager.get('rendering.containers.graphContainer.minHeight');
+        graphDiv.style.cssText = `width: 100%; height: auto; position: relative; min-height: ${minHeight};`;
         
         const gridDiv = document.createElement('div');
         gridDiv.id = `graphgrid-${this.container.id}`;
-        gridDiv.style.cssText = 'width: 100%; height: auto; min-height: 100px;';
+        gridDiv.style.cssText = `width: 100%; height: auto; min-height: ${minHeight};`;
         
         // Create SVG element for CPEE rendering with unique ID
-        this.svgContainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        this.svgContainer = document.createElementNS(configManager.get('rendering.svg.namespace'), 'svg');
         this.svgContainer.id = `graphcanvas-${this.container.id}`;
-        this.svgContainer.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        this.svgContainer.setAttribute('version', '1.1');
-        this.svgContainer.setAttribute('xmlns:x', 'http://www.w3.org/1999/xlink');
+        this.svgContainer.setAttribute('xmlns', configManager.get('rendering.svg.namespace'));
+        this.svgContainer.setAttribute('version', configManager.get('rendering.svg.version'));
+        this.svgContainer.setAttribute('xmlns:x', configManager.get('rendering.svg.xmlnsX'));
         this.svgContainer.style.cssText = 'display: block; width: auto; height: auto;';
         
         gridDiv.appendChild(this.svgContainer);

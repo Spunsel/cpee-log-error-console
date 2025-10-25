@@ -9,7 +9,7 @@ import { StatusManager } from '../../utils/dom/StatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { DOMUtils } from '../../utils/dom/DOMUtils.js';
 import { ContentCleaner } from '../../utils/content/ContentCleaner.js';
-import { MermaidConfig } from '../../config/MermaidConfig.js';
+import { configManager } from '../../config/ConfigManager.js';
 
 export class MermaidRenderer {
     constructor() {
@@ -63,9 +63,9 @@ export class MermaidRenderer {
         }
 
         this.container.style.cssText = `
-            width: 100%;
+            width: ${configManager.get('rendering.containers.graphContainer.width')};
             height: auto;
-            min-height: 300px;
+            min-height: ${configManager.get('rendering.containers.graphContainer.minHeight')};
             position: relative;
             overflow: auto;
             background: white;
@@ -100,7 +100,7 @@ export class MermaidRenderer {
         }
 
         // Use configuration manager for consistent setup
-        const config = MermaidConfig.getDefaultConfig();
+        const config = configManager.getSection('mermaid');
         window.mermaid.initialize(config);
 
         console.log('✅ Mermaid initialized with configuration');
@@ -139,8 +139,16 @@ export class MermaidRenderer {
             
             // Use container-specific configuration for intermediate graphs
             if (isIntermediateGraph) {
-                const intermediateConfig = MermaidConfig.getContainerConfig(true);
-                window.mermaid.initialize(intermediateConfig);
+                const intermediateConfig = configManager.get('rendering.containers.intermediateGraph');
+                const mermaidConfig = configManager.getSection('mermaid');
+                
+                // Apply intermediate-specific settings
+                mermaidConfig.flowchart.padding = parseInt(intermediateConfig.padding);
+                mermaidConfig.flowchart.nodeSpacing = parseInt(intermediateConfig.nodeSpacing);
+                mermaidConfig.flowchart.rankSpacing = parseInt(intermediateConfig.rankSpacing);
+                mermaidConfig.fontSize = parseInt(intermediateConfig.fontSize);
+                
+                window.mermaid.initialize(mermaidConfig);
             }
             
             graphDiv.style.cssText = `

@@ -6,7 +6,7 @@
 import { ContentCleaner } from '../utils/content/ContentCleaner.js';
 import { CPEEStep } from '../models/CPEEStep.js';
 import { YAMLParser } from '../utils/content/YAMLParser.js';
-import { buildLogUrl, CORS_CONFIG } from '../config/ServiceConfig.js';
+import { configManager } from '../config/ConfigManager.js';
 
 export class LogService {
 
@@ -23,22 +23,23 @@ export class LogService {
         
         console.log('Fetching log for parsing...');
         
-        const logUrl = buildLogUrl(uuid);
+        const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
         
         // Try each proxy in sequence
-        for (let i = 0; i < CORS_CONFIG.PROXIES.length; i++) {
-            const proxy = CORS_CONFIG.PROXIES[i];
+        const proxies = configManager.get('api.cors.proxies');
+        for (let i = 0; i < proxies.length; i++) {
+            const proxy = proxies[i];
             
             try {
-                console.log(`Trying proxy ${i + 1}/${CORS_CONFIG.PROXIES.length}: ${proxy}`);
+                console.log(`Trying proxy ${i + 1}/${proxies.length}: ${proxy}`);
                 
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000);
+                const timeoutId = setTimeout(() => controller.abort(), configManager.get('network.timeouts.default'));
                 
                 const response = await fetch(proxy + encodeURIComponent(logUrl), {
                     method: 'GET',
                     headers: {
-                        'Accept': 'text/plain, application/x-yaml, text/yaml'
+                        'Accept': configManager.get('api.headers.yamlAccept')
                     },
                     signal: controller.signal
                 });
@@ -67,7 +68,7 @@ export class LogService {
                 console.warn(`Proxy ${i + 1} failed:`, error.message);
                 
                 // If this is the last proxy, throw the error
-                if (i === CORS_CONFIG.PROXIES.length - 1) {
+                if (i === proxies.length - 1) {
                     if (error.name === 'AbortError') {
                         throw new Error('LogService: All proxies timed out - log file may be large or servers are slow');
                     }

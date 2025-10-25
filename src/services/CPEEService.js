@@ -3,7 +3,7 @@
  * Handles communication with CPEE endpoints for process instance data
  */
 
-import { buildGraphUrl, buildInstanceUrl, buildUuidUrl, CORS_CONFIG } from '../config/ServiceConfig.js';
+import { configManager } from '../config/ConfigManager.js';
 
 export class CPEEService {
     
@@ -18,17 +18,18 @@ export class CPEEService {
             throw new Error('CPEEService: Invalid process number - must be a valid number');
         }
         
-        const uuidUrl = buildUuidUrl(processNumber);
+        const uuidUrl = `${configManager.get('api.endpoints.cpeeBase')}/${processNumber}/properties/attributes/uuid/`;
         
         try {
             console.log(`Fetching UUID for process number: ${processNumber}`);
             console.log(`URL: ${uuidUrl}`);
             
             // Use CORS proxy to fetch the UUID
-            const response = await fetch(CORS_CONFIG.PROXIES[0] + encodeURIComponent(uuidUrl), {
+            const proxies = configManager.get('api.cors.proxies');
+            const response = await fetch(proxies[0] + encodeURIComponent(uuidUrl), {
                 method: 'GET',
                 headers: {
-                    'Accept': 'text/plain, application/json, */*'
+                    'Accept': configManager.get('api.headers.jsonAccept')
                 }
             });
             
@@ -64,7 +65,7 @@ export class CPEEService {
             throw new Error('CPEEService: Invalid process number - must be a positive integer');
         }
         
-        return buildGraphUrl(processNumber);
+        return `${configManager.get('api.endpoints.cpeeGraph')}?monitor=${configManager.get('api.endpoints.cpeeBase')}/${processNumber}/`;
     }
     
     /**
@@ -78,7 +79,7 @@ export class CPEEService {
             throw new Error('CPEEService: Invalid process number - must be a positive integer');
         }
         
-        return buildInstanceUrl(processNumber);
+        return `${configManager.get('api.endpoints.cpeeBase')}/${processNumber}/`;
     }
     
     /**

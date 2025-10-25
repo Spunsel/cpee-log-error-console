@@ -1380,36 +1380,7 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
   - Eliminated all delegation dependencies and redundant code
 
 
-  
 
-
-## Future Enhancements (Backlog)
-
-### Potential Features for Future Phases
-- [ ] **Advanced search and filtering**
-  - [ ] Full-text search across logs
-  - [ ] Advanced filtering options
-  - [ ] Saved search queries
-- [ ] **Diff view for comparing steps**
-  - [ ] Visual diff between consecutive steps
-  - [ ] Highlight changes in code
-  - [ ] Show transformation deltas
-- [ ] **Export and reporting**
-  - [ ] Export debugging sessions
-  - [ ] Generate PDF reports
-  - [ ] Share debugging sessions
-- [ ] **Collaborative debugging**
-  - [ ] Share session URLs
-  - [ ] Add annotations to steps
-  - [ ] Collaborative notes
-- [ ] **Performance monitoring**
-  - [ ] Track LLM response times
-  - [ ] Monitor transformation success rates
-  - [ ] Generate performance reports
-- [ ] **Automated error suggestions**
-  - [ ] AI-powered error explanations
-  - [ ] Suggest fixes for common errors
-  - [ ] Link to documentation
 
 ## Phase 25: Utilities Reorganization and Structure Improvement
 
@@ -1458,19 +1429,8 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
   - [x] Removed empty `utils/parsers/` directory
   - [x] Removed empty `utils/integrations/` directory structure
 
-### 25.5 Benefits Achieved ✅
-- [x] **Improved maintainability**
-  - [x] Clear separation of concerns by directory
-  - [x] More descriptive class names following best practices
-  - [x] Reduced cognitive load when navigating codebase
-- [x] **Better organization**
-  - [x] Related functionality grouped together
-  - [x] Easier to find and understand utilities
-  - [x] Consistent naming conventions
-- [x] **Enhanced clarity**
-  - [x] Class names reflect their actual responsibilities
-  - [x] Directory structure matches functional organization
-  - [x] Reduced confusion about where to find specific utilities
+
+
 
 ## Phase 26: Core Architecture Reorganization
 
@@ -1497,11 +1457,331 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
   - [x] `CPEEWfAdaptorRenderer.js` - Updated to import `SVGProcessingService` and `JQueryExtensions`
   - [x] Updated class instantiations to use new service names
 
-### 26.4 Bug Fixes and Error Resolution ✅
-- [x] **Fixed MermaidRenderer.js line 268 error**
-  - [x] Replaced `MermaidSyntaxProcessor.getSupportedDiagramTypes()` call
-  - [x] Implemented direct return of `['flowchart', 'graph']` array
-  - [x] Fixed validation logic to accept both `graph` and `flowchart` syntax
 
 
+---
 
+## Phase 27: Cross-Element Highlighting System
+
+### 27.1 Architecture Design and Planning
+- [ ] **Design element ID tracking system**
+  - [ ] Define element ID structure and naming conventions
+  - [ ] Plan ID propagation across all content sections (input-cpee, input-intermediate, user-input, output-intermediate, output-cpee)
+  - [ ] Design highlighting coordination system architecture
+  - [ ] Define element mapping between different formats (CPEE XML ↔ Mermaid ↔ Raw text)
+- [ ] **Create system architecture documentation**
+  - [ ] Design event-driven highlighting system
+  - [ ] Plan publish-subscribe pattern for cross-section communication
+  - [ ] Define element registry and tracking mechanisms
+  - [ ] Document performance considerations for large diagrams
+
+### 27.2 Element ID Extraction and Registry System
+- [ ] **Create ElementIDRegistry.js in utils/dom/**
+  - [ ] Implement element ID extraction from CPEE XML trees
+  - [ ] Implement node ID extraction from Mermaid diagrams
+  - [ ] Create ID mapping between different content formats
+  - [ ] Store element ID mappings with position information
+  - [ ] Track element positions across all sections
+  - [ ] Implement ID validation and conflict resolution
+- [ ] **Extend existing parsers for ID extraction**
+  - [ ] Update XMLParser.js to extract element IDs and labels
+  - [ ] Update MermaidRenderer.js to extract node IDs from syntax
+  - [ ] Update ContentCleaner.js to preserve ID information during cleaning
+  - [ ] Ensure ID extraction works for both input and output content
+
+### 27.3 Hover Detection and Event System
+- [ ] **Implement hover event handlers**
+  - [ ] Add hover listeners to CPEE graph SVG elements
+  - [ ] Add hover listeners to Mermaid diagram SVG elements
+  - [ ] Implement debouncing for performance optimization
+  - [ ] Add hover detection for raw text content (line-based highlighting)
+  - [ ] Handle hover events for user input section
+- [ ] **Create HoverManager.js in components/managers/**
+  - [ ] Implement centralized hover event coordination
+  - [ ] Handle hover state changes and transitions
+  - [ ] Manage hover timeout and cleanup
+  - [ ] Implement hover event broadcasting to all sections
+  - [ ] Track currently hovered element across all sections
+- [ ] **Create event bus for highlighting communication**
+  - [ ] Implement publish-subscribe pattern for hover events
+  - [ ] Emit hover events with element ID and section information
+  - [ ] Listen for hover events in all content sections
+  - [ ] Handle rapid hover changes and state synchronization
+
+### 27.4 Element Highlighting Implementation
+- [ ] **Create HighlightManager.js in utils/dom/**
+  - [ ] Implement highlight application logic for different element types
+  - [ ] Implement highlight removal and cleanup logic
+  - [ ] Create CSS class management for highlighted elements
+  - [ ] Handle highlight state persistence during content updates
+  - [ ] Implement highlight animation and transition effects
+- [ ] **Add highlighting to CPEE graphs**
+  - [ ] Modify CPEEWfAdaptorRenderer.js for element highlighting
+  - [ ] Add CSS classes for highlighted CPEE elements
+  - [ ] Handle SVG element highlighting with proper z-index
+  - [ ] Implement highlight for different CPEE element types (calls, tasks, events)
+  - [ ] Ensure highlighting works with CPEE theme system
+- [ ] **Add highlighting to Mermaid diagrams**
+  - [ ] Modify MermaidRenderer.js for node highlighting
+  - [ ] Access Mermaid SVG elements after rendering
+  - [ ] Apply highlight styles to Mermaid nodes and edges
+  - [ ] Handle different Mermaid diagram types (flowchart, graph, etc.)
+  - [ ] Implement highlighting for Mermaid subgraphs and clusters
+- [ ] **Add highlighting to raw code views**
+  - [ ] Highlight corresponding code lines in raw XML/Mermaid views
+  - [ ] Implement line number highlighting for raw content
+  - [ ] Add background color highlighting to highlighted text
+  - [ ] Handle highlighting in user input raw text
+  - [ ] Ensure highlighting works with copy functionality
+
+### 27.5 Cross-Section Coordination and Synchronization
+- [ ] **Implement highlight synchronization across all sections**
+  - [ ] Synchronize highlighting across input CPEE tree
+  - [ ] Synchronize highlighting across input intermediate (Mermaid)
+  - [ ] Synchronize highlighting across user input section
+  - [ ] Synchronize highlighting across output intermediate (Mermaid)
+  - [ ] Synchronize highlighting across output CPEE tree
+- [ ] **Create cross-section element mapping**
+  - [ ] Map elements between input CPEE tree and input Mermaid
+  - [ ] Map elements between input Mermaid and output Mermaid
+  - [ ] Map elements between output Mermaid and output CPEE tree
+  - [ ] Handle element transformations and ID changes during LLM processing
+  - [ ] Create fallback highlighting for unmappable elements
+- [ ] **Handle highlight conflicts and edge cases**
+  - [ ] Manage multiple simultaneous hover events
+  - [ ] Clear previous highlights before applying new ones
+  - [ ] Handle rapid hover changes and state conflicts
+  - [ ] Implement highlight priority system for overlapping elements
+  - [ ] Handle elements that exist in some sections but not others
+
+### 27.6 Visual Styling and User Experience
+- [ ] **Design comprehensive highlight styles**
+  - [ ] Create CSS classes for highlighted elements across all content types
+  - [ ] Define highlight colors with proper accessibility contrast
+  - [ ] Add highlight glow/border effects for better visibility
+  - [ ] Implement smooth highlight transitions and animations
+  - [ ] Ensure highlighting works in both light and dark themes
+- [ ] **Add hover feedback and interaction cues**
+  - [ ] Change cursor to pointer on hoverable elements
+  - [ ] Add subtle hover preview effects
+  - [ ] Implement smooth highlight transitions
+  - [ ] Add visual feedback for non-hoverable elements
+  - [ ] Create hover tooltips with element information
+- [ ] **Ensure accessibility compliance**
+  - [ ] Maintain sufficient color contrast for highlighted elements
+  - [ ] Add keyboard navigation support for highlighting
+  - [ ] Support focus states for highlighting
+  - [ ] Implement screen reader announcements for highlighted elements
+  - [ ] Add high contrast mode support
+
+### 27.7 Performance Optimization and Scalability
+- [ ] **Optimize hover detection performance**
+  - [ ] Implement event delegation for better performance
+  - [ ] Throttle/debounce hover events to prevent excessive processing
+  - [ ] Minimize DOM queries during hover operations
+  - [ ] Use efficient element selection strategies
+  - [ ] Implement lazy loading for hover event listeners
+- [ ] **Optimize rendering performance**
+  - [ ] Use CSS transforms for highlight animations
+  - [ ] Batch DOM updates for multiple highlight changes
+  - [ ] Use requestAnimationFrame for smooth highlight updates
+  - [ ] Implement highlight caching for frequently accessed elements
+  - [ ] Optimize SVG manipulation for CPEE and Mermaid elements
+- [ ] **Test with large and complex diagrams**
+  - [ ] Test highlighting with complex CPEE trees (100+ elements)
+  - [ ] Test highlighting with large Mermaid diagrams (50+ nodes)
+  - [ ] Profile performance bottlenecks with large content
+  - [ ] Implement performance monitoring for highlight operations
+  - [ ] Add performance fallbacks for very large diagrams
+
+### 27.8 Integration with Existing Systems
+- [ ] **Integrate with view mode toggle system**
+  - [ ] Ensure highlighting works in both visual and raw modes
+  - [ ] Handle highlight state during view mode transitions
+  - [ ] Maintain highlight state when switching between modes
+  - [ ] Update highlighting when content is refreshed
+- [ ] **Integrate with step navigation**
+  - [ ] Preserve highlight state during step navigation
+  - [ ] Clear highlights when switching to different steps
+  - [ ] Handle highlighting for steps with different content structures
+  - [ ] Implement highlight persistence across step changes
+- [ ] **Integrate with multi-instance support**
+  - [ ] Ensure highlighting works independently per instance
+  - [ ] Handle highlight state during instance switching
+  - [ ] Clear highlights when switching instances
+  - [ ] Maintain highlight performance with multiple instances
+
+### 27.9 Testing and Quality Assurance
+- [ ] **Comprehensive functionality testing**
+  - [ ] Test hover on each element type (CPEE calls, tasks, events, Mermaid nodes, edges)
+  - [ ] Verify cross-section synchronization works correctly
+  - [ ] Test highlighting with multiple instances
+  - [ ] Test highlighting with different step types
+- [ ] **Edge case testing**
+  - [ ] Test elements without IDs or with duplicate IDs
+  - [ ] Test highlighting with malformed or incomplete content
+  - [ ] Test highlighting with very large diagrams
+  - [ ] Test highlighting with empty or missing sections
+  - [ ] Test highlighting during content loading states
+- [ ] **User acceptance testing**
+  - [ ] Gather feedback on highlight visibility and usability
+  - [ ] Test highlighting with different screen sizes and resolutions
+  - [ ] Verify intuitive behavior across different user workflows
+  - [ ] Test highlighting performance with real-world CPEE instances
+- [ ] **Regression testing**
+  - [ ] Ensure highlighting doesn't break existing functionality
+  - [ ] Test view mode toggles still work correctly
+  - [ ] Test step navigation still work correctly
+  - [ ] Test copy functionality still works correctly
+  - [ ] Test all existing features with highlighting enabled
+
+### 27.10 Configuration and Customization
+- [ ] **Add highlighting configuration options**
+  - [ ] Create highlighting toggle in UI configuration
+  - [ ] Add highlight color customization options
+  - [ ] Implement highlight intensity settings
+  - [ ] Add highlighting animation speed controls
+  - [ ] Store highlighting preferences in localStorage
+- [ ] **Implement highlighting modes**
+  - [ ] Add "always on" highlighting mode
+  - [ ] Add "hover only" highlighting mode
+  - [ ] Add "click to highlight" mode
+  - [ ] Add "temporary highlight" mode with timeout
+  - [ ] Implement highlighting mode switching
+
+### 27.11 Documentation and User Guide
+- [ ] **Create highlighting system documentation**
+  - [ ] Document highlighting architecture and design decisions
+  - [ ] Create API documentation for highlighting components
+  - [ ] Document configuration options and customization
+  - [ ] Create troubleshooting guide for highlighting issues
+- [ ] **Update user documentation**
+  - [ ] Add highlighting feature to README.md
+  - [ ] Create user guide for highlighting functionality
+  - [ ] Add highlighting examples and use cases
+  - [ ] Document keyboard shortcuts and accessibility features
+- [ ] **Create developer documentation**
+  - [ ] Document how to extend highlighting for new content types
+  - [ ] Create examples for adding highlighting to custom components
+  - [ ] Document highlighting performance best practices
+  - [ ] Create debugging guide for highlighting issues
+
+### 27.12 Final Integration and Polish
+- [ ] **Complete system integration**
+  - [ ] Integrate all highlighting components into main application
+  - [ ] Update CPEEDebugConsole.js to initialize highlighting system
+  - [ ] Ensure highlighting works with all existing features
+  - [ ] Test complete highlighting workflow end-to-end
+- [ ] **Performance optimization and cleanup**
+  - [ ] Optimize highlighting performance for production use
+  - [ ] Remove debug logging and development code
+  - [ ] Clean up unused highlighting code and dependencies
+  - [ ] Optimize bundle size impact of highlighting features
+- [ ] **Final testing and validation**
+  - [ ] Complete comprehensive testing of highlighting system
+  - [ ] Validate highlighting works with all supported CPEE instances
+  - [ ] Test highlighting across different browsers and devices
+  - [ ] Verify highlighting meets accessibility standards
+  - [ ] Confirm highlighting enhances user experience without performance impact
+
+---
+
+## Future Enhancements (Backlog)
+
+### Potential Features for Future Phases
+- [ ] **Advanced search and filtering**
+  - [ ] Full-text search across logs
+  - [ ] Advanced filtering options
+  - [ ] Saved search queries
+- [ ] **Diff view for comparing steps**
+  - [ ] Visual diff between consecutive steps
+  - [ ] Highlight changes in code
+  - [ ] Show transformation deltas
+## Phase 22: Centralized Configuration Management System
+
+### 22.1 Configuration Architecture Refactoring
+- [x] **Created centralized ConfigManager class**
+  - [x] Comprehensive configuration consolidation from scattered files
+  - [x] Dot-notation path access for configuration values
+  - [x] Configuration change subscription system
+  - [x] Deep merge functionality for configuration objects
+  - [x] Configuration validation and error handling
+  - [x] Export/import functionality for configuration management
+
+### 22.2 Configuration Consolidation
+- [x] **Consolidated existing configuration files**
+  - [x] Updated ServiceConfig.js to use ConfigManager (backward compatibility)
+  - [x] Updated MermaidConfig.js to use ConfigManager (backward compatibility)
+  - [x] Updated DOMRegistry.js to use ConfigManager for element mappings
+  - [x] Centralized API endpoints, CORS settings, and network timeouts
+  - [x] Unified UI configuration (layout, forms, navigation, notifications)
+  - [x] Consolidated rendering configuration (containers, SVG settings, fallbacks)
+  - [x] Centralized Mermaid configuration (themes, flowchart, sequence, gantt)
+  - [x] Unified CPEE-specific configuration (WfAdaptor paths, validation settings)
+  - [x] Centralized DOM configuration (element IDs, classes, attributes)
+  - [x] Unified timing configuration (transitions, delays, intervals)
+  - [x] Centralized styling configuration (colors, spacing, typography)
+
+### 22.3 Component Updates
+- [x] **Updated components to use ConfigManager**
+  - [x] CPEEDebugConsole.js: Replaced hardcoded colors and timing values
+  - [x] ContentSectionManager.js: Used ConfigManager for container styling and timing
+  - [x] RawContentViewManager.js: Used ConfigManager for notification durations and CSS classes
+  - [x] MermaidRenderer.js: Used ConfigManager for container styling
+  - [x] CPEEWfAdaptorRenderer.js: Used ConfigManager for SVG settings and container styling
+  - [x] LogService.js: Used ConfigManager for network timeout values
+
+### 22.4 Hardcoded Value Elimination
+- [x] **Removed hardcoded values from components**
+  - [x] Replaced magic numbers with configuration values
+  - [x] Centralized color definitions and styling constants
+  - [x] Unified timing values across all components
+  - [x] Consolidated container sizing and layout settings
+  - [x] Centralized DOM element ID mappings
+  - [x] Unified notification and error handling settings
+
+### 22.5 Testing Infrastructure
+- [x] **Created comprehensive test suite for ConfigManager**
+  - [x] Configuration loading and validation tests
+  - [x] Path-based access and modification tests
+  - [x] Subscription and change notification tests
+  - [x] Export/import functionality tests
+  - [x] Deep merge and validation tests
+  - [x] Error handling and edge case tests
+
+### 22.7 Legacy Configuration Cleanup
+- [x] **Removed legacy configuration files**
+  - [x] Deleted ServiceConfig.js (functionality moved to ConfigManager)
+  - [x] Deleted MermaidConfig.js (functionality moved to ConfigManager)
+  - [x] Updated all components to use ConfigManager directly
+  - [x] Eliminated all imports from deleted configuration files
+  - [x] Verified no linting errors or broken references
+
+### 22.8 Final Configuration Architecture
+- [x] **Single source of truth achieved**
+  - [x] Only ConfigManager.js remains for all configuration
+  - [x] All components use ConfigManager directly
+  - [x] No legacy configuration files or backward compatibility layers
+  - [x] Clean, maintainable configuration architecture
+
+---
+
+## Future Enhancements
+
+### Phase 23: Advanced Features (Planned)
+- [ ] **Export and reporting**
+  - [ ] Export debugging sessions
+  - [ ] Generate PDF reports
+  - [ ] Share debugging sessions
+- [ ] **Collaborative debugging**
+  - [ ] Share session URLs
+  - [ ] Add annotations to steps
+  - [ ] Collaborative notes
+- [ ] **Performance monitoring**
+  - [ ] Track LLM response times
+  - [ ] Monitor transformation success rates
+  - [ ] Generate performance reports
+- [ ] **Automated error suggestions**
+  - [ ] AI-powered error explanations
+  - [ ] Suggest fixes for common errors
+  - [ ] Link to documentation 

@@ -4,6 +4,8 @@
  * Provides dependency injection for DOM elements using semantic keys instead of hardcoded IDs
  */
 
+import { configManager } from '../config/ConfigManager.js';
+
 export class DOMRegistry {
     constructor() {
         this.elements = new Map();
@@ -336,35 +338,6 @@ export class DOMRegistry {
 /**
  * Default DOM element mappings for the CPEE Debug Console
  * Maps semantic keys to actual DOM element IDs
+ * Now uses ConfigManager for centralized configuration
  */
-export const DEFAULT_DOM_MAPPINGS = {
-    // Content sections
-    processAnalysis: 'process-analysis',
-    stepDetails: 'step-details',
-    inputCpeeContent: 'input-cpee-content',
-    outputCpeeContent: 'output-cpee-content',
-    inputIntermediateContent: 'input-intermediate-content',
-    outputIntermediateContent: 'output-intermediate-content',
-    userInputContent: 'user-input-content',
-    
-    // Log display
-    rawLogSection: 'raw-log-section',
-    rawLogContent: 'raw-log-content',
-    viewLog: 'view-log',
-    
-    // Note: Dynamic elements like step navigation, hideLog, loadPastedLog, manualLogInput
-    // are registered by their respective components when created
-    
-    // Form elements
-    uuidInput: 'uuid-input',
-    processNumberInput: 'process-number-input',
-    fetchUuid: 'fetch-uuid',
-    loadInstance: 'load-instance',
-    
-    // Instance management
-    instanceTabs: 'instance-tabs',
-    
-    // Main app structure
-    app: 'app',
-    appTitle: 'app-title'
-};
+export const DEFAULT_DOM_MAPPINGS = configManager.getSection('dom.elementIds');
