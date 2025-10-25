@@ -169,6 +169,7 @@ export class LogService {
                 }
                 stepGroups[changeUuid].events.push(event.event);
                 
+                
                 // Keep earliest timestamp for step ordering
                 if (timestamp < stepGroups[changeUuid].timestamp) {
                     stepGroups[changeUuid].timestamp = timestamp;
@@ -183,6 +184,10 @@ export class LogService {
         
         // Extract content from each step and create CPEEStep objects
         return steps.map((step, index) => {
+            step.events.forEach(() => {
+                // Events are processed in extractStepContent
+            });
+            
             const content = this.extractStepContent(step.events);
             const cpeeStep = new CPEEStep(
                 index + 1,
@@ -201,7 +206,7 @@ export class LogService {
                 } else if (exposition.includes('%% Input Intermediate')) {
                     const cleanedContent = this.cleanMermaidContent(exposition, 'input');
                     cpeeStep.setInputMermaidRaw(cleanedContent);
-                } else if (exposition.includes('# User Input:')) {
+                } else if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
                     cpeeStep.setUserInputRaw(exposition);
                 } else if (exposition.includes('%% Output Intermediate')) {
                     const cleanedContent = this.cleanMermaidContent(exposition, 'output');
@@ -240,13 +245,19 @@ export class LogService {
             
             if (exposition.includes('<!-- Input CPEE-Tree -->')) {
                 content.inputCpeeTree = exposition;
-            } else if (exposition.includes('%% Input Intermediate')) {
+            }
+            if (exposition.includes('%% Input Intermediate')) {
                 content.inputIntermediate = exposition;
-            } else if (exposition.includes('# User Input:')) {
+            }
+            // Check for user input - handle both direct content and YAML block scalars
+            // Note: YAML block scalars (|, |+, |-) are already parsed, so we just check for the content
+            if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
                 content.userInput = exposition;
-            } else if (exposition.includes('%% Output Intermediate')) {
+            }
+            if (exposition.includes('%% Output Intermediate')) {
                 content.outputIntermediate = exposition;
-            } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
+            }
+            if (exposition.includes('<!-- Output CPEE-Tree -->')) {
                 content.outputCpeeTree = exposition;
             }
         });

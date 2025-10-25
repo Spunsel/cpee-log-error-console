@@ -73,7 +73,10 @@ export class CPEEStep {
      * @returns {string} Content or default message
      */
     getContent(sectionName) {
-        return this.content[sectionName] || 'No content available';
+        const content = this.content[sectionName] || 'No content available';
+        if (sectionName === 'userInput') {
+        }
+        return content;
     }
 
     /**

@@ -77,6 +77,7 @@ export class StepViewer {
             outputIntermediate: step.getContent('outputIntermediate'),
             outputCpeeTree: step.getContent('outputCpeeTree')
         };
+        
 
         await this.contentManager.updateAllSections(stepContent);
 

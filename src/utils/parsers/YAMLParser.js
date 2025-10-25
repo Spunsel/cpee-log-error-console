@@ -82,7 +82,11 @@ export class YAMLParser {
                         break;
                     }
                 } else {
-                    multiLineContent += line + '\n';
+                    // Filter out timestamp lines from multi-line content
+                    const isTimestamp = trimmed.startsWith('time:timestamp:');
+                    if (!isTimestamp) {
+                        multiLineContent += line + '\n';
+                    }
                     continue;
                 }
             }
@@ -108,8 +112,8 @@ export class YAMLParser {
             
             const target = currentSection || result;
             
-            // Handle multi-line strings (|, |-)
-            if (value === '|' || value === '|-') {
+            // Handle multi-line strings (|, |-, |+)
+            if (value === '|' || value === '|-' || value === '|+') {
                 inMultiLineString = true;
                 multiLineKey = key;
                 multiLineContent = '';

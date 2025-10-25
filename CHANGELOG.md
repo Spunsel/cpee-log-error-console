@@ -1236,6 +1236,53 @@ This document tracks every phase and step taken to bring the CPEE LLM Error Debu
 
 ---
 
+## Phase 22: User Input Display Bug Fix
+
+### 22.1 User Input Raw Content Display Issue
+- [x] **Identified missing user-input section in RawContentViewManager**
+  - [x] Added missing case for 'user-input' in displayRawContent switch statement
+  - [x] Added user-input to sectionIds array in RawContentViewManager
+  - [x] Added user-input section to ViewModeToggle component
+- [x] **Fixed user input raw content rendering**
+  - [x] Implemented proper getUserInputRaw() method call
+  - [x] Added renderRawUserInput() renderer for user input section
+  - [x] Ensured user input toggle button appears in UI
+- [x] **Fixed critical bug in step content extraction**
+  - [x] Changed else-if chain to separate if statements in extractStepContent()
+  - [x] Fixed issue where user input was not assigned to step content due to if-else logic
+  - [x] Added comprehensive debug logging throughout user input data flow
+
+### 22.2 YAML Block Scalar Detection Fix
+- [x] **Analyzed raw log data to identify root cause**
+  - [x] Found user input events with YAML block scalar notation (|+, |-, |) were not detected
+  - [x] Initial hypothesis: YAML parser processes block scalars before JavaScript code sees them
+  - [x] Identified that |+ means "literal block scalar, keep trailing newlines"
+- [x] **First attempted fix (incorrect)**
+  - [x] Changed detection to check for 'User Input:' in addition to '# User Input:'
+  - [x] Removed unnecessary startsWith('|') check
+  - [x] Applied fix to extractStepContent(), step grouping debug, and raw content extraction
+- [x] **Added comprehensive debug logging**
+  - [x] Added detailed logging to show exposition content and detection results
+  - [x] Discovered that exposition content was literally just "|+" (2 characters)
+  - [x] Realized YAML parser was NOT processing |+ block scalars correctly
+- [x] **Root cause identified: YAMLParser.js missing |+ support**
+  - [x] YAMLParser only handled | and |- block scalars
+  - [x] |+ block scalars were not recognized, leaving content unparsed
+  - [x] Added |+ to the multi-line string detection condition
+- [x] **Verified fix resolves issue**
+  - [x] YAMLParser now correctly handles |, |-, and |+ block scalars
+  - [x] Steps 5 and 7 now display user input correctly
+- [x] **Additional fix: Remove timestamps from multi-line content**
+  - [x] User input was including timestamp lines (e.g., "time:timestamp: '2025-10-17T14:24:21.761886+02:00'")
+  - [x] Added filtering logic to exclude lines starting with "time:timestamp:" from multi-line content
+  - [x] User input now displays clean content without timestamps
+- [x] **Cleanup: Remove debug console logs**
+  - [x] Removed all debug console logs added during troubleshooting
+  - [x] Cleaned up unused variables and parameters
+  - [x] Fixed linter errors for unused variables
+
+---
+
 ## Future Enhancements (Backlog)
 
 ### Potential Features for Future Phases

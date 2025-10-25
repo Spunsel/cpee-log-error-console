@@ -26,6 +26,7 @@ export class RawContentViewManager {
         this.sectionIds = [
             'input-cpee',
             'input-intermediate',
+            'user-input',
             'output-intermediate',
             'output-cpee'
         ];
@@ -125,6 +126,12 @@ export class RawContentViewManager {
                 rawContent = this.currentStep.getInputMermaidRaw();
                 if (rawContent && rawContent.getContent) {
                     renderer = () => this.rawContentRenderer.renderRawMermaid(rawContent.getContent());
+                }
+                break;
+            case 'user-input':
+                rawContent = this.currentStep.getUserInputRaw();
+                if (rawContent && rawContent.getText) {
+                    renderer = () => this.rawContentRenderer.renderRawUserInput(rawContent.getText());
                 }
                 break;
             case 'output-intermediate':
