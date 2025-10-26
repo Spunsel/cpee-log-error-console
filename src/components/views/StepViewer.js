@@ -96,6 +96,11 @@ export class StepViewer {
         // Update step header
         this.updateStepHeader(step, navInfo);
 
+        // Update metadata display
+        if (this.navigator) {
+            this.navigator.updateMetadataDisplay(step);
+        }
+
         // Set current step mapping for highlighting
         if (this.crossViewHighlightManager && step.hasTaskMapping()) {
             this.crossViewHighlightManager.setCurrentStepMapping(step.getTaskMapping());

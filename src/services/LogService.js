@@ -213,6 +213,12 @@ export class LogService {
                         cpeeStep.setInputMermaidRaw(cleanedContent);
                     } else if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
                         cpeeStep.setUserInputRaw(exposition);
+                    } else if (exposition.includes('# Used LLM:')) {
+                        // Extract LLM model name from "# Used LLM: <model-name>" pattern
+                        const llmMatch = exposition.match(/#\s*Used\s*LLM:\s*([^\n]+)/i);
+                        if (llmMatch && llmMatch[1]) {
+                            cpeeStep.usedLLM = llmMatch[1].trim();
+                        }
                     } else if (exposition.includes('%% Output Intermediate')) {
                         const cleanedContent = ContentCleaner.cleanMermaidContent(exposition, 'output');
                         cpeeStep.setOutputMermaidRaw(cleanedContent);

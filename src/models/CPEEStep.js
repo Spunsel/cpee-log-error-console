@@ -22,6 +22,9 @@ export class CPEEStep {
             outputCpeeTree: 'Not found'
         };
         
+        // Metadata
+        this.usedLLM = null; // LLM model used for this step
+        
         // Phase 21.3: Raw content storage
         this.rawContent = {
             inputMermaidRaw: MermaidRaw.empty(),

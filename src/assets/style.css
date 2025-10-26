@@ -19,6 +19,7 @@
     --disabled-bg: var(--text-secondary);
     --section-header-bg: #bfbfbf;
     --copy-btn-bg: #dbdfe4;
+    --nav-bar-color: #f0f3f6; /* Navigation and metadata bar background color */
     
     /* Border Radius */
     --border-radius-sm: 6px;
@@ -297,16 +298,27 @@ body {
     border-color: var(--primary-color);
 }
 
+/* Navigation Wrapper - flexbox container */
+.navigation-wrapper {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
 /* Step Navigation */
 .step-navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #f8f9fa;
+    background: var(--nav-bar-color);
     padding: 15px 20px;
-    margin: 10px 0;
     border-radius: var(--border-radius);
     border: 1px solid #dee2e6;
+    flex: 1;
+    min-width: 400px;
+    order: 2; /* Navigation appears second (to the right when horizontal, below when stacked) */
 }
 
 /* Navigation sections layout */
@@ -399,6 +411,44 @@ body {
     color: var(--text-primary);
     font-size: 1rem;
     padding: 0 10px;
+    white-space: nowrap; /* Prevent wrapping to multiple lines */
+}
+
+/* Metadata display styling */
+.metadata-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--nav-bar-color);
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid #dee2e6;
+    font-family: var(--font-monospace);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    min-width: 250px;
+    order: 2; /* Metadata appears second by default (to the right) */
+}
+
+.metadata-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.metadata-label {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.metadata-display #uuid-value,
+.metadata-display #llm-value {
+    font-weight: 600;
+    color: var(--primary-color);
+    user-select: text;
+    cursor: text;
 }
 
 /* ========================================
@@ -824,6 +874,31 @@ body {
 /* ========================================
    8. MEDIA QUERIES
    ======================================== */
+
+@media (max-width: 680px) {
+    /* Navigation wrapper - stack vertically when containers can't fit side by side */
+    .navigation-wrapper {
+        flex-direction: column;
+    }
+
+    .step-navigation {
+        min-width: 100%;
+        max-width: 100%;
+        /* Keep order: 2 to appear below when stacked */
+    }
+
+    .metadata-display {
+        min-width: 100%;
+        max-width: 100%;
+        align-items: flex-start; /* Align contents to the left when stacked */
+        /* Keep order: 1 to appear above when stacked */
+    }
+
+    .metadata-field {
+        justify-content: flex-start; /* Align each field to the left */
+        width: 100%;
+    }
+}
 
 @media (max-width: 768px) {
     .header {

@@ -29,17 +29,51 @@ export class StepNavigator {
      * Setup step navigation UI
      */
     setupNavigation() {
+        // Check if wrapper already exists
+        let wrapperContainer = document.getElementById('navigation-wrapper');
+        if (!wrapperContainer) {
+            wrapperContainer = this.createWrapperContainer();
+            this.insertWrapperIntoDOM(wrapperContainer);
+        }
+
         // Check DOM directly first since element may not be registered yet
         let navContainer = document.getElementById('step-navigation');
         if (!navContainer) {
             navContainer = this.createNavigationContainer();
-            this.insertNavigationIntoDOM(navContainer);
+            wrapperContainer.appendChild(navContainer);
             this.registerNavigationElements();
         }
+
+        // Create metadata display
+        this.createMetadataDisplay(wrapperContainer);
 
         this.navigationContainer = navContainer;
         this.attachEventListeners();
         this.isSetup = true;
+    }
+
+    /**
+     * Create wrapper container for navigation and metadata
+     * @returns {HTMLElement} Wrapper container element
+     */
+    createWrapperContainer() {
+        const wrapper = this.domRegistry.createElement('div', {
+            id: 'navigation-wrapper',
+            className: 'navigation-wrapper'
+        });
+        return wrapper;
+    }
+
+    /**
+     * Insert wrapper container into DOM
+     * @param {HTMLElement} wrapperContainer - Wrapper container
+     */
+    insertWrapperIntoDOM(wrapperContainer) {
+        // Insert before process analysis
+        const processAnalysis = this.domRegistry.getElementSafe('processAnalysis');
+        if (processAnalysis) {
+            processAnalysis.parentNode.insertBefore(wrapperContainer, processAnalysis);
+        }
     }
 
     /**
@@ -70,17 +104,6 @@ export class StepNavigator {
     }
 
 
-    /**
-     * Insert navigation container into DOM
-     * @param {HTMLElement} navContainer - Navigation container
-     */
-    insertNavigationIntoDOM(navContainer) {
-        // Insert before process analysis
-        const processAnalysis = this.domRegistry.getElementSafe('processAnalysis');
-        if (processAnalysis) {
-            processAnalysis.parentNode.insertBefore(navContainer, processAnalysis);
-        }
-    }
 
     /**
      * Register navigation elements with DOM registry
@@ -127,6 +150,84 @@ export class StepNavigator {
     }
 
     /**
+     * Create metadata display element
+     * @param {HTMLElement} wrapperContainer - Wrapper container to append to
+     */
+    createMetadataDisplay(wrapperContainer) {
+        // Check if already exists
+        let metadataDisplay = document.getElementById('metadata-display');
+        if (metadataDisplay) {
+            return;
+        }
+
+        // Create the display element with both UUID and LLM fields
+        metadataDisplay = this.domRegistry.createElement('div', {
+            id: 'metadata-display',
+            className: 'metadata-display',
+            innerHTML: `
+                <div class="metadata-field">
+                    <span class="metadata-label">Change UUID:</span>
+                    <span id="uuid-value">-</span>
+                </div>
+                <div class="metadata-field">
+                    <span class="metadata-label">Used LLM:</span>
+                    <span id="llm-value">-</span>
+                </div>
+            `
+        });
+
+        // Append to wrapper container
+        if (wrapperContainer) {
+            wrapperContainer.appendChild(metadataDisplay);
+        }
+
+        // Register with DOM registry
+        if (this.domRegistry) {
+            this.domRegistry.register('metadataDisplay', 'metadata-display');
+        }
+    }
+
+    /**
+     * Update metadata display (UUID and LLM)
+     * @param {CPEEStep} step - Current step
+     */
+    updateMetadataDisplay(step) {
+        if (!step) {
+            return;
+        }
+
+        const metadataElement = this.domRegistry.getElementSafe('metadataDisplay') || document.getElementById('metadata-display');
+        if (!metadataElement) {
+            // Try to create it if it doesn't exist
+            this.createMetadataDisplay();
+            const retryElement = this.domRegistry.getElementSafe('metadataDisplay') || document.getElementById('metadata-display');
+            if (retryElement) {
+                const uuidValue = retryElement.querySelector('#uuid-value');
+                if (uuidValue) {
+                    uuidValue.textContent = step.changeUuid || '-';
+                }
+                const llmValue = retryElement.querySelector('#llm-value');
+                if (llmValue) {
+                    llmValue.textContent = step.usedLLM || '-';
+                }
+            }
+            return;
+        }
+
+        // Update UUID
+        const uuidValue = metadataElement.querySelector('#uuid-value');
+        if (uuidValue) {
+            uuidValue.textContent = step.changeUuid || '-';
+        }
+
+        // Update LLM
+        const llmValue = metadataElement.querySelector('#llm-value');
+        if (llmValue) {
+            llmValue.textContent = step.usedLLM || '-';
+        }
+    }
+
+    /**
      * Update step navigation state
      * @param {Object} navInfo - Navigation info with canGoPrevious, canGoNext, currentStep, totalSteps
      */
@@ -154,6 +255,12 @@ export class StepNavigator {
         const counter = this.domRegistry.getElementSafe('stepCounter') || document.getElementById('step-counter');
         if (counter) {
             counter.textContent = `Step ${navInfo.currentStep} of ${navInfo.totalSteps}`;
+        }
+
+        // Update metadata display if step is available
+        const currentStep = this.instanceService.getCurrentStep();
+        if (currentStep) {
+            this.updateMetadataDisplay(currentStep);
         }
     }
 
@@ -223,9 +330,9 @@ export class StepNavigator {
      * Remove navigation from DOM
      */
     removeNavigation() {
-        const navContainer = document.getElementById('step-navigation');
-        if (navContainer) {
-            navContainer.remove();
+        const wrapperContainer = document.getElementById('navigation-wrapper');
+        if (wrapperContainer) {
+            wrapperContainer.remove();
         }
         this.isSetup = false;
         this.navigationContainer = null;
