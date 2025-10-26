@@ -5,6 +5,7 @@
  */
 
 import { ICONS } from '../../assets/icons.js';
+import { StepDropdown } from './StepDropdown.js';
 
 export class StepNavigator {
     constructor(instanceService, domRegistry = null) {
@@ -15,6 +16,11 @@ export class StepNavigator {
         // Navigation state
         this.isSetup = false;
         this.navigationContainer = null;
+
+        // Initialize dropdown
+        this.dropdown = new StepDropdown(domRegistry, (stepNumber) => {
+            this.handleDropdownStepSelect(stepNumber);
+        });
     }
 
     /**
@@ -41,14 +47,27 @@ export class StepNavigator {
         if (!navContainer) {
             navContainer = this.createNavigationContainer();
             wrapperContainer.appendChild(navContainer);
-            this.registerNavigationElements();
+        }
+
+        // Create skip container (between navigation and metadata)
+        let skipContainer = document.getElementById('step-navigation-skip');
+        if (!skipContainer) {
+            skipContainer = this.createSkipContainer();
+            wrapperContainer.appendChild(skipContainer);
         }
 
         // Create metadata display
         this.createMetadataDisplay(wrapperContainer);
 
+        // Register navigation elements
+        this.registerNavigationElements();
+
         this.navigationContainer = navContainer;
         this.attachEventListeners();
+        
+        // Attach dropdown trigger listener
+        this.dropdown.attachTriggerListener();
+        
         this.isSetup = true;
     }
 
@@ -86,15 +105,15 @@ export class StepNavigator {
             className: 'step-navigation',
             innerHTML: `
                 <div class="nav-left">
-                    <button id="go-to-start" class="nav-btn nav-btn-start">${ICONS.NAV_START}</button>
+                    <button id="go-to-start" class="nav-btn nav-btn-start" aria-label="Go to first step">${ICONS.NAV_START}</button>
                 </div>
                 <div class="nav-center">
-                    <button id="prev-step" class="nav-btn nav-btn-prev">${ICONS.NAV_BACKWARD}</button>
+                    <button id="prev-step" class="nav-btn nav-btn-prev" aria-label="Previous step">${ICONS.NAV_BACKWARD}</button>
                     <span id="step-counter">Step 1 of 1</span>
-                    <button id="next-step" class="nav-btn nav-btn-next">${ICONS.NAV_FORWARD}</button>
+                    <button id="next-step" class="nav-btn nav-btn-next" aria-label="Next step">${ICONS.NAV_FORWARD}</button>
                 </div>
                 <div class="nav-right">
-                    <button id="go-to-end" class="nav-btn nav-btn-end">${ICONS.NAV_END}</button>
+                    <button id="go-to-end" class="nav-btn nav-btn-end" aria-label="Go to last step">${ICONS.NAV_END}</button>
                 </div>
             `
         });
@@ -103,7 +122,26 @@ export class StepNavigator {
         return navContainer;
     }
 
+    /**
+     * Create skip button container
+     * @returns {HTMLElement} Skip container element
+     */
+    createSkipContainer() {
+        const skipContainer = this.domRegistry.createElement('div', {
+            id: 'step-navigation-skip',
+            className: 'step-navigation-skip',
+            innerHTML: `
+                <div class="step-dropdown-container">
+                    <button id="step-dropdown-trigger" class="step-dropdown-trigger" aria-label="Skip to step" aria-haspopup="listbox" aria-expanded="false">
+                        ${ICONS.NAV_SKIP}
+                    </button>
+                    <div id="step-dropdown-menu" class="step-dropdown-menu" role="listbox" aria-labelledby="step-dropdown-trigger" style="display: none;"></div>
+                </div>
+            `
+        });
 
+        return skipContainer;
+    }
 
     /**
      * Register navigation elements with DOM registry
@@ -112,11 +150,15 @@ export class StepNavigator {
         if (this.domRegistry) {
             const registrations = {
                 'stepNavigation': 'step-navigation',
+                'stepNavigationSkip': 'step-navigation-skip',
                 'goToStartBtn': 'go-to-start',
                 'prevStepBtn': 'prev-step',
                 'nextStepBtn': 'next-step',
                 'goToEndBtn': 'go-to-end',
                 'stepCounter': 'step-counter',
+                'stepDropdownTrigger': 'step-dropdown-trigger',
+                'stepDropdownMenu': 'step-dropdown-menu',
+                'stepDropdownContainer': 'step-dropdown-container',
                 // Alternative keys for navigation buttons
                 'prevStep': 'prev-step',
                 'nextStep': 'next-step'
@@ -262,6 +304,16 @@ export class StepNavigator {
         if (currentStep) {
             this.updateMetadataDisplay(currentStep);
         }
+
+        // Get steps array from current instance for dropdown display
+        const currentInstance = this.instanceService.getCurrentInstance();
+        const stepsArray = currentInstance ? currentInstance.steps : null;
+        
+        // Update dropdown with steps array for user input display
+        this.dropdown.updateDropdown({
+            ...navInfo,
+            steps: stepsArray
+        });
     }
 
     /**
@@ -327,9 +379,26 @@ export class StepNavigator {
     }
 
     /**
+     * Handle dropdown step selection
+     * @param {number} stepNumber - Selected step number (1-indexed)
+     */
+    async handleDropdownStepSelect(stepNumber) {
+        // Navigate to selected step using 0-indexed index
+        const index = stepNumber - 1;
+        if (this.instanceService.goToStep(index)) {
+            await this.handleStepChange();
+        }
+    }
+
+    /**
      * Remove navigation from DOM
      */
     removeNavigation() {
+        // Clean up dropdown
+        if (this.dropdown) {
+            this.dropdown.cleanup();
+        }
+
         const wrapperContainer = document.getElementById('navigation-wrapper');
         if (wrapperContainer) {
             wrapperContainer.remove();

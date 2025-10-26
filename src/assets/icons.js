@@ -37,9 +37,10 @@ export const ICON_CHECK = `
 /**
  * Visual/Graph mode icon - Eye symbol
  * Represents visual/graphical view mode - 16x16px for toggle buttons
+ * Thicker stroke (2.5) to match skip button style
  */
 export const ICON_VISUAL = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
         <circle cx="12" cy="12" r="3"></circle>
     </svg>
@@ -48,9 +49,10 @@ export const ICON_VISUAL = `
 /**
  * Raw/Code mode icon - Angle brackets
  * Represents raw code/text view mode - 16x16px for toggle buttons
+ * Thicker stroke (2.5) to match skip button style
  */
 export const ICON_RAW = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="16 18 22 12 16 6"></polyline>
         <polyline points="8 6 2 12 8 18"></polyline>
     </svg>
@@ -95,6 +97,21 @@ export const ICON_NAV_END = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
         <path d="M2.125 2H4.375v12H2.125V2z"></path>
         <path d="M6.25 3l1.186-.61 7 5v1.22l-7 5L6.25 13V3z"></path>
+    </svg>
+`;
+
+/**
+ * Navigation Skip icon - Jump to arbitrary step
+ * Represents skipping/jumping to a specific step - 16x16px
+ * Design: Forward arrow with location pin representing jump-to functionality
+ */
+export const ICON_NAV_SKIP = `
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.25 5.75v-4h-1.5v2.542c-1.145-1.359-2.911-2.209-4.84-2.209-3.177 0-5.92 2.307-6.16 5.398l-.02.269h1.501l.022-.226c.212-2.195 2.202-3.94 4.656-3.94 1.736 0 3.244.875 4.05 2.166h-2.83v1.5h4.163l.962-.975V5.75h-.004zM8 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
+        </g>
     </svg>
 `;
 
@@ -155,6 +172,7 @@ export const ICONS = {
     NAV_BACKWARD: ICON_NAV_BACKWARD,
     NAV_START: ICON_NAV_START,
     NAV_END: ICON_NAV_END,
+    NAV_SKIP: ICON_NAV_SKIP,
     APP: ICON_APP,
     APP_FAVICON: ICON_APP_FAVICON
 };
@@ -174,11 +192,51 @@ export function getIcon(iconName) {
         'nav-backward': ICON_NAV_BACKWARD,
         'nav-start': ICON_NAV_START,
         'nav-end': ICON_NAV_END,
+        'nav-skip': ICON_NAV_SKIP,
         'app': ICON_APP,
         'app-favicon': ICON_APP_FAVICON
     };
 
     return iconMap[iconName.toLowerCase()] || '';
+}
+
+/**
+ * Create step number icon SVG element
+ * Generates a blue circular icon with white step number text
+ * Supports unlimited step numbers (1, 2, 3, ..., 100, etc.)
+ * @param {number} stepNumber - Step number to display
+ * @returns {HTMLElement} SVG element with step number
+ */
+export function createStepNumberIcon(stepNumber) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'step-number-icon');
+    svg.setAttribute('width', '28');
+    svg.setAttribute('height', '28');
+    svg.setAttribute('viewBox', '0 0 28 28');
+    
+    // Blue circle background
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', '14');
+    circle.setAttribute('cy', '14');
+    circle.setAttribute('r', '14');
+    circle.setAttribute('fill', 'var(--primary-color)');
+    svg.appendChild(circle);
+    
+    // White text for step number
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', '14');
+    text.setAttribute('y', '15');
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('fill', '#ffffff');
+    text.setAttribute('font-size', '13');
+    text.setAttribute('font-weight', '600');
+    text.setAttribute('font-family', 'system-ui, -apple-system, sans-serif');
+    text.textContent = stepNumber.toString();
+    
+    svg.appendChild(text);
+    
+    return svg;
 }
 
 // Default export for convenience

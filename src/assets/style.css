@@ -7,6 +7,7 @@
     /* Colors */
     --primary-color: #2563eb;
     --primary-dark: #1d4ed8;
+    --primary-light: #c2d0ff;
     --primary-color-alpha: rgba(37, 99, 235, 0.1);
     --secondary-color: #64748b;
     --error-color: #ef4444;
@@ -342,7 +343,22 @@ body {
     border: 1px solid #dee2e6;
     flex: 1;
     min-width: 400px;
-    order: 2; /* Navigation appears second (to the right when horizontal, below when stacked) */
+    order: 1; /* Navigation appears first */
+}
+
+/* Step Navigation Skip (dropdown button container) */
+.step-navigation-skip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--nav-bar-color);
+    padding-top: 15px;
+    padding-bottom: 15px;  
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid #dee2e6;
+    order: 2; /* Skip button appears between navigation and metadata */
 }
 
 /* Navigation sections layout */
@@ -422,8 +438,8 @@ body {
 /* Disabled state styling */
 .nav-btn:disabled {
     opacity: 0.5 !important;
-    color: #6c757d !important;
-    background-color: #e9ecef !important;
+    color: #6c7d73 !important;
+    background-color: #cccccc !important;
     border-color: #d6d9dc !important;
     cursor: not-allowed !important;
     pointer-events: none !important;
@@ -436,6 +452,101 @@ body {
     font-size: 1rem;
     padding: 0 10px;
     white-space: nowrap; /* Prevent wrapping to multiple lines */
+}
+
+/* Dropdown container */
+.step-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown trigger button */
+.step-dropdown-trigger {
+    background: var(--primary-color);
+    color: var(--surface-color);
+    border: none;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.step-dropdown-trigger:hover {
+    background: var(--primary-dark);
+}
+
+.step-dropdown-trigger:active {
+    background: var(--primary-dark);
+}
+
+/* Dropdown menu */
+.step-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: -6px;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    z-index: 1000;
+    min-width: 200px;
+    max-width: 400px;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Dropdown items */
+.step-dropdown-item {
+    padding: 8px 8px 8px 8px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    user-select: none;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Step number icon */
+.step-number-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+}
+
+/* Step dropdown text */
+.step-dropdown-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.step-dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
+.step-dropdown-item.active {
+    background-color: #e9ecef;
+    font-weight: 600;
+    cursor: default;
+    color: #6c757d;
+}
+
+.step-dropdown-item:not(.active):hover {
+    background-color: var(--primary-light);
+    color: var(--text-primary);
 }
 
 /* Metadata display styling */
@@ -453,7 +564,7 @@ body {
     font-size: 0.875rem;
     color: var(--text-secondary);
     min-width: 250px;
-    order: 2; /* Metadata appears second by default (to the right) */
+    order: 3; /* Metadata appears third (after skip button) */
 }
 
 .metadata-field {

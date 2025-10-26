@@ -307,4 +307,44 @@ export class LogService {
         
         return content;
     }
+
+    /**
+     * Get user input text for a step (for dropdown display)
+     * @param {CPEEStep} step - CPEE step object
+     * @param {number} [maxLength] - Optional maximum length before truncation
+     * @returns {string|null} User input text or null if not available
+     */
+    static getUserInputForStep(step, maxLength) {
+        if (!step) {
+            return null;
+        }
+
+        try {
+            // Get user input from raw content
+            const userInputRaw = step.getUserInputRaw ? step.getUserInputRaw() : step.rawContent?.userInputRaw;
+            if (userInputRaw && userInputRaw.getText) {
+                let text = userInputRaw.getText();
+                
+                // Remove "# User Input: " prefix if present
+                text = text.replace(/^#\s*User\s*Input:\s*/i, '').trim();
+                
+                // Return null if empty after cleaning
+                if (!text || text.length === 0) {
+                    return null;
+                }
+                
+                // Only truncate if maxLength is explicitly provided
+                if (maxLength !== undefined) {
+                    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+                }
+                
+                // Return full text if no maxLength provided
+                return text;
+            }
+        } catch (error) {
+            console.warn('LogService: Error getting user input for step:', error);
+        }
+
+        return null;
+    }
 }
