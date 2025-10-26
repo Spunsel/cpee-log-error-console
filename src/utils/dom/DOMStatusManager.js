@@ -4,7 +4,7 @@
  * Provides standardized status states and auto-hide functionality
  */
 
-export class StatusManager {
+export class DOMStatusManager {
     constructor(statusElement = null) {
         this.statusElement = statusElement;
         this.hideTimeout = null;

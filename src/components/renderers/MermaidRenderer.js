@@ -5,7 +5,7 @@
  * Similar interface to CPEEWfAdaptorRenderer for consistency
  */
 
-import { StatusManager } from '../../utils/dom/StatusManager.js';
+import { DOMStatusManager } from '../../utils/dom/DOMStatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { DOMUtils } from '../../utils/dom/DOMUtils.js';
 import { ContentCleaner } from '../../utils/content/ContentCleaner.js';
@@ -37,7 +37,7 @@ export class MermaidRenderer {
             // Initialize status manager
             if (statusId) {
                 const statusElement = document.getElementById(statusId);
-                this.statusManager = new StatusManager(statusElement);
+                this.statusManager = new DOMStatusManager(statusElement);
             }
 
             if (inputId) {
