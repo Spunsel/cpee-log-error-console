@@ -2,6 +2,7 @@
  * CPEE Step
  * Represents a single step in a CPEE process instance
  * Phase 21.3: Added support for storing raw content alongside rendered content
+ * Phase 22.3: Added support for storing task mappings across formats
  */
 
 import { MermaidRaw } from './MermaidRaw.js';
@@ -29,6 +30,9 @@ export class CPEEStep {
             outputMermaidRaw: MermaidRaw.empty(),
             outputCpeeTreeRaw: CPEETreeRaw.empty()
         };
+        
+        // Phase 22.3: Task mapping storage
+        this.taskMapping = null; // Will be TaskMapping instance from TaskMapper
     }
 
     /**
@@ -112,7 +116,9 @@ export class CPEEStep {
                 userInputRaw: this.rawContent.userInputRaw.toObject(),
                 outputMermaidRaw: this.rawContent.outputMermaidRaw.toObject(),
                 outputCpeeTreeRaw: this.rawContent.outputCpeeTreeRaw.toObject()
-            }
+            },
+            // Phase 22.3: Include task mapping in serialization
+            taskMapping: this.taskMapping ? this.taskMapping.toObject() : null
         };
     }
 
@@ -146,6 +152,14 @@ export class CPEEStep {
             if (obj.rawContent.outputCpeeTreeRaw) {
                 step.rawContent.outputCpeeTreeRaw = CPEETreeRaw.fromObject(obj.rawContent.outputCpeeTreeRaw);
             }
+        }
+        
+        // Phase 22.3: Restore task mapping from serialization
+        if (obj.taskMapping) {
+            // Import TaskMapping class dynamically to avoid circular dependencies
+            import('../utils/mapping/TaskMapper.js').then(module => {
+                step.taskMapping = module.TaskMapping.fromObject(obj.taskMapping);
+            });
         }
         
         return step;
@@ -292,5 +306,125 @@ export class CPEEStep {
         total += this.rawContent.outputMermaidRaw.getLength();
         total += this.rawContent.outputCpeeTreeRaw.getLength();
         return total;
+    }
+
+    // ===================================================================
+    // Phase 22.3: Task Mapping Methods
+    // ===================================================================
+
+    /**
+     * Set task mapping for this step
+     * @param {TaskMapping} mapping - TaskMapping instance from TaskMapper
+     */
+    setTaskMapping(mapping) {
+        this.taskMapping = mapping;
+        console.log(`[CPEEStep] Task mapping stored for Step ${this.stepNumber}`);
+        if (mapping) {
+            mapping.logMappingSummary();
+        }
+    }
+
+    /**
+     * Get task mapping for this step
+     * @returns {TaskMapping|null} TaskMapping instance or null
+     */
+    getTaskMapping() {
+        return this.taskMapping;
+    }
+
+    /**
+     * Check if this step has a task mapping
+     * @returns {boolean} True if task mapping exists
+     */
+    hasTaskMapping() {
+        return this.taskMapping !== null;
+    }
+
+    /**
+     * Find equivalent tasks in other formats
+     * @param {string} taskId - Task ID to find equivalents for
+     * @param {string} sourceFormat - Source format ('input-cpee', 'input-intermediate', etc.)
+     * @returns {Object|null} Object with equivalent tasks by format, or null if no mapping
+     */
+    findEquivalentTasks(taskId, sourceFormat) {
+        if (!this.taskMapping) {
+            console.warn(`[CPEEStep] No task mapping available for Step ${this.stepNumber}`);
+            return null;
+        }
+
+        console.log(`[CPEEStep] Finding equivalent tasks for "${taskId}" from ${sourceFormat}`);
+        const equivalents = this.taskMapping.findEquivalentTasks(taskId, sourceFormat);
+        
+        // Log results
+        Object.entries(equivalents).forEach(([format, tasks]) => {
+            if (tasks.length > 0) {
+                console.log(`[CPEEStep]   → ${format}: ${tasks.length} equivalent(s)`);
+                tasks.forEach(t => {
+                    console.log(`[CPEEStep]      - "${t.task.label}" (confidence: ${t.confidence.toFixed(2)}${t.isTransitive ? ', transitive' : ''})`);
+                });
+            }
+        });
+        
+        return equivalents;
+    }
+
+    /**
+     * Get task by ID and format
+     * @param {string} taskId - Task ID
+     * @param {string} format - Format key
+     * @returns {TaskIdentifier|null} Task or null
+     */
+    getTask(taskId, format) {
+        if (!this.taskMapping) {
+            return null;
+        }
+        
+        return this.taskMapping.getTask(taskId, format);
+    }
+
+    /**
+     * Get all tasks in a specific format
+     * @param {string} format - Format key ('input-cpee', 'input-intermediate', etc.)
+     * @returns {string[]} Array of task IDs in that format
+     */
+    getTasksInFormat(format) {
+        if (!this.taskMapping) {
+            return [];
+        }
+        
+        return this.taskMapping.getTasksInFormat(format);
+    }
+
+    /**
+     * Get mapping statistics
+     * @returns {Object|null} Statistics about task mappings, or null if no mapping
+     */
+    getTaskMappingStats() {
+        if (!this.taskMapping) {
+            return null;
+        }
+        
+        const formats = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
+        const stats = {
+            totalTasks: 0,
+            totalMappings: this.taskMapping.getMappingCount(),
+            tasksByFormat: {}
+        };
+        
+        formats.forEach(format => {
+            const count = this.taskMapping.getTasksInFormat(format).length;
+            stats.tasksByFormat[format] = count;
+            stats.totalTasks += count;
+        });
+        
+        return stats;
+    }
+
+    /**
+     * Clear task mapping
+     */
+    clearTaskMapping() {
+        console.log(`[CPEEStep] Clearing task mapping for Step ${this.stepNumber}`);
+        this.taskMapping = null;
     }
 }

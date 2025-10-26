@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPEEStep Task Mapping Test - Phase 22.3</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+        }
+
+        .test-section h2 {
+            color: #2563eb;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 5px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin: 5px;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .console {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+
+        .console-line {
+            margin-bottom: 4px;
+        }
+
+        .console-info { color: #94a3b8; }
+        .console-success { color: #10b981; }
+        .console-warning { color: #f59e0b; }
+        .console-error { color: #ef4444; }
+
+        .data-display {
+            background: #f8f9fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .result-card {
+            background: #f0f9ff;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .result-card h4 {
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .result-card p {
+            color: #475569;
+            margin: 4px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 CPEEStep Task Mapping Test</h1>
+    <p class="subtitle">Phase 22.3: Testing task mapping storage and retrieval in CPEEStep model</p>
+
+    <div class="test-container">
+        <div class="test-section">
+            <h2>Test Controls</h2>
+            <div class="controls">
+                <button onclick="testCreateStepWithMapping()">1. Create Step with Mapping</button>
+                <button onclick="testFindEquivalents()">2. Find Equivalent Tasks</button>
+                <button onclick="testGetTaskMappingStats()">3. Get Mapping Stats</button>
+                <button onclick="testSerialization()">4. Test Serialization</button>
+                <button onclick="clearConsole()">Clear Console</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Results</h2>
+            <div class="data-display" id="results">
+                <p>Click a test button to see results...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>Console Output</h2>
+        <div class="console" id="console"></div>
+    </div>
+
+    <script type="module">
+        import { CPEEStep } from '../../../src/models/CPEEStep.js';
+        import { TaskIdentifier } from '../../../src/models/TaskIdentifier.js';
+        import { TaskMapper } from '../../../src/utils/mapping/TaskMapper.js';
+
+        // Make available globally
+        window.CPEEStep = CPEEStep;
+        window.TaskIdentifier = TaskIdentifier;
+        window.TaskMapper = TaskMapper;
+
+        // Global test variables
+        let testStep = null;
+        let testMapping = null;
+
+        // Console logging
+        const consoleDiv = document.getElementById('console');
+        
+        function logToConsole(message, type = 'info') {
+            const line = document.createElement('div');
+            line.className = `console-line console-${type}`;
+            line.textContent = message;
+            consoleDiv.appendChild(line);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        window.clearConsole = function() {
+            consoleDiv.innerHTML = '';
+        };
+
+        // Intercept console methods
+        const originalLog = console.log;
+        const originalWarn = console.warn;
+        const originalError = console.error;
+
+        console.log = function(...args) {
+            logToConsole(args.join(' '), 'info');
+            originalLog.apply(console, args);
+        };
+
+        console.warn = function(...args) {
+            logToConsole(args.join(' '), 'warning');
+            originalWarn.apply(console, args);
+        };
+
+        console.error = function(...args) {
+            logToConsole(args.join(' '), 'error');
+            originalError.apply(console, args);
+        };
+
+        // Helper to create sample tasks
+        function createSampleTasks() {
+            return {
+                inputCpee: [
+                    new TaskIdentifier('a1', 'Initialize Process', 'call', 'cpee', {}, 0),
+                    new TaskIdentifier('a2', 'Process Data', 'call', 'cpee', {}, 1),
+                ],
+                inputMermaid: [
+                    new TaskIdentifier('A', 'Initialize Process', 'task', 'mermaid', {}, 0),
+                    new TaskIdentifier('B', 'Process Data', 'task', 'mermaid', {}, 1),
+                ],
+                outputMermaid: [
+                    new TaskIdentifier('X', 'Initialize', 'task', 'mermaid', {}, 0),
+                    new TaskIdentifier('Y', 'Process Data', 'task', 'mermaid', {}, 1),
+                ],
+                outputCpee: [
+                    new TaskIdentifier('b1', 'Initialize', 'call', 'cpee', {}, 0),
+                    new TaskIdentifier('b2', 'Process Data', 'call', 'cpee', {}, 1),
+                ]
+            };
+        }
+
+        window.testCreateStepWithMapping = function() {
+            logToConsole('═══════════════════════════════', 'info');
+            logToConsole('🧪 TEST 1: Create Step with Mapping', 'info');
+            logToConsole('═══════════════════════════════', 'info');
+
+            // Create step
+            testStep = new CPEEStep(1, 'test-uuid-123', new Date().toISOString(), {
+                inputCpeeTree: '<description>Sample</description>',
+                inputIntermediate: 'flowchart TD\nA[Task]',
+                userInput: 'Test modification',
+                outputIntermediate: 'flowchart TD\nB[Task]',
+                outputCpeeTree: '<description>Sample Output</description>'
+            });
+
+            logToConsole('✅ Created CPEEStep #1', 'success');
+
+            // Create sample tasks and mapping
+            const tasks = createSampleTasks();
+            const mapper = new TaskMapper();
+            testMapping = mapper.buildMapping(
+                tasks.inputCpee,
+                tasks.inputMermaid,
+                tasks.outputMermaid,
+                tasks.outputCpee
+            );
+
+            // Store mapping in step
+            testStep.setTaskMapping(testMapping);
+
+            // Check if stored
+            const hasMapping = testStep.hasTaskMapping();
+            logToConsole(`Has mapping: ${hasMapping}`, hasMapping ? 'success' : 'error');
+
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="result-card">
+                    <h4>Step Created</h4>
+                    <p><strong>Step Number:</strong> ${testStep.stepNumber}</p>
+                    <p><strong>UUID:</strong> ${testStep.changeUuid}</p>
+                    <p><strong>Has Mapping:</strong> ${hasMapping ? '✅ Yes' : '❌ No'}</p>
+                </div>
+            `;
+
+            if (testMapping) {
+                const stats = testStep.getTaskMappingStats();
+                resultsDiv.innerHTML += `
+                    <div class="result-card">
+                        <h4>Mapping Statistics</h4>
+                        <p><strong>Total Tasks:</strong> ${stats.totalTasks}</p>
+                        <p><strong>Total Mappings:</strong> ${stats.totalMappings}</p>
+                        <p><strong>Input CPEE:</strong> ${stats.tasksByFormat['input-cpee']} tasks</p>
+                        <p><strong>Input Mermaid:</strong> ${stats.tasksByFormat['input-intermediate']} tasks</p>
+                        <p><strong>Output Mermaid:</strong> ${stats.tasksByFormat['output-intermediate']} tasks</p>
+                        <p><strong>Output CPEE:</strong> ${stats.tasksByFormat['output-cpee']} tasks</p>
+                    </div>
+                `;
+            }
+
+            logToConsole('✅ Test 1 complete', 'success');
+        };
+
+        window.testFindEquivalents = function() {
+            logToConsole('═══════════════════════════════', 'info');
+            logToConsole('🧪 TEST 2: Find Equivalent Tasks', 'info');
+            logToConsole('═══════════════════════════════', 'info');
+
+            if (!testStep || !testStep.hasTaskMapping()) {
+                logToConsole('⚠️ Please run Test 1 first', 'warning');
+                document.getElementById('results').innerHTML = '<p>⚠️ Please run Test 1 first</p>';
+                return;
+            }
+
+            // Find equivalents for first input CPEE task
+            const taskId = 'a1';
+            const sourceFormat = 'input-cpee';
+            
+            logToConsole(`Finding equivalents for task: ${taskId} (${sourceFormat})`, 'info');
+            const equivalents = testStep.findEquivalentTasks(taskId, sourceFormat);
+
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            let html = `
+                <div class="result-card">
+                    <h4>Source Task</h4>
+                    <p><strong>ID:</strong> ${taskId}</p>
+                    <p><strong>Format:</strong> ${sourceFormat}</p>
+                </div>
+            `;
+
+            if (equivalents) {
+                Object.entries(equivalents).forEach(([format, tasks]) => {
+                    html += `<div class="result-card">`;
+                    html += `<h4>${format}</h4>`;
+                    
+                    if (tasks.length > 0) {
+                        tasks.forEach(t => {
+                            html += `<div class="task-item">`;
+                            html += `<strong>${t.task.id}</strong>: ${t.task.label}`;
+                            html += `<br><small>Confidence: ${(t.confidence * 100).toFixed(1)}% ${t.isTransitive ? '(transitive)' : ''}</small>`;
+                            html += `</div>`;
+                        });
+                    } else {
+                        html += `<p><small>No equivalents found</small></p>`;
+                    }
+                    
+                    html += `</div>`;
+                });
+            } else {
+                html += '<p>No equivalents found</p>';
+            }
+
+            resultsDiv.innerHTML = html;
+
+            logToConsole('✅ Test 2 complete', 'success');
+        };
+
+        window.testGetTaskMappingStats = function() {
+            logToConsole('═══════════════════════════════', 'info');
+            logToConsole('🧪 TEST 3: Get Mapping Statistics', 'info');
+            logToConsole('═══════════════════════════════', 'info');
+
+            if (!testStep || !testStep.hasTaskMapping()) {
+                logToConsole('⚠️ Please run Test 1 first', 'warning');
+                document.getElementById('results').innerHTML = '<p>⚠️ Please run Test 1 first</p>';
+                return;
+            }
+
+            const stats = testStep.getTaskMappingStats();
+            
+            logToConsole('Mapping statistics retrieved', 'success');
+            logToConsole(JSON.stringify(stats, null, 2), 'info');
+
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="result-card">
+                    <h4>Mapping Statistics</h4>
+                    <p><strong>Total Tasks:</strong> ${stats.totalTasks}</p>
+                    <p><strong>Total Mappings:</strong> ${stats.totalMappings}</p>
+                </div>
+                <div class="result-card">
+                    <h4>Tasks by Format</h4>
+                    ${Object.entries(stats.tasksByFormat).map(([format, count]) => `
+                        <p><strong>${format}:</strong> ${count} tasks</p>
+                    `).join('')}
+                </div>
+            `;
+
+            logToConsole('✅ Test 3 complete', 'success');
+        };
+
+        window.testSerialization = function() {
+            logToConsole('═══════════════════════════════', 'info');
+            logToConsole('🧪 TEST 4: Test Serialization', 'info');
+            logToConsole('═══════════════════════════════', 'info');
+
+            if (!testStep || !testStep.hasTaskMapping()) {
+                logToConsole('⚠️ Please run Test 1 first', 'warning');
+                document.getElementById('results').innerHTML = '<p>⚠️ Please run Test 1 first</p>';
+                return;
+            }
+
+            // Serialize step
+            logToConsole('Serializing step to object...', 'info');
+            const stepObj = testStep.toObject();
+            
+            logToConsole('Step serialized successfully', 'success');
+            logToConsole(`Serialized size: ${JSON.stringify(stepObj).length} bytes`, 'info');
+
+            // Check if task mapping is included
+            const hasMappingInObj = stepObj.taskMapping !== null && stepObj.taskMapping !== undefined;
+            logToConsole(`Task mapping included: ${hasMappingInObj}`, hasMappingInObj ? 'success' : 'error');
+
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="result-card">
+                    <h4>Serialization Test</h4>
+                    <p><strong>Step serialized:</strong> ✅ Yes</p>
+                    <p><strong>Mapping included:</strong> ${hasMappingInObj ? '✅ Yes' : '❌ No'}</p>
+                    <p><strong>Serialized size:</strong> ${JSON.stringify(stepObj).length} bytes</p>
+                </div>
+                <div class="result-card">
+                    <h4>Serialized Data Preview</h4>
+                    <pre style="font-size: 0.75rem; overflow-x: auto;">${JSON.stringify(stepObj, null, 2).substring(0, 500)}...</pre>
+                </div>
+            `;
+
+            logToConsole('✅ Test 4 complete', 'success');
+        };
+
+        // Initialize
+        logToConsole('🚀 CPEEStep Task Mapping Test Initialized', 'info');
+        logToConsole('Click "Create Step with Mapping" to begin', 'info');
+    </script>
+</body>
+</html>
+

@@ -229,9 +229,9 @@
     </div>
 
     <script type="module">
-        import { CPEEWfAdaptorRenderer } from '../../src/components/renderers/CPEEWfAdaptorRenderer.js';
-        import { MermaidRenderer } from '../../src/components/renderers/MermaidRenderer.js';
-        import { SVGTaskExtractor } from '../../src/utils/extraction/SVGTaskExtractor.js';
+        import { CPEEWfAdaptorRenderer } from '../../../src/components/renderers/CPEEWfAdaptorRenderer.js';
+        import { MermaidRenderer } from '../../../src/components/renderers/MermaidRenderer.js';
+        import { SVGTaskExtractor } from '../../../src/utils/extraction/SVGTaskExtractor.js';
 
         const consoleOutput = document.getElementById('console-output');
         const taskListContainer = document.getElementById('task-list');
@@ -291,22 +291,22 @@
             if (!document.querySelector('link[href*="wfadaptor.css"]')) {
                 const cssLink = document.createElement('link');
                 cssLink.rel = 'stylesheet';
-                cssLink.href = '../../src/libs/cpee-layout/wfadaptor.css';
+                cssLink.href = '../../../src/libs/cpee-layout/wfadaptor.css';
                 document.head.appendChild(cssLink);
             }
             
             // Load base theme
             return new Promise((resolve, reject) => {
                 const baseScript = document.createElement('script');
-                baseScript.src = '../../src/libs/cpee-layout/themes/base.js';
+                baseScript.src = '../../../src/libs/cpee-layout/themes/base.js';
                 baseScript.onload = () => {
                     // Load preset theme
                     const presetScript = document.createElement('script');
-                    presetScript.src = '../../src/libs/cpee-layout/themes/preset/theme.js';
+                    presetScript.src = '../../../src/libs/cpee-layout/themes/preset/theme.js';
                     presetScript.onload = () => {
                         // Load wfadaptor
                         const wfScript = document.createElement('script');
-                        wfScript.src = '../../src/libs/cpee-layout/wfadaptor.js';
+                        wfScript.src = '../../../src/libs/cpee-layout/wfadaptor.js';
                         wfScript.onload = () => {
                             // Wait a bit for globals to be set
                             setTimeout(() => {
@@ -350,8 +350,8 @@
                         // Handle both $.ajax(url, options) and $.ajax(options)
                         let actualUrl = typeof url === 'string' ? url : (url && url.url);
                         
-                        if (actualUrl && actualUrl.includes('src/libs/cpee-layout') && !actualUrl.startsWith('../../')) {
-                            const fixedUrl = actualUrl.replace(/^.*?(src\/libs\/cpee-layout.*)/, '../../$1');
+                        if (actualUrl && actualUrl.includes('src/libs/cpee-layout') && !actualUrl.startsWith('../../../')) {
+                            const fixedUrl = actualUrl.replace(/^.*?(src\/libs\/cpee-layout.*)/, '../../../$1');
                             
                             if (typeof url === 'string') {
                                 url = fixedUrl;
@@ -371,8 +371,8 @@
                     // Also intercept $.getScript (it uses $.ajax internally but has its own wrapper)
                     const originalGetScript = window.$.getScript;
                     window.$.getScript = function(url, callback) {
-                        if (url && url.includes('src/libs/cpee-layout') && !url.startsWith('../../')) {
-                            url = url.replace(/^.*?(src\/libs\/cpee-layout.*)/, '../../$1');
+                        if (url && url.includes('src/libs/cpee-layout') && !url.startsWith('../../../')) {
+                            url = url.replace(/^.*?(src\/libs\/cpee-layout.*)/, '../../../$1');
                         }
                         return originalGetScript.call(this, url, callback);
                     };

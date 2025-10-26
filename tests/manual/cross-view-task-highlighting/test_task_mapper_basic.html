@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Mapper Basic Test - Phase 22.3</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+        }
+
+        .test-section h2 {
+            color: #2563eb;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 5px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin: 5px;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .console {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .console-line {
+            margin-bottom: 4px;
+        }
+
+        .console-info { color: #94a3b8; }
+        .console-success { color: #10b981; }
+        .console-warning { color: #f59e0b; }
+        .console-error { color: #ef4444; }
+
+        .data-display {
+            background: #f8f9fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .data-display h3 {
+            color: #374151;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .task-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .task-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .task-item strong {
+            color: #2563eb;
+        }
+
+        .mapping-result {
+            background: #f0f9ff;
+            border-left: 4px solid #2563eb;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🗺️ Task Mapper Basic Test</h1>
+    <p class="subtitle">Phase 22.3: Testing TaskMapper with fuzzy matching across formats</p>
+
+    <div class="test-container">
+        <div class="test-section">
+            <h2>Sample Tasks</h2>
+            <p>Sample tasks from each format for testing:</p>
+            
+            <div class="data-display">
+                <h3>Input CPEE Tasks</h3>
+                <div class="task-list" id="input-cpee-list"></div>
+            </div>
+
+            <div class="data-display">
+                <h3>Input Mermaid Tasks</h3>
+                <div class="task-list" id="input-mermaid-list"></div>
+            </div>
+
+            <div class="data-display">
+                <h3>Output Mermaid Tasks</h3>
+                <div class="task-list" id="output-mermaid-list"></div>
+            </div>
+
+            <div class="data-display">
+                <h3>Output CPEE Tasks</h3>
+                <div class="task-list" id="output-cpee-list"></div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test Controls</h2>
+            <div class="controls">
+                <button onclick="testBasicMapping()">Test Basic Mapping</button>
+                <button onclick="testFuzzyMatching()">Test Fuzzy Matching</button>
+                <button onclick="testTransitiveMapping()">Test Transitive Mapping</button>
+                <button onclick="testEquivalentSearch()">Test Equivalent Search</button>
+                <button onclick="clearConsole()">Clear Console</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Mapping Statistics</h2>
+            <div class="stats" id="stats"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Results</h2>
+            <div class="data-display" id="results"></div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>Console Output</h2>
+        <div class="console" id="console"></div>
+    </div>
+
+    <script type="module">
+        import { TaskIdentifier } from '../../../src/models/TaskIdentifier.js';
+        import { TaskMapper, TaskMapping } from '../../../src/utils/mapping/TaskMapper.js';
+
+        // Make available globally for button onclick handlers
+        window.TaskIdentifier = TaskIdentifier;
+        window.TaskMapper = TaskMapper;
+        window.TaskMapping = TaskMapping;
+
+        // Console logging
+        const consoleDiv = document.getElementById('console');
+        
+        function logToConsole(message, type = 'info') {
+            const line = document.createElement('div');
+            line.className = `console-line console-${type}`;
+            line.textContent = message;
+            consoleDiv.appendChild(line);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        window.clearConsole = function() {
+            consoleDiv.innerHTML = '';
+        };
+
+        // Intercept console methods
+        const originalLog = console.log;
+        const originalWarn = console.warn;
+        const originalError = console.error;
+
+        console.log = function(...args) {
+            logToConsole(args.join(' '), 'info');
+            originalLog.apply(console, args);
+        };
+
+        console.warn = function(...args) {
+            logToConsole(args.join(' '), 'warning');
+            originalWarn.apply(console, args);
+        };
+
+        console.error = function(...args) {
+            logToConsole(args.join(' '), 'error');
+            originalError.apply(console, args);
+        };
+
+        // Sample data
+        let sampleTasks = null;
+
+        function createSampleTasks() {
+            logToConsole('═══════════════════════════════', 'info');
+            logToConsole('Creating sample tasks...', 'info');
+
+            const tasks = {
+                inputCpee: [
+                    new TaskIdentifier('a1', 'Initialize Process', 'call', 'cpee', { endpoint: 'service1' }, 0),
+                    new TaskIdentifier('a2', 'Process Data', 'call', 'cpee', { endpoint: 'service2' }, 1),
+                    new TaskIdentifier('a3', 'Validate Result', 'manipulate', 'cpee', {}, 2),
+                ],
+                inputMermaid: [
+                    new TaskIdentifier('A', 'Initialize Process', 'task', 'mermaid', { shape: 'rectangle' }, 0),
+                    new TaskIdentifier('B', 'Process Data', 'task', 'mermaid', { shape: 'rectangle' }, 1),
+                    new TaskIdentifier('C', 'Validate Result', 'task', 'mermaid', { shape: 'rectangle' }, 2),
+                ],
+                outputMermaid: [
+                    new TaskIdentifier('X', 'Initialize', 'task', 'mermaid', { shape: 'rectangle' }, 0), // Fuzzy match
+                    new TaskIdentifier('Y', 'Process Data', 'task', 'mermaid', { shape: 'rectangle' }, 1), // Exact match
+                    new TaskIdentifier('Z', 'Validate', 'task', 'mermaid', { shape: 'rectangle' }, 2), // Fuzzy match
+                ],
+                outputCpee: [
+                    new TaskIdentifier('b1', 'Initialize', 'call', 'cpee', { endpoint: 'service1' }, 0),
+                    new TaskIdentifier('b2', 'Process Data', 'call', 'cpee', { endpoint: 'service2' }, 1),
+                    new TaskIdentifier('b3', 'Validate', 'manipulate', 'cpee', {}, 2),
+                ]
+            };
+
+            logToConsole(`Created ${tasks.inputCpee.length} input CPEE tasks`, 'success');
+            logToConsole(`Created ${tasks.inputMermaid.length} input Mermaid tasks`, 'success');
+            logToConsole(`Created ${tasks.outputMermaid.length} output Mermaid tasks`, 'success');
+            logToConsole(`Created ${tasks.outputCpee.length} output CPEE tasks`, 'success');
+
+            return tasks;
+        }
+
+        function displaySampleTasks(tasks) {
+            // Display input CPEE
+            const inputCpeeList = document.getElementById('input-cpee-list');
+            inputCpeeList.innerHTML = tasks.inputCpee.map(t => 
+                `<div class="task-item"><strong>${t.id}</strong>: ${t.label} (${t.type})</div>`
+            ).join('');
+
+            // Display input Mermaid
+            const inputMermaidList = document.getElementById('input-mermaid-list');
+            inputMermaidList.innerHTML = tasks.inputMermaid.map(t => 
+                `<div class="task-item"><strong>${t.id}</strong>: ${t.label} (${t.type})</div>`
+            ).join('');
+
+            // Display output Mermaid
+            const outputMermaidList = document.getElementById('output-mermaid-list');
+            outputMermaidList.innerHTML = tasks.outputMermaid.map(t => 
+                `<div class="task-item"><strong>${t.id}</strong>: ${t.label} (${t.type})</div>`
+            ).join('');
+
+            // Display output CPEE
+            const outputCpeeList = document.getElementById('output-cpee-list');
+            outputCpeeList.innerHTML = tasks.outputCpee.map(t => 
+                `<div class="task-item"><strong>${t.id}</strong>: ${t.label} (${t.type})</div>`
+            ).join('');
+        }
+
+        function displayStats(mapping) {
+            const statsDiv = document.getElementById('stats');
+            const stats = mapping.toObject();
+
+            const formats = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
+            
+            let html = '';
+            formats.forEach(format => {
+                const count = Object.keys(stats.tasks[format] || {}).length;
+                html += `
+                    <div class="stat-card">
+                        <div class="stat-value">${count}</div>
+                        <div class="stat-label">${format} tasks</div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="stat-card">
+                    <div class="stat-value">${mapping.getMappingCount()}</div>
+                    <div class="stat-label">Total Mappings</div>
+                </div>
+            `;
+
+            statsDiv.innerHTML = html;
+        }
+
+        window.testBasicMapping = function() {
+            logToConsole('═══════════════════════════════', 'info');
+            logToConsole('🧪 TEST: Basic Mapping', 'info');
+            logToConsole('═══════════════════════════════', 'info');
+
+            sampleTasks = createSampleTasks();
+            displaySampleTasks(sampleTasks);
+
+            const mapper = new TaskMapper();
+            const mapping = mapper.buildMapping(
+                sampleTasks.inputCpee,
+                sampleTasks.inputMermaid,
+                sampleTasks.outputMermaid,
+                sampleTasks.outputCpee
+            );
+
+            displayStats(mapping);
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<h3>Mapping created successfully!</h3><p>Check console for details.</p>';
+
+            logToConsole('✅ Basic mapping test complete', 'success');
+
+            // Store for other tests
+            window.lastMapping = mapping;
+        };
+
+        window.testFuzzyMatching = function() {
+            logToConsole('═══════════════════════════════', 'info');
+            logToConsole('🧪 TEST: Fuzzy Matching', 'info');
+            logToConsole('═══════════════════════════════', 'info');
+
+            if (!sampleTasks) {
+                sampleTasks = createSampleTasks();
+            }
+
+            const mapper = new TaskMapper();
+            
+            // Test fuzzy matching between input CPEE and output Mermaid
+            const task1 = sampleTasks.inputCpee[0]; // "Initialize Process"
+            const task2 = sampleTasks.outputMermaid[0]; // "Initialize"
+
+            const similarity = mapper.calculateSimilarity(task1, task2);
+            logToConsole(`Fuzzy match: "${task1.label}" ↔ "${task2.label}"`, 'info');
+            logToConsole(`Similarity score: ${similarity.toFixed(2)}`, similarity >= 0.6 ? 'success' : 'warning');
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <h3>Fuzzy Matching Results</h3>
+                <div class="mapping-result">
+                    <p><strong>Task 1:</strong> "${task1.label}" (${task1.id})</p>
+                    <p><strong>Task 2:</strong> "${task2.label}" (${task2.id})</p>
+                    <p><strong>Similarity:</strong> ${(similarity * 100).toFixed(1)}%</p>
+                    <p><strong>Match:</strong> ${similarity >= 0.6 ? '✅ Yes' : '❌ No'}</p>
+                </div>
+            `;
+
+            logToConsole('✅ Fuzzy matching test complete', 'success');
+        };
+
+        window.testTransitiveMapping = function() {
+            logToConsole('═══════════════════════════════', 'info');
+            logToConsole('🧪 TEST: Transitive Mapping', 'info');
+            logToConsole('═══════════════════════════════', 'info');
+
+            if (!window.lastMapping) {
+                logToConsole('⚠️ Please run "Test Basic Mapping" first', 'warning');
+                return;
+            }
+
+            const mapping = window.lastMapping;
+
+            // Check for transitive mapping: input-cpee → output-cpee
+            const inputCpeeTask = sampleTasks.inputCpee[1]; // "Process Data"
+            const directMappings = mapping.getMappings(inputCpeeTask.id, 'input-cpee', 'output-cpee');
+
+            logToConsole(`Checking transitive mapping for: "${inputCpeeTask.label}" (${inputCpeeTask.id})`, 'info');
+            logToConsole(`Direct mappings to output-cpee: ${directMappings.length}`, 'info');
+
+            const resultsDiv = document.getElementById('results');
+            let html = '<h3>Transitive Mapping Results</h3>';
+
+            if (directMappings.length > 0) {
+                html += '<div class="mapping-result">';
+                html += `<p><strong>Source:</strong> input-cpee:"${inputCpeeTask.label}" (${inputCpeeTask.id})</p>`;
+                directMappings.forEach(m => {
+                    html += `<p><strong>Target:</strong> output-cpee:"${m.targetTask.label}" (${m.targetTask.id})</p>`;
+                    html += `<p><strong>Confidence:</strong> ${(m.confidence * 100).toFixed(1)}%</p>`;
+                    html += `<p><strong>Transitive:</strong> ${m.isTransitive ? '✅ Yes' : '❌ No'}</p>`;
+                });
+                html += '</div>';
+            } else {
+                html += '<p>No transitive mappings found</p>';
+            }
+
+            resultsDiv.innerHTML = html;
+
+            logToConsole('✅ Transitive mapping test complete', 'success');
+        };
+
+        window.testEquivalentSearch = function() {
+            logToConsole('═══════════════════════════════', 'info');
+            logToConsole('🧪 TEST: Equivalent Task Search', 'info');
+            logToConsole('═══════════════════════════════', 'info');
+
+            if (!window.lastMapping) {
+                logToConsole('⚠️ Please run "Test Basic Mapping" first', 'warning');
+                return;
+            }
+
+            const mapping = window.lastMapping;
+            const sourceTask = sampleTasks.inputCpee[0]; // "Initialize Process"
+
+            logToConsole(`Finding equivalents for: "${sourceTask.label}" (${sourceTask.id})`, 'info');
+            const equivalents = mapping.findEquivalentTasks(sourceTask.id, 'input-cpee');
+
+            const resultsDiv = document.getElementById('results');
+            let html = '<h3>Equivalent Tasks Found</h3>';
+            html += `<p><strong>Source:</strong> input-cpee:"${sourceTask.label}" (${sourceTask.id})</p>`;
+
+            Object.entries(equivalents).forEach(([format, tasks]) => {
+                if (tasks.length > 0) {
+                    html += '<div class="mapping-result">';
+                    html += `<h4>${format}</h4>`;
+                    tasks.forEach(t => {
+                        html += `<p>• "${t.task.label}" (${t.task.id}) - ${(t.confidence * 100).toFixed(1)}% confidence</p>`;
+                    });
+                    html += '</div>';
+                }
+            });
+
+            resultsDiv.innerHTML = html;
+
+            logToConsole('✅ Equivalent search test complete', 'success');
+        };
+
+        // Initialize
+        logToConsole('🚀 Task Mapper Basic Test Initialized', 'info');
+        logToConsole('Click "Test Basic Mapping" to begin', 'info');
+    </script>
+</body>
+</html>
+
