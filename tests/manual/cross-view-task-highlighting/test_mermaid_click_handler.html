@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Click Handler Test - Phase 22.4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .panel {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .panel h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .svg-container {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f9f9f9;
+            min-height: 400px;
+            overflow: auto;
+        }
+        
+        .svg-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.secondary {
+            background: #6c757d;
+        }
+        
+        button.secondary:hover {
+            background: #5a6268;
+        }
+        
+        .log-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            margin-bottom: 8px;
+            padding: 4px;
+            border-left: 3px solid #667eea;
+            padding-left: 10px;
+        }
+        
+        .log-entry.success {
+            border-left-color: #28a745;
+        }
+        
+        .log-entry.info {
+            border-left-color: #17a2b8;
+        }
+        
+        .log-entry.warning {
+            border-left-color: #ffc107;
+        }
+        
+        .log-entry.error {
+            border-left-color: #dc3545;
+        }
+        
+        .task-info {
+            background: #e7f3ff;
+            border: 2px solid #2196F3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .task-info h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+        
+        .task-info table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .task-info td {
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .task-info td:first-child {
+            font-weight: bold;
+            width: 40%;
+        }
+        
+        .instructions {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            grid-column: 1 / -1;
+        }
+        
+        .instructions h3 {
+            color: #0c5460;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖱️ Mermaid Click Handler Test</h1>
+            <p>Phase 22.4 - Mermaid SVG Click Detection & Node Identification</p>
+        </header>
+        
+        <div class="content">
+            <div class="instructions">
+                <h3>📋 Test Instructions</h3>
+                <ol>
+                    <li>The Mermaid flowchart will render automatically using the sample syntax below</li>
+                    <li>Click on any node in the Mermaid visualization</li>
+                    <li>The handler will identify the clicked node and display its details</li>
+                    <li>Observe the console logs showing the identification process</li>
+                    <li>Try clicking different shapes: rectangles, circles, diamonds</li>
+                    <li>Verify that node matching and shape detection work correctly</li>
+                </ol>
+            </div>
+            
+            <div class="panel">
+                <h2>Mermaid Visualization</h2>
+                
+                <div class="controls">
+                    <button id="renderBtn">Render Mermaid SVG</button>
+                    <button id="extractBtn" class="secondary">Extract Nodes</button>
+                    <button id="clearLogsBtn" class="secondary">Clear Logs</button>
+                </div>
+                
+                <div id="svgContainer" class="svg-container">
+                    <p style="color: #999; text-align: center;">Click "Render Mermaid SVG" to begin</p>
+                </div>
+                
+                <div id="taskInfo" style="display: none;" class="task-info">
+                    <h3>🎯 Clicked Node Details</h3>
+                    <table>
+                        <tr><td>ID:</td><td id="taskId">-</td></tr>
+                        <tr><td>Label:</td><td id="taskLabel">-</td></tr>
+                        <tr><td>Type:</td><td id="taskType">-</td></tr>
+                        <tr><td>Shape:</td><td id="taskShape">-</td></tr>
+                        <tr><td>Position:</td><td id="taskPosition">-</td></tr>
+                        <tr><td>Source Format:</td><td id="taskSource">-</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <h2>Console Log Output</h2>
+                <div id="logOutput" class="log-output">
+                    <div class="log-entry info">Waiting for user interaction...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { SVGClickDetector } from '../../../src/utils/interaction/SVGClickDetector.js';
+        import { MermaidSVGClickHandler } from '../../../src/utils/interaction/MermaidSVGClickHandler.js';
+        import { SVGTaskExtractor } from '../../../src/utils/extraction/SVGTaskExtractor.js';
+        import { MermaidRenderer } from '../../../src/components/renderers/MermaidRenderer.js';
+        
+        console.log('[Test] Mermaid Click Handler Test initialized');
+        
+        // Sample Mermaid syntax
+        const sampleMermaidSyntax = `flowchart TD
+    Start([Start Process])
+    A[Initialize Process]
+    B[Process Data]
+    C{Check Result}
+    D[Handle Success]
+    E[Handle Error]
+    F[Transform Data]
+    G[Send Notifications]
+    H[Log Activity]
+    End([End Process])
+    
+    Start --> A
+    A --> B
+    B --> C
+    C -->|Success| D
+    C -->|Error| E
+    D --> F
+    F --> G
+    E --> G
+    G --> H
+    H --> End`;
+        
+        // State
+        let detector = null;
+        let clickHandler = null;
+        let extractor = null;
+        let mermaidRenderer = null;
+        let extractedNodes = [];
+        let cleanupFn = null;
+        
+        // Elements
+        const svgContainer = document.getElementById('svgContainer');
+        const logOutput = document.getElementById('logOutput');
+        const taskInfo = document.getElementById('taskInfo');
+        const renderBtn = document.getElementById('renderBtn');
+        const extractBtn = document.getElementById('extractBtn');
+        const clearLogsBtn = document.getElementById('clearLogsBtn');
+        
+        // Initialize components
+        async function initialize() {
+            addLog('Initializing components...', 'info');
+            
+            detector = new SVGClickDetector();
+            clickHandler = new MermaidSVGClickHandler();
+            extractor = new SVGTaskExtractor();
+            mermaidRenderer = new MermaidRenderer();
+            
+            addLog('✅ Components initialized', 'success');
+        }
+        
+        // Render Mermaid SVG
+        async function renderMermaidSVG() {
+            addLog('='.repeat(50), 'info');
+            addLog('Rendering Mermaid SVG...', 'info');
+            
+            try {
+                // Initialize renderer with container ID (it handles library loading internally)
+                await mermaidRenderer.initialize('svgContainer');
+                
+                // Render graph (doesn't return SVG, renders directly to container)
+                await mermaidRenderer.renderGraph(sampleMermaidSyntax);
+                
+                // Check if SVG was rendered
+                const svg = svgContainer.querySelector('svg');
+                if (svg) {
+                    addLog('✅ Mermaid SVG rendered successfully', 'success');
+                    
+                    // Auto-extract nodes
+                    await extractNodes();
+                    
+                    // Setup click detection
+                    setupClickDetection();
+                } else {
+                    addLog('❌ No SVG found after rendering', 'error');
+                }
+            } catch (error) {
+                addLog(`❌ Error rendering Mermaid: ${error.message}`, 'error');
+                console.error(error);
+            }
+        }
+        
+        // Extract nodes from rendered SVG
+        async function extractNodes() {
+            addLog('='.repeat(50), 'info');
+            addLog('Extracting nodes from SVG...', 'info');
+            
+            const svg = svgContainer.querySelector('svg');
+            
+            if (!svg) {
+                addLog('❌ No SVG found in container', 'error');
+                return;
+            }
+            
+            extractedNodes = extractor.extractTasksFromMermaidSVG(svg);
+            
+            addLog(`✅ Extracted ${extractedNodes.length} nodes`, 'success');
+            
+            extractedNodes.forEach((node, index) => {
+                const shape = node.getMetadata('shape') || 'unknown';
+                addLog(`   Node ${index + 1}: "${node.label}" (${node.id}) - ${node.type} [${shape}]`, 'info');
+            });
+        }
+        
+        // Setup click detection
+        function setupClickDetection() {
+            if (cleanupFn) {
+                cleanupFn();
+            }
+            
+            addLog('Setting up click detection...', 'info');
+            
+            cleanupFn = detector.attachClickListener(svgContainer, (event, clickedElement, elementPath, taskContainer) => {
+                handleClick(clickedElement);
+            });
+            
+            // Make elements clickable
+            detector.makeElementsClickable(svgContainer);
+            
+            addLog('✅ Click detection active (click on nodes to identify them)', 'success');
+            addLog('='.repeat(50), 'info');
+        }
+        
+        // Handle click on SVG
+        function handleClick(clickedElement) {
+            addLog('━'.repeat(50), 'info');
+            addLog('🖱️ Click detected, identifying node...', 'info');
+            
+            // Identify clicked node
+            const identifiedNode = clickHandler.identifyClickedNode(clickedElement, extractedNodes);
+            
+            if (identifiedNode) {
+                addLog(`✅ Node identified: "${identifiedNode.label}"`, 'success');
+                displayNodeInfo(identifiedNode);
+            } else {
+                addLog('❌ No node identified (clicked on background, edge, or non-node element)', 'warning');
+                hideNodeInfo();
+            }
+            
+            addLog('━'.repeat(50), 'info');
+        }
+        
+        // Display node information
+        function displayNodeInfo(node) {
+            document.getElementById('taskId').textContent = node.id || 'N/A';
+            document.getElementById('taskLabel').textContent = node.label || 'N/A';
+            document.getElementById('taskType').textContent = node.type || 'N/A';
+            document.getElementById('taskShape').textContent = node.getMetadata('shape') || 'N/A';
+            document.getElementById('taskPosition').textContent = node.position !== null ? node.position : 'N/A';
+            document.getElementById('taskSource').textContent = node.sourceFormat || 'N/A';
+            
+            taskInfo.style.display = 'block';
+        }
+        
+        // Hide node information
+        function hideNodeInfo() {
+            taskInfo.style.display = 'none';
+        }
+        
+        // Add log entry
+        function addLog(message, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logOutput.appendChild(entry);
+            logOutput.scrollTop = logOutput.scrollHeight;
+            
+            // Also log to console
+            console.log(message);
+        }
+        
+        // Clear logs
+        function clearLogs() {
+            logOutput.innerHTML = '<div class="log-entry info">Logs cleared</div>';
+            console.clear();
+            addLog('🚀 Ready for testing', 'info');
+        }
+        
+        // Event listeners
+        renderBtn.addEventListener('click', renderMermaidSVG);
+        extractBtn.addEventListener('click', extractNodes);
+        clearLogsBtn.addEventListener('click', clearLogs);
+        
+        // Initialize
+        initialize();
+        addLog('🚀 Test initialized. Click "Render Mermaid SVG" to begin.', 'info');
+    </script>
+</body>
+</html>
+

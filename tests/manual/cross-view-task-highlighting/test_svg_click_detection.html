@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Click Detection Test - Phase 22.4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .svg-container {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f9f9f9;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .svg-container:hover {
+            background: #f0f0f0;
+        }
+        
+        .svg-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.secondary {
+            background: #6c757d;
+        }
+        
+        button.secondary:hover {
+            background: #5a6268;
+        }
+        
+        .log-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .log-entry {
+            margin-bottom: 8px;
+            padding: 4px;
+            border-left: 3px solid #667eea;
+            padding-left: 10px;
+        }
+        
+        .log-entry.click {
+            border-left-color: #28a745;
+        }
+        
+        .log-entry.info {
+            border-left-color: #17a2b8;
+        }
+        
+        .log-entry.warning {
+            border-left-color: #ffc107;
+        }
+        
+        .log-entry.error {
+            border-left-color: #dc3545;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .instructions {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖱️ SVG Click Detection Test</h1>
+            <p>Phase 22.4 - Click Detection Infrastructure</p>
+        </header>
+        
+        <div class="content">
+            <div class="instructions">
+                <h3>📋 Test Instructions</h3>
+                <ol>
+                    <li>Click "Create Test SVG" to generate interactive SVG shapes</li>
+                    <li>Click anywhere on the SVG to test click detection</li>
+                    <li>Observe the console log output below</li>
+                    <li>Check that coordinates, element paths, and container detection work</li>
+                    <li>Click "Make Elements Clickable" to add pointer cursors</li>
+                    <li>View statistics to verify event tracking</li>
+                </ol>
+            </div>
+            
+            <div class="test-section">
+                <h2>Test SVG Canvas</h2>
+                
+                <div class="controls">
+                    <button id="createSvgBtn">Create Test SVG</button>
+                    <button id="makeClickableBtn" class="secondary">Make Elements Clickable</button>
+                    <button id="clearLogsBtn" class="secondary">Clear Logs</button>
+                    <button id="showStatsBtn" class="secondary">Show Statistics</button>
+                </div>
+                
+                <div id="svgContainer" class="svg-container">
+                    <p style="color: #999;">Click "Create Test SVG" to generate shapes</p>
+                </div>
+            </div>
+            
+            <div class="test-section">
+                <h2>Statistics</h2>
+                <div id="statsContainer" class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalClicks">0</div>
+                        <div class="stat-label">Total Clicks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeListeners">0</div>
+                        <div class="stat-label">Active Listeners</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="taskClicks">0</div>
+                        <div class="stat-label">Task Clicks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="bgClicks">0</div>
+                        <div class="stat-label">Background Clicks</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="test-section">
+                <h2>Console Log Output</h2>
+                <div id="logOutput" class="log-output">
+                    <div class="log-entry info">Waiting for user interaction...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { SVGClickDetector } from '../../../src/utils/interaction/SVGClickDetector.js';
+        
+        console.log('[Test] SVG Click Detection Test initialized');
+        
+        // State
+        let detector = null;
+        let cleanupFn = null;
+        let clickStats = {
+            total: 0,
+            taskClicks: 0,
+            bgClicks: 0
+        };
+        
+        // Elements
+        const svgContainer = document.getElementById('svgContainer');
+        const logOutput = document.getElementById('logOutput');
+        const createSvgBtn = document.getElementById('createSvgBtn');
+        const makeClickableBtn = document.getElementById('makeClickableBtn');
+        const clearLogsBtn = document.getElementById('clearLogsBtn');
+        const showStatsBtn = document.getElementById('showStatsBtn');
+        
+        // Create test SVG with various elements
+        function createTestSVG() {
+            addLog('Creating test SVG with interactive elements...', 'info');
+            
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '100%');
+            svg.setAttribute('height', '400');
+            svg.setAttribute('viewBox', '0 0 800 400');
+            svg.style.background = 'white';
+            
+            // Background rect
+            const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            bg.setAttribute('width', '800');
+            bg.setAttribute('height', '400');
+            bg.setAttribute('fill', '#f0f0f0');
+            svg.appendChild(bg);
+            
+            // Create task groups (simulating CPEE structure)
+            const taskData = [
+                { id: 'task1', x: 50, y: 50, label: 'Task 1', color: '#4CAF50' },
+                { id: 'task2', x: 250, y: 50, label: 'Task 2', color: '#2196F3' },
+                { id: 'task3', x: 450, y: 50, label: 'Task 3', color: '#FF9800' }
+            ];
+            
+            taskData.forEach(task => {
+                const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                group.classList.add('element');
+                group.setAttribute('element-id', task.id);
+                
+                const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                rect.setAttribute('x', task.x);
+                rect.setAttribute('y', task.y);
+                rect.setAttribute('width', '150');
+                rect.setAttribute('height', '80');
+                rect.setAttribute('fill', task.color);
+                rect.setAttribute('stroke', '#333');
+                rect.setAttribute('stroke-width', '2');
+                rect.setAttribute('rx', '5');
+                
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.classList.add('label');
+                text.setAttribute('x', task.x + 75);
+                text.setAttribute('y', task.y + 45);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('fill', 'white');
+                text.setAttribute('font-size', '18');
+                text.setAttribute('font-weight', 'bold');
+                text.textContent = task.label;
+                
+                group.appendChild(rect);
+                group.appendChild(text);
+                svg.appendChild(group);
+            });
+            
+            // Create node groups (simulating Mermaid structure)
+            const nodeData = [
+                { id: 'A', x: 50, y: 200, shape: 'circle', label: 'Node A', color: '#E91E63' },
+                { id: 'B', x: 250, y: 200, shape: 'rect', label: 'Node B', color: '#9C27B0' },
+                { id: 'C', x: 450, y: 200, shape: 'diamond', label: 'Node C', color: '#673AB7' }
+            ];
+            
+            nodeData.forEach((node, idx) => {
+                const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                group.classList.add('node');
+                group.setAttribute('id', `flowchart-${node.id}-${idx + 100}`);
+                
+                if (node.shape === 'circle') {
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    circle.setAttribute('cx', node.x + 40);
+                    circle.setAttribute('cy', node.y + 40);
+                    circle.setAttribute('r', '40');
+                    circle.setAttribute('fill', node.color);
+                    circle.setAttribute('stroke', '#333');
+                    circle.setAttribute('stroke-width', '2');
+                    group.appendChild(circle);
+                } else if (node.shape === 'diamond') {
+                    const diamond = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                    const cx = node.x + 40;
+                    const cy = node.y + 40;
+                    diamond.setAttribute('points', `${cx},${cy-40} ${cx+40},${cy} ${cx},${cy+40} ${cx-40},${cy}`);
+                    diamond.setAttribute('fill', node.color);
+                    diamond.setAttribute('stroke', '#333');
+                    diamond.setAttribute('stroke-width', '2');
+                    group.appendChild(diamond);
+                } else {
+                    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    rect.setAttribute('x', node.x);
+                    rect.setAttribute('y', node.y);
+                    rect.setAttribute('width', '80');
+                    rect.setAttribute('height', '80');
+                    rect.setAttribute('fill', node.color);
+                    rect.setAttribute('stroke', '#333');
+                    rect.setAttribute('stroke-width', '2');
+                    group.appendChild(rect);
+                }
+                
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', node.x + 40);
+                text.setAttribute('y', node.y + 45);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('fill', 'white');
+                text.setAttribute('font-size', '14');
+                text.setAttribute('font-weight', 'bold');
+                text.textContent = node.label;
+                
+                group.appendChild(text);
+                svg.appendChild(group);
+            });
+            
+            // Clear and add SVG
+            svgContainer.innerHTML = '';
+            svgContainer.appendChild(svg);
+            
+            addLog('✅ Test SVG created with 3 CPEE tasks and 3 Mermaid nodes', 'info');
+            
+            // Initialize detector
+            setupClickDetector();
+        }
+        
+        // Setup click detector
+        function setupClickDetector() {
+            if (cleanupFn) {
+                cleanupFn();
+            }
+            
+            detector = new SVGClickDetector();
+            
+            cleanupFn = detector.attachClickListener(svgContainer, (event, clickedElement, elementPath, taskContainer) => {
+                clickStats.total++;
+                
+                if (taskContainer) {
+                    clickStats.taskClicks++;
+                    addLog(`✅ Task/Node clicked!`, 'click');
+                } else {
+                    clickStats.bgClicks++;
+                    addLog(`Background clicked`, 'info');
+                }
+                
+                updateStats();
+            });
+            
+            addLog('✅ Click detector attached', 'info');
+            updateStats();
+        }
+        
+        // Make elements clickable (visual indicator)
+        function makeElementsClickable() {
+            if (!detector) {
+                addLog('❌ Create SVG first!', 'error');
+                return;
+            }
+            
+            detector.makeElementsClickable(svgContainer);
+            addLog('✅ Elements made clickable (cursor changed)', 'info');
+        }
+        
+        // Add log entry
+        function addLog(message, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logOutput.appendChild(entry);
+            logOutput.scrollTop = logOutput.scrollHeight;
+            
+            // Also log to console
+            console.log(message);
+        }
+        
+        // Clear logs
+        function clearLogs() {
+            logOutput.innerHTML = '<div class="log-entry info">Logs cleared</div>';
+            console.clear();
+        }
+        
+        // Update statistics display
+        function updateStats() {
+            document.getElementById('totalClicks').textContent = clickStats.total;
+            document.getElementById('taskClicks').textContent = clickStats.taskClicks;
+            document.getElementById('bgClicks').textContent = clickStats.bgClicks;
+            
+            if (detector) {
+                const stats = detector.getStats();
+                document.getElementById('activeListeners').textContent = stats.activeListeners;
+            }
+        }
+        
+        // Show detailed statistics
+        function showStats() {
+            if (!detector) {
+                addLog('❌ Create SVG first!', 'error');
+                return;
+            }
+            
+            const stats = detector.getStats();
+            addLog('=== Statistics ===', 'info');
+            addLog(`Total clicks: ${stats.totalClicks}`, 'info');
+            addLog(`Active listeners: ${stats.activeListeners}`, 'info');
+            addLog(`Task clicks: ${clickStats.taskClicks}`, 'info');
+            addLog(`Background clicks: ${clickStats.bgClicks}`, 'info');
+        }
+        
+        // Event listeners
+        createSvgBtn.addEventListener('click', createTestSVG);
+        makeClickableBtn.addEventListener('click', makeElementsClickable);
+        clearLogsBtn.addEventListener('click', clearLogs);
+        showStatsBtn.addEventListener('click', showStats);
+        
+        // Initialize
+        addLog('🚀 Test initialized. Click "Create Test SVG" to begin.', 'info');
+        updateStats();
+    </script>
+</body>
+</html>
+

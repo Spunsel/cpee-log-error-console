@@ -284,21 +284,47 @@
                 Click Detection Infrastructure
             </h2>
             <p style="color: #6b7280; margin-bottom: 15px;">
-                Detect and handle clicks on SVG task elements (Coming Next)
+                Detect and handle clicks on SVG task elements with intelligent identification
             </p>
 
             <div class="test-grid">
-                <div class="test-card" style="opacity: 0.6; cursor: not-allowed;">
+                <a href="test_svg_click_detection.html" class="test-card">
                     <h3>🖱️ SVG Click Detection</h3>
                     <p>
-                        Will test click event detection on SVG elements, task identification,
-                        and event delegation for both CPEE and Mermaid SVGs.
+                        Tests generic click event detection on SVG elements. Uses event delegation
+                        to capture clicks, identify task containers, and log element paths.
                     </p>
                     <div class="test-meta">
-                        <span class="meta-tag status-pending">⏳ Pending</span>
+                        <span class="meta-tag status-complete">✅ Complete</span>
                         <span class="meta-tag">SVGClickDetector.js</span>
                     </div>
-                </div>
+                </a>
+
+                <a href="test_cpee_click_handler.html" class="test-card">
+                    <h3>🎯 CPEE Click Handler</h3>
+                    <p>
+                        Tests CPEE-specific click handling. Identifies clicked tasks in WfAdaptor SVGs
+                        and matches them to TaskIdentifier objects from extraction.
+                    </p>
+                    <div class="test-meta">
+                        <span class="meta-tag status-complete">✅ Complete</span>
+                        <span class="meta-tag">CPEESVGClickHandler.js</span>
+                        <span class="meta-tag">CPEE Tasks</span>
+                    </div>
+                </a>
+
+                <a href="test_mermaid_click_handler.html" class="test-card">
+                    <h3>🔷 Mermaid Click Handler</h3>
+                    <p>
+                        Tests Mermaid-specific click handling. Identifies clicked nodes in Mermaid SVGs,
+                        handles different shapes (circles, diamonds, rectangles), and matches to TaskIdentifiers.
+                    </p>
+                    <div class="test-meta">
+                        <span class="meta-tag status-complete">✅ Complete</span>
+                        <span class="meta-tag">MermaidSVGClickHandler.js</span>
+                        <span class="meta-tag">Mermaid Nodes</span>
+                    </div>
+                </a>
             </div>
         </div>
 
