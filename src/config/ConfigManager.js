@@ -301,7 +301,8 @@ export class ConfigManager {
                 
                 // Main app structure
                 app: 'app',
-                appTitle: 'app-title'
+                appTitle: 'app-title',
+                headerContent: 'header-content'
             },
             classes: {
                 hidden: 'hidden',

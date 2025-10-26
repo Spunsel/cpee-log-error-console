@@ -11,7 +11,6 @@ import { StepViewer } from '../components/views/StepViewer.js';
 import { LogViewer } from '../components/views/LogViewer.js';
 import { RawContentViewManager } from '../components/coordinators/RawContentViewManager.js';
 import { CrossViewHighlightManager } from '../components/coordinators/CrossViewHighlightManager.js';
-import { ContentSectionManager } from '../components/coordinators/ContentSectionManager.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 import { configManager } from '../config/ConfigManager.js';
 
@@ -217,10 +216,10 @@ export class CPEEDebugConsole {
             });
         }
 
-        // App title click - return to home
-        const appTitle = this.getElement('appTitle');
-        if (appTitle) {
-            appTitle.addEventListener('click', () => {
+        // Header content click - return to home
+        const headerContent = this.getElement('headerContent');
+        if (headerContent) {
+            headerContent.addEventListener('click', () => {
                 this.returnToHome();
             });
         }

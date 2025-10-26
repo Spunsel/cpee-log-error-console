@@ -98,6 +98,46 @@ export const ICON_NAV_END = `
     </svg>
 `;
 
+/**
+ * App Console Debug Icon - Terminal with debugging symbols
+ * Represents the debug console application - 64x64px (200% of original)
+ */
+export const ICON_APP = `
+    <svg viewBox="-5.08 -5.08 60.96 60.96" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="#000000" stroke="#000000" width="64" height="64">
+        <g id="SVGRepo_bgCarrier" stroke-width="0" transform="translate(0,0), scale(1)">
+            <rect x="-5.08" y="-5.08" width="60.96" height="60.96" rx="30.48" fill="#c2d1ff" strokewidth="0"></rect>
+        </g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="1.6256"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path fill="none" stroke="#2563eb" stroke-width="3.175" d="M27.071 31.527a4.456 4.456 0 0 1 4.456-4.456h8.912a4.456 4.456 0 0 1 4.456 4.456v8.912a4.456 4.456 0 0 1-4.456 4.456h-8.912a4.456 4.456 0 0 1-4.456-4.456z"></path>
+            <path fill-rule="evenodd" d="M19.686 11.658a3.163 3.163 0 0 1 3.134-2.783h2.932c1.595 0 2.946 1.2 3.134 2.783l.227 1.901c.035.296.278.693.778.99.508.304.972.321 1.264.196l1.767-.757a3.163 3.163 0 0 1 3.977 1.323l1.467 2.539a3.163 3.163 0 0 1-.844 4.106l-1.626 1.216h-3.693c.214-.987.73-1.958 1.65-2.645l1.536-1.15-1.302-2.253-1.613.692h-.002c-1.513.65-3.107.31-4.292-.395-1.143-.681-2.196-1.87-2.386-3.466l-.207-1.738h-2.602l-.169 1.415c-.205 1.728-1.383 2.99-2.63 3.692-1.223.69-2.85 1.023-4.395.36l-1.306-.56-1.301 2.254 1.006.753c1.403 1.049 1.926 2.703 1.926 4.154 0 1.452-.523 3.106-1.926 4.155l-1.006.753 1.3 2.254 1.307-.56c1.546-.664 3.172-.33 4.396.36 1.246.702 2.424 1.964 2.63 3.692l.168 1.415h.187v3.342h-.352a3.163 3.163 0 0 1-3.134-2.783l-.188-1.58c-.044-.368-.353-.837-.952-1.175-.572-.323-1.094-.347-1.438-.2l-1.457.625a3.163 3.163 0 0 1-3.978-1.323l-1.466-2.539a3.163 3.163 0 0 1 .844-4.106l1.138-.851c.326-.244.585-.765.585-1.478 0-.714-.259-1.235-.585-1.479l-1.138-.851a3.163 3.163 0 0 1-.844-4.106l1.466-2.54a3.163 3.163 0 0 1 3.978-1.322l1.457.625c.344.147.866.123 1.438-.2.6-.338.908-.807.952-1.176z" clip-rule="evenodd"></path>
+            <path fill-rule="evenodd" d="M24.286 18.716a5.57 5.57 0 0 0-1.114 11.029v-.446a6.1 6.1 0 0 1 .689-2.825 2.229 2.229 0 1 1 2.613-2.613 6.1 6.1 0 0 1 2.825-.689h.446a5.572 5.572 0 0 0-5.459-4.456z" clip-rule="evenodd"></path>
+            <path fill-rule="evenodd" d="M7.575 9.246c0-.922.749-1.67 1.671-1.67h30.08c.922 0 1.67.748 1.67 1.67v13.925h1.672c.579 0 1.14.08 1.67.231V9.246a5.013 5.013 0 0 0-5.012-5.013H9.246a5.013 5.013 0 0 0-5.013 5.013v30.08a5.013 5.013 0 0 0 5.014 5.012h14.156a6.132 6.132 0 0 1-.231-1.67v-1.672H9.247a1.671 1.671 0 0 1-1.671-1.671z" clip-rule="evenodd"></path>
+            <path fill="none" stroke="#2563eb" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.117" d="M33.198 32.084h2.785a3.9 3.9 0 0 1 0 7.798h-2.785z"></path>
+        </g>
+    </svg>
+`;
+
+/**
+ * App Favicon Icon - 32x32px version of app icon for browser tab
+ * Same design as ICON_APP but optimized for small favicon sizes
+ */
+export const ICON_APP_FAVICON = `
+    <svg viewBox="-5.08 -5.08 60.96 60.96" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="#000000" stroke="#000000" width="32" height="32">
+        <g id="SVGRepo_bgCarrier" stroke-width="0" transform="translate(0,0), scale(1)">
+            <rect x="-5.08" y="-5.08" width="60.96" height="60.96" rx="30.48" fill="#c2d1ff" strokewidth="0"></rect>
+        </g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="1.6256"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path fill="none" stroke="#2563eb" stroke-width="3.175" d="M27.071 31.527a4.456 4.456 0 0 1 4.456-4.456h8.912a4.456 4.456 0 0 1 4.456 4.456v8.912a4.456 4.456 0 0 1-4.456 4.456h-8.912a4.456 4.456 0 0 1-4.456-4.456z"></path>
+            <path fill-rule="evenodd" d="M19.686 11.658a3.163 3.163 0 0 1 3.134-2.783h2.932c1.595 0 2.946 1.2 3.134 2.783l.227 1.901c.035.296.278.693.778.99.508.304.972.321 1.264.196l1.767-.757a3.163 3.163 0 0 1 3.977 1.323l1.467 2.539a3.163 3.163 0 0 1-.844 4.106l-1.626 1.216h-3.693c.214-.987.73-1.958 1.65-2.645l1.536-1.15-1.302-2.253-1.613.692h-.002c-1.513.65-3.107.31-4.292-.395-1.143-.681-2.196-1.87-2.386-3.466l-.207-1.738h-2.602l-.169 1.415c-.205 1.728-1.383 2.99-2.63 3.692-1.223.69-2.85 1.023-4.395.36l-1.306-.56-1.301 2.254 1.006.753c1.403 1.049 1.926 2.703 1.926 4.154 0 1.452-.523 3.106-1.926 4.155l-1.006.753 1.3 2.254 1.307-.56c1.546-.664 3.172-.33 4.396.36 1.246.702 2.424 1.964 2.63 3.692l.168 1.415h.187v3.342h-.352a3.163 3.163 0 0 1-3.134-2.783l-.188-1.58c-.044-.368-.353-.837-.952-1.175-.572-.323-1.094-.347-1.438-.2l-1.457.625a3.163 3.163 0 0 1-3.978-1.323l-1.466-2.539a3.163 3.163 0 0 1 .844-4.106l1.138-.851c.326-.244.585-.765.585-1.478 0-.714-.259-1.235-.585-1.479l-1.138-.851a3.163 3.163 0 0 1-.844-4.106l1.466-2.54a3.163 3.163 0 0 1 3.978-1.322l1.457.625c.344.147.866.123 1.438-.2.6-.338.908-.807.952-1.176z" clip-rule="evenodd"></path>
+            <path fill-rule="evenodd" d="M24.286 18.716a5.57 5.57 0 0 0-1.114 11.029v-.446a6.1 6.1 0 0 1 .689-2.825 2.229 2.229 0 1 1 2.613-2.613 6.1 6.1 0 0 1 2.825-.689h.446a5.572 5.572 0 0 0-5.459-4.456z" clip-rule="evenodd"></path>
+            <path fill-rule="evenodd" d="M7.575 9.246c0-.922.749-1.67 1.671-1.67h30.08c.922 0 1.67.748 1.67 1.67v13.925h1.672c.579 0 1.14.08 1.67.231V9.246a5.013 5.013 0 0 0-5.012-5.013H9.246a5.013 5.013 0 0 0-5.013 5.013v30.08a5.013 5.013 0 0 0 5.014 5.012h14.156a6.132 6.132 0 0 1-.231-1.67v-1.672H9.247a1.671 1.671 0 0 1-1.671-1.671z" clip-rule="evenodd"></path>
+            <path fill="none" stroke="#2563eb" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.117" d="M33.198 32.084h2.785a3.9 3.9 0 0 1 0 7.798h-2.785z"></path>
+        </g>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -114,7 +154,9 @@ export const ICONS = {
     NAV_FORWARD: ICON_NAV_FORWARD,
     NAV_BACKWARD: ICON_NAV_BACKWARD,
     NAV_START: ICON_NAV_START,
-    NAV_END: ICON_NAV_END
+    NAV_END: ICON_NAV_END,
+    APP: ICON_APP,
+    APP_FAVICON: ICON_APP_FAVICON
 };
 
 /**
@@ -131,7 +173,9 @@ export function getIcon(iconName) {
         'nav-forward': ICON_NAV_FORWARD,
         'nav-backward': ICON_NAV_BACKWARD,
         'nav-start': ICON_NAV_START,
-        'nav-end': ICON_NAV_END
+        'nav-end': ICON_NAV_END,
+        'app': ICON_APP,
+        'app-favicon': ICON_APP_FAVICON
     };
 
     return iconMap[iconName.toLowerCase()] || '';
