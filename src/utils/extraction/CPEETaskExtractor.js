@@ -16,22 +16,62 @@ export class CPEETaskExtractor {
         console.log('[CPEETaskExtractor] Starting task extraction from XML...');
         
         try {
-            // Parse XML
+            // Fix common XML issues: unescaped < in attribute values
+            // Pattern: attribute="...<..."  should be "...&lt;..."
+            let fixedXml = xmlString;
+            
+            // Escape unescaped < and > in attribute values
+            fixedXml = fixedXml.replace(/=("([^"]*)<\s*([^"]*))"/g, (match, p1, p2, p3) => {
+                return match.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            });
+            
+            // Also handle single-quoted attributes
+            fixedXml = fixedXml.replace(/=('([^']*)<\s*([^']*))'/g, (match, p1, p2, p3) => {
+                return match.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            });
+            
+            // Try to fix common cases like condition="count < 10"
+            fixedXml = fixedXml.replace(/condition="([^"]*)\s*<\s*([^"]*)"/g, 'condition="$1 &lt; $2"');
+            fixedXml = fixedXml.replace(/condition="([^"]*)\s*>\s*([^"]*)"/g, 'condition="$1 &gt; $2"');
+            fixedXml = fixedXml.replace(/condition="([^"]*)\s*<=\s*([^"]*)"/g, 'condition="$1 &lt;= $2"');
+            fixedXml = fixedXml.replace(/condition="([^"]*)\s*>=\s*([^"]*)"/g, 'condition="$1 &gt;= $2"');
+            
+            // Parse XML with fixed content
             const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+            const xmlDoc = parser.parseFromString(fixedXml, 'text/xml');
             
             // Check for parsing errors
             const parserError = xmlDoc.querySelector('parsererror');
             if (parserError) {
-                console.error('[CPEETaskExtractor] XML parsing error:', parserError.textContent);
+                // Log parsing errors for debugging
+                console.warn('[CPEETaskExtractor] XML parsing error:', parserError.textContent);
+                console.warn('[CPEETaskExtractor] Input XML (first 500 chars):', xmlString.substring(0, 500));
                 return [];
             }
             
             console.log('[CPEETaskExtractor] XML parsed successfully');
             
+            // Debug: Log XML structure for diagnosis
+            const hasComplexStructure = xmlDoc.querySelector('loop, gateway, choose') !== null;
+            const rootElement = xmlDoc.documentElement;
+            const rootTagName = rootElement ? rootElement.tagName : 'unknown';
+            const rootNamespace = rootElement ? rootElement.namespaceURI : 'unknown';
+            console.log(`[CPEETaskExtractor] Root element: ${rootTagName} (ns: ${rootNamespace})`);
+            console.log(`[CPEETaskExtractor] Has loops/gateways: ${hasComplexStructure}`);
+            
             // Find all task elements (call, manipulate, script, etc.)
             const taskElements = this.findTaskElements(xmlDoc);
             console.log(`[CPEETaskExtractor] Found ${taskElements.length} task elements`);
+            
+            // Debug: log XML structure for complex structures with no tasks
+            if (taskElements.length === 0 && hasComplexStructure) {
+                console.warn('[CPEETaskExtractor] Found loops/gateways but no task elements');
+                console.warn('[CPEETaskExtractor] XML structure (first 1500 chars):', xmlString.substring(0, 1500));
+                
+                // Try to find elements with explicit namespace
+                const namespacedCalls = xmlDoc.querySelectorAll('call');
+                console.warn(`[CPEETaskExtractor] Found ${namespacedCalls.length} <call> elements (any namespace)`);
+            }
             
             // Extract TaskIdentifier for each element
             const tasks = [];
@@ -55,7 +95,7 @@ export class CPEETaskExtractor {
     }
     
     /**
-     * Find all task elements in XML document
+     * Find all task elements in XML document, including nested ones
      * @param {Document} xmlDoc - Parsed XML document
      * @returns {Element[]} Array of task elements
      */
@@ -64,9 +104,17 @@ export class CPEETaskExtractor {
         const elements = [];
         
         taskTypes.forEach(type => {
+            // Use querySelectorAll to find ALL elements of this type, including nested ones
+            // This will find tasks inside loops, gateways, etc.
             const found = xmlDoc.querySelectorAll(type);
             found.forEach(element => elements.push(element));
         });
+        
+        // Debug logging for complex structures
+        if (elements.length > 0) {
+            const firstFew = elements.slice(0, 5);
+            console.log(`[CPEETaskExtractor] First few task IDs:`, firstFew.map(el => el.getAttribute('id')));
+        }
         
         return elements;
     }

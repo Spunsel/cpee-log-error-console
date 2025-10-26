@@ -19,6 +19,9 @@ export class MermaidRenderer {
         this.isRendered = false;
         this.mermaidLoaded = false;
         this.renderCount = 0; // To generate unique IDs
+        
+        // Post-render callback for highlighting integration
+        this.postRenderCallback = null;
     }
 
     /**
@@ -213,6 +216,12 @@ export class MermaidRenderer {
                 this.statusManager.showSuccess('✅ Mermaid graph rendered successfully');
             }
             this.isRendered = true;
+            
+            // Call post-render callback if set
+            if (this.postRenderCallback) {
+                console.log('[MermaidRenderer] Calling post-render callback');
+                this.postRenderCallback(this.container.id, svgElement);
+            }
 
         } catch (error) {
             console.error('❌ Error rendering Mermaid graph:', error);
@@ -282,5 +291,14 @@ export class MermaidRenderer {
      */
     isReady() {
         return this.mermaidLoaded && this.container && window.mermaid;
+    }
+    
+    /**
+     * Set post-render callback
+     * @param {Function} callback - Callback function (sectionId, svgElement) => void
+     */
+    setPostRenderCallback(callback) {
+        this.postRenderCallback = callback;
+        console.log('[MermaidRenderer] Post-render callback set');
     }
 }

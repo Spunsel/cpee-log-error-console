@@ -12,10 +12,14 @@
 import { CPEEWfAdaptorRenderer } from '../renderers/CPEEWfAdaptorRenderer.js';
 import { MermaidRenderer } from '../renderers/MermaidRenderer.js';
 import { configManager } from '../../config/ConfigManager.js';
+import { SVGClickDetector } from '../../utils/interaction/SVGClickDetector.js';
+import { CPEESVGClickHandler } from '../../utils/interaction/CPEESVGClickHandler.js';
+import { MermaidSVGClickHandler } from '../../utils/interaction/MermaidSVGClickHandler.js';
 
 export class ContentSectionManager {
-    constructor(domRegistry = null) {
+    constructor(domRegistry = null, crossViewHighlightManager = null) {
         this.domRegistry = domRegistry;
+        this.crossViewHighlightManager = crossViewHighlightManager;
         
         // Renderer instances
         this.inputGraphRenderer = null;
@@ -25,6 +29,11 @@ export class ContentSectionManager {
         
         // Current container reference for cleanup
         this.currentGraphContainer = null;
+        
+        // Click detection
+        this.clickDetector = new SVGClickDetector();
+        this.cpeeClickHandler = new CPEESVGClickHandler();
+        this.mermaidClickHandler = new MermaidSVGClickHandler();
     }
 
     /**
@@ -85,6 +94,15 @@ export class ContentSectionManager {
                 this.inputGraphRenderer = new CPEEWfAdaptorRenderer();
             }
             
+            // Set up post-render callback for highlighting
+            this.inputGraphRenderer.setPostRenderCallback((sectionId, svgElement) => {
+                console.log(`[ContentSectionManager] Post-render callback for ${sectionId}`);
+                if (this.crossViewHighlightManager) {
+                    this.crossViewHighlightManager.registerSection('input-cpee', svgElement);
+                }
+                this.attachCPEEClickHandlers(svgElement, 'input-cpee');
+            });
+            
             // Initialize with proper parameters (containerId, statusId, xmlInputId)
             // For embedded graphs, we don't need status or input elements
             await this.inputGraphRenderer.initialize(graphContainer.id, null, null);
@@ -135,6 +153,15 @@ export class ContentSectionManager {
             if (!this.outputGraphRenderer) {
                 this.outputGraphRenderer = new CPEEWfAdaptorRenderer();
             }
+            
+            // Set up post-render callback for highlighting
+            this.outputGraphRenderer.setPostRenderCallback((sectionId, svgElement) => {
+                console.log(`[ContentSectionManager] Post-render callback for ${sectionId}`);
+                if (this.crossViewHighlightManager) {
+                    this.crossViewHighlightManager.registerSection('output-cpee', svgElement);
+                }
+                this.attachCPEEClickHandlers(svgElement, 'output-cpee');
+            });
             
             // Initialize with proper parameters (containerId, statusId, xmlInputId)
             // For embedded graphs, we don't need status or input elements
@@ -189,6 +216,15 @@ export class ContentSectionManager {
             if (!this.inputMermaidRenderer) {
                 this.inputMermaidRenderer = new MermaidRenderer();
             }
+            
+            // Set up post-render callback for highlighting
+            this.inputMermaidRenderer.setPostRenderCallback((sectionId, svgElement) => {
+                console.log(`[ContentSectionManager] Post-render callback for ${sectionId}`);
+                if (this.crossViewHighlightManager) {
+                    this.crossViewHighlightManager.registerSection('input-intermediate', svgElement);
+                }
+                this.attachMermaidClickHandlers(svgElement, 'input-intermediate');
+            });
             
             await this.inputMermaidRenderer.initialize(graphContainer.id);
             await this.inputMermaidRenderer.renderGraph(content);
@@ -246,6 +282,15 @@ export class ContentSectionManager {
             if (!this.outputMermaidRenderer) {
                 this.outputMermaidRenderer = new MermaidRenderer();
             }
+            
+            // Set up post-render callback for highlighting
+            this.outputMermaidRenderer.setPostRenderCallback((sectionId, svgElement) => {
+                console.log(`[ContentSectionManager] Post-render callback for ${sectionId}`);
+                if (this.crossViewHighlightManager) {
+                    this.crossViewHighlightManager.registerSection('output-intermediate', svgElement);
+                }
+                this.attachMermaidClickHandlers(svgElement, 'output-intermediate');
+            });
             
             await this.outputMermaidRenderer.initialize(graphContainer.id);
             await this.outputMermaidRenderer.renderGraph(content);
@@ -491,5 +536,65 @@ export class ContentSectionManager {
             inputMermaidRenderer: this.inputMermaidRenderer,
             outputMermaidRenderer: this.outputMermaidRenderer
         };
+    }
+    
+    /**
+     * Attach click handlers for CPEE renderer
+     * @param {Element} svgElement - SVG container element
+     * @param {string} sectionId - Section identifier
+     */
+    attachCPEEClickHandlers(svgElement, sectionId) {
+        console.log(`[ContentSectionManager] Attaching CPEE click handlers to ${sectionId}`);
+        
+        // Find all task elements and make them clickable
+        const taskElements = svgElement.querySelectorAll('g.element[element-id]');
+        console.log(`[ContentSectionManager] Found ${taskElements.length} CPEE task elements in ${sectionId}`);
+        
+        taskElements.forEach(taskElement => {
+            taskElement.classList.add('task-clickable');
+        });
+        
+        // Attach click listener for the entire SVG
+        if (this.crossViewHighlightManager) {
+            this.clickDetector.attachClickListener(svgElement, (event, clickedElement, elementPath, taskContainer) => {
+                if (taskContainer) {
+                    const taskId = taskContainer.getAttribute('element-id');
+                    if (taskId) {
+                        console.log(`[ContentSectionManager] CPEE task clicked in ${sectionId}: ${taskId}`);
+                        this.crossViewHighlightManager.onTaskClicked(taskId, sectionId, sectionId);
+                    }
+                }
+            });
+        }
+    }
+    
+    /**
+     * Attach click handlers for Mermaid renderer
+     * @param {Element} svgElement - SVG container element
+     * @param {string} sectionId - Section identifier
+     */
+    attachMermaidClickHandlers(svgElement, sectionId) {
+        console.log(`[ContentSectionManager] Attaching Mermaid click handlers to ${sectionId}`);
+        
+        // Find all node elements and make them clickable
+        const nodeElements = svgElement.querySelectorAll('g.node');
+        console.log(`[ContentSectionManager] Found ${nodeElements.length} Mermaid node elements in ${sectionId}`);
+        
+        nodeElements.forEach(nodeElement => {
+            nodeElement.classList.add('task-clickable');
+        });
+        
+        // Attach click listener for the entire SVG
+        if (this.crossViewHighlightManager) {
+            this.clickDetector.attachClickListener(svgElement, (event, clickedElement, elementPath, taskContainer) => {
+                if (taskContainer) {
+                    const nodeId = taskContainer.id;
+                    if (nodeId) {
+                        console.log(`[ContentSectionManager] Mermaid node clicked in ${sectionId}: ${nodeId}`);
+                        this.crossViewHighlightManager.onTaskClicked(nodeId, sectionId, sectionId);
+                    }
+                }
+            });
+        }
     }
 }

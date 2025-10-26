@@ -10,13 +10,13 @@ export class MermaidTaskExtractor {
     /**
      * Extract tasks from Mermaid flowchart syntax
      * @param {string} mermaidSyntax - Mermaid flowchart code
-     * @returns {TaskIdentifier[]} Array of TaskIdentifier objects
+     * @returns {TaskIdentifier[]} Array of TaskIdentifier objects (only tasks, no gateways/events)
      */
     static extractTasksFromMermaid(mermaidSyntax) {
         console.log('[MermaidTaskExtractor] Starting task extraction from Mermaid syntax...');
         
         try {
-            const tasks = [];
+            const nodes = [];
             const lines = mermaidSyntax.split('\n');
             let position = 0;
             
@@ -35,18 +35,31 @@ export class MermaidTaskExtractor {
                 console.log(`[MermaidTaskExtractor] Processing line ${lineIndex + 1}: "${trimmedLine}"`);
                 
                 // Try to extract node information
-                const nodes = this.extractNodesFromLine(trimmedLine, position);
+                const extractedNodes = this.extractNodesFromLine(trimmedLine, position);
                 
-                if (nodes.length > 0) {
-                    nodes.forEach(node => {
-                        tasks.push(node);
-                        console.log(`[MermaidTaskExtractor] Extracted node: ${node.toString()}`);
+                if (extractedNodes.length > 0) {
+                    extractedNodes.forEach(node => {
+                        nodes.push(node);
                     });
-                    position += nodes.length;
+                    position += extractedNodes.length;
                 }
             });
             
-            console.log(`[MermaidTaskExtractor] Successfully extracted ${tasks.length} nodes`);
+            // Filter to keep only tasks (exclude gateways, events, etc.)
+            const tasks = nodes.filter(node => node.type === 'task');
+            const excluded = nodes.filter(node => node.type !== 'task');
+            
+            console.log(`[MermaidTaskExtractor] Extracted ${nodes.length} total nodes`);
+            console.log(`[MermaidTaskExtractor] Filtered to ${tasks.length} tasks (excluded ${excluded.length} non-task nodes)`);
+            
+            if (excluded.length > 0) {
+                console.log(`[MermaidTaskExtractor] Excluded nodes:`, excluded.map(n => `${n.id}:${n.type}`));
+            }
+            
+            tasks.forEach(task => {
+                console.log(`[MermaidTaskExtractor] Extracted task: ${task.toString()}`);
+            });
+            
             return tasks;
             
         } catch (error) {
@@ -66,19 +79,25 @@ export class MermaidTaskExtractor {
         
         // Node patterns for different shapes
         const patterns = [
-            // Rectangle: A[Label]
+            // Edge-style notation: id:type:(Label) - e.g., a2:task:(Task X)
+            { regex: /(\w+):task:\(([^)]+)\)/g, shape: 'rectangle', type: 'task' },
+            // Edge-style with special shapes: id:type:shape(Label) - e.g., se:startevent:((startevent))
+            { regex: /(\w+):\w+:\(\(([^)]+)\)\)/g, shape: 'circle', type: 'event' },
+            // Edge-style exclusivegateway: id:exclusivegateway:{label}
+            { regex: /(\w+):exclusivegateway:\{([^}]+)\}/g, shape: 'diamond', type: 'gateway' },
+            // Standard Rectangle: A[Label]
             { regex: /(\w+)\[([^\]]+)\]/g, shape: 'rectangle', type: 'task' },
-            // Rounded: A([Label])
+            // Standard Rounded: A([Label])
             { regex: /(\w+)\(\[([^\]]+)\]\)/g, shape: 'rounded', type: 'event' },
-            // Diamond: A{Label}
+            // Standard Diamond: A{Label}
             { regex: /(\w+)\{([^}]+)\}/g, shape: 'diamond', type: 'decision' },
-            // Circle: A((Label))
+            // Standard Circle: A((Label))
             { regex: /(\w+)\(\(([^)]+)\)\)/g, shape: 'circle', type: 'event' },
-            // Hexagon: A{{Label}}
+            // Standard Hexagon: A{{Label}}
             { regex: /(\w+)\{\{([^}]+)\}\}/g, shape: 'hexagon', type: 'task' },
-            // Parallelogram: A[/Label/]
+            // Standard Parallelogram: A[/Label/]
             { regex: /(\w+)\[\/([^/]+)\/\]/g, shape: 'parallelogram', type: 'input' },
-            // Trapezoid: A[\\Label\\]
+            // Standard Trapezoid: A[\\Label\\]
             { regex: /(\w+)\[\\([^\\]+)\\\]/g, shape: 'trapezoid', type: 'output' }
         ];
         
@@ -195,4 +214,5 @@ export class MermaidTaskExtractor {
         };
     }
 }
+
 

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-View Manager Test - Phase 22.6</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .test-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .test-section h2 {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .content-box {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f9fafb;
+        }
+
+        .content-box h3 {
+            color: #374151;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-box svg {
+            border: 1px solid #d1d5db;
+            background: white;
+            width: 100%;
+            height: 150px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        button:active {
+            background: #1e40af;
+        }
+
+        #console {
+            margin-top: 20px;
+            padding: 15px;
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid #60a5fa;
+            border-radius: 4px;
+        }
+
+        .log-entry.click {
+            border-left-color: #10b981;
+        }
+
+        .log-entry.highlight {
+            border-left-color: #f59e0b;
+        }
+
+        /* Include highlight styles */
+        :root {
+            --highlight-stroke: #2563eb;
+            --highlight-active-stroke: #1d4ed8;
+        }
+
+        .task-highlighted {
+            stroke: var(--highlight-stroke) !important;
+            stroke-width: 3px !important;
+            opacity: 1 !important;
+            filter: drop-shadow(0 0 4px #60a5fa);
+        }
+
+        .task-highlighted-active {
+            stroke: var(--highlight-active-stroke) !important;
+            stroke-width: 4px !important;
+            opacity: 1 !important;
+            filter: drop-shadow(0 0 6px #3b82f6);
+        }
+
+        .task-clickable {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .task-clickable:hover {
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 Cross-View Manager Test</h1>
+        <p class="subtitle">Test CrossViewHighlightManager synchronization across sections - Phase 22.6</p>
+
+        <div class="test-section">
+            <h2>Simulation Controls</h2>
+            <div class="controls">
+                <button id="btn-click-task1">Click Task 1 (Input CPEE)</button>
+                <button id="btn-click-node-a">Click Node A (Input Intermediate)</button>
+                <button id="btn-click-node-x">Click Node X (Output Intermediate)</button>
+                <button id="btn-click-task3">Click Task 3 (Output CPEE)</button>
+                <button id="btn-clear">Clear All Highlights</button>
+                <button id="btn-clear-console">Clear Console</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Content Sections</h2>
+            <div class="section-grid">
+                <div class="content-box">
+                    <h3>Input CPEE <span id="input-cpee-status">Ready</span></h3>
+                    <svg id="input-cpee-graph" width="100%" height="150" viewBox="0 0 300 150">
+                        <g class="task-group" id="task-1" data-task-id="task-1">
+                            <rect x="50" y="50" width="80" height="50" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                            <text x="90" y="82" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Task 1</text>
+                        </g>
+                        <g class="task-group" id="task-2" data-task-id="task-2">
+                            <rect x="150" y="50" width="80" height="50" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                            <text x="190" y="82" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Task 2</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="content-box">
+                    <h3>Input Intermediate <span id="input-intermediate-status">Ready</span></h3>
+                    <svg id="input-intermediate-graph" width="100%" height="150" viewBox="0 0 300 150">
+                        <g class="node" id="node-a" data-task-id="node-a">
+                            <rect x="50" y="50" width="80" height="50" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                            <text x="90" y="82" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Node A</text>
+                        </g>
+                        <g class="node" id="node-b" data-task-id="node-b">
+                            <rect x="150" y="50" width="80" height="50" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                            <text x="190" y="82" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Node B</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="content-box">
+                    <h3>Output Intermediate <span id="output-intermediate-status">Ready</span></h3>
+                    <svg id="output-intermediate-graph" width="100%" height="150" viewBox="0 0 300 150">
+                        <g class="node" id="node-x" data-task-id="node-x">
+                            <rect x="50" y="50" width="80" height="50" rx="5" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+                            <text x="90" y="82" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Node X</text>
+                        </g>
+                        <g class="node" id="node-y" data-task-id="node-y">
+                            <rect x="150" y="50" width="80" height="50" rx="5" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+                            <text x="190" y="82" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Node Y</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="content-box">
+                    <h3>Output CPEE <span id="output-cpee-status">Ready</span></h3>
+                    <svg id="output-cpee-graph" width="100%" height="150" viewBox="0 0 300 150">
+                        <g class="task-group" id="task-3" data-task-id="task-3">
+                            <rect x="50" y="50" width="80" height="50" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="90" y="82" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Task 3</text>
+                        </g>
+                        <g class="task-group" id="task-4" data-task-id="task-4">
+                            <rect x="150" y="50" width="80" height="50" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="190" y="82" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Task 4</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Console Output</h2>
+            <div id="console"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { CrossViewHighlightManager } from '../../../src/components/coordinators/CrossViewHighlightManager.js';
+
+        // Create mock DOM registry
+        const domRegistry = {
+            getElementSafe: (id) => document.getElementById(id)
+        };
+
+        // Initialize managers
+        const crossViewManager = new CrossViewHighlightManager(domRegistry);
+        
+        // Register sections
+        const sections = [
+            { id: 'input-cpee', container: 'input-cpee-graph' },
+            { id: 'input-intermediate', container: 'input-intermediate-graph' },
+            { id: 'output-intermediate', container: 'output-intermediate-graph' },
+            { id: 'output-cpee', container: 'output-cpee-graph' }
+        ];
+
+        sections.forEach(({ id, container }) => {
+            const element = document.getElementById(container);
+            if (element) {
+                crossViewManager.registerSection(id, element);
+            }
+        });
+
+        // Setup event listeners
+        function setupEventListeners() {
+            document.getElementById('btn-click-task1').addEventListener('click', () => {
+                simulateClick('input-cpee', 'task-1');
+            });
+            document.getElementById('btn-click-node-a').addEventListener('click', () => {
+                simulateClick('input-intermediate', 'node-a');
+            });
+            document.getElementById('btn-click-node-x').addEventListener('click', () => {
+                simulateClick('output-intermediate', 'node-x');
+            });
+            document.getElementById('btn-click-task3').addEventListener('click', () => {
+                simulateClick('output-cpee', 'task-3');
+            });
+            document.getElementById('btn-clear').addEventListener('click', clearHighlights);
+            document.getElementById('btn-clear-console').addEventListener('click', clearConsole);
+        }
+
+        // Simulate task clicks
+        function simulateClick(sectionId, taskId) {
+            log(`Click simulated: ${taskId} in ${sectionId}`, 'click');
+            crossViewManager.onTaskClicked(taskId, sectionId, sectionId);
+            
+            // Update status
+            const statusElement = document.getElementById(`${sectionId}-status`);
+            if (statusElement) {
+                statusElement.textContent = `Task: ${taskId}`;
+            }
+        }
+
+        function clearHighlights() {
+            crossViewManager.clearAllHighlights();
+            log('All highlights cleared');
+            
+            // Reset statuses
+            sections.forEach(({ id }) => {
+                const statusElement = document.getElementById(`${id}-status`);
+                if (statusElement) {
+                    statusElement.textContent = 'Ready';
+                }
+            });
+        }
+
+        function clearConsole() {
+            const consoleDiv = document.getElementById('console');
+            consoleDiv.innerHTML = '';
+        }
+
+        function log(message, type = 'info') {
+            const consoleDiv = document.getElementById('console');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            consoleDiv.appendChild(entry);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console.log(message);
+        }
+
+        // Log initialization
+        log('CrossViewHighlightManager initialized');
+        log('All sections registered and ready');
+        
+        // Setup event listeners
+        setupEventListeners();
+    </script>
+</body>
+</html>
+

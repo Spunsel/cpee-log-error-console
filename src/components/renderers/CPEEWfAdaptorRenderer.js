@@ -21,6 +21,9 @@ export class CPEEWfAdaptorRenderer {
         
         this.statusManager = null; // Will be initialized in initialize()
         this.svgProcessor = new SVGProcessingService(); // Handles SVG element processing and caching
+        
+        // Post-render callback for highlighting integration
+        this.postRenderCallback = null;
     }
     
     /**
@@ -185,6 +188,12 @@ export class CPEEWfAdaptorRenderer {
                     self.isRendered = true;
                     self.adjustSVGHeight();
                     
+                    // Call post-render callback if set
+                    if (self.postRenderCallback) {
+                        console.log('[CPEEWfAdaptorRenderer] Calling post-render callback');
+                        self.postRenderCallback(self.container.id, svgElement);
+                    }
+                    
                 } catch (error) {
                     console.error('Graph rendering error:', error.message);
                     self.showStatus(`Failed to render graph: ${error.message}`, 'error');
@@ -245,6 +254,15 @@ export class CPEEWfAdaptorRenderer {
         }
     }
     
+    /**
+     * Set post-render callback
+     * @param {Function} callback - Callback function (sectionId, svgElement) => void
+     */
+    setPostRenderCallback(callback) {
+        this.postRenderCallback = callback;
+        console.log('[CPEEWfAdaptorRenderer] Post-render callback set');
+    }
+
     /**
      * Reset container to initial state
      */

@@ -4,6 +4,9 @@
  */
 
 import { ContentCleaner } from '../utils/content/ContentCleaner.js';
+import { CPEETaskExtractor } from '../utils/extraction/CPEETaskExtractor.js';
+import { MermaidTaskExtractor } from '../utils/extraction/MermaidTaskExtractor.js';
+import { TaskMapper } from '../utils/mapping/TaskMapper.js';
 import { CPEEStep } from '../models/CPEEStep.js';
 import { YAMLParser } from '../utils/content/YAMLParser.js';
 import { configManager } from '../config/ConfigManager.js';
@@ -218,6 +221,38 @@ export class LogService {
                         cpeeStep.setOutputCpeeTreeRaw(cleanedContent);
                     }
             });
+            
+            // Phase 22.8: Extract tasks and generate task mapping
+            const inputCpeeTasks = CPEETaskExtractor.extractTasksFromXML(
+                cpeeStep.getInputCpeeTreeRaw().getContent()
+            );
+            const inputMermaidTasks = MermaidTaskExtractor.extractTasksFromMermaid(
+                cpeeStep.getInputMermaidRaw().getContent()
+            );
+            const outputMermaidTasks = MermaidTaskExtractor.extractTasksFromMermaid(
+                cpeeStep.getOutputMermaidRaw().getContent()
+            );
+            const outputCpeeTasks = CPEETaskExtractor.extractTasksFromXML(
+                cpeeStep.getOutputCpeeTreeRaw().getContent()
+            );
+            
+            // Generate task mapping if we have tasks
+            if (inputCpeeTasks.length > 0 || inputMermaidTasks.length > 0 || 
+                outputMermaidTasks.length > 0 || outputCpeeTasks.length > 0) {
+                try {
+                    const taskMapper = new TaskMapper();
+                    const taskMapping = taskMapper.buildMapping(
+                        inputCpeeTasks,
+                        inputMermaidTasks,
+                        outputMermaidTasks,
+                        outputCpeeTasks
+                    );
+                    cpeeStep.setTaskMapping(taskMapping);
+                    console.log(`[LogService] Task mapping generated for Step ${cpeeStep.stepNumber}`);
+                } catch (error) {
+                    console.warn(`[LogService] Failed to generate task mapping for Step ${cpeeStep.stepNumber}:`, error);
+                }
+            }
             
             return cpeeStep;
         });

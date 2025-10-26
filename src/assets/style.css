@@ -1362,3 +1362,115 @@ body {
         transition: none;
     }
 }
+
+/* ========================================
+   PHASE 22: CROSS-VIEW TASK HIGHLIGHTING SYSTEM
+   ======================================== */
+
+/* Task Highlighting Styles */
+:root {
+    /* Highlight Colors - Orange */
+    --highlight-color: #fb923c;
+    --highlight-active-color: #f97316;
+    --highlight-stroke: #f57900;
+    --highlight-opacity: 0.2;
+    --highlight-active-opacity: 0.4;
+}
+
+/* Highlightable Task Elements */
+.task-clickable {
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.task-clickable:hover {
+    filter: brightness(1.1);
+}
+
+/* Task Highlighted State */
+.task-highlighted {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 3px !important;
+    opacity: 1 !important;
+}
+
+.task-highlighted circle,
+.task-highlighted rect,
+.task-highlighted polygon,
+.task-highlighted ellipse {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 3px !important;
+    fill-opacity: var(--highlight-opacity) !important;
+}
+
+/* Task Active Highlighted State (clicked task) */
+.task-highlighted-active {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 4px !important;
+    opacity: 1 !important;
+}
+
+.task-highlighted-active circle,
+.task-highlighted-active rect,
+.task-highlighted-active polygon,
+.task-highlighted-active ellipse {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 4px !important;
+    fill-opacity: var(--highlight-active-opacity) !important;
+}
+
+/* Animation for Highlight State Changes */
+@keyframes highlightPulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* Optional: Pulse animation for highlighted elements */
+.task-highlighted-animated {
+    animation: highlightPulse 2s ease-in-out infinite;
+}
+
+/* CPEE-specific highlighting - only highlight outer shapes, not text or internal lines */
+.cpee-task-highlighted rect[class*="stand"],
+.cpee-task-highlighted circle,
+.cpee-task-highlighted polygon,
+.cpee-task-highlighted ellipse {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 3px !important;
+    filter: none !important; /* Remove any shadow/filter effects for homogenous color */
+}
+
+.cpee-task-highlighted-active rect[class*="stand"],
+.cpee-task-highlighted-active circle,
+.cpee-task-highlighted-active polygon,
+.cpee-task-highlighted-active ellipse {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 4px !important;
+    filter: none !important; /* Remove any shadow/filter effects for homogenous color */
+}
+
+/* Explicitly exclude text and internal separator lines from highlighting */
+.cpee-task-highlighted text,
+.cpee-task-highlighted-active text,
+.cpee-task-highlighted .label,
+.cpee-task-highlighted-active .label,
+.cpee-task-highlighted line,
+.cpee-task-highlighted-active line {
+    stroke: none !important;
+    fill: var(--text-primary) !important;
+}
+
+/* Mermaid-specific highlighting */
+.mermaid-node-highlighted {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 3px !important;
+}
+
+.mermaid-node-highlighted-active {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 4px !important;
+}

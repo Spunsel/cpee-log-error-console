@@ -10,17 +10,19 @@
 
 import { StepNavigator } from '../ui/StepNavigator.js';
 import { ContentSectionManager } from '../coordinators/ContentSectionManager.js';
+import { CrossViewHighlightManager } from '../coordinators/CrossViewHighlightManager.js';
 
 export class StepViewer {
-    constructor(instanceService, domRegistry = null, rawContentViewManager = null) {
+    constructor(instanceService, domRegistry = null, rawContentViewManager = null, crossViewHighlightManager = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.rawContentViewManager = rawContentViewManager;
+        this.crossViewHighlightManager = crossViewHighlightManager;
         this.onStepChange = null;
         
         // Initialize extracted components
         this.navigator = new StepNavigator(instanceService, domRegistry);
-        this.contentManager = new ContentSectionManager(domRegistry);
+        this.contentManager = new ContentSectionManager(domRegistry, crossViewHighlightManager);
         
         // Pass ContentSectionManager to RawContentViewManager for coordination
         if (this.rawContentViewManager) {
@@ -82,12 +84,23 @@ export class StepViewer {
 
         console.log(`Displaying ${step.getDisplayName()}`);
 
+        // Clear highlights from previous step
+        if (this.crossViewHighlightManager) {
+            this.crossViewHighlightManager.onStepChanged();
+        }
+
         // Show process analysis section
         this.domRegistry.addClass('stepDetails', 'hidden');
         this.domRegistry.removeClass('processAnalysis', 'hidden');
 
         // Update step header
         this.updateStepHeader(step, navInfo);
+
+        // Set current step mapping for highlighting
+        if (this.crossViewHighlightManager && step.hasTaskMapping()) {
+            this.crossViewHighlightManager.setCurrentStepMapping(step.getTaskMapping());
+            console.log(`[StepViewer] Set task mapping for step ${step.stepNumber}`);
+        }
 
         // Update content sections using ContentSectionManager
         const stepContent = {

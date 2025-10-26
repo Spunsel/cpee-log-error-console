@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Highlighting Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-top: 0;
+            color: #2563eb;
+        }
+        
+        /* Include highlight styles */
+        :root {
+            --highlight-color: #60a5fa;
+            --highlight-active-color: #3b82f6;
+            --highlight-stroke: #2563eb;
+            --highlight-active-stroke: #1d4ed8;
+            --highlight-opacity: 0.2;
+            --highlight-active-opacity: 0.4;
+        }
+
+        .task-clickable {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .task-clickable:hover {
+            filter: brightness(1.1);
+        }
+
+        .task-highlighted {
+            stroke: var(--highlight-stroke) !important;
+            stroke-width: 3px !important;
+            opacity: 1 !important;
+            filter: drop-shadow(0 0 4px var(--highlight-color));
+        }
+
+        .task-highlighted circle,
+        .task-highlighted rect,
+        .task-highlighted polygon,
+        .task-highlighted ellipse {
+            stroke: var(--highlight-stroke) !important;
+            stroke-width: 3px !important;
+            fill-opacity: var(--highlight-opacity) !important;
+        }
+
+        .task-highlighted-active {
+            stroke: var(--highlight-active-stroke) !important;
+            stroke-width: 4px !important;
+            opacity: 1 !important;
+            filter: drop-shadow(0 0 6px var(--highlight-active-color));
+        }
+
+        .task-highlighted-active circle,
+        .task-highlighted-active rect,
+        .task-highlighted-active polygon,
+        .task-highlighted-active ellipse {
+            stroke: var(--highlight-active-stroke) !important;
+            stroke-width: 4px !important;
+            fill-opacity: var(--highlight-active-opacity) !important;
+        }
+
+        .cpee-task-highlighted {
+            stroke: var(--highlight-stroke) !important;
+            stroke-width: 3px !important;
+        }
+
+        .cpee-task-highlighted-active {
+            stroke: var(--highlight-active-stroke) !important;
+            stroke-width: 4px !important;
+        }
+
+        .mermaid-node-highlighted {
+            stroke: var(--highlight-stroke) !important;
+            stroke-width: 3px !important;
+        }
+
+        .mermaid-node-highlighted-active {
+            stroke: var(--highlight-active-stroke) !important;
+            stroke-width: 4px !important;
+        }
+
+        .controls {
+            margin: 10px 0;
+        }
+        
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        svg {
+            border: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        #console {
+            margin-top: 20px;
+            padding: 15px;
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 5px;
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid #60a5fa;
+        }
+    </style>
+</head>
+<body>
+    <h1>SVG Highlighting Test</h1>
+    <p>Test CPEE and Mermaid SVG-specific highlighting methods.</p>
+
+    <div class="test-section">
+        <h2>CPEE Task Highlighting</h2>
+        <p>Test highlightCPEETask() method</p>
+        <div class="controls">
+            <button onclick="highlightCPEE(0)">Highlight Task 1</button>
+            <button onclick="highlightCPEE(1)">Highlight Task 2 (Active)</button>
+            <button onclick="highlightCPEE(2)">Highlight Task 3</button>
+            <button onclick="clearCPEE()">Clear CPEE</button>
+        </div>
+        <svg width="600" height="200" id="cpee-test-svg">
+            <g class="task-group" id="cpee-task-1">
+                <rect x="50" y="50" width="120" height="70" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                <text x="110" y="90" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">CPEE Task 1</text>
+            </g>
+            <g class="task-group" id="cpee-task-2">
+                <rect x="220" y="50" width="120" height="70" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                <text x="280" y="90" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">CPEE Task 2</text>
+            </g>
+            <g class="task-group" id="cpee-task-3">
+                <rect x="390" y="50" width="120" height="70" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                <text x="450" y="90" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">CPEE Task 3</text>
+            </g>
+        </svg>
+    </div>
+
+    <div class="test-section">
+        <h2>Mermaid Node Highlighting</h2>
+        <p>Test highlightMermaidNode() method</p>
+        <div class="controls">
+            <button onclick="highlightMermaid(0)">Highlight Node 1</button>
+            <button onclick="highlightMermaid(1)">Highlight Node 2 (Active)</button>
+            <button onclick="highlightMermaid(2)">Highlight Node 3</button>
+            <button onclick="clearMermaid()">Clear Mermaid</button>
+        </div>
+        <svg width="600" height="200" id="mermaid-test-svg">
+            <g class="node" id="mermaid-node-1">
+                <rect x="50" y="50" width="120" height="70" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                <text x="110" y="90" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Mermaid Node 1</text>
+            </g>
+            <g class="node" id="mermaid-node-2">
+                <rect x="220" y="50" width="120" height="70" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                <text x="280" y="90" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Mermaid Node 2</text>
+            </g>
+            <g class="node" id="mermaid-node-3">
+                <rect x="390" y="50" width="120" height="70" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                <text x="450" y="90" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Mermaid Node 3</text>
+            </g>
+        </svg>
+    </div>
+
+    <div class="test-section">
+        <h2>Combined CPEE + Mermaid Test</h2>
+        <p>Test highlighting across both formats</p>
+        <div class="controls">
+            <button onclick="highlightBoth(0)">Highlight First Tasks</button>
+            <button onclick="highlightBoth(1)">Highlight Second Tasks (Active)</button>
+            <button onclick="highlightBoth(2)">Highlight Third Tasks</button>
+            <button onclick="clearBoth()">Clear Both</button>
+        </div>
+        <svg width="600" height="400" id="combined-test-svg">
+            <!-- CPEE Section -->
+            <g class="task-group" id="combined-cpee-1">
+                <rect x="50" y="50" width="120" height="60" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                <text x="110" y="85" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">CPEE 1</text>
+            </g>
+            <g class="task-group" id="combined-cpee-2">
+                <rect x="220" y="50" width="120" height="60" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                <text x="280" y="85" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">CPEE 2</text>
+            </g>
+            <g class="task-group" id="combined-cpee-3">
+                <rect x="390" y="50" width="120" height="60" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                <text x="450" y="85" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">CPEE 3</text>
+            </g>
+            
+            <!-- Mermaid Section -->
+            <g class="node" id="combined-mermaid-1">
+                <rect x="50" y="150" width="120" height="60" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                <text x="110" y="185" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Mermaid 1</text>
+            </g>
+            <g class="node" id="combined-mermaid-2">
+                <rect x="220" y="150" width="120" height="60" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                <text x="280" y="185" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Mermaid 2</text>
+            </g>
+            <g class="node" id="combined-mermaid-3">
+                <rect x="390" y="150" width="120" height="60" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                <text x="450" y="185" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Mermaid 3</text>
+            </g>
+        </svg>
+    </div>
+
+    <div class="test-section">
+        <h2>Console Output</h2>
+        <div id="console"></div>
+    </div>
+
+    <script type="module">
+        import HighlightManager from '../../../src/components/coordinators/HighlightManager.js';
+
+        const manager = new HighlightManager();
+        let consoleDiv = document.getElementById('console');
+
+        function log(message) {
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            consoleDiv.appendChild(entry);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console.log(message);
+        }
+
+        // CPEE task highlighting
+        window.highlightCPEE = function(index) {
+            const tasks = [
+                document.getElementById('cpee-task-1'),
+                document.getElementById('cpee-task-2'),
+                document.getElementById('cpee-task-3')
+            ];
+            
+            if (index >= 0 && index < tasks.length) {
+                const task = tasks[index];
+                const isActive = (index === 1);
+                manager.highlightCPEETask(task, isActive);
+                log(`Highlighted CPEE task ${index + 1} (isActive=${isActive})`);
+            }
+        };
+
+        window.clearCPEE = function() {
+            const tasks = document.querySelectorAll('#cpee-test-svg .task-group');
+            manager.clearAllHighlights();
+            log('Cleared CPEE highlights');
+        };
+
+        // Mermaid node highlighting
+        window.highlightMermaid = function(index) {
+            const nodes = [
+                document.getElementById('mermaid-node-1'),
+                document.getElementById('mermaid-node-2'),
+                document.getElementById('mermaid-node-3')
+            ];
+            
+            if (index >= 0 && index < nodes.length) {
+                const node = nodes[index];
+                const isActive = (index === 1);
+                manager.highlightMermaidNode(node, isActive);
+                log(`Highlighted Mermaid node ${index + 1} (isActive=${isActive})`);
+            }
+        };
+
+        window.clearMermaid = function() {
+            const nodes = document.querySelectorAll('#mermaid-test-svg .node');
+            manager.clearAllHighlights();
+            log('Cleared Mermaid highlights');
+        };
+
+        // Combined highlighting
+        window.highlightBoth = function(index) {
+            const cpeeTasks = [
+                document.getElementById('combined-cpee-1'),
+                document.getElementById('combined-cpee-2'),
+                document.getElementById('combined-cpee-3')
+            ];
+            
+            const mermaidNodes = [
+                document.getElementById('combined-mermaid-1'),
+                document.getElementById('combined-mermaid-2'),
+                document.getElementById('combined-mermaid-3')
+            ];
+            
+            if (index >= 0 && index < cpeeTasks.length) {
+                const isActive = (index === 1);
+                manager.highlightCPEETask(cpeeTasks[index], isActive);
+                manager.highlightMermaidNode(mermaidNodes[index], isActive);
+                log(`Highlighted both CPEE and Mermaid task ${index + 1} (isActive=${isActive})`);
+            }
+        };
+
+        window.clearBoth = function() {
+            manager.clearAllHighlights();
+            log('Cleared all highlights');
+        };
+
+        // Log manager initialization
+        log('HighlightManager initialized');
+    </script>
+</body>
+</html>
+

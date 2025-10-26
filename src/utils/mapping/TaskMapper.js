@@ -1,7 +1,7 @@
 /**
  * Task Mapper
  * Maps equivalent tasks across different formats (CPEE XML, Mermaid syntax)
- * Uses fuzzy matching to identify equivalent tasks when direct ID matching fails
+ * Uses exact ID matching to identify equivalent tasks
  */
 
 import { TaskIdentifier } from '../../models/TaskIdentifier.js';
@@ -10,7 +10,6 @@ export class TaskMapper {
     
     constructor() {
         console.log('[TaskMapper] Initialized');
-        this.confidenceThreshold = 0.6; // Minimum confidence score for a match
     }
     
     /**
@@ -58,215 +57,36 @@ export class TaskMapper {
         console.log(`[TaskMapper] Mapping ${sourceFormat} → ${targetFormat}...`);
         
         let exactMatches = 0;
-        let fuzzyMatches = 0;
         let noMatches = 0;
         
         sourceTasks.forEach(sourceTask => {
-            // Try exact match first (by ID or label)
-            let match = this.findExactMatch(sourceTask, targetTasks);
-            let confidence = 1.0;
-            
-            if (!match) {
-                // Try fuzzy match
-                const fuzzyResult = this.findFuzzyMatch(sourceTask, targetTasks);
-                match = fuzzyResult.match;
-                confidence = fuzzyResult.confidence;
-                
-                if (match) {
-                    fuzzyMatches++;
-                    console.log(`[TaskMapper] Fuzzy match: "${sourceTask.label}" → "${match.label}" (confidence: ${confidence.toFixed(2)})`);
-                } else {
-                    noMatches++;
-                    console.log(`[TaskMapper] No match found for: "${sourceTask.label}" (${sourceTask.id})`);
-                }
-            } else {
-                exactMatches++;
-                console.log(`[TaskMapper] Exact match: "${sourceTask.label}" → "${match.label}"`);
-            }
+            // Try exact match by ID only
+            const match = this.findExactMatch(sourceTask, targetTasks);
+            const confidence = 1.0;
             
             if (match) {
+                exactMatches++;
+                console.log(`[TaskMapper] ID match: "${sourceTask.id}" → "${match.id}"`);
                 mapping.addMapping(sourceTask, sourceFormat, match, targetFormat, confidence);
+            } else {
+                noMatches++;
+                console.log(`[TaskMapper] No match found for ID: "${sourceTask.id}" (label: "${sourceTask.label}")`);
             }
         });
         
-        console.log(`[TaskMapper] ${sourceFormat} → ${targetFormat}: ${exactMatches} exact, ${fuzzyMatches} fuzzy, ${noMatches} no match`);
+        console.log(`[TaskMapper] ${sourceFormat} → ${targetFormat}: ${exactMatches} exact, ${noMatches} no match`);
     }
     
     /**
-     * Find exact match by ID or label
+     * Find exact match by ID only
      * @param {TaskIdentifier} sourceTask - Source task
      * @param {TaskIdentifier[]} targetTasks - Target tasks to search
      * @returns {TaskIdentifier|null} Matching task or null
      */
     findExactMatch(sourceTask, targetTasks) {
-        // Try exact ID match (case-insensitive)
-        const idMatch = targetTasks.find(t => 
-            t.id.toLowerCase() === sourceTask.id.toLowerCase()
-        );
-        if (idMatch) {
-            return idMatch;
-        }
-        
-        // Try exact label match (case-insensitive)
-        const labelMatch = targetTasks.find(t => 
-            t.label.toLowerCase() === sourceTask.label.toLowerCase()
-        );
-        if (labelMatch) {
-            return labelMatch;
-        }
-        
-        return null;
-    }
-    
-    /**
-     * Find fuzzy match using similarity scoring
-     * @param {TaskIdentifier} sourceTask - Source task
-     * @param {TaskIdentifier[]} targetTasks - Target tasks to search
-     * @returns {Object} Object with match and confidence score
-     */
-    findFuzzyMatch(sourceTask, targetTasks) {
-        let bestMatch = null;
-        let bestScore = 0;
-        
-        targetTasks.forEach(targetTask => {
-            const score = this.calculateSimilarity(sourceTask, targetTask);
-            
-            if (score > bestScore && score >= this.confidenceThreshold) {
-                bestScore = score;
-                bestMatch = targetTask;
-            }
-        });
-        
-        return {
-            match: bestMatch,
-            confidence: bestScore
-        };
-    }
-    
-    /**
-     * Calculate similarity score between two tasks
-     * @param {TaskIdentifier} task1 - First task
-     * @param {TaskIdentifier} task2 - Second task
-     * @returns {number} Similarity score (0-1)
-     */
-    calculateSimilarity(task1, task2) {
-        // Multiple similarity metrics
-        const labelSimilarity = this.stringSimilarity(task1.label, task2.label);
-        const idSimilarity = this.stringSimilarity(task1.id, task2.id);
-        const positionSimilarity = this.positionSimilarity(task1.position, task2.position);
-        
-        // Weighted combination
-        const weights = {
-            label: 0.5,
-            id: 0.3,
-            position: 0.2
-        };
-        
-        const score = (
-            labelSimilarity * weights.label +
-            idSimilarity * weights.id +
-            positionSimilarity * weights.position
-        );
-        
-        return score;
-    }
-    
-    /**
-     * Calculate string similarity using Levenshtein distance
-     * @param {string} str1 - First string
-     * @param {string} str2 - Second string
-     * @returns {number} Similarity score (0-1)
-     */
-    stringSimilarity(str1, str2) {
-        if (!str1 || !str2) {
-            return 0;
-        }
-        
-        const s1 = str1.toLowerCase();
-        const s2 = str2.toLowerCase();
-        
-        // Exact match
-        if (s1 === s2) {
-            return 1.0;
-        }
-        
-        // Contains match
-        if (s1.includes(s2) || s2.includes(s1)) {
-            return 0.8;
-        }
-        
-        // Levenshtein distance
-        const distance = this.levenshteinDistance(s1, s2);
-        const maxLength = Math.max(s1.length, s2.length);
-        
-        if (maxLength === 0) {
-            return 1.0;
-        }
-        
-        return 1 - (distance / maxLength);
-    }
-    
-    /**
-     * Calculate Levenshtein distance between two strings
-     * @param {string} str1 - First string
-     * @param {string} str2 - Second string
-     * @returns {number} Edit distance
-     */
-    levenshteinDistance(str1, str2) {
-        const matrix = [];
-        
-        // Initialize matrix
-        for (let i = 0; i <= str2.length; i++) {
-            matrix[i] = [i];
-        }
-        
-        for (let j = 0; j <= str1.length; j++) {
-            matrix[0][j] = j;
-        }
-        
-        // Fill matrix
-        for (let i = 1; i <= str2.length; i++) {
-            for (let j = 1; j <= str1.length; j++) {
-                if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
-                    matrix[i][j] = matrix[i - 1][j - 1];
-                } else {
-                    matrix[i][j] = Math.min(
-                        matrix[i - 1][j - 1] + 1, // substitution
-                        matrix[i][j - 1] + 1,     // insertion
-                        matrix[i - 1][j] + 1      // deletion
-                    );
-                }
-            }
-        }
-        
-        return matrix[str2.length][str1.length];
-    }
-    
-    /**
-     * Calculate position similarity
-     * @param {number|null} pos1 - First position
-     * @param {number|null} pos2 - Second position
-     * @returns {number} Similarity score (0-1)
-     */
-    positionSimilarity(pos1, pos2) {
-        if (pos1 === null || pos2 === null) {
-            return 0.5; // Neutral if position unknown
-        }
-        
-        if (pos1 === pos2) {
-            return 1.0;
-        }
-        
-        // Allow some tolerance for position differences
-        const diff = Math.abs(pos1 - pos2);
-        if (diff <= 1) {
-            return 0.8;
-        }
-        if (diff <= 2) {
-            return 0.6;
-        }
-        
-        return 0.3;
+        // Match by ID only (case-sensitive)
+        const match = targetTasks.find(t => t.id === sourceTask.id);
+        return match || null;
     }
     
     /**
@@ -343,7 +163,7 @@ export class TaskMapper {
                 
                 if (sourceTask && targetTask) {
                     mapping.addMapping(sourceTask, sourceFormat, targetTask, targetFormat, minConfidence, true);
-                    console.log(`[TaskMapper] Transitive: ${sourceFormat}:"${sourceTask.label}" → ${targetFormat}:"${targetTask.label}" (${minConfidence.toFixed(2)})`);
+                    console.log(`[TaskMapper] Transitive: ${sourceFormat}:${sourceTask.id} → ${targetFormat}:${targetTask.id}`);
                 }
             }
         });
@@ -541,21 +361,14 @@ class TaskMapping {
             formats.forEach(targetFormat => {
                 if (sourceFormat !== targetFormat) {
                     let mappingCount = 0;
-                    let avgConfidence = 0;
-                    let confCount = 0;
                     
                     this.getTasksInFormat(sourceFormat).forEach(taskId => {
                         const mappings = this.getMappings(taskId, sourceFormat, targetFormat);
                         mappingCount += mappings.length;
-                        mappings.forEach(m => {
-                            avgConfidence += m.confidence;
-                            confCount++;
-                        });
                     });
                     
-                    if (confCount > 0) {
-                        avgConfidence /= confCount;
-                        console.log(`[TaskMapping]   → ${targetFormat}: ${mappingCount} mappings (avg confidence: ${avgConfidence.toFixed(2)})`);
+                    if (mappingCount > 0) {
+                        console.log(`[TaskMapping]   → ${targetFormat}: ${mappingCount} mappings`);
                     }
                 }
             });

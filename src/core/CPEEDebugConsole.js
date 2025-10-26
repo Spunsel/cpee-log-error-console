@@ -10,6 +10,8 @@ import { Sidebar } from '../components/ui/Sidebar.js';
 import { StepViewer } from '../components/views/StepViewer.js';
 import { LogViewer } from '../components/views/LogViewer.js';
 import { RawContentViewManager } from '../components/coordinators/RawContentViewManager.js';
+import { CrossViewHighlightManager } from '../components/coordinators/CrossViewHighlightManager.js';
+import { ContentSectionManager } from '../components/coordinators/ContentSectionManager.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 import { configManager } from '../config/ConfigManager.js';
 
@@ -22,12 +24,15 @@ export class CPEEDebugConsole {
         // Initialize services
         this.instanceService = new InstanceService();
         
-        // Initialize managers
+        // Initialize highlighting manager
+        this.crossViewHighlightManager = new CrossViewHighlightManager(this.domRegistry);
+        
+        // Initialize content managers
         this.rawContentViewManager = new RawContentViewManager(this.instanceService, this.domRegistry);
         
         // Initialize components with DOM registry
         this.sidebar = new Sidebar(this.instanceService, this.domRegistry);
-        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentViewManager);
+        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentViewManager, this.crossViewHighlightManager);
         this.logViewer = new LogViewer(this.domRegistry);
         
         // Set up component callbacks
