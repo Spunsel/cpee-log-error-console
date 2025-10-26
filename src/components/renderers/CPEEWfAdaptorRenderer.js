@@ -4,11 +4,11 @@
  * Leverages the authentic CPEE graph rendering system
  */
 
-import { StatusManager } from '../../utils/dom/StatusManager.js';
+import { DOMStatusManager } from '../../utils/dom/DOMStatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { ContentCleaner } from '../../utils/content/ContentCleaner.js';
 import { SVGProcessingService } from '../../services/SVGProcessingService.js';
-import { JQueryExtensions } from '../../core/JQueryExtensions.js';
+import { JQueryExtensions } from '../../utils/system/JQueryExtensions.js';
 import { configManager } from '../../config/ConfigManager.js';
 
 export class CPEEWfAdaptorRenderer {
@@ -38,7 +38,7 @@ export class CPEEWfAdaptorRenderer {
             throw new Error(`CPEEWfAdaptorRenderer: Container with ID ${containerId} not found`);
         }
         
-        this.statusManager = new StatusManager(this.statusElement);
+        this.statusManager = new DOMStatusManager(this.statusElement);
         
         // Wait for jQuery to be available
         await this.waitForJQuery();
@@ -140,7 +140,7 @@ export class CPEEWfAdaptorRenderer {
             const self = this;
             
             // Create WfAdaptor instance
-            this.adaptor = new window.WfAdaptor('src/libs/cpee/themes/preset/theme.js', (graphrealization) => {
+            this.adaptor = new window.WfAdaptor('src/libs/cpee-layout/themes/preset/theme.js', (graphrealization) => {
                 try {
                     // Get and validate SVG container element
                     const svgElementId = `graphcanvas-${self.container.id}`;
@@ -209,7 +209,7 @@ export class CPEEWfAdaptorRenderer {
         if (!document.querySelector('link[href*="wfadaptor.css"]')) {
             const cssLink = document.createElement('link');
             cssLink.rel = 'stylesheet';
-            cssLink.href = 'src/libs/cpee/css/wfadaptor.css';
+            cssLink.href = 'src/libs/cpee-layout/wfadaptor.css';
             document.head.appendChild(cssLink);
         }
         
@@ -217,7 +217,7 @@ export class CPEEWfAdaptorRenderer {
         if (typeof WFAdaptorManifestationBase === 'undefined') {
             promises.push(new Promise((resolve, reject) => {
                 const baseScript = document.createElement('script');
-                baseScript.src = 'src/libs/cpee/themes/base.js';
+                baseScript.src = 'src/libs/cpee-layout/themes/base.js';
                 baseScript.onload = () => {
                     resolve();
                 };
@@ -230,7 +230,7 @@ export class CPEEWfAdaptorRenderer {
         if (typeof WfAdaptor === 'undefined') {
             promises.push(new Promise((resolve, reject) => {
                 const wfScript = document.createElement('script');
-                wfScript.src = 'src/libs/cpee/wfadaptor.js';
+                wfScript.src = 'src/libs/cpee-layout/wfadaptor.js';
                 wfScript.onload = () => {
                     resolve();
                 };

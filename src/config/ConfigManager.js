@@ -250,10 +250,10 @@ export class ConfigManager {
     loadCPEEConfig() {
         return {
             wfadaptor: {
-                themePath: 'src/libs/cpee/themes/preset/theme.js',
-                cssPath: 'src/libs/cpee/css/wfadaptor.css',
-                baseThemePath: 'src/libs/cpee/themes/base.js',
-                wfadaptorPath: 'src/libs/cpee/wfadaptor.js'
+                themePath: 'src/libs/cpee-layout/themes/preset/theme.js',
+                cssPath: 'src/libs/cpee-layout/wfadaptor.css',
+                baseThemePath: 'src/libs/cpee-layout/themes/base.js',
+                wfadaptorPath: 'src/libs/cpee-layout/wfadaptor.js'
             },
             rendering: {
                 minHeight: '100px',
