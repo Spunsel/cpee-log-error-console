@@ -1,0 +1,172 @@
+digraph Dependencies {
+  rankdir=TB;
+  node [shape=box, style=rounded];
+  edge [arrowsize=0.8];
+
+  subgraph cluster_root {
+    label="root";
+    style=filled;
+    fillcolor=lightgrey;
+    "app.js" [label="app"];
+  }
+
+  subgraph cluster_assets {
+    label="assets";
+    style=filled;
+    fillcolor=lightgrey;
+    "assets/icons.js" [label="icons"];
+  }
+
+  subgraph cluster_components {
+    label="components";
+    style=filled;
+    fillcolor=lightgrey;
+    "components/coordinators/ContentSectionManager.js" [label="ContentSectionManager"];
+    "components/coordinators/CrossViewHighlightManager.js" [label="CrossViewHighlightManager"];
+    "components/coordinators/HighlightManager.js" [label="HighlightManager"];
+    "components/coordinators/RawContentViewManager.js" [label="RawContentViewManager"];
+    "components/coordinators/ViewModeManager.js" [label="ViewModeManager"];
+    "components/renderers/CPEEWfAdaptorRenderer.js" [label="CPEEWfAdaptorRenderer"];
+    "components/renderers/MermaidRenderer.js" [label="MermaidRenderer"];
+    "components/renderers/RawContentRenderer.js" [label="RawContentRenderer"];
+    "components/ui/CopyButton.js" [label="CopyButton"];
+    "components/ui/Sidebar.js" [label="Sidebar"];
+    "components/ui/StepNavigator.js" [label="StepNavigator"];
+    "components/ui/ViewModeToggle.js" [label="ViewModeToggle"];
+    "components/views/LogViewer.js" [label="LogViewer"];
+    "components/views/StepViewer.js" [label="StepViewer"];
+  }
+
+  subgraph cluster_config {
+    label="config";
+    style=filled;
+    fillcolor=lightgrey;
+    "config/ConfigManager.js" [label="ConfigManager"];
+  }
+
+  subgraph cluster_core {
+    label="core";
+    style=filled;
+    fillcolor=lightgrey;
+    "core/CPEEDebugConsole.js" [label="CPEEDebugConsole"];
+    "core/DOMRegistry.js" [label="DOMRegistry"];
+  }
+
+  subgraph cluster_libs {
+    label="libs";
+    style=filled;
+    fillcolor=lightgrey;
+    "libs/cpee-layout/themes/base.js" [label="base"];
+    "libs/cpee-layout/themes/extended/theme.js" [label="theme"];
+    "libs/cpee-layout/themes/packed/theme.js" [label="theme"];
+    "libs/cpee-layout/themes/preset/theme.js" [label="theme"];
+    "libs/cpee-layout/wfadaptor.js" [label="wfadaptor"];
+  }
+
+  subgraph cluster_models {
+    label="models";
+    style=filled;
+    fillcolor=lightgrey;
+    "models/CPEEInstance.js" [label="CPEEInstance"];
+    "models/CPEEStep.js" [label="CPEEStep"];
+    "models/CPEETreeRaw.js" [label="CPEETreeRaw"];
+    "models/MermaidRaw.js" [label="MermaidRaw"];
+    "models/TaskIdentifier.js" [label="TaskIdentifier"];
+    "models/UserInputRaw.js" [label="UserInputRaw"];
+  }
+
+  subgraph cluster_services {
+    label="services";
+    style=filled;
+    fillcolor=lightgrey;
+    "services/CPEEService.js" [label="CPEEService"];
+    "services/InstanceService.js" [label="InstanceService"];
+    "services/LogService.js" [label="LogService"];
+    "services/MermaidValidationService.js" [label="MermaidValidationService"];
+    "services/SVGProcessingService.js" [label="SVGProcessingService"];
+  }
+
+  subgraph cluster_utils {
+    label="utils";
+    style=filled;
+    fillcolor=lightgrey;
+    "utils/content/ContentCleaner.js" [label="ContentCleaner"];
+    "utils/content/XMLParser.js" [label="XMLParser"];
+    "utils/content/YAMLParser.js" [label="YAMLParser"];
+    "utils/dom/DOMStatusManager.js" [label="DOMStatusManager"];
+    "utils/dom/DOMUtils.js" [label="DOMUtils"];
+    "utils/extraction/CPEETaskExtractor.js" [label="CPEETaskExtractor"];
+    "utils/extraction/MermaidTaskExtractor.js" [label="MermaidTaskExtractor"];
+    "utils/extraction/SVGTaskExtractor.js" [label="SVGTaskExtractor"];
+    "utils/interaction/CPEESVGClickHandler.js" [label="CPEESVGClickHandler"];
+    "utils/interaction/MermaidSVGClickHandler.js" [label="MermaidSVGClickHandler"];
+    "utils/interaction/SVGClickDetector.js" [label="SVGClickDetector"];
+    "utils/mapping/TaskMapper.js" [label="TaskMapper"];
+    "utils/system/JQueryExtensions.js" [label="JQueryExtensions"];
+    "utils/system/LibraryLoader.js" [label="LibraryLoader"];
+  }
+
+
+  // Dependencies
+  "app.js" -> "core/CPEEDebugConsole.js";
+  "components/coordinators/ContentSectionManager.js" -> "components/renderers/CPEEWfAdaptorRenderer.js";
+  "components/coordinators/ContentSectionManager.js" -> "components/renderers/MermaidRenderer.js";
+  "components/coordinators/ContentSectionManager.js" -> "config/ConfigManager.js";
+  "components/coordinators/ContentSectionManager.js" -> "utils/interaction/CPEESVGClickHandler.js";
+  "components/coordinators/ContentSectionManager.js" -> "utils/interaction/MermaidSVGClickHandler.js";
+  "components/coordinators/ContentSectionManager.js" -> "utils/interaction/SVGClickDetector.js";
+  "components/coordinators/CrossViewHighlightManager.js" -> "components/coordinators/HighlightManager.js";
+  "components/coordinators/RawContentViewManager.js" -> "components/coordinators/ViewModeManager.js";
+  "components/coordinators/RawContentViewManager.js" -> "components/renderers/RawContentRenderer.js";
+  "components/coordinators/RawContentViewManager.js" -> "components/ui/CopyButton.js";
+  "components/coordinators/RawContentViewManager.js" -> "components/ui/ViewModeToggle.js";
+  "components/coordinators/RawContentViewManager.js" -> "config/ConfigManager.js";
+  "components/renderers/CPEEWfAdaptorRenderer.js" -> "config/ConfigManager.js";
+  "components/renderers/CPEEWfAdaptorRenderer.js" -> "services/SVGProcessingService.js";
+  "components/renderers/CPEEWfAdaptorRenderer.js" -> "utils/content/ContentCleaner.js";
+  "components/renderers/CPEEWfAdaptorRenderer.js" -> "utils/dom/DOMStatusManager.js";
+  "components/renderers/CPEEWfAdaptorRenderer.js" -> "utils/system/JQueryExtensions.js";
+  "components/renderers/CPEEWfAdaptorRenderer.js" -> "utils/system/LibraryLoader.js";
+  "components/renderers/MermaidRenderer.js" -> "config/ConfigManager.js";
+  "components/renderers/MermaidRenderer.js" -> "utils/content/ContentCleaner.js";
+  "components/renderers/MermaidRenderer.js" -> "utils/dom/DOMStatusManager.js";
+  "components/renderers/MermaidRenderer.js" -> "utils/dom/DOMUtils.js";
+  "components/renderers/MermaidRenderer.js" -> "utils/system/LibraryLoader.js";
+  "components/ui/CopyButton.js" -> "assets/icons.js";
+  "components/ui/StepNavigator.js" -> "assets/icons.js";
+  "components/ui/ViewModeToggle.js" -> "assets/icons.js";
+  "components/views/LogViewer.js" -> "config/ConfigManager.js";
+  "components/views/StepViewer.js" -> "components/coordinators/ContentSectionManager.js";
+  "components/views/StepViewer.js" -> "components/coordinators/CrossViewHighlightManager.js";
+  "components/views/StepViewer.js" -> "components/ui/StepNavigator.js";
+  "core/CPEEDebugConsole.js" -> "components/coordinators/ContentSectionManager.js";
+  "core/CPEEDebugConsole.js" -> "components/coordinators/CrossViewHighlightManager.js";
+  "core/CPEEDebugConsole.js" -> "components/coordinators/RawContentViewManager.js";
+  "core/CPEEDebugConsole.js" -> "components/ui/Sidebar.js";
+  "core/CPEEDebugConsole.js" -> "components/views/LogViewer.js";
+  "core/CPEEDebugConsole.js" -> "components/views/StepViewer.js";
+  "core/CPEEDebugConsole.js" -> "config/ConfigManager.js";
+  "core/CPEEDebugConsole.js" -> "core/DOMRegistry.js";
+  "core/CPEEDebugConsole.js" -> "services/CPEEService.js";
+  "core/CPEEDebugConsole.js" -> "services/InstanceService.js";
+  "core/CPEEDebugConsole.js" -> "services/LogService.js";
+  "core/DOMRegistry.js" -> "config/ConfigManager.js";
+  "models/CPEEInstance.js" -> "models/CPEEStep.js";
+  "models/CPEEStep.js" -> "models/CPEETreeRaw.js";
+  "models/CPEEStep.js" -> "models/MermaidRaw.js";
+  "models/CPEEStep.js" -> "models/UserInputRaw.js";
+  "models/CPEEStep.js" -> "utils/mapping/TaskMapper.js";
+  "services/CPEEService.js" -> "config/ConfigManager.js";
+  "services/InstanceService.js" -> "models/CPEEInstance.js";
+  "services/LogService.js" -> "config/ConfigManager.js";
+  "services/LogService.js" -> "models/CPEEStep.js";
+  "services/LogService.js" -> "utils/content/ContentCleaner.js";
+  "services/LogService.js" -> "utils/content/YAMLParser.js";
+  "services/LogService.js" -> "utils/extraction/CPEETaskExtractor.js";
+  "services/LogService.js" -> "utils/extraction/MermaidTaskExtractor.js";
+  "services/LogService.js" -> "utils/mapping/TaskMapper.js";
+  "utils/extraction/CPEETaskExtractor.js" -> "models/TaskIdentifier.js";
+  "utils/extraction/MermaidTaskExtractor.js" -> "models/TaskIdentifier.js";
+  "utils/extraction/SVGTaskExtractor.js" -> "models/TaskIdentifier.js";
+  "utils/mapping/TaskMapper.js" -> "models/TaskIdentifier.js";
+}
