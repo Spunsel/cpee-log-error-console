@@ -17,10 +17,17 @@
         </header>
 
         <div class="main-container">
-            <aside class="sidebar">
-                <h3>Process Instances</h3>
-                <div id="instance-tabs">
-                    <div class="no-instances">No instances loaded yet</div>
+            <aside class="sidebar sidebar-expanded">
+                <div class="sidebar-header">
+                    <h3>Process Instances</h3>
+                    <button id="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Collapse sidebar" aria-expanded="true" data-sidebar-state="expanded" title="Click to collapse sidebar">
+                        <span class="sidebar-toggle-icon"></span>
+                    </button>
+                </div>
+                <div class="sidebar-content">
+                    <div id="instance-tabs">
+                        <div class="no-instances">No instances loaded yet</div>
+                    </div>
                 </div>
             </aside>
 

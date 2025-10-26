@@ -3,11 +3,22 @@
  * Manages the instance tabs in the sidebar
  */
 
+import { ICON_SIDEBAR_COLLAPSE, ICON_SIDEBAR_EXPAND } from '../../assets/icons.js';
+
 export class Sidebar {
     constructor(instanceService, domRegistry = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.onInstanceSelect = null;
+        this.toggleButton = null;
+        this.sidebarElement = null;
+        
+        // Initialize state from localStorage or default to expanded
+        const savedState = localStorage.getItem('sidebarState');
+        this.isCollapsed = savedState === 'collapsed';
+        
+        // Debug: Log the initialized state
+        console.log('Sidebar initialized - isCollapsed:', this.isCollapsed, 'savedState:', savedState);
     }
 
 
@@ -55,12 +66,24 @@ export class Sidebar {
         const displayText = instanceData 
             ? instanceData.getDisplayName()
             : uuid;
+        
+        // Extract process number for collapsed state
+        const processNumber = instanceData && instanceData.processNumber 
+            ? instanceData.processNumber.toString()
+            : '';
 
         // Create new tab (not active by default)
         const tabElement = document.createElement('div');
         tabElement.className = 'instance-tab';
         tabElement.dataset.uuid = uuid;
-        tabElement.textContent = displayText;
+        tabElement.dataset.processNumber = processNumber;
+        
+        // Set initial text based on sidebar state
+        if (this.isCollapsed) {
+            tabElement.textContent = processNumber;
+        } else {
+            tabElement.textContent = displayText;
+        }
         
         // Add click handler
         tabElement.addEventListener('click', () => {
@@ -169,7 +192,200 @@ export class Sidebar {
 
         const tab = instanceTabs.querySelector(`[data-uuid="${uuid}"]`);
         if (tab) {
-            tab.textContent = displayName;
+            // Update text based on sidebar state
+            if (this.isCollapsed) {
+                const processNumber = tab.dataset.processNumber || '';
+                tab.textContent = processNumber;
+            } else {
+                tab.textContent = displayName;
+            }
         }
+    }
+
+    /**
+     * Initialize sidebar toggle functionality
+     * Attaches event listener to toggle button
+     */
+    initializeToggle() {
+        const toggleBtn = document.getElementById('sidebar-toggle');
+        const sidebarEl = document.querySelector('.sidebar');
+        
+        if (!toggleBtn || !sidebarEl) {
+            return;
+        }
+
+        this.toggleButton = toggleBtn;
+        this.sidebarElement = sidebarEl;
+
+        // Get current state from classes
+        const isCurrentlyCollapsed = this.sidebarElement.classList.contains('sidebar-collapsed');
+        const isCurrentlyExpanded = this.sidebarElement.classList.contains('sidebar-expanded');
+        
+        console.log('initializeToggle - this.isCollapsed:', this.isCollapsed, 'isCurrentlyCollapsed:', isCurrentlyCollapsed, 'isCurrentlyExpanded:', isCurrentlyExpanded);
+        
+        // Only apply state if it needs to be changed
+        if (this.isCollapsed && !isCurrentlyCollapsed) {
+            // Disable transitions during initial state application to prevent animation on page load
+            const mainContainer = this.sidebarElement.parentElement;
+            const contentElement = document.querySelector('.content');
+            
+            // Temporarily disable all transitions
+            this.sidebarElement.style.transition = 'none';
+            if (mainContainer) {
+                mainContainer.style.transition = 'none';
+            }
+            if (contentElement) {
+                contentElement.style.transition = 'none';
+            }
+            
+            // Apply collapsed state
+            this.sidebarElement.classList.remove('sidebar-expanded');
+            this.sidebarElement.classList.add('sidebar-collapsed');
+            
+            // Re-enable transitions after DOM update
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    this.sidebarElement.style.transition = '';
+                    if (mainContainer) {
+                        mainContainer.style.transition = '';
+                    }
+                    if (contentElement) {
+                        contentElement.style.transition = '';
+                    }
+                }, 0);
+            });
+        } else if (!this.isCollapsed && !isCurrentlyExpanded) {
+            // Apply expanded state only if not already expanded
+            this.sidebarElement.classList.remove('sidebar-collapsed');
+            this.sidebarElement.classList.add('sidebar-expanded');
+        }
+
+        // Set initial icon based on current state
+        this.updateToggleButton();
+        this.updateTabTexts(this.isCollapsed);
+
+        // Attach click listener
+        toggleBtn.addEventListener('click', () => {
+            this.toggle();
+        });
+
+        // Attach keyboard listener for accessibility
+        toggleBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.toggle();
+            }
+        });
+    }
+
+    /**
+     * Toggle sidebar collapsed/expanded state
+     */
+    toggle() {
+        if (this.isCollapsed) {
+            this.expand();
+        } else {
+            this.collapse();
+        }
+    }
+
+    /**
+     * Save sidebar state to localStorage
+     */
+    saveState() {
+        const state = this.isCollapsed ? 'collapsed' : 'expanded';
+        localStorage.setItem('sidebarState', state);
+    }
+
+    /**
+     * Collapse sidebar to minimal width
+     */
+    collapse() {
+        if (!this.sidebarElement) {
+            return;
+        }
+
+        this.isCollapsed = true;
+        this.sidebarElement.classList.remove('sidebar-expanded');
+        this.sidebarElement.classList.add('sidebar-collapsed');
+        
+        this.updateToggleButton();
+        this.updateTabTexts(true); // collapsed = true
+        this.saveState(); // Save to localStorage
+    }
+
+    /**
+     * Expand sidebar to full width
+     */
+    expand() {
+        if (!this.sidebarElement) {
+            return;
+        }
+
+        this.isCollapsed = false;
+        this.sidebarElement.classList.remove('sidebar-collapsed');
+        this.sidebarElement.classList.add('sidebar-expanded');
+        
+        this.updateToggleButton();
+        this.updateTabTexts(false); // collapsed = false
+        this.saveState(); // Save to localStorage
+    }
+
+    /**
+     * Update toggle button icon and ARIA attributes
+     */
+    updateToggleButton() {
+        if (!this.toggleButton) {
+            return;
+        }
+
+        const iconSpan = this.toggleButton.querySelector('.sidebar-toggle-icon');
+        if (!iconSpan) {
+            return;
+        }
+
+        if (this.isCollapsed) {
+            // Show expand icon
+            iconSpan.innerHTML = ICON_SIDEBAR_EXPAND;
+            this.toggleButton.setAttribute('aria-label', 'Expand sidebar');
+            this.toggleButton.setAttribute('aria-expanded', 'false');
+            this.toggleButton.setAttribute('data-sidebar-state', 'collapsed');
+            this.toggleButton.setAttribute('title', 'Click to expand sidebar');
+        } else {
+            // Show collapse icon
+            iconSpan.innerHTML = ICON_SIDEBAR_COLLAPSE;
+            this.toggleButton.setAttribute('aria-label', 'Collapse sidebar');
+            this.toggleButton.setAttribute('aria-expanded', 'true');
+            this.toggleButton.setAttribute('data-sidebar-state', 'expanded');
+            this.toggleButton.setAttribute('title', 'Click to collapse sidebar');
+        }
+    }
+
+    /**
+     * Update tab texts based on sidebar collapsed state
+     * @param {boolean} isCollapsed - Whether the sidebar is collapsed
+     */
+    updateTabTexts(isCollapsed) {
+        const instanceTabs = this.getElement('instanceTabs');
+        if (!instanceTabs) {
+            return;
+        }
+
+        const tabs = instanceTabs.querySelectorAll('.instance-tab');
+        tabs.forEach(tab => {
+            if (isCollapsed) {
+                // Show only process number
+                const processNumber = tab.dataset.processNumber || '';
+                tab.textContent = processNumber;
+            } else {
+                // Show full display name
+                const uuid = tab.dataset.uuid;
+                const instanceData = this.instanceService.getInstance(uuid);
+                const displayText = instanceData 
+                    ? instanceData.getDisplayName()
+                    : uuid;
+                tab.textContent = displayText;
+            }
+        });
     }
 }

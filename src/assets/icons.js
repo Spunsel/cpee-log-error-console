@@ -7,7 +7,8 @@
  * - ViewBox for scalability
  * - currentColor for dynamic coloring
  * - Stroke-based design for clean rendering
- */
+ *
+ * ALL ICONS ARE COPIED FROM https://www.svgrepo.com/
 
 // ============================================
 // SVG ICONS (Ready to use)
@@ -42,7 +43,7 @@ export const ICON_CHECK = `
 export const ICON_VISUAL = `
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-        <circle cx="12" cy="12" r="3"></circle>
+        <circle cx="12" cy="12" r="3" fill="currentColor"></circle>
     </svg>
 `;
 
@@ -52,7 +53,7 @@ export const ICON_VISUAL = `
  * Thicker stroke (2.5) to match skip button style
  */
 export const ICON_RAW = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="16 18 22 12 16 6"></polyline>
         <polyline points="8 6 2 12 8 18"></polyline>
     </svg>
@@ -116,6 +117,28 @@ export const ICON_NAV_SKIP = `
 `;
 
 /**
+ * Sidebar Collapse icon - Sidebar collapsing with double chevrons pointing inward
+ * Represents collapsing/hiding the sidebar - 16x16px
+ * Design: Double chevrons pointing inward representing sidebar collapse
+ */
+export const ICON_SIDEBAR_COLLAPSE = `
+    <svg viewBox="-32 0 512 512" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
+        <path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"></path>
+    </svg>
+`;
+
+/**
+ * Sidebar Expand icon - Sidebar expanding with double chevrons pointing outward
+ * Represents expanding/showing the sidebar - 16x16px
+ * Design: Double chevrons pointing outward representing sidebar expansion
+ */
+export const ICON_SIDEBAR_EXPAND = `
+    <svg viewBox="-32 0 512 512" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" transform="scale(-1, 1)">
+        <path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"></path>
+    </svg>
+`;
+
+/**
  * App Console Debug Icon - Terminal with debugging symbols
  * Represents the debug console application - 64x64px (200% of original)
  */
@@ -173,6 +196,8 @@ export const ICONS = {
     NAV_START: ICON_NAV_START,
     NAV_END: ICON_NAV_END,
     NAV_SKIP: ICON_NAV_SKIP,
+    SIDEBAR_COLLAPSE: ICON_SIDEBAR_COLLAPSE,
+    SIDEBAR_EXPAND: ICON_SIDEBAR_EXPAND,
     APP: ICON_APP,
     APP_FAVICON: ICON_APP_FAVICON
 };
@@ -193,6 +218,8 @@ export function getIcon(iconName) {
         'nav-start': ICON_NAV_START,
         'nav-end': ICON_NAV_END,
         'nav-skip': ICON_NAV_SKIP,
+        'sidebar-collapse': ICON_SIDEBAR_COLLAPSE,
+        'sidebar-expand': ICON_SIDEBAR_EXPAND,
         'app': ICON_APP,
         'app-favicon': ICON_APP_FAVICON
     };

@@ -131,26 +131,141 @@ body {
     grid-template-columns: 300px 1fr;
     gap: 0;
     min-height: 0;
+    transition: grid-template-columns 0.4s ease-out, all 0.4s ease-out;
 }
+
+/* Adjust grid when sidebar is collapsed */
+.main-container .sidebar.sidebar-collapsed {
+    grid-column: 1 / 2;
+}
+
+.main-container:has(.sidebar.sidebar-collapsed) {
+    grid-template-columns: 80px 1fr;
+}
+
+/* Grid uses default 300px 1fr when sidebar is expanded (no :has rule needed) */
 
 .content {
     padding: var(--spacing-lg);
     overflow-y: auto;
     background: var(--background-color);
+    width: 100%;
+    min-width: 0;
 }
 
 /* Sidebar */
 .sidebar {
     background: var(--surface-color);
     border-right: 1px solid var(--border-color);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     overflow-y: auto;
+}
+
+/* Sidebar header container */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
 }
 
 .sidebar h3 {
     color: var(--text-primary);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 0;
     font-size: 1.125rem;
+    flex: 1;
+}
+
+/* Sidebar toggle button */
+.sidebar-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    outline: none;
+}
+
+.sidebar-toggle-btn:hover {
+    background: var(--background-color);
+    border-color: var(--primary-color);
+}
+
+.sidebar-toggle-btn:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.sidebar-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+}
+
+/* Sidebar collapsed state */
+.sidebar.sidebar-collapsed {
+    width: 80px !important;
+    min-width: 80px;
+    max-width: 80px;
+    padding: var(--spacing-md);
+    align-items: center;
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+.sidebar.sidebar-collapsed .sidebar-header {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.sidebar.sidebar-collapsed h3 {
+    display: none;
+}
+
+.sidebar.sidebar-collapsed .sidebar-content {
+    display: block;
+}
+
+.sidebar.sidebar-collapsed .sidebar-toggle-btn {
+    width: 32px;
+    margin: 0;
+    height: 32px;
+}
+
+/* Show instance tabs in collapsed state with process number */
+.sidebar.sidebar-collapsed .instance-tab {
+    padding: var(--spacing-xs);
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sidebar.sidebar-collapsed .instance-tab.active {
+    background: var(--primary-color);
+    color: var(--surface-color);
+    border-color: var(--primary-color);
+}
+
+/* Sidebar expanded state (default) */
+.sidebar.sidebar-expanded {
+    width: 300px;
+    min-width: 300px;
+    box-sizing: border-box;
+}
+
+/* Sidebar content wrapper */
+.sidebar-content {
+    overflow: hidden;
 }
 
 /* Footer */

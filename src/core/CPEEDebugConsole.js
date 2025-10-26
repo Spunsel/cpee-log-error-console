@@ -122,6 +122,9 @@ export class CPEEDebugConsole {
         // Parse URL parameters
         const urlParams = this.parseURLParameters();
         
+        // Initialize sidebar toggle functionality
+        this.sidebar.initializeToggle();
+        
         // Set up event listeners
         this.setupEventListeners();
         
