@@ -21,6 +21,7 @@
     --section-header-bg: #bfbfbf;
     --copy-btn-bg: #dbdfe4;
     --nav-bar-color: #f0f3f6; /* Navigation and metadata bar background color */
+    --copy-success-color: #87a96b;
     
     /* Border Radius */
     --border-radius-sm: 6px;
@@ -700,6 +701,46 @@ body {
     color: var(--secondary-color);
     user-select: text;
     cursor: text;
+}
+
+/* UUID wrapper and copy button */
+.uuid-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.uuid-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.uuid-copy-btn:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.uuid-copy-btn.copied {
+    background: var(--copy-success-color);
+    color: white;
+    opacity: 1;
+    border: 1px solid var(--copy-success-color);
+}
+
+.uuid-copy-btn svg {
+    width: 16px;
+    height: 16px;
 }
 
 
@@ -1511,8 +1552,8 @@ body {
 /* Copy Button States */
 .copy-btn.copy-success, 
 .copy-btn.copy-success:hover {
-    background: #10b981;
-    border-color: #10b981;
+    background: var(--copy-success-color);
+    border-color: var(--copy-success-color);
     color: white;
 }
 

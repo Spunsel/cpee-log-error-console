@@ -6,6 +6,7 @@
 
 import { ICONS } from '../../assets/icons.js';
 import { StepDropdown } from './StepDropdown.js';
+import { configManager } from '../../config/ConfigManager.js';
 
 export class StepNavigator {
     constructor(instanceService, domRegistry = null) {
@@ -209,7 +210,10 @@ export class StepNavigator {
             innerHTML: `
                 <div class="metadata-field">
                     <span class="metadata-label">Change UUID:</span>
-                    <span id="uuid-value">-</span>
+                    <span class="uuid-wrapper">
+                        <span id="uuid-value">-</span>
+                        <button id="uuid-copy-btn" class="uuid-copy-btn" title="Copy full UUID" style="display: none;">${ICONS.COPY}</button>
+                    </span>
                 </div>
                 <div class="metadata-field">
                     <span class="metadata-label">Used LLM:</span>
@@ -227,6 +231,65 @@ export class StepNavigator {
         if (this.domRegistry) {
             this.domRegistry.register('metadataDisplay', 'metadata-display');
         }
+
+        // Attach copy button event listener
+        this.attachCopyButtonListener();
+    }
+
+    /**
+     * Format UUID to show only first 2 and last 2 characters
+     * @param {string} uuid - Full UUID string
+     * @returns {string} Formatted UUID (e.g., "b7...4d")
+     */
+    formatUUID(uuid) {
+        if (!uuid || uuid === '-') {
+            return '-';
+        }
+        if (uuid.length <= 4) {
+            return uuid;
+        }
+        return `${uuid.substring(0, 3)}...${uuid.substring(uuid.length - 3)}`;
+    }
+
+    /**
+     * Attach event listener to UUID copy button
+     */
+    attachCopyButtonListener() {
+        const copyBtn = document.getElementById('uuid-copy-btn');
+        if (!copyBtn) {
+            return;
+        }
+
+        copyBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const uuidValue = document.getElementById('uuid-value');
+            if (!uuidValue) {
+                return;
+            }
+
+            const fullUuid = uuidValue.getAttribute('data-full-uuid');
+            if (!fullUuid || fullUuid === '-') {
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(fullUuid);
+                
+                // Show success feedback
+                const checkIcon = ICONS.CHECK;
+                copyBtn.innerHTML = checkIcon;
+                copyBtn.classList.add('copied');
+                
+                // Reset to copy icon after configured duration
+                const successDuration = configManager.get('ui.notifications.successDuration');
+                setTimeout(() => {
+                    copyBtn.innerHTML = ICONS.COPY;
+                    copyBtn.classList.remove('copied');
+                }, successDuration);
+            } catch (err) {
+                console.error('Failed to copy UUID:', err);
+            }
+        });
     }
 
     /**
@@ -245,9 +308,17 @@ export class StepNavigator {
             const retryElement = this.domRegistry.getElementSafe('metadataDisplay') || document.getElementById('metadata-display');
             if (retryElement) {
                 const uuidValue = retryElement.querySelector('#uuid-value');
+                const uuidCopyBtn = retryElement.querySelector('#uuid-copy-btn');
+                const fullUuid = step.changeUuid || '-';
+                
                 if (uuidValue) {
-                    uuidValue.textContent = step.changeUuid || '-';
+                    uuidValue.textContent = this.formatUUID(fullUuid);
+                    uuidValue.setAttribute('data-full-uuid', fullUuid);
                 }
+                if (uuidCopyBtn) {
+                    uuidCopyBtn.style.display = fullUuid !== '-' ? 'inline-flex' : 'none';
+                }
+                
                 const llmValue = retryElement.querySelector('#llm-value');
                 if (llmValue) {
                     llmValue.textContent = step.usedLLM || '-';
@@ -258,8 +329,15 @@ export class StepNavigator {
 
         // Update UUID
         const uuidValue = metadataElement.querySelector('#uuid-value');
+        const uuidCopyBtn = metadataElement.querySelector('#uuid-copy-btn');
+        const fullUuid = step.changeUuid || '-';
+        
         if (uuidValue) {
-            uuidValue.textContent = step.changeUuid || '-';
+            uuidValue.textContent = this.formatUUID(fullUuid);
+            uuidValue.setAttribute('data-full-uuid', fullUuid);
+        }
+        if (uuidCopyBtn) {
+            uuidCopyBtn.style.display = fullUuid !== '-' ? 'inline-flex' : 'none';
         }
 
         // Update LLM
