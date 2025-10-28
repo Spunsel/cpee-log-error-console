@@ -1,541 +1,590 @@
-# Class Structure Analysis & Recommendations
+# Class Structure Analysis
 
-## Executive Summary
+## Overview
 
-This document provides a comprehensive analysis of every class in the project, evaluating:
-- **Folder Placement**: Is the class in the correct directory?
-- **Consolidation Opportunities**: Can it be merged with other classes?
-- **Single Responsibility**: Does it handle minimum concerns?
-- **Concern Overlap**: Are there overlapping responsibilities with other classes?
-- **Naming Accuracy**: Is the class name descriptive and accurate?
-
----
-
-## Core Classes (`src/core/`)
-
-### ✅ **CPEEDebugConsole.js** (438 lines)
-- **Folder Placement**: ✅ **Correct** - Main application controller belongs in core
-- **Consolidation**: ❌ **No** - Central orchestrator, should remain separate
-- **Single Responsibility**: ✅ **Yes** - Coordinates all components, manages application lifecycle
-- **Concern Overlap**: ❌ **None** - Unique responsibility as main controller
-- **Naming**: ✅ **Accurate** - Clearly identifies as debug console for CPEE
-- **Recommendation**: Keep as-is
-
-### ✅ **DOMRegistry.js**
-- **Folder Placement**: ✅ **Correct** - Core infrastructure belongs in core
-- **Consolidation**: ❌ **No** - Centralized DOM management is unique
-- **Single Responsibility**: ✅ **Yes** - Manages DOM element references and operations
-- **Concern Overlap**: ❌ **None** - Unique responsibility for DOM abstraction
-- **Naming**: ✅ **Accurate** - Registry pattern is clear
-- **Recommendation**: Keep as-is
-
-### ✅ **EventBus.js**
-- **Folder Placement**: ✅ **Correct** - Core infrastructure belongs in core
-- **Consolidation**: ❌ **No** - Centralized event system is unique
-- **Single Responsibility**: ✅ **Yes** - Handles publish/subscribe communication
-- **Concern Overlap**: ❌ **None** - Unique responsibility for event management
-- **Naming**: ✅ **Accurate** - Standard event bus pattern
-- **Recommendation**: Keep as-is
-
-### ✅ **StateManager.js** (415 lines)
-- **Folder Placement**: ✅ **Correct** - Core infrastructure belongs in core
-- **Consolidation**: ❌ **No** - Centralized state management is unique
-- **Single Responsibility**: ✅ **Yes** - Manages application state with history and subscriptions
-- **Concern Overlap**: ❌ **None** - Unique responsibility for state management
-- **Naming**: ✅ **Accurate** - Standard state manager pattern
-- **Recommendation**: Keep as-is
-
-### ✅ **ServiceFactory.js**
-- **Folder Placement**: ✅ **Correct** - Core infrastructure belongs in core
-- **Consolidation**: ❌ **No** - Service creation and management is unique
-- **Single Responsibility**: ✅ **Yes** - Creates and manages service instances
-- **Concern Overlap**: ❌ **None** - Unique responsibility for dependency injection
-- **Naming**: ✅ **Accurate** - Standard factory pattern
-- **Recommendation**: Keep as-is
+This document provides a comprehensive analysis of each class in the CPEE Log Error Console project, evaluating:
+- **Folder placement**: Is the class in the correct directory?
+- **Merge potential**: Can it be merged with other classes?
+- **Single responsibility**: Does it handle minimum concerns?
+- **Concern overlap**: Is there overlap with other classes?
+- **Naming accuracy**: Is the chosen name accurate?
+- **Functionality simplification**: Can the functionality be simplified?
 
 ---
 
-## Services (`src/services/`)
+## Core Layer (`src/core/`)
 
-### ✅ **CPEEService.js**
-- **Folder Placement**: ✅ **Correct** - Service layer belongs in services
-- **Consolidation**: ❌ **No** - Pure static utility service
-- **Single Responsibility**: ✅ **Yes** - CPEE server communication only
-- **Concern Overlap**: ❌ **None** - Unique responsibility for CPEE API calls
-- **Naming**: ✅ **Accurate** - Clearly identifies CPEE service
-- **Recommendation**: Keep as-is
+### CPEEDebugConsole.js
+**Status**: ✅ **Well-structured**
+- **Folder placement**: ✅ Correct - Main application controller belongs in core
+- **Merge potential**: ❌ Should remain separate - central orchestrator
+- **Single responsibility**: ✅ Handles application initialization and coordination
+- **Concern overlap**: ✅ No significant overlap - URL management extracted
+- **Naming accuracy**: ✅ Accurate - clearly identifies main console
+- **Simplification**: ✅ Well-simplified - URL management extracted to URLManager
 
-### ✅ **LogService.js**
-- **Folder Placement**: ✅ **Correct** - Service layer belongs in services
-- **Consolidation**: ❌ **No** - Pure static utility service
-- **Single Responsibility**: ✅ **Yes** - Log fetching and parsing only
-- **Concern Overlap**: ❌ **None** - Unique responsibility for log operations
-- **Naming**: ✅ **Accurate** - Clearly identifies log service
-- **Recommendation**: Keep as-is
+**Recommendations**: ✅ **COMPLETED** - URL parameter management extracted to separate `URLManager` utility class.
 
-### ✅ **InstanceService.js**
-- **Folder Placement**: ✅ **Correct** - Service layer belongs in services
-- **Consolidation**: ❌ **No** - Stateful service with unique instance management
-- **Single Responsibility**: ✅ **Yes** - Multi-instance management and navigation
-- **Concern Overlap**: ❌ **None** - Unique responsibility for instance state
-- **Naming**: ✅ **Accurate** - Clearly identifies instance management
-- **Recommendation**: Keep as-is
+### DOMRegistry.js
+**Status**: ✅ **Excellent design**
+- **Folder placement**: ✅ Correct - core infrastructure
+- **Merge potential**: ❌ Should remain separate - specialized functionality
+- **Single responsibility**: ✅ Focused on DOM element management
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Perfect - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **HighlightingService.js** (300 lines)
-- **Folder Placement**: ✅ **Correct** - Service layer belongs in services
-- **Consolidation**: ❌ **No** - Core highlighting functionality is unique
-- **Single Responsibility**: ✅ **Yes** - SVG element highlighting and clickable states
-- **Concern Overlap**: ❌ **None** - Unique responsibility for highlighting
-- **Naming**: ✅ **Accurate** - Clearly identifies highlighting service
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed utility class.
 
-### ✅ **SearchService.js**
-- **Folder Placement**: ✅ **Correct** - Service layer belongs in services
-- **Consolidation**: ❌ **No** - Search functionality is unique
-- **Single Responsibility**: ✅ **Yes** - Text search operations
-- **Concern Overlap**: ❌ **None** - Unique responsibility for search
-- **Naming**: ✅ **Accurate** - Clearly identifies search service
-- **Recommendation**: Keep as-is
+### EventBus.js
+**Status**: ✅ **Excellent design**
+- **Folder placement**: ✅ Correct - core infrastructure
+- **Merge potential**: ❌ Should remain separate - specialized functionality
+- **Single responsibility**: ✅ Focused on event management
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Perfect - standard pattern
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **SearchHighlightingService.js**
-- **Folder Placement**: ✅ **Correct** - Service layer belongs in services
-- **Consolidation**: ❌ **No** - Search highlighting is unique concern
-- **Single Responsibility**: ✅ **Yes** - Highlights search matches in content
-- **Concern Overlap**: ❌ **None** - Unique responsibility for search highlighting
-- **Naming**: ✅ **Accurate** - Clearly identifies search highlighting
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed utility class.
 
----
+### ServiceFactory.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - core infrastructure
+- **Merge potential**: ❌ Should remain separate - specialized functionality
+- **Single responsibility**: ✅ Focused on service creation and management
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - follows factory pattern
+- **Simplification**: ✅ Already well-simplified
 
-## Models (`src/models/`)
+**Recommendations**: None - this is a well-designed utility class.
 
-### ✅ **CPEEStep.js** (434 lines)
-- **Folder Placement**: ✅ **Correct** - Data models belong in models
-- **Consolidation**: ❌ **No** - Core data model, should remain separate
-- **Single Responsibility**: ✅ **Yes** - Represents a single CPEE process step
-- **Concern Overlap**: ❌ **None** - Unique responsibility as step data model
-- **Naming**: ✅ **Accurate** - Clearly identifies CPEE step
-- **Recommendation**: Keep as-is
+### StateManager.js
+**Status**: ✅ **Excellent design**
+- **Folder placement**: ✅ Correct - core infrastructure
+- **Merge potential**: ❌ Should remain separate - specialized functionality
+- **Single responsibility**: ✅ Focused on state management
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Perfect - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **CPEEInstance.js**
-- **Folder Placement**: ✅ **Correct** - Data models belong in models
-- **Consolidation**: ❌ **No** - Core data model, should remain separate
-- **Single Responsibility**: ✅ **Yes** - Represents a CPEE process instance
-- **Concern Overlap**: ❌ **None** - Unique responsibility as instance data model
-- **Naming**: ✅ **Accurate** - Clearly identifies CPEE instance
-- **Recommendation**: Keep as-is
-
-### ✅ **CPEETreeRaw.js**
-- **Folder Placement**: ✅ **Correct** - Data models belong in models
-- **Consolidation**: ❌ **No** - Specialized content model
-- **Single Responsibility**: ✅ **Yes** - Represents raw CPEE tree content
-- **Concern Overlap**: ❌ **None** - Unique responsibility for CPEE tree data
-- **Naming**: ✅ **Accurate** - Clearly identifies CPEE tree raw content
-- **Recommendation**: Keep as-is
-
-### ✅ **MermaidRaw.js**
-- **Folder Placement**: ✅ **Correct** - Data models belong in models
-- **Consolidation**: ❌ **No** - Specialized content model
-- **Single Responsibility**: ✅ **Yes** - Represents raw Mermaid content
-- **Concern Overlap**: ❌ **None** - Unique responsibility for Mermaid data
-- **Naming**: ✅ **Accurate** - Clearly identifies Mermaid raw content
-- **Recommendation**: Keep as-is
-
-### ✅ **UserInputRaw.js**
-- **Folder Placement**: ✅ **Correct** - Data models belong in models
-- **Consolidation**: ❌ **No** - Specialized content model
-- **Single Responsibility**: ✅ **Yes** - Represents raw user input content
-- **Concern Overlap**: ❌ **None** - Unique responsibility for user input data
-- **Naming**: ✅ **Accurate** - Clearly identifies user input raw content
-- **Recommendation**: Keep as-is
-
-### ✅ **TaskIdentifier.js**
-- **Folder Placement**: ✅ **Correct** - Data models belong in models
-- **Consolidation**: ❌ **No** - Specialized identifier model
-- **Single Responsibility**: ✅ **Yes** - Represents task identification across formats
-- **Concern Overlap**: ❌ **None** - Unique responsibility for task identification
-- **Naming**: ✅ **Accurate** - Clearly identifies task identifier
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed utility class.
 
 ---
 
-## Components - Coordinators (`src/components/coordinators/`)
+## Services Layer (`src/services/`)
 
-### ✅ **ContentVisualizationCoordinator.js** (603 lines)
-- **Folder Placement**: ✅ **Correct** - Business logic coordinators belong in coordinators
-- **Consolidation**: ❌ **No** - Core visualization coordination is unique
-- **Single Responsibility**: ✅ **Yes** - Coordinates visual content rendering
-- **Concern Overlap**: ❌ **None** - Unique responsibility for visual content coordination
-- **Naming**: ✅ **Accurate** - Clearly identifies content visualization coordination
-- **Recommendation**: Keep as-is
+### CPEEService.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - service layer
+- **Merge potential**: ❌ Should remain separate - specialized API service
+- **Single responsibility**: ✅ Focused on CPEE API communication
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly identifies CPEE service
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **HighlightCoordinator.js**
-- **Folder Placement**: ✅ **Correct** - Business logic coordinators belong in coordinators
-- **Consolidation**: ❌ **No** - Highlighting coordination is unique
-- **Single Responsibility**: ✅ **Yes** - Coordinates highlighting across views
-- **Concern Overlap**: ❌ **None** - Unique responsibility for highlighting coordination
-- **Naming**: ✅ **Accurate** - Clearly identifies highlight coordination
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed service class.
 
-### ✅ **RawContentCoordinator.js** (686 lines)
-- **Folder Placement**: ✅ **Correct** - Business logic coordinators belong in coordinators
-- **Consolidation**: ❌ **No** - Raw content coordination is unique
-- **Single Responsibility**: ✅ **Yes** - Coordinates raw content display and view modes
-- **Concern Overlap**: ❌ **None** - Unique responsibility for raw content coordination
-- **Naming**: ✅ **Accurate** - Clearly identifies raw content coordination
-- **Recommendation**: Keep as-is
+### InstanceService.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - service layer
+- **Merge potential**: ❌ Should remain separate - specialized instance management
+- **Single responsibility**: ✅ Focused on instance data management
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ⚠️ **ViewModeCoordinator.js** (362 lines)
-- **Folder Placement**: ✅ **Correct** - Business logic coordinators belong in coordinators
-- **Consolidation**: 🔄 **MERGED** - Already merged into RawContentCoordinator
-- **Single Responsibility**: ❌ **No** - Too thin, just wraps StateManager
-- **Concern Overlap**: ✅ **Yes** - Overlaps with RawContentCoordinator view mode logic
-- **Naming**: ✅ **Accurate** - Clearly identifies view mode coordination
-- **Recommendation**: ✅ **COMPLETED** - Successfully merged into RawContentCoordinator
+**Recommendations**: None - this is a well-designed service class.
 
----
+### LogService.js
+**Status**: ⚠️ **Needs refactoring**
+- **Folder placement**: ✅ Correct - service layer
+- **Merge potential**: ⚠️ Could be split into multiple services
+- **Single responsibility**: ❌ Handles too many concerns (fetching, parsing, processing)
+- **Concern overlap**: ⚠️ Overlaps with parsing utilities
+- **Naming accuracy**: ✅ Accurate but too broad
+- **Simplification**: ❌ Too complex - should be split
 
-## Components - Renderers (`src/components/renderers/`)
+**Recommendations**: 
+- Split into `LogFetchingService` (API calls) and `LogProcessingService` (parsing logic)
+- Move parsing logic to utilities layer
 
-### ⚠️ **CPEEWfAdaptorRenderer.js** (387 lines)
-- **Folder Placement**: ✅ **Correct** - Renderers belong in renderers
-- **Consolidation**: ❌ **No** - CPEE rendering is unique
-- **Single Responsibility**: ⚠️ **Partial** - Handles rendering + SVG processing + library loading
-- **Concern Overlap**: ✅ **Yes** - Overlaps with SVGProcessor for SVG operations
-- **Naming**: ✅ **Accurate** - Clearly identifies CPEE WfAdaptor rendering
-- **Recommendation**: 🔄 **Refactor** - Delegate SVG operations to SVGProcessor, focus on rendering only
+### SearchService.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - service layer
+- **Merge potential**: ❌ Should remain separate - specialized search functionality
+- **Single responsibility**: ✅ Focused on search state management
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **MermaidRenderer.js** (305 lines)
-- **Folder Placement**: ✅ **Correct** - Renderers belong in renderers
-- **Consolidation**: ❌ **No** - Mermaid rendering is unique
-- **Single Responsibility**: ✅ **Yes** - Focused on Mermaid diagram rendering
-- **Concern Overlap**: ❌ **None** - Uses MermaidParser for validation, clean separation
-- **Naming**: ✅ **Accurate** - Clearly identifies Mermaid rendering
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed service class.
 
-### ✅ **RawContentRenderer.js**
-- **Folder Placement**: ✅ **Correct** - Renderers belong in renderers
-- **Consolidation**: ❌ **No** - Raw content rendering is unique
-- **Single Responsibility**: ✅ **Yes** - Focused on raw text content rendering
-- **Concern Overlap**: ❌ **None** - Unique responsibility for raw content display
-- **Naming**: ✅ **Accurate** - Clearly identifies raw content rendering
-- **Recommendation**: Keep as-is
+### SearchHighlightingService.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - service layer
+- **Merge potential**: ❌ Should remain separate - specialized highlighting functionality
+- **Single responsibility**: ✅ Focused on search highlighting
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
----
+**Recommendations**: None - this is a well-designed service class.
 
-## Components - Views (`src/components/views/`)
+### HighlightingService.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - service layer
+- **Merge potential**: ❌ Should remain separate - specialized highlighting functionality
+- **Single responsibility**: ✅ Focused on SVG element highlighting
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **StepViewer.js** (203 lines)
-- **Folder Placement**: ✅ **Correct** - View controllers belong in views
-- **Consolidation**: ❌ **No** - Step viewing is unique
-- **Single Responsibility**: ✅ **Yes** - Coordinates step display and navigation
-- **Concern Overlap**: ❌ **None** - Unique responsibility for step viewing
-- **Naming**: ✅ **Accurate** - Clearly identifies step viewing
-- **Recommendation**: Keep as-is
-
-### ✅ **LogViewer.js**
-- **Folder Placement**: ✅ **Correct** - View controllers belong in views
-- **Consolidation**: ❌ **No** - Log viewing is unique
-- **Single Responsibility**: ✅ **Yes** - Focused on log content display
-- **Concern Overlap**: ❌ **None** - Unique responsibility for log viewing
-- **Naming**: ✅ **Accurate** - Clearly identifies log viewing
-- **Recommendation**: Keep as-is
-
-### ✅ **InstanceLoaderViewer.js**
-- **Folder Placement**: ✅ **Correct** - View controllers belong in views
-- **Consolidation**: ❌ **No** - Instance loading is unique
-- **Single Responsibility**: ✅ **Yes** - Focused on instance loading interface
-- **Concern Overlap**: ❌ **None** - Unique responsibility for instance loading
-- **Naming**: ✅ **Accurate** - Clearly identifies instance loader viewing
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed service class.
 
 ---
 
-## Components - UI (`src/components/ui/`)
+## Models Layer (`src/models/`)
 
-### ✅ **ActionBar.js**
-- **Folder Placement**: ✅ **Correct** - UI components belong in ui
-- **Consolidation**: ❌ **No** - Action bar is unique UI component
-- **Single Responsibility**: ✅ **Yes** - Provides action buttons for content sections
-- **Concern Overlap**: ❌ **None** - Unique responsibility for action bar UI
-- **Naming**: ✅ **Accurate** - Clearly identifies action bar
-- **Recommendation**: Keep as-is
+### CPEEInstance.js
+**Status**: ✅ **Excellent design**
+- **Folder placement**: ✅ Correct - model layer
+- **Merge potential**: ❌ Should remain separate - core domain model
+- **Single responsibility**: ✅ Focused on instance representation
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Perfect - clearly identifies CPEE instance
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **CopyButton.js**
-- **Folder Placement**: ✅ **Correct** - UI components belong in ui
-- **Consolidation**: ❌ **No** - Copy functionality is unique UI component
-- **Single Responsibility**: ✅ **Yes** - Focused on copy-to-clipboard functionality
-- **Concern Overlap**: ❌ **None** - Unique responsibility for copy button
-- **Naming**: ✅ **Accurate** - Clearly identifies copy button
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed model class.
 
-### ✅ **SearchBar.js** (390 lines)
-- **Folder Placement**: ✅ **Correct** - UI components belong in ui
-- **Consolidation**: ❌ **No** - Search bar is unique UI component
-- **Single Responsibility**: ✅ **Yes** - Provides search input and navigation controls
-- **Concern Overlap**: ❌ **None** - Unique responsibility for search bar UI
-- **Naming**: ✅ **Accurate** - Clearly identifies search bar
-- **Recommendation**: Keep as-is
+### CPEEStep.js
+**Status**: ⚠️ **Needs simplification**
+- **Folder placement**: ✅ Correct - model layer
+- **Merge potential**: ❌ Should remain separate - core domain model
+- **Single responsibility**: ⚠️ Handles both step data and raw content management
+- **Concern overlap**: ⚠️ Overlaps with raw content models
+- **Naming accuracy**: ✅ Accurate - clearly identifies CPEE step
+- **Simplification**: ❌ Too complex - should delegate raw content management
 
-### ✅ **Sidebar.js**
-- **Folder Placement**: ✅ **Correct** - UI components belong in ui
-- **Consolidation**: ❌ **No** - Sidebar is unique UI component
-- **Single Responsibility**: ✅ **Yes** - Manages sidebar visibility and state
-- **Concern Overlap**: ❌ **None** - Unique responsibility for sidebar UI
-- **Naming**: ✅ **Accurate** - Clearly identifies sidebar
-- **Recommendation**: Keep as-is
+**Recommendations**: 
+- Extract raw content management to a separate `RawContentManager` class
+- Keep CPEEStep focused on step data only
 
-### ✅ **StepDropdown.js**
-- **Folder Placement**: ✅ **Correct** - UI components belong in ui
-- **Consolidation**: ❌ **No** - Step dropdown is unique UI component
-- **Single Responsibility**: ✅ **Yes** - Provides step selection dropdown
-- **Concern Overlap**: ❌ **None** - Unique responsibility for step dropdown
-- **Naming**: ✅ **Accurate** - Clearly identifies step dropdown
-- **Recommendation**: Keep as-is
+### CPEETreeRaw.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - model layer
+- **Merge potential**: ❌ Should remain separate - specialized content model
+- **Single responsibility**: ✅ Focused on CPEE tree raw content
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **StepNavigator.js**
-- **Folder Placement**: ✅ **Correct** - UI components belong in ui
-- **Consolidation**: ❌ **No** - Step navigation is unique UI component
-- **Single Responsibility**: ✅ **Yes** - Provides step navigation controls
-- **Concern Overlap**: ❌ **None** - Unique responsibility for step navigation
-- **Naming**: ✅ **Accurate** - Clearly identifies step navigator
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed model class.
 
-### ✅ **ViewModeToggle.js**
-- **Folder Placement**: ✅ **Correct** - UI components belong in ui
-- **Consolidation**: ❌ **No** - View mode toggle is unique UI component
-- **Single Responsibility**: ✅ **Yes** - Provides visual/raw mode toggle
-- **Concern Overlap**: ❌ **None** - Unique responsibility for view mode toggle
-- **Naming**: ✅ **Accurate** - Clearly identifies view mode toggle
-- **Recommendation**: Keep as-is
+### MermaidRaw.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - model layer
+- **Merge potential**: ❌ Should remain separate - specialized content model
+- **Single responsibility**: ✅ Focused on Mermaid raw content
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
----
+**Recommendations**: None - this is a well-designed model class.
 
-## Utils - Content (`src/utils/content/`)
+### UserInputRaw.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - model layer
+- **Merge potential**: ❌ Should remain separate - specialized content model
+- **Single responsibility**: ✅ Focused on user input content
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **LogParser.js** (357 lines)
-- **Folder Placement**: ✅ **Correct** - Content utilities belong in content
-- **Consolidation**: ❌ **No** - Log parsing is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on XML/YAML parsing from logs
-- **Concern Overlap**: ❌ **None** - Unique responsibility for log parsing
-- **Naming**: ✅ **Accurate** - Clearly identifies log parsing
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed model class.
 
-### ✅ **MermaidParser.js** (254 lines)
-- **Folder Placement**: ✅ **Correct** - Content utilities belong in content
-- **Consolidation**: ❌ **No** - Mermaid parsing is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on Mermaid validation and cleaning
-- **Concern Overlap**: ❌ **None** - Unique responsibility for Mermaid parsing
-- **Naming**: ✅ **Accurate** - Clearly identifies Mermaid parsing
-- **Recommendation**: Keep as-is
+### TaskIdentifier.js
+**Status**: ✅ **Excellent design**
+- **Folder placement**: ✅ Correct - model layer
+- **Merge potential**: ❌ Should remain separate - core domain model
+- **Single responsibility**: ✅ Focused on task identification
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Perfect - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **CPEEParser.js** (224 lines)
-- **Folder Placement**: ✅ **Correct** - Content utilities belong in content
-- **Consolidation**: ❌ **No** - CPEE parsing is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on XML/CPEE validation and cleaning
-- **Concern Overlap**: ❌ **None** - Unique responsibility for CPEE parsing
-- **Naming**: ✅ **Accurate** - Clearly identifies CPEE parsing
-- **Recommendation**: Keep as-is
-
-### ⚠️ **ContentCleaner.js** (489 lines)
-- **Folder Placement**: ✅ **Correct** - Content utilities belong in content
-- **Consolidation**: 🔄 **DEPRECATED** - Functionality moved to specialized parsers
-- **Single Responsibility**: ❌ **No** - Handles multiple content types (XML, Mermaid, CPEE)
-- **Concern Overlap**: ✅ **Yes** - Overlaps with LogParser, MermaidParser, CPEEParser
-- **Naming**: ✅ **Accurate** - Clearly identifies content cleaning
-- **Recommendation**: 🔄 **DEPRECATE** - Functionality successfully moved to specialized parsers
+**Recommendations**: None - this is a well-designed model class.
 
 ---
 
-## Utils - DOM (`src/utils/dom/`)
+## Components Layer (`src/components/`)
 
-### ✅ **DOMStatusManager.js**
-- **Folder Placement**: ✅ **Correct** - DOM utilities belong in dom
-- **Consolidation**: ❌ **No** - Status management is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on DOM status message management
-- **Concern Overlap**: ❌ **None** - Unique responsibility for status management
-- **Naming**: ✅ **Accurate** - Clearly identifies DOM status management
-- **Recommendation**: Keep as-is
+### Coordinators (`src/components/coordinators/`)
 
-### ✅ **DOMUtils.js**
-- **Folder Placement**: ✅ **Correct** - DOM utilities belong in dom
-- **Consolidation**: ❌ **No** - General DOM utilities are unique
-- **Single Responsibility**: ✅ **Yes** - Provides general DOM manipulation utilities
-- **Concern Overlap**: ❌ **None** - Unique responsibility for DOM utilities
-- **Naming**: ✅ **Accurate** - Clearly identifies DOM utilities
-- **Recommendation**: Keep as-is
+#### RawContentCoordinator.js
+**Status**: ⚠️ **Needs refactoring**
+- **Folder placement**: ✅ Correct - coordinator layer
+- **Merge potential**: ⚠️ Could be split into multiple coordinators
+- **Single responsibility**: ❌ Handles too many concerns (view modes, rendering, search, copying)
+- **Concern overlap**: ⚠️ Overlaps with other coordinators
+- **Naming accuracy**: ✅ Accurate but too broad
+- **Simplification**: ❌ Too complex - should be split
 
-### ✅ **SVGProcessor.js** (195 lines)
-- **Folder Placement**: ✅ **Correct** - DOM utilities belong in dom
-- **Consolidation**: ❌ **No** - SVG processing is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on SVG element processing and jQuery wrapping
-- **Concern Overlap**: ❌ **None** - Unique responsibility for SVG processing
-- **Naming**: ✅ **Accurate** - Clearly identifies SVG processing
-- **Recommendation**: Keep as-is
+**Recommendations**: 
+- Split into `ViewModeCoordinator` and `RawContentRenderer`
+- Extract search functionality to separate coordinator
 
----
+#### HighlightCoordinator.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - coordinator layer
+- **Merge potential**: ❌ Should remain separate - specialized coordination
+- **Single responsibility**: ✅ Focused on highlighting coordination
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-## Utils - Extraction (`src/utils/extraction/`)
+**Recommendations**: None - this is a well-designed coordinator class.
 
-### ✅ **TaskExtractor.js** (500 lines)
-- **Folder Placement**: ✅ **Correct** - Extraction utilities belong in extraction
-- **Consolidation**: ❌ **No** - Task extraction is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on extracting tasks from CPEE and Mermaid
-- **Concern Overlap**: ❌ **None** - Unique responsibility for task extraction
-- **Naming**: ✅ **Accurate** - Clearly identifies task extraction
-- **Recommendation**: Keep as-is
+#### ContentVisualizationCoordinator.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - coordinator layer
+- **Merge potential**: ❌ Should remain separate - specialized coordination
+- **Single responsibility**: ✅ Focused on content visualization coordination
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **SVGTaskExtractor.js**
-- **Folder Placement**: ✅ **Correct** - Extraction utilities belong in extraction
-- **Consolidation**: ❌ **No** - SVG task extraction is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on extracting tasks from SVG elements
-- **Concern Overlap**: ❌ **None** - Unique responsibility for SVG task extraction
-- **Naming**: ✅ **Accurate** - Clearly identifies SVG task extraction
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed coordinator class.
 
----
+#### ViewModeCoordinator.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - coordinator layer
+- **Merge potential**: ❌ Should remain separate - specialized coordination
+- **Single responsibility**: ✅ Focused on view mode coordination
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-## Utils - Interaction (`src/utils/interaction/`)
+**Recommendations**: None - this is a well-designed coordinator class.
 
-### ✅ **SVGClickDetector.js** (302 lines)
-- **Folder Placement**: ✅ **Correct** - Interaction utilities belong in interaction
-- **Consolidation**: ❌ **No** - SVG click detection is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on detecting clicks on SVG elements
-- **Concern Overlap**: ❌ **None** - Unique responsibility for SVG click detection
-- **Naming**: ✅ **Accurate** - Clearly identifies SVG click detection
-- **Recommendation**: Keep as-is
+### Views (`src/components/views/`)
 
-### ✅ **CPEESVGClickHandler.js**
-- **Folder Placement**: ✅ **Correct** - Interaction utilities belong in interaction
-- **Consolidation**: ❌ **No** - CPEE SVG click handling is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on handling clicks on CPEE SVG elements
-- **Concern Overlap**: ❌ **None** - Unique responsibility for CPEE SVG click handling
-- **Naming**: ✅ **Accurate** - Clearly identifies CPEE SVG click handling
-- **Recommendation**: Keep as-is
+#### StepViewer.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - view layer
+- **Merge potential**: ❌ Should remain separate - main view component
+- **Single responsibility**: ✅ Focused on step display coordination
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **MermaidSVGClickHandler.js**
-- **Folder Placement**: ✅ **Correct** - Interaction utilities belong in interaction
-- **Consolidation**: ❌ **No** - Mermaid SVG click handling is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on handling clicks on Mermaid SVG elements
-- **Concern Overlap**: ❌ **None** - Unique responsibility for Mermaid SVG click handling
-- **Naming**: ✅ **Accurate** - Clearly identifies Mermaid SVG click handling
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed view class.
 
----
+#### LogViewer.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - view layer
+- **Merge potential**: ❌ Should remain separate - specialized view
+- **Single responsibility**: ✅ Focused on log display
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-## Utils - Mapping (`src/utils/mapping/`)
+**Recommendations**: None - this is a well-designed view class.
 
-### ✅ **TaskMapper.js**
-- **Folder Placement**: ✅ **Correct** - Mapping utilities belong in mapping
-- **Consolidation**: ❌ **No** - Task mapping is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on mapping tasks across formats
-- **Concern Overlap**: ❌ **None** - Unique responsibility for task mapping
-- **Naming**: ✅ **Accurate** - Clearly identifies task mapping
-- **Recommendation**: Keep as-is
+#### InstanceLoaderViewer.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - view layer
+- **Merge potential**: ❌ Should remain separate - specialized view
+- **Single responsibility**: ✅ Focused on instance loading
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
----
+**Recommendations**: None - this is a well-designed view class.
 
-## Utils - System (`src/utils/system/`)
+### Renderers (`src/components/renderers/`)
 
-### ✅ **JQueryExtensions.js**
-- **Folder Placement**: ✅ **Correct** - System utilities belong in system
-- **Consolidation**: ❌ **No** - jQuery extensions are unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on jQuery integration for CPEE
-- **Concern Overlap**: ❌ **None** - Unique responsibility for jQuery extensions
-- **Naming**: ✅ **Accurate** - Clearly identifies jQuery extensions
-- **Recommendation**: Keep as-is
+#### CPEEWfAdaptorRenderer.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - renderer layer
+- **Merge potential**: ❌ Should remain separate - specialized rendering
+- **Single responsibility**: ✅ Focused on CPEE rendering
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### ✅ **LibraryLoader.js**
-- **Folder Placement**: ✅ **Correct** - System utilities belong in system
-- **Consolidation**: ❌ **No** - Library loading is unique utility
-- **Single Responsibility**: ✅ **Yes** - Focused on dynamic library loading
-- **Concern Overlap**: ❌ **None** - Unique responsibility for library loading
-- **Naming**: ✅ **Accurate** - Clearly identifies library loading
-- **Recommendation**: Keep as-is
+**Recommendations**: None - this is a well-designed renderer class.
 
----
+#### MermaidRenderer.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - renderer layer
+- **Merge potential**: ❌ Should remain separate - specialized rendering
+- **Single responsibility**: ✅ Focused on Mermaid rendering
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-## Config (`src/config/`)
+**Recommendations**: None - this is a well-designed renderer class.
 
-### ✅ **ConfigManager.js** (698 lines)
-- **Folder Placement**: ✅ **Correct** - Configuration belongs in config
-- **Consolidation**: ❌ **No** - Configuration management is unique
-- **Single Responsibility**: ✅ **Yes** - Focused on application configuration
-- **Concern Overlap**: ❌ **None** - Unique responsibility for configuration
-- **Naming**: ✅ **Accurate** - Clearly identifies configuration management
-- **Recommendation**: Keep as-is
+#### RawContentRenderer.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - renderer layer
+- **Merge potential**: ❌ Should remain separate - specialized rendering
+- **Single responsibility**: ✅ Focused on raw content rendering
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
----
+**Recommendations**: None - this is a well-designed renderer class.
 
-## Assets (`src/assets/`)
+### UI Components (`src/components/ui/`)
 
-### ✅ **icons.js**
-- **Folder Placement**: ✅ **Correct** - Static assets belong in assets
-- **Consolidation**: ❌ **No** - Icon definitions are unique
-- **Single Responsibility**: ✅ **Yes** - Focused on icon definitions
-- **Concern Overlap**: ❌ **None** - Unique responsibility for icons
-- **Naming**: ✅ **Accurate** - Clearly identifies icons
-- **Recommendation**: Keep as-is
+All UI components are well-designed and properly placed:
+- **ActionBar.js**: ✅ Good design
+- **CopyButton.js**: ✅ Good design
+- **SearchBar.js**: ✅ Good design
+- **Sidebar.js**: ✅ Good design
+- **StepDropdown.js**: ✅ Good design
+- **StepNavigator.js**: ✅ Good design
+- **ViewModeToggle.js**: ✅ Good design
 
-### ✅ **style.css**
-- **Folder Placement**: ✅ **Correct** - Static assets belong in assets
-- **Consolidation**: ❌ **No** - CSS styles are unique
-- **Single Responsibility**: ✅ **Yes** - Focused on application styling
-- **Concern Overlap**: ❌ **None** - Unique responsibility for styles
-- **Naming**: ✅ **Accurate** - Clearly identifies styles
-- **Recommendation**: Keep as-is
+**Recommendations**: None - all UI components are well-designed.
 
 ---
 
-## Summary & Recommendations
+## Utils Layer (`src/utils/`)
 
-### 🎯 **Overall Assessment**
-- **Total Classes Analyzed**: 35 classes
-- **Classes in Correct Location**: 35/35 (100%)
-- **Classes with Single Responsibility**: 33/35 (94%)
-- **Classes with Accurate Naming**: 35/35 (100%)
-- **Consolidation Opportunities**: 2 classes
+### Content (`src/utils/content/`)
 
-### ✅ **Architecture Strengths**
-1. **Excellent Folder Organization**: All classes are in appropriate directories
-2. **Clear Separation of Concerns**: Most classes have single, well-defined responsibilities
-3. **Consistent Naming**: All class names accurately describe their purpose
-4. **Proper Layering**: Clear separation between core, services, components, utils, and models
-5. **Recent Improvements**: Successful refactoring of parsers and coordinators
+#### LogParser.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized parsing
+- **Single responsibility**: ✅ Focused on log parsing
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### 🔄 **Completed Improvements**
-1. ✅ **ViewModeCoordinator** - Successfully merged into RawContentCoordinator
-2. ✅ **MermaidValidator** - Successfully merged into MermaidParser
-3. ✅ **ContentParser** - Successfully renamed to LogParser
-4. ✅ **Parser Architecture** - Created specialized MermaidParser and CPEEParser
+**Recommendations**: None - this is a well-designed utility class.
 
-### ⚠️ **Remaining Opportunities**
+#### CPEEParser.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized parsing
+- **Single responsibility**: ✅ Focused on CPEE parsing
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-#### **High Priority**
-1. **CPEEWfAdaptorRenderer** (387 lines)
-   - **Issue**: Handles rendering + SVG processing + library loading
-   - **Solution**: Delegate SVG operations to SVGProcessor
-   - **Benefit**: Focus on rendering only, reduce complexity
+**Recommendations**: None - this is a well-designed utility class.
 
-#### **Medium Priority**
-2. **ContentCleaner** (489 lines)
-   - **Issue**: Deprecated - functionality moved to specialized parsers
-   - **Solution**: Remove file or mark as deprecated
-   - **Benefit**: Clean up codebase, remove redundancy
+#### MermaidParser.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized parsing
+- **Single responsibility**: ✅ Focused on Mermaid parsing
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
 
-### 🏆 **Architectural Excellence**
-The project demonstrates **excellent architectural practices**:
-- **Single Responsibility Principle**: 94% compliance
-- **Proper Layering**: Clear separation of concerns
-- **Consistent Naming**: 100% accurate class names
-- **Logical Organization**: Perfect folder structure
-- **Recent Refactoring**: Successfully improved parser architecture
+**Recommendations**: None - this is a well-designed utility class.
 
-### 📊 **Metrics**
-- **Lines of Code**: ~8,500 lines across 35 classes
-- **Average Class Size**: ~243 lines
-- **Largest Classes**: ConfigManager (698), RawContentCoordinator (686), ContentVisualizationCoordinator (603)
-- **Smallest Classes**: Most UI components (~50-100 lines)
+### DOM (`src/utils/dom/`)
 
-### 🎯 **Confidence Level**
-**Very High** - The architecture is well-designed with excellent separation of concerns. The few remaining opportunities are minor improvements rather than fundamental restructuring needs.
+#### DOMUtils.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized DOM utilities
+- **Single responsibility**: ✅ Focused on DOM manipulation
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+#### DOMStatusManager.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized status management
+- **Single responsibility**: ✅ Focused on DOM status management
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+#### SVGProcessor.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized SVG processing
+- **Single responsibility**: ✅ Focused on SVG processing
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+### Extraction (`src/utils/extraction/`)
+
+#### TaskExtractor.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized extraction
+- **Single responsibility**: ✅ Focused on task extraction
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+#### SVGTaskExtractor.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized SVG extraction
+- **Single responsibility**: ✅ Focused on SVG task extraction
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+### Interaction (`src/utils/interaction/`)
+
+#### CPEESVGClickHandler.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized click handling
+- **Single responsibility**: ✅ Focused on CPEE SVG click handling
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+#### MermaidSVGClickHandler.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized click handling
+- **Single responsibility**: ✅ Focused on Mermaid SVG click handling
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+#### SVGClickDetector.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized click detection
+- **Single responsibility**: ✅ Focused on SVG click detection
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+### Mapping (`src/utils/mapping/`)
+
+#### TaskMapper.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized mapping
+- **Single responsibility**: ✅ Focused on task mapping
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+### System (`src/utils/system/`)
+
+#### JQueryExtensions.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized jQuery extensions
+- **Single responsibility**: ✅ Focused on jQuery extensions
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+#### LibraryLoader.js
+**Status**: ✅ **Good design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized library loading
+- **Single responsibility**: ✅ Focused on library loading
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Accurate - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+#### URLManager.js
+**Status**: ✅ **Excellent design**
+- **Folder placement**: ✅ Correct - utility layer
+- **Merge potential**: ❌ Should remain separate - specialized URL management
+- **Single responsibility**: ✅ Focused on URL parameter management
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Perfect - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed utility class.
+
+---
+
+## Configuration Layer (`src/config/`)
+
+### ConfigManager.js
+**Status**: ✅ **Excellent design**
+- **Folder placement**: ✅ Correct - configuration layer
+- **Merge potential**: ❌ Should remain separate - centralized configuration
+- **Single responsibility**: ✅ Focused on configuration management
+- **Concern overlap**: ❌ No significant overlap
+- **Naming accuracy**: ✅ Perfect - clearly describes purpose
+- **Simplification**: ✅ Already well-simplified
+
+**Recommendations**: None - this is a well-designed configuration class.
+
+---
+
+## Summary
+
+### Overall Assessment
+The project demonstrates **excellent architectural design** with clear separation of concerns and proper layering. Most classes follow single responsibility principle and are well-named.
+
+### Key Issues Identified
+
+1. **LogService.js** - Too complex, should be split into multiple services
+2. **CPEEStep.js** - Handles too many concerns, should delegate raw content management
+3. **RawContentCoordinator.js** - Too complex, should be split into multiple coordinators
+
+### Recommended Refactoring Actions
+
+1. **Split LogService**:
+   - Create `LogFetchingService` for API calls
+   - Create `LogProcessingService` for parsing logic
+   - Move parsing utilities to utils layer
+
+2. **Simplify CPEEStep**:
+   - Extract raw content management to `RawContentManager`
+   - Keep CPEEStep focused on step data only
+
+3. **Split RawContentCoordinator**:
+   - Create `ViewModeCoordinator` for view mode management
+   - Create `RawContentRenderer` for rendering logic
+   - Extract search functionality to separate coordinator
+
+4. **Extract URL Management**: ✅ **COMPLETED**
+   - Created `URLManager` utility class
+   - Moved URL parameter handling from CPEEDebugConsole
+
+### Classes Requiring No Changes
+The following classes are well-designed and require no changes:
+- All Core layer classes
+- All Service layer classes (except LogService)
+- All Model layer classes (except CPEEStep)
+- All Component layer classes (except RawContentCoordinator)
+- All Utility layer classes
+- Configuration layer classes
+
+### Conclusion
+The project has a **solid foundation** with excellent separation of concerns. The identified issues are minor and can be addressed through targeted refactoring without disrupting the overall architecture.

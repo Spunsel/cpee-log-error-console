@@ -14,6 +14,7 @@ import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 import { eventBus } from './EventBus.js';
 import { serviceFactory } from './ServiceFactory.js';
 import { stateManager } from './StateManager.js';
+import { URLManager } from '../utils/system/URLManager.js';
 
 export class CPEEDebugConsole {
     constructor() {
@@ -52,44 +53,6 @@ export class CPEEDebugConsole {
         this.init();
     }
 
-    /**
-     * Parse URL parameters
-     * @returns {Object} Parsed parameters
-     */
-    parseURLParameters() {
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        return {
-            uuid: urlParams.get('uuid'),
-            step: parseInt(urlParams.get('step'), 10) || 1
-        };
-    }
-
-    /**
-     * Update URL with current state
-     * @param {string} uuid - Current UUID
-     * @param {number} step - Current step number
-     */
-    updateURL(uuid, step) {
-        if (!uuid) {
-            return;
-        }
-        
-        const url = new URL(window.location);
-        url.searchParams.set('uuid', uuid);
-        url.searchParams.set('step', step);
-        
-        window.history.replaceState({}, '', url);
-    }
-
-    /**
-     * Clear URL parameters
-     */
-    clearURLParameters() {
-        const url = new URL(window.location);
-        url.search = '';
-        window.history.replaceState({}, '', url);
-    }
 
     /**
      * Get DOM element by key with fallback to direct ID access
@@ -131,7 +94,7 @@ export class CPEEDebugConsole {
         console.log('Initializing CPEE Debug Console...');
         
         // Parse URL parameters
-        const urlParams = this.parseURLParameters();
+        const urlParams = URLManager.parseURLParameters();
         
         // Initialize sidebar toggle functionality
         this.sidebar.initializeToggle();
@@ -168,7 +131,7 @@ export class CPEEDebugConsole {
 
         // Step changes from step viewer
         this.eventBus.on('stepViewer:stepChanged', (data) => {
-            this.updateURL(this.instanceService.currentUUID, data.stepIndex + 1);
+            URLManager.updateURL(this.instanceService.currentUUID, data.stepIndex + 1);
         });
 
         // Instance loading from instance loader
@@ -340,7 +303,7 @@ export class CPEEDebugConsole {
         
         if (step) {
             await this.stepViewer.displayStep(step, navInfo);
-            this.updateURL(uuid, stepIndex + 1);
+            URLManager.updateURL(uuid, stepIndex + 1);
             
             // Emit step displayed event
             this.eventBus.emit('step:displayed', { uuid, stepIndex, step });
@@ -359,7 +322,7 @@ export class CPEEDebugConsole {
             const step = this.instanceService.getCurrentStep();
             const navInfo = this.instanceService.getNavigationInfo();
             await this.stepViewer.displayStep(step, navInfo);
-            this.updateURL(this.instanceService.currentUUID, stepIndex + 1);
+            URLManager.updateURL(this.instanceService.currentUUID, stepIndex + 1);
         }
     }
 
@@ -410,7 +373,7 @@ export class CPEEDebugConsole {
         this.logViewer.hideRawLog();
         
         // Clear URL parameters
-        this.clearURLParameters();
+        URLManager.clearURLParameters();
         
         // Clear inputs
         this.instanceLoaderViewer.clearInputs();
@@ -430,7 +393,7 @@ export class CPEEDebugConsole {
         this.instanceLoaderViewer.show();
         this.stepViewer.showDefaultState();
         this.logViewer.hideRawLog();
-        this.clearURLParameters();
+        URLManager.clearURLParameters();
         
         // Clear inputs
         this.instanceLoaderViewer.clearInputs();
