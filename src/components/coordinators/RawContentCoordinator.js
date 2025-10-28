@@ -16,6 +16,7 @@ import { ViewModeCoordinator } from './ViewModeCoordinator.js';
 import { SearchService } from '../../services/SearchService.js';
 import { SearchHighlightingService } from '../../services/SearchHighlightingService.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class RawContentCoordinator {
     constructor(instanceService, domRegistry = null, contentSectionCoordinator = null, eventBus = null) {
@@ -30,8 +31,8 @@ export class RawContentCoordinator {
         this.rawContentRenderer = new RawContentRenderer(domRegistry);
         
         // Search services
-        this.searchService = new SearchService();
-        this.searchHighlightingService = new SearchHighlightingService();
+        this.searchService = serviceFactory.get('SearchService');
+        this.searchHighlightingService = serviceFactory.get('SearchHighlightingService');
         
         // Action bars per section
         this.actionBars = new Map();

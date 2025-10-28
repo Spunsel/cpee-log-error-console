@@ -10,13 +10,14 @@
  */
 
 import { HighlightingService } from '../../services/HighlightingService.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class HighlightCoordinator {
     constructor(domRegistry = null) {
         this.domRegistry = domRegistry;
         
         // Core services
-        this.highlightingService = new HighlightingService();
+        this.highlightingService = serviceFactory.get('HighlightingService');
         this.taskMapper = null; // Set externally
         
         // Section tracking

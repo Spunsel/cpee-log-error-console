@@ -4,7 +4,6 @@
  */
 
 import { LogService } from '../services/LogService.js';
-import { InstanceService } from '../services/InstanceService.js';
 import { Sidebar } from '../components/ui/Sidebar.js';
 import { StepViewer } from '../components/views/StepViewer.js';
 import { LogViewer } from '../components/views/LogViewer.js';
@@ -13,6 +12,7 @@ import { RawContentCoordinator } from '../components/coordinators/RawContentCoor
 import { HighlightCoordinator } from '../components/coordinators/HighlightCoordinator.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 import { eventBus } from './EventBus.js';
+import { serviceFactory } from './ServiceFactory.js';
 
 export class CPEEDebugConsole {
     constructor() {
@@ -23,8 +23,11 @@ export class CPEEDebugConsole {
         // Initialize event bus
         this.eventBus = eventBus;
         
-        // Initialize services
-        this.instanceService = new InstanceService();
+        // Initialize service factory
+        this.serviceFactory = serviceFactory;
+        
+        // Initialize services through factory
+        this.instanceService = this.serviceFactory.get('InstanceService');
         
         // Initialize highlighting coordinator
         this.highlightCoordinator = new HighlightCoordinator(this.domRegistry);
