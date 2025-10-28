@@ -6,6 +6,28 @@
 import { configManager } from '../config/ConfigManager.js';
 
 export class CPEEService {
+    constructor() {
+        this.configManager = configManager;
+        this.debugMode = false;
+    }
+
+    /**
+     * Enable debug mode for logging
+     * @param {boolean} enabled - Whether to enable debug mode
+     */
+    setDebugMode(enabled) {
+        this.debugMode = enabled;
+    }
+
+    /**
+     * Debug logging helper
+     * @param {...*} args - Arguments to log
+     */
+    logDebug(...args) {
+        if (this.debugMode) {
+            console.log('[CPEEService]', ...args);
+        }
+    }
     
     /**
      * Fetch UUID for a given process instance number
@@ -13,23 +35,23 @@ export class CPEEService {
      * @returns {Promise<string>} UUID of the process instance
      * @throws {Error} If process number is invalid or fetch fails
      */
-    static async fetchUUIDFromProcessNumber(processNumber) {
+    async fetchUUIDFromProcessNumber(processNumber) {
         if (!processNumber || isNaN(processNumber)) {
             throw new Error('CPEEService: Invalid process number - must be a valid number');
         }
         
-        const uuidUrl = `${configManager.get('api.endpoints.cpeeBase')}/${processNumber}/properties/attributes/uuid/`;
+        const uuidUrl = `${this.configManager.get('api.endpoints.cpeeBase')}/${processNumber}/properties/attributes/uuid/`;
         
         try {
-            console.log(`Fetching UUID for process number: ${processNumber}`);
-            console.log(`URL: ${uuidUrl}`);
+            this.logDebug(`Fetching UUID for process number: ${processNumber}`);
+            this.logDebug(`URL: ${uuidUrl}`);
             
             // Use CORS proxy to fetch the UUID
-            const proxies = configManager.get('api.cors.proxies');
+            const proxies = this.configManager.get('api.cors.proxies');
             const response = await fetch(proxies[0] + encodeURIComponent(uuidUrl), {
                 method: 'GET',
                 headers: {
-                    'Accept': configManager.get('api.headers.jsonAccept')
+                    'Accept': this.configManager.get('api.headers.jsonAccept')
                 }
             });
             
@@ -45,7 +67,7 @@ export class CPEEService {
                 throw new Error(`CPEEService: Invalid UUID format received - ${cleanUuid}`);
             }
             
-            console.log(`Successfully fetched UUID: ${cleanUuid}`);
+            this.logDebug(`Successfully fetched UUID: ${cleanUuid}`);
             return cleanUuid;
             
         } catch (error) {
@@ -60,12 +82,12 @@ export class CPEEService {
      * @returns {string} CPEE graph URL
      * @throws {Error} If process number is invalid
      */
-    static getCPEEGraphURL(processNumber) {
+    getCPEEGraphURL(processNumber) {
         if (!this.isValidProcessNumber(processNumber)) {
             throw new Error('CPEEService: Invalid process number - must be a positive integer');
         }
         
-        return `${configManager.get('api.endpoints.cpeeGraph')}?monitor=${configManager.get('api.endpoints.cpeeBase')}/${processNumber}/`;
+        return `${this.configManager.get('api.endpoints.cpeeGraph')}?monitor=${this.configManager.get('api.endpoints.cpeeBase')}/${processNumber}/`;
     }
     
     /**
@@ -74,12 +96,12 @@ export class CPEEService {
      * @returns {string} CPEE engine URL
      * @throws {Error} If process number is invalid
      */
-    static getCPEEEngineURL(processNumber) {
+    getCPEEEngineURL(processNumber) {
         if (!this.isValidProcessNumber(processNumber)) {
             throw new Error('CPEEService: Invalid process number - must be a positive integer');
         }
         
-        return `${configManager.get('api.endpoints.cpeeBase')}/${processNumber}/`;
+        return `${this.configManager.get('api.endpoints.cpeeBase')}/${processNumber}/`;
     }
     
     /**
@@ -87,7 +109,7 @@ export class CPEEService {
      * @param {string} uuid - UUID string to validate
      * @returns {boolean} True if valid UUID format
      */
-    static isValidUUID(uuid) {
+    isValidUUID(uuid) {
         if (!uuid || typeof uuid !== 'string') {
             return false;
         }
@@ -101,7 +123,7 @@ export class CPEEService {
      * @param {string} url - CPEE engine URL
      * @returns {number|null} Process number or null if not found
      */
-    static extractProcessNumberFromURL(url) {
+    extractProcessNumberFromURL(url) {
         if (!url || typeof url !== 'string') {
             return null;
         }
@@ -115,9 +137,28 @@ export class CPEEService {
      * @param {number} processNumber - Process number to validate
      * @returns {boolean} True if valid process number
      */
-    static isValidProcessNumber(processNumber) {
+    isValidProcessNumber(processNumber) {
         return typeof processNumber === 'number' && 
                processNumber > 0 && 
                Number.isInteger(processNumber);
+    }
+
+    /**
+     * Get service statistics
+     * @returns {Object} Service statistics
+     */
+    getStats() {
+        return {
+            debugMode: this.debugMode,
+            configManager: this.configManager ? 'available' : 'not available'
+        };
+    }
+
+    /**
+     * Destroy the service
+     */
+    destroy() {
+        this.configManager = null;
+        this.logDebug('CPEEService destroyed');
     }
 }

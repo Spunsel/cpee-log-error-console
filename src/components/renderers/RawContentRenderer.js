@@ -18,9 +18,8 @@ export class RawContentRenderer {
     constructor(domRegistry = null) {
         this.domRegistry = domRegistry;
         
-        // Search services
+        // Search service
         this.searchService = serviceFactory.get('SearchService');
-        this.searchHighlightingService = serviceFactory.get('SearchHighlightingService');
         
         // Action bars per section
         this.actionBars = new Map();
@@ -343,8 +342,8 @@ export class RawContentRenderer {
             wholeWord: searchState.wholeWord
         };
 
-        // Apply search highlighting using SearchHighlightingService
-        const matches = this.searchHighlightingService.applySearchHighlighting(container, searchTerm, options);
+        // Apply search highlighting using SearchService
+        const matches = this.searchService.applySearchHighlighting(container, searchTerm, options);
 
         // Update search state with matches
         this.searchService.updateSearchResults(sectionId, searchTerm, matches);
@@ -357,7 +356,7 @@ export class RawContentRenderer {
 
         // Scroll to first match if any matches found
         if (matches.length > 0) {
-            this.searchHighlightingService.scrollToMatch(container, 0);
+            this.searchService.scrollToMatch(container, 0);
         }
     }
 
@@ -373,8 +372,8 @@ export class RawContentRenderer {
             return;
         }
 
-        // Clear highlighting using SearchHighlightingService
-        this.searchHighlightingService.clearSearchHighlighting(container);
+        // Clear highlighting using SearchService
+        this.searchService.clearSearchHighlighting(container);
 
         // Clear search state
         this.searchService.clearSearchState(sectionId);
@@ -412,8 +411,8 @@ export class RawContentRenderer {
             return;
         }
 
-        // Scroll to the match using SearchHighlightingService
-        const scrolled = this.searchHighlightingService.scrollToMatch(container, newMatchIndex);
+        // Scroll to the match using SearchService
+        const scrolled = this.searchService.scrollToMatch(container, newMatchIndex);
         
         if (scrolled) {
             console.log(`RawContentRenderer: Successfully scrolled to match ${newMatchIndex + 1} of ${searchState.matches.length}`);
@@ -449,8 +448,8 @@ export class RawContentRenderer {
             return;
         }
 
-        // Clear any search highlighting using SearchHighlightingService
-        this.searchHighlightingService.clearSearchHighlighting(container);
+        // Clear any search highlighting using SearchService
+        this.searchService.clearSearchHighlighting(container);
 
         // Reset search state using SearchService
         this.searchService.clearSearchState(sectionId);
@@ -463,12 +462,12 @@ export class RawContentRenderer {
         // Clear all search states using SearchService
         this.searchService.clearAllSearchStates();
         
-        // Clear highlighting from all containers using SearchHighlightingService
+        // Clear highlighting from all containers using SearchService
         const sectionIds = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
         sectionIds.forEach(sectionId => {
             const container = document.querySelector(`#${sectionId} .raw-content-container`);
             if (container) {
-                this.searchHighlightingService.clearSearchHighlighting(container);
+                this.searchService.clearSearchHighlighting(container);
             }
         });
     }

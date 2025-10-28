@@ -27,10 +27,37 @@ export class Sidebar {
             }
         });
         
-        // Debug: Log the initialized state
         console.log('Sidebar initialized - isCollapsed:', this.isCollapsed);
     }
 
+    /**
+     * Apply state change without CSS transitions
+     * @param {Function} stateChange - Function that applies the state change
+     */
+    applyStateWithoutTransition(stateChange) {
+        const elements = [
+            this.sidebarElement,
+            this.sidebarElement?.parentElement,
+            document.querySelector('.content')
+        ].filter(Boolean);
+
+        // Disable transitions
+        elements.forEach(el => {
+            el.style.transition = 'none';
+        });
+
+        // Apply state change
+        stateChange();
+
+        // Re-enable transitions
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                elements.forEach(el => {
+                    el.style.transition = '';
+                });
+            }, 0);
+        });
+    }
 
     /**
      * Get DOM element by key with fallback to direct ID access
@@ -42,8 +69,54 @@ export class Sidebar {
         if (this.domRegistry) {
             return this.domRegistry.getElementSafe(key);
         }
-        // Fallback to direct DOM access
         return document.getElementById(key);
+    }
+
+    /**
+     * Get instance tabs element
+     * @returns {HTMLElement|null} Instance tabs container or null
+     */
+    getInstanceTabs() {
+        return this.getElement('instanceTabs');
+    }
+
+    /**
+     * Update single tab text based on state
+     * @param {HTMLElement} tab - Tab element
+     */
+    updateTabText(tab) {
+        if (this.isCollapsed) {
+            const processNumber = tab.dataset.processNumber || '';
+            tab.textContent = processNumber;
+        } else {
+            const uuid = tab.dataset.uuid;
+            const instanceData = this.instanceService.getInstance(uuid);
+            const displayText = instanceData ? instanceData.getDisplayName() : uuid;
+            tab.textContent = displayText;
+        }
+    }
+
+    /**
+     * Create or get no instances message
+     * @returns {HTMLElement} No instances message element
+     */
+    createNoInstancesMessage() {
+        const noInstancesMsg = document.createElement('div');
+        noInstancesMsg.className = 'no-instances';
+        noInstancesMsg.textContent = 'No instances loaded yet';
+        return noInstancesMsg;
+    }
+
+    /**
+     * Show no instances message if needed
+     * @param {HTMLElement} container - Container element
+     */
+    showNoInstancesIfNeeded(container) {
+        const tabs = container.querySelectorAll('.instance-tab');
+        if (tabs.length === 0) {
+            const noInstancesMsg = this.createNoInstancesMessage();
+            container.appendChild(noInstancesMsg);
+        }
     }
 
 
@@ -52,7 +125,7 @@ export class Sidebar {
      * @param {string} uuid - Instance UUID
      */
     addInstanceTab(uuid) {
-        const instanceTabs = this.getElement('instanceTabs');
+        const instanceTabs = this.getInstanceTabs();
         if (!instanceTabs) {
             return;
         }
@@ -64,29 +137,18 @@ export class Sidebar {
             return;
         }
 
-        // Get instance data to extract process number
+        // Get instance data
         const instanceData = this.instanceService.getInstance(uuid);
-        const displayText = instanceData 
-            ? instanceData.getDisplayName()
-            : uuid;
-        
-        // Extract process number for collapsed state
-        const processNumber = instanceData && instanceData.processNumber 
-            ? instanceData.processNumber.toString()
-            : '';
+        const processNumber = instanceData?.processNumber?.toString() || '';
 
-        // Create new tab (not active by default)
+        // Create new tab
         const tabElement = document.createElement('div');
         tabElement.className = 'instance-tab';
         tabElement.dataset.uuid = uuid;
         tabElement.dataset.processNumber = processNumber;
         
-        // Set initial text based on sidebar state
-        if (this.isCollapsed) {
-            tabElement.textContent = processNumber;
-        } else {
-            tabElement.textContent = displayText;
-        }
+        // Set initial text
+        this.updateTabText(tabElement);
         
         // Add click handler
         tabElement.addEventListener('click', () => {
@@ -96,7 +158,7 @@ export class Sidebar {
 
         instanceTabs.appendChild(tabElement);
         
-        // Remove "no instances" message if it exists
+        // Remove no instances message if exists
         const noInstancesMsg = instanceTabs.querySelector('.no-instances');
         if (noInstancesMsg) {
             noInstancesMsg.remove();
@@ -108,7 +170,7 @@ export class Sidebar {
      * @param {string} uuid - UUID of tab to activate
      */
     setActiveTab(uuid) {
-        const instanceTabs = this.getElement('instanceTabs');
+        const instanceTabs = this.getInstanceTabs();
         if (!instanceTabs) {
             return;
         }
@@ -122,12 +184,8 @@ export class Sidebar {
         this.instanceService.setCurrentInstance(uuid);
     }
 
-    /**
-     * Remove instance tab
-     * @param {string} uuid - Instance UUID
-     */
     removeInstanceTab(uuid) {
-        const instanceTabs = this.getElement('instanceTabs');
+        const instanceTabs = this.getInstanceTabs();
         if (!instanceTabs) {
             return;
         }
@@ -137,22 +195,11 @@ export class Sidebar {
             tab.remove();
         }
 
-        // Show "no instances" message if no tabs left
-        const remainingTabs = instanceTabs.querySelectorAll('.instance-tab');
-        if (remainingTabs.length === 0) {
-            const noInstancesMsg = document.createElement('div');
-            noInstancesMsg.className = 'no-instances';
-            noInstancesMsg.textContent = 'No instances loaded yet';
-            instanceTabs.appendChild(noInstancesMsg);
-        }
+        this.showNoInstancesIfNeeded(instanceTabs);
     }
 
-    /**
-     * Get active tab UUID
-     * @returns {string|null} Active UUID or null
-     */
     getActiveTab() {
-        const instanceTabs = this.getElement('instanceTabs');
+        const instanceTabs = this.getInstanceTabs();
         if (!instanceTabs) {
             return null;
         }
@@ -161,45 +208,25 @@ export class Sidebar {
         return activeTab ? activeTab.dataset.uuid : null;
     }
 
-    /**
-     * Clear all tabs
-     */
     clearAllTabs() {
-        const instanceTabs = this.getElement('instanceTabs');
+        const instanceTabs = this.getInstanceTabs();
         if (!instanceTabs) {
             return;
         }
 
-        // Remove all tabs
         instanceTabs.querySelectorAll('.instance-tab').forEach(tab => tab.remove());
-
-        // Show "no instances" message
-        const noInstancesMsg = document.createElement('div');
-        noInstancesMsg.className = 'no-instances';
-        noInstancesMsg.textContent = 'No instances loaded yet';
-        instanceTabs.appendChild(noInstancesMsg);
+        this.showNoInstancesIfNeeded(instanceTabs);
     }
 
-    /**
-     * Update tab display name
-     * @param {string} uuid - Instance UUID
-     * @param {string} displayName - Display name
-     */
-    updateTabDisplayName(uuid, displayName) {
-        const instanceTabs = this.getElement('instanceTabs');
+    updateTabDisplayName(uuid) {
+        const instanceTabs = this.getInstanceTabs();
         if (!instanceTabs) {
             return;
         }
 
         const tab = instanceTabs.querySelector(`[data-uuid="${uuid}"]`);
         if (tab) {
-            // Update text based on sidebar state
-            if (this.isCollapsed) {
-                const processNumber = tab.dataset.processNumber || '';
-                tab.textContent = processNumber;
-            } else {
-                tab.textContent = displayName;
-            }
+            this.updateTabText(tab);
         }
     }
 
@@ -218,52 +245,22 @@ export class Sidebar {
         this.toggleButton = toggleBtn;
         this.sidebarElement = sidebarEl;
 
-        // Get current state from classes
         const isCurrentlyCollapsed = this.sidebarElement.classList.contains('sidebar-collapsed');
-        const isCurrentlyExpanded = this.sidebarElement.classList.contains('sidebar-expanded');
-        
-        console.log('initializeToggle - this.isCollapsed:', this.isCollapsed, 'isCurrentlyCollapsed:', isCurrentlyCollapsed, 'isCurrentlyExpanded:', isCurrentlyExpanded);
         
         // Only apply state if it needs to be changed
         if (this.isCollapsed && !isCurrentlyCollapsed) {
-            // Disable transitions during initial state application to prevent animation on page load
-            const mainContainer = this.sidebarElement.parentElement;
-            const contentElement = document.querySelector('.content');
-            
-            // Temporarily disable all transitions
-            this.sidebarElement.style.transition = 'none';
-            if (mainContainer) {
-                mainContainer.style.transition = 'none';
-            }
-            if (contentElement) {
-                contentElement.style.transition = 'none';
-            }
-            
-            // Apply collapsed state
-            this.sidebarElement.classList.remove('sidebar-expanded');
-            this.sidebarElement.classList.add('sidebar-collapsed');
-            
-            // Re-enable transitions after DOM update
-            requestAnimationFrame(() => {
-                setTimeout(() => {
-                    this.sidebarElement.style.transition = '';
-                    if (mainContainer) {
-                        mainContainer.style.transition = '';
-                    }
-                    if (contentElement) {
-                        contentElement.style.transition = '';
-                    }
-                }, 0);
+            this.applyStateWithoutTransition(() => {
+                this.sidebarElement.classList.add('sidebar-collapsed');
+                this.sidebarElement.classList.remove('sidebar-expanded');
             });
-        } else if (!this.isCollapsed && !isCurrentlyExpanded) {
-            // Apply expanded state only if not already expanded
+        } else if (!this.isCollapsed && !this.sidebarElement.classList.contains('sidebar-expanded')) {
             this.sidebarElement.classList.remove('sidebar-collapsed');
             this.sidebarElement.classList.add('sidebar-expanded');
         }
 
         // Set initial icon based on current state
         this.updateToggleButton();
-        this.updateTabTexts(this.isCollapsed);
+        this.updateTabTexts();
 
         // Attach click listener
         toggleBtn.addEventListener('click', () => {
@@ -311,7 +308,7 @@ export class Sidebar {
         this.sidebarElement.classList.add('sidebar-collapsed');
         
         this.updateToggleButton();
-        this.updateTabTexts(true); // collapsed = true
+        this.updateTabTexts();
     }
 
     /**
@@ -330,7 +327,7 @@ export class Sidebar {
         this.sidebarElement.classList.add('sidebar-expanded');
         
         this.updateToggleButton();
-        this.updateTabTexts(false); // collapsed = false
+        this.updateTabTexts();
     }
 
     /**
@@ -367,27 +364,13 @@ export class Sidebar {
      * Update tab texts based on sidebar collapsed state
      * @param {boolean} isCollapsed - Whether the sidebar is collapsed
      */
-    updateTabTexts(isCollapsed) {
-        const instanceTabs = this.getElement('instanceTabs');
+    updateTabTexts() {
+        const instanceTabs = this.getInstanceTabs();
         if (!instanceTabs) {
             return;
         }
 
         const tabs = instanceTabs.querySelectorAll('.instance-tab');
-        tabs.forEach(tab => {
-            if (isCollapsed) {
-                // Show only process number
-                const processNumber = tab.dataset.processNumber || '';
-                tab.textContent = processNumber;
-            } else {
-                // Show full display name
-                const uuid = tab.dataset.uuid;
-                const instanceData = this.instanceService.getInstance(uuid);
-                const displayText = instanceData 
-                    ? instanceData.getDisplayName()
-                    : uuid;
-                tab.textContent = displayText;
-            }
-        });
+        tabs.forEach(tab => this.updateTabText(tab));
     }
 }

@@ -9,7 +9,6 @@
  * - Implement state persistence across step navigation
  */
 
-import { HighlightingService } from '../../services/HighlightingService.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class HighlightCoordinator {
@@ -65,42 +64,89 @@ export class HighlightCoordinator {
     onTaskClicked(taskId, sourceFormat, sectionId) {
         console.log(`[HighlightCoordinator] Task clicked: ${taskId} in ${sectionId}`);
         
-        // Extract base ID from Mermaid IDs (e.g., "a2" from "flowchart-a2:task:-5")
-        let baseTaskId = taskId;
-        if (taskId.includes(':task:')) {
-            // Extract base ID: "a2" from "flowchart-a2:task:-5"
-            const match = taskId.match(/-([a-z0-9]+):task:/);
-            if (match) {
-                baseTaskId = match[1];
-                console.log(`[HighlightCoordinator] Extracted base ID: ${baseTaskId} from ${taskId}`);
-            }
-        }
-        
-        // Check if it's the same task clicked again
-        if (this.activeTaskId === taskId && this.activeSourceSection === sectionId) {
-            // Clear highlights if clicking the same task again
-            this.clearAllHighlights();
-            this.activeTaskId = null;
-            this.activeSourceFormat = null;
-            this.activeSourceSection = null;
+        // Check if clicking the same task again
+        if (this.isSameTaskClicked(taskId, sectionId)) {
+            this.clearActiveState();
             return;
         }
         
+        // Extract base task ID for mapping
+        const baseTaskId = this.extractBaseTaskId(taskId);
+        
         // Update active state
+        this.setActiveState(taskId, baseTaskId, sourceFormat, sectionId);
+        
+        // Clear previous highlights and apply new highlights
+        this.clearAllHighlights();
+        this.applyHighlights(baseTaskId, sourceFormat, sectionId, taskId);
+    }
+
+    /**
+     * Check if the same task is clicked again
+     * @param {string} taskId - Task identifier
+     * @param {string} sectionId - Section identifier
+     * @returns {boolean} True if same task clicked
+     */
+    isSameTaskClicked(taskId, sectionId) {
+        return this.activeTaskId === taskId && this.activeSourceSection === sectionId;
+    }
+
+    /**
+     * Extract base task ID from Mermaid ID format
+     * @param {string} taskId - Task identifier
+     * @returns {string} Base task ID
+     */
+    extractBaseTaskId(taskId) {
+        if (!taskId.includes(':task:')) {
+            return taskId;
+        }
+        
+        const match = taskId.match(/-([a-z0-9]+):task:/);
+        if (match) {
+            const baseId = match[1];
+            console.log(`[HighlightCoordinator] Extracted base ID: ${baseId} from ${taskId}`);
+            return baseId;
+        }
+        
+        return taskId;
+    }
+
+    /**
+     * Set active state
+     * @param {string} taskId - Task identifier
+     * @param {string} baseTaskId - Base task identifier
+     * @param {string} sourceFormat - Source format
+     * @param {string} sectionId - Section identifier
+     */
+    setActiveState(taskId, baseTaskId, sourceFormat, sectionId) {
         this.activeTaskId = taskId;
-        this.activeTaskBaseId = baseTaskId; // Store base ID for mapping
+        this.activeTaskBaseId = baseTaskId;
         this.activeSourceFormat = sourceFormat;
         this.activeSourceSection = sectionId;
-        
-        // Clear previous highlights
+    }
+
+    /**
+     * Clear active state
+     */
+    clearActiveState() {
+        this.activeTaskId = null;
+        this.activeSourceFormat = null;
+        this.activeSourceSection = null;
         this.clearAllHighlights();
-        
-        // If we have a step mapping, use it to find related tasks
+    }
+
+    /**
+     * Apply highlights for a task
+     * @param {string} baseTaskId - Base task identifier
+     * @param {string} sourceFormat - Source format
+     * @param {string} sectionId - Section identifier
+     * @param {string} originalTaskId - Original task identifier
+     */
+    applyHighlights(baseTaskId, sourceFormat, sectionId, originalTaskId) {
         if (this.currentStepMapping) {
-            this.highlightWithTaskMapper(baseTaskId, sourceFormat, sectionId, taskId);
+            this.highlightWithTaskMapper(baseTaskId, sourceFormat, sectionId, originalTaskId);
         } else {
-            // If no mapping, just highlight in the source section
-            this.highlightInSection(sectionId, taskId, true);
+            this.highlightInSection(sectionId, originalTaskId, true);
         }
     }
 
@@ -190,13 +236,23 @@ export class HighlightCoordinator {
      * @returns {string} Section ID
      */
     formatToSectionId(format) {
-        const mapping = {
-            'input-cpee': 'input-cpee',
-            'input-intermediate': 'input-intermediate',
-            'output-intermediate': 'output-intermediate',
-            'output-cpee': 'output-cpee'
-        };
-        return mapping[format] || format;
+        // Format and section ID are the same for our sections
+        return format;
+    }
+
+    /**
+     * Get section type based on section ID
+     * @param {string} sectionId - Section identifier
+     * @returns {string} Section type
+     */
+    getSectionType(sectionId) {
+        if (sectionId.includes('cpee')) {
+            return 'cpee';
+        }
+        if (sectionId.includes('intermediate')) {
+            return 'mermaid';
+        }
+        return 'unknown';
     }
 
     /**
@@ -213,40 +269,59 @@ export class HighlightCoordinator {
             return;
         }
         
-        // Check if section is in visual mode (not raw mode)
+        // Check if section is in visual mode
         if (!this.isSectionInVisualMode(sectionId)) {
             console.log(`[HighlightCoordinator] Section ${sectionId} is in raw mode, skipping highlight`);
             return;
         }
         
-        // Find SVG element for this task
+        // Find task element
         const taskElement = this.findTaskInSVG(container, taskId);
         if (!taskElement) {
             console.log(`[HighlightCoordinator] Task element not found: ${taskId} in ${sectionId}`);
             return;
         }
         
-        // Determine if this is CPEE or Mermaid
-        const isCpeeSection = sectionId.includes('cpee');
-        const isMermaidSection = sectionId.includes('intermediate');
-        
-        // Apply highlighting
-        if (isCpeeSection) {
-            this.highlightingService.highlightCPEETask(taskElement, isActive);
-        } else if (isMermaidSection) {
-            this.highlightingService.highlightMermaidNode(taskElement, isActive);
-        } else {
-            this.highlightingService.highlightElements([taskElement], isActive);
-        }
+        // Apply appropriate highlighting based on section type
+        this.applySectionHighlight(sectionId, taskElement, isActive);
         
         // Track this highlight
+        this.trackHighlight(sectionId, taskId);
+        
+        console.log(`[HighlightCoordinator] Highlighted ${taskId} in ${sectionId} (isActive=${isActive})`);
+    }
+
+    /**
+     * Apply highlighting based on section type
+     * @param {string} sectionId - Section identifier
+     * @param {HTMLElement} taskElement - Task element
+     * @param {boolean} isActive - Whether this is the active task
+     */
+    applySectionHighlight(sectionId, taskElement, isActive) {
+        const sectionType = this.getSectionType(sectionId);
+        
+        switch (sectionType) {
+            case 'cpee':
+                this.highlightingService.highlightCPEETask(taskElement, isActive);
+                break;
+            case 'mermaid':
+                this.highlightingService.highlightMermaidNode(taskElement, isActive);
+                break;
+            default:
+                this.highlightingService.highlightElements([taskElement], isActive);
+        }
+    }
+
+    /**
+     * Track a highlight
+     * @param {string} sectionId - Section identifier
+     * @param {string} taskId - Task identifier
+     */
+    trackHighlight(sectionId, taskId) {
         if (!this.highlightedTasks.has(sectionId)) {
             this.highlightedTasks.set(sectionId, new Set());
         }
         this.highlightedTasks.get(sectionId).add(taskId);
-        
-        console.log(`[HighlightCoordinator] Highlighted ${taskId} in ${sectionId} (isActive=${isActive})`);
-        console.log(`[HighlightCoordinator] Task element classes after highlight:`, taskElement.className);
     }
 
     /**

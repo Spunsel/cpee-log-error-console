@@ -6,7 +6,19 @@
 
 export class StateManager {
     constructor() {
-        this.state = {
+        this.state = this.getInitialState();
+        this.listeners = new Map();
+        this.debugMode = false;
+        this.history = [];
+        this.maxHistorySize = 50;
+    }
+
+    /**
+     * Get initial state configuration
+     * @returns {Object} Initial state object
+     */
+    getInitialState() {
+        return {
             currentInstance: null,
             currentStep: null,
             currentStepIndex: 0,
@@ -31,10 +43,49 @@ export class StateManager {
                 'output-cpee': 'visual'
             }
         };
-        this.listeners = new Map();
-        this.debugMode = false;
-        this.history = [];
-        this.maxHistorySize = 50;
+    }
+
+    /**
+     * Normalize path to string format
+     * @param {string|Array} path - Path to normalize
+     * @returns {string} Normalized path string
+     */
+    normalizePath(path) {
+        return Array.isArray(path) ? path.join('.') : path;
+    }
+
+    /**
+     * Debug logging helper
+     * @param {...*} args - Arguments to log
+     */
+    logDebug(...args) {
+        if (this.debugMode) {
+            console.log('[StateManager]', ...args);
+        }
+    }
+
+    /**
+     * Remove listeners from a specific path
+     * @param {string} pathKey - Path key
+     * @param {Array} listenersToRemove - Listeners to remove
+     */
+    removeListeners(pathKey, listenersToRemove) {
+        listenersToRemove.forEach(listener => {
+            const pathListeners = this.listeners.get(pathKey) || [];
+            const index = pathListeners.indexOf(listener);
+            if (index > -1) {
+                pathListeners.splice(index, 1);
+            }
+        });
+    }
+
+    /**
+     * Limit history size to maxHistorySize
+     */
+    limitHistorySize() {
+        if (this.history.length > this.maxHistorySize) {
+            this.history = this.history.slice(0, this.maxHistorySize);
+        }
     }
 
     /**
@@ -43,9 +94,7 @@ export class StateManager {
      * @returns {*} State value
      */
     getState(path) {
-        if (this.debugMode) {
-            console.log(`[StateManager] Getting state: ${path}`);
-        }
+        this.logDebug(`Getting state: ${path}`);
         return this.getNestedValue(this.state, path);
     }
 
@@ -56,9 +105,7 @@ export class StateManager {
      * @param {Object} options - Additional options
      */
     setState(path, value, options = {}) {
-        if (this.debugMode) {
-            console.log(`[StateManager] Setting state: ${path} =`, value);
-        }
+        this.logDebug(`Setting state: ${path} =`, value);
 
         const oldValue = this.getNestedValue(this.state, path);
         
@@ -79,7 +126,7 @@ export class StateManager {
      * @returns {Function} Unsubscribe function
      */
     subscribe(path, callback, options = {}) {
-        const pathKey = Array.isArray(path) ? path.join('.') : path;
+        const pathKey = this.normalizePath(path);
         
         if (!this.listeners.has(pathKey)) {
             this.listeners.set(pathKey, []);
@@ -99,9 +146,7 @@ export class StateManager {
             callback(currentValue, undefined, path);
         }
 
-        if (this.debugMode) {
-            console.log(`[StateManager] Subscribed to: ${pathKey}`);
-        }
+        this.logDebug(`Subscribed to: ${pathKey}`);
 
         // Return unsubscribe function
         return () => this.unsubscribe(pathKey, listener);
@@ -118,9 +163,7 @@ export class StateManager {
             const index = listeners.indexOf(listener);
             if (index > -1) {
                 listeners.splice(index, 1);
-                if (this.debugMode) {
-                    console.log(`[StateManager] Unsubscribed from: ${pathKey}`);
-                }
+                this.logDebug(`Unsubscribed from: ${pathKey}`);
             }
         }
     }
@@ -132,7 +175,7 @@ export class StateManager {
      * @returns {*} Value at path
      */
     getNestedValue(obj, path) {
-        const keys = Array.isArray(path) ? path : path.split('.');
+        const keys = this.normalizePath(path).split('.');
         let current = obj;
         
         for (const key of keys) {
@@ -152,7 +195,7 @@ export class StateManager {
      * @param {*} value - Value to set
      */
     setNestedValue(obj, path, value) {
-        const keys = Array.isArray(path) ? path : path.split('.');
+        const keys = this.normalizePath(path).split('.');
         const lastKey = keys.pop();
         let current = obj;
         
@@ -173,7 +216,7 @@ export class StateManager {
      * @param {*} oldValue - Old value
      */
     notifyListeners(path, newValue, oldValue) {
-        const pathKey = Array.isArray(path) ? path.join('.') : path;
+        const pathKey = this.normalizePath(path);
         const listeners = this.listeners.get(pathKey) || [];
         
         // Also notify listeners for parent paths
@@ -198,13 +241,7 @@ export class StateManager {
         });
 
         // Remove one-time listeners
-        toRemove.forEach(listener => {
-            const pathListeners = this.listeners.get(pathKey) || [];
-            const index = pathListeners.indexOf(listener);
-            if (index > -1) {
-                pathListeners.splice(index, 1);
-            }
-        });
+        this.removeListeners(pathKey, toRemove);
     }
 
     /**
@@ -232,17 +269,13 @@ export class StateManager {
     addToHistory(path, oldValue, newValue) {
         const historyEntry = {
             timestamp: Date.now(),
-            path: Array.isArray(path) ? path.join('.') : path,
+            path: this.normalizePath(path),
             oldValue,
             newValue
         };
 
         this.history.unshift(historyEntry);
-        
-        // Limit history size
-        if (this.history.length > this.maxHistorySize) {
-            this.history = this.history.slice(0, this.maxHistorySize);
-        }
+        this.limitHistorySize();
     }
 
     /**
@@ -259,9 +292,7 @@ export class StateManager {
      */
     clearHistory() {
         this.history = [];
-        if (this.debugMode) {
-            console.log('[StateManager] Cleared state history');
-        }
+        this.logDebug('Cleared state history');
     }
 
     /**
@@ -269,31 +300,7 @@ export class StateManager {
      * @param {Object} options - Reset options
      */
     reset(options = {}) {
-        const initialState = {
-            currentInstance: null,
-            currentStep: null,
-            currentStepIndex: 0,
-            viewMode: 'visual',
-            instances: new Map(),
-            ui: {
-                sidebarVisible: true,
-                sidebarCollapsed: false,
-                loading: false,
-                activeView: 'home'
-            },
-            search: {
-                active: false,
-                term: '',
-                caseSensitive: false,
-                wholeWord: false
-            },
-            viewModes: {
-                'input-cpee': 'visual',
-                'input-intermediate': 'visual',
-                'output-intermediate': 'visual',
-                'output-cpee': 'visual'
-            }
-        };
+        const initialState = this.getInitialState();
 
         if (options.preserveInstances) {
             initialState.instances = this.state.instances;
@@ -305,9 +312,7 @@ export class StateManager {
             this.notifyListeners('*', this.state, null); // Notify all listeners
         }
 
-        if (this.debugMode) {
-            console.log('[StateManager] State reset');
-        }
+        this.logDebug('State reset');
     }
 
     /**
@@ -334,9 +339,7 @@ export class StateManager {
             this.notifyListeners('*', this.state, null);
         }
 
-        if (this.debugMode) {
-            console.log('[StateManager] State restored from snapshot');
-        }
+        this.logDebug('State restored from snapshot');
     }
 
     /**
@@ -370,9 +373,7 @@ export class StateManager {
      * @param {Object} options - Batch options
      */
     batchUpdate(updates, _options = {}) {
-        if (this.debugMode) {
-            console.log(`[StateManager] Batch updating ${updates.length} state changes`);
-        }
+        this.logDebug(`Batch updating ${updates.length} state changes`);
 
         const oldValues = {};
         
@@ -391,9 +392,7 @@ export class StateManager {
             this.notifyListeners(update.path, update.value, oldValues[update.path]);
         });
 
-        if (this.debugMode) {
-            console.log('[StateManager] Batch update completed');
-        }
+        this.logDebug('Batch update completed');
     }
 
     /**
@@ -404,9 +403,7 @@ export class StateManager {
         this.history = [];
         this.state = {};
         
-        if (this.debugMode) {
-            console.log('[StateManager] Destroyed');
-        }
+        this.logDebug('Destroyed');
     }
 }
 

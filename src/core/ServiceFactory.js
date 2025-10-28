@@ -6,8 +6,8 @@
 
 import { InstanceService } from '../services/InstanceService.js';
 import { SearchService } from '../services/SearchService.js';
-import { SearchHighlightingService } from '../services/SearchHighlightingService.js';
 import { HighlightingService } from '../services/HighlightingService.js';
+import { CPEEService } from '../services/CPEEService.js';
 
 export class ServiceFactory {
     constructor() {
@@ -15,8 +15,8 @@ export class ServiceFactory {
         this.singletons = new Set([
             'InstanceService', 
             'SearchService',
-            'SearchHighlightingService',
-            'HighlightingService'
+            'HighlightingService',
+            'CPEEService'
         ]);
         this.serviceConfigs = new Map();
         this.debugMode = false;
@@ -73,11 +73,11 @@ export class ServiceFactory {
             case 'SearchService':
                 return new SearchService(...args);
             
-            case 'SearchHighlightingService':
-                return new SearchHighlightingService(...args);
-            
             case 'HighlightingService':
                 return new HighlightingService(...args);
+            
+            case 'CPEEService':
+                return new CPEEService(...args);
             
             default:
                 throw new Error(`ServiceFactory: Unknown service "${serviceName}"`);

@@ -3,10 +3,10 @@
  * Handles the initial page UI where users input process number, fetch UUID, and load instances
  */
 
-import { CPEEService } from '../../services/CPEEService.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class InstanceLoaderViewer {
     constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null) {
@@ -131,7 +131,8 @@ export class InstanceLoaderViewer {
             }
 
             // Fetch UUID from CPEE service
-            const uuid = await CPEEService.fetchUUIDFromProcessNumber(processNumber);
+            const cpeeService = serviceFactory.get('CPEEService');
+            const uuid = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
 
             // Update UUID input field and store the process number for later use
             if (uuidInput) {

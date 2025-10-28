@@ -5,7 +5,8 @@
 
 import { MermaidParser } from '../utils/content/MermaidParser.js';
 import { CPEEParser } from '../utils/content/CPEEParser.js';
-import { TaskExtractor } from '../utils/extraction/TaskExtractor.js';
+import { CPEETaskExtractor } from '../utils/extraction/CPEETaskExtractor.js';
+import { MermaidTaskExtractor } from '../utils/extraction/MermaidTaskExtractor.js';
 import { TaskMapper } from '../utils/mapping/TaskMapper.js';
 import { CPEEStep } from '../models/CPEEStep.js';
 import { LogParser } from '../utils/content/LogParser.js';
@@ -229,16 +230,16 @@ export class LogService {
             });
             
             // Extract tasks and generate task mapping
-            const inputCpeeTasks = TaskExtractor.extractFromCPEE(
+            const inputCpeeTasks = CPEETaskExtractor.extract(
                 cpeeStep.getInputCpeeTreeRaw().getContent()
             );
-            const inputMermaidTasks = TaskExtractor.extractFromMermaid(
+            const inputMermaidTasks = MermaidTaskExtractor.extract(
                 cpeeStep.getInputMermaidRaw().getContent()
             );
-            const outputMermaidTasks = TaskExtractor.extractFromMermaid(
+            const outputMermaidTasks = MermaidTaskExtractor.extract(
                 cpeeStep.getOutputMermaidRaw().getContent()
             );
-            const outputCpeeTasks = TaskExtractor.extractFromCPEE(
+            const outputCpeeTasks = CPEETaskExtractor.extract(
                 cpeeStep.getOutputCpeeTreeRaw().getContent()
             );
             

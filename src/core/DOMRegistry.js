@@ -159,10 +159,12 @@ export class DOMRegistry {
 
         this.elements.forEach((elementId, key) => {
             const element = document.getElementById(elementId);
+            const entry = { key, elementId };
+            
             if (element) {
-                results.valid.push({ key, elementId });
+                results.valid.push(entry);
             } else {
-                results.missing.push({ key, elementId });
+                results.missing.push(entry);
             }
         });
 
@@ -179,25 +181,45 @@ export class DOMRegistry {
     createElement(tag, attributes = {}, styles = {}) {
         const element = document.createElement(tag);
         
-        // Set attributes
+        this.setElementAttributes(element, attributes);
+        this.setElementStyles(element, styles);
+        
+        return element;
+    }
+
+    /**
+     * Set element attributes
+     * @param {HTMLElement} element - Target element
+     * @param {Object} attributes - Attributes to set
+     */
+    setElementAttributes(element, attributes) {
         Object.entries(attributes).forEach(([key, value]) => {
-            if (key === 'className') {
-                element.className = value;
-            } else if (key === 'textContent') {
-                element.textContent = value;
-            } else if (key === 'innerHTML') {
-                element.innerHTML = value;
-            } else {
-                element.setAttribute(key, value);
+            switch (key) {
+                case 'className':
+                    element.className = value;
+                    break;
+                case 'textContent':
+                    element.textContent = value;
+                    break;
+                case 'innerHTML':
+                    element.innerHTML = value;
+                    break;
+                default:
+                    element.setAttribute(key, value);
             }
         });
+    }
 
-        // Set styles
-        if (Object.keys(styles).length > 0) {
-            this.applyStyles(element, styles);
+    /**
+     * Set element styles
+     * @param {HTMLElement} element - Target element
+     * @param {Object} styles - Styles to set
+     */
+    setElementStyles(element, styles) {
+        if (Object.keys(styles).length === 0) {
+            return;
         }
-
-        return element;
+        this.applyStyles(element, styles);
     }
 
     /**
@@ -278,15 +300,26 @@ export class DOMRegistry {
     }
 
     /**
+     * Toggle CSS class on element
+     * @param {string} key - Element key or ID
+     * @param {string} className - CSS class name
+     * @param {boolean} add - Whether to add (true) or remove (false) the class
+     */
+    toggleClass(key, className, add = true) {
+        const element = this.getElementSafe(key);
+        if (!element) {
+            return;
+        }
+        element.classList.toggle(className, add);
+    }
+
+    /**
      * Add CSS class to element
      * @param {string} key - Element key or ID
      * @param {string} className - CSS class name to add
      */
     addClass(key, className) {
-        const element = this.getElementSafe(key);
-        if (element) {
-            element.classList.add(className);
-        }
+        this.toggleClass(key, className, true);
     }
 
     /**
@@ -295,10 +328,7 @@ export class DOMRegistry {
      * @param {string} className - CSS class name to remove
      */
     removeClass(key, className) {
-        const element = this.getElementSafe(key);
-        if (element) {
-            element.classList.remove(className);
-        }
+        this.toggleClass(key, className, false);
     }
 
     /**
@@ -313,14 +343,27 @@ export class DOMRegistry {
     }
 
     /**
+     * Generic query method for elements
+     * @param {string} selector - CSS selector
+     * @param {Element} context - Search context (default: document)
+     * @param {boolean} all - Whether to return all matches
+     * @returns {Element|NodeList|null} Found element(s)
+     */
+    query(selector, context = null, all = false) {
+        const searchContext = context || document;
+        return all 
+            ? searchContext.querySelectorAll(selector)
+            : searchContext.querySelector(selector);
+    }
+
+    /**
      * Query selector with fallback
      * @param {string} selector - CSS selector
      * @param {Element} context - Context element (optional)
      * @returns {Element|null} Found element or null
      */
     querySelector(selector, context = null) {
-        const searchContext = context || document;
-        return searchContext.querySelector(selector);
+        return this.query(selector, context, false);
     }
 
     /**
@@ -330,8 +373,7 @@ export class DOMRegistry {
      * @returns {NodeList} Found elements
      */
     querySelectorAll(selector, context = null) {
-        const searchContext = context || document;
-        return searchContext.querySelectorAll(selector);
+        return this.query(selector, context, true);
     }
 }
 

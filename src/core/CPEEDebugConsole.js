@@ -22,22 +22,11 @@ export class CPEEDebugConsole {
         this.domRegistry = new DOMRegistry();
         this.setupDOMRegistry();
         
-        // Initialize event bus
         this.eventBus = eventBus;
-        
-        // Initialize service factory
         this.serviceFactory = serviceFactory;
-        
-        // Initialize state manager
         this.stateManager = stateManager;
-        
-        // Initialize services through factory
         this.instanceService = this.serviceFactory.get('InstanceService');
-        
-        // Initialize highlighting coordinator
         this.highlightCoordinator = new HighlightCoordinator(this.domRegistry);
-        
-        // Initialize content coordinator
         this.rawContentCoordinator = new RawContentCoordinator(this.instanceService, this.domRegistry, null, this.eventBus, this.stateManager);
         
         // Initialize components with DOM registry, event bus, and state manager
@@ -46,7 +35,6 @@ export class CPEEDebugConsole {
         this.logViewer = new LogViewer(this.domRegistry, this.eventBus, this.stateManager);
         this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager);
         
-        // Set up event bus listeners
         this.setupEventBusListeners();
         
         // Initialize application
@@ -83,7 +71,6 @@ export class CPEEDebugConsole {
             console.log(`DOMRegistry: Initialized with ${validation.total} elements (${validation.valid.length} found, ${validation.missing.length} missing)`);
         } catch (error) {
             console.error('DOMRegistry: Failed to initialize:', error);
-            // In case of failure, components will fall back to direct DOM access
         }
     }
 
@@ -98,8 +85,6 @@ export class CPEEDebugConsole {
         
         // Initialize sidebar toggle functionality
         this.sidebar.initializeToggle();
-        
-        // Set up event listeners
         this.setupEventListeners();
         
         // Load instance if UUID is provided
@@ -179,7 +164,6 @@ export class CPEEDebugConsole {
      * Set up event listeners for UI interactions
      */
     setupEventListeners() {
-        // Setup instance loader viewer event listeners
         this.instanceLoaderViewer.setupEventListeners();
 
         // Header content click - return to home
@@ -368,17 +352,11 @@ export class CPEEDebugConsole {
         // Show instance loader and hide debugging interface
         this.instanceLoaderViewer.show();
         this.stepViewer.showDefaultState();
-        
-        // Hide raw log viewer if open
         this.logViewer.hideRawLog();
         
-        // Clear URL parameters
         URLManager.clearURLParameters();
         
-        // Clear inputs
         this.instanceLoaderViewer.clearInputs();
-        
-        // Focus on process number input
         this.instanceLoaderViewer.focusProcessNumberInput();
         
         console.log('Returned to home page');
@@ -395,7 +373,6 @@ export class CPEEDebugConsole {
         this.logViewer.hideRawLog();
         URLManager.clearURLParameters();
         
-        // Clear inputs
         this.instanceLoaderViewer.clearInputs();
     }
 }

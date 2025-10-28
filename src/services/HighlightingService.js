@@ -15,6 +15,24 @@ export class HighlightingService {
         this.highlightedElements = new Set();
         this.clickableElements = new Set();
         this.originalStyles = new Map();
+        this.animationEnabled = true;
+        this.animationDuration = 300; // milliseconds
+    }
+
+    /**
+     * Enable or disable highlighting animations
+     * @param {boolean} enabled - Whether to enable animations
+     */
+    setAnimationEnabled(enabled) {
+        this.animationEnabled = enabled;
+    }
+
+    /**
+     * Set animation duration
+     * @param {number} duration - Animation duration in milliseconds
+     */
+    setAnimationDuration(duration) {
+        this.animationDuration = duration;
     }
 
     /**
@@ -24,29 +42,18 @@ export class HighlightingService {
      * @param {boolean} isActive - Whether this is the active (clicked) task
      */
     highlightElements(elementList, isActive = false) {
-        if (!elementList) return;
+        if (!elementList) {
+            return;
+        }
 
         const elements = Array.from(elementList);
         console.log(`HighlightingService: Highlighting ${elements.length} element(s), isActive=${isActive}`);
 
         elements.forEach(element => {
-            if (!element) return;
-
-            // Store original styles for restoration
-            this.storeOriginalStyles(element);
-
-            // Apply highlight class
-            const baseClass = 'task-highlighted';
-            const activeClass = 'task-highlighted-active';
-            
-            if (isActive) {
-                element.classList.add(activeClass);
-            } else {
-                element.classList.add(baseClass);
+            if (!element) {
+                return;
             }
-
-            // Add to tracked elements
-            this.highlightedElements.add(element);
+            this.applyElementHighlight(element, 'task-highlighted', isActive);
         });
     }
 
@@ -57,14 +64,15 @@ export class HighlightingService {
      * @param {boolean} isActive - Whether this is the active (clicked) task
      */
     highlightCPEETask(svgElement, isActive = false) {
-        if (!svgElement) return;
+        if (!svgElement) {
+            return;
+        }
 
         console.log(`HighlightingService: Highlighting CPEE task element, isActive=${isActive}`);
         
-        // Find the task group element
-        const taskGroup = this.findTaskGroup(svgElement);
+        const taskGroup = this.findSVGGroup(svgElement, ['task-group', 'element', 'primitive']);
         if (taskGroup) {
-            this.applyCPEEHighlight(taskGroup, isActive);
+            this.applySVGHighlight(taskGroup, 'cpee-task-highlighted', isActive);
         }
     }
 
@@ -75,14 +83,15 @@ export class HighlightingService {
      * @param {boolean} isActive - Whether this is the active (clicked) task
      */
     highlightMermaidNode(svgElement, isActive = false) {
-        if (!svgElement) return;
+        if (!svgElement) {
+            return;
+        }
 
         console.log(`HighlightingService: Highlighting Mermaid node element, isActive=${isActive}`);
         
-        // Find the node group element
-        const nodeGroup = this.findMermaidNodeGroup(svgElement);
+        const nodeGroup = this.findSVGGroup(svgElement, ['node']);
         if (nodeGroup) {
-            this.applyMermaidHighlight(nodeGroup, isActive);
+            this.applySVGHighlight(nodeGroup, 'mermaid-node-highlighted', isActive);
         }
     }
 
@@ -92,13 +101,17 @@ export class HighlightingService {
      * @param {Element[]|NodeList|Set} elementList - List of elements to make clickable
      */
     setClickableElements(elementList) {
-        if (!elementList) return;
+        if (!elementList) {
+            return;
+        }
 
         const elements = Array.from(elementList);
         console.log(`HighlightingService: Setting ${elements.length} element(s) as clickable`);
 
         elements.forEach(element => {
-            if (!element) return;
+            if (!element) {
+                return;
+            }
 
             element.classList.add('task-clickable');
             this.clickableElements.add(element);
@@ -112,35 +125,13 @@ export class HighlightingService {
         console.log(`HighlightingService: Clearing highlights from ${this.highlightedElements.size} element(s)`);
 
         this.highlightedElements.forEach(element => {
-            // Remove highlight classes from the element itself
-            element.classList.remove('task-highlighted');
-            element.classList.remove('task-highlighted-active');
-            element.classList.remove('cpee-task-highlighted');
-            element.classList.remove('cpee-task-highlighted-active');
-            element.classList.remove('mermaid-node-highlighted');
-            element.classList.remove('mermaid-node-highlighted-active');
-
-            // Remove highlight classes from child shape elements
-            const shapeElements = element.querySelectorAll('rect, circle, polygon, ellipse');
-            shapeElements.forEach(shape => {
-                shape.classList.remove('cpee-task-highlighted');
-                shape.classList.remove('cpee-task-highlighted-active');
-                shape.classList.remove('mermaid-node-highlighted');
-                shape.classList.remove('mermaid-node-highlighted-active');
-            });
-
-            // Restore original styles if stored
-            this.restoreOriginalStyles(element);
+            this.clearElementHighlight(element);
         });
 
         this.highlightedElements.clear();
 
-        // Also clear CPEE library's "selected" class from all tasks to prevent persistence
-        // This is needed because the CPEE WfAdaptor library maintains its own state
-        document.querySelectorAll('.element.primitive.selected, .element.primitive.hover.selected').forEach(el => {
-            el.classList.remove('hover');
-            el.classList.remove('selected');
-        });
+        // Clear CPEE library's "selected" class from all tasks
+        this.clearCPEELibrarySelection();
     }
 
     /**
@@ -200,100 +191,156 @@ export class HighlightingService {
         }
     }
 
+
     /**
-     * Finds the task group element in a CPEE SVG hierarchy
+     * Applies highlighting to a single element with animation support
+     * 
+     * @private
+     * @param {Element} element - Element to highlight
+     * @param {string} baseClass - Base CSS class for highlighting
+     * @param {boolean} isActive - Whether this is the active element
+     */
+    applyElementHighlight(element, baseClass, isActive) {
+        // Store original styles for restoration
+        this.storeOriginalStyles(element);
+
+        // Apply highlight classes
+        const activeClass = `${baseClass}-active`;
+        const classesToAdd = isActive ? [baseClass, activeClass] : [baseClass];
+        
+        classesToAdd.forEach(className => {
+            element.classList.add(className);
+        });
+
+        // Add animation if enabled
+        if (this.animationEnabled) {
+            this.addHighlightAnimation(element);
+        }
+
+        // Add to tracked elements
+        this.highlightedElements.add(element);
+    }
+
+    /**
+     * Applies SVG-specific highlighting to a group element
+     * 
+     * @private
+     * @param {Element} groupElement - SVG group element
+     * @param {string} baseClass - Base CSS class for highlighting
+     * @param {boolean} isActive - Whether this is the active element
+     */
+    applySVGHighlight(groupElement, baseClass, isActive) {
+        // Apply highlighting to the group element itself
+        this.applyElementHighlight(groupElement, baseClass, isActive);
+        
+        // Also highlight shape elements for visibility
+        const shapeElements = groupElement.querySelectorAll('rect, circle, polygon, ellipse');
+        shapeElements.forEach(shape => {
+            this.applyElementHighlight(shape, baseClass, isActive);
+        });
+    }
+
+    /**
+     * Clears highlighting from a single element
+     * 
+     * @private
+     * @param {Element} element - Element to clear highlighting from
+     */
+    clearElementHighlight(element) {
+        // Remove all highlight classes
+        const highlightClasses = [
+            'task-highlighted', 'task-highlighted-active',
+            'cpee-task-highlighted', 'cpee-task-highlighted-active',
+            'mermaid-node-highlighted', 'mermaid-node-highlighted-active'
+        ];
+        
+        highlightClasses.forEach(className => {
+            element.classList.remove(className);
+        });
+
+        // Remove highlight classes from child shape elements
+        const shapeElements = element.querySelectorAll('rect, circle, polygon, ellipse');
+        shapeElements.forEach(shape => {
+            highlightClasses.forEach(className => {
+                shape.classList.remove(className);
+            });
+        });
+
+        // Restore original styles if stored
+        this.restoreOriginalStyles(element);
+    }
+
+    /**
+     * Clears CPEE library's selection state
+     * 
+     * @private
+     */
+    clearCPEELibrarySelection() {
+        document.querySelectorAll('.element.primitive.selected, .element.primitive.hover.selected').forEach(el => {
+            el.classList.remove('hover');
+            el.classList.remove('selected');
+        });
+    }
+
+    /**
+     * Adds highlighting animation to an element
+     * 
+     * @private
+     * @param {Element} element - Element to animate
+     */
+    addHighlightAnimation(element) {
+        // Add CSS transition for smooth highlighting
+        element.style.transition = `all ${this.animationDuration}ms ease-in-out`;
+        
+        // Remove transition after animation completes
+        setTimeout(() => {
+            element.style.transition = '';
+        }, this.animationDuration);
+    }
+
+    /**
+     * Finds SVG group element by class names
      * 
      * @private
      * @param {Element} element - Starting element
-     * @returns {Element|null} - Task group element or null
+     * @param {string[]} classNames - Array of class names to search for
+     * @returns {Element|null} - Found group element or null
      */
-    findTaskGroup(element) {
+    findSVGGroup(element, classNames) {
         let current = element;
         while (current && current.tagName !== 'SVG') {
-            if (current.classList && (
-                current.classList.contains('task-group') ||
-                current.classList.contains('element') ||
-                current.classList.contains('primitive')
-            )) {
-                return current;
+            if (current.classList) {
+                for (const className of classNames) {
+                    if (current.classList.contains(className)) {
+                        return current;
+                    }
+                }
             }
             current = current.parentElement;
         }
-        return current;
+        return null;
     }
 
     /**
-     * Finds the node group element in a Mermaid SVG hierarchy
-     * 
-     * @private
-     * @param {Element} element - Starting element
-     * @returns {Element|null} - Node group element or null
+     * Get service statistics
+     * @returns {Object} Service statistics
      */
-    findMermaidNodeGroup(element) {
-        let current = element;
-        while (current && current.tagName !== 'SVG') {
-            if (current.classList && current.classList.contains('node')) {
-                return current;
-            }
-            current = current.parentElement;
-        }
-        return current;
+    getStats() {
+        return {
+            highlightedElementsCount: this.highlightedElements.size,
+            clickableElementsCount: this.clickableElements.size,
+            originalStylesCount: this.originalStyles.size,
+            animationEnabled: this.animationEnabled,
+            animationDuration: this.animationDuration
+        };
     }
 
     /**
-     * Applies CPEE-specific highlighting to a task group
-     * 
-     * @private
-     * @param {Element} taskGroup - Task group element
-     * @param {boolean} isActive - Whether this is the active task
+     * Destroy the service
      */
-    applyCPEEHighlight(taskGroup, isActive) {
-        // Add highlight class to the task group itself
-        if (isActive) {
-            taskGroup.classList.add('cpee-task-highlighted-active');
-        } else {
-            taskGroup.classList.add('cpee-task-highlighted');
-        }
-        
-        // Also highlight shape elements for visibility
-        const shapeElements = taskGroup.querySelectorAll('rect, circle, polygon, ellipse');
-        shapeElements.forEach(element => {
-            if (isActive) {
-                element.classList.add('cpee-task-highlighted-active');
-            } else {
-                element.classList.add('cpee-task-highlighted');
-            }
-        });
-
-        this.highlightedElements.add(taskGroup);
-    }
-
-    /**
-     * Applies Mermaid-specific highlighting to a node group
-     * 
-     * @private
-     * @param {Element} nodeGroup - Node group element
-     * @param {boolean} isActive - Whether this is the active node
-     */
-    applyMermaidHighlight(nodeGroup, isActive) {
-        // Add highlight class to the node group itself
-        if (isActive) {
-            nodeGroup.classList.add('mermaid-node-highlighted-active');
-        } else {
-            nodeGroup.classList.add('mermaid-node-highlighted');
-        }
-        
-        // Also highlight shape elements for visibility
-        const shapeElements = nodeGroup.querySelectorAll('rect, circle, polygon, ellipse');
-        shapeElements.forEach(element => {
-            if (isActive) {
-                element.classList.add('mermaid-node-highlighted-active');
-            } else {
-                element.classList.add('mermaid-node-highlighted');
-            }
-        });
-
-        this.highlightedElements.add(nodeGroup);
+    destroy() {
+        this.reset();
+        console.log('HighlightingService: Destroyed');
     }
 }
 

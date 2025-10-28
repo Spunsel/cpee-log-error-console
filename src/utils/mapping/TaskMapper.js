@@ -421,7 +421,7 @@ class TaskMapping {
         
         // Restore tasks
         Object.entries(obj.tasks || {}).forEach(([format, formatTasks]) => {
-            Object.entries(formatTasks).forEach(([taskId, taskData]) => {
+            Object.entries(formatTasks).forEach(([_taskId, taskData]) => {
                 const task = TaskIdentifier.fromObject(taskData);
                 mapping.storeTask(task, format);
             });
