@@ -12,7 +12,6 @@
 import { ViewModeToggle } from '../ui/ViewModeToggle.js';
 import { ActionBar } from '../ui/ActionBar.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
-import { ViewModeCoordinator } from './ViewModeCoordinator.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
@@ -27,7 +26,6 @@ export class RawContentCoordinator {
 
         // Content View Components
         this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus);
-        this.viewModeCoordinator = new ViewModeCoordinator(instanceService);
         this.rawContentRenderer = new RawContentRenderer(domRegistry);
         
         // Search services
@@ -52,23 +50,99 @@ export class RawContentCoordinator {
         this.currentStep = null;
         this.togglesAttached = false;
 
-        // Initialize view mode manager
-        this.setupViewModeCoordinator();
+        // Storage key for localStorage persistence
+        this.storageKey = 'cpee-debug-console-view-modes';
+
+        // Initialize view mode integration
+        this.setupViewModeIntegration();
     }
 
     /**
-     * Setup view mode coordinator callbacks
+     * Setup view mode integration with StateManager
      */
-    setupViewModeCoordinator() {
-        this.viewModeCoordinator.onModeChange = (sectionId, mode, _uuid) => {
-            console.log(`Mode changed: ${sectionId} → ${mode}`);
-            this.updateSectionDisplay(sectionId, mode);
-        };
-        
-        // Listen for view mode toggle events
-        this.eventBus.on('viewModeToggle:modeChanged', (data) => {
-            this.viewModeCoordinator.setMode(data.sectionId, data.mode);
+    setupViewModeIntegration() {
+        // Subscribe to view mode changes from StateManager
+        this.stateManager.subscribe('viewModes', (newModes) => {
+            // Sync with localStorage for persistence
+            this.saveToStorage(newModes);
         });
+        
+        // Initialize from StateManager or localStorage
+        const stateModes = this.stateManager.getState('viewModes');
+        if (stateModes && Object.keys(stateModes).length > 0) {
+            // StateManager has data, use it
+        } else {
+            // Load from localStorage and sync to StateManager
+            const storedModes = this.loadFromStorage();
+            if (storedModes) {
+                this.stateManager.setState('viewModes', storedModes, { silent: true });
+            }
+        }
+
+        // Listen for view mode toggle events (always register listener)
+        this.eventBus.on('viewModeToggle:modeChanged', (data) => {
+            console.log(`Mode changed: ${data.sectionId} → ${data.mode}`);
+            this.setViewMode(data.sectionId, data.mode);
+            this.updateSectionDisplay(data.sectionId, data.mode);
+        });
+    }
+
+    /**
+     * Get view mode for a section
+     * @param {string} sectionId - Section identifier
+     * @returns {string} View mode ('visual' or 'raw')
+     */
+    getViewMode(sectionId) {
+        const viewModes = this.stateManager.getState('viewModes');
+        return viewModes[sectionId] || 'visual';
+    }
+
+    /**
+     * Set view mode for a section
+     * @param {string} sectionId - Section identifier
+     * @param {string} mode - View mode ('visual' or 'raw')
+     * @returns {boolean} True if mode was set successfully
+     */
+    setViewMode(sectionId, mode) {
+        if (!(mode === 'visual' || mode === 'raw')) {
+            return false;
+        }
+        
+        // Update StateManager
+        const currentModes = this.stateManager.getState('viewModes') || {};
+        currentModes[sectionId] = mode;
+        this.stateManager.setState('viewModes', currentModes);
+        
+        return true;
+    }
+
+    /**
+     * Load view modes from localStorage
+     * @returns {Object|null} Loaded modes or null if failed
+     */
+    loadFromStorage() {
+        try {
+            const stored = localStorage.getItem(this.storageKey);
+            if (stored) {
+                return JSON.parse(stored);
+            }
+        } catch (error) {
+            console.warn('Failed to load view modes from storage:', error);
+        }
+        return null;
+    }
+
+    /**
+     * Save view modes to localStorage
+     * @param {Object} modes - Modes to save (optional, uses StateManager if not provided)
+     */
+    saveToStorage(modes = null) {
+        try {
+            const modesToSave = modes || this.stateManager.getState('viewModes') || {};
+            localStorage.setItem(this.storageKey, JSON.stringify(modesToSave));
+        } catch (error) {
+            console.warn('Failed to save view modes to storage:', error);
+        }
     }
 
     /**
@@ -82,7 +156,7 @@ export class RawContentCoordinator {
             return;
         }
 
-        // Toggle button is now handled via EventBus in setupViewModeCoordinator()
+        // Toggle button is now handled via EventBus in setupViewModeIntegration()
         // No need to set up direct callbacks here
     }
 
@@ -289,7 +363,7 @@ export class RawContentCoordinator {
             }
         }
 
-        // Delegate visual content restoration to ContentSectionCoordinator
+        // Delegate visual content restoration to ContentVisualizationCoordinator
         if (this.contentSectionCoordinator) {
             if (sectionId) {
                 this.contentSectionCoordinator.restoreVisualContent(sectionId);
@@ -538,23 +612,6 @@ export class RawContentCoordinator {
         // No need to set up direct callbacks here
     }
 
-    /**
-     * Get view mode for a section
-     * @param {string} sectionId - Section identifier
-     * @returns {string} View mode (visual or raw)
-     */
-    getViewMode(sectionId) {
-        return this.viewModeCoordinator.getMode(sectionId) || 'visual';
-    }
-
-    /**
-     * Set view mode for a section
-     * @param {string} sectionId - Section identifier
-     * @param {string} mode - View mode (visual or raw)
-     */
-    setViewMode(sectionId, mode) {
-        this.viewModeCoordinator.setMode(sectionId, mode);
-    }
 
     /**
      * Get all view modes
@@ -573,7 +630,7 @@ export class RawContentCoordinator {
      */
     resetAllViewModes() {
         this.sectionIds.forEach(sectionId => {
-            this.viewModeCoordinator.setMode(sectionId, 'visual');
+            this.setViewMode(sectionId, 'visual');
         });
         
         // Update toggle button UI to reflect the reset
@@ -585,7 +642,7 @@ export class RawContentCoordinator {
      */
     updateAllToggleButtons() {
         this.sectionIds.forEach(sectionId => {
-            const currentMode = this.viewModeCoordinator.getMode(sectionId);
+            const currentMode = this.getViewMode(sectionId);
             this.viewModeToggle.updateToggleState(sectionId, currentMode);
         });
     }

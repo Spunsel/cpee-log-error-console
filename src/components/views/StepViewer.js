@@ -2,14 +2,14 @@
  * Step Viewer Component
  * Main coordinator for step content display and navigation
  * Responsibilities:
- * - Orchestrates ContentSectionCoordinator (visual content) and RawContentCoordinator (raw content)
+ * - Orchestrates ContentVisualizationCoordinator (visual content) and RawContentCoordinator (raw content)
  * - Coordinates step navigation and content updates
  * - Manages step header and navigation state
  * - Delegates specific rendering to specialized coordinators
  */
 
 import { StepNavigator } from '../ui/StepNavigator.js';
-import { ContentSectionCoordinator } from '../coordinators/ContentSectionCoordinator.js';
+import { ContentVisualizationCoordinator } from '../coordinators/ContentVisualizationCoordinator.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
@@ -24,9 +24,9 @@ export class StepViewer {
         
         // Initialize extracted components
         this.navigator = new StepNavigator(instanceService, domRegistry, this.eventBus);
-        this.contentCoordinator = new ContentSectionCoordinator(domRegistry, highlightCoordinator, this.eventBus);
+        this.contentCoordinator = new ContentVisualizationCoordinator(domRegistry, highlightCoordinator, this.eventBus);
         
-        // Pass ContentSectionCoordinator to RawContentCoordinator for coordination
+        // Pass ContentVisualizationCoordinator to RawContentCoordinator for coordination
         if (this.rawContentCoordinator) {
             this.rawContentCoordinator.contentSectionCoordinator = this.contentCoordinator;
         }
@@ -120,7 +120,7 @@ export class StepViewer {
             console.log(`[StepViewer] Set task mapping for step ${step.stepNumber}`);
         }
 
-        // Update content sections using ContentSectionCoordinator
+        // Update content sections using ContentVisualizationCoordinator
         const stepContent = {
             inputCpeeTree: step.getContent('inputCpeeTree'),
             inputIntermediate: step.getContent('inputIntermediate'),
