@@ -631,6 +631,8 @@ export class RawContentCoordinator {
     resetAllViewModes() {
         this.sectionIds.forEach(sectionId => {
             this.setViewMode(sectionId, 'visual');
+            // Update the actual DOM display to show visual content
+            this.updateSectionDisplay(sectionId, 'visual');
         });
         
         // Update toggle button UI to reflect the reset
