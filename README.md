@@ -18,32 +18,39 @@ A debugging interface for LLM  CPEE extension with visual graph analysis and ste
 ### Project Structure
 ```
 src/
+├── app.js                   # Application entry point
 ├── core/                    # Core application logic
 │   ├── CPEEDebugConsole.js
 │   ├── DOMRegistry.js
-│   └── JQueryExtensions.js
+│   ├── EventBus.js
+│   ├── ServiceFactory.js
+│   └── StateManager.js
 ├── config/                  # Configuration management
-│   ├── MermaidConfig.js
-│   └── ServiceConfig.js
+│   └── ConfigManager.js
 ├── models/                  # Data models
 │   ├── CPEEInstance.js
 │   ├── CPEEStep.js
 │   ├── CPEETreeRaw.js
 │   ├── MermaidRaw.js
+│   ├── TaskIdentifier.js
 │   └── UserInputRaw.js
 ├── services/                # Business logic services
 │   ├── CPEEService.js
+│   ├── HighlightingService.js
 │   ├── InstanceService.js
 │   ├── LogService.js
-│   ├── MermaidValidationService.js
-│   └── SVGProcessingService.js
+│   └── SearchService.js
 ├── components/              # UI components organized by responsibility
 │   ├── ui/                 # Pure UI components
+│   │   ├── ActionBar.js
 │   │   ├── CopyButton.js
+│   │   ├── SearchBar.js
 │   │   ├── Sidebar.js
+│   │   ├── StepDropdown.js
 │   │   ├── StepNavigator.js
 │   │   └── ViewModeToggle.js
 │   ├── views/              # Main view components
+│   │   ├── InstanceLoaderViewer.js
 │   │   ├── LogViewer.js
 │   │   └── StepViewer.js
 │   ├── renderers/          # Graph rendering components
@@ -51,23 +58,37 @@ src/
 │   │   ├── MermaidRenderer.js
 │   │   └── RawContentRenderer.js
 │   └── coordinators/       # Content coordination
-│       ├── ContentSectionManager.js
-│       ├── RawContentViewManager.js
-│       └── ViewModeManager.js
+│       ├── ContentVisualizationCoordinator.js
+│       ├── HighlightCoordinator.js
+│       ├── RawContentCoordinator.js
+│       └── ViewModeCoordinator.js
 ├── utils/                   # Helper utilities organized by domain
 │   ├── content/            # Content processing utilities
-│   │   ├── ContentCleaner.js
-│   │   ├── XMLParser.js
-│   │   └── YAMLParser.js
+│   │   ├── CPEEParser.js
+│   │   ├── LogParser.js
+│   │   └── MermaidParser.js
 │   ├── dom/                # DOM manipulation utilities
+│   │   ├── DOMStatusManager.js
 │   │   ├── DOMUtils.js
-│   │   └── StatusManager.js
+│   │   └── SVGProcessor.js
+│   ├── extraction/         # Task extraction utilities
+│   │   ├── CPEETaskExtractor.js
+│   │   ├── MermaidTaskExtractor.js
+│   │   └── SVGTaskExtractor.js
+│   ├── interaction/        # User interaction handlers
+│   │   ├── CPEESVGClickHandler.js
+│   │   ├── MermaidSVGClickHandler.js
+│   │   └── SVGClickDetector.js
+│   ├── mapping/            # Task mapping utilities
+│   │   └── TaskMapper.js
 │   └── system/             # System-level utilities
-│       └── LibraryLoader.js
+│       ├── JQueryExtensions.js
+│       ├── LibraryLoader.js
+│       └── URLManager.js
 ├── libs/                    # External libraries
-│   └── cpee/               # CPEE WfAdaptor & themes
-│       ├── css/
+│   └── cpee-layout/        # CPEE WfAdaptor & themes
 │       ├── themes/
+│       ├── wfadaptor.css
 │       └── wfadaptor.js
 └── assets/                  # Static resources
     ├── icons.js
@@ -79,29 +100,35 @@ src/
 #### Core Layer
 - **CPEEDebugConsole**: Main application controller coordinating all components
 - **DOMRegistry**: Centralized DOM element management and manipulation
-- **JQueryExtensions**: jQuery integration utilities for CPEE system
+- **EventBus**: Event-driven communication system for component coordination
+- **ServiceFactory**: Factory pattern for service instantiation and dependency injection
+- **StateManager**: Application state management and persistence
 
 #### Models Layer
 - **CPEEStep & CPEEInstance**: Object-oriented representation of CPEE instance and user modification step
 - **Raw Content Models**: Specialized models for different content types (CPEETreeRaw, MermaidRaw, UserInputRaw)
+- **TaskIdentifier**: Model for identifying and mapping tasks across different views and formats
 
 #### Service Layer  
 - **LogService**: YAML/text log parsing and step extraction with CORS handling
 - **InstanceService**: Multi-instance management and navigation state
 - **CPEEService**: CPEE server communication and UUID resolution
-- **MermaidValidationService**: Mermaid diagram validation and preprocessing
-- **SVGProcessingService**: SVG element processing and jQuery integration
+- **HighlightingService**: Cross-view task highlighting and visual coordination
+- **SearchService**: Content search and filtering functionality
 
 #### Component Layer
-- **UI Components**: Pure interface elements (sidebar navigation, step controls, copy button, view mode toggle)
-- **Views**: Main view components (log viewing, step navigation)
+- **UI Components**: Pure interface elements (action bar, search bar, sidebar navigation, step controls, copy button, view mode toggle)
+- **Views**: Main view components (instance loader, log viewing, step navigation)
 - **Renderers**: Graph rendering components (CPEE WfAdaptor, Mermaid.js integration, raw content display)
-- **Coordinators**: Content coordination and section management
+- **Coordinators**: Content coordination and section management (visualization, highlighting, raw content, view mode)
 
 #### Utility Layer
-- **Content Processing**: XML/YAML parsing and content cleaning utilities
-- **DOM Utilities**: DOM manipulation and status management
-- **System Utilities**: Library loading and system-level functions
+- **Content Processing**: CPEE, log, and Mermaid parsing utilities
+- **DOM Utilities**: DOM manipulation, status management, and SVG processing
+- **Task Extraction**: Specialized extractors for CPEE, Mermaid, and SVG task identification
+- **User Interaction**: Click handlers and interaction detection for different graph types
+- **Task Mapping**: Cross-view task mapping and coordination utilities
+- **System Utilities**: Library loading, jQuery extensions, and URL management
 
 ### Technologies Used
 - **Frontend**: JavaScript (ES6+), HTML5, CSS3
