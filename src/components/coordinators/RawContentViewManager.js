@@ -10,10 +10,11 @@
  */
 
 import { ViewModeToggle } from '../ui/ViewModeToggle.js';
-import { CopyButton } from '../ui/CopyButton.js';
+import { ActionBar } from '../ui/ActionBar.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
 import { ViewModeManager } from './ViewModeManager.js';
-import { configManager } from '../../config/ConfigManager.js';
+import { SearchService } from '../../services/SearchService.js';
+import { SearchHighlightingService } from '../../services/SearchHighlightingService.js';
 
 export class RawContentViewManager {
     constructor(instanceService, domRegistry = null, contentSectionManager = null) {
@@ -25,7 +26,16 @@ export class RawContentViewManager {
         this.viewModeToggle = new ViewModeToggle(domRegistry);
         this.viewModeManager = new ViewModeManager(instanceService);
         this.rawContentRenderer = new RawContentRenderer(domRegistry);
-        this.copyButton = new CopyButton(domRegistry);
+        
+        // Search services
+        this.searchService = new SearchService();
+        this.searchHighlightingService = new SearchHighlightingService();
+        
+        // Action bars per section
+        this.actionBars = new Map();
+        
+        // Store original content per section (for copy functionality)
+        this.originalContent = new Map();
 
         // Configuration
         this.sectionIds = [
@@ -104,6 +114,11 @@ export class RawContentViewManager {
             // Visual mode - ContentSectionManager handles this
             // Just ensure raw content is hidden
             this.hideRawContent(contentContainer);
+            
+            // Restore original content when switching to visual mode (only if we have it stored)
+            if (this.originalContent.has(sectionId)) {
+                this.restoreOriginalContent(sectionId);
+            }
         }
     }
 
@@ -188,15 +203,51 @@ export class RawContentViewManager {
             rawContainer.style.zIndex = '10';
             rawContainer.style.backgroundColor = '#ffffff';
 
-            // Clear and populate raw container
+            // ALWAYS add/ensure action bar exists BEFORE clearing content
+            if (rawContent.getLength && rawContent.getLength() > 0) {
+                if (!this.actionBars.has(sectionId)) {
+                    // Create new action bar and attach to container
+                    this.addActionBar(rawContainer, sectionId, rawContent);
+                } else {
+                    // Action bar instance exists - check if it's in the DOM
+                    const actionBar = this.actionBars.get(sectionId);
+                    const existingActionBarInDOM = rawContainer.querySelector('.raw-content-actions-bar');
+                    
+                    if (actionBar && !existingActionBarInDOM) {
+                        // Action bar instance exists but not in DOM - re-attach it
+                        if (actionBar.element && actionBar.element.parentNode) {
+                            actionBar.element.parentNode.removeChild(actionBar.element);
+                        }
+                        rawContainer.appendChild(actionBar.element);
+                        console.log(`ActionBar re-attached for ${sectionId}`);
+                    }
+                    
+                    // Show the action bar
+                    if (actionBar) {
+                        actionBar.show();
+                    }
+                }
+            }
+            
+            // Now clear ONLY the content area (preserve action bar)
+            const existingActionBar = rawContainer.querySelector('.raw-content-actions-bar');
+            
+            if (existingActionBar) {
+                // Clear all children EXCEPT the action bar
+                const allChildren = Array.from(rawContainer.children);
+                allChildren.forEach(child => {
+                    if (child !== existingActionBar) {
+                        child.remove();
+                    }
+                });
+            } else {
+                // No action bar exists, clear everything (shouldn't happen, but handle it)
             rawContainer.innerHTML = '';
+            }
+            
+            // Render new content and add it
             const rawElement = renderer();
             rawContainer.appendChild(rawElement);
-
-            // Add copy button if content exists
-            if (rawContent.getLength && rawContent.getLength() > 0) {
-                this.addCopyButton(rawContainer, sectionId, rawContent);
-            }
         } catch (error) {
             console.error(`Error rendering raw content for ${sectionId}:`, error);
             container.innerHTML = '<pre><code class="error">Error rendering raw content</code></pre>';
@@ -221,9 +272,19 @@ export class RawContentViewManager {
             el.style.zIndex = '0';
         });
 
+        // Hide action bar for this section and clear search
+        const sectionId = container.closest('[id]')?.id;
+        if (sectionId && this.actionBars.has(sectionId)) {
+            const actionBar = this.actionBars.get(sectionId);
+            if (actionBar) {
+                // Clear search before hiding
+                actionBar.clearSearch();
+                actionBar.hide();
+            }
+        }
+
         // Delegate visual content restoration to ContentSectionManager
         if (this.contentSectionManager) {
-            const sectionId = container.closest('[id]')?.id;
             if (sectionId) {
                 this.contentSectionManager.restoreVisualContent(sectionId);
             }
@@ -231,40 +292,216 @@ export class RawContentViewManager {
     }
 
     /**
-     * Add copy button to a section
+     * Add action bar (copy button + search bar) to raw content container
      * @param {HTMLElement} container - Container element
      * @param {string} sectionId - Section identifier
      * @param {Object} rawContent - Raw content object
      */
-    addCopyButton(container, sectionId, rawContent) {
+    addActionBar(container, sectionId, rawContent) {
         // Get content to copy
         const contentToCopy = rawContent.getContent ? rawContent.getContent() : rawContent.getText();
 
-        // Create copy button
-        const copyBtn = new CopyButton(this.domRegistry, {
-            successDuration: configManager.get('ui.notifications.successDuration'),
-            onCopySuccess: (content) => {
+        // Store original content for this section
+        this.originalContent.set(sectionId, contentToCopy);
+        
+        // Initialize search state for this section using SearchService
+        this.searchService.initializeSearchState(sectionId);
+
+        // Create action bar
+        const actionBar = new ActionBar(this.domRegistry);
+        
+        // Store action bar for this section
+        this.actionBars.set(sectionId, actionBar);
+        
+        // Set up copy functionality
+        actionBar.setOnCopy((content) => {
                 console.log(`✓ Copied ${sectionId}:`, content.substring(0, 50) + '...');
-            },
-            onCopyError: (error) => {
-                console.error(`✗ Copy failed for ${sectionId}:`, error);
+        });
+        
+        // Set up search functionality
+        actionBar.setOnSearch((searchTerm) => {
+            console.log(`Searching in ${sectionId} for:`, searchTerm);
+            this.performSearch(sectionId, searchTerm, contentToCopy);
+        });
+        
+        // Set up search clear
+        actionBar.setOnClear(() => {
+            console.log(`Cleared search in ${sectionId}`);
+            this.clearSearch(sectionId);
+        });
+        
+        // Set up search navigation
+        actionBar.setOnNavigate((direction, matchIndex) => {
+            console.log(`Navigate ${direction} to match ${matchIndex} in ${sectionId}`);
+            this.navigateToMatch(sectionId, direction, matchIndex);
+        });
+
+        // Attach to container first
+        actionBar.attachToContainer(container);
+        
+        // Set copy content after attaching
+        actionBar.setCopyContent(contentToCopy);
+        
+        // Show the action bar
+        actionBar.show();
+        
+        console.log(`ActionBar added to ${sectionId}`);
+    }
+
+    /**
+     * Perform search in raw content
+     * @param {string} sectionId - Section identifier
+     * @param {string} searchTerm - Search term
+     * @param {string} content - Content to search in
+     */
+    performSearch(sectionId, searchTerm, content) {
+        if (!searchTerm || !content) {
+            return;
+        }
+
+        // Initialize search state if not exists
+        this.searchService.initializeSearchState(sectionId);
+
+        // Find the raw content container for this section
+        const container = document.querySelector(`#${sectionId} .raw-content-container`);
+        if (!container) {
+            console.warn(`RawContentViewManager: No raw content container found for ${sectionId}`);
+            return;
+        }
+
+        // Get search state and options
+        const searchState = this.searchService.getSearchState(sectionId);
+        const options = {
+            caseSensitive: searchState.caseSensitive,
+            wholeWord: searchState.wholeWord
+        };
+
+        // Apply search highlighting using SearchHighlightingService
+        const matches = this.searchHighlightingService.applySearchHighlighting(container, searchTerm, options);
+
+        // Update search state with matches
+        this.searchService.updateSearchResults(sectionId, searchTerm, matches);
+
+        console.log(`RawContentViewManager: Found ${matches.length} matches for "${searchTerm}" in ${sectionId}`);
+        
+        // Update search results in action bar for this section
+        const actionBar = this.actionBars.get(sectionId);
+        if (actionBar) {
+            actionBar.updateSearchResults(matches);
+        }
+
+        // Scroll to first match if any matches found
+        if (matches.length > 0) {
+            this.searchHighlightingService.scrollToMatch(container, 0);
+        }
+    }
+
+    /**
+     * Clear search highlighting
+     * @param {string} sectionId - Section identifier
+     */
+    clearSearch(sectionId) {
+        console.log(`RawContentViewManager: Clearing search in ${sectionId}`);
+        
+        // Find the raw content container for this section
+        const container = document.querySelector(`#${sectionId} .raw-content-container`);
+        if (!container) {
+            console.warn(`RawContentViewManager: No raw content container found for ${sectionId}`);
+            return;
+        }
+
+        // Clear highlighting using SearchHighlightingService
+        this.searchHighlightingService.clearSearchHighlighting(container);
+
+        // Clear search state
+        this.searchService.clearSearchState(sectionId);
+
+        // Update action bar
+        const actionBar = this.actionBars.get(sectionId);
+        if (actionBar) {
+            actionBar.updateSearchResults([]);
+        }
+    }
+
+    /**
+     * Navigate to specific match
+     * @param {string} sectionId - Section identifier
+     * @param {string} direction - 'next' or 'prev'
+     * @param {number} matchIndex - Index of match to navigate to
+     */
+    navigateToMatch(sectionId, direction, matchIndex) {
+        console.log(`RawContentViewManager: Navigating to match ${matchIndex} in ${sectionId}`);
+        
+        // Get search state for this section
+        const searchState = this.searchService.getSearchState(sectionId);
+        if (!searchState || searchState.matches.length === 0) {
+            console.warn(`RawContentViewManager: No matches found for ${sectionId}`);
+            return;
+        }
+
+        // Navigate to next/prev match and get new index
+        const newMatchIndex = this.searchService.navigateToMatch(sectionId, direction);
+
+        // Find the raw content container for this section
+        const container = document.querySelector(`#${sectionId} .raw-content-container`);
+        if (!container) {
+            console.warn(`RawContentViewManager: No raw content container found for ${sectionId}`);
+            return;
+        }
+
+        // Scroll to the match using SearchHighlightingService
+        const scrolled = this.searchHighlightingService.scrollToMatch(container, newMatchIndex);
+        
+        if (scrolled) {
+            console.log(`RawContentViewManager: Successfully scrolled to match ${newMatchIndex + 1} of ${searchState.matches.length}`);
+        } else {
+            console.warn(`RawContentViewManager: Failed to scroll to match ${newMatchIndex}`);
+        }
+    }
+
+    /**
+     * Clear all search states (called when navigating to a different step)
+     */
+    clearAllSearchStates() {
+        // Clear all search states using SearchService
+        this.searchService.clearAllSearchStates();
+        
+        // Clear highlighting from all containers using SearchHighlightingService
+        this.sectionIds.forEach(sectionId => {
+            const container = document.querySelector(`#${sectionId} .raw-content-container`);
+            if (container) {
+                this.searchHighlightingService.clearSearchHighlighting(container);
             }
         });
+        
+        console.log('RawContentViewManager: Cleared all search states');
+    }
 
-        const button = copyBtn.createButton(contentToCopy, 'Copy');
-
-        // Add button to container
-        const buttonContainer = this.domRegistry.createElement('div', {
-            className: configManager.get('dom.classes.rawContentActions')
-        });
-        buttonContainer.appendChild(button);
-
-        // Insert before content if possible
-        if (container.firstChild) {
-            container.insertBefore(buttonContainer, container.firstChild);
-        } else {
-            container.appendChild(buttonContainer);
+    /**
+     * Restore original content when switching modes
+     * @param {string} sectionId - Section identifier
+     */
+    restoreOriginalContent(sectionId) {
+        const originalContent = this.originalContent.get(sectionId);
+        if (!originalContent) {
+            console.warn(`RawContentViewManager: No original content found for ${sectionId}`);
+            return;
         }
+
+        // Find the raw content container for this section
+        const container = document.querySelector(`#${sectionId} .raw-content-container`);
+        if (!container) {
+            console.warn(`RawContentViewManager: No raw content container found for ${sectionId}`);
+            return;
+        }
+
+        // Clear any search highlighting using SearchHighlightingService
+        this.searchHighlightingService.clearSearchHighlighting(container);
+
+        // Reset search state using SearchService
+        this.searchService.clearSearchState(sectionId);
+
+        console.log(`RawContentViewManager: Restored original content for ${sectionId}`);
     }
 
     /**
@@ -277,6 +514,9 @@ export class RawContentViewManager {
         }
 
         this.currentStep = step;
+
+        // Clear all search states when switching to a different step
+        this.clearAllSearchStates();
 
         // Reset all view modes to visual for this step
         // (View mode does not persist across steps)

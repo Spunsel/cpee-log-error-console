@@ -2,6 +2,10 @@
  * RawContentRenderer
  * Renders raw content (Mermaid, CPEE XML, user input) as plain text
  * Phase 21.4: Raw View Rendering
+ * 
+ * Responsibilities:
+ * - Render raw content into DOM elements
+ * - Provide DOM structure for content display
  */
 
 export class RawContentRenderer {

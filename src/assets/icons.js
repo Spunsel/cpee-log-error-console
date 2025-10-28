@@ -117,6 +117,59 @@ export const ICON_NAV_SKIP = `
 `;
 
 /**
+ * Search icon - Magnifying glass for search functionality
+ * Represents search/find functionality - 16x16px
+ * Design: Magnifying glass with search circle
+ */
+export const ICON_SEARCH = `
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"/>
+        </g>
+    </svg>
+`;
+
+/**
+ * Clear Search icon - X mark to clear search
+ * Represents clearing/canceling search - 16x16px
+ * Design: Simple X mark
+ */
+export const ICON_CLEAR_SEARCH = `
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path d="M8 8L16 16"/>
+            <path d="M16 8L8 16"/>
+        </g>
+    </svg>
+`;
+
+/**
+ * Search Next icon - Right arrow for next match
+ * Represents navigating to next search result - 16x16px
+ * Design: Right-pointing arrow
+ */
+export const ICON_SEARCH_NEXT = `
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 4L10 8L6 12L4.5 10.5L7 8L4.5 5.5L6 4Z"/>
+    </svg>
+`;
+
+/**
+ * Search Previous icon - Left arrow for previous match
+ * Represents navigating to previous search result - 16x16px
+ * Design: Left-pointing arrow
+ */
+export const ICON_SEARCH_PREV = `
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 4L6 8L10 12L11.5 10.5L9 8L11.5 5.5L10 4Z"/>
+    </svg>
+`;
+
+/**
  * Sidebar Collapse icon - Sidebar collapsing with double chevrons pointing inward
  * Represents collapsing/hiding the sidebar - 16x16px
  * Design: Double chevrons pointing inward representing sidebar collapse
@@ -199,6 +252,11 @@ export const ICONS = {
     SIDEBAR_COLLAPSE: ICON_SIDEBAR_COLLAPSE,
     SIDEBAR_EXPAND: ICON_SIDEBAR_EXPAND,
     APP: ICON_APP,
+    // Search functionality icons
+    SEARCH: ICON_SEARCH,
+    CLEAR_SEARCH: ICON_CLEAR_SEARCH,
+    SEARCH_NEXT: ICON_SEARCH_NEXT,
+    SEARCH_PREV: ICON_SEARCH_PREV,
     APP_FAVICON: ICON_APP_FAVICON
 };
 
@@ -221,7 +279,12 @@ export function getIcon(iconName) {
         'sidebar-collapse': ICON_SIDEBAR_COLLAPSE,
         'sidebar-expand': ICON_SIDEBAR_EXPAND,
         'app': ICON_APP,
-        'app-favicon': ICON_APP_FAVICON
+        'app-favicon': ICON_APP_FAVICON,
+        // Search functionality icons
+        'search': ICON_SEARCH,
+        'clear-search': ICON_CLEAR_SEARCH,
+        'search-next': ICON_SEARCH_NEXT,
+        'search-prev': ICON_SEARCH_PREV
     };
 
     return iconMap[iconName.toLowerCase()] || '';
