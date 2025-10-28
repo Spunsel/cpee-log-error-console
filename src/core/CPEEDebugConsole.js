@@ -5,14 +5,13 @@
 
 import { LogService } from '../services/LogService.js';
 import { InstanceService } from '../services/InstanceService.js';
-import { CPEEService } from '../services/CPEEService.js';
 import { Sidebar } from '../components/ui/Sidebar.js';
 import { StepViewer } from '../components/views/StepViewer.js';
 import { LogViewer } from '../components/views/LogViewer.js';
+import { InstanceLoaderViewer } from '../components/views/InstanceLoaderViewer.js';
 import { RawContentViewManager } from '../components/coordinators/RawContentViewManager.js';
 import { CrossViewHighlightManager } from '../components/coordinators/CrossViewHighlightManager.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
-import { configManager } from '../config/ConfigManager.js';
 
 export class CPEEDebugConsole {
     constructor() {
@@ -33,6 +32,7 @@ export class CPEEDebugConsole {
         this.sidebar = new Sidebar(this.instanceService, this.domRegistry);
         this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentViewManager, this.crossViewHighlightManager);
         this.logViewer = new LogViewer(this.domRegistry);
+        this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry);
         
         // Set up component callbacks
         this.setupComponentCallbacks();
@@ -134,9 +134,12 @@ export class CPEEDebugConsole {
             if (this.instanceService.hasInstance(urlParams.uuid)) {
                 this.sidebar.setActiveTab(urlParams.uuid);
                 await this.displayInstance(urlParams.uuid, urlParams.step - 1);
+                // Hide instance loader when showing instance
+                this.instanceLoaderViewer.hide();
             }
         } else {
-            // Show default state
+            // Show default state (instance loader)
+            this.instanceLoaderViewer.show();
             this.stepViewer.showDefaultState();
         }
         
@@ -156,68 +159,24 @@ export class CPEEDebugConsole {
         this.stepViewer.setOnStepChange((stepIndex) => {
             this.updateURL(this.instanceService.currentUUID, stepIndex + 1);
         });
+
+        // When instance is loaded from instance loader
+        this.instanceLoaderViewer.setOnLoadInstance(async (uuid) => {
+            await this.loadInstance(uuid);
+        });
+
+        // When view log is requested from instance loader
+        this.instanceLoaderViewer.setOnViewLog(async (uuid) => {
+            await this.logViewer.toggleRawLog(uuid);
+        });
     }
 
     /**
      * Set up event listeners for UI interactions
      */
     setupEventListeners() {
-        // Get UI elements
-        const loadButton = this.getElement('loadInstance');
-        const viewLogButton = this.getElement('viewLog');
-        const fetchUuidButton = this.getElement('fetchUuid');
-        const uuidInput = this.getElement('uuidInput');
-        const processNumberInput = this.getElement('processNumberInput');
-        
-        // Load instance button
-        if (loadButton && uuidInput) {
-            loadButton.addEventListener('click', async () => {
-                const uuid = uuidInput.value.trim();
-                if (uuid) {
-                    await this.loadInstance(uuid);
-                } else {
-                    alert('Please use "Fetch UUID" from process number first.');
-                }
-            });
-        }
-        
-        // Fetch UUID button
-        if (fetchUuidButton && processNumberInput && uuidInput) {
-            fetchUuidButton.addEventListener('click', async () => {
-                const processNumber = processNumberInput.value.trim();
-                if (processNumber) {
-                    await this.fetchUUIDFromProcessNumber(parseInt(processNumber, 10));
-                } else {
-                    alert('Please enter a process number first.');
-                }
-            });
-        }
-
-        // UUID input is now readonly, so no need for Enter key handler
-        
-        // Allow Enter key in process number input
-        if (processNumberInput) {
-            processNumberInput.addEventListener('keypress', async (e) => {
-                if (e.key === 'Enter') {
-                    const processNumber = processNumberInput.value.trim();
-                    if (processNumber) {
-                        await this.fetchUUIDFromProcessNumber(parseInt(processNumber, 10));
-                    }
-                }
-            });
-        }
-
-        // View log button
-        if (viewLogButton && uuidInput) {
-            viewLogButton.addEventListener('click', async () => {
-                const uuid = uuidInput.value.trim();
-                if (uuid) {
-                    await this.logViewer.toggleRawLog(uuid);
-                } else {
-                    alert('Please enter a UUID first');
-                }
-            });
-        }
+        // Setup instance loader viewer event listeners
+        this.instanceLoaderViewer.setupEventListeners();
 
         // Header content click - return to home
         const headerContent = this.getElement('headerContent');
@@ -250,64 +209,6 @@ export class CPEEDebugConsole {
         });
     }
 
-    /**
-     * Fetch UUID from CPEE process number
-     * @param {number} processNumber - CPEE process instance number
-     */
-    async fetchUUIDFromProcessNumber(processNumber) {
-        try {
-            console.log(`Fetching UUID for process number: ${processNumber}`);
-
-            // Show loading state
-            const fetchButton = this.getElement('fetchUuid');
-            const uuidInput = this.getElement('uuidInput');
-
-            if (fetchButton) {
-                fetchButton.textContent = 'Fetching...';
-                fetchButton.disabled = true;
-            }
-
-            // Fetch UUID from CPEE service
-            const uuid = await CPEEService.fetchUUIDFromProcessNumber(processNumber);
-
-            // Update UUID input field and store the process number for later use
-            if (uuidInput) {
-                uuidInput.value = uuid;
-                // Store process number as data attribute for later use
-                uuidInput.dataset.processNumber = processNumber;
-                console.log(`UUID fetched successfully: ${uuid}`);
-
-                // Show success message
-                const processNumberInput = this.getElement('processNumberInput');
-                if (processNumberInput) {
-                    processNumberInput.style.borderColor = configManager.get('styling.colors.success');
-                    setTimeout(() => {
-                        processNumberInput.style.borderColor = '';
-                    }, configManager.get('ui.notifications.successDuration'));
-                }
-            }
-
-        } catch (error) {
-            console.error('Error fetching UUID:', error);
-            alert(`Failed to fetch UUID: ${error.message}`);
-
-            // Show error state
-            const processNumberInput = this.getElement('processNumberInput');
-            if (processNumberInput) {
-                processNumberInput.style.borderColor = configManager.get('styling.colors.error');
-                setTimeout(() => {
-                    processNumberInput.style.borderColor = '';
-                }, configManager.get('ui.notifications.errorDuration'));
-            }
-        } finally {
-            // Reset button state
-            const fetchButton = this.getElement('fetchUuid');
-            if (fetchButton) {
-                fetchButton.textContent = 'Fetch UUID';
-                fetchButton.disabled = false;
-            }
-        }
-    }
 
     /**
      * Load CPEE instance data
@@ -334,9 +235,8 @@ export class CPEEDebugConsole {
                 return;
             }
             
-            // Get process number from UUID input (if it was fetched via process number)
-            const uuidInput = this.getElement('uuidInput');
-            const processNumber = uuidInput?.dataset.processNumber ? parseInt(uuidInput.dataset.processNumber) : null;
+            // Get process number from InstanceLoaderViewer
+            const processNumber = this.instanceLoaderViewer.getProcessNumberFromUUIDInput();
             
             // Store instance data
             this.instanceService.addInstance(uuid, steps, processNumber);
@@ -344,7 +244,10 @@ export class CPEEDebugConsole {
             // Add to sidebar (but don't display content yet)
             this.sidebar.addInstanceTab(uuid);
             
-            // Clear process number input field only (keep UUID visible)
+            // Keep instance loader visible for loading multiple instances
+            // It will be hidden when user clicks on an instance tab to view it
+            
+            // Clear inputs for next instance loading
             const processNumberInput = this.getElement('processNumberInput');
             if (processNumberInput) {
                 processNumberInput.value = '';
@@ -368,6 +271,9 @@ export class CPEEDebugConsole {
         
         // Hide raw log viewer when selecting an instance
         this.logViewer.hideRawLog();
+        
+        // Hide instance loader when displaying an instance
+        this.instanceLoaderViewer.hide();
         
         if (!this.instanceService.setCurrentInstance(uuid, stepIndex)) {
             console.error(`Instance ${uuid} not found`);
@@ -428,7 +334,8 @@ export class CPEEDebugConsole {
             });
         }
         
-        // Show default state (input form)
+        // Show instance loader and hide debugging interface
+        this.instanceLoaderViewer.show();
         this.stepViewer.showDefaultState();
         
         // Hide raw log viewer if open
@@ -437,12 +344,11 @@ export class CPEEDebugConsole {
         // Clear URL parameters
         this.clearURLParameters();
         
-        // Clear input field
-        const uuidInput = this.getElement('uuidInput');
-        if (uuidInput) {
-            uuidInput.value = '';
-            uuidInput.focus(); // Focus on input for easy typing
-        }
+        // Clear inputs
+        this.instanceLoaderViewer.clearInputs();
+        
+        // Focus on process number input
+        this.instanceLoaderViewer.focusProcessNumberInput();
         
         console.log('Returned to home page');
     }
@@ -453,14 +359,12 @@ export class CPEEDebugConsole {
     reset() {
         this.instanceService.clear();
         this.sidebar.clearAllTabs();
+        this.instanceLoaderViewer.show();
         this.stepViewer.showDefaultState();
         this.logViewer.hideRawLog();
         this.clearURLParameters();
         
-        // Clear process number input field only (keep UUID visible)
-        const processNumberInput = this.getElement('processNumberInput');
-        if (processNumberInput) {
-            processNumberInput.value = '';
-        }
+        // Clear inputs
+        this.instanceLoaderViewer.clearInputs();
     }
 }

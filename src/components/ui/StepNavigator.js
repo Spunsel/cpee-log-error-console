@@ -159,15 +159,30 @@ export class StepNavigator {
                 'stepCounter': 'step-counter',
                 'stepDropdownTrigger': 'step-dropdown-trigger',
                 'stepDropdownMenu': 'step-dropdown-menu',
-                'stepDropdownContainer': 'step-dropdown-container',
                 // Alternative keys for navigation buttons
                 'prevStep': 'prev-step',
                 'nextStep': 'next-step'
             };
 
+            // Only register elements that currently exist in the DOM
             Object.entries(registrations).forEach(([key, id]) => {
-                this.domRegistry.register(key, id);
+                const element = document.getElementById(id);
+                if (element) {
+                    this.domRegistry.register(key, id);
+                }
             });
+
+            // Register metadataDisplay if it exists (created dynamically)
+            const metadataDisplay = document.getElementById('metadata-display');
+            if (metadataDisplay) {
+                this.domRegistry.register('metadataDisplay', 'metadata-display');
+            }
+
+            // Register stepDropdownContainer if it exists (created dynamically)
+            const stepDropdownContainer = document.getElementById('step-dropdown-container');
+            if (stepDropdownContainer) {
+                this.domRegistry.register('stepDropdownContainer', 'step-dropdown-container');
+            }
         }
     }
 
@@ -225,10 +240,16 @@ export class StepNavigator {
         // Append to wrapper container
         if (wrapperContainer) {
             wrapperContainer.appendChild(metadataDisplay);
+        } else {
+            // If no wrapper container, try to find or create navigation wrapper
+            const navigationWrapper = document.getElementById('navigation-wrapper');
+            if (navigationWrapper) {
+                navigationWrapper.appendChild(metadataDisplay);
+            }
         }
 
-        // Register with DOM registry
-        if (this.domRegistry) {
+        // Register with DOM registry if not already registered and element exists in DOM
+        if (this.domRegistry && !this.domRegistry.hasKey('metadataDisplay') && document.getElementById('metadata-display')) {
             this.domRegistry.register('metadataDisplay', 'metadata-display');
         }
 
@@ -304,7 +325,9 @@ export class StepNavigator {
         const metadataElement = this.domRegistry.getElementSafe('metadataDisplay') || document.getElementById('metadata-display');
         if (!metadataElement) {
             // Try to create it if it doesn't exist
-            this.createMetadataDisplay();
+            // Find the wrapper container to append to
+            const wrapperContainer = document.getElementById('navigation-wrapper');
+            this.createMetadataDisplay(wrapperContainer);
             const retryElement = this.domRegistry.getElementSafe('metadataDisplay') || document.getElementById('metadata-display');
             if (retryElement) {
                 const uuidValue = retryElement.querySelector('#uuid-value');

@@ -10,7 +10,6 @@
 
 import { StepNavigator } from '../ui/StepNavigator.js';
 import { ContentSectionManager } from '../coordinators/ContentSectionManager.js';
-import { CrossViewHighlightManager } from '../coordinators/CrossViewHighlightManager.js';
 
 export class StepViewer {
     constructor(instanceService, domRegistry = null, rawContentViewManager = null, crossViewHighlightManager = null) {
@@ -96,11 +95,6 @@ export class StepViewer {
         // Update step header
         this.updateStepHeader(step, navInfo);
 
-        // Update metadata display
-        if (this.navigator) {
-            this.navigator.updateMetadataDisplay(step);
-        }
-
         // Set current step mapping for highlighting
         if (this.crossViewHighlightManager && step.hasTaskMapping()) {
             this.crossViewHighlightManager.setCurrentStepMapping(step.getTaskMapping());
@@ -127,6 +121,11 @@ export class StepViewer {
         // Setup/update navigation using StepNavigator
         this.navigator.setupNavigation();
         this.navigator.updateNavigation(navInfo);
+
+        // Update metadata display AFTER navigation is set up
+        if (this.navigator) {
+            this.navigator.updateMetadataDisplay(step);
+        }
     }
 
     /**
