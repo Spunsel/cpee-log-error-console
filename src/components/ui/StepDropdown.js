@@ -6,22 +6,26 @@
 
 import { LogService } from '../../services/LogService.js';
 import { createStepNumberIcon } from '../../assets/icons.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class StepDropdown {
-    constructor(domRegistry, onStepSelect = null) {
+    constructor(domRegistry, eventBus = null) {
         this.domRegistry = domRegistry;
-        this.onStepSelect = onStepSelect;
+        this.eventBus = eventBus || defaultEventBus;
         this.isOpen = false;
         this.totalSteps = 0;
         this.currentStep = 0;
     }
 
     /**
-     * Set callback for when a step is selected
+     * Set callback for when a step is selected (deprecated - use EventBus)
      * @param {Function} callback - Callback function(stepNumber)
+     * @deprecated Use EventBus 'stepDropdown:stepSelected' event instead
      */
     setOnStepSelect(callback) {
-        this.onStepSelect = callback;
+        console.warn('StepDropdown.setOnStepSelect() is deprecated - use EventBus "stepDropdown:stepSelected" event instead');
+        // Keep for backward compatibility but emit event instead
+        this.eventBus.on('stepDropdown:stepSelected', callback);
     }
 
     /**
@@ -192,7 +196,10 @@ export class StepDropdown {
         // Close dropdown
         this.closeDropdown();
 
-        // Call callback
+        // Emit event for step selection
+        this.eventBus.emit('stepDropdown:stepSelected', { stepNumber });
+        
+        // Call callback for backward compatibility
         if (this.onStepSelect) {
             this.onStepSelect(stepNumber);
         }

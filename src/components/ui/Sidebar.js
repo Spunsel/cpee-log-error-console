@@ -5,6 +5,7 @@
 
 import { ICON_SIDEBAR_COLLAPSE, ICON_SIDEBAR_EXPAND } from '../../assets/icons.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { stateManager } from '../../core/StateManager.js';
 
 export class Sidebar {
     constructor(instanceService, domRegistry = null, eventBus = null) {
@@ -12,12 +13,22 @@ export class Sidebar {
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
         
-        // Initialize state from localStorage or default to expanded
-        const savedState = localStorage.getItem('sidebarState');
-        this.isCollapsed = savedState === 'collapsed';
+        // Initialize state from StateManager
+        this.isCollapsed = stateManager.getState('ui.sidebarCollapsed') || false;
+        
+        // Subscribe to state changes
+        stateManager.subscribe('ui.sidebarCollapsed', (newValue) => {
+            this.isCollapsed = newValue;
+            // Apply visual changes based on state
+            if (newValue) {
+                this.collapse();
+            } else {
+                this.expand();
+            }
+        });
         
         // Debug: Log the initialized state
-        console.log('Sidebar initialized - isCollapsed:', this.isCollapsed, 'savedState:', savedState);
+        console.log('Sidebar initialized - isCollapsed:', this.isCollapsed);
     }
 
 
@@ -272,19 +283,16 @@ export class Sidebar {
      * Toggle sidebar collapsed/expanded state
      */
     toggle() {
-        if (this.isCollapsed) {
-            this.expand();
-        } else {
-            this.collapse();
-        }
+        const newState = !this.isCollapsed;
+        stateManager.setState('ui.sidebarCollapsed', newState);
     }
 
     /**
-     * Save sidebar state to localStorage
+     * Save sidebar state to localStorage (deprecated - now handled by StateManager)
      */
     saveState() {
-        const state = this.isCollapsed ? 'collapsed' : 'expanded';
-        localStorage.setItem('sidebarState', state);
+        // State is now managed by StateManager, this method is kept for backward compatibility
+        console.warn('Sidebar.saveState() is deprecated - state is now managed by StateManager');
     }
 
     /**
@@ -292,16 +300,18 @@ export class Sidebar {
      */
     collapse() {
         if (!this.sidebarElement) {
-            return;
+            // Get sidebar element if not already set
+            this.sidebarElement = document.querySelector('.sidebar');
+            if (!this.sidebarElement) {
+                return;
+            }
         }
 
-        this.isCollapsed = true;
         this.sidebarElement.classList.remove('sidebar-expanded');
         this.sidebarElement.classList.add('sidebar-collapsed');
         
         this.updateToggleButton();
         this.updateTabTexts(true); // collapsed = true
-        this.saveState(); // Save to localStorage
     }
 
     /**
@@ -309,16 +319,18 @@ export class Sidebar {
      */
     expand() {
         if (!this.sidebarElement) {
-            return;
+            // Get sidebar element if not already set
+            this.sidebarElement = document.querySelector('.sidebar');
+            if (!this.sidebarElement) {
+                return;
+            }
         }
 
-        this.isCollapsed = false;
         this.sidebarElement.classList.remove('sidebar-collapsed');
         this.sidebarElement.classList.add('sidebar-expanded');
         
         this.updateToggleButton();
         this.updateTabTexts(false); // collapsed = false
-        this.saveState(); // Save to localStorage
     }
 
     /**

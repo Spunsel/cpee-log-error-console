@@ -13,6 +13,7 @@ import { HighlightCoordinator } from '../components/coordinators/HighlightCoordi
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 import { eventBus } from './EventBus.js';
 import { serviceFactory } from './ServiceFactory.js';
+import { stateManager } from './StateManager.js';
 
 export class CPEEDebugConsole {
     constructor() {
@@ -26,6 +27,9 @@ export class CPEEDebugConsole {
         // Initialize service factory
         this.serviceFactory = serviceFactory;
         
+        // Initialize state manager
+        this.stateManager = stateManager;
+        
         // Initialize services through factory
         this.instanceService = this.serviceFactory.get('InstanceService');
         
@@ -33,13 +37,13 @@ export class CPEEDebugConsole {
         this.highlightCoordinator = new HighlightCoordinator(this.domRegistry);
         
         // Initialize content coordinator
-        this.rawContentCoordinator = new RawContentCoordinator(this.instanceService, this.domRegistry);
+        this.rawContentCoordinator = new RawContentCoordinator(this.instanceService, this.domRegistry, null, this.eventBus, this.stateManager);
         
-        // Initialize components with DOM registry and event bus
+        // Initialize components with DOM registry, event bus, and state manager
         this.sidebar = new Sidebar(this.instanceService, this.domRegistry, this.eventBus);
-        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentCoordinator, this.highlightCoordinator, this.eventBus);
-        this.logViewer = new LogViewer(this.domRegistry, this.eventBus);
-        this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus);
+        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentCoordinator, this.highlightCoordinator, this.eventBus, this.stateManager);
+        this.logViewer = new LogViewer(this.domRegistry, this.eventBus, this.stateManager);
+        this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager);
         
         // Set up event bus listeners
         this.setupEventBusListeners();
@@ -278,6 +282,10 @@ export class CPEEDebugConsole {
             // Store instance data
             this.instanceService.addInstance(uuid, steps, processNumber);
             
+            // Update state manager
+            this.stateManager.setState('instances', this.instanceService.getAllInstances());
+            this.stateManager.setState('ui.loading', false);
+            
             // Add to sidebar (but don't display content yet)
             this.sidebar.addInstanceTab(uuid);
             
@@ -294,6 +302,9 @@ export class CPEEDebugConsole {
             this.eventBus.emit('instance:loaded', { uuid, steps: steps.length });
             
         } catch (error) {
+            // Update state manager
+            this.stateManager.setState('ui.loading', false);
+            
             // Emit error event
             this.eventBus.emit('instance:loadFailed', { uuid, error });
         }
@@ -320,6 +331,12 @@ export class CPEEDebugConsole {
         
         const step = this.instanceService.getCurrentStep();
         const navInfo = this.instanceService.getNavigationInfo();
+        
+        // Update state manager
+        this.stateManager.setState('currentInstance', uuid);
+        this.stateManager.setState('currentStep', step);
+        this.stateManager.setState('currentStepIndex', stepIndex);
+        this.stateManager.setState('ui.activeView', 'instance');
         
         if (step) {
             await this.stepViewer.displayStep(step, navInfo);
@@ -352,10 +369,13 @@ export class CPEEDebugConsole {
      */
     getCurrentState() {
         return {
-            currentUUID: this.instanceService.currentUUID,
-            currentStepIndex: this.instanceService.currentStepIndex,
-            loadedInstances: this.instanceService.getAllInstances(),
-            navigationInfo: this.instanceService.getNavigationInfo()
+            currentUUID: this.stateManager.getState('currentInstance'),
+            currentStepIndex: this.stateManager.getState('currentStepIndex'),
+            loadedInstances: this.stateManager.getState('instances'),
+            navigationInfo: this.instanceService.getNavigationInfo(),
+            ui: this.stateManager.getState('ui'),
+            search: this.stateManager.getState('search'),
+            viewModes: this.stateManager.getState('viewModes')
         };
     }
 
@@ -367,6 +387,12 @@ export class CPEEDebugConsole {
         
         // Clear any active instance selection
         this.instanceService.setCurrentInstance(null);
+        
+        // Update state manager
+        this.stateManager.setState('currentInstance', null);
+        this.stateManager.setState('currentStep', null);
+        this.stateManager.setState('currentStepIndex', 0);
+        this.stateManager.setState('ui.activeView', 'home');
         
         // Deactivate all tabs but keep instances loaded
         const instanceTabs = this.getElement('instanceTabs');

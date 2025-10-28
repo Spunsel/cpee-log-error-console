@@ -20,8 +20,11 @@ export class StepNavigator {
         this.navigationContainer = null;
 
         // Initialize dropdown
-        this.dropdown = new StepDropdown(domRegistry, (stepNumber) => {
-            this.handleDropdownStepSelect(stepNumber);
+        this.dropdown = new StepDropdown(domRegistry, this.eventBus);
+        
+        // Listen for dropdown step selection events
+        this.eventBus.on('stepDropdown:stepSelected', (data) => {
+            this.handleDropdownStepSelect(data.stepNumber);
         });
     }
 

@@ -11,14 +11,16 @@
 import { StepNavigator } from '../ui/StepNavigator.js';
 import { ContentSectionCoordinator } from '../coordinators/ContentSectionCoordinator.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
 export class StepViewer {
-    constructor(instanceService, domRegistry = null, rawContentCoordinator = null, highlightCoordinator = null, eventBus = null) {
+    constructor(instanceService, domRegistry = null, rawContentCoordinator = null, highlightCoordinator = null, eventBus = null, stateManager = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.rawContentCoordinator = rawContentCoordinator;
         this.highlightCoordinator = highlightCoordinator;
         this.eventBus = eventBus || defaultEventBus;
+        this.stateManager = stateManager || defaultStateManager;
         
         // Initialize extracted components
         this.navigator = new StepNavigator(instanceService, domRegistry, this.eventBus);

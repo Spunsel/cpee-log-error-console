@@ -6,12 +6,14 @@
 import { CPEEService } from '../../services/CPEEService.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
 export class InstanceLoaderViewer {
-    constructor(instanceService, domRegistry = null, eventBus = null) {
+    constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
+        this.stateManager = stateManager || defaultStateManager;
         this.isVisible = true;
     }
 
@@ -62,9 +64,11 @@ export class InstanceLoaderViewer {
 
         // Load instance button
         if (loadButton && uuidInput) {
-            loadButton.addEventListener('click', async () => {
+            loadButton.addEventListener('click', () => {
                 const uuid = uuidInput.value.trim();
                 if (uuid) {
+                    // Set loading state
+                    this.stateManager.setState('ui.loading', true);
                     this.eventBus.emit('instanceLoader:loadInstance', { uuid });
                 } else {
                     alert('Please use "Fetch UUID" from process number first.');
@@ -98,7 +102,7 @@ export class InstanceLoaderViewer {
 
         // View log button
         if (viewLogButton && uuidInput) {
-            viewLogButton.addEventListener('click', async () => {
+            viewLogButton.addEventListener('click', () => {
                 const uuid = uuidInput.value.trim();
                 if (uuid) {
                     this.eventBus.emit('instanceLoader:viewLog', { uuid });

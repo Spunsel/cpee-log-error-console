@@ -8,29 +8,43 @@
  * - Manage instance-specific view mode storage
  */
 
+import { stateManager } from '../../core/StateManager.js';
+
 export class ViewModeCoordinator {
     constructor(instanceService = null) {
         this.instanceService = instanceService;
         this.storageKey = 'cpee-debug-console-view-modes';
         
-        // Internal view mode storage - single source of truth
-        this.viewModes = new Map(); // Map<instanceUuid, Map<sectionId, mode>>
-        
-        // Default view modes for new instances
-        this.defaultModes = {
-            'input-cpee': 'visual',
-            'input-intermediate': 'visual',
-            'output-intermediate': 'visual',
-            'output-cpee': 'visual'
-        };
-        
         // Callback for mode changes
         this.onModeChange = null;
         
-        // Load existing data from localStorage
-        this.loadFromStorage();
+        // Subscribe to StateManager changes
+        this.setupStateManagerIntegration();
     }
 
+    /**
+     * Setup StateManager integration
+     */
+    setupStateManagerIntegration() {
+        // Subscribe to view mode changes
+        stateManager.subscribe('viewModes', (newModes) => {
+            // Sync with localStorage for persistence
+            this.saveToStorage(newModes);
+        });
+        
+        // Initialize from StateManager or localStorage
+        const stateModes = stateManager.getState('viewModes');
+        if (stateModes && Object.keys(stateModes).length > 0) {
+            // StateManager has data, use it
+            return;
+        }
+        
+        // Load from localStorage and sync to StateManager
+        const storedModes = this.loadFromStorage();
+        if (storedModes) {
+            stateManager.setState('viewModes', storedModes, { silent: true });
+        }
+    }
     /**
      * Get current instance UUID
      * @returns {string|null} Current instance UUID or null
@@ -49,14 +63,8 @@ export class ViewModeCoordinator {
      * @returns {string} View mode ('visual' or 'raw')
      */
     getMode(sectionId) {
-        const currentUuid = this.getCurrentInstanceUuid();
-        if (currentUuid) {
-            const instanceModes = this.viewModes.get(currentUuid);
-            if (instanceModes && instanceModes.has(sectionId)) {
-                return instanceModes.get(sectionId);
-            }
-        }
-        return this.defaultModes[sectionId] || 'visual';
+        const viewModes = stateManager.getState('viewModes');
+        return viewModes[sectionId] || 'visual';
     }
 
     /**
@@ -70,25 +78,14 @@ export class ViewModeCoordinator {
             return false;
         }
         
-        const currentUuid = this.getCurrentInstanceUuid();
-        if (!currentUuid) {
-            return false;
-        }
+        // Update StateManager
+        const currentModes = stateManager.getState('viewModes') || {};
+        currentModes[sectionId] = mode;
+        stateManager.setState('viewModes', currentModes);
         
-        // Ensure instance modes exist
-        if (!this.viewModes.has(currentUuid)) {
-            this.viewModes.set(currentUuid, new Map());
-        }
-        
-        const instanceModes = this.viewModes.get(currentUuid);
-        instanceModes.set(sectionId, mode);
-        
-        // Save to localStorage
-        this.saveToStorage();
-        
-        // Trigger callback
+        // Call callback if set
         if (this.onModeChange) {
-            this.onModeChange(sectionId, mode, currentUuid);
+            this.onModeChange(sectionId, mode);
         }
         
         return true;
@@ -169,42 +166,28 @@ export class ViewModeCoordinator {
 
     /**
      * Load view modes from localStorage
+     * @returns {Object|null} Loaded modes or null if failed
      */
     loadFromStorage() {
         try {
             const stored = localStorage.getItem(this.storageKey);
             if (stored) {
-                const allModes = JSON.parse(stored);
-                this.viewModes.clear();
-                
-                Object.entries(allModes).forEach(([uuid, modes]) => {
-                    const instanceModes = new Map();
-                    Object.entries(modes).forEach(([sectionId, mode]) => {
-                        instanceModes.set(sectionId, mode);
-                    });
-                    this.viewModes.set(uuid, instanceModes);
-                });
+                return JSON.parse(stored);
             }
         } catch (error) {
             console.warn('Failed to load view modes from storage:', error);
         }
+        return null;
     }
 
     /**
      * Save view modes to localStorage
+     * @param {Object} modes - Modes to save (optional, uses StateManager if not provided)
      */
-    saveToStorage() {
+    saveToStorage(modes = null) {
         try {
-            const allModes = {};
-            for (const [uuid, instanceModes] of this.viewModes) {
-                const modes = {};
-                for (const [sectionId, mode] of instanceModes) {
-                    modes[sectionId] = mode;
-                }
-                allModes[uuid] = modes;
-            }
-            
-            localStorage.setItem(this.storageKey, JSON.stringify(allModes));
+            const modesToSave = modes || stateManager.getState('viewModes') || {};
+            localStorage.setItem(this.storageKey, JSON.stringify(modesToSave));
         } catch (error) {
             console.warn('Failed to save view modes to storage:', error);
         }

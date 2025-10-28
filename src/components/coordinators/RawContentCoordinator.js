@@ -13,17 +13,17 @@ import { ViewModeToggle } from '../ui/ViewModeToggle.js';
 import { ActionBar } from '../ui/ActionBar.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
 import { ViewModeCoordinator } from './ViewModeCoordinator.js';
-import { SearchService } from '../../services/SearchService.js';
-import { SearchHighlightingService } from '../../services/SearchHighlightingService.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
 export class RawContentCoordinator {
-    constructor(instanceService, domRegistry = null, contentSectionCoordinator = null, eventBus = null) {
+    constructor(instanceService, domRegistry = null, contentSectionCoordinator = null, eventBus = null, stateManager = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.contentSectionCoordinator = contentSectionCoordinator;
         this.eventBus = eventBus || defaultEventBus;
+        this.stateManager = stateManager || defaultStateManager;
 
         // Content View Components
         this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus);

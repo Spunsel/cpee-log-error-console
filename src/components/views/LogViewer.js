@@ -5,11 +5,13 @@
 
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
 export class LogViewer {
-    constructor(domRegistry = null, eventBus = null) {
+    constructor(domRegistry = null, eventBus = null, stateManager = null) {
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
+        this.stateManager = stateManager || defaultStateManager;
         this.isVisible = false;
     }
 
