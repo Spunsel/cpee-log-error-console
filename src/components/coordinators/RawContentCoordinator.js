@@ -15,15 +15,17 @@ import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
 import { ViewModeCoordinator } from './ViewModeCoordinator.js';
 import { SearchService } from '../../services/SearchService.js';
 import { SearchHighlightingService } from '../../services/SearchHighlightingService.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class RawContentCoordinator {
-    constructor(instanceService, domRegistry = null, contentSectionCoordinator = null) {
+    constructor(instanceService, domRegistry = null, contentSectionCoordinator = null, eventBus = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.contentSectionCoordinator = contentSectionCoordinator;
+        this.eventBus = eventBus || defaultEventBus;
 
         // Content View Components
-        this.viewModeToggle = new ViewModeToggle(domRegistry);
+        this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus);
         this.viewModeCoordinator = new ViewModeCoordinator(instanceService);
         this.rawContentRenderer = new RawContentRenderer(domRegistry);
         
@@ -61,6 +63,11 @@ export class RawContentCoordinator {
             console.log(`Mode changed: ${sectionId} → ${mode}`);
             this.updateSectionDisplay(sectionId, mode);
         };
+        
+        // Listen for view mode toggle events
+        this.eventBus.on('viewModeToggle:modeChanged', (data) => {
+            this.viewModeCoordinator.setMode(data.sectionId, data.mode);
+        });
     }
 
     /**
@@ -74,10 +81,8 @@ export class RawContentCoordinator {
             return;
         }
 
-        // Setup toggle change handler
-        this.viewModeToggle.onModeChange = (toggleSectionId, mode) => {
-            this.viewModeCoordinator.setMode(toggleSectionId, mode);
-        };
+        // Toggle button is now handled via EventBus in setupViewModeCoordinator()
+        // No need to set up direct callbacks here
     }
 
     /**
@@ -528,10 +533,8 @@ export class RawContentCoordinator {
             this.togglesAttached = true;
         }
 
-        // Setup toggle change handler
-        this.viewModeToggle.onModeChange = (sectionId, mode) => {
-            this.viewModeCoordinator.setMode(sectionId, mode);
-        };
+        // Toggle change handler is now managed via EventBus in setupViewModeCoordinator()
+        // No need to set up direct callbacks here
     }
 
     /**

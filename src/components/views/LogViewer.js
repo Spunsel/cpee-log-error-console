@@ -4,10 +4,12 @@
  */
 
 import { configManager } from '../../config/ConfigManager.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class LogViewer {
-    constructor(domRegistry = null) {
+    constructor(domRegistry = null, eventBus = null) {
         this.domRegistry = domRegistry;
+        this.eventBus = eventBus || defaultEventBus;
         this.isVisible = false;
     }
 

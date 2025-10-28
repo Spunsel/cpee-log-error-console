@@ -12,12 +12,16 @@ import { InstanceLoaderViewer } from '../components/views/InstanceLoaderViewer.j
 import { RawContentCoordinator } from '../components/coordinators/RawContentCoordinator.js';
 import { HighlightCoordinator } from '../components/coordinators/HighlightCoordinator.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
+import { eventBus } from './EventBus.js';
 
 export class CPEEDebugConsole {
     constructor() {
         // Initialize DOM registry for dependency injection
         this.domRegistry = new DOMRegistry();
         this.setupDOMRegistry();
+        
+        // Initialize event bus
+        this.eventBus = eventBus;
         
         // Initialize services
         this.instanceService = new InstanceService();
@@ -28,14 +32,14 @@ export class CPEEDebugConsole {
         // Initialize content coordinator
         this.rawContentCoordinator = new RawContentCoordinator(this.instanceService, this.domRegistry);
         
-        // Initialize components with DOM registry
-        this.sidebar = new Sidebar(this.instanceService, this.domRegistry);
-        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentCoordinator, this.highlightCoordinator);
-        this.logViewer = new LogViewer(this.domRegistry);
-        this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry);
+        // Initialize components with DOM registry and event bus
+        this.sidebar = new Sidebar(this.instanceService, this.domRegistry, this.eventBus);
+        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentCoordinator, this.highlightCoordinator, this.eventBus);
+        this.logViewer = new LogViewer(this.domRegistry, this.eventBus);
+        this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus);
         
-        // Set up component callbacks
-        this.setupComponentCallbacks();
+        // Set up event bus listeners
+        this.setupEventBusListeners();
         
         // Initialize application
         this.init();
@@ -147,27 +151,57 @@ export class CPEEDebugConsole {
     }
 
     /**
-     * Setup callbacks between components
+     * Setup event bus listeners for component communication
      */
-    setupComponentCallbacks() {
-        // When instance is selected in sidebar
-        this.sidebar.setOnInstanceSelect(async (uuid) => {
-            await this.displayInstance(uuid);
+    setupEventBusListeners() {
+        // Instance selection from sidebar
+        this.eventBus.on('sidebar:instanceSelected', async (data) => {
+            await this.displayInstance(data.uuid);
         });
 
-        // When step changes in step viewer
-        this.stepViewer.setOnStepChange((stepIndex) => {
-            this.updateURL(this.instanceService.currentUUID, stepIndex + 1);
+        // Step changes from step viewer
+        this.eventBus.on('stepViewer:stepChanged', (data) => {
+            this.updateURL(this.instanceService.currentUUID, data.stepIndex + 1);
         });
 
-        // When instance is loaded from instance loader
-        this.instanceLoaderViewer.setOnLoadInstance(async (uuid) => {
-            await this.loadInstance(uuid);
+        // Instance loading from instance loader
+        this.eventBus.on('instanceLoader:loadInstance', async (data) => {
+            await this.loadInstance(data.uuid);
         });
 
-        // When view log is requested from instance loader
-        this.instanceLoaderViewer.setOnViewLog(async (uuid) => {
-            await this.logViewer.toggleRawLog(uuid);
+        // View log request from instance loader
+        this.eventBus.on('instanceLoader:viewLog', async (data) => {
+            await this.logViewer.toggleRawLog(data.uuid);
+        });
+
+        // Keyboard navigation events
+        this.eventBus.on('keyboard:arrowLeft', () => {
+            this.stepViewer.navigator.previousStep();
+        });
+
+        this.eventBus.on('keyboard:arrowRight', () => {
+            this.stepViewer.navigator.nextStep();
+        });
+
+        // Header click to return home
+        this.eventBus.on('header:click', () => {
+            this.returnToHome();
+        });
+
+        // Instance loaded successfully
+        this.eventBus.on('instance:loaded', (data) => {
+            console.log(`Instance ${data.uuid} loaded successfully`);
+        });
+
+        // Instance loading failed
+        this.eventBus.on('instance:loadFailed', (data) => {
+            console.error('Failed to load instance:', data.error);
+            alert(`Failed to load instance: ${data.error.message}`);
+        });
+
+        // Step display completed
+        this.eventBus.on('step:displayed', (data) => {
+            console.log(`Step ${data.stepIndex + 1} displayed for instance ${data.uuid}`);
         });
     }
 
@@ -182,7 +216,7 @@ export class CPEEDebugConsole {
         const headerContent = this.getElement('headerContent');
         if (headerContent) {
             headerContent.addEventListener('click', () => {
-                this.returnToHome();
+                this.eventBus.emit('header:click');
             });
         }
 
@@ -201,10 +235,10 @@ export class CPEEDebugConsole {
             // Navigate with arrow keys
             if (e.key === 'ArrowLeft') {
                 e.preventDefault();
-                this.stepViewer.navigator.previousStep();
+                this.eventBus.emit('keyboard:arrowLeft');
             } else if (e.key === 'ArrowRight') {
                 e.preventDefault();
-                this.stepViewer.navigator.nextStep();
+                this.eventBus.emit('keyboard:arrowRight');
             }
         });
     }
@@ -253,11 +287,12 @@ export class CPEEDebugConsole {
                 processNumberInput.value = '';
             }
             
-            console.log(`Instance ${uuid} loaded successfully`);
+            // Emit success event
+            this.eventBus.emit('instance:loaded', { uuid, steps: steps.length });
             
         } catch (error) {
-            console.error('Failed to load instance:', error);
-            alert(`Failed to load instance: ${error.message}`);
+            // Emit error event
+            this.eventBus.emit('instance:loadFailed', { uuid, error });
         }
     }
 
@@ -286,8 +321,12 @@ export class CPEEDebugConsole {
         if (step) {
             await this.stepViewer.displayStep(step, navInfo);
             this.updateURL(uuid, stepIndex + 1);
+            
+            // Emit step displayed event
+            this.eventBus.emit('step:displayed', { uuid, stepIndex, step });
         } else {
             this.stepViewer.showError('Failed to load step data');
+            this.eventBus.emit('step:displayFailed', { uuid, stepIndex, error: 'Failed to load step data' });
         }
     }
 

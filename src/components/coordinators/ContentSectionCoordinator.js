@@ -15,11 +15,13 @@ import { configManager } from '../../config/ConfigManager.js';
 import { SVGClickDetector } from '../../utils/interaction/SVGClickDetector.js';
 import { CPEESVGClickHandler } from '../../utils/interaction/CPEESVGClickHandler.js';
 import { MermaidSVGClickHandler } from '../../utils/interaction/MermaidSVGClickHandler.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class ContentSectionCoordinator {
-    constructor(domRegistry = null, highlightCoordinator = null) {
+    constructor(domRegistry = null, highlightCoordinator = null, eventBus = null) {
         this.domRegistry = domRegistry;
         this.highlightCoordinator = highlightCoordinator;
+        this.eventBus = eventBus || defaultEventBus;
         
         // Renderer instances
         this.inputGraphRenderer = null;

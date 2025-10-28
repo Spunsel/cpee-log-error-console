@@ -4,14 +4,13 @@
  */
 
 import { ICON_SIDEBAR_COLLAPSE, ICON_SIDEBAR_EXPAND } from '../../assets/icons.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class Sidebar {
-    constructor(instanceService, domRegistry = null) {
+    constructor(instanceService, domRegistry = null, eventBus = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
-        this.onInstanceSelect = null;
-        this.toggleButton = null;
-        this.sidebarElement = null;
+        this.eventBus = eventBus || defaultEventBus;
         
         // Initialize state from localStorage or default to expanded
         const savedState = localStorage.getItem('sidebarState');
@@ -36,13 +35,6 @@ export class Sidebar {
         return document.getElementById(key);
     }
 
-    /**
-     * Set callback for when an instance is selected
-     * @param {Function} callback - Callback function
-     */
-    setOnInstanceSelect(callback) {
-        this.onInstanceSelect = callback;
-    }
 
     /**
      * Add instance tab to sidebar
@@ -88,9 +80,7 @@ export class Sidebar {
         // Add click handler
         tabElement.addEventListener('click', () => {
             this.setActiveTab(uuid);
-            if (this.onInstanceSelect) {
-                this.onInstanceSelect(uuid);
-            }
+            this.eventBus.emit('sidebar:instanceSelected', { uuid });
         });
 
         instanceTabs.appendChild(tabElement);

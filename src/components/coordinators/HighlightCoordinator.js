@@ -370,13 +370,6 @@ export class HighlightCoordinator {
         console.log('[HighlightCoordinator] Step changed, cleared highlights');
     }
 
-    /**
-     * Register step change callback
-     * @param {Function} callback - Callback function
-     */
-    setOnStepChange(callback) {
-        this.onStepChange = callback;
-    }
 
     /**
      * Set the current step mapping for task lookups

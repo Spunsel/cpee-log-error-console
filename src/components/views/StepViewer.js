@@ -10,33 +10,27 @@
 
 import { StepNavigator } from '../ui/StepNavigator.js';
 import { ContentSectionCoordinator } from '../coordinators/ContentSectionCoordinator.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class StepViewer {
-    constructor(instanceService, domRegistry = null, rawContentCoordinator = null, highlightCoordinator = null) {
+    constructor(instanceService, domRegistry = null, rawContentCoordinator = null, highlightCoordinator = null, eventBus = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.rawContentCoordinator = rawContentCoordinator;
         this.highlightCoordinator = highlightCoordinator;
-        this.onStepChange = null;
+        this.eventBus = eventBus || defaultEventBus;
         
         // Initialize extracted components
-        this.navigator = new StepNavigator(instanceService, domRegistry);
-        this.contentCoordinator = new ContentSectionCoordinator(domRegistry, highlightCoordinator);
+        this.navigator = new StepNavigator(instanceService, domRegistry, this.eventBus);
+        this.contentCoordinator = new ContentSectionCoordinator(domRegistry, highlightCoordinator, this.eventBus);
         
         // Pass ContentSectionCoordinator to RawContentCoordinator for coordination
         if (this.rawContentCoordinator) {
             this.rawContentCoordinator.contentSectionCoordinator = this.contentCoordinator;
         }
         
-        // Setup navigation callback to handle step changes
-        this.navigator.setOnStepChange(async (step, navInfo) => {
-            await this.displayStep(step, navInfo);
-            
-            // Call external callback if set
-            if (this.onStepChange) {
-                this.onStepChange(this.instanceService.currentStepIndex);
-            }
-        });
+        // Setup event bus listeners
+        this.setupEventBusListeners();
     }
 
 
@@ -55,11 +49,34 @@ export class StepViewer {
     }
 
     /**
-     * Set callback for when step changes
-     * @param {Function} callback - Callback function
+     * Setup event bus listeners
      */
-    setOnStepChange(callback) {
-        this.onStepChange = callback;
+    setupEventBusListeners() {
+        // Listen for step navigation events
+        this.eventBus.on('stepNavigator:stepChanged', async (data) => {
+            await this.displayStep(data.step, data.navInfo);
+            
+            // Emit step change event
+            this.eventBus.emit('stepViewer:stepChanged', {
+                stepIndex: this.instanceService.currentStepIndex,
+                step: data.step,
+                navInfo: data.navInfo
+            });
+        });
+
+        // Listen for step navigation requests
+        this.eventBus.on('stepNavigator:previousStep', () => {
+            this.navigator.previousStep();
+        });
+
+        this.eventBus.on('stepNavigator:nextStep', () => {
+            this.navigator.nextStep();
+        });
+
+        // Listen for step display requests
+        this.eventBus.on('stepViewer:displayStep', async (data) => {
+            await this.displayStep(data.step, data.navInfo);
+        });
     }
 
     /**

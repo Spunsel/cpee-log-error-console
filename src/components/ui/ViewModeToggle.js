@@ -5,10 +5,12 @@
  */
 
 import { ICONS } from '../../assets/icons.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class ViewModeToggle {
-    constructor(domRegistry = null) {
+    constructor(domRegistry = null, eventBus = null) {
         this.domRegistry = domRegistry;
+        this.eventBus = eventBus || defaultEventBus;
         
         // Track view modes for each section
         // Possible values: 'visual' or 'raw'
@@ -18,18 +20,8 @@ export class ViewModeToggle {
             'output-intermediate': 'visual',
             'output-cpee': 'visual'
         };
-        
-        // Callbacks for mode changes
-        this.onModeChange = null;
     }
 
-    /**
-     * Set callback for when view mode changes
-     * @param {Function} callback - Callback function (sectionId, mode) => void
-     */
-    setOnModeChange(callback) {
-        this.onModeChange = callback;
-    }
 
     /**
      * Create toggle button for a content section
@@ -83,10 +75,8 @@ export class ViewModeToggle {
         // Update button states
         this.updateToggleState(sectionId, mode);
 
-        // Trigger callback
-        if (this.onModeChange) {
-            this.onModeChange(sectionId, mode);
-        }
+        // Emit event
+        this.eventBus.emit('viewModeToggle:modeChanged', { sectionId, mode });
     }
 
     /**

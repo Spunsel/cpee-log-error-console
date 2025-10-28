@@ -5,14 +5,14 @@
 
 import { CPEEService } from '../../services/CPEEService.js';
 import { configManager } from '../../config/ConfigManager.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class InstanceLoaderViewer {
-    constructor(instanceService, domRegistry = null) {
+    constructor(instanceService, domRegistry = null, eventBus = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
+        this.eventBus = eventBus || defaultEventBus;
         this.isVisible = true;
-        this.onLoadInstance = null;
-        this.onViewLog = null;
     }
 
     /**
@@ -27,21 +27,6 @@ export class InstanceLoaderViewer {
         return document.getElementById(key);
     }
 
-    /**
-     * Set callback for when instance is loaded
-     * @param {Function} callback - Callback function to call with uuid
-     */
-    setOnLoadInstance(callback) {
-        this.onLoadInstance = callback;
-    }
-
-    /**
-     * Set callback for when view log is requested
-     * @param {Function} callback - Callback function to call with uuid
-     */
-    setOnViewLog(callback) {
-        this.onViewLog = callback;
-    }
 
     /**
      * Show the instance loader view
@@ -80,9 +65,7 @@ export class InstanceLoaderViewer {
             loadButton.addEventListener('click', async () => {
                 const uuid = uuidInput.value.trim();
                 if (uuid) {
-                    if (this.onLoadInstance) {
-                        await this.onLoadInstance(uuid);
-                    }
+                    this.eventBus.emit('instanceLoader:loadInstance', { uuid });
                 } else {
                     alert('Please use "Fetch UUID" from process number first.');
                 }
@@ -118,9 +101,7 @@ export class InstanceLoaderViewer {
             viewLogButton.addEventListener('click', async () => {
                 const uuid = uuidInput.value.trim();
                 if (uuid) {
-                    if (this.onViewLog) {
-                        await this.onViewLog(uuid);
-                    }
+                    this.eventBus.emit('instanceLoader:viewLog', { uuid });
                 } else {
                     alert('Please enter a UUID first');
                 }

@@ -1,554 +1,763 @@
-# Architecture Analysis & Improvement Plan
+# CPEE Log Error Console - Architecture Analysis & Improvement Plan
 
 ## Executive Summary
 
-This document provides a comprehensive architectural analysis of the CPEE Log Error Console and proposes small, incremental changes to significantly improve the codebase quality, maintainability, and scalability.
+This document provides a comprehensive analysis of the CPEE Log Error Console architecture, identifying both strengths and weaknesses, and proposing incremental improvements that will significantly enhance maintainability, testability, and scalability.
 
-## Current Architecture Assessment
+## Current Architecture Analysis
 
-### What's Good About the Architecture
+### 🟢 Architectural Strengths
 
-#### ✅ 1. Clear Separation of Concerns
-- **Strengths**: Well-organized folders (core, services, models, components, utils)
-- **Evidence**: Clean directory structure separating business logic from UI
-- **Impact**: Easier navigation and maintenance
+#### 1. **Clear Separation of Concerns**
+- **Layered Architecture**: Well-defined layers (Core, Services, Components, Utils, Models)
+- **Single Responsibility**: Each component has a focused purpose
+- **Domain Organization**: Utils organized by domain (content, dom, system, interaction)
 
-#### ✅ 2. Modular ES6 Architecture
-- **Strengths**: Using ES6 modules without build complexity
-- **Evidence**: All files use `import/export` syntax
-- **Impact**: Browser-native, no bundling required
+#### 2. **Modern JavaScript Practices**
+- **ES6 Modules**: Clean import/export structure
+- **Class-based Architecture**: Consistent OOP patterns
+- **Modern DOM APIs**: Uses contemporary browser APIs
 
-#### ✅ 3. Service Layer Pattern
-- **Strengths**: Business logic isolated from UI
-- **Evidence**: `LogService`, `InstanceService`, `CPEEService` handle data operations
-- **Impact**: Reusable, testable business logic
+#### 3. **Dependency Injection Pattern**
+- **DOMRegistry**: Centralized DOM element management
+- **ConfigManager**: Single source of truth for configuration
+- **Service Injection**: Components receive dependencies through constructors
 
-#### ✅ 4. Domain Models
-- **Strengths**: Data structures clearly defined (`CPEEInstance`, `CPEEStep`)
-- **Evidence**: Models encapsulate data and behavior
-- **Impact**: Type safety and data consistency
+#### 4. **Robust Error Handling**
+- **CORS Fallback System**: Multiple proxy attempts for network resilience
+- **Content Validation**: XML/Mermaid syntax validation and fixing
+- **Graceful Degradation**: Fallback mechanisms throughout
 
-#### ✅ 5. DOM Registry Pattern
-- **Strengths**: Centralized DOM element management
-- **Evidence**: `DOMRegistry` provides dependency injection for DOM access
-- **Impact**: Reduces tight coupling to DOM
+#### 5. **Comprehensive Configuration Management**
+- **Centralized Config**: All settings in ConfigManager
+- **Environment-aware**: Different settings for different contexts
+- **Observable Changes**: Configuration change notifications
 
-#### ✅ 6. Component Organization
-- **Strengths**: Components grouped by responsibility (ui, views, renderers, coordinators)
-- **Evidence**: Clear file organization
-- **Impact**: Intuitive code location
+### 🔴 Architectural Weaknesses
 
-#### ✅ 7. Comprehensive Documentation
-- **Strengths**: Detailed EXPLANATION.md and CHANGELOG.md
-- **Evidence**: Well-documented phases and features
-- **Impact**: Easier onboarding
+#### 1. **Tight Coupling Issues**
+- **God Object**: `CPEEDebugConsole` knows about all components
+- **Circular Dependencies**: Components reference each other directly
+- **Hard-coded Dependencies**: Many components instantiate their own dependencies
 
-### What's Bad About the Architecture
+#### 2. **Inconsistent State Management**
+- **Scattered State**: State spread across multiple services and components
+- **No Central State**: No single source of truth for application state
+- **State Synchronization**: Manual coordination between components
 
-#### ❌ 1. Mixed Naming Conventions
-**Problem**: Inconsistent use of "Manager" vs "Coordinator"
-- `ContentSectionManager` (should be `ContentSectionCoordinator`)
-- `CrossViewHighlightManager` (should be `HighlightCoordinator`)
-- `ViewModeManager` (correctly named)
-- `RawContentViewManager` (should be `RawContentCoordinator`)
+#### 3. **Testing Challenges**
+- **Hard to Mock**: Tight coupling makes unit testing difficult
+- **DOM Dependencies**: Many components tightly coupled to DOM
+- **No Test Infrastructure**: Limited testing utilities and patterns
 
-**Impact**: Unclear responsibilities and inconsistent patterns
+#### 4. **Performance Concerns**
+- **Heavy Initialization**: All components loaded at startup
+- **Memory Leaks**: Potential issues with event listeners and DOM references
+- **No Lazy Loading**: Components loaded regardless of usage
 
-#### ❌ 2. Utility Proliferation
-**Problem**: Too many small utility classes with overlapping concerns
-```
-utils/
-├── content/         # Content processing
-│   ├── ContentCleaner.js
-│   ├── XMLParser.js
-│   └── YAMLParser.js
-├── extraction/      # Task extraction (phase-specific)
-├── interaction/    # Click handling (phase-specific)
-├── mapping/         # Task mapping (phase-specific)
-└── system/          # System utilities
-```
-
-**Impact**: 
-- Unclear which utility does what
-- Hard to find functionality
-- Over-abstraction
-
-#### ❌ 3. Service Bloat
-**Problem**: Services that aren't true services
-- `SearchHighlightingService` vs `SearchService` (overlapping)
-- `SVGProcessingService` (utility, not service)
-- `MermaidValidationService` (validator, not service)
-
-**Impact**: Confusing abstraction levels
-
-#### ❌ 4. God Class Anti-Pattern
-**Problem**: `CPEEDebugConsole` knows about everything
-```javascript
-// From CPEEDebugConsole.js constructor:
-this.domRegistry = new DOMRegistry();
-this.instanceService = new InstanceService();
-this.crossViewHighlightManager = new CrossViewHighlightManager();
-this.rawContentViewManager = new RawContentViewManager();
-this.sidebar = new Sidebar();
-this.stepViewer = new StepViewer();
-this.logViewer = new LogViewer();
-this.instanceLoaderViewer = new InstanceLoaderViewer();
-```
-
-**Impact**: Tight coupling, hard to test, hard to refactor
-
-#### ❌ 5. Coordinators with Multiple Responsibilities
-**Problem**: `ContentSectionManager` does too much
-- Visual content rendering
-- Click detection setup
-- Cross-view highlighting
-- Renderer lifecycle
-
-**Impact**: Violates Single Responsibility Principle
-
-#### ❌ 6. Static Service Methods
-**Problem**: `LogService` uses static methods everywhere
-```javascript
-static async fetchAndParseLog(uuid)
-static parseStepsFromLog(logData)
-static extractStepContent(events)
-```
-
-**Impact**: 
-- Hard to test (can't mock)
-- No dependency injection
-- No state management
-
-#### ❌ 7. Phase-Specific Technical Debt
-**Problem**: Code marked with "Phase 22", "Phase 23" etc.
-- Indicates rushed development
-- No cleanup of experimental code
-- Evidence in comments and file structure
-
-**Impact**: Maintenance burden
-
-#### ❌ 8. Inconsistent Build Tooling
-**Problem**: Configuration mismatch
-- `package.json` has Vite scripts
-- Also has `serve: python -m http.server`
-- README says "No build tools"
-
-**Impact**: Confusion about development workflow
-
-#### ❌ 9. Renderer Coupling
-**Problem**: Renderers directly manipulate DOM and call callbacks
-- Hard-coded DOM IDs
-- Tight coupling to parent components
-- No clear rendering pipeline
-
-**Impact**: Difficult to swap renderers
-
-#### ❌ 10. Missing Error Boundaries
-**Problem**: No centralized error handling
-- Errors bubble up without context
-- No fallback UI states
-- Silent failures in many places
-
-**Impact**: Poor user experience when errors occur
+#### 5. **Code Duplication**
+- **Similar Patterns**: Repeated patterns across components
+- **Utility Overlap**: Some utilities have overlapping functionality
+- **Configuration Duplication**: Some config values repeated
 
 ## Proposed Incremental Improvements
 
-### Phase 1: Naming Consistency (Low Risk, High Value)
+### Phase 1: Foundation Improvements (Low Risk, High Impact)
 
-**Goal**: Standardize naming conventions
+#### 1.1 **Implement Event Bus Pattern**
+**Problem**: Components communicate directly, creating tight coupling
+**Solution**: Centralized event system for loose coupling
 
-**Changes**:
-1. Rename `ContentSectionManager` → `ContentSectionCoordinator`
-2. Rename `CrossViewHighlightManager` → `HighlightCoordinator`
-3. Rename `RawContentViewManager` → `RawContentCoordinator`
-4. Update all imports
-
-**Benefits**:
-- Clearer responsibilities
-- Consistent patterns
-- Better discoverability
-
-**Effort**: 2-3 hours
-**Risk**: Low (mostly find/replace)
-
----
-
-### Phase 2: Consolidate Utilities (Medium Risk, High Value)
-
-**Goal**: Reduce utility proliferation
-
-**Changes**:
-1. **Merge `XMLParser` and `YAMLParser` → `ContentParser.js`**
-   - Both parse structured content
-   - Unified API: `parseXML()`, `parseYAML()`
-
-2. **Merge extraction utilities → `TaskExtractor.js`**
-   - Combine `CPEETaskExtractor`, `MermaidTaskExtractor` into one class
-   - Methods: `extractFromCPEE()`, `extractFromMermaid()`
-
-3. **Remove redundant services**
-   - Delete `SearchService` (functionality in `SearchHighlightingService`)
-   - Convert `SVGProcessingService` → utility class (not a service)
-   - Rename `MermaidValidationService` → `MermaidValidator` (not a service)
+```javascript
+// New: src/core/EventBus.js
+export class EventBus {
+    constructor() {
+        this.events = new Map();
+    }
+    
+    emit(event, data) {
+        const handlers = this.events.get(event) || [];
+        handlers.forEach(handler => handler(data));
+    }
+    
+    on(event, handler) {
+        if (!this.events.has(event)) {
+            this.events.set(event, []);
+        }
+        this.events.get(event).push(handler);
+    }
+    
+    off(event, handler) {
+        const handlers = this.events.get(event) || [];
+        const index = handlers.indexOf(handler);
+        if (index > -1) {
+            handlers.splice(index, 1);
+        }
+    }
+}
+```
 
 **Benefits**:
-- Fewer files to maintain
-- Clearer purpose
-- Less cognitive load
+- Decouples components
+- Easier testing (mock event bus)
+- Better debugging (centralized event logging)
 
-**Effort**: 4-6 hours
-**Risk**: Medium (need to update imports)
+#### 1.2 **Extract Service Factory**
+**Problem**: Services instantiated directly in components
+**Solution**: Centralized service creation and injection
 
----
-
-### Phase 3: Refactor Service Layer (Medium Risk, High Value)
-
-**Goal**: Convert static services to injectable instances
-
-**Changes**:
-1. **Convert `LogService` to instance-based**
-   ```javascript
-   // Before:
-   LogService.fetchAndParseLog(uuid)
-   
-   // After:
-   class LogService {
-     async fetchAndParseLog(uuid) { /* ... */ }
-   }
-   
-   const logService = new LogService(configManager);
-   ```
-
-2. **Add dependency injection to CPEEDebugConsole**
-   ```javascript
-   constructor(services = {}) {
-     this.logService = services.logService || new LogService();
-     this.instanceService = services.instanceService || new InstanceService();
-     // ...
-   }
-   ```
-
-**Benefits**:
-- Testable (can mock dependencies)
-- Configurable
-- Follows DI pattern
-
-**Effort**: 8-10 hours
-**Risk**: Medium (breaks static method calls)
-
----
-
-### Phase 4: Split Coordinators (Low Risk, High Value)
-
-**Goal**: Separate concerns in coordinators
-
-**Changes**:
-1. **Split `ContentSectionManager` responsibilities**
-   - `ContentRenderer.js` - handles visual rendering only
-   - `ContentClickHandler.js` - handles click detection setup
-   - Keep coordinator pattern for orchestration
-
-2. **Extract highlighting from coordinators**
-   - Move to `HighlightingService` (true service)
-   - Coordinators just trigger highlighting
+```javascript
+// New: src/core/ServiceFactory.js
+export class ServiceFactory {
+    constructor() {
+        this.services = new Map();
+        this.singletons = new Set(['LogService', 'InstanceService']);
+    }
+    
+    get(serviceName, ...args) {
+        if (this.singletons.has(serviceName) && this.services.has(serviceName)) {
+            return this.services.get(serviceName);
+        }
+        
+        const service = this.createService(serviceName, ...args);
+        
+        if (this.singletons.has(serviceName)) {
+            this.services.set(serviceName, service);
+        }
+        
+        return service;
+    }
+    
+    createService(serviceName, ...args) {
+        switch (serviceName) {
+            case 'LogService': return new LogService(...args);
+            case 'InstanceService': return new InstanceService(...args);
+            // ... other services
+        }
+    }
+}
+```
 
 **Benefits**:
-- Single Responsibility Principle
-- Easier to test
-- Clearer code flow
+- Centralized service management
+- Easier dependency injection
+- Better testing (mock factory)
 
-**Effort**: 6-8 hours
-**Risk**: Low (additive changes)
+#### 1.3 **Implement State Management**
+**Problem**: State scattered across components
+**Solution**: Centralized state management
 
----
-
-### Phase 5: Extract Application Facade (Medium Risk, High Value)
-
-**Goal**: Reduce God Class Anti-Pattern
-
-**Changes**:
-1. **Create `AppFacade` class**
-   ```javascript
-   class AppFacade {
-     constructor() {
-       this.core = new CoreModule();
-       this.rendering = new RenderingModule();
-       this.state = new StateModule();
-     }
-   }
-   ```
-
-2. **Refactor `CPEEDebugConsole`**
-   - Keep only high-level orchestration
-   - Delegate to modules
-   - Reduce from 370 lines to ~150 lines
-
-**Benefits**:
-- Looser coupling
-- Modular architecture
-- Easier to extend
-
-**Effort**: 10-12 hours
-**Risk**: Medium (architectural change)
-
----
-
-### Phase 6: Error Handling Strategy (Low Risk, High Value)
-
-**Goal**: Centralized error handling
-
-**Changes**:
-1. **Create `ErrorHandler` service**
-   ```javascript
-   class ErrorHandler {
-     handle(error, context) {
-       // Log error
-       // Show user-friendly message
-       // Track in analytics
-     }
-   }
-   ```
-
-2. **Add error boundaries**
-   - Wrap async operations
-   - Provide fallback UI
-   - Graceful degradation
-
-3. **Create `UserError` and `SystemError` classes**
-   - Better error categorization
-   - User-friendly messages
+```javascript
+// New: src/core/StateManager.js
+export class StateManager {
+    constructor() {
+        this.state = {
+            currentInstance: null,
+            currentStep: null,
+            viewMode: 'visual',
+            instances: new Map(),
+            ui: {
+                sidebarVisible: true,
+                loading: false
+            }
+        };
+        this.listeners = new Map();
+    }
+    
+    getState(path) {
+        return this.getNestedValue(this.state, path);
+    }
+    
+    setState(path, value) {
+        this.setNestedValue(this.state, path, value);
+        this.notifyListeners(path, value);
+    }
+    
+    subscribe(path, callback) {
+        if (!this.listeners.has(path)) {
+            this.listeners.set(path, []);
+        }
+        this.listeners.get(path).push(callback);
+    }
+}
+```
 
 **Benefits**:
-- Better UX
-- Easier debugging
-- Resilience
+- Single source of truth
+- Predictable state changes
+- Better debugging
 
-**Effort**: 4-6 hours
-**Risk**: Low (additive)
+### Phase 2: Component Architecture Improvements (Medium Risk, High Impact)
 
----
+#### 2.1 **Implement Component Base Class**
+**Problem**: Inconsistent component patterns
+**Solution**: Standardized component interface
 
-### Phase 7: Build Tool Consolidation (Low Risk, Medium Value)
-
-**Goal**: Remove configuration confusion
-
-**Changes**:
-1. **Choose one build system**
-   - Keep Vite (modern, fast)
-   - Remove Python server fallback
-   - Update README
-
-2. **Simplify npm scripts**
-   ```json
-   {
-     "dev": "vite",
-     "build": "vite build",
-     "preview": "vite preview"
-   }
-   ```
-
-**Benefits**:
-- Clear development workflow
-- No confusion
-- Modern tooling
-
-**Effort**: 1-2 hours
-**Risk**: Very low
-
----
-
-### Phase 8: Renderer Pipeline Pattern (Medium Risk, High Value)
-
-**Goal**: Standardize rendering
-
-**Changes**:
-1. **Create `RenderPipeline` class**
-   ```javascript
-   class RenderPipeline {
-     constructor(renderer, processor, callback) {
-       this.renderer = renderer;
-       this.processor = processor;
-       this.callback = callback;
-     }
-     
-     async execute(content) {
-       const processed = await this.processor.process(content);
-       const rendered = await this.renderer.render(processed);
-       this.callback(rendered);
-       return rendered;
-     }
-   }
-   ```
-
-2. **Implement pipeline for each section**
-   - Consistent rendering flow
-   - Easier to extend
-   - Better error handling
+```javascript
+// New: src/core/BaseComponent.js
+export class BaseComponent {
+    constructor(container, eventBus, stateManager) {
+        this.container = container;
+        this.eventBus = eventBus;
+        this.stateManager = stateManager;
+        this.isInitialized = false;
+        this.eventHandlers = new Map();
+    }
+    
+    async initialize() {
+        if (this.isInitialized) return;
+        
+        await this.setupDOM();
+        await this.setupEventListeners();
+        await this.setupStateSubscriptions();
+        
+        this.isInitialized = true;
+        this.eventBus.emit('component:initialized', this.constructor.name);
+    }
+    
+    destroy() {
+        this.cleanupEventListeners();
+        this.cleanupStateSubscriptions();
+        this.isInitialized = false;
+    }
+    
+    // Abstract methods to be implemented by subclasses
+    async setupDOM() { throw new Error('setupDOM must be implemented'); }
+    async setupEventListeners() { /* optional */ }
+    async setupStateSubscriptions() { /* optional */ }
+}
+```
 
 **Benefits**:
-- Consistent rendering
-- Extensible
-- Testable
+- Consistent component lifecycle
+- Automatic cleanup
+- Better memory management
 
-**Effort**: 8-10 hours
-**Risk**: Medium (affects core rendering)
+#### 2.2 **Implement Renderer Interface**
+**Problem**: Inconsistent rendering patterns
+**Solution**: Standardized renderer interface
 
----
-
-### Phase 9: State Management (Medium Risk, High Value)
-
-**Goal**: Centralized state management
-
-**Changes**:
-1. **Create `AppState` class**
-   ```javascript
-   class AppState {
-     constructor() {
-       this.currentInstance = null;
-       this.currentStepIndex = 0;
-       this.viewMode = 'visual';
-       // ...
-     }
-     
-     subscribe(callback) {
-       // Observer pattern
-     }
-   }
-   ```
-
-2. **Replace scattered state**
-   - Remove state from multiple services
-   - Single source of truth
-   - Observable changes
-
-**Benefits**:
-- Predictable state
-- Easier debugging
-- Testable
-
-**Effort**: 10-12 hours
-**Risk**: Medium (state refactoring)
-
----
-
-### Phase 10: Configuration Management (Low Risk, Medium Value)
-
-**Goal**: Simplify configuration
-
-**Changes**:
-1. **Consolidate config**
-   - Merge all config into `ConfigManager`
-   - Remove scattered config files
-   - Single configuration source
-
-2. **Environment-based config**
-   ```javascript
-   const config = {
-     development: { /* ... */ },
-     production: { /* ... */ }
-   };
-   ```
+```javascript
+// New: src/core/BaseRenderer.js
+export class BaseRenderer {
+    constructor(container, config) {
+        this.container = container;
+        this.config = config;
+        this.isRendered = false;
+    }
+    
+    async render(data) {
+        if (this.isRendered) {
+            await this.update(data);
+        } else {
+            await this.initialRender(data);
+            this.isRendered = true;
+        }
+    }
+    
+    async initialRender(data) {
+        throw new Error('initialRender must be implemented');
+    }
+    
+    async update(data) {
+        throw new Error('update must be implemented');
+    }
+    
+    destroy() {
+        this.container.innerHTML = '';
+        this.isRendered = false;
+    }
+}
+```
 
 **Benefits**:
-- Centralized config
-- Environment-specific settings
-- Easier to manage
+- Consistent rendering patterns
+- Better performance (update vs recreate)
+- Easier testing
 
-**Effort**: 4-6 hours
-**Risk**: Low
+#### 2.3 **Implement Plugin Architecture**
+**Problem**: Hard to extend functionality
+**Solution**: Plugin system for extensibility
 
----
+```javascript
+// New: src/core/PluginManager.js
+export class PluginManager {
+    constructor() {
+        this.plugins = new Map();
+        this.hooks = new Map();
+    }
+    
+    registerPlugin(name, plugin) {
+        this.plugins.set(name, plugin);
+        
+        // Register plugin hooks
+        if (plugin.hooks) {
+            Object.entries(plugin.hooks).forEach(([hook, handler]) => {
+                this.registerHook(hook, handler);
+            });
+        }
+    }
+    
+    registerHook(hook, handler) {
+        if (!this.hooks.has(hook)) {
+            this.hooks.set(hook, []);
+        }
+        this.hooks.get(hook).push(handler);
+    }
+    
+    executeHook(hook, data) {
+        const handlers = this.hooks.get(hook) || [];
+        return handlers.reduce((result, handler) => {
+            return handler(result, data);
+        }, data);
+    }
+}
+```
 
-## Implementation Priority
+**Benefits**:
+- Extensible architecture
+- Modular functionality
+- Better separation of concerns
 
-### High Priority (Do First)
-1. **Phase 1**: Naming Consistency - Quick win
-2. **Phase 4**: Split Coordinators - Reduces complexity
-3. **Phase 6**: Error Handling - Improves UX
-4. **Phase 7**: Build Tool Consolidation - Removes confusion
+### Phase 3: Performance & Scalability Improvements (Medium Risk, Medium Impact)
 
-### Medium Priority (Do Next)
-5. **Phase 2**: Consolidate Utilities - Reduces clutter
-6. **Phase 10**: Configuration Management - Simplifies setup
-7. **Phase 8**: Renderer Pipeline - Standardizes rendering
+#### 3.1 **Implement Lazy Loading**
+**Problem**: All components loaded at startup
+**Solution**: Load components on demand
 
-### Lower Priority (Technical Debt)
-8. **Phase 3**: Refactor Service Layer - Requires testing updates
-9. **Phase 5**: Extract Application Facade - Bigger change
-10. **Phase 9**: State Management - Large refactor
+```javascript
+// New: src/core/LazyLoader.js
+export class LazyLoader {
+    constructor() {
+        this.loadedComponents = new Map();
+        this.loadingPromises = new Map();
+    }
+    
+    async loadComponent(componentName) {
+        if (this.loadedComponents.has(componentName)) {
+            return this.loadedComponents.get(componentName);
+        }
+        
+        if (this.loadingPromises.has(componentName)) {
+            return this.loadingPromises.get(componentName);
+        }
+        
+        const promise = this.importComponent(componentName);
+        this.loadingPromises.set(componentName, promise);
+        
+        try {
+            const component = await promise;
+            this.loadedComponents.set(componentName, component);
+            this.loadingPromises.delete(componentName);
+            return component;
+        } catch (error) {
+            this.loadingPromises.delete(componentName);
+            throw error;
+        }
+    }
+    
+    async importComponent(componentName) {
+        const module = await import(`../components/${componentName}.js`);
+        return module[componentName];
+    }
+}
+```
 
----
+**Benefits**:
+- Faster initial load
+- Better memory usage
+- Scalable architecture
+
+#### 3.2 **Implement Caching Strategy**
+**Problem**: Repeated operations and data fetching
+**Solution**: Intelligent caching system
+
+```javascript
+// New: src/core/CacheManager.js
+export class CacheManager {
+    constructor() {
+        this.caches = new Map();
+        this.defaultTTL = 5 * 60 * 1000; // 5 minutes
+    }
+    
+    createCache(name, options = {}) {
+        const cache = {
+            data: new Map(),
+            ttl: options.ttl || this.defaultTTL,
+            maxSize: options.maxSize || 100
+        };
+        this.caches.set(name, cache);
+        return cache;
+    }
+    
+    get(cacheName, key) {
+        const cache = this.caches.get(cacheName);
+        if (!cache) return null;
+        
+        const item = cache.data.get(key);
+        if (!item) return null;
+        
+        if (Date.now() - item.timestamp > cache.ttl) {
+            cache.data.delete(key);
+            return null;
+        }
+        
+        return item.value;
+    }
+    
+    set(cacheName, key, value) {
+        const cache = this.caches.get(cacheName);
+        if (!cache) return;
+        
+        // Implement LRU eviction
+        if (cache.data.size >= cache.maxSize) {
+            const firstKey = cache.data.keys().next().value;
+            cache.data.delete(firstKey);
+        }
+        
+        cache.data.set(key, {
+            value,
+            timestamp: Date.now()
+        });
+    }
+}
+```
+
+**Benefits**:
+- Better performance
+- Reduced network requests
+- Better user experience
+
+#### 3.3 **Implement Virtual Scrolling**
+**Problem**: Large datasets cause performance issues
+**Solution**: Virtual scrolling for large lists
+
+```javascript
+// New: src/components/VirtualScroller.js
+export class VirtualScroller {
+    constructor(container, itemHeight, renderItem) {
+        this.container = container;
+        this.itemHeight = itemHeight;
+        this.renderItem = renderItem;
+        this.data = [];
+        this.visibleStart = 0;
+        this.visibleEnd = 0;
+    }
+    
+    setData(data) {
+        this.data = data;
+        this.updateVisibleRange();
+        this.render();
+    }
+    
+    updateVisibleRange() {
+        const containerHeight = this.container.clientHeight;
+        const visibleCount = Math.ceil(containerHeight / this.itemHeight);
+        
+        this.visibleStart = Math.max(0, this.visibleStart);
+        this.visibleEnd = Math.min(this.data.length, this.visibleStart + visibleCount);
+    }
+    
+    render() {
+        const visibleData = this.data.slice(this.visibleStart, this.visibleEnd);
+        const offsetY = this.visibleStart * this.itemHeight;
+        
+        this.container.innerHTML = '';
+        this.container.style.transform = `translateY(${offsetY}px)`;
+        
+        visibleData.forEach((item, index) => {
+            const element = this.renderItem(item, this.visibleStart + index);
+            this.container.appendChild(element);
+        });
+    }
+}
+```
+
+**Benefits**:
+- Better performance with large datasets
+- Smooth scrolling
+- Lower memory usage
+
+### Phase 4: Testing & Quality Improvements (Low Risk, High Impact)
+
+#### 4.1 **Implement Test Utilities**
+**Problem**: Difficult to test components
+**Solution**: Testing utilities and mocks
+
+```javascript
+// New: src/tests/utils/TestUtils.js
+export class TestUtils {
+    static createMockEventBus() {
+        return {
+            emit: jest.fn(),
+            on: jest.fn(),
+            off: jest.fn()
+        };
+    }
+    
+    static createMockStateManager() {
+        return {
+            getState: jest.fn(),
+            setState: jest.fn(),
+            subscribe: jest.fn()
+        };
+    }
+    
+    static createMockDOMRegistry() {
+        return {
+            getElement: jest.fn(),
+            getElementSafe: jest.fn(),
+            register: jest.fn()
+        };
+    }
+    
+    static createTestContainer() {
+        const container = document.createElement('div');
+        container.id = 'test-container';
+        document.body.appendChild(container);
+        return container;
+    }
+    
+    static cleanup() {
+        document.body.innerHTML = '';
+    }
+}
+```
+
+**Benefits**:
+- Easier testing
+- Consistent test patterns
+- Better test coverage
+
+#### 4.2 **Implement Component Testing Framework**
+**Problem**: No standardized testing approach
+**Solution**: Component testing utilities
+
+```javascript
+// New: src/tests/ComponentTester.js
+export class ComponentTester {
+    constructor(ComponentClass) {
+        this.ComponentClass = ComponentClass;
+        this.mocks = {
+            eventBus: TestUtils.createMockEventBus(),
+            stateManager: TestUtils.createMockStateManager(),
+            domRegistry: TestUtils.createMockDOMRegistry()
+        };
+    }
+    
+    async createComponent(options = {}) {
+        const container = TestUtils.createTestContainer();
+        const component = new this.ComponentClass(
+            container,
+            this.mocks.eventBus,
+            this.mocks.stateManager,
+            this.mocks.domRegistry
+        );
+        
+        await component.initialize();
+        return component;
+    }
+    
+    getMock(name) {
+        return this.mocks[name];
+    }
+}
+```
+
+**Benefits**:
+- Standardized testing
+- Easier test setup
+- Better test isolation
+
+### Phase 5: Developer Experience Improvements (Low Risk, Medium Impact)
+
+#### 5.1 **Implement Development Tools**
+**Problem**: Difficult to debug and develop
+**Solution**: Development utilities and debugging tools
+
+```javascript
+// New: src/dev/DevTools.js
+export class DevTools {
+    constructor() {
+        this.isEnabled = process.env.NODE_ENV === 'development';
+        this.loggers = new Map();
+    }
+    
+    enable() {
+        this.isEnabled = true;
+        this.setupConsoleOverrides();
+        this.setupPerformanceMonitoring();
+    }
+    
+    setupConsoleOverrides() {
+        const originalLog = console.log;
+        console.log = (...args) => {
+            if (this.isEnabled) {
+                originalLog('[DEV]', ...args);
+            }
+        };
+    }
+    
+    setupPerformanceMonitoring() {
+        if (this.isEnabled) {
+            window.performance.mark('app-start');
+            
+            window.addEventListener('load', () => {
+                window.performance.mark('app-loaded');
+                window.performance.measure('app-load-time', 'app-start', 'app-loaded');
+                
+                const measure = window.performance.getEntriesByName('app-load-time')[0];
+                console.log(`App load time: ${measure.duration}ms`);
+            });
+        }
+    }
+    
+    logComponentLifecycle(componentName, event) {
+        if (this.isEnabled) {
+            console.log(`[Component] ${componentName}: ${event}`);
+        }
+    }
+}
+```
+
+**Benefits**:
+- Better debugging
+- Performance monitoring
+- Development efficiency
+
+#### 5.2 **Implement Hot Reloading**
+**Problem**: Manual refresh required for changes
+**Solution**: Hot reloading for development
+
+```javascript
+// New: src/dev/HotReloader.js
+export class HotReloader {
+    constructor() {
+        this.isEnabled = process.env.NODE_ENV === 'development';
+        this.watchers = new Map();
+    }
+    
+    enable() {
+        if (!this.isEnabled) return;
+        
+        this.setupFileWatcher();
+        this.setupWebSocketConnection();
+    }
+    
+    setupFileWatcher() {
+        // Watch for file changes
+        const watcher = new FileWatcher();
+        watcher.on('change', (filePath) => {
+            this.handleFileChange(filePath);
+        });
+    }
+    
+    handleFileChange(filePath) {
+        if (filePath.endsWith('.js')) {
+            this.reloadModule(filePath);
+        } else if (filePath.endsWith('.css')) {
+            this.reloadStyles(filePath);
+        }
+    }
+    
+    reloadModule(filePath) {
+        // Clear module cache and reload
+        delete require.cache[filePath];
+        this.notifyReload('module', filePath);
+    }
+}
+```
+
+**Benefits**:
+- Faster development
+- Better developer experience
+- Immediate feedback
+
+## Implementation Roadmap
+
+### Week 1-2: Foundation (Phase 1)
+- [ ] Implement EventBus
+- [ ] Create ServiceFactory
+- [ ] Implement StateManager
+- [ ] Update CPEEDebugConsole to use new patterns
+
+### Week 3-4: Component Architecture (Phase 2)
+- [ ] Create BaseComponent
+- [ ] Create BaseRenderer
+- [ ] Implement PluginManager
+- [ ] Refactor existing components
+
+### Week 5-6: Performance (Phase 3)
+- [ ] Implement LazyLoader
+- [ ] Create CacheManager
+- [ ] Add VirtualScroller
+- [ ] Optimize existing code
+
+### Week 7-8: Testing (Phase 4)
+- [ ] Create TestUtils
+- [ ] Implement ComponentTester
+- [ ] Add test coverage
+- [ ] Create CI/CD pipeline
+
+### Week 9-10: Developer Experience (Phase 5)
+- [ ] Implement DevTools
+- [ ] Add HotReloader
+- [ ] Create documentation
+- [ ] Add development scripts
+
+## Risk Assessment
+
+### Low Risk Changes
+- EventBus implementation
+- ServiceFactory creation
+- StateManager implementation
+- Test utilities
+
+### Medium Risk Changes
+- Component refactoring
+- Plugin system
+- Caching implementation
+- Performance optimizations
+
+### High Risk Changes
+- Major architectural changes
+- Breaking API changes
+- Database migrations
 
 ## Success Metrics
 
-### Before Changes
-- ⚠️ 25+ utility/service classes
-- ⚠️ Inconsistent naming patterns
-- ⚠️ Static service methods (untestable)
-- ⚠️ God class with 370 lines
-- ⚠️ No error handling strategy
+### Code Quality
+- [ ] Reduce cyclomatic complexity by 30%
+- [ ] Increase test coverage to 80%
+- [ ] Reduce code duplication by 50%
 
-### After Changes
-- ✅ 15-18 well-organized classes
-- ✅ Consistent naming conventions
-- ✅ Testable service instances
-- ✅ Modular facade (150 lines)
-- ✅ Centralized error handling
+### Performance
+- [ ] Reduce initial load time by 40%
+- [ ] Reduce memory usage by 25%
+- [ ] Improve rendering performance by 50%
 
----
+### Developer Experience
+- [ ] Reduce setup time by 60%
+- [ ] Improve debugging capabilities
+- [ ] Add comprehensive documentation
 
-## Risk Mitigation
-
-### For Each Phase
-1. **Create feature branch**
-2. **Update tests** (if applicable)
-3. **Run existing tests** before merging
-4. **Incremental commits** (one change at a time)
-5. **Document changes** in CHANGELOG.md
-
-### Rollback Strategy
-- Each phase is independently revertible
-- No breaking changes between phases
-- Can pause at any phase
-- Maintain backward compatibility
-
----
-
-## Long-Term Vision
-
-### After All Phases
-- **Modular architecture** with clear boundaries
-- **Testable components** with dependency injection
-- **Consistent patterns** throughout codebase
-- **Maintainable structure** for long-term growth
-- **Clear error handling** for better UX
-
-### Future Enhancements
-- Add TypeScript gradually
-- Implement proper build pipeline
-- Add E2E testing
-- Consider micro-frontend architecture (if scaling needed)
-
----
+### Maintainability
+- [ ] Reduce coupling between components
+- [ ] Improve code organization
+- [ ] Add automated testing
 
 ## Conclusion
 
-The current architecture is **functional but has room for significant improvement**. The proposed changes are:
+This incremental improvement plan addresses the key architectural issues while maintaining the existing functionality. By implementing these changes in phases, we can significantly improve the codebase's maintainability, testability, and scalability without disrupting the current user experience.
 
-✅ **Incremental** - Small, manageable changes  
-✅ **Low risk** - Most changes are additive  
-✅ **High value** - Significantly improve maintainability  
-✅ **Reversible** - Can undo any change  
+The proposed changes follow modern software engineering principles and will make the codebase more suitable for long-term maintenance and feature development. Each phase builds upon the previous one, ensuring a smooth transition and minimal risk.
 
-**Estimated Total Effort**: 60-80 hours across 10 phases  
-**Expected Benefits**: 
-- 40% reduction in complexity
-- Improved testability
-- Better maintainability
-- Consistent patterns
+## Next Steps
 
-**Recommendation**: Start with Phases 1, 4, 6, and 7 for quick wins, then proceed with the rest based on priorities.
+1. **Review and Approve**: Review this plan with the development team
+2. **Prioritize**: Adjust the implementation order based on business priorities
+3. **Start Implementation**: Begin with Phase 1 (Foundation Improvements)
+4. **Monitor Progress**: Track metrics and adjust the plan as needed
+5. **Document Changes**: Keep detailed records of all modifications
 
----
-
-*Last Updated: 2025-01-28*
+This architecture improvement plan will transform the CPEE Log Error Console into a more maintainable, scalable, and robust application while preserving its current functionality and user experience.

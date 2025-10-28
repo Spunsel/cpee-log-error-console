@@ -7,12 +7,13 @@
 import { ICONS } from '../../assets/icons.js';
 import { StepDropdown } from './StepDropdown.js';
 import { configManager } from '../../config/ConfigManager.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class StepNavigator {
-    constructor(instanceService, domRegistry = null) {
+    constructor(instanceService, domRegistry = null, eventBus = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
-        this.onStepChange = null;
+        this.eventBus = eventBus || defaultEventBus;
         
         // Navigation state
         this.isSetup = false;
@@ -24,13 +25,6 @@ export class StepNavigator {
         });
     }
 
-    /**
-     * Set callback for when step changes
-     * @param {Function} callback - Callback function
-     */
-    setOnStepChange(callback) {
-        this.onStepChange = callback;
-    }
 
     /**
      * Setup step navigation UI
@@ -472,11 +466,11 @@ export class StepNavigator {
      * Handle step change common logic
      */
     async handleStepChange() {
-        if (this.onStepChange) {
-            const step = this.instanceService.getCurrentStep();
-            const navInfo = this.instanceService.getNavigationInfo();
-            await this.onStepChange(step, navInfo);
-        }
+        const step = this.instanceService.getCurrentStep();
+        const navInfo = this.instanceService.getNavigationInfo();
+        
+        // Emit step change event
+        this.eventBus.emit('stepNavigator:stepChanged', { step, navInfo });
     }
 
     /**
