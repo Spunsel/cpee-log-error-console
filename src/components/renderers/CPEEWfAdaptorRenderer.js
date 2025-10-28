@@ -6,7 +6,7 @@
 
 import { DOMStatusManager } from '../../utils/dom/DOMStatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
-import { ContentCleaner } from '../../utils/content/ContentCleaner.js';
+import { CPEEParser } from '../../utils/content/CPEEParser.js';
 import { SVGProcessor } from '../../utils/dom/SVGProcessor.js';
 import { JQueryExtensions } from '../../utils/system/JQueryExtensions.js';
 import { configManager } from '../../config/ConfigManager.js';
@@ -134,7 +134,7 @@ export class CPEEWfAdaptorRenderer {
             this.showStatus('Loading CPEE WfAdaptor...', 'loading');
             
             // Validate XML first
-            const cleanedXML = ContentCleaner.cleanAndValidateXML(cpeeXML);
+            const cleanedXML = CPEEParser.cleanAndValidateXML(cpeeXML);
             
             // Load the WfAdaptor and theme system
             await this.loadWfAdaptor();

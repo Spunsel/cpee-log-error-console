@@ -8,7 +8,7 @@
 import { DOMStatusManager } from '../../utils/dom/DOMStatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { DOMUtils } from '../../utils/dom/DOMUtils.js';
-import { ContentCleaner } from '../../utils/content/ContentCleaner.js';
+import { MermaidParser } from '../../utils/content/MermaidParser.js';
 import { configManager } from '../../config/ConfigManager.js';
 
 export class MermaidRenderer {
@@ -119,8 +119,8 @@ export class MermaidRenderer {
                 this.statusManager.showLoading('🎨 Rendering Mermaid graph...');
             }
 
-            // Validate mermaid code using syntax processor
-            const cleanedCode = ContentCleaner.cleanAndValidateMermaid(mermaidCode);
+            // Validate mermaid code using MermaidParser
+            const cleanedCode = MermaidParser.cleanAndValidate(mermaidCode);
 
             // Ensure mermaid is loaded
             await this.loadMermaid();

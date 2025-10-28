@@ -1,12 +1,12 @@
 /**
- * Content Parser
- * Unified parser for XML and YAML content
+ * Log Parser
+ * Unified parser for XML and YAML content from log files
  * Provides consistent parsing, validation, and processing operations
  * 
  * Consolidates XMLParser and YAMLParser functionality
  */
 
-export class ContentParser {
+export class LogParser {
     
     // YAML-specific constants
     static BLOCK_SCALARS = ['|', '|-', '|+'];
@@ -24,7 +24,7 @@ export class ContentParser {
      */
     static parseXML(xmlString) {
         if (!xmlString || typeof xmlString !== 'string') {
-            throw new Error('ContentParser: XML string must be a non-empty string');
+            throw new Error('LogParser: XML string must be a non-empty string');
         }
         
         try {
@@ -39,7 +39,7 @@ export class ContentParser {
             
             return xmlDoc;
         } catch (error) {
-            throw new Error(`ContentParser: Failed to parse XML - ${error.message}`);
+            throw new Error(`LogParser: Failed to parse XML - ${error.message}`);
         }
     }
 
@@ -51,7 +51,7 @@ export class ContentParser {
      */
     static parseXMLForWfAdaptor(xmlString) {
         if (typeof $ === 'undefined') {
-            throw new Error('ContentParser: jQuery is required for WfAdaptor XML processing');
+            throw new Error('LogParser: jQuery is required for WfAdaptor XML processing');
         }
 
         const xmlDoc = this.parseXML(xmlString);
@@ -161,7 +161,7 @@ export class ContentParser {
      */
     static parseYAMLMultiDocument(yamlContent) {
         if (!yamlContent || typeof yamlContent !== 'string') {
-            throw new Error('ContentParser: Invalid YAML content - must be a non-empty string');
+            throw new Error('LogParser: Invalid YAML content - must be a non-empty string');
         }
 
         return yamlContent

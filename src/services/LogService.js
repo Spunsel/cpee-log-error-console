@@ -3,11 +3,12 @@
  * Handles fetching and processing of CPEE logs
  */
 
-import { ContentCleaner } from '../utils/content/ContentCleaner.js';
+import { MermaidParser } from '../utils/content/MermaidParser.js';
+import { CPEEParser } from '../utils/content/CPEEParser.js';
 import { TaskExtractor } from '../utils/extraction/TaskExtractor.js';
 import { TaskMapper } from '../utils/mapping/TaskMapper.js';
 import { CPEEStep } from '../models/CPEEStep.js';
-import { ContentParser } from '../utils/content/ContentParser.js';
+import { LogParser } from '../utils/content/LogParser.js';
 import { configManager } from '../config/ConfigManager.js';
 
 export class LogService {
@@ -61,7 +62,7 @@ export class LogService {
                 
                 console.log(`Log content size: ${yamlContent.length} characters`);
                 
-                const events = ContentParser.parseYAMLMultiDocument(yamlContent);
+                const events = LogParser.parseYAMLMultiDocument(yamlContent);
                 console.log(`Parsed ${events.length} events from log`);
                 
                 return events;
@@ -205,10 +206,10 @@ export class LogService {
                 const exposition = event['cpee:exposition'] || '';
                 
                     if (exposition.includes('<!-- Input CPEE-Tree -->')) {
-                        const cleanedContent = ContentCleaner.cleanCPEETreeContent(exposition, 'input');
+                        const cleanedContent = CPEEParser.cleanCPEETreeContent(exposition, 'input');
                         cpeeStep.setInputCpeeTreeRaw(cleanedContent);
                     } else if (exposition.includes('%% Input Intermediate')) {
-                        const cleanedContent = ContentCleaner.cleanMermaidContent(exposition, 'input');
+                        const cleanedContent = MermaidParser.cleanMermaidContent(exposition, 'input');
                         cpeeStep.setInputMermaidRaw(cleanedContent);
                     } else if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
                         cpeeStep.setUserInputRaw(exposition);
@@ -219,10 +220,10 @@ export class LogService {
                             cpeeStep.usedLLM = llmMatch[1].trim();
                         }
                     } else if (exposition.includes('%% Output Intermediate')) {
-                        const cleanedContent = ContentCleaner.cleanMermaidContent(exposition, 'output');
+                        const cleanedContent = MermaidParser.cleanMermaidContent(exposition, 'output');
                         cpeeStep.setOutputMermaidRaw(cleanedContent);
                     } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
-                        const cleanedContent = ContentCleaner.cleanCPEETreeContent(exposition, 'output');
+                        const cleanedContent = CPEEParser.cleanCPEETreeContent(exposition, 'output');
                         cpeeStep.setOutputCpeeTreeRaw(cleanedContent);
                     }
             });
