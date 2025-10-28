@@ -1454,6 +1454,31 @@ body {
     transform: translateY(0);
 }
 
+/* Raw Content Overlay - Structural positioning for raw content display */
+[data-content-type="raw"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #ffffff;
+    z-index: 10;
+}
+
+/* Content Container with Raw Overlay - Parent container positioning */
+.content-box[style*="position: relative"] {
+    position: relative;
+}
+
+/* No Content State - When raw content is not available */
+.no-content {
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+    padding: 2rem;
+}
+
 .raw-code-block {
     margin: 0;
     background: var(--surface-color);

@@ -1,8 +1,8 @@
 /**
  * CPEE Step
  * Represents a single step in a CPEE process instance
- * Phase 21.3: Added support for storing raw content alongside rendered content
- * Phase 22.3: Added support for storing task mappings across formats
+ * stores raw content alongside rendered content
+ * stores task mappings across formats (for laster cross sectional highlighting)
  */
 
 import { MermaidRaw } from './MermaidRaw.js';
@@ -25,7 +25,7 @@ export class CPEEStep {
         // Metadata
         this.usedLLM = null; // LLM model used for this step
         
-        // Phase 21.3: Raw content storage
+        // Raw content storage
         this.rawContent = {
             inputMermaidRaw: MermaidRaw.empty(),
             inputCpeeTreeRaw: CPEETreeRaw.empty(),
@@ -34,7 +34,7 @@ export class CPEEStep {
             outputCpeeTreeRaw: CPEETreeRaw.empty()
         };
         
-        // Phase 22.3: Task mapping storage
+        // Task mapping storage
         this.taskMapping = null; // Will be TaskMapping instance from TaskMapper
     }
 
@@ -81,8 +81,6 @@ export class CPEEStep {
      */
     getContent(sectionName) {
         const content = this.content[sectionName] || 'No content available';
-        if (sectionName === 'userInput') {
-        }
         return content;
     }
 
@@ -312,7 +310,7 @@ export class CPEEStep {
     }
 
     // ===================================================================
-    // Phase 22.3: Task Mapping Methods
+    // Task Mapping Methods
     // ===================================================================
 
     /**

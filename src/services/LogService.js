@@ -228,7 +228,7 @@ export class LogService {
                     }
             });
             
-            // Phase 22.8: Extract tasks and generate task mapping
+            // Extract tasks and generate task mapping
             const inputCpeeTasks = TaskExtractor.extractFromCPEE(
                 cpeeStep.getInputCpeeTreeRaw().getContent()
             );
