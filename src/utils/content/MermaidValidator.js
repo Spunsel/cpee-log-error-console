@@ -1,10 +1,12 @@
 /**
- * Mermaid Validation Service
+ * Mermaid Validator Utility
  * Handles Mermaid code validation and preprocessing
- * Provides business logic for validating and fixing Mermaid syntax
+ * Provides utility functions for validating and fixing Mermaid syntax
+ * 
+ * Converted from MermaidValidationService to utility class
  */
 
-export class MermaidValidationService {
+export class MermaidValidator {
     
     /**
      * Preprocess Mermaid syntax to fix common CPEE-to-Mermaid conversion issues

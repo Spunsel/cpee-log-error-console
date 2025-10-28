@@ -1,5 +1,5 @@
 /**
- * ViewModeManager
+ * ViewModeCoordinator
  * Single source of truth for view mode state management
  * Responsibilities:
  * - Store view mode state for all instances
@@ -8,7 +8,7 @@
  * - Manage instance-specific view mode storage
  */
 
-export class ViewModeManager {
+export class ViewModeCoordinator {
     constructor(instanceService = null) {
         this.instanceService = instanceService;
         this.storageKey = 'cpee-debug-console-view-modes';

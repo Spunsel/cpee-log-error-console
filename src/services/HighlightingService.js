@@ -1,15 +1,15 @@
 /**
- * HighlightManager - Core highlighting system for SVG elements
+ * HighlightingService - Core highlighting system for SVG elements
  * 
  * Provides functionality to highlight, clear highlights, and manage clickable states
  * for SVG elements across CPEE and Mermaid visualizations.
  * 
- * @module components/managers/HighlightManager
+ * @module services/HighlightingService
  */
 
-export default class HighlightManager {
+export class HighlightingService {
     /**
-     * Creates an instance of HighlightManager
+     * Creates an instance of HighlightingService
      */
     constructor() {
         this.highlightedElements = new Set();
@@ -27,7 +27,7 @@ export default class HighlightManager {
         if (!elementList) return;
 
         const elements = Array.from(elementList);
-        console.log(`HighlightManager: Highlighting ${elements.length} element(s), isActive=${isActive}`);
+        console.log(`HighlightingService: Highlighting ${elements.length} element(s), isActive=${isActive}`);
 
         elements.forEach(element => {
             if (!element) return;
@@ -59,7 +59,7 @@ export default class HighlightManager {
     highlightCPEETask(svgElement, isActive = false) {
         if (!svgElement) return;
 
-        console.log(`HighlightManager: Highlighting CPEE task element, isActive=${isActive}`);
+        console.log(`HighlightingService: Highlighting CPEE task element, isActive=${isActive}`);
         
         // Find the task group element
         const taskGroup = this.findTaskGroup(svgElement);
@@ -77,7 +77,7 @@ export default class HighlightManager {
     highlightMermaidNode(svgElement, isActive = false) {
         if (!svgElement) return;
 
-        console.log(`HighlightManager: Highlighting Mermaid node element, isActive=${isActive}`);
+        console.log(`HighlightingService: Highlighting Mermaid node element, isActive=${isActive}`);
         
         // Find the node group element
         const nodeGroup = this.findMermaidNodeGroup(svgElement);
@@ -95,7 +95,7 @@ export default class HighlightManager {
         if (!elementList) return;
 
         const elements = Array.from(elementList);
-        console.log(`HighlightManager: Setting ${elements.length} element(s) as clickable`);
+        console.log(`HighlightingService: Setting ${elements.length} element(s) as clickable`);
 
         elements.forEach(element => {
             if (!element) return;
@@ -109,7 +109,7 @@ export default class HighlightManager {
      * Clears all highlights from all tracked elements
      */
     clearAllHighlights() {
-        console.log(`HighlightManager: Clearing highlights from ${this.highlightedElements.size} element(s)`);
+        console.log(`HighlightingService: Clearing highlights from ${this.highlightedElements.size} element(s)`);
 
         this.highlightedElements.forEach(element => {
             // Remove highlight classes from the element itself
@@ -147,7 +147,7 @@ export default class HighlightManager {
      * Clears all clickable states
      */
     clearAllClickable() {
-        console.log(`HighlightManager: Clearing clickable state from ${this.clickableElements.size} element(s)`);
+        console.log(`HighlightingService: Clearing clickable state from ${this.clickableElements.size} element(s)`);
 
         this.clickableElements.forEach(element => {
             element.classList.remove('task-clickable');

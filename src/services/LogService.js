@@ -4,11 +4,10 @@
  */
 
 import { ContentCleaner } from '../utils/content/ContentCleaner.js';
-import { CPEETaskExtractor } from '../utils/extraction/CPEETaskExtractor.js';
-import { MermaidTaskExtractor } from '../utils/extraction/MermaidTaskExtractor.js';
+import { TaskExtractor } from '../utils/extraction/TaskExtractor.js';
 import { TaskMapper } from '../utils/mapping/TaskMapper.js';
 import { CPEEStep } from '../models/CPEEStep.js';
-import { YAMLParser } from '../utils/content/YAMLParser.js';
+import { ContentParser } from '../utils/content/ContentParser.js';
 import { configManager } from '../config/ConfigManager.js';
 
 export class LogService {
@@ -62,7 +61,7 @@ export class LogService {
                 
                 console.log(`Log content size: ${yamlContent.length} characters`);
                 
-                const events = YAMLParser.parseMultiDocument(yamlContent);
+                const events = ContentParser.parseYAMLMultiDocument(yamlContent);
                 console.log(`Parsed ${events.length} events from log`);
                 
                 return events;
@@ -229,16 +228,16 @@ export class LogService {
             });
             
             // Phase 22.8: Extract tasks and generate task mapping
-            const inputCpeeTasks = CPEETaskExtractor.extractTasksFromXML(
+            const inputCpeeTasks = TaskExtractor.extractFromCPEE(
                 cpeeStep.getInputCpeeTreeRaw().getContent()
             );
-            const inputMermaidTasks = MermaidTaskExtractor.extractTasksFromMermaid(
+            const inputMermaidTasks = TaskExtractor.extractFromMermaid(
                 cpeeStep.getInputMermaidRaw().getContent()
             );
-            const outputMermaidTasks = MermaidTaskExtractor.extractTasksFromMermaid(
+            const outputMermaidTasks = TaskExtractor.extractFromMermaid(
                 cpeeStep.getOutputMermaidRaw().getContent()
             );
-            const outputCpeeTasks = CPEETaskExtractor.extractTasksFromXML(
+            const outputCpeeTasks = TaskExtractor.extractFromCPEE(
                 cpeeStep.getOutputCpeeTreeRaw().getContent()
             );
             

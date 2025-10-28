@@ -1,5 +1,5 @@
 /**
- * Raw Content View Manager
+ * Raw Content Coordinator
  * Handles raw content viewing functionality only
  * Responsibilities:
  * - View mode toggle management
@@ -12,19 +12,19 @@
 import { ViewModeToggle } from '../ui/ViewModeToggle.js';
 import { ActionBar } from '../ui/ActionBar.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
-import { ViewModeManager } from './ViewModeManager.js';
+import { ViewModeCoordinator } from './ViewModeCoordinator.js';
 import { SearchService } from '../../services/SearchService.js';
 import { SearchHighlightingService } from '../../services/SearchHighlightingService.js';
 
-export class RawContentViewManager {
-    constructor(instanceService, domRegistry = null, contentSectionManager = null) {
+export class RawContentCoordinator {
+    constructor(instanceService, domRegistry = null, contentSectionCoordinator = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
-        this.contentSectionManager = contentSectionManager;
+        this.contentSectionCoordinator = contentSectionCoordinator;
 
         // Content View Components
         this.viewModeToggle = new ViewModeToggle(domRegistry);
-        this.viewModeManager = new ViewModeManager(instanceService);
+        this.viewModeCoordinator = new ViewModeCoordinator(instanceService);
         this.rawContentRenderer = new RawContentRenderer(domRegistry);
         
         // Search services
@@ -50,14 +50,14 @@ export class RawContentViewManager {
         this.togglesAttached = false;
 
         // Initialize view mode manager
-        this.setupViewModeManager();
+        this.setupViewModeCoordinator();
     }
 
     /**
-     * Setup view mode manager callbacks
+     * Setup view mode coordinator callbacks
      */
-    setupViewModeManager() {
-        this.viewModeManager.onModeChange = (sectionId, mode, _uuid) => {
+    setupViewModeCoordinator() {
+        this.viewModeCoordinator.onModeChange = (sectionId, mode, _uuid) => {
             console.log(`Mode changed: ${sectionId} → ${mode}`);
             this.updateSectionDisplay(sectionId, mode);
         };
@@ -76,7 +76,7 @@ export class RawContentViewManager {
 
         // Setup toggle change handler
         this.viewModeToggle.onModeChange = (toggleSectionId, mode) => {
-            this.viewModeManager.setMode(toggleSectionId, mode);
+            this.viewModeCoordinator.setMode(toggleSectionId, mode);
         };
     }
 
@@ -93,14 +93,14 @@ export class RawContentViewManager {
         // Get the section element directly from DOM
         const sectionElement = document.getElementById(sectionId);
         if (!sectionElement) {
-            console.warn(`RawContentViewManager: Section element with ID '${sectionId}' not found`);
+            console.warn(`RawContentCoordinator: Section element with ID '${sectionId}' not found`);
             return;
         }
 
         // Find the content box (pre element with content)
         const contentContainer = sectionElement.querySelector('.content-box');
         if (!contentContainer) {
-            console.warn(`RawContentViewManager: Content box not found in section '${sectionId}'`);
+            console.warn(`RawContentCoordinator: Content box not found in section '${sectionId}'`);
             return;
         }
 
@@ -283,10 +283,10 @@ export class RawContentViewManager {
             }
         }
 
-        // Delegate visual content restoration to ContentSectionManager
-        if (this.contentSectionManager) {
+        // Delegate visual content restoration to ContentSectionCoordinator
+        if (this.contentSectionCoordinator) {
             if (sectionId) {
-                this.contentSectionManager.restoreVisualContent(sectionId);
+                this.contentSectionCoordinator.restoreVisualContent(sectionId);
             }
         }
     }
@@ -365,7 +365,7 @@ export class RawContentViewManager {
         // Find the raw content container for this section
         const container = document.querySelector(`#${sectionId} .raw-content-container`);
         if (!container) {
-            console.warn(`RawContentViewManager: No raw content container found for ${sectionId}`);
+            console.warn(`RawContentCoordinator: No raw content container found for ${sectionId}`);
             return;
         }
 
@@ -382,7 +382,7 @@ export class RawContentViewManager {
         // Update search state with matches
         this.searchService.updateSearchResults(sectionId, searchTerm, matches);
 
-        console.log(`RawContentViewManager: Found ${matches.length} matches for "${searchTerm}" in ${sectionId}`);
+        console.log(`RawContentCoordinator: Found ${matches.length} matches for "${searchTerm}" in ${sectionId}`);
         
         // Update search results in action bar for this section
         const actionBar = this.actionBars.get(sectionId);
@@ -401,12 +401,12 @@ export class RawContentViewManager {
      * @param {string} sectionId - Section identifier
      */
     clearSearch(sectionId) {
-        console.log(`RawContentViewManager: Clearing search in ${sectionId}`);
+        console.log(`RawContentCoordinator: Clearing search in ${sectionId}`);
         
         // Find the raw content container for this section
         const container = document.querySelector(`#${sectionId} .raw-content-container`);
         if (!container) {
-            console.warn(`RawContentViewManager: No raw content container found for ${sectionId}`);
+            console.warn(`RawContentCoordinator: No raw content container found for ${sectionId}`);
             return;
         }
 
@@ -430,12 +430,12 @@ export class RawContentViewManager {
      * @param {number} matchIndex - Index of match to navigate to
      */
     navigateToMatch(sectionId, direction, matchIndex) {
-        console.log(`RawContentViewManager: Navigating to match ${matchIndex} in ${sectionId}`);
+        console.log(`RawContentCoordinator: Navigating to match ${matchIndex} in ${sectionId}`);
         
         // Get search state for this section
         const searchState = this.searchService.getSearchState(sectionId);
         if (!searchState || searchState.matches.length === 0) {
-            console.warn(`RawContentViewManager: No matches found for ${sectionId}`);
+            console.warn(`RawContentCoordinator: No matches found for ${sectionId}`);
             return;
         }
 
@@ -445,7 +445,7 @@ export class RawContentViewManager {
         // Find the raw content container for this section
         const container = document.querySelector(`#${sectionId} .raw-content-container`);
         if (!container) {
-            console.warn(`RawContentViewManager: No raw content container found for ${sectionId}`);
+            console.warn(`RawContentCoordinator: No raw content container found for ${sectionId}`);
             return;
         }
 
@@ -453,9 +453,9 @@ export class RawContentViewManager {
         const scrolled = this.searchHighlightingService.scrollToMatch(container, newMatchIndex);
         
         if (scrolled) {
-            console.log(`RawContentViewManager: Successfully scrolled to match ${newMatchIndex + 1} of ${searchState.matches.length}`);
+            console.log(`RawContentCoordinator: Successfully scrolled to match ${newMatchIndex + 1} of ${searchState.matches.length}`);
         } else {
-            console.warn(`RawContentViewManager: Failed to scroll to match ${newMatchIndex}`);
+            console.warn(`RawContentCoordinator: Failed to scroll to match ${newMatchIndex}`);
         }
     }
 
@@ -474,7 +474,7 @@ export class RawContentViewManager {
             }
         });
         
-        console.log('RawContentViewManager: Cleared all search states');
+        console.log('RawContentCoordinator: Cleared all search states');
     }
 
     /**
@@ -484,14 +484,14 @@ export class RawContentViewManager {
     restoreOriginalContent(sectionId) {
         const originalContent = this.originalContent.get(sectionId);
         if (!originalContent) {
-            console.warn(`RawContentViewManager: No original content found for ${sectionId}`);
+            console.warn(`RawContentCoordinator: No original content found for ${sectionId}`);
             return;
         }
 
         // Find the raw content container for this section
         const container = document.querySelector(`#${sectionId} .raw-content-container`);
         if (!container) {
-            console.warn(`RawContentViewManager: No raw content container found for ${sectionId}`);
+            console.warn(`RawContentCoordinator: No raw content container found for ${sectionId}`);
             return;
         }
 
@@ -501,7 +501,7 @@ export class RawContentViewManager {
         // Reset search state using SearchService
         this.searchService.clearSearchState(sectionId);
 
-        console.log(`RawContentViewManager: Restored original content for ${sectionId}`);
+        console.log(`RawContentCoordinator: Restored original content for ${sectionId}`);
     }
 
     /**
@@ -530,7 +530,7 @@ export class RawContentViewManager {
 
         // Setup toggle change handler
         this.viewModeToggle.onModeChange = (sectionId, mode) => {
-            this.viewModeManager.setMode(sectionId, mode);
+            this.viewModeCoordinator.setMode(sectionId, mode);
         };
     }
 
@@ -540,7 +540,7 @@ export class RawContentViewManager {
      * @returns {string} View mode (visual or raw)
      */
     getViewMode(sectionId) {
-        return this.viewModeManager.getMode(sectionId) || 'visual';
+        return this.viewModeCoordinator.getMode(sectionId) || 'visual';
     }
 
     /**
@@ -549,7 +549,7 @@ export class RawContentViewManager {
      * @param {string} mode - View mode (visual or raw)
      */
     setViewMode(sectionId, mode) {
-        this.viewModeManager.setMode(sectionId, mode);
+        this.viewModeCoordinator.setMode(sectionId, mode);
     }
 
     /**
@@ -569,7 +569,7 @@ export class RawContentViewManager {
      */
     resetAllViewModes() {
         this.sectionIds.forEach(sectionId => {
-            this.viewModeManager.setMode(sectionId, 'visual');
+            this.viewModeCoordinator.setMode(sectionId, 'visual');
         });
         
         // Update toggle button UI to reflect the reset
@@ -581,7 +581,7 @@ export class RawContentViewManager {
      */
     updateAllToggleButtons() {
         this.sectionIds.forEach(sectionId => {
-            const currentMode = this.viewModeManager.getMode(sectionId);
+            const currentMode = this.viewModeCoordinator.getMode(sectionId);
             this.viewModeToggle.updateToggleState(sectionId, currentMode);
         });
     }

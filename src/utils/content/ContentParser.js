@@ -1,14 +1,157 @@
 /**
- * YAML Parser for CPEE Logs
- * Handles parsing of CPEE .xes.yaml log files
+ * Content Parser
+ * Unified parser for XML and YAML content
+ * Provides consistent parsing, validation, and processing operations
+ * 
+ * Consolidates XMLParser and YAMLParser functionality
  */
 
-export class YAMLParser {
-    // Block scalar indicators
-    static BLOCK_SCALARS = ['|', '|-', '|+'];
+export class ContentParser {
     
-    // Special values that should be parsed as null
+    // YAML-specific constants
+    static BLOCK_SCALARS = ['|', '|-', '|+'];
     static NULL_VALUES = ['null', '__NOTSPECIFIED__'];
+
+    // ============================================
+    // XML PARSING METHODS
+    // ============================================
+
+    /**
+     * Parse XML string to DOM document
+     * @param {string} xmlString - XML string to parse
+     * @returns {Document} Parsed XML document
+     * @throws {Error} If parsing fails
+     */
+    static parseXML(xmlString) {
+        if (!xmlString || typeof xmlString !== 'string') {
+            throw new Error('ContentParser: XML string must be a non-empty string');
+        }
+        
+        try {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+            
+            // Check for parsing errors
+            const parseError = xmlDoc.querySelector('parsererror');
+            if (parseError) {
+                throw new Error(parseError.textContent);
+            }
+            
+            return xmlDoc;
+        } catch (error) {
+            throw new Error(`ContentParser: Failed to parse XML - ${error.message}`);
+        }
+    }
+
+    /**
+     * Convert XML document to jQuery object for WfAdaptor compatibility
+     * @param {string} xmlString - XML string
+     * @returns {Object} jQuery-wrapped XML document
+     * @throws {Error} If jQuery is not available or parsing fails
+     */
+    static parseXMLForWfAdaptor(xmlString) {
+        if (typeof $ === 'undefined') {
+            throw new Error('ContentParser: jQuery is required for WfAdaptor XML processing');
+        }
+
+        const xmlDoc = this.parseXML(xmlString);
+        const jqueryXmlDoc = window.$(xmlDoc);
+        
+        console.log('📋 jQuery XML object created:', jqueryXmlDoc);
+        return jqueryXmlDoc;
+    }
+
+    /**
+     * Extract description element from XML
+     * @param {string} xmlString - XML string
+     * @returns {Object} Description element info
+     */
+    static extractDescriptionFromXML(xmlString) {
+        const xmlDoc = this.parseXML(xmlString);
+        const jqueryXmlDoc = window.$(xmlDoc);
+        
+        // Look for description as child element
+        const descElement = jqueryXmlDoc.find('description');
+        
+        if (descElement.length === 0) {
+            // Check if description is the root element
+            if (xmlDoc.documentElement && xmlDoc.documentElement.tagName === 'description') {
+                console.log('📋 Description is root element');
+                return {
+                    found: true,
+                    isRoot: true,
+                    element: window.$(xmlDoc.documentElement),
+                    wrapperDoc: window.$('<xml></xml>').append(window.$(xmlDoc.documentElement).clone())
+                };
+            } else {
+                return {
+                    found: false,
+                    isRoot: false,
+                    element: null,
+                    wrapperDoc: null
+                };
+            }
+        } else {
+            console.log('📋 Found description as child element');
+            return {
+                found: true,
+                isRoot: false,
+                element: descElement,
+                wrapperDoc: jqueryXmlDoc
+            };
+        }
+    }
+
+    /**
+     * Serialize XML element to string
+     * @param {Element} element - XML element
+     * @returns {string} Serialized XML string
+     */
+    static serializeXMLToString(element) {
+        return new XMLSerializer().serializeToString(element);
+    }
+
+    /**
+     * Validate XML against expected structure
+     * @param {string} xmlString - XML string to validate
+     * @param {Array} requiredElements - Array of required element names
+     * @returns {Object} Validation result
+     */
+    static validateXMLStructure(xmlString, requiredElements = ['description']) {
+        try {
+            const xmlDoc = this.parseXML(xmlString);
+            const missing = [];
+            const found = [];
+
+            requiredElements.forEach(elementName => {
+                const element = xmlDoc.querySelector(elementName);
+                if (element) {
+                    found.push(elementName);
+                } else {
+                    missing.push(elementName);
+                }
+            });
+
+            return {
+                valid: missing.length === 0,
+                found: found,
+                missing: missing,
+                document: xmlDoc
+            };
+        } catch (error) {
+            return {
+                valid: false,
+                found: [],
+                missing: requiredElements,
+                error: error.message,
+                document: null
+            };
+        }
+    }
+
+    // ============================================
+    // YAML PARSING METHODS
+    // ============================================
 
     /**
      * Parse multi-document YAML content
@@ -16,9 +159,9 @@ export class YAMLParser {
      * @returns {Array} Array of parsed events
      * @throws {Error} If YAML content is invalid
      */
-    static parseMultiDocument(yamlContent) {
+    static parseYAMLMultiDocument(yamlContent) {
         if (!yamlContent || typeof yamlContent !== 'string') {
-            throw new Error('YAMLParser: Invalid YAML content - must be a non-empty string');
+            throw new Error('ContentParser: Invalid YAML content - must be a non-empty string');
         }
 
         return yamlContent
@@ -27,7 +170,7 @@ export class YAMLParser {
             .filter(doc => doc.length > 0)
             .map((docContent, index) => {
                 try {
-                    const parsed = this.parseSingleDocument(docContent);
+                    const parsed = this.parseYAMLSingleDocument(docContent);
                     if (parsed && typeof parsed === 'object') {
                         parsed._documentIndex = index + 1;
                         return parsed;
@@ -45,7 +188,7 @@ export class YAMLParser {
      * @param {string} yamlDoc - Single YAML document content
      * @returns {Object} Parsed object
      */
-    static parseSingleDocument(yamlDoc) {
+    static parseYAMLSingleDocument(yamlDoc) {
         const lines = yamlDoc.split('\n');
         const result = {};
         let currentSection = null;
@@ -111,7 +254,11 @@ export class YAMLParser {
         
         return result;
     }
-    
+
+    // ============================================
+    // YAML HELPER METHODS
+    // ============================================
+
     /**
      * Check if line represents a new key (not part of multi-line content)
      */

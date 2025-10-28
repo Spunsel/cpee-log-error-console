@@ -2,30 +2,30 @@
  * Step Viewer Component
  * Main coordinator for step content display and navigation
  * Responsibilities:
- * - Orchestrates ContentSectionManager (visual content) and RawContentViewManager (raw content)
+ * - Orchestrates ContentSectionCoordinator (visual content) and RawContentCoordinator (raw content)
  * - Coordinates step navigation and content updates
  * - Manages step header and navigation state
- * - Delegates specific rendering to specialized managers
+ * - Delegates specific rendering to specialized coordinators
  */
 
 import { StepNavigator } from '../ui/StepNavigator.js';
-import { ContentSectionManager } from '../coordinators/ContentSectionManager.js';
+import { ContentSectionCoordinator } from '../coordinators/ContentSectionCoordinator.js';
 
 export class StepViewer {
-    constructor(instanceService, domRegistry = null, rawContentViewManager = null, crossViewHighlightManager = null) {
+    constructor(instanceService, domRegistry = null, rawContentCoordinator = null, highlightCoordinator = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
-        this.rawContentViewManager = rawContentViewManager;
-        this.crossViewHighlightManager = crossViewHighlightManager;
+        this.rawContentCoordinator = rawContentCoordinator;
+        this.highlightCoordinator = highlightCoordinator;
         this.onStepChange = null;
         
         // Initialize extracted components
         this.navigator = new StepNavigator(instanceService, domRegistry);
-        this.contentManager = new ContentSectionManager(domRegistry, crossViewHighlightManager);
+        this.contentCoordinator = new ContentSectionCoordinator(domRegistry, highlightCoordinator);
         
-        // Pass ContentSectionManager to RawContentViewManager for coordination
-        if (this.rawContentViewManager) {
-            this.rawContentViewManager.contentSectionManager = this.contentManager;
+        // Pass ContentSectionCoordinator to RawContentCoordinator for coordination
+        if (this.rawContentCoordinator) {
+            this.rawContentCoordinator.contentSectionCoordinator = this.contentCoordinator;
         }
         
         // Setup navigation callback to handle step changes
@@ -84,8 +84,8 @@ export class StepViewer {
         console.log(`Displaying ${step.getDisplayName()}`);
 
         // Clear highlights from previous step
-        if (this.crossViewHighlightManager) {
-            this.crossViewHighlightManager.onStepChanged();
+        if (this.highlightCoordinator) {
+            this.highlightCoordinator.onStepChanged();
         }
 
         // Show process analysis section
@@ -96,12 +96,12 @@ export class StepViewer {
         this.updateStepHeader(step, navInfo);
 
         // Set current step mapping for highlighting
-        if (this.crossViewHighlightManager && step.hasTaskMapping()) {
-            this.crossViewHighlightManager.setCurrentStepMapping(step.getTaskMapping());
+        if (this.highlightCoordinator && step.hasTaskMapping()) {
+            this.highlightCoordinator.setCurrentStepMapping(step.getTaskMapping());
             console.log(`[StepViewer] Set task mapping for step ${step.stepNumber}`);
         }
 
-        // Update content sections using ContentSectionManager
+        // Update content sections using ContentSectionCoordinator
         const stepContent = {
             inputCpeeTree: step.getContent('inputCpeeTree'),
             inputIntermediate: step.getContent('inputIntermediate'),
@@ -111,11 +111,11 @@ export class StepViewer {
         };
         
 
-        await this.contentManager.updateAllSections(stepContent);
+        await this.contentCoordinator.updateAllSections(stepContent);
 
         // Initialize raw content view features for this step
-        if (this.rawContentViewManager) {
-            this.rawContentViewManager.setupForStep(step);
+        if (this.rawContentCoordinator) {
+            this.rawContentCoordinator.setupForStep(step);
         }
 
         // Setup/update navigation using StepNavigator
@@ -154,7 +154,7 @@ export class StepViewer {
         this.navigator.removeNavigation();
         
         // Clear all content sections
-        this.contentManager.clearAllSections();
+        this.contentCoordinator.clearAllSections();
     }
 
     /**
@@ -178,6 +178,6 @@ export class StepViewer {
      * @returns {Object} Object containing all renderer instances
      */
     getRenderers() {
-        return this.contentManager.getRenderers();
+        return this.contentCoordinator.getRenderers();
     }
 }
