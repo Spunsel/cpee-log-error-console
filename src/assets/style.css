@@ -1,6 +1,33 @@
 /* CPEE LLM Error Debugging Console Styles */
 
 /* ========================================
+   0. FONT FACE DECLARATIONS
+   ======================================== */
+@font-face {
+    font-family: 'Adwaita Sans Regular';
+    src: url('fonts/adwaita-sans-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Adwaita Mono Regular';
+    src: url('fonts/adwaita-mono-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Adwaita Sans Italic';
+    src: url('fonts/adwaita-sans-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* ========================================
    1. CSS VARIABLES
    ======================================== */
 :root {
@@ -32,9 +59,9 @@
     --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     
     /* Typography */
-    --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    --font-ui: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --font-monospace: 'Monaco', 'Menlo', 'Consolas', monospace;
+    --font-sans: 'Adwaita Sans Regular';
+    --font-sans-italic: 'Adwaita Sans Italic';
+    --font-mono: 'Adwaita Mono Regular';
     
     /* Spacing */
     --spacing-xs: 0.5rem;
@@ -45,6 +72,13 @@
     
     /* Transitions */
     --transition-fast: all 0.2s ease;
+    
+    /* Highlight Colors */
+    --highlight-color: #fb923c;
+    --highlight-active-color: #f97316;
+    --highlight-stroke: #f57900;
+    --highlight-opacity: 0.2;
+    --highlight-active-opacity: 0.4;
 }
 
 /* ========================================
@@ -58,7 +92,7 @@
 }
 
 body {
-    font-family: var(--font-system);
+    font-family: var(--font-sans);
     background-color: var(--background-color);
     color: var(--text-primary);
     line-height: 1.6;
@@ -289,6 +323,7 @@ body {
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
+    font-family: var(--font-sans);
     font-size: 0.875rem;
     font-weight: 500;
     transition: var(--transition-fast);
@@ -336,7 +371,7 @@ body {
     border-radius: var(--border-radius);
     font-size: 0.9rem;
     transition: var(--transition-fast);
-    font-family: var(--font-ui);
+    font-family: var(--font-sans);
     background: var(--background-color);
     color: var(--text-primary);
 }
@@ -411,6 +446,7 @@ body {
 
 .no-instances {
     color: var(--text-secondary);
+    font-family: var(--font-sans-italic);
     font-style: italic;
     text-align: center;
     padding: var(--spacing-md);
@@ -423,7 +459,7 @@ body {
     cursor: pointer;
     transition: var(--transition-fast);
     background: var(--surface-color);
-    font-family: var(--font-monospace);
+    font-family: var(--font-mono);
     font-size: 0.875rem;
     word-break: break-all;
 }
@@ -442,8 +478,8 @@ body {
 /* Navigation Wrapper - flexbox container */
 .navigation-wrapper {
     display: flex;
-    gap: 10px;
-    margin: 10px 0;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-sm) 0;
     flex-wrap: wrap;
     align-items: stretch;
 }
@@ -454,9 +490,9 @@ body {
     justify-content: space-between;
     align-items: center;
     background: var(--nav-bar-color);
-    padding: 15px 20px;
+    padding: var(--spacing-md) var(--spacing-lg);
     border-radius: var(--border-radius);
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--border-color);
     flex: 1;
     min-width: 400px;
     order: 1; /* Navigation appears first */
@@ -468,12 +504,9 @@ body {
     align-items: center;
     justify-content: center;
     background: var(--nav-bar-color);
-    padding-top: 15px;
-    padding-bottom: 15px;  
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: var(--spacing-md) var(--spacing-lg);
     border-radius: var(--border-radius);
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--border-color);
     order: 2; /* Skip button appears between navigation and metadata */
 }
 
@@ -528,19 +561,19 @@ body {
 
 /* Specific button styling */
 .nav-btn-start {
-    background: #6c757d;
+    background: var(--secondary-color);
 }
 
 .nav-btn-start:hover:not(:disabled) {
-    background: #5a6268;
+    background: var(--text-secondary);
 }
 
 .nav-btn-end {
-    background: #6c757d;
+    background: var(--secondary-color);
 }
 
 .nav-btn-end:hover:not(:disabled) {
-    background: #5a6268;
+    background: var(--text-secondary);
 }
 
 .nav-btn-prev {
@@ -554,9 +587,9 @@ body {
 /* Disabled state styling */
 .nav-btn:disabled {
     opacity: 0.5 !important;
-    color: #6c7d73 !important;
-    background-color: #cccccc !important;
-    border-color: #d6d9dc !important;
+    color: var(--text-secondary) !important;
+    background-color: var(--copy-btn-bg) !important;
+    border-color: var(--border-color) !important;
     cursor: not-allowed !important;
     pointer-events: none !important;
 }
@@ -609,10 +642,10 @@ body {
     position: absolute;
     top: calc(100% + 4px);
     left: -6px;
-    background: white;
-    border: 1px solid #dee2e6;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow);
     z-index: 1000;
     min-width: 200px;
     max-width: 400px;
@@ -623,7 +656,7 @@ body {
 
 /* Dropdown items */
 .step-dropdown-item {
-    padding: 8px 8px 8px 8px;
+    padding: var(--spacing-xs);
     cursor: pointer;
     transition: background-color 0.15s ease;
     user-select: none;
@@ -631,7 +664,7 @@ body {
     font-size: 0.875rem;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--spacing-xs);
 }
 
 /* Step number icon */
@@ -650,14 +683,14 @@ body {
 }
 
 .step-dropdown-item:hover {
-    background-color: #f5f5f5;
+    background-color: var(--background-color);
 }
 
 .step-dropdown-item.active {
-    background-color: #e9ecef;
+    background-color: var(--background-color);
     font-weight: 600;
     cursor: default;
-    color: #6c757d;
+    color: var(--text-secondary);
 }
 
 .step-dropdown-item:not(.active):hover {
@@ -671,12 +704,12 @@ body {
     flex-direction: column;
     align-items: right;
     justify-content: center;
-    gap: 8px;
+    gap: var(--spacing-xs);
     background: var(--nav-bar-color);
-    padding: 12px 20px;
+    padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: var(--border-radius);
-    border: 1px solid #dee2e6;
-    font-family: var(--font-monospace);
+    border: 1px solid var(--border-color);
+    font-family: var(--font-mono);
     font-size: 0.875rem;
     color: var(--text-secondary);
     min-width: 250px;
@@ -686,13 +719,13 @@ body {
 .metadata-field {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--spacing-xs);
 }
 
 .metadata-label {
     font-weight: 600;
     color: var(--text-primary);
-    font-family: var(--font-system); /* Same font as step-counter */
+    font-family: var(--font-sans); /* Same font as step-counter */
 }
 
 .metadata-display #uuid-value,
@@ -707,7 +740,7 @@ body {
 .uuid-wrapper {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: var(--spacing-xs);
 }
 
 .uuid-copy-btn {
@@ -797,7 +830,7 @@ body {
     background: var(--surface-color);
     padding: var(--spacing-md);
     border-radius: 0;
-    font-family: var(--font-monospace);
+    font-family: var(--font-sans);
     font-size: 0.75rem;
     line-height: 1.4;
     color: var(--text-primary);
@@ -881,6 +914,7 @@ body {
 #user-input-content {
     white-space: pre-wrap;
     word-wrap: break-word;
+    font-family: var(--font-mono);
 }
 
 /* Specific Content Sections */
@@ -938,7 +972,7 @@ body {
     background: var(--background-color);
     border: none;
     border-radius: 0;
-    font-family: var(--font-monospace);
+    font-family: var(--font-mono);
     font-size: 0.75rem;
     line-height: 1.4;
     color: var(--text-primary);
@@ -961,6 +995,7 @@ body {
     align-items: center;
     justify-content: center;
     color: var(--text-secondary);
+    font-family: var(--font-sans-italic);
     font-style: italic;
     background: var(--background-color);
     border-radius: 0;
@@ -1029,6 +1064,13 @@ body {
     height: auto;
 }
 
+/* All Graph Text - Apply Adwaita Sans to all SVG text elements in graphs */
+[id*="-graph-container"] svg text,
+[id*="-graph-container"] svg tspan {
+    font-family: var(--font-sans) !important;
+}
+/* Note: Font size for Mermaid graphs is controlled ONLY via ConfigManager and applied programmatically via MermaidRenderer */
+
 /* CPEE Graph Containers */
 .cpee-section [id*="-graph-container"] {
     min-width: 100%;
@@ -1040,6 +1082,12 @@ body {
     width: auto !important;
     max-width: none !important;
     display: block;
+}
+
+/* CPEE Graph Text Styling */
+.cpee-section [id*="-graph-container"] svg text,
+.cpee-section [id*="-graph-container"] svg text.label {
+    font-family: var(--font-sans) !important;
 }
 
 #input-cpee-content [id*="-graph-container"] svg {
@@ -1076,6 +1124,16 @@ body {
     min-width: 200px;
     max-height: none !important;
     vertical-align: top;
+}
+
+/* Mermaid Graph Text Styling */
+/* Font family only - font size is controlled ONLY via ConfigManager and applied programmatically via MermaidRenderer */
+[id*="input-intermediate-"][id*="-graph-container"] svg text,
+[id*="output-intermediate-"][id*="-graph-container"] svg text,
+[id*="input-intermediate-"][id*="-graph-container"] svg .nodeLabel,
+[id*="output-intermediate-"][id*="-graph-container"] svg .nodeLabel,
+.mermaid-section [id*="-graph-container"] svg text {
+    font-family: var(--font-sans) !important;
 }
 
 /* Mermaid Element Styling */
@@ -1249,11 +1307,11 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 20px;
-        margin: 10px 0;
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin: var(--spacing-sm) 0;
+        background: var(--nav-bar-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
     }
 
     .step-navigation .nav-left {
@@ -1278,24 +1336,24 @@ body {
 
     /* Navigation Button Base Styles */
     .nav-btn {
-        padding: 8px 12px;
-        border-radius: 4px;
-        font-size: 14px;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: var(--border-radius-sm);
+        font-size: 0.875rem;
         font-weight: 500;
-        transition: all 0.2s ease;
+        transition: var(--transition-fast);
         outline: none;
         min-width: 32px;
         height: 32px;
-        border: 1px solid;
+        border: 1px solid var(--border-color);
         cursor: pointer;
     }
 
     /* Disabled Button State */
     .nav-btn:disabled,
     .nav-btn.disabled {
-        color: #999999;
-        background-color: #f5f5f5;
-        border-color: #e0e0e0;
+        color: var(--text-secondary);
+        background-color: var(--background-color);
+        border-color: var(--border-color);
         cursor: not-allowed;
         pointer-events: none;
     }
@@ -1303,35 +1361,35 @@ body {
     /* Enabled Left/Right Buttons (← →) - Blue Theme */
     .nav-btn-prev:not(:disabled):not(.disabled),
     .nav-btn-next:not(:disabled):not(.disabled) {
-        color: white;
-        background-color: #2563eb;
-        border-color: #1d4ed8;
+        color: var(--surface-color);
+        background-color: var(--primary-color);
+        border-color: var(--primary-dark);
         pointer-events: auto;
     }
 
     .nav-btn-prev:not(:disabled):not(.disabled):hover,
     .nav-btn-next:not(:disabled):not(.disabled):hover {
-        background-color: #1d4ed8;
+        background-color: var(--primary-dark);
     }
 
     /* Enabled Start/End Buttons (⏮ ⏭) - Gray Theme */
     .nav-btn-start:not(:disabled):not(.disabled),
     .nav-btn-end:not(:disabled):not(.disabled) {
-        color: #333333;
-        background-color: #d4d4d4;
-        border-color: #b8b8b8;
+        color: var(--text-primary);
+        background-color: var(--section-header-bg);
+        border-color: var(--border-color);
         pointer-events: auto;
     }
 
     .nav-btn-start:not(:disabled):not(.disabled):hover,
     .nav-btn-end:not(:disabled):not(.disabled):hover {
-        background-color: #c0c0c0;
+        background-color: var(--copy-btn-bg);
     }
 
     /* Step Counter */
     .step-navigation #step-counter {
         font-weight: 500;
-        color: #333;
+        color: var(--text-primary);
         user-select: none;
     }
 }
@@ -1471,18 +1529,11 @@ body {
     position: relative;
 }
 
-/* No Content State - When raw content is not available */
-.no-content {
-    color: var(--text-secondary);
-    font-style: italic;
-    text-align: center;
-    padding: 2rem;
-}
 
 .raw-code-block {
     margin: 0;
     background: var(--surface-color);
-    font-family: var(--font-monospace);
+    font-family: var(--font-mono);
     font-size: 0.875rem;
     line-height: 1.5;
     color: var(--text-primary);
@@ -1503,7 +1554,7 @@ body {
 .raw-text-block {
     margin: 0;
     background: var(--surface-color);
-    font-family: var(--font-monospace);
+    font-family: var(--font-mono);
     font-size: 0.875rem;
     line-height: 1.6;
     color: var(--text-primary);
@@ -1628,60 +1679,13 @@ body {
 }
 
 /* ========================================
-   PHASE 21.6: STYLING AND UX ENHANCEMENTS
+   STYLING AND UX ENHANCEMENTS
    ======================================== */
-
-/* View Mode Toggle - iOS-style Switch Colors */
-.view-mode-toggle {
-    display: inline-flex;
-    background: #e5e7eb;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    padding: 2px;
-    gap: 2px;
-}
-
-.toggle-btn {
-    padding: 6px 12px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    border-radius: 6px;
-    color: #6b7280;
-    transition: none;
-    font-size: 0.85rem;
-    font-weight: 500;
-    user-select: none;
-}
-
-.toggle-btn:hover:not(.active) {
-    background: rgba(0, 0, 0, 0.1);
-    color: #374151;
-}
-
-.toggle-btn:active:not(.active) {
-    background: rgba(0, 0, 0, 0.08);
-}
-
-.toggle-btn.active {
-    background: #2563eb;
-    color: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.toggle-btn:focus-visible {
-    outline: 2px solid #2563eb;
-    outline-offset: -2px;
-}
-
-
-
 
 /* Section Header - No Transitions for Instant Response */
 .section-header-container {
     transition: none;
 }
-
 
 /* Scrollbar Styling - Enhanced */
 .raw-code-block::-webkit-scrollbar,
@@ -1759,18 +1763,8 @@ body {
 }
 
 /* ========================================
-   PHASE 22: CROSS-VIEW TASK HIGHLIGHTING SYSTEM
+   CROSS-VIEW TASK HIGHLIGHTING SYSTEM
    ======================================== */
-
-/* Task Highlighting Styles */
-:root {
-    /* Highlight Colors - Orange */
-    --highlight-color: #fb923c;
-    --highlight-active-color: #f97316;
-    --highlight-stroke: #f57900;
-    --highlight-opacity: 0.2;
-    --highlight-active-opacity: 0.4;
-}
 
 /* Highlightable Task Elements */
 .task-clickable {
@@ -1864,7 +1858,7 @@ body {
     left: 8px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
     pointer-events: none;
     z-index: 1;
 }
@@ -1876,7 +1870,7 @@ body {
     border: 1px solid var(--border-color);
     border-radius: 4px;
     background: var(--background-color);
-    color: var(--text-color);
+    color: var(--text-primary);
     font-size: 14px;
     font-family: inherit;
     outline: none;
@@ -1885,11 +1879,11 @@ body {
 
 .search-input:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 2px var(--primary-color-alpha);
 }
 
 .search-input::placeholder {
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
 }
 
 /* Clear search button */
@@ -1900,7 +1894,7 @@ body {
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
     cursor: pointer;
     padding: 2px;
     border-radius: 2px;
@@ -1911,8 +1905,8 @@ body {
 }
 
 .search-clear-btn:hover {
-    color: var(--text-color);
-    background-color: var(--hover-background);
+    color: var(--text-primary);
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Search navigation controls */
@@ -1928,7 +1922,7 @@ body {
 .search-next-btn {
     background: var(--background-color);
     border: 1px solid var(--border-color);
-    color: var(--text-color);
+    color: var(--text-primary);
     cursor: pointer;
     padding: 4px 6px;
     border-radius: 4px;
@@ -1941,7 +1935,7 @@ body {
 
 .search-prev-btn:hover:not(:disabled),
 .search-next-btn:hover:not(:disabled) {
-    background-color: var(--hover-background);
+    background-color: rgba(0, 0, 0, 0.05);
     border-color: var(--primary-color);
 }
 
@@ -1954,7 +1948,7 @@ body {
 /* Search counter */
 .search-counter {
     font-size: 12px;
-    color: var(--text-color-secondary);
+    color: var(--text-secondary);
     white-space: nowrap;
     margin: 0 4px;
 }

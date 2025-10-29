@@ -126,18 +126,6 @@ export class ConfigManager {
                     overflowX: 'auto',
                     overflowY: 'auto',
                     padding: '0'
-                },
-                intermediateGraph: {
-                    padding: '15px',
-                    nodeSpacing: '20px',
-                    rankSpacing: '25px',
-                    fontSize: '10px'
-                },
-                regularGraph: {
-                    padding: '20px',
-                    nodeSpacing: '25px',
-                    rankSpacing: '35px',
-                    fontSize: '11px'
                 }
             },
             svg: {
@@ -191,9 +179,13 @@ export class ConfigManager {
                 startOnLoad: false,
                 theme: 'base',
                 securityLevel: 'loose',
-                fontFamily: 'Arial, Helvetica, sans-serif',
-                fontSize: 11
+                fontFamily: 'Adwaita Sans Regular',
+                fontSize: 13
             },
+            // css: {
+            //     textFontSize: '30px',
+            //     tspanFontSize: '30px'
+            // },
             themeVariables: {
                 primaryColor: '#ffffff',
                 primaryBorderColor: '#000000',
@@ -234,7 +226,7 @@ export class ConfigManager {
                 titleTopMargin: 15,
                 barHeight: 12,
                 fontSize: 8,
-                fontFamily: '"Open Sans", sans-serif',
+                fontFamily: 'Adwaita Sans Regular',
                 numberSectionStyles: 4,
                 axisFormat: '%Y-%m-%d',
                 useMaxWidth: false

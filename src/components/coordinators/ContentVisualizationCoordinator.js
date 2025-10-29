@@ -465,12 +465,16 @@ export class ContentVisualizationCoordinator {
         
         // Return cleanup function
         return () => {
-            setTimeout(() => {
+            // Use requestAnimationFrame instead of setTimeout for immediate next frame update
+            // This reduces delay from ~100ms to ~16ms (one frame)
+            requestAnimationFrame(() => {
                 this.domRegistry.applyStyles(element, {
                     height: 'auto'
                 });
                 contentBox.classList.remove(configManager.get('dom.classes.transitioning'));
-            }, configManager.get('timing.delays.heightPreservation'));
+                // Force layout recalculation immediately
+                void element.offsetHeight;
+            });
         };
     }
 

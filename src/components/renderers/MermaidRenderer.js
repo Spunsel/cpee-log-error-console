@@ -31,30 +31,23 @@ export class MermaidRenderer {
      * @param {string} inputId - ID of the input element (optional)
      */
     async initialize(containerId, statusId = null, inputId = null) {
-        try {
-            this.container = document.getElementById(containerId);
-            if (!this.container) {
-                throw new Error(`MermaidRenderer: Container element with ID '${containerId}' not found`);
-            }
-
-            // Initialize status manager
-            if (statusId) {
-                const statusElement = document.getElementById(statusId);
-                this.statusManager = new DOMStatusManager(statusElement);
-            }
-
-            if (inputId) {
-                this.inputElement = document.getElementById(inputId);
-            }
-
-            this.setupContainer();
-            await this.loadMermaid();
-            
-            console.log('✅ MermaidRenderer initialized successfully');
-        } catch (error) {
-            console.error('❌ Failed to initialize MermaidRenderer:', error);
-            throw error;
+        this.container = document.getElementById(containerId);
+        if (!this.container) {
+            throw new Error(`MermaidRenderer: Container element with ID '${containerId}' not found`);
         }
+
+        // Initialize status manager
+        if (statusId) {
+            const statusElement = document.getElementById(statusId);
+            this.statusManager = new DOMStatusManager(statusElement);
+        }
+
+        if (inputId) {
+            this.inputElement = document.getElementById(inputId);
+        }
+
+        this.setupContainer();
+        await this.loadMermaid();
     }
 
     /**
@@ -65,14 +58,16 @@ export class MermaidRenderer {
             return;
         }
 
+        // Container should not have overflow - parent mermaid-section handles scrolling
         this.container.style.cssText = `
             width: ${configManager.get('rendering.containers.graphContainer.width')};
             height: auto;
             min-height: ${configManager.get('rendering.containers.graphContainer.minHeight')};
             position: relative;
-            overflow: auto;
+            overflow: visible;
             background: white;
             border-radius: 8px;
+            box-sizing: border-box;
         `;
     }
 
@@ -103,10 +98,95 @@ export class MermaidRenderer {
         }
 
         // Use configuration manager for consistent setup
-        const config = configManager.getSection('mermaid');
+        const mermaidConfig = configManager.getSection('mermaid');
+        // Mermaid.initialize expects a flat config object, so merge default with other settings
+        const config = {
+            ...mermaidConfig.default,
+            themeVariables: mermaidConfig.themeVariables,
+            flowchart: mermaidConfig.flowchart,
+            sequence: mermaidConfig.sequence,
+            gantt: mermaidConfig.gantt
+        };
         window.mermaid.initialize(config);
+    }
 
-        console.log('✅ Mermaid initialized with configuration');
+    /**
+     * Get font size configuration
+     * @returns {Object} Font size configuration
+     */
+    _getFontSizeConfig() {
+        const mermaidConfig = configManager.getSection('mermaid');
+        // Fixed baseline font size for scaling calculations
+        const baseFontSize = 14;
+        // Current font size from config
+        const fontSize = mermaidConfig.default.fontSize || baseFontSize;
+        
+        return { fontSize, baseFontSize };
+    }
+
+    /**
+     * Build Mermaid configuration with proportional scaling
+     * @returns {Object} Mermaid configuration object
+     */
+    _buildMermaidConfig() {
+        const mermaidConfig = configManager.getSection('mermaid');
+        const { fontSize, baseFontSize } = this._getFontSizeConfig();
+        const scaleFactor = fontSize / baseFontSize;
+
+        const flowchart = {
+            ...mermaidConfig.flowchart,
+            padding: Math.round(mermaidConfig.flowchart.padding * scaleFactor),
+            nodeSpacing: Math.round(mermaidConfig.flowchart.nodeSpacing * scaleFactor),
+            rankSpacing: Math.round(mermaidConfig.flowchart.rankSpacing * scaleFactor)
+        };
+
+        return {
+            ...mermaidConfig.default,
+            fontSize,
+            flowchart,
+            themeVariables: mermaidConfig.themeVariables,
+            sequence: mermaidConfig.sequence,
+            gantt: mermaidConfig.gantt
+        };
+    }
+
+    /**
+     * Apply font sizes to all text elements in SVG
+     * @param {SVGElement} svgElement - SVG element to style
+     * @param {string} fontSize - Font size value
+     */
+    _applyFontSizes(svgElement, fontSize) {
+        if (!svgElement) {
+            return;
+        }
+        
+        const svgNS = 'http://www.w3.org/2000/svg';
+        
+        // Apply to all text and tspan elements
+        const textElements = svgElement.getElementsByTagNameNS(svgNS, 'text');
+        const tspanElements = svgElement.getElementsByTagNameNS(svgNS, 'tspan');
+        
+        [...textElements, ...tspanElements].forEach(el => {
+            // Remove any existing font-size attributes that might interfere
+            el.removeAttribute('font-size');
+            // Set via style with !important to override Mermaid's internal styles
+            el.style.setProperty('font-size', fontSize, 'important');
+            // Also set as attribute as fallback
+            el.setAttribute('font-size', fontSize);
+        });
+    }
+
+    /**
+     * Apply SVG styling (scaling is handled via Mermaid internal spacing)
+     * @param {SVGElement} svgElement - SVG element to style
+     */
+    _applySVGScaling(svgElement) {
+        // No CSS transform needed - scaling is handled via Mermaid's internal spacing
+        // Setting display and background for consistent appearance
+        Object.assign(svgElement.style, {
+            background: 'white',
+            display: 'block'
+        });
     }
 
     /**
@@ -119,119 +199,72 @@ export class MermaidRenderer {
                 this.statusManager.showLoading('🎨 Rendering Mermaid graph...');
             }
 
-            // Validate mermaid code using MermaidParser
             const cleanedCode = MermaidParser.cleanAndValidate(mermaidCode);
-
-            // Ensure mermaid is loaded
             await this.loadMermaid();
 
-            // Clear previous content
-            this.container.innerHTML = '';
-
-            // Generate unique ID for this render
-            this.renderCount++;
-            const graphId = `mermaid-graph-${this.renderCount}-${Date.now()}`;
-
-            // Create container for the graph
+            const mermaidConfig = this._buildMermaidConfig();
+            const { fontSize } = this._getFontSizeConfig();
+            
+            window.mermaid.initialize(mermaidConfig);
+            
+            // Create graph container
             const graphDiv = document.createElement('div');
-            graphDiv.id = graphId;
+            graphDiv.id = `mermaid-graph-${++this.renderCount}-${Date.now()}`;
+            graphDiv.style.cssText = `width: 100%; height: auto; text-align: center; padding: 20px; box-sizing: border-box; overflow: visible;`;
             
-            // Check if this is an intermediate graph and adjust configuration accordingly
-            const isIntermediateGraph = this.container.id.includes('intermediate');
-            const padding = isIntermediateGraph ? '15px' : '20px';
-            
-            // Use container-specific configuration for intermediate graphs
-            if (isIntermediateGraph) {
-                const intermediateConfig = configManager.get('rendering.containers.intermediateGraph');
-                const mermaidConfig = configManager.getSection('mermaid');
-                
-                // Apply intermediate-specific settings
-                mermaidConfig.flowchart.padding = parseInt(intermediateConfig.padding);
-                mermaidConfig.flowchart.nodeSpacing = parseInt(intermediateConfig.nodeSpacing);
-                mermaidConfig.flowchart.rankSpacing = parseInt(intermediateConfig.rankSpacing);
-                mermaidConfig.fontSize = parseInt(intermediateConfig.fontSize);
-                
-                window.mermaid.initialize(mermaidConfig);
-            }
-            
-            graphDiv.style.cssText = `
-                width: 100%;
-                height: auto;
-                text-align: center;
-                padding: ${padding};
-                box-sizing: border-box;
-            `;
-
+            // Pre-append to container but keep invisible to allow layout calculation
+            this.container.innerHTML = '';
+            graphDiv.style.opacity = '0';
             this.container.appendChild(graphDiv);
-
-            // Render with mermaid
+            
+            // Render SVG
             const { svg, bindFunctions } = await window.mermaid.render(`graph-${this.renderCount}`, cleanedCode);
-
-            // Insert the SVG into the container
             graphDiv.innerHTML = svg;
-
-            // Execute any binding functions for interactivity
             if (bindFunctions) {
                 bindFunctions(graphDiv);
             }
 
-            // Style the SVG for consistent appearance
             const svgElement = graphDiv.querySelector('svg');
-            
-            if (svgElement) {
-                if (isIntermediateGraph) {
-                    // Allow natural growth for intermediate graphs
-                    svgElement.style.cssText = `
-                        width: auto;
-                        height: auto;
-                        display: inline-block;
-                        margin: 0;
-                        background: white;
-                        vertical-align: top;
-                    `;
-                    
-                    // Adjust container height to match SVG height after rendering
-                    setTimeout(() => {
-                        const svgHeight = svgElement.getBoundingClientRect().height;
-                        if (svgHeight > 0) {
-                            const paddingValue = isIntermediateGraph ? 30 : 40; // Account for top + bottom padding
-                            this.container.style.minHeight = (svgHeight + paddingValue) + 'px';
-                            this.container.style.height = 'auto';
-                        }
-                    }, 100);
-                } else {
-                    // Constrain other graphs to container width
-                    svgElement.style.cssText = `
-                        max-width: 100%;
-                        height: auto;
-                        display: block;
-                        margin: 0 auto;
-                        background: white;
-                    `;
+            if (!svgElement) {
+                this.container.innerHTML = '';
+                this.showFallbackContent(cleanedCode);
+                if (this.statusManager) {
+                    this.statusManager.showError('SVG element not found after render');
                 }
+                return;
             }
 
-            console.log('✅ Mermaid graph rendered successfully');
+            // Apply all styling immediately and synchronously
+            const fontSizeStr = `${fontSize}px`;
+            this._applyFontSizes(svgElement, fontSizeStr);
+            this._applySVGScaling(svgElement);
+            
+            // Apply to all text elements immediately
+            const allText = svgElement.querySelectorAll('text, tspan, .nodeLabel text, .nodeLabel tspan');
+            for (let i = 0; i < allText.length; i++) {
+                const el = allText[i];
+                el.style.setProperty('font-size', fontSizeStr, 'important');
+                el.setAttribute('font-size', fontSizeStr);
+            }
+            
+            // Force immediate synchronous layout recalculation
+            void graphDiv.offsetHeight;
+            void this.container.offsetHeight;
+            void svgElement.offsetHeight;
+            
+            // Make visible in same frame (no repaint delay)
+            graphDiv.style.opacity = '1';
+
             if (this.statusManager) {
                 this.statusManager.showSuccess('✅ Mermaid graph rendered successfully');
             }
-            this.isRendered = true;
             
-            // Call post-render callback if set
+            this.isRendered = true;
             if (this.postRenderCallback) {
-                console.log('[MermaidRenderer] Calling post-render callback');
                 this.postRenderCallback(this.container.id, svgElement);
             }
 
         } catch (error) {
-            console.error('❌ Error rendering Mermaid graph:', error);
-            console.error('📋 Original code length:', mermaidCode.length);
-            console.error('🔍 Error details:', {
-                name: error.name,
-                message: error.message,
-                stack: error.stack
-            });
-            
             if (this.statusManager) {
                 this.statusManager.showError(`❌ Failed to render graph: ${error.message}`);
             }
@@ -299,6 +332,5 @@ export class MermaidRenderer {
      */
     setPostRenderCallback(callback) {
         this.postRenderCallback = callback;
-        console.log('[MermaidRenderer] Post-render callback set');
     }
 }
