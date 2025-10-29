@@ -315,44 +315,44 @@ export class RawContentRenderer {
     }
 
     /**
-     * Perform search in raw content
+     * Get container element for a section
+     * @param {string} sectionId - Section identifier
+     * @returns {HTMLElement|null} Container element or null
+     */
+    getContainerForSection(sectionId) {
+        return document.querySelector(`#${sectionId} .raw-content-container`);
+    }
+
+    /**
+     * Perform search in raw content (delegates to SearchService combined workflow)
      * @param {string} sectionId - Section identifier
      * @param {string} searchTerm - Search term
-     * @param {string} content - Content to search in
+     * @param {string} _content - Content to search in (unused, kept for compatibility)
      */
-    performSearch(sectionId, searchTerm, content) {
-        if (!searchTerm || !content) {
+    performSearch(sectionId, searchTerm, _content) {
+        if (!searchTerm) {
             return;
         }
 
-        // Initialize search state if not exists
-        this.searchService.initializeSearchState(sectionId);
-
         // Find the raw content container for this section
-        const container = document.querySelector(`#${sectionId} .raw-content-container`);
+        const container = this.getContainerForSection(sectionId);
         if (!container) {
             console.warn(`RawContentRenderer: No raw content container found for ${sectionId}`);
             return;
         }
 
-        // Get search state and options
+        // Get search options from state
         const searchState = this.searchService.getSearchState(sectionId);
         const options = {
-            caseSensitive: searchState.caseSensitive,
-            wholeWord: searchState.wholeWord
+            caseSensitive: searchState?.caseSensitive || false,
+            wholeWord: searchState?.wholeWord || false
         };
 
-        // Apply search highlighting using SearchService
-        const matches = this.searchService.applySearchHighlighting(container, searchTerm, options);
-
-        // Update search state with matches
-        this.searchService.updateSearchResults(sectionId, searchTerm, matches);
+        // Use SearchService's combined workflow
+        const matches = this.searchService.performSearch(sectionId, container, searchTerm, options);
         
-        // Update search UI in action bar from SearchService state
-        const actionBar = this.actionBars.get(sectionId);
-        if (actionBar && actionBar.searchBar) {
-            actionBar.searchBar.updateUIFromService();
-        }
+        // Update search UI after search completes
+        this.updateSearchUI(sectionId);
 
         // Scroll to first match if any matches found
         if (matches.length > 0) {
@@ -361,65 +361,61 @@ export class RawContentRenderer {
     }
 
     /**
-     * Clear search highlighting
+     * Clear search highlighting (delegates to SearchService combined workflow)
      * @param {string} sectionId - Section identifier
      */
-    clearSearch(sectionId) {        
+    clearSearch(sectionId) {
         // Find the raw content container for this section
-        const container = document.querySelector(`#${sectionId} .raw-content-container`);
+        const container = this.getContainerForSection(sectionId);
         if (!container) {
             console.warn(`RawContentRenderer: No raw content container found for ${sectionId}`);
             return;
         }
 
-        // Clear highlighting using SearchService
-        this.searchService.clearSearchHighlighting(container);
+        // Use SearchService's combined workflow
+        this.searchService.clearSearch(sectionId, container);
 
-        // Clear search state
-        this.searchService.clearSearchState(sectionId);
-
-        // Update action bar UI from SearchService state
-        const actionBar = this.actionBars.get(sectionId);
-        if (actionBar && actionBar.searchBar) {
-            actionBar.searchBar.updateUIFromService();
-        }
+        // Update UI after clear
+        this.updateSearchUI(sectionId);
     }
 
     /**
-     * Navigate to specific match
+     * Navigate to specific match (delegates to SearchService combined workflow)
      * @param {string} sectionId - Section identifier
      * @param {string} direction - 'next' or 'prev'
      */
     navigateToMatch(sectionId, direction) {
         console.log(`RawContentRenderer: Navigating ${direction} in ${sectionId}`);
         
-        // Get search state for this section
-        const searchState = this.searchService.getSearchState(sectionId);
-        if (!searchState || searchState.matches.length === 0) {
-            console.warn(`RawContentRenderer: No matches found for ${sectionId}`);
-            return;
-        }
-
-        // Navigate to next/prev match and get new index
-        const newMatchIndex = this.searchService.navigateToMatch(sectionId, direction);
-
         // Find the raw content container for this section
-        const container = document.querySelector(`#${sectionId} .raw-content-container`);
+        const container = this.getContainerForSection(sectionId);
         if (!container) {
             console.warn(`RawContentRenderer: No raw content container found for ${sectionId}`);
             return;
         }
 
-        // Scroll to the match using SearchService
-        const scrolled = this.searchService.scrollToMatch(container, newMatchIndex);
+        // Use SearchService's combined workflow methods
+        const success = direction === 'next' 
+            ? this.searchService.navigateToNextMatch(sectionId, container)
+            : this.searchService.navigateToPreviousMatch(sectionId, container);
         
-        if (scrolled) {
-            console.log(`RawContentRenderer: Successfully scrolled to match ${newMatchIndex + 1} of ${searchState.matches.length}`);
+        if (success) {
+            const searchState = this.searchService.getSearchState(sectionId);
+            const currentIndex = searchState?.currentMatchIndex ?? -1;
+            console.log(`RawContentRenderer: Successfully navigated to match ${currentIndex + 1}`);
         } else {
-            console.warn(`RawContentRenderer: Failed to scroll to match ${newMatchIndex}`);
+            console.warn(`RawContentRenderer: Failed to navigate ${direction}`);
         }
 
-        // Update UI from SearchService state after navigation
+        // Update UI after navigation
+        this.updateSearchUI(sectionId);
+    }
+
+    /**
+     * Update search UI from SearchService state
+     * @param {string} sectionId - Section identifier
+     */
+    updateSearchUI(sectionId) {
         const actionBar = this.actionBars.get(sectionId);
         if (actionBar && actionBar.searchBar) {
             actionBar.searchBar.updateUIFromService();
@@ -447,17 +443,14 @@ export class RawContentRenderer {
         }
 
         // Find the raw content container for this section
-        const container = document.querySelector(`#${sectionId} .raw-content-container`);
+        const container = this.getContainerForSection(sectionId);
         if (!container) {
             console.warn(`RawContentRenderer: No raw content container found for ${sectionId}`);
             return;
         }
 
-        // Clear any search highlighting using SearchService
-        this.searchService.clearSearchHighlighting(container);
-
-        // Reset search state using SearchService
-        this.searchService.clearSearchState(sectionId);
+        // Use SearchService's combined workflow to clear search
+        this.searchService.clearSearch(sectionId, container);
     }
 
     /**
@@ -467,11 +460,13 @@ export class RawContentRenderer {
         // Clear all search states using SearchService
         this.searchService.clearAllSearchStates();
         
-        // Clear highlighting from all containers using SearchService
+        // Clear highlighting from all containers using SearchService combined method
         const sectionIds = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
         sectionIds.forEach(sectionId => {
-            const container = document.querySelector(`#${sectionId} .raw-content-container`);
+            const container = this.getContainerForSection(sectionId);
             if (container) {
+                // Use combined method - it will clear highlighting if state exists
+                // But since we already cleared state, just clear highlighting directly
                 this.searchService.clearSearchHighlighting(container);
             }
         });

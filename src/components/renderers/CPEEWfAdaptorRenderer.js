@@ -1,7 +1,6 @@
 /**
  * CPEE WfAdaptor Graph Renderer
  * Uses the original CPEE wfadaptor.js functionality directly
- * Leverages the authentic CPEE graph rendering system
  */
 
 import { DOMStatusManager } from '../../utils/dom/DOMStatusManager.js';

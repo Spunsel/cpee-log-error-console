@@ -12,9 +12,6 @@
 import { CPEEWfAdaptorRenderer } from '../renderers/CPEEWfAdaptorRenderer.js';
 import { MermaidRenderer } from '../renderers/MermaidRenderer.js';
 import { configManager } from '../../config/ConfigManager.js';
-import { SVGClickDetector } from '../../utils/interaction/SVGClickDetector.js';
-import { CPEESVGClickHandler } from '../../utils/interaction/CPEESVGClickHandler.js';
-import { MermaidSVGClickHandler } from '../../utils/interaction/MermaidSVGClickHandler.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class ContentVisualizationCoordinator {
@@ -31,11 +28,6 @@ export class ContentVisualizationCoordinator {
         
         // Current container reference for cleanup
         this.currentGraphContainer = null;
-        
-        // Click detection
-        this.clickDetector = new SVGClickDetector();
-        this.cpeeClickHandler = new CPEESVGClickHandler();
-        this.mermaidClickHandler = new MermaidSVGClickHandler();
     }
 
     /**
@@ -101,8 +93,8 @@ export class ContentVisualizationCoordinator {
                 console.log(`[ContentVisualizationCoordinator] Post-render callback for ${sectionId}`);
                 if (this.highlightCoordinator) {
                     this.highlightCoordinator.registerSection('input-cpee', svgElement);
+                    this.highlightCoordinator.attachCPEEClickHandlers(svgElement, 'input-cpee');
                 }
-                this.attachCPEEClickHandlers(svgElement, 'input-cpee');
             });
             
             // Initialize with proper parameters (containerId, statusId, xmlInputId)
@@ -161,8 +153,8 @@ export class ContentVisualizationCoordinator {
                 console.log(`[ContentVisualizationCoordinator] Post-render callback for ${sectionId}`);
                 if (this.highlightCoordinator) {
                     this.highlightCoordinator.registerSection('output-cpee', svgElement);
+                    this.highlightCoordinator.attachCPEEClickHandlers(svgElement, 'output-cpee');
                 }
-                this.attachCPEEClickHandlers(svgElement, 'output-cpee');
             });
             
             // Initialize with proper parameters (containerId, statusId, xmlInputId)
@@ -224,8 +216,8 @@ export class ContentVisualizationCoordinator {
                 console.log(`[ContentVisualizationCoordinator] Post-render callback for ${sectionId}`);
                 if (this.highlightCoordinator) {
                     this.highlightCoordinator.registerSection('input-intermediate', svgElement);
+                    this.highlightCoordinator.attachMermaidClickHandlers(svgElement, 'input-intermediate');
                 }
-                this.attachMermaidClickHandlers(svgElement, 'input-intermediate');
             });
             
             await this.inputMermaidRenderer.initialize(graphContainer.id);
@@ -290,8 +282,8 @@ export class ContentVisualizationCoordinator {
                 console.log(`[ContentVisualizationCoordinator] Post-render callback for ${sectionId}`);
                 if (this.highlightCoordinator) {
                     this.highlightCoordinator.registerSection('output-intermediate', svgElement);
+                    this.highlightCoordinator.attachMermaidClickHandlers(svgElement, 'output-intermediate');
                 }
-                this.attachMermaidClickHandlers(svgElement, 'output-intermediate');
             });
             
             await this.outputMermaidRenderer.initialize(graphContainer.id);
@@ -542,65 +534,5 @@ export class ContentVisualizationCoordinator {
             inputMermaidRenderer: this.inputMermaidRenderer,
             outputMermaidRenderer: this.outputMermaidRenderer
         };
-    }
-    
-    /**
-     * Attach click handlers for CPEE renderer
-     * @param {Element} svgElement - SVG container element
-     * @param {string} sectionId - Section identifier
-     */
-    attachCPEEClickHandlers(svgElement, sectionId) {
-        console.log(`[ContentVisualizationCoordinator] Attaching CPEE click handlers to ${sectionId}`);
-        
-        // Find all task elements and make them clickable
-        const taskElements = svgElement.querySelectorAll('g.element[element-id]');
-        console.log(`[ContentVisualizationCoordinator] Found ${taskElements.length} CPEE task elements in ${sectionId}`);
-        
-        taskElements.forEach(taskElement => {
-            taskElement.classList.add('task-clickable');
-        });
-        
-        // Attach click listener for the entire SVG
-        if (this.highlightCoordinator) {
-            this.clickDetector.attachClickListener(svgElement, (event, clickedElement, elementPath, taskContainer) => {
-                if (taskContainer) {
-                    const taskId = taskContainer.getAttribute('element-id');
-                    if (taskId) {
-                        console.log(`[ContentVisualizationCoordinator] CPEE task clicked in ${sectionId}: ${taskId}`);
-                        this.highlightCoordinator.onTaskClicked(taskId, sectionId, sectionId);
-                    }
-                }
-            });
-        }
-    }
-    
-    /**
-     * Attach click handlers for Mermaid renderer
-     * @param {Element} svgElement - SVG container element
-     * @param {string} sectionId - Section identifier
-     */
-    attachMermaidClickHandlers(svgElement, sectionId) {
-        console.log(`[ContentVisualizationCoordinator] Attaching Mermaid click handlers to ${sectionId}`);
-        
-        // Find all node elements and make them clickable
-        const nodeElements = svgElement.querySelectorAll('g.node');
-        console.log(`[ContentVisualizationCoordinator] Found ${nodeElements.length} Mermaid node elements in ${sectionId}`);
-        
-        nodeElements.forEach(nodeElement => {
-            nodeElement.classList.add('task-clickable');
-        });
-        
-        // Attach click listener for the entire SVG
-        if (this.highlightCoordinator) {
-            this.clickDetector.attachClickListener(svgElement, (event, clickedElement, elementPath, taskContainer) => {
-                if (taskContainer) {
-                    const nodeId = taskContainer.id;
-                    if (nodeId) {
-                        console.log(`[ContentVisualizationCoordinator] Mermaid node clicked in ${sectionId}: ${nodeId}`);
-                        this.highlightCoordinator.onTaskClicked(nodeId, sectionId, sectionId);
-                    }
-                }
-            });
-        }
     }
 }

@@ -10,6 +10,7 @@
  */
 
 import { serviceFactory } from '../../core/ServiceFactory.js';
+import { SVGClickDetector } from '../../utils/interaction/SVGClickDetector.js';
 
 export class HighlightCoordinator {
     constructor(domRegistry = null) {
@@ -18,6 +19,12 @@ export class HighlightCoordinator {
         // Core services
         this.highlightingService = serviceFactory.get('HighlightingService');
         this.taskMapper = null; // Set externally
+        
+        // Click detection
+        this.clickDetector = new SVGClickDetector();
+        
+        // Track click listener cleanup functions
+        this.clickListenerCleanups = new Map(); // Map<sectionId, cleanupFunction>
         
         // Section tracking
         this.sections = {
@@ -59,6 +66,87 @@ export class HighlightCoordinator {
     registerSection(sectionId, container) {
         this.sections[sectionId] = container;
         console.log(`[HighlightCoordinator] Registered section: ${sectionId}`);
+    }
+
+    /**
+     * Attach click handlers for CPEE SVG (called when SVG is ready)
+     * @param {HTMLElement} svgElement - SVG container element
+     * @param {string} sectionId - Section identifier
+     */
+    attachCPEEClickHandlers(svgElement, sectionId) {
+        console.log(`[HighlightCoordinator] Attaching CPEE click handlers to ${sectionId}`);
+        
+        // Remove any existing listener for this section
+        this.removeClickHandlers(sectionId);
+        
+        // Find all task elements and make them clickable
+        const taskElements = svgElement.querySelectorAll('g.element[element-id]');
+        console.log(`[HighlightCoordinator] Found ${taskElements.length} CPEE task elements in ${sectionId}`);
+        
+        taskElements.forEach(taskElement => {
+            taskElement.classList.add('task-clickable');
+        });
+        
+        // Attach click listener for the entire SVG
+        const cleanup = this.clickDetector.attachClickListener(svgElement, (event, clickedElement, elementPath, taskContainer) => {
+            if (taskContainer) {
+                const taskId = taskContainer.getAttribute('element-id');
+                if (taskId) {
+                    console.log(`[HighlightCoordinator] CPEE task clicked in ${sectionId}: ${taskId}`);
+                    this.onTaskClicked(taskId, sectionId, sectionId);
+                }
+            }
+        });
+        
+        // Store cleanup function
+        this.clickListenerCleanups.set(sectionId, cleanup);
+    }
+
+    /**
+     * Attach click handlers for Mermaid SVG (called when SVG is ready)
+     * @param {HTMLElement} svgElement - SVG container element
+     * @param {string} sectionId - Section identifier
+     */
+    attachMermaidClickHandlers(svgElement, sectionId) {
+        console.log(`[HighlightCoordinator] Attaching Mermaid click handlers to ${sectionId}`);
+        
+        // Remove any existing listener for this section
+        this.removeClickHandlers(sectionId);
+        
+        // Find all node elements and make them clickable
+        const nodeElements = svgElement.querySelectorAll('g.node');
+        console.log(`[HighlightCoordinator] Found ${nodeElements.length} Mermaid node elements in ${sectionId}`);
+        
+        nodeElements.forEach(nodeElement => {
+            nodeElement.classList.add('task-clickable');
+        });
+        
+        // Attach click listener for the entire SVG
+        const cleanup = this.clickDetector.attachClickListener(svgElement, (event, clickedElement, elementPath, taskContainer) => {
+            if (taskContainer) {
+                const nodeId = taskContainer.id;
+                if (nodeId) {
+                    console.log(`[HighlightCoordinator] Mermaid node clicked in ${sectionId}: ${nodeId}`);
+                    this.onTaskClicked(nodeId, sectionId, sectionId);
+                }
+            }
+        });
+        
+        // Store cleanup function
+        this.clickListenerCleanups.set(sectionId, cleanup);
+    }
+
+    /**
+     * Remove click handlers for a section
+     * @param {string} sectionId - Section identifier
+     */
+    removeClickHandlers(sectionId) {
+        const cleanup = this.clickListenerCleanups.get(sectionId);
+        if (cleanup && typeof cleanup === 'function') {
+            cleanup();
+            this.clickListenerCleanups.delete(sectionId);
+            console.log(`[HighlightCoordinator] Removed click handlers for ${sectionId}`);
+        }
     }
 
     /**
@@ -626,6 +714,11 @@ export class HighlightCoordinator {
      * Reset all state
      */
     reset() {
+        // Remove all click handlers
+        this.clickListenerCleanups.forEach((cleanup, sectionId) => {
+            this.removeClickHandlers(sectionId);
+        });
+        
         this.clearAllHighlights();
         this.activeTaskId = null;
         this.activeSourceFormat = null;
@@ -646,6 +739,12 @@ export class HighlightCoordinator {
      */
     destroy() {
         this.removeClickOutsideHandler();
+        
+        // Remove all click handlers
+        this.clickListenerCleanups.forEach((cleanup, sectionId) => {
+            this.removeClickHandlers(sectionId);
+        });
+        
         this.reset();
         console.log('[HighlightCoordinator] Destroyed');
     }
