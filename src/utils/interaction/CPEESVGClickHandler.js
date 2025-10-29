@@ -4,10 +4,13 @@
  * Matches clicked SVG elements to TaskIdentifier objects
  */
 
+import { SVGClickDetector } from './SVGClickDetector.js';
+
 export class CPEESVGClickHandler {
     
     constructor() {
         console.log('[CPEESVGClickHandler] Initialized');
+        this.clickDetector = new SVGClickDetector();
     }
     
     /**
@@ -20,15 +23,21 @@ export class CPEESVGClickHandler {
         console.log('[CPEESVGClickHandler] Identifying clicked task...');
         console.log(`[CPEESVGClickHandler] Task list contains ${cpeeTaskList.length} tasks`);
         
-        // Find task container
-        const taskContainer = this.findTaskContainer(clickedElement);
+        // Find task container using SVGClickDetector (generic detection)
+        const taskContainer = this.clickDetector.findTaskContainer(clickedElement);
         
         if (!taskContainer) {
             console.log('[CPEESVGClickHandler] No task container found');
             return null;
         }
         
-        // Extract task ID from container
+        // Verify it's actually a CPEE task
+        if (!this.clickDetector.isCPEETask(taskContainer)) {
+            console.log('[CPEESVGClickHandler] Container found but not a CPEE task');
+            return null;
+        }
+        
+        // Extract task ID from container (CPEE-specific)
         const taskId = this.extractTaskId(taskContainer);
         
         if (!taskId) {
@@ -56,51 +65,7 @@ export class CPEESVGClickHandler {
     }
     
     /**
-     * Find task container by traversing up from clicked element
-     * @param {Element} element - Starting element
-     * @returns {Element|null} Task container or null
-     */
-    findTaskContainer(element) {
-        let current = element;
-        const maxDepth = 10;
-        let depth = 0;
-        
-        while (current && depth < maxDepth) {
-            // CPEE task: <g class="element" element-id="...">
-            if (this.isTaskContainer(current)) {
-                console.log(`[CPEESVGClickHandler] Found task container at depth ${depth}: ${this.getElementSummary(current)}`);
-                return current;
-            }
-            
-            current = current.parentElement;
-            depth++;
-            
-            // Stop at SVG root
-            if (current && current.tagName && current.tagName.toLowerCase() === 'svg') {
-                break;
-            }
-        }
-        
-        return null;
-    }
-    
-    /**
-     * Check if element is a CPEE task container
-     * @param {Element} element - Element to check
-     * @returns {boolean} True if task container
-     */
-    isTaskContainer(element) {
-        if (!element || !element.classList) {
-            return false;
-        }
-        
-        return element.tagName.toLowerCase() === 'g' &&
-               element.classList.contains('element') &&
-               element.hasAttribute('element-id');
-    }
-    
-    /**
-     * Extract task ID from container
+     * Extract task ID from container (CPEE-specific)
      * @param {Element} container - Task container element
      * @returns {string|null} Task ID or null
      */
@@ -207,10 +172,10 @@ export class CPEESVGClickHandler {
         // Clicked element
         const clickedType = this.identifyClickedElementType(clickedElement);
         console.log(`[CPEESVGClickHandler] Clicked on: ${clickedType}`);
-        console.log(`[CPEESVGClickHandler] Clicked element:`, this.getElementSummary(clickedElement));
+        console.log(`[CPEESVGClickHandler] Clicked element:`, this.clickDetector.getElementDescription(clickedElement));
         
         // Task container
-        console.log(`[CPEESVGClickHandler] Task container:`, this.getElementSummary(taskContainer));
+        console.log(`[CPEESVGClickHandler] Task container:`, this.clickDetector.getElementDescription(taskContainer));
         
         // Container classes
         const classes = taskContainer.className.baseVal || taskContainer.className;
@@ -229,26 +194,6 @@ export class CPEESVGClickHandler {
         }
     }
     
-    /**
-     * Get element summary for logging
-     * @param {Element} element - Element to summarize
-     * @returns {string} Summary
-     */
-    getElementSummary(element) {
-        if (!element || !element.tagName) {
-            return 'null';
-        }
-        
-        const tag = element.tagName.toLowerCase();
-        const id = element.id ? `#${element.id}` : '';
-        const classes = element.className && element.className.baseVal
-            ? `.${element.className.baseVal.split(' ').filter(c => c).join('.')}`
-            : (element.className && typeof element.className === 'string'
-                ? `.${element.className.split(' ').filter(c => c).join('.')}`
-                : '');
-        
-        return `<${tag}${id}${classes}>`;
-    }
     
     /**
      * Check if click is on a task element (not background)
@@ -256,8 +201,8 @@ export class CPEESVGClickHandler {
      * @returns {boolean} True if click is on a task
      */
     isClickOnTask(clickedElement) {
-        const taskContainer = this.findTaskContainer(clickedElement);
-        return taskContainer !== null;
+        const taskContainer = this.clickDetector.findTaskContainer(clickedElement);
+        return taskContainer !== null && this.clickDetector.isCPEETask(taskContainer);
     }
     
     /**

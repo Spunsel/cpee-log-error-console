@@ -4,10 +4,13 @@
  * Matches clicked SVG elements to TaskIdentifier objects
  */
 
+import { SVGClickDetector } from './SVGClickDetector.js';
+
 export class MermaidSVGClickHandler {
     
     constructor() {
         console.log('[MermaidSVGClickHandler] Initialized');
+        this.clickDetector = new SVGClickDetector();
     }
     
     /**
@@ -20,15 +23,21 @@ export class MermaidSVGClickHandler {
         console.log('[MermaidSVGClickHandler] Identifying clicked node...');
         console.log(`[MermaidSVGClickHandler] Task list contains ${mermaidTaskList.length} nodes`);
         
-        // Find node container
-        const nodeContainer = this.findNodeContainer(clickedElement);
+        // Find node container using SVGClickDetector (generic detection)
+        const nodeContainer = this.clickDetector.findTaskContainer(clickedElement);
         
         if (!nodeContainer) {
             console.log('[MermaidSVGClickHandler] No node container found');
             return null;
         }
         
-        // Extract node ID from container
+        // Verify it's actually a Mermaid node
+        if (!this.clickDetector.isMermaidNode(nodeContainer)) {
+            console.log('[MermaidSVGClickHandler] Container found but not a Mermaid node');
+            return null;
+        }
+        
+        // Extract node ID from container (Mermaid-specific)
         const nodeId = this.extractNodeId(nodeContainer);
         
         if (!nodeId) {
@@ -56,51 +65,7 @@ export class MermaidSVGClickHandler {
     }
     
     /**
-     * Find node container by traversing up from clicked element
-     * @param {Element} element - Starting element
-     * @returns {Element|null} Node container or null
-     */
-    findNodeContainer(element) {
-        let current = element;
-        const maxDepth = 10;
-        let depth = 0;
-        
-        while (current && depth < maxDepth) {
-            // Mermaid node: <g class="node" id="flowchart-...">
-            if (this.isNodeContainer(current)) {
-                console.log(`[MermaidSVGClickHandler] Found node container at depth ${depth}: ${this.getElementSummary(current)}`);
-                return current;
-            }
-            
-            current = current.parentElement;
-            depth++;
-            
-            // Stop at SVG root
-            if (current && current.tagName && current.tagName.toLowerCase() === 'svg') {
-                break;
-            }
-        }
-        
-        return null;
-    }
-    
-    /**
-     * Check if element is a Mermaid node container
-     * @param {Element} element - Element to check
-     * @returns {boolean} True if node container
-     */
-    isNodeContainer(element) {
-        if (!element || !element.classList) {
-            return false;
-        }
-        
-        return element.tagName.toLowerCase() === 'g' &&
-               element.classList.contains('node') &&
-               element.hasAttribute('id');
-    }
-    
-    /**
-     * Extract node ID from container
+     * Extract node ID from container (Mermaid-specific)
      * Mermaid format: id="flowchart-NodeID-123"
      * @param {Element} container - Node container element
      * @returns {string|null} Node ID or null
@@ -280,10 +245,10 @@ export class MermaidSVGClickHandler {
         // Clicked element
         const clickedType = this.identifyClickedElementType(clickedElement);
         console.log(`[MermaidSVGClickHandler] Clicked on: ${clickedType}`);
-        console.log(`[MermaidSVGClickHandler] Clicked element:`, this.getElementSummary(clickedElement));
+        console.log(`[MermaidSVGClickHandler] Clicked element:`, this.clickDetector.getElementDescription(clickedElement));
         
         // Node container
-        console.log(`[MermaidSVGClickHandler] Node container:`, this.getElementSummary(nodeContainer));
+        console.log(`[MermaidSVGClickHandler] Node container:`, this.clickDetector.getElementDescription(nodeContainer));
         
         // Node shape
         const shape = this.identifyNodeShape(nodeContainer);
@@ -307,34 +272,13 @@ export class MermaidSVGClickHandler {
     }
     
     /**
-     * Get element summary for logging
-     * @param {Element} element - Element to summarize
-     * @returns {string} Summary
-     */
-    getElementSummary(element) {
-        if (!element || !element.tagName) {
-            return 'null';
-        }
-        
-        const tag = element.tagName.toLowerCase();
-        const id = element.id ? `#${element.id}` : '';
-        const classes = element.className && element.className.baseVal
-            ? `.${element.className.baseVal.split(' ').filter(c => c).join('.')}`
-            : (element.className && typeof element.className === 'string'
-                ? `.${element.className.split(' ').filter(c => c).join('.')}`
-                : '');
-        
-        return `<${tag}${id}${classes}>`;
-    }
-    
-    /**
      * Check if click is on a node element (not background)
      * @param {Element} clickedElement - Clicked element
      * @returns {boolean} True if click is on a node
      */
     isClickOnNode(clickedElement) {
-        const nodeContainer = this.findNodeContainer(clickedElement);
-        return nodeContainer !== null;
+        const nodeContainer = this.clickDetector.findTaskContainer(clickedElement);
+        return nodeContainer !== null && this.clickDetector.isMermaidNode(nodeContainer);
     }
     
     /**
