@@ -5,16 +5,63 @@
  */
 
 import { LogService } from '../../services/LogService.js';
-import { createStepNumberIcon } from '../../assets/icons.js';
+import { createStepNumberIcon, ICONS } from '../../assets/icons.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class StepDropdown {
-    constructor(domRegistry, eventBus = null) {
+    constructor(domRegistry, eventBus = null, instanceService = null) {
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
+        this.instanceService = instanceService;
         this.isOpen = false;
         this.totalSteps = 0;
         this.currentStep = 0;
+        this.container = null;
+    }
+
+    /**
+     * Create and return the dropdown container element
+     * @returns {HTMLElement} Dropdown container element
+     */
+    createContainer() {
+        if (this.container) {
+            return this.container;
+        }
+
+        this.container = this.domRegistry.createElement('div', {
+            id: 'step-navigation-skip',
+            className: 'step-navigation-skip',
+            innerHTML: `
+                <div class="step-dropdown-container">
+                    <button id="step-dropdown-trigger" class="step-dropdown-trigger" aria-label="Skip to step" aria-haspopup="listbox" aria-expanded="false">
+                        ${ICONS.NAV_SKIP}
+                    </button>
+                    <div id="step-dropdown-menu" class="step-dropdown-menu" role="listbox" aria-labelledby="step-dropdown-trigger" style="display: none;"></div>
+                </div>
+            `
+        });
+
+        // Register elements after creation
+        if (this.domRegistry) {
+            this.domRegistry.register('stepNavigationSkip', 'step-navigation-skip');
+            this.domRegistry.register('stepDropdownTrigger', 'step-dropdown-trigger');
+            this.domRegistry.register('stepDropdownMenu', 'step-dropdown-menu');
+        }
+        
+        return this.container;
+    }
+
+    /**
+     * Initialize dropdown (creates container and sets up listeners)
+     * @param {HTMLElement} parentContainer - Parent container to append to
+     */
+    initialize(parentContainer) {
+        const container = this.createContainer();
+        if (parentContainer && !parentContainer.contains(container)) {
+            parentContainer.appendChild(container);
+        }
+        // Attach trigger listener after container is in the DOM
+        this.attachTriggerListener();
     }
 
     /**
@@ -196,8 +243,19 @@ export class StepDropdown {
         // Close dropdown
         this.closeDropdown();
 
-        // Emit event for step selection
-        this.eventBus.emit('stepDropdown:stepSelected', { stepNumber });
+        // If instanceService is available, navigate directly
+        if (this.instanceService) {
+            const index = stepNumber - 1;
+            if (this.instanceService.goToStep(index)) {
+                // Emit step change event after navigation
+                const step = this.instanceService.getCurrentStep();
+                const navInfo = this.instanceService.getNavigationInfo();
+                this.eventBus.emit('stepNavigator:stepChanged', { step, navInfo });
+            }
+        } else {
+            // Fallback: emit event for step selection (backward compatibility)
+            this.eventBus.emit('stepDropdown:stepSelected', { stepNumber });
+        }
         
         // Call callback for backward compatibility
         if (this.onStepSelect) {
@@ -209,9 +267,23 @@ export class StepDropdown {
      * Attach event listener to dropdown trigger
      */
     attachTriggerListener() {
-        const trigger = this.domRegistry.getElementSafe('stepDropdownTrigger') || document.getElementById('step-dropdown-trigger');
+        // Try multiple ways to find the trigger element
+        let trigger = null;
+        
+        if (this.container) {
+            trigger = this.container.querySelector('#step-dropdown-trigger');
+        }
+        
+        if (!trigger) {
+            trigger = this.domRegistry?.getElementSafe('stepDropdownTrigger');
+        }
+        
+        if (!trigger) {
+            trigger = document.getElementById('step-dropdown-trigger');
+        }
 
         if (!trigger) {
+            console.warn('StepDropdown: Could not find trigger element');
             return;
         }
 

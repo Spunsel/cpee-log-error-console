@@ -19,13 +19,8 @@ export class StepNavigator {
         this.isSetup = false;
         this.navigationContainer = null;
 
-        // Initialize dropdown
-        this.dropdown = new StepDropdown(domRegistry, this.eventBus);
-        
-        // Listen for dropdown step selection events
-        this.eventBus.on('stepDropdown:stepSelected', (data) => {
-            this.handleDropdownStepSelect(data.stepNumber);
-        });
+        // Initialize dropdown (pass instanceService so it can handle navigation directly)
+        this.dropdown = new StepDropdown(domRegistry, this.eventBus, instanceService);
     }
 
 
@@ -47,11 +42,11 @@ export class StepNavigator {
             wrapperContainer.appendChild(navContainer);
         }
 
-        // Create skip container (between navigation and metadata)
+        // Create skip container via dropdown (between navigation and metadata)
         let skipContainer = document.getElementById('step-navigation-skip');
         if (!skipContainer) {
-            skipContainer = this.createSkipContainer();
-            wrapperContainer.appendChild(skipContainer);
+            this.dropdown.initialize(wrapperContainer);
+            skipContainer = document.getElementById('step-navigation-skip');
         }
 
         // Create metadata display
@@ -63,8 +58,7 @@ export class StepNavigator {
         this.navigationContainer = navContainer;
         this.attachEventListeners();
         
-        // Attach dropdown trigger listener
-        this.dropdown.attachTriggerListener();
+        // Dropdown trigger listener is already attached during initialization
         
         this.isSetup = true;
     }
@@ -120,26 +114,6 @@ export class StepNavigator {
         return navContainer;
     }
 
-    /**
-     * Create skip button container
-     * @returns {HTMLElement} Skip container element
-     */
-    createSkipContainer() {
-        const skipContainer = this.domRegistry.createElement('div', {
-            id: 'step-navigation-skip',
-            className: 'step-navigation-skip',
-            innerHTML: `
-                <div class="step-dropdown-container">
-                    <button id="step-dropdown-trigger" class="step-dropdown-trigger" aria-label="Skip to step" aria-haspopup="listbox" aria-expanded="false">
-                        ${ICONS.NAV_SKIP}
-                    </button>
-                    <div id="step-dropdown-menu" class="step-dropdown-menu" role="listbox" aria-labelledby="step-dropdown-trigger" style="display: none;"></div>
-                </div>
-            `
-        });
-
-        return skipContainer;
-    }
 
     /**
      * Register navigation elements with DOM registry
@@ -476,17 +450,6 @@ export class StepNavigator {
         this.eventBus.emit('stepNavigator:stepChanged', { step, navInfo });
     }
 
-    /**
-     * Handle dropdown step selection
-     * @param {number} stepNumber - Selected step number (1-indexed)
-     */
-    async handleDropdownStepSelect(stepNumber) {
-        // Navigate to selected step using 0-indexed index
-        const index = stepNumber - 1;
-        if (this.instanceService.goToStep(index)) {
-            await this.handleStepChange();
-        }
-    }
 
     /**
      * Remove navigation from DOM
