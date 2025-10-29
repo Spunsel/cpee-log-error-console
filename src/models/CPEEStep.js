@@ -361,7 +361,7 @@ export class CPEEStep {
             if (tasks.length > 0) {
                 console.log(`[CPEEStep]   → ${format}: ${tasks.length} equivalent(s)`);
                 tasks.forEach(t => {
-                    console.log(`[CPEEStep]      - "${t.task.label}" (confidence: ${t.confidence.toFixed(2)}${t.isTransitive ? ', transitive' : ''})`);
+                    console.log(`[CPEEStep]      - "${t.task.label}"${t.isTransitive ? ' (transitive)' : ''}`);
                 });
             }
         });

@@ -180,12 +180,12 @@ export class HighlightCoordinator {
         console.log(`[HighlightCoordinator] Found ${equivalentTasks.length} equivalent tasks`);
         
         // Highlight in each section
-        equivalentTasks.forEach(({ taskId: mappedTaskId, format: mappedFormat, confidence }) => {
+        equivalentTasks.forEach(({ taskId: mappedTaskId, format: mappedFormat }) => {
             const mappedSectionId = this.formatToSectionId(mappedFormat);
             const isActive = (mappedFormat === sourceFormat);
             
-            console.log(`[HighlightCoordinator] Highlighting ${mappedTaskId} in ${mappedSectionId} (isActive=${isActive}, confidence=${confidence})`);
-            this.highlightInSection(mappedSectionId, mappedTaskId, isActive, confidence);
+            console.log(`[HighlightCoordinator] Highlighting ${mappedTaskId} in ${mappedSectionId} (isActive=${isActive})`);
+            this.highlightInSection(mappedSectionId, mappedTaskId, isActive);
         });
         
         // Also highlight the source task using original ID
@@ -196,7 +196,7 @@ export class HighlightCoordinator {
      * Find equivalent tasks for a given task using TaskMapper
      * @param {string} taskId - Source task identifier
      * @param {string} sourceFormat - Source format
-     * @returns {Array} Array of { taskId, format, confidence }
+     * @returns {Array} Array of { taskId, format }
      */
     findEquivalentTasks(taskId, sourceFormat) {
         if (!this.currentStepMapping) {
@@ -216,12 +216,10 @@ export class HighlightCoordinator {
             const result = [];
             Object.entries(equivalents).forEach(([format, tasks]) => {
                 console.log(`[HighlightCoordinator] Format ${format} has ${tasks.length} tasks`);
-                tasks.forEach(({ task, confidence }) => {
-                    // All matches are exact (confidence always 1.0)
+                tasks.forEach(({ task }) => {
                     result.push({
                         taskId: task.id,
-                        format: format,
-                        confidence: confidence
+                        format: format
                     });
                     console.log(`[HighlightCoordinator]   → ${task.id} (${task.label}) in ${format}`);
                 });
@@ -266,7 +264,6 @@ export class HighlightCoordinator {
      * @param {string} sectionId - Section identifier
      * @param {string} taskId - Task identifier
      * @param {boolean} isActive - Whether this is the active (clicked) task
-     * @param {number} confidence - Confidence score for mapping (optional)
      */
     highlightInSection(sectionId, taskId, isActive = false) {
         const container = this.sections[sectionId];

@@ -62,12 +62,11 @@ export class TaskMapper {
         sourceTasks.forEach(sourceTask => {
             // Try exact match by ID only
             const match = this.findExactMatch(sourceTask, targetTasks);
-            const confidence = 1.0;
             
             if (match) {
                 exactMatches++;
                 console.log(`[TaskMapper] ID match: "${sourceTask.id}" → "${match.id}"`);
-                mapping.addMapping(sourceTask, sourceFormat, match, targetFormat, confidence);
+                mapping.addMapping(sourceTask, sourceFormat, match, targetFormat);
             } else {
                 noMatches++;
                 console.log(`[TaskMapper] No match found for ID: "${sourceTask.id}" (label: "${sourceTask.label}")`);
@@ -133,7 +132,6 @@ export class TaskMapper {
             // Follow the chain through intermediates
             let currentTaskId = sourceTaskId;
             let currentFormat = sourceFormat;
-            let minConfidence = 1.0;
             
             // Traverse through intermediates
             for (const intermediateFormat of intermediateFormats) {
@@ -143,11 +141,10 @@ export class TaskMapper {
                     return; // Chain broken, no transitive mapping possible
                 }
                 
-                // Take first (best) mapping
+                // Take first mapping
                 const nextMapping = nextMappings[0];
                 currentTaskId = nextMapping.targetTask.id;
                 currentFormat = intermediateFormat;
-                minConfidence = Math.min(minConfidence, nextMapping.confidence);
             }
             
             // Now map to final target
@@ -155,14 +152,13 @@ export class TaskMapper {
             
             if (finalMappings.length > 0) {
                 const finalMapping = finalMappings[0];
-                minConfidence = Math.min(minConfidence, finalMapping.confidence);
                 
                 // Add transitive mapping
                 const sourceTask = mapping.getTask(sourceTaskId, sourceFormat);
                 const targetTask = finalMapping.targetTask;
                 
                 if (sourceTask && targetTask) {
-                    mapping.addMapping(sourceTask, sourceFormat, targetTask, targetFormat, minConfidence, true);
+                    mapping.addMapping(sourceTask, sourceFormat, targetTask, targetFormat, true);
                     console.log(`[TaskMapper] Transitive: ${sourceFormat}:${sourceTask.id} → ${targetFormat}:${targetTask.id}`);
                 }
             }
@@ -189,17 +185,16 @@ class TaskMapping {
      * @param {string} sourceFormat - Source format key
      * @param {TaskIdentifier} targetTask - Target task
      * @param {string} targetFormat - Target format key
-     * @param {number} confidence - Confidence score (0-1)
      * @param {boolean} isTransitive - Whether this is a transitive mapping
      */
-    addMapping(sourceTask, sourceFormat, targetTask, targetFormat, confidence = 1.0, isTransitive = false) {
+    addMapping(sourceTask, sourceFormat, targetTask, targetFormat, isTransitive = false) {
         // Store tasks
         this.storeTask(sourceTask, sourceFormat);
         this.storeTask(targetTask, targetFormat);
         
         // Create bidirectional mapping
-        this.addDirectionalMapping(sourceTask.id, sourceFormat, targetTask, targetFormat, confidence, isTransitive);
-        this.addDirectionalMapping(targetTask.id, targetFormat, sourceTask, sourceFormat, confidence, isTransitive);
+        this.addDirectionalMapping(sourceTask.id, sourceFormat, targetTask, targetFormat, isTransitive);
+        this.addDirectionalMapping(targetTask.id, targetFormat, sourceTask, sourceFormat, isTransitive);
     }
     
     /**
@@ -208,10 +203,9 @@ class TaskMapping {
      * @param {string} sourceFormat - Source format
      * @param {TaskIdentifier} targetTask - Target task
      * @param {string} targetFormat - Target format
-     * @param {number} confidence - Confidence score
      * @param {boolean} isTransitive - Whether transitive
      */
-    addDirectionalMapping(sourceTaskId, sourceFormat, targetTask, targetFormat, confidence, isTransitive) {
+    addDirectionalMapping(sourceTaskId, sourceFormat, targetTask, targetFormat, isTransitive) {
         if (!this.mappings.has(sourceFormat)) {
             this.mappings.set(sourceFormat, new Map());
         }
@@ -236,16 +230,13 @@ class TaskMapping {
         );
         
         if (existingIndex >= 0) {
-            // Update if new confidence is higher
-            if (confidence > mappingList[existingIndex].confidence) {
-                mappingList[existingIndex] = { targetTask, confidence, isTransitive };
+            // Update existing mapping (prefer non-transitive over transitive)
+            if (!isTransitive || mappingList[existingIndex].isTransitive) {
+                mappingList[existingIndex] = { targetTask, isTransitive };
             }
         } else {
             // Add new mapping
-            mappingList.push({ targetTask, confidence, isTransitive });
-            
-            // Sort by confidence (highest first)
-            mappingList.sort((a, b) => b.confidence - a.confidence);
+            mappingList.push({ targetTask, isTransitive });
         }
     }
     
@@ -319,7 +310,6 @@ class TaskMapping {
                 const mappings = this.getMappings(taskId, sourceFormat, targetFormat);
                 equivalents[targetFormat] = mappings.map(m => ({
                     task: m.targetTask,
-                    confidence: m.confidence,
                     isTransitive: m.isTransitive
                 }));
             }
@@ -401,7 +391,6 @@ class TaskMapping {
                 taskMap.forEach((mappingList, targetFormat) => {
                     obj.mappings[sourceFormat][sourceTaskId][targetFormat] = mappingList.map(m => ({
                         targetTaskId: m.targetTask.id,
-                        confidence: m.confidence,
                         isTransitive: m.isTransitive
                     }));
                 });
@@ -439,7 +428,6 @@ class TaskMapping {
                                 sourceFormat,
                                 targetTask,
                                 targetFormat,
-                                mappingData.confidence,
                                 mappingData.isTransitive
                             );
                         }
