@@ -2047,32 +2047,63 @@ body {
     }
 }
 
-/* CPEE-specific highlighting - only highlight outer shapes, not text or internal lines */
-.cpee-task-highlighted rect[class*="stand"],
+/* ============================================
+   CPEE-specific highlighting
+   ============================================ */
+
+/* Highlight all outline elements simultaneously - rects and part-middle standlines */
+/* These rules must be grouped together to ensure simultaneous highlighting */
+.cpee-task-highlighted rect[class*="stand"]:not([class*="without"]),
+.cpee-task-highlighted .part-middle line[class*="standline"],
 .cpee-task-highlighted circle,
 .cpee-task-highlighted polygon,
 .cpee-task-highlighted ellipse {
     stroke: var(--highlight-stroke) !important;
     stroke-width: 3px !important;
-    filter: none !important; /* Remove any shadow/filter effects for homogenous color */
+    filter: none !important;
+    transition: none !important; /* No transitions to ensure simultaneous highlighting */
 }
 
-.cpee-task-highlighted-active rect[class*="stand"],
+.cpee-task-highlighted-active rect[class*="stand"]:not([class*="without"]),
+.cpee-task-highlighted-active .part-middle line[class*="standline"],
 .cpee-task-highlighted-active circle,
 .cpee-task-highlighted-active polygon,
 .cpee-task-highlighted-active ellipse {
     stroke: var(--highlight-stroke) !important;
     stroke-width: 4px !important;
-    filter: none !important; /* Remove any shadow/filter effects for homogenous color */
+    filter: none !important;
+    transition: none !important; /* No transitions to ensure simultaneous highlighting */
 }
 
-/* Explicitly exclude text and internal separator lines from highlighting */
+/* Explicitly exclude the background fill rect (standwithout) from highlighting */
+.cpee-task-highlighted rect[class*="without"],
+.cpee-task-highlighted-active rect[class*="without"] {
+    stroke: none !important;
+    stroke-width: 0 !important;
+}
+
+/* Exclude other lines (not part-middle standlines) from highlighting */
+/* The part-middle standlines are explicitly included above with higher specificity */
+.cpee-task-highlighted .part-start line,
+.cpee-task-highlighted .part-end line,
+.cpee-task-highlighted-active .part-start line,
+.cpee-task-highlighted-active .part-end line {
+    stroke: none !important;
+    stroke-width: 0 !important;
+}
+
+/* Exclude lines that don't have standline class in part-middle */
+.cpee-task-highlighted .part-middle line:not([class*="standline"]),
+.cpee-task-highlighted-active .part-middle line:not([class*="standline"]) {
+    stroke: none !important;
+    stroke-width: 0 !important;
+}
+
+/* Explicitly exclude text from highlighting */
 .cpee-task-highlighted text,
 .cpee-task-highlighted-active text,
 .cpee-task-highlighted .label,
-.cpee-task-highlighted-active .label,
-.cpee-task-highlighted line,
-.cpee-task-highlighted-active line {
+.cpee-task-highlighted-active .label {
     stroke: none !important;
     fill: var(--text-primary) !important;
 }

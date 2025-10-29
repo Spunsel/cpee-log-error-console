@@ -33,6 +33,12 @@ export class HighlightCoordinator {
         this.activeSourceSection = null;
         this.highlightedTasks = new Map(); // Map<sectionId, Set<taskId>>
         
+        // Click outside handler
+        this.clickOutsideHandler = null;
+        
+        // Initialize click outside handler
+        this.initializeClickOutsideHandler();
+        
         console.log('[HighlightCoordinator] Initialized');
     }
 
@@ -486,6 +492,140 @@ export class HighlightCoordinator {
     }
 
     /**
+     * Initialize click outside handler to clear highlights when clicking outside graphs or on empty space within graphs
+     */
+    initializeClickOutsideHandler() {
+        this.clickOutsideHandler = (event) => {
+            // Check if there are any active highlights
+            if (!this.hasActiveHighlights()) {
+                return;
+            }
+            
+            // Check if click is on an actual graph element (task, node, etc.)
+            // If NOT on a graph element, clear highlights (even if inside a graph container)
+            const clickTarget = event.target;
+            if (this.isClickOnGraphElement(clickTarget)) {
+                return; // Click is on a graph element, do nothing (let task click handler process it)
+            }
+            
+            // Click is not on a graph element (either outside graphs or on empty space within graphs)
+            console.log('[HighlightCoordinator] Click not on graph element detected, clearing highlights');
+            this.clearActiveState();
+        };
+        
+        // Attach listener to document (capture phase to catch all clicks)
+        document.addEventListener('click', this.clickOutsideHandler, true);
+        console.log('[HighlightCoordinator] Click outside handler initialized');
+    }
+
+    /**
+     * Check if there are active highlights
+     * @returns {boolean} True if there are active highlights
+     */
+    hasActiveHighlights() {
+        return this.activeTaskId !== null || this.highlightedTasks.size > 0;
+    }
+
+    /**
+     * Check if a click target is on an actual graph element (task, node, etc.)
+     * This distinguishes between clicking on a graph element vs empty space in a graph container
+     * @param {Element} target - Click target element
+     * @returns {boolean} True if click is on a graph element
+     */
+    isClickOnGraphElement(target) {
+        if (!target) {
+            return false;
+        }
+        
+        // Walk up the DOM tree to check if we're on a graph element
+        let element = target;
+        while (element && element !== document.body && element !== document.documentElement) {
+            // Check for task-clickable class (indicates a clickable graph element)
+            try {
+                if (element.classList && element.classList.contains('task-clickable')) {
+                    return true;
+                }
+            } catch (e) {
+                // Some SVG elements might not have classList, ignore
+            }
+            
+            // Check for CPEE element groups with element-id attribute
+            if (element.tagName === 'g' || element.tagName === 'G') {
+                const elementId = element.getAttribute('element-id');
+                const elementType = element.getAttribute('element-type');
+                // If it has element-id or element-type, it's a CPEE task element
+                if (elementId || elementType) {
+                    return true;
+                }
+            }
+            
+            // Check for Mermaid node elements
+            try {
+                if (element.classList) {
+                    const classList = element.classList;
+                    // Mermaid nodes have class "node"
+                    if (classList.contains('node')) {
+                        return true;
+                    }
+                    // CPEE elements have class "element"
+                    if (classList.contains('element') && element.getAttribute('element-id')) {
+                        return true;
+                    }
+                }
+            } catch (e) {
+                // Some SVG elements might not have classList, ignore
+            }
+            
+            // If we've reached an SVG element without finding a graph element,
+            // the click is on empty space within the SVG (not on a graph element)
+            if (element.tagName === 'svg' || element.tagName === 'SVG') {
+                return false;
+            }
+            
+            // If we've reached a graph container without finding a graph element,
+            // the click is on empty space within the container
+            if (this.isGraphContainer(element)) {
+                return false;
+            }
+            
+            element = element.parentElement;
+        }
+        
+        return false;
+    }
+
+    /**
+     * Check if an element is a graph container
+     * @param {Element} element - Element to check
+     * @returns {boolean} True if element is a graph container
+     */
+    isGraphContainer(element) {
+        if (!element || !element.id) {
+            return false;
+        }
+        
+        const id = element.id;
+        
+        // Check for graph container IDs
+        return id.includes('-graph-container') ||
+               id.startsWith('graphcanvas-') ||
+               id.startsWith('graphgrid-') ||
+               id.startsWith('modelling-') ||
+               id.includes('mermaid-graph-');
+    }
+
+    /**
+     * Remove click outside handler (cleanup)
+     */
+    removeClickOutsideHandler() {
+        if (this.clickOutsideHandler) {
+            document.removeEventListener('click', this.clickOutsideHandler, true);
+            this.clickOutsideHandler = null;
+            console.log('[HighlightCoordinator] Click outside handler removed');
+        }
+    }
+
+    /**
      * Reset all state
      */
     reset() {
@@ -502,5 +642,14 @@ export class HighlightCoordinator {
         };
         this.highlightedTasks.clear();
         console.log('[HighlightCoordinator] Reset');
+    }
+
+    /**
+     * Destroy the coordinator and clean up resources
+     */
+    destroy() {
+        this.removeClickOutsideHandler();
+        this.reset();
+        console.log('[HighlightCoordinator] Destroyed');
     }
 }
