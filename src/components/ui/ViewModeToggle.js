@@ -6,20 +6,13 @@
 
 import { ICONS } from '../../assets/icons.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
 export class ViewModeToggle {
-    constructor(domRegistry = null, eventBus = null) {
+    constructor(domRegistry = null, eventBus = null, stateManager = null) {
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
-        
-        // Track view modes for each section
-        // Possible values: 'visual' or 'raw'
-        this.sectionModes = {
-            'input-cpee': 'visual',
-            'input-intermediate': 'visual',
-            'output-intermediate': 'visual',
-            'output-cpee': 'visual'
-        };
+        this.stateManager = stateManager || defaultStateManager;
     }
 
 
@@ -69,13 +62,10 @@ export class ViewModeToggle {
      * @param {string} mode - Mode to switch to ('visual' or 'raw')
      */
     switchMode(sectionId, mode) {
-        // Update stored mode
-        this.sectionModes[sectionId] = mode;
-
-        // Update button states
+        // Update button states (UI only)
         this.updateToggleState(sectionId, mode);
 
-        // Emit event
+        // Emit event - StateManager will be updated by the listener (RawContentCoordinator)
         this.eventBus.emit('viewModeToggle:modeChanged', { sectionId, mode });
     }
 
@@ -96,12 +86,13 @@ export class ViewModeToggle {
     }
 
     /**
-     * Get current mode for a section
+     * Get current mode for a section (reads from StateManager)
      * @param {string} sectionId - Section identifier
      * @returns {string} Current mode ('visual' or 'raw')
      */
     getMode(sectionId) {
-        return this.sectionModes[sectionId] || 'visual';
+        const viewModes = this.stateManager.getState('viewModes') || {};
+        return viewModes[sectionId] || 'visual';
     }
 
     /**
@@ -114,18 +105,19 @@ export class ViewModeToggle {
     }
 
     /**
-     * Get all section modes
+     * Get all section modes (reads from StateManager)
      * @returns {Object} Object mapping section IDs to their current modes
      */
     getAllModes() {
-        return { ...this.sectionModes };
+        return { ...(this.stateManager.getState('viewModes') || {}) };
     }
 
     /**
      * Reset all sections to visual mode
      */
     resetAllToVisual() {
-        Object.keys(this.sectionModes).forEach(sectionId => {
+        const sectionIds = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
+        sectionIds.forEach(sectionId => {
             this.switchMode(sectionId, 'visual');
         });
     }
@@ -142,10 +134,17 @@ export class ViewModeToggle {
             { id: 'output-cpee', title: 'Output CPEE-Tree', selector: '#output-cpee h3' }
         ];
 
+        // Get current state from StateManager
+        const currentModes = this.stateManager.getState('viewModes') || {};
+
         sections.forEach(section => {
             const header = document.querySelector(section.selector);
             if (header && !header.querySelector('.view-mode-toggle')) {
                 const toggleBtn = this.createToggleButton(section.id, section.title);
+                
+                // Initialize toggle state from StateManager
+                const currentMode = currentModes[section.id] || 'visual';
+                this.updateToggleState(section.id, currentMode);
                 
                 // Create a flex container for title and toggle
                 const headerContainer = this.domRegistry.createElement('div', {

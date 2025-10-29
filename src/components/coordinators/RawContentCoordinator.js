@@ -22,8 +22,8 @@ export class RawContentCoordinator {
         this.eventBus = eventBus || defaultEventBus;
         this.stateManager = stateManager || defaultStateManager;
 
-        // Content View Components
-        this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus);
+        // Content View Components (pass stateManager so ViewModeToggle can read state)
+        this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus, this.stateManager);
         this.rawContentRenderer = new RawContentRenderer(domRegistry);
         
         // Action bars per section (moved to RawContentRenderer)
@@ -78,6 +78,14 @@ export class RawContentCoordinator {
             console.log(`Mode changed: ${data.sectionId} → ${data.mode}`);
             this.setViewMode(data.sectionId, data.mode);
             this.updateSectionDisplay(data.sectionId, data.mode);
+        });
+
+        // Listen to StateManager changes to sync toggle button UI
+        this.stateManager.subscribe('viewModes', (newModes) => {
+            // Update all toggle buttons when state changes externally
+            Object.keys(newModes || {}).forEach(sectionId => {
+                this.viewModeToggle.updateToggleState(sectionId, newModes[sectionId]);
+            });
         });
     }
 
