@@ -152,18 +152,17 @@ export class LogService {
             throw new Error('LogService: Log data must be an array');
         }
         
-        // Find all exposition events
-        const expositionEvents = logData.filter(event => 
-            event.event && event.event['cpee:lifecycle:transition'] === 'description/exposition'
-        );
+        // Find all exposition events using existing filter method
+        const expositionEvents = this.filterEventsByTransition(logData, 'description/exposition');
         
         console.log(`Found ${expositionEvents.length} exposition events`);
         
         // Group by change_uuid
         const stepGroups = {};
-        expositionEvents.forEach(event => {
-            const changeUuid = event.event['cpee:change_uuid'];
-            const timestamp = event.event['time:timestamp'];
+        expositionEvents.forEach(eventWrapper => {
+            const actualEvent = eventWrapper.event;
+            const changeUuid = actualEvent['cpee:change_uuid'];
+            const timestamp = actualEvent['time:timestamp'];
             
             if (changeUuid) {
                 if (!stepGroups[changeUuid]) {
@@ -173,11 +172,10 @@ export class LogService {
                         timestamp: timestamp
                     };
                 }
-                stepGroups[changeUuid].events.push(event.event);
-                
+                stepGroups[changeUuid].events.push(actualEvent);
                 
                 // Keep earliest timestamp for step ordering
-                if (timestamp < stepGroups[changeUuid].timestamp) {
+                if (timestamp && timestamp < stepGroups[changeUuid].timestamp) {
                     stepGroups[changeUuid].timestamp = timestamp;
                 }
             }
@@ -190,11 +188,10 @@ export class LogService {
         
         // Extract content from each step and create CPEEStep objects
         return steps.map((step, index) => {
-            step.events.forEach(() => {
-                // Events are processed in extractStepContent
-            });
+            // Extract content object for display
+            const content = this.extractContentFromEvents(step.events);
             
-            const content = this.extractStepContent(step.events);
+            // Create step with extracted content
             const cpeeStep = new CPEEStep(
                 index + 1,
                 step.changeUuid,
@@ -202,83 +199,28 @@ export class LogService {
                 content
             );
             
-            // Populate raw content for each section from exposition events
+            // Process events to populate raw content
             step.events.forEach(event => {
-                const exposition = event['cpee:exposition'] || '';
-                
-                    if (exposition.includes('<!-- Input CPEE-Tree -->')) {
-                        const cleanedContent = CPEEParser.cleanCPEETreeContent(exposition, 'input');
-                        cpeeStep.setInputCpeeTreeRaw(cleanedContent);
-                    } else if (exposition.includes('%% Input Intermediate')) {
-                        const cleanedContent = MermaidParser.cleanMermaidContent(exposition, 'input');
-                        cpeeStep.setInputMermaidRaw(cleanedContent);
-                    } else if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
-                        cpeeStep.setUserInputRaw(exposition);
-                    } else if (exposition.includes('# Used LLM:')) {
-                        // Extract LLM model name from "# Used LLM: <model-name>" pattern
-                        const llmMatch = exposition.match(/#\s*Used\s*LLM:\s*([^\n]+)/i);
-                        if (llmMatch && llmMatch[1]) {
-                            cpeeStep.usedLLM = llmMatch[1].trim();
-                        }
-                    } else if (exposition.includes('%% Output Intermediate')) {
-                        const cleanedContent = MermaidParser.cleanMermaidContent(exposition, 'output');
-                        cpeeStep.setOutputMermaidRaw(cleanedContent);
-                    } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
-                        const cleanedContent = CPEEParser.cleanCPEETreeContent(exposition, 'output');
-                        cpeeStep.setOutputCpeeTreeRaw(cleanedContent);
-                    }
+                this.processExpositionEvent(event, cpeeStep);
             });
             
             // Extract tasks and generate task mapping
-            const inputCpeeTasks = CPEETaskExtractor.extract(
-                cpeeStep.getInputCpeeTreeRaw().getContent()
-            );
-            const inputMermaidTasks = MermaidTaskExtractor.extract(
-                cpeeStep.getInputMermaidRaw().getContent()
-            );
-            const outputMermaidTasks = MermaidTaskExtractor.extract(
-                cpeeStep.getOutputMermaidRaw().getContent()
-            );
-            const outputCpeeTasks = CPEETaskExtractor.extract(
-                cpeeStep.getOutputCpeeTreeRaw().getContent()
-            );
-            
-            // Generate task mapping if we have tasks
-            if (inputCpeeTasks.length > 0 || inputMermaidTasks.length > 0 || 
-                outputMermaidTasks.length > 0 || outputCpeeTasks.length > 0) {
-                try {
-                    const taskMapper = new TaskMapper();
-                    const taskMapping = taskMapper.buildMapping(
-                        inputCpeeTasks,
-                        inputMermaidTasks,
-                        outputMermaidTasks,
-                        outputCpeeTasks
-                    );
-                    cpeeStep.setTaskMapping(taskMapping);
-                    console.log(`[LogService] Task mapping generated for Step ${cpeeStep.stepNumber}`);
-                } catch (error) {
-                    console.warn(`[LogService] Failed to generate task mapping for Step ${cpeeStep.stepNumber}:`, error);
-                }
-            }
+            this.generateTaskMapping(cpeeStep);
             
             return cpeeStep;
         });
     }
 
     /**
-     * Extract the 5 content types from step events
+     * Extract content object from events for display purposes
      * @param {Array} events - Events for a single step
      * @returns {Object} Content object with 5 sections
-     * @throws {Error} If events parameter is invalid
+     * @private
      */
-    static extractStepContent(events) {
-        if (!Array.isArray(events)) {
-            throw new Error('LogService: Events must be an array');
-        }
-        
+    static extractContentFromEvents(events) {
         const content = {
             inputCpeeTree: 'Not found',
-            inputIntermediate: 'Not found', 
+            inputIntermediate: 'Not found',
             userInput: 'Not found',
             outputIntermediate: 'Not found',
             outputCpeeTree: 'Not found'
@@ -293,8 +235,6 @@ export class LogService {
             if (exposition.includes('%% Input Intermediate')) {
                 content.inputIntermediate = exposition;
             }
-            // Check for user input - handle both direct content and YAML block scalars
-            // Note: YAML block scalars (|, |+, |-) are already parsed, so we just check for the content
             if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
                 content.userInput = exposition;
             }
@@ -307,6 +247,75 @@ export class LogService {
         });
         
         return content;
+    }
+
+    /**
+     * Process a single exposition event and populate step with raw content
+     * @param {Object} event - Exposition event
+     * @param {CPEEStep} cpeeStep - Step to populate
+     * @private
+     */
+    static processExpositionEvent(event, cpeeStep) {
+        const exposition = event['cpee:exposition'] || '';
+        
+        if (exposition.includes('<!-- Input CPEE-Tree -->')) {
+            const cleanedContent = CPEEParser.cleanCPEETreeContent(exposition, 'input');
+            cpeeStep.setInputCpeeTreeRaw(cleanedContent);
+        } else if (exposition.includes('%% Input Intermediate')) {
+            const cleanedContent = MermaidParser.cleanMermaidContent(exposition, 'input');
+            cpeeStep.setInputMermaidRaw(cleanedContent);
+        } else if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
+            cpeeStep.setUserInputRaw(exposition);
+        } else if (exposition.includes('# Used LLM:')) {
+            const llmMatch = exposition.match(/#\s*Used\s*LLM:\s*([^\n]+)/i);
+            if (llmMatch && llmMatch[1]) {
+                cpeeStep.usedLLM = llmMatch[1].trim();
+            }
+        } else if (exposition.includes('%% Output Intermediate')) {
+            const cleanedContent = MermaidParser.cleanMermaidContent(exposition, 'output');
+            cpeeStep.setOutputMermaidRaw(cleanedContent);
+        } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
+            const cleanedContent = CPEEParser.cleanCPEETreeContent(exposition, 'output');
+            cpeeStep.setOutputCpeeTreeRaw(cleanedContent);
+        }
+    }
+
+    /**
+     * Extract tasks and generate task mapping for a step
+     * @param {CPEEStep} cpeeStep - Step to process
+     * @private
+     */
+    static generateTaskMapping(cpeeStep) {
+        const inputCpeeTasks = CPEETaskExtractor.extract(
+            cpeeStep.getInputCpeeTreeRaw().getContent()
+        );
+        const inputMermaidTasks = MermaidTaskExtractor.extract(
+            cpeeStep.getInputMermaidRaw().getContent()
+        );
+        const outputMermaidTasks = MermaidTaskExtractor.extract(
+            cpeeStep.getOutputMermaidRaw().getContent()
+        );
+        const outputCpeeTasks = CPEETaskExtractor.extract(
+            cpeeStep.getOutputCpeeTreeRaw().getContent()
+        );
+        
+        // Generate task mapping if we have tasks
+        if (inputCpeeTasks.length > 0 || inputMermaidTasks.length > 0 || 
+            outputMermaidTasks.length > 0 || outputCpeeTasks.length > 0) {
+            try {
+                const taskMapper = new TaskMapper();
+                const taskMapping = taskMapper.buildMapping(
+                    inputCpeeTasks,
+                    inputMermaidTasks,
+                    outputMermaidTasks,
+                    outputCpeeTasks
+                );
+                cpeeStep.setTaskMapping(taskMapping);
+                console.log(`[LogService] Task mapping generated for Step ${cpeeStep.stepNumber}`);
+            } catch (error) {
+                console.warn(`[LogService] Failed to generate task mapping for Step ${cpeeStep.stepNumber}:`, error);
+            }
+        }
     }
 
     /**
