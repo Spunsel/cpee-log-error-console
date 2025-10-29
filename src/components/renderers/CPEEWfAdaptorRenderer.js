@@ -142,8 +142,11 @@ export class CPEEWfAdaptorRenderer {
             // Store reference to self for use in callback
             const self = this;
             
+            // Get theme path from configuration (config is under 'cpee.wfadaptor' key)
+            const themePath = configManager.get('cpee.wfadaptor.themePath');
+            
             // Create WfAdaptor instance
-            this.adaptor = new window.WfAdaptor('src/libs/cpee-layout/themes/preset/theme.js', (graphrealization) => {
+            this.adaptor = new window.WfAdaptor(themePath, (graphrealization) => {
                 try {
                     // Get and validate SVG container element
                     const svgElementId = `graphcanvas-${self.container.id}`;
@@ -160,6 +163,8 @@ export class CPEEWfAdaptorRenderer {
                     
                     // Process SVG elements using dedicated processor (handles caching and validation)
                     const illustratorElements = graphrealization.illustrator.elements;
+                    // manifestation is available as a global variable set by wfadaptor.js after theme loading
+                    const manifestation = window.manifestation || null;
                     const success = self.svgProcessor.transferAndValidateElements(
                         illustratorElements, 
                         manifestation, 
@@ -214,11 +219,16 @@ export class CPEEWfAdaptorRenderer {
     async loadWfAdaptor() {
         const promises = [];
         
+        // Get paths from configuration (config is under 'cpee.wfadaptor' key)
+        const cssPath = configManager.get('cpee.wfadaptor.cssPath');
+        const baseThemePath = configManager.get('cpee.wfadaptor.baseThemePath');
+        const wfadaptorPath = configManager.get('cpee.wfadaptor.wfadaptorPath');
+        
         // Load CSS (non-blocking)
         if (!document.querySelector('link[href*="wfadaptor.css"]')) {
             const cssLink = document.createElement('link');
             cssLink.rel = 'stylesheet';
-            cssLink.href = 'src/libs/cpee-layout/wfadaptor.css';
+            cssLink.href = cssPath;
             document.head.appendChild(cssLink);
         }
         
@@ -226,7 +236,7 @@ export class CPEEWfAdaptorRenderer {
         if (typeof WFAdaptorManifestationBase === 'undefined') {
             promises.push(new Promise((resolve, reject) => {
                 const baseScript = document.createElement('script');
-                baseScript.src = 'src/libs/cpee-layout/themes/base.js';
+                baseScript.src = baseThemePath;
                 baseScript.onload = () => {
                     resolve();
                 };
@@ -239,7 +249,7 @@ export class CPEEWfAdaptorRenderer {
         if (typeof WfAdaptor === 'undefined') {
             promises.push(new Promise((resolve, reject) => {
                 const wfScript = document.createElement('script');
-                wfScript.src = 'src/libs/cpee-layout/wfadaptor.js';
+                wfScript.src = wfadaptorPath;
                 wfScript.onload = () => {
                     resolve();
                 };
