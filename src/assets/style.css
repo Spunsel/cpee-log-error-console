@@ -28,27 +28,62 @@
 }
 
 /* ========================================
-   1. CSS VARIABLES
+   1. CSS VARIABLES (need for cleanup and consistency)
    ======================================== */
 :root {
     /* Colors */
-    --primary-color: #2563eb;
-    --primary-dark: #1d4ed8;
-    --primary-light: #c2d0ff;
-    --primary-color-alpha: rgba(37, 99, 235, 0.1);
-    --secondary-color: #64748b;
-    --error-color: #ef4444;
-    --error-text: #dc2626;
-    --background-color: #f8fafc;
-    --surface-color: #ffffff;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --border-color: #e2e8f0;
-    --disabled-bg: var(--text-secondary);
-    --section-header-bg: #bfbfbf;
-    --copy-btn-bg: #dbdfe4;
+    --primary-color: #2563eb; /* Primary buttons, links, active states */
+    --primary-dark: #1d4ed8; /* Primary button hover states */
+    --primary-light: #c2d0ff; /* Dropdown item hover backgrounds */
+    --primary-color-alpha: rgba(37, 99, 235, 0.1); /* Input focus ring shadows */
+    --secondary-color: #64748b; /* Secondary buttons, metadata values */
+    --error-color: #ef4444; /* Error states, copy error button */
+    --error-text: #dc2626; /* Error text, error button hover */
+    --background-color: #f8fafc; /* Main page background, input backgrounds */
+    --surface-color: #ffffff; /* Card/surface backgrounds, dropdowns */
+    --text-primary: #1e293b; /* Main text color, headings */
+    --text-secondary: #64748b; /* Secondary text, labels, metadata */
+    --text-white: #ffffff; /* Text on colored backgrounds (primary, success, error) */
+    --border-color: #e2e8f0; /* Borders for cards, inputs, sections */
+    --disabled-bg: var(--text-secondary); /* Disabled button backgrounds */
+    --section-header-bg: #bfbfbf; /* Section header backgrounds */
+    --copy-btn-bg: #dbdfe4; /* Copy button default background */
     --nav-bar-color: #f0f3f6; /* Navigation and metadata bar background color */
-    --copy-success-color: #87a96b;
+    --copy-success-color: #87a96b; /* Copy success state, UUID copied state */
+    
+    /* Hover States */
+    --hover-bg: rgba(0, 0, 0, 0.05); /* Hover backgrounds for buttons, items */
+    --hover-bg-dark: rgba(0, 0, 0, 0.1); /* Shadows, darker hover states */
+    
+    /* Alert Colors */
+    --alert-info-text: #084298; /* Info alert text */
+    --alert-info-bg: #cfe2ff; /* Info alert background */
+    --alert-info-border: #b6d4fe; /* Info alert border */
+    --alert-success-text: #0f5132; /* Success alert text */
+    --alert-success-bg: #d1e7dd; /* Success alert background */
+    --alert-success-border: #badbcc; /* Success alert border */
+    --alert-warning-text: #856404; /* Warning alert text */
+    --alert-warning-bg: #fff3cd; /* Warning alert background */
+    --alert-warning-border: #ffc107; /* Warning alert border */
+    --alert-danger-text: #842029; /* Danger alert text */
+    --alert-danger-bg: #f8d7da; /* Danger alert background */
+    --alert-danger-border: #f5c2c7; /* Danger alert border */
+    
+    /* Copy Button Colors */
+    --copy-btn-text: #1e293b; /* Copy button text color */
+    --copy-btn-border: #d1d5db; /* Copy button border */
+    --copy-btn-hover-bg: #cacaca; /* Copy button hover background */
+    --copy-btn-hover-border: #9ca3af; /* Copy button hover border */
+    --copy-btn-active-bg: #999999; /* Copy button active/pressed state */
+    --copy-btn-focus-outline: #6b7280; /* Copy button focus outline */
+    
+    /* Scrollbar Colors */
+    --scrollbar-thumb: #cbd5e1; /* Scrollbar thumb (draggable part) */
+    --scrollbar-thumb-hover: #94a3b8; /* Scrollbar thumb hover state */
+    
+    /* Search Match Colors */
+    --search-match-bg: #fef08a; /* Search result highlight background */
+    --search-match-active-bg: #fb923c; /* Active/current search match background */
     
     /* Border Radius */
     --border-radius-sm: 6px;
@@ -56,7 +91,8 @@
     --border-radius-lg: 12px;
     
     /* Shadows */
-    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow: 0 1px 3px 0 var(--hover-bg-dark), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 2px 4px var(--hover-bg-dark);
     
     /* Typography */
     --font-sans: 'Adwaita Sans Regular';
@@ -74,11 +110,11 @@
     --transition-fast: all 0.2s ease;
     
     /* Highlight Colors */
-    --highlight-color: #fb923c;
-    --highlight-active-color: #f97316;
-    --highlight-stroke: #f57900;
-    --highlight-opacity: 0.2;
-    --highlight-active-opacity: 0.4;
+    --highlight-color: #fb923c; /* Task highlight color (deprecated, use stroke) */
+    --highlight-active-color: #f97316; /* Active task highlight color (deprecated, use stroke) */
+    --highlight-stroke: #f57900; /* Stroke color for highlighted tasks in graphs */
+    --highlight-opacity: 0.2; /* Fill opacity for highlighted tasks */
+    --highlight-active-opacity: 0.4; /* Fill opacity for active/highlighted tasks */
 }
 
 /* ========================================
@@ -761,12 +797,12 @@ body {
 
 .uuid-copy-btn:hover {
     opacity: 1;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--hover-bg);
 }
 
 .uuid-copy-btn.copied {
     background: var(--copy-success-color);
-    color: white;
+    color: var(--text-white);
     opacity: 1;
     border: 1px solid var(--copy-success-color);
 }
@@ -849,16 +885,6 @@ body {
 .scroll-container {
     overflow-x: auto;
     overflow-y: auto;
-}
-
-.scroll-container-fixed {
-    height: 400px;
-    max-height: 400px;
-    min-height: 400px;
-}
-
-.scroll-container-limited {
-    max-height: 500px;
 }
 
 /* Prevent scrollbars during transitions */
@@ -988,8 +1014,6 @@ body {
 }
 
 /* Status Messages */
-.loading-graph,
-.error-message,
 .no-content {
     display: flex;
     align-items: center;
@@ -1049,6 +1073,38 @@ body {
 /* ========================================
    6. GRAPH RENDERERS
    ======================================== */
+
+/* Alert classes used by MermaidRenderer and CPEEWfAdaptorRenderer */
+.alert {
+    padding: 15px;
+    margin: 20px 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-info {
+    color: var(--alert-info-text);
+    background-color: var(--alert-info-bg);
+    border-color: var(--alert-info-border);
+}
+
+.alert-success {
+    color: var(--alert-success-text);
+    background-color: var(--alert-success-bg);
+    border-color: var(--alert-success-border);
+}
+
+.alert-warning {
+    color: var(--alert-warning-text);
+    background-color: var(--alert-warning-bg);
+    border-color: var(--alert-warning-border);
+}
+
+.alert-danger {
+    color: var(--alert-danger-text);
+    background-color: var(--alert-danger-bg);
+    border-color: var(--alert-danger-border);
+}
 
 /* Step Graph Containers */
 [id*="-graph-container"] {
@@ -1251,33 +1307,6 @@ body {
     }
 }
 
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        gap: var(--spacing-md);
-        padding: var(--spacing-md);
-    }
-
-    .main-container {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        order: 2;
-        border-right: none;
-        border-top: 1px solid var(--border-color);
-    }
-
-    .input-row {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .button-group {
-        flex-direction: column;
-    }
-}
-
 @media (max-width: 480px) {
     :root {
         --spacing-xs: 0.25rem;
@@ -1334,59 +1363,15 @@ body {
         justify-content: flex-end;
     }
 
-    /* Navigation Button Base Styles */
+    /* Navigation Button Mobile Adjustments - Only size/spacing changes */
     .nav-btn {
         padding: var(--spacing-xs) var(--spacing-sm);
-        border-radius: var(--border-radius-sm);
         font-size: 0.875rem;
-        font-weight: 500;
-        transition: var(--transition-fast);
-        outline: none;
         min-width: 32px;
         height: 32px;
-        border: 1px solid var(--border-color);
-        cursor: pointer;
     }
 
-    /* Disabled Button State */
-    .nav-btn:disabled,
-    .nav-btn.disabled {
-        color: var(--text-secondary);
-        background-color: var(--background-color);
-        border-color: var(--border-color);
-        cursor: not-allowed;
-        pointer-events: none;
-    }
-
-    /* Enabled Left/Right Buttons (← →) - Blue Theme */
-    .nav-btn-prev:not(:disabled):not(.disabled),
-    .nav-btn-next:not(:disabled):not(.disabled) {
-        color: var(--surface-color);
-        background-color: var(--primary-color);
-        border-color: var(--primary-dark);
-        pointer-events: auto;
-    }
-
-    .nav-btn-prev:not(:disabled):not(.disabled):hover,
-    .nav-btn-next:not(:disabled):not(.disabled):hover {
-        background-color: var(--primary-dark);
-    }
-
-    /* Enabled Start/End Buttons (⏮ ⏭) - Gray Theme */
-    .nav-btn-start:not(:disabled):not(.disabled),
-    .nav-btn-end:not(:disabled):not(.disabled) {
-        color: var(--text-primary);
-        background-color: var(--section-header-bg);
-        border-color: var(--border-color);
-        pointer-events: auto;
-    }
-
-    .nav-btn-start:not(:disabled):not(.disabled):hover,
-    .nav-btn-end:not(:disabled):not(.disabled):hover {
-        background-color: var(--copy-btn-bg);
-    }
-
-    /* Step Counter */
+    /* Step Counter Mobile */
     .step-navigation #step-counter {
         font-weight: 500;
         color: var(--text-primary);
@@ -1404,6 +1389,7 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    transition: none;
 }
 
 .left-title-side {
@@ -1450,14 +1436,14 @@ body {
 }
 
 .toggle-btn:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--hover-bg);
     color: var(--text-primary);
 }
 
 .toggle-btn.active {
     background: var(--primary-color);
-    color: white;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: var(--text-white);
+    box-shadow: 0 1px 2px var(--hover-bg-dark);
 }
 
 /* Toggle Button Icons */
@@ -1520,7 +1506,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: #ffffff;
+    background-color: var(--surface-color);
     z-index: 10;
 }
 
@@ -1585,8 +1571,8 @@ body {
     gap: var(--spacing-xs);
     padding: 6px 10px;
     background: var(--copy-btn-bg);
-    color: #1e293b;
-    border: 1px solid #d1d5db;
+    color: var(--copy-btn-text);
+    border: 1px solid var(--copy-btn-border);
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.8rem;
@@ -1596,16 +1582,16 @@ body {
 }
 
 .copy-btn:hover:not(:disabled) {
-    background: #cacaca;
-    border-color: #9ca3af;
+    background: var(--copy-btn-hover-bg);
+    border-color: var(--copy-btn-hover-border);
 }
 
 .copy-btn:active:not(:disabled) {
-    background: #999999;
+    background: var(--copy-btn-active-bg);
 }
 
 .copy-btn:focus-visible {
-    outline: 2px solid #6b7280;
+    outline: 2px solid var(--copy-btn-focus-outline);
     outline-offset: 2px;
 }
 
@@ -1632,18 +1618,18 @@ body {
 .copy-btn.copy-success:hover {
     background: var(--copy-success-color);
     border-color: var(--copy-success-color);
-    color: white;
+    color: var(--text-white);
 }
 
 .copy-btn.copy-error {
-    background: #ef4444;
-    border-color: #ef4444;
-    color: white;
+    background: var(--error-color);
+    border-color: var(--error-color);
+    color: var(--text-white);
 }
 
 .copy-btn.copy-error:hover {
-    background: #dc2626;
-    border-color: #dc2626;
+    background: var(--error-text);
+    border-color: var(--error-text);
 }
 
 /* Copy Button Animation - Minimal */
@@ -1682,11 +1668,6 @@ body {
    STYLING AND UX ENHANCEMENTS
    ======================================== */
 
-/* Section Header - No Transitions for Instant Response */
-.section-header-container {
-    transition: none;
-}
-
 /* Scrollbar Styling - Enhanced */
 .raw-code-block::-webkit-scrollbar,
 .raw-text-block::-webkit-scrollbar {
@@ -1701,20 +1682,20 @@ body {
 
 .raw-code-block::-webkit-scrollbar-thumb,
 .raw-text-block::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: var(--scrollbar-thumb);
     border-radius: 5px;
     transition: background 0.2s ease;
 }
 
 .raw-code-block::-webkit-scrollbar-thumb:hover,
 .raw-text-block::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: var(--scrollbar-thumb-hover);
 }
 
 /* Firefox Scrollbar */
 .raw-code-block,
 .raw-text-block {
-    scrollbar-color: #cbd5e1 var(--surface-color);
+    scrollbar-color: var(--scrollbar-thumb) var(--surface-color);
     scrollbar-width: thin;
 }
 
@@ -1840,7 +1821,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
 }
 
 /* Search input group */
@@ -1906,7 +1887,7 @@ body {
 
 .search-clear-btn:hover {
     color: var(--text-primary);
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--hover-bg);
 }
 
 /* Search navigation controls */
@@ -1935,7 +1916,7 @@ body {
 
 .search-prev-btn:hover:not(:disabled),
 .search-next-btn:hover:not(:disabled) {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--hover-bg);
     border-color: var(--primary-color);
 }
 
@@ -1955,14 +1936,14 @@ body {
 
 /* Search match highlighting */
 .search-match {
-    background-color: #fef08a; /* Light yellow */
+    background-color: var(--search-match-bg);
     padding: 1px 2px;
     border-radius: 2px;
 }
 
 .search-match-active {
-    background-color: #fb923c; /* Orange */
-    color: white;
+    background-color: var(--search-match-active-bg);
+    color: var(--text-white);
     padding: 1px 2px;
     border-radius: 2px;
 }
@@ -1978,7 +1959,7 @@ body {
     padding: 8px 12px;
     background: var(--background-color);
     border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     margin-bottom: 8px;
 }
 

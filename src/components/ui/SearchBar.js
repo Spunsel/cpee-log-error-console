@@ -144,10 +144,14 @@ export class SearchBar {
         // Search input events
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
-                this.handleSearchInput(e.target.value);
+                // Use the actual input value (don't trim) to preserve spaces
+                const value = e.target.value;
+                this.handleSearchInput(value);
             });
 
             searchInput.addEventListener('keydown', (e) => {
+                // Allow spacebar and other normal input characters to work normally
+                // Only intercept special keys
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     const term = searchInput.value.trim();
@@ -166,6 +170,7 @@ export class SearchBar {
                     e.preventDefault();
                     this.clearSearch();
                 }
+                // Don't prevent default for spacebar or other normal input keys
             });
         }
 
@@ -226,20 +231,25 @@ export class SearchBar {
 
     /**
      * Handle search input changes
-     * @param {string} value - Input value
+     * @param {string} value - Input value (may contain leading/trailing spaces for display)
      */
     handleSearchInput(value) {
+        // Use trimmed value for search logic but preserve original for display
         const searchTerm = value.trim();
         
         if (this.clearBtn) {
             this.clearBtn.style.display = searchTerm ? 'inline-flex' : 'none';
         }
 
-        // Perform search if term is not empty
+        // Perform search if term is not empty (after trimming)
+        // This allows spaces within the search term, only trims edges
         if (searchTerm) {
             this.performSearch(searchTerm);
         } else {
-            this.clearSearch();
+            // Only clear if completely empty (no non-whitespace characters)
+            if (!value || value.trim().length === 0) {
+                this.clearSearch();
+            }
         }
     }
 
@@ -369,8 +379,11 @@ export class SearchBar {
         }
 
         // Update input value if needed
-        if (this.searchInput && this.searchInput.value !== state.currentSearchTerm) {
-            this.searchInput.value = state.currentSearchTerm || '';
+        // Only sync if the user isn't currently typing (to avoid overwriting spacebar input)
+        if (this.searchInput && document.activeElement !== this.searchInput) {
+            if (this.searchInput.value !== (state.currentSearchTerm || '')) {
+                this.searchInput.value = state.currentSearchTerm || '';
+            }
         }
 
         // Update clear button visibility
