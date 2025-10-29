@@ -1,17 +1,16 @@
 /**
  * Search Bar Component
- * Handles search functionality for raw content views
- * Provides search input, navigation controls, and match highlighting
+ * Handles search UI for raw content views (stateless - reads state from SearchService)
+ * Provides search input, navigation controls, and match display
  */
 
 import { ICONS } from '../../assets/icons.js';
 
 export class SearchBar {
-    constructor(domRegistry = null) {
+    constructor(domRegistry = null, searchService = null, sectionId = null) {
         this.domRegistry = domRegistry;
-        this.searchTerm = '';
-        this.matches = [];
-        this.currentMatchIndex = -1;
+        this.searchService = searchService;
+        this.sectionId = sectionId;
         this.onSearch = null;
         this.onClear = null;
         this.onNavigate = null;
@@ -24,6 +23,16 @@ export class SearchBar {
         this.counter = null;
         this.prevBtn = null;
         this.nextBtn = null;
+    }
+
+    /**
+     * Set search service and section ID for this search bar
+     * @param {Object} searchService - SearchService instance
+     * @param {string} sectionId - Section identifier
+     */
+    setSearchService(searchService, sectionId) {
+        this.searchService = searchService;
+        this.sectionId = sectionId;
     }
 
     /**
@@ -141,12 +150,17 @@ export class SearchBar {
             searchInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    if (this.searchTerm && this.matches.length > 0) {
-                        // If there are matches, navigate to next match
-                        this.navigateToMatch('next');
-                    } else if (this.searchTerm) {
-                        // If no matches yet, perform search
-                        this.performSearch();
+                    const term = searchInput.value.trim();
+                    if (term) {
+                        // Get current state from SearchService
+                        const state = this.getSearchState();
+                        if (state && state.matches.length > 0) {
+                            // If there are matches, navigate to next match
+                            this.navigateToMatch('next');
+                        } else {
+                            // If no matches yet, perform search
+                            this.performSearch(term);
+                        }
                     }
                 } else if (e.key === 'Escape') {
                     e.preventDefault();
@@ -182,12 +196,14 @@ export class SearchBar {
             // F3 for next match, Shift+F3 for previous
             if (!isSearchFocused && e.key === 'F3' && !e.shiftKey) {
                 e.preventDefault();
-                if (this.matches.length > 0) {
+                const state = this.getSearchState();
+                if (state && state.matches.length > 0) {
                     this.navigateToMatch('next');
                 }
             } else if (!isSearchFocused && e.key === 'F3' && e.shiftKey) {
                 e.preventDefault();
-                if (this.matches.length > 0) {
+                const state = this.getSearchState();
+                if (state && state.matches.length > 0) {
                     this.navigateToMatch('prev');
                 }
             }
@@ -213,15 +229,15 @@ export class SearchBar {
      * @param {string} value - Input value
      */
     handleSearchInput(value) {
-        this.searchTerm = value.trim();
+        const searchTerm = value.trim();
         
         if (this.clearBtn) {
-            this.clearBtn.style.display = this.searchTerm ? 'inline-flex' : 'none';
+            this.clearBtn.style.display = searchTerm ? 'inline-flex' : 'none';
         }
 
         // Perform search if term is not empty
-        if (this.searchTerm) {
-            this.performSearch();
+        if (searchTerm) {
+            this.performSearch(searchTerm);
         } else {
             this.clearSearch();
         }
@@ -229,27 +245,25 @@ export class SearchBar {
 
     /**
      * Perform search operation
+     * @param {string} searchTerm - Search term (optional, reads from input if not provided)
      */
-    performSearch() {
-        if (!this.searchTerm) {
+    performSearch(searchTerm = null) {
+        const term = searchTerm || (this.searchInput ? this.searchInput.value.trim() : '');
+        if (!term) {
             return;
         }
 
-        console.log(`SearchBar: Performing search for "${this.searchTerm}"`);
+        console.log(`SearchBar: Performing search for "${term}"`);
         
         if (this.onSearch) {
-            this.onSearch(this.searchTerm);
+            this.onSearch(term);
         }
     }
 
     /**
-     * Clear search and reset state
+     * Clear search and reset UI (stateless - actual clearing done by SearchService)
      */
     clearSearch() {
-        this.searchTerm = '';
-        this.matches = [];
-        this.currentMatchIndex = -1;
-
         if (this.searchInput) {
             this.searchInput.value = '';
         }
@@ -265,64 +279,144 @@ export class SearchBar {
         if (this.onClear) {
             this.onClear();
         }
+
+        // Update UI from SearchService state (should be empty after clear)
+        this.updateUIFromService();
     }
 
     /**
-     * Navigate to next or previous match
+     * Navigate to next or previous match (stateless - delegates to SearchService)
      * @param {string} direction - 'next' or 'prev'
      */
     navigateToMatch(direction) {
-        if (this.matches.length === 0) {
+        if (!this.searchService || !this.sectionId) {
+            console.warn('SearchBar: Cannot navigate - SearchService or sectionId not set');
             return;
         }
 
-        if (direction === 'next') {
-            this.currentMatchIndex = (this.currentMatchIndex + 1) % this.matches.length;
-        } else if (direction === 'prev') {
-            this.currentMatchIndex = this.currentMatchIndex <= 0 ? this.matches.length - 1 : this.currentMatchIndex - 1;
+        const state = this.getSearchState();
+        if (!state || state.matches.length === 0) {
+            return;
         }
 
-        this.updateNavigationDisplay();
+        console.log(`SearchBar: Requesting navigation ${direction}`);
 
-        console.log(`SearchBar: Navigated to match ${this.currentMatchIndex + 1} of ${this.matches.length}`);
-
+        // Delegate navigation to coordinator via callback
+        // Coordinator will call SearchService.navigateToMatch() and then update UI
         if (this.onNavigate) {
-            this.onNavigate(direction, this.currentMatchIndex);
+            this.onNavigate(direction);
         }
     }
 
     /**
-     * Update search results
-     * @param {Array} matches - Array of match objects
+     * Get search state from SearchService
+     * @returns {Object|null} Search state or null if not available
      */
-    updateSearchResults(matches) {
-        this.matches = matches || [];
-        this.currentMatchIndex = this.matches.length > 0 ? 0 : -1;
-
-        this.updateNavigationDisplay();
-
-        console.log(`SearchBar: Updated with ${this.matches.length} matches`);
+    getSearchState() {
+        if (!this.searchService || !this.sectionId) {
+            return null;
+        }
+        return this.searchService.getSearchState(this.sectionId);
     }
 
     /**
-     * Get search results for external access
+     * Update search results UI from SearchService state
+     * @param {Array} matches - Array of match objects (optional, reads from SearchService if not provided)
+     */
+    updateSearchResults(matches = null) {
+        // If matches provided, use them; otherwise read from SearchService
+        let stateMatches = matches;
+        let currentIndex = -1;
+        
+        if (this.searchService && this.sectionId) {
+            const state = this.getSearchState();
+            if (state) {
+                if (matches === null) {
+                    stateMatches = state.matches || [];
+                }
+                currentIndex = state.currentMatchIndex !== undefined ? state.currentMatchIndex : -1;
+            }
+        } else if (matches !== null) {
+            // Fallback: if SearchService not available but matches provided
+            stateMatches = matches;
+        } else {
+            stateMatches = [];
+        }
+
+        this.updateNavigationDisplay(stateMatches, currentIndex);
+
+        console.log(`SearchBar: Updated with ${stateMatches.length} matches`);
+    }
+
+    /**
+     * Update UI from SearchService state (called after SearchService operations)
+     */
+    updateUIFromService() {
+        if (!this.searchService || !this.sectionId) {
+            return;
+        }
+
+        const state = this.getSearchState();
+        if (!state) {
+            // No state means no search - hide navigation
+            if (this.navigation) {
+                this.navigation.style.display = 'none';
+            }
+            if (this.clearBtn) {
+                this.clearBtn.style.display = 'none';
+            }
+            return;
+        }
+
+        // Update input value if needed
+        if (this.searchInput && this.searchInput.value !== state.currentSearchTerm) {
+            this.searchInput.value = state.currentSearchTerm || '';
+        }
+
+        // Update clear button visibility
+        if (this.clearBtn) {
+            this.clearBtn.style.display = state.currentSearchTerm ? 'inline-flex' : 'none';
+        }
+
+        // Update navigation display
+        this.updateNavigationDisplay(state.matches || [], state.currentMatchIndex);
+    }
+
+    /**
+     * Get search results for external access (reads from SearchService)
      * @returns {Array} Current matches
      */
     getSearchResults() {
-        return this.matches;
+        const state = this.getSearchState();
+        return state ? (state.matches || []) : [];
     }
 
     /**
      * Update navigation display
+     * @param {Array} matches - Array of matches (optional, reads from SearchService if not provided)
+     * @param {number} currentIndex - Current match index (optional, reads from SearchService if not provided)
      */
-    updateNavigationDisplay() {
+    updateNavigationDisplay(matches = null, currentIndex = null) {
+        // Get state from SearchService if not provided
+        if (matches === null || currentIndex === null) {
+            const state = this.getSearchState();
+            if (state) {
+                matches = matches || state.matches || [];
+                currentIndex = currentIndex !== null ? currentIndex : (state.currentMatchIndex !== undefined ? state.currentMatchIndex : -1);
+            } else {
+                matches = matches || [];
+                currentIndex = currentIndex !== null ? currentIndex : -1;
+            }
+        }
+
         if (this.navigation) {
-            this.navigation.style.display = this.matches.length > 0 ? 'flex' : 'none';
+            this.navigation.style.display = matches.length > 0 ? 'flex' : 'none';
         }
 
         if (this.counter) {
-            if (this.matches.length > 0) {
-                this.counter.textContent = `${this.currentMatchIndex + 1} of ${this.matches.length}`;
+            if (matches.length > 0) {
+                const displayIndex = currentIndex >= 0 ? currentIndex + 1 : 1;
+                this.counter.textContent = `${displayIndex} of ${matches.length}`;
             } else {
                 this.counter.textContent = '0 of 0';
             }
@@ -330,7 +424,7 @@ export class SearchBar {
 
         // Enable/disable navigation buttons
         if (this.prevBtn && this.nextBtn) {
-            const hasMatches = this.matches.length > 0;
+            const hasMatches = matches.length > 0;
             this.prevBtn.disabled = !hasMatches;
             this.nextBtn.disabled = !hasMatches;
         }
@@ -364,26 +458,35 @@ export class SearchBar {
     }
 
     /**
-     * Get current search term
+     * Get current search term (reads from SearchService or input)
      * @returns {string} Current search term
      */
     getSearchTerm() {
-        return this.searchTerm;
+        if (this.searchService && this.sectionId) {
+            const state = this.getSearchState();
+            if (state && state.currentSearchTerm) {
+                return state.currentSearchTerm;
+            }
+        }
+        // Fallback to input value
+        return this.searchInput ? this.searchInput.value.trim() : '';
     }
 
     /**
-     * Get current match count
+     * Get current match count (reads from SearchService)
      * @returns {number} Number of matches
      */
     getMatchCount() {
-        return this.matches.length;
+        const state = this.getSearchState();
+        return state ? (state.matches?.length || 0) : 0;
     }
 
     /**
-     * Get current match index
+     * Get current match index (reads from SearchService)
      * @returns {number} Current match index
      */
     getCurrentMatchIndex() {
-        return this.currentMatchIndex;
+        const state = this.getSearchState();
+        return state && state.currentMatchIndex !== undefined ? state.currentMatchIndex : -1;
     }
 }

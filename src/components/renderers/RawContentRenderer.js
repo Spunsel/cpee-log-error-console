@@ -275,8 +275,8 @@ export class RawContentRenderer {
         // Initialize search state for this section using SearchService
         this.searchService.initializeSearchState(sectionId);
 
-        // Create action bar
-        const actionBar = new ActionBar(this.domRegistry);
+        // Create action bar with SearchService
+        const actionBar = new ActionBar(this.domRegistry, this.searchService, sectionId);
         
         // Store action bar for this section
         this.actionBars.set(sectionId, actionBar);
@@ -298,10 +298,10 @@ export class RawContentRenderer {
             this.clearSearch(sectionId);
         });
         
-        // Set up search navigation
-        actionBar.setOnNavigate((direction, matchIndex) => {
-            console.log(`Navigate ${direction} to match ${matchIndex} in ${sectionId}`);
-            this.navigateToMatch(sectionId, direction, matchIndex);
+        // Set up search navigation (direction only - SearchService handles index)
+        actionBar.setOnNavigate((direction) => {
+            console.log(`Navigate ${direction} in ${sectionId}`);
+            this.navigateToMatch(sectionId, direction);
         });
 
         // Attach to container first
@@ -348,10 +348,10 @@ export class RawContentRenderer {
         // Update search state with matches
         this.searchService.updateSearchResults(sectionId, searchTerm, matches);
         
-        // Update search results in action bar for this section
+        // Update search UI in action bar from SearchService state
         const actionBar = this.actionBars.get(sectionId);
-        if (actionBar) {
-            actionBar.updateSearchResults(matches);
+        if (actionBar && actionBar.searchBar) {
+            actionBar.searchBar.updateUIFromService();
         }
 
         // Scroll to first match if any matches found
@@ -378,10 +378,10 @@ export class RawContentRenderer {
         // Clear search state
         this.searchService.clearSearchState(sectionId);
 
-        // Update action bar
+        // Update action bar UI from SearchService state
         const actionBar = this.actionBars.get(sectionId);
-        if (actionBar) {
-            actionBar.updateSearchResults([]);
+        if (actionBar && actionBar.searchBar) {
+            actionBar.searchBar.updateUIFromService();
         }
     }
 
@@ -389,10 +389,9 @@ export class RawContentRenderer {
      * Navigate to specific match
      * @param {string} sectionId - Section identifier
      * @param {string} direction - 'next' or 'prev'
-     * @param {number} matchIndex - Index of match to navigate to
      */
-    navigateToMatch(sectionId, direction, matchIndex) {
-        console.log(`RawContentRenderer: Navigating to match ${matchIndex} in ${sectionId}`);
+    navigateToMatch(sectionId, direction) {
+        console.log(`RawContentRenderer: Navigating ${direction} in ${sectionId}`);
         
         // Get search state for this section
         const searchState = this.searchService.getSearchState(sectionId);
@@ -418,6 +417,12 @@ export class RawContentRenderer {
             console.log(`RawContentRenderer: Successfully scrolled to match ${newMatchIndex + 1} of ${searchState.matches.length}`);
         } else {
             console.warn(`RawContentRenderer: Failed to scroll to match ${newMatchIndex}`);
+        }
+
+        // Update UI from SearchService state after navigation
+        const actionBar = this.actionBars.get(sectionId);
+        if (actionBar && actionBar.searchBar) {
+            actionBar.searchBar.updateUIFromService();
         }
     }
 

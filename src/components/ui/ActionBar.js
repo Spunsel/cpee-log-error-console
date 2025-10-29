@@ -8,16 +8,25 @@ import { CopyButton } from './CopyButton.js';
 import { SearchBar } from './SearchBar.js';
 
 export class ActionBar {
-    constructor(domRegistry = null) {
+    constructor(domRegistry = null, searchService = null, sectionId = null) {
         this.domRegistry = domRegistry;
         this.copyButton = new CopyButton(domRegistry);
-        this.searchBar = new SearchBar(domRegistry);
+        this.searchBar = new SearchBar(domRegistry, searchService, sectionId);
         this.isVisible = false;
         this.onCopy = null;
         this.onSearch = null;
         this.onClear = null;
         this.onNavigate = null;
         this.element = null; // Store reference to the action bar DOM element
+    }
+
+    /**
+     * Set search service and section ID for search bar
+     * @param {Object} searchService - SearchService instance
+     * @param {string} sectionId - Section identifier
+     */
+    setSearchService(searchService, sectionId) {
+        this.searchBar.setSearchService(searchService, sectionId);
     }
 
     /**
@@ -184,11 +193,17 @@ export class ActionBar {
     }
 
     /**
-     * Update search results
-     * @param {Array} matches - Array of match objects
+     * Update search results UI from SearchService state
+     * @param {Array} matches - Array of match objects (optional, reads from SearchService if not provided)
      */
-    updateSearchResults(matches) {
-        this.searchBar.updateSearchResults(matches);
+    updateSearchResults(matches = null) {
+        // If SearchService is available, always sync from it
+        if (this.searchBar.searchService && this.searchBar.sectionId) {
+            this.searchBar.updateUIFromService();
+        } else if (matches !== null) {
+            // Fallback: update with provided matches if SearchService not available
+            this.searchBar.updateSearchResults(matches);
+        }
     }
 
     /**
