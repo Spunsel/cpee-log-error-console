@@ -343,6 +343,17 @@ export class DOMRegistry {
     }
 
     /**
+     * Static method to escape HTML (doesn't require registry instance)
+     * @param {string} text - Text to escape
+     * @returns {string} Escaped HTML
+     */
+    static escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    /**
      * Generic query method for elements
      * @param {string} selector - CSS selector
      * @param {Element} context - Search context (default: document)

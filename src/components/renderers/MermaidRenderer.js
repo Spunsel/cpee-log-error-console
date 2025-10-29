@@ -7,7 +7,7 @@
 
 import { DOMStatusManager } from '../../utils/dom/DOMStatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
-import { DOMUtils } from '../../utils/dom/DOMUtils.js';
+import { DOMRegistry } from '../../core/DOMRegistry.js';
 import { MermaidParser } from '../../utils/content/MermaidParser.js';
 import { configManager } from '../../config/ConfigManager.js';
 
@@ -295,7 +295,7 @@ export class MermaidRenderer {
 
         fallbackDiv.innerHTML = `
             <h6>Graph rendering failed - showing raw code:</h6>
-            <pre style="white-space: pre-wrap; margin-top: 10px; background: #f8f9fa; padding: 10px; border-radius: 4px;">${DOMUtils.escapeHtml(originalCode)}</pre>
+            <pre style="white-space: pre-wrap; margin-top: 10px; background: #f8f9fa; padding: 10px; border-radius: 4px;">${DOMRegistry.escapeHtml(originalCode)}</pre>
         `;
 
         this.container.appendChild(fallbackDiv);
