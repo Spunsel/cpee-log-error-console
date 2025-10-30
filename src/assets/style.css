@@ -1390,22 +1390,45 @@ body {
     align-items: center;
     width: 100%;
     transition: none;
+    flex-wrap: nowrap;
 }
 
 .left-title-side {
     flex: 1;
     display: flex;
     align-items: center;
+    min-width: 0; /* allow text to truncate instead of pushing toggle */
 }
 
 .right-title-side {
     display: flex;
     align-items: center;
+    flex-shrink: 0; /* keep toggle on the same line */
 }
 
 .section-title {
     margin: 0;
     color: var(--text-primary);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* truncate long titles */
+}
+
+/* Ensure container carries header visuals when replacing h3 */
+.section .section-header-container {
+    background: var(--section-header-bg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section .section-header-container h3.section-title {
+    margin: 0;
+    background: transparent;
+    padding: 0;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1rem;
     font-weight: 600;
 }
 
@@ -1413,10 +1436,11 @@ body {
 .view-mode-toggle {
     display: inline-flex;
     background: var(--background-color);
-    border-radius: var(--border-radius);
-    padding: 2px;
-    gap: 2px;
+    border-radius: var(--border-radius-sm);
+    padding: 1px;
+    gap: 1px;
     border: 1px solid var(--border-color);
+    flex-shrink: 0; /* prevent wrapping under title */
 }
 
 /* Toggle Buttons */
@@ -1472,13 +1496,12 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .section-header-container {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row; /* keep on one line */
+        align-items: center;
         gap: var(--spacing-sm);
     }
-    
     .view-mode-toggle {
-        align-self: flex-end;
+        align-self: auto;
     }
 }
 
@@ -1706,10 +1729,9 @@ body {
         font-size: 0.8rem;
     }
 
-
     .section-header-container {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row; /* keep on one line */
+        align-items: center;
         gap: var(--spacing-sm);
     }
 
