@@ -1146,9 +1146,28 @@ body {
     display: block;
 }
 
-/* CPEE Graph Text Styling */
+/* CPEE Graph Text Styling - Protected from Prism theme font overrides */
 .cpee-section [id*="-graph-container"] svg text,
-.cpee-section [id*="-graph-container"] svg text.label {
+.cpee-section [id*="-graph-container"] svg text.label,
+.cpee-section [id*="-graph-container"] svg tspan,
+.cpee-section svg text,
+.cpee-section svg tspan {
+    font-family: var(--font-sans) !important;
+    /* Prevent Prism theme from overriding CPEE SVG fonts */
+}
+
+/* Additional protection: Ensure CPEE SVGs are not affected by code block font styles */
+.cpee-section [id*="-graph-container"] svg,
+.cpee-section svg {
+    font-family: var(--font-sans) !important;
+}
+
+/* Protect CPEE SVG text from any pre/code font inheritance */
+.cpee-section pre [id*="-graph-container"] svg text,
+.cpee-section code [id*="-graph-container"] svg text,
+.raw-content-container [id*="-graph-container"] svg text,
+.cpee-section pre svg text,
+.cpee-section code svg text {
     font-family: var(--font-sans) !important;
 }
 
