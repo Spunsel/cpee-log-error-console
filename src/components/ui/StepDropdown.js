@@ -20,46 +20,38 @@ export class StepDropdown {
     }
 
     /**
-     * Create and return the dropdown container element
+     * Create and return the dropdown container element (deprecated - elements now in navigation)
      * @returns {HTMLElement} Dropdown container element
+     * @deprecated Elements are now created directly in StepNavigator.createNavigationContainer()
      */
     createContainer() {
-        if (this.container) {
-            return this.container;
+        // Container elements are now created directly in the navigation container
+        // This method is kept for backward compatibility but doesn't need to create anything
+        const container = document.getElementById('step-dropdown-container');
+        if (container) {
+            this.container = container;
         }
-
-        this.container = this.domRegistry.createElement('div', {
-            id: 'step-navigation-skip',
-            className: 'step-navigation-skip',
-            innerHTML: `
-                <div class="step-dropdown-container">
-                    <button id="step-dropdown-trigger" class="step-dropdown-trigger" aria-label="Skip to step" aria-haspopup="listbox" aria-expanded="false">
-                        ${ICONS.NAV_SKIP}
-                    </button>
-                    <div id="step-dropdown-menu" class="step-dropdown-menu" role="listbox" aria-labelledby="step-dropdown-trigger" style="display: none;"></div>
-                </div>
-            `
-        });
-
-        // Register elements after creation
-        if (this.domRegistry) {
-            this.domRegistry.register('stepNavigationSkip', 'step-navigation-skip');
-            this.domRegistry.register('stepDropdownTrigger', 'step-dropdown-trigger');
-            this.domRegistry.register('stepDropdownMenu', 'step-dropdown-menu');
-        }
-        
         return this.container;
     }
 
     /**
-     * Initialize dropdown (creates container and sets up listeners)
-     * @param {HTMLElement} parentContainer - Parent container to append to
+     * Initialize dropdown (elements are already in DOM, just attach listeners)
+     * @param {HTMLElement} parentContainer - Parent container (navigation container)
      */
     initialize(parentContainer) {
-        const container = this.createContainer();
-        if (parentContainer && !parentContainer.contains(container)) {
-            parentContainer.appendChild(container);
+        // Dropdown elements are now already in the navigation container
+        // Just find the container and attach listeners
+        const container = document.getElementById('step-dropdown-container');
+        if (container) {
+            this.container = container;
         }
+        
+        // Register elements if not already registered
+        if (this.domRegistry) {
+            this.domRegistry.register('stepDropdownTrigger', 'step-dropdown-trigger');
+            this.domRegistry.register('stepDropdownMenu', 'step-dropdown-menu');
+        }
+        
         // Attach trigger listener after container is in the DOM
         this.attachTriggerListener();
     }
@@ -183,8 +175,11 @@ export class StepDropdown {
         trigger.setAttribute('aria-expanded', 'true');
         this.isOpen = true;
 
-        // Add click-outside listener
-        document.addEventListener('click', this.handleClickOutside);
+        // Add click-outside listener with capture phase to catch events early
+        // Use setTimeout to avoid immediate closure when opening
+        setTimeout(() => {
+            document.addEventListener('click', this.handleClickOutside, true);
+        }, 0);
     }
 
     /**
@@ -202,8 +197,8 @@ export class StepDropdown {
         trigger.setAttribute('aria-expanded', 'false');
         this.isOpen = false;
 
-        // Remove click-outside listener
-        document.removeEventListener('click', this.handleClickOutside);
+        // Remove click-outside listener (use capture phase to match addEventListener)
+        document.removeEventListener('click', this.handleClickOutside, true);
     }
 
     /**
@@ -213,14 +208,20 @@ export class StepDropdown {
     handleClickOutside = (event) => {
         const menu = this.domRegistry.getElementSafe('stepDropdownMenu') || document.getElementById('step-dropdown-menu');
         const trigger = this.domRegistry.getElementSafe('stepDropdownTrigger') || document.getElementById('step-dropdown-trigger');
-        const container = this.domRegistry.getElementSafe('stepNavigationSkip') || document.getElementById('step-navigation-skip');
+        const container = document.getElementById('step-dropdown-container');
 
-        if (!menu || !trigger || !container) {
+        if (!menu || !trigger) {
             return;
         }
 
-        // Close if click is outside both menu and trigger
-        if (!menu.contains(event.target) && !trigger.contains(event.target)) {
+        // Check if click is inside container (which includes both trigger and menu)
+        const clickedInsideContainer = container && container.contains(event.target);
+        // Also check menu and trigger directly for safety
+        const clickedInsideMenu = menu && menu.contains(event.target);
+        const clickedInsideTrigger = trigger && trigger.contains(event.target);
+
+        // Close if click is outside container, menu, and trigger
+        if (!clickedInsideContainer && !clickedInsideMenu && !clickedInsideTrigger) {
             this.closeDropdown();
         }
     };

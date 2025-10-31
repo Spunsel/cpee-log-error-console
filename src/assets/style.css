@@ -31,59 +31,59 @@
    1. CSS VARIABLES (need for cleanup and consistency)
    ======================================== */
 :root {
-    /* Colors */
-    --primary-color: #2563eb; /* Primary buttons, links, active states */
-    --primary-dark: #1d4ed8; /* Primary button hover states */
-    --primary-light: #c2d0ff; /* Dropdown item hover backgrounds */
-    --primary-color-alpha: rgba(37, 99, 235, 0.1); /* Input focus ring shadows */
+    /* Colors - Modern Blue-Accented Palette */
+    --primary-color: #3b82f6; /* Primary buttons, links, active states - vibrant blue */
+    --primary-dark: #2563eb; /* Primary button hover states */
+    --primary-light: #dbeafe; /* Dropdown item hover backgrounds - soft blue tint */
+    --primary-color-alpha: rgba(59, 130, 246, 0.12); /* Input focus ring shadows */
     --secondary-color: #64748b; /* Secondary buttons, metadata values */
     --error-color: #ef4444; /* Error states, copy error button */
     --error-text: #dc2626; /* Error text, error button hover */
-    --background-color: #f8fafc; /* Main page background, input backgrounds */
+    --background-color: #f1f5f9; /* Main page background - darker for better panel contrast */
     --surface-color: #ffffff; /* Card/surface backgrounds, dropdowns */
-    --text-primary: #1e293b; /* Main text color, headings */
+    --text-primary: #0f172a; /* Main text color, headings - deeper for better contrast */
     --text-secondary: #64748b; /* Secondary text, labels, metadata */
     --text-white: #ffffff; /* Text on colored backgrounds (primary, success, error) */
-    --border-color: #e2e8f0; /* Borders for cards, inputs, sections */
-    --disabled-bg: var(--text-secondary); /* Disabled button backgrounds */
-    --section-header-bg: #bfbfbf; /* Section header backgrounds */
-    --copy-btn-bg: #dbdfe4; /* Copy button default background */
-    --nav-bar-color: #f0f3f6; /* Navigation and metadata bar background color */
-    --copy-success-color: #87a96b; /* Copy success state, UUID copied state */
+    --border-color: #cbd5e1; /* Borders for cards, inputs, sections - more visible */
+    --disabled-bg: #cbd5e1; /* Disabled button backgrounds */
+    --section-header-bg: #d0dae4; /* Section header backgrounds - light blue tint */
+    --copy-btn-bg: #f1f5f9; /* Copy button default background - warm gray */
+    --nav-bar-color: #f8fafc; /* Navigation and metadata bar background color */
+    --copy-success-color: #6B8E23; /* Copy success state - modern emerald green */
     
     /* Hover States */
-    --hover-bg: rgba(0, 0, 0, 0.05); /* Hover backgrounds for buttons, items */
-    --hover-bg-dark: rgba(0, 0, 0, 0.1); /* Shadows, darker hover states */
+    --hover-bg: rgba(59, 130, 246, 0.08); /* Hover backgrounds - subtle blue tint */
+    --hover-bg-dark: rgba(0, 0, 0, 0.08); /* Shadows, darker hover states */
     
-    /* Alert Colors */
-    --alert-info-text: #084298; /* Info alert text */
-    --alert-info-bg: #cfe2ff; /* Info alert background */
-    --alert-info-border: #b6d4fe; /* Info alert border */
-    --alert-success-text: #0f5132; /* Success alert text */
-    --alert-success-bg: #d1e7dd; /* Success alert background */
-    --alert-success-border: #badbcc; /* Success alert border */
-    --alert-warning-text: #856404; /* Warning alert text */
-    --alert-warning-bg: #fff3cd; /* Warning alert background */
-    --alert-warning-border: #ffc107; /* Warning alert border */
-    --alert-danger-text: #842029; /* Danger alert text */
-    --alert-danger-bg: #f8d7da; /* Danger alert background */
-    --alert-danger-border: #f5c2c7; /* Danger alert border */
+    /* Alert Colors - More vibrant and modern */
+    --alert-info-text: #1e40af; /* Info alert text - deeper blue */
+    --alert-info-bg: #dbeafe; /* Info alert background - soft blue */
+    --alert-info-border: #93c5fd; /* Info alert border */
+    --alert-success-text: #065f46; /* Success alert text */
+    --alert-success-bg: #d1fae5; /* Success alert background - fresh green */
+    --alert-success-border: #6ee7b7; /* Success alert border */
+    --alert-warning-text: #92400e; /* Warning alert text */
+    --alert-warning-bg: #fef3c7; /* Warning alert background - warm yellow */
+    --alert-warning-border: #fcd34d; /* Warning alert border */
+    --alert-danger-text: #991b1b; /* Danger alert text */
+    --alert-danger-bg: #fee2e2; /* Danger alert background - soft red */
+    --alert-danger-border: #fca5a5; /* Danger alert border */
     
-    /* Copy Button Colors */
-    --copy-btn-text: #1e293b; /* Copy button text color */
-    --copy-btn-border: #d1d5db; /* Copy button border */
-    --copy-btn-hover-bg: #cacaca; /* Copy button hover background */
-    --copy-btn-hover-border: #9ca3af; /* Copy button hover border */
-    --copy-btn-active-bg: #999999; /* Copy button active/pressed state */
-    --copy-btn-focus-outline: #6b7280; /* Copy button focus outline */
+    /* Copy Button Colors - More inviting with subtle blue */
+    --copy-btn-text: #475569; /* Copy button text color */
+    --copy-btn-border: #cbd5e1; /* Copy button border */
+    --copy-btn-hover-bg: #e2e8f0; /* Copy button hover background */
+    --copy-btn-hover-border: #94a3b8; /* Copy button hover border */
+    --copy-btn-active-bg: #cbd5e1; /* Copy button active/pressed state */
+    --copy-btn-focus-outline: #3b82f6; /* Copy button focus outline - blue accent */
     
-    /* Scrollbar Colors */
+    /* Scrollbar Colors - Subtle blue tint */
     --scrollbar-thumb: #cbd5e1; /* Scrollbar thumb (draggable part) */
     --scrollbar-thumb-hover: #94a3b8; /* Scrollbar thumb hover state */
     
-    /* Search Match Colors */
+    /* Search Match Colors - More vibrant and visible */
     --search-match-bg: #fef08a; /* Search result highlight background */
-    --search-match-active-bg: #fb923c; /* Active/current search match background */
+    --search-match-active-bg: #3b82f6; /* Active/current search match background - blue accent */
     
     /* Border Radius */
     --border-radius-sm: 6px;
@@ -523,28 +523,69 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--nav-bar-color);
+    background: var(--surface-color);
     padding: var(--spacing-md) var(--spacing-lg);
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
     flex: 1;
     min-width: 400px;
     order: 1; /* Navigation appears first */
+    position: relative;
 }
 
-/* Step Navigation Skip (dropdown button container) */
+/* Left section - navigation buttons */
+.step-navigation-left {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Center group in left section */
+.step-navigation-left .nav-center-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex: 1;
+}
+
+/* Right section - skip button */
+.step-navigation-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    flex-shrink: 0;
+    height: 100%;
+    padding-left: var(--spacing-md);
+}
+
+/* Vertical separator in navigation */
+.nav-separator {
+    width: 1px;
+    background-color: var(--border-color);
+    margin: 0;
+    flex-shrink: 0;
+    align-self: stretch;
+}
+
+/* Step Navigation Skip (dropdown button container) - deprecated, kept for backward compatibility */
 .step-navigation-skip {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--nav-bar-color);
+    background: var(--surface-color);
     padding: var(--spacing-md) var(--spacing-lg);
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
     order: 2; /* Skip button appears between navigation and metadata */
 }
 
-/* Navigation sections layout */
+/* Legacy navigation sections (deprecated - kept for backward compatibility) */
 .step-navigation .nav-left {
     flex: 1;
     display: flex;
@@ -563,6 +604,8 @@ body {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
 /* Navigation buttons */
@@ -739,10 +782,11 @@ body {
     align-items: right;
     justify-content: center;
     gap: var(--spacing-xs);
-    background: var(--nav-bar-color);
+    background: var(--surface-color);
     padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
     font-family: var(--font-mono);
     font-size: 0.875rem;
     color: var(--text-secondary);
@@ -1922,6 +1966,7 @@ body {
     color: var(--text-white);
     padding: 1px 2px;
     border-radius: 2px;
+    font-weight: 500; /* Slightly bolder for better visibility on blue */
 }
 
 /* Sticky action bar for copy and search buttons - pinned to top right */
