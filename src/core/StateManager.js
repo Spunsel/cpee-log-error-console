@@ -26,7 +26,7 @@ export class StateManager {
             instances: new Map(),
             ui: {
                 sidebarVisible: true,
-                sidebarCollapsed: false,
+                sidebarCollapsed: true,
                 loading: false,
                 activeView: 'home' // 'home', 'instance', 'log'
             },

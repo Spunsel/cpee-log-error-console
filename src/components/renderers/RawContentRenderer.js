@@ -13,6 +13,7 @@
 
 import { ActionBar } from '../ui/ActionBar.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
+import { configManager } from '../../config/ConfigManager.js';
 
 export class RawContentRenderer {
     constructor(domRegistry = null) {
@@ -224,6 +225,30 @@ export class RawContentRenderer {
             // Render new content and add it
             const rawElement = renderer();
             rawContainer.appendChild(rawElement);
+            
+            // Trigger syntax highlighting using SyntaxHighlightingService
+            // Exclude user input from syntax highlighting
+            if (sectionId !== 'user-input') {
+                try {
+                    const syntaxService = serviceFactory.get('SyntaxHighlightingService');
+                    syntaxService.highlightCodeBlocks(rawContainer);
+                } catch (_) {
+                    // Fallback to direct Prism highlighting if service not available
+                    try {
+                        const sh = configManager.get('syntaxHighlighting', { enabled: true, highlightOnRender: true });
+                        if (sh.enabled && sh.highlightOnRender) {
+                            const codeBlocks = rawContainer.querySelectorAll('pre code');
+                            if (window.Prism && typeof window.Prism.highlightElement === 'function') {
+                                codeBlocks.forEach(block => {
+                                    window.Prism.highlightElement(block);
+                                });
+                            }
+                        }
+                    } catch (__) {
+                        // No-op if Prism/config not available
+                    }
+                }
+            }
         } catch (error) {
             console.error(`Error rendering raw content for ${sectionId}:`, error);
             container.innerHTML = '<pre><code class="error">Error rendering raw content</code></pre>';

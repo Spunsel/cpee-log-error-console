@@ -950,6 +950,7 @@ body {
     min-height: 100px;
     height: auto;
     background: var(--surface-color);
+    overflow: visible; /* Ensure parent doesn't interfere with content-box scrolling */
 }
 
 #input-intermediate-content,
@@ -960,6 +961,11 @@ body {
 #input-cpee-content .content-box,
 #output-cpee-content .content-box {
     padding: 0;
+    /* Ensure overflow is explicitly on content-box */
+    overflow-x: auto;
+    overflow-y: auto;
+    /* Make horizontal scrollbar always visible when needed */
+    scrollbar-gutter: stable;
 }
 
 /* Raw Log Display */
@@ -1234,6 +1240,11 @@ body {
     min-height: 100px;
 }
 
+/* Ensure graphgrid-input-cpee outline is always surface color */
+[id^="graphgrid-input-cpee"] {
+    outline-color: var(--surface-color) !important;
+}
+
 /* Graph Element Isolation */
 [id*="step-"][id*="-input"],
 [id*="step-"][id*="-modelling"],
@@ -1391,19 +1402,21 @@ body {
     width: 100%;
     transition: none;
     flex-wrap: nowrap;
+    gap: var(--spacing-sm);
 }
 
 .left-title-side {
-    flex: 1;
+    flex: 1 1 auto; /* holds the title */
     display: flex;
     align-items: center;
-    min-width: 0; /* allow text to truncate instead of pushing toggle */
+    min-width: 0; /* allow title to truncate */
 }
 
 .right-title-side {
     display: flex;
     align-items: center;
-    flex-shrink: 0; /* keep toggle on the same line */
+    justify-content: flex-end; /* toggle on the right */
+    flex: 0 0 auto;
 }
 
 .section-title {
@@ -1412,35 +1425,17 @@ body {
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* truncate long titles */
-}
-
-/* Ensure container carries header visuals when replacing h3 */
-.section .section-header-container {
-    background: var(--section-header-bg);
-    padding: var(--spacing-md) var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
-}
-
-.section .section-header-container h3.section-title {
-    margin: 0;
-    background: transparent;
-    padding: 0;
-    border: none;
-    color: var(--text-primary);
-    font-size: 1rem;
-    font-weight: 600;
+    text-overflow: ellipsis;
 }
 
 /* Toggle Button Container */
 .view-mode-toggle {
     display: inline-flex;
     background: var(--background-color);
-    border-radius: var(--border-radius-sm);
-    padding: 1px;
-    gap: 1px;
+    border-radius: var(--border-radius);
+    padding: 2px;
+    gap: 2px;
     border: 1px solid var(--border-color);
-    flex-shrink: 0; /* prevent wrapping under title */
 }
 
 /* Toggle Buttons */
@@ -1495,13 +1490,14 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Keep title and toggle on one line on small screens */
     .section-header-container {
-        flex-direction: row; /* keep on one line */
+        flex-direction: row;
         align-items: center;
         gap: var(--spacing-sm);
     }
-    .view-mode-toggle {
-        align-self: auto;
+    .right-title-side {
+        justify-content: flex-end;
     }
 }
 
@@ -1522,15 +1518,19 @@ body {
 }
 
 /* Raw Content Overlay - Structural positioning for raw content display */
+/* This element handles both vertical and horizontal scrolling */
 [data-content-type="raw"] {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
     background-color: var(--surface-color);
     z-index: 10;
+    /* Ensure horizontal scrollbar is visible when needed */
+    scrollbar-gutter: stable;
 }
 
 /* Content Container with Raw Overlay - Parent container positioning */
@@ -1547,9 +1547,13 @@ body {
     line-height: 1.5;
     color: var(--text-primary);
     padding: 8px;
+    /* No overflow on raw-code-block - parent [data-content-type="raw"] handles scrolling */
     overflow: visible;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    /* Allow content to overflow horizontally so parent can detect it */
+    white-space: pre;
+    word-wrap: normal;
+    width: max-content;
+    min-width: 100%;
 }
 
 .raw-code-block code {
@@ -1729,8 +1733,9 @@ body {
         font-size: 0.8rem;
     }
 
+
     .section-header-container {
-        flex-direction: row; /* keep on one line */
+        flex-direction: row;
         align-items: center;
         gap: var(--spacing-sm);
     }
@@ -1974,6 +1979,7 @@ body {
 .raw-content-actions-bar {
     position: sticky;
     top: 0;
+    left: 0;
     z-index: 100;
     display: flex;
     align-items: center;
@@ -1983,6 +1989,9 @@ body {
     border-bottom: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
     margin-bottom: 8px;
+    /* Keep action bar fixed during horizontal scrolling */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Action bar sides */
@@ -2012,6 +2021,12 @@ body {
 
 .raw-content-actions-bar .search-input-group {
     min-width: 180px;
+}
+
+/* Ensure search input has consistent height */
+.raw-content-actions-bar .search-input {
+    height: 32px;
+    box-sizing: border-box;
 }
 
 /* Responsive adjustments for action bar */

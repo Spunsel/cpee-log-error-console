@@ -24,7 +24,8 @@ export class ConfigManager {
             cpee: this.loadCPEEConfig(),
             dom: this.loadDOMConfig(),
             timing: this.loadTimingConfig(),
-            styling: this.loadStylingConfig()
+            styling: this.loadStylingConfig(),
+            syntaxHighlighting: this.loadSyntaxHighlightingConfig()
         };
     }
 
@@ -392,6 +393,57 @@ export class ConfigManager {
                     bold: '700'
                 }
             }
+        };
+    }
+
+    /**
+     * Load syntax highlighting (Prism.js) configuration
+     * @returns {Object} Syntax highlighting configuration
+     */
+    loadSyntaxHighlightingConfig() {
+        return {
+            enabled: true,
+            highlightOnRender: true,
+            // Theme handling (light theme only)
+            // themeUrl: 'https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-coldark-cold.min.css',
+            // themeUrl: 'https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-base16-ateliersulphurpool.light.min.css',
+            themeUrl: 'https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-duotone-light.min.css',
+
+            // Autoloader path for languages
+            autoloaderPath: 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/',
+            // Explicit languages to ensure are available (informational)
+            languages: ['xml', 'mermaid'],
+            // Typography overrides for code blocks
+            typography: {
+                fontSize: '13px',
+                fontFamily: 'Adwaita Mono Regular',
+                fontFace: {
+                    enabled: true,
+                    name: 'Adwaita Mono Regular',
+                    src: 'src/assets/fonts/adwaita-mono-regular.ttf',
+                    weight: '400',
+                    style: 'normal'
+                }
+            },
+            // Code block background (entire block background, not individual token backgrounds)
+            codeBlockBackground: 'var(--surface-color)', // Background of entire code block (pre element) - null = use theme default
+            // Color overrides for syntax highlighting tokens
+            colors: {
+                // XML/HTML specific
+                tag: '#374151', // XML tags (e.g., <process>, <task>) - null = use theme default
+                attrName: '#2563eb', // Attribute names (e.g., name="value") - modern cyan-teal for crisp readability
+                attrValue: '#b91c1c', // Attribute values - vibrant coral-pink that pops beautifully against light background
+                punctuation: '#9ca3af', // Punctuation like < > = " - neutral gray-blue, keeps structure subtle
+                textContent: '#008000' // Text content inside tags (e.g., "Task X" in <label>Task X</label>) - warm amber focal accent
+            },
+            // Mermaid-specific syntax highlighting colors
+            mermaid: {
+                id: '#b91c1c', // Node IDs (e.g., "se", "a2", "gw1s") - red
+                punctuation: '#9ca3af', // Punctuation (., :, (, ), -, >, etc.) - gray
+                parentheses: '#008000', // Text in parentheses (e.g., "startevent", "Task X") - orange
+                condition: '#2563eb', // Conditions in pipes (e.g., |"true"|, |"Results Require"|) - blue
+                default: '#374151' // Everything else (keywords, node types) - black
+            }             
         };
     }
 

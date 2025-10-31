@@ -127,76 +127,18 @@ export class SearchService {
         }
     }
 
-    /**
-     * Search for term in content and apply highlighting
-     * @param {string} content - Content to search in
-     * @param {string} searchTerm - Search term
-     * @param {Object} options - Search options (caseSensitive, wholeWord)
-     * @returns {Object} Search results with matches and highlighted HTML
-     */
-    searchInContent(content, searchTerm, options = {}) {
-        if (!content || !searchTerm) {
-            return {
-                matchCount: 0,
-                matches: [],
-                highlightedHTML: ''
-            };
+    // Build regex from search term and options
+    buildSearchRegex(searchTerm, options = {}) {
+        if (!searchTerm) {
+            return null;
         }
-
         const { caseSensitive = false, wholeWord = false } = options;
         const flags = caseSensitive ? 'g' : 'gi';
-        
-        let pattern = searchTerm;
-        
-        // Escape special regex characters
-        pattern = pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        
-        // Add word boundary if whole word matching is enabled
+        let pattern = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         if (wholeWord) {
             pattern = `\\b${pattern}\\b`;
         }
-
-        const matchText = caseSensitive ? content : content;
-
-        const matches = [];
-        let match;
-        const tempRegex = new RegExp(pattern, flags);
-        
-        while ((match = tempRegex.exec(matchText)) !== null) {
-            matches.push({
-                index: match.index,
-                length: match[0].length,
-                text: match[0]
-            });
-        }
-
-        if (matches.length === 0) {
-            return {
-                matchCount: 0,
-                matches: [],
-                highlightedHTML: ''
-            };
-        }
-
-        // Build highlighted HTML
-        let highlightedHTML = '';
-        let lastIndex = 0;
-
-        matches.forEach((match) => {
-            const beforeMatch = content.substring(lastIndex, match.index);
-            highlightedHTML += this.escapeHtml(beforeMatch);
-            highlightedHTML += `<span class="search-match">${this.escapeHtml(match.text)}</span>`;
-            lastIndex = match.index + match.length;
-        });
-
-        const remainingText = content.substring(lastIndex);
-        highlightedHTML += this.escapeHtml(remainingText);
-
-        return {
-            matchCount: matches.length,
-            matches: matches,
-            highlightedHTML: highlightedHTML
-        };
+        return new RegExp(pattern, flags);
     }
 
     /**
@@ -213,24 +155,86 @@ export class SearchService {
             return [];
         }
 
-        // Store original text if not already stored
+        // Ensure original text is stored for restoration if needed (not used for DOM replacement anymore)
         if (!codeElement.dataset.originalText) {
             codeElement.dataset.originalText = codeElement.textContent;
         }
 
-        const originalText = codeElement.textContent;
-        const results = this.searchInContent(originalText, searchTerm, options);
+        // Clear previous matches while preserving Prism markup
+        this.clearSearchHighlighting(container);
 
-        // Update innerHTML based on whether there are matches
-        if (results.matchCount > 0) {
-            codeElement.innerHTML = results.highlightedHTML;
-        } else {
-            // No matches - restore original text to clear any previous highlights
-            codeElement.textContent = codeElement.dataset.originalText;
+        const regex = this.buildSearchRegex(searchTerm, options);
+        if (!regex) {
+            return [];
         }
 
-        console.log(`SearchService: Applied ${results.matchCount} highlights`);
-        return results.matches;
+        // Find all match ranges in the original plain text
+        const originalText = codeElement.textContent;
+        const ranges = [];
+        let m;
+        while ((m = regex.exec(originalText)) !== null) {
+            ranges.push({ start: m.index, end: m.index + m[0].length, text: m[0] });
+        }
+
+        if (ranges.length === 0) {
+            console.log('SearchService: Applied 0 highlights');
+            return [];
+        }
+
+        // Helpers to map global positions to DOM nodes using a fresh index each time
+        const buildIndex = () => {
+            const nodes = [];
+            const cum = [];
+            let total = 0;
+            const w = document.createTreeWalker(codeElement, NodeFilter.SHOW_TEXT, null);
+            let n;
+            while ((n = w.nextNode())) {
+                if (n.nodeValue && n.nodeValue.length > 0) {
+                    nodes.push(n);
+                    total += n.nodeValue.length;
+                    cum.push(total);
+                }
+            }
+            return { nodes, cum };
+        };
+
+        const resolve = (indexObj, pos) => {
+            const { nodes, cum } = indexObj;
+            let l = 0, h = cum.length - 1, idx = -1;
+            while (l <= h) {
+                const mid = (l + h) >> 1;
+                if (cum[mid] > pos) {
+                    idx = mid;
+                    h = mid - 1;
+                } else {
+                    l = mid + 1;
+                }
+            }
+            if (idx === -1) {
+                return null;
+            }
+            const prev = idx === 0 ? 0 : cum[idx - 1];
+            return { node: nodes[idx], offset: pos - prev };
+        };
+
+        // Process ranges from last to first using DOM Range API
+        for (let i = ranges.length - 1; i >= 0; i--) {
+            const idxObj = buildIndex();
+            const startPos = resolve(idxObj, ranges[i].start);
+            const endPos = resolve(idxObj, ranges[i].end - 1); // exclusive end
+            if (!startPos || !endPos) {
+                continue;
+            }
+            const range = document.createRange();
+            range.setStart(startPos.node, startPos.offset);
+            range.setEnd(endPos.node, endPos.offset + 1);
+            const span = document.createElement('span');
+            span.className = 'search-match';
+            range.surroundContents(span);
+        }
+
+        console.log(`SearchService: Applied ${ranges.length} highlights`);
+        return ranges.map((r, idx) => ({ index: idx, length: r.end - r.start, text: r.text }));
     }
 
     /**
@@ -244,11 +248,12 @@ export class SearchService {
             return;
         }
 
-        // Restore original text if it was stored
-        if (codeElement.dataset.originalText) {
-            codeElement.textContent = codeElement.dataset.originalText;
-            delete codeElement.dataset.originalText;
-        }
+        // Unwrap existing search-match spans to restore original DOM (Prism markup preserved)
+        const matches = codeElement.querySelectorAll('span.search-match');
+        matches.forEach((el) => {
+            const textNode = document.createTextNode(el.textContent);
+            el.parentNode.replaceChild(textNode, el);
+        });
 
         console.log('SearchService: Cleared search highlighting');
     }

@@ -141,44 +141,41 @@ export class ViewModeToggle {
             const header = document.querySelector(section.selector);
             if (header && !header.querySelector('.view-mode-toggle')) {
                 const toggleBtn = this.createToggleButton(section.id, section.title);
-
+                
                 // Initialize toggle state from StateManager
                 const currentMode = currentModes[section.id] || 'visual';
                 this.updateToggleState(section.id, currentMode);
-
+                
                 // Create a flex container for title and toggle
                 const headerContainer = this.domRegistry.createElement('div', {
                     className: 'section-header-container'
                 });
-
+                
                 // Create left side for title
                 const leftSide = this.domRegistry.createElement('div', {
                     className: 'left-title-side'
                 });
-
+                
                 // Create right side for toggle
                 const rightSide = this.domRegistry.createElement('div', {
                     className: 'right-title-side'
                 });
-
-                // Capture original title text and build h3 inside container
+                
+                // Move title text to left side
                 const titleText = header.textContent;
-                const titleHeading = this.domRegistry.createElement('h3', {
+                header.textContent = '';
+                
+                const titleSpan = this.domRegistry.createElement('span', {
                     className: 'section-title',
                     textContent: titleText
                 });
-
-                leftSide.appendChild(titleHeading);
+                
+                leftSide.appendChild(titleSpan);
                 rightSide.appendChild(toggleBtn);
-
+                
                 headerContainer.appendChild(leftSide);
                 headerContainer.appendChild(rightSide);
-
-                // Replace original h3 with the new container (so h3 lives inside container)
-                const parent = header.parentNode;
-                if (parent) {
-                    parent.replaceChild(headerContainer, header);
-                }
+                header.appendChild(headerContainer);
             }
         });
     }
@@ -191,13 +188,10 @@ export class ViewModeToggle {
         toggles.forEach(toggle => {
             const container = toggle.closest('.section-header-container');
             if (container) {
-                const parent = container.parentElement;
-                const titleEl = container.querySelector('h3.section-title');
-                const titleText = titleEl ? titleEl.textContent : '';
-                if (parent) {
-                    const newHeader = document.createElement('h3');
-                    newHeader.textContent = titleText;
-                    parent.replaceChild(newHeader, container);
+                const header = container.parentElement;
+                const titleSpan = container.querySelector('.section-title');
+                if (header && titleSpan) {
+                    header.textContent = titleSpan.textContent;
                 }
             }
         });

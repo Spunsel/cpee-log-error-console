@@ -8,6 +8,7 @@ import { InstanceService } from '../services/InstanceService.js';
 import { SearchService } from '../services/SearchService.js';
 import { HighlightingService } from '../services/HighlightingService.js';
 import { CPEEService } from '../services/CPEEService.js';
+import { SyntaxHighlightingService } from '../services/SyntaxHighlightingService.js';
 
 export class ServiceFactory {
     constructor() {
@@ -16,7 +17,8 @@ export class ServiceFactory {
             'InstanceService', 
             'SearchService',
             'HighlightingService',
-            'CPEEService'
+            'CPEEService',
+            'SyntaxHighlightingService'
         ]);
         this.serviceConfigs = new Map();
         this.debugMode = false;
@@ -78,6 +80,9 @@ export class ServiceFactory {
             
             case 'CPEEService':
                 return new CPEEService(...args);
+            
+            case 'SyntaxHighlightingService':
+                return new SyntaxHighlightingService(...args);
             
             default:
                 throw new Error(`ServiceFactory: Unknown service "${serviceName}"`);

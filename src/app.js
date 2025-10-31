@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (appIconElement) {
         appIconElement.innerHTML = ICONS.APP;
     }
-    
+
     // Initialize the application
     window.app = new CPEEDebugConsole();
 });
