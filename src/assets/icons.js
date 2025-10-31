@@ -173,6 +173,26 @@ export const ICON_SEARCH_PREV = `
 `;
 
 /**
+ * Simple Less Than icon - < symbol
+ * Represents previous/left navigation - 16x16px
+ */
+export const ICON_LT = `
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+`;
+
+/**
+ * Simple Greater Than icon - > symbol
+ * Represents next/right navigation - 16x16px
+ */
+export const ICON_GT = `
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+`;
+
+/**
  * Sidebar Collapse icon - Sidebar collapsing with double chevrons pointing inward
  * Represents collapsing/hiding the sidebar - 16x16px
  * Design: Double chevrons pointing inward representing sidebar collapse
@@ -189,6 +209,28 @@ export const ICON_SIDEBAR_COLLAPSE = `
  * Design: Double chevrons pointing outward representing sidebar expansion
  */
 export const ICON_SIDEBAR_EXPAND = `
+    <svg viewBox="-32 0 512 512" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" transform="scale(-1, 1)">
+        <path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"></path>
+    </svg>
+`;
+
+/**
+ * Sidebar Collapse icon - Sidebar collapsing with double chevrons pointing inward
+ * Represents collapsing/hiding the sidebar - 16x16px
+ * Design: Double chevrons pointing inward representing sidebar collapse
+ */
+export const ICON_ACTIONBAR_EXPAND = `
+    <svg viewBox="-32 0 512 512" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
+        <path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"></path>
+    </svg>
+`;
+
+/**
+ * Sidebar Expand icon - Sidebar expanding with double chevrons pointing outward
+ * Represents expanding/showing the sidebar - 16x16px
+ * Design: Double chevrons pointing outward representing sidebar expansion
+ */
+export const ICON_ACTIONBAR_COLLAPSE = `
     <svg viewBox="-32 0 512 512" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" transform="scale(-1, 1)">
         <path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"></path>
     </svg>
@@ -254,12 +296,16 @@ export const ICONS = {
     NAV_SKIP: ICON_NAV_SKIP,
     SIDEBAR_COLLAPSE: ICON_SIDEBAR_COLLAPSE,
     SIDEBAR_EXPAND: ICON_SIDEBAR_EXPAND,
+    ACTIONBAR_COLLAPSE: ICON_ACTIONBAR_COLLAPSE,
+    ACTIONBAR_EXPAND: ICON_ACTIONBAR_EXPAND,
     APP: ICON_APP,
     // Search functionality icons
     SEARCH: ICON_SEARCH,
     CLEAR_SEARCH: ICON_CLEAR_SEARCH,
     SEARCH_NEXT: ICON_SEARCH_NEXT,
     SEARCH_PREV: ICON_SEARCH_PREV,
+    LT: ICON_LT,
+    GT: ICON_GT,
     APP_FAVICON: ICON_APP_FAVICON
 };
 

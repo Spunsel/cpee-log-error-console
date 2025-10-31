@@ -189,14 +189,21 @@ export class RawContentRenderer {
                 } else {
                     // Action bar instance exists - check if it's in the DOM
                     const actionBar = this.actionBars.get(sectionId);
-                    const existingActionBarInDOM = rawContainer.querySelector('.raw-content-actions-bar');
+                    const parentContainer = container.closest('.content-box') || container.parentElement;
+                    const existingActionBarInDOM = parentContainer?.querySelector('.raw-content-actions-bar');
                     
                     if (actionBar && !existingActionBarInDOM) {
                         // Action bar instance exists but not in DOM - re-attach it
                         if (actionBar.element && actionBar.element.parentNode) {
                             actionBar.element.parentNode.removeChild(actionBar.element);
                         }
-                        rawContainer.appendChild(actionBar.element);
+                        // Attach to parent container (non-scrolling) instead of raw container
+                        if (parentContainer) {
+                            parentContainer.appendChild(actionBar.element);
+                        } else {
+                            // Fallback to raw container
+                            rawContainer.appendChild(actionBar.element);
+                        }
                     }
                     
                     // Show the action bar
@@ -207,20 +214,8 @@ export class RawContentRenderer {
             }
             
             // Now clear ONLY the content area (preserve action bar)
-            const existingActionBar = rawContainer.querySelector('.raw-content-actions-bar');
-            
-            if (existingActionBar) {
-                // Clear all children EXCEPT the action bar
-                const allChildren = Array.from(rawContainer.children);
-                allChildren.forEach(child => {
-                    if (child !== existingActionBar) {
-                        child.remove();
-                    }
-                });
-            } else {
-                // No action bar exists, clear everything (shouldn't happen, but handle it)
-                rawContainer.innerHTML = '';
-            }
+            // Action bar is in parent container, so we can safely clear raw container
+            rawContainer.innerHTML = '';
             
             // Render new content and add it
             const rawElement = renderer();
@@ -286,7 +281,7 @@ export class RawContentRenderer {
 
     /**
      * Add action bar (copy button + search bar) to raw content container
-     * @param {HTMLElement} container - Container element
+     * @param {HTMLElement} container - Container element (raw container)
      * @param {string} sectionId - Section identifier
      * @param {Object} rawContent - Raw content object
      */
@@ -329,8 +324,15 @@ export class RawContentRenderer {
             this.navigateToMatch(sectionId, direction);
         });
 
-        // Attach to container first
-        actionBar.attachToContainer(container);
+        // Attach to the parent content-box container (non-scrolling) instead of the scrollable raw container
+        // This ensures the action bar stays fixed relative to the viewport
+        const parentContainer = container.closest('.content-box') || container.parentElement;
+        if (parentContainer) {
+            actionBar.attachToContainer(parentContainer);
+        } else {
+            // Fallback to raw container if parent not found
+            actionBar.attachToContainer(container);
+        }
         
         // Set copy content after attaching
         actionBar.setCopyContent(contentToCopy);
