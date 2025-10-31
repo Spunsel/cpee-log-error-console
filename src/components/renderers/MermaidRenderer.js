@@ -144,7 +144,10 @@ export class MermaidRenderer {
             ...mermaidConfig.default,
             fontSize,
             flowchart,
-            themeVariables: mermaidConfig.themeVariables,
+            themeVariables: {
+                ...mermaidConfig.themeVariables,
+                fontSize: `${fontSize}px`  // Mermaid expects fontSize in themeVariables
+            },
             sequence: mermaidConfig.sequence,
             gantt: mermaidConfig.gantt
         };

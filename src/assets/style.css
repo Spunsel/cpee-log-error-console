@@ -110,8 +110,6 @@
     --transition-fast: all 0.2s ease;
     
     /* Highlight Colors */
-    --highlight-color: #fb923c; /* Task highlight color (deprecated, use stroke) */
-    --highlight-active-color: #f97316; /* Active task highlight color (deprecated, use stroke) */
     --highlight-stroke: #f57900; /* Stroke color for highlighted tasks in graphs */
     --highlight-opacity: 0.2; /* Fill opacity for highlighted tasks */
     --highlight-active-opacity: 0.4; /* Fill opacity for active/highlighted tasks */
@@ -881,12 +879,6 @@ body {
     padding: 0;
 }
 
-/* Scroll Containers */
-.scroll-container {
-    overflow-x: auto;
-    overflow-y: auto;
-}
-
 /* Prevent scrollbars during transitions */
 .content-box.transitioning {
     overflow: hidden !important;
@@ -1033,23 +1025,21 @@ body {
     margin: 0;
 }
 
-.loading-graph,
-.error-message {
-    min-height: 100px;
-    height: auto;
-    padding: var(--spacing-md);
-}
-
 .no-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-family: var(--font-sans-italic);
+    font-style: italic;
+    background: var(--surface-color);
+    border-radius: 0;
+    border: none;
+    margin: 0;
     min-height: 40px;
     height: auto;
     font-size: 0.875rem;
-    background: var(--surface-color);
     padding: 0;
-}
-
-.error-message {
-    color: var(--error-text);
 }
 
 .graph-error {
@@ -1359,39 +1349,8 @@ body {
     }
 
     /* ========================================
-     * STEP NAVIGATION STYLES
+     * STEP NAVIGATION STYLES - Mobile overrides only
      * ======================================== */
-
-    .step-navigation {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: var(--spacing-md) var(--spacing-lg);
-        margin: var(--spacing-sm) 0;
-        background: var(--nav-bar-color);
-        border: 1px solid var(--border-color);
-        border-radius: var(--border-radius);
-    }
-
-    .step-navigation .nav-left {
-        flex: 1;
-        display: flex;
-        justify-content: flex-start;
-    }
-
-    .step-navigation .nav-center {
-        flex: 2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .step-navigation .nav-right {
-        flex: 1;
-        display: flex;
-        justify-content: flex-end;
-    }
 
     /* Navigation Button Mobile Adjustments - Only size/spacing changes */
     .nav-btn {
@@ -1688,28 +1647,11 @@ body {
 }
 
 
-.raw-content-actions {
-    position: absolute;
-    top: var(--spacing-sm);
-    right: var(--spacing-sm);
-    z-index: 100;
-    display: flex;
-    gap: var(--spacing-sm);
-    align-items: center;
-}
-
 /* Responsive Design for Copy Button */
 @media (max-width: 768px) {
     .copy-btn {
         padding: 5px 10px;
         font-size: 0.8rem;
-    }
-
-
-
-    .raw-content-actions {
-        width: 100%;
-        justify-content: flex-end;
     }
 }
 
@@ -1836,21 +1778,6 @@ body {
     stroke: var(--highlight-stroke) !important;
     stroke-width: 4px !important;
     fill-opacity: var(--highlight-active-opacity) !important;
-}
-
-/* Animation for Highlight State Changes */
-@keyframes highlightPulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.8;
-    }
-}
-
-/* Optional: Pulse animation for highlighted elements */
-.task-highlighted-animated {
-    animation: highlightPulse 2s ease-in-out infinite;
 }
 
 /* ============================================
@@ -2202,20 +2129,6 @@ body {
     white-space: nowrap;
 }
 
-/* Action bar sides (legacy, kept for compatibility) */
-.action-bar-left {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    min-width: 0; /* Allow shrinking */
-}
-
-.action-bar-right {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    margin-left: 12px;
-}
 
 /* Override search bar styling when inside action bar */
 .raw-content-actions-bar .raw-content-search-bar {

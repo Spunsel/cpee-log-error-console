@@ -181,13 +181,14 @@ export class ConfigManager {
                 theme: 'base',
                 securityLevel: 'loose',
                 fontFamily: 'Adwaita Sans Regular',
-                fontSize: 13
+                fontSize: 14
             },
             // css: {
             //     textFontSize: '30px',
             //     tspanFontSize: '30px'
             // },
             themeVariables: {
+                fontSize: '14px',
                 primaryColor: '#ffffff',
                 primaryBorderColor: '#000000',
                 primaryTextColor: '#000000',
