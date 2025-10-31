@@ -513,7 +513,8 @@ body {
 .navigation-wrapper {
     display: flex;
     gap: var(--spacing-sm);
-    margin: var(--spacing-sm) 0;
+    margin-top: 0;
+    margin-bottom: var(--spacing-lg);
     flex-wrap: wrap;
     align-items: stretch;
 }
@@ -776,6 +777,52 @@ body {
 }
 
 /* Metadata display styling */
+/* Graph Scaler */
+.graph-scaler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-color);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    order: 2; /* Graph scaler appears between navigation and metadata */
+}
+
+.graph-scaler-btn {
+    background: var(--primary-color);
+    color: var(--surface-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    min-width: 40px;
+    width: 40px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.graph-scaler-btn:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.graph-scaler-btn:active:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.graph-scaler-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
 .metadata-display {
     display: flex;
     flex-direction: column;

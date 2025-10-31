@@ -46,6 +46,9 @@ export class StepNavigator {
         // The dropdown elements are already in the nav-right section via createNavigationContainer
         this.dropdown.initialize(navContainer);
 
+        // Create graph scaler
+        this.createGraphScaler(wrapperContainer);
+
         // Create metadata display
         this.createMetadataDisplay(wrapperContainer);
 
@@ -174,6 +177,54 @@ export class StepNavigator {
                 this.applyDisabledStyling(button, false);
             }
         });
+    }
+
+    /**
+     * Create graph scaler element
+     * @param {HTMLElement} wrapperContainer - Wrapper container to append to
+     */
+    createGraphScaler(wrapperContainer) {
+        // Check if already exists
+        let graphScaler = document.getElementById('graph-scaler');
+        if (graphScaler) {
+            return;
+        }
+
+        graphScaler = this.domRegistry.createElement('div', {
+            id: 'graph-scaler',
+            className: 'graph-scaler',
+            innerHTML: `
+                <button id="graph-scaler-btn" class="graph-scaler-btn" aria-label="Scale graph">
+                    ${ICONS.GRAPH_SCALE}
+                </button>
+            `
+        });
+
+        // Insert after step navigation, before metadata display
+        const metadataDisplay = document.getElementById('metadata-display');
+        
+        if (wrapperContainer) {
+            if (metadataDisplay) {
+                wrapperContainer.insertBefore(graphScaler, metadataDisplay);
+            } else {
+                wrapperContainer.appendChild(graphScaler);
+            }
+        } else {
+            // If no wrapper container, try to find or create navigation wrapper
+            const navigationWrapper = document.getElementById('navigation-wrapper');
+            if (navigationWrapper) {
+                if (metadataDisplay) {
+                    navigationWrapper.insertBefore(graphScaler, metadataDisplay);
+                } else {
+                    navigationWrapper.appendChild(graphScaler);
+                }
+            }
+        }
+
+        // Register with DOM registry if not already registered and element exists in DOM
+        if (this.domRegistry && !this.domRegistry.hasKey('graphScaler') && document.getElementById('graph-scaler')) {
+            this.domRegistry.register('graphScaler', 'graph-scaler');
+        }
     }
 
     /**
