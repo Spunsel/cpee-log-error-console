@@ -25,7 +25,8 @@ export class ConfigManager {
             dom: this.loadDOMConfig(),
             timing: this.loadTimingConfig(),
             styling: this.loadStylingConfig(),
-            syntaxHighlighting: this.loadSyntaxHighlightingConfig()
+            syntaxHighlighting: this.loadSyntaxHighlightingConfig(),
+            email: this.loadEmailConfig()
         };
     }
 
@@ -384,8 +385,8 @@ export class ConfigManager {
             },
             typography: {
                 fontFamily: {
-                    primary: 'Arial, Helvetica, sans-serif',
-                    monospace: 'Monaco, Consolas, "Courier New", monospace'
+                    primary: 'Adwaita Sans Regular',
+                    monospace: 'Adwaita Mono Regular'
                 },
                 fontSize: {
                     xs: '0.75rem',
@@ -400,6 +401,22 @@ export class ConfigManager {
                     semibold: '600',
                     bold: '700'
                 }
+            }
+        };
+    }
+
+    /**
+     * Load email service configuration
+     * @returns {Object} Email service configuration
+     */
+    loadEmailConfig() {
+        return {
+            enabled: true, // Set to true to enable email service
+            service: 'web3forms', // 'web3forms' (free, no signup), 'emailjs', or 'api'
+            // Web3Forms - Free, no signup required (https://web3forms.com/)
+            web3forms: {
+                accessKey: 'a8d2090e-38eb-4c65-8461-14e6406f181b',
+                recipientEmail: 'christian.horne@tum.de'
             }
         };
     }

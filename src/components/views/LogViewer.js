@@ -184,7 +184,7 @@ export class LogViewer {
                 
                 <div style="margin-bottom: 1rem;">
                     <strong>Option 2:</strong> Paste log content below:
-                    <textarea id="manual-log-input" style="width: 100%; height: 100px; margin-top: 0.5rem; font-family: monospace;" placeholder="Paste YAML log content here..."></textarea>
+                    <textarea id="manual-log-input" style="width: 100%; height: 100px; margin-top: 0.5rem; font-family: Adwaita Mono Regular;" placeholder="Paste YAML log content here..."></textarea>
                     <button id="load-pasted-log" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">Load Pasted Log</button>
                 </div>
                 

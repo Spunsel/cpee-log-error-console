@@ -394,7 +394,7 @@ export function createStepNumberIcon(stepNumber) {
     text.setAttribute('fill', '#ffffff');
     text.setAttribute('font-size', '13');
     text.setAttribute('font-weight', '600');
-    text.setAttribute('font-family', 'system-ui, -apple-system, sans-serif');
+    text.setAttribute('font-family', 'Adwaita Sans Regular');
     text.textContent = stepNumber.toString();
     
     svg.appendChild(text);

@@ -91,7 +91,7 @@ export class SyntaxHighlightingService {
             css += `@font-face{font-family:"${typo.fontFace.name}";src:url("${typo.fontFace.src}") format("woff2");font-weight:${typo.fontFace.weight||'400'};font-style:${typo.fontFace.style||'normal'};font-display:swap;}`;
         }
         
-        const fontFamily = typo.fontFamily || 'Monaco, Consolas, "Courier New", monospace';
+        const fontFamily = typo.fontFamily || 'Adwaita Mono Regular';
         const fontSize = typo.fontSize || '13px';
         css += `.raw-content-container pre, .raw-content-container code, pre.raw-code-block, pre.raw-code-block code, pre code { font-family: ${fontFamily}; font-size: ${fontSize}; }`;
         

@@ -28,70 +28,63 @@
 }
 
 /* ========================================
-   1. CSS VARIABLES (need for cleanup and consistency)
+   1. CSS VARIABLES
    ======================================== */
 :root {
-    /* Colors - Modern Blue-Accented Palette */
-    --primary-color: #3b82f6; /* Primary buttons, links, active states - vibrant blue */
-    --primary-dark: #2563eb; /* Primary button hover states */
-    --primary-light: #dbeafe; /* Dropdown item hover backgrounds - soft blue tint */
-    --primary-color-alpha: rgba(59, 130, 246, 0.12); /* Input focus ring shadows */
-    --secondary-color: #64748b; /* Secondary buttons, metadata values */
-    --error-color: #ef4444; /* Error states, copy error button */
-    --error-text: #dc2626; /* Error text, error button hover */
-    --background-color: #f1f5f9; /* Main page background - darker for better panel contrast */
-    --surface-color: #ffffff; /* Card/surface backgrounds, dropdowns */
-    --text-primary: #0f172a; /* Main text color, headings - deeper for better contrast */
-    --text-secondary: #64748b; /* Secondary text, labels, metadata */
-    --text-white: #ffffff; /* Text on colored backgrounds (primary, success, error) */
-    --border-color: #cbd5e1; /* Borders for cards, inputs, sections - more visible */
-    --disabled-bg: #cbd5e1; /* Disabled button backgrounds */
-    --section-header-bg: #d0dae4; /* Section header backgrounds - light blue tint */
-    --copy-btn-bg: #f1f5f9; /* Copy button default background - warm gray */
-    --nav-bar-color: #f8fafc; /* Navigation and metadata bar background color */
-    --copy-success-color: #6B8E23; /* Copy success state - modern emerald green */
+    --primary-color: #3b82f6;
+    --primary-dark: #2563eb;
+    --primary-light: #dbeafe;
+    --primary-color-alpha: rgba(59, 130, 246, 0.12);
+    --secondary-color: #64748b;
+    --error-color: #ef4444;
+    --error-text: #dc2626;
+    --background-color: #edf2f7;
+    --surface-color: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-white: #ffffff;
+    --border-color: #cbd5e1;
+    --disabled-bg: #becbda;
+    --section-header-bg: #d0dae4;
+    --copy-btn-bg: #f1f5f9;
+    --nav-bar-color: #f8fafc;
+    --copy-success-color: #6B8E23;
     
-    /* Hover States */
-    --hover-bg: rgba(59, 130, 246, 0.08); /* Hover backgrounds - subtle blue tint */
-    --hover-bg-dark: rgba(0, 0, 0, 0.08); /* Shadows, darker hover states */
+    --hover-bg: rgba(59, 130, 246, 0.08);
+    --hover-bg-dark: rgba(0, 0, 0, 0.08);
     
-    /* Alert Colors - More vibrant and modern */
-    --alert-info-text: #1e40af; /* Info alert text - deeper blue */
-    --alert-info-bg: #dbeafe; /* Info alert background - soft blue */
-    --alert-info-border: #93c5fd; /* Info alert border */
-    --alert-success-text: #065f46; /* Success alert text */
-    --alert-success-bg: #d1fae5; /* Success alert background - fresh green */
-    --alert-success-border: #6ee7b7; /* Success alert border */
-    --alert-warning-text: #92400e; /* Warning alert text */
-    --alert-warning-bg: #fef3c7; /* Warning alert background - warm yellow */
-    --alert-warning-border: #fcd34d; /* Warning alert border */
-    --alert-danger-text: #991b1b; /* Danger alert text */
-    --alert-danger-bg: #fee2e2; /* Danger alert background - soft red */
-    --alert-danger-border: #fca5a5; /* Danger alert border */
+    --alert-info-text: #1e40af;
+    --alert-info-bg: #dbeafe;
+    --alert-info-border: #93c5fd;
+    --alert-success-text: #065f46;
+    --alert-success-bg: #d1fae5;
+    --alert-success-border: #6ee7b7;
+    --alert-warning-text: #92400e;
+    --alert-warning-bg: #fef3c7;
+    --alert-warning-border: #fcd34d;
+    --alert-danger-text: #991b1b;
+    --alert-danger-bg: #fee2e2;
+    --alert-danger-border: #fca5a5;
     
-    /* Copy Button Colors - More inviting with subtle blue */
-    --copy-btn-text: #475569; /* Copy button text color */
-    --copy-btn-border: #cbd5e1; /* Copy button border */
-    --copy-btn-hover-bg: #e2e8f0; /* Copy button hover background */
-    --copy-btn-hover-border: #94a3b8; /* Copy button hover border */
-    --copy-btn-active-bg: #cbd5e1; /* Copy button active/pressed state */
-    --copy-btn-focus-outline: #3b82f6; /* Copy button focus outline - blue accent */
+    --copy-btn-text: #475569;
+    --copy-btn-border: #cbd5e1;
+    --copy-btn-hover-bg: #e2e8f0;
+    --copy-btn-hover-border: #94a3b8;
+    --copy-btn-active-bg: #cbd5e1;
+    --copy-btn-focus-outline: #3b82f6;
     
-    /* Scrollbar Colors - Subtle blue tint */
-    --scrollbar-thumb: #cbd5e1; /* Scrollbar thumb (draggable part) */
-    --scrollbar-thumb-hover: #94a3b8; /* Scrollbar thumb hover state */
+    --scrollbar-thumb: #cbd5e1;
+    --scrollbar-thumb-hover: #94a3b8;
     
-    /* Search Match Colors - More vibrant and visible */
-    --search-match-bg: #fef08a; /* Search result highlight background */
-    --search-match-active-bg: #3b82f6; /* Active/current search match background - blue accent */
+    --search-match-bg: #fef08a;
+    --search-match-active-bg: #3b82f6;
     
     /* Border Radius */
     --border-radius-sm: 6px;
     --border-radius: 8px;
     --border-radius-lg: 12px;
     
-    /* Shadows */
-    --shadow: 0 1px 3px 0 var(--hover-bg-dark), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow: 1px 1px 3px 0 var(--hover-bg-dark), 0.5px 0.5px 2px 0 rgba(0, 0, 0, 0.06);
     --shadow-md: 0 2px 4px var(--hover-bg-dark);
     
     /* Typography */
@@ -113,6 +106,9 @@
     --highlight-stroke: #f57900; /* Stroke color for highlighted tasks in graphs */
     --highlight-opacity: 0.2; /* Fill opacity for highlighted tasks */
     --highlight-active-opacity: 0.4; /* Fill opacity for active/highlighted tasks */
+    
+    /* Text Selection */
+    --selection-bg: #ADD8E6;
 }
 
 /* ========================================
@@ -347,6 +343,188 @@ body {
     font-size: 0.875rem;
 }
 
+.footer-separator {
+    margin: 0 var(--spacing-xs);
+    color: var(--text-secondary);
+}
+
+.footer-link-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    text-decoration: underline;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.footer-link-btn:hover {
+    color: var(--primary-dark);
+}
+
+.footer-link-btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Bug Report Modal */
+.bug-report-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.bug-report-modal.active {
+    display: flex;
+}
+
+.bug-report-modal-content {
+    background: var(--surface-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.bug-report-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.bug-report-modal-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.bug-report-close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.bug-report-close-btn:hover {
+    background: var(--background-color);
+    color: var(--text-primary);
+}
+
+.bug-report-close-btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.bug-report-form {
+    padding: var(--spacing-lg);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    background: var(--surface-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-color-alpha);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: var(--font-sans);
+}
+
+.form-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: flex-end;
+    margin-top: var(--spacing-lg);
+}
+
+.bug-report-message {
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    margin: var(--spacing-lg);
+    font-size: 0.875rem;
+}
+
+.bug-report-success {
+    background-color: var(--alert-success-bg);
+    color: var(--alert-success-text);
+    border: 1px solid var(--alert-success-border);
+}
+
+.bug-report-error {
+    background-color: var(--alert-danger-bg);
+    color: var(--alert-danger-text);
+    border: 1px solid var(--alert-danger-border);
+}
+
+.bug-report-message strong {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
 /* ========================================
    4. UI COMPONENTS
    ======================================== */
@@ -573,41 +751,6 @@ body {
     align-self: stretch;
 }
 
-/* Step Navigation Skip (dropdown button container) - deprecated, kept for backward compatibility */
-.step-navigation-skip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--surface-color);
-    padding: var(--spacing-md) var(--spacing-lg);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-    order: 2; /* Skip button appears between navigation and metadata */
-}
-
-/* Legacy navigation sections (deprecated - kept for backward compatibility) */
-.step-navigation .nav-left {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.step-navigation .nav-center {
-    flex: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-}
-
-.step-navigation .nav-right {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: var(--spacing-sm);
-}
 
 /* Navigation buttons */
 .nav-btn {
@@ -629,37 +772,20 @@ body {
     white-space: nowrap;
 }
 
-.nav-btn:hover:not(:disabled) {
-    background: var(--primary-dark);
-}
-
+.nav-btn:hover:not(:disabled),
 .nav-btn:active:not(:disabled) {
     background: var(--primary-dark);
 }
 
 /* Specific button styling */
-.nav-btn-start {
-    background: var(--secondary-color);
-}
-
-.nav-btn-start:hover:not(:disabled) {
-    background: var(--text-secondary);
-}
-
+.nav-btn-start,
 .nav-btn-end {
     background: var(--secondary-color);
 }
 
+.nav-btn-start:hover:not(:disabled),
 .nav-btn-end:hover:not(:disabled) {
     background: var(--text-secondary);
-}
-
-.nav-btn-prev {
-    background: var(--primary-color);
-}
-
-.nav-btn-next {
-    background: var(--primary-color);
 }
 
 /* Disabled state styling */
@@ -707,10 +833,7 @@ body {
     white-space: nowrap;
 }
 
-.step-dropdown-trigger:hover {
-    background: var(--primary-dark);
-}
-
+.step-dropdown-trigger:hover,
 .step-dropdown-trigger:active {
     background: var(--primary-dark);
 }
@@ -760,10 +883,6 @@ body {
     text-overflow: ellipsis;
 }
 
-.step-dropdown-item:hover {
-    background-color: var(--background-color);
-}
-
 .step-dropdown-item.active {
     background-color: var(--background-color);
     font-weight: 600;
@@ -774,53 +893,6 @@ body {
 .step-dropdown-item:not(.active):hover {
     background-color: var(--primary-light);
     color: var(--text-primary);
-}
-
-/* Metadata display styling */
-/* Graph Scaler */
-.graph-scaler {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--surface-color);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-    order: 2; /* Graph scaler appears between navigation and metadata */
-}
-
-.graph-scaler-btn {
-    background: var(--primary-color);
-    color: var(--surface-color);
-    border: none;
-    padding: 8px 12px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    font-size: 1rem;
-    min-width: 40px;
-    width: 40px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-}
-
-.graph-scaler-btn:hover:not(:disabled) {
-    background: var(--primary-dark);
-}
-
-.graph-scaler-btn:active:not(:disabled) {
-    background: var(--primary-dark);
-}
-
-.graph-scaler-btn svg {
-    width: 20px;
-    height: 20px;
-    display: block;
 }
 
 /* Scale Display */
@@ -860,10 +932,7 @@ body {
     white-space: nowrap;
 }
 
-.scale-dropdown-trigger:hover:not(:disabled) {
-    background: var(--primary-dark);
-}
-
+.scale-dropdown-trigger:hover:not(:disabled),
 .scale-dropdown-trigger:active:not(:disabled) {
     background: var(--primary-dark);
 }
@@ -877,18 +946,18 @@ body {
 .scale-dropdown-menu {
     position: absolute;
     top: calc(100% + 4px);
-    left: -25px; /* Move dropdown to the left */
+    left: -25px;
     right: auto;
-    width: calc(100% + 8px);
+    width: 86px;
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     z-index: 1000;
-    min-width: 100px;
+    min-width: 70px;
     max-height: 250px;
-    overflow-y: auto;
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .scale-dropdown-item {
@@ -903,8 +972,9 @@ body {
     justify-content: center;
 }
 
-.scale-dropdown-item:hover {
-    background-color: var(--background-color);
+.scale-dropdown-item:not(.active):hover {
+    background-color: var(--primary-light);
+    color: var(--text-primary);
 }
 
 .scale-dropdown-item.active {
@@ -1076,8 +1146,7 @@ body {
     height: 400px;
     max-height: 400px;
     min-height: 400px;
-    overflow-y: auto;
-    overflow-x: auto;
+    overflow: auto;
     position: relative;
 }
 
@@ -1085,8 +1154,7 @@ body {
 .mermaid-section .content-box {
     padding: 0;
     max-height: 400px;
-    overflow-x: auto;
-    overflow-y: auto;
+    overflow: auto;
     white-space: nowrap;
     display: flex;
     align-items: flex-start;
@@ -1134,10 +1202,7 @@ body {
 #input-cpee-content .content-box,
 #output-cpee-content .content-box {
     padding: 0;
-    /* Ensure overflow is explicitly on content-box */
-    overflow-x: auto;
-    overflow-y: auto;
-    /* Make horizontal scrollbar always visible when needed */
+    overflow: auto;
     scrollbar-gutter: stable;
 }
 
@@ -1193,19 +1258,6 @@ body {
 }
 
 /* Status Messages */
-.no-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    font-family: var(--font-sans-italic);
-    font-style: italic;
-    background: var(--background-color);
-    border-radius: 0;
-    border: none;
-    margin: 0;
-}
-
 .no-content {
     display: flex;
     align-items: center;
@@ -1671,41 +1723,21 @@ body {
     overflow: visible;
     border: none;
     transition: none;
-    animation: none;
-    opacity: 1;
-    transform: translateY(0);
-    /* Enable text selection in raw content containers */
-    user-select: text;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
 }
 
-/* Raw Content Overlay - Structural positioning for raw content display */
-/* This element handles both vertical and horizontal scrolling */
 [data-content-type="raw"] {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow-x: auto;
-    overflow-y: auto;
+    overflow: auto;
     background-color: var(--surface-color);
     z-index: 10;
-    /* Ensure horizontal scrollbar is visible when needed */
     scrollbar-gutter: stable;
-    /* Ensure sticky positioning works correctly */
     display: block;
-    /* Enable text selection */
-    user-select: text;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
 }
 
-/* Content Container with Raw Overlay - Parent container positioning */
-.content-box[style*="position: relative"],
 .content-box {
     position: relative;
 }
@@ -1719,18 +1751,11 @@ body {
     line-height: 1.5;
     color: var(--text-primary);
     padding: 8px;
-    /* No overflow on raw-code-block - parent [data-content-type="raw"] handles scrolling */
     overflow: visible;
-    /* Allow content to overflow horizontally so parent can detect it */
     white-space: pre;
     word-wrap: normal;
     width: max-content;
     min-width: 100%;
-    /* Enable text selection */
-    user-select: text;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
 }
 
 .raw-code-block code {
@@ -1739,14 +1764,8 @@ body {
     padding: 0;
     color: inherit;
     font-size: inherit;
-    user-select: text;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
 }
 
-/* Text selection styling for raw content (CPEE and Mermaid) */
-/* Enable text selection for all raw content elements */
 .raw-content-container,
 .raw-content-container *,
 .raw-code-block,
@@ -1756,16 +1775,14 @@ body {
     user-select: text !important;
     -webkit-user-select: text !important;
     -moz-user-select: text !important;
-    -ms-user-select: text !important;
 }
 
-/* Light blue text selection for raw content (CPEE and Mermaid) */
 .raw-content-container ::selection,
 .raw-code-block ::selection,
 .raw-code-block code::selection,
 .raw-text-block ::selection,
 .raw-text-block code::selection {
-    background-color: #ADD8E6 !important; /* Light blue */
+    background-color: var(--selection-bg) !important;
     color: inherit;
 }
 
@@ -1774,7 +1791,7 @@ body {
 .raw-code-block code::-moz-selection,
 .raw-text-block ::-moz-selection,
 .raw-text-block code::-moz-selection {
-    background-color: #ADD8E6 !important; /* Light blue */
+    background-color: var(--selection-bg) !important;
     color: inherit;
 }
 
@@ -1789,11 +1806,6 @@ body {
     word-wrap: break-word;
     height: 100%;
     overflow: hidden;
-    /* Enable text selection */
-    user-select: text;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
 }
 
 /* Responsive Design */
@@ -2233,10 +2245,6 @@ body {
     box-sizing: border-box;
 }
 
-.action-bar-collapse-btn:hover {
-    background-color: var(--hover-bg);
-    border-color: var(--primary-color);
-}
 
 .action-bar-collapse-btn svg {
     width: 16px;
@@ -2320,14 +2328,9 @@ body {
     gap: 0;
 }
 
-.action-bar-copy-container .copy-btn:hover:not(:disabled) {
-    background-color: var(--hover-bg);
-    border-color: var(--primary-color);
-}
 
 /* Success state - briefly show success color when showing checkmark */
-.action-bar-copy-container .copy-btn.copy-success,
-.action-bar-copy-container .copy-btn.copy-success:hover {
+.action-bar-copy-container .copy-btn.copy-success {
     background: var(--copy-success-color);
     border-color: var(--copy-success-color);
     color: var(--text-white);

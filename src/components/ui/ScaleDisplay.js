@@ -58,13 +58,6 @@ export class ScaleDisplay {
                 </div>
             `
         });
-
-        // Register elements after creation
-        if (this.domRegistry) {
-            this.domRegistry.register('scaleDisplay', 'scale-display');
-            this.domRegistry.register('scaleDropdownTrigger', 'scale-dropdown-trigger');
-            this.domRegistry.register('scaleDropdownMenu', 'scale-dropdown-menu');
-        }
         
         return this.container;
     }
@@ -77,6 +70,13 @@ export class ScaleDisplay {
         const container = this.createContainer();
         if (parentContainer && !parentContainer.contains(container)) {
             parentContainer.appendChild(container);
+        }
+
+        // Register elements after they're in the DOM
+        if (this.domRegistry) {
+            this.domRegistry.register('scaleDisplay', 'scale-display');
+            this.domRegistry.register('scaleDropdownTrigger', 'scale-dropdown-trigger');
+            this.domRegistry.register('scaleDropdownMenu', 'scale-dropdown-menu');
         }
         // Render dropdown items
         this.renderDropdownOptions();

@@ -10,6 +10,7 @@ import { LogViewer } from '../components/views/LogViewer.js';
 import { InstanceLoaderViewer } from '../components/views/InstanceLoaderViewer.js';
 import { RawContentCoordinator } from '../components/coordinators/RawContentCoordinator.js';
 import { HighlightCoordinator } from '../components/coordinators/HighlightCoordinator.js';
+import { BugReportModal } from '../components/ui/BugReportModal.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 import { eventBus } from './EventBus.js';
 import { serviceFactory } from './ServiceFactory.js';
@@ -34,6 +35,7 @@ export class CPEEDebugConsole {
         this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentCoordinator, this.highlightCoordinator, this.eventBus, this.stateManager);
         this.logViewer = new LogViewer(this.domRegistry, this.eventBus, this.stateManager);
         this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager);
+        this.bugReportModal = new BugReportModal();
         
         this.setupEventBusListeners();
         
@@ -86,6 +88,7 @@ export class CPEEDebugConsole {
         // Initialize sidebar toggle functionality
         this.sidebar.initializeToggle();
         this.setupEventListeners();
+        this.setupBugReportModal();
         
         // Load instance if UUID is provided
         if (urlParams.uuid) {
@@ -197,6 +200,17 @@ export class CPEEDebugConsole {
         });
     }
 
+    /**
+     * Setup bug report modal
+     */
+    setupBugReportModal() {
+        const bugReportLink = document.getElementById('bug-report-link');
+        if (bugReportLink && this.bugReportModal) {
+            bugReportLink.addEventListener('click', () => {
+                this.bugReportModal.open();
+            });
+        }
+    }
 
     /**
      * Load CPEE instance data
