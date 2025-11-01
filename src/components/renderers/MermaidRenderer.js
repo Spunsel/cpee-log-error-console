@@ -10,9 +10,11 @@ import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
 import { MermaidParser } from '../../utils/content/MermaidParser.js';
 import { configManager } from '../../config/ConfigManager.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 
 export class MermaidRenderer {
-    constructor() {
+    constructor(eventBus = null) {
         this.container = null;
         this.statusManager = null;
         this.inputElement = null;
@@ -22,6 +24,53 @@ export class MermaidRenderer {
         
         // Post-render callback for highlighting integration
         this.postRenderCallback = null;
+        
+        // Scale management
+        this.eventBus = eventBus || defaultEventBus;
+        this.defaultScale = configManager.get('rendering.scaling.default') || 1.0;
+        this.currentScale = this.defaultScale;
+        this.currentSvgElement = null; // Track current SVG for scale updates
+        
+        // Listen for scale change events
+        this.setupScaleListener();
+    }
+    
+    /**
+     * Setup event listener for scale changes
+     */
+    setupScaleListener() {
+        this.eventBus.on('scaleDisplay:scaleChanged', (data) => {
+            const newScale = data.scale;
+            if (typeof newScale === 'number' && newScale !== this.currentScale) {
+                this.currentScale = newScale;
+                this.applyScaleToCurrentGraph();
+            }
+        });
+    }
+    
+    /**
+     * Apply scale to the current SVG graph if it exists
+     */
+    applyScaleToCurrentGraph() {
+        if (!this.container || !this.currentSvgElement) {
+            return;
+        }
+        
+        this.applyScaleTransform(this.currentSvgElement);
+    }
+    
+    /**
+     * Apply scale transform to an SVG element
+     * Uses SVGScaleUtility for consistent scaling
+     * @param {SVGElement} svgElement - SVG element to scale
+     */
+    applyScaleTransform(svgElement) {
+        if (!svgElement) {
+            return;
+        }
+        
+        // Use utility function for consistent scaling
+        SVGScaleUtility.applyScale(svgElement, this.currentScale, 'mermaid');
     }
 
     /**
@@ -46,8 +95,28 @@ export class MermaidRenderer {
             this.inputElement = document.getElementById(inputId);
         }
 
+        // Load current scale from localStorage
+        this.loadCurrentScale();
+
         this.setupContainer();
         await this.loadMermaid();
+    }
+    
+    /**
+     * Load current scale from localStorage
+     */
+    loadCurrentScale() {
+        try {
+            const stored = localStorage.getItem('cpee-debug-console-graph-scale');
+            if (stored) {
+                const scale = parseFloat(stored);
+                if (SVGScaleUtility.isValidScale(scale)) {
+                    this.currentScale = scale;
+                }
+            }
+        } catch (error) {
+            console.warn('Failed to load scale from storage:', error);
+        }
     }
 
     /**
@@ -184,12 +253,14 @@ export class MermaidRenderer {
      * @param {SVGElement} svgElement - SVG element to style
      */
     _applySVGScaling(svgElement) {
-        // No CSS transform needed - scaling is handled via Mermaid's internal spacing
-        // Setting display and background for consistent appearance
+        // Set display and background for consistent appearance
         Object.assign(svgElement.style, {
             background: 'white',
             display: 'block'
         });
+        
+        // Apply current scale transform
+        this.applyScaleTransform(svgElement);
     }
 
     /**
@@ -236,6 +307,9 @@ export class MermaidRenderer {
                 }
                 return;
             }
+            
+            // Store reference to current SVG for scale updates
+            this.currentSvgElement = svgElement;
 
             // Apply all styling immediately and synchronously
             const fontSizeStr = `${fontSize}px`;

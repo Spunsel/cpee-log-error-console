@@ -41,7 +41,8 @@ export class StateManager {
                 'input-intermediate': 'visual',
                 'output-intermediate': 'visual',
                 'output-cpee': 'visual'
-            }
+            },
+            graphScale: 1.0 // Default graph scale: 1x (100%)
         };
     }
 

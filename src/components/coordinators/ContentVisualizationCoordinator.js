@@ -13,6 +13,7 @@ import { CPEEWfAdaptorRenderer } from '../renderers/CPEEWfAdaptorRenderer.js';
 import { MermaidRenderer } from '../renderers/MermaidRenderer.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 
 export class ContentVisualizationCoordinator {
     constructor(domRegistry = null, highlightCoordinator = null, eventBus = null) {
@@ -28,6 +29,41 @@ export class ContentVisualizationCoordinator {
         
         // Current container reference for cleanup
         this.currentGraphContainer = null;
+        
+        // Scale management - listen for scale changes to coordinate all renderers
+        this.setupScaleListener();
+    }
+    
+    /**
+     * Setup event listener for scale changes
+     * Ensures scale coordination across all graph renderers
+     */
+    setupScaleListener() {
+        this.eventBus.on('scaleDisplay:scaleChanged', (data) => {
+            const scale = data.scale;
+            console.log(`[ContentVisualizationCoordinator] Scale changed to ${scale}x`);
+            // Renderers handle scale updates automatically via their own listeners
+            // This listener is for coordination/logging purposes
+        });
+    }
+    
+    /**
+     * Get current scale from localStorage
+     * @returns {number} Current scale value (default from config)
+     */
+    getCurrentScale() {
+        try {
+            const stored = localStorage.getItem('cpee-debug-console-graph-scale');
+            if (stored) {
+                const scale = parseFloat(stored);
+                if (SVGScaleUtility.isValidScale(scale)) {
+                    return scale;
+                }
+            }
+        } catch (error) {
+            console.warn('Failed to load scale from storage:', error);
+        }
+        return configManager.get('rendering.scaling.default') || 1.0; // Default scale from config
     }
 
     /**
@@ -85,7 +121,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render CPEE graph
             if (!this.inputGraphRenderer) {
-                this.inputGraphRenderer = new CPEEWfAdaptorRenderer();
+                this.inputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus);
             }
             
             // Set up post-render callback for highlighting
@@ -145,7 +181,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render CPEE graph
             if (!this.outputGraphRenderer) {
-                this.outputGraphRenderer = new CPEEWfAdaptorRenderer();
+                this.outputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus);
             }
             
             // Set up post-render callback for highlighting
@@ -208,7 +244,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render Mermaid diagram
             if (!this.inputMermaidRenderer) {
-                this.inputMermaidRenderer = new MermaidRenderer();
+                this.inputMermaidRenderer = new MermaidRenderer(this.eventBus);
             }
             
             // Set up post-render callback for highlighting
@@ -274,7 +310,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render Mermaid diagram
             if (!this.outputMermaidRenderer) {
-                this.outputMermaidRenderer = new MermaidRenderer();
+                this.outputMermaidRenderer = new MermaidRenderer(this.eventBus);
             }
             
             // Set up post-render callback for highlighting

@@ -137,6 +137,13 @@ export class ConfigManager {
                 version: '1.1',
                 xmlnsX: 'http://www.w3.org/1999/xlink'
             },
+            scaling: {
+                // Graph scaling levels - can be any positive numbers
+                // Values represent multiplier (e.g., 0.25 = 25%, 1.0 = 100%, 1.5 = 150%)
+                levels: [0.3, 0.4, 0.5, 0.75, 1.0],
+                // Default scale when no scale is stored
+                default: 1.0
+            },
             fallback: {
                 errorMessage: {
                     margin: '20px',

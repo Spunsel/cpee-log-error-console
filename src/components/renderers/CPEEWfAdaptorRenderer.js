@@ -7,12 +7,14 @@ import { DOMStatusManager } from '../../utils/dom/DOMStatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { CPEEParser } from '../../utils/content/CPEEParser.js';
 import { SVGProcessor } from '../../utils/dom/SVGProcessor.js';
+import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 import { JQueryExtensions } from '../../utils/system/JQueryExtensions.js';
 import { configManager } from '../../config/ConfigManager.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class CPEEWfAdaptorRenderer {
     
-    constructor() {
+    constructor(eventBus = null) {
         this.adaptor = null;
         this.isRendered = false;
         this.container = null;
@@ -23,6 +25,71 @@ export class CPEEWfAdaptorRenderer {
         
         // Post-render callback for highlighting integration
         this.postRenderCallback = null;
+        
+        // Scale management
+        this.eventBus = eventBus || defaultEventBus;
+        this.defaultScale = configManager.get('rendering.scaling.default') || 1.0;
+        this.currentScale = this.defaultScale;
+        this.currentSvgElement = null; // Track current SVG container for scale updates
+        
+        // Listen for scale change events
+        this.setupScaleListener();
+    }
+    
+    /**
+     * Setup event listener for scale changes
+     */
+    setupScaleListener() {
+        this.eventBus.on('scaleDisplay:scaleChanged', (data) => {
+            const newScale = data.scale;
+            if (typeof newScale === 'number' && newScale !== this.currentScale) {
+                this.currentScale = newScale;
+                this.applyScaleToCurrentGraph();
+            }
+        });
+    }
+    
+    /**
+     * Apply scale to the current SVG graph if it exists
+     */
+    applyScaleToCurrentGraph() {
+        if (!this.container || !this.currentSvgElement) {
+            return;
+        }
+        
+        this.applyScaleTransform(this.currentSvgElement);
+    }
+    
+    /**
+     * Apply scale transform to CPEE SVG container
+     * CPEE graphs use nested SVG structure, so we apply transform to the outer SVG
+     * Uses SVGScaleUtility for consistent scaling
+     * @param {HTMLElement} svgContainer - SVG container element
+     */
+    applyScaleTransform(svgContainer) {
+        if (!svgContainer) {
+            return;
+        }
+        
+        // Use utility function for consistent scaling with CPEE structure
+        SVGScaleUtility.applyScale(svgContainer, this.currentScale, 'cpee');
+    }
+    
+    /**
+     * Load current scale from localStorage
+     */
+    loadCurrentScale() {
+        try {
+            const stored = localStorage.getItem('cpee-debug-console-graph-scale');
+            if (stored) {
+                const scale = parseFloat(stored);
+                if (SVGScaleUtility.isValidScale(scale)) {
+                    this.currentScale = scale;
+                }
+            }
+        } catch (error) {
+            console.warn('Failed to load scale from storage:', error);
+        }
     }
     
     /**
@@ -32,6 +99,9 @@ export class CPEEWfAdaptorRenderer {
      * @param {string} xmlInputId - ID of the XML input textarea
      */
     async initialize(containerId, statusId, xmlInputId) {
+        // Load current scale from localStorage
+        this.loadCurrentScale();
+        
         this.container = document.getElementById(containerId);
         this.statusElement = statusId ? document.getElementById(statusId) : null;
         this.xmlInput = xmlInputId ? document.getElementById(xmlInputId) : null;
@@ -155,6 +225,9 @@ export class CPEEWfAdaptorRenderer {
                         throw new Error(`CPEEWfAdaptorRenderer: SVG container with ID '${svgElementId}' not found`);
                     }
                     
+                    // Store reference to current SVG for scale updates
+                    self.currentSvgElement = svgElement;
+                    
                     const jquerySvgContainer = window.$(svgElement);
                     if (jquerySvgContainer.length === 0) {
                         throw new Error(`CPEEWfAdaptorRenderer: jQuery could not wrap SVG element with ID '${svgElementId}'`);
@@ -191,6 +264,9 @@ export class CPEEWfAdaptorRenderer {
                     // Mark as rendered and adjust height
                     self.isRendered = true;
                     self.adjustSVGHeight();
+                    
+                    // Apply current scale to the rendered graph
+                    self.applyScaleTransform(svgElement);
                     
                     // Call post-render callback if set
                     if (self.postRenderCallback) {

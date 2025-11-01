@@ -6,14 +6,16 @@
 
 import { ICONS } from '../../assets/icons.js';
 import { StepDropdown } from './StepDropdown.js';
+import { ScaleDisplay } from './ScaleDisplay.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class StepNavigator {
-    constructor(instanceService, domRegistry = null, eventBus = null) {
+    constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
+        this.stateManager = stateManager;
         
         // Navigation state
         this.isSetup = false;
@@ -21,6 +23,9 @@ export class StepNavigator {
 
         // Initialize dropdown (pass instanceService so it can handle navigation directly)
         this.dropdown = new StepDropdown(domRegistry, this.eventBus, instanceService);
+        
+        // Initialize scale display
+        this.scaleDisplay = new ScaleDisplay(domRegistry, this.eventBus, this.stateManager);
     }
 
 
@@ -46,8 +51,8 @@ export class StepNavigator {
         // The dropdown elements are already in the nav-right section via createNavigationContainer
         this.dropdown.initialize(navContainer);
 
-        // Create graph scaler
-        this.createGraphScaler(wrapperContainer);
+        // Create scale display (replaces graph-scaler)
+        this.createScaleDisplay(wrapperContainer);
 
         // Create metadata display
         this.createMetadataDisplay(wrapperContainer);
@@ -180,50 +185,31 @@ export class StepNavigator {
     }
 
     /**
-     * Create graph scaler element
+     * Create scale display element
      * @param {HTMLElement} wrapperContainer - Wrapper container to append to
      */
-    createGraphScaler(wrapperContainer) {
+    createScaleDisplay(wrapperContainer) {
         // Check if already exists
-        let graphScaler = document.getElementById('graph-scaler');
-        if (graphScaler) {
+        let scaleDisplayElement = document.getElementById('scale-display');
+        if (scaleDisplayElement) {
             return;
         }
 
-        graphScaler = this.domRegistry.createElement('div', {
-            id: 'graph-scaler',
-            className: 'graph-scaler',
-            innerHTML: `
-                <button id="graph-scaler-btn" class="graph-scaler-btn" aria-label="Scale graph">
-                    ${ICONS.GRAPH_SCALE}
-                </button>
-            `
-        });
+        // Initialize scale display
+        this.scaleDisplay.initialize(wrapperContainer);
+        scaleDisplayElement = document.getElementById('scale-display');
 
-        // Insert after step navigation, before metadata display
+        // Insert before metadata-display
         const metadataDisplay = document.getElementById('metadata-display');
         
-        if (wrapperContainer) {
+        if (wrapperContainer && scaleDisplayElement) {
             if (metadataDisplay) {
-                wrapperContainer.insertBefore(graphScaler, metadataDisplay);
+                // Insert before metadata-display
+                wrapperContainer.insertBefore(scaleDisplayElement, metadataDisplay);
             } else {
-                wrapperContainer.appendChild(graphScaler);
+                // Fallback: append to wrapper
+                wrapperContainer.appendChild(scaleDisplayElement);
             }
-        } else {
-            // If no wrapper container, try to find or create navigation wrapper
-            const navigationWrapper = document.getElementById('navigation-wrapper');
-            if (navigationWrapper) {
-                if (metadataDisplay) {
-                    navigationWrapper.insertBefore(graphScaler, metadataDisplay);
-                } else {
-                    navigationWrapper.appendChild(graphScaler);
-                }
-            }
-        }
-
-        // Register with DOM registry if not already registered and element exists in DOM
-        if (this.domRegistry && !this.domRegistry.hasKey('graphScaler') && document.getElementById('graph-scaler')) {
-            this.domRegistry.register('graphScaler', 'graph-scaler');
         }
     }
 
@@ -507,6 +493,11 @@ export class StepNavigator {
         // Clean up dropdown
         if (this.dropdown) {
             this.dropdown.cleanup();
+        }
+
+        // Clean up scale display
+        if (this.scaleDisplay) {
+            this.scaleDisplay.cleanup();
         }
 
         const wrapperContainer = document.getElementById('navigation-wrapper');

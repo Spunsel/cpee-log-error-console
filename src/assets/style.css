@@ -823,6 +823,96 @@ body {
     display: block;
 }
 
+/* Scale Display */
+.scale-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-color);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    order: 2; /* Scale display appears between navigation and metadata */
+}
+
+.scale-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.scale-dropdown-trigger {
+    background: var(--primary-color);
+    color: var(--surface-color);
+    border: none;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.scale-dropdown-trigger:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.scale-dropdown-trigger:active:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.scale-dropdown-trigger svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.scale-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: -25px; /* Move dropdown to the left */
+    right: auto;
+    width: calc(100% + 8px);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    min-width: 100px;
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.scale-dropdown-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    user-select: none;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scale-dropdown-item:hover {
+    background-color: var(--background-color);
+}
+
+.scale-dropdown-item.active {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    font-weight: 600;
+}
+
 .metadata-display {
     display: flex;
     flex-direction: column;
@@ -838,7 +928,7 @@ body {
     font-size: 0.875rem;
     color: var(--text-secondary);
     min-width: 250px;
-    order: 3; /* Metadata appears third (after skip button) */
+    order: 4; /* Metadata appears fourth (after scale display) */
 }
 
 .metadata-field {
@@ -1584,6 +1674,11 @@ body {
     animation: none;
     opacity: 1;
     transform: translateY(0);
+    /* Enable text selection in raw content containers */
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
 
 /* Raw Content Overlay - Structural positioning for raw content display */
@@ -1602,6 +1697,11 @@ body {
     scrollbar-gutter: stable;
     /* Ensure sticky positioning works correctly */
     display: block;
+    /* Enable text selection */
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
 
 /* Content Container with Raw Overlay - Parent container positioning */
@@ -1626,6 +1726,11 @@ body {
     word-wrap: normal;
     width: max-content;
     min-width: 100%;
+    /* Enable text selection */
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
 
 .raw-code-block code {
@@ -1634,6 +1739,43 @@ body {
     padding: 0;
     color: inherit;
     font-size: inherit;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
+
+/* Text selection styling for raw content (CPEE and Mermaid) */
+/* Enable text selection for all raw content elements */
+.raw-content-container,
+.raw-content-container *,
+.raw-code-block,
+.raw-code-block *,
+.raw-text-block,
+.raw-text-block * {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+}
+
+/* Light blue text selection for raw content (CPEE and Mermaid) */
+.raw-content-container ::selection,
+.raw-code-block ::selection,
+.raw-code-block code::selection,
+.raw-text-block ::selection,
+.raw-text-block code::selection {
+    background-color: #ADD8E6 !important; /* Light blue */
+    color: inherit;
+}
+
+.raw-content-container ::-moz-selection,
+.raw-code-block ::-moz-selection,
+.raw-code-block code::-moz-selection,
+.raw-text-block ::-moz-selection,
+.raw-text-block code::-moz-selection {
+    background-color: #ADD8E6 !important; /* Light blue */
+    color: inherit;
 }
 
 .raw-text-block {
@@ -1647,6 +1789,11 @@ body {
     word-wrap: break-word;
     height: 100%;
     overflow: hidden;
+    /* Enable text selection */
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
 
 /* Responsive Design */

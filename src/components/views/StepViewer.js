@@ -23,7 +23,7 @@ export class StepViewer {
         this.stateManager = stateManager || defaultStateManager;
         
         // Initialize extracted components
-        this.navigator = new StepNavigator(instanceService, domRegistry, this.eventBus);
+        this.navigator = new StepNavigator(instanceService, domRegistry, this.eventBus, this.stateManager);
         this.contentCoordinator = new ContentVisualizationCoordinator(domRegistry, highlightCoordinator, this.eventBus);
         
         // Pass ContentVisualizationCoordinator to RawContentCoordinator for coordination
