@@ -65,9 +65,9 @@ export class EmailService {
      * Load EmailJS library dynamically
      * @returns {Promise} Promise that resolves when EmailJS is loaded
      */
-    async loadEmailJS() {
+    loadEmailJS() {
         if (this.emailjsLoaded || window.emailjs) {
-            return;
+            return Promise.resolve();
         }
 
         return new Promise((resolve, reject) => {

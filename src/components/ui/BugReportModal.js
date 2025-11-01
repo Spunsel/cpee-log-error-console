@@ -46,8 +46,9 @@ export class BugReportModal {
                         <label for="bug-report-type">Type</label>
                         <select id="bug-report-type" name="type" required>
                             <option value="">Select type...</option>
-                            <option value="bug">Bug Report</option>
-                            <option value="suggestion">Feature Suggestion</option>
+                            <option value="bug">Bug</option>
+                            <option value="feature-suggestion">Feature Suggestion</option>
+                            <option value="ui-ux-issue">UI/UX Issue</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
@@ -57,7 +58,10 @@ export class BugReportModal {
                     </div>
                     <div class="form-group">
                         <label for="bug-report-message">Message</label>
-                        <textarea id="bug-report-message" name="message" rows="6" placeholder="Please describe the bug or your suggestion in detail..." required></textarea>
+                        <textarea id="bug-report-message" name="message" rows="6" placeholder="Please describe the bug or your suggestion in detail..." maxlength="1000" required></textarea>
+                        <div class="character-counter">
+                            <span id="bug-report-char-count">0</span> / 1000
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="bug-report-email">Your Email (optional)</label>
@@ -107,6 +111,23 @@ export class BugReportModal {
 
         // Form submission
         this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+
+        // Character counter for message field
+        const messageField = this.modal.querySelector('#bug-report-message');
+        const charCount = this.modal.querySelector('#bug-report-char-count');
+        if (messageField && charCount) {
+            messageField.addEventListener('input', () => {
+                const length = messageField.value.length;
+                charCount.textContent = length;
+                if (length >= 1000) {
+                    charCount.parentElement.classList.add('at-limit');
+                } else {
+                    charCount.parentElement.classList.remove('at-limit');
+                }
+            });
+            // Initialize counter
+            charCount.textContent = messageField.value.length;
+        }
     }
 
     /**
@@ -202,6 +223,13 @@ export class BugReportModal {
             this.form.style.display = 'block';
             const messageContainer = this.modal.querySelector('#bug-report-message-container');
             messageContainer.style.display = 'none';
+
+            // Reset character counter
+            const charCount = this.modal.querySelector('#bug-report-char-count');
+            if (charCount) {
+                charCount.textContent = '0';
+                charCount.parentElement.classList.remove('at-limit');
+            }
         }
     }
 

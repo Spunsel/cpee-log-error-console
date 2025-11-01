@@ -494,6 +494,18 @@ body {
     font-family: var(--font-sans);
 }
 
+.character-counter {
+    margin-top: var(--spacing-xs);
+    text-align: right;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.character-counter.at-limit {
+    color: var(--error-color);
+    font-weight: 600;
+}
+
 .form-actions {
     display: flex;
     gap: var(--spacing-sm);
