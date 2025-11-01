@@ -141,7 +141,7 @@ export class ConfigManager {
             scaling: {
                 // Graph scaling levels - can be any positive numbers
                 // Values represent multiplier (e.g., 0.25 = 25%, 1.0 = 100%, 1.5 = 150%)
-                levels: [0.3, 0.4, 0.5, 0.75, 1.0],
+                levels: [0.4, 0.5, 0.7, 0.8, 1.0],
                 // Default scale when no scale is stored
                 default: 1.0
             },
@@ -189,7 +189,9 @@ export class ConfigManager {
                 theme: 'base',
                 securityLevel: 'loose',
                 fontFamily: 'Adwaita Sans Regular',
-                fontSize: 14
+                fontSize: 14,
+                maxEdges: 5000,  // Increase edge limit (default is 500)
+                suppressErrorRendering: true  // Prevent Mermaid from automatically appending error messages to DOM
             },
             // css: {
             //     textFontSize: '30px',

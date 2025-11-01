@@ -299,6 +299,41 @@ export const ICON_APP_FAVICON = `
     </svg>
 `;
 
+/**
+ * Error icon - Filled circle with X mark
+ * Represents error/alert state - 24x24px for error indicators
+ * Design: Filled circle with X inside
+ */
+export const ICON_ERROR = `
+    <svg viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <title>error-filled</title>
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="add" fill="currentColor" transform="translate(42.666667, 42.666667)">
+                    <path d="M213.333333,3.55271368e-14 C331.136,3.55271368e-14 426.666667,95.5306667 426.666667,213.333333 C426.666667,331.136 331.136,426.666667 213.333333,426.666667 C95.5306667,426.666667 3.55271368e-14,331.136 3.55271368e-14,213.333333 C3.55271368e-14,95.5306667 95.5306667,3.55271368e-14 213.333333,3.55271368e-14 Z M262.250667,134.250667 L213.333333,183.168 L164.416,134.250667 L134.250667,164.416 L183.168,213.333333 L134.250667,262.250667 L164.416,292.416 L213.333333,243.498667 L262.250667,292.416 L292.416,262.250667 L243.498667,213.333333 L292.416,164.416 L262.250667,134.250667 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </svg>
+`;
+
+/**
+ * Warning icon - Triangle with exclamation mark
+ * Represents warning/caution state - 24x24px for warning indicators
+ * Design: Triangle with exclamation mark inside
+ */
+export const ICON_WARNING = `
+    <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path d="M22.25,17.55,14.63,3.71a3,3,0,0,0-5.26,0L1.75,17.55A3,3,0,0,0,4.38,22H19.62a3,3,0,0,0,2.63-4.45ZM12,18a1,1,0,1,1,1-1A1,1,0,0,1,12,18Zm1-5a1,1,0,0,1-2,0V9a1,1,0,0,1,2,0Z"></path>
+        </g>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -330,7 +365,10 @@ export const ICONS = {
     SEARCH_PREV: ICON_SEARCH_PREV,
     LT: ICON_LT,
     GT: ICON_GT,
-    APP_FAVICON: ICON_APP_FAVICON
+    APP_FAVICON: ICON_APP_FAVICON,
+    // Error and warning icons
+    ERROR: ICON_ERROR,
+    WARNING: ICON_WARNING
 };
 
 /**
@@ -357,7 +395,10 @@ export function getIcon(iconName) {
         'search': ICON_SEARCH,
         'clear-search': ICON_CLEAR_SEARCH,
         'search-next': ICON_SEARCH_NEXT,
-        'search-prev': ICON_SEARCH_PREV
+        'search-prev': ICON_SEARCH_PREV,
+        // Error and warning icons
+        'error': ICON_ERROR,
+        'warning': ICON_WARNING
     };
 
     return iconMap[iconName.toLowerCase()] || '';

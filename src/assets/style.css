@@ -62,9 +62,14 @@
     --alert-warning-text: #92400e;
     --alert-warning-bg: #fef3c7;
     --alert-warning-border: #fcd34d;
-    --alert-danger-text: #991b1b;
-    --alert-danger-bg: #fee2e2;
-    --alert-danger-border: #fca5a5;
+    --alert-danger-text: #8b1a1a;
+    --alert-danger-border: #dc4c4c;
+    --alert-danger-bg: #fef0f0;
+    
+    
+    
+    
+    
     
     --copy-btn-text: #475569;
     --copy-btn-border: #cbd5e1;
@@ -205,7 +210,7 @@ body {
 }
 
 .main-container:has(.sidebar.sidebar-collapsed) {
-    grid-template-columns: 80px 1fr;
+    grid-template-columns: min-content 1fr;
 }
 
 /* Grid uses default 300px 1fr when sidebar is expanded (no :has rule needed) */
@@ -277,9 +282,9 @@ body {
 
 /* Sidebar collapsed state */
 .sidebar.sidebar-collapsed {
-    width: 80px !important;
+    width: auto !important;
     min-width: 80px;
-    max-width: 80px;
+    max-width: none;
     padding: var(--spacing-md);
     align-items: center;
     overflow: visible;
@@ -313,6 +318,14 @@ body {
     font-size: 0.85rem;
     font-weight: bold;
     text-align: center;
+    white-space: nowrap;
+    min-height: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-width: 100%;
+    box-sizing: border-box;
 }
 
 .sidebar.sidebar-collapsed .instance-tab.active {
@@ -685,7 +698,10 @@ body {
     background: var(--surface-color);
     font-family: var(--font-mono);
     font-size: 0.875rem;
-    word-break: break-all;
+    white-space: nowrap;
+    width: fit-content;
+    min-width: 100%;
+    box-sizing: border-box;
 }
 
 .instance-tab:hover {
@@ -1315,36 +1331,153 @@ body {
    6. GRAPH RENDERERS
    ======================================== */
 
-/* Alert classes used by MermaidRenderer and CPEEWfAdaptorRenderer */
-.alert {
-    padding: 15px;
-    margin: 20px 0;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-
-.alert-info {
-    color: var(--alert-info-text);
-    background-color: var(--alert-info-bg);
-    border-color: var(--alert-info-border);
-}
-
-.alert-success {
-    color: var(--alert-success-text);
-    background-color: var(--alert-success-bg);
-    border-color: var(--alert-success-border);
-}
-
-.alert-warning {
-    color: var(--alert-warning-text);
-    background-color: var(--alert-warning-bg);
-    border-color: var(--alert-warning-border);
-}
-
-.alert-danger {
-    color: var(--alert-danger-text);
+/* Mermaid Error Indicator */
+/* Error indicator appears directly under section header with rounded corners only on bottom */
+.mermaid-error-indicator {
+    position: relative;
+    width: 100%;
+    min-height: 100px;
+    border: 3px solid var(--alert-danger-border);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
     background-color: var(--alert-danger-bg);
-    border-color: var(--alert-danger-border);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* Ensure error indicator connects to section header when in content-box */
+.section .content-box > .mermaid-error-indicator {
+    margin-top: 0;
+}
+
+.mermaid-error-indicator__header {
+    font-weight: bold;
+    color: var(--alert-danger-text);
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.mermaid-error-indicator__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    color: var(--alert-danger-border);
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.mermaid-error-indicator__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.mermaid-error-indicator__message {
+    color: var(--alert-danger-text);
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.mermaid-error-indicator__parse-header {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--alert-danger-text);
+}
+
+.mermaid-error-indicator__code-context {
+    background-color: var(--surface-color);
+    border: 1px solid var(--alert-danger-border);
+    border-radius: var(--border-radius-sm);
+    padding: 12px;
+    margin: 12px 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.mermaid-error-indicator__code-line {
+    display: flex;
+    align-items: flex-start;
+    padding: 2px 0;
+    color: var(--text-primary);
+}
+
+.mermaid-error-indicator__code-line {
+    position: relative;
+}
+
+.mermaid-error-indicator__code-line--error {
+    background-color: rgba(202, 69, 69, 0.1);
+    padding: 4px 8px;
+    margin: 0 -8px;
+    border-left: 3px solid var(--alert-danger-border);
+}
+
+.mermaid-error-indicator__line-number {
+    color: var(--text-secondary);
+    margin-right: 6px;
+    user-select: none;
+    flex-shrink: 0;
+    min-width: 40px;
+}
+
+.mermaid-error-indicator__line-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mermaid-error-indicator__line-content {
+    white-space: pre;
+    word-break: break-all;
+}
+
+.mermaid-error-indicator__error-char {
+    background-color: var(--alert-danger-border);
+    color: #ffffff;
+    font-weight: bold;
+    padding: 2px 1px;
+    border-radius: 2px;
+    position: relative;
+}
+
+.mermaid-error-indicator__expectation {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--alert-danger-border);
+}
+
+.mermaid-error-indicator__expecting,
+.mermaid-error-indicator__got {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.mermaid-error-indicator__expecting:last-child,
+.mermaid-error-indicator__got:last-child {
+    margin-bottom: 0;
+}
+
+.mermaid-error-indicator__label {
+    font-weight: 600;
+    color: var(--alert-danger-text);
+    margin-right: 8px;
+}
+
+.mermaid-error-indicator__value {
+    color: var(--text-primary);
 }
 
 /* Step Graph Containers */
@@ -1776,6 +1909,61 @@ body {
     padding: 0;
     color: inherit;
     font-size: inherit;
+}
+
+/* Line numbers for syntax-highlighted code */
+.raw-code-block-with-lines {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 100%;
+    margin: 0;
+}
+
+.raw-code-line-numbers {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: 9px 12px 8px 8px;
+    background: transparent;
+    border-right: 1px solid var(--border-color);
+    text-align: right;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.625;
+    color: var(--text-secondary);
+}
+
+.raw-code-line-number {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 1;
+    color: inherit;
+}
+
+.raw-code-content {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 8px 8px 0;
+    overflow-x: auto;
+}
+
+.raw-code-content code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    white-space: pre;
+    word-wrap: normal;
+    display: block;
+    line-height: 1.5;
 }
 
 .raw-content-container,

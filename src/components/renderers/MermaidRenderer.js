@@ -9,6 +9,7 @@ import { DOMStatusManager } from '../../utils/dom/DOMStatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
 import { MermaidParser } from '../../utils/content/MermaidParser.js';
+import { MermaidErrorHandler } from '../../utils/content/MermaidErrorHandler.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
@@ -291,8 +292,88 @@ export class MermaidRenderer {
             graphDiv.style.opacity = '0';
             this.container.appendChild(graphDiv);
             
-            // Render SVG
-            const { svg, bindFunctions } = await window.mermaid.render(`graph-${this.renderCount}`, cleanedCode);
+            // Render SVG with error handling
+            let svg, bindFunctions;
+            try {
+                const result = await window.mermaid.render(`graph-${this.renderCount}`, cleanedCode);
+                svg = result.svg;
+                bindFunctions = result.bindFunctions;
+            } catch (renderError) {
+                // Remove the empty graph container since rendering failed
+                if (graphDiv && graphDiv.parentNode) {
+                    graphDiv.remove();
+                }
+                
+                // Clean up any error SVGs that Mermaid may have inserted into the DOM
+                // Mermaid sometimes inserts error elements with IDs like "dgraph-X" even with suppressErrorRendering
+                // These error containers have IDs starting with "dgraph-" and contain SVGs with IDs starting with "graph-"
+                const errorDivs = document.querySelectorAll('[id^="dgraph-"]');
+                errorDivs.forEach(div => {
+                    // Check if this div contains an error SVG
+                    const svg = div.querySelector('svg[id^="graph-"]');
+                    if (svg) {
+                        const hasErrorIcon = svg.querySelector('.error-icon');
+                        const hasErrorText = svg.querySelector('text.error-text');
+                        const hasErrorContent = svg.textContent?.includes('Syntax error') || 
+                                                svg.textContent?.includes('mermaid version');
+                        
+                        if (hasErrorIcon || hasErrorText || hasErrorContent) {
+                            // This is an error SVG, remove the entire container div
+                            if (div.parentNode) {
+                                div.parentNode.removeChild(div);
+                            } else {
+                                div.remove();
+                            }
+                        }
+                    }
+                });
+                
+                // Also remove any standalone error SVGs (in case Mermaid inserts them directly)
+                const errorSvgs = document.querySelectorAll('svg[id^="graph-"][role="graphics-document document"][aria-roledescription="error"]');
+                errorSvgs.forEach(svg => {
+                    const hasErrorIcon = svg.querySelector('.error-icon');
+                    const hasErrorText = svg.querySelector('text.error-text');
+                    if ((hasErrorIcon || hasErrorText) && svg.parentNode) {
+                        // Remove the parent container if it exists (like a div with id="dgraph-X")
+                        if (svg.parentNode.id?.startsWith('dgraph-')) {
+                            svg.parentNode.remove();
+                        } else {
+                            svg.remove();
+                        }
+                    }
+                });
+                
+                // Also remove any mermaidTooltip elements that might be left behind
+                const tooltips = document.querySelectorAll('.mermaidTooltip');
+                tooltips.forEach(tooltip => {
+                    if (tooltip.parentNode) {
+                        tooltip.parentNode.removeChild(tooltip);
+                    } else {
+                        tooltip.remove();
+                    }
+                });
+                
+                // Categorize and handle the error
+                const categorizedError = MermaidErrorHandler.categorizeError(renderError, cleanedCode);
+                
+                // Display error indicator in the container
+                MermaidErrorHandler.displayErrorIndicator(this.container, categorizedError);
+                
+                // Re-throw with categorization for outer catch block
+                if (categorizedError.errorType === 'syntax') {
+                    throw new MermaidErrorHandler.MermaidSyntaxError(
+                        categorizedError.message,
+                        categorizedError.originalError,
+                        categorizedError.code
+                    );
+                }
+                
+                // Wrap other errors with categorization info
+                const wrappedError = new Error(categorizedError.message);
+                wrappedError.categorizedError = categorizedError;
+                throw wrappedError;
+            }
+            
             graphDiv.innerHTML = svg;
             if (bindFunctions) {
                 bindFunctions(graphDiv);
@@ -307,6 +388,9 @@ export class MermaidRenderer {
                 }
                 return;
             }
+            
+            // Remove any error indicators if rendering succeeded
+            MermaidErrorHandler.removeErrorIndicator(this.container);
             
             // Store reference to current SVG for scale updates
             this.currentSvgElement = svgElement;
@@ -342,10 +426,38 @@ export class MermaidRenderer {
             }
 
         } catch (error) {
+            // Clear container to ensure no leftover graph containers
+            if (this.container) {
+                // Remove any graph containers that might have been created
+                const graphContainers = this.container.querySelectorAll('[id^="mermaid-graph-"]');
+                graphContainers.forEach(container => container.remove());
+            }
+            
+            // Check if error was already handled by MermaidErrorHandler
+            // (it will have displayed the red box)
+            if (error instanceof MermaidErrorHandler.MermaidSyntaxError) {
+                // Syntax error - already handled by error handler
+                if (this.statusManager) {
+                    this.statusManager.showError(`❌ Mermaid syntax error: ${error.message}`);
+                }
+                // Error indicator already displayed by MermaidErrorHandler
+                return;
+            } else if (error.categorizedError) {
+                // Other categorized error - already handled
+                if (this.statusManager) {
+                    this.statusManager.showError(`❌ Failed to render graph: ${error.message}`);
+                }
+                // Error indicator already displayed by MermaidErrorHandler
+                return;
+            }
+            
+            // Fallback for other errors not caught by error handler
             if (this.statusManager) {
                 this.statusManager.showError(`❌ Failed to render graph: ${error.message}`);
             }
-            this.showFallbackContent(mermaidCode);
+            
+            // Try to handle it with error handler
+            MermaidErrorHandler.handleError(error, this.container, mermaidCode);
         }
     }
 

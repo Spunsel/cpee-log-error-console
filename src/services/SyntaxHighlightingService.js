@@ -281,11 +281,102 @@ export class SyntaxHighlightingService {
                 if (userInputContainer || block.classList.contains('language-text')) {
                     return;
                 }
+                
+                // Skip if already processed (has line numbers)
+                if (block.closest('.raw-code-block-with-lines')) {
+                    return;
+                }
+                
                 window.Prism.highlightElement(block);
+                
+                // Add line numbers after highlighting
+                this._addLineNumbers(block);
             });
         } catch (error) {
             console.warn('SyntaxHighlightingService: Error highlighting code blocks:', error);
         }
+    }
+
+    /**
+     * Add line numbers to a code block
+     * Wraps the code in a structure with line numbers on the left
+     * @private
+     * @param {HTMLElement} codeElement - The code element to add line numbers to
+     */
+    _addLineNumbers(codeElement) {
+        if (!codeElement || !codeElement.parentElement) {
+            return;
+        }
+
+        const preElement = codeElement.parentElement;
+        
+        // Skip if already has line numbers
+        if (preElement.classList.contains('raw-code-block-with-lines') || 
+            preElement.querySelector('.raw-code-block-with-lines')) {
+            return;
+        }
+
+        // Get the original text content to count lines
+        const originalText = codeElement.textContent || '';
+        const lines = originalText.split('\n');
+        const lineCount = lines.length;
+        
+        // If there's only one empty line or no content, don't add line numbers
+        if (lineCount <= 1 && !originalText.trim()) {
+            return;
+        }
+
+        // Get the highlighted HTML (Prism has already processed it)
+        const highlightedHTML = codeElement.innerHTML;
+        
+        // Create wrapper div for line numbers
+        const wrapper = document.createElement('div');
+        wrapper.className = 'raw-code-block-with-lines';
+        
+        // Create line numbers container
+        const lineNumbersContainer = document.createElement('div');
+        lineNumbersContainer.className = 'raw-code-line-numbers';
+        
+        // Create code content container
+        const codeContentContainer = document.createElement('div');
+        codeContentContainer.className = 'raw-code-content';
+        
+        // Create a new code element for the content (preserve original classes)
+        const newCodeElement = document.createElement('code');
+        newCodeElement.className = codeElement.className;
+        newCodeElement.innerHTML = highlightedHTML;
+        
+        codeContentContainer.appendChild(newCodeElement);
+        
+        // Add line numbers - one per line
+        for (let i = 1; i <= lineCount; i++) {
+            const lineNumber = document.createElement('span');
+            lineNumber.className = 'raw-code-line-number';
+            lineNumber.textContent = i;
+            lineNumber.setAttribute('data-line', i);
+            lineNumbersContainer.appendChild(lineNumber);
+        }
+        
+        // Append line numbers and code content to wrapper
+        wrapper.appendChild(lineNumbersContainer);
+        wrapper.appendChild(codeContentContainer);
+        
+        // Replace the pre element's content with the wrapper
+        // Preserve the pre element's class and other attributes
+        const preClasses = preElement.className;
+        const preAttributes = {};
+        Array.from(preElement.attributes).forEach(attr => {
+            if (attr.name !== 'class') {
+                preAttributes[attr.name] = attr.value;
+            }
+        });
+        
+        preElement.innerHTML = '';
+        preElement.className = preClasses;
+        Object.entries(preAttributes).forEach(([name, value]) => {
+            preElement.setAttribute(name, value);
+        });
+        preElement.appendChild(wrapper);
     }
 
     /**
