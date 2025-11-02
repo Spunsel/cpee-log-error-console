@@ -112,16 +112,8 @@ export class MermaidParser {
             });
         }
         
-        // Fix 5: Remove empty parentheses
-        const beforeFix5 = processedCode;
-        const fix5LineNumbers = findLineNumbersMultiLine(processedCode, /\(\s*\)/g);
-        processedCode = processedCode.replace(/\(\s*\)/g, '');
-        if (beforeFix5 !== processedCode) {
-            appliedSteps.push({
-                description: 'Removed empty parentheses',
-                lineNumbers: Array.from(new Set(fix5LineNumbers)).sort((a, b) => a - b)
-            });
-        }
+        // Fix 5: Remove empty parentheses - DISABLED: preserve empty parentheses like ()
+        // Removed to preserve empty parentheses in Mermaid code (e.g., a1:task:())
         
         // Fix 6: Handle malformed edge syntax
         const beforeFix6 = processedCode;
