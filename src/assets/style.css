@@ -66,11 +66,6 @@
     --alert-danger-border: #dc4c4c;
     --alert-danger-bg: #fef0f0;
     
-    
-    
-    
-    
-    
     --copy-btn-text: #475569;
     --copy-btn-border: #cbd5e1;
     --copy-btn-hover-bg: #e2e8f0;
@@ -2065,6 +2060,12 @@ body {
     justify-content: flex-end;
     height: 1;
     color: inherit;
+}
+
+/* Mark preprocessing line numbers with background highlight (log view only) */
+.raw-code-line-number.preprocessing-line-number {
+    background-color: #CC7000;
+    color: #ffffff;
 }
 
 .raw-code-content {

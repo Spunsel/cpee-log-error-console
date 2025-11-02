@@ -154,7 +154,7 @@ export class MermaidParser {
                 description: 'Removed space between node type and {x}',
                 lineNumbers: Array.from(new Set(fix8LineNumbers)).sort((a, b) => a - b)
             });
-        }
+            }
         
         if (originalCode !== processedCode && appliedSteps.length > 0) {
             console.log('🔧 Mermaid preprocessing applied:', appliedSteps.map(s => s.description));

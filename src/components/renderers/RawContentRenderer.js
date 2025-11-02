@@ -15,6 +15,7 @@ import { ActionBar } from '../ui/ActionBar.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { MermaidParser } from '../../utils/content/MermaidParser.js';
+import { RawUntouchedLogRender } from './RawUntouchedLogRender.js';
 
 export class RawContentRenderer {
     constructor(domRegistry = null) {
@@ -22,6 +23,9 @@ export class RawContentRenderer {
         
         // Search service
         this.searchService = serviceFactory.get('SearchService');
+        
+        // Log renderer for untouched log view
+        this.logRenderer = new RawUntouchedLogRender(domRegistry);
         
         // Action bars per section
         this.actionBars = new Map();
@@ -50,46 +54,6 @@ export class RawContentRenderer {
         } catch (error) {
             console.warn('Failed to preprocess raw Mermaid content, using original text:', error);
             // Fallback to original text if preprocessing fails
-            processedText = mermaidText || '';
-        }
-
-        const codeElement = this.domRegistry.createElement('pre', {
-            className: 'raw-code-block'
-        });
-
-        const codeContent = this.domRegistry.createElement('code', {
-            className: 'language-mermaid',
-            textContent: processedText
-        });
-
-        codeElement.appendChild(codeContent);
-        container.appendChild(codeElement);
-
-        return container;
-    }
-
-    /**
-     * Render log Mermaid content with minimal processing
-     * Only removes: %% Input/Output Intermediate comment, ```mermaid markers, and fixes indentation
-     * Uses MermaidParser.cleanMermaidForLogView() for minimal cleaning
-     * @param {string} mermaidText - Raw Mermaid diagram text from logs (rawExposition)
-     * @param {Object} options - Rendering options (can include 'type' for input/output)
-     * @returns {HTMLElement} Container with rendered content
-     */
-    renderLogMermaid(mermaidText, options = {}) {
-        const container = this.domRegistry.createElement('div', {
-            className: 'raw-content-container mermaid-log'
-        });
-
-        // Apply minimal cleaning: remove comments, markdown markers, and fix indentation
-        const type = options.type || 'output'; // Default to output, can be set to 'input'
-        let processedText = mermaidText || '';
-        
-        try {
-            processedText = MermaidParser.cleanMermaidForLogView(processedText, type);
-        } catch (error) {
-            console.warn('Failed to clean log Mermaid content, using raw text:', error);
-            // Fallback to raw text if cleaning fails
             processedText = mermaidText || '';
         }
 
@@ -193,7 +157,7 @@ export class RawContentRenderer {
                 if (rawContent) {
                     // Mermaid sections: use log renderer with rawExposition for log mode, raw renderer for raw mode
                     renderer = sectionViewMode === 'log' 
-                        ? () => this.renderLogMermaid(rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(), { type: 'input' })
+                        ? () => this.logRenderer.renderLogMermaid(rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(), { type: 'input' })
                         : () => this.renderRawMermaid(rawContent.getContent());
                 }
                 break;
@@ -202,7 +166,7 @@ export class RawContentRenderer {
                 if (rawContent) {
                     // Mermaid sections: use log renderer with rawExposition for log mode, raw renderer for raw mode
                     renderer = sectionViewMode === 'log'
-                        ? () => this.renderLogMermaid(rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(), { type: 'output' })
+                        ? () => this.logRenderer.renderLogMermaid(rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(), { type: 'output' })
                         : () => this.renderRawMermaid(rawContent.getContent());
                 }
                 break;
@@ -293,6 +257,12 @@ export class RawContentRenderer {
                 try {
                     const syntaxService = serviceFactory.get('SyntaxHighlightingService');
                     syntaxService.highlightCodeBlocks(rawContainer);
+                    // Mark preprocessing lines after syntax highlighting (for log mode only)
+                    if (mode === 'log') {
+                        // Wait for line numbers to be added, then mark preprocessing lines
+                        // Use multiple attempts with delays to ensure line numbers are added
+                        this.logRenderer.waitForLineNumbersAndMark(rawContainer, 0, 10);
+                    }
                 } catch (_) {
                     // Fallback to direct Prism highlighting if service not available
                     try {
@@ -304,6 +274,11 @@ export class RawContentRenderer {
                                     window.Prism.highlightElement(block);
                                 });
                             }
+                        }
+                        // Mark preprocessing lines after Prism highlighting (for log mode only)
+                        if (mode === 'log') {
+                            // Wait for line numbers to be added, then mark preprocessing lines
+                            this.logRenderer.waitForLineNumbersAndMark(rawContainer, 0, 10);
                         }
                     } catch (__) {
                         // No-op if Prism/config not available
