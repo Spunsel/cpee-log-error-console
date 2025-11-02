@@ -1881,6 +1881,20 @@ section h3 {
     padding: 16px 0 16px 24px; /* 16px top/bottom, 24px left */
 }
 
+/* User input section specific padding */
+#user-input h3,
+.user-input-section h3 {
+    padding: 16px 0 16px 24px !important; /* 16px top/bottom, 24px left - override h3 padding: 0 */
+}
+
+/* User input section with header container structure (if toggles are added later) */
+#user-input .left-title-side,
+.user-input-section .left-title-side,
+#user-input h3 .left-title-side,
+.user-input-section h3 .left-title-side {
+    padding: 16px 0 16px 24px; /* 16px top/bottom, 24px left */
+}
+
 .right-title-side {
     display: flex;
     align-items: stretch; /* Allow toggle to fill height */
