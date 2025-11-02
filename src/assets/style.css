@@ -3,7 +3,7 @@
 /* ========================================
    0. FONT FACE DECLARATIONS
    ======================================== */
-@font-face {
+   @font-face {
     font-family: 'Adwaita Sans Regular';
     src: url('fonts/adwaita-sans-regular.ttf') format('truetype');
     font-weight: normal;
@@ -669,46 +669,119 @@ body {
     flex: 1;
 }
 
-/* Instance Tabs */
-#instance-tabs {
+/* Instance Scanner Section */
+.instance-scanner-section {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+  }
+  
+  .instance-scanner-section h3,
+  .instance-scanner-section h4 {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-top: 0;
+    font-weight: normal;
+  }
+  
+  .instance-scanner-section h3 {
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-xs);
+    font-size: 1rem;
+  }
+  
+  .instance-scanner-section h4 {
+    margin: var(--spacing-md) 0 var(--spacing-sm);
+    font-size: 1rem;
+  }
+  
+  .instance-list-container {
+    margin-top: var(--spacing-md);
+  }
+  
+  .instance-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+  }
+  
+  /* Common box styles */
+  .instance-number-box,
+  .instance-tab {
+    padding: var(--spacing-xs);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--surface-color);
+    font-family: var(--font-mono);
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+  }
+  
+  /* Number box */
+  .instance-number-box {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    width: auto;
+    height: auto;
+    flex-shrink: 0;
+  }
+  
+  .instance-number-box:hover,
+  .instance-tab:hover {
+    background: var(--background-color);
+    border-color: var(--primary-color);
+  }
+  
+  .instance-number-box:focus,
+  .instance-number-box:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+  
+  /* Scan inputs */
+  #scan-start-input,
+  #scan-end-input {
+    width: 100px;
+  }
+  
+  /* Tabs */
+  #instance-tabs {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
-}
-
-.no-instances {
+  }
+  
+  .no-instances {
     color: var(--text-secondary);
     font-family: var(--font-sans-italic);
     font-style: italic;
     text-align: center;
     padding: var(--spacing-md);
-}
-
-.instance-tab {
+  }
+  
+  .instance-tab {
     padding: var(--spacing-sm);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: var(--transition-fast);
-    background: var(--surface-color);
-    font-family: var(--font-mono);
     font-size: 0.875rem;
-    white-space: nowrap;
     width: fit-content;
     min-width: 100%;
-    box-sizing: border-box;
-}
-
-.instance-tab:hover {
-    background: var(--background-color);
-    border-color: var(--primary-color);
-}
-
-.instance-tab.active {
+  }
+  
+  .instance-tab.active {
     background: var(--primary-color);
     color: var(--surface-color);
     border-color: var(--primary-color);
-}
+  }
+  
 
 /* Navigation Wrapper - flexbox container */
 .navigation-wrapper {
