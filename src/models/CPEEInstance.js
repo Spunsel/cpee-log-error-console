@@ -23,9 +23,14 @@ export class CPEEInstance {
      * @returns {string} Display name for the instance
      */
     getDisplayName() {
-        return this.processNumber 
-            ? `${this.uuid} (${this.processNumber})` 
-            : this.uuid;
+        if (this.processNumber) {
+            // Shorten UUID to first 4 and last 4 characters: "c485...6fbf"
+            const shortUuid = this.uuid.length > 8 
+                ? `${this.uuid.substring(0, 4)}...${this.uuid.substring(this.uuid.length - 4)}`
+                : this.uuid;
+            return `${shortUuid} (${this.processNumber})`;
+        }
+        return this.uuid;
     }
 
     /**

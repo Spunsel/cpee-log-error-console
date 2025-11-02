@@ -299,6 +299,11 @@ export class ConfigManager {
                 processNumberInput: 'process-number-input',
                 fetchUuid: 'fetch-uuid',
                 loadInstance: 'load-instance',
+                scanStartInput: 'scan-start-input',
+                scanEndInput: 'scan-end-input',
+                scanInstances: 'scan-instances',
+                instanceListContainer: 'instance-list-container',
+                instanceList: 'instance-list',
                 
                 // Instance management
                 instanceTabs: 'instance-tabs',

@@ -58,8 +58,8 @@ export class InstanceLoaderViewer {
      */
     setupEventListeners() {
         // Clear any pre-filled values in scan inputs to ensure placeholders show
-        const scanStartInput = this.getElement('scan-start-input');
-        const scanEndInput = this.getElement('scan-end-input');
+        const scanStartInput = this.getElement('scanStartInput');
+        const scanEndInput = this.getElement('scanEndInput');
         if (scanStartInput) {
             scanStartInput.value = '';
         }
@@ -124,11 +124,11 @@ export class InstanceLoaderViewer {
         }
 
         // Scan instances button
-        const scanButton = this.getElement('scan-instances');
+        const scanButton = this.getElement('scanInstances');
         if (scanButton) {
             scanButton.addEventListener('click', () => {
-                const startInput = this.getElement('scan-start-input');
-                const endInput = this.getElement('scan-end-input');
+                const startInput = this.getElement('scanStartInput');
+                const endInput = this.getElement('scanEndInput');
                 
                 if (startInput && endInput) {
                     const start = parseInt(startInput.value.trim(), 10);
@@ -261,7 +261,8 @@ export class InstanceLoaderViewer {
                 return {
                     hasSteps: steps.length > 0,
                     processNumber: processNumber,
-                    uuid: uuid
+                    uuid: uuid,
+                    stepCount: steps.length
                 };
             }).catch((error) => {
                 console.warn(`Failed to fetch/parse log for instance ${processNumber}:`, error);
@@ -290,75 +291,173 @@ export class InstanceLoaderViewer {
      * @param {number} end - Ending instance number
      */
     scanInstancesForSteps(start, end) {
-        const scanButton = this.getElement('scan-instances');
-        const instanceListContainer = this.getElement('instance-list-container');
-        const instanceList = this.getElement('instance-list');
+        const scanButton = this.getElement('scanInstances');
+        const instanceListContainer = this.getElement('instanceListContainer');
+        const instanceList = this.getElement('instanceList');
         
-        // Disable button and clear previous results
+        // Initialize UI
         if (scanButton) {
             scanButton.disabled = true;
             scanButton.textContent = 'Scanning...';
         }
-        
         if (instanceList) {
             instanceList.innerHTML = '';
         }
-        
         if (instanceListContainer) {
             instanceListContainer.classList.remove('hidden');
         }
         
         // Create array of instance numbers to check
-        const instancesToCheck = [];
-        for (let i = start; i <= end; i++) {
-            instancesToCheck.push(i);
-        }
-        
-        // Store results
+        const instancesToCheck = Array.from({ length: end - start + 1 }, (_, i) => start + i);
         const instancesWithSteps = [];
         let currentIndex = 0;
+        const startTime = Date.now();
+        let rateLimitDelay = 15000;
+        let isRateLimited = false;
+        let successfulRequestsAfterRateLimit = 0; // Track successful requests after rate limit
         
-        // Function to check next instance sequentially
-        const checkNextInstance = () => {
-            if (currentIndex >= instancesToCheck.length) {
-                // Finished scanning
-                if (scanButton) {
-                    scanButton.disabled = false;
-                    scanButton.textContent = 'Scan for Instances with Steps';
+        // Helper function to handle rate limit delays
+        const handleRateLimit = (processNumber) => {
+            isRateLimited = true;
+            successfulRequestsAfterRateLimit = 0; // Reset counter
+            console.warn(`⚠ Rate limit detected at instance ${processNumber}. Waiting ${rateLimitDelay/1000}s before continuing...`);
+            if (scanButton) {
+                scanButton.textContent = `Waiting ${rateLimitDelay/1000}s (rate limited at ${processNumber})...`;
+            }
+            
+            setTimeout(() => {
+                rateLimitDelay = Math.min(60000, rateLimitDelay + 10000);
+                const initialResumeDelay = Math.max(10000, rateLimitDelay * 0.5);
+                console.log(`Resuming after rate limit. Waiting additional ${initialResumeDelay/1000}s before first request...`);
+                
+                setTimeout(() => {
+                    // Use a moderate delay for the first request after rate limit, then resume normal speed
+                    const firstRequestDelay = Math.min(2000, rateLimitDelay / 10);
+                    console.log(`Will wait ${firstRequestDelay/1000}s for first request, then resume normal speed.`);
+                    setTimeout(() => continueScan(firstRequestDelay), firstRequestDelay);
+                }, initialResumeDelay);
+            }, rateLimitDelay);
+        };
+        
+        // Helper function to update rate limit state on success
+        const updateRateLimitState = () => {
+            if (isRateLimited) {
+                successfulRequestsAfterRateLimit++;
+                // After 2 successful requests, reset to normal speed
+                if (successfulRequestsAfterRateLimit >= 2) {
+                    isRateLimited = false;
+                    rateLimitDelay = 15000;
+                    console.log('✓ Rate limit cleared. Resuming normal scan speed.');
                 }
-                
-                // Display results
-                this.displayInstanceList(instancesWithSteps);
-                
-                if (instancesWithSteps.length === 0) {
-                    if (instanceList) {
-                        instanceList.innerHTML = '<p style="color: var(--text-secondary); font-style: italic;">No instances with steps found in the specified range.</p>';
+            }
+        };
+        
+        // Helper function to get delay between requests
+        // After rate limit, use normal speed immediately (only first request uses delay from handleRateLimit)
+        const getInterRequestDelay = () => 50;
+        
+        // Helper function to continue scanning
+        const continueScan = (delay = getInterRequestDelay()) => {
+            setTimeout(() => {
+                try {
+                    checkNextInstance();
+                } catch (error) {
+                    console.error(`Error continuing scan:`, error);
+                    currentIndex++;
+                    if (currentIndex < instancesToCheck.length) {
+                        setTimeout(() => checkNextInstance(), 100);
                     }
                 }
-                
+            }, delay);
+        };
+        
+        // Helper function to check if error is rate limit
+        const isRateLimitError = (error) => {
+            const errorMessage = error?.message || String(error);
+            return errorMessage.includes('403') || 
+                   errorMessage.includes('Forbidden') || 
+                   error?.status === 403;
+        };
+        
+        // Helper function to finish scanning
+        const finishScan = () => {
+            const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+            console.log(`✓ Scan complete! Checked ${instancesToCheck.length} instances, found ${instancesWithSteps.length} instances with steps in ${elapsed} seconds`);
+            
+            if (scanButton) {
+                scanButton.disabled = false;
+                scanButton.textContent = 'Scan for Instances with Steps';
+            }
+            
+            try {
+                this.displayInstanceList(instancesWithSteps);
+            } catch (displayError) {
+                console.error('Error displaying instance list:', displayError);
+            }
+            
+            if (instancesWithSteps.length === 0) {
+                if (instanceList) {
+                    instanceList.innerHTML = '<p style="color: var(--text-secondary); font-style: italic;">No instances with steps found in the specified range.</p>';
+                }
+            } else {
+                const foundNumbers = instancesWithSteps.map(i => i.processNumber).sort((a, b) => a - b);
+                console.log(`Instances with steps (${foundNumbers.length} total): ${foundNumbers.join(', ')}`);
+            }
+        };
+        
+        // Main function to check next instance sequentially
+        const checkNextInstance = () => {
+            if (currentIndex >= instancesToCheck.length) {
+                finishScan();
                 return;
             }
             
             const processNumber = instancesToCheck[currentIndex];
             currentIndex++;
             
-            // Update UI to show progress
+            // Log progress
+            if (currentIndex % 100 === 0 || currentIndex === 1) {
+                console.log(`Checking instance ${processNumber} (${currentIndex}/${instancesToCheck.length})`);
+            }
+            
+            // Update UI
             if (scanButton) {
-                scanButton.textContent = `Scanning ${processNumber}... (${currentIndex}/${instancesToCheck.length})`;
+                const progress = ((currentIndex / instancesToCheck.length) * 100).toFixed(1);
+                scanButton.textContent = `Scanning ${processNumber}... (${currentIndex}/${instancesToCheck.length}, ${progress}%)`;
             }
             
             // Check this instance
             this.checkInstanceForSteps(processNumber).then((result) => {
-                if (result.hasSteps && result.uuid) {
+                if (result && result.hasSteps && result.uuid) {
                     instancesWithSteps.push(result);
+                    console.log(`✓ Instance ${processNumber} has ${result.stepCount || 'unknown'} steps`);
+                    updateRateLimitState();
+                    continueScan();
+                } else if (result && result.error) {
+                    // Check if it's a rate limit error
+                    if (isRateLimitError({ message: result.error })) {
+                        handleRateLimit(processNumber);
+                        return;
+                    }
+                    
+                    // Log errors occasionally
+                    if (currentIndex % 50 === 0) {
+                        console.log(`✗ Instance ${processNumber}: ${result.error} (logged every 50 instances)`);
+                    }
+                    
+                    updateRateLimitState();
+                    continueScan();
+                } else {
+                    continueScan();
                 }
-                
-                // Check next instance after this one completes
-                checkNextInstance();
             }).catch((error) => {
-                console.error(`Error checking instance ${processNumber}:`, error);
-                // Continue to next instance even on error
-                checkNextInstance();
+                if (isRateLimitError(error)) {
+                    handleRateLimit(processNumber);
+                } else {
+                    console.error(`✗ Error checking instance ${processNumber}:`, error);
+                    updateRateLimitState();
+                    continueScan();
+                }
             });
         };
         
@@ -371,7 +470,7 @@ export class InstanceLoaderViewer {
      * @param {Array<{processNumber: number, uuid: string}>} instances - Array of instances with steps
      */
     displayInstanceList(instances) {
-        const instanceList = this.getElement('instance-list');
+        const instanceList = this.getElement('instanceList');
         if (!instanceList) {
             return;
         }
