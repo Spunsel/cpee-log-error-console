@@ -107,11 +107,11 @@ export class StepViewer {
             this.highlightCoordinator.onStepChanged();
         }
 
-        // Show process analysis section
+        // Keep process analysis section hidden until all DOM elements are ready
         this.domRegistry.addClass('stepDetails', 'hidden');
-        this.domRegistry.removeClass('processAnalysis', 'hidden');
+        // DO NOT show processAnalysis yet - will be shown after all setup is complete
 
-        // Update step header
+        // Update step header (can be done while hidden)
         this.updateStepHeader(step, navInfo);
 
         // Set current step mapping for highlighting
@@ -130,6 +130,7 @@ export class StepViewer {
         };
         
 
+        // Wait for all content sections to be rendered (graphs, Mermaid diagrams, etc.)
         await this.contentCoordinator.updateAllSections(stepContent);
 
         // Initialize raw content view features for this step
@@ -145,6 +146,21 @@ export class StepViewer {
         if (this.navigator) {
             this.navigator.updateMetadataDisplay(step);
         }
+
+        // Wait for all DOM elements to be finished setting up and formatted correctly
+        // Use multiple requestAnimationFrame calls to ensure DOM updates are complete
+        await new Promise(resolve => {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        resolve();
+                    });
+                });
+            });
+        });
+
+        // Now that all DOM elements are ready and formatted correctly, show the step viewer
+        this.domRegistry.removeClass('processAnalysis', 'hidden');
     }
 
     /**
