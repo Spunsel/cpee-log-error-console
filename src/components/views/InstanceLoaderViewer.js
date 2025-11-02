@@ -372,7 +372,7 @@ export class InstanceLoaderViewer {
         
         // Helper function to get delay between requests
         // Use 2 second delay between log fetches to prevent rate limiting (1 log fetch every 2 seconds)
-        const getInterRequestDelay = () => 500;
+        const getInterRequestDelay = () => 100;
         
         // Helper function to continue scanning
         const continueScan = (delay = getInterRequestDelay()) => {

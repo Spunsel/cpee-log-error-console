@@ -160,6 +160,22 @@ export const ICON_GRAPH_SCALE = `
 `;
 
 /**
+ * Theme icon - Book icon for theme selection
+ * Represents theme selection functionality - 20x20px
+ * Design: Blue book with "CSS" text
+ */
+export const ICON_THEME = `
+    <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet" fill="currentColor" width="20" height="20">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path fill="transparent" d="M36 32a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4v28z"></path>
+            <path d="M5.717 9.156c0-1.55.992-2.418 2.325-2.418s2.325.868 2.325 2.418v17.611c0 1.551-.992 2.418-2.325 2.418s-2.325-.867-2.325-2.418V9.156zm7.44.156c0-1.427.992-2.388 2.387-2.388h5.148c6.945 0 10.914 4.465 10.914 11.348C31.605 24.783 27.389 29 21.001 29h-5.395c-1.023 0-2.449-.559-2.449-2.325V9.312zm4.65 15.409h3.132c4 0 5.828-2.945 5.828-6.666c0-3.969-1.859-6.852-6.139-6.852h-2.822v13.518z" fill="currentColor"></path>
+        </g>
+    </svg>
+`;
+
+/**
  * Search icon - Magnifying glass for search functionality
  * Represents search/find functionality - 16x16px
  * Design: Magnifying glass with search circle
@@ -401,6 +417,7 @@ export const ICONS = {
     NAV_END: ICON_NAV_END,
     NAV_SKIP: ICON_NAV_SKIP,
     GRAPH_SCALE: ICON_GRAPH_SCALE,
+    THEME: ICON_THEME,
     SIDEBAR_COLLAPSE: ICON_SIDEBAR_COLLAPSE,
     SIDEBAR_EXPAND: ICON_SIDEBAR_EXPAND,
     ACTIONBAR_COLLAPSE: ICON_ACTIONBAR_COLLAPSE,
@@ -449,7 +466,9 @@ export function getIcon(iconName) {
         'search-prev': ICON_SEARCH_PREV,
         // Error and warning icons
         'error': ICON_ERROR,
-        'warning': ICON_WARNING
+        'warning': ICON_WARNING,
+        // Theme icon
+        'theme': ICON_THEME
     };
 
     return iconMap[iconName.toLowerCase()] || '';

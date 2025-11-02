@@ -30,8 +30,15 @@ export class ContentVisualizationCoordinator {
         // Current container reference for cleanup
         this.currentGraphContainer = null;
         
+        // Store current CPEE XML content for re-rendering on theme change
+        this.currentInputCpeeXml = null;
+        this.currentOutputCpeeXml = null;
+        
         // Scale management - listen for scale changes to coordinate all renderers
         this.setupScaleListener();
+        
+        // Theme management - listen for theme changes to re-render CPEE graphs
+        this.setupThemeListener();
     }
     
     /**
@@ -44,6 +51,27 @@ export class ContentVisualizationCoordinator {
             console.log(`[ContentVisualizationCoordinator] Scale changed to ${scale}x`);
             // Renderers handle scale updates automatically via their own listeners
             // This listener is for coordination/logging purposes
+        });
+    }
+    
+    /**
+     * Setup event listener for theme changes
+     * Re-renders CPEE graphs when theme changes
+     */
+    setupThemeListener() {
+        this.eventBus.on('themeSelector:themeChanged', async (data) => {
+            const theme = data.theme;
+            console.log(`[ContentVisualizationCoordinator] Theme changed to ${theme}, re-rendering CPEE graphs...`);
+            
+            // Re-render input CPEE graph if we have stored XML
+            if (this.currentInputCpeeXml) {
+                await this.updateInputCpeeSection(this.currentInputCpeeXml);
+            }
+            
+            // Re-render output CPEE graph if we have stored XML
+            if (this.currentOutputCpeeXml) {
+                await this.updateOutputCpeeSection(this.currentOutputCpeeXml);
+            }
         });
     }
     
@@ -97,6 +125,8 @@ export class ContentVisualizationCoordinator {
      * @param {string} cpeeXml - CPEE XML content to render as graph
      */
     async updateInputCpeeSection(cpeeXml) {
+        // Store XML for re-rendering on theme change
+        this.currentInputCpeeXml = cpeeXml;
         const inputCpeeElement = this.domRegistry.getElementSafe('inputCpeeContent');
         if (!inputCpeeElement) {
             return;
@@ -158,6 +188,8 @@ export class ContentVisualizationCoordinator {
      * @param {string} cpeeXml - CPEE XML content to render as graph
      */
     async updateOutputCpeeSection(cpeeXml) {
+        // Store XML for re-rendering on theme change
+        this.currentOutputCpeeXml = cpeeXml;
         const outputCpeeElement = this.domRegistry.getElementSafe('outputCpeeContent');
         if (!outputCpeeElement) {
             return;

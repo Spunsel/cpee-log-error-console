@@ -7,6 +7,7 @@
 import { ICONS } from '../../assets/icons.js';
 import { StepDropdown } from './StepDropdown.js';
 import { ScaleDisplay } from './ScaleDisplay.js';
+import { ThemeSelector } from './ThemeSelector.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
@@ -26,6 +27,9 @@ export class StepNavigator {
         
         // Initialize scale display
         this.scaleDisplay = new ScaleDisplay(domRegistry, this.eventBus, this.stateManager);
+        
+        // Initialize theme selector
+        this.themeSelector = new ThemeSelector(domRegistry, this.eventBus);
     }
 
 
@@ -50,6 +54,9 @@ export class StepNavigator {
         // Initialize dropdown elements (now inside navigation container)
         // The dropdown elements are already in the nav-right section via createNavigationContainer
         this.dropdown.initialize(navContainer);
+
+        // Create theme selector (outside step navigation, on its left)
+        this.createThemeSelector(wrapperContainer, navContainer);
 
         // Create scale display (replaces graph-scaler)
         this.createScaleDisplay(wrapperContainer);
@@ -126,6 +133,34 @@ export class StepNavigator {
         return navContainer;
     }
 
+    /**
+     * Create theme selector element
+     * @param {HTMLElement} wrapperContainer - Wrapper container to append to
+     * @param {HTMLElement} navContainer - Navigation container to insert before
+     */
+    createThemeSelector(wrapperContainer, navContainer) {
+        // Check if already exists
+        const themeSelectorElement = document.getElementById('theme-selector');
+        if (themeSelectorElement) {
+            return;
+        }
+
+        // Create wrapper for theme selector
+        const themeSelectorWrapper = this.domRegistry.createElement('div', {
+            id: 'theme-selector-wrapper',
+            className: 'theme-selector-wrapper'
+        });
+
+        // Insert theme selector before step navigation
+        if (navContainer && navContainer.parentNode) {
+            navContainer.parentNode.insertBefore(themeSelectorWrapper, navContainer);
+        } else {
+            wrapperContainer.appendChild(themeSelectorWrapper);
+        }
+
+        // Initialize theme selector
+        this.themeSelector.initialize(themeSelectorWrapper);
+    }
 
     /**
      * Register navigation elements with DOM registry

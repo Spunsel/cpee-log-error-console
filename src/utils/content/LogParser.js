@@ -305,7 +305,8 @@ export class LogParser {
      * Handle array item parsing
      */
     static handleArrayItem(target, arrayValue) {
-        if (!target.data) {
+        // Ensure target.data is an array - if it exists but isn't an array, convert/overwrite it
+        if (!target.data || !Array.isArray(target.data)) {
             target.data = [];
         }
         
