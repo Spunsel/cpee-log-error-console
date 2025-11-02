@@ -1118,9 +1118,10 @@ body {
     box-shadow: var(--shadow);
 }
 
-.section h3 {
+.section h3,
+section h3 {
     background: var(--section-header-bg);
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: 0; /* Remove all padding from h3 */
     margin: 0;
     border-bottom: 1px solid var(--border-color);
     color: var(--text-primary);
@@ -1877,13 +1878,22 @@ body {
     display: flex;
     align-items: center;
     min-width: 0; /* allow title to truncate */
+    padding: 16px 0 16px 24px; /* 16px top/bottom, 24px left */
 }
 
 .right-title-side {
     display: flex;
-    align-items: center;
+    align-items: stretch; /* Allow toggle to fill height */
     justify-content: flex-end; /* toggle on the right */
-    flex: 0 0 auto;
+    flex: 1 1 auto; /* Fill remaining width */
+    min-width: 0;
+    align-self: stretch; /* Stretch to full height of section header */
+    padding: 0px; /* No top/bottom padding, 0px padding on right */
+    overflow: hidden; /* Hide the border-bottom from h3 */
+    background: var(--section-header-bg); /* Match header background to cover border */
+    margin-bottom: -1px; /* Pull down to cover border */
+    position: relative;
+    z-index: 1;
 }
 
 .section-title {
@@ -1897,28 +1907,33 @@ body {
 
 /* Toggle Button Container */
 .view-mode-toggle {
-    display: inline-flex;
-    background: var(--background-color);
+    display: flex;
+    background: var(--section-header-bg); /* Match section header background */
     border-radius: var(--border-radius);
-    padding: 2px;
+    padding: 0px;
     gap: 2px;
-    border: 1px solid var(--border-color);
+    width: 100%; /* Fill the right-title-side width */
+    height: calc(100% + 2px); /* Extend 2px below to fully cover border */
+    align-items: stretch; /* Make buttons fill height */
+    margin-bottom: -2px; /* Pull down to cover the border */
+    position: relative; /* Allow z-index to work */
+    z-index: 1; /* Ensure it's above the border */
 }
 
 /* Toggle Buttons */
 .toggle-btn {
-    padding: var(--spacing-xs) var(--spacing-sm);
     border: none;
-    background: transparent;
+    background: var(--section-header-bg); /* Match title bar background */
     cursor: pointer;
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
     transition: var(--transition-fast);
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-secondary);
-    min-width: 36px;
-    height: 32px;
+    color: #0f172a; /* SVG color for inactive buttons */
+    flex: 1; /* Fill available width equally */
+    height: 100%; /* Fill the toggle container height */
+    margin-bottom: -1px; /* Extend below to cover border */
 }
 
 .toggle-btn:hover {
@@ -1927,16 +1942,16 @@ body {
 }
 
 .toggle-btn.active {
-    background: var(--primary-color);
-    color: var(--text-white);
+    background: var(--surface-color);
+    color: var(--primary-dark);
     box-shadow: 0 1px 2px var(--hover-bg-dark);
 }
 
 /* Toggle Button Icons */
 .toggle-btn svg {
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 25px;
+    height: 25px;
 }
 
 /* Log mode button styling
