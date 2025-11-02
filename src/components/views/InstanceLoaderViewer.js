@@ -331,10 +331,9 @@ export class InstanceLoaderViewer {
                 console.log(`Resuming after rate limit. Waiting additional ${initialResumeDelay/1000}s before first request...`);
                 
                 setTimeout(() => {
-                    // Use a moderate delay for the first request after rate limit, then resume normal speed
-                    const firstRequestDelay = Math.min(2000, rateLimitDelay / 10);
-                    console.log(`Will wait ${firstRequestDelay/1000}s for first request, then resume normal speed.`);
-                    setTimeout(() => continueScan(firstRequestDelay), firstRequestDelay);
+                    // Use standard 500ms delay after rate limit recovery
+                    console.log('Resuming with 500ms delay between requests (2 requests/second).');
+                    setTimeout(() => continueScan(), 500);
                 }, initialResumeDelay);
             }, rateLimitDelay);
         };
@@ -353,8 +352,8 @@ export class InstanceLoaderViewer {
         };
         
         // Helper function to get delay between requests
-        // After rate limit, use normal speed immediately (only first request uses delay from handleRateLimit)
-        const getInterRequestDelay = () => 50;
+        // Use 500ms delay between requests to prevent rate limiting (2 requests per second)
+        const getInterRequestDelay = () => 500;
         
         // Helper function to continue scanning
         const continueScan = (delay = getInterRequestDelay()) => {
