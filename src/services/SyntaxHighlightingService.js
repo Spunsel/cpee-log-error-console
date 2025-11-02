@@ -88,7 +88,8 @@ export class SyntaxHighlightingService {
         // Apply typography (font-face + font family/size)
         const typo = sh.typography || {};
         if (typo.fontFace && typo.fontFace.enabled && typo.fontFace.src && typo.fontFace.name) {
-            css += `@font-face{font-family:"${typo.fontFace.name}";src:url("${typo.fontFace.src}") format("woff2");font-weight:${typo.fontFace.weight||'400'};font-style:${typo.fontFace.style||'normal'};font-display:swap;}`;
+            // Only .ttf font files are supported
+            css += `@font-face{font-family:"${typo.fontFace.name}";src:url("${typo.fontFace.src}") format("truetype");font-weight:${typo.fontFace.weight||'400'};font-style:${typo.fontFace.style||'normal'};font-display:swap;}`;
         }
         
         const fontFamily = typo.fontFamily || 'Adwaita Mono Regular';
