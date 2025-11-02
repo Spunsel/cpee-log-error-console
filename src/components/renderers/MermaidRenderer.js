@@ -10,6 +10,7 @@ import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
 import { MermaidParser } from '../../utils/content/MermaidParser.js';
 import { MermaidErrorHandler } from '../../utils/content/MermaidErrorHandler.js';
+import { MermaidWarningHandler } from '../../utils/content/MermaidWarningHandler.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
@@ -274,7 +275,17 @@ export class MermaidRenderer {
                 this.statusManager.showLoading('🎨 Rendering Mermaid graph...');
             }
 
-            const cleanedCode = MermaidParser.cleanAndValidate(mermaidCode);
+            const cleanResult = MermaidParser.cleanAndValidate(mermaidCode);
+            const cleanedCode = cleanResult.code;
+            const appliedSteps = cleanResult.appliedSteps || [];
+            
+            // Display warning panel if preprocessing steps were applied
+            if (appliedSteps.length > 0) {
+                MermaidWarningHandler.displayWarningIndicator(this.container, appliedSteps);
+            } else {
+                MermaidWarningHandler.removeWarningIndicator(this.container);
+            }
+            
             await this.loadMermaid();
 
             const mermaidConfig = this._buildMermaidConfig();
@@ -288,7 +299,12 @@ export class MermaidRenderer {
             graphDiv.style.cssText = `width: 100%; height: auto; text-align: center; padding: 20px; box-sizing: border-box; overflow: visible;`;
             
             // Pre-append to container but keep invisible to allow layout calculation
+            // Keep warning panel if it exists
+            const existingWarning = this.container.querySelector('.mermaid-warning-indicator');
             this.container.innerHTML = '';
+            if (existingWarning && this.container) {
+                this.container.appendChild(existingWarning);
+            }
             graphDiv.style.opacity = '0';
             this.container.appendChild(graphDiv);
             
@@ -355,6 +371,9 @@ export class MermaidRenderer {
                 
                 // Categorize and handle the error
                 const categorizedError = MermaidErrorHandler.categorizeError(renderError, cleanedCode);
+                
+                // Remove warning panel if error occurred (error takes precedence)
+                MermaidWarningHandler.removeWarningIndicator(this.container);
                 
                 // Display error indicator in the container
                 MermaidErrorHandler.displayErrorIndicator(this.container, categorizedError);

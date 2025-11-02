@@ -14,6 +14,7 @@
 import { ActionBar } from '../ui/ActionBar.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { configManager } from '../../config/ConfigManager.js';
+import { MermaidParser } from '../../utils/content/MermaidParser.js';
 
 export class RawContentRenderer {
     constructor(domRegistry = null) {
@@ -30,7 +31,8 @@ export class RawContentRenderer {
     }
 
     /**
-     * Render raw Mermaid content as plain text
+     * Render raw Mermaid content as plain text with preprocessing applied
+     * The raw view should show the preprocessed content (same as what would be rendered visually)
      * @param {string} mermaidText - Raw Mermaid diagram text
      * @param {Object} options - Rendering options
      * @returns {HTMLElement} Container with rendered content
@@ -40,13 +42,64 @@ export class RawContentRenderer {
             className: 'raw-content-container mermaid-raw'
         });
 
+        // Apply preprocessing to match what visual view shows
+        let processedText = mermaidText || '';
+        try {
+            const cleanResult = MermaidParser.cleanAndValidate(processedText, true);
+            processedText = cleanResult.code;
+        } catch (error) {
+            console.warn('Failed to preprocess raw Mermaid content, using original text:', error);
+            // Fallback to original text if preprocessing fails
+            processedText = mermaidText || '';
+        }
+
         const codeElement = this.domRegistry.createElement('pre', {
             className: 'raw-code-block'
         });
 
         const codeContent = this.domRegistry.createElement('code', {
             className: 'language-mermaid',
-            textContent: mermaidText
+            textContent: processedText
+        });
+
+        codeElement.appendChild(codeContent);
+        container.appendChild(codeElement);
+
+        return container;
+    }
+
+    /**
+     * Render log Mermaid content with minimal processing
+     * Only removes: %% Input/Output Intermediate comment, ```mermaid markers, and fixes indentation
+     * Uses MermaidParser.cleanMermaidForLogView() for minimal cleaning
+     * @param {string} mermaidText - Raw Mermaid diagram text from logs (rawExposition)
+     * @param {Object} options - Rendering options (can include 'type' for input/output)
+     * @returns {HTMLElement} Container with rendered content
+     */
+    renderLogMermaid(mermaidText, options = {}) {
+        const container = this.domRegistry.createElement('div', {
+            className: 'raw-content-container mermaid-log'
+        });
+
+        // Apply minimal cleaning: remove comments, markdown markers, and fix indentation
+        const type = options.type || 'output'; // Default to output, can be set to 'input'
+        let processedText = mermaidText || '';
+        
+        try {
+            processedText = MermaidParser.cleanMermaidForLogView(processedText, type);
+        } catch (error) {
+            console.warn('Failed to clean log Mermaid content, using raw text:', error);
+            // Fallback to raw text if cleaning fails
+            processedText = mermaidText || '';
+        }
+
+        const codeElement = this.domRegistry.createElement('pre', {
+            className: 'raw-code-block'
+        });
+
+        const codeContent = this.domRegistry.createElement('code', {
+            className: 'language-mermaid',
+            textContent: processedText
         });
 
         codeElement.appendChild(codeContent);
@@ -112,38 +165,51 @@ export class RawContentRenderer {
      * @param {string} sectionId - Section identifier
      * @param {HTMLElement} container - Content container
      * @param {Object} step - Current step object
+     * @param {string} mode - View mode ('raw' or 'log')
      */
-    displayRawContent(sectionId, container, step) {
+    displayRawContent(sectionId, container, step, mode = 'raw') {
         if (!step || !container) {
             return;
         }
 
         let rawContent = null;
         let renderer = null;
+        
+        // Determine current view mode (use passed mode, fallback to checking DOM)
+        const sectionElement = document.getElementById(sectionId);
+        const sectionViewMode = (mode !== undefined && mode !== null) ? mode : (sectionElement?.dataset?.viewMode || 'raw');
 
         // Get raw content based on section
         switch (sectionId) {
             case 'input-cpee':
                 rawContent = step.getInputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
+                    // CPEE sections: log mode behaves same as raw mode
                     renderer = () => this.renderRawCPEETree(rawContent.getContent());
                 }
                 break;
             case 'input-intermediate':
                 rawContent = step.getInputMermaidRaw();
-                if (rawContent && rawContent.getContent) {
-                    renderer = () => this.renderRawMermaid(rawContent.getContent());
+                if (rawContent) {
+                    // Mermaid sections: use log renderer with rawExposition for log mode, raw renderer for raw mode
+                    renderer = sectionViewMode === 'log' 
+                        ? () => this.renderLogMermaid(rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(), { type: 'input' })
+                        : () => this.renderRawMermaid(rawContent.getContent());
                 }
                 break;
             case 'output-intermediate':
                 rawContent = step.getOutputMermaidRaw();
-                if (rawContent && rawContent.getContent) {
-                    renderer = () => this.renderRawMermaid(rawContent.getContent());
+                if (rawContent) {
+                    // Mermaid sections: use log renderer with rawExposition for log mode, raw renderer for raw mode
+                    renderer = sectionViewMode === 'log'
+                        ? () => this.renderLogMermaid(rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(), { type: 'output' })
+                        : () => this.renderRawMermaid(rawContent.getContent());
                 }
                 break;
             case 'output-cpee':
                 rawContent = step.getOutputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
+                    // CPEE sections: log mode behaves same as raw mode
                     renderer = () => this.renderRawCPEETree(rawContent.getContent());
                 }
                 break;

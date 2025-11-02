@@ -182,10 +182,14 @@ export class CPEEStep {
 
     /**
      * Set raw Mermaid input content
-     * @param {string} mermaidText - Raw Mermaid diagram text
+     * @param {string|MermaidRaw} mermaidText - Raw Mermaid diagram text or MermaidRaw object
      */
     setInputMermaidRaw(mermaidText) {
-        this.rawContent.inputMermaidRaw = new MermaidRaw(mermaidText);
+        if (mermaidText instanceof MermaidRaw) {
+            this.rawContent.inputMermaidRaw = mermaidText;
+        } else {
+            this.rawContent.inputMermaidRaw = new MermaidRaw(mermaidText);
+        }
     }
 
     /**
@@ -198,10 +202,14 @@ export class CPEEStep {
 
     /**
      * Set raw Mermaid output content
-     * @param {string} mermaidText - Raw Mermaid diagram text
+     * @param {string|MermaidRaw} mermaidText - Raw Mermaid diagram text or MermaidRaw object
      */
     setOutputMermaidRaw(mermaidText) {
-        this.rawContent.outputMermaidRaw = new MermaidRaw(mermaidText);
+        if (mermaidText instanceof MermaidRaw) {
+            this.rawContent.outputMermaidRaw = mermaidText;
+        } else {
+            this.rawContent.outputMermaidRaw = new MermaidRaw(mermaidText);
+        }
     }
 
     /**

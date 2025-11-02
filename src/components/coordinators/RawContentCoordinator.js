@@ -92,7 +92,7 @@ export class RawContentCoordinator {
     /**
      * Get view mode for a section
      * @param {string} sectionId - Section identifier
-     * @returns {string} View mode ('visual' or 'raw')
+     * @returns {string} View mode ('visual', 'raw', or 'log')
      */
     getViewMode(sectionId) {
         const viewModes = this.stateManager.getState('viewModes');
@@ -102,11 +102,11 @@ export class RawContentCoordinator {
     /**
      * Set view mode for a section
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - View mode ('visual' or 'raw')
+     * @param {string} mode - View mode ('visual', 'raw', or 'log')
      * @returns {boolean} True if mode was set successfully
      */
     setViewMode(sectionId, mode) {
-        if (!(mode === 'visual' || mode === 'raw')) {
+        if (!(mode === 'visual' || mode === 'raw' || mode === 'log')) {
             return false;
         }
         
@@ -165,7 +165,7 @@ export class RawContentCoordinator {
     /**
      * Update section display based on view mode
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - View mode (visual or raw)
+     * @param {string} mode - View mode (visual, raw, or log)
      */
     updateSectionDisplay(sectionId, mode) {
         if (!this.currentStep) {
@@ -186,18 +186,21 @@ export class RawContentCoordinator {
             return;
         }
 
-        if (mode === 'raw') {
+        if (mode === 'raw' || mode === 'log') {
             contentContainer.scrollTo({
                 top: 0,
                 left: 0,
             });
-            this.rawContentRenderer.displayRawContent(sectionId, contentContainer, this.currentStep);
+            // Store view mode in section element for renderer to access
+            sectionElement.dataset.viewMode = mode;
+            this.rawContentRenderer.displayRawContent(sectionId, contentContainer, this.currentStep, mode);
         } else {
             // Visual mode - ContentSectionManager handles this
             // Just ensure raw content is hidden
+            delete sectionElement.dataset.viewMode;
             this.rawContentRenderer.hideRawContent(contentContainer);
             
-            // Only restore original content if we have it stored (i.e., if we were in raw mode)
+            // Only restore original content if we have it stored (i.e., if we were in raw/log mode)
             if (this.rawContentRenderer.hasOriginalContent(sectionId)) {
                 this.rawContentRenderer.restoreOriginalContent(sectionId);
             }

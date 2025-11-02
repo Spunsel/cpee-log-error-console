@@ -263,7 +263,10 @@ export class LogService {
             cpeeStep.setInputCpeeTreeRaw(cleanedContent);
         } else if (exposition.includes('%% Input Intermediate')) {
             const cleanedContent = MermaidParser.cleanMermaidContent(exposition, 'input');
-            cpeeStep.setInputMermaidRaw(cleanedContent);
+            const mermaidRaw = cpeeStep.getInputMermaidRaw();
+            mermaidRaw.setContent(cleanedContent);
+            mermaidRaw.setRawExposition(exposition); // Store completely unprocessed content for log view
+            cpeeStep.setInputMermaidRaw(mermaidRaw);
         } else if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
             cpeeStep.setUserInputRaw(exposition);
         } else if (exposition.includes('# Used LLM:')) {
@@ -273,7 +276,10 @@ export class LogService {
             }
         } else if (exposition.includes('%% Output Intermediate')) {
             const cleanedContent = MermaidParser.cleanMermaidContent(exposition, 'output');
-            cpeeStep.setOutputMermaidRaw(cleanedContent);
+            const mermaidRaw = cpeeStep.getOutputMermaidRaw();
+            mermaidRaw.setContent(cleanedContent);
+            mermaidRaw.setRawExposition(exposition); // Store completely unprocessed content for log view
+            cpeeStep.setOutputMermaidRaw(mermaidRaw);
         } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
             const cleanedContent = CPEEParser.cleanCPEETreeContent(exposition, 'output');
             cpeeStep.setOutputCpeeTreeRaw(cleanedContent);

@@ -46,12 +46,23 @@ export class ViewModeToggle {
         });
         rawBtn.innerHTML = ICONS.RAW;
 
+        // Create log mode button
+        const logBtn = this.domRegistry.createElement('button', {
+            className: 'toggle-btn toggle-btn-log',
+            'data-mode': 'log',
+            'aria-label': `Show ${sectionTitle} as log (un-preprocessed code)`,
+            title: 'Log View (Un-preprocessed)'
+        });
+        logBtn.innerHTML = ICONS.LOG;
+
         // Add click handlers
         visualBtn.addEventListener('click', () => this.switchMode(sectionId, 'visual'));
         rawBtn.addEventListener('click', () => this.switchMode(sectionId, 'raw'));
+        logBtn.addEventListener('click', () => this.switchMode(sectionId, 'log'));
 
         toggleContainer.appendChild(visualBtn);
         toggleContainer.appendChild(rawBtn);
+        toggleContainer.appendChild(logBtn);
 
         return toggleContainer;
     }
@@ -59,7 +70,7 @@ export class ViewModeToggle {
     /**
      * Switch view mode for a section
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - Mode to switch to ('visual' or 'raw')
+     * @param {string} mode - Mode to switch to ('visual', 'raw', or 'log')
      */
     switchMode(sectionId, mode) {
         // Update button states (UI only)
@@ -72,7 +83,7 @@ export class ViewModeToggle {
     /**
      * Update toggle button states for a section
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - Current mode ('visual' or 'raw')
+     * @param {string} mode - Current mode ('visual', 'raw', or 'log')
      */
     updateToggleState(sectionId, mode) {
         const toggleContainer = document.querySelector(`.view-mode-toggle[data-section-id="${sectionId}"]`);
@@ -88,7 +99,7 @@ export class ViewModeToggle {
     /**
      * Get current mode for a section (reads from StateManager)
      * @param {string} sectionId - Section identifier
-     * @returns {string} Current mode ('visual' or 'raw')
+     * @returns {string} Current mode ('visual', 'raw', or 'log')
      */
     getMode(sectionId) {
         const viewModes = this.stateManager.getState('viewModes') || {};
@@ -98,7 +109,7 @@ export class ViewModeToggle {
     /**
      * Set mode for a section programmatically
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - Mode to set ('visual' or 'raw')
+     * @param {string} mode - Mode to set ('visual', 'raw', or 'log')
      */
     setMode(sectionId, mode) {
         this.switchMode(sectionId, mode);

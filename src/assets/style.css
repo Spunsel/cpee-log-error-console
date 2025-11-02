@@ -1353,6 +1353,122 @@ body {
     margin-top: 0;
 }
 
+/* Mermaid Warning Indicator */
+/* Warning indicator appears directly under section header with rounded corners only on bottom */
+.mermaid-warning-indicator {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    border: 2px solid var(--alert-warning-border);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    background-color: var(--alert-warning-bg);
+    padding: 10px 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+}
+
+/* Ensure warning indicator connects to section header when in content-box */
+.section .content-box > .mermaid-warning-indicator {
+    margin-top: 0;
+}
+
+.mermaid-warning-indicator__header {
+    font-weight: 600;
+    color: var(--alert-warning-text);
+    font-size: 13px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    line-height: 1.2;
+    width: 100%;
+}
+
+.mermaid-warning-indicator__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    color: var(--alert-warning-border);
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.mermaid-warning-indicator__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.mermaid-warning-indicator__toggle {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--alert-warning-text);
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.mermaid-warning-indicator__toggle:hover {
+    opacity: 1;
+}
+
+.mermaid-warning-indicator__toggle:focus {
+    outline: 2px solid var(--alert-warning-border);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.mermaid-warning-indicator__toggle svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.mermaid-warning-indicator__steps-container {
+    margin-top: 6px;
+}
+
+.mermaid-warning-indicator__message {
+    color: var(--alert-warning-text);
+    font-size: 12px;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+.mermaid-warning-indicator__steps {
+    margin: 0;
+    padding-left: 16px;
+    color: var(--alert-warning-text);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.mermaid-warning-indicator__steps li {
+    margin-bottom: 3px;
+}
+
+.mermaid-warning-indicator__line-numbers {
+    color: var(--alert-warning-text);
+    opacity: 0.75;
+    font-weight: normal;
+    margin-left: 4px;
+    font-size: 11px;
+}
+
 .mermaid-error-indicator__header {
     font-weight: bold;
     color: var(--alert-danger-text);
@@ -1827,6 +1943,12 @@ body {
     width: 16px;
     height: 16px;
 }
+
+/* Log mode button styling
+ * The .toggle-btn-log class inherits all styles from .toggle-btn
+ * via CSS class cascade. No additional styles needed for three-button layout.
+ * Flexbox in .view-mode-toggle automatically accommodates three buttons.
+ */
 
 /* Accessibility */
 .toggle-btn:focus-visible {

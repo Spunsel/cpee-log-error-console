@@ -14,74 +14,156 @@ export class MermaidParser {
     /**
      * Preprocess Mermaid syntax to fix common CPEE-to-Mermaid conversion issues
      * @param {string} code - Raw mermaid code
-     * @returns {string} Preprocessed code
+     * @returns {{code: string, appliedSteps: Array<{description: string, lineNumbers: Array<number>}>}} Preprocessed code and list of applied steps with line numbers
      */
     static preprocessSyntax(code) {
         let processedCode = code;
+        const appliedSteps = [];
+        const originalCode = code;
+        
+        // Helper function to find line numbers where a regex matches
+        const findLineNumbers = (text, regex) => {
+            const lines = text.split('\n');
+            const lineNumbers = [];
+            // Create a fresh regex for each search to avoid state issues
+            const testRegex = new RegExp(regex.source, regex.flags);
+            lines.forEach((line, index) => {
+                if (testRegex.test(line)) {
+                    lineNumbers.push(index + 1); // 1-based line numbers
+                }
+            });
+            return lineNumbers;
+        };
+        
+        // Helper function to find line numbers for multi-line patterns
+        const findLineNumbersMultiLine = (text, regex) => {
+            const lineNumbers = [];
+            let match;
+            // Reset regex to search from beginning
+            const globalRegex = new RegExp(regex.source, regex.flags + (regex.global ? '' : 'g'));
+            while ((match = globalRegex.exec(text)) !== null) {
+                // Find which line this match starts on
+                const beforeMatch = text.substring(0, match.index);
+                const lineNumber = beforeMatch.split('\n').length;
+                lineNumbers.push(lineNumber);
+            }
+            return lineNumbers;
+        };
 
         // Fix 1: Remove empty edge labels that cause parse errors
-        // Pattern: -->|""| becomes -->
+        const beforeFix1 = processedCode;
+        const fix1LineNumbers = new Set();
+        // Find line numbers for each pattern and add them all to the set
+        findLineNumbers(processedCode, /-->\|""\|/).forEach(lineNum => {
+            if (lineNum !== null && lineNum !== undefined && lineNum > 0) {
+                fix1LineNumbers.add(lineNum);
+            }
+        });
+        findLineNumbers(processedCode, /-->\|''\|/).forEach(lineNum => {
+            if (lineNum !== null && lineNum !== undefined && lineNum > 0) {
+                fix1LineNumbers.add(lineNum);
+            }
+        });
+        findLineNumbers(processedCode, /-->\|\|\|/).forEach(lineNum => {
+            if (lineNum !== null && lineNum !== undefined && lineNum > 0) {
+                fix1LineNumbers.add(lineNum);
+            }
+        });
         processedCode = processedCode.replace(/-->\|""\|/g, '-->');
-        
-        // Also handle variations with single quotes or no quotes
         processedCode = processedCode.replace(/-->\|''\|/g, '-->');
         processedCode = processedCode.replace(/-->\|\|\|/g, '-->');
-        
-        // Fix 2: Handle problematic node IDs starting with numbers or special chars
-        // Pattern: -1:escalate becomes N1_escalate (prefix with N, replace special chars)
-        processedCode = processedCode.replace(/(\W|^)(-\d+)(:\w+)/g, (match, prefix, number, suffix) => prefix + 'N' + number.replace('-', '') + suffix.replace(':', '_'));
-        
-        // Fix 3: Remove spaces after node IDs that cause parsing issues
-        // Pattern: "a9:task: (Task b)" becomes "a9:task:(Task b)"
-        processedCode = processedCode.replace(/(\w+:\w+:)\s+(\([^)]+\))/g, '$1$2');
-        
-        // Fix 4: Handle triple parentheses in node shapes
-        // Pattern: (((text))) becomes ((text))
-        processedCode = processedCode.replace(/\(\(\(([^)]+)\)\)\)/g, '(($1))');
-        
-        // Fix 5: Remove empty parentheses
-        processedCode = processedCode.replace(/\(\s*\)/g, '');
-        
-        // Fix 6: Handle malformed edge syntax
-        // Pattern: A --> B --> becomes A --> B
-        processedCode = processedCode.replace(/(\w+)\s*-->\s*$/gm, '$1');
-        
-        // Fix 7: Handle malformed node references in edge labels
-        // Ensure node IDs in edge targets don't have extra spaces
-        processedCode = processedCode.replace(/(\|\s*[^|]*\s*\|\s*)(\w+:\w+:)\s+(\([^)]+\))/g, '$1$2$3');
-        
-        console.log('🔧 Mermaid preprocessing applied');
-        if (code !== processedCode) {
-            console.log('📝 Preprocessing changes detected');
-            console.log('Original length:', code.length, 'Processed length:', processedCode.length);
-            
-            // Show specific changes for debugging
-            const changes = [];
-            if (code.includes('|""|') && !processedCode.includes('|""|')) {
-                changes.push('✅ Removed empty edge labels |""|');
-            }
-            if (code.includes(': (') && !processedCode.includes(': (')) {
-                changes.push('✅ Fixed spaces after node IDs');
-            }
-            if (code.includes('(((') && !processedCode.includes('(((')) {
-                changes.push('✅ Fixed triple parentheses');
-            }
-            if (code.includes('-1:escalate') && !processedCode.includes('-1:escalate')) {
-                changes.push('✅ Fixed problematic node IDs');
-            }
-            if (code.includes('()') && !processedCode.includes('()')) {
-                changes.push('✅ Removed empty parentheses');
-            }
-            if (code.includes('-->') && !processedCode.includes('-->')) {
-                changes.push('✅ Fixed malformed edge syntax');
-            }
-            
-            if (changes.length > 0) {
-                console.log('🔧 Applied fixes:', changes);
-            }
+        if (beforeFix1 !== processedCode) {
+            appliedSteps.push({
+                description: 'Removed empty edge labels (|""|, |\'\'|, |||)',
+                lineNumbers: Array.from(fix1LineNumbers).sort((a, b) => a - b)
+            });
         }
         
-        return processedCode;
+        // Fix 2: Handle problematic node IDs starting with numbers or special chars
+        const beforeFix2 = processedCode;
+        const fix2LineNumbers = findLineNumbersMultiLine(processedCode, /(\W|^)(-\d+)(:\w+)/g);
+        processedCode = processedCode.replace(/(\W|^)(-\d+)(:\w+)/g, (match, prefix, number, suffix) => prefix + 'N' + number.replace('-', '') + suffix.replace(':', '_'));
+        if (beforeFix2 !== processedCode) {
+            appliedSteps.push({
+                description: 'Fixed problematic node IDs (prefix with N, replace special chars)',
+                lineNumbers: Array.from(new Set(fix2LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
+        // Fix 3: Remove spaces after node IDs that cause parsing issues
+        const beforeFix3 = processedCode;
+        const fix3LineNumbers = findLineNumbersMultiLine(processedCode, /(\w+:\w+:)\s+(\([^)]+\))/g);
+        processedCode = processedCode.replace(/(\w+:\w+:)\s+(\([^)]+\))/g, '$1$2');
+        if (beforeFix3 !== processedCode) {
+            appliedSteps.push({
+                description: 'Removed spaces after node IDs',
+                lineNumbers: Array.from(new Set(fix3LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
+        // Fix 4: Handle triple parentheses in node shapes
+        const beforeFix4 = processedCode;
+        const fix4LineNumbers = findLineNumbersMultiLine(processedCode, /\(\(\(([^)]+)\)\)\)/g);
+        processedCode = processedCode.replace(/\(\(\(([^)]+)\)\)\)/g, '(($1))');
+        if (beforeFix4 !== processedCode) {
+            appliedSteps.push({
+                description: 'Fixed triple parentheses in node shapes',
+                lineNumbers: Array.from(new Set(fix4LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
+        // Fix 5: Remove empty parentheses
+        const beforeFix5 = processedCode;
+        const fix5LineNumbers = findLineNumbersMultiLine(processedCode, /\(\s*\)/g);
+        processedCode = processedCode.replace(/\(\s*\)/g, '');
+        if (beforeFix5 !== processedCode) {
+            appliedSteps.push({
+                description: 'Removed empty parentheses',
+                lineNumbers: Array.from(new Set(fix5LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
+        // Fix 6: Handle malformed edge syntax
+        const beforeFix6 = processedCode;
+        const fix6LineNumbers = findLineNumbersMultiLine(processedCode, /(\w+)\s*-->\s*$/gm);
+        processedCode = processedCode.replace(/(\w+)\s*-->\s*$/gm, '$1');
+        if (beforeFix6 !== processedCode) {
+            appliedSteps.push({
+                description: 'Fixed malformed edge syntax',
+                lineNumbers: Array.from(new Set(fix6LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
+        // Fix 7: Handle malformed node references in edge labels
+        const beforeFix7 = processedCode;
+        const fix7LineNumbers = findLineNumbersMultiLine(processedCode, /(\|\s*[^|]*\s*\|\s*)(\w+:\w+:)\s+(\([^)]+\))/g);
+        processedCode = processedCode.replace(/(\|\s*[^|]*\s*\|\s*)(\w+:\w+:)\s+(\([^)]+\))/g, '$1$2$3');
+        if (beforeFix7 !== processedCode) {
+            appliedSteps.push({
+                description: 'Fixed malformed node references in edge labels',
+                lineNumbers: Array.from(new Set(fix7LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
+        // Fix 8: Remove space between node type and {x} (e.g., :exclusivegateway: {x} -> :exclusivegateway:{x})
+        const beforeFix8 = processedCode;
+        const fix8LineNumbers = findLineNumbersMultiLine(processedCode, /:(\w+):\s+\{x\}/g);
+        processedCode = processedCode.replace(/:(\w+):\s+\{x\}/g, ':$1:{x}');
+        if (beforeFix8 !== processedCode) {
+            appliedSteps.push({
+                description: 'Removed space between node type and {x}',
+                lineNumbers: Array.from(new Set(fix8LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
+        if (originalCode !== processedCode && appliedSteps.length > 0) {
+            console.log('🔧 Mermaid preprocessing applied:', appliedSteps.map(s => s.description));
+        }
+        
+        return {
+            code: processedCode,
+            appliedSteps: appliedSteps
+        };
     }
 
     /**
@@ -125,10 +207,11 @@ export class MermaidParser {
      * Comprehensive validation and cleaning for Mermaid diagrams
      * 
      * @param {string} code - Raw mermaid code
+     * @param {boolean} preprocess - Whether to apply syntax preprocessing (default: true)
      * @returns {string} Cleaned and validated mermaid code
      * @throws {Error} If code is invalid
      */
-    static cleanAndValidate(code) {
+    static cleanAndValidate(code, preprocess = true) {
         if (!code || typeof code !== 'string') {
             throw new Error('MermaidParser: Invalid Mermaid code input - must be a non-empty string');
         }
@@ -153,8 +236,18 @@ export class MermaidParser {
         cleanedCode = cleanedCode.replace(/^\s+|\s+$/g, '');
         cleanedCode = cleanedCode.replace(/\r\n/g, '\n');
 
-        // Fix common CPEE-to-Mermaid conversion issues
-        cleanedCode = this.preprocessSyntax(cleanedCode);
+        // Remove all indentation: all lines start at column 0
+        const lines = cleanedCode.split('\n');
+        cleanedCode = lines.map(line => line.trimStart()).join('\n');
+
+        let appliedSteps = [];
+
+        // Fix common CPEE-to-Mermaid conversion issues (only if preprocess is true)
+        if (preprocess) {
+            const preprocessResult = this.preprocessSyntax(cleanedCode);
+            cleanedCode = preprocessResult.code;
+            appliedSteps = preprocessResult.appliedSteps;
+        }
 
         if (cleanedCode.length === 0) {
             throw new Error('MermaidParser: Empty Mermaid code provided after cleaning');
@@ -169,7 +262,12 @@ export class MermaidParser {
 
         console.log('✅ Mermaid code validation successful');
         console.log('🔍 Cleaned Mermaid code:', cleanedCode);
-        return cleanedCode;
+        
+        // Return object with code and preprocessing steps
+        return {
+            code: cleanedCode,
+            appliedSteps: appliedSteps
+        };
     }
 
     /**
@@ -212,10 +310,11 @@ export class MermaidParser {
 
     /**
      * Clean Mermaid content from log exposition
+     * Removes all indentation: all lines start at column 0
      * 
      * @param {string} content - Raw content from exposition
      * @param {string} type - 'input' or 'output'
-     * @returns {string} Cleaned content
+     * @returns {string} Cleaned content with all indentation removed
      */
     static cleanMermaidContent(content, type) {
         if (!content) { 
@@ -236,6 +335,49 @@ export class MermaidParser {
         cleaned = cleaned.replace(/```\s*$/g, '');
         
         // Remove any leading/trailing whitespace
+        cleaned = cleaned.trim();
+        
+        // Remove all indentation: all lines start at column 0
+        const lines = cleaned.split('\n');
+        cleaned = lines.map(line => line.trimStart()).join('\n');
+        
+        return cleaned;
+    }
+
+    /**
+     * Minimal cleaning for log view - only removes comments, markdown markers, and removes indentation
+     * Used for displaying un-preprocessed Mermaid code from logs
+     * Removes all indentation: all lines start at column 0
+     * 
+     * @param {string} content - Raw content from exposition
+     * @param {string} type - 'input' or 'output'
+     * @returns {string} Minimally cleaned content with all indentation removed
+     */
+    static cleanMermaidForLogView(content, type) {
+        if (!content) { 
+            return content;
+        }
+        
+        let cleaned = content;
+        
+        // Remove Mermaid comments (%% Input Intermediate or %% Output Intermediate)
+        if (type === 'input') {
+            cleaned = cleaned.replace(/^\s*%%\s*Input\s+Intermediate\s*$/gm, '');
+        } else if (type === 'output') {
+            cleaned = cleaned.replace(/^\s*%%\s*Output\s+Intermediate\s*$/gm, '');
+        }
+        
+        // Remove markdown code block markers at the start
+        cleaned = cleaned.replace(/^\s*```\s*mermaid\s*\n?/i, '');
+        
+        // Remove markdown code block markers at the end
+        cleaned = cleaned.replace(/\n?\s*```\s*$/g, '');
+        
+        // Remove all indentation: all lines start at column 0
+        const lines = cleaned.split('\n');
+        cleaned = lines.map(line => line.trimStart()).join('\n');
+        
+        // Trim leading/trailing whitespace
         cleaned = cleaned.trim();
         
         return cleaned;

@@ -7,16 +7,33 @@
 export class MermaidRaw {
     constructor(content = '') {
         this.content = content || '';
+        this.rawExposition = ''; // Completely unprocessed content from log exposition (for log view)
         this.extractedAt = new Date();
         this.isValid = this.validateMermaidSyntax();
     }
 
     /**
-     * Get the raw Mermaid content
+     * Get the raw Mermaid content (cleaned but not preprocessed)
      * @returns {string} Raw Mermaid diagram syntax
      */
     getContent() {
         return this.content;
+    }
+
+    /**
+     * Get the completely unprocessed content from log exposition (for log view)
+     * @returns {string} Unprocessed exposition content
+     */
+    getRawExposition() {
+        return this.rawExposition || this.content;
+    }
+
+    /**
+     * Set the completely unprocessed content from log exposition
+     * @param {string} rawExposition - Unprocessed exposition content
+     */
+    setRawExposition(rawExposition) {
+        this.rawExposition = rawExposition || '';
     }
 
     /**
@@ -114,6 +131,7 @@ export class MermaidRaw {
     toObject() {
         return {
             content: this.content,
+            rawExposition: this.rawExposition,
             extractedAt: this.extractedAt,
             isValid: this.isValid,
             diagramType: this.getDiagramType(),
@@ -128,6 +146,9 @@ export class MermaidRaw {
      */
     static fromObject(obj) {
         const mermaidRaw = new MermaidRaw(obj.content);
+        if (obj.rawExposition) {
+            mermaidRaw.rawExposition = obj.rawExposition;
+        }
         if (obj.extractedAt) {
             mermaidRaw.extractedAt = new Date(obj.extractedAt);
         }
