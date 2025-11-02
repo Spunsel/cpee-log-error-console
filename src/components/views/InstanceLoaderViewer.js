@@ -189,8 +189,14 @@ export class InstanceLoaderViewer {
             }
 
         } catch (error) {
-            console.error('Error fetching UUID:', error);
-            alert(`Failed to fetch UUID: ${error.message}`);
+            // Check if it's a 404 (process number doesn't exist)
+            if (error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'))) {
+                console.log(`Process number ${processNumber} does not exist (404)`);
+                alert(`Process number ${processNumber} does not exist. Please enter a valid process number.`);
+            } else {
+                console.error('Error fetching UUID:', error);
+                alert(`Failed to fetch UUID: ${error.message}`);
+            }
 
             // Show error state
             const processNumberInput = this.getElement('processNumberInput');
@@ -274,6 +280,19 @@ export class InstanceLoaderViewer {
                 };
             })
         ).catch((error) => {
+            // Check if it's a 404 (process number doesn't exist) - this is expected, not an error
+            const isNotFound = error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'));
+            if (isNotFound) {
+                // Silently skip - process number doesn't exist, no need to log as error
+                return {
+                    hasSteps: false,
+                    processNumber: processNumber,
+                    uuid: null,
+                    error: 'Process number does not exist',
+                    isNotFound: true
+                };
+            }
+            // Other errors (network issues, rate limits, etc.) should be logged
             console.warn(`Failed to fetch UUID for instance ${processNumber}:`, error);
             return {
                 hasSteps: false,
@@ -331,9 +350,9 @@ export class InstanceLoaderViewer {
                 console.log(`Resuming after rate limit. Waiting additional ${initialResumeDelay/1000}s before first request...`);
                 
                 setTimeout(() => {
-                    // Use standard 500ms delay after rate limit recovery
-                    console.log('Resuming with 500ms delay between requests (2 requests/second).');
-                    setTimeout(() => continueScan(), 500);
+                    // Use standard 2 second delay after rate limit recovery
+                    console.log('Resuming with 2 second delay between requests (0.5 requests/second).');
+                    setTimeout(() => continueScan(), 2000);
                 }, initialResumeDelay);
             }, rateLimitDelay);
         };
@@ -352,7 +371,7 @@ export class InstanceLoaderViewer {
         };
         
         // Helper function to get delay between requests
-        // Use 500ms delay between requests to prevent rate limiting (2 requests per second)
+        // Use 2 second delay between log fetches to prevent rate limiting (1 log fetch every 2 seconds)
         const getInterRequestDelay = () => 500;
         
         // Helper function to continue scanning
@@ -433,13 +452,20 @@ export class InstanceLoaderViewer {
                     updateRateLimitState();
                     continueScan();
                 } else if (result && result.error) {
+                    // Check if it's a 404 (process doesn't exist) - skip silently
+                    if (result.isNotFound) {
+                        // Process number doesn't exist, just continue without logging
+                        continueScan();
+                        return;
+                    }
+                    
                     // Check if it's a rate limit error
                     if (isRateLimitError({ message: result.error })) {
                         handleRateLimit(processNumber);
                         return;
                     }
                     
-                    // Log errors occasionally
+                    // Log other errors occasionally
                     if (currentIndex % 50 === 0) {
                         console.log(`✗ Instance ${processNumber}: ${result.error} (logged every 50 instances)`);
                     }
@@ -450,6 +476,14 @@ export class InstanceLoaderViewer {
                     continueScan();
                 }
             }).catch((error) => {
+                // Check if it's a 404 (process doesn't exist)
+                const isNotFound = error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'));
+                if (isNotFound) {
+                    // Process number doesn't exist, just continue silently
+                    continueScan();
+                    return;
+                }
+                
                 if (isRateLimitError(error)) {
                     handleRateLimit(processNumber);
                 } else {

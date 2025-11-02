@@ -56,7 +56,11 @@ export class CPEEService {
             });
             
             if (!response.ok) {
-                throw new Error(`CPEEService: HTTP ${response.status} - ${response.statusText}`);
+                // Create error with status code attached for better error handling
+                const error = new Error(`CPEEService: HTTP ${response.status} - ${response.statusText}`);
+                error.status = response.status;
+                error.isNotFound = response.status === 404;
+                throw error;
             }
             
             const uuid = await response.text();
