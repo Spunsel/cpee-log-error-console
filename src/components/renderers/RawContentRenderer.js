@@ -336,8 +336,10 @@ export class RawContentRenderer {
         // Initialize search state for this section using SearchService
         this.searchService.initializeSearchState(sectionId);
 
-        // Create action bar with SearchService
-        const actionBar = new ActionBar(this.domRegistry, this.searchService, sectionId);
+        // Create action bar with SearchService, collapsed by default for raw/log sections
+        const actionBar = new ActionBar(this.domRegistry, this.searchService, sectionId, {
+            collapsedByDefault: true
+        });
         
         // Store action bar for this section
         this.actionBars.set(sectionId, actionBar);

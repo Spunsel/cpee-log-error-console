@@ -9,12 +9,13 @@ import { SearchBar } from './SearchBar.js';
 import { ICONS } from '../../assets/icons.js';
 
 export class ActionBar {
-    constructor(domRegistry = null, searchService = null, sectionId = null) {
+    constructor(domRegistry = null, searchService = null, sectionId = null, options = {}) {
         this.domRegistry = domRegistry;
         this.copyButton = new CopyButton(domRegistry);
         this.searchBar = new SearchBar(domRegistry, searchService, sectionId);
         this.isVisible = false;
-        this.isCollapsed = false;
+        // Default to collapsed for raw/log sections, can be overridden via options
+        this.isCollapsed = options.collapsedByDefault !== undefined ? options.collapsedByDefault : false;
         this.onCopy = null;
         this.onSearch = null;
         this.onClear = null;
@@ -341,6 +342,16 @@ export class ActionBar {
         // Prepend to ensure it appears first and anchors correctly during scrolling
         container.insertBefore(actionBar, container.firstChild);
         
+        // Apply collapsed state if it was set to collapsed by default
+        if (this.isCollapsed && this.element) {
+            this.element.classList.add('collapsed');
+            if (this.collapseButton) {
+                this.collapseButton.innerHTML = ICONS.ACTIONBAR_EXPAND;
+                this.collapseButton.setAttribute('aria-label', 'Expand action bar');
+                this.collapseButton.setAttribute('title', 'Expand action bar');
+            }
+        }
+        
         console.log('ActionBar: Attached to container');
     }
 
@@ -351,6 +362,17 @@ export class ActionBar {
         if (this.element) {
             this.element.style.display = 'flex';
             this.isVisible = true;
+            
+            // Apply collapsed state if it was set to collapsed by default
+            if (this.isCollapsed) {
+                this.element.classList.add('collapsed');
+                if (this.collapseButton) {
+                    this.collapseButton.innerHTML = ICONS.ACTIONBAR_EXPAND;
+                    this.collapseButton.setAttribute('aria-label', 'Expand action bar');
+                    this.collapseButton.setAttribute('title', 'Expand action bar');
+                }
+            }
+            
             console.log('ActionBar: Shown');
         } else {
             console.warn('ActionBar: No element reference found');
