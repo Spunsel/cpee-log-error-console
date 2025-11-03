@@ -226,7 +226,11 @@ export class MermaidParser {
      */
     static cleanAndValidate(code, preprocess = true) {
         if (!code || typeof code !== 'string') {
-            throw new Error('MermaidParser: Invalid Mermaid code input - must be a non-empty string');
+            const error = new Error('Invalid Mermaid code input');
+            error.name = 'MermaidValidationError';
+            error.validationType = 'invalidInput';
+            error.details = 'Input must be a non-empty string';
+            throw error;
         }
 
         // Remove HTML comments and extra whitespace
@@ -263,7 +267,12 @@ export class MermaidParser {
         }
 
         if (cleanedCode.length === 0) {
-            throw new Error('MermaidParser: Empty Mermaid code provided after cleaning');
+            const error = new Error('Empty Mermaid code after cleaning');
+            error.name = 'MermaidValidationError';
+            error.validationType = 'emptyCode';
+            error.details = 'Code became empty after cleaning and preprocessing';
+            error.code = code; // Store original code for context
+            throw error;
         }
 
         // Basic validation - check for valid workflow-relevant diagram type
@@ -306,7 +315,11 @@ export class MermaidParser {
      */
     static cleanMermaidCode(code) {
         if (!code || typeof code !== 'string') {
-            throw new Error('MermaidParser: Invalid Mermaid code input - must be a non-empty string');
+            const error = new Error('Invalid Mermaid code input');
+            error.name = 'MermaidValidationError';
+            error.validationType = 'invalidInput';
+            error.details = 'Input must be a non-empty string';
+            throw error;
         }
 
         // Remove HTML comments and extra whitespace

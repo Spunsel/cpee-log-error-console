@@ -120,11 +120,15 @@ export class MermaidErrorHandler {
      * @returns {string} Formatted error message in Mermaid syntax error format
      */
     static formatValidationError(error) {
-        if (!error.validationType || !error.code) {
+        if (!error.validationType) {
             return error.message;
         }
 
         if (error.validationType === 'missingDiagramType') {
+            if (!error.code) {
+                return error.message;
+            }
+            
             const lines = error.code.split('\n');
             const errorLineIndex = 0; // First line is where diagram type should be
             const errorLineNumber = errorLineIndex + 1;
@@ -149,6 +153,14 @@ export class MermaidErrorHandler {
             errorMessage += `Expecting ${expectedStr}, got '${error.got || 'unknown'}'`;
             
             return errorMessage;
+        }
+
+        if (error.validationType === 'invalidInput') {
+            return `Validation Error:\n${error.details || error.message}`;
+        }
+
+        if (error.validationType === 'emptyCode') {
+            return `Validation Error:\n${error.details || error.message}`;
         }
 
         return error.message;
