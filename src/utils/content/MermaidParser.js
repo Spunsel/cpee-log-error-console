@@ -175,6 +175,7 @@ export class MermaidParser {
 
     /**
      * Extract diagram type from Mermaid code
+     * Only extracts workflow/process-relevant diagram types for CPEE transformations
      * @param {string} code - Mermaid code
      * @returns {string|null} Diagram type or null if not found
      */
@@ -184,11 +185,31 @@ export class MermaidParser {
         }
 
         const lowerCode = code.toLowerCase();
+        
+        // Only workflow/process-relevant diagram types for CPEE transformations (not all may be relevant but keep for robustness)
+        // in particular: "bpmn" is not valid Mermaid graph type
+        // Order matters - check more specific first
+        // State diagrams - for state machine workflows
+        if (lowerCode.includes('statediagram-v2')) {
+            return 'stateDiagram-v2';
+        }
+        if (lowerCode.includes('statediagram')) {
+            return 'stateDiagram';
+        }
+        // Sequence diagrams - for process interactions
+        if (lowerCode.includes('sequencediagram')) {
+            return 'sequenceDiagram';
+        }
+        // Flow diagrams - core workflow representation (most common for CPEE)
         if (lowerCode.includes('flowchart')) {
             return 'flowchart';
         }
         if (lowerCode.includes('graph')) {
             return 'graph';
+        }
+        // User journey - for user-facing workflows
+        if (lowerCode.includes('journey')) {
+            return 'journey';
         }
         
         return null;
@@ -245,11 +266,25 @@ export class MermaidParser {
             throw new Error('MermaidParser: Empty Mermaid code provided after cleaning');
         }
 
-        // Basic validation - check for flowchart diagram type (graph or flowchart)
-        const lowerCode = cleanedCode.toLowerCase();
-        if (!lowerCode.includes('flowchart') && !lowerCode.includes('graph')) {
+        // Basic validation - check for valid workflow-relevant diagram type
+        const diagramType = this.extractDiagramType(cleanedCode);
+        if (!diagramType) {
             console.warn('⚠️ Cleaned Mermaid code:', JSON.stringify(cleanedCode));
-            throw new Error(`MermaidParser: Mermaid code does not contain 'flowchart' or 'graph' diagram type - cleaned content: "${cleanedCode.substring(0, 100)}..."`);
+            
+            // Throw error with metadata for MermaidErrorHandler to format
+            const error = new Error('Missing diagram type declaration');
+            error.name = 'MermaidValidationError';
+            error.validationType = 'missingDiagramType';
+            error.code = cleanedCode;
+            error.expected = ['flowchart', 'graph', 'stateDiagram', 'stateDiagram-v2', 'sequenceDiagram', 'journey'];
+            
+            // Extract the diagram type that was found (if any) for error message
+            const lines = cleanedCode.split('\n');
+            const problematicLine = lines[0] || '';
+            const diagramTypeMatch = problematicLine.match(/^\s*(\w+)/);
+            error.got = diagramTypeMatch ? diagramTypeMatch[1] : 'unknown';
+            
+            throw error;
         }
 
         console.log('✅ Mermaid code validation successful');

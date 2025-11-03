@@ -14,6 +14,7 @@ import { MermaidRenderer } from '../renderers/MermaidRenderer.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
+import { TextParser } from '../../utils/content/TextParser.js';
 
 export class ContentVisualizationCoordinator {
     constructor(domRegistry = null, highlightCoordinator = null, eventBus = null) {
@@ -446,7 +447,7 @@ export class ContentVisualizationCoordinator {
      */
     formatUserInputContent(content) {
         // Clean the content first - remove "# User Input:" header and extra whitespace
-        const cleanedContent = this.extractCleanUserInput(content);
+        const cleanedContent = TextParser.extractCleanUserInput(content);
         
         try {
             // Try to parse as JSON for better formatting
@@ -457,36 +458,6 @@ export class ContentVisualizationCoordinator {
             const escaped = this.escapeHtml(cleanedContent);
             return `<pre><code>${escaped}</code></pre>`;
         }
-    }
-
-    /**
-     * Extract clean user input text from raw log content
-     * @param {string} content - Raw content from logs
-     * @returns {string} Clean user input text
-     */
-    extractCleanUserInput(content) {
-        if (!content || typeof content !== 'string') {
-            return '';
-        }
-
-        // Remove the "# User Input:" header line
-        let cleanedText = content.replace(/^#\s*User\s*Input\s*:\s*$/gm, '').trim();
-        
-        // Remove any leading whitespace from each line (handles indentation)
-        cleanedText = cleanedText.split('\n').map(line => line.trimStart()).join('\n');
-        
-        // Remove any additional comment patterns that might be present
-        cleanedText = cleanedText.replace(/<!--[\s\S]*?-->/g, '').trim();
-        
-        // Remove any markdown-style formatting if present
-        cleanedText = cleanedText.replace(/```[\s\S]*?```/g, '').trim();
-        
-        // Clean up extra whitespace and normalize line endings
-        cleanedText = cleanedText.replace(/\r\n/g, '\n');
-        cleanedText = cleanedText.replace(/\n\s*\n/g, '\n');
-        cleanedText = cleanedText.trim();
-        
-        return cleanedText;
     }
 
     /**

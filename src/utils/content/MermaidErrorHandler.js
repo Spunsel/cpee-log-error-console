@@ -35,6 +35,11 @@ export class MermaidErrorHandler {
             return false;
         }
 
+        // Check if it's a validation error (should be treated as syntax error)
+        if (error.name === 'MermaidValidationError' || error.validationType) {
+            return true;
+        }
+
         // Check error message for syntax-related keywords
         const message = error.message || '';
         const lowerMessage = message.toLowerCase();
@@ -80,12 +85,20 @@ export class MermaidErrorHandler {
      * @returns {Object} Categorized error object
      */
     static categorizeError(error, mermaidCode = null) {
+        // Format validation errors as Mermaid syntax errors
+        let formattedMessage = error?.message || 'Unknown error occurred';
+        const codeToUse = error?.code || mermaidCode;
+        
+        if (error?.validationType) {
+            formattedMessage = this.formatValidationError(error);
+        }
+        
         const categorizedError = {
             originalError: error,
-            code: mermaidCode,
+            code: codeToUse,
             timestamp: new Date().toISOString(),
             errorType: 'unknown',
-            message: error?.message || 'Unknown error occurred',
+            message: formattedMessage,
             name: error?.name || 'Error'
         };
 
@@ -99,6 +112,46 @@ export class MermaidErrorHandler {
         }
 
         return categorizedError;
+    }
+
+    /**
+     * Format validation error as Mermaid syntax error
+     * @param {Error} error - Validation error with metadata
+     * @returns {string} Formatted error message in Mermaid syntax error format
+     */
+    static formatValidationError(error) {
+        if (!error.validationType || !error.code) {
+            return error.message;
+        }
+
+        if (error.validationType === 'missingDiagramType') {
+            const lines = error.code.split('\n');
+            const errorLineIndex = 0; // First line is where diagram type should be
+            const errorLineNumber = errorLineIndex + 1;
+            const problematicLine = lines[errorLineIndex] || '';
+            
+            // Find where the error is (start of the line for diagram type)
+            const errorColumn = problematicLine.length > 0 ? 1 : 1;
+            
+            // Build caret indicator line (dashes up to error position, then caret)
+            const caretDashes = '-'.repeat(Math.max(0, errorColumn - 1));
+            const caretLine = caretDashes + '^';
+            
+            // Format expected values
+            const expectedStr = error.expected ? 
+                error.expected.map(v => `'${v}'`).join(' or ') : 
+                "'flowchart' or 'graph'";
+            
+            // Build error message in exact Mermaid syntax error format
+            let errorMessage = `Parse error on line ${errorLineNumber}:\n`;
+            errorMessage += `${problematicLine}\n`;
+            errorMessage += `${caretLine}\n`;
+            errorMessage += `Expecting ${expectedStr}, got '${error.got || 'unknown'}'`;
+            
+            return errorMessage;
+        }
+
+        return error.message;
     }
 
     /**
