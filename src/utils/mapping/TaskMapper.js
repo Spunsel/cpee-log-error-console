@@ -27,16 +27,23 @@ export class TaskMapper {
         
         const mapping = new TaskMapping();
         
-        // Phase 1: Map input CPEE to input Mermaid
+        // Phase 1: Map input CPEE to input Mermaid (using id)
         this.mapBetweenFormats(inputCpee, inputMermaid, 'input-cpee', 'input-intermediate', mapping);
         
-        // Phase 2: Map input Mermaid to output Mermaid
-        this.mapBetweenFormats(inputMermaid, outputMermaid, 'input-intermediate', 'output-intermediate', mapping);
-        
-        // Phase 3: Map output Mermaid to output CPEE
+        // Phase 2: Map output Mermaid to output CPEE (using alt_id - Mermaid.id to CPEE.altId)
         this.mapBetweenFormats(outputMermaid, outputCpee, 'output-intermediate', 'output-cpee', mapping);
         
-        // Phase 4: Create transitive mappings (input CPEE → output CPEE, etc.)
+        // Phase 3: Map output CPEE to input CPEE (using alt_id)
+        this.mapBetweenFormats(outputCpee, inputCpee, 'output-cpee', 'input-cpee', mapping);
+        
+        // Phase 4: Map output CPEE to output Intermediate (using alt_id - already done in Phase 2 via reverse)
+        // Note: Output CPEE → Output Intermediate is already bidirectional from Phase 2
+        
+        // Phase 5: Map input CPEE to output Intermediate (using alt_id - Input CPEE.altId → Output Intermediate.id)
+        // This is needed because Input Intermediate and Output Intermediate have different IDs
+        this.mapBetweenFormats(inputCpee, outputMermaid, 'input-cpee', 'output-intermediate', mapping);
+        
+        // Phase 6: Create transitive mappings (input CPEE → output CPEE, input-intermediate → output-intermediate, etc.)
         this.createTransitiveMappings(mapping);
         
         console.log('[TaskMapper] Mapping complete. Total mappings:', mapping.getMappingCount());
@@ -56,20 +63,26 @@ export class TaskMapper {
     mapBetweenFormats(sourceTasks, targetTasks, sourceFormat, targetFormat, mapping) {
         console.log(`[TaskMapper] Mapping ${sourceFormat} → ${targetFormat}...`);
         
+        // Determine which field to use for matching based on format pair
+        const matchField = this.getMatchField(sourceFormat, targetFormat);
+        console.log(`[TaskMapper] Using match field: ${matchField} for ${sourceFormat} → ${targetFormat}`);
+        
         let exactMatches = 0;
         let noMatches = 0;
         
         sourceTasks.forEach(sourceTask => {
-            // Try exact match by ID only
-            const match = this.findExactMatch(sourceTask, targetTasks);
+            // Find match using the appropriate field
+            const match = this.findMatch(sourceTask, targetTasks, matchField, sourceFormat, targetFormat);
             
             if (match) {
                 exactMatches++;
-                console.log(`[TaskMapper] ID match: "${sourceTask.id}" → "${match.id}"`);
+                const sourceValue = matchField === 'id' ? sourceTask.id : sourceTask.altId;
+                console.log(`[TaskMapper] ${matchField} match: "${sourceValue}" → "${match.id}"`);
                 mapping.addMapping(sourceTask, sourceFormat, match, targetFormat);
             } else {
                 noMatches++;
-                console.log(`[TaskMapper] No match found for ID: "${sourceTask.id}" (label: "${sourceTask.label}")`);
+                const sourceValue = matchField === 'id' ? sourceTask.id : sourceTask.altId;
+                console.log(`[TaskMapper] No match found for ${matchField}: "${sourceValue}" (label: "${sourceTask.label}")`);
             }
         });
         
@@ -77,15 +90,99 @@ export class TaskMapper {
     }
     
     /**
-     * Find exact match by ID only
+     * Determine which field to use for matching based on format pair
+     * Rules:
+     * - input-cpee → input-intermediate: use id
+     * - output-cpee → input-cpee: use alt_id
+     * - output-cpee → output-intermediate: use alt_id
+     * - output-intermediate → output-cpee: match Mermaid id to CPEE alt_id
+     * @param {string} sourceFormat - Source format
+     * @param {string} targetFormat - Target format
+     * @returns {string} 'id' or 'alt_id'
+     */
+    getMatchField(sourceFormat, targetFormat) {
+        // Input CPEE → Input Intermediate: use id
+        if (sourceFormat === 'input-cpee' && targetFormat === 'input-intermediate') {
+            return 'id';
+        }
+        
+        // Output CPEE → Input CPEE: use alt_id
+        if (sourceFormat === 'output-cpee' && targetFormat === 'input-cpee') {
+            return 'alt_id';
+        }
+        
+        // Output CPEE → Output Intermediate: use alt_id
+        if (sourceFormat === 'output-cpee' && targetFormat === 'output-intermediate') {
+            return 'alt_id';
+        }
+        
+        // Output Intermediate → Output CPEE: match Mermaid id to CPEE alt_id
+        if (sourceFormat === 'output-intermediate' && targetFormat === 'output-cpee') {
+            return 'alt_id'; // Match Mermaid.id to CPEE.altId
+        }
+        
+        // Input CPEE → Output Intermediate: use alt_id (Input CPEE.altId → Output Intermediate.id)
+        if (sourceFormat === 'input-cpee' && targetFormat === 'output-intermediate') {
+            return 'alt_id';
+        }
+        
+        // Input Mermaid → Output Mermaid: use id (for continuity, though they may differ)
+        // Note: This may not work if IDs are different (e.g., "a1" vs "1"), but we try it
+        if (sourceFormat === 'input-intermediate' && targetFormat === 'output-intermediate') {
+            return 'id';
+        }
+        
+        // Default: use id for backward compatibility
+        return 'id';
+    }
+    
+    /**
+     * Find match using specified field
      * @param {TaskIdentifier} sourceTask - Source task
      * @param {TaskIdentifier[]} targetTasks - Target tasks to search
+     * @param {string} matchField - Field to match on ('id' or 'alt_id')
+     * @param {string} sourceFormat - Source format (for determining match direction)
+     * @param {string} targetFormat - Target format (for determining match direction)
      * @returns {TaskIdentifier|null} Matching task or null
      */
-    findExactMatch(sourceTask, targetTasks) {
-        // Match by ID only (case-sensitive)
-        const match = targetTasks.find(t => t.id === sourceTask.id);
-        return match || null;
+    findMatch(sourceTask, targetTasks, matchField, sourceFormat, targetFormat) {
+        if (matchField === 'alt_id') {
+            // Determine matching direction based on format types
+            const sourceIsCpee = sourceFormat.includes('cpee');
+            const targetIsCpee = targetFormat.includes('cpee');
+            const targetIsMermaid = targetFormat.includes('intermediate');
+            
+            if (sourceIsCpee && targetIsMermaid) {
+                // CPEE → Mermaid: match CPEE.altId to Mermaid.id
+                if (!sourceTask.altId) {
+                    return null;
+                }
+                const match = targetTasks.find(t => t.id === sourceTask.altId);
+                return match || null;
+            } else if (sourceIsCpee && targetIsCpee) {
+                // CPEE → CPEE: match alt_id to alt_id
+                if (!sourceTask.altId) {
+                    return null;
+                }
+                const match = targetTasks.find(t => t.altId === sourceTask.altId);
+                return match || null;
+            } else if (targetIsCpee) {
+                // Mermaid → CPEE: match Mermaid.id to CPEE.altId
+                const match = targetTasks.find(t => t.altId === sourceTask.id);
+                return match || null;
+            } else {
+                // Fallback: try matching sourceTask.altId to targetTask.id
+                if (!sourceTask.altId) {
+                    return null;
+                }
+                const match = targetTasks.find(t => t.id === sourceTask.altId);
+                return match || null;
+            }
+        } else {
+            // Match sourceTask.id to targetTask.id
+            const match = targetTasks.find(t => t.id === sourceTask.id);
+            return match || null;
+        }
     }
     
     /**
@@ -297,7 +394,7 @@ class TaskMapping {
     
     /**
      * Find equivalent tasks in other formats
-     * @param {string} taskId - Task ID
+     * @param {string} taskId - Task ID (from clicked element, should be the task's id field)
      * @param {string} sourceFormat - Source format
      * @returns {Object} Object with format keys and arrays of equivalent tasks
      */
@@ -305,9 +402,27 @@ class TaskMapping {
         const equivalents = {};
         const formats = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
         
+        console.log(`[TaskMapping] findEquivalentTasks: looking for taskId="${taskId}" in format="${sourceFormat}"`);
+        
+        // Get the actual TaskIdentifier object to verify it exists
+        const sourceTask = this.getTask(taskId, sourceFormat);
+        if (!sourceTask) {
+            console.warn(`[TaskMapping] Task "${taskId}" not found in format "${sourceFormat}"`);
+            return equivalents;
+        }
+        
+        console.log(`[TaskMapping] Found source task: id="${sourceTask.id}", altId="${sourceTask.altId || 'none'}", label="${sourceTask.label}"`);
+        
         formats.forEach(targetFormat => {
             if (targetFormat !== sourceFormat) {
+                // Look up mappings using the task's id (mappings are stored by id)
                 const mappings = this.getMappings(taskId, sourceFormat, targetFormat);
+                
+                console.log(`[TaskMapping]   ${sourceFormat} → ${targetFormat}: found ${mappings.length} mapping(s)`);
+                mappings.forEach(m => {
+                    console.log(`[TaskMapping]     → ${m.targetTask.id} (${m.targetTask.label})${m.isTransitive ? ' [transitive]' : ''}`);
+                });
+                
                 equivalents[targetFormat] = mappings.map(m => ({
                     task: m.targetTask,
                     isTransitive: m.isTransitive

@@ -121,6 +121,14 @@ export class CPEETaskExtractor {
     static extractTaskFromElement(element, position) {
         try {
             const id = element.getAttribute('id') || `task-${position}`;
+            
+            // Extract alt_id from annotation namespace (a:alt_id)
+            let altId = null;
+            // Try both with and without namespace prefix
+            altId = element.getAttribute('a:alt_id') || 
+                   element.getAttributeNS('http://cpee.org/ns/annotation/1.0', 'alt_id') ||
+                   null;
+            
             let label = this.extractLabel(element);
             
             if (!label) {
@@ -130,7 +138,7 @@ export class CPEETaskExtractor {
             const type = element.tagName.toLowerCase();
             const metadata = this.extractMetadata(element, type);
             
-            const task = new TaskIdentifier(id, label, type, 'cpee', metadata, position);
+            const task = new TaskIdentifier(id, label, type, 'cpee', metadata, position, altId);
             task.position = position;
             
             return task;

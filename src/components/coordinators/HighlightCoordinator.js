@@ -187,15 +187,22 @@ export class HighlightCoordinator {
 
     /**
      * Extract base task ID from Mermaid ID format
+     * Handles both formats:
+     * - "flowchart-a1:task:-5" → "a1"
+     * - "flowchart-1:task:-5" → "1"
+     * - "1:task:" → "1"
      * @param {string} taskId - Task identifier
      * @returns {string} Base task ID
      */
     extractBaseTaskId(taskId) {
+        // If it doesn't contain :task:, it's likely already a base ID (CPEE format)
         if (!taskId.includes(':task:')) {
             return taskId;
         }
         
-        const match = taskId.match(/-([a-z0-9]+):task:/);
+        // Try pattern: flowchart-XXX:task: or XXX:task:
+        // Match: -([a-z0-9]+):task: or ^([a-z0-9]+):task:
+        const match = taskId.match(/-([a-z0-9]+):task:/) || taskId.match(/^([a-z0-9]+):task:/);
         if (match) {
             const baseId = match[1];
             console.log(`[HighlightCoordinator] Extracted base ID: ${baseId} from ${taskId}`);
@@ -447,23 +454,40 @@ export class HighlightCoordinator {
             }
         }
         
-        // Try partial ID match for Mermaid (e.g., "a2" in "flowchart-a2:task:-5")
+        // Try partial ID match for Mermaid, but be more precise
+        // Match patterns like: flowchart-XXX-task- or flowchart-XXX:task:
+        // where XXX matches taskId exactly (not as substring)
         for (const node of nodes) {
-            if (node.id && node.id.includes(taskId)) {
-                console.log(`[HighlightCoordinator] ✓ Found Mermaid node by partial ID: ${node.id}`);
-                return node;
+            if (node.id) {
+                // Try pattern: flowchart-TASKID-task- or flowchart-TASKID:task:
+                const exactMatch = new RegExp(`flowchart-${taskId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:-task-|:task:)`);
+                if (exactMatch.test(node.id)) {
+                    console.log(`[HighlightCoordinator] ✓ Found Mermaid node by exact pattern match: ${node.id}`);
+                    return node;
+                }
+                // Also try simpler pattern: just the taskId followed by :task: or -task-
+                const simplePattern = new RegExp(`(?:^|-)${taskId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:-task-|:task:)`);
+                if (simplePattern.test(node.id)) {
+                    console.log(`[HighlightCoordinator] ✓ Found Mermaid node by simple pattern: ${node.id}`);
+                    return node;
+                }
             }
         }
         
         // Try to extract base ID from Mermaid format and search
-        const baseIdMatch = taskId.match(/:([a-z0-9]+):task:/);
+        // Pattern: flowchart-XXX:task: or XXX:task:
+        const baseIdMatch = taskId.match(/:([a-z0-9]+):task:/) || taskId.match(/^([a-z0-9]+):task:/);
         if (baseIdMatch) {
             const baseId = baseIdMatch[1];
             console.log(`[HighlightCoordinator] Extracted base ID: ${baseId}`);
+            // Use exact pattern matching for base ID too
             for (const node of nodes) {
-                if (node.id && node.id.includes(baseId)) {
-                    console.log(`[HighlightCoordinator] ✓ Found Mermaid node by base ID: ${node.id}`);
-                    return node;
+                if (node.id) {
+                    const exactMatch = new RegExp(`flowchart-${baseId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:-task-|:task:)`);
+                    if (exactMatch.test(node.id)) {
+                        console.log(`[HighlightCoordinator] ✓ Found Mermaid node by base ID pattern: ${node.id}`);
+                        return node;
+                    }
                 }
             }
         }

@@ -14,8 +14,9 @@ export class TaskIdentifier {
      * @param {Object} metadata - Additional format-specific metadata
      * @param {number|null} position - Position/order in the workflow (0-based index)
      */
-    constructor(id, label, type, sourceFormat, metadata = {}, position = null) {
+    constructor(id, label, type, sourceFormat, metadata = {}, position = null, altId = null) {
         this.id = id;
+        this.altId = altId; // Alternative ID (e.g., alt_id from CPEE XML)
         this.label = label;
         this.type = type;
         this.sourceFormat = sourceFormat;
@@ -129,7 +130,8 @@ export class TaskIdentifier {
      * @returns {string} String representation
      */
     toString() {
-        return `TaskIdentifier(id="${this.id}", label="${this.label}", type="${this.type}", source="${this.sourceFormat}", position=${this.position})`;
+        const altIdStr = this.altId ? `, altId="${this.altId}"` : '';
+        return `TaskIdentifier(id="${this.id}"${altIdStr}, label="${this.label}", type="${this.type}", source="${this.sourceFormat}", position=${this.position})`;
     }
 
     /**
@@ -139,6 +141,7 @@ export class TaskIdentifier {
     toObject() {
         return {
             id: this.id,
+            altId: this.altId,
             label: this.label,
             type: this.type,
             sourceFormat: this.sourceFormat,
@@ -159,7 +162,8 @@ export class TaskIdentifier {
             obj.type,
             obj.sourceFormat,
             obj.metadata || {},
-            obj.position !== undefined ? obj.position : null
+            obj.position !== undefined ? obj.position : null,
+            obj.altId || null
         );
     }
 
@@ -229,7 +233,8 @@ export class TaskIdentifier {
             this.type,
             this.sourceFormat,
             { ...this.metadata },
-            this.position
+            this.position,
+            this.altId
         );
         cloned.svgElement = this.svgElement;
         return cloned;
