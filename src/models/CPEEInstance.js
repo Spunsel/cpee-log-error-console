@@ -26,7 +26,7 @@ export class CPEEInstance {
         if (this.processNumber) {
             // Shorten UUID to first 4 and last 4 characters: "c485...6fbf"
             const shortUuid = this.uuid.length > 8 
-                ? `${this.uuid.substring(0, 4)}...${this.uuid.substring(this.uuid.length - 4)}`
+                ? `${this.uuid.substring(0, 6)}...${this.uuid.substring(this.uuid.length - 6)}`
                 : this.uuid;
             return `${shortUuid} (${this.processNumber})`;
         }
