@@ -122,11 +122,15 @@ export class EmailService {
             throw new Error('Web3Forms is not properly configured. Please set accessKey and recipientEmail in ConfigManager. Get your access key from https://web3forms.com/');
         }
 
+        // Automatically include current URL
+        const currentUrl = window.location.href;
+        
         const formData = {
             access_key: this.config.web3forms.accessKey,
             subject: `[Bug Report] ${data.subject}`,
             from_name: data.email !== 'Not provided' ? data.email : 'Anonymous',
             email: this.config.web3forms.recipientEmail,
+            url: currentUrl, // Automatically include URL as separate field
             message: `
 Type: ${data.type}
 Subject: ${data.subject}
@@ -138,7 +142,7 @@ ${data.message}
 User Email: ${data.email}
 Timestamp: ${data.timestamp}
 User Agent: ${navigator.userAgent}
-URL: ${window.location.href}
+URL: ${currentUrl}
             `.trim()
         };
 
