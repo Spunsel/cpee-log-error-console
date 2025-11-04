@@ -145,7 +145,7 @@
     </div>
 
     <script type="module">
-        import { MermaidRenderer } from './src/components/MermaidRenderer.js';
+        import { MermaidRenderer } from '../../../src/components/renderers/MermaidRenderer.js';
 
         // Example Mermaid diagrams
         const examples = {
@@ -265,6 +265,49 @@
                 await renderer.initialize('graph-container', 'status-message', 'mermaid-input');
                 console.log('🎨 Mermaid renderer ready');
                 
+                // Event handlers
+                document.getElementById('render-btn').addEventListener('click', async () => {
+                    const mermaidInput = document.getElementById('mermaid-input');
+                    if (mermaidInput.value.trim()) {
+                        await renderer.renderGraph(mermaidInput.value);
+                    } else {
+                        const statusElement = document.getElementById('status-message');
+                        if (statusElement) {
+                            statusElement.textContent = '❌ Please enter Mermaid code';
+                            statusElement.className = 'alert alert-danger';
+                            statusElement.style.display = 'block';
+                        }
+                    }
+                });
+
+                document.getElementById('clear-btn').addEventListener('click', () => {
+                    document.getElementById('mermaid-input').value = '';
+                    document.getElementById('graph-container').innerHTML = '';
+                    document.getElementById('status-message').style.display = 'none';
+                });
+
+                // Example buttons
+                document.querySelectorAll('[data-example]').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const exampleType = button.getAttribute('data-example');
+                        if (examples[exampleType]) {
+                            document.getElementById('mermaid-input').value = examples[exampleType];
+                            // Auto-render the example
+                            setTimeout(() => {
+                                document.getElementById('render-btn').click();
+                            }, 200);
+                        }
+                    });
+                });
+
+                // Add keyboard shortcut (Ctrl+Enter to render)
+                document.getElementById('mermaid-input').addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.key === 'Enter') {
+                        e.preventDefault();
+                        document.getElementById('render-btn').click();
+                    }
+                });
+                
                 // Auto-render the example after a short delay
                 setTimeout(() => {
                     document.getElementById('render-btn').click();
@@ -275,44 +318,6 @@
                 document.getElementById('status-message').innerHTML = 
                     '<div class="alert alert-danger">Failed to initialize Mermaid renderer: ' + error.message + '</div>';
                 document.getElementById('status-message').style.display = 'block';
-            }
-        });
-
-        // Event handlers
-        document.getElementById('render-btn').addEventListener('click', async () => {
-            const mermaidInput = document.getElementById('mermaid-input');
-            if (mermaidInput.value.trim()) {
-                await renderer.renderGraph(mermaidInput.value);
-            } else {
-                renderer.showStatus('❌ Please enter Mermaid code', 'error');
-            }
-        });
-
-        document.getElementById('clear-btn').addEventListener('click', () => {
-            document.getElementById('mermaid-input').value = '';
-            document.getElementById('graph-container').innerHTML = '';
-            document.getElementById('status-message').style.display = 'none';
-        });
-
-        // Example buttons
-        document.querySelectorAll('[data-example]').forEach(button => {
-            button.addEventListener('click', () => {
-                const exampleType = button.getAttribute('data-example');
-                if (examples[exampleType]) {
-                    document.getElementById('mermaid-input').value = examples[exampleType];
-                    // Auto-render the example
-                    setTimeout(() => {
-                        document.getElementById('render-btn').click();
-                    }, 200);
-                }
-            });
-        });
-
-        // Add keyboard shortcut (Ctrl+Enter to render)
-        document.getElementById('mermaid-input').addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('render-btn').click();
             }
         });
 
