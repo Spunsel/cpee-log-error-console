@@ -8,6 +8,24 @@
     <link rel="stylesheet" href="src/assets/style.css">
     <!-- Prism.js syntax highlighting (theme can be swapped via ConfigManager) -->
     <link id="prism-theme" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <!-- Apply dark mode immediately to prevent flash of wrong theme -->
+    <script>
+        (function() {
+            try {
+                const stored = localStorage.getItem('cpee-debug-console-dark-mode');
+                if (stored === 'true') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    // Update Prism theme
+                    const prismThemeLink = document.getElementById('prism-theme');
+                    if (prismThemeLink) {
+                        prismThemeLink.href = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
+                    }
+                }
+            } catch (e) {
+                // Silently fail if localStorage is not available
+            }
+        })();
+    </script>
 </head>
 <body>
     <div id="app">
@@ -16,6 +34,7 @@
                 <div id="app-icon" class="app-icon"></div>
                 <h1 id="app-title" class="app-title">CPEE LLM Error Debug Console</h1>
             </div>
+            <div id="dark-mode-toggle-container"></div>
         </header>
 
         <div class="main-container">

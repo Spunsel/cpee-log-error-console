@@ -5,11 +5,13 @@
  */
 
 import { configManager } from '../config/ConfigManager.js';
+import { eventBus as defaultEventBus } from '../core/EventBus.js';
 
 export class SyntaxHighlightingService {
-    constructor() {
+    constructor(eventBus = null) {
         this.initialized = false;
         this.mutationObserver = null;
+        this.eventBus = eventBus || defaultEventBus;
     }
 
     /**
@@ -43,10 +45,27 @@ export class SyntaxHighlightingService {
             // Set up Mermaid block highlighting
             this._setupMermaidHighlighting();
             
+            // Set up dark mode listener to reapply styles
+            this._setupDarkModeListener();
+            
             this.initialized = true;
         } catch (e) {
             console.warn('SyntaxHighlightingService: Initialization failed:', e);
         }
+    }
+
+    /**
+     * Set up listener for dark mode changes to reapply syntax highlighting styles
+     * @private
+     */
+    _setupDarkModeListener() {
+        this.eventBus.on('darkMode:toggled', () => {
+            const sh = configManager.get('syntaxHighlighting', {});
+            if (sh && sh.enabled) {
+                // Reapply custom styling with new colors
+                this._applyCustomStyling(sh);
+            }
+        });
     }
 
     /**
@@ -83,6 +102,9 @@ export class SyntaxHighlightingService {
             document.head.appendChild(styleEl);
         }
 
+        // Check if dark mode is active
+        const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+
         let css = '';
         
         // Apply typography (font-face + font family/size)
@@ -101,14 +123,15 @@ export class SyntaxHighlightingService {
             css += `.raw-content-container pre, pre.raw-code-block, pre { background-color: ${sh.codeBlockBackground} !important; }`;
         }
         
-        // Apply XML/CPEE color overrides
+        // Apply XML/CPEE color overrides - use dark mode colors if available
         const colors = sh.colors || {};
+        const activeColors = isDarkMode && colors.dark ? colors.dark : colors;
         
         // Handle textContent separately - styles the base code element (affects unstyled text)
         // Exclude Mermaid code blocks and user input as they have their own default color
-        if (colors.textContent !== null && colors.textContent !== undefined) {
+        if (activeColors.textContent !== null && activeColors.textContent !== undefined) {
             css += `.raw-content-container pre code:not(.language-mermaid):not(.language-text), `;
-            css += `pre code:not(.language-mermaid):not(.language-text) { color: ${colors.textContent} !important; }`;
+            css += `pre code:not(.language-mermaid):not(.language-text) { color: ${activeColors.textContent} !important; }`;
         }
         
         const colorMappings = {
@@ -119,23 +142,25 @@ export class SyntaxHighlightingService {
         };
         
         Object.entries(colorMappings).forEach(([configKey, cssSelector]) => {
-            const color = colors[configKey];
+            const color = activeColors[configKey];
             if (color !== null && color !== undefined) {
                 css += `${cssSelector} { color: ${color} !important; }`;
             }
         });
         
-        // Apply Mermaid-specific syntax highlighting colors
+        // Apply Mermaid-specific syntax highlighting colors - use dark mode colors if available
         const mermaid = sh.mermaid || {};
-        const mermaidDefault = mermaid.default || '#000000';
-        if (mermaid.default !== null && mermaid.default !== undefined) {
+        const activeMermaid = isDarkMode && mermaid.dark ? mermaid.dark : mermaid;
+        const mermaidDefault = activeMermaid.default || (isDarkMode ? '#a8b8d0' : '#000000');
+        
+        if (activeMermaid.default !== null && activeMermaid.default !== undefined) {
             css += `.language-mermaid, code.language-mermaid { color: ${mermaidDefault} !important; }`;
         }
-        css += `.token.mermaid-id { color: ${mermaid.id || '#dc2626'} !important; }`;
-        css += `.token.mermaid-punctuation { color: ${mermaid.punctuation || '#9ca3af'} !important; }`;
-        css += `.token.mermaid-parentheses { color: ${mermaid.parentheses || '#ea580c'} !important; }`;
-        css += `.token.mermaid-condition { color: ${mermaid.condition || '#2563eb'} !important; }`;
-        // Ensure node-type tokens (like :task:, :exclusivegateway:) use default black color
+        css += `.token.mermaid-id { color: ${activeMermaid.id || (isDarkMode ? '#f5a5a5' : '#dc2626')} !important; }`;
+        css += `.token.mermaid-punctuation { color: ${activeMermaid.punctuation || (isDarkMode ? '#94a3b8' : '#9ca3af')} !important; }`;
+        css += `.token.mermaid-parentheses { color: ${activeMermaid.parentheses || (isDarkMode ? '#86efac' : '#ea580c')} !important; }`;
+        css += `.token.mermaid-condition { color: ${activeMermaid.condition || (isDarkMode ? '#6ba3f5' : '#2563eb')} !important; }`;
+        // Ensure node-type tokens (like :task:, :exclusivegateway:) use default color
         css += `.token.node-type { color: ${mermaidDefault} !important; }`;
         
         // Explicitly ensure user input is not affected by syntax highlighting

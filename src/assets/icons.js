@@ -397,6 +397,44 @@ export const ICON_WARNING = `
     </svg>
 `;
 
+/**
+ * Moon icon - Dark mode icon
+ * Represents dark mode/theme - 20x20px for dark mode toggle
+ * Design: Crescent moon
+ */
+export const ICON_MOON = `
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </g>
+    </svg>
+`;
+
+/**
+ * Sun icon - Light mode icon
+ * Represents light mode/theme - 20x20px for dark mode toggle
+ * Design: Sun with rays
+ */
+export const ICON_SUN = `
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </g>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -435,7 +473,10 @@ export const ICONS = {
     APP_FAVICON: ICON_APP_FAVICON,
     // Error and warning icons
     ERROR: ICON_ERROR,
-    WARNING: ICON_WARNING
+    WARNING: ICON_WARNING,
+    // Dark mode icons
+    MOON: ICON_MOON,
+    SUN: ICON_SUN
 };
 
 /**
@@ -468,7 +509,10 @@ export function getIcon(iconName) {
         'error': ICON_ERROR,
         'warning': ICON_WARNING,
         // Theme icon
-        'theme': ICON_THEME
+        'theme': ICON_THEME,
+        // Dark mode icons
+        'moon': ICON_MOON,
+        'sun': ICON_SUN
     };
 
     return iconMap[iconName.toLowerCase()] || '';

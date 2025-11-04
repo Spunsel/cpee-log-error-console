@@ -130,13 +130,17 @@ export class MermaidRenderer {
         }
 
         // Container should not have overflow - parent mermaid-section handles scrolling
+        // Get background color from CSS variable (adapts to dark mode automatically)
+        const root = document.documentElement;
+        const backgroundColor = getComputedStyle(root).getPropertyValue('--surface-color').trim() || '#ffffff';
+        
         this.container.style.cssText = `
             width: ${configManager.get('rendering.containers.graphContainer.width')};
             height: auto;
             min-height: ${configManager.get('rendering.containers.graphContainer.minHeight')};
             position: relative;
             overflow: visible;
-            background: white;
+            background: ${backgroundColor};
             border-radius: 8px;
             box-sizing: border-box;
         `;
@@ -196,13 +200,22 @@ export class MermaidRenderer {
     }
 
     /**
-     * Build Mermaid configuration with proportional scaling
+     * Check if dark mode is enabled
+     * @returns {boolean} True if dark mode is active
+     */
+    _isDarkMode() {
+        return document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+
+    /**
+     * Build Mermaid configuration with proportional scaling and dark mode support
      * @returns {Object} Mermaid configuration object
      */
     _buildMermaidConfig() {
         const mermaidConfig = configManager.getSection('mermaid');
         const { fontSize, baseFontSize } = this._getFontSizeConfig();
         const scaleFactor = fontSize / baseFontSize;
+        const isDark = this._isDarkMode();
 
         const flowchart = {
             ...mermaidConfig.flowchart,
@@ -211,14 +224,55 @@ export class MermaidRenderer {
             rankSpacing: Math.round(mermaidConfig.flowchart.rankSpacing * scaleFactor)
         };
 
+        // Build theme variables based on dark mode
+        let themeVariables = {
+            ...mermaidConfig.themeVariables,
+            fontSize: `${fontSize}px`  // Mermaid expects fontSize in themeVariables
+        };
+
+        // Override theme variables for dark mode using CSS variables
+        if (isDark) {
+            // Get CSS variables from root element
+            const root = document.documentElement;
+            const rootStyles = getComputedStyle(root);
+            
+            // Helper function to get CSS variable with fallback
+            const getVar = (varName, fallback) => 
+                rootStyles.getPropertyValue(varName).trim() || fallback;
+            
+            // Get dark mode colors from CSS variables
+            const surfaceColor = getVar('--surface-color', '#1f2937');
+            const backgroundColor = getVar('--background-color', '#2a3441'); // Slightly lighter for shape fills
+            const textPrimary = getVar('--text-primary', '#e2e8f0'); // Primary text color for lines and borders
+            const textSecondary = getVar('--text-secondary', '#a8b8d0');
+            
+            themeVariables = {
+                ...themeVariables,
+                primaryColor: backgroundColor,           // Slightly lighter background for shape fills
+                primaryBorderColor: textPrimary,      // Lighter borders/edges from CSS variable (same as lines)
+                primaryTextColor: textSecondary,        // Light gray text from CSS variable
+                mainBkg: backgroundColor,                 // Slightly lighter background for shape fills
+                secondBkg: backgroundColor,               // Slightly lighter background for shape fills
+                tertiaryColor: backgroundColor,           // Slightly lighter background for shape fills
+                altBackground: backgroundColor,            // Slightly lighter background for shape fills
+                nodeBorder: textPrimary,              // Lighter borders from CSS variable (same as lines)
+                secondaryBorderColor: textPrimary,    // Lighter borders/edges from CSS variable (same as lines)
+                tertiaryBorderColor: textPrimary,     // Lighter borders/edges from CSS variable (same as lines)
+                secondaryTextColor: textSecondary,      // Light gray text from CSS variable
+                tertiaryTextColor: textSecondary,       // Light gray text from CSS variable
+                clusterBkg: 'none',
+                clusterBorder: textPrimary,            // Lighter borders from CSS variable (same as lines)
+                lineColor: textPrimary,               // Lighter for edges/lines from CSS variable (same as borders)
+                edgeLabelBackground: surfaceColor,     // Dark background from CSS variable for edge labels
+                edgeLabelColor: textSecondary            // Light gray for edge label text from CSS variable
+            };
+        }
+
         return {
             ...mermaidConfig.default,
             fontSize,
             flowchart,
-            themeVariables: {
-                ...mermaidConfig.themeVariables,
-                fontSize: `${fontSize}px`  // Mermaid expects fontSize in themeVariables
-            },
+            themeVariables,
             sequence: mermaidConfig.sequence,
             gantt: mermaidConfig.gantt
         };
@@ -256,8 +310,13 @@ export class MermaidRenderer {
      */
     _applySVGScaling(svgElement) {
         // Set display and background for consistent appearance
+        // Get background color from CSS variable
+        const root = document.documentElement;
+        const backgroundColor = getComputedStyle(root).getPropertyValue('--surface-color').trim() || '#ffffff';
+        
         Object.assign(svgElement.style, {
-            background: 'white',
+            background: backgroundColor,
+            backgroundColor: backgroundColor,
             display: 'block'
         });
         
@@ -293,10 +352,13 @@ export class MermaidRenderer {
             
             window.mermaid.initialize(mermaidConfig);
             
-            // Create graph container
+            // Create graph container with background from CSS variable
+            const root = document.documentElement;
+            const backgroundColor = getComputedStyle(root).getPropertyValue('--surface-color').trim() || '#ffffff';
+            
             const graphDiv = document.createElement('div');
             graphDiv.id = `mermaid-graph-${++this.renderCount}-${Date.now()}`;
-            graphDiv.style.cssText = `width: 100%; height: auto; text-align: center; padding: 20px; box-sizing: border-box; overflow: visible;`;
+            graphDiv.style.cssText = `width: 100%; height: auto; text-align: center; padding: 20px; box-sizing: border-box; overflow: visible; background-color: ${backgroundColor};`;
             
             // Pre-append to container but keep invisible to allow layout calculation
             // Keep warning panel if it exists

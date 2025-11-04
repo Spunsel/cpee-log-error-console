@@ -36,8 +36,8 @@
     --primary-light: #c2d1ff;
     --primary-color-alpha: rgba(59, 130, 246, 0.12);
     --secondary-color: #64748b;
-    --error-color: #ef4444;
-    --error-text: #dc2626;
+    --error-color: #e58a8a;
+    --error-text: #d47a7a;
     --background-color: #edf2f7;
     --surface-color: #ffffff;
     --text-primary: #0f172a;
@@ -59,12 +59,12 @@
     --alert-success-text: #065f46;
     --alert-success-bg: #d1fae5;
     --alert-success-border: #6ee7b7;
-    --alert-warning-text: #92400e;
-    --alert-warning-bg: #fef3c7;
-    --alert-warning-border: #e2ae03;
-    --alert-danger-text: #8b1a1a;
-    --alert-danger-border: #d45454;
-    --alert-danger-bg: #fef0f0;
+    --alert-warning-text: #9d6a2e;
+    --alert-warning-bg: #fef7e3;
+    --alert-warning-border: #e5b84a;
+    --alert-danger-text: #9d4a4a;
+    --alert-danger-border: #d47a7a;
+    --alert-danger-bg: #fef5f5;
     
     --copy-btn-text: #475569;
     --copy-btn-border: #cbd5e1;
@@ -109,6 +109,70 @@
     
     /* Text Selection */
     --selection-bg: #c2d1ff;
+}
+
+/* ========================================
+   1.5. DARK MODE CSS VARIABLES
+   ======================================== */
+[data-theme="dark"] {
+    --primary-color: #60A5FA;
+    --primary-dark: #8bb8ff;
+    --primary-light: #3d5a7b;
+    --primary-color-alpha: rgba(107, 163, 245, 0.15);
+    --secondary-color: #a3b3c8;
+    --error-color: #f5a5a5;
+    --error-text: #f8b8b8;
+    --background-color: #2f3a49;
+    --surface-color: #252f3d;
+    --text-primary: #e2e8f0;
+    --text-secondary: #a8b8d0;
+    --text-white: #ffffff;
+    --border-color: #3d4a5f;
+    --disabled-bg: #4a5568;
+    --section-header-bg: #404b5a;
+    --copy-btn-bg: #2f3a49;
+    --nav-bar-color: #252f3d;
+    --copy-success-color: #94cc26;
+    
+    --hover-bg: rgba(107, 163, 245, 0.12);
+    --hover-bg-dark: rgba(255, 255, 255, 0.08);
+    
+    --alert-info-text: #a3c5fd;
+    --alert-info-bg: #2e4a6f;
+    --alert-info-border: #4b92f6;
+    --alert-success-text: #96efbc;
+    --alert-success-bg: #165e4b;
+    --alert-success-border: #20c991;
+    --alert-warning-text: #D5D3B3;
+    --alert-warning-border: #8F8A4B;
+    --alert-warning-bg: #1A1B14;
+    --alert-danger-text: #D3C7CA;
+    --alert-danger-border: #8A5C64;
+    --alert-danger-bg: #1A1617;
+    
+    
+    
+    --copy-btn-text: #a8b8d0;
+    --copy-btn-border: #4a5568;
+    --copy-btn-hover-bg: #3d4a5f;
+    --copy-btn-hover-border: #6a7b92;
+    --copy-btn-active-bg: #4a5568;
+    --copy-btn-focus-outline: #6ba3f5;
+    
+    --scrollbar-thumb: #4a5568;
+    --scrollbar-thumb-hover: #5a6578;
+    
+    --search-match-bg: #f5ae1b;
+    --search-match-active-bg: #6ba3f5;
+    
+    --shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.25), 0.5px 0.5px 2px 0 rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.25);
+    
+    --highlight-stroke: #f5ae1b;
+    --highlight-opacity: 0.25;
+    --highlight-active-opacity: 0.4;
+    
+    --selection-bg: #3d5a7b;
 }
 
 /* ========================================
@@ -187,6 +251,50 @@ body {
 
 .app-title:hover {
     color: var(--primary-dark);
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.dark-mode-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    width: 36px;
+    height: 36px;
+}
+
+.dark-mode-toggle-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.dark-mode-toggle-btn:active {
+    background: var(--hover-bg-dark);
+    transform: scale(0.95);
+}
+
+.dark-mode-toggle-btn:focus {
+    outline: 2px solid var(--copy-btn-focus-outline);
+    outline-offset: 2px;
+}
+
+.dark-mode-toggle-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
 }
 
 /* Main Layout */
@@ -1912,6 +2020,215 @@ section h3 {
     outline-color: var(--surface-color) !important;
 }
 
+/* ========================================
+   6.5. DARK MODE GRAPH STYLING
+   ======================================== */
+
+/* CPEE Graph Dark Mode - Dark background with light elements */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] {
+    background-color: var(--surface-color) !important;
+}
+
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg {
+    background-color: var(--surface-color) !important;
+}
+
+[data-theme="dark"] .cpee-section [id*="-graph-container"] div {
+    background-color: var(--surface-color) !important;
+}
+
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg text,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg tspan,
+[data-theme="dark"] .cpee-section svg text,
+[data-theme="dark"] .cpee-section svg tspan {
+    fill: var(--text-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* CPEE Graph - Edge label standalone text (stroke should match surface color) */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg text.label.standalone,
+[data-theme="dark"] .cpee-section svg text.label.standalone {
+    stroke: var(--surface-color) !important;
+    fill: var(--text-primary) !important;
+}
+
+/* CPEE Graph - All paths, lines, edges in light gray */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg path,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg line,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg polyline,
+[data-theme="dark"] .cpee-section svg path,
+[data-theme="dark"] .cpee-section svg line,
+[data-theme="dark"] .cpee-section svg polyline {
+    stroke: var(--text-primary) !important;
+    fill: none !important;
+}
+
+/* CPEE Graph - Arrows and markers */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg marker *,
+[data-theme="dark"] .cpee-section svg marker * {
+    fill: var(--text-primary) !important;
+    stroke: var(--text-primary) !important;
+}
+
+/* CPEE Graph - Node shapes (rectangles, circles, etc.) */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg rect,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg circle,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg ellipse,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg polygon,
+[data-theme="dark"] .cpee-section svg rect,
+[data-theme="dark"] .cpee-section svg circle,
+[data-theme="dark"] .cpee-section svg ellipse,
+[data-theme="dark"] .cpee-section svg polygon {
+    fill: var(--surface-color) !important;
+    stroke: var(--text-primary) !important;
+}
+
+/* CPEE Graph - Groups and containers */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g {
+    fill: none !important;
+}
+
+/* CPEE Graph - standwithout elements (background fill rects) */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg rect.standwithout,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg [class*="standwithout"],
+[data-theme="dark"] .cpee-section svg rect.standwithout,
+[data-theme="dark"] .cpee-section svg [class*="standwithout"] {
+    stroke: var(--surface-color) !important;
+}
+
+/* CPEE Graph - Graphics symbols (icons, images, use elements) */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg image,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg use,
+[data-theme="dark"] .cpee-section svg image,
+[data-theme="dark"] .cpee-section svg use {
+    /* Use filter to make images/icons light gray */
+    filter: brightness(0) saturate(100%) invert(85%);
+    opacity: 0.9;
+}
+
+/* CPEE Graph - Graphics symbols in paths (icon paths, symbol paths) */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="symbol"] path,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="icon"] path,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="graphic"] path,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="symbol"] *,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="icon"] *,
+[data-theme="dark"] .cpee-section svg g[class*="symbol"] path,
+[data-theme="dark"] .cpee-section svg g[class*="icon"] path,
+[data-theme="dark"] .cpee-section svg g[class*="graphic"] path,
+[data-theme="dark"] .cpee-section svg g[class*="symbol"] *,
+[data-theme="dark"] .cpee-section svg g[class*="icon"] * {
+    fill: var(--text-primary) !important;
+    stroke: var(--text-primary) !important;
+}
+
+/* CPEE Graph - Paths that are graphics symbols (not edges) - target paths inside groups that might be icons */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="node"] path:not([class*="edge"]):not([class*="line"]),
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="task"] path:not([class*="edge"]):not([class*="line"]),
+[data-theme="dark"] .cpee-section svg g[class*="node"] path:not([class*="edge"]):not([class*="line"]),
+[data-theme="dark"] .cpee-section svg g[class*="task"] path:not([class*="edge"]):not([class*="line"]) {
+    fill: var(--text-primary) !important;
+    stroke: var(--text-primary) !important;
+}
+
+/* Mermaid Graph Dark Mode - Dark background */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"],
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] {
+    background: var(--surface-color) !important;
+}
+
+/* Mermaid Graph - SVG background and all nested elements */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg {
+    background-color: var(--surface-color) !important;
+}
+
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] > div,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] > div,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] > div {
+    background-color: var(--surface-color) !important;
+}
+
+/* Mermaid Graph - All text elements */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg text,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg text,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg tspan,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg tspan,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg text,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg tspan {
+    fill: var(--text-secondary) !important;
+    color: var(--text-secondary) !important;
+}
+
+/* Mermaid Graph - All paths, lines, edges (connections/arrows) - Comprehensive targeting */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg path,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg path,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg line,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg line,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg polyline,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg polyline,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg path,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg line,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg polyline {
+    stroke: var(--text-primary) !important;
+    fill: none !important;
+}
+
+/* Mermaid Graph - Edge paths (specifically for connections between nodes) */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg .edgePath path,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg .edgePath path,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg .flowchart-link,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg .flowchart-link,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg .edgePath path,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg .flowchart-link {
+    stroke: var(--text-primary) !important;
+    fill: none !important;
+}
+
+/* Mermaid Graph - Node shapes */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] .node circle,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] .node circle,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] .node rect,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] .node rect,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] .node polygon,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] .node polygon,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] .node ellipse,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] .node ellipse {
+    fill: var(--background-color) !important;
+    stroke: var(--text-primary) !important;
+    stroke-width: 2px !important;
+}
+
+/* Mermaid Graph - Event and task nodes */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] g[id*="startevent"] circle,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] g[id*="endevent"] circle,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] g[id*="startevent"] circle,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] g[id*="endevent"] circle,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] g[id*="task"] rect,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] g[id*="task"] rect {
+    fill: var(--background-color) !important;
+    stroke: var(--text-primary) !important;
+    stroke-width: 2px !important;
+}
+
+/* Mermaid Graph - Gateway and decision nodes */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] g[id*="gateway"] *,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] g[id*="decision"] *,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] g[id*="gateway"] *,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] g[id*="decision"] * {
+    fill: var(--background-color) !important;
+    stroke: var(--text-primary) !important;
+    stroke-width: 2px !important;
+}
+
+/* Mermaid Graph - Arrows and markers */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg marker *,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg marker *,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg marker * {
+    fill: var(--text-primary) !important;
+    stroke: var(--text-primary) !important;
+}
+
 /* Graph Element Isolation */
 [id*="step-"][id*="-input"],
 [id*="step-"][id*="-modelling"],
@@ -2087,6 +2404,13 @@ section h3 {
     text-overflow: ellipsis;
 }
 
+/* Dark mode: Brighter section title text */
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .section h3,
+[data-theme="dark"] section h3 {
+    color: #f1f5f9;
+}
+
 /* Toggle Button Container */
 .view-mode-toggle {
     display: flex;
@@ -2112,7 +2436,7 @@ section h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #0f172a; /* SVG color for inactive buttons */
+    color: var(--text-primary); /* Use CSS variable for theme-aware color */
     flex: 1; /* Fill available width equally */
     height: 100%; /* Fill the toggle container height */
     margin-bottom: -1px; /* Extend below to cover border */
@@ -2125,15 +2449,97 @@ section h3 {
 
 .toggle-btn.active {
     background: var(--surface-color);
-    color: var(--primary-dark);
+    color: var(--primary-color); /* Use primary color for active state */
     box-shadow: 0 1px 2px var(--hover-bg-dark);
 }
 
-/* Toggle Button Icons */
+/* Toggle Button Icons - Match CPEE graph element colors */
 .toggle-btn svg {
     display: block;
     width: 25px;
     height: 25px;
+    fill: currentColor;
+    stroke: currentColor;
+    color: inherit;
+}
+
+/* CPEE Section Toggle Buttons - Match graph element colors */
+.cpee-section .toggle-btn,
+#input-cpee .toggle-btn,
+#output-cpee .toggle-btn {
+    color: var(--text-primary) !important;
+}
+
+.cpee-section .toggle-btn.active,
+#input-cpee .toggle-btn.active,
+#output-cpee .toggle-btn.active {
+    color: var(--primary-color) !important;
+}
+
+/* CPEE Section Toggle Button SVG Icons */
+.cpee-section .toggle-btn svg,
+#input-cpee .toggle-btn svg,
+#output-cpee .toggle-btn svg {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+}
+
+/* CPEE Section Toggle Button SVG nested elements (paths, groups, etc.) */
+.cpee-section .toggle-btn svg path,
+.cpee-section .toggle-btn svg g,
+.cpee-section .toggle-btn svg *,
+#input-cpee .toggle-btn svg path,
+#input-cpee .toggle-btn svg g,
+#input-cpee .toggle-btn svg *,
+#output-cpee .toggle-btn svg path,
+#output-cpee .toggle-btn svg g,
+#output-cpee .toggle-btn svg * {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+}
+
+/* Dark mode: CPEE toggle buttons use same colors as graph elements */
+[data-theme="dark"] .cpee-section .toggle-btn,
+[data-theme="dark"] #input-cpee .toggle-btn,
+[data-theme="dark"] #output-cpee .toggle-btn {
+    color: var(--text-primary) !important; /* Lighter color like graph text */
+}
+
+[data-theme="dark"] .cpee-section .toggle-btn.active,
+[data-theme="dark"] #input-cpee .toggle-btn.active,
+[data-theme="dark"] #output-cpee .toggle-btn.active {
+    color: var(--primary-color) !important; /* Keep primary color for active state */
+}
+
+[data-theme="dark"] .cpee-section .toggle-btn:hover,
+[data-theme="dark"] #input-cpee .toggle-btn:hover,
+[data-theme="dark"] #output-cpee .toggle-btn:hover {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .cpee-section .toggle-btn svg,
+[data-theme="dark"] #input-cpee .toggle-btn svg,
+[data-theme="dark"] #output-cpee .toggle-btn svg {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+}
+
+/* Dark mode: CPEE toggle button SVG nested elements (paths, groups, etc.) */
+[data-theme="dark"] .cpee-section .toggle-btn svg path,
+[data-theme="dark"] .cpee-section .toggle-btn svg g,
+[data-theme="dark"] .cpee-section .toggle-btn svg *,
+[data-theme="dark"] #input-cpee .toggle-btn svg path,
+[data-theme="dark"] #input-cpee .toggle-btn svg g,
+[data-theme="dark"] #input-cpee .toggle-btn svg *,
+[data-theme="dark"] #output-cpee .toggle-btn svg path,
+[data-theme="dark"] #output-cpee .toggle-btn svg g,
+[data-theme="dark"] #output-cpee .toggle-btn svg * {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
 }
 
 /* Log mode button styling
@@ -2429,7 +2835,33 @@ section h3 {
    STYLING AND UX ENHANCEMENTS
    ======================================== */
 
-/* Scrollbar Styling - Enhanced */
+/* Global Scrollbar Styling - Webkit (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--surface-color);
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 5px;
+    transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+/* Global Firefox Scrollbar */
+* {
+    scrollbar-color: var(--scrollbar-thumb) var(--surface-color);
+    scrollbar-width: thin;
+}
+
+/* Scrollbar Styling - Enhanced (for specific elements, inherits from global) */
 .raw-code-block::-webkit-scrollbar,
 .raw-text-block::-webkit-scrollbar {
     width: 10px;

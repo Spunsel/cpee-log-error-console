@@ -462,20 +462,37 @@ export class ConfigManager {
             codeBlockBackground: 'var(--surface-color)', // Background of entire code block (pre element) - null = use theme default
             // Color overrides for syntax highlighting tokens
             colors: {
-                // XML/HTML specific
+                // XML/HTML specific - Light mode
                 tag: '#374151', // XML tags (e.g., <process>, <task>) - null = use theme default
                 attrName: '#2563eb', // Attribute names (e.g., name="value") - modern cyan-teal for crisp readability
                 attrValue: '#b91c1c', // Attribute values - vibrant coral-pink that pops beautifully against light background
                 punctuation: '#9ca3af', // Punctuation like < > = " - neutral gray-blue, keeps structure subtle
-                textContent: '#008000' // Text content inside tags (e.g., "Task X" in <label>Task X</label>) - warm amber focal accent
+                textContent: '#008000', // Text content inside tags (e.g., "Task X" in <label>Task X</label>) - warm amber focal accent
+                // Dark mode colors
+                dark: {
+                    tag: '#a8b8d0', // Softer light gray for tags
+                    attrName: '#6ba3f5', // Softer blue for attribute names
+                    attrValue: '#f5a5a5', // Softer red/pink for attribute values
+                    punctuation: '#94a3b8', // Softer gray for punctuation
+                    textContent: '#86efac' // Softer green for text content
+                }
             },
             // Mermaid-specific syntax highlighting colors
             mermaid: {
+                // Light mode
                 id: '#b91c1c', // Node IDs (e.g., "se", "a2", "gw1s") - red
                 punctuation: '#9ca3af', // Punctuation (., :, (, ), -, >, etc.) - gray
                 parentheses: '#008000', // Text in parentheses (e.g., "startevent", "Task X") - orange
                 condition: '#2563eb', // Conditions in pipes (e.g., |"true"|, |"Results Require"|) - blue
-                default: '#374151' // Everything else (keywords, node types) - black
+                default: '#374151', // Everything else (keywords, node types) - black
+                // Dark mode colors
+                dark: {
+                    id: '#f5a5a5', // Softer red for node IDs
+                    punctuation: '#94a3b8', // Softer gray for punctuation
+                    parentheses: '#86efac', // Softer green for parentheses content
+                    condition: '#6ba3f5', // Softer blue for conditions
+                    default: '#a8b8d0' // Softer light gray for default text
+                }
             }             
         };
     }

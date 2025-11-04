@@ -140,9 +140,14 @@ export class CPEEWfAdaptorRenderer {
      */
     setupContainer() {
         this.container.innerHTML = '';
+        
+        // Get background color from CSS variable
+        const root = document.documentElement;
+        const backgroundColor = getComputedStyle(root).getPropertyValue('--surface-color').trim() || (configManager.get('rendering.containers.graphContainer.background') || '#ffffff');
+        
         // Don't override container styling - let parent determine size
         this.container.style.cssText = `
-            background: ${configManager.get('rendering.containers.graphContainer.background')};
+            background: ${backgroundColor};
             position: relative;
             width: ${configManager.get('rendering.containers.graphContainer.width')};
             height: auto;
@@ -152,11 +157,11 @@ export class CPEEWfAdaptorRenderer {
         const graphDiv = document.createElement('div');
         graphDiv.id = `modelling-${this.container.id}`;
         const minHeight = configManager.get('rendering.containers.graphContainer.minHeight');
-        graphDiv.style.cssText = `width: 100%; height: auto; position: relative; min-height: ${minHeight};`;
+        graphDiv.style.cssText = `width: 100%; height: auto; position: relative; min-height: ${minHeight}; background: ${backgroundColor};`;
         
         const gridDiv = document.createElement('div');
         gridDiv.id = `graphgrid-${this.container.id}`;
-        gridDiv.style.cssText = `width: 100%; height: auto; min-height: ${minHeight};`;
+        gridDiv.style.cssText = `width: 100%; height: auto; min-height: ${minHeight}; background: ${backgroundColor};`;
         
         // Create SVG element for CPEE rendering with unique ID
         this.svgContainer = document.createElementNS(configManager.get('rendering.svg.namespace'), 'svg');
@@ -164,7 +169,7 @@ export class CPEEWfAdaptorRenderer {
         this.svgContainer.setAttribute('xmlns', configManager.get('rendering.svg.namespace'));
         this.svgContainer.setAttribute('version', configManager.get('rendering.svg.version'));
         this.svgContainer.setAttribute('xmlns:x', configManager.get('rendering.svg.xmlnsX'));
-        this.svgContainer.style.cssText = 'display: block; width: auto; height: auto;';
+        this.svgContainer.style.cssText = `display: block; width: auto; height: auto; background-color: ${backgroundColor};`;
         
         gridDiv.appendChild(this.svgContainer);
         graphDiv.appendChild(gridDiv);

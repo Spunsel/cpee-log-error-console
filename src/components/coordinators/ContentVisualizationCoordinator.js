@@ -35,11 +35,18 @@ export class ContentVisualizationCoordinator {
         this.currentInputCpeeXml = null;
         this.currentOutputCpeeXml = null;
         
+        // Store current Mermaid code for re-rendering on dark mode change
+        this.currentInputMermaidCode = null;
+        this.currentOutputMermaidCode = null;
+        
         // Scale management - listen for scale changes to coordinate all renderers
         this.setupScaleListener();
         
         // Theme management - listen for theme changes to re-render CPEE graphs
         this.setupThemeListener();
+        
+        // Dark mode management - listen for dark mode changes to re-render all graphs
+        this.setupDarkModeListener();
     }
     
     /**
@@ -72,6 +79,37 @@ export class ContentVisualizationCoordinator {
             // Re-render output CPEE graph if we have stored XML
             if (this.currentOutputCpeeXml) {
                 await this.updateOutputCpeeSection(this.currentOutputCpeeXml);
+            }
+        });
+    }
+    
+    /**
+     * Setup event listener for dark mode changes
+     * Re-renders all graphs (CPEE and Mermaid) when dark mode toggles
+     */
+    setupDarkModeListener() {
+        this.eventBus.on('darkMode:toggled', async (data) => {
+            const isDark = data.isDark;
+            console.log(`[ContentVisualizationCoordinator] Dark mode toggled to ${isDark}, re-rendering all graphs...`);
+            
+            // Re-render input CPEE graph if we have stored XML
+            if (this.currentInputCpeeXml) {
+                await this.updateInputCpeeSection(this.currentInputCpeeXml);
+            }
+            
+            // Re-render output CPEE graph if we have stored XML
+            if (this.currentOutputCpeeXml) {
+                await this.updateOutputCpeeSection(this.currentOutputCpeeXml);
+            }
+            
+            // Re-render input Mermaid diagram if we have stored code
+            if (this.currentInputMermaidCode) {
+                await this.updateInputIntermediateSection(this.currentInputMermaidCode);
+            }
+            
+            // Re-render output Mermaid diagram if we have stored code
+            if (this.currentOutputMermaidCode) {
+                await this.updateOutputIntermediateSection(this.currentOutputMermaidCode);
             }
         });
     }
@@ -247,6 +285,9 @@ export class ContentVisualizationCoordinator {
      * @param {string} content - Mermaid diagram content
      */
     async updateInputIntermediateSection(content) {
+        // Store Mermaid code for re-rendering on dark mode change
+        this.currentInputMermaidCode = content;
+        
         const inputIntermediateElement = this.domRegistry.getElementSafe('inputIntermediateContent');
         if (!inputIntermediateElement) {
             return;
@@ -313,6 +354,9 @@ export class ContentVisualizationCoordinator {
      * @param {string} content - Mermaid diagram content
      */
     async updateOutputIntermediateSection(content) {
+        // Store Mermaid code for re-rendering on dark mode change
+        this.currentOutputMermaidCode = content;
+        
         const outputIntermediateElement = this.domRegistry.getElementSafe('outputIntermediateContent');
         if (!outputIntermediateElement) {
             return;

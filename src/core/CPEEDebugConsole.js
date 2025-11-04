@@ -11,6 +11,7 @@ import { InstanceLoaderViewer } from '../components/views/InstanceLoaderViewer.j
 import { RawContentCoordinator } from '../components/coordinators/RawContentCoordinator.js';
 import { HighlightCoordinator } from '../components/coordinators/HighlightCoordinator.js';
 import { BugReportModal } from '../components/ui/BugReportModal.js';
+import { DarkModeToggle } from '../components/ui/DarkModeToggle.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 import { eventBus } from './EventBus.js';
 import { serviceFactory } from './ServiceFactory.js';
@@ -36,6 +37,7 @@ export class CPEEDebugConsole {
         this.logViewer = new LogViewer(this.domRegistry, this.eventBus, this.stateManager);
         this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager);
         this.bugReportModal = new BugReportModal();
+        this.darkModeToggle = new DarkModeToggle(this.domRegistry, this.eventBus);
         
         this.setupEventBusListeners();
         
@@ -87,6 +89,13 @@ export class CPEEDebugConsole {
         
         // Initialize sidebar toggle functionality
         this.sidebar.initializeToggle();
+        
+        // Initialize dark mode toggle
+        const darkModeContainer = document.getElementById('dark-mode-toggle-container');
+        if (darkModeContainer) {
+            this.darkModeToggle.initialize(darkModeContainer);
+        }
+        
         this.setupEventListeners();
         this.setupBugReportModal();
         
