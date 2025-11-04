@@ -220,6 +220,7 @@ export class ActionBar {
             return;
         }
         
+        const wasCollapsed = this.isCollapsed;
         this.isCollapsed = !this.isCollapsed;
         
         if (this.isCollapsed) {
@@ -232,6 +233,17 @@ export class ActionBar {
             this.collapseButton.innerHTML = ICONS.ACTIONBAR_COLLAPSE;
             this.collapseButton.setAttribute('aria-label', 'Collapse action bar');
             this.collapseButton.setAttribute('title', 'Collapse action bar');
+            
+            // Autofocus search box when expanding
+            // Use requestAnimationFrame to ensure DOM is updated and visible
+            if (wasCollapsed) {
+                requestAnimationFrame(() => {
+                    // Small delay to ensure CSS transition starts and element is visible
+                    setTimeout(() => {
+                        this.focusSearch();
+                    }, 50);
+                });
+            }
         }
     }
 
