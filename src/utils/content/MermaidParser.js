@@ -101,17 +101,6 @@ export class MermaidParser {
             });
         }
         
-        // Fix 4: Handle triple parentheses in node shapes
-        const beforeFix4 = processedCode;
-        const fix4LineNumbers = findLineNumbersMultiLine(processedCode, /\(\(\(([^)]+)\)\)\)/g);
-        processedCode = processedCode.replace(/\(\(\(([^)]+)\)\)\)/g, '(($1))');
-        if (beforeFix4 !== processedCode) {
-            appliedSteps.push({
-                description: 'Fixed triple parentheses in node shapes',
-                lineNumbers: Array.from(new Set(fix4LineNumbers)).sort((a, b) => a - b)
-            });
-        }
-        
         // Fix 5: Remove empty parentheses - DISABLED: preserve empty parentheses like ()
         // Removed to preserve empty parentheses in Mermaid code (e.g., a1:task:())
         
