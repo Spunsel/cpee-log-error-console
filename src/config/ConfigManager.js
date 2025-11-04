@@ -44,8 +44,8 @@ export class ConfigManager {
             cors: {
                 proxies: [
                     'https://corsproxy.io/?',
-                    'https://api.allorigins.win/raw?url=',
-                    'https://cors-anywhere.herokuapp.com/'
+                    'https://api.cors.lol/?url=',
+                    'https://api.codetabs.com/v1/proxy?quest='
                 ],
                 timeout: 15000,
                 retryCount: 3

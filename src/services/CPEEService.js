@@ -4,6 +4,7 @@
  */
 
 import { configManager } from '../config/ConfigManager.js';
+import { proxyRotationService } from './ProxyRotationService.js';
 
 export class CPEEService {
     constructor() {
@@ -46,9 +47,8 @@ export class CPEEService {
             this.logDebug(`Fetching UUID for process number: ${processNumber}`);
             this.logDebug(`URL: ${uuidUrl}`);
             
-            // Use CORS proxy to fetch the UUID
-            const proxies = this.configManager.get('api.cors.proxies');
-            const response = await fetch(proxies[0] + encodeURIComponent(uuidUrl), {
+            // Use proxy rotation service with rate limit handling
+            const response = await proxyRotationService.fetchWithRotation(uuidUrl, {
                 method: 'GET',
                 headers: {
                     'Accept': this.configManager.get('api.headers.jsonAccept')

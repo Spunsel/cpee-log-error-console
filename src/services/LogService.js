@@ -11,6 +11,7 @@ import { TaskMapper } from '../utils/mapping/TaskMapper.js';
 import { CPEEStep } from '../models/CPEEStep.js';
 import { LogParser } from '../utils/content/LogParser.js';
 import { configManager } from '../config/ConfigManager.js';
+import { proxyRotationService } from './ProxyRotationService.js';
 
 export class LogService {
 
@@ -29,56 +30,39 @@ export class LogService {
         
         const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
         
-        // Try each proxy in sequence
-        const proxies = configManager.get('api.cors.proxies');
-        for (let i = 0; i < proxies.length; i++) {
-            const proxy = proxies[i];
+        // Use proxy rotation service with rate limit handling
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), configManager.get('network.timeouts.default'));
             
-            try {
-                console.log(`Trying proxy ${i + 1}/${proxies.length}: ${proxy}`);
-                
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), configManager.get('network.timeouts.default'));
-                
-                const response = await fetch(proxy + encodeURIComponent(logUrl), {
-                    method: 'GET',
-                    headers: {
-                        'Accept': configManager.get('api.headers.yamlAccept')
-                    },
-                    signal: controller.signal
-                });
-                
-                clearTimeout(timeoutId);
-                
-                if (!response.ok) {
-                    throw new Error(`LogService: HTTP ${response.status} - ${response.statusText}`);
-                }
-                
-                console.log(`Log fetched successfully via proxy ${i + 1}`);
-                const yamlContent = await response.text();
-                
-                if (!yamlContent || yamlContent.length < 10) {
-                    throw new Error('LogService: Received empty or invalid log response');
-                }
-                
-                console.log(`Log content size: ${yamlContent.length} characters`);
-                
-                const events = LogParser.parseYAMLMultiDocument(yamlContent);
-                console.log(`Parsed ${events.length} events from log`);
-                
-                return events;
-                
-            } catch (error) {
-                console.warn(`Proxy ${i + 1} failed:`, error.message);
-                
-                // If this is the last proxy, throw the error
-                if (i === proxies.length - 1) {
-                    if (error.name === 'AbortError') {
-                        throw new Error('LogService: All proxies timed out - log file may be large or servers are slow');
-                    }
-                    throw new Error(`LogService: All proxies failed - ${error.message}`);
-                }
+            const response = await proxyRotationService.fetchWithRotation(logUrl, {
+                method: 'GET',
+                headers: {
+                    'Accept': configManager.get('api.headers.yamlAccept')
+                },
+                signal: controller.signal
+            });
+            
+            clearTimeout(timeoutId);
+            
+            const yamlContent = await response.text();
+            
+            if (!yamlContent || yamlContent.length < 10) {
+                throw new Error('LogService: Received empty or invalid log response');
             }
+            
+            console.log(`Log content size: ${yamlContent.length} characters`);
+            
+            const events = LogParser.parseYAMLMultiDocument(yamlContent);
+            console.log(`Parsed ${events.length} events from log`);
+            
+            return events;
+            
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                throw new Error('LogService: All proxies timed out - log file may be large or servers are slow');
+            }
+            throw new Error(`LogService: Failed to fetch log - ${error.message}`);
         }
     }
 
