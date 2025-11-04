@@ -174,7 +174,8 @@ export class ConfigManager {
                 maxAttempts: 3,
                 backoffMultiplier: 1.5,
                 initialDelay: 1000
-            }
+            },
+            interRequestDelay: 10  // Delay between consecutive log fetch requests (in milliseconds)
         };
     }
 
