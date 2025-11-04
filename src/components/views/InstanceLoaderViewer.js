@@ -400,11 +400,11 @@ export class InstanceLoaderViewer {
         // Helper function to finish scanning
         const finishScan = () => {
             const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-            console.log(`✓ Scan complete! Checked ${instancesToCheck.length} instances, found ${instancesWithSteps.length} instances with steps in ${elapsed} seconds`);
+            console.log(`✓ Scan complete! Checked ${instancesToCheck.length} instances, found ${instancesWithSteps.length} CPEE LLM Instances in ${elapsed} seconds`);
             
             if (scanButton) {
                 scanButton.disabled = false;
-                scanButton.textContent = 'Scan for Instances with Steps';
+                scanButton.textContent = 'Scan for CPEE LLM Instances';
             }
             
             try {
@@ -415,11 +415,11 @@ export class InstanceLoaderViewer {
             
             if (instancesWithSteps.length === 0) {
                 if (instanceList) {
-                    instanceList.innerHTML = '<p style="color: var(--text-secondary); font-style: italic;">No instances with steps found in the specified range.</p>';
+                    instanceList.innerHTML = '<p style="color: var(--text-secondary); font-style: italic;">No CPEE LLM Instances found in the specified range.</p>';
                 }
             } else {
                 const foundNumbers = instancesWithSteps.map(i => i.processNumber).sort((a, b) => a - b);
-                console.log(`Instances with steps (${foundNumbers.length} total): ${foundNumbers.join(', ')}`);
+                console.log(`CPEE LLM Instances (${foundNumbers.length} total): ${foundNumbers.join(', ')}`);
             }
         };
         
