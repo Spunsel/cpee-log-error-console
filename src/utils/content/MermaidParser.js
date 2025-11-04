@@ -85,7 +85,7 @@ export class MermaidParser {
         processedCode = processedCode.replace(/(\w+:\w+:)\s+(\([^)]+\))/g, '$1$2');
         if (beforeFix3 !== processedCode) {
             appliedSteps.push({
-                description: 'Removed spaces after node IDs',
+                description: 'Removed spaces after task ID',
                 lineNumbers: Array.from(new Set(fix3LineNumbers)).sort((a, b) => a - b)
             });
         }
@@ -121,7 +121,7 @@ export class MermaidParser {
         processedCode = processedCode.replace(/:(\w+):\s+\{x\}/g, ':$1:{x}');
         if (beforeFix8 !== processedCode) {
             appliedSteps.push({
-                description: 'Removed space between node type and {',
+                description: 'Removed space after gateway ID',
                 lineNumbers: Array.from(new Set(fix8LineNumbers)).sort((a, b) => a - b)
             });
             }

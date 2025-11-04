@@ -8,6 +8,7 @@ import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { LogService } from '../../services/LogService.js';
+import { proxyRotationService } from '../../services/ProxyRotationService.js';
 
 export class InstanceLoaderViewer {
     constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null) {
@@ -372,7 +373,20 @@ export class InstanceLoaderViewer {
         
         // Helper function to get delay between requests
         // Delay between log fetches to prevent rate limiting (configurable via network.interRequestDelay)
-        const getInterRequestDelay = () => configManager.get('network.interRequestDelay', 10);
+        // Proxies 2 and 3 (indices 1 and 2) are faster, so use shorter delay for them
+        const getInterRequestDelay = () => {
+            const baseDelay = configManager.get('network.interRequestDelay', 10);
+            const currentProxyIndex = proxyRotationService.getCurrentIndex();
+            
+            // Proxy 1 (index 0): use base delay
+            // Proxies 2 and 3 (indices 1 and 2): use shorter delay since they're faster
+            if (currentProxyIndex === 1 || currentProxyIndex === 2) {
+                // Use half the delay for faster proxies
+                return Math.max(5, Math.floor(baseDelay / 2));
+            }
+            
+            return baseDelay;
+        };
         
         // Helper function to continue scanning
         const continueScan = (delay = getInterRequestDelay()) => {
