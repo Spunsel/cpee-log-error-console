@@ -121,7 +121,7 @@ export class MermaidParser {
         processedCode = processedCode.replace(/:(\w+):\s+\{x\}/g, ':$1:{x}');
         if (beforeFix8 !== processedCode) {
             appliedSteps.push({
-                description: 'Removed space between node type and {x}',
+                description: 'Removed space between node type and {',
                 lineNumbers: Array.from(new Set(fix8LineNumbers)).sort((a, b) => a - b)
             });
             }
@@ -266,9 +266,11 @@ export class MermaidParser {
             error.expected = ['flowchart', 'graph', 'stateDiagram', 'stateDiagram-v2', 'sequenceDiagram', 'journey'];
             
             // Extract the diagram type that was found (if any) for error message
+            // Get the full first token (e.g., "bpmn-lr" not just "bpmn")
             const lines = cleanedCode.split('\n');
             const problematicLine = lines[0] || '';
-            const diagramTypeMatch = problematicLine.match(/^\s*(\w+)/);
+            // Extract the first token (word characters, hyphens, underscores, etc. up to first whitespace)
+            const diagramTypeMatch = problematicLine.match(/^\s*([^\s]+)/);
             error.got = diagramTypeMatch ? diagramTypeMatch[1] : 'unknown';
             
             throw error;

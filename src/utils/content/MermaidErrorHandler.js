@@ -57,7 +57,9 @@ export class MermaidErrorHandler {
             'parse failed',
             'line',
             'token',
-            'lexer error'
+            'lexer error',
+            'no diagram type detected',
+            'diagram type'
         ];
 
         // Check if error message contains syntax error indicators
@@ -91,6 +93,25 @@ export class MermaidErrorHandler {
         
         if (error?.validationType) {
             formattedMessage = this.formatValidationError(error);
+        } else {
+            // Check if this is a "No diagram type detected" error from Mermaid.js
+            const message = error?.message || '';
+            const noDiagramTypeMatch = message.match(/No diagram type detected matching given configuration for text:\s*(\w+)/i);
+            if (noDiagramTypeMatch && codeToUse) {
+                // Extract the actual diagram type from the first line of code (not from error message)
+                // The error message might only have "bpmn" but the code might have "bpmn-lr"
+                const lines = codeToUse.split('\n');
+                const firstLine = lines[0] || '';
+                // Extract the first word/token from the first line (e.g., "bpmn-lr" from "bpmn-lr")
+                const actualDiagramType = firstLine.trim().split(/\s+/)[0] || noDiagramTypeMatch[1];
+                
+                // Format this as a syntax error with proper structure
+                formattedMessage = this.formatMissingDiagramTypeError(actualDiagramType, codeToUse);
+                // Mark as validation error so it gets treated as syntax error
+                error.validationType = 'missingDiagramType';
+                error.expected = ['flowchart', 'graph', 'stateDiagram', 'stateDiagram-v2', 'sequenceDiagram', 'journey'];
+                error.got = actualDiagramType;
+            }
         }
         
         const categorizedError = {
@@ -115,6 +136,42 @@ export class MermaidErrorHandler {
     }
 
     /**
+     * Format missing diagram type error from Mermaid.js
+     * @param {string} got - The diagram type that was found (invalid)
+     * @param {string} code - The Mermaid code
+     * @returns {string} Formatted error message in Mermaid syntax error format
+     */
+    static formatMissingDiagramTypeError(got, code) {
+        if (!code) {
+            return `No diagram type detected matching given configuration for text: ${got}`;
+        }
+        
+        const lines = code.split('\n');
+        const errorLineIndex = 0; // First line is where diagram type should be
+        const errorLineNumber = errorLineIndex + 1;
+        const problematicLine = lines[errorLineIndex] || '';
+        
+        // Get the next line if available (for context like "direction LR")
+        const nextLine = lines[errorLineIndex + 1] || '';
+        
+        // Format expected values
+        const expected = ['flowchart', 'graph', 'stateDiagram', 'stateDiagram-v2', 'sequenceDiagram', 'journey'];
+        const expectedStr = expected.map(v => `'${v}'`).join(' or ');
+        
+        // Build error message in exact Mermaid syntax error format
+        // Format matches: "Parse error on line 1:\n\nbpmn\ndirection LR\nExpected: ...\nGot: ..."
+        let errorMessage = `Parse error on line ${errorLineNumber}:\n\n`;
+        errorMessage += `${problematicLine}`;
+        if (nextLine) {
+            errorMessage += `\n${nextLine}`;
+        }
+        errorMessage += `\n\nExpected: ${expectedStr}\n`;
+        errorMessage += `Got: ${got}`;
+        
+        return errorMessage;
+    }
+
+    /**
      * Format validation error as Mermaid syntax error
      * @param {Error} error - Validation error with metadata
      * @returns {string} Formatted error message in Mermaid syntax error format
@@ -134,12 +191,8 @@ export class MermaidErrorHandler {
             const errorLineNumber = errorLineIndex + 1;
             const problematicLine = lines[errorLineIndex] || '';
             
-            // Find where the error is (start of the line for diagram type)
-            const errorColumn = problematicLine.length > 0 ? 1 : 1;
-            
-            // Build caret indicator line (dashes up to error position, then caret)
-            const caretDashes = '-'.repeat(Math.max(0, errorColumn - 1));
-            const caretLine = caretDashes + '^';
+            // Get the next line if available (for context like "direction LR")
+            const nextLine = lines[errorLineIndex + 1] || '';
             
             // Format expected values
             const expectedStr = error.expected ? 
@@ -147,10 +200,14 @@ export class MermaidErrorHandler {
                 "'flowchart' or 'graph'";
             
             // Build error message in exact Mermaid syntax error format
-            let errorMessage = `Parse error on line ${errorLineNumber}:\n`;
-            errorMessage += `${problematicLine}\n`;
-            errorMessage += `${caretLine}\n`;
-            errorMessage += `Expecting ${expectedStr}, got '${error.got || 'unknown'}'`;
+            // Format matches: "Parse error on line 1:\n\nbpmn\ndirection LR\nExpected: ...\nGot: ..."
+            let errorMessage = `Parse error on line ${errorLineNumber}:\n\n`;
+            errorMessage += `${problematicLine}`;
+            if (nextLine) {
+                errorMessage += `\n${nextLine}`;
+            }
+            errorMessage += `\n\nExpected: ${expectedStr}\n`;
+            errorMessage += `Got: ${error.got || 'unknown'}`;
             
             return errorMessage;
         }
@@ -242,22 +299,62 @@ export class MermaidErrorHandler {
             parsed.caretPositionInSnippet = null; // Will be inferred later
         }
 
-        // Try to extract "Expecting" and "got" parts
-        // Format: "Expecting 'TOKEN1', 'TOKEN2', ..., got 'TOKEN'"
-        const expectingMatch = message.match(/Expecting\s+(.+?),\s+got\s+'([^']+)'/i);
-        if (expectingMatch) {
-            // Clean up the expecting part - it may contain multiple quoted tokens
-            let expectingText = expectingMatch[1].trim();
-            // Remove trailing commas and clean up
-            expectingText = expectingText.replace(/,\s*$/, '').trim();
-            parsed.expecting = expectingText;
-            parsed.got = expectingMatch[2];
+        // Try to extract "Expected:" and "Got:" parts (new format)
+        // Format: "Expected: 'TOKEN1' or 'TOKEN2' or ...\nGot: TOKEN"
+        const expectedMatch = message.match(/Expected:\s*(.+?)(?:\n|$)/i);
+        const gotMatch = message.match(/Got:\s*(\S+)/i);
+        
+        if (expectedMatch && gotMatch) {
+            // Clean up the expected part - remove quotes and 'or' separators
+            let expectedText = expectedMatch[1].trim();
+            // Remove quotes and 'or' to get clean list
+            expectedText = expectedText.replace(/'/g, '').replace(/\s+or\s+/g, ' or ').trim();
+            parsed.expecting = expectedText;
+            parsed.got = gotMatch[1].trim();
         } else {
-            // Try simpler format: "Expecting 'TOKEN', got 'TOKEN'"
-            const simpleMatch = message.match(/Expecting\s+'([^']+)'[\s,]+got\s+'([^']+)'/i);
-            if (simpleMatch) {
-                parsed.expecting = simpleMatch[1];
-                parsed.got = simpleMatch[2];
+            // Try old format: "Expecting 'TOKEN1', 'TOKEN2', ..., got 'TOKEN'"
+            const expectingMatch = message.match(/Expecting\s+(.+?),\s+got\s+'([^']+)'/i);
+            if (expectingMatch) {
+                // Clean up the expecting part - it may contain multiple quoted tokens
+                let expectingText = expectingMatch[1].trim();
+                // Remove trailing commas and clean up
+                expectingText = expectingText.replace(/,\s*$/, '').trim();
+                parsed.expecting = expectingText;
+                parsed.got = expectingMatch[2];
+            } else {
+                // Try simpler format: "Expecting 'TOKEN', got 'TOKEN'"
+                const simpleMatch = message.match(/Expecting\s+'([^']+)'[\s,]+got\s+'([^']+)'/i);
+                if (simpleMatch) {
+                    parsed.expecting = simpleMatch[1];
+                    parsed.got = simpleMatch[2];
+                }
+            }
+        }
+        
+        // Also try to extract code lines from error message if not found in snippet
+        // Look for lines after "Parse error on line X:" that look like code
+        if (!snippetLine && parsed.lineNumber) {
+            const messageLines = message.split('\n');
+            // Find the line after "Parse error on line X:"
+            for (let i = 0; i < messageLines.length; i++) {
+                if (messageLines[i].includes('Parse error on line')) {
+                    // The next line(s) should be the code
+                    if (i + 1 < messageLines.length) {
+                        const codeLine1 = messageLines[i + 1].trim();
+                        const codeLine2 = i + 2 < messageLines.length ? messageLines[i + 2].trim() : null;
+                        // Check if these look like code (not empty, not "Expected:", not "Got:")
+                        if (codeLine1 && !codeLine1.startsWith('Expected:') && !codeLine1.startsWith('Got:')) {
+                            snippetLine = codeLine1;
+                            if (codeLine2 && !codeLine2.startsWith('Expected:') && !codeLine2.startsWith('Got:')) {
+                                // Store both lines as context
+                                parsed.errorSnippet = `${codeLine1}\n${codeLine2}`;
+                            } else {
+                                parsed.errorSnippet = codeLine1;
+                            }
+                        }
+                        break;
+                    }
+                }
             }
         }
 
