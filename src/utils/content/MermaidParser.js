@@ -79,17 +79,6 @@ export class MermaidParser {
             });
         }
         
-        // Fix 2: Handle problematic node IDs starting with numbers or special chars
-        const beforeFix2 = processedCode;
-        const fix2LineNumbers = findLineNumbersMultiLine(processedCode, /(\W|^)(-\d+)(:\w+)/g);
-        processedCode = processedCode.replace(/(\W|^)(-\d+)(:\w+)/g, (match, prefix, number, suffix) => prefix + 'N' + number.replace('-', '') + suffix.replace(':', '_'));
-        if (beforeFix2 !== processedCode) {
-            appliedSteps.push({
-                description: 'Fixed problematic node IDs (prefix with N, replace special chars)',
-                lineNumbers: Array.from(new Set(fix2LineNumbers)).sort((a, b) => a - b)
-            });
-        }
-        
         // Fix 3: Remove spaces after node IDs that cause parsing issues
         const beforeFix3 = processedCode;
         const fix3LineNumbers = findLineNumbersMultiLine(processedCode, /(\w+:\w+:)\s+(\([^)]+\))/g);
