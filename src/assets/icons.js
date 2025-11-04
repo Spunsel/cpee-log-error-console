@@ -435,6 +435,22 @@ export const ICON_SUN = `
     </svg>
 `;
 
+/**
+ * Info icon - Information indicator
+ * Represents information/help content - 20x20px for info buttons
+ */
+export const ICON_INFO = `
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </g>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -476,7 +492,8 @@ export const ICONS = {
     WARNING: ICON_WARNING,
     // Dark mode icons
     MOON: ICON_MOON,
-    SUN: ICON_SUN
+    SUN: ICON_SUN,
+    INFO: ICON_INFO
 };
 
 /**
@@ -512,7 +529,8 @@ export function getIcon(iconName) {
         'theme': ICON_THEME,
         // Dark mode icons
         'moon': ICON_MOON,
-        'sun': ICON_SUN
+        'sun': ICON_SUN,
+        'info': ICON_INFO
     };
 
     return iconMap[iconName.toLowerCase()] || '';

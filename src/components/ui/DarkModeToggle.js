@@ -16,6 +16,8 @@ export class DarkModeToggle {
         this.isDarkMode = this.loadDarkModeFromStorage();
         
         this.button = null;
+        this.infoButton = null;
+        this.infoPopup = null;
         this.container = null;
     }
 
@@ -42,6 +44,25 @@ export class DarkModeToggle {
             innerHTML: this.isDarkMode ? ICONS.SUN : ICONS.MOON
         });
 
+        // Create info button
+        this.infoButton = this.domRegistry.createElement('button', {
+            id: 'theme-info-btn',
+            className: 'theme-info-btn',
+            type: 'button',
+            'aria-label': 'Theme information',
+            title: 'Theme information',
+            innerHTML: ICONS.INFO
+        });
+
+        // Create info popup
+        this.infoPopup = this.domRegistry.createElement('div', {
+            id: 'theme-info-popup',
+            className: 'theme-info-popup',
+            innerHTML: '<div class="theme-info-content">Currently there is a bug where if you switch between theme without refreshing the page, this breaks syntax formatting in raw code sections.</div>'
+        });
+
+        this.container.appendChild(this.infoButton);
+        this.container.appendChild(this.infoPopup);
         this.container.appendChild(this.button);
         
         return this.container;
@@ -66,8 +87,9 @@ export class DarkModeToggle {
         // Apply initial dark mode state
         this.applyDarkMode(this.isDarkMode);
         
-        // Attach click listener
+        // Attach click listeners
         this.attachToggleListener();
+        this.attachInfoListener();
     }
 
     /**
@@ -185,12 +207,71 @@ export class DarkModeToggle {
     }
 
     /**
+     * Attach click event listener to info button
+     */
+    attachInfoListener() {
+        if (!this.infoButton) {
+            this.infoButton = document.getElementById('theme-info-btn');
+        }
+        
+        if (this.infoButton) {
+            this.infoButton.onclick = (event) => {
+                event.stopPropagation();
+                this.toggleInfoPopup();
+            };
+        }
+
+        // Close popup when clicking outside
+        document.addEventListener('click', (event) => {
+            if (this.infoPopup && this.infoPopup.classList.contains('visible')) {
+                if (!this.container.contains(event.target)) {
+                    this.hideInfoPopup();
+                }
+            }
+        });
+    }
+
+    /**
+     * Toggle info popup visibility
+     */
+    toggleInfoPopup() {
+        if (this.infoPopup) {
+            if (this.infoPopup.classList.contains('visible')) {
+                this.hideInfoPopup();
+            } else {
+                this.showInfoPopup();
+            }
+        }
+    }
+
+    /**
+     * Show info popup
+     */
+    showInfoPopup() {
+        if (this.infoPopup) {
+            this.infoPopup.classList.add('visible');
+        }
+    }
+
+    /**
+     * Hide info popup
+     */
+    hideInfoPopup() {
+        if (this.infoPopup) {
+            this.infoPopup.classList.remove('visible');
+        }
+    }
+
+    /**
      * Clean up event listeners
      */
     cleanup() {
         // Cleanup is handled by removing the button listener
         if (this.button) {
             this.button.onclick = null;
+        }
+        if (this.infoButton) {
+            this.infoButton.onclick = null;
         }
     }
 }
