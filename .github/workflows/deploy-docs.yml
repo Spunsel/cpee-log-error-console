@@ -1,12 +1,9 @@
-name: Deploy Documentation
+name: Deploy Application and Documentation
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'docs/**'
-      - 'book.toml'
   workflow_dispatch:
 
 permissions:
@@ -26,10 +23,31 @@ jobs:
       - name: Build documentation
         run: mdbook build
 
+      - name: Prepare deployment
+        run: |
+          # Create deployment directory
+          mkdir -p deploy_root
+          
+          # Copy essential app files
+          cp index.html deploy_root/
+          cp package.json deploy_root/ 2>/dev/null || true
+          
+          # Copy app source directory
+          cp -r src deploy_root/
+          
+          # Copy scripts if they exist
+          [ -d scripts ] && cp -r scripts deploy_root/ || true
+          
+          # Copy built documentation to subdirectory
+          cp -r docs/book deploy_root/documentation
+          
+          echo "Deployment structure:"
+          ls -la deploy_root/
+          ls -la deploy_root/documentation/ | head -10
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/book
-          destination_dir: documentation
+          publish_dir: ./deploy_root
+          keep_files: false
