@@ -811,6 +811,7 @@ body {
     display: flex;
     gap: var(--spacing-md);
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     background: var(--background-color);
     padding: var(--spacing-lg);
@@ -849,33 +850,72 @@ body {
     flex: 1;
 }
 
+/* Advanced Instance Loading Container */
+.advanced-instance-loading {
+    margin-top: var(--spacing-xl);
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.advanced-instance-loading > * {
+    flex: 1;
+    min-width: 300px;
+}
+
 /* Instance Scanner Section */
 .instance-scanner-section {
-    margin-top: var(--spacing-xl);
     padding: var(--spacing-lg);
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
-  }
-  
-  .instance-scanner-section h3,
-  .instance-scanner-section h4 {
+}
+
+/* Load All Instances Section */
+.load-all-instances-section {
+    padding: var(--spacing-lg);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+}
+
+.load-all-instances-section h3,
+.load-all-instances-section h4 {
     text-align: center;
     color: var(--text-secondary);
     margin-top: 0;
     font-weight: normal;
-  }
-  
-  .instance-scanner-section h3 {
+}
+
+.load-all-instances-section h3 {
     margin-bottom: var(--spacing-sm);
     padding: var(--spacing-xs);
     font-size: 1rem;
-  }
-  
-  .instance-scanner-section h4 {
+}
+
+.load-all-instances-section h4 {
     margin: var(--spacing-md) 0 var(--spacing-sm);
     font-size: 1rem;
-  }
+}
+
+.instance-scanner-section h3,
+.instance-scanner-section h4 {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-top: 0;
+    font-weight: normal;
+}
+
+.instance-scanner-section h3 {
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-xs);
+    font-size: 1rem;
+}
+
+.instance-scanner-section h4 {
+    margin: var(--spacing-md) 0 var(--spacing-sm);
+    font-size: 1rem;
+}
   
   .instance-list-container {
     margin-top: var(--spacing-md);

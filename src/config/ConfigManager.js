@@ -270,6 +270,16 @@ export class ConfigManager {
                 requireDescription: true,
                 validateXMLStructure: true,
                 checkElementExistence: true
+            },
+            instances: {
+                // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
+                processNumbers: [
+                    193, 214, 259, 260, 262, 266, 361, 377, 378, 384, 424, 449, 457, 460, 461, 
+                    558, 559, 561, 664, 665, 694, 845, 849, 850, 852, 853, 860, 890, 914, 920, 
+                    926, 930, 967, 972, 975, 1021, 1039, 1046, 1047, 1055, 1069, 1086, 1087, 1091, 
+                    1098, 1118, 1123, 1124, 1126, 1132, 1133, 1134, 1258, 1266, 1314, 1317, 1388, 
+                    1393, 1465, 1467, 1510, 1523, 1524, 1527, 1528, 1529, 1606
+                ]
             }
         };
     }
@@ -303,8 +313,11 @@ export class ConfigManager {
                 scanStartInput: 'scan-start-input',
                 scanEndInput: 'scan-end-input',
                 scanInstances: 'scan-instances',
+                loadAllInstances: 'load-all-instances',
                 instanceListContainer: 'instance-list-container',
                 instanceList: 'instance-list',
+                loadAllInstancesListContainer: 'load-all-instances-list-container',
+                loadAllInstancesList: 'load-all-instances-list',
                 
                 // Instance management
                 instanceTabs: 'instance-tabs',

@@ -149,6 +149,14 @@ export class InstanceLoaderViewer {
                 }
             });
         }
+
+        // Load all instances button
+        const loadAllButton = this.getElement('loadAllInstances');
+        if (loadAllButton) {
+            loadAllButton.addEventListener('click', () => {
+                this.loadAllCPEEInstances();
+            });
+        }
     }
 
     /**
@@ -565,5 +573,66 @@ export class InstanceLoaderViewer {
         // Trigger load instance event
         this.stateManager.setState('ui.loading', true);
         this.eventBus.emit('instanceLoader:loadInstance', { uuid });
+    }
+
+    /**
+     * Load all CPEE instances - displays buttons for predefined process numbers
+     * Does not fetch logs, just creates the buttons that can be clicked to load instances
+     */
+    loadAllCPEEInstances() {
+        const instanceListContainer = this.getElement('loadAllInstancesListContainer');
+        const instanceList = this.getElement('loadAllInstancesList');
+        
+        // Get predefined list of process numbers from config
+        const processNumbers = configManager.get('cpee.instances.processNumbers', []);
+        
+        // Validate that we have process numbers
+        if (!Array.isArray(processNumbers) || processNumbers.length === 0) {
+            console.warn('No process numbers configured in cpee.instances.processNumbers');
+            alert('No process numbers configured. Please check the configuration.');
+            return;
+        }
+        
+        // Show the instance list container
+        if (instanceListContainer) {
+            instanceListContainer.classList.remove('hidden');
+        }
+        
+        // Clear existing list
+        if (instanceList) {
+            instanceList.innerHTML = '';
+        }
+        
+        // Create buttons for each process number
+        processNumbers.forEach((processNumber) => {
+            const box = document.createElement('div');
+            box.className = 'instance-number-box';
+            box.textContent = processNumber.toString();
+            box.title = `Click to load instance ${processNumber}`;
+            
+            // Add click handler to fetch UUID and load instance
+            box.addEventListener('click', async () => {
+                try {
+                    // Fetch UUID for this process number
+                    await this.fetchUUIDFromProcessNumber(processNumber);
+                    
+                    // Get the UUID that was fetched
+                    const uuidInput = this.getElement('uuidInput');
+                    if (uuidInput && uuidInput.value) {
+                        // Load the instance
+                        this.loadInstanceForProcessNumber(processNumber, uuidInput.value);
+                    }
+                } catch (error) {
+                    console.error(`Failed to load instance ${processNumber}:`, error);
+                    alert(`Failed to load instance ${processNumber}: ${error.message}`);
+                }
+            });
+            
+            if (instanceList) {
+                instanceList.appendChild(box);
+            }
+        });
+        
+        console.log(`Loaded ${processNumbers.length} CPEE instance buttons`);
     }
 }
