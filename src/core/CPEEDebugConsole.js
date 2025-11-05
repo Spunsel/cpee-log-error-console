@@ -39,6 +39,9 @@ export class CPEEDebugConsole {
         this.bugReportModal = new BugReportModal();
         this.darkModeToggle = new DarkModeToggle(this.domRegistry, this.eventBus);
         
+        // Track if InstanceLoaderViewer has been shown for the first time
+        this.hasShownInstanceLoaderFirstTime = false;
+        
         this.setupEventBusListeners();
         
         // Initialize application
@@ -101,6 +104,8 @@ export class CPEEDebugConsole {
         
         // Load instance if UUID is provided
         if (urlParams.uuid) {
+            // Hide theme toggle if loading instance directly (not first InstanceLoaderViewer)
+            this.darkModeToggle.hide();
             await this.loadInstance(urlParams.uuid);
             if (this.instanceService.hasInstance(urlParams.uuid)) {
                 this.sidebar.setActiveTab(urlParams.uuid);
@@ -109,9 +114,16 @@ export class CPEEDebugConsole {
                 this.instanceLoaderViewer.hide();
             }
         } else {
-            // Show default state (instance loader)
+            // Show default state (instance loader) - first time only
             this.instanceLoaderViewer.show();
             this.stepViewer.showDefaultState();
+            // Show theme toggle only on first load of InstanceLoaderViewer
+            if (!this.hasShownInstanceLoaderFirstTime) {
+                this.hasShownInstanceLoaderFirstTime = true;
+                this.darkModeToggle.show();
+            } else {
+                this.darkModeToggle.hide();
+            }
         }
         
         console.log('CPEE Debug Console initialized');
@@ -138,6 +150,8 @@ export class CPEEDebugConsole {
 
         // View log request from instance loader
         this.eventBus.on('instanceLoader:viewLog', async (data) => {
+            // Hide theme toggle when viewing log (different view)
+            this.darkModeToggle.hide();
             await this.logViewer.toggleRawLog(data.uuid);
         });
 
@@ -294,6 +308,9 @@ export class CPEEDebugConsole {
         // Hide instance loader when displaying an instance
         this.instanceLoaderViewer.hide();
         
+        // Hide theme toggle when navigating away from InstanceLoaderViewer
+        this.darkModeToggle.hide();
+        
         if (!this.instanceService.setCurrentInstance(uuid, stepIndex)) {
             console.error(`Instance ${uuid} not found`);
             return;
@@ -377,6 +394,9 @@ export class CPEEDebugConsole {
         this.stepViewer.showDefaultState();
         this.logViewer.hideRawLog();
         
+        // Hide theme toggle when returning home (only show on first load)
+        this.darkModeToggle.hide();
+        
         URLManager.clearURLParameters();
         
         this.instanceLoaderViewer.clearInputs();
@@ -394,6 +414,8 @@ export class CPEEDebugConsole {
         this.instanceLoaderViewer.show();
         this.stepViewer.showDefaultState();
         this.logViewer.hideRawLog();
+        // Hide theme toggle when resetting (only show on first load)
+        this.darkModeToggle.hide();
         URLManager.clearURLParameters();
         
         this.instanceLoaderViewer.clearInputs();

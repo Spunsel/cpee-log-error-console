@@ -84,6 +84,9 @@ export class DarkModeToggle {
             this.domRegistry.register('darkModeToggleBtn', 'dark-mode-toggle-btn');
         }
         
+        // Start hidden - will be shown only when InstanceLoaderViewer is shown for the first time
+        this.hide();
+        
         // Apply initial dark mode state
         this.applyDarkMode(this.isDarkMode);
         
@@ -259,6 +262,24 @@ export class DarkModeToggle {
     hideInfoPopup() {
         if (this.infoPopup) {
             this.infoPopup.classList.remove('visible');
+        }
+    }
+
+    /**
+     * Show the dark mode toggle container
+     */
+    show() {
+        if (this.container) {
+            this.container.style.display = 'flex';
+        }
+    }
+
+    /**
+     * Hide the dark mode toggle container
+     */
+    hide() {
+        if (this.container) {
+            this.container.style.display = 'none';
         }
     }
 
