@@ -108,7 +108,10 @@ export class StepViewer {
         }
 
         // Keep process analysis section hidden until all DOM elements are ready
-        this.domRegistry.addClass('stepDetails', 'hidden');
+        const loadSection = document.querySelector('.load-single-instance-section');
+        if (loadSection) {
+            loadSection.classList.add('hidden');
+        }
         // DO NOT show processAnalysis yet - will be shown after all setup is complete
 
         // Update step header (can be done while hidden)
@@ -182,7 +185,10 @@ export class StepViewer {
      * Show default state (no instance selected)
      */
     showDefaultState() {
-        this.domRegistry.removeClass('stepDetails', 'hidden');
+        const loadSection = document.querySelector('.load-single-instance-section');
+        if (loadSection) {
+            loadSection.classList.remove('hidden');
+        }
         this.domRegistry.addClass('processAnalysis', 'hidden');
         
         // Remove navigation using StepNavigator

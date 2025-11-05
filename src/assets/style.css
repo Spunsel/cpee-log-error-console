@@ -890,7 +890,8 @@ body {
 .load-all-instances-section h3 {
     margin-bottom: var(--spacing-sm);
     padding: var(--spacing-xs);
-    font-size: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .load-all-instances-section h4 {
@@ -909,7 +910,8 @@ body {
 .instance-scanner-section h3 {
     margin-bottom: var(--spacing-sm);
     padding: var(--spacing-xs);
-    font-size: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .instance-scanner-section h4 {
@@ -1477,7 +1479,7 @@ body {
    5. CONTENT SECTIONS
    ======================================== */
 
-#step-details {
+.load-single-instance-section {
     background: var(--surface-color);
     border-radius: var(--border-radius);
     padding: var(--spacing-xl);
@@ -1488,6 +1490,13 @@ body {
     text-align: center;
     padding: var(--spacing-xl);
     color: var(--text-secondary);
+}
+
+.loading h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 0 0 var(--spacing-lg) 0;
 }
 
 /* Section Containers */

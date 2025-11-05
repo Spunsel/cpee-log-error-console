@@ -53,9 +53,10 @@
             </aside>
 
             <main class="content">
-                <div id="step-details">
+                <!-- Load Single Instance Section (for InstanceLoaderViewer) -->
+                <div class="load-single-instance-section">
                     <div class="loading">
-                        <p>Please provide a Process Number to start debugging</p>
+                        <h2>Load Single Instance</h2>
                         
                         <div class="input-group">
                             <div class="input-row">
@@ -71,32 +72,32 @@
                                 <button id="view-log" class="btn btn-secondary">View Raw Log</button>
                             </div>
                         </div>
-                        
-                        <div class="advanced-instance-loading">
-                            <div class="instance-scanner-section">
-                                <h3>Scan for CPEE LLM Instances</h3>
-                                <div class="input-row">
-                                    <label for="scan-start-input">Start:</label>
-                                    <input type="number" id="scan-start-input" class="input-base" placeholder="e.g. 200" autocomplete="off" />
-                                    <label for="scan-end-input">End:</label>
-                                    <input type="number" id="scan-end-input" class="input-base" placeholder="e.g. 250" autocomplete="off" />
-                                    <button id="scan-instances" class="btn btn-secondary">Scan Instances</button>
-                                </div>
-                                <div id="instance-list-container" class="instance-list-container hidden">
-                                    <h4>CPEE LLM Instances:</h4>
-                                    <div id="instance-list" class="instance-list"></div>
-                                </div>
-                            </div>
-                            <div class="load-all-instances-section">
-                                <h3>Load CPEE LLM Instances</h3>
-                                <div class="input-row">
-                                    <button id="load-all-instances" class="btn btn-secondary">Load All CPEE Instances</button>
-                                </div>
-                                <div id="load-all-instances-list-container" class="instance-list-container hidden">
-                                    <h4>CPEE LLM Instances:</h4>
-                                    <div id="load-all-instances-list" class="instance-list"></div>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                
+                <div class="advanced-instance-loading">
+                    <div class="instance-scanner-section">
+                        <h3>Scan for CPEE LLM Instances</h3>
+                        <div class="input-row">
+                            <label for="scan-start-input">Start:</label>
+                            <input type="number" id="scan-start-input" class="input-base" placeholder="e.g. 200" autocomplete="off" />
+                            <label for="scan-end-input">End:</label>
+                            <input type="number" id="scan-end-input" class="input-base" placeholder="e.g. 250" autocomplete="off" />
+                            <button id="scan-instances" class="btn btn-secondary">Scan Instances</button>
+                        </div>
+                        <div id="instance-list-container" class="instance-list-container hidden">
+                            <h4>CPEE LLM Instances:</h4>
+                            <div id="instance-list" class="instance-list"></div>
+                        </div>
+                    </div>
+                    <div class="load-all-instances-section">
+                        <h3>Load CPEE LLM Instances</h3>
+                        <div class="input-row">
+                            <button id="load-all-instances" class="btn btn-secondary">Load All CPEE Instances</button>
+                        </div>
+                        <div id="load-all-instances-list-container" class="instance-list-container hidden">
+                            <h4>CPEE LLM Instances:</h4>
+                            <div id="load-all-instances-list" class="instance-list"></div>
                         </div>
                     </div>
                 </div>

@@ -36,9 +36,9 @@ export class InstanceLoaderViewer {
      * Show the instance loader view
      */
     show() {
-        const stepDetails = this.getElement('stepDetails');
-        if (stepDetails) {
-            stepDetails.classList.remove('hidden');
+        const loadSection = document.querySelector('.load-single-instance-section');
+        if (loadSection) {
+            loadSection.classList.remove('hidden');
             this.isVisible = true;
         }
     }
@@ -47,9 +47,9 @@ export class InstanceLoaderViewer {
      * Hide the instance loader view
      */
     hide() {
-        const stepDetails = this.getElement('stepDetails');
-        if (stepDetails) {
-            stepDetails.classList.add('hidden');
+        const loadSection = document.querySelector('.load-single-instance-section');
+        if (loadSection) {
+            loadSection.classList.add('hidden');
             this.isVisible = false;
         }
     }
