@@ -29,21 +29,47 @@ jobs:
           mkdir -p deploy_root
           
           # Copy essential app files
-          cp index.html deploy_root/
-          cp package.json deploy_root/ 2>/dev/null || true
+          echo "Copying app files..."
+          cp index.html deploy_root/ || { echo "ERROR: index.html not found!"; exit 1; }
+          [ -f package.json ] && cp package.json deploy_root/ || echo "package.json not found (optional)"
           
           # Copy app source directory
-          cp -r src deploy_root/
+          echo "Copying src directory..."
+          cp -r src deploy_root/ || { echo "ERROR: src directory not found!"; exit 1; }
           
           # Copy scripts if they exist
-          [ -d scripts ] && cp -r scripts deploy_root/ || true
+          [ -d scripts ] && cp -r scripts deploy_root/ && echo "Copied scripts" || echo "scripts directory not found (optional)"
           
           # Copy built documentation to subdirectory
-          cp -r docs/book deploy_root/documentation
+          echo "Copying documentation..."
+          cp -r docs/book deploy_root/documentation || { echo "ERROR: docs/book not found!"; exit 1; }
           
-          echo "Deployment structure:"
-          ls -la deploy_root/
+          # Verify deployment structure
+          echo "=== Deployment structure ==="
+          echo "Root files:"
+          ls -la deploy_root/ | head -20
+          echo ""
+          echo "src directory:"
+          ls -la deploy_root/src/ | head -10
+          echo ""
+          echo "documentation directory:"
           ls -la deploy_root/documentation/ | head -10
+          
+          # Verify critical files exist
+          if [ ! -f deploy_root/index.html ]; then
+            echo "ERROR: index.html missing in deployment!"
+            exit 1
+          fi
+          if [ ! -d deploy_root/src ]; then
+            echo "ERROR: src directory missing in deployment!"
+            exit 1
+          fi
+          if [ ! -d deploy_root/documentation ]; then
+            echo "ERROR: documentation directory missing in deployment!"
+            exit 1
+          fi
+          
+          echo "✓ Deployment structure verified"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
