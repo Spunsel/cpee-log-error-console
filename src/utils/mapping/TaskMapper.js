@@ -89,6 +89,21 @@ export class TaskMapper {
      * @returns {TaskIdentifier|null} Best matching task or null if no match above threshold
      */
     findBestTextMatch(sourceTask, targetTasks) {
+        const result = this.findBestTextMatchWithScore(sourceTask, targetTasks);
+        // Only return if above threshold
+        if (result && result.score >= this.TEXT_SIMILARITY_THRESHOLD) {
+            return result.match;
+        }
+        return null;
+    }
+    
+    /**
+     * Find best text match in target tasks with score
+     * @param {TaskIdentifier} sourceTask - Source task
+     * @param {TaskIdentifier[]} targetTasks - Target tasks to search
+     * @returns {{match: TaskIdentifier, score: number}|null} Best matching task with score or null
+     */
+    findBestTextMatchWithScore(sourceTask, targetTasks) {
         if (!sourceTask || !sourceTask.label || targetTasks.length === 0) {
             return null;
         }
@@ -109,9 +124,8 @@ export class TaskMapper {
             }
         }
         
-        // Only return if above threshold
-        if (bestScore >= this.TEXT_SIMILARITY_THRESHOLD) {
-            return bestMatch;
+        if (bestMatch) {
+            return { match: bestMatch, score: bestScore };
         }
         
         return null;
@@ -188,18 +202,19 @@ export class TaskMapper {
             
             // Validate ID-based match with text similarity
             if (match) {
-                const textSimilarity = this.calculateTextSimilarity(sourceTask.label, match.label);
+                const idMatchTextSimilarity = this.calculateTextSimilarity(sourceTask.label, match.label);
                 
-                if (textSimilarity < this.TEXT_SIMILARITY_THRESHOLD) {
-                    // ID match found but text doesn't match - reject and try text matching
-                    // Try text-based matching instead
-                    const textMatch = this.findBestTextMatch(sourceTask, targetTasks);
-                    if (textMatch) {
-                        match = textMatch;
-                    } else {
-                        match = null;
-                    }
+                // Find best text match (even if below threshold) to compare scores
+                const bestTextMatchResult = this.findBestTextMatchWithScore(sourceTask, targetTasks);
+                
+                // Only reject ID match if there's another task with better text similarity score
+                if (bestTextMatchResult && 
+                    bestTextMatchResult.score > idMatchTextSimilarity &&
+                    bestTextMatchResult.match.id !== match.id) {
+                    // Better text match found - use it instead
+                    match = bestTextMatchResult.match;
                 }
+                // Otherwise, keep the ID match even if text similarity is low
             } else {
                 // No ID match found - try text-based matching as fallback
                 match = this.findBestTextMatch(sourceTask, targetTasks);
