@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="src/assets/style.css">
     <!-- Prism.js syntax highlighting (theme can be swapped via ConfigManager) -->
     <link id="prism-theme" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <!-- Prism core and autoloader -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <!-- Apply dark mode immediately to prevent flash of wrong theme -->
     <script>
         (function() {
@@ -91,9 +94,9 @@
                         </div>
                     </div>
                     <div class="load-all-instances-section">
-                        <h3>Load CPEE LLM Instances</h3>
+                        <h3>Load All CPEE LLM Instances</h3>
                         <div class="input-row">
-                            <button id="load-all-instances" class="btn btn-secondary">Load All CPEE Instances</button>
+                            <button id="load-all-instances" class="btn btn-secondary">Load All</button>
                         </div>
                         <div id="load-all-instances-list-container" class="instance-list-container hidden">
                             <h4>CPEE LLM Instances:</h4>
@@ -158,10 +161,7 @@
             <p>CPEE LLM Error Debugging Console - Bachelor Thesis Project <span class="footer-separator">|</span> <button class="footer-link-btn" id="bug-report-link">report bugs / suggest changes</button></p>
         </footer>
     </div>
-
-    <!-- Prism core and XML language -->
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
     <!-- Main Application Script (ES6 Modules) -->
     <script type="module" src="src/app.js"></script>
 </body>

@@ -601,7 +601,7 @@ export class HighlightCoordinator {
     }
 
     /**
-     * Initialize click outside handler to clear highlights when clicking outside graphs or on empty space within graphs
+     * Initialize click outside handler to clear highlights when clicking inside content boxes of visual view
      */
     initializeClickOutsideHandler() {
         this.clickOutsideHandler = (event) => {
@@ -611,20 +611,61 @@ export class HighlightCoordinator {
             }
             
             // Check if click is on an actual graph element (task, node, etc.)
-            // If NOT on a graph element, clear highlights (even if inside a graph container)
+            // If click is on a graph element, do nothing (let task click handler process it)
             const clickTarget = event.target;
             if (this.isClickOnGraphElement(clickTarget)) {
-                return; // Click is on a graph element, do nothing (let task click handler process it)
+                return;
             }
             
-            // Click is not on a graph element (either outside graphs or on empty space within graphs)
-            console.log('[HighlightCoordinator] Click not on graph element detected, clearing highlights');
-            this.clearActiveState();
+            // Check if click is inside a content-box of a visual view section
+            if (this.isClickInsideVisualContentBox(clickTarget)) {
+                // Click is inside a visual view content-box but not on a graph element
+                console.log('[HighlightCoordinator] Click inside visual content-box (not on graph element) detected, clearing highlights');
+                this.clearActiveState();
+            }
+            // If click is outside visual content boxes, do nothing (don't clear highlights)
         };
         
         // Attach listener to document (capture phase to catch all clicks)
         document.addEventListener('click', this.clickOutsideHandler, true);
         console.log('[HighlightCoordinator] Click outside handler initialized');
+    }
+
+    /**
+     * Check if a click target is inside a content-box of a visual view section
+     * @param {Element} target - Click target element
+     * @returns {boolean} True if click is inside a visual view content-box
+     */
+    isClickInsideVisualContentBox(target) {
+        if (!target) {
+            return false;
+        }
+        
+        // Walk up the DOM tree to find if we're inside a content-box
+        let element = target;
+        while (element && element !== document.body && element !== document.documentElement) {
+            // Check if this element is a content-box or is inside one
+            if (element.classList && element.classList.contains('content-box')) {
+                // Found a content-box, now check if it's in visual mode
+                // Check if the parent section has viewMode attribute set to 'raw' or 'log'
+                const sectionElement = element.closest('[id^="input-"], [id^="output-"], [id^="user-input"]');
+                if (sectionElement) {
+                    const viewMode = sectionElement.dataset.viewMode;
+                    // If viewMode is 'raw' or 'log', it's not visual mode
+                    if (viewMode === 'raw' || viewMode === 'log') {
+                        return false;
+                    }
+                    // If no viewMode attribute or viewMode is not raw/log, it's visual mode
+                    return true;
+                }
+                // If we found a content-box but can't determine the section, assume it's visual
+                return true;
+            }
+            
+            element = element.parentElement;
+        }
+        
+        return false;
     }
 
     /**
