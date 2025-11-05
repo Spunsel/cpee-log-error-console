@@ -9,11 +9,12 @@ import { TaskIdentifier } from '../../models/TaskIdentifier.js';
 export class TaskMapper {
     
     constructor() {
-        this.TEXT_SIMILARITY_THRESHOLD = 0.7;
+        this.TEXT_SIMILARITY_THRESHOLD = 0.95;
     }
     
     /**
-     * Calculate string similarity between two strings using normalized Levenshtein distance
+     * Calculate string similarity between two strings using combined metrics:
+     * 70% Jaccard similarity (token-based) + 25% Jaro-Winkler + 5% exact match bonus
      * Returns a value between 0 (no similarity) and 1 (identical)
      * @param {string} str1 - First string
      * @param {string} str2 - Second string
@@ -28,25 +29,169 @@ export class TaskMapper {
         const s1 = str1.toLowerCase().trim();
         const s2 = str2.toLowerCase().trim();
         
-        // Exact match
-        if (s1 === s2) {
+        // Exact match bonus (fast path)
+        const exactMatch = s1 === s2 ? 1.0 : 0.0;
+        if (exactMatch === 1.0) {
             return 1.0;
         }
         
-        // Calculate Levenshtein distance
-        const distance = this.levenshteinDistance(s1, s2);
-        const maxLength = Math.max(s1.length, s2.length);
+        // Calculate component similarities
+        const jaccardSimilarity = this.calculateJaccardSimilarity(s1, s2);
+        const jaroWinklerSimilarity = this.calculateJaroWinkler(s1, s2);
         
-        if (maxLength === 0) {
+        // Combined similarity: 70% Jaccard + 25% Jaro-Winkler + 5% exact match bonus
+        const combinedSimilarity = (0.70 * jaccardSimilarity) + 
+                                   (0.25 * jaroWinklerSimilarity) + 
+                                   (0.05 * exactMatch);
+        
+        return Math.min(1.0, Math.max(0.0, combinedSimilarity));
+    }
+    
+    /**
+     * Calculate Jaccard similarity (token-based) between two strings
+     * Measures word-level similarity, order-insensitive
+     * Returns a value between 0 (no similarity) and 1 (identical word sets)
+     * @param {string} str1 - First string (should be normalized)
+     * @param {string} str2 - Second string (should be normalized)
+     * @returns {number} Jaccard similarity score (0-1)
+     */
+    calculateJaccardSimilarity(str1, str2) {
+        // Tokenize: split by whitespace and filter empty tokens
+        const tokens1 = new Set(str1.split(/\s+/).filter(token => token.length > 0));
+        const tokens2 = new Set(str2.split(/\s+/).filter(token => token.length > 0));
+        
+        // If both are empty, return 1.0
+        if (tokens1.size === 0 && tokens2.size === 0) {
             return 1.0;
         }
         
-        // Normalize to 0-1 range (1 = identical, 0 = completely different)
-        return 1 - (distance / maxLength);
+        // If one is empty, return 0.0
+        if (tokens1.size === 0 || tokens2.size === 0) {
+            return 0.0;
+        }
+        
+        // Calculate intersection (common tokens)
+        let intersection = 0;
+        for (const token of tokens1) {
+            if (tokens2.has(token)) {
+                intersection++;
+            }
+        }
+        
+        // Calculate union (all unique tokens from both sets)
+        const union = tokens1.size + tokens2.size - intersection;
+        
+        // Jaccard = intersection / union
+        return union > 0 ? intersection / union : 0.0;
+    }
+    
+    /**
+     * Calculate Jaro-Winkler similarity between two strings
+     * Improved version of Jaro distance with prefix weighting
+     * Better than Levenshtein for handling typos and minor variations
+     * Returns a value between 0 (no similarity) and 1 (identical)
+     * @param {string} str1 - First string (should be normalized)
+     * @param {string} str2 - Second string (should be normalized)
+     * @returns {number} Jaro-Winkler similarity score (0-1)
+     */
+    calculateJaroWinkler(str1, str2) {
+        // Calculate Jaro distance
+        const jaro = this.calculateJaro(str1, str2);
+        
+        // Calculate common prefix length (up to 4 characters)
+        let prefixLength = 0;
+        const maxPrefix = Math.min(4, Math.min(str1.length, str2.length));
+        for (let i = 0; i < maxPrefix; i++) {
+            if (str1[i] === str2[i]) {
+                prefixLength++;
+            } else {
+                break;
+            }
+        }
+        
+        // Jaro-Winkler = Jaro + (0.1 * prefixLength * (1 - Jaro))
+        const winkler = jaro + (0.1 * prefixLength * (1 - jaro));
+        
+        return Math.min(1.0, winkler);
+    }
+    
+    /**
+     * Calculate Jaro distance between two strings
+     * @param {string} str1 - First string
+     * @param {string} str2 - Second string
+     * @returns {number} Jaro distance (0-1)
+     */
+    calculateJaro(str1, str2) {
+        if (str1 === str2) {
+            return 1.0;
+        }
+        
+        const len1 = str1.length;
+        const len2 = str2.length;
+        
+        if (len1 === 0 || len2 === 0) {
+            return 0.0;
+        }
+        
+        // Match window: floor(max(len1, len2) / 2) - 1
+        const matchWindow = Math.floor(Math.max(len1, len2) / 2) - 1;
+        
+        // Find matching characters
+        const matches1 = new Array(len1).fill(false);
+        const matches2 = new Array(len2).fill(false);
+        
+        let matches = 0;
+        let transpositions = 0;
+        
+        // Find matches
+        for (let i = 0; i < len1; i++) {
+            const start = Math.max(0, i - matchWindow);
+            const end = Math.min(i + matchWindow + 1, len2);
+            
+            for (let j = start; j < end; j++) {
+                if (matches2[j] || str1[i] !== str2[j]) {
+                    continue;
+                }
+                matches1[i] = true;
+                matches2[j] = true;
+                matches++;
+                break;
+            }
+        }
+        
+        if (matches === 0) {
+            return 0.0;
+        }
+        
+        // Find transpositions
+        let k = 0;
+        for (let i = 0; i < len1; i++) {
+            if (!matches1[i]) {
+                continue;
+            }
+            while (!matches2[k]) {
+                k++;
+            }
+            if (str1[i] !== str2[k]) {
+                transpositions++;
+            }
+            k++;
+        }
+        
+        // Calculate Jaro distance
+        const jaro = (
+            (matches / len1) +
+            (matches / len2) +
+            ((matches - transpositions / 2) / matches)
+        ) / 3.0;
+        
+        return jaro;
     }
     
     /**
      * Calculate Levenshtein distance between two strings
+     * @deprecated Replaced by combined Jaccard + Jaro-Winkler approach
+     * Kept for reference or potential future use
      * @param {string} str1 - First string
      * @param {string} str2 - Second string
      * @returns {number} Edit distance
@@ -204,17 +349,25 @@ export class TaskMapper {
             if (match) {
                 const idMatchTextSimilarity = this.calculateTextSimilarity(sourceTask.label, match.label);
                 
-                // Find best text match (even if below threshold) to compare scores
-                const bestTextMatchResult = this.findBestTextMatchWithScore(sourceTask, targetTasks);
-                
-                // Only reject ID match if there's another task with better text similarity score
-                if (bestTextMatchResult && 
-                    bestTextMatchResult.score > idMatchTextSimilarity &&
-                    bestTextMatchResult.match.id !== match.id) {
-                    // Better text match found - use it instead
-                    match = bestTextMatchResult.match;
+                // If ID match has text similarity above threshold, use it (don't look for other matches)
+                if (idMatchTextSimilarity >= this.TEXT_SIMILARITY_THRESHOLD) {
+                    // ID match is good enough - keep it
+                    // Don't search for other text matches
+                } else {
+                    // ID match exists but text similarity is below threshold
+                    // Look for better text match as fallback
+                    const bestTextMatchResult = this.findBestTextMatchWithScore(sourceTask, targetTasks);
+                    
+                    // Only use text match if it's better than the ID match
+                    if (bestTextMatchResult && 
+                        bestTextMatchResult.score > idMatchTextSimilarity &&
+                        bestTextMatchResult.score >= this.TEXT_SIMILARITY_THRESHOLD &&
+                        bestTextMatchResult.match.id !== match.id) {
+                        // Better text match found that meets threshold - use it instead
+                        match = bestTextMatchResult.match;
+                    }
+                    // Otherwise, keep the ID match (even if below threshold, ID takes precedence)
                 }
-                // Otherwise, keep the ID match even if text similarity is low
             } else {
                 // No ID match found - try text-based matching as fallback
                 match = this.findBestTextMatch(sourceTask, targetTasks);
@@ -371,45 +524,29 @@ export class TaskMapper {
             }
         }
         
-        // PRIORITY 2: Fallback - try all combinations of id and alt_id
-        // Order matters: try more specific matches first before generic id→id
+        // PRIORITY 2: Fallback - try ID + alt_id combinations (only if pure alt_id matching failed)
+        // PRIORITY 1 already tried pure alt_id matching:
+        //   - altId → id (CPEE → Mermaid)
+        //   - altId → altId (CPEE → CPEE)
+        //   - id → altId (Mermaid → CPEE)
+        // PRIORITY 2 now tries ID + alt_id combinations that weren't tried:
+        //   - id → altId (CPEE → CPEE) - mixing source.id with target.altId
+        //   - altId → id (CPEE → CPEE) - mixing source.altId with target.id
         
         // For CPEE → CPEE: try id → altId (input CPEE.id matches output CPEE.altId)
+        // This is a combination, not pure alt_id matching (already tried altId→altId in PRIORITY 1)
         if (sourceIsCpee && targetIsCpee) {
             let match = targetTasks.find(t => t.altId === sourceTask.id);
             if (match) {
                 return match;
             }
             // Try: altId → id (input CPEE.altId matches output CPEE.id)
+            // This is a combination, not pure alt_id matching
             if (sourceTask.altId) {
                 match = targetTasks.find(t => t.id === sourceTask.altId);
                 if (match) {
                     return match;
                 }
-            }
-        }
-        
-        // Try: source.id → target.altId (if target is CPEE)
-        if (targetIsCpee) {
-            const match = targetTasks.find(t => t.altId === sourceTask.id);
-            if (match) {
-                return match;
-            }
-        }
-        
-        // Try: source.altId → target.id (if source is CPEE and target is Mermaid)
-        if (sourceIsCpee && sourceTask.altId && targetIsMermaid) {
-            const match = targetTasks.find(t => t.id === sourceTask.altId);
-            if (match) {
-                return match;
-            }
-        }
-        
-        // Try: source.altId → target.altId (if both are CPEE) - already tried in primary, but check again
-        if (sourceIsCpee && targetIsCpee && sourceTask.altId) {
-            const match = targetTasks.find(t => t.altId === sourceTask.altId);
-            if (match) {
-                return match;
             }
         }
         
