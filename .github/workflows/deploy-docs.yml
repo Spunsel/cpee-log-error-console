@@ -77,10 +77,21 @@ jobs:
           fi
           
           echo "✓ Deployment structure verified"
+          echo ""
+          echo "=== Final verification ==="
+          echo "Files that will be deployed:"
+          find deploy_root -type f -name "*.html" -o -name "*.js" | head -20
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
+        id: deployment
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./deploy_root
           keep_files: false
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Verify deployment
+        run: |
+          echo "Deployment completed. Check the gh-pages branch to verify files were deployed."
