@@ -28,6 +28,9 @@ jobs:
           # Create deployment directory
           mkdir -p deploy_root
           
+          # Create .nojekyll file to disable Jekyll processing (important for GitHub Pages)
+          touch deploy_root/.nojekyll
+          
           # Copy essential app files
           echo "Copying app files..."
           cp index.html deploy_root/ || { echo "ERROR: index.html not found!"; exit 1; }
@@ -58,6 +61,10 @@ jobs:
           # Verify critical files exist
           if [ ! -f deploy_root/index.html ]; then
             echo "ERROR: index.html missing in deployment!"
+            exit 1
+          fi
+          if [ ! -f deploy_root/.nojekyll ]; then
+            echo "ERROR: .nojekyll missing in deployment!"
             exit 1
           fi
           if [ ! -d deploy_root/src ]; then
