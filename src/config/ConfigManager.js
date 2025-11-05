@@ -293,7 +293,6 @@ export class ConfigManager {
             elementIds: {
                 // Content sections
                 processAnalysis: 'process-analysis',
-                stepDetails: 'step-details',
                 inputCpeeContent: 'input-cpee-content',
                 outputCpeeContent: 'output-cpee-content',
                 inputIntermediateContent: 'input-intermediate-content',

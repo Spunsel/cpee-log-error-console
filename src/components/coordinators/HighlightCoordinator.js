@@ -275,12 +275,20 @@ export class HighlightCoordinator {
         console.log(`[HighlightCoordinator] Found ${equivalentTasks.length} equivalent tasks`);
         
         // Highlight in each section
-        equivalentTasks.forEach(({ taskId: mappedTaskId, format: mappedFormat }) => {
+        equivalentTasks.forEach(({ taskId: mappedTaskId, format: mappedFormat, task: taskObject }) => {
             const mappedSectionId = this.formatToSectionId(mappedFormat);
             const isActive = (mappedFormat === sourceFormat);
             
-            console.log(`[HighlightCoordinator] Highlighting ${mappedTaskId} in ${mappedSectionId} (isActive=${isActive})`);
-            this.highlightInSection(mappedSectionId, mappedTaskId, isActive);
+            // Try to use the full SVG ID from metadata if available (for Mermaid nodes)
+            let highlightTaskId = mappedTaskId;
+            if (taskObject && taskObject.metadata && taskObject.metadata.fullId) {
+                // Prefer full SVG ID for better matching
+                highlightTaskId = taskObject.metadata.fullId;
+                console.log(`[HighlightCoordinator] Using full SVG ID from metadata: ${highlightTaskId}`);
+            }
+            
+            console.log(`[HighlightCoordinator] Highlighting ${highlightTaskId} (base: ${mappedTaskId}) in ${mappedSectionId} (isActive=${isActive})`);
+            this.highlightInSection(mappedSectionId, highlightTaskId, isActive);
         });
         
         // Also highlight the source task using original ID
@@ -314,7 +322,8 @@ export class HighlightCoordinator {
                 tasks.forEach(({ task }) => {
                     result.push({
                         taskId: task.id,
-                        format: format
+                        format: format,
+                        task: task // Include full task object for metadata access
                     });
                     console.log(`[HighlightCoordinator]   → ${task.id} (${task.label}) in ${format}`);
                 });
@@ -425,7 +434,7 @@ export class HighlightCoordinator {
     /**
      * Find task element in SVG container
      * @param {HTMLElement} container - SVG container element
-     * @param {string} taskId - Task identifier to find
+     * @param {string} taskId - Task identifier to find (can be full SVG ID or base ID)
      * @returns {HTMLElement|null} Task element or null
      */
     findTaskInSVG(container, taskId) {
@@ -446,7 +455,7 @@ export class HighlightCoordinator {
         const nodes = container.querySelectorAll('g.node');
         console.log(`[HighlightCoordinator] Found ${nodes.length} Mermaid nodes`);
         
-        // Try exact ID match for Mermaid
+        // Try exact ID match for Mermaid first (most reliable)
         for (const node of nodes) {
             if (node.id === taskId) {
                 console.log(`[HighlightCoordinator] ✓ Found Mermaid node by exact ID: ${taskId}`);
@@ -454,53 +463,82 @@ export class HighlightCoordinator {
             }
         }
         
-        // Try partial ID match for Mermaid, but be more precise
-        // Match patterns like: flowchart-XXX-task- or flowchart-XXX:task:
-        // where XXX matches taskId exactly (not as substring)
-        for (const node of nodes) {
-            if (node.id) {
-                // Try pattern: flowchart-TASKID-task- or flowchart-TASKID:task:
-                const exactMatch = new RegExp(`flowchart-${taskId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:-task-|:task:)`);
-                if (exactMatch.test(node.id)) {
-                    console.log(`[HighlightCoordinator] ✓ Found Mermaid node by exact pattern match: ${node.id}`);
-                    return node;
-                }
-                // Also try simpler pattern: just the taskId followed by :task: or -task-
-                const simplePattern = new RegExp(`(?:^|-)${taskId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:-task-|:task:)`);
-                if (simplePattern.test(node.id)) {
-                    console.log(`[HighlightCoordinator] ✓ Found Mermaid node by simple pattern: ${node.id}`);
-                    return node;
-                }
-            }
+        // Extract base ID if taskId is a full Mermaid SVG ID
+        let baseId = taskId;
+        const baseIdMatch = taskId.match(/:([a-z0-9]+):task:/) || 
+                           taskId.match(/^([a-z0-9]+):task:/) ||
+                           taskId.match(/flowchart-([a-z0-9]+)(?:-task-|:task:|-)/);
+        if (baseIdMatch && baseIdMatch[1]) {
+            baseId = baseIdMatch[1];
+            console.log(`[HighlightCoordinator] Extracted base ID: ${baseId} from ${taskId}`);
         }
         
-        // Try to extract base ID from Mermaid format and search
-        // Pattern: flowchart-XXX:task: or XXX:task:
-        const baseIdMatch = taskId.match(/:([a-z0-9]+):task:/) || taskId.match(/^([a-z0-9]+):task:/);
-        if (baseIdMatch) {
-            const baseId = baseIdMatch[1];
-            console.log(`[HighlightCoordinator] Extracted base ID: ${baseId}`);
-            // Use exact pattern matching for base ID too
-            for (const node of nodes) {
-                if (node.id) {
-                    const exactMatch = new RegExp(`flowchart-${baseId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:-task-|:task:)`);
-                    if (exactMatch.test(node.id)) {
-                        console.log(`[HighlightCoordinator] ✓ Found Mermaid node by base ID pattern: ${node.id}`);
+        // Try pattern matching for Mermaid with the full taskId
+        for (const node of nodes) {
+            if (node.id) {
+                // Escape special regex characters in taskId
+                const escapedTaskId = taskId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                // Try various patterns that Mermaid might use
+                const patterns = [
+                    new RegExp(`^flowchart-${escapedTaskId}(?:-task-|:task:|-|$)`),
+                    new RegExp(`flowchart-${escapedTaskId}(?:-task-|:task:)`),
+                    new RegExp(`(?:^|-)${escapedTaskId}(?:-task-|:task:)`),
+                    new RegExp(`^${escapedTaskId}(?:-task-|:task:)`)
+                ];
+                
+                for (const pattern of patterns) {
+                    if (pattern.test(node.id)) {
+                        console.log(`[HighlightCoordinator] ✓ Found Mermaid node by pattern match: ${node.id} (pattern: ${pattern})`);
                         return node;
                     }
                 }
             }
         }
         
-        // Fallback: Try to find element by ID
+        // Try pattern matching with base ID (if different from taskId)
+        if (baseId !== taskId) {
+            for (const node of nodes) {
+                if (node.id) {
+                    const escapedBaseId = baseId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const patterns = [
+                        new RegExp(`^flowchart-${escapedBaseId}(?:-task-|:task:|-|$)`),
+                        new RegExp(`flowchart-${escapedBaseId}(?:-task-|:task:)`),
+                        new RegExp(`(?:^|-)${escapedBaseId}(?:-task-|:task:)`),
+                        new RegExp(`^${escapedBaseId}(?:-task-|:task:)`)
+                    ];
+                    
+                    for (const pattern of patterns) {
+                        if (pattern.test(node.id)) {
+                            console.log(`[HighlightCoordinator] ✓ Found Mermaid node by base ID pattern: ${node.id} (baseId: ${baseId})`);
+                            return node;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Fallback: Try to find element by ID (CSS selector)
         try {
             const element = container.querySelector(`#${CSS.escape(taskId)}`);
             if (element) {
-                console.log(`[HighlightCoordinator] ✓ Found task by ID: ${taskId}`);
+                console.log(`[HighlightCoordinator] ✓ Found task by CSS ID selector: ${taskId}`);
                 return element;
             }
         } catch (e) {
             console.log(`[HighlightCoordinator] ID selector failed: ${e.message}`);
+        }
+        
+        // Fallback: Try with base ID if different
+        if (baseId !== taskId) {
+            try {
+                const element = container.querySelector(`#${CSS.escape(baseId)}`);
+                if (element) {
+                    console.log(`[HighlightCoordinator] ✓ Found task by base ID CSS selector: ${baseId}`);
+                    return element;
+                }
+            } catch (e) {
+                // Ignore
+            }
         }
         
         // Fallback: Look for elements with data-task-id attribute
@@ -514,7 +552,7 @@ export class HighlightCoordinator {
             console.log(`[HighlightCoordinator] data-task-id selector failed`);
         }
         
-        console.log(`[HighlightCoordinator] ✗ Could not find task element: ${taskId} in container`);
+        console.log(`[HighlightCoordinator] ✗ Could not find task element: ${taskId} (baseId: ${baseId}) in container`);
         return null;
     }
 
