@@ -356,16 +356,16 @@ export class TaskMapper {
                 } else {
                     // ID match exists but text similarity is below threshold
                     // Look for better text match as fallback
-                    const bestTextMatchResult = this.findBestTextMatchWithScore(sourceTask, targetTasks);
-                    
+                const bestTextMatchResult = this.findBestTextMatchWithScore(sourceTask, targetTasks);
+                
                     // Only use text match if it's better than the ID match
-                    if (bestTextMatchResult && 
-                        bestTextMatchResult.score > idMatchTextSimilarity &&
+                if (bestTextMatchResult && 
+                    bestTextMatchResult.score > idMatchTextSimilarity &&
                         bestTextMatchResult.score >= this.TEXT_SIMILARITY_THRESHOLD &&
-                        bestTextMatchResult.match.id !== match.id) {
+                    bestTextMatchResult.match.id !== match.id) {
                         // Better text match found that meets threshold - use it instead
-                        match = bestTextMatchResult.match;
-                    }
+                    match = bestTextMatchResult.match;
+                }
                     // Otherwise, keep the ID match (even if below threshold, ID takes precedence)
                 }
             } else {

@@ -2489,6 +2489,73 @@ section h3 {
 #user-input h3,
 .user-input-section h3 {
     padding: 16px 0 16px 24px !important; /* 16px top/bottom, 24px left - override h3 padding: 0 */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Section toggle button */
+.section-toggle-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: var(--text-primary, #1e293b);
+    transition: transform 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.section-toggle-button:hover {
+    color: var(--accent-color, #3b82f6);
+    transform: scale(1.1);
+}
+
+.section-toggle-button:focus {
+    outline: 2px solid var(--accent-color, #3b82f6);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.section-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.section-toggle-icon svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+/* Collapsed state for content box */
+.content-box.collapsed {
+    overflow: hidden;
+}
+
+.content-box.collapsed pre,
+.content-box.collapsed code {
+    display: block;
+    overflow: hidden;
+}
+
+/* User input section when collapsed - change to surface color */
+#user-input.collapsed,
+.user-input-section.collapsed {
+    background: var(--surface-color);
+}
+
+#user-input.collapsed h3,
+.user-input-section.collapsed h3 {
+    background: var(--surface-color);
 }
 
 /* User input section with header container structure (if toggles are added later) */

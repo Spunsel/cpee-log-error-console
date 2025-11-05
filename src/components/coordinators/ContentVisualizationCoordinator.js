@@ -15,6 +15,7 @@ import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 import { TextParser } from '../../utils/content/TextParser.js';
+import { StepSection } from '../ui/StepSection.js';
 
 export class ContentVisualizationCoordinator {
     constructor(domRegistry = null, highlightCoordinator = null, eventBus = null) {
@@ -47,6 +48,9 @@ export class ContentVisualizationCoordinator {
         
         // Dark mode management - listen for dark mode changes to re-render all graphs
         this.setupDarkModeListener();
+        
+        // StepSection instances for collapsible sections
+        this.stepSections = new Map();
     }
     
     /**
@@ -430,6 +434,8 @@ export class ContentVisualizationCoordinator {
 
         if (!content || content === 'Not found' || content === 'No content available') {
             userInputElement.innerHTML = '<div class="no-content">No user input for this step</div>';
+            // Initialize StepSection even if no content
+            this.initializeStepSection('user-input');
             return;
         }
 
@@ -444,11 +450,35 @@ export class ContentVisualizationCoordinator {
                 contentBox.classList.add('user-input-section');
             }
             
+            // Initialize StepSection for collapsible functionality
+            this.initializeStepSection('user-input');
+            
             console.log('✅ User input section updated');
             
         } catch (error) {
             console.error('❌ Error updating user input section:', error);
             this.showSectionError(userInputElement, 'Failed to display user input', error.message);
+        }
+    }
+    
+    /**
+     * Initialize StepSection component for a section
+     * @param {string} sectionId - ID of the section to make collapsible
+     */
+    initializeStepSection(sectionId) {
+        // Only initialize once per section
+        if (this.stepSections.has(sectionId)) {
+            return;
+        }
+        
+        try {
+            const stepSection = new StepSection(sectionId, {
+                startCollapsed: false
+            });
+            this.stepSections.set(sectionId, stepSection);
+            console.log(`✅ StepSection initialized for ${sectionId}`);
+        } catch (error) {
+            console.warn(`⚠️ Failed to initialize StepSection for ${sectionId}:`, error);
         }
     }
 
