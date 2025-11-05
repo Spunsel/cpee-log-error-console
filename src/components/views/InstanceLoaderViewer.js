@@ -584,11 +584,11 @@ export class InstanceLoaderViewer {
         const instanceList = this.getElement('loadAllInstancesList');
         
         // Get predefined list of process numbers from config
-        const processNumbers = configManager.get('cpee.instances.processNumbers', []);
+        const processNumbers = configManager.get('ui.instances.processNumbers', []);
         
         // Validate that we have process numbers
         if (!Array.isArray(processNumbers) || processNumbers.length === 0) {
-            console.warn('No process numbers configured in cpee.instances.processNumbers');
+            console.warn('No process numbers configured in ui.instances.processNumbers');
             alert('No process numbers configured. Please check the configuration.');
             return;
         }
