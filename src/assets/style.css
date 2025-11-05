@@ -150,8 +150,6 @@
     --alert-danger-border: #8A5C64;
     --alert-danger-bg: #1A1617;
     
-    
-    
     --copy-btn-text: #a8b8d0;
     --copy-btn-border: #4a5568;
     --copy-btn-hover-bg: #3d4a5f;
@@ -161,9 +159,9 @@
     
     --scrollbar-thumb: #4a5568;
     --scrollbar-thumb-hover: #5a6578;
-    
-    --search-match-bg: #f5ae1b;
-    --search-match-active-bg: #6ba3f5;
+
+    --search-match-bg: #5a4372;
+    --search-match-active-bg: #8b5cf6;
     
     --shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.25), 0.5px 0.5px 2px 0 rgba(0, 0, 0, 0.15);
     --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.25);
@@ -3271,7 +3269,15 @@ section h3 {
     transition: transform 0.3s ease;
 }
 
-/* Action bar content (everything except collapser) */
+/* Action bar wrapper - stacks content and copy button vertically */
+.raw-content-actions-bar .action-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+/* Action bar content */
 .raw-content-actions-bar .action-bar-content {
     display: flex;
     flex-direction: column;

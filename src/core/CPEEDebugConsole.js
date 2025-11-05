@@ -308,6 +308,12 @@ export class CPEEDebugConsole {
         // Hide instance loader when displaying an instance
         this.instanceLoaderViewer.hide();
         
+        // Hide advanced instance loading section when selecting an instance
+        const advancedInstanceLoading = document.querySelector('.advanced-instance-loading');
+        if (advancedInstanceLoading) {
+            advancedInstanceLoading.classList.add('hidden');
+        }
+        
         // Hide theme toggle when navigating away from InstanceLoaderViewer
         this.darkModeToggle.hide();
         
@@ -393,6 +399,12 @@ export class CPEEDebugConsole {
         this.instanceLoaderViewer.show();
         this.stepViewer.showDefaultState();
         this.logViewer.hideRawLog();
+        
+        // Show advanced instance loading section when returning home
+        const advancedInstanceLoading = document.querySelector('.advanced-instance-loading');
+        if (advancedInstanceLoading) {
+            advancedInstanceLoading.classList.remove('hidden');
+        }
         
         // Hide theme toggle when returning home (only show on first load)
         this.darkModeToggle.hide();

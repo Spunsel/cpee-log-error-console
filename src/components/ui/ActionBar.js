@@ -14,8 +14,6 @@ export class ActionBar {
         this.copyButton = new CopyButton(domRegistry);
         this.searchBar = new SearchBar(domRegistry, searchService, sectionId);
         this.isVisible = false;
-        // Default to collapsed for raw/log sections, can be overridden via options
-        this.isCollapsed = options.collapsedByDefault !== undefined ? options.collapsedByDefault : false;
         this.onCopy = null;
         this.onSearch = null;
         this.onClear = null;
@@ -172,80 +170,31 @@ export class ActionBar {
         // Add counter row after bottom row
         bottomRow.appendChild(counterRow);
         
-        // Create content wrapper (everything except collapser)
+        // Create content wrapper
         const contentWrapper = document.createElement('div');
         contentWrapper.className = 'action-bar-content';
         contentWrapper.appendChild(topRow);
         contentWrapper.appendChild(bottomRow);
         
-        // Create collapser section on the right
-        const collapser = document.createElement('div');
-        collapser.className = 'raw-content-actions-collapser';
-        const collapseButton = document.createElement('button');
-        collapseButton.className = 'action-bar-collapse-btn';
-        collapseButton.setAttribute('aria-label', 'Collapse action bar');
-        collapseButton.setAttribute('title', 'Collapse action bar');
-        collapseButton.innerHTML = ICONS.ACTIONBAR_COLLAPSE;
-        
-        // Store reference to collapse button
-        this.collapseButton = collapseButton;
-        
-        // Add click handler for collapse/expand
-        collapseButton.addEventListener('click', () => {
-            this.toggleCollapse();
-        });
-        
-        collapser.appendChild(collapseButton);
-        
-        // Create copy button container (outside action bar, below collapser)
+        // Create copy button container (outside action-bar-content, underneath it)
         const copyButtonContainer = document.createElement('div');
         copyButtonContainer.className = 'action-bar-copy-container';
         
         // Store reference to copy button container
         this.copyButtonContainer = copyButtonContainer;
         
-        // Assemble action bar
-        actionBar.appendChild(contentWrapper);
-        actionBar.appendChild(collapser);
-        actionBar.appendChild(copyButtonContainer);
+        // Create wrapper to stack content and copy button vertically
+        const wrapper = document.createElement('div');
+        wrapper.className = 'action-bar-wrapper';
+        wrapper.appendChild(contentWrapper);
+        wrapper.appendChild(copyButtonContainer);
+        
+        // Assemble action bar (no collapser - always visible)
+        actionBar.appendChild(wrapper);
         
         return actionBar;
     }
 
-    /**
-     * Toggle collapse state of the action bar
-     */
-    toggleCollapse() {
-        if (!this.element) {
-            return;
-        }
-        
-        const wasCollapsed = this.isCollapsed;
-        this.isCollapsed = !this.isCollapsed;
-        
-        if (this.isCollapsed) {
-            this.element.classList.add('collapsed');
-            this.collapseButton.innerHTML = ICONS.ACTIONBAR_EXPAND;
-            this.collapseButton.setAttribute('aria-label', 'Expand action bar');
-            this.collapseButton.setAttribute('title', 'Expand action bar');
-        } else {
-            this.element.classList.remove('collapsed');
-            this.collapseButton.innerHTML = ICONS.ACTIONBAR_COLLAPSE;
-            this.collapseButton.setAttribute('aria-label', 'Collapse action bar');
-            this.collapseButton.setAttribute('title', 'Collapse action bar');
-            
-            // Autofocus search box when expanding
-            // Use requestAnimationFrame to ensure DOM is updated and visible
-            if (wasCollapsed) {
-                requestAnimationFrame(() => {
-                    // Small delay to ensure CSS transition starts and element is visible
-                    setTimeout(() => {
-                        this.focusSearch();
-                    }, 50);
-                });
-            }
-        }
-    }
 
     /**
      * Extract counter from search bar and move it below search bar
@@ -354,16 +303,6 @@ export class ActionBar {
         // Prepend to ensure it appears first and anchors correctly during scrolling
         container.insertBefore(actionBar, container.firstChild);
         
-        // Apply collapsed state if it was set to collapsed by default
-        if (this.isCollapsed && this.element) {
-            this.element.classList.add('collapsed');
-            if (this.collapseButton) {
-                this.collapseButton.innerHTML = ICONS.ACTIONBAR_EXPAND;
-                this.collapseButton.setAttribute('aria-label', 'Expand action bar');
-                this.collapseButton.setAttribute('title', 'Expand action bar');
-            }
-        }
-        
         console.log('ActionBar: Attached to container');
     }
 
@@ -374,16 +313,6 @@ export class ActionBar {
         if (this.element) {
             this.element.style.display = 'flex';
             this.isVisible = true;
-            
-            // Apply collapsed state if it was set to collapsed by default
-            if (this.isCollapsed) {
-                this.element.classList.add('collapsed');
-                if (this.collapseButton) {
-                    this.collapseButton.innerHTML = ICONS.ACTIONBAR_EXPAND;
-                    this.collapseButton.setAttribute('aria-label', 'Expand action bar');
-                    this.collapseButton.setAttribute('title', 'Expand action bar');
-                }
-            }
             
             console.log('ActionBar: Shown');
         } else {
