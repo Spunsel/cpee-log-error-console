@@ -2,6 +2,13 @@
  * Task Mapper
  * Maps equivalent tasks across different formats (CPEE XML, Mermaid syntax)
  * Uses exact ID matching to identify equivalent tasks
+ * 
+ * CONFIGURABLE PARAMETERS:
+ * - JACCARD_WEIGHT, JARO_WINKLER_WEIGHT, EXACT_MATCH_WEIGHT: Control similarity metric weights
+ * - TEXT_SIMILARITY_THRESHOLD: Minimum similarity to accept text-based matches
+ * - ID_MATCH_MIN_SIMILARITY: Below this, ID matches are considered "very low" and may be rejected
+ * - TEXT_MATCH_SIGNIFICANT_DIFF: How much better a text match must be to override an ID match
+ * - ID_MATCH_ACCEPT_THRESHOLD: Above this, ID matches are automatically accepted without checking alternatives
  */
 
 import { TaskIdentifier } from '../../models/TaskIdentifier.js';
@@ -9,12 +16,31 @@ import { TaskIdentifier } from '../../models/TaskIdentifier.js';
 export class TaskMapper {
     
     constructor() {
-        this.TEXT_SIMILARITY_THRESHOLD = 0.95;
+        // ============================================
+        // adjustable values to fine-tune matching behavior
+        // ============================================
+        
+        // Text similarity metric weights (must sum to 1.0)
+        this.JACCARD_WEIGHT = 0.60;           // Token-based similarity weight
+        this.JARO_WINKLER_WEIGHT = 0.35;     // Character-based similarity weight
+        this.EXACT_MATCH_WEIGHT = 0.05;       // Exact match bonus weight
+        
+        // Subset/superset matching boost
+        this.SUBSET_MATCH_BOOST = 0.25;       // Boost when one label is subset of another (e.g., "Send Updates" vs "Send Updates to Customer")
+        this.MIN_SUBSET_RATIO = 0.60;         // Minimum ratio of smaller set to larger set to consider it a subset match
+        
+        // Text matching thresholds
+        this.TEXT_SIMILARITY_THRESHOLD = 0.75;              // Minimum similarity to accept a text-based match
+        
+        // ID match validation thresholds
+        this.ID_MATCH_MIN_SIMILARITY = 0.50;               // Below this, ID match is considered "very low"
+        this.TEXT_MATCH_SIGNIFICANT_DIFF = 0.20;           // Text match must be this much better to override ID match
+        this.ID_MATCH_ACCEPT_THRESHOLD = 0.70;             // Above this, ID match is automatically accepted
     }
     
     /**
-     * Calculate string similarity between two strings using combined metrics:
-     * 70% Jaccard similarity (token-based) + 25% Jaro-Winkler + 5% exact match bonus
+     * Calculate string similarity between two strings using combined metrics
+     * Uses configurable weights: Jaccard + Jaro-Winkler + exact match bonus
      * Returns a value between 0 (no similarity) and 1 (identical)
      * @param {string} str1 - First string
      * @param {string} str2 - Second string
@@ -39,10 +65,10 @@ export class TaskMapper {
         const jaccardSimilarity = this.calculateJaccardSimilarity(s1, s2);
         const jaroWinklerSimilarity = this.calculateJaroWinkler(s1, s2);
         
-        // Combined similarity: 70% Jaccard + 25% Jaro-Winkler + 5% exact match bonus
-        const combinedSimilarity = (0.70 * jaccardSimilarity) + 
-                                   (0.25 * jaroWinklerSimilarity) + 
-                                   (0.05 * exactMatch);
+        // Combined similarity using configurable weights
+        const combinedSimilarity = (this.JACCARD_WEIGHT * jaccardSimilarity) + 
+                                   (this.JARO_WINKLER_WEIGHT * jaroWinklerSimilarity) + 
+                                   (this.EXACT_MATCH_WEIGHT * exactMatch);
         
         return Math.min(1.0, Math.max(0.0, combinedSimilarity));
     }
@@ -50,6 +76,7 @@ export class TaskMapper {
     /**
      * Calculate Jaccard similarity (token-based) between two strings
      * Measures word-level similarity, order-insensitive
+     * Enhanced to handle subset/superset relationships (e.g., "Send Updates" vs "Send Updates to Customer")
      * Returns a value between 0 (no similarity) and 1 (identical word sets)
      * @param {string} str1 - First string (should be normalized)
      * @param {string} str2 - Second string (should be normalized)
@@ -78,6 +105,21 @@ export class TaskMapper {
             }
         }
         
+        // Check if one set is a subset of another
+        const smallerSize = Math.min(tokens1.size, tokens2.size);
+        const subsetRatio = intersection / smallerSize;
+        
+        // If all tokens from smaller set are in larger set (subset relationship)
+        // This handles cases like "Send Updates" vs "Send Updates to Customer"
+        if (subsetRatio >= this.MIN_SUBSET_RATIO && intersection === smallerSize) {
+            // Calculate base similarity using overlap coefficient (intersection / min size)
+            const overlapCoefficient = intersection / smallerSize;
+            // Apply boost for subset relationship
+            const boostedSimilarity = Math.min(1.0, overlapCoefficient + this.SUBSET_MATCH_BOOST);
+            return boostedSimilarity;
+        }
+        
+        // Standard Jaccard calculation
         // Calculate union (all unique tokens from both sets)
         const union = tokens1.size + tokens2.size - intersection;
         
@@ -277,6 +319,51 @@ export class TaskMapper {
     }
     
     /**
+     * Find all text matches in target tasks with scores above threshold
+     * @param {TaskIdentifier} sourceTask - Source task
+     * @param {TaskIdentifier[]} targetTasks - Target tasks to search
+     * @returns {Array<{task: TaskIdentifier, score: number, type: string}>} Array of matching tasks with scores
+     */
+    findAllTextMatchesWithScore(sourceTask, targetTasks) {
+        if (!sourceTask || !sourceTask.label || targetTasks.length === 0) {
+            return [];
+        }
+        
+        const matches = [];
+        
+        for (const targetTask of targetTasks) {
+            if (!targetTask || !targetTask.label) {
+                continue;
+            }
+            
+            const similarity = this.calculateTextSimilarity(sourceTask.label, targetTask.label);
+            
+            // Include all matches above threshold (or at least the best match if none above threshold)
+            if (similarity >= this.TEXT_SIMILARITY_THRESHOLD) {
+                matches.push({
+                    task: targetTask,
+                    score: similarity,
+                    type: 'text'
+                });
+            }
+        }
+        
+        // If no matches above threshold, include the best match anyway (for comparison)
+        if (matches.length === 0) {
+            const bestMatch = this.findBestTextMatchWithScore(sourceTask, targetTasks);
+            if (bestMatch) {
+                matches.push({
+                    task: bestMatch.match,
+                    score: bestMatch.score,
+                    type: 'text'
+                });
+            }
+        }
+        
+        return matches;
+    }
+    
+    /**
      * Build mapping between tasks in all four formats
      * Rules:
      * - Input intermediate only has id, so mapping TO it uses id from input-cpee
@@ -345,32 +432,77 @@ export class TaskMapper {
                 outputCpeeTasks
             );
             
-            // Validate ID-based match with text similarity
+            // GENERAL RULE: Always compare all possible matches and keep the one with highest similarity
+            // Collect all potential matches (ID-based and text-based)
+            const allMatches = [];
+            
+            // Add ID-based match if it exists
             if (match) {
-                const idMatchTextSimilarity = this.calculateTextSimilarity(sourceTask.label, match.label);
-                
-                // If ID match has text similarity above threshold, use it (don't look for other matches)
-                if (idMatchTextSimilarity >= this.TEXT_SIMILARITY_THRESHOLD) {
-                    // ID match is good enough - keep it
-                    // Don't search for other text matches
-                } else {
-                    // ID match exists but text similarity is below threshold
-                    // Look for better text match as fallback
-                const bestTextMatchResult = this.findBestTextMatchWithScore(sourceTask, targetTasks);
-                
-                    // Only use text match if it's better than the ID match
-                if (bestTextMatchResult && 
-                    bestTextMatchResult.score > idMatchTextSimilarity &&
-                        bestTextMatchResult.score >= this.TEXT_SIMILARITY_THRESHOLD &&
-                    bestTextMatchResult.match.id !== match.id) {
-                        // Better text match found that meets threshold - use it instead
-                    match = bestTextMatchResult.match;
+                const idMatchSimilarity = this.calculateTextSimilarity(sourceTask.label, match.label);
+                allMatches.push({
+                    task: match,
+                    score: idMatchSimilarity,
+                    type: 'id'
+                });
+            }
+            
+            // Add text-based matches (find all above threshold, not just the best)
+            const allTextMatches = this.findAllTextMatchesWithScore(sourceTask, targetTasks);
+            allMatches.push(...allTextMatches);
+            
+            // Filter out duplicate tasks (same task ID)
+            const uniqueMatches = [];
+            const seenTaskIds = new Set();
+            for (const matchCandidate of allMatches) {
+                if (!seenTaskIds.has(matchCandidate.task.id)) {
+                    seenTaskIds.add(matchCandidate.task.id);
+                    uniqueMatches.push(matchCandidate);
                 }
-                    // Otherwise, keep the ID match (even if below threshold, ID takes precedence)
-                }
+            }
+            
+            // GENERAL RULE: Always pick the match with highest similarity
+            // Apply special rules for ID matches with very low similarity
+            const idMatch = uniqueMatches.find(m => m.type === 'id');
+            
+            if (idMatch && idMatch.score >= this.ID_MATCH_ACCEPT_THRESHOLD) {
+                // ID match has very high similarity - use it (optimization: skip comparing alternatives)
+                match = idMatch.task;
+            } else if (uniqueMatches.length === 0) {
+                // No matches found
+                match = null;
             } else {
-                // No ID match found - try text-based matching as fallback
-                match = this.findBestTextMatch(sourceTask, targetTasks);
+                // Compare all matches and pick the highest similarity
+                // Sort by score descending
+                uniqueMatches.sort((a, b) => b.score - a.score);
+                const bestMatch = uniqueMatches[0];
+                
+                // Special rule for very low ID matches: require significant difference to override
+                if (idMatch && 
+                    idMatch.score < this.ID_MATCH_MIN_SIMILARITY && 
+                    bestMatch.type === 'text' &&
+                    bestMatch.task.id !== idMatch.task.id) {
+                    const similarityDiff = bestMatch.score - idMatch.score;
+                    if (similarityDiff >= this.TEXT_MATCH_SIGNIFICANT_DIFF && 
+                        bestMatch.score >= this.TEXT_SIMILARITY_THRESHOLD) {
+                        // Text match is significantly better - use it
+                        match = bestMatch.task;
+                    } else {
+                        // Text match not significantly better - keep ID match
+                        match = idMatch.task;
+                    }
+                } else {
+                    // General rule: pick highest similarity match
+                    // For text matches, require minimum threshold
+                    if (bestMatch.type === 'text' && bestMatch.score >= this.TEXT_SIMILARITY_THRESHOLD) {
+                        match = bestMatch.task;
+                    } else if (bestMatch.type === 'id') {
+                        // ID match is best (even if below threshold, no better alternative)
+                        match = bestMatch.task;
+                    } else {
+                        // Text match below threshold - fall back to ID match if exists
+                        match = idMatch ? idMatch.task : null;
+                    }
+                }
             }
             
             if (match) {
@@ -649,6 +781,7 @@ class TaskMapping {
     
     /**
      * Add a mapping between two tasks
+     * GENERAL RULE: Only one mapping per source→target format pair (highest similarity wins)
      * @param {TaskIdentifier} sourceTask - Source task
      * @param {string} sourceFormat - Source format key
      * @param {TaskIdentifier} targetTask - Target task
@@ -660,9 +793,42 @@ class TaskMapping {
         this.storeTask(sourceTask, sourceFormat);
         this.storeTask(targetTask, targetFormat);
         
+        // ENSURE ONLY ONE MAPPING: Remove any existing mappings from source to target format
+        // This ensures we only keep the best match (highest similarity)
+        // We only do this for direct (non-transitive) mappings to avoid breaking transitive chains
+        if (!isTransitive) {
+            // Clear source→target mappings (only mappings from this source task to this target format)
+            this.removeExistingMappings(sourceTask.id, sourceFormat, targetFormat);
+            // Clear target→source mappings (only mappings from this target task to this source format)
+            this.removeExistingMappings(targetTask.id, targetFormat, sourceFormat);
+        }
+        
         // Create bidirectional mapping
         this.addDirectionalMapping(sourceTask.id, sourceFormat, targetTask, targetFormat, isTransitive);
         this.addDirectionalMapping(targetTask.id, targetFormat, sourceTask, sourceFormat, isTransitive);
+    }
+    
+    /**
+     * Remove existing mappings from source to target format
+     * Ensures only one mapping exists per source→target format pair
+     * @param {string} sourceTaskId - Source task ID
+     * @param {string} sourceFormat - Source format
+     * @param {string} targetFormat - Target format
+     */
+    removeExistingMappings(sourceTaskId, sourceFormat, targetFormat) {
+        const formatMap = this.mappings.get(sourceFormat);
+        if (!formatMap) {
+            return;
+        }
+        
+        const taskMap = formatMap.get(sourceTaskId);
+        if (!taskMap) {
+            return;
+        }
+        
+        // Clear all existing mappings to this target format
+        // This ensures only the most recent (best) mapping is kept
+        taskMap.set(targetFormat, []);
     }
     
     /**
