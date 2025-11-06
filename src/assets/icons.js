@@ -80,6 +80,28 @@ export const ICON_LOG = `
 `;
 
 /**
+ * Traces mode icon - Horizontal lines representing execution traces/paths
+ * Represents traces view mode - displays all possible execution paths through workflow - 16x16px for toggle buttons
+ * Design: Four horizontal lines of varying lengths representing different execution traces
+ */
+export const ICON_TRACES = `
+    <svg fill="currentColor" width="16" height="16" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 463.59 463.59" xml:space="preserve">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <g>
+                <g>
+                    <path d="M26.775,52.02h201.96c14.364,0,26.01-11.646,26.01-26.01S243.099,0,228.735,0H26.775C12.411,0,0.765,11.646,0.765,26.01 S12.411,52.02,26.775,52.02z"></path>
+                    <path d="M26.775,186.66h361.08c14.363,0,26.01-11.646,26.01-26.01c0-14.364-11.646-26.01-26.01-26.01H26.775 c-14.364,0-26.01,11.646-26.01,26.01C0.765,175.014,12.411,186.66,26.775,186.66z"></path>
+                    <path d="M26.775,321.3h312.121c14.363,0,26.01-11.646,26.01-26.01c0-14.363-11.646-26.01-26.01-26.01H26.775 c-14.364,0-26.01,11.646-26.01,26.01C0.765,309.654,12.411,321.3,26.775,321.3z"></path>
+                    <path d="M436.815,411.57H26.775c-14.364,0-26.01,11.646-26.01,26.01c0,14.364,11.646,26.01,26.01,26.01h410.041 c14.363,0,26.01-11.646,26.01-26.01C462.825,423.217,451.179,411.57,436.815,411.57z"></path>
+                </g>
+            </g>
+        </g>
+    </svg>
+`;
+
+/**
  * Navigation Forward icon - Triangle pointing right
  * For next/forward step navigation - 16x16px
  */
@@ -513,6 +535,7 @@ export const ICONS = {
     VISUAL: ICON_VISUAL,
     RAW: ICON_RAW,
     LOG: ICON_LOG,
+    TRACES: ICON_TRACES,
     NAV_FORWARD: ICON_NAV_FORWARD,
     NAV_BACKWARD: ICON_NAV_BACKWARD,
     NAV_START: ICON_NAV_START,
@@ -559,6 +582,7 @@ export function getIcon(iconName) {
         'visual': ICON_VISUAL,
         'raw': ICON_RAW,
         'log': ICON_LOG,
+        'traces': ICON_TRACES,
         'nav-forward': ICON_NAV_FORWARD,
         'nav-backward': ICON_NAV_BACKWARD,
         'nav-start': ICON_NAV_START,
