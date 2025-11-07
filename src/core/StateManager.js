@@ -37,11 +37,14 @@ export class StateManager {
                 wholeWord: false
             },
             viewModes: {
+                // View modes for each section: 'visual', 'raw', 'log', or 'traces'
                 'input-cpee': 'visual',
                 'input-intermediate': 'visual',
                 'output-intermediate': 'visual',
                 'output-cpee': 'visual'
             },
+            // Optional: Cache trace calculation results per section (Phase 31.14)
+            traceCache: {}, // Structure: { 'sectionId-stepNumber': Trace[] }
             graphScale: 1.0 // Default graph scale: 1x (100%)
         };
     }
@@ -394,6 +397,79 @@ export class StateManager {
         });
 
         this.logDebug('Batch update completed');
+    }
+
+    /**
+     * Validate view mode value (Phase 31.14)
+     * @param {string} mode - View mode to validate
+     * @returns {boolean} True if mode is valid
+     */
+    isValidViewMode(mode) {
+        return mode === 'visual' || mode === 'raw' || mode === 'log' || mode === 'traces';
+    }
+
+    /**
+     * Get all valid view modes (Phase 31.14)
+     * @returns {Array<string>} Array of valid view mode values
+     */
+    getValidViewModes() {
+        return ['visual', 'raw', 'log', 'traces'];
+    }
+
+    /**
+     * Get trace cache for a section (Phase 31.14)
+     * @param {string} sectionId - Section identifier
+     * @param {number} stepNumber - Step number
+     * @returns {Array|null} Cached traces or null
+     */
+    getTraceCache(sectionId, stepNumber) {
+        const cacheKey = `${sectionId}-${stepNumber}`;
+        return this.state.traceCache?.[cacheKey] || null;
+    }
+
+    /**
+     * Set trace cache for a section (Phase 31.14)
+     * @param {string} sectionId - Section identifier
+     * @param {number} stepNumber - Step number
+     * @param {Array} traces - Traces to cache
+     */
+    setTraceCache(sectionId, stepNumber, traces) {
+        if (!this.state.traceCache) {
+            this.state.traceCache = {};
+        }
+        const cacheKey = `${sectionId}-${stepNumber}`;
+        this.state.traceCache[cacheKey] = traces;
+        this.logDebug(`Cached traces for ${cacheKey}: ${traces?.length || 0} traces`);
+    }
+
+    /**
+     * Clear trace cache for a section (Phase 31.14)
+     * @param {string} sectionId - Section identifier (optional, clears all if not provided)
+     * @param {number} stepNumber - Step number (optional)
+     */
+    clearTraceCache(sectionId = null, stepNumber = null) {
+        if (!this.state.traceCache) {
+            return;
+        }
+
+        if (sectionId && stepNumber !== null) {
+            // Clear specific section-step cache
+            const cacheKey = `${sectionId}-${stepNumber}`;
+            delete this.state.traceCache[cacheKey];
+            this.logDebug(`Cleared trace cache for ${cacheKey}`);
+        } else if (sectionId) {
+            // Clear all caches for a section
+            Object.keys(this.state.traceCache).forEach(key => {
+                if (key.startsWith(`${sectionId}-`)) {
+                    delete this.state.traceCache[key];
+                }
+            });
+            this.logDebug(`Cleared trace cache for section ${sectionId}`);
+        } else {
+            // Clear all trace caches
+            this.state.traceCache = {};
+            this.logDebug('Cleared all trace caches');
+        }
     }
 
     /**

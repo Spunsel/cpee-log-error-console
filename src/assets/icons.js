@@ -521,6 +521,38 @@ export const ICON_SECTION_EXPAND = `
     </svg>
 `;
 
+/**
+ * Trace Expand icon - Dropdown arrow pointing down
+ * Represents expanding trace details - used when trace is collapsed (shows expand icon)
+ * 16x16px for trace toggle buttons
+ */
+export const ICON_EXPAND_TRACE = `
+    <svg fill="currentColor" viewBox="-6.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <title>dropdown</title>
+            <path d="M18.813 11.406l-7.906 9.906c-0.75 0.906-1.906 0.906-2.625 0l-7.906-9.906c-0.75-0.938-0.375-1.656 0.781-1.656h16.875c1.188 0 1.531 0.719 0.781 1.656z"></path>
+        </g>
+    </svg>
+`;
+
+/**
+ * Trace Collapse icon - Dropdown arrow pointing up
+ * Represents collapsing trace details - used when trace is expanded (shows collapse icon)
+ * 16x16px for trace toggle buttons
+ */
+export const ICON_COLLAPSE_TRACE = `
+    <svg fill="currentColor" viewBox="-6.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" transform="matrix(1, 0, 0, -1, 0, 0)">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <title>dropdown</title>
+            <path d="M18.813 11.406l-7.906 9.906c-0.75 0.906-1.906 0.906-2.625 0l-7.906-9.906c-0.75-0.938-0.375-1.656 0.781-1.656h16.875c1.188 0 1.531 0.719 0.781 1.656z"></path>
+        </g>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -567,7 +599,10 @@ export const ICONS = {
     INFO: ICON_INFO,
     // Section toggle icons
     SECTION_COLLAPSE: ICON_SECTION_COLLAPSE,
-    SECTION_EXPAND: ICON_SECTION_EXPAND
+    SECTION_EXPAND: ICON_SECTION_EXPAND,
+    // Trace toggle icons
+    EXPAND_TRACE: ICON_EXPAND_TRACE,
+    COLLAPSE_TRACE: ICON_COLLAPSE_TRACE
 };
 
 /**
@@ -608,7 +643,10 @@ export function getIcon(iconName) {
         'info': ICON_INFO,
         // Section toggle icons
         'section-collapse': ICON_SECTION_COLLAPSE,
-        'section-expand': ICON_SECTION_EXPAND
+        'section-expand': ICON_SECTION_EXPAND,
+        // Trace toggle icons
+        'expand-trace': ICON_EXPAND_TRACE,
+        'collapse-trace': ICON_COLLAPSE_TRACE
     };
 
     return iconMap[iconName.toLowerCase()] || '';

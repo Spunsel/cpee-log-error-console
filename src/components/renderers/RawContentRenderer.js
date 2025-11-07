@@ -16,10 +16,15 @@ import { serviceFactory } from '../../core/ServiceFactory.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { MermaidParser } from '../../utils/content/MermaidParser.js';
 import { RawUntouchedLogRender } from './RawUntouchedLogRender.js';
+import { TraceDisplay } from '../ui/TraceDisplay.js';
+import { CPEETraceCalculator } from '../../utils/trace/CPEETraceCalculator.js';
+import { MermaidTraceCalculator } from '../../utils/trace/MermaidTraceCalculator.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class RawContentRenderer {
-    constructor(domRegistry = null) {
+    constructor(domRegistry = null, eventBus = null) {
         this.domRegistry = domRegistry;
+        this.eventBus = eventBus || defaultEventBus;
         
         // Search service
         this.searchService = serviceFactory.get('SearchService');
@@ -32,6 +37,12 @@ export class RawContentRenderer {
         
         // Store original content per section (for copy functionality)
         this.originalContent = new Map();
+        
+        // Trace displays per section
+        this.traceDisplays = new Map();
+        
+        // Cache calculated traces per section (to avoid recalculation)
+        this.traceCache = new Map();
     }
 
     /**
@@ -125,14 +136,228 @@ export class RawContentRenderer {
     }
 
     /**
+     * Render traces content for a section
+     * @param {string} sectionId - Section identifier
+     * @param {HTMLElement} container - Content container
+     * @param {Object} step - Current step object
+     * @returns {HTMLElement|null} Trace display container or null
+     */
+    renderTracesContent(sectionId, container, step) {
+        console.log(`[RawContentRenderer] Rendering traces content for ${sectionId}`);
+        
+        if (!step || !container) {
+            console.warn('[RawContentRenderer] Missing step or container for traces rendering');
+            return null;
+        }
+
+        // Check cache first
+        const cacheKey = `${sectionId}-${step.stepNumber || 'unknown'}`;
+        if (this.traceCache.has(cacheKey)) {
+            console.log(`[RawContentRenderer] Using cached traces for ${sectionId}`);
+            const cachedTraces = this.traceCache.get(cacheKey);
+            return this.renderCachedTraces(sectionId, container, cachedTraces);
+        }
+
+        // Extract raw content based on section type
+        let rawContent = null;
+        let contentString = null;
+        let isCPEE = false;
+        let isMermaid = false;
+
+        try {
+            switch (sectionId) {
+                case 'input-cpee':
+                case 'output-cpee':
+                    rawContent = sectionId === 'input-cpee' 
+                        ? step.getInputCpeeTreeRaw() 
+                        : step.getOutputCpeeTreeRaw();
+                    if (rawContent && rawContent.getContent) {
+                        contentString = rawContent.getContent();
+                        isCPEE = true;
+                    }
+                    break;
+                case 'input-intermediate':
+                case 'output-intermediate':
+                    rawContent = sectionId === 'input-intermediate'
+                        ? step.getInputMermaidRaw()
+                        : step.getOutputMermaidRaw();
+                    if (rawContent && rawContent.getContent) {
+                        contentString = rawContent.getContent();
+                        isMermaid = true;
+                    }
+                    break;
+            }
+
+            if (!contentString || (!isCPEE && !isMermaid)) {
+                console.warn(`[RawContentRenderer] No valid content found for ${sectionId}`);
+                return this.renderNoTracesMessage(container);
+            }
+
+            // Calculate traces using appropriate calculator
+            let traces = [];
+            const options = {
+                maxLoopIterations: 1,
+                maxPathLength: 50
+            };
+
+            if (isCPEE) {
+                console.log(`[RawContentRenderer] Calculating CPEE traces for ${sectionId}`);
+                traces = CPEETraceCalculator.calculateAllTraces(contentString, options);
+            } else if (isMermaid) {
+                console.log(`[RawContentRenderer] Calculating Mermaid traces for ${sectionId}`);
+                traces = MermaidTraceCalculator.calculateAllTraces(contentString, options);
+            }
+
+            // Cache the results
+            this.traceCache.set(cacheKey, traces);
+
+            // Emit traces:calculated event (Phase 31.15)
+            this.eventBus.emit('traces:calculated', {
+                sectionId,
+                stepNumber: step.stepNumber || 'unknown',
+                traceCount: traces.length,
+                traces
+            });
+
+            // Render traces
+            return this.renderTraces(sectionId, container, traces);
+
+        } catch (error) {
+            console.error(`[RawContentRenderer] Error calculating traces for ${sectionId}:`, error);
+            
+            // Emit traces:error event (Phase 31.15)
+            this.eventBus.emit('traces:error', {
+                sectionId,
+                stepNumber: step.stepNumber || 'unknown',
+                error: error.message || 'Unknown error occurred',
+                errorObject: error
+            });
+            
+            return this.renderErrorMessage(container, error);
+        }
+    }
+
+    /**
+     * Render cached traces
+     * @param {string} sectionId - Section identifier
+     * @param {HTMLElement} container - Content container
+     * @param {Array} traces - Cached traces
+     * @returns {HTMLElement} Trace display container
+     */
+    renderCachedTraces(sectionId, container, traces) {
+        // Emit traces:calculated event for cached traces (Phase 31.15)
+        this.eventBus.emit('traces:calculated', {
+            sectionId,
+            traceCount: traces.length,
+            traces,
+            cached: true
+        });
+        
+        return this.renderTraces(sectionId, container, traces);
+    }
+
+    /**
+     * Render traces using TraceDisplay
+     * @param {string} sectionId - Section identifier
+     * @param {HTMLElement} container - Content container (traces container)
+     * @param {Array} traces - Traces to render
+     * @returns {HTMLElement} Trace display container
+     */
+    renderTraces(sectionId, container, traces) {
+        // Get or create trace display for this section
+        let traceDisplay = this.traceDisplays.get(sectionId);
+        if (!traceDisplay) {
+            traceDisplay = new TraceDisplay(this.domRegistry);
+            this.traceDisplays.set(sectionId, traceDisplay);
+        }
+
+        // Clear container first
+        container.innerHTML = '';
+
+        // Create trace display container
+        if (!traceDisplay.getContainer()) {
+            traceDisplay.createContainer();
+        } else {
+            // Reuse existing container but clear it
+            const existingContainer = traceDisplay.getContainer();
+            if (existingContainer.parentNode) {
+                existingContainer.parentNode.removeChild(existingContainer);
+            }
+            traceDisplay.createContainer();
+        }
+
+        container.appendChild(traceDisplay.getContainer());
+
+        // Render traces
+        if (traces && traces.length > 0) {
+            traceDisplay.renderTraces(traces, {
+                showLabels: false, // Show alt_ids in preview
+                expandable: true,
+                highlightStartEnd: true
+            });
+        } else {
+            traceDisplay.clear();
+            this.renderNoTracesMessage(container);
+        }
+
+        return container;
+    }
+
+    /**
+     * Render "No traces found" message
+     * @param {HTMLElement} container - Container element
+     * @returns {HTMLElement} Message container
+     */
+    renderNoTracesMessage(container) {
+        const messageContainer = this.domRegistry.createElement('div', {
+            className: 'trace-empty-message',
+            textContent: 'No traces found'
+        });
+        container.innerHTML = '';
+        container.appendChild(messageContainer);
+        return container;
+    }
+
+    /**
+     * Render error message
+     * @param {HTMLElement} container - Container element
+     * @param {Error} error - Error object
+     * @returns {HTMLElement} Error message container
+     */
+    renderErrorMessage(container, error) {
+        const errorContainer = this.domRegistry.createElement('div', {
+            className: 'trace-error-message'
+        });
+        const errorTitle = this.domRegistry.createElement('div', {
+            className: 'trace-error-title',
+            textContent: 'Error calculating traces'
+        });
+        const errorText = this.domRegistry.createElement('div', {
+            className: 'trace-error-text',
+            textContent: error.message || 'Unknown error occurred'
+        });
+        errorContainer.appendChild(errorTitle);
+        errorContainer.appendChild(errorText);
+        container.innerHTML = '';
+        container.appendChild(errorContainer);
+        return container;
+    }
+
+    /**
      * Display raw content for a section
      * @param {string} sectionId - Section identifier
      * @param {HTMLElement} container - Content container
      * @param {Object} step - Current step object
-     * @param {string} mode - View mode ('raw' or 'log')
+     * @param {string} mode - View mode ('raw', 'log', or 'traces')
      */
     displayRawContent(sectionId, container, step, mode = 'raw') {
         if (!step || !container) {
+            return;
+        }
+
+        // Handle traces mode
+        if (mode === 'traces') {
+            this.displayTracesContent(sectionId, container, step);
             return;
         }
 
@@ -185,6 +410,14 @@ export class RawContentRenderer {
         }
 
         try {
+            // Hide traces content when switching to raw/log
+            const tracesElements = container.querySelectorAll('[data-content-type="traces"]');
+            tracesElements.forEach(el => {
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.style.pointerEvents = 'none';
+            });
+
             // Check if raw content container already exists
             let rawContainer = container.querySelector('[data-content-type="raw"]');
             if (!rawContainer) {
@@ -292,6 +525,68 @@ export class RawContentRenderer {
     }
 
     /**
+     * Display traces content for a section
+     * @param {string} sectionId - Section identifier
+     * @param {HTMLElement} container - Content container
+     * @param {Object} step - Current step object
+     */
+    displayTracesContent(sectionId, container, step) {
+        console.log(`[RawContentRenderer] Displaying traces content for ${sectionId}`);
+        
+        // Hide visual content
+        const visualElements = container.querySelectorAll('[data-content-type="visual"]');
+        visualElements.forEach(el => {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+            el.style.pointerEvents = 'none';
+        });
+
+        // Hide raw/log content
+        const rawElements = container.querySelectorAll('[data-content-type="raw"]');
+        rawElements.forEach(el => {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+            el.style.pointerEvents = 'none';
+        });
+
+        // Hide action bars
+        const sectionIdForActionBar = sectionId;
+        if (this.actionBars.has(sectionIdForActionBar)) {
+            const actionBar = this.actionBars.get(sectionIdForActionBar);
+            if (actionBar) {
+                actionBar.hide();
+            }
+        }
+
+        // Restore container overflow (traces container handles its own scrolling)
+        container.style.overflow = 'visible';
+
+        // Get or create traces container
+        let tracesContainer = container.querySelector('[data-content-type="traces"]');
+        if (!tracesContainer) {
+            tracesContainer = this.domRegistry.createElement('div');
+            tracesContainer.setAttribute('data-content-type', 'traces');
+            container.style.position = 'relative';
+            container.appendChild(tracesContainer);
+        }
+
+        // Ensure traces container is visible
+        tracesContainer.style.display = 'block';
+        tracesContainer.style.visibility = 'visible';
+        tracesContainer.style.pointerEvents = 'auto';
+        tracesContainer.style.position = 'absolute';
+        tracesContainer.style.top = '0';
+        tracesContainer.style.left = '0';
+        tracesContainer.style.width = '100%';
+        tracesContainer.style.height = '100%';
+        tracesContainer.style.zIndex = '10';
+        tracesContainer.style.background = 'var(--surface-color)';
+
+        // Render traces content
+        this.renderTracesContent(sectionId, tracesContainer, step);
+    }
+
+    /**
      * Hide raw content when switching to visual mode
      * @param {HTMLElement} container - Content container
      */
@@ -303,6 +598,14 @@ export class RawContentRenderer {
         // Hide raw content elements
         const rawElements = container.querySelectorAll('[data-content-type="raw"]');
         rawElements.forEach(el => {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+            el.style.pointerEvents = 'none';
+        });
+
+        // Hide traces content elements
+        const tracesElements = container.querySelectorAll('[data-content-type="traces"]');
+        tracesElements.forEach(el => {
             el.style.display = 'none';
             el.style.visibility = 'hidden';
             el.style.pointerEvents = 'none';
@@ -543,10 +846,27 @@ export class RawContentRenderer {
     }
 
     /**
+     * Clear trace cache (called when navigating to a different step)
+     */
+    clearTraceCache() {
+        console.log('[RawContentRenderer] Clearing trace cache');
+        this.traceCache.clear();
+        
+        // Clear trace displays
+        this.traceDisplays.forEach(display => {
+            if (display && typeof display.destroy === 'function') {
+                display.destroy();
+            }
+        });
+        this.traceDisplays.clear();
+    }
+
+    /**
      * Clean up resources
      */
     destroy() {
         this.actionBars.clear();
         this.originalContent.clear();
+        this.clearTraceCache();
     }
 }

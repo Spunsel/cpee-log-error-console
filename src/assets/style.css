@@ -2728,11 +2728,112 @@ section h3 {
     color: inherit !important;
 }
 
-/* Log mode button styling
- * The .toggle-btn-log class inherits all styles from .toggle-btn
- * via CSS class cascade. No additional styles needed for three-button layout.
- * Flexbox in .view-mode-toggle automatically accommodates three buttons.
+/* Log and Traces mode button styling
+ * The .toggle-btn-log and .toggle-btn-traces classes inherit all styles from .toggle-btn
+ * via CSS class cascade. Flexbox in .view-mode-toggle automatically accommodates four buttons.
  */
+
+/* Traces button hover state - consistent with other buttons */
+.toggle-btn-traces:hover {
+    background: var(--hover-bg);
+    color: var(--text-primary);
+}
+
+/* Traces button active state - consistent with other buttons */
+.toggle-btn-traces.active {
+    background: var(--surface-color);
+    color: var(--primary-color);
+    box-shadow: 0 1px 2px var(--hover-bg-dark);
+}
+
+/* Ensure traces button SVG icons are styled consistently */
+.toggle-btn-traces svg {
+    display: block;
+    width: 25px;
+    height: 25px;
+    fill: currentColor;
+    stroke: currentColor;
+    color: inherit;
+}
+
+/* CPEE Section Traces Button - Match graph element colors */
+.cpee-section .toggle-btn-traces,
+#input-cpee .toggle-btn-traces,
+#output-cpee .toggle-btn-traces {
+    color: var(--text-primary) !important;
+}
+
+.cpee-section .toggle-btn-traces.active,
+#input-cpee .toggle-btn-traces.active,
+#output-cpee .toggle-btn-traces.active {
+    color: var(--primary-color) !important;
+}
+
+/* CPEE Section Traces Button SVG Icons */
+.cpee-section .toggle-btn-traces svg,
+#input-cpee .toggle-btn-traces svg,
+#output-cpee .toggle-btn-traces svg {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+}
+
+/* CPEE Section Traces Button SVG nested elements */
+.cpee-section .toggle-btn-traces svg path,
+.cpee-section .toggle-btn-traces svg g,
+.cpee-section .toggle-btn-traces svg *,
+#input-cpee .toggle-btn-traces svg path,
+#input-cpee .toggle-btn-traces svg g,
+#input-cpee .toggle-btn-traces svg *,
+#output-cpee .toggle-btn-traces svg path,
+#output-cpee .toggle-btn-traces svg g,
+#output-cpee .toggle-btn-traces svg * {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+}
+
+/* Dark mode: CPEE traces toggle buttons */
+[data-theme="dark"] .cpee-section .toggle-btn-traces,
+[data-theme="dark"] #input-cpee .toggle-btn-traces,
+[data-theme="dark"] #output-cpee .toggle-btn-traces {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .cpee-section .toggle-btn-traces.active,
+[data-theme="dark"] #input-cpee .toggle-btn-traces.active,
+[data-theme="dark"] #output-cpee .toggle-btn-traces.active {
+    color: var(--primary-color) !important;
+}
+
+[data-theme="dark"] .cpee-section .toggle-btn-traces:hover,
+[data-theme="dark"] #input-cpee .toggle-btn-traces:hover,
+[data-theme="dark"] #output-cpee .toggle-btn-traces:hover {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .cpee-section .toggle-btn-traces svg,
+[data-theme="dark"] #input-cpee .toggle-btn-traces svg,
+[data-theme="dark"] #output-cpee .toggle-btn-traces svg {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+}
+
+/* Dark mode: CPEE traces toggle button SVG nested elements */
+[data-theme="dark"] .cpee-section .toggle-btn-traces svg path,
+[data-theme="dark"] .cpee-section .toggle-btn-traces svg g,
+[data-theme="dark"] .cpee-section .toggle-btn-traces svg *,
+[data-theme="dark"] #input-cpee .toggle-btn-traces svg path,
+[data-theme="dark"] #input-cpee .toggle-btn-traces svg g,
+[data-theme="dark"] #input-cpee .toggle-btn-traces svg *,
+[data-theme="dark"] #output-cpee .toggle-btn-traces svg path,
+[data-theme="dark"] #output-cpee .toggle-btn-traces svg g,
+[data-theme="dark"] #output-cpee .toggle-btn-traces svg * {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+}
 
 /* Accessibility */
 .toggle-btn:focus-visible {
@@ -2787,6 +2888,42 @@ section h3 {
     z-index: 10;
     scrollbar-gutter: stable;
     display: block;
+}
+
+/* Traces content type - matches raw content container styling */
+[data-content-type="traces"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: var(--surface-color);
+    z-index: 10;
+    scrollbar-gutter: stable;
+    display: block;
+    scrollbar-color: var(--scrollbar-thumb) var(--surface-color);
+    scrollbar-width: thin;
+}
+
+/* Scrollbar styling for traces content - matches raw content scrollbar */
+[data-content-type="traces"]::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+[data-content-type="traces"]::-webkit-scrollbar-track {
+    background: var(--surface-color);
+}
+
+[data-content-type="traces"]::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 5px;
+    transition: background 0.2s ease;
+}
+
+[data-content-type="traces"]::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
 }
 
 .content-box {
@@ -3661,4 +3798,378 @@ section h3 {
 .mermaid-node-highlighted-active {
     stroke: var(--highlight-stroke) !important;
     stroke-width: 4px !important;
+}
+
+/* ========================================
+   TRACE RENDERER STYLING
+   ======================================== */
+
+/* Trace Display Container */
+.trace-display-container {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    font-family: var(--font-sans);
+}
+
+/* Trace List Wrapper - No scrolling, parent container handles it */
+.trace-list-wrapper {
+    flex: 1;
+    padding: var(--spacing-md);
+}
+
+/* Trace List Container */
+.trace-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+/* Trace Item */
+.trace-item {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: box-shadow var(--transition-fast);
+}
+
+.trace-item:hover {
+    box-shadow: 0 2px 4px var(--shadow-md);
+}
+
+/* Trace Header */
+.trace-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs);
+    background: var(--surface-color);
+    cursor: pointer;
+    flex-wrap: wrap;
+    font-family: var(--font-sans);
+}
+
+.trace-expand-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: var(--spacing-sm);
+    transition: transform var(--transition-fast);
+    flex-shrink: 0;
+    min-width: 32px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trace-expand-btn:hover {
+    color: var(--primary-color);
+    background: var(--hover-bg);
+    border-radius: var(--border-radius-sm);
+}
+
+.trace-expand-btn svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+/* Trace Number */
+.trace-number {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    flex-shrink: 0;
+    font-family: var(--font-sans);
+}
+
+/* Trace Type Badge */
+.trace-type-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    font-family: var(--font-sans);
+}
+
+.trace-type-sequential {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.trace-type-parallel {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.trace-type-loop {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.trace-type-conditional {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+[data-theme="dark"] .trace-type-sequential {
+    background: rgba(37, 99, 235, 0.2);
+    color: #60a5fa;
+}
+
+[data-theme="dark"] .trace-type-parallel {
+    background: rgba(25, 118, 210, 0.2);
+    color: #64b5f6;
+}
+
+[data-theme="dark"] .trace-type-loop {
+    background: rgba(245, 124, 0, 0.2);
+    color: #ffb74d;
+}
+
+[data-theme="dark"] .trace-type-conditional {
+    background: rgba(123, 31, 162, 0.2);
+    color: #ba68c8;
+}
+
+/* Trace Length Badge */
+.trace-length-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.75rem;
+    background: var(--background-color);
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+/* Trace Path Preview */
+.trace-path-preview {
+    flex: 1;
+    min-width: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--font-sans);
+}
+
+/* Trace Length Display (on the right) */
+.trace-length-display {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-left: auto;
+    font-family: var(--font-sans);
+}
+
+/* Trace Details (Expandable) */
+.trace-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-medium);
+    background: var(--surface-color);
+}
+
+.trace-details.expanded {
+    max-height: 2000px;
+}
+
+/* Trace Details JSON Format */
+.trace-details-json {
+    margin: 0;
+    padding: var(--spacing-md);
+    background: var(--background-color);
+    border-top: 1px solid var(--border-color);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+.trace-details-json code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: var(--text-primary);
+    font-size: inherit;
+    font-family: var(--font-mono);
+}
+
+/* Trace JSON Syntax Highlighting Colors - Light Mode */
+/* Punctuation: {, }, , */
+.trace-details-json code.language-json .token.punctuation {
+    color: #9ca3af !important; /* colors.trace.punctuation */
+}
+
+/* Keys: JSON property names (id, alt_id, task) */
+.trace-details-json code.language-json .token.property {
+    color: #000000 !important; /* colors.trace.keys - black */
+}
+
+/* IDs: string values after "id" and "alt_id" properties */
+/* Default all string values to ID color (covers id and alt_id) */
+.trace-details-json code.language-json .token.string {
+    color: #b91c1c !important; /* colors.trace.ids */
+}
+
+/* Tasks: string values after "task" property */
+/* Each object structure: {"id":"...","alt_id":"...","task":"..."} */
+/* Target the 3rd string token in each object (after "task") */
+/* Pattern: property + operator + string (1st) + punctuation + property + operator + string (2nd) + punctuation + property + operator + string (3rd = task) */
+.trace-details-json code.language-json .token.property + .token.operator + .token.string + .token.punctuation + .token.property + .token.operator + .token.string + .token.punctuation + .token.property + .token.operator + .token.string {
+    color: #008000 !important; /* colors.trace.tasks - 3rd string in each object */
+}
+
+/* Dark Mode Trace JSON Syntax Highlighting */
+[data-theme="dark"] .trace-details-json code.language-json .token.punctuation {
+    color: #94a3b8 !important; /* colors.trace.dark.punctuation */
+}
+
+/* Keys: JSON property names (id, alt_id, task) - Dark Mode */
+[data-theme="dark"] .trace-details-json code.language-json .token.property {
+    color: #b8c5d8 !important; /* colors.trace.dark.keys - lighter than punctuation */
+}
+
+[data-theme="dark"] .trace-details-json code.language-json .token.string {
+    color: #f5a5a5 !important; /* colors.trace.dark.ids - default for all strings */
+}
+
+[data-theme="dark"] .trace-details-json code.language-json .token.property + .token.operator + .token.string + .token.punctuation + .token.property + .token.operator + .token.string + .token.punctuation + .token.property + .token.operator + .token.string {
+    color: #86efac !important; /* colors.trace.dark.tasks - 3rd string in each object */
+}
+
+/* Trace Path Container */
+.trace-path-container {
+    padding: var(--spacing-md);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+/* Trace Task */
+.trace-task {
+    display: inline-block;
+    padding: 4px 8px;
+    background: var(--background-color);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-primary);
+    transition: background var(--transition-fast);
+}
+
+.trace-task:hover {
+    background: var(--hover-bg);
+}
+
+/* Trace Task - Start Node */
+.trace-task-start {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .trace-task-start {
+    background: rgba(37, 99, 235, 0.3);
+    color: #93c5fd;
+}
+
+/* Trace Task - End Node */
+.trace-task-end {
+    background: var(--alert-success-bg);
+    color: var(--alert-success-text);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .trace-task-end {
+    background: var(--alert-success-bg);
+    color: var(--alert-success-text);
+}
+
+/* Trace Arrow */
+.trace-arrow {
+    color: var(--text-secondary);
+    font-weight: 500;
+    user-select: none;
+}
+
+/* Trace Metadata */
+.trace-metadata {
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+    background: var(--surface-color);
+    font-family: var(--font-sans);
+}
+
+.trace-metadata-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.875rem;
+    font-family: var(--font-sans);
+}
+
+.trace-metadata-list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+}
+
+.trace-metadata-list dt {
+    font-weight: 500;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+}
+
+.trace-metadata-list dd {
+    margin: 0;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+}
+
+/* Trace Empty Message */
+.trace-empty-message {
+    padding: var(--spacing-lg);
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-family: var(--font-sans);
+}
+
+/* Trace Error Message */
+.trace-error-message {
+    padding: var(--spacing-lg);
+    text-align: center;
+    color: var(--error-text);
+    font-family: var(--font-sans);
+}
+
+.trace-error-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--error-text);
+}
+
+.trace-error-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
 }

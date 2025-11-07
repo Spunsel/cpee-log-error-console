@@ -92,7 +92,7 @@ export class RawContentCoordinator {
     /**
      * Get view mode for a section
      * @param {string} sectionId - Section identifier
-     * @returns {string} View mode ('visual', 'raw', or 'log')
+     * @returns {string} View mode ('visual', 'raw', 'log', or 'traces')
      */
     getViewMode(sectionId) {
         const viewModes = this.stateManager.getState('viewModes');
@@ -102,11 +102,11 @@ export class RawContentCoordinator {
     /**
      * Set view mode for a section
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - View mode ('visual', 'raw', or 'log')
+     * @param {string} mode - View mode ('visual', 'raw', 'log', or 'traces')
      * @returns {boolean} True if mode was set successfully
      */
     setViewMode(sectionId, mode) {
-        if (!(mode === 'visual' || mode === 'raw' || mode === 'log')) {
+        if (!(mode === 'visual' || mode === 'raw' || mode === 'log' || mode === 'traces')) {
             return false;
         }
         
@@ -165,7 +165,7 @@ export class RawContentCoordinator {
     /**
      * Update section display based on view mode
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - View mode (visual, raw, or log)
+     * @param {string} mode - View mode (visual, raw, log, or traces)
      */
     updateSectionDisplay(sectionId, mode) {
         if (!this.currentStep) {
@@ -194,9 +194,18 @@ export class RawContentCoordinator {
             // Store view mode in section element for renderer to access
             sectionElement.dataset.viewMode = mode;
             this.rawContentRenderer.displayRawContent(sectionId, contentContainer, this.currentStep, mode);
+        } else if (mode === 'traces') {
+            // Traces mode - use RawContentRenderer to display traces
+            contentContainer.scrollTo({
+                top: 0,
+                left: 0,
+            });
+            // Store view mode in section element for renderer to access
+            sectionElement.dataset.viewMode = mode;
+            this.rawContentRenderer.displayRawContent(sectionId, contentContainer, this.currentStep, mode);
         } else {
             // Visual mode - ContentSectionManager handles this
-            // Just ensure raw content is hidden
+            // Just ensure raw/log/traces content is hidden
             delete sectionElement.dataset.viewMode;
             this.rawContentRenderer.hideRawContent(contentContainer);
             
@@ -225,6 +234,9 @@ export class RawContentCoordinator {
 
         // Clear all search states when switching to a different step
         this.rawContentRenderer.clearAllSearchStates();
+
+        // Clear trace cache when switching to a different step
+        this.rawContentRenderer.clearTraceCache();
 
         // Reset all view modes to visual for this step
         // (View mode does not persist across steps)

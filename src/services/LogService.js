@@ -12,6 +12,8 @@ import { CPEEStep } from '../models/CPEEStep.js';
 import { LogParser } from '../utils/content/LogParser.js';
 import { configManager } from '../config/ConfigManager.js';
 import { proxyRotationService } from './ProxyRotationService.js';
+import { CPEETraceCalculator } from '../utils/trace/CPEETraceCalculator.js';
+import { MermaidTraceCalculator } from '../utils/trace/MermaidTraceCalculator.js';
 
 export class LogService {
 
@@ -131,15 +133,32 @@ export class LogService {
      * @returns {Array} Array of step objects, sorted chronologically
      * @throws {Error} If logData is invalid
      */
-    static parseStepsFromLog(logData) {
+    /**
+     * Parse steps from log data
+     * @param {Array} logData - Log data array
+     * @param {Object} options - Optional configuration
+     * @param {boolean} options.calculateTraces - If true, calculate traces for all graph sections (default: false)
+     * @param {Object} options.traceOptions - Options for trace calculation (maxLoopIterations, maxPathLength)
+     * @returns {Array<CPEEStep>} Array of CPEEStep instances
+     */
+    static parseStepsFromLog(logData, options = {}) {
         if (!Array.isArray(logData)) {
             throw new Error('LogService: Log data must be an array');
         }
         
+        const { calculateTraces = false, traceOptions = {} } = options;
+        const defaultTraceOptions = {
+            maxLoopIterations: 1,
+            maxPathLength: 50,
+            ...traceOptions
+        };
+        
+        console.log(`[LogService] Parsing steps from log (calculateTraces: ${calculateTraces})`);
+        
         // Find all exposition events using existing filter method
         const expositionEvents = this.filterEventsByTransition(logData, 'description/exposition');
         
-        console.log(`Found ${expositionEvents.length} exposition events`);
+        console.log(`[LogService] Found ${expositionEvents.length} exposition events`);
         
         // Group by change_uuid
         const stepGroups = {};
@@ -171,7 +190,7 @@ export class LogService {
         );
         
         // Extract content from each step and create CPEEStep objects
-        return steps.map((step, index) => {
+        const cpeeSteps = steps.map((step, index) => {
             // Extract content object for display
             const content = this.extractContentFromEvents(step.events);
             
@@ -191,8 +210,20 @@ export class LogService {
             // Extract tasks and generate task mapping
             this.generateTaskMapping(cpeeStep);
             
+            // Phase 31.11: Optionally calculate traces
+            if (calculateTraces) {
+                console.log(`[LogService] Calculating traces for Step ${cpeeStep.stepNumber}`);
+                this.calculateTracesForStep(cpeeStep, defaultTraceOptions);
+            }
+            
             return cpeeStep;
         });
+        
+        if (calculateTraces) {
+            console.log(`[LogService] Trace calculation completed for ${cpeeSteps.length} steps`);
+        }
+        
+        return cpeeSteps;
     }
 
     /**
@@ -306,6 +337,62 @@ export class LogService {
                 console.warn(`[LogService] Failed to generate task mapping for Step ${cpeeStep.stepNumber}:`, error);
             }
         }
+    }
+
+    /**
+     * Calculate traces for all graph sections in a step (Phase 31.11)
+     * @param {CPEEStep} cpeeStep - Step to calculate traces for
+     * @param {Object} options - Trace calculation options
+     * @param {number} options.maxLoopIterations - Maximum loop iterations (default: 1)
+     * @param {number} options.maxPathLength - Maximum path length (default: 50)
+     * @private
+     */
+    static calculateTracesForStep(cpeeStep, options = {}) {
+        const { maxLoopIterations = 1, maxPathLength = 50 } = options;
+        const traceOptions = { maxLoopIterations, maxPathLength };
+        
+        const sections = [
+            { id: 'input-cpee', rawGetter: 'getInputCpeeTreeRaw', isCPEE: true },
+            { id: 'input-intermediate', rawGetter: 'getInputMermaidRaw', isCPEE: false },
+            { id: 'output-intermediate', rawGetter: 'getOutputMermaidRaw', isCPEE: false },
+            { id: 'output-cpee', rawGetter: 'getOutputCpeeTreeRaw', isCPEE: true }
+        ];
+        
+        sections.forEach(section => {
+            try {
+                console.log(`[LogService] Calculating traces for ${section.id} in Step ${cpeeStep.stepNumber}`);
+                
+                // Get raw content
+                const rawContent = cpeeStep[section.rawGetter]();
+                if (!rawContent || rawContent.isEmpty()) {
+                    console.log(`[LogService] No raw content available for ${section.id} in Step ${cpeeStep.stepNumber}`);
+                    return;
+                }
+                
+                const contentString = rawContent.getContent();
+                if (!contentString || contentString.trim() === '') {
+                    console.log(`[LogService] Empty content for ${section.id} in Step ${cpeeStep.stepNumber}`);
+                    return;
+                }
+                
+                // Calculate traces based on content type
+                let traces = [];
+                if (section.isCPEE) {
+                    traces = CPEETraceCalculator.calculateAllTraces(contentString, traceOptions);
+                } else {
+                    traces = MermaidTraceCalculator.calculateAllTraces(contentString, traceOptions);
+                }
+                
+                // Store traces in step
+                cpeeStep.setTraces(section.id, traces);
+                console.log(`[LogService] Calculated ${traces.length} traces for ${section.id} in Step ${cpeeStep.stepNumber}`);
+                
+            } catch (error) {
+                console.error(`[LogService] Failed to calculate traces for ${section.id} in Step ${cpeeStep.stepNumber}:`, error);
+                // Store empty array to indicate calculation was attempted but failed
+                cpeeStep.setTraces(section.id, []);
+            }
+        });
     }
 
     /**

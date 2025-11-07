@@ -36,6 +36,15 @@ export class CPEEStep {
         
         // Task mapping storage
         this.taskMapping = null; // Will be TaskMapping instance from TaskMapper
+        
+        // Trace calculation storage (Phase 31.11)
+        // Structure: { 'input-cpee': Trace[], 'input-intermediate': Trace[], 'output-intermediate': Trace[], 'output-cpee': Trace[] }
+        this.traces = {
+            'input-cpee': null,
+            'input-intermediate': null,
+            'output-intermediate': null,
+            'output-cpee': null
+        };
     }
 
     /**
@@ -119,7 +128,9 @@ export class CPEEStep {
                 outputCpeeTreeRaw: this.rawContent.outputCpeeTreeRaw.toObject()
             },
             // Phase 22.3: Include task mapping in serialization
-            taskMapping: this.taskMapping ? this.taskMapping.toObject() : null
+            taskMapping: this.taskMapping ? this.taskMapping.toObject() : null,
+            // Phase 31.11: Include traces in serialization (store as null for now, traces are calculated on-demand)
+            traces: null
         };
     }
 
@@ -435,5 +446,105 @@ export class CPEEStep {
     clearTaskMapping() {
         console.log(`[CPEEStep] Clearing task mapping for Step ${this.stepNumber}`);
         this.taskMapping = null;
+    }
+
+    // ===================================================================
+    // Trace Calculation Methods (Phase 31.11)
+    // ===================================================================
+
+    /**
+     * Set traces for a specific section
+     * @param {string} sectionId - Section identifier ('input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee')
+     * @param {Array<Trace>} traceArray - Array of Trace objects
+     */
+    setTraces(sectionId, traceArray) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            console.warn(`[CPEEStep] Invalid section ID for traces: ${sectionId}`);
+            return;
+        }
+        
+        this.traces[sectionId] = traceArray;
+        console.log(`[CPEEStep] Stored ${traceArray ? traceArray.length : 0} traces for ${sectionId} in Step ${this.stepNumber}`);
+    }
+
+    /**
+     * Get traces for a specific section
+     * @param {string} sectionId - Section identifier ('input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee')
+     * @returns {Array<Trace>|null} Array of Trace objects or null if not calculated
+     */
+    getTraces(sectionId) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            console.warn(`[CPEEStep] Invalid section ID for traces: ${sectionId}`);
+            return null;
+        }
+        
+        return this.traces[sectionId];
+    }
+
+    /**
+     * Check if traces have been calculated for a specific section
+     * @param {string} sectionId - Section identifier
+     * @returns {boolean} True if traces exist for this section
+     */
+    hasTraces(sectionId) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            return false;
+        }
+        
+        return this.traces[sectionId] !== null && Array.isArray(this.traces[sectionId]);
+    }
+
+    /**
+     * Get all traces for all sections
+     * @returns {Object} Object with traces for each section
+     */
+    getAllTraces() {
+        return { ...this.traces };
+    }
+
+    /**
+     * Clear traces for a specific section
+     * @param {string} sectionId - Section identifier
+     */
+    clearTraces(sectionId) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            return;
+        }
+        
+        console.log(`[CPEEStep] Clearing traces for ${sectionId} in Step ${this.stepNumber}`);
+        this.traces[sectionId] = null;
+    }
+
+    /**
+     * Clear all traces for all sections
+     */
+    clearAllTraces() {
+        console.log(`[CPEEStep] Clearing all traces for Step ${this.stepNumber}`);
+        this.traces = {
+            'input-cpee': null,
+            'input-intermediate': null,
+            'output-intermediate': null,
+            'output-cpee': null
+        };
+    }
+
+    /**
+     * Get trace statistics for a specific section
+     * @param {string} sectionId - Section identifier
+     * @returns {Object|null} Statistics object or null if no traces
+     */
+    getTraceStats(sectionId) {
+        const traces = this.getTraces(sectionId);
+        if (!traces || traces.length === 0) {
+            return null;
+        }
+        
+        return {
+            count: traces.length,
+            totalLength: traces.reduce((sum, trace) => sum + trace.path.length, 0),
+            avgLength: traces.reduce((sum, trace) => sum + trace.path.length, 0) / traces.length,
+            minLength: Math.min(...traces.map(trace => trace.path.length)),
+            maxLength: Math.max(...traces.map(trace => trace.path.length))
+        };
     }
 }

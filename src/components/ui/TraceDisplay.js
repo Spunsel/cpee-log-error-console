@@ -1,0 +1,183 @@
+/**
+ * TraceDisplay Component
+ * UI component for displaying execution traces in a scrollable container
+ * Wraps TraceRenderer and provides container management
+ * 
+ * Responsibilities:
+ * - Create trace display container with scrolling
+ * - Manage trace list display state
+ * - Coordinate with TraceRenderer for rendering
+ * - Handle trace expansion/collapse state
+ */
+
+import { TraceRenderer } from '../renderers/TraceRenderer.js';
+
+export class TraceDisplay {
+    constructor(domRegistry = null) {
+        this.domRegistry = domRegistry;
+        this.traceRenderer = new TraceRenderer(domRegistry);
+        this.container = null;
+        this.currentTraces = [];
+    }
+
+    /**
+     * Create trace display container
+     * @param {string} containerId - Optional container ID
+     * @returns {HTMLElement} Container element
+     */
+    createContainer(containerId = null) {
+        console.log('[TraceDisplay] Creating trace display container');
+        
+        const container = this.domRegistry.createElement('div', {
+            className: 'trace-display-container',
+            id: containerId || undefined
+        });
+
+        // Create scrollable trace list wrapper
+        const traceListWrapper = this.domRegistry.createElement('div', {
+            className: 'trace-list-wrapper'
+        });
+
+        container.appendChild(traceListWrapper);
+        this.container = container;
+        
+        console.log('[TraceDisplay] Container created');
+        return container;
+    }
+
+    /**
+     * Render traces into the container
+     * @param {Trace[]|Array} traces - Array of Trace objects or plain trace arrays
+     * @param {Object} options - Rendering options
+     * @param {boolean} options.showLabels - Show task labels instead of IDs (default: false, shows alt_ids)
+     * @param {boolean} options.expandable - Make trace details expandable (default: true)
+     * @param {boolean} options.highlightStartEnd - Highlight start and end nodes (default: true)
+     */
+    renderTraces(traces, options = {}) {
+        console.log('[TraceDisplay] Rendering traces:', traces?.length || 0);
+        
+        if (!this.container) {
+            console.warn('[TraceDisplay] Container not created, creating default container');
+            this.createContainer();
+        }
+
+        // Store current traces
+        this.currentTraces = traces || [];
+
+        // Find or create trace list wrapper
+        let traceListWrapper = this.container.querySelector('.trace-list-wrapper');
+        if (!traceListWrapper) {
+            traceListWrapper = this.domRegistry.createElement('div', {
+                className: 'trace-list-wrapper'
+            });
+            this.container.appendChild(traceListWrapper);
+        }
+
+        // Clear existing content
+        traceListWrapper.innerHTML = '';
+
+        // Render traces using TraceRenderer
+        this.traceRenderer.renderTraces(traces, traceListWrapper, options);
+
+        console.log('[TraceDisplay] Traces rendered successfully');
+    }
+
+    /**
+     * Clear all traces from display
+     */
+    clear() {
+        console.log('[TraceDisplay] Clearing trace display');
+        
+        if (this.container) {
+            const traceListWrapper = this.container.querySelector('.trace-list-wrapper');
+            if (traceListWrapper) {
+                traceListWrapper.innerHTML = '';
+            }
+        }
+        
+        this.currentTraces = [];
+    }
+
+    /**
+     * Get the container element
+     * @returns {HTMLElement|null} Container element
+     */
+    getContainer() {
+        return this.container;
+    }
+
+    /**
+     * Update trace display with new traces
+     * @param {Trace[]|Array} traces - New traces to display
+     * @param {Object} options - Rendering options
+     */
+    update(traces, options = {}) {
+        console.log('[TraceDisplay] Updating trace display');
+        this.renderTraces(traces, options);
+    }
+
+    /**
+     * Expand all trace details
+     */
+    expandAll() {
+        console.log('[TraceDisplay] Expanding all trace details');
+        
+        if (!this.container) return;
+        
+        const expandButtons = this.container.querySelectorAll('.trace-expand-btn');
+        expandButtons.forEach(btn => {
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            if (!isExpanded) {
+                btn.click();
+            }
+        });
+    }
+
+    /**
+     * Collapse all trace details
+     */
+    collapseAll() {
+        console.log('[TraceDisplay] Collapsing all trace details');
+        
+        if (!this.container) return;
+        
+        const expandButtons = this.container.querySelectorAll('.trace-expand-btn');
+        expandButtons.forEach(btn => {
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            if (isExpanded) {
+                btn.click();
+            }
+        });
+    }
+
+    /**
+     * Get current traces
+     * @returns {Array} Current traces
+     */
+    getTraces() {
+        return this.currentTraces;
+    }
+
+    /**
+     * Get trace count
+     * @returns {number} Number of traces
+     */
+    getTraceCount() {
+        return this.currentTraces.length;
+    }
+
+    /**
+     * Destroy the trace display and clean up
+     */
+    destroy() {
+        console.log('[TraceDisplay] Destroying trace display');
+        
+        if (this.container) {
+            this.container.innerHTML = '';
+            this.container = null;
+        }
+        
+        this.currentTraces = [];
+    }
+}
+

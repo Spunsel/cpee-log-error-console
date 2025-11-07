@@ -505,6 +505,21 @@ export class ConfigManager {
                     condition: '#6ba3f5', // Softer blue for conditions
                     default: '#a8b8d0' // Softer light gray for default text
                 }
+            },
+            // Trace JSON-specific syntax highlighting colors
+            trace: {
+                // JSON specific - Light mode
+                punctuation: '#9ca3af', // Punctuation ({, }, ,) - same as colors.punctuation
+                keys: '#000000', // JSON keys (id, alt_id, task) - black
+                ids: '#b91c1c', // IDs (id, alt_id values) - same as colors.attrValue
+                tasks: '#008000', // Tasks (task values) - same as colors.textContent
+                // Dark mode colors
+                dark: {
+                    punctuation: '#94a3b8', // Punctuation ({, }, ,) - same as colors.dark.punctuation
+                    keys: '#b8c5d8', // JSON keys (id, alt_id, task) - lighter than punctuation (#94a3b8)
+                    ids: '#f5a5a5', // IDs (id, alt_id values) - same as colors.dark.attrValue
+                    tasks: '#86efac' // Tasks (task values) - same as colors.dark.textContent
+                }
             }             
         };
     }
