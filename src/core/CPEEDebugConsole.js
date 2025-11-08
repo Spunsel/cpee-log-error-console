@@ -251,7 +251,7 @@ export class CPEEDebugConsole {
             
             // Fetch and parse log data
             const logData = await LogService.fetchAndParseLog(uuid);
-            const steps = LogService.parseStepsFromLog(logData);
+            const steps = await LogService.parseStepsFromLog(logData);
             
             console.log(`Found ${steps.length} steps`);
             

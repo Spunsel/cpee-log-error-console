@@ -141,7 +141,7 @@ export class LogService {
      * @param {Object} options.traceOptions - Options for trace calculation (maxLoopIterations, maxPathLength)
      * @returns {Array<CPEEStep>} Array of CPEEStep instances
      */
-    static parseStepsFromLog(logData, options = {}) {
+    static async parseStepsFromLog(logData, options = {}) {
         if (!Array.isArray(logData)) {
             throw new Error('LogService: Log data must be an array');
         }
@@ -210,16 +210,16 @@ export class LogService {
             // Extract tasks and generate task mapping
             this.generateTaskMapping(cpeeStep);
             
-            // Phase 31.11: Optionally calculate traces
-            if (calculateTraces) {
-                console.log(`[LogService] Calculating traces for Step ${cpeeStep.stepNumber}`);
-                this.calculateTracesForStep(cpeeStep, defaultTraceOptions);
-            }
-            
             return cpeeStep;
         });
         
+        // Phase 31.11: Calculate traces for all steps in parallel
         if (calculateTraces) {
+            console.log(`[LogService] Calculating traces for ${cpeeSteps.length} steps in parallel`);
+            const tracePromises = cpeeSteps.map(cpeeStep => 
+                this.calculateTracesForStep(cpeeStep, defaultTraceOptions)
+            );
+            await Promise.all(tracePromises);
             console.log(`[LogService] Trace calculation completed for ${cpeeSteps.length} steps`);
         }
         
@@ -347,7 +347,7 @@ export class LogService {
      * @param {number} options.maxPathLength - Maximum path length (default: 50)
      * @private
      */
-    static calculateTracesForStep(cpeeStep, options = {}) {
+    static async calculateTracesForStep(cpeeStep, options = {}) {
         const { maxLoopIterations = 1, maxPathLength = 50 } = options;
         const traceOptions = { maxLoopIterations, maxPathLength };
         
@@ -358,7 +358,8 @@ export class LogService {
             { id: 'output-cpee', rawGetter: 'getOutputCpeeTreeRaw', isCPEE: true }
         ];
         
-        sections.forEach(section => {
+        // Calculate traces in parallel for all sections
+        const tracePromises = sections.map(section => Promise.resolve().then(() => {
             try {
                 console.log(`[LogService] Calculating traces for ${section.id} in Step ${cpeeStep.stepNumber}`);
                 
@@ -366,13 +367,13 @@ export class LogService {
                 const rawContent = cpeeStep[section.rawGetter]();
                 if (!rawContent || rawContent.isEmpty()) {
                     console.log(`[LogService] No raw content available for ${section.id} in Step ${cpeeStep.stepNumber}`);
-                    return;
+                    return { section, traces: null, skipped: true };
                 }
                 
                 const contentString = rawContent.getContent();
                 if (!contentString || contentString.trim() === '') {
                     console.log(`[LogService] Empty content for ${section.id} in Step ${cpeeStep.stepNumber}`);
-                    return;
+                    return { section, traces: null, skipped: true };
                 }
                 
                 // Calculate traces based on content type
@@ -383,14 +384,28 @@ export class LogService {
                     traces = MermaidTraceCalculator.calculateAllTraces(contentString, traceOptions);
                 }
                 
-                // Store traces in step
-                cpeeStep.setTraces(section.id, traces);
                 console.log(`[LogService] Calculated ${traces.length} traces for ${section.id} in Step ${cpeeStep.stepNumber}`);
+                return { section, traces, skipped: false };
                 
             } catch (error) {
                 console.error(`[LogService] Failed to calculate traces for ${section.id} in Step ${cpeeStep.stepNumber}:`, error);
+                return { section, traces: [], skipped: false, error };
+            }
+        }));
+        
+        // Wait for all trace calculations to complete
+        const results = await Promise.all(tracePromises);
+        
+        // Store results in step
+        results.forEach(({ section, traces, skipped, error }) => {
+            if (skipped) {
+                return; // Skip storing if no content
+            }
+            if (error) {
                 // Store empty array to indicate calculation was attempted but failed
                 cpeeStep.setTraces(section.id, []);
+            } else {
+                cpeeStep.setTraces(section.id, traces);
             }
         });
     }

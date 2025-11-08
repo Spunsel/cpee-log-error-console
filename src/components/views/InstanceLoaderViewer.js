@@ -271,8 +271,8 @@ export class InstanceLoaderViewer {
         const cpeeService = serviceFactory.get('CPEEService');
         
         return cpeeService.fetchUUIDFromProcessNumber(processNumber).then((uuid) => 
-            LogService.fetchAndParseLog(uuid).then((logData) => {
-                const steps = LogService.parseStepsFromLog(logData);
+            LogService.fetchAndParseLog(uuid).then(async (logData) => {
+                const steps = await LogService.parseStepsFromLog(logData);
                 return {
                     hasSteps: steps.length > 0,
                     processNumber: processNumber,
