@@ -4015,6 +4015,11 @@ section h3 {
     color: #9ca3af !important; /* colors.trace.punctuation */
 }
 
+/* Operators: : (colon) */
+.trace-details-json code.language-json .token.operator {
+    color: #9ca3af !important; /* colors.trace.operator - same as punctuation */
+}
+
 /* Keys: JSON property names (id, alt_id, task) */
 .trace-details-json code.language-json .token.property {
     color: #000000 !important; /* colors.trace.keys - black */
@@ -4037,6 +4042,11 @@ section h3 {
 /* Dark Mode Trace JSON Syntax Highlighting */
 [data-theme="dark"] .trace-details-json code.language-json .token.punctuation {
     color: #94a3b8 !important; /* colors.trace.dark.punctuation */
+}
+
+/* Operators: : (colon) - Dark Mode */
+[data-theme="dark"] .trace-details-json code.language-json .token.operator {
+    color: #94a3b8 !important; /* colors.trace.dark.operator - same as punctuation */
 }
 
 /* Keys: JSON property names (id, alt_id, task) - Dark Mode */

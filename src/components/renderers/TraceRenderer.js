@@ -13,6 +13,7 @@
 
 import { Trace } from '../../models/Trace.js';
 import { ICONS } from '../../assets/icons.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class TraceRenderer {
     constructor(domRegistry = null) {
@@ -176,13 +177,27 @@ export class TraceRenderer {
         traceDetailsContent.appendChild(traceDetailsCode);
         traceDetails.appendChild(traceDetailsContent);
 
-        // Apply syntax highlighting to trace JSON (Phase 31.15)
+        // Apply syntax highlighting to trace JSON using SyntaxHighlightingService for consistency
         // This ensures Prism.js tokenizes the JSON so our CSS can target specific tokens
-        if (window.Prism && typeof window.Prism.highlightElement === 'function') {
-            try {
+        try {
+            const syntaxService = serviceFactory.get('SyntaxHighlightingService');
+            if (syntaxService && typeof syntaxService.highlightCodeBlocks === 'function') {
+                // Use the service for consistent highlighting
+                syntaxService.highlightCodeBlocks(traceDetailsContent);
+            } else if (window.Prism && typeof window.Prism.highlightElement === 'function') {
+                // Fallback to direct Prism highlighting if service not available
                 window.Prism.highlightElement(traceDetailsCode);
-            } catch (error) {
-                console.warn('[TraceRenderer] Failed to highlight trace JSON:', error);
+            }
+        } catch (error) {
+            // Fallback to direct Prism highlighting if service fails
+            if (window.Prism && typeof window.Prism.highlightElement === 'function') {
+                try {
+                    window.Prism.highlightElement(traceDetailsCode);
+                } catch (prismError) {
+                    console.warn('[TraceRenderer] Failed to highlight trace JSON:', prismError);
+                }
+            } else {
+                console.warn('[TraceRenderer] Syntax highlighting not available:', error);
             }
         }
 
