@@ -167,8 +167,13 @@ export class CPEETraceCalculator {
                 const maxIter = Math.min(maxLoopIterations, 2);
                 const result = [];
                 
-                // 0 iterations (empty trace)
-                result.push([]);
+                // Check if loop is directly connected to end (no next sibling)
+                const isLastElement = node.nextElementSibling === null;
+                
+                // 0 iterations (empty trace) - skip if loop is directly connected to end
+                if (!isLastElement) {
+                    result.push([]);
+                }
                 
                 // 1 iteration
                 if (maxIter >= 1) {
