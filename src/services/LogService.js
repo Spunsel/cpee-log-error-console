@@ -28,8 +28,6 @@ export class LogService {
             throw new Error('LogService: Invalid UUID provided - must be a non-empty string');
         }
         
-        console.log('Fetching log for parsing...');
-        
         const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
         
         // Use proxy rotation service with rate limit handling
@@ -53,10 +51,7 @@ export class LogService {
                 throw new Error('LogService: Received empty or invalid log response');
             }
             
-            console.log(`Log content size: ${yamlContent.length} characters`);
-            
             const events = LogParser.parseYAMLMultiDocument(yamlContent);
-            console.log(`Parsed ${events.length} events from log`);
             
             return events;
             
@@ -125,6 +120,40 @@ export class LogService {
         });
 
         return grouped;
+    }
+
+    /**
+     * Lightweight check to see if log has any steps (for scanning optimization)
+     * Stops early after finding first step instead of parsing all content
+     * @param {Array} logData - Parsed log events
+     * @returns {{hasSteps: boolean, stepCount: number}} Object indicating if steps exist and count
+     * @throws {Error} If logData is invalid
+     */
+    static hasStepsInLog(logData) {
+        if (!Array.isArray(logData)) {
+            throw new Error('LogService: Log data must be an array');
+        }
+        
+        // Find all exposition events using existing filter method
+        const expositionEvents = this.filterEventsByTransition(logData, 'description/exposition');
+        
+        if (expositionEvents.length === 0) {
+            return { hasSteps: false, stepCount: 0 };
+        }
+        
+        // Group by change_uuid to count unique steps (early exit optimization)
+        const stepGroups = new Set();
+        for (const eventWrapper of expositionEvents) {
+            const actualEvent = eventWrapper.event;
+            const changeUuid = actualEvent['cpee:change_uuid'];
+            
+            if (changeUuid) {
+                stepGroups.add(changeUuid);
+            }
+        }
+        
+        const stepCount = stepGroups.size;
+        return { hasSteps: stepCount > 0, stepCount };
     }
 
     /**

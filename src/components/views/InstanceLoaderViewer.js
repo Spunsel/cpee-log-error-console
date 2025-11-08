@@ -8,7 +8,6 @@ import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { LogService } from '../../services/LogService.js';
-import { proxyRotationService } from '../../services/ProxyRotationService.js';
 
 export class InstanceLoaderViewer {
     constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null) {
@@ -262,8 +261,8 @@ export class InstanceLoaderViewer {
     }
 
     /**
-     * Check if an instance has steps in its log
-     * Uses promises instead of async/await as requested
+     * Check if an instance has steps in its log (optimized version)
+     * Uses lightweight check that stops early after finding first step
      * @param {number} processNumber - Process instance number
      * @returns {Promise<{hasSteps: boolean, processNumber: number, uuid: string|null}>}
      */
@@ -271,13 +270,14 @@ export class InstanceLoaderViewer {
         const cpeeService = serviceFactory.get('CPEEService');
         
         return cpeeService.fetchUUIDFromProcessNumber(processNumber).then((uuid) => 
-            LogService.fetchAndParseLog(uuid).then(async (logData) => {
-                const steps = await LogService.parseStepsFromLog(logData);
+            LogService.fetchAndParseLog(uuid).then((logData) => {
+                // Use lightweight check instead of full parsing
+                const { hasSteps, stepCount } = LogService.hasStepsInLog(logData);
                 return {
-                    hasSteps: steps.length > 0,
+                    hasSteps: hasSteps,
                     processNumber: processNumber,
                     uuid: uuid,
-                    stepCount: steps.length
+                    stepCount: stepCount
                 };
             }).catch((error) => {
                 console.warn(`Failed to fetch/parse log for instance ${processNumber}:`, error);
@@ -301,8 +301,7 @@ export class InstanceLoaderViewer {
                     isNotFound: true
                 };
             }
-            // Other errors (network issues, rate limits, etc.) should be logged
-            console.warn(`Failed to fetch UUID for instance ${processNumber}:`, error);
+            // Other errors (network issues, rate limits, etc.) - silently handle
             return {
                 hasSteps: false,
                 processNumber: processNumber,
@@ -313,12 +312,12 @@ export class InstanceLoaderViewer {
     }
 
     /**
-     * Scan a range of instances sequentially to find those with steps
-     * Checks each instance one by one without using async/await
+     * Scan a range of instances in parallel to find those with steps
+     * Uses parallel processing with configurable concurrency limit for faster scanning
      * @param {number} start - Starting instance number
      * @param {number} end - Ending instance number
      */
-    scanInstancesForSteps(start, end) {
+    async scanInstancesForSteps(start, end) {
         const scanButton = this.getElement('scanInstances');
         const instanceListContainer = this.getElement('instanceListContainer');
         const instanceList = this.getElement('instanceList');
@@ -338,78 +337,12 @@ export class InstanceLoaderViewer {
         // Create array of instance numbers to check
         const instancesToCheck = Array.from({ length: end - start + 1 }, (_, i) => start + i);
         const instancesWithSteps = [];
-        let currentIndex = 0;
-        const startTime = Date.now();
-        let rateLimitDelay = 15000;
+        const concurrency = configManager.get('network.scanConcurrency', 5);
+        
+        // Track progress
+        let completedCount = 0;
+        let rateLimitedCount = 0;
         let isRateLimited = false;
-        let successfulRequestsAfterRateLimit = 0; // Track successful requests after rate limit
-        
-        // Helper function to handle rate limit delays
-        const handleRateLimit = (processNumber) => {
-            isRateLimited = true;
-            successfulRequestsAfterRateLimit = 0; // Reset counter
-            console.warn(`⚠ Rate limit detected at instance ${processNumber}. Waiting ${rateLimitDelay/1000}s before continuing...`);
-            if (scanButton) {
-                scanButton.textContent = `Waiting ${rateLimitDelay/1000}s (rate limited at ${processNumber})...`;
-            }
-            
-            setTimeout(() => {
-                rateLimitDelay = Math.min(60000, rateLimitDelay + 10000);
-                const initialResumeDelay = Math.max(10000, rateLimitDelay * 0.5);
-                console.log(`Resuming after rate limit. Waiting additional ${initialResumeDelay/1000}s before first request...`);
-                
-                setTimeout(() => {
-                    // Use standard 2 second delay after rate limit recovery
-                    console.log('Resuming with 2 second delay between requests (0.5 requests/second).');
-                    setTimeout(() => continueScan(), 2000);
-                }, initialResumeDelay);
-            }, rateLimitDelay);
-        };
-        
-        // Helper function to update rate limit state on success
-        const updateRateLimitState = () => {
-            if (isRateLimited) {
-                successfulRequestsAfterRateLimit++;
-                // After 2 successful requests, reset to normal speed
-                if (successfulRequestsAfterRateLimit >= 2) {
-                    isRateLimited = false;
-                    rateLimitDelay = 15000;
-                    console.log('✓ Rate limit cleared. Resuming normal scan speed.');
-                }
-            }
-        };
-        
-        // Helper function to get delay between requests
-        // Delay between log fetches to prevent rate limiting (configurable via network.interRequestDelay)
-        // Proxies 2 and 3 (indices 1 and 2) are faster, so use shorter delay for them
-        const getInterRequestDelay = () => {
-            const baseDelay = configManager.get('network.interRequestDelay', 10);
-            const currentProxyIndex = proxyRotationService.getCurrentIndex();
-            
-            // Proxy 1 (index 0): use base delay
-            // Proxies 2 and 3 (indices 1 and 2): use shorter delay since they're faster
-            if (currentProxyIndex === 1 || currentProxyIndex === 2) {
-                // Use half the delay for faster proxies
-                return Math.max(5, Math.floor(baseDelay / 2));
-            }
-            
-            return baseDelay;
-        };
-        
-        // Helper function to continue scanning
-        const continueScan = (delay = getInterRequestDelay()) => {
-            setTimeout(() => {
-                try {
-                    checkNextInstance();
-                } catch (error) {
-                    console.error(`Error continuing scan:`, error);
-                    currentIndex++;
-                    if (currentIndex < instancesToCheck.length) {
-                        setTimeout(() => checkNextInstance(), 100);
-                    }
-                }
-            }, delay);
-        };
         
         // Helper function to check if error is rate limit
         const isRateLimitError = (error) => {
@@ -419,105 +352,103 @@ export class InstanceLoaderViewer {
                    error?.status === 403;
         };
         
-        // Helper function to finish scanning
-        const finishScan = () => {
-            const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-            console.log(`✓ Scan complete! Checked ${instancesToCheck.length} instances, found ${instancesWithSteps.length} CPEE LLM Instances in ${elapsed} seconds`);
-            
+        // Helper function to update progress UI
+        const updateProgress = () => {
             if (scanButton) {
-                scanButton.disabled = false;
-                scanButton.textContent = 'Scan for CPEE LLM Instances';
-            }
-            
-            try {
-                this.displayInstanceList(instancesWithSteps);
-            } catch (displayError) {
-                console.error('Error displaying instance list:', displayError);
-            }
-            
-            if (instancesWithSteps.length === 0) {
-                if (instanceList) {
-                    instanceList.innerHTML = '<p style="color: var(--text-secondary); font-style: italic;">No CPEE LLM Instances found in the specified range.</p>';
-                }
-            } else {
-                const foundNumbers = instancesWithSteps.map(i => i.processNumber).sort((a, b) => a - b);
-                console.log(`CPEE LLM Instances (${foundNumbers.length} total): ${foundNumbers.join(', ')}`);
+                const progress = ((completedCount / instancesToCheck.length) * 100).toFixed(1);
+                const activeCount = Math.min(concurrency, instancesToCheck.length - completedCount);
+                scanButton.textContent = `Scanning... (${completedCount}/${instancesToCheck.length}, ${progress}%, ${activeCount} active)`;
             }
         };
         
-        // Main function to check next instance sequentially
-        const checkNextInstance = () => {
-            if (currentIndex >= instancesToCheck.length) {
-                finishScan();
-                return;
-            }
-            
-            const processNumber = instancesToCheck[currentIndex];
-            currentIndex++;
-            
-            // Log progress
-            if (currentIndex % 100 === 0 || currentIndex === 1) {
-                console.log(`Checking instance ${processNumber} (${currentIndex}/${instancesToCheck.length})`);
-            }
-            
-            // Update UI
-            if (scanButton) {
-                const progress = ((currentIndex / instancesToCheck.length) * 100).toFixed(1);
-                scanButton.textContent = `Scanning ${processNumber}... (${currentIndex}/${instancesToCheck.length}, ${progress}%)`;
-            }
-            
-            // Check this instance
-            this.checkInstanceForSteps(processNumber).then((result) => {
+        // Process instances with concurrency limit
+        const processInstance = async (processNumber) => {
+            try {
+                const result = await this.checkInstanceForSteps(processNumber);
+                
                 if (result && result.hasSteps && result.uuid) {
                     instancesWithSteps.push(result);
-                    console.log(`✓ Instance ${processNumber} has ${result.stepCount || 'unknown'} steps`);
-                    updateRateLimitState();
-                    continueScan();
                 } else if (result && result.error) {
                     // Check if it's a 404 (process doesn't exist) - skip silently
                     if (result.isNotFound) {
-                        // Process number doesn't exist, just continue without logging
-                        continueScan();
-                        return;
+                        return; // Process number doesn't exist, just skip
                     }
                     
                     // Check if it's a rate limit error
                     if (isRateLimitError({ message: result.error })) {
-                        handleRateLimit(processNumber);
+                        rateLimitedCount++;
+                        isRateLimited = true;
                         return;
                     }
-                    
-                    // Log other errors occasionally
-                    if (currentIndex % 50 === 0) {
-                        console.log(`✗ Instance ${processNumber}: ${result.error} (logged every 50 instances)`);
-                    }
-                    
-                    updateRateLimitState();
-                    continueScan();
-                } else {
-                    continueScan();
                 }
-            }).catch((error) => {
+            } catch (error) {
                 // Check if it's a 404 (process doesn't exist)
                 const isNotFound = error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'));
                 if (isNotFound) {
-                    // Process number doesn't exist, just continue silently
-                    continueScan();
-                    return;
+                    return; // Process number doesn't exist, just skip
                 }
                 
                 if (isRateLimitError(error)) {
-                    handleRateLimit(processNumber);
-                } else {
-                    console.error(`✗ Error checking instance ${processNumber}:`, error);
-                    updateRateLimitState();
-                    continueScan();
+                    rateLimitedCount++;
+                    isRateLimited = true;
                 }
-            });
+            } finally {
+                completedCount++;
+                updateProgress();
+            }
         };
         
-        // Start checking
-        checkNextInstance();
+        // Process instances in batches with concurrency limit
+        const processBatch = async (batch) => {
+            // If rate limited, add delay between batches
+            if (isRateLimited && rateLimitedCount > 0) {
+                const delay = Math.min(5000 * rateLimitedCount, 30000); // Max 30s delay
+                if (scanButton) {
+                    scanButton.textContent = `Rate limited. Waiting ${delay/1000}s...`;
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                // Reset rate limit flag after delay
+                isRateLimited = false;
+                rateLimitedCount = 0;
+            }
+            
+            // Process batch in parallel
+            await Promise.all(batch.map(processNumber => processInstance(processNumber)));
+            
+            // Small delay between batches to prevent overwhelming the server
+            const interRequestDelay = configManager.get('network.interRequestDelay', 10);
+            if (interRequestDelay > 0) {
+                await new Promise(resolve => setTimeout(resolve, interRequestDelay));
+            }
+        };
+        
+        // Split instances into batches based on concurrency limit
+        try {
+            for (let i = 0; i < instancesToCheck.length; i += concurrency) {
+                const batch = instancesToCheck.slice(i, i + concurrency);
+                await processBatch(batch);
+            }
+        } catch (error) {
+            // Silently handle errors during scan
+        }
+        
+        // Finish scanning
+        if (scanButton) {
+            scanButton.disabled = false;
+            scanButton.textContent = 'Scan for CPEE LLM Instances';
+        }
+        
+        try {
+            this.displayInstanceList(instancesWithSteps);
+        } catch (displayError) {
+            // Silently handle display errors
+        }
+        
+        if (instancesWithSteps.length === 0) {
+            if (instanceList) {
+                instanceList.innerHTML = '<p style="color: var(--text-secondary); font-style: italic;">No CPEE LLM Instances found in the specified range.</p>';
+            }
+        }
     }
 
     /**

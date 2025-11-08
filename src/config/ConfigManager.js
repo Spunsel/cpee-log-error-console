@@ -102,7 +102,7 @@ export class ConfigManager {
                     558, 559, 561, 664, 665, 694, 845, 849, 850, 852, 853, 860, 890, 914, 920, 
                     926, 930, 967, 972, 975, 1021, 1039, 1046, 1047, 1055, 1069, 1086, 1087, 1091, 
                     1098, 1118, 1123, 1124, 1126, 1132, 1133, 1134, 1258, 1266, 1314, 1317, 1388, 
-                    1393, 1465, 1467, 1510, 1523, 1524, 1527, 1528, 1529, 1606
+                    1393, 1465, 1467, 1510, 1523, 1524, 1527, 1528, 1529, 1606, 
                 ]
             }
         };
@@ -185,7 +185,8 @@ export class ConfigManager {
                 backoffMultiplier: 1.5,
                 initialDelay: 1000
             },
-            interRequestDelay: 10  // Delay between consecutive log fetch requests (in milliseconds)
+            interRequestDelay: 1,  // Delay between consecutive log fetch requests (in milliseconds)
+            scanConcurrency: 200  // Number of concurrent instance checks during scanning (default: 50)
         };
     }
 

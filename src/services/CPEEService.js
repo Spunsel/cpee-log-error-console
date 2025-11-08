@@ -75,7 +75,6 @@ export class CPEEService {
             return cleanUuid;
             
         } catch (error) {
-            console.error('Error fetching UUID from process number:', error);
             throw new Error(`CPEEService: Failed to fetch UUID for process ${processNumber} - ${error.message}`);
         }
     }

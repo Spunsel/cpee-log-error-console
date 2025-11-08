@@ -57,20 +57,16 @@ export class ProxyRotationService {
             const proxyUrl = proxy + encodeURIComponent(url);
 
             try {
-                console.log(`Trying proxy ${this.currentProxyIndex + 1}/${this.proxies.length}: ${proxy}`);
-
                 const response = await fetch(proxyUrl, options);
 
                 // Check for rate limiting - immediately rotate to next proxy
                 if (this.isRateLimited(response)) {
-                    console.warn(`Rate limited on proxy ${this.currentProxyIndex + 1}, rotating to next proxy...`);
                     this.getNextProxy();
                     attemptsMade++;
                     
                     // Check if we've completed a full cycle
                     if (this.currentProxyIndex === initialProxyIndex && attemptsMade >= this.proxies.length) {
                         fullCycleCompleted = true;
-                        console.log('Completed full proxy cycle, wrapping around...');
                     }
                     
                     // Continue to next iteration
@@ -79,12 +75,10 @@ export class ProxyRotationService {
 
                 // If response is OK, return it
                 if (response.ok) {
-                    console.log(`Fetch successful via proxy ${this.currentProxyIndex + 1}`);
                     return response;
                 }
 
                 // For non-rate-limit errors, try next proxy
-                console.warn(`Proxy ${this.currentProxyIndex + 1} returned ${response.status}, trying next proxy...`);
                 this.getNextProxy();
                 attemptsMade++;
                 
@@ -94,14 +88,12 @@ export class ProxyRotationService {
                 }
 
             } catch (error) {
-                console.warn(`Proxy ${this.currentProxyIndex + 1} failed:`, error.message);
                 this.getNextProxy();
                 attemptsMade++;
                 
                 // Check if we've completed a full cycle
                 if (this.currentProxyIndex === initialProxyIndex && attemptsMade >= this.proxies.length) {
                     fullCycleCompleted = true;
-                    console.log('Completed full proxy cycle after error, wrapping around...');
                 }
             }
         }
