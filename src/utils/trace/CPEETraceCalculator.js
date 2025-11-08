@@ -174,8 +174,14 @@ export class CPEETraceCalculator {
                 const parentTag = node.parentElement ? node.parentElement.tagName.toLowerCase() : '';
                 const isBeforeClosingXor = isLastElement && (parentTag === 'choose' || parentTag === 'alternative');
                 
-                // 0 iterations (empty trace) - skip if loop is directly connected to end or closing XOR gateway
-                if (!isLastElement && !isBeforeClosingXor) {
+                // Check if loop is indirectly connected to end (e.g., inside another loop)
+                const isInsideLoop = parentTag === 'loop';
+                
+                // 0 iterations (empty trace) - allow if:
+                // - Not directly connected to end (has siblings), OR
+                // - Indirectly connected to end via another loop gateway (nested inside a loop)
+                // Skip only if directly connected to end or closing XOR gateway
+                if ((!isLastElement || isInsideLoop) && !isBeforeClosingXor) {
                     result.push([]);
                 }
                 

@@ -277,6 +277,7 @@
                 <option value="1510-Step1">1510-Step1</option>
                 <option value="1393-Step1-Output">1393-Step1-Output</option>
                 <option value="1388-Step2-Input">1388-Step2-Input</option>
+                <option value="1258-Step2-Output">1258-Step2-Output</option>
             </select>
             <button class="btn" onclick="calculateTraces()">Calculate Traces</button>
         </div>
@@ -599,54 +600,108 @@ gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))`,
 
 13:exclusivegateway:{x} --> |Not Satisfied| 1:task:(Define Chess Goals)`,
                 expected: [
-                    [
-                        { "id": null, "alt_id": "1", "task": "Define Chess Goals" },
-                        { "id": null, "alt_id": "2", "task": "Study Chess Principles" },
-                        { "id": null, "alt_id": "3", "task": "Practice Regularly" },
-                        { "id": null, "alt_id": "5", "task": "Analyze Games" },
-                        { "id": null, "alt_id": "6", "task": "Learn from Mistakes" },
-                        { "id": null, "alt_id": "8", "task": "Play More Games" },
-                        { "id": null, "alt_id": "9", "task": "Review Openings" },
-                        { "id": null, "alt_id": "10", "task": "Study Endgames" },
-                        { "id": null, "alt_id": "11", "task": "Solve Puzzles" },
-                        { "id": null, "alt_id": "12", "task": "Track Progress" },
-                        { "id": null, "alt_id": "14", "task": "End" }
-                    ],
-                    [
-                        { "id": null, "alt_id": "1", "task": "Define Chess Goals" },
-                        { "id": null, "alt_id": "2", "task": "Study Chess Principles" },
-                        { "id": null, "alt_id": "3", "task": "Practice Regularly" },
-                        { "id": null, "alt_id": "5", "task": "Analyze Games" },
-                        { "id": null, "alt_id": "6", "task": "Learn from Mistakes" },
-                        { "id": null, "alt_id": "8", "task": "Play More Games" },
-                        { "id": null, "alt_id": "9", "task": "Review Openings" },
-                        { "id": null, "alt_id": "10", "task": "Study Endgames" },
-                        { "id": null, "alt_id": "11", "task": "Solve Puzzles" },
-                        { "id": null, "alt_id": "12", "task": "Track Progress" },
-                        { "id": null, "alt_id": "1", "task": "Define Chess Goals" }
-                    ],
-                    [
-                        { "id": null, "alt_id": "1", "task": "Define Chess Goals" },
-                        { "id": null, "alt_id": "2", "task": "Study Chess Principles" },
-                        { "id": null, "alt_id": "3", "task": "Practice Regularly" },
-                        { "id": null, "alt_id": "8", "task": "Play More Games" },
-                        { "id": null, "alt_id": "9", "task": "Review Openings" },
-                        { "id": null, "alt_id": "10", "task": "Study Endgames" },
-                        { "id": null, "alt_id": "11", "task": "Solve Puzzles" },
-                        { "id": null, "alt_id": "12", "task": "Track Progress" },
-                        { "id": null, "alt_id": "14", "task": "End" }
-                    ],
-                    [
-                        { "id": null, "alt_id": "1", "task": "Define Chess Goals" },
-                        { "id": null, "alt_id": "2", "task": "Study Chess Principles" },
-                        { "id": null, "alt_id": "3", "task": "Practice Regularly" },
-                        { "id": null, "alt_id": "8", "task": "Play More Games" },
-                        { "id": null, "alt_id": "9", "task": "Review Openings" },
-                        { "id": null, "alt_id": "10", "task": "Study Endgames" },
-                        { "id": null, "alt_id": "11", "task": "Solve Puzzles" },
-                        { "id": null, "alt_id": "12", "task": "Track Progress" },
-                        { "id": null, "alt_id": "1", "task": "Define Chess Goals" }
-                    ]
+                        [
+                            {"id":null,"alt_id":"1","task":"Define Chess Goals"},
+                            {"id":null,"alt_id":"2","task":"Study Chess Principles"},
+                            {"id":null,"alt_id":"3","task":"Practice Regularly"},
+                            {"id":null,"alt_id":"5","task":"Analyze Games"},
+                            {"id":null,"alt_id":"6","task":"Learn from Mistakes"},
+                            {"id":null,"alt_id":"8","task":"Play More Games"},
+                            {"id":null,"alt_id":"9","task":"Review Openings"},
+                            {"id":null,"alt_id":"10","task":"Study Endgames"},
+                            {"id":null,"alt_id":"11","task":"Solve Puzzles"},
+                            {"id":null,"alt_id":"12","task":"Track Progress"}
+                        ],
+                        [
+                            {"id":null,"alt_id":"1","task":"Define Chess Goals"},
+                            {"id":null,"alt_id":"2","task":"Study Chess Principles"},
+                            {"id":null,"alt_id":"3","task":"Practice Regularly"},
+                            {"id":null,"alt_id":"5","task":"Analyze Games"},
+                            {"id":null,"alt_id":"6","task":"Learn from Mistakes"},
+                            {"id":null,"alt_id":"8","task":"Play More Games"},
+                            {"id":null,"alt_id":"9","task":"Review Openings"},
+                            {"id":null,"alt_id":"10","task":"Study Endgames"},
+                            {"id":null,"alt_id":"11","task":"Solve Puzzles"},
+                            {"id":null,"alt_id":"12","task":"Track Progress"},
+                            {"id":null,"alt_id":"1","task":"Define Chess Goals"},
+                            {"id":null,"alt_id":"2","task":"Study Chess Principles"},
+                            {"id":null,"alt_id":"3","task":"Practice Regularly"},
+                            {"id":null,"alt_id":"5","task":"Analyze Games"},
+                            {"id":null,"alt_id":"6","task":"Learn from Mistakes"},
+                            {"id":null,"alt_id":"8","task":"Play More Games"},
+                            {"id":null,"alt_id":"9","task":"Review Openings"},
+                            {"id":null,"alt_id":"10","task":"Study Endgames"},
+                            {"id":null,"alt_id":"11","task":"Solve Puzzles"},
+                            {"id":null,"alt_id":"12","task":"Track Progress"}
+                        ],
+                        [
+                            {"id":null,"alt_id":"1","task":"Define Chess Goals"},
+                            {"id":null,"alt_id":"2","task":"Study Chess Principles"},
+                            {"id":null,"alt_id":"3","task":"Practice Regularly"},
+                            {"id":null,"alt_id":"5","task":"Analyze Games"},
+                            {"id":null,"alt_id":"6","task":"Learn from Mistakes"},
+                            {"id":null,"alt_id":"8","task":"Play More Games"},
+                            {"id":null,"alt_id":"9","task":"Review Openings"},
+                            {"id":null,"alt_id":"10","task":"Study Endgames"},
+                            {"id":null,"alt_id":"11","task":"Solve Puzzles"},
+                            {"id":null,"alt_id":"12","task":"Track Progress"},
+                            {"id":null,"alt_id":"1","task":"Define Chess Goals"},
+                            {"id":null,"alt_id":"2","task":"Study Chess Principles"},
+                            {"id":null,"alt_id":"3","task":"Practice Regularly"},
+                            {"id":null,"alt_id":"8","task":"Play More Games"},
+                            {"id":null,"alt_id":"9","task":"Review Openings"},
+                            {"id":null,"alt_id":"10","task":"Study Endgames"},
+                            {"id":null,"alt_id":"11","task":"Solve Puzzles"},
+                            {"id":null,"alt_id":"12","task":"Track Progress"}
+                        ],
+                        [
+                            {"id":null,"alt_id":"1","task":"Define Chess Goals"},
+                            {"id":null,"alt_id":"2","task":"Study Chess Principles"},
+                            {"id":null,"alt_id":"3","task":"Practice Regularly"},
+                            {"id":null,"alt_id":"8","task":"Play More Games"},
+                            {"id":null,"alt_id":"9","task":"Review Openings"},
+                            {"id":null,"alt_id":"10","task":"Study Endgames"},
+                            {"id":null,"alt_id":"11","task":"Solve Puzzles"},
+                            {"id":null,"alt_id":"12","task":"Track Progress"}
+                        ],
+                        [
+                            {"id":null,"alt_id":"1","task":"Define Chess Goals"},
+                            {"id":null,"alt_id":"2","task":"Study Chess Principles"},
+                            {"id":null,"alt_id":"3","task":"Practice Regularly"},
+                            {"id":null,"alt_id":"8","task":"Play More Games"},
+                            {"id":null,"alt_id":"9","task":"Review Openings"},
+                            {"id":null,"alt_id":"10","task":"Study Endgames"},
+                            {"id":null,"alt_id":"11","task":"Solve Puzzles"},
+                            {"id":null,"alt_id":"12","task":"Track Progress"},
+                            {"id":null,"alt_id":"1","task":"Define Chess Goals"},
+                            {"id":null,"alt_id":"2","task":"Study Chess Principles"},
+                            {"id":null,"alt_id":"3","task":"Practice Regularly"},
+                            {"id":null,"alt_id":"5","task":"Analyze Games"},
+                            {"id":null,"alt_id":"6","task":"Learn from Mistakes"},
+                            {"id":null,"alt_id":"8","task":"Play More Games"},
+                            {"id":null,"alt_id":"9","task":"Review Openings"},
+                            {"id":null,"alt_id":"10","task":"Study Endgames"},
+                            {"id":null,"alt_id":"11","task":"Solve Puzzles"},
+                            {"id":null,"alt_id":"12","task":"Track Progress"}
+                        ],
+                        [
+                            {"id":null,"alt_id":"1","task":"Define Chess Goals"},
+                            {"id":null,"alt_id":"2","task":"Study Chess Principles"},
+                            {"id":null,"alt_id":"3","task":"Practice Regularly"},
+                            {"id":null,"alt_id":"8","task":"Play More Games"},
+                            {"id":null,"alt_id":"9","task":"Review Openings"},
+                            {"id":null,"alt_id":"10","task":"Study Endgames"},
+                            {"id":null,"alt_id":"11","task":"Solve Puzzles"},
+                            {"id":null,"alt_id":"12","task":"Track Progress"},
+                            {"id":null,"alt_id":"1","task":"Define Chess Goals"},
+                            {"id":null,"alt_id":"2","task":"Study Chess Principles"},
+                            {"id":null,"alt_id":"3","task":"Practice Regularly"},
+                            {"id":null,"alt_id":"8","task":"Play More Games"},
+                            {"id":null,"alt_id":"9","task":"Review Openings"},
+                            {"id":null,"alt_id":"10","task":"Study Endgames"},
+                            {"id":null,"alt_id":"11","task":"Solve Puzzles"},
+                            {"id":null,"alt_id":"12","task":"Track Progress"}
+                        ]
                 ]
             },
             '1393-Step1-Output': {
@@ -965,6 +1020,82 @@ gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))`,
                         { "id": null, "alt_id": "a21", "task": "Produce First Chainsaw" },
                         { "id": null, "alt_id": "a23", "task": "Send First Chainsaw to Customer" }
                     ]
+                ]
+            },
+            '1258-Step2-Output': {
+                mermaid: `flowchart LR
+
+se:startevent:((startevent))-->a1:task:(Brainstorm Ideas)
+
+a1:task:(Brainstorm Ideas)-->a3:task:(Develop Characters)
+
+a3:task:(Develop Characters)-->a5:task:(Outline the Plot)
+
+a5:task:(Outline the Plot)-->a7:task:(Write First Draft)
+
+a7:task:(Write First Draft)-->gw1s:exclusivegateway:{x}
+
+gw1s:exclusivegateway:{x}-->|"true"|a9:task:(Revise and Edit)
+
+a9:task:(Revise and Edit)-->a11:task:(Get Feedback)
+
+a11:task:(Get Feedback)-->gw2s:exclusivegateway:{x}
+
+gw2s:exclusivegateway:{x}-->a15:task:(Finalize Manuscript)
+
+a15:task:(Finalize Manuscript)-->ee:endevent:(((endevent)))
+
+gw2s:exclusivegateway:{x}-->|"Not Satisfied"|a9:task:(Revise and Edit)
+
+gw1s:exclusivegateway:{x}-->|"false"|ee:endevent:(((endevent)))
+
+
+gw2s:exclusivegateway:{x}-->|"Satisfied"|ee:endevent:(((endevent)))`,
+                expected: [
+                        [
+                            {"id":null,"alt_id":"a1","task":"Brainstorm Ideas"},
+                            {"id":null,"alt_id":"a3","task":"Develop Characters"},
+                            {"id":null,"alt_id":"a5","task":"Outline the Plot"},
+                            {"id":null,"alt_id":"a7","task":"Write First Draft"},
+                            {"id":null,"alt_id":"a9","task":"Revise and Edit"},
+                            {"id":null,"alt_id":"a11","task":"Get Feedback"},
+                            {"id":null,"alt_id":"a15","task":"Finalize Manuscript"}
+                        ],
+                        [
+                            {"id":null,"alt_id":"a1","task":"Brainstorm Ideas"},
+                            {"id":null,"alt_id":"a3","task":"Develop Characters"},
+                            {"id":null,"alt_id":"a5","task":"Outline the Plot"},
+                            {"id":null,"alt_id":"a7","task":"Write First Draft"},
+                            {"id":null,"alt_id":"a9","task":"Revise and Edit"},
+                            {"id":null,"alt_id":"a11","task":"Get Feedback"},
+                            {"id":null,"alt_id":"a9","task":"Revise and Edit"},
+                            {"id":null,"alt_id":"a11","task":"Get Feedback"},
+                            {"id":null,"alt_id":"a15","task":"Finalize Manuscript"}
+                        ],
+                        [
+                            {"id":null,"alt_id":"a1","task":"Brainstorm Ideas"},
+                            {"id":null,"alt_id":"a3","task":"Develop Characters"},
+                            {"id":null,"alt_id":"a5","task":"Outline the Plot"},
+                            {"id":null,"alt_id":"a7","task":"Write First Draft"},
+                            {"id":null,"alt_id":"a9","task":"Revise and Edit"},
+                            {"id":null,"alt_id":"a11","task":"Get Feedback"},
+                            {"id":null,"alt_id":"a9","task":"Revise and Edit"},
+                            {"id":null,"alt_id":"a11","task":"Get Feedback"}
+                        ],
+                        [
+                            {"id":null,"alt_id":"a1","task":"Brainstorm Ideas"},
+                            {"id":null,"alt_id":"a3","task":"Develop Characters"},
+                            {"id":null,"alt_id":"a5","task":"Outline the Plot"},
+                            {"id":null,"alt_id":"a7","task":"Write First Draft"},
+                            {"id":null,"alt_id":"a9","task":"Revise and Edit"},
+                            {"id":null,"alt_id":"a11","task":"Get Feedback"}
+                        ],
+                        [
+                            {"id":null,"alt_id":"a1","task":"Brainstorm Ideas"},
+                            {"id":null,"alt_id":"a3","task":"Develop Characters"},
+                            {"id":null,"alt_id":"a5","task":"Outline the Plot"},
+                            {"id":null,"alt_id":"a7","task":"Write First Draft"}
+                        ]
                 ]
             }
         };

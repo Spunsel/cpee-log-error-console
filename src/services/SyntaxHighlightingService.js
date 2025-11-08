@@ -341,6 +341,11 @@ export class SyntaxHighlightingService {
             preElement.querySelector('.raw-code-block-with-lines')) {
             return;
         }
+        
+        // Skip if inside trace-details-json (don't add line numbers to trace JSON)
+        if (preElement.classList.contains('trace-details-json')) {
+            return;
+        }
 
         // Get the original text content to count lines
         const originalText = codeElement.textContent || '';

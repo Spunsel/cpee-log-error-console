@@ -1,11 +1,13 @@
 /**
  * Mermaid Trace Calculator
  * Calculates all possible execution traces (paths) from Mermaid flowchart syntax
- * Uses DFS approach to enumerate all paths from start to end
- * Similar to "All Paths From Source to Target" problem
+ * Uses graph traversal algorithm based on node types (similar to CPEETraceCalculator)
  */
 
 import { Trace } from '../../models/Trace.js';
+
+// Global constant for maximum loop iterations (default: 1)
+const MAX_LOOP_ITERATIONS = 1;
 
 export class MermaidTraceCalculator {
     /**
@@ -13,17 +15,15 @@ export class MermaidTraceCalculator {
      * @param {string} mermaidString - Mermaid flowchart syntax
      * @param {Object} options - Calculation options
      * @param {number} options.maxLoopIterations - Maximum loop iterations (default: 1)
-     * @param {number} options.maxPathLength - Maximum path length (default: 50)
      * @returns {Trace[]} Array of Trace objects
      */
     static calculateAllTraces(mermaidString, options = {}) {
         console.log('[MermaidTraceCalculator] Starting trace calculation from Mermaid syntax...');
         
-        const {
-            maxLoopIterations = 1,
-            maxPathLength = 50
-        } = options;
-
+        const maxLoopIterations = options.maxLoopIterations !== undefined 
+            ? options.maxLoopIterations 
+            : MAX_LOOP_ITERATIONS;
+        
         try {
             // Parse Mermaid syntax to build graph
             const graph = this.parseMermaid(mermaidString);
@@ -34,49 +34,43 @@ export class MermaidTraceCalculator {
             }
             
             console.log('[MermaidTraceCalculator] Graph parsed successfully');
-            console.log(`[MermaidTraceCalculator] Found ${graph.nodes.length} nodes:`, graph.nodes.map(n => `${n.id}:${n.type}:${n.label}`));
             
             // Find start and end nodes
             const startNodes = graph.nodes.filter(n => n.type === 'startevent');
             const endNodes = graph.nodes.filter(n => n.type === 'endevent');
             
-            console.log(`[MermaidTraceCalculator] Start nodes: ${startNodes.length}`, startNodes.map(n => n.id));
-            console.log(`[MermaidTraceCalculator] End nodes: ${endNodes.length}`, endNodes.map(n => n.id));
-            
             if (startNodes.length === 0) {
                 console.warn('[MermaidTraceCalculator] No start nodes found');
-                console.warn('[MermaidTraceCalculator] Available node types:', [...new Set(graph.nodes.map(n => n.type))]);
                 return [];
             }
             
             if (endNodes.length === 0) {
                 console.warn('[MermaidTraceCalculator] No end nodes found');
-                console.warn('[MermaidTraceCalculator] Available node types:', [...new Set(graph.nodes.map(n => n.type))]);
                 return [];
             }
             
-            // Find all paths from each start node to each end node
-            const allPaths = [];
+            // Calculate traces from each start node to each end node
+            const allTraceArrays = [];
             
             for (const startNode of startNodes) {
                 for (const endNode of endNodes) {
-                    this.dfsFindAllPaths(
+                    const traceArrays = this.traces(
                         graph,
                         startNode.id,
                         endNode.id,
-                        [],
-                        allPaths,
+                        0,
                         maxLoopIterations,
-                        maxPathLength
+                        new Map()
                     );
+                    allTraceArrays.push(...traceArrays);
                 }
             }
             
-            // Filter duplicate paths
-            const uniquePaths = this.filterDuplicatePaths(allPaths);
+            // Filter duplicate traces
+            const uniqueTraces = this.filterDuplicateTraces(allTraceArrays);
             
-            // Convert paths to Trace objects
-            const traces = uniquePaths.map((path, index) => {
+            // Convert to Trace objects
+            const traces = uniqueTraces.map((path, index) => {
                 const trace = new Trace(`trace-${index + 1}`, path, this.determineTraceType(path));
                 return trace;
             });
@@ -87,6 +81,382 @@ export class MermaidTraceCalculator {
         } catch (error) {
             console.error('[MermaidTraceCalculator] Error calculating traces:', error);
             return [];
+        }
+    }
+
+    /**
+     * Main graph traversal function
+     * Returns array of trace arrays (each trace is an array of task objects)
+     * @param {Object} graph - Graph object with nodes and edges
+     * @param {string} currentNodeId - Current node ID
+     * @param {string} targetNodeId - Target end node ID
+     * @param {number} depth - Current depth (for debugging)
+     * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {Map<string, number>} visitCounts - Map of node IDs to visit counts (for cycle detection)
+     * @returns {Array<Array<Object>>} Array of trace arrays
+     */
+    static traces(graph, currentNodeId, targetNodeId, depth = 0, maxLoopIterations = MAX_LOOP_ITERATIONS, visitCounts = new Map()) {
+        // Check if we reached the target
+        if (currentNodeId === targetNodeId) {
+            return [[]]; // Return empty trace (base case)
+        }
+        
+        // Get node info
+        const node = graph.nodes.find(n => n.id === currentNodeId);
+        if (!node) {
+            return [];
+        }
+        
+        // Check loop limit - allow maxLoopIterations + 1 visits (initial + loop iterations)
+        const currentVisitCount = visitCounts.get(currentNodeId) || 0;
+        if (currentVisitCount >= maxLoopIterations + 1) {
+            return []; // Loop limit reached
+        }
+        
+        // Increment visit count for current node
+        const newVisitCounts = new Map(visitCounts);
+        newVisitCounts.set(currentNodeId, currentVisitCount + 1);
+        
+        // Get outgoing edges
+        const outgoingEdges = graph.adjacencyList.get(currentNodeId) || [];
+        
+        if (outgoingEdges.length === 0) {
+            // Dead end (not the target)
+            return [];
+        }
+        
+        // Handle different node types
+        switch (node.type) {
+            case 'task': {
+                // Task node - extract task and continue
+                const task = this.extractTask(node);
+                if (!task) {
+                    return [];
+                }
+                
+                // Get traces from all outgoing edges
+                const childTraceSets = outgoingEdges.map(edge => 
+                    this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts)
+                );
+                
+                // If multiple outgoing edges, treat as alternatives (union)
+                // Otherwise, combine sequentially: task + each child trace
+                if (outgoingEdges.length > 1) {
+                    const alternativeTraces = this.union(childTraceSets);
+                    return alternativeTraces.map(trace => [task, ...trace]);
+                } else {
+                    // Single outgoing edge - combine sequentially
+                    const result = [];
+                    for (const childTraces of childTraceSets) {
+                        for (const childTrace of childTraces) {
+                            result.push([task, ...childTrace]);
+                        }
+                    }
+                    return result;
+                }
+            }
+            
+            case 'exclusivegateway': {
+                // Exclusive gateway (XOR) - union of all alternatives
+                const alternativeTraces = outgoingEdges.map(edge => 
+                    this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts)
+                );
+                return this.union(alternativeTraces);
+            }
+            
+            case 'parallelgateway': {
+                // Parallel gateway - need to find join gateway and interleave branches
+                return this.handleParallelGateway(
+                    graph,
+                    currentNodeId,
+                    targetNodeId,
+                    depth,
+                    maxLoopIterations,
+                    newVisitCounts
+                );
+            }
+            
+            case 'startevent':
+            case 'endevent': {
+                // Start/end events - just pass through
+                const childTraceSets = outgoingEdges.map(edge => 
+                    this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts)
+                );
+                return this.combineSequential(childTraceSets);
+            }
+            
+            default: {
+                // Unknown node type - treat as pass-through
+                const childTraceSets = outgoingEdges.map(edge => 
+                    this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts)
+                );
+                return this.combineSequential(childTraceSets);
+            }
+        }
+    }
+
+    /**
+     * Handle parallel gateway - find join gateway and interleave branches
+     * @param {Object} graph - Graph object
+     * @param {string} splitGatewayId - Parallel split gateway node ID
+     * @param {string} targetNodeId - Target end node ID
+     * @param {number} depth - Current depth
+     * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {Map<string, number>} visitCounts - Map of visit counts
+     * @returns {Array<Array<Object>>} Array of trace arrays
+     */
+    static handleParallelGateway(graph, splitGatewayId, targetNodeId, depth, maxLoopIterations, visitCounts) {
+        const outgoingEdges = graph.adjacencyList.get(splitGatewayId) || [];
+        
+        if (outgoingEdges.length === 0) {
+            return [];
+        }
+        
+        // Find the join gateway (parallel gateway that all branches connect to)
+        const joinGateway = this.findJoinGateway(graph, splitGatewayId, outgoingEdges.map(e => e.to));
+        
+        if (!joinGateway) {
+            // No join gateway found - treat branches as independent paths to target
+            const branchTraces = outgoingEdges.map(edge => 
+                this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, new Map(visitCounts))
+            );
+            return this.union(branchTraces);
+        }
+        
+        // Collect traces through each branch until join gateway
+        // Each branch should use a fresh visit count map to allow independent exploration
+        const branchTraceSets = [];
+        
+        for (const edge of outgoingEdges) {
+            const branchTraces = this.traces(
+                graph,
+                edge.to,
+                joinGateway,
+                depth + 1,
+                maxLoopIterations,
+                new Map(visitCounts)
+            );
+            branchTraceSets.push(branchTraces);
+        }
+        
+        // Interleave branches (generate all permutations of branch orderings)
+        const interleavedTraces = this.interleave(branchTraceSets);
+        
+        // Continue from join gateway to target
+        // Use the original visitCounts to maintain loop limits across the parallel section
+        const joinTraces = this.traces(
+            graph,
+            joinGateway,
+            targetNodeId,
+            depth + 1,
+            maxLoopIterations,
+            new Map(visitCounts)
+        );
+        
+        // Combine interleaved traces with join traces
+        const result = [];
+        for (const interleavedTrace of interleavedTraces) {
+            for (const joinTrace of joinTraces) {
+                result.push([...interleavedTrace, ...joinTrace]);
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Find the join gateway for a parallel split gateway
+     * @param {Object} graph - Graph object
+     * @param {string} splitGatewayId - Split gateway ID
+     * @param {Array<string>} branchStartIds - IDs of nodes where branches start
+     * @returns {string|null} Join gateway ID or null
+     */
+    static findJoinGateway(graph, splitGatewayId, branchStartIds) {
+        // Look for a parallel gateway that all branches can reach
+        for (const node of graph.nodes) {
+            if (node.type === 'parallelgateway' && node.id !== splitGatewayId) {
+                // Check if all branches can reach this gateway
+                let allBranchesReach = true;
+                for (const branchStartId of branchStartIds) {
+                    if (!this.pathExists(graph, branchStartId, node.id)) {
+                        allBranchesReach = false;
+                        break;
+                    }
+                }
+                
+                if (allBranchesReach) {
+                    return node.id;
+                }
+            }
+        }
+        
+        return null;
+    }
+
+    /**
+     * Check if a path exists from source to target
+     * @param {Object} graph - Graph object
+     * @param {string} source - Source node ID
+     * @param {string} target - Target node ID
+     * @param {number} maxDepth - Maximum search depth (default: 50)
+     * @param {Set<string>} visited - Visited nodes (for cycle detection)
+     * @returns {boolean} True if path exists
+     */
+    static pathExists(graph, source, target, maxDepth = 50, visited = new Set()) {
+        if (source === target) {
+            return true;
+        }
+        if (maxDepth <= 0 || visited.has(source)) {
+            return false;
+        }
+        
+        const newVisited = new Set(visited);
+        newVisited.add(source);
+        
+        const neighbors = graph.adjacencyList.get(source) || [];
+        for (const edge of neighbors) {
+            if (this.pathExists(graph, edge.to, target, maxDepth - 1, newVisited)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    /**
+     * Cartesian product concatenation
+     * Combines sequences sequentially (each trace from first set concatenated with each trace from second set)
+     * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace set arrays
+     * @returns {Array<Array<Object>>} Combined trace arrays
+     */
+    static combineSequential(listOfTraceSets) {
+        if (listOfTraceSets.length === 0) {
+            return [[]];
+        }
+        
+        return listOfTraceSets.reduce(
+            (acc, next) => {
+                // acc is array of traces (each trace is array of tasks)
+                // next is array of traces (each trace is array of tasks)
+                // For each trace in acc, concatenate with each trace in next
+                const result = [];
+                for (const a of acc) {
+                    for (const b of next) {
+                        result.push([...a, ...b]);
+                    }
+                }
+                return result;
+            },
+            [[]] // Start with empty trace
+        );
+    }
+
+    /**
+     * Parallel interleaving (permutations of branch order)
+     * Each branch is treated as a single unit - tasks within a branch stay together
+     * @param {Array<Array<Array<Object>>>} branches - Array of branch trace sets
+     * @returns {Array<Array<Object>>} All trace arrays with branch permutations
+     */
+    static interleave(branches) {
+        if (branches.length === 0) {
+            return [[]];
+        }
+        if (branches.length === 1) {
+            return branches[0];
+        }
+        
+        // Generate all permutations of branch indices
+        const branchIndices = branches.map((_, i) => i);
+        const permutations = this.permuteArray(branchIndices);
+        
+        const result = [];
+        
+        // For each permutation, combine traces from branches in that order
+        for (const perm of permutations) {
+            // Get one trace from each branch (cartesian product)
+            const branchTraces = perm.map(idx => branches[idx]);
+            const combinations = this.cartesianProduct(branchTraces);
+            
+            // For each combination, concatenate the traces in order
+            for (const combination of combinations) {
+                const concatenated = combination.flat();
+                result.push(concatenated);
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Generate all permutations of an array
+     * @param {Array} arr - Input array
+     * @returns {Array<Array>} All permutations
+     */
+    static permuteArray(arr) {
+        if (arr.length <= 1) {
+            return [arr];
+        }
+        
+        const result = [];
+        for (let i = 0; i < arr.length; i++) {
+            const rest = [...arr.slice(0, i), ...arr.slice(i + 1)];
+            const restPerms = this.permuteArray(rest);
+            for (const perm of restPerms) {
+                result.push([arr[i], ...perm]);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Cartesian product of arrays
+     * @param {Array<Array>} arrays - Array of arrays
+     * @returns {Array<Array>} All combinations
+     */
+    static cartesianProduct(arrays) {
+        if (arrays.length === 0) {
+            return [[]];
+        }
+        
+        return arrays.reduce((acc, next) => {
+            const result = [];
+            for (const a of acc) {
+                for (const b of next) {
+                    result.push([...a, b]);
+                }
+            }
+            return result;
+        }, [[]]);
+    }
+
+    /**
+     * Union of trace sets (flatten array of trace arrays)
+     * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace set arrays
+     * @returns {Array<Array<Object>>} Flattened trace arrays
+     */
+    static union(listOfTraceSets) {
+        return listOfTraceSets.flat();
+    }
+
+    /**
+     * Extract task information from task node
+     * @param {Object} node - Node object
+     * @returns {Object|null} Task object: {id, alt_id, task} or null
+     */
+    static extractTask(node) {
+        try {
+            if (!node || node.type !== 'task') {
+                return null;
+            }
+            
+            return {
+                id: null,
+                alt_id: node.id,
+                task: node.label || node.id
+            };
+        } catch (error) {
+            console.error('[MermaidTraceCalculator] Error extracting task:', error);
+            return null;
         }
     }
 
@@ -111,16 +481,38 @@ export class MermaidTraceCalculator {
         );
         
         // Parse nodes and edges
+        let lastNodeId = null; // Track last node for continuation lines
         for (const line of contentLines) {
             // Parse edge: node1 --> node2 or node1 -->|label| node2
-            // Split by --> first, then handle edge labels
             const arrowIndex = line.indexOf('-->');
             if (arrowIndex === -1) {
-                continue; // Not an edge line
+                // No arrow - might be a node definition, try to extract it
+                // Check if it looks like a node: id:type:(label)
+                const nodeMatch = line.match(/^([^:]+):([^:]+):(.+)$/);
+                if (nodeMatch) {
+                    lastNodeId = line.trim();
+                    this.ensureNodeExists(graph, lastNodeId);
+                }
+                continue;
             }
             
             const beforeArrow = line.substring(0, arrowIndex).trim();
             const afterArrow = line.substring(arrowIndex + 3).trim();
+            
+            // Handle continuation lines (arrow on separate line)
+            let fromNodeIdFull;
+            if (beforeArrow) {
+                // Normal case: node1 --> node2
+                fromNodeIdFull = beforeArrow;
+                lastNodeId = beforeArrow; // Update last node
+            } else if (lastNodeId) {
+                // Continuation line: --> node2 (use last node as source)
+                fromNodeIdFull = lastNodeId;
+            } else {
+                // Skip invalid edge (no source node)
+                console.warn(`[MermaidTraceCalculator] Skipping edge with no source: ${line}`);
+                continue;
+            }
             
             // Extract edge label if present: |label|
             let edgeLabel = null;
@@ -132,12 +524,14 @@ export class MermaidTraceCalculator {
                 toNodeId = labelMatch[2].trim();
             }
             
-            const fromNodeIdFull = beforeArrow;
             const toNodeIdFull = toNodeId;
             
             // Ensure nodes exist and get their short IDs
             const fromNodeId = this.ensureNodeExists(graph, fromNodeIdFull);
             const toNodeIdShort = this.ensureNodeExists(graph, toNodeIdFull);
+            
+            // Update last node to the destination
+            lastNodeId = toNodeIdFull;
             
             // Add edge (using short IDs)
             graph.edges.push({
@@ -173,7 +567,6 @@ export class MermaidTraceCalculator {
         }
         
         // Parse node definition: id:type:(label) or id:type:{label} or id:type:((label))
-        // Handle nested parentheses like ((startevent))
         const nodeMatch = nodeId.match(/^([^:]+):([^:]+):(.+)$/);
         
         let shortId, nodeType, nodeLabel;
@@ -229,629 +622,24 @@ export class MermaidTraceCalculator {
     }
 
     /**
-     * DFS to find all paths from start to end
-     * @param {Object} graph - Graph object
-     * @param {string} currentNode - Current node ID
-     * @param {string} targetNode - Target end node ID
-     * @param {Array} currentPath - Current path being built
-     * @param {Array} allPaths - Array to collect all complete paths
-     * @param {number} maxLoopIterations - Maximum loop iterations
-     * @param {number} maxPathLength - Maximum path length
-     * @param {Map} visitedCounts - Map tracking how many times each node has been visited
+     * Filter duplicate traces
+     * @param {Array<Array<Object>>} traces - Array of trace arrays
+     * @returns {Array<Array<Object>>} Array of unique trace arrays
      */
-    static dfsFindAllPaths(
-        graph,
-        currentNode,
-        targetNode,
-        currentPath,
-        allPaths,
-        maxLoopIterations,
-        maxPathLength,
-        visitedCounts = new Map()
-    ) {
-        // Check path length limit
-        if (currentPath.length >= maxPathLength) {
-            console.log(`[MermaidTraceCalculator] Path length limit reached at node ${currentNode}, path length: ${currentPath.length}`);
-            return;
-        }
-        
-        // Get node info
-        const node = graph.nodes.find(n => n.id === currentNode);
-        if (!node) {
-            console.log(`[MermaidTraceCalculator] Node ${currentNode} not found in graph`);
-            return;
-        }
-        
-        // Check loop limit - allow maxLoopIterations + 1 visits (initial + loop iterations)
-        const visitCount = visitedCounts.get(currentNode) || 0;
-        if (visitCount >= maxLoopIterations + 1) {
-            console.log(`[MermaidTraceCalculator] Loop limit reached for node ${currentNode}, visitCount: ${visitCount}, max: ${maxLoopIterations + 1}`);
-            return;
-        }
-        
-        console.log(`[MermaidTraceCalculator] Visiting node ${currentNode} (type: ${node.type}), visitCount: ${visitCount}, path length: ${currentPath.length}`);
-        
-        // Add current node to path if it's a task
-        if (node.type === 'task') {
-            currentPath.push({
-                id: null,
-                alt_id: node.id,
-                task: node.label
-            });
-        }
-        
-        // Check if we reached the target
-        if (currentNode === targetNode) {
-            // Only save if path has at least one task
-            if (currentPath.length > 0) {
-                allPaths.push([...currentPath]);
-            }
-            // Backtrack
-            if (node.type === 'task') {
-                currentPath.pop();
-            }
-            return;
-        }
-        
-        // Get neighbors
-        const neighbors = graph.adjacencyList.get(currentNode) || [];
-        
-        // Handle different node types
-        if (node.type === 'parallelgateway') {
-            // Parallel gateway - need to collect all branches and generate permutations
-            this.handleParallelGateway(
-                graph,
-                currentNode,
-                targetNode,
-                currentPath,
-                allPaths,
-                maxLoopIterations,
-                maxPathLength,
-                visitedCounts
-            );
-            // Backtrack after handling parallel gateway
-            if (node.type === 'task') {
-                currentPath.pop();
-            }
-            return;
-        } else if (node.type === 'exclusivegateway') {
-            // Exclusive gateway - explore all branches
-            this.handleExclusiveGateway(
-                graph,
-                currentNode,
-                targetNode,
-                currentPath,
-                allPaths,
-                maxLoopIterations,
-                maxPathLength,
-                visitedCounts
-            );
-            // Backtrack after handling exclusive gateway
-            if (node.type === 'task') {
-                currentPath.pop();
-            }
-            return;
-        } else {
-            // Regular node or start/end event - continue DFS
-            const newVisitedCounts = new Map(visitedCounts);
-            newVisitedCounts.set(currentNode, visitCount + 1);
-            
-            for (const edge of neighbors) {
-                this.dfsFindAllPaths(
-                    graph,
-                    edge.to,
-                    targetNode,
-                    currentPath,
-                    allPaths,
-                    maxLoopIterations,
-                    maxPathLength,
-                    newVisitedCounts
-                );
-            }
-        }
-        
-        // Backtrack: remove current node from path
-        if (node.type === 'task') {
-            currentPath.pop();
-        }
-    }
-
-    /**
-     * Handle parallel gateway - generate all permutations of branch orderings
-     * @param {Object} graph - Graph object
-     * @param {string} gatewayId - Parallel gateway node ID
-     * @param {string} targetNode - Target end node ID
-     * @param {Array} currentPath - Current path being built
-     * @param {Array} allPaths - Array to collect all complete paths
-     * @param {number} maxLoopIterations - Maximum loop iterations
-     * @param {number} maxPathLength - Maximum path length
-     * @param {Map} visitedCounts - Map tracking visit counts
-     */
-    static handleParallelGateway(
-        graph,
-        gatewayId,
-        targetNode,
-        currentPath,
-        allPaths,
-        maxLoopIterations,
-        maxPathLength,
-        visitedCounts
-    ) {
-        const neighbors = graph.adjacencyList.get(gatewayId) || [];
-        
-        // Find the join gateway by looking for a parallel gateway that all branches connect to
-        let joinGateway = null;
-        const branchTargets = neighbors.map(e => e.to);
-        
-        // Check each potential join gateway
-        for (const potentialJoin of graph.nodes) {
-            if (potentialJoin.type === 'parallelgateway' && potentialJoin.id !== gatewayId) {
-                // Check if all branches eventually lead to this gateway
-                let allBranchesReachJoin = true;
-                for (const branchTarget of branchTargets) {
-                    if (!this.pathExists(graph, branchTarget, potentialJoin.id, 20)) {
-                        allBranchesReachJoin = false;
-                        break;
-                    }
-                }
-                
-                // Also check if there are incoming edges from the branches (direct or indirect)
-                // Count how many branches have paths that lead to this gateway
-                let branchesReachingJoin = 0;
-                for (const branchTarget of branchTargets) {
-                    if (this.pathExists(graph, branchTarget, potentialJoin.id, 20)) {
-                        branchesReachingJoin++;
-                    }
-                }
-                
-                // The join gateway should be reachable from all branches
-                if (allBranchesReachJoin && branchesReachingJoin === branchTargets.length) {
-                    joinGateway = potentialJoin.id;
-                    break;
-                }
-            }
-        }
-        
-        // If no join gateway found, treat branches as independent paths
-        if (!joinGateway) {
-            const newVisitedCounts = new Map(visitedCounts);
-            newVisitedCounts.set(gatewayId, (visitedCounts.get(gatewayId) || 0) + 1);
-            
-            for (const edge of neighbors) {
-                this.dfsFindAllPaths(
-                    graph,
-                    edge.to,
-                    targetNode,
-                    currentPath,
-                    allPaths,
-                    maxLoopIterations,
-                    maxPathLength,
-                    newVisitedCounts
-                );
-            }
-            return;
-        }
-        
-        // Collect all paths through each branch
-        const branchPathLists = [];
-        const newVisitedCounts = new Map(visitedCounts);
-        newVisitedCounts.set(gatewayId, (visitedCounts.get(gatewayId) || 0) + 1);
-        
-        console.log(`[MermaidTraceCalculator] Parallel gateway ${gatewayId} has ${neighbors.length} branches, join gateway: ${joinGateway}`);
-        
-        for (let i = 0; i < neighbors.length; i++) {
-            const edge = neighbors[i];
-            const branchPaths = [];
-            
-            // Collect all paths along this branch until we reach the join gateway
-            // Use a fresh visitedCounts for each branch to avoid interference
-            const branchVisitedCounts = new Map(newVisitedCounts);
-            this.collectAllBranchPaths(
-                graph,
-                edge.to,
-                joinGateway,
-                [],
-                branchPaths,
-                maxLoopIterations,
-                maxPathLength,
-                branchVisitedCounts
-            );
-            
-            console.log(`[MermaidTraceCalculator] Branch ${i} (${edge.to} -> ${joinGateway}) collected ${branchPaths.length} paths:`, branchPaths.map(p => p.map(t => t.alt_id).join('→')));
-            
-            if (branchPaths.length === 0) {
-                // Empty branch - add empty path
-                branchPathLists.push([[]]);
-            } else {
-                branchPathLists.push(branchPaths);
-            }
-        }
-        
-        console.log(`[MermaidTraceCalculator] Branch path lists:`, branchPathLists.map((list, i) => `Branch ${i}: ${list.length} paths`));
-        
-        // Generate Cartesian product of all branch paths, then permute each combination
-        const allCombinations = this.cartesianProduct(branchPathLists);
-        
-        console.log(`[MermaidTraceCalculator] Generated ${allCombinations.length} combinations from Cartesian product`);
-        
-        // For each combination, generate all permutations of branch orderings
-        for (const combination of allCombinations) {
-            // Generate permutations of this combination
-            const branchPermutations = this.generatePermutations(combination);
-            
-            for (const branchOrder of branchPermutations) {
-                const parallelPath = [...currentPath];
-                
-                // Add all tasks from branches in this order
-                for (const branchTasks of branchOrder) {
-                    parallelPath.push(...branchTasks);
-                }
-                
-                // Continue DFS from join gateway
-                const joinVisitedCounts = new Map(newVisitedCounts);
-                joinVisitedCounts.set(joinGateway, (visitedCounts.get(joinGateway) || 0) + 1);
-                
-                this.dfsFindAllPaths(
-                    graph,
-                    joinGateway,
-                    targetNode,
-                    parallelPath,
-                    allPaths,
-                    maxLoopIterations,
-                    maxPathLength,
-                    joinVisitedCounts
-                );
-            }
-        }
-    }
-
-    /**
-     * Collect all paths through a branch until reaching a target node
-     * @param {Object} graph - Graph object
-     * @param {string} currentNode - Current node ID
-     * @param {string} targetNode - Target node ID (join gateway)
-     * @param {Array} currentBranchPath - Current branch path (array of task objects)
-     * @param {Array} allBranchPaths - Array to collect all branch paths
-     * @param {number} maxLoopIterations - Maximum loop iterations
-     * @param {number} maxPathLength - Maximum path length
-     * @param {Map} visitedCounts - Map tracking visit counts
-     */
-    static collectAllBranchPaths(
-        graph,
-        currentNode,
-        targetNode,
-        currentBranchPath,
-        allBranchPaths,
-        maxLoopIterations,
-        maxPathLength,
-        visitedCounts
-    ) {
-        if (currentBranchPath.length >= maxPathLength) {
-            return;
-        }
-        
-        // Check if we reached the target
-        if (currentNode === targetNode) {
-            if (currentBranchPath.length > 0) {
-                allBranchPaths.push([...currentBranchPath]);
-            } else {
-                // Empty branch path
-                allBranchPaths.push([]);
-            }
-            return;
-        }
-        
-        // Get node info
-        const node = graph.nodes.find(n => n.id === currentNode);
-        if (!node) {
-            return;
-        }
-        
-        // Check loop limit - allow maxLoopIterations + 1 visits
-        const visitCount = visitedCounts.get(currentNode) || 0;
-        if (visitCount >= maxLoopIterations + 1) {
-            return;
-        }
-        
-        // Add task to branch path if it's a task node
-        const newBranchPath = [...currentBranchPath];
-        if (node.type === 'task') {
-            newBranchPath.push({
-                id: null,
-                alt_id: node.id,
-                task: node.label
-            });
-        }
-        
-        // Get neighbors
-        const neighbors = graph.adjacencyList.get(currentNode) || [];
-        
-        // Handle different node types
-        if (node.type === 'exclusivegateway') {
-            // Exclusive gateway in branch - explore all branches
-            const newVisitedCounts = new Map(visitedCounts);
-            newVisitedCounts.set(currentNode, visitCount + 1);
-            
-            for (const edge of neighbors) {
-                // Find join gateway for this exclusive gateway
-                let joinGateway = null;
-                for (const potentialJoin of graph.nodes) {
-                    if (potentialJoin.type === 'exclusivegateway' && potentialJoin.id !== currentNode) {
-                        const incomingFromBranches = graph.edges.filter(e => 
-                            e.to === potentialJoin.id && neighbors.some(n => n.to === e.from)
-                        );
-                        if (incomingFromBranches.length === neighbors.length) {
-                            joinGateway = potentialJoin.id;
-                            break;
-                        }
-                    }
-                }
-                
-                if (joinGateway) {
-                    // Collect path through this branch to join gateway
-                    this.collectAllBranchPaths(
-                        graph,
-                        edge.to,
-                        joinGateway,
-                        newBranchPath,
-                        allBranchPaths,
-                        maxLoopIterations,
-                        maxPathLength,
-                        newVisitedCounts
-                    );
-                } else {
-                    // No join gateway - continue directly
-                    this.collectAllBranchPaths(
-                        graph,
-                        edge.to,
-                        targetNode,
-                        newBranchPath,
-                        allBranchPaths,
-                        maxLoopIterations,
-                        maxPathLength,
-                        newVisitedCounts
-                    );
-                }
-            }
-        } else {
-            // Regular node - continue DFS (explore all paths, not just ones leading to target)
-            const newVisitedCounts = new Map(visitedCounts);
-            newVisitedCounts.set(currentNode, visitCount + 1);
-            
-            if (neighbors.length === 0) {
-                // Dead end - save current path if it has tasks
-                if (newBranchPath.length > 0) {
-                    allBranchPaths.push([...newBranchPath]);
-                }
-                return;
-            }
-            
-            for (const edge of neighbors) {
-                // Follow all paths (they should all lead to the join gateway eventually)
-                this.collectAllBranchPaths(
-                    graph,
-                    edge.to,
-                    targetNode,
-                    newBranchPath,
-                    allBranchPaths,
-                    maxLoopIterations,
-                    maxPathLength,
-                    newVisitedCounts
-                );
-            }
-        }
-    }
-
-    /**
-     * Generate Cartesian product of arrays
-     * @param {Array<Array>} arrays - Array of arrays
-     * @returns {Array<Array>} Cartesian product
-     */
-    static cartesianProduct(arrays) {
-        if (arrays.length === 0) {
-            return [[]];
-        }
-        if (arrays.length === 1) {
-            return arrays[0].map(item => [item]);
-        }
-        
-        const [first, ...rest] = arrays;
-        const restProduct = this.cartesianProduct(rest);
+    static filterDuplicateTraces(traces) {
+        const uniqueTraces = new Set();
         const result = [];
         
-        for (const item of first) {
-            for (const product of restProduct) {
-                result.push([item, ...product]);
+        for (const trace of traces) {
+            // Skip empty traces
+            if (trace.length === 0) {
+                continue;
             }
-        }
-        
-        return result;
-    }
-
-    /**
-     * Check if a path exists from source to target
-     * @param {Object} graph - Graph object
-     * @param {string} source - Source node ID
-     * @param {string} target - Target node ID
-     * @param {number} maxDepth - Maximum search depth
-     * @returns {boolean} True if path exists
-     */
-    static pathExists(graph, source, target, maxDepth = 10) {
-        if (source === target) {
-            return true;
-        }
-        if (maxDepth <= 0) {
-            return false;
-        }
-        
-        const neighbors = graph.adjacencyList.get(source) || [];
-        for (const edge of neighbors) {
-            if (this.pathExists(graph, edge.to, target, maxDepth - 1)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Handle exclusive gateway - explore all branches
-     * @param {Object} graph - Graph object
-     * @param {string} gatewayId - Exclusive gateway node ID
-     * @param {string} targetNode - Target end node ID
-     * @param {Array} currentPath - Current path being built
-     * @param {Array} allPaths - Array to collect all complete paths
-     * @param {number} maxLoopIterations - Maximum loop iterations
-     * @param {number} maxPathLength - Maximum path length
-     * @param {Map} visitedCounts - Map tracking visit counts
-     */
-    static handleExclusiveGateway(
-        graph,
-        gatewayId,
-        targetNode,
-        currentPath,
-        allPaths,
-        maxLoopIterations,
-        maxPathLength,
-        visitedCounts
-    ) {
-        const neighbors = graph.adjacencyList.get(gatewayId) || [];
-        const branchTargets = neighbors.map(e => e.to);
-        
-        // Find join gateway by looking for an exclusive gateway that all branches connect to
-        let joinGateway = null;
-        for (const potentialJoin of graph.nodes) {
-            if (potentialJoin.type === 'exclusivegateway' && potentialJoin.id !== gatewayId) {
-                // Check if all branches lead to this gateway
-                let allBranchesReachJoin = true;
-                for (const branchTarget of branchTargets) {
-                    if (!this.pathExists(graph, branchTarget, potentialJoin.id, 20)) {
-                        allBranchesReachJoin = false;
-                        break;
-                    }
-                }
-                
-                if (allBranchesReachJoin) {
-                    const incomingFromBranches = graph.edges.filter(e => 
-                        e.to === potentialJoin.id && branchTargets.includes(e.from)
-                    );
-                    // Check if branches directly connect or eventually connect
-                    if (incomingFromBranches.length > 0 || allBranchesReachJoin) {
-                        joinGateway = potentialJoin.id;
-                        break;
-                    }
-                }
-            }
-        }
-        
-        const newVisitedCounts = new Map(visitedCounts);
-        newVisitedCounts.set(gatewayId, (visitedCounts.get(gatewayId) || 0) + 1);
-        
-        // Explore each branch independently (exclusive - only one branch is taken)
-        for (const edge of neighbors) {
-            if (joinGateway) {
-                // Collect all paths through this branch to join gateway
-                const branchPaths = [];
-                this.collectAllBranchPaths(
-                    graph,
-                    edge.to,
-                    joinGateway,
-                    [],
-                    branchPaths,
-                    maxLoopIterations,
-                    maxPathLength,
-                    newVisitedCounts
-                );
-                
-                // For each path through this branch, continue from join gateway
-                for (const branchTasks of branchPaths) {
-                    const branchPath = [...currentPath, ...branchTasks];
-                    
-                    // Continue from join gateway
-                    const joinVisitedCounts = new Map(newVisitedCounts);
-                    joinVisitedCounts.set(joinGateway, (visitedCounts.get(joinGateway) || 0) + 1);
-                    
-                    this.dfsFindAllPaths(
-                        graph,
-                        joinGateway,
-                        targetNode,
-                        branchPath,
-                        allPaths,
-                        maxLoopIterations,
-                        maxPathLength,
-                        joinVisitedCounts
-                    );
-                }
-            } else {
-                // No join gateway - continue directly from branch
-                // This handles cases where branches go to different targets (e.g., one to end, one loops back)
-                this.dfsFindAllPaths(
-                    graph,
-                    edge.to,
-                    targetNode,
-                    currentPath,
-                    allPaths,
-                    maxLoopIterations,
-                    maxPathLength,
-                    newVisitedCounts
-                );
-            }
-        }
-    }
-
-    /**
-     * Generate all permutations of an array of arrays
-     * @param {Array<Array>} arrays - Array of arrays
-     * @returns {Array<Array>} All permutations
-     */
-    static generatePermutations(arrays) {
-        if (arrays.length === 0) {
-            return [[]];
-        }
-        if (arrays.length === 1) {
-            return [arrays[0]];
-        }
-        
-        const indices = arrays.map((_, i) => i);
-        const indexPermutations = this.permuteArray(indices);
-        
-        return indexPermutations.map(perm => perm.map(idx => arrays[idx]));
-    }
-
-    /**
-     * Generate all permutations of an array
-     * @param {Array} arr - Input array
-     * @returns {Array<Array>} All permutations
-     */
-    static permuteArray(arr) {
-        if (arr.length <= 1) {
-            return [arr];
-        }
-        
-        const result = [];
-        for (let i = 0; i < arr.length; i++) {
-            const rest = [...arr.slice(0, i), ...arr.slice(i + 1)];
-            const restPerms = this.permuteArray(rest);
-            for (const perm of restPerms) {
-                result.push([arr[i], ...perm]);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Filter duplicate paths
-     * @param {Array} paths - Array of paths
-     * @returns {Array} Array of unique paths
-     */
-    static filterDuplicatePaths(paths) {
-        const uniquePaths = new Set();
-        const result = [];
-        
-        for (const path of paths) {
-            const pathString = JSON.stringify(path.map(t => ({ id: t.id, alt_id: t.alt_id, task: t.task })));
-            if (!uniquePaths.has(pathString)) {
-                uniquePaths.add(pathString);
-                result.push(path);
+            
+            const traceString = JSON.stringify(trace.map(t => ({ id: t.id, alt_id: t.alt_id, task: t.task })));
+            if (!uniqueTraces.has(traceString)) {
+                uniqueTraces.add(traceString);
+                result.push(trace);
             }
         }
         
@@ -860,11 +648,12 @@ export class MermaidTraceCalculator {
 
     /**
      * Determine trace type based on path
-     * @param {Array} path - Path array
+     * @param {Array<Object>} path - Path array
      * @returns {string} Trace type
      */
     static determineTraceType(path) {
-        const nodeIds = path.map(t => t.alt_id);
+        // Check if path contains loops (repeated nodes)
+        const nodeIds = path.map(t => t.id || t.alt_id);
         const uniqueNodes = new Set(nodeIds);
         if (nodeIds.length > uniqueNodes.size) {
             return 'loop';
@@ -872,4 +661,3 @@ export class MermaidTraceCalculator {
         return 'sequential';
     }
 }
-
