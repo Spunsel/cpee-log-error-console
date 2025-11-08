@@ -365,6 +365,14 @@
                 <option value="1606-Step1-Output">1606-Step1-Output</option>
                 <option value="1317-Step1">1317-Step1</option>
                 <option value="1314-Step1-Output">1314-Step1-Output</option>
+                <option value="1266-Step4-Output">1266-Step4-Output</option>
+                <option value="1124-Step4-Output">1124-Step4-Output</option>
+                <option value="1124-Step5-Output">1124-Step5-Output</option>
+                <option value="1123-Step2-Input">1123-Step2-Input</option>
+                <option value="1069">1069</option>
+                <option value="1055-Step3-Output">1055-Step3-Output</option>
+                <option value="1047-Step1">1047-Step1</option>
+                <option value="1046-Step1-Output">1046-Step1-Output</option>
             </select>
             <button class="btn" onclick="calculateTraces()">Calculate Traces</button>
         </div>
@@ -2798,6 +2806,1078 @@
                         {"id":"a27","alt_id":"13","task":"Send First Chainsaw to Customer"}
                     ]
                 ]
+            },
+            '1266-Step4-Output': {
+                xml: `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>System - Successful Service</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="a3">
+    <parameters>
+      <label>System - Service Necessary</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a5" endpoint="" a:alt_id="a5">
+    <parameters>
+      <label>System - Check Car Registration</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="gw1s">
+    <alternative condition="">
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>System - Notify User)|message|</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Mechanic - Enters Problems</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>System - Status Updates via Email)|message|</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="a15">
+        <parameters>
+          <label>Mechanic - Repair Car</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="a17">
+        <parameters>
+          <label>User - Pay Through App)|message|</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="a19">
+        <parameters>
+          <label>Mechanic - Enters Repair Successful</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="a21">
+        <parameters>
+          <label>System - Enter Next Service Time</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Fine" language="text/javascript">
+              <call id="a25" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>System - User Fined After 30 Days</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="No Fine" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="">
+          <call id="a28" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Timer - 30 Days</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>System - User Fined After 30 Days</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </alternative>
+    <alternative condition="Not Registered" language="text/javascript"/>
+  </choose>
+</description>`,
+                expected: [
+                    [
+                        {"id":"a1","alt_id":"a1","task":"System - Successful Service"},
+                        {"id":"a3","alt_id":"a3","task":"System - Service Necessary"},
+                        {"id":"a5","alt_id":"a5","task":"System - Check Car Registration"},
+                        {"id":"a9","alt_id":"a9","task":"System - Notify User)|message|"},
+                        {"id":"a11","alt_id":"a11","task":"Mechanic - Enters Problems"},
+                        {"id":"a13","alt_id":"a13","task":"System - Status Updates via Email)|message|"},
+                        {"id":"a15","alt_id":"a15","task":"Mechanic - Repair Car"},
+                        {"id":"a17","alt_id":"a17","task":"User - Pay Through App)|message|"},
+                        {"id":"a19","alt_id":"a19","task":"Mechanic - Enters Repair Successful"},
+                        {"id":"a21","alt_id":"a21","task":"System - Enter Next Service Time"},
+                        {"id":"a25","alt_id":"a27","task":"System - User Fined After 30 Days"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"System - Successful Service"},
+                        {"id":"a3","alt_id":"a3","task":"System - Service Necessary"},
+                        {"id":"a5","alt_id":"a5","task":"System - Check Car Registration"},
+                        {"id":"a9","alt_id":"a9","task":"System - Notify User)|message|"},
+                        {"id":"a11","alt_id":"a11","task":"Mechanic - Enters Problems"},
+                        {"id":"a13","alt_id":"a13","task":"System - Status Updates via Email)|message|"},
+                        {"id":"a15","alt_id":"a15","task":"Mechanic - Repair Car"},
+                        {"id":"a17","alt_id":"a17","task":"User - Pay Through App)|message|"},
+                        {"id":"a19","alt_id":"a19","task":"Mechanic - Enters Repair Successful"},
+                        {"id":"a21","alt_id":"a21","task":"System - Enter Next Service Time"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"System - Successful Service"},
+                        {"id":"a3","alt_id":"a3","task":"System - Service Necessary"},
+                        {"id":"a5","alt_id":"a5","task":"System - Check Car Registration"},
+                        {"id":"a9","alt_id":"a9","task":"System - Notify User)|message|"},
+                        {"id":"a11","alt_id":"a11","task":"Mechanic - Enters Problems"},
+                        {"id":"a13","alt_id":"a13","task":"System - Status Updates via Email)|message|"},
+                        {"id":"a15","alt_id":"a15","task":"Mechanic - Repair Car"},
+                        {"id":"a17","alt_id":"a17","task":"User - Pay Through App)|message|"},
+                        {"id":"a19","alt_id":"a19","task":"Mechanic - Enters Repair Successful"},
+                        {"id":"a21","alt_id":"a21","task":"System - Enter Next Service Time"},
+                        {"id":"a28","alt_id":"a25","task":"Timer - 30 Days"},
+                        {"id":"a25","alt_id":"a27","task":"System - User Fined After 30 Days"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"System - Successful Service"},
+                        {"id":"a3","alt_id":"a3","task":"System - Service Necessary"},
+                        {"id":"a5","alt_id":"a5","task":"System - Check Car Registration"}
+                    ]
+                ]
+            },
+            '1124-Step4-Output': {
+                xml: `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Patienteneinlieferung durch Rettungsdienst</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <loop mode="pre_test" condition="true">
+    <call id="a3" endpoint="" a:alt_id="a3">
+      <parameters>
+        <label>Warten im Wartebereich</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a5" endpoint="" a:alt_id="a5">
+      <parameters>
+        <label>Aufruf und Transport in Behandlungszimmer</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="true" a:alt_id="gw1s" language="text/javascript">
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Röntgen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Warten" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Warten im Wartebereich</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Behandlungsraum frei" language="text/javascript"/>
+      </choose>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Aufruf und Transport in Behandlungszimmer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </loop>
+    <call id="a17" endpoint="" a:alt_id="a11">
+      <parameters>
+        <label>Blutabnahme</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+  </loop>
+</description>`,
+                expected: [
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a3","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a5","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a17","alt_id":"a11","task":"Blutabnahme"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a3","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a5","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a9","alt_id":"a9","task":"Röntgen"},
+                        {"id":"a3","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a5","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a17","alt_id":"a11","task":"Blutabnahme"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a3","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a5","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a9","alt_id":"a9","task":"Röntgen"},
+                        {"id":"a5","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a17","alt_id":"a11","task":"Blutabnahme"}
+                    ]
+                ]
+            },
+            '1124-Step5-Output': {
+                xml: `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Patienteneinlieferung durch Rettungsdienst</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <loop mode="pre_test" condition="true">
+    <choose mode="exclusive" a:alt_id="gw1e">
+      <alternative condition="true" language="text/javascript">
+        <call id="a7" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Warten im Wartebereich</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="0">
+          <alternative condition="">
+            <call id="a15" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Aufruf und Transport in Behandlungszimmer</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="0">
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="gw3s">
+                  <alternative condition="">
+                    <call id="a19" endpoint="" a:alt_id="a17">
+                      <parameters>
+                        <label>Blutabnahme</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="true" language="text/javascript">
+                    <call id="a23" endpoint="" a:alt_id="a9">
+                      <parameters>
+                        <label>Röntgen</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="gw4s">
+                      <alternative condition="Bruch" language="text/javascript">
+                        <call id="a27" endpoint="" a:alt_id="a18">
+                          <parameters>
+                            <label>Patient für OP anmelden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="kein Bruch" language="text/javascript">
+                        <call id="a31" endpoint="" a:alt_id="a19">
+                          <parameters>
+                            <label>Entlassungspapiere fertig machen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a33" endpoint="" a:alt_id="a20">
+                          <parameters>
+                            <label>Patient entlassen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="Behandlungsraum frei" language="text/javascript">
+                        <choose mode="exclusive" a:alt_id="gw5s">
+                          <alternative condition=""/>
+                          <alternative condition="">
+                            <call id="a15" endpoint="" a:alt_id="a5">
+                              <parameters>
+                                <label>Aufruf und Transport in Behandlungszimmer</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <escape a:alt_id="-1"/>
+                          </alternative>
+                        </choose>
+                      </alternative>
+                      <alternative condition="Warten" language="text/javascript">
+                        <call id="a7" endpoint="" a:alt_id="a3">
+                          <parameters>
+                            <label>Warten im Wartebereich</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <escape a:alt_id="-1"/>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition=""/>
+            </choose>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </alternative>
+      <alternative condition="">
+        <escape a:alt_id="-1"/>
+      </alternative>
+    </choose>
+  </loop>
+</description>`,
+                expected: [
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a7","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a15","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a19","alt_id":"a17","task":"Blutabnahme"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a7","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a15","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a23","alt_id":"a9","task":"Röntgen"},
+                        {"id":"a27","alt_id":"a18","task":"Patient für OP anmelden"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a7","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a15","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a23","alt_id":"a9","task":"Röntgen"},
+                        {"id":"a31","alt_id":"a19","task":"Entlassungspapiere fertig machen"},
+                        {"id":"a33","alt_id":"a20","task":"Patient entlassen"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a7","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a15","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a23","alt_id":"a9","task":"Röntgen"},
+                        {"id":"a15","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a7","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a15","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a23","alt_id":"a9","task":"Röntgen"},
+                        {"id":"a7","alt_id":"a3","task":"Warten im Wartebereich"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a7","alt_id":"a3","task":"Warten im Wartebereich"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a7","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a15","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Patienteneinlieferung durch Rettungsdienst"},
+                        {"id":"a7","alt_id":"a3","task":"Warten im Wartebereich"},
+                        {"id":"a15","alt_id":"a5","task":"Aufruf und Transport in Behandlungszimmer"},
+                        {"id":"a23","alt_id":"a9","task":"Röntgen"}
+                    ]
+                ]
+            },
+            '1123-Step2-Input': {
+                xml: `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Receive Lab Material</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a2" endpoint="">
+    <parameters>
+      <label>task a</label>
+      <color>#e4c3e4</color>
+      <method>:post</method>
+      <arguments/>
+    </parameters>
+    <code>
+      <signal/>
+      <prepare/>
+      <finalize output="result"/>
+      <update output="result"/>
+      <rescue output="result"/>
+    </code>
+    <annotations>
+      <_generic/>
+      <_timing>
+        <_timing_weight/>
+        <_timing_avg/>
+        <explanations/>
+      </_timing>
+      <_shifting>
+        <_shifting_type>Duration</_shifting_type>
+      </_shifting>
+      <_context_data_analysis>
+        <probes/>
+        <ips/>
+      </_context_data_analysis>
+      <report>
+        <url/>
+      </report>
+      <_notes>
+        <_notes_general/>
+      </_notes>
+    </annotations>
+    <documentation>
+      <input/>
+      <output/>
+      <implementation>
+        <description/>
+      </implementation>
+      <code>
+        <description/>
+      </code>
+    </documentation>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="a3">
+    <parameters>
+      <label>Inspect Lab Material</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="gw1s">
+    <alternative condition="Material OK" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Approve Lab Material</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Material NOT OK" language="text/javascript">
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Reject Lab Material</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+  <call id="a15" endpoint="" a:alt_id="a15">
+    <parameters>
+      <label>Create Report About Lab Material</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <parallel wait="-1" cancel="last">
+    <parallel_branch>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label/>
+          <color>#ffffcc</color>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <code>
+          <signal/>
+          <prepare/>
+          <finalize output="result"/>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+    </parallel_branch>
+    <parallel_branch/>
+  </parallel>
+  <call id="a17" endpoint="" a:alt_id="a16">
+    <parameters>
+      <label>Send Report</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>`,
+                expected: [
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Receive Lab Material"},
+                        {"id":"a2","alt_id":null,"task":"task a"},
+                        {"id":"a3","alt_id":"a3","task":"Inspect Lab Material"},
+                        {"id":"a7","alt_id":"a7","task":"Approve Lab Material"},
+                        {"id":"a15","alt_id":"a15","task":"Create Report About Lab Material"},
+                        {"id":"a4","alt_id":null,"task":"(unnamed parallel task)"},
+                        {"id":"a17","alt_id":"a16","task":"Send Report"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Receive Lab Material"},
+                        {"id":"a2","alt_id":null,"task":"task a"},
+                        {"id":"a3","alt_id":"a3","task":"Inspect Lab Material"},
+                        {"id":"a11","alt_id":"a11","task":"Reject Lab Material"},
+                        {"id":"a15","alt_id":"a15","task":"Create Report About Lab Material"},
+                        {"id":"a4","alt_id":null,"task":"(unnamed parallel task)"},
+                        {"id":"a17","alt_id":"a16","task":"Send Report"}
+                    ]
+                ]
+            },
+            '1069': {
+                xml: `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Receive Lab Material</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <loop mode="pre_test" condition="true">
+    <call id="a3" endpoint="" a:alt_id="2">
+      <parameters>
+        <label>Check Sample</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="Sample is unsuitable" a:alt_id="3" language="text/javascript">
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Check Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </loop>
+    <call id="a9" endpoint="" a:alt_id="5">
+      <parameters>
+        <label>Perform Examination</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a13" endpoint="" a:alt_id="6">
+      <parameters>
+        <label>Create Report</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+  </loop>
+</description>`,
+                expected: [
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Lab Material"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a9","alt_id":"5","task":"Perform Examination"},
+                        {"id":"a13","alt_id":"6","task":"Create Report"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Lab Material"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a9","alt_id":"5","task":"Perform Examination"},
+                        {"id":"a13","alt_id":"6","task":"Create Report"}
+                    ]
+                ]
+            },
+            '1055-Step3-Output': {
+                xml: `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Receive Lab Material</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Check Correctness and Quality</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="3">
+    <alternative condition="Sample is unsuitable" language="text/javascript">
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Re-prepare/Reprocess Sample</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Check Correctness and Quality</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Sample is unsuitable" a:alt_id="6" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Re-prepare/Reprocess Sample</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Check Correctness and Quality</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a13" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Perform Examination</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </alternative>
+    <alternative condition="Sample is suitable" language="text/javascript"/>
+  </choose>
+  <call id="a13" endpoint="" a:alt_id="7">
+    <parameters>
+      <label>Perform Examination</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a15" endpoint="" a:alt_id="8">
+    <parameters>
+      <label>Create Report</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>`,
+                expected: [
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Lab Material"},
+                        {"id":"a3","alt_id":"2","task":"Check Correctness and Quality"},
+                        {"id":"a7","alt_id":"4","task":"Re-prepare/Reprocess Sample"},
+                        {"id":"a9","alt_id":"5","task":"Check Correctness and Quality"},
+                        {"id":"a13","alt_id":"7","task":"Perform Examination"},
+                        {"id":"a13","alt_id":"7","task":"Perform Examination"},
+                        {"id":"a15","alt_id":"8","task":"Create Report"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Lab Material"},
+                        {"id":"a3","alt_id":"2","task":"Check Correctness and Quality"},
+                        {"id":"a7","alt_id":"4","task":"Re-prepare/Reprocess Sample"},
+                        {"id":"a9","alt_id":"5","task":"Check Correctness and Quality"},
+                        {"id":"a7","alt_id":"4","task":"Re-prepare/Reprocess Sample"},
+                        {"id":"a9","alt_id":"5","task":"Check Correctness and Quality"},
+                        {"id":"a13","alt_id":"7","task":"Perform Examination"},
+                        {"id":"a13","alt_id":"7","task":"Perform Examination"},
+                        {"id":"a15","alt_id":"8","task":"Create Report"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Lab Material"},
+                        {"id":"a3","alt_id":"2","task":"Check Correctness and Quality"},
+                        {"id":"a13","alt_id":"7","task":"Perform Examination"},
+                        {"id":"a15","alt_id":"8","task":"Create Report"}
+                    ]
+                ]
+            },
+            '1047-Step1': {
+                xml: `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Receive Sample</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Check Sample</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a5" endpoint="" a:alt_id="3">
+    <parameters>
+      <label>Carry Out Examination</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a7" endpoint="" a:alt_id="4">
+    <parameters>
+      <label>Results Available</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="0">
+    <alternative condition="">
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Prepare Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="">
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Send for Confirmatory Testing) |Results Require|</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+    </alternative>
+    <alternative condition="">
+      <call id="a21" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Notify Clinician) |Critical Results|</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition=""/>
+  </choose>
+</description>`,
+                expected: [
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a9","alt_id":"5","task":"Prepare Report"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a13","alt_id":"7","task":"Send for Confirmatory Testing) |Results Require|"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a21","alt_id":"10","task":"Notify Clinician) |Critical Results|"}
+                    ]
+                ]
+            },
+            '1046-Step1-Output': {
+                xml: `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Receive Sample</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Check Sample</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a5" endpoint="" a:alt_id="3">
+    <parameters>
+      <label>Carry Out Examination</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a7" endpoint="" a:alt_id="4">
+    <parameters>
+      <label>Results Available</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <parallel wait="-1" cancel="last" a:alt_id="5">
+    <parallel_branch>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Prepare Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Send for Confirmatory Testing) |Results Require|</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+    </parallel_branch>
+    <parallel_branch>
+      <choose mode="exclusive" a:alt_id="11">
+        <alternative condition="">
+          <call id="a23" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Notify Clinician) |Critical Results|</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+    </parallel_branch>
+  </parallel>
+</description>`,
+                expected: [
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"},
+                        {"id":"a17","alt_id":"8","task":"Send for Confirmatory Testing) |Results Require|"},
+                        {"id":"a23","alt_id":"12","task":"Notify Clinician) |Critical Results|"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"},
+                        {"id":"a17","alt_id":"8","task":"Send for Confirmatory Testing) |Results Require|"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"},
+                        {"id":"a23","alt_id":"12","task":"Notify Clinician) |Critical Results|"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"},
+                        {"id":"a23","alt_id":"12","task":"Notify Clinician) |Critical Results|"},
+                        {"id":"a17","alt_id":"8","task":"Send for Confirmatory Testing) |Results Require|"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a17","alt_id":"8","task":"Send for Confirmatory Testing) |Results Require|"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"},
+                        {"id":"a23","alt_id":"12","task":"Notify Clinician) |Critical Results|"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a17","alt_id":"8","task":"Send for Confirmatory Testing) |Results Require|"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a17","alt_id":"8","task":"Send for Confirmatory Testing) |Results Require|"},
+                        {"id":"a23","alt_id":"12","task":"Notify Clinician) |Critical Results|"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a23","alt_id":"12","task":"Notify Clinician) |Critical Results|"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a23","alt_id":"12","task":"Notify Clinician) |Critical Results|"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"},
+                        {"id":"a17","alt_id":"8","task":"Send for Confirmatory Testing) |Results Require|"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Receive Sample"},
+                        {"id":"a3","alt_id":"2","task":"Check Sample"},
+                        {"id":"a5","alt_id":"3","task":"Carry Out Examination"},
+                        {"id":"a7","alt_id":"4","task":"Results Available"},
+                        {"id":"a23","alt_id":"12","task":"Notify Clinician) |Critical Results|"},
+                        {"id":"a17","alt_id":"8","task":"Send for Confirmatory Testing) |Results Require|"},
+                        {"id":"a11","alt_id":"6","task":"Prepare Report"}
+                    ]
+                ]
             }
         };
 
@@ -2956,11 +4036,24 @@
         }
 
         function compareTraces(calculated, expected) {
-            // Convert traces to comparable format
+            // Normalize traces to comparable format (compare by id and alt_id only, ignore task label)
+            const normalizeTrace = (trace) => {
+                // Handle escape markers
+                if (trace.escape === true) {
+                    return { "escape": true };
+                }
+                // Normalize alt_id: convert undefined to null for consistent comparison
+                const altId = (trace.alt_id == null) ? null : trace.alt_id;
+                return {
+                    id: trace.id,
+                    alt_id: altId
+                };
+            };
+            
             const calcPaths = calculated.map(t => {
                 // Check if path was terminated by escape (property is on the path array)
                 const wasTerminated = t.path._terminatedByEscape === true;
-                const path = t.path.map(task => ({
+                const path = t.path.map(task => normalizeTrace({
                     id: task.id,
                     alt_id: task.alt_id,
                     task: task.task
@@ -2972,7 +4065,10 @@
                 return JSON.stringify(path);
             });
             
-            const expPaths = expected.map(t => JSON.stringify(t));
+            const expPaths = expected.map(t => {
+                const path = t.map(task => normalizeTrace(task));
+                return JSON.stringify(path);
+            });
 
             const correct = [];
             const missing = [];
