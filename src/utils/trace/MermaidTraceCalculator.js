@@ -35,6 +35,15 @@ export class MermaidTraceCalculator {
             
             console.log('[MermaidTraceCalculator] Graph parsed successfully');
             
+            // Pre-process: Identify nodes in multiple loops (Alternative 3)
+            const nodesInMultipleLoops = this.identifyNodesInMultipleLoops(graph);
+            graph.nodesInMultipleLoops = nodesInMultipleLoops; // Store for use during traversal
+            
+            if (nodesInMultipleLoops.size > 0) {
+                console.log('[MermaidTraceCalculator] Nodes in multiple loops:', 
+                    Array.from(nodesInMultipleLoops.entries()).map(([id, count]) => `${id}:${count}`).join(', '));
+            }
+            
             // Find start and end nodes
             const startNodes = graph.nodes.filter(n => n.type === 'startevent');
             const endNodes = graph.nodes.filter(n => n.type === 'endevent');
@@ -108,8 +117,12 @@ export class MermaidTraceCalculator {
         }
         
         // Check loop limit - allow maxLoopIterations + 1 visits (initial + loop iterations)
+        // For nodes in multiple loops, increase limit proportionally (Alternative 3)
+        const loopCount = graph.nodesInMultipleLoops?.get(currentNodeId) || 1;
+        const visitLimit = (maxLoopIterations + 1) * loopCount;
+        
         const currentVisitCount = visitCounts.get(currentNodeId) || 0;
-        if (currentVisitCount >= maxLoopIterations + 1) {
+        if (currentVisitCount >= visitLimit) {
             return []; // Loop limit reached
         }
         
@@ -619,6 +632,123 @@ export class MermaidTraceCalculator {
         });
         
         return shortId;
+    }
+
+    /**
+     * Identify nodes that are part of multiple loops (Alternative 3)
+     * Detects cycles in the graph and counts how many loops each node belongs to
+     * @param {Object} graph - Graph object with nodes and edges
+     * @returns {Map<string, number>} Map of nodeId -> loopCount (only for nodes in multiple loops)
+     */
+    static identifyNodesInMultipleLoops(graph) {
+        const nodeLoopCounts = new Map();
+        
+        // Initialize all nodes with 0 loop count
+        for (const node of graph.nodes) {
+            nodeLoopCounts.set(node.id, 0);
+        }
+        
+        // Find all cycles in the graph
+        const cycles = this.findAllCycles(graph);
+        
+        // Count how many cycles each node belongs to
+        for (const cycle of cycles) {
+            for (const nodeId of cycle) {
+                const currentCount = nodeLoopCounts.get(nodeId) || 0;
+                nodeLoopCounts.set(nodeId, currentCount + 1);
+            }
+        }
+        
+        // Return only nodes that are in multiple loops (loopCount > 1)
+        const result = new Map();
+        for (const [nodeId, loopCount] of nodeLoopCounts) {
+            if (loopCount > 1) {
+                result.set(nodeId, loopCount);
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Find all cycles in the graph
+     * A cycle is a path that starts and ends at the same node
+     * @param {Object} graph - Graph object with nodes and edges
+     * @returns {Array<Set<string>>} Array of cycles, each cycle is a Set of node IDs
+     */
+    static findAllCycles(graph) {
+        const allCycles = [];
+        const cycleSignatures = new Set(); // To avoid duplicates
+        
+        // For each node, try to find cycles starting from it
+        for (const node of graph.nodes) {
+            // Find cycles starting from this node
+            const cyclesFromNode = this.findCyclesFromNode(graph, node.id, new Set(), []);
+            
+            for (const cycle of cyclesFromNode) {
+                // Create a normalized signature for the cycle (sorted node IDs)
+                const cycleSet = new Set(cycle);
+                const signature = Array.from(cycleSet).sort().join(',');
+                
+                // Only add if we haven't seen this cycle before
+                if (!cycleSignatures.has(signature) && cycleSet.size > 1) {
+                    cycleSignatures.add(signature);
+                    allCycles.push(cycleSet);
+                }
+            }
+        }
+        
+        return allCycles;
+    }
+
+    /**
+     * Find cycles starting from a specific node using DFS
+     * @param {Object} graph - Graph object
+     * @param {string} currentNode - Current node ID
+     * @param {Set<string>} visitedInPath - Nodes visited in current path
+     * @param {Array<string>} currentPath - Current path being explored
+     * @param {number} maxDepth - Maximum search depth (default: 20)
+     * @returns {Array<Array<string>>} Array of cycles (each cycle is an array of node IDs)
+     */
+    static findCyclesFromNode(graph, currentNode, visitedInPath = new Set(), currentPath = [], maxDepth = 20) {
+        if (maxDepth <= 0) {
+            return [];
+        }
+        
+        // If we've visited this node in the current path, we found a cycle
+        if (visitedInPath.has(currentNode)) {
+            const cycleStartIndex = currentPath.indexOf(currentNode);
+            if (cycleStartIndex !== -1) {
+                // Extract the cycle: from cycleStartIndex to end, then back to start
+                const cycle = currentPath.slice(cycleStartIndex);
+                cycle.push(currentNode); // Complete the cycle by returning to start
+                return [cycle];
+            }
+            return [];
+        }
+        
+        // Add current node to path
+        const newVisitedInPath = new Set(visitedInPath);
+        newVisitedInPath.add(currentNode);
+        const newPath = [...currentPath, currentNode];
+        
+        // Get outgoing edges
+        const neighbors = graph.adjacencyList.get(currentNode) || [];
+        const cycles = [];
+        
+        // Explore each neighbor
+        for (const edge of neighbors) {
+            const cyclesFromNeighbor = this.findCyclesFromNode(
+                graph,
+                edge.to,
+                newVisitedInPath,
+                newPath,
+                maxDepth - 1
+            );
+            cycles.push(...cyclesFromNeighbor);
+        }
+        
+        return cycles;
     }
 
     /**

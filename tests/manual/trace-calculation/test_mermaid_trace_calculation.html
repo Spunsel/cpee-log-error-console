@@ -278,6 +278,8 @@
                 <option value="1393-Step1-Output">1393-Step1-Output</option>
                 <option value="1388-Step2-Input">1388-Step2-Input</option>
                 <option value="1258-Step2-Output">1258-Step2-Output</option>
+                <option value="1132-Step1">1132-Step1</option>
+                <option value="1606-Step1-Output">1606-Step1-Output</option>
             </select>
             <button class="btn" onclick="calculateTraces()">Calculate Traces</button>
         </div>
@@ -1096,6 +1098,313 @@ gw2s:exclusivegateway:{x}-->|"Satisfied"|ee:endevent:(((endevent)))`,
                             {"id":null,"alt_id":"a5","task":"Outline the Plot"},
                             {"id":null,"alt_id":"a7","task":"Write First Draft"}
                         ]
+                ]
+            },
+            '1132-Step1': {
+                mermaid: `graph LR
+
+0:startevent:((startevent)) --> 1:task:(Patient Arrives)
+
+1:task:(Patient Arrives) --> 2:task:(Check for Cavities)
+
+2:task:(Check for Cavities) --> 3:exclusivegateway:{x}
+
+3:exclusivegateway:{x} --> |Cavity Found| 4:task:(Prepare Tooth)
+
+3:exclusivegateway:{x} --> |No Cavity Found| 10:task:(Inform Patient)
+
+4:task:(Prepare Tooth) --> 5:task:(Place Filling)
+
+5:task:(Place Filling) --> 6:task:(Polish Filling)
+
+6:task:(Polish Filling) --> 7:exclusivegateway:{x}
+
+7:exclusivegateway:{x} --> |Filling Acceptable| 8:task:(Check Bite)
+
+7:exclusivegateway:{x} --> |Filling Needs Adjustment| 4:task:(Prepare Tooth)
+
+8:task:(Check Bite) --> 9:exclusivegateway:{x}
+
+9:exclusivegateway:{x} --> |Bite Acceptable| 10:task:(Inform Patient)
+
+9:exclusivegateway:{x} --> |Bite Needs Adjustment| 6:task:(Polish Filling)
+
+10:task:(Inform Patient) --> 11:endevent:(((endevent)))`,
+                expected: [
+                    [
+                        {"id":null,"alt_id":"1","task":"Patient Arrives"},
+                        {"id":null,"alt_id":"2","task":"Check for Cavities"},
+                        {"id":null,"alt_id":"4","task":"Prepare Tooth"},
+                        {"id":null,"alt_id":"5","task":"Place Filling"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"8","task":"Check Bite"},
+                        {"id":null,"alt_id":"10","task":"Inform Patient"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Patient Arrives"},
+                        {"id":null,"alt_id":"2","task":"Check for Cavities"},
+                        {"id":null,"alt_id":"4","task":"Prepare Tooth"},
+                        {"id":null,"alt_id":"5","task":"Place Filling"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"8","task":"Check Bite"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"8","task":"Check Bite"},
+                        {"id":null,"alt_id":"10","task":"Inform Patient"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Patient Arrives"},
+                        {"id":null,"alt_id":"2","task":"Check for Cavities"},
+                        {"id":null,"alt_id":"4","task":"Prepare Tooth"},
+                        {"id":null,"alt_id":"5","task":"Place Filling"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"8","task":"Check Bite"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"4","task":"Prepare Tooth"},
+                        {"id":null,"alt_id":"5","task":"Place Filling"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"8","task":"Check Bite"},
+                        {"id":null,"alt_id":"10","task":"Inform Patient"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Patient Arrives"},
+                        {"id":null,"alt_id":"2","task":"Check for Cavities"},
+                        {"id":null,"alt_id":"4","task":"Prepare Tooth"},
+                        {"id":null,"alt_id":"5","task":"Place Filling"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"4","task":"Prepare Tooth"},
+                        {"id":null,"alt_id":"5","task":"Place Filling"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"8","task":"Check Bite"},
+                        {"id":null,"alt_id":"10","task":"Inform Patient"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Patient Arrives"},
+                        {"id":null,"alt_id":"2","task":"Check for Cavities"},
+                        {"id":null,"alt_id":"4","task":"Prepare Tooth"},
+                        {"id":null,"alt_id":"5","task":"Place Filling"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"4","task":"Prepare Tooth"},
+                        {"id":null,"alt_id":"5","task":"Place Filling"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"8","task":"Check Bite"},
+                        {"id":null,"alt_id":"6","task":"Polish Filling"},
+                        {"id":null,"alt_id":"8","task":"Check Bite"},
+                        {"id":null,"alt_id":"10","task":"Inform Patient"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Patient Arrives"},
+                        {"id":null,"alt_id":"2","task":"Check for Cavities"},
+                        {"id":null,"alt_id":"10","task":"Inform Patient"}
+                    ]
+                ]
+            },
+            '1606-Step1-Output': {
+                mermaid: `graph LR
+
+0:startevent:((startevent)) --> 1:task:(Receive Specifications)
+
+1:task:(Receive Specifications) --> 2:task:(Send Requirements to Teams)
+
+2:task:(Send Requirements to Teams) --> 3:parallelgateway:{AND}
+
+3:parallelgateway:{AND} --> 4:task:(Manufacture Parts)
+
+3:parallelgateway:{AND} --> 5:task:(Manufacture Parts)
+
+3:parallelgateway:{AND} --> 6:task:(Manufacture Parts)
+
+4:task:(Manufacture Parts) --> 7:parallelgateway:{AND}
+
+5:task:(Manufacture Parts) --> 7:parallelgateway:{AND}
+
+6:task:(Manufacture Parts) --> 7:parallelgateway:{AND}
+
+7:parallelgateway:{AND} --> 8:task:(Assemble Interior)
+
+8:task:(Assemble Interior) --> 9:task:(Test Flight)
+
+9:task:(Test Flight) --> 10:task:(Create Test Protocol)
+
+10:task:(Create Test Protocol) --> 11:task:(Send Protocol to Customer)
+
+11:task:(Send Protocol to Customer) --> 12:exclusivegateway:{x}
+
+12:exclusivegateway:{x} --> |Confirmed| 14:task:(Deliver Plane)
+
+12:exclusivegateway:{x} --> |Not Confirmed| 13:task:(Rework)
+
+13:task:(Rework) --> 9:task:(Test Flight)
+
+14:task:(Deliver Plane) --> 15:endevent:(((endevent)))`,
+                expected: [
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"13","task":"Rework"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"13","task":"Rework"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"13","task":"Rework"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"13","task":"Rework"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"13","task":"Rework"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ],
+                    [
+                        {"id":null,"alt_id":"1","task":"Receive Specifications"},
+                        {"id":null,"alt_id":"2","task":"Send Requirements to Teams"},
+                        {"id":null,"alt_id":"6","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"5","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"4","task":"Manufacture Parts"},
+                        {"id":null,"alt_id":"8","task":"Assemble Interior"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"13","task":"Rework"},
+                        {"id":null,"alt_id":"9","task":"Test Flight"},
+                        {"id":null,"alt_id":"10","task":"Create Test Protocol"},
+                        {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
+                        {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ]
                 ]
             }
         };
