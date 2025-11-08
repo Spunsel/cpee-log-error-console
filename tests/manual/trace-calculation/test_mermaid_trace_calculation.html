@@ -280,6 +280,10 @@
                 <option value="1258-Step2-Output">1258-Step2-Output</option>
                 <option value="1132-Step1">1132-Step1</option>
                 <option value="1606-Step1-Output">1606-Step1-Output</option>
+                <option value="1317-Step1">1317-Step1</option>
+                <option value="1314-Step1-Output">1314-Step1-Output</option>
+                <option value="1069-Step1">1069-Step1</option>
+                <option value="1047-Step3-Output">1047-Step3-Output</option>
             </select>
             <button class="btn" onclick="calculateTraces()">Calculate Traces</button>
         </div>
@@ -1404,6 +1408,385 @@ gw2s:exclusivegateway:{x}-->|"Satisfied"|ee:endevent:(((endevent)))`,
                         {"id":null,"alt_id":"10","task":"Create Test Protocol"},
                         {"id":null,"alt_id":"11","task":"Send Protocol to Customer"},
                         {"id":null,"alt_id":"14","task":"Deliver Plane"}
+                    ]
+                ]
+            },
+            '1317-Step1': {
+                mermaid: `graph LR
+
+0:startevent:((startevent)) --> 1:task:(Receive Customer Order)
+
+1:task:(Receive Customer Order) --> 2:task:(Define Chainsaw Properties)
+
+2:task:(Define Chainsaw Properties) --> 3:parallelgateway:{AND}
+
+3:parallelgateway:{AND} --> 4:task:(Order Guide Bar)
+
+3:parallelgateway:{AND} --> 5:task:(Order Chain)
+
+3:parallelgateway:{AND} --> 6:task:(Order Motor/Electric Components)
+
+4:task:(Order Guide Bar) --> 7:parallelgateway:{AND}
+
+5:task:(Order Chain) --> 7:parallelgateway:{AND}
+
+6:task:(Order Motor/Electric Components) --> 7:parallelgateway:{AND}
+
+7:parallelgateway:{AND} --> 8:task:(Inspect Parts)
+
+8:task:(Inspect Parts) --> 9:task:(Assemble Chainsaw)
+
+9:task:(Assemble Chainsaw) --> 10:task:(Send Updates to Customer)
+
+10:task:(Send Updates to Customer) --> 11:task:(Produce First Chainsaw)
+
+11:task:(Produce First Chainsaw) --> 12:task:(Send First Chainsaw to Customer)
+
+12:task:(Send First Chainsaw to Customer) --> 13:exclusivegateway:{x}
+
+13:exclusivegateway:{x} --> |Customer Likes It| 14:task:(Produce Remaining Chainsaws)
+
+13:exclusivegateway:{x} --> |Customer Doesn't Like It| 15:task:(Adjust and Re-produce)
+
+14:task:(Produce Remaining Chainsaws) --> 16:endevent:(((endevent)))
+
+15:task:(Adjust and Re-produce) --> 16:endevent:(((endevent)))`,
+                expected: [
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "14", "task": "Produce Remaining Chainsaws" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "15", "task": "Adjust and Re-produce" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "14", "task": "Produce Remaining Chainsaws" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "15", "task": "Adjust and Re-produce" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "14", "task": "Produce Remaining Chainsaws" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "15", "task": "Adjust and Re-produce" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "14", "task": "Produce Remaining Chainsaws" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "15", "task": "Adjust and Re-produce" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "14", "task": "Produce Remaining Chainsaws" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "15", "task": "Adjust and Re-produce" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "14", "task": "Produce Remaining Chainsaws" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "6", "task": "Order Motor/Electric Components" },
+                        { "id": null, "alt_id": "5", "task": "Order Chain" },
+                        { "id": null, "alt_id": "4", "task": "Order Guide Bar" },
+                        { "id": null, "alt_id": "8", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "9", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "10", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "11", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "12", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "15", "task": "Adjust and Re-produce" }
+                    ]
+                ]
+            },
+            '1314-Step1-Output': {
+                mermaid: `graph LR
+
+0:startevent:((startevent)) --> 1:task:(Receive Customer Order)
+
+1:task:(Receive Customer Order) --> 2:task:(Define Chainsaw Properties)
+
+2:task:(Define Chainsaw Properties) --> 3:parallelgateway:{AND}
+
+3:parallelgateway:{AND} --> 4:task:(Order Parts from Source A)
+
+3:parallelgateway:{AND} --> 5:task:(Order Parts from Source B)
+
+4:task:(Order Parts from Source A) --> 6:task:(Receive Parts A)
+
+5:task:(Order Parts from Source B) --> 7:task:(Receive Parts B)
+
+6:task:(Receive Parts A) --> 8:parallelgateway:{AND}
+
+7:task:(Receive Parts B) --> 8:parallelgateway:{AND}
+
+8:parallelgateway:{AND} --> 9:task:(Inspect Parts)
+
+9:task:(Inspect Parts) --> 10:task:(Assemble Chainsaw)
+
+10:task:(Assemble Chainsaw) --> 11:task:(Send Updates to Customer)
+
+11:task:(Send Updates to Customer) --> 12:task:(Produce First Chainsaw)
+
+12:task:(Produce First Chainsaw) --> 13:task:(Send First Chainsaw to Customer)
+
+13:task:(Send First Chainsaw to Customer) --> 14:exclusivegateway:{x}
+
+14:exclusivegateway:{x} --> |Customer Likes It| 15:task:(Produce Remaining Chainsaws)
+
+14:exclusivegateway:{x} --> |Customer Doesn't Like It| 16:endevent:(((endevent)))
+
+15:task:(Produce Remaining Chainsaws) --> 17:endevent:(((endevent)))`,
+                expected: [
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "4", "task": "Order Parts from Source A" },
+                        { "id": null, "alt_id": "6", "task": "Receive Parts A" },
+                        { "id": null, "alt_id": "5", "task": "Order Parts from Source B" },
+                        { "id": null, "alt_id": "7", "task": "Receive Parts B" },
+                        { "id": null, "alt_id": "9", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "10", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "11", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "12", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "13", "task": "Send First Chainsaw to Customer" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "5", "task": "Order Parts from Source B" },
+                        { "id": null, "alt_id": "7", "task": "Receive Parts B" },
+                        { "id": null, "alt_id": "4", "task": "Order Parts from Source A" },
+                        { "id": null, "alt_id": "6", "task": "Receive Parts A" },
+                        { "id": null, "alt_id": "9", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "10", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "11", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "12", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "13", "task": "Send First Chainsaw to Customer" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "4", "task": "Order Parts from Source A" },
+                        { "id": null, "alt_id": "6", "task": "Receive Parts A" },
+                        { "id": null, "alt_id": "5", "task": "Order Parts from Source B" },
+                        { "id": null, "alt_id": "7", "task": "Receive Parts B" },
+                        { "id": null, "alt_id": "9", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "10", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "11", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "12", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "13", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "15", "task": "Produce Remaining Chainsaws" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Customer Order" },
+                        { "id": null, "alt_id": "2", "task": "Define Chainsaw Properties" },
+                        { "id": null, "alt_id": "5", "task": "Order Parts from Source B" },
+                        { "id": null, "alt_id": "7", "task": "Receive Parts B" },
+                        { "id": null, "alt_id": "4", "task": "Order Parts from Source A" },
+                        { "id": null, "alt_id": "6", "task": "Receive Parts A" },
+                        { "id": null, "alt_id": "9", "task": "Inspect Parts" },
+                        { "id": null, "alt_id": "10", "task": "Assemble Chainsaw" },
+                        { "id": null, "alt_id": "11", "task": "Send Updates to Customer" },
+                        { "id": null, "alt_id": "12", "task": "Produce First Chainsaw" },
+                        { "id": null, "alt_id": "13", "task": "Send First Chainsaw to Customer" },
+                        { "id": null, "alt_id": "15", "task": "Produce Remaining Chainsaws" }
+                    ]
+                ]
+            },
+            '1069-Step1': {
+                mermaid: `graph LR
+
+0:startevent:((startevent)) --> 1:task:(Receive Lab Material)
+
+1:task:(Receive Lab Material) --> 2:task:(Check Sample)
+
+2:task:(Check Sample) --> 3:exclusivegateway:{x}
+
+3:exclusivegateway:{x} --> |Sample is unsuitable| 4:exclusivegateway:{x}
+
+3:exclusivegateway:{x} --> |Sample is suitable| 5:task:(Perform Examination)
+
+4:exclusivegateway:{x} --> 2:task:(Check Sample)
+
+5:task:(Perform Examination) --> 6:task:(Create Report)
+
+6:task:(Create Report) --> 7:endevent:(((endevent)))`,
+                expected: [
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Lab Material" },
+                        { "id": null, "alt_id": "2", "task": "Check Sample" },
+                        { "id": null, "alt_id": "2", "task": "Check Sample" },
+                        { "id": null, "alt_id": "5", "task": "Perform Examination" },
+                        { "id": null, "alt_id": "6", "task": "Create Report" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Lab Material" },
+                        { "id": null, "alt_id": "2", "task": "Check Sample" },
+                        { "id": null, "alt_id": "5", "task": "Perform Examination" },
+                        { "id": null, "alt_id": "6", "task": "Create Report" }
+                    ]
+                ]
+            },
+            '1047-Step3-Output': {
+                mermaid: `graph LR
+
+0:startevent:((startevent)) --> 1:task:(Receive Lab Material)
+
+1:task:(Receive Lab Material) --> 2:task:(Check Correctness and Quality)
+
+2:task:(Check Correctness and Quality) --> 3:exclusivegateway:{x}
+
+3:exclusivegateway:{x} --> |Sample is unsuitable| 4:task:(Re-prepare/Reprocess Sample)
+
+4:task:(Re-prepare/Reprocess Sample) --> 5:task:(Check Correctness and Quality)
+
+5:task:(Check Correctness and Quality) --> 6:exclusivegateway:{x}
+
+3:exclusivegateway:{x} --> |Sample is suitable| 7:task:(Perform Examination)
+
+7:task:(Perform Examination) --> 8:task:(Create Report)
+
+8:task:(Create Report) --> 9:endevent:(((endevent)))
+
+6:exclusivegateway:{x} --> |Sample is unsuitable| 4:task:(Re-prepare/Reprocess Sample)
+
+6:exclusivegateway:{x} --> |Sample is suitable| 7:task:(Perform Examination)`,
+                expected: [
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Lab Material" },
+                        { "id": null, "alt_id": "2", "task": "Check Correctness and Quality" },
+                        { "id": null, "alt_id": "4", "task": "Re-prepare/Reprocess Sample" },
+                        { "id": null, "alt_id": "5", "task": "Check Correctness and Quality" },
+                        { "id": null, "alt_id": "4", "task": "Re-prepare/Reprocess Sample" },
+                        { "id": null, "alt_id": "5", "task": "Check Correctness and Quality" },
+                        { "id": null, "alt_id": "7", "task": "Perform Examination" },
+                        { "id": null, "alt_id": "8", "task": "Create Report" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Lab Material" },
+                        { "id": null, "alt_id": "2", "task": "Check Correctness and Quality" },
+                        { "id": null, "alt_id": "4", "task": "Re-prepare/Reprocess Sample" },
+                        { "id": null, "alt_id": "5", "task": "Check Correctness and Quality" },
+                        { "id": null, "alt_id": "7", "task": "Perform Examination" },
+                        { "id": null, "alt_id": "8", "task": "Create Report" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Receive Lab Material" },
+                        { "id": null, "alt_id": "2", "task": "Check Correctness and Quality" },
+                        { "id": null, "alt_id": "7", "task": "Perform Examination" },
+                        { "id": null, "alt_id": "8", "task": "Create Report" }
                     ]
                 ]
             }
