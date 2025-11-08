@@ -1,58 +1,29 @@
 /**
  * CPEE Trace Calculator
- * 
- * Calculates all possible execution traces (paths) from CPEE XML workflow using
- * a recursive graph traversal algorithm. The algorithm processes XML nodes based
- * on their type and combines traces using composition functions.
- * 
- * Algorithm Overview:
- * - Recursively traverses the XML tree starting from the root description element
- * - For each node type, applies specific trace generation logic:
- *   - call/manipulate/script: Extracts task and returns as single-element trace
- *   - description: Combines children traces sequentially (Cartesian product)
- *   - choose: Unions all alternative traces (exclusive choice)
- *   - alternative: Combines children traces sequentially
- *   - parallel: Interleaves all branch traces (all possible orderings of branches as atomic units)
- *   - parallel_branch: Combines children traces sequentially
- *   - loop: Unrolls loop body 0, 1, or 2 times (bounded by MAX_LOOP_ITERATIONS)
- *   - escape: Terminates trace early with escape marker
- * 
- * Key Features:
- * - Sequential composition: Cartesian product concatenation of trace sequences
- * - Parallel interleaving: Generates all possible orderings of parallel branches (branches treated as atomic units)
- * - Loop unrolling: Bounded iteration (default: 0 and 1 iterations)
- * - Escape handling: Stops appending tasks when escape is encountered
- * - End node handling: Excludes empty traces when loops are directly connected to end node
- * 
- * Helper Functions:
- * - combineSequential: Cartesian product concatenation with escape termination
- * - interleave: Generates all orderings of parallel branches (each branch treated as atomic unit)
- * - generatePermutations: Generates all permutations of an array
- * - cartesianProduct: Generates Cartesian product of arrays
- * - union: Flattens alternative trace sets
- * - extractTask: Extracts task information (id, alt_id, task) from call nodes
+ * Calculates all possible execution traces (paths) from CPEE XML workflow
+ * Uses graph traversal algorithm based on node types
  */
 
 import { Trace } from '../../models/Trace.js';
 
-// Global variable for maximum loop iterations
+// Global constant for maximum loop iterations (default: 1)
 const MAX_LOOP_ITERATIONS = 1;
 
+export class CPEETraceCalculator {
     /**
- * Main entry point: Calculate all possible execution traces from CPEE XML
+     * Calculate all possible execution traces from CPEE XML
      * @param {string} xmlString - CPEE XML content
      * @param {Object} options - Calculation options
      * @param {number} options.maxLoopIterations - Maximum loop iterations (default: 1)
      * @returns {Trace[]} Array of Trace objects
      */
-export class CPEETraceCalculator {
     static calculateAllTraces(xmlString, options = {}) {
         console.log('[CPEETraceCalculator] Starting trace calculation from CPEE XML...');
         
-        const {
-            maxLoopIterations = MAX_LOOP_ITERATIONS
-        } = options;
-
+        const maxLoopIterations = options.maxLoopIterations !== undefined 
+            ? options.maxLoopIterations 
+            : MAX_LOOP_ITERATIONS;
+        
         try {
             // Fix common XML issues
             const fixedXml = this.fixXMLIssues(xmlString);
@@ -78,14 +49,10 @@ export class CPEETraceCalculator {
             }
             
             // Calculate traces using graph traversal
-            // Root description is always "last" (connected to end node)
-            const traceArrays = this.traces(description, 0, maxLoopIterations, true);
-            
-            // Filter out empty traces
-            const nonEmptyTraces = traceArrays.filter(trace => trace.length > 0);
+            const traceArrays = this.traces(description, 0, maxLoopIterations);
             
             // Filter duplicate traces
-            const uniqueTraces = this.filterDuplicateTraces(nonEmptyTraces);
+            const uniqueTraces = this.filterDuplicateTraces(traceArrays);
             
             // Convert to Trace objects
             const traces = uniqueTraces.map((path, index) => {
@@ -103,205 +70,186 @@ export class CPEETraceCalculator {
     }
 
     /**
-     * Recursive graph traversal function
-     * Returns array of traces (each trace is an array of task objects)
+     * Main graph traversal function
+     * Returns array of trace arrays (each trace is an array of task objects)
      * @param {Element} node - XML node to process
      * @param {number} depth - Current depth (for debugging)
      * @param {number} maxLoopIterations - Maximum loop iterations
-     * @param {boolean} isLast - Whether this node is the last element in its parent
-     * @param {boolean} isInRootDescription - Whether we're in the root description (for loop 0-iteration logic)
-     * @returns {Array<Array<Object>>} Array of traces
+     * @returns {Array<Array<Object>>} Array of trace arrays
      */
-    static traces(node, depth = 0, maxLoopIterations = MAX_LOOP_ITERATIONS, isLast = false, isInRootDescription = true) {
-        if (!node) {
-            return [];
-        }
-        
+    static traces(node, depth = 0, maxLoopIterations = MAX_LOOP_ITERATIONS) {
         const tagName = node.tagName ? node.tagName.toLowerCase() : '';
-            
-            switch (tagName) {
-                case 'call':
-                case 'manipulate':
-                case 'script': {
+        
+        switch (tagName) {
+            case 'call':
+            case 'manipulate':
+            case 'script': {
                 const task = this.extractTask(node);
-                    if (task) {
+                if (task) {
                     return [[task]];
-                    }
+                }
                 return [];
             }
-
+            
             case 'description': {
                 const children = Array.from(node.children);
-                const childTraces = children.map((child, index) => {
-                    const isLastChild = index === children.length - 1;
-                    return this.traces(child, depth + 1, maxLoopIterations, isLastChild, isInRootDescription);
-                });
+                const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations));
                 return this.combineSequential(childTraces);
+            }
+            
+            case 'choose': {
+                const alternatives = Array.from(node.children)
+                    .filter(child => child.tagName.toLowerCase() === 'alternative');
+                if (alternatives.length === 0) {
+                    return [];
                 }
-                
-                case 'choose': {
-                const alternatives = Array.from(node.querySelectorAll('alternative'));
-                    if (alternatives.length === 0) {
-                    return [[]];
-                }
-                const alternativeTraces = alternatives.map((alt, index) => {
-                    const isLastAlt = index === alternatives.length - 1;
-                    return this.traces(alt, depth + 1, maxLoopIterations, isLast && isLastAlt, false);
-                });
+                const alternativeTraces = alternatives.map(alt => this.traces(alt, depth + 1, maxLoopIterations));
                 return this.union(alternativeTraces);
             }
-
+            
             case 'alternative': {
-                const children = Array.from(node.children).filter(child => {
-                    const childTag = child.tagName ? child.tagName.toLowerCase() : '';
-                    return childTag !== 'condition';
-                });
-                const childTraces = children.map((child, index) => {
-                    const isLastChild = index === children.length - 1;
-                    return this.traces(child, depth + 1, maxLoopIterations, isLast && isLastChild, false);
-                    });
-                return this.combineSequential(childTraces);
-                }
+                const children = Array.from(node.children).filter(child => 
+                    child.tagName.toLowerCase() !== 'condition'
+                );
                 
-                case 'parallel': {
-                const branches = Array.from(node.querySelectorAll('parallel_branch'));
-                    if (branches.length === 0) {
-                    return [[]];
+                // Check if there's an escape in this alternative
+                const escapeIndex = children.findIndex(child => child.tagName.toLowerCase() === 'escape');
+                
+                if (escapeIndex !== -1) {
+                    // Process elements before escape, then terminate
+                    const beforeEscape = children.slice(0, escapeIndex);
+                    if (beforeEscape.length > 0) {
+                        const beforeEscapeTraces = beforeEscape.map(child => this.traces(child, depth + 1, maxLoopIterations));
+                        const combined = this.combineSequential(beforeEscapeTraces);
+                        // Mark traces as terminated by escape
+                        return combined.map(trace => {
+                            trace._terminatedByEscape = true;
+                            return trace;
+                        });
+                    } else {
+                        // Escape is first - return empty trace marked as terminated
+                        const emptyTrace = [];
+                        emptyTrace._terminatedByEscape = true;
+                        return [emptyTrace];
                     }
-                const branchTraces = branches.map((branch, index) => {
-                    const isLastBranch = index === branches.length - 1;
-                    return this.traces(branch, depth + 1, maxLoopIterations, isLast && isLastBranch, false);
-                });
+                } else {
+                    // No escape - process normally
+                    const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations));
+                    return this.combineSequential(childTraces);
+                }
+            }
+            
+            case 'parallel': {
+                const branches = Array.from(node.children)
+                    .filter(child => child.tagName.toLowerCase() === 'parallel_branch');
+                if (branches.length === 0) {
+                    return [];
+                }
+                const branchTraces = branches.map(branch => this.traces(branch, depth + 1, maxLoopIterations));
                 return this.interleave(branchTraces);
             }
-
+            
             case 'parallel_branch': {
-                const children = Array.from(node.children).filter(child => {
-                    const childTag = child.tagName ? child.tagName.toLowerCase() : '';
-                    return childTag !== 'condition';
-                        });
-                const childTraces = children.map((child, index) => {
-                    const isLastChild = index === children.length - 1;
-                    return this.traces(child, depth + 1, maxLoopIterations, isLast && isLastChild, false);
-                });
-                return this.combineSequential(childTraces);
-                }
-                
-                case 'loop': {
-                const children = Array.from(node.children).filter(child => {
-                    const childTag = child.tagName ? child.tagName.toLowerCase() : '';
-                    return childTag !== 'condition';
-                });
-                    
-                if (children.length === 0) {
-                    // Empty loop - return empty trace (0 iterations) unless directly connected to end node
-                    const isDirectlyConnectedToEnd = isInRootDescription && isLast;
-                    return isDirectlyConnectedToEnd ? [] : [[]];
-                    }
-                    
-                const bodyTraces = this.combineSequential(
-                    children.map((child, index) => {
-                        const isLastChild = index === children.length - 1;
-                        return this.traces(child, depth + 1, maxLoopIterations, isLastChild, false);
-                    })
+                const children = Array.from(node.children).filter(child => 
+                    child.tagName.toLowerCase() !== 'condition'
                 );
-
+                const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations));
+                return this.combineSequential(childTraces);
+            }
+            
+            case 'loop': {
+                const children = Array.from(node.children).filter(child => 
+                    child.tagName.toLowerCase() !== 'condition'
+                );
+                const bodyTraces = this.combineSequential(children.map(child => this.traces(child, depth + 1, maxLoopIterations)));
+                
                 // Unroll 0, 1, 2 times (but bounded by maxLoopIterations)
-                // Note: maxLoopIterations=1 means we do 0 and 1 iterations
+                const maxIter = Math.min(maxLoopIterations, 2);
                 const result = [];
                 
-                // 0 iterations (loop doesn't execute)
-                // Only exclude if loop is directly connected to end node (last element in root description)
-                const isDirectlyConnectedToEnd = isInRootDescription && isLast;
-                if (!isDirectlyConnectedToEnd) {
-                    result.push([]);
-                                }
-                                
-                // 1 iteration
-                if (maxLoopIterations >= 1 && bodyTraces.length > 0) {
-                    result.push(...bodyTraces);
-                                    }
+                // 0 iterations (empty trace)
+                result.push([]);
                 
-                // 2 iterations (only if maxLoopIterations >= 2)
-                if (maxLoopIterations >= 2 && bodyTraces.length > 0) {
-                    const twoIterations = this.combineSequential([bodyTraces, bodyTraces]);
-                    result.push(...twoIterations);
-                                        }
-
-                return result;
+                // 1 iteration
+                if (maxIter >= 1) {
+                    result.push(...bodyTraces);
                 }
                 
-            case 'escape': {
-                // Escape terminates trace early
-                return [[{ escape: true }]];
+                // 2 iterations (if allowed)
+                if (maxIter >= 2) {
+                    result.push(...this.combineSequential([bodyTraces, bodyTraces]));
+                }
+                
+                return result;
             }
-
+            
+            case 'escape': {
+                // Escape terminates trace early - return empty trace marked as terminated
+                // This will be handled by the parent (alternative) to stop processing
+                return [];
+            }
+            
             default: {
-                // Unknown element - try to process children
+                // For unknown elements, try to process children
                 if (node.children && node.children.length > 0) {
                     const children = Array.from(node.children);
-                    const childTraces = children.map((child, index) => {
-                        const isLastChild = index === children.length - 1;
-                        return this.traces(child, depth + 1, maxLoopIterations, isLast && isLastChild, false);
-                    });
+                    const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations));
                     return this.combineSequential(childTraces);
                 }
                 return [];
-        }
+            }
         }
     }
 
     /**
      * Cartesian product concatenation
-     * Combines sequences of traces sequentially
-     * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace sets
-     * @returns {Array<Array<Object>>} Combined traces
+     * Combines sequences sequentially (each trace from first set concatenated with each trace from second set)
+     * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace set arrays
+     * @returns {Array<Array<Object>>} Combined trace arrays
      */
     static combineSequential(listOfTraceSets) {
         if (listOfTraceSets.length === 0) {
             return [[]];
         }
-
+        
         return listOfTraceSets.reduce(
             (acc, next) => {
-                if (acc.length === 0) {
-                    return next;
-                    }
-                if (next.length === 0) {
-                    return acc;
-                }
-                // Check for escape in acc traces
+                // acc is array of traces (each trace is array of tasks)
+                // next is array of traces (each trace is array of tasks)
+                // For each trace in acc, concatenate with each trace in next
                 const result = [];
                 for (const a of acc) {
-                    // If trace ends with escape, don't continue - terminate early
-                    const hasEscape = a.length > 0 && a[a.length - 1].escape === true;
-                    if (hasEscape) {
+                    // Check if trace was terminated by escape
+                    const aTerminated = a._terminatedByEscape === true;
+                    
+                    if (aTerminated) {
+                        // If trace was terminated, don't append next - just keep the trace as is
                         result.push(a);
-                            } else {
-                        // Combine with all next traces
+                    } else {
                         for (const b of next) {
-                            // If b contains escape, append up to and including escape, then stop
-                            const escapeIndex = b.findIndex(item => item.escape === true);
-                            if (escapeIndex !== -1) {
-                                // Include everything up to and including escape
-                                result.push([...a, ...b.slice(0, escapeIndex + 1)]);
-                            } else {
-                                result.push([...a, ...b]);
-                                }
+                            // Check if next trace was terminated
+                            const bTerminated = b._terminatedByEscape === true;
+                            
+                            // Create new trace by concatenating
+                            const newTrace = [...a, ...b];
+                            if (bTerminated) {
+                                newTrace._terminatedByEscape = true;
                             }
+                            result.push(newTrace);
                         }
+                    }
                 }
                 return result;
             },
-            [[]]
+            [[]] // Start with empty trace
         );
-                }
-                
+    }
+
     /**
-     * Parallel interleaving (all possible orderings of branches as units)
+     * Parallel interleaving (permutations of branch order)
      * Each branch is treated as a single unit - tasks within a branch stay together
      * @param {Array<Array<Array<Object>>>} branches - Array of branch trace sets
-     * @returns {Array<Array<Object>>} All interleaved traces
+     * @returns {Array<Array<Object>>} All trace arrays with branch permutations
      */
     static interleave(branches) {
         if (branches.length === 0) {
@@ -309,30 +257,24 @@ export class CPEETraceCalculator {
         }
         if (branches.length === 1) {
             return branches[0];
-                    }
-                    
+        }
+        
         // Generate all permutations of branch indices
         const branchIndices = branches.map((_, i) => i);
-        const permutations = this.generatePermutations(branchIndices);
+        const permutations = this.permuteArray(branchIndices);
         
         const result = [];
         
-        // For each branch, get all its traces
-        // Then for each combination of traces (one from each branch), generate all branch orderings
-        const branchTraces = branches.map(branch => branch.length > 0 ? branch : [[]]);
-        
-        // Generate Cartesian product of all branch traces
-        const traceCombinations = this.cartesianProduct(branchTraces);
-        
-        // For each combination, generate all branch orderings
-        for (const combination of traceCombinations) {
-            for (const perm of permutations) {
-                // Concatenate traces in the permuted order
-                const interleaved = [];
-                for (const idx of perm) {
-                    interleaved.push(...combination[idx]);
-                    }
-                result.push(interleaved);
+        // For each permutation, combine traces from branches in that order
+        for (const perm of permutations) {
+            // Get one trace from each branch (cartesian product)
+            const branchTraces = perm.map(idx => branches[idx]);
+            const combinations = this.cartesianProduct(branchTraces);
+            
+            // For each combination, concatenate the traces in order
+            for (const combination of combinations) {
+                const concatenated = combination.flat();
+                result.push(concatenated);
             }
         }
         
@@ -344,7 +286,7 @@ export class CPEETraceCalculator {
      * @param {Array} arr - Input array
      * @returns {Array<Array>} All permutations
      */
-    static generatePermutations(arr) {
+    static permuteArray(arr) {
         if (arr.length <= 1) {
             return [arr];
         }
@@ -352,44 +294,39 @@ export class CPEETraceCalculator {
         const result = [];
         for (let i = 0; i < arr.length; i++) {
             const rest = [...arr.slice(0, i), ...arr.slice(i + 1)];
-            const restPerms = this.generatePermutations(rest);
+            const restPerms = this.permuteArray(rest);
             for (const perm of restPerms) {
                 result.push([arr[i], ...perm]);
-                                }
-                            }
+            }
+        }
         return result;
     }
 
     /**
-     * Generate Cartesian product of arrays
+     * Cartesian product of arrays
      * @param {Array<Array>} arrays - Array of arrays
-     * @returns {Array<Array>} Cartesian product
+     * @returns {Array<Array>} All combinations
      */
     static cartesianProduct(arrays) {
         if (arrays.length === 0) {
             return [[]];
         }
-        if (arrays.length === 1) {
-            return arrays[0].map(item => [item]);
-        }
         
-        const [first, ...rest] = arrays;
-        const restProduct = this.cartesianProduct(rest);
-        const result = [];
-        
-        for (const item of first) {
-            for (const restCombo of restProduct) {
-                result.push([item, ...restCombo]);
+        return arrays.reduce((acc, next) => {
+            const result = [];
+            for (const a of acc) {
+                for (const b of next) {
+                    result.push([...a, b]);
+                }
             }
-        }
-        
-        return result;
+            return result;
+        }, [[]]);
     }
 
     /**
-     * Union of trace sets (flatten)
-     * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace sets
-     * @returns {Array<Array<Object>>} Flattened traces
+     * Union of trace sets (flatten array of trace arrays)
+     * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace set arrays
+     * @returns {Array<Array<Object>>} Flattened trace arrays
      */
     static union(listOfTraceSets) {
         return listOfTraceSets.flat();
@@ -402,7 +339,7 @@ export class CPEETraceCalculator {
      */
     static extractTask(callNode) {
         try {
-            const id = callNode.getAttribute('id') || null;
+            const id = callNode.getAttribute('id');
             if (!id) {
                 return null;
             }
@@ -469,22 +406,26 @@ export class CPEETraceCalculator {
     /**
      * Filter duplicate traces
      * @param {Array<Array<Object>>} traces - Array of trace arrays
-     * @returns {Array<Array<Object>>} Unique traces
+     * @returns {Array<Array<Object>>} Array of unique trace arrays
      */
     static filterDuplicateTraces(traces) {
         const uniqueTraces = new Set();
         const result = [];
         
         for (const trace of traces) {
-            const traceString = JSON.stringify(trace.map(t => {
-                if (t.escape) {
-                    return { escape: true };
-                }
-                return { id: t.id, alt_id: t.alt_id, task: t.task };
-            }));
+            // Create a clean copy without the _terminatedByEscape property for comparison
+            const cleanTrace = trace.filter ? trace.filter(task => !task.escape) : [];
+            
+            // Skip empty traces
+            if (cleanTrace.length === 0) {
+                continue;
+            }
+            
+            const traceString = JSON.stringify(cleanTrace.map(t => ({ id: t.id, alt_id: t.alt_id, task: t.task })));
             if (!uniqueTraces.has(traceString)) {
                 uniqueTraces.add(traceString);
-                result.push(trace);
+                // Return clean trace without the _terminatedByEscape property
+                result.push(cleanTrace);
             }
         }
         
@@ -498,7 +439,7 @@ export class CPEETraceCalculator {
      */
     static determineTraceType(path) {
         // Check if path contains loops (repeated nodes)
-        const nodeIds = path.filter(t => !t.escape).map(t => t.id);
+        const nodeIds = path.map(t => t.id);
         const uniqueNodes = new Set(nodeIds);
         if (nodeIds.length > uniqueNodes.size) {
             return 'loop';
