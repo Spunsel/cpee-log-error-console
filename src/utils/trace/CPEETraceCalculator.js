@@ -170,8 +170,12 @@ export class CPEETraceCalculator {
                 // Check if loop is directly connected to end (no next sibling)
                 const isLastElement = node.nextElementSibling === null;
                 
-                // 0 iterations (empty trace) - skip if loop is directly connected to end
-                if (!isLastElement) {
+                // Check if loop is directly before closing XOR gateway (last element in choose/alternative)
+                const parentTag = node.parentElement ? node.parentElement.tagName.toLowerCase() : '';
+                const isBeforeClosingXor = isLastElement && (parentTag === 'choose' || parentTag === 'alternative');
+                
+                // 0 iterations (empty trace) - skip if loop is directly connected to end or closing XOR gateway
+                if (!isLastElement && !isBeforeClosingXor) {
                     result.push([]);
                 }
                 
