@@ -1707,107 +1707,6 @@
       <arguments/>
     </parameters>
   </call>
-  <choose mode="exclusive" a:alt_id="4">
-    <alternative condition="Yes" language="text/javascript">
-      <call id="a9" endpoint="" a:alt_id="5">
-        <parameters>
-          <label>Notify User</label>
-          <method/>
-          <type>:task</type>
-          <arguments/>
-        </parameters>
-      </call>
-      <call id="a13" endpoint="" a:alt_id="6">
-        <parameters>
-          <label>Mechanic Enters Problems</label>
-          <method/>
-          <type>:task</type>
-          <arguments/>
-        </parameters>
-      </call>
-      <call id="a15" endpoint="" a:alt_id="7">
-        <parameters>
-          <label>Status Updates via Email</label>
-          <method/>
-          <type>:task</type>
-          <arguments/>
-        </parameters>
-      </call>
-      <call id="a17" endpoint="" a:alt_id="8">
-        <parameters>
-          <label>Repair Car</label>
-          <method/>
-          <type>:task</type>
-          <arguments/>
-        </parameters>
-      </call>
-      <call id="a19" endpoint="" a:alt_id="9">
-        <parameters>
-          <label>Pay Through App</label>
-          <method/>
-          <type>:task</type>
-          <arguments/>
-        </parameters>
-      </call>
-      <call id="a21" endpoint="" a:alt_id="10">
-        <parameters>
-          <label>Mechanic Enters Repair Successful</label>
-          <method/>
-          <type>:task</type>
-          <arguments/>
-        </parameters>
-      </call>
-      <call id="a23" endpoint="" a:alt_id="11">
-        <parameters>
-          <label>Enter Next Service Time</label>
-          <method/>
-          <type>:task</type>
-          <arguments/>
-        </parameters>
-      </call>
-      <call id="a25" endpoint="" a:alt_id="12">
-        <parameters>
-          <label>User Fined After 30 Days</label>
-          <method/>
-          <type>:task</type>
-          <arguments/>
-        </parameters>
-      </call>
-    </alternative>
-    <alternative condition="No" language="text/javascript"/>
-  </choose>
-</description>`,
-                expected: [
-                    [
-                        { "id": "a1",  "alt_id": "1",  "task": "Successful Service" },
-                        { "id": "a3",  "alt_id": "2",  "task": "Service Necessary" },
-                        { "id": "a5",  "alt_id": "3",  "task": "Check Car Registration" }
-                    ],
-                    [
-                        { "id": "a1",  "alt_id": "1",  "task": "Successful Service" },
-                        { "id": "a3",  "alt_id": "2",  "task": "Service Necessary" },
-                        { "id": "a5",  "alt_id": "3",  "task": "Check Car Registration" },
-                        { "id": "a9",  "alt_id": "5",  "task": "Notify User" },
-                        { "id": "a13", "alt_id": "6",  "task": "Mechanic Enters Problems" },
-                        { "id": "a15", "alt_id": "7",  "task": "Status Updates via Email" },
-                        { "id": "a17", "alt_id": "8",  "task": "Repair Car" },
-                        { "id": "a19", "alt_id": "9",  "task": "Pay Through App" },
-                        { "id": "a21", "alt_id": "10", "task": "Mechanic Enters Repair Successful" },
-                        { "id": "a23", "alt_id": "11", "task": "Enter Next Service Time" },
-                        { "id": "a25", "alt_id": "12", "task": "User Fined After 30 Days" }
-                    ]
-                ]
-            },
-            '1258-Step2-Output': {
-                xml: `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
-  <call id="a1" endpoint="" a:alt_id="a1">
-    <parameters>
-      <label>Brainstorm Ideas</label>
-      <method/>
-      <type>:task</type>
-      <arguments/>
-    </parameters>
-  </call>
   <call id="a3" endpoint="" a:alt_id="a3">
     <parameters>
       <label>Develop Characters</label>
@@ -1900,44 +1799,55 @@
                         { "id": "a7", "alt_id": "a7", "task": "Write First Draft" }
                     ],
                     [
-                        { "id": "a1", "alt_id": "a1", "task": "Brainstorm Ideas" },
-                        { "id": "a3", "alt_id": "a3", "task": "Develop Characters" },
-                        { "id": "a5", "alt_id": "a5", "task": "Outline the Plot" },
-                        { "id": "a7", "alt_id": "a7", "task": "Write First Draft" },
-                        { "id": "a11", "alt_id": "a9", "task": "Revise and Edit" },
-                        { "id": "a13", "alt_id": "a11", "task": "Get Feedback" },
-                        { "id": "a11", "alt_id": "a9", "task": "Revise and Edit" },
-                        { "id": "a13", "alt_id": "a11", "task": "Get Feedback" }
+                        {"id":"a1","alt_id":"a1","task":"Brainstorm Ideas"},
+                        {"id":"a3","alt_id":"a3","task":"Develop Characters"},
+                        {"id":"a5","alt_id":"a5","task":"Outline the Plot"},
+                        {"id":"a7","alt_id":"a7","task":"Write First Draft"},
+                        {"id":"a11","alt_id":"a9","task":"Revise and Edit"},
+                        {"id":"a13","alt_id":"a11","task":"Get Feedback"}
                     ],
                     [
-                        { "id": "a1", "alt_id": "a1", "task": "Brainstorm Ideas" },
-                        { "id": "a3", "alt_id": "a3", "task": "Develop Characters" },
-                        { "id": "a5", "alt_id": "a5", "task": "Outline the Plot" },
-                        { "id": "a7", "alt_id": "a7", "task": "Write First Draft" },
-                        { "id": "a11", "alt_id": "a9", "task": "Revise and Edit" },
-                        { "id": "a13", "alt_id": "a11", "task": "Get Feedback" },
-                        { "id": "a17", "alt_id": "a15", "task": "Finalize Manuscript" }
+                        {"id":"a1","alt_id":"a1","task":"Brainstorm Ideas"},
+                        {"id":"a3","alt_id":"a3","task":"Develop Characters"},
+                        {"id":"a5","alt_id":"a5","task":"Outline the Plot"},
+                        {"id":"a7","alt_id":"a7","task":"Write First Draft"},
+                        {"id":"a11","alt_id":"a9","task":"Revise and Edit"},
+                        {"id":"a13","alt_id":"a11","task":"Get Feedback"},
+                        {"id":"a11","alt_id":"a9","task":"Revise and Edit"},
+                        {"id":"a13","alt_id":"a11","task":"Get Feedback"}
                     ],
                     [
-                        { "id": "a1", "alt_id": "a1", "task": "Brainstorm Ideas" },
-                        { "id": "a3", "alt_id": "a3", "task": "Develop Characters" },
-                        { "id": "a5", "alt_id": "a5", "task": "Outline the Plot" },
-                        { "id": "a7", "alt_id": "a7", "task": "Write First Draft" },
-                        { "id": "a11", "alt_id": "a9", "task": "Revise and Edit" },
-                        { "id": "a13", "alt_id": "a11", "task": "Get Feedback" },
-                        { "escape": true }
+                        {"id":"a1","alt_id":"a1","task":"Brainstorm Ideas"},
+                        {"id":"a3","alt_id":"a3","task":"Develop Characters"},
+                        {"id":"a5","alt_id":"a5","task":"Outline the Plot"},
+                        {"id":"a7","alt_id":"a7","task":"Write First Draft"},
+                        {"id":"a11","alt_id":"a9","task":"Revise and Edit"},
+                        {"id":"a13","alt_id":"a11","task":"Get Feedback"},
+                        {}
                     ],
                     [
-                        { "id": "a1", "alt_id": "a1", "task": "Brainstorm Ideas" },
-                        { "id": "a3", "alt_id": "a3", "task": "Develop Characters" },
-                        { "id": "a5", "alt_id": "a5", "task": "Outline the Plot" },
-                        { "id": "a7", "alt_id": "a7", "task": "Write First Draft" },
-                        { "id": "a11", "alt_id": "a9", "task": "Revise and Edit" },
-                        { "id": "a13", "alt_id": "a11", "task": "Get Feedback" },
-                        { "id": "a11", "alt_id": "a9", "task": "Revise and Edit" },
-                        { "id": "a13", "alt_id": "a11", "task": "Get Feedback" },
-                        { "id": "a11", "alt_id": "a9", "task": "Revise and Edit" },
-                        { "id": "a13", "alt_id": "a11", "task": "Get Feedback" }
+                        {"id":"a1","alt_id":"a1","task":"Brainstorm Ideas"},
+                        {"id":"a3","alt_id":"a3","task":"Develop Characters"},
+                        {"id":"a5","alt_id":"a5","task":"Outline the Plot"},
+                        {"id":"a7","alt_id":"a7","task":"Write First Draft"},
+                        {"id":"a11","alt_id":"a9","task":"Revise and Edit"},
+                        {"id":"a13","alt_id":"a11","task":"Get Feedback"},
+                        {"id":"a17","alt_id":"a15","task":"Finalize Manuscript"}
+                    ], 
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Brainstorm Ideas"},
+                        {"id":"a3","alt_id":"a3","task":"Develop Characters"},
+                        {"id":"a5","alt_id":"a5","task":"Outline the Plot"},
+                        {"id":"a7","alt_id":"a7","task":"Write First Draft"},
+                        {}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"a1","task":"Brainstorm Ideas"},
+                        {"id":"a3","alt_id":"a3","task":"Develop Characters"},
+                        {"id":"a5","alt_id":"a5","task":"Outline the Plot"},
+                        {"id":"a7","alt_id":"a7","task":"Write First Draft"},
+                        {"id":"a11","alt_id":"a9","task":"Revise and Edit"},
+                        {"id":"a13","alt_id":"a11","task":"Get Feedback"},
                     ]
                 ]
             },
