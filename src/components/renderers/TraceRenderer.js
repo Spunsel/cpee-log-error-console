@@ -184,15 +184,27 @@ export class TraceRenderer {
             if (syntaxService && typeof syntaxService.highlightCodeBlocks === 'function') {
                 // Use the service for consistent highlighting
                 syntaxService.highlightCodeBlocks(traceDetailsContent);
+                // Mark task string tokens after highlighting (use setTimeout to ensure DOM is updated)
+                setTimeout(() => {
+                    this.markTaskStringTokens(traceDetailsCode);
+                }, 0);
             } else if (window.Prism && typeof window.Prism.highlightElement === 'function') {
                 // Fallback to direct Prism highlighting if service not available
                 window.Prism.highlightElement(traceDetailsCode);
+                // Mark task string tokens after highlighting
+                setTimeout(() => {
+                    this.markTaskStringTokens(traceDetailsCode);
+                }, 0);
             }
         } catch (error) {
             // Fallback to direct Prism highlighting if service fails
             if (window.Prism && typeof window.Prism.highlightElement === 'function') {
                 try {
                     window.Prism.highlightElement(traceDetailsCode);
+                    // Mark task string tokens after highlighting
+                    setTimeout(() => {
+                        this.markTaskStringTokens(traceDetailsCode);
+                    }, 0);
                 } catch (prismError) {
                     console.warn('[TraceRenderer] Failed to highlight trace JSON:', prismError);
                 }
@@ -290,6 +302,57 @@ export class TraceRenderer {
         });
 
         return '[\n' + jsonLines.join(',\n') + '\n]';
+    }
+
+    /**
+     * Mark task string tokens in JSON for CSS styling
+     * Finds string tokens that come after a property token with text "task"
+     * @param {HTMLElement} codeElement - Code element with Prism tokens
+     */
+    markTaskStringTokens(codeElement) {
+        if (!codeElement) {
+            return;
+        }
+
+        // Find all property tokens
+        const propertyTokens = codeElement.querySelectorAll('.token.property');
+        
+        propertyTokens.forEach(propertyToken => {
+            // Check if this property token contains "task"
+            if (propertyToken.textContent.trim() === '"task"') {
+                // Find the next string token after this property
+                // Look for: property -> operator -> string
+                let current = propertyToken.nextSibling;
+                let foundOperator = false;
+                
+                // Skip whitespace and find operator
+                while (current) {
+                    if (current.nodeType === Node.ELEMENT_NODE) {
+                        if (current.classList.contains('token') && current.classList.contains('operator')) {
+                            foundOperator = true;
+                            // Now find the string token after the operator
+                            current = current.nextSibling;
+                            break;
+                        }
+                    }
+                    current = current.nextSibling;
+                }
+                
+                // Find string token after operator
+                if (foundOperator) {
+                    while (current) {
+                        if (current.nodeType === Node.ELEMENT_NODE) {
+                            if (current.classList.contains('token') && current.classList.contains('string')) {
+                                // Mark this string token as a task string
+                                current.classList.add('token-task-string');
+                                break;
+                            }
+                        }
+                        current = current.nextSibling;
+                    }
+                }
+            }
+        });
     }
 
     /**

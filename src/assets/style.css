@@ -4000,6 +4000,56 @@ section h3 {
     display: block;
     width: 16px;
     height: 16px;
+    fill: currentColor !important;
+    stroke: none !important;
+}
+
+/* Ensure trace expand buttons are always filled, even in CPEE sections */
+.cpee-section .trace-expand-btn svg,
+#input-cpee .trace-expand-btn svg,
+#output-cpee .trace-expand-btn svg {
+    fill: currentColor !important;
+    stroke: none !important;
+}
+
+/* Ensure trace expand button SVG paths are filled */
+.cpee-section .trace-expand-btn svg path,
+.cpee-section .trace-expand-btn svg g,
+.cpee-section .trace-expand-btn svg *,
+#input-cpee .trace-expand-btn svg path,
+#input-cpee .trace-expand-btn svg g,
+#input-cpee .trace-expand-btn svg *,
+#output-cpee .trace-expand-btn svg path,
+#output-cpee .trace-expand-btn svg g,
+#output-cpee .trace-expand-btn svg * {
+    fill: currentColor !important;
+    stroke: none !important;
+}
+
+/* Dark mode: Ensure trace expand buttons are always filled */
+[data-theme="dark"] .trace-expand-btn svg {
+    fill: currentColor !important;
+    stroke: none !important;
+}
+
+[data-theme="dark"] .cpee-section .trace-expand-btn svg,
+[data-theme="dark"] #input-cpee .trace-expand-btn svg,
+[data-theme="dark"] #output-cpee .trace-expand-btn svg {
+    fill: currentColor !important;
+    stroke: none !important;
+}
+
+[data-theme="dark"] .cpee-section .trace-expand-btn svg path,
+[data-theme="dark"] .cpee-section .trace-expand-btn svg g,
+[data-theme="dark"] .cpee-section .trace-expand-btn svg *,
+[data-theme="dark"] #input-cpee .trace-expand-btn svg path,
+[data-theme="dark"] #input-cpee .trace-expand-btn svg g,
+[data-theme="dark"] #input-cpee .trace-expand-btn svg *,
+[data-theme="dark"] #output-cpee .trace-expand-btn svg path,
+[data-theme="dark"] #output-cpee .trace-expand-btn svg g,
+[data-theme="dark"] #output-cpee .trace-expand-btn svg * {
+    fill: currentColor !important;
+    stroke: none !important;
 }
 
 /* Trace Number */
@@ -4154,10 +4204,9 @@ section h3 {
 
 /* Tasks: string values after "task" property */
 /* Each object structure: {"id":"...","alt_id":"...","task":"..."} */
-/* Target the 3rd string token in each object (after "task") */
-/* Pattern: property + operator + string (1st) + punctuation + property + operator + string (2nd) + punctuation + property + operator + string (3rd = task) */
-.trace-details-json code.language-json .token.property + .token.operator + .token.string + .token.punctuation + .token.property + .token.operator + .token.string + .token.punctuation + .token.property + .token.operator + .token.string {
-    color: #008000 !important; /* colors.trace.tasks - 3rd string in each object */
+/* Target string tokens marked with token-task-string class (added by JavaScript) */
+.trace-details-json code.language-json .token.string.token-task-string {
+    color: #008000 !important; /* colors.trace.tasks - task string values */
 }
 
 /* Dark Mode Trace JSON Syntax Highlighting */
@@ -4179,8 +4228,10 @@ section h3 {
     color: #f5a5a5 !important; /* colors.trace.dark.ids - default for all strings */
 }
 
-[data-theme="dark"] .trace-details-json code.language-json .token.property + .token.operator + .token.string + .token.punctuation + .token.property + .token.operator + .token.string + .token.punctuation + .token.property + .token.operator + .token.string {
-    color: #86efac !important; /* colors.trace.dark.tasks - 3rd string in each object */
+/* Tasks: string values after "task" property - Dark Mode */
+/* Target string tokens marked with token-task-string class (added by JavaScript) */
+[data-theme="dark"] .trace-details-json code.language-json .token.string.token-task-string {
+    color: #86efac !important; /* colors.trace.dark.tasks - task string values (green) */
 }
 
 /* Trace Path Container */
