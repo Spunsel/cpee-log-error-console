@@ -375,6 +375,7 @@
                 <option value="1046-Step1-Output">1046-Step1-Output</option>
                 <option value="4807-Step1">4807-Step1</option>
                 <option value="4906-Step1">4906-Step1</option>
+                <option value="5035-Step4-Output">5035-Step4-Output</option>
             </select>
             <button class="btn" onclick="calculateTraces()">Calculate Traces</button>
         </div>
@@ -4166,6 +4167,161 @@
                         {"id":"a3","alt_id":"2","task":"Manufacture Base Model"},
                         {"id":"a13","alt_id":"7","task":"Final Assembly"},
                         {"id":"a17","alt_id":"8","task":"Quality Check"}
+                    ]
+                ]
+            },
+            '5035-Step4-Output': {
+                xml: `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Patient Admission</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Initial Assessment</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="3">
+    <alternative condition="Requires Examination" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Conduct Medical Examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Review History" language="text/javascript">
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Review Patient History</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+  <parallel wait="-1" cancel="last" a:alt_id="6">
+    <parallel_branch>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Consult Specialist</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="a17" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Perform Tests</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+  </parallel>
+  <choose mode="exclusive" a:alt_id="10">
+    <alternative condition="Treatment Required" language="text/javascript">
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Develop Treatment Plan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="No Treatment Needed" language="text/javascript"/>
+  </choose>
+  <call id="a27" endpoint="" a:alt_id="12">
+    <parameters>
+      <label>Discharge Patient</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>`,
+                expected: [
+                    [
+                        {"id":"a1","alt_id":"1","task":"Patient Admission"},
+                        {"id":"a3","alt_id":"2","task":"Initial Assessment"},
+                        {"id":"a7","alt_id":"4","task":"Conduct Medical Examination"},
+                        {"id":"a15","alt_id":"7","task":"Consult Specialist"},
+                        {"id":"a17","alt_id":"8","task":"Perform Tests"},
+                        {"id":"a25","alt_id":"11","task":"Develop Treatment Plan"},
+                        {"id":"a27","alt_id":"12","task":"Discharge Patient"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Patient Admission"},
+                        {"id":"a3","alt_id":"2","task":"Initial Assessment"},
+                        {"id":"a7","alt_id":"4","task":"Conduct Medical Examination"},
+                        {"id":"a15","alt_id":"7","task":"Consult Specialist"},
+                        {"id":"a17","alt_id":"8","task":"Perform Tests"},
+                        {"id":"a27","alt_id":"12","task":"Discharge Patient"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Patient Admission"},
+                        {"id":"a3","alt_id":"2","task":"Initial Assessment"},
+                        {"id":"a7","alt_id":"4","task":"Conduct Medical Examination"},
+                        {"id":"a17","alt_id":"8","task":"Perform Tests"},
+                        {"id":"a15","alt_id":"7","task":"Consult Specialist"},
+                        {"id":"a25","alt_id":"11","task":"Develop Treatment Plan"},
+                        {"id":"a27","alt_id":"12","task":"Discharge Patient"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Patient Admission"},
+                        {"id":"a3","alt_id":"2","task":"Initial Assessment"},
+                        {"id":"a7","alt_id":"4","task":"Conduct Medical Examination"},
+                        {"id":"a17","alt_id":"8","task":"Perform Tests"},
+                        {"id":"a15","alt_id":"7","task":"Consult Specialist"},
+                        {"id":"a27","alt_id":"12","task":"Discharge Patient"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Patient Admission"},
+                        {"id":"a3","alt_id":"2","task":"Initial Assessment"},
+                        {"id":"a9","alt_id":"5","task":"Review Patient History"},
+                        {"id":"a15","alt_id":"7","task":"Consult Specialist"},
+                        {"id":"a17","alt_id":"8","task":"Perform Tests"},
+                        {"id":"a25","alt_id":"11","task":"Develop Treatment Plan"},
+                        {"id":"a27","alt_id":"12","task":"Discharge Patient"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Patient Admission"},
+                        {"id":"a3","alt_id":"2","task":"Initial Assessment"},
+                        {"id":"a9","alt_id":"5","task":"Review Patient History"},
+                        {"id":"a15","alt_id":"7","task":"Consult Specialist"},
+                        {"id":"a17","alt_id":"8","task":"Perform Tests"},
+                        {"id":"a27","alt_id":"12","task":"Discharge Patient"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Patient Admission"},
+                        {"id":"a3","alt_id":"2","task":"Initial Assessment"},
+                        {"id":"a9","alt_id":"5","task":"Review Patient History"},
+                        {"id":"a17","alt_id":"8","task":"Perform Tests"},
+                        {"id":"a15","alt_id":"7","task":"Consult Specialist"},
+                        {"id":"a25","alt_id":"11","task":"Develop Treatment Plan"},
+                        {"id":"a27","alt_id":"12","task":"Discharge Patient"}
+                    ],
+                    [
+                        {"id":"a1","alt_id":"1","task":"Patient Admission"},
+                        {"id":"a3","alt_id":"2","task":"Initial Assessment"},
+                        {"id":"a9","alt_id":"5","task":"Review Patient History"},
+                        {"id":"a17","alt_id":"8","task":"Perform Tests"},
+                        {"id":"a15","alt_id":"7","task":"Consult Specialist"},
+                        {"id":"a27","alt_id":"12","task":"Discharge Patient"}
                     ]
                 ]
             }

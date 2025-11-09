@@ -8,6 +8,28 @@ import { Trace } from '../../models/Trace.js';
 
 // Global constant for maximum loop iterations (default: 1)
 const MAX_LOOP_ITERATIONS = 1;
+const TIMEOUT_MS = 2000;
+
+/**
+ * Timeout checker class to track elapsed time during calculation
+ */
+class TimeoutChecker {
+    constructor(timeoutMs) {
+        this.startTime = Date.now();
+        this.timeoutMs = timeoutMs;
+    }
+    
+    check() {
+        const elapsed = Date.now() - this.startTime;
+        if (elapsed > this.timeoutMs) {
+            throw new Error(`Trace calculation exceeded ${this.timeoutMs}ms timeout. The CPEE graph it too complex to calculate all traces.`);
+        }
+    }
+    
+    getElapsed() {
+        return Date.now() - this.startTime;
+    }
+}
 
 export class CPEETraceCalculator {
     /**
@@ -23,6 +45,9 @@ export class CPEETraceCalculator {
         const maxLoopIterations = options.maxLoopIterations !== undefined 
             ? options.maxLoopIterations 
             : MAX_LOOP_ITERATIONS;
+        
+        // Create timeout checker
+        const timeoutChecker = new TimeoutChecker(TIMEOUT_MS);
         
         try {
             // Fix common XML issues
@@ -49,7 +74,7 @@ export class CPEETraceCalculator {
             }
             
             // Calculate traces using graph traversal
-            const traceArrays = this.traces(description, 0, maxLoopIterations);
+            const traceArrays = this.traces(description, 0, maxLoopIterations, timeoutChecker);
             
             // Filter duplicate traces
             const uniqueTraces = this.filterDuplicateTraces(traceArrays);
@@ -65,6 +90,10 @@ export class CPEETraceCalculator {
             
         } catch (error) {
             console.error('[CPEETraceCalculator] Error calculating traces:', error);
+            // Re-throw timeout errors so they can be displayed in the UI
+            if (error.message && error.message.includes('exceeded') && error.message.includes('timeout')) {
+                throw error;
+            }
             return [];
         }
     }
@@ -75,9 +104,14 @@ export class CPEETraceCalculator {
      * @param {Element} node - XML node to process
      * @param {number} depth - Current depth (for debugging)
      * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array<Object>>} Array of trace arrays
      */
-    static traces(node, depth = 0, maxLoopIterations = MAX_LOOP_ITERATIONS) {
+    static traces(node, depth = 0, maxLoopIterations = MAX_LOOP_ITERATIONS, timeoutChecker = null) {
+        // Check timeout at the start of each recursive call
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
         const tagName = node.tagName ? node.tagName.toLowerCase() : '';
         
         switch (tagName) {
@@ -93,8 +127,11 @@ export class CPEETraceCalculator {
             
             case 'description': {
                 const children = Array.from(node.children);
-                const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations));
-                return this.combineSequential(childTraces);
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
+                const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker));
+                return this.combineSequential(childTraces, timeoutChecker);
             }
             
             case 'choose': {
@@ -103,7 +140,10 @@ export class CPEETraceCalculator {
                 if (alternatives.length === 0) {
                     return [];
                 }
-                const alternativeTraces = alternatives.map(alt => this.traces(alt, depth + 1, maxLoopIterations));
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
+                const alternativeTraces = alternatives.map(alt => this.traces(alt, depth + 1, maxLoopIterations, timeoutChecker));
                 return this.union(alternativeTraces);
             }
             
@@ -119,8 +159,11 @@ export class CPEETraceCalculator {
                     // Process elements before escape, then terminate
                     const beforeEscape = children.slice(0, escapeIndex);
                     if (beforeEscape.length > 0) {
-                        const beforeEscapeTraces = beforeEscape.map(child => this.traces(child, depth + 1, maxLoopIterations));
-                        const combined = this.combineSequential(beforeEscapeTraces);
+                        if (timeoutChecker) {
+                            timeoutChecker.check();
+                        }
+                        const beforeEscapeTraces = beforeEscape.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker));
+                        const combined = this.combineSequential(beforeEscapeTraces, timeoutChecker);
                         // Mark traces as terminated by escape
                         return combined.map(trace => {
                             trace._terminatedByEscape = true;
@@ -134,8 +177,11 @@ export class CPEETraceCalculator {
                     }
                 } else {
                     // No escape - process normally
-                    const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations));
-                    return this.combineSequential(childTraces);
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
+                    const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker));
+                    return this.combineSequential(childTraces, timeoutChecker);
                 }
             }
             
@@ -145,23 +191,32 @@ export class CPEETraceCalculator {
                 if (branches.length === 0) {
                     return [];
                 }
-                const branchTraces = branches.map(branch => this.traces(branch, depth + 1, maxLoopIterations));
-                return this.interleave(branchTraces);
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
+                const branchTraces = branches.map(branch => this.traces(branch, depth + 1, maxLoopIterations, timeoutChecker));
+                return this.interleave(branchTraces, timeoutChecker);
             }
             
             case 'parallel_branch': {
                 const children = Array.from(node.children).filter(child => 
                     child.tagName.toLowerCase() !== 'condition'
                 );
-                const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations));
-                return this.combineSequential(childTraces);
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
+                const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker));
+                return this.combineSequential(childTraces, timeoutChecker);
             }
             
             case 'loop': {
                 const children = Array.from(node.children).filter(child => 
                     child.tagName.toLowerCase() !== 'condition'
                 );
-                const bodyTraces = this.combineSequential(children.map(child => this.traces(child, depth + 1, maxLoopIterations)));
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
+                const bodyTraces = this.combineSequential(children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker)), timeoutChecker);
                 
                 // Unroll 0, 1, 2 times (but bounded by maxLoopIterations)
                 const maxIter = Math.min(maxLoopIterations, 2);
@@ -192,7 +247,7 @@ export class CPEETraceCalculator {
                 
                 // 2 iterations (if allowed)
                 if (maxIter >= 2) {
-                    result.push(...this.combineSequential([bodyTraces, bodyTraces]));
+                    result.push(...this.combineSequential([bodyTraces, bodyTraces], timeoutChecker));
                 }
                 
                 return result;
@@ -208,8 +263,11 @@ export class CPEETraceCalculator {
                 // For unknown elements, try to process children
                 if (node.children && node.children.length > 0) {
                     const children = Array.from(node.children);
-                    const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations));
-                    return this.combineSequential(childTraces);
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
+                    const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker));
+                    return this.combineSequential(childTraces, timeoutChecker);
                 }
                 return [];
             }
@@ -220,9 +278,10 @@ export class CPEETraceCalculator {
      * Cartesian product concatenation
      * Combines sequences sequentially (each trace from first set concatenated with each trace from second set)
      * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace set arrays
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array<Object>>} Combined trace arrays
      */
-    static combineSequential(listOfTraceSets) {
+    static combineSequential(listOfTraceSets, timeoutChecker = null) {
         if (listOfTraceSets.length === 0) {
             return [[]];
         }
@@ -234,6 +293,9 @@ export class CPEETraceCalculator {
                 // For each trace in acc, concatenate with each trace in next
                 const result = [];
                 for (const a of acc) {
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
                     // Check if trace was terminated by escape
                     const aTerminated = a._terminatedByEscape === true;
                     
@@ -242,6 +304,9 @@ export class CPEETraceCalculator {
                         result.push(a);
                     } else {
                         for (const b of next) {
+                            if (timeoutChecker) {
+                                timeoutChecker.check();
+                            }
                             // Check if next trace was terminated
                             const bTerminated = b._terminatedByEscape === true;
                             
@@ -264,9 +329,10 @@ export class CPEETraceCalculator {
      * Parallel interleaving (permutations of branch order)
      * Each branch is treated as a single unit - tasks within a branch stay together
      * @param {Array<Array<Array<Object>>>} branches - Array of branch trace sets
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array<Object>>} All trace arrays with branch permutations
      */
-    static interleave(branches) {
+    static interleave(branches, timeoutChecker = null) {
         if (branches.length === 0) {
             return [[]];
         }
@@ -274,20 +340,31 @@ export class CPEETraceCalculator {
             return branches[0];
         }
         
+        // Check timeout before generating permutations
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
+        
         // Generate all permutations of branch indices
         const branchIndices = branches.map((_, i) => i);
-        const permutations = this.permuteArray(branchIndices);
+        const permutations = this.permuteArray(branchIndices, timeoutChecker);
         
         const result = [];
         
         // For each permutation, combine traces from branches in that order
         for (const perm of permutations) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
             // Get one trace from each branch (cartesian product)
             const branchTraces = perm.map(idx => branches[idx]);
-            const combinations = this.cartesianProduct(branchTraces);
+            const combinations = this.cartesianProduct(branchTraces, timeoutChecker);
             
             // For each combination, concatenate the traces in order
             for (const combination of combinations) {
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
                 const concatenated = combination.flat();
                 result.push(concatenated);
             }
@@ -299,18 +376,25 @@ export class CPEETraceCalculator {
     /**
      * Generate all permutations of an array
      * @param {Array} arr - Input array
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array>} All permutations
      */
-    static permuteArray(arr) {
+    static permuteArray(arr, timeoutChecker = null) {
         if (arr.length <= 1) {
             return [arr];
         }
         
         const result = [];
         for (let i = 0; i < arr.length; i++) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
             const rest = [...arr.slice(0, i), ...arr.slice(i + 1)];
-            const restPerms = this.permuteArray(rest);
+            const restPerms = this.permuteArray(rest, timeoutChecker);
             for (const perm of restPerms) {
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
                 result.push([arr[i], ...perm]);
             }
         }
@@ -320,9 +404,10 @@ export class CPEETraceCalculator {
     /**
      * Cartesian product of arrays
      * @param {Array<Array>} arrays - Array of arrays
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array>} All combinations
      */
-    static cartesianProduct(arrays) {
+    static cartesianProduct(arrays, timeoutChecker = null) {
         if (arrays.length === 0) {
             return [[]];
         }
@@ -330,7 +415,13 @@ export class CPEETraceCalculator {
         return arrays.reduce((acc, next) => {
             const result = [];
             for (const a of acc) {
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
                 for (const b of next) {
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
                     result.push([...a, b]);
                 }
             }

@@ -8,6 +8,28 @@ import { Trace } from '../../models/Trace.js';
 
 // Global constant for maximum loop iterations (default: 1)
 const MAX_LOOP_ITERATIONS = 1;
+const TIMEOUT_MS = 2000;
+
+/**
+ * Timeout checker class to track elapsed time during calculation
+ */
+class TimeoutChecker {
+    constructor(timeoutMs) {
+        this.startTime = Date.now();
+        this.timeoutMs = timeoutMs;
+    }
+    
+    check() {
+        const elapsed = Date.now() - this.startTime;
+        if (elapsed > this.timeoutMs) {
+            throw new Error(`Trace calculation exceeded ${this.timeoutMs}ms timeout. The Mermaid graph it too complex to calculate all traces.`);
+        }
+    }
+    
+    getElapsed() {
+        return Date.now() - this.startTime;
+    }
+}
 
 export class MermaidTraceCalculator {
     /**
@@ -23,6 +45,9 @@ export class MermaidTraceCalculator {
         const maxLoopIterations = options.maxLoopIterations !== undefined 
             ? options.maxLoopIterations 
             : MAX_LOOP_ITERATIONS;
+        
+        // Create timeout checker
+        const timeoutChecker = new TimeoutChecker(TIMEOUT_MS);
         
         try {
             // Parse Mermaid syntax to build graph
@@ -63,13 +88,15 @@ export class MermaidTraceCalculator {
             
             for (const startNode of startNodes) {
                 for (const endNode of endNodes) {
+                    timeoutChecker.check(); // Check timeout before each path calculation
                     const traceArrays = this.traces(
                         graph,
                         startNode.id,
                         endNode.id,
                         0,
                         maxLoopIterations,
-                        new Map()
+                        new Map(),
+                        timeoutChecker
                     );
                     allTraceArrays.push(...traceArrays);
                 }
@@ -89,6 +116,10 @@ export class MermaidTraceCalculator {
             
         } catch (error) {
             console.error('[MermaidTraceCalculator] Error calculating traces:', error);
+            // Re-throw timeout errors so they can be displayed in the UI
+            if (error.message && error.message.includes('exceeded') && error.message.includes('timeout')) {
+                throw error;
+            }
             return [];
         }
     }
@@ -102,9 +133,15 @@ export class MermaidTraceCalculator {
      * @param {number} depth - Current depth (for debugging)
      * @param {number} maxLoopIterations - Maximum loop iterations
      * @param {Map<string, number>} visitCounts - Map of node IDs to visit counts (for cycle detection)
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array<Object>>} Array of trace arrays
      */
-    static traces(graph, currentNodeId, targetNodeId, depth = 0, maxLoopIterations = MAX_LOOP_ITERATIONS, visitCounts = new Map()) {
+    static traces(graph, currentNodeId, targetNodeId, depth = 0, maxLoopIterations = MAX_LOOP_ITERATIONS, visitCounts = new Map(), timeoutChecker = null) {
+        // Check timeout at the start of each recursive call
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
+        
         // Check if we reached the target
         if (currentNodeId === targetNodeId) {
             return [[]]; // Return empty trace (base case)
@@ -148,9 +185,12 @@ export class MermaidTraceCalculator {
                 }
                 
                 // Get traces from all outgoing edges
-                const childTraceSets = outgoingEdges.map(edge => 
-                    this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts)
-                );
+                const childTraceSets = outgoingEdges.map(edge => {
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
+                    return this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts, timeoutChecker);
+                });
                 
                 // If multiple outgoing edges, treat as alternatives (union)
                 // Otherwise, combine sequentially: task + each child trace
@@ -171,9 +211,12 @@ export class MermaidTraceCalculator {
             
             case 'exclusivegateway': {
                 // Exclusive gateway (XOR) - union of all alternatives
-                const alternativeTraces = outgoingEdges.map(edge => 
-                    this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts)
-                );
+                const alternativeTraces = outgoingEdges.map(edge => {
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
+                    return this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts, timeoutChecker);
+                });
                 return this.union(alternativeTraces);
             }
             
@@ -185,25 +228,32 @@ export class MermaidTraceCalculator {
                     targetNodeId,
                     depth,
                     maxLoopIterations,
-                    newVisitCounts
+                    newVisitCounts,
+                    timeoutChecker
                 );
             }
             
             case 'startevent':
             case 'endevent': {
                 // Start/end events - just pass through
-                const childTraceSets = outgoingEdges.map(edge => 
-                    this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts)
-                );
-                return this.combineSequential(childTraceSets);
+                const childTraceSets = outgoingEdges.map(edge => {
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
+                    return this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts, timeoutChecker);
+                });
+                return this.combineSequential(childTraceSets, timeoutChecker);
             }
             
             default: {
                 // Unknown node type - treat as pass-through
-                const childTraceSets = outgoingEdges.map(edge => 
-                    this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts)
-                );
-                return this.combineSequential(childTraceSets);
+                const childTraceSets = outgoingEdges.map(edge => {
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
+                    return this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts, timeoutChecker);
+                });
+                return this.combineSequential(childTraceSets, timeoutChecker);
             }
         }
     }
@@ -216,9 +266,10 @@ export class MermaidTraceCalculator {
      * @param {number} depth - Current depth
      * @param {number} maxLoopIterations - Maximum loop iterations
      * @param {Map<string, number>} visitCounts - Map of visit counts
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array<Object>>} Array of trace arrays
      */
-    static handleParallelGateway(graph, splitGatewayId, targetNodeId, depth, maxLoopIterations, visitCounts) {
+    static handleParallelGateway(graph, splitGatewayId, targetNodeId, depth, maxLoopIterations, visitCounts, timeoutChecker = null) {
         const outgoingEdges = graph.adjacencyList.get(splitGatewayId) || [];
         
         if (outgoingEdges.length === 0) {
@@ -230,9 +281,12 @@ export class MermaidTraceCalculator {
         
         if (!joinGateway) {
             // No join gateway found - treat branches as independent paths to target
-            const branchTraces = outgoingEdges.map(edge => 
-                this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, new Map(visitCounts))
-            );
+            const branchTraces = outgoingEdges.map(edge => {
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
+                return this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, new Map(visitCounts), timeoutChecker);
+            });
             return this.union(branchTraces);
         }
         
@@ -241,29 +295,37 @@ export class MermaidTraceCalculator {
         const branchTraceSets = [];
         
         for (const edge of outgoingEdges) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
             const branchTraces = this.traces(
                 graph,
                 edge.to,
                 joinGateway,
                 depth + 1,
                 maxLoopIterations,
-                new Map(visitCounts)
+                new Map(visitCounts),
+                timeoutChecker
             );
             branchTraceSets.push(branchTraces);
         }
         
         // Interleave branches (generate all permutations of branch orderings)
-        const interleavedTraces = this.interleave(branchTraceSets);
+        const interleavedTraces = this.interleave(branchTraceSets, timeoutChecker);
         
         // Continue from join gateway to target
         // Use the original visitCounts to maintain loop limits across the parallel section
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
         const joinTraces = this.traces(
             graph,
             joinGateway,
             targetNodeId,
             depth + 1,
             maxLoopIterations,
-            new Map(visitCounts)
+            new Map(visitCounts),
+            timeoutChecker
         );
         
         // Combine interleaved traces with join traces
@@ -340,9 +402,10 @@ export class MermaidTraceCalculator {
      * Cartesian product concatenation
      * Combines sequences sequentially (each trace from first set concatenated with each trace from second set)
      * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace set arrays
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array<Object>>} Combined trace arrays
      */
-    static combineSequential(listOfTraceSets) {
+    static combineSequential(listOfTraceSets, timeoutChecker = null) {
         if (listOfTraceSets.length === 0) {
             return [[]];
         }
@@ -354,7 +417,13 @@ export class MermaidTraceCalculator {
                 // For each trace in acc, concatenate with each trace in next
                 const result = [];
                 for (const a of acc) {
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
                     for (const b of next) {
+                        if (timeoutChecker) {
+                            timeoutChecker.check();
+                        }
                         result.push([...a, ...b]);
                     }
                 }
@@ -368,9 +437,10 @@ export class MermaidTraceCalculator {
      * Parallel interleaving (permutations of branch order)
      * Each branch is treated as a single unit - tasks within a branch stay together
      * @param {Array<Array<Array<Object>>>} branches - Array of branch trace sets
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array<Object>>} All trace arrays with branch permutations
      */
-    static interleave(branches) {
+    static interleave(branches, timeoutChecker = null) {
         if (branches.length === 0) {
             return [[]];
         }
@@ -378,20 +448,31 @@ export class MermaidTraceCalculator {
             return branches[0];
         }
         
+        // Check timeout before generating permutations
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
+        
         // Generate all permutations of branch indices
         const branchIndices = branches.map((_, i) => i);
-        const permutations = this.permuteArray(branchIndices);
+        const permutations = this.permuteArray(branchIndices, timeoutChecker);
         
         const result = [];
         
         // For each permutation, combine traces from branches in that order
         for (const perm of permutations) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
             // Get one trace from each branch (cartesian product)
             const branchTraces = perm.map(idx => branches[idx]);
-            const combinations = this.cartesianProduct(branchTraces);
+            const combinations = this.cartesianProduct(branchTraces, timeoutChecker);
             
             // For each combination, concatenate the traces in order
             for (const combination of combinations) {
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
                 const concatenated = combination.flat();
                 result.push(concatenated);
             }
@@ -403,18 +484,25 @@ export class MermaidTraceCalculator {
     /**
      * Generate all permutations of an array
      * @param {Array} arr - Input array
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array>} All permutations
      */
-    static permuteArray(arr) {
+    static permuteArray(arr, timeoutChecker = null) {
         if (arr.length <= 1) {
             return [arr];
         }
         
         const result = [];
         for (let i = 0; i < arr.length; i++) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
             const rest = [...arr.slice(0, i), ...arr.slice(i + 1)];
-            const restPerms = this.permuteArray(rest);
+            const restPerms = this.permuteArray(rest, timeoutChecker);
             for (const perm of restPerms) {
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
                 result.push([arr[i], ...perm]);
             }
         }
@@ -424,9 +512,10 @@ export class MermaidTraceCalculator {
     /**
      * Cartesian product of arrays
      * @param {Array<Array>} arrays - Array of arrays
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array>} All combinations
      */
-    static cartesianProduct(arrays) {
+    static cartesianProduct(arrays, timeoutChecker = null) {
         if (arrays.length === 0) {
             return [[]];
         }
@@ -434,7 +523,13 @@ export class MermaidTraceCalculator {
         return arrays.reduce((acc, next) => {
             const result = [];
             for (const a of acc) {
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
                 for (const b of next) {
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
                     result.push([...a, b]);
                 }
             }

@@ -248,9 +248,10 @@ export class ContentVisualizationCoordinator {
             return;
         }
 
+        let cleanup;
         try {
             // Preserve container height during transition
-            const cleanup = this.preserveHeightDuringTransition(outputCpeeElement);
+            cleanup = this.preserveHeightDuringTransition(outputCpeeElement);
             
             // Clear the existing content and create graph container
             outputCpeeElement.innerHTML = '';
@@ -285,6 +286,10 @@ export class ContentVisualizationCoordinator {
         } catch (error) {
             console.error('❌ Error updating output CPEE section:', error);
             this.showSectionError(outputCpeeElement, 'Failed to render CPEE graph', error.message);
+            // Still need to call cleanup on error
+            if (typeof cleanup === 'function') {
+                cleanup();
+            }
         }
     }
 

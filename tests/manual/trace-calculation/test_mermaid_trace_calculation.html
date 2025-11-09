@@ -1992,6 +1992,139 @@ gw2s:exclusivegateway:{x}-->|"Satisfied"|ee:endevent:(((endevent)))`,
                         { "id": null, "alt_id": "8", "task": "Quality Check" }
                     ]
                 ]
+            },
+            '5035-Step4-Output': {
+                mermaid: `graph LR
+
+0:startevent:((Start Event))
+
+1:task:(Patient Admission)
+
+2:task:(Initial Assessment)
+
+3:exclusivegateway:{x}
+
+4:task:(Conduct Medical Examination)
+
+5:task:(Review Patient History)
+
+6:parallelgateway:{AND}
+
+7:task:(Consult Specialist)
+
+8:task:(Perform Tests)
+
+9:parallelgateway:{AND}
+
+10:exclusivegateway:{x}
+
+11:task:(Develop Treatment Plan)
+
+12:task:(Discharge Patient)
+
+13:endevent:(((End Event)))
+
+0:startevent:((Start Event)) --> 1:task:(Patient Admission)
+
+1:task:(Patient Admission) --> 2:task:(Initial Assessment)
+
+2:task:(Initial Assessment) --> 3:exclusivegateway:{x}
+
+3:exclusivegateway:{x} --> |Requires Examination| 4:task:(Conduct Medical Examination)
+
+3:exclusivegateway:{x} --> |Review History| 5:task:(Review Patient History)
+
+4:task:(Conduct Medical Examination) --> 6:parallelgateway:{AND}
+
+5:task:(Review Patient History) --> 6:parallelgateway:{AND}
+
+6:parallelgateway:{AND} --> 7:task:(Consult Specialist)
+
+6:parallelgateway:{AND} --> 8:task:(Perform Tests)
+
+7:task:(Consult Specialist) --> 9:parallelgateway:{AND}
+
+8:task:(Perform Tests) --> 9:parallelgateway:{AND}
+
+9:parallelgateway:{AND} --> 10:exclusivegateway:{x}
+
+10:exclusivegateway:{x} --> |Treatment Required| 11:task:(Develop Treatment Plan)
+
+10:exclusivegateway:{x} --> |No Treatment Needed| 12:task:(Discharge Patient)
+
+11:task:(Develop Treatment Plan) --> 12:task:(Discharge Patient)
+
+12:task:(Discharge Patient) --> 13:endevent:(((End Event)))`,
+                expected: [
+                    [
+                        { "id": null, "alt_id": "1", "task": "Patient Admission" },
+                        { "id": null, "alt_id": "2", "task": "Initial Assessment" },
+                        { "id": null, "alt_id": "4", "task": "Conduct Medical Examination" },
+                        { "id": null, "alt_id": "7", "task": "Consult Specialist" },
+                        { "id": null, "alt_id": "8", "task": "Perform Tests" },
+                        { "id": null, "alt_id": "11", "task": "Develop Treatment Plan" },
+                        { "id": null, "alt_id": "12", "task": "Discharge Patient" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Patient Admission" },
+                        { "id": null, "alt_id": "2", "task": "Initial Assessment" },
+                        { "id": null, "alt_id": "4", "task": "Conduct Medical Examination" },
+                        { "id": null, "alt_id": "7", "task": "Consult Specialist" },
+                        { "id": null, "alt_id": "8", "task": "Perform Tests" },
+                        { "id": null, "alt_id": "12", "task": "Discharge Patient" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Patient Admission" },
+                        { "id": null, "alt_id": "2", "task": "Initial Assessment" },
+                        { "id": null, "alt_id": "4", "task": "Conduct Medical Examination" },
+                        { "id": null, "alt_id": "8", "task": "Perform Tests" },
+                        { "id": null, "alt_id": "7", "task": "Consult Specialist" },
+                        { "id": null, "alt_id": "11", "task": "Develop Treatment Plan" },
+                        { "id": null, "alt_id": "12", "task": "Discharge Patient" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Patient Admission" },
+                        { "id": null, "alt_id": "2", "task": "Initial Assessment" },
+                        { "id": null, "alt_id": "4", "task": "Conduct Medical Examination" },
+                        { "id": null, "alt_id": "8", "task": "Perform Tests" },
+                        { "id": null, "alt_id": "7", "task": "Consult Specialist" },
+                        { "id": null, "alt_id": "12", "task": "Discharge Patient" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Patient Admission" },
+                        { "id": null, "alt_id": "2", "task": "Initial Assessment" },
+                        { "id": null, "alt_id": "5", "task": "Review Patient History" },
+                        { "id": null, "alt_id": "7", "task": "Consult Specialist" },
+                        { "id": null, "alt_id": "8", "task": "Perform Tests" },
+                        { "id": null, "alt_id": "11", "task": "Develop Treatment Plan" },
+                        { "id": null, "alt_id": "12", "task": "Discharge Patient" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Patient Admission" },
+                        { "id": null, "alt_id": "2", "task": "Initial Assessment" },
+                        { "id": null, "alt_id": "5", "task": "Review Patient History" },
+                        { "id": null, "alt_id": "7", "task": "Consult Specialist" },
+                        { "id": null, "alt_id": "8", "task": "Perform Tests" },
+                        { "id": null, "alt_id": "12", "task": "Discharge Patient" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Patient Admission" },
+                        { "id": null, "alt_id": "2", "task": "Initial Assessment" },
+                        { "id": null, "alt_id": "5", "task": "Review Patient History" },
+                        { "id": null, "alt_id": "8", "task": "Perform Tests" },
+                        { "id": null, "alt_id": "7", "task": "Consult Specialist" },
+                        { "id": null, "alt_id": "11", "task": "Develop Treatment Plan" },
+                        { "id": null, "alt_id": "12", "task": "Discharge Patient" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Patient Admission" },
+                        { "id": null, "alt_id": "2", "task": "Initial Assessment" },
+                        { "id": null, "alt_id": "5", "task": "Review Patient History" },
+                        { "id": null, "alt_id": "8", "task": "Perform Tests" },
+                        { "id": null, "alt_id": "7", "task": "Consult Specialist" },
+                        { "id": null, "alt_id": "12", "task": "Discharge Patient" }
+                    ]
+                ]
             }
         };
 
