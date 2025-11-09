@@ -553,6 +553,46 @@ export const ICON_COLLAPSE_TRACE = `
     </svg>
 `;
 
+/**
+ * Expand Section icon - Vertical expand arrows
+ * Represents expanding a section to fill browser height - 20x20px for section expand buttons
+ */
+export const ICON_EXPAND_SECTION = `
+    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="20" height="20">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <title>expand-vertical</title>
+            <g id="Layer_2" data-name="Layer 2">
+                <g id="invisible_box" data-name="invisible box">
+                    <rect width="48" height="48" fill="none" stroke="none" stroke-width="0"></rect>
+                </g>
+                <g id="icons_Q2" data-name="icons Q2">
+                    <g>
+                        <path d="M28.6,17.4a1.9,1.9,0,0,0,3-.2,2.1,2.1,0,0,0-.2-2.7l-6-5.9a1.9,1.9,0,0,0-2.8,0l-6,5.9a2.1,2.1,0,0,0-.2,2.7,1.9,1.9,0,0,0,3,.2L22,14.8V33.2l-2.6-2.6a1.9,1.9,0,0,0-3,.2,2.1,2.1,0,0,0,.2,2.7l6,5.9a1.9,1.9,0,0,0,2.8,0l6-5.9a2.1,2.1,0,0,0,.2-2.7,1.9,1.9,0,0,0-3-.2L26,33.2V14.8Z"></path>
+                        <path d="M6,6H42a2,2,0,0,0,0-4H6A2,2,0,0,0,6,6Z"></path>
+                        <path d="M42,42H6a2,2,0,0,0,0,4H42a2,2,0,0,0,0-4Z"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </svg>
+`;
+
+/**
+ * Collapse Section icon - Collapse arrows
+ * Represents collapsing a section to restore previous size - 20x20px for section collapse buttons
+ */
+export const ICON_COLLAPSE_SECTION = `
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" stroke-width="0.352" width="20" height="20">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zm7-8a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 4.293V.5A.5.5 0 0 1 8 0zm-.5 11.707-1.146 1.147a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 11.707V15.5a.5.5 0 0 1-1 0v-3.793z"></path>
+        </g>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -602,7 +642,10 @@ export const ICONS = {
     SECTION_EXPAND: ICON_SECTION_EXPAND,
     // Trace toggle icons
     EXPAND_TRACE: ICON_EXPAND_TRACE,
-    COLLAPSE_TRACE: ICON_COLLAPSE_TRACE
+    COLLAPSE_TRACE: ICON_COLLAPSE_TRACE,
+    // Section expand/collapse icons
+    EXPAND_SECTION: ICON_EXPAND_SECTION,
+    COLLAPSE_SECTION: ICON_COLLAPSE_SECTION
 };
 
 /**
@@ -646,7 +689,10 @@ export function getIcon(iconName) {
         'section-expand': ICON_SECTION_EXPAND,
         // Trace toggle icons
         'expand-trace': ICON_EXPAND_TRACE,
-        'collapse-trace': ICON_COLLAPSE_TRACE
+        'collapse-trace': ICON_COLLAPSE_TRACE,
+        // Section expand/collapse icons
+        'expand-section': ICON_EXPAND_SECTION,
+        'collapse-section': ICON_COLLAPSE_SECTION
     };
 
     return iconMap[iconName.toLowerCase()] || '';

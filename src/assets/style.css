@@ -2481,6 +2481,7 @@ section h3 {
     flex: 1 1 auto; /* holds the title */
     display: flex;
     align-items: center;
+    gap: 8px; /* gap between expand button and title */
     min-width: 0; /* allow title to truncate */
     padding: 16px 0 16px 24px; /* 16px top/bottom, 24px left */
 }
@@ -2534,6 +2535,126 @@ section h3 {
     width: 16px;
     height: 16px;
     transition: transform 0.2s ease;
+}
+
+/* Section expand/collapse button */
+.section-expand-collapse-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: var(--text-primary, #1e293b);
+    transition: transform 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.section-expand-collapse-btn:hover {
+    color: var(--accent-color, #3b82f6);
+    transform: scale(1.1);
+}
+
+.section-expand-collapse-btn:focus {
+    outline: 2px solid var(--accent-color, #3b82f6);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.section-expand-collapse-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    stroke: currentColor;
+}
+
+/* Expand/Collapse Button SVG rect elements - match section header background */
+.section-expand-collapse-btn svg rect {
+    fill: var(--section-header-bg) !important;
+    stroke: none !important;
+    stroke-width: 0 !important;
+}
+
+/* CPEE Section Expand/Collapse Button SVG Overrides */
+/* Override any CPEE-specific SVG styles that might affect the expand/collapse button */
+.cpee-section .section-expand-collapse-btn svg,
+#input-cpee .section-expand-collapse-btn svg,
+#output-cpee .section-expand-collapse-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+    font-family: inherit !important;
+    display: block !important;
+}
+
+/* CPEE Section Expand/Collapse Button SVG nested elements */
+.cpee-section .section-expand-collapse-btn svg path,
+.cpee-section .section-expand-collapse-btn svg g,
+.cpee-section .section-expand-collapse-btn svg *,
+#input-cpee .section-expand-collapse-btn svg path,
+#input-cpee .section-expand-collapse-btn svg g,
+#input-cpee .section-expand-collapse-btn svg *,
+#output-cpee .section-expand-collapse-btn svg path,
+#output-cpee .section-expand-collapse-btn svg g,
+#output-cpee .section-expand-collapse-btn svg * {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+}
+
+/* CPEE Section Expand/Collapse Button SVG rect elements - match section header background */
+.cpee-section .section-expand-collapse-btn svg rect,
+#input-cpee .section-expand-collapse-btn svg rect,
+#output-cpee .section-expand-collapse-btn svg rect {
+    fill: var(--section-header-bg) !important;
+    stroke: none !important;
+    stroke-width: 0 !important;
+}
+
+/* Dark mode: CPEE expand/collapse button SVG */
+[data-theme="dark"] .cpee-section .section-expand-collapse-btn svg,
+[data-theme="dark"] #input-cpee .section-expand-collapse-btn svg,
+[data-theme="dark"] #output-cpee .section-expand-collapse-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+}
+
+/* Dark mode: CPEE expand/collapse button SVG nested elements */
+[data-theme="dark"] .cpee-section .section-expand-collapse-btn svg path,
+[data-theme="dark"] .cpee-section .section-expand-collapse-btn svg g,
+[data-theme="dark"] .cpee-section .section-expand-collapse-btn svg *,
+[data-theme="dark"] #input-cpee .section-expand-collapse-btn svg path,
+[data-theme="dark"] #input-cpee .section-expand-collapse-btn svg g,
+[data-theme="dark"] #input-cpee .section-expand-collapse-btn svg *,
+[data-theme="dark"] #output-cpee .section-expand-collapse-btn svg path,
+[data-theme="dark"] #output-cpee .section-expand-collapse-btn svg g,
+[data-theme="dark"] #output-cpee .section-expand-collapse-btn svg * {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: inherit !important;
+}
+
+/* Dark mode: CPEE expand/collapse button SVG rect elements - match section header background */
+[data-theme="dark"] .cpee-section .section-expand-collapse-btn svg rect,
+[data-theme="dark"] #input-cpee .section-expand-collapse-btn svg rect,
+[data-theme="dark"] #output-cpee .section-expand-collapse-btn svg rect {
+    fill: var(--section-header-bg) !important;
+    stroke: none !important;
+    stroke-width: 0 !important;
+}
+
+/* Expanded section state */
+.section-expanded .content-box {
+    transition: height 0.3s ease, max-height 0.3s ease, min-height 0.3s ease;
 }
 
 /* Collapsed state for content box */
