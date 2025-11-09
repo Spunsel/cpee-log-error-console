@@ -11,7 +11,6 @@
 
 import { ViewModeToggle } from '../ui/ViewModeToggle.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
-import { SectionExpandCollapse } from '../ui/SectionExpandCollapse.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
@@ -26,7 +25,6 @@ export class RawContentCoordinator {
         // Content View Components (pass stateManager so ViewModeToggle can read state)
         this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus, this.stateManager);
         this.rawContentRenderer = new RawContentRenderer(domRegistry);
-        this.sectionExpandCollapse = new SectionExpandCollapse(domRegistry);
         
         // Action bars per section (moved to RawContentRenderer)
         // this.actionBars = new Map();
@@ -248,7 +246,10 @@ export class RawContentCoordinator {
         if (!this.togglesAttached) {
             this.viewModeToggle.attachToSections();
             // Attach expand/collapse buttons after view mode toggles are attached
-            this.sectionExpandCollapse.attachToSections();
+            // (expand/collapse needs the left-title-side structure created by ViewModeToggle)
+            if (this.contentSectionCoordinator && this.contentSectionCoordinator.attachExpandCollapseButtons) {
+                this.contentSectionCoordinator.attachExpandCollapseButtons();
+            }
             this.togglesAttached = true;
         }
 

@@ -16,6 +16,7 @@ import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 import { TextParser } from '../../utils/content/TextParser.js';
 import { StepSection } from '../ui/StepSection.js';
+import { SectionExpandCollapse } from '../ui/SectionExpandCollapse.js';
 
 export class ContentVisualizationCoordinator {
     constructor(domRegistry = null, highlightCoordinator = null, eventBus = null) {
@@ -51,6 +52,9 @@ export class ContentVisualizationCoordinator {
         
         // StepSection instances for collapsible sections
         this.stepSections = new Map();
+        
+        // Section expand/collapse management
+        this.sectionExpandCollapse = new SectionExpandCollapse(domRegistry);
     }
     
     /**
@@ -601,6 +605,14 @@ export class ContentVisualizationCoordinator {
                 element.innerHTML = '<div class="no-content">No content available</div>';
             }
         });
+    }
+
+    /**
+     * Attach expand/collapse buttons to sections
+     * Should be called after ViewModeToggle has created the left-title-side structure
+     */
+    attachExpandCollapseButtons() {
+        this.sectionExpandCollapse.attachToSections();
     }
 
     /**
