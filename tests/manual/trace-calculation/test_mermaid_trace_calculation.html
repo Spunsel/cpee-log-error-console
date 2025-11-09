@@ -284,6 +284,8 @@
                 <option value="1314-Step1-Output">1314-Step1-Output</option>
                 <option value="1069-Step1">1069-Step1</option>
                 <option value="1047-Step3-Output">1047-Step3-Output</option>
+                <option value="4807-Step1">4807-Step1</option>
+                <option value="4906-Step1">4906-Step1</option>
             </select>
             <button class="btn" onclick="calculateTraces()">Calculate Traces</button>
         </div>
@@ -1787,6 +1789,207 @@ gw2s:exclusivegateway:{x}-->|"Satisfied"|ee:endevent:(((endevent)))`,
                         { "id": null, "alt_id": "2", "task": "Check Correctness and Quality" },
                         { "id": null, "alt_id": "7", "task": "Perform Examination" },
                         { "id": null, "alt_id": "8", "task": "Create Report" }
+                    ]
+                ]
+            },
+            '4807-Step1': {
+                mermaid: `graph LR
+
+0:startevent:((startevent)) --> 1:task:(Submit Expense Claim)
+
+1:task:(Submit Expense Claim) --> 2:task:(Travel Admin Approval)
+
+2:task:(Travel Admin Approval) --> 3:exclusivegateway:{x}
+
+3:exclusivegateway:{x} --> |Approved| 4:task:(Forward to Budget Owner)
+
+3:exclusivegateway:{x} --> |Rejected| 17:endevent:(((endevent)))
+
+4:task:(Forward to Budget Owner) --> 5:task:(Forward to Supervisor)
+
+5:task:(Forward to Supervisor) --> 6:exclusivegateway:{x}
+
+6:exclusivegateway:{x} --> |Budget Owner and Supervisor are same| 8:exclusivegateway:{x}
+
+6:exclusivegateway:{x} --> |Budget Owner and Supervisor are different| 7:task:(Director Approval)
+
+7:task:(Director Approval) --> 8:exclusivegateway:{x}
+
+8:exclusivegateway:{x} --> |Director Approval Needed| 9:task:(Director Approval)
+
+8:exclusivegateway:{x} --> |Director Approval Not Needed| 10:exclusivegateway:{O}
+
+9:task:(Director Approval) --> 10:exclusivegateway:{O}
+
+10:exclusivegateway:{O} --> 11:exclusivegateway:{x}
+
+11:exclusivegateway:{x} --> |Domestic Trip| 12:task:(Reimbursement Claim)
+
+11:exclusivegateway:{x} --> |International Trip| 13:task:(File Travel Permit)
+
+13:task:(File Travel Permit) --> 14:task:(Supervisor Permission)
+
+14:task:(Supervisor Permission) --> 15:exclusivegateway:{x}
+
+15:exclusivegateway:{x} --> |Permission Granted| 16:task:(Reimbursement Claim)
+
+15:exclusivegateway:{x} --> |Permission Denied| 17:endevent:(((endevent)))
+
+12:task:(Reimbursement Claim) --> 18:exclusivegateway:{O}
+
+16:task:(Reimbursement Claim) --> 18:exclusivegateway:{O}
+
+18:exclusivegateway:{O} --> 17:endevent:(((endevent)))`,
+                expected: [
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "9", "task": "Director Approval" },
+                        { "id": null, "alt_id": "12", "task": "Reimbursement Claim" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "9", "task": "Director Approval" },
+                        { "id": null, "alt_id": "13", "task": "File Travel Permit" },
+                        { "id": null, "alt_id": "14", "task": "Supervisor Permission" },
+                        { "id": null, "alt_id": "16", "task": "Reimbursement Claim" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "9", "task": "Director Approval" },
+                        { "id": null, "alt_id": "13", "task": "File Travel Permit" },
+                        { "id": null, "alt_id": "14", "task": "Supervisor Permission" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "12", "task": "Reimbursement Claim" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "13", "task": "File Travel Permit" },
+                        { "id": null, "alt_id": "14", "task": "Supervisor Permission" },
+                        { "id": null, "alt_id": "16", "task": "Reimbursement Claim" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "13", "task": "File Travel Permit" },
+                        { "id": null, "alt_id": "14", "task": "Supervisor Permission" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "7", "task": "Director Approval" },
+                        { "id": null, "alt_id": "9", "task": "Director Approval" },
+                        { "id": null, "alt_id": "12", "task": "Reimbursement Claim" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "7", "task": "Director Approval" },
+                        { "id": null, "alt_id": "9", "task": "Director Approval" },
+                        { "id": null, "alt_id": "13", "task": "File Travel Permit" },
+                        { "id": null, "alt_id": "14", "task": "Supervisor Permission" },
+                        { "id": null, "alt_id": "16", "task": "Reimbursement Claim" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "7", "task": "Director Approval" },
+                        { "id": null, "alt_id": "9", "task": "Director Approval" },
+                        { "id": null, "alt_id": "13", "task": "File Travel Permit" },
+                        { "id": null, "alt_id": "14", "task": "Supervisor Permission" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "7", "task": "Director Approval" },
+                        { "id": null, "alt_id": "12", "task": "Reimbursement Claim" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "7", "task": "Director Approval" },
+                        { "id": null, "alt_id": "13", "task": "File Travel Permit" },
+                        { "id": null, "alt_id": "14", "task": "Supervisor Permission" },
+                        { "id": null, "alt_id": "16", "task": "Reimbursement Claim" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" },
+                        { "id": null, "alt_id": "4", "task": "Forward to Budget Owner" },
+                        { "id": null, "alt_id": "5", "task": "Forward to Supervisor" },
+                        { "id": null, "alt_id": "7", "task": "Director Approval" },
+                        { "id": null, "alt_id": "13", "task": "File Travel Permit" },
+                        { "id": null, "alt_id": "14", "task": "Supervisor Permission" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Submit Expense Claim" },
+                        { "id": null, "alt_id": "2", "task": "Travel Admin Approval" }
+                    ]
+                ]
+            },
+            '4906-Step1': {
+                mermaid: `graph LR
+
+0:startevent:((startevent)) --> 1:task:(Design Base Model)
+
+1:task:(Design Base Model) --> 2:task:(Manufacture Base Model)
+
+2:task:(Manufacture Base Model) --> 3:exclusivegateway:{x}
+
+3:exclusivegateway:{x} -->|Choose Interior| 4:task:(Customize Interior)
+
+3:exclusivegateway:{x} -->|No Customization| 6:exclusivegateway:{x}
+
+4:task:(Customize Interior) --> 5:exclusivegateway:{x}
+
+5:exclusivegateway:{x} --> 7:task:(Final Assembly)
+
+6:exclusivegateway:{x} --> 7:task:(Final Assembly)
+
+7:task:(Final Assembly) --> 8:task:(Quality Check)
+
+8:task:(Quality Check) --> 9:endevent:(((endevent)))`,
+                expected: [
+                    [
+                        { "id": null, "alt_id": "1", "task": "Design Base Model" },
+                        { "id": null, "alt_id": "2", "task": "Manufacture Base Model" },
+                        { "id": null, "alt_id": "4", "task": "Customize Interior" },
+                        { "id": null, "alt_id": "7", "task": "Final Assembly" },
+                        { "id": null, "alt_id": "8", "task": "Quality Check" }
+                    ],
+                    [
+                        { "id": null, "alt_id": "1", "task": "Design Base Model" },
+                        { "id": null, "alt_id": "2", "task": "Manufacture Base Model" },
+                        { "id": null, "alt_id": "7", "task": "Final Assembly" },
+                        { "id": null, "alt_id": "8", "task": "Quality Check" }
                     ]
                 ]
             }
