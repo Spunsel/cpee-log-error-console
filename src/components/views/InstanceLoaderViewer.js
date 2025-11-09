@@ -356,8 +356,7 @@ export class InstanceLoaderViewer {
         const updateProgress = () => {
             if (scanButton) {
                 const progress = ((completedCount / instancesToCheck.length) * 100).toFixed(1);
-                const activeCount = Math.min(concurrency, instancesToCheck.length - completedCount);
-                scanButton.textContent = `Scanning... (${completedCount}/${instancesToCheck.length}, ${progress}%, ${activeCount} active)`;
+                scanButton.textContent = `Scanning... (${completedCount}/${instancesToCheck.length}, ${progress}%)`;
             }
         };
         
