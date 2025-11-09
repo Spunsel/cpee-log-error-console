@@ -518,6 +518,44 @@ export class RawContentRenderer {
                     }
                 }
             }
+            
+            // Update copy content based on currently displayed content
+            // Extract text from the rendered DOM to ensure we copy exactly what's shown
+            if (this.actionBars.has(sectionId)) {
+                const actionBar = this.actionBars.get(sectionId);
+                if (actionBar) {
+                    // Extract the actual text content from the rendered code element
+                    // This ensures we copy exactly what's displayed, including any processing
+                    const codeElement = rawContainer.querySelector('pre code');
+                    if (codeElement) {
+                        // Get the text content (this will be the actual displayed text)
+                        const displayedText = codeElement.textContent || codeElement.innerText || '';
+                        if (displayedText) {
+                            actionBar.setCopyContent(displayedText);
+                        }
+                    } else {
+                        // Fallback: determine content to copy based on current mode
+                        if (rawContent) {
+                            let contentToCopy = null;
+                            if (sectionViewMode === 'log' && rawContent.getRawExposition) {
+                                // Log mode: use raw exposition for Mermaid sections
+                                contentToCopy = rawContent.getRawExposition();
+                            } else if (rawContent.getContent) {
+                                // Raw mode or CPEE sections: use regular content
+                                contentToCopy = rawContent.getContent();
+                            } else if (rawContent.getText) {
+                                // Fallback to getText
+                                contentToCopy = rawContent.getText();
+                            }
+                            
+                            // Update the copy button with the current content
+                            if (contentToCopy) {
+                                actionBar.setCopyContent(contentToCopy);
+                            }
+                        }
+                    }
+                }
+            }
         } catch (error) {
             console.error(`Error rendering raw content for ${sectionId}:`, error);
             container.innerHTML = '<pre><code class="error">Error rendering raw content</code></pre>';

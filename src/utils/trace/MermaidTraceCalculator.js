@@ -80,7 +80,7 @@ export class MermaidTraceCalculator {
             
             // Convert to Trace objects
             const traces = uniqueTraces.map((path, index) => {
-                const trace = new Trace(`trace-${index + 1}`, path, this.determineTraceType(path));
+                const trace = new Trace(`trace-${index + 1}`, path, this.determineTraceType(path, graph));
                 return trace;
             });
             
@@ -778,16 +778,100 @@ export class MermaidTraceCalculator {
 
     /**
      * Determine trace type based on path
+     * Checks if repeated nodes indicate a true cycle (loop) vs parallel convergence
      * @param {Array<Object>} path - Path array
+     * @param {Object} graph - Graph object (optional, for cycle detection)
      * @returns {string} Trace type
      */
-    static determineTraceType(path) {
-        // Check if path contains loops (repeated nodes)
+    static determineTraceType(path, graph = null) {
         const nodeIds = path.map(t => t.id || t.alt_id);
         const uniqueNodes = new Set(nodeIds);
-        if (nodeIds.length > uniqueNodes.size) {
-            return 'loop';
+        
+        // If no repeated nodes, it's sequential
+        if (nodeIds.length === uniqueNodes.size) {
+            return 'sequential';
         }
+        
+        // Check if repeated nodes indicate a true cycle
+        // A true loop means there's a path from a repeated node back to itself
+        // Parallel convergence means a node appears twice but it's just a join point
+        
+        // Find all repeated nodes
+        const nodeOccurrences = new Map();
+        for (let i = 0; i < nodeIds.length; i++) {
+            const nodeId = nodeIds[i];
+            if (!nodeOccurrences.has(nodeId)) {
+                nodeOccurrences.set(nodeId, []);
+            }
+            nodeOccurrences.get(nodeId).push(i);
+        }
+        
+        // Check each repeated node to see if it's part of a cycle
+        for (const [nodeId, indices] of nodeOccurrences) {
+            if (indices.length < 2) {
+                continue; // Not repeated
+            }
+            
+            // Check if there's a path from this node back to itself in the graph
+            // This indicates a true cycle, not just parallel convergence
+            if (graph && this.hasCycleIncludingNode(graph, nodeId)) {
+                return 'loop';
+            }
+            
+            // If graph is not available, default to 'loop' for backward compatibility
+            // (we can't distinguish without graph structure
+            if (!graph) {
+                return 'loop';
+            }
+        }
+        
+        // If we have graph but no cycles found, it's sequential (parallel convergence)
         return 'sequential';
+    }
+    
+    /**
+     * Check if a node is part of a cycle in the graph
+     * @param {Object} graph - Graph object
+     * @param {string} nodeId - Node ID to check
+     * @returns {boolean} True if node is part of a cycle
+     */
+    static hasCycleIncludingNode(graph, nodeId) {
+        // Check if there's a path from this node back to itself
+        // (excluding direct self-loops which are handled separately)
+        const visited = new Set();
+        return this.hasPathToSelf(graph, nodeId, nodeId, visited, 50);
+    }
+    
+    /**
+     * Check if there's a path from a node back to itself (cycle detection)
+     * @param {Object} graph - Graph object
+     * @param {string} startNode - Starting node
+     * @param {string} targetNode - Target node (same as start for cycle)
+     * @param {Set<string>} visited - Visited nodes in current path
+     * @param {number} maxDepth - Maximum search depth
+     * @returns {boolean} True if path exists
+     */
+    static hasPathToSelf(graph, startNode, targetNode, visited = new Set(), maxDepth = 50) {
+        if (maxDepth <= 0) {
+            return false;
+        }
+        
+        const neighbors = graph.adjacencyList.get(startNode) || [];
+        for (const edge of neighbors) {
+            if (edge.to === targetNode && visited.size > 0) {
+                // Found a path back to target (cycle), but not a direct self-loop
+                return true;
+            }
+            
+            if (!visited.has(edge.to)) {
+                const newVisited = new Set(visited);
+                newVisited.add(edge.to);
+                if (this.hasPathToSelf(graph, edge.to, targetNode, newVisited, maxDepth - 1)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 }

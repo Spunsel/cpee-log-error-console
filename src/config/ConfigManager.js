@@ -99,7 +99,7 @@ export class ConfigManager {
                 // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
                 processNumbers: [
                     7567, 6775, 6770, 6561, 6560, 6554, 6552, 6550, 6548, 6547, 6098, 5919, 5898, 5820, 5814, 
-                    5130, 5128, 5055, 5053, 5050, 5049, 4045, 5044, 5040, 5035, 4913, 4908, 4906, 4807, 3883, 
+                    5130, 5128, 5055, 5053, 5050, 5049, 5045, 5044, 5040, 5035, 4913, 4908, 4906, 4807, 3833, 
                     1606, 1529, 1528, 1527, 1524, 1523, 1510, 1467, 1465, 1393, 1388, 1317, 1314, 1266, 1258, 
                     1134, 1133, 1132, 1126, 1124, 1123, 1118, 1098, 1091, 1087, 1086, 1069, 1055, 1047, 1046, 
                     1039, 1021, 975, 972, 967, 930, 926, 920, 914, 890, 860, 853, 852, 850, 849, 845, 694, 665, 
@@ -186,8 +186,8 @@ export class ConfigManager {
                 backoffMultiplier: 1.5,
                 initialDelay: 1000
             },
-            interRequestDelay: 10,  // Delay between consecutive log fetch requests (in milliseconds)
-            scanConcurrency: 20  // Number of concurrent instance checks during scanning (default: 50)
+            interRequestDelay: 0.1,  // Delay between consecutive log fetch requests (in milliseconds)
+            scanConcurrency: 50  // Number of concurrent instance checks during scanning (default: 50)
         };
     }
 
