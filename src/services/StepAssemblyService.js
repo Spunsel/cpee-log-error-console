@@ -15,6 +15,19 @@ export class StepAssemblyService {
      * @param {TraceCalculationService} traceCalculationService - Service for trace calculation
      */
     constructor(eventProcessingService, contentProcessingService, taskMappingService, traceCalculationService) {
+        if (eventProcessingService === null || eventProcessingService === undefined) {
+            throw new TypeError('eventProcessingService is required');
+        }
+        if (contentProcessingService === null || contentProcessingService === undefined) {
+            throw new TypeError('contentProcessingService is required');
+        }
+        if (taskMappingService === null || taskMappingService === undefined) {
+            throw new TypeError('taskMappingService is required');
+        }
+        if (traceCalculationService === null || traceCalculationService === undefined) {
+            throw new TypeError('traceCalculationService is required');
+        }
+        
         this.eventProcessingService = eventProcessingService;
         this.contentProcessingService = contentProcessingService;
         this.taskMappingService = taskMappingService;
