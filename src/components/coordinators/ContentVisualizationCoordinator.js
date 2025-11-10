@@ -17,6 +17,7 @@ import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 import { TextParser } from '../../utils/content/TextParser.js';
 import { StepSection } from '../ui/StepSection.js';
 import { SectionExpandCollapse } from '../ui/SectionExpandCollapse.js';
+import { DOMRegistry } from '../../core/DOMRegistry.js';
 
 export class ContentVisualizationCoordinator {
     constructor(domRegistry = null, highlightCoordinator = null, eventBus = null) {
@@ -354,7 +355,7 @@ export class ContentVisualizationCoordinator {
         } catch (error) {
             console.error('❌ Error updating input intermediate section:', error);
             // Show fallback with raw content instead of error
-            inputIntermediateElement.innerHTML = `<pre><code>${this.escapeHtml(content)}</code></pre>`;
+            inputIntermediateElement.innerHTML = `<pre><code>${DOMRegistry.escapeHtml(content)}</code></pre>`;
             // Still need to call cleanup on error
             if (typeof cleanup === 'function') {
                 cleanup();
@@ -423,7 +424,7 @@ export class ContentVisualizationCoordinator {
         } catch (error) {
             console.error('❌ Error updating output intermediate section:', error);
             // Show fallback with raw content instead of error
-            outputIntermediateElement.innerHTML = `<pre><code>${this.escapeHtml(content)}</code></pre>`;
+            outputIntermediateElement.innerHTML = `<pre><code>${DOMRegistry.escapeHtml(content)}</code></pre>`;
             // Still need to call cleanup on error
             if (typeof cleanup === 'function') {
                 cleanup();
@@ -538,21 +539,11 @@ export class ContentVisualizationCoordinator {
             return `<pre><code>${JSON.stringify(parsed, null, 2)}</code></pre>`;
         } catch {
             // If not JSON, display as plain text with proper escaping
-            const escaped = this.escapeHtml(cleanedContent);
+            const escaped = DOMRegistry.escapeHtml(cleanedContent);
             return `<pre><code>${escaped}</code></pre>`;
         }
     }
 
-    /**
-     * Escape HTML for safe display
-     * @param {string} text - Text to escape
-     * @returns {string} Escaped HTML
-     */
-    escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
 
     /**
      * Preserve container height and hide overflow during transitions

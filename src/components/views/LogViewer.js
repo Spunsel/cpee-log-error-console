@@ -7,6 +7,7 @@ import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { proxyRotationService } from '../../services/ProxyRotationService.js';
+import { DOMRegistry } from '../../core/DOMRegistry.js';
 
 export class LogViewer {
     constructor(domRegistry = null, eventBus = null, stateManager = null) {
@@ -122,13 +123,13 @@ export class LogViewer {
             this.domRegistry.removeClass('rawLogSection', 'hidden');
             
             // Update header
-            const header = this.domRegistry.querySelector('.raw-log-header h3');
+            const header = document.querySelector('.raw-log-header h3');
             if (header) {
                 header.textContent = 'Raw Log Content';
             }
             
             // Display content
-            rawLogContent.innerHTML = `<code>${this.domRegistry.escapeHtml(content)}</code>`;
+            rawLogContent.innerHTML = `<code>${DOMRegistry.escapeHtml(content)}</code>`;
             this.isVisible = true;
         }
     }
@@ -145,12 +146,12 @@ export class LogViewer {
             this.domRegistry.removeClass('rawLogSection', 'hidden');
             
             // Update header
-            const header = this.domRegistry.querySelector('.raw-log-header h3');
+            const header = document.querySelector('.raw-log-header h3');
             if (header) {
                 header.textContent = 'Raw Log Content';
             }
             
-            rawLogContent.innerHTML = `<code style="color: var(--error-color);">Error: ${this.domRegistry.escapeHtml(errorMessage)}</code>`;
+            rawLogContent.innerHTML = `<code style="color: var(--error-color);">Error: ${DOMRegistry.escapeHtml(errorMessage)}</code>`;
             this.isVisible = true;
         }
     }
@@ -166,7 +167,7 @@ export class LogViewer {
         if (rawLogSection && rawLogContent) {
             this.domRegistry.removeClass('rawLogSection', 'hidden');
             
-            const header = this.domRegistry.querySelector('.raw-log-header h3');
+            const header = document.querySelector('.raw-log-header h3');
             if (header) {
                 header.textContent = 'Raw Log Content';
             }

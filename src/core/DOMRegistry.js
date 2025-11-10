@@ -181,18 +181,7 @@ export class DOMRegistry {
     createElement(tag, attributes = {}, styles = {}) {
         const element = document.createElement(tag);
         
-        this.setElementAttributes(element, attributes);
-        this.setElementStyles(element, styles);
-        
-        return element;
-    }
-
-    /**
-     * Set element attributes
-     * @param {HTMLElement} element - Target element
-     * @param {Object} attributes - Attributes to set
-     */
-    setElementAttributes(element, attributes) {
+        // Set attributes
         Object.entries(attributes).forEach(([key, value]) => {
             switch (key) {
                 case 'className':
@@ -208,18 +197,13 @@ export class DOMRegistry {
                     element.setAttribute(key, value);
             }
         });
-    }
-
-    /**
-     * Set element styles
-     * @param {HTMLElement} element - Target element
-     * @param {Object} styles - Styles to set
-     */
-    setElementStyles(element, styles) {
-        if (Object.keys(styles).length === 0) {
-            return;
+        
+        // Set styles
+        if (Object.keys(styles).length > 0) {
+            this.applyStyles(element, styles);
         }
-        this.applyStyles(element, styles);
+        
+        return element;
     }
 
     /**
@@ -332,17 +316,6 @@ export class DOMRegistry {
     }
 
     /**
-     * Escape HTML characters for safe display
-     * @param {string} text - Text to escape
-     * @returns {string} Escaped HTML
-     */
-    escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    /**
      * Static method to escape HTML (doesn't require registry instance)
      * @param {string} text - Text to escape
      * @returns {string} Escaped HTML
@@ -351,40 +324,6 @@ export class DOMRegistry {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
-    }
-
-    /**
-     * Generic query method for elements
-     * @param {string} selector - CSS selector
-     * @param {Element} context - Search context (default: document)
-     * @param {boolean} all - Whether to return all matches
-     * @returns {Element|NodeList|null} Found element(s)
-     */
-    query(selector, context = null, all = false) {
-        const searchContext = context || document;
-        return all 
-            ? searchContext.querySelectorAll(selector)
-            : searchContext.querySelector(selector);
-    }
-
-    /**
-     * Query selector with fallback
-     * @param {string} selector - CSS selector
-     * @param {Element} context - Context element (optional)
-     * @returns {Element|null} Found element or null
-     */
-    querySelector(selector, context = null) {
-        return this.query(selector, context, false);
-    }
-
-    /**
-     * Query selector all with fallback
-     * @param {string} selector - CSS selector
-     * @param {Element} context - Context element (optional)
-     * @returns {NodeList} Found elements
-     */
-    querySelectorAll(selector, context = null) {
-        return this.query(selector, context, true);
     }
 }
 
