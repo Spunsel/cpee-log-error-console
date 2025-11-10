@@ -6,7 +6,7 @@
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
-import { proxyRotationService } from '../../services/ProxyRotationService.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
 
 export class LogViewer {
@@ -60,6 +60,7 @@ export class LogViewer {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), configManager.get('network.timeouts.default'));
             
+            const proxyRotationService = serviceFactory.get('ProxyRotationService');
             const response = await proxyRotationService.fetchWithRotation(logUrl, {
                 method: 'GET',
                 headers: {

@@ -3,14 +3,15 @@
  * Provides a modal form for users to submit bug reports and feature suggestions
  */
 
-import { EmailService } from '../../services/EmailService.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class BugReportModal {
-    constructor() {
+    constructor(serviceFactoryInstance = null) {
         this.modal = null;
         this.form = null;
         this.isOpen = false;
-        this.emailService = new EmailService();
+        const factory = serviceFactoryInstance || serviceFactory;
+        this.emailService = factory.get('EmailService');
         this.init();
     }
 

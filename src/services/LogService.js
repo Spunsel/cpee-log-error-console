@@ -11,7 +11,7 @@ import { TaskMapper } from '../utils/mapping/TaskMapper.js';
 import { CPEEStep } from '../models/CPEEStep.js';
 import { LogParser } from '../utils/content/LogParser.js';
 import { configManager } from '../config/ConfigManager.js';
-import { proxyRotationService } from './ProxyRotationService.js';
+import { serviceFactory } from '../core/ServiceFactory.js';
 import { CPEETraceCalculator } from '../utils/trace/CPEETraceCalculator.js';
 import { MermaidTraceCalculator } from '../utils/trace/MermaidTraceCalculator.js';
 
@@ -35,6 +35,7 @@ export class LogService {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), configManager.get('network.timeouts.default'));
             
+            const proxyRotationService = serviceFactory.get('ProxyRotationService');
             const response = await proxyRotationService.fetchWithRotation(logUrl, {
                 method: 'GET',
                 headers: {

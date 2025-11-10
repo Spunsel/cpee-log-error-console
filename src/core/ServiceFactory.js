@@ -9,6 +9,9 @@ import { SearchService } from '../services/SearchService.js';
 import { HighlightingService } from '../services/HighlightingService.js';
 import { CPEEService } from '../services/CPEEService.js';
 import { SyntaxHighlightingService } from '../services/SyntaxHighlightingService.js';
+import { LogService } from '../services/LogService.js';
+import { ProxyRotationService, proxyRotationService } from '../services/ProxyRotationService.js';
+import { EmailService } from '../services/EmailService.js';
 
 export class ServiceFactory {
     constructor() {
@@ -18,7 +21,10 @@ export class ServiceFactory {
             'SearchService',
             'HighlightingService',
             'CPEEService',
-            'SyntaxHighlightingService'
+            'SyntaxHighlightingService',
+            'LogService',
+            'ProxyRotationService',
+            'EmailService'
         ]);
         this.serviceConfigs = new Map();
         this.debugMode = false;
@@ -41,6 +47,16 @@ export class ServiceFactory {
                 console.log(`[ServiceFactory] Returning existing singleton: ${serviceName}`);
             }
             return this.services.get(serviceName);
+        }
+
+        // Special case: ProxyRotationService - use the exported singleton to avoid circular dependency
+        if (serviceName === 'ProxyRotationService' && !this.services.has(serviceName)) {
+            // Use the exported singleton instance (ProxyRotationService exports its own singleton)
+            this.services.set(serviceName, proxyRotationService);
+            if (this.debugMode) {
+                console.log(`[ServiceFactory] Using exported singleton for: ${serviceName}`);
+            }
+            return proxyRotationService;
         }
 
         // Create new service instance
@@ -83,6 +99,15 @@ export class ServiceFactory {
             
             case 'SyntaxHighlightingService':
                 return new SyntaxHighlightingService(...args);
+            
+            case 'LogService':
+                return new LogService(...args);
+            
+            case 'ProxyRotationService':
+                return new ProxyRotationService(...args);
+            
+            case 'EmailService':
+                return new EmailService(...args);
             
             default:
                 throw new Error(`ServiceFactory: Unknown service "${serviceName}"`);

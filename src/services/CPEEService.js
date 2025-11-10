@@ -4,7 +4,7 @@
  */
 
 import { configManager } from '../config/ConfigManager.js';
-import { proxyRotationService } from './ProxyRotationService.js';
+import { serviceFactory } from '../core/ServiceFactory.js';
 
 export class CPEEService {
     constructor() {
@@ -48,6 +48,7 @@ export class CPEEService {
             this.logDebug(`URL: ${uuidUrl}`);
             
             // Use proxy rotation service with rate limit handling
+            const proxyRotationService = serviceFactory.get('ProxyRotationService');
             const response = await proxyRotationService.fetchWithRotation(uuidUrl, {
                 method: 'GET',
                 headers: {

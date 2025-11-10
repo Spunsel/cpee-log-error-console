@@ -131,5 +131,8 @@ export class ProxyRotationService {
 }
 
 // Export singleton instance
+// Note: This creates a direct instance to avoid circular dependency with ServiceFactory.
+// ServiceFactory.get('ProxyRotationService') will return this same instance when registered.
+// For consistency, prefer using ServiceFactory.get('ProxyRotationService') in new code.
 export const proxyRotationService = new ProxyRotationService();
 
