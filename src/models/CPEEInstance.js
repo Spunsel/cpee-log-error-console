@@ -12,10 +12,8 @@ export class CPEEInstance {
         this.loadedAt = new Date();
         this.currentStepIndex = 0;
         
-        // Convert plain objects to CPEEStep instances if needed
-        this.steps = steps.map(step => 
-            step instanceof CPEEStep ? step : CPEEStep.fromObject(step)
-        );
+        // Steps should already be CPEEStep instances (conversion happens in fromObject)
+        this.steps = steps;
     }
 
     /**
@@ -205,12 +203,19 @@ export class CPEEInstance {
     /**
      * Create CPEEInstance from plain object
      * @param {Object} obj - Plain object with instance data
-     * @returns {CPEEInstance} New CPEEInstance instance
+     * @returns {Promise<CPEEInstance>} New CPEEInstance instance
      */
-    static fromObject(obj) {
+    static async fromObject(obj) {
+        // Convert plain objects to CPEEStep instances if needed (await async fromObject)
+        const steps = await Promise.all(
+            (obj.steps || []).map(step => 
+                step instanceof CPEEStep ? step : CPEEStep.fromObject(step)
+            )
+        );
+        
         const instance = new CPEEInstance(
             obj.uuid,
-            obj.steps || [],
+            steps,
             obj.processNumber
         );
         

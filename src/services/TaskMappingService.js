@@ -33,6 +33,17 @@ export class TaskMappingService {
         this.JARO_WINKLER_WEIGHT = 0.35;     // Character-based similarity weight
         this.EXACT_MATCH_WEIGHT = 0.05;       // Exact match bonus weight
         
+        // Validate that weights sum to 1.0
+        const weightSum = this.JACCARD_WEIGHT + this.JARO_WINKLER_WEIGHT + this.EXACT_MATCH_WEIGHT;
+        const EPSILON = 1e-6;
+        if (Math.abs(weightSum - 1.0) > EPSILON) {
+            throw new Error(
+                `TaskMappingService: Similarity weights must sum to 1.0, but sum to ${weightSum}. ` +
+                `JACCARD_WEIGHT=${this.JACCARD_WEIGHT}, JARO_WINKLER_WEIGHT=${this.JARO_WINKLER_WEIGHT}, ` +
+                `EXACT_MATCH_WEIGHT=${this.EXACT_MATCH_WEIGHT}`
+            );
+        }
+        
         // Subset/superset matching boost
         this.SUBSET_MATCH_BOOST = 0.25;       // Boost when one label is subset of another (e.g., "Send Updates" vs "Send Updates to Customer")
         this.MIN_SUBSET_RATIO = 0.60;         // Minimum ratio of smaller set to larger set to consider it a subset match
@@ -885,12 +896,6 @@ class TaskMapping {
         return count;
     }
     
-    /**
-     * Log mapping summary
-     */
-    logMappingSummary() {
-        // Summary logging removed
-    }
     
     /**
      * Convert to plain object for serialization

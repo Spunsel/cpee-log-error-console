@@ -432,7 +432,7 @@
             updateDisplay();
         };
 
-        window.testSerialization = () => {
+        window.testSerialization = async () => {
             const instance = instanceService.getCurrentInstance();
             if (!instance) {
                 log('No active instance', 'error');
@@ -444,21 +444,21 @@
             log(`Serialized instance (${JSON.stringify(obj).length} bytes)`, 'info');
 
             // Deserialize from object
-            const restored = CPEEInstance.fromObject(obj);
+            const restored = await CPEEInstance.fromObject(obj);
             log(`Deserialized instance - ViewModes preserved: ${JSON.stringify(restored.viewModes)}`, 'success');
             
             console.log('Original:', instance.viewModes);
             console.log('Restored:', restored.viewModes);
         };
 
-        window.cloneInstance = () => {
+        window.cloneInstance = async () => {
             const instance = instanceService.getCurrentInstance();
             if (!instance) {
                 log('No active instance', 'error');
                 return;
             }
 
-            const cloned = CPEEInstance.fromObject(instance.toObject());
+            const cloned = await CPEEInstance.fromObject(instance.toObject());
             cloned.uuid = 'cloned-' + instance.uuid;
             instanceService.addInstance(cloned);
             log(`Cloned instance: ${cloned.uuid}`, 'success');

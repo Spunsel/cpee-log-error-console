@@ -137,9 +137,9 @@ export class CPEEStep {
     /**
      * Create CPEEStep from plain object
      * @param {Object} obj - Plain object with step data
-     * @returns {CPEEStep} New CPEEStep instance
+     * @returns {Promise<CPEEStep>} New CPEEStep instance
      */
-    static fromObject(obj) {
+    static async fromObject(obj) {
         const step = new CPEEStep(
             obj.stepNumber,
             obj.changeUuid,
@@ -169,9 +169,8 @@ export class CPEEStep {
         // Phase 22.3: Restore task mapping from serialization
         if (obj.taskMapping) {
             // Import TaskMapping class dynamically to avoid circular dependencies
-            import('../services/TaskMappingService.js').then(module => {
-                step.taskMapping = module.TaskMapping.fromObject(obj.taskMapping);
-            });
+            const module = await import('../services/TaskMappingService.js');
+            step.taskMapping = module.TaskMapping.fromObject(obj.taskMapping);
         }
         
         return step;
