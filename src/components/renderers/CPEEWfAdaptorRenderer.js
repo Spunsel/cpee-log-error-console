@@ -12,10 +12,12 @@ import { JQueryExtensions } from '../../utils/system/JQueryExtensions.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
+import { DOMRegistry } from '../../core/DOMRegistry.js';
 
 export class CPEEWfAdaptorRenderer {
     
-    constructor(eventBus = null, stateManager = null) {
+    constructor(eventBus = null, stateManager = null, domRegistry = null) {
+        this.domRegistry = domRegistry;
         this.adaptor = null;
         this.isRendered = false;
         this.container = null;
@@ -99,12 +101,20 @@ export class CPEEWfAdaptorRenderer {
      * @param {string} xmlInputId - ID of the XML input textarea
      */
     async initialize(containerId, statusId, xmlInputId) {
-        // Load current scale from localStorage
+        // Load current scale from StateManager
         this.loadCurrentScale();
         
-        this.container = document.getElementById(containerId);
-        this.statusElement = statusId ? document.getElementById(statusId) : null;
-        this.xmlInput = xmlInputId ? document.getElementById(xmlInputId) : null;
+        // Use DOMRegistry if available, otherwise fallback to getElementById
+        // Use getElementSafe for dynamic IDs to avoid warnings
+        if (this.domRegistry) {
+            this.container = this.domRegistry.getElementSafe(containerId) || document.getElementById(containerId);
+            this.statusElement = statusId ? (this.domRegistry.getElementSafe(statusId) || document.getElementById(statusId)) : null;
+            this.xmlInput = xmlInputId ? (this.domRegistry.getElementSafe(xmlInputId) || document.getElementById(xmlInputId)) : null;
+        } else {
+            this.container = document.getElementById(containerId);
+            this.statusElement = statusId ? document.getElementById(statusId) : null;
+            this.xmlInput = xmlInputId ? document.getElementById(xmlInputId) : null;
+        }
         
         if (!this.container) {
             throw new Error(`CPEEWfAdaptorRenderer: Container with ID ${containerId} not found`);
@@ -224,6 +234,7 @@ export class CPEEWfAdaptorRenderer {
                 try {
                     // Get and validate SVG container element
                     const svgElementId = `graphcanvas-${self.container.id}`;
+                    // SVG elements are dynamically created, so use getElementById directly
                     const svgElement = document.getElementById(svgElementId);
                     
                     if (!svgElement) {

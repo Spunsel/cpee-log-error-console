@@ -326,7 +326,23 @@ export class ConfigManager {
                 // Main app structure
                 app: 'app',
                 appTitle: 'app-title',
-                headerContent: 'header-content'
+                headerContent: 'header-content',
+                
+                // Prism theme (static element in HTML)
+                prismTheme: 'prism-theme',
+                
+                // Section IDs (for dynamic access)
+                inputCpee: 'input-cpee',
+                inputIntermediate: 'input-intermediate',
+                outputIntermediate: 'output-intermediate',
+                outputCpee: 'output-cpee',
+                
+                // Instance loader (now has ID in HTML)
+                loadSingleInstanceSection: 'load-single-instance-section'
+                
+                // Note: The following elements are dynamically created and registered by their components:
+                // - themeDropdownTrigger, themeDropdownMenu, themeDropdownContainer (registered by ThemeSelector.initialize())
+                // - darkModeToggleBtn, darkModeToggle (registered by DarkModeToggle.initialize())
             },
             classes: {
                 hidden: 'hidden',

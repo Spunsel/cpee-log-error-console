@@ -17,7 +17,8 @@ import { stateManager as defaultStateManager } from '../../core/StateManager.js'
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 
 export class MermaidRenderer {
-    constructor(eventBus = null, stateManager = null) {
+    constructor(eventBus = null, stateManager = null, domRegistry = null) {
+        this.domRegistry = domRegistry;
         this.container = null;
         this.statusManager = null;
         this.inputElement = null;
@@ -89,19 +90,29 @@ export class MermaidRenderer {
      * @param {string} inputId - ID of the input element (optional)
      */
     async initialize(containerId, statusId = null, inputId = null) {
-        this.container = document.getElementById(containerId);
+        // Use DOMRegistry if available, otherwise fallback to getElementById
+        // Use getElementSafe for dynamic IDs to avoid warnings
+        if (this.domRegistry) {
+            this.container = this.domRegistry.getElementSafe(containerId) || document.getElementById(containerId);
+        } else {
+            this.container = document.getElementById(containerId);
+        }
         if (!this.container) {
             throw new Error(`MermaidRenderer: Container element with ID '${containerId}' not found`);
         }
 
         // Initialize status manager
         if (statusId) {
-            const statusElement = document.getElementById(statusId);
+            const statusElement = this.domRegistry 
+                ? (this.domRegistry.getElementSafe(statusId) || document.getElementById(statusId))
+                : document.getElementById(statusId);
             this.statusManager = new DOMStatusManager(statusElement);
         }
 
         if (inputId) {
-            this.inputElement = document.getElementById(inputId);
+            this.inputElement = this.domRegistry 
+                ? (this.domRegistry.getElementSafe(inputId) || document.getElementById(inputId))
+                : document.getElementById(inputId);
         }
 
         // Load current scale from localStorage

@@ -115,7 +115,7 @@ export class ThemeSelector {
      * Update tooltip on the trigger button
      */
     updateTooltip() {
-        const trigger = document.getElementById('theme-dropdown-trigger');
+        const trigger = this.domRegistry?.getElementSafe('themeDropdownTrigger') || document.getElementById('theme-dropdown-trigger');
         if (trigger) {
             trigger.setAttribute('title', this.getTooltipText());
         }
@@ -218,7 +218,7 @@ export class ThemeSelector {
     handleClickOutside = (event) => {
         const menu = this.domRegistry.getElementSafe('themeDropdownMenu') || document.getElementById('theme-dropdown-menu');
         const trigger = this.domRegistry.getElementSafe('themeDropdownTrigger') || document.getElementById('theme-dropdown-trigger');
-        const container = document.getElementById('theme-dropdown-container');
+        const container = this.domRegistry?.getElementSafe('themeDropdownContainer') || document.getElementById('theme-dropdown-container');
 
         if (!menu || !trigger) {
             return;
@@ -291,11 +291,7 @@ export class ThemeSelector {
         }
         
         if (!trigger) {
-            trigger = this.domRegistry?.getElementSafe('themeDropdownTrigger');
-        }
-        
-        if (!trigger) {
-            trigger = document.getElementById('theme-dropdown-trigger');
+            trigger = this.domRegistry?.getElementSafe('themeDropdownTrigger') || document.getElementById('theme-dropdown-trigger');
         }
 
         if (!trigger) {

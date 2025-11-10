@@ -15,7 +15,7 @@ import { stateManager } from './core/StateManager.js';
         const isDark = stateManager.getState('ui.darkMode') || false;
         if (isDark) {
             document.documentElement.setAttribute('data-theme', 'dark');
-            // Update Prism theme
+            // Update Prism theme - use direct DOM access here since DOMRegistry may not be initialized yet
             const prismThemeLink = document.getElementById('prism-theme');
             if (prismThemeLink) {
                 prismThemeLink.href = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';

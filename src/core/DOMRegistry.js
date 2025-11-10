@@ -127,22 +127,50 @@ export class DOMRegistry {
     }
 
     /**
-     * Get element with fallback to direct ID lookup
+     * Get element with fallback to direct ID lookup (silent, no warnings)
      * Attempts registry lookup first, then falls back to direct DOM ID access
+     * This method is designed for dynamic IDs that may not be registered
      * @param {string} key - Semantic key for the element or direct element ID
      * @returns {Element|null} DOM element or null if not found
      */
     getElementSafe(key) {
-        const element = this.getElement(key);
-        if (element) {
-            return element;
+        if (!key) {
+            return null;
         }
 
-        // Fallback: try to use key as direct element ID
-        if (this.warningsEnabled) {
-            console.warn(`DOMRegistry: No registry entry for '${key}', attempting direct ID lookup`);
+        // Check cache first for performance
+        if (this.elementCache.has(key)) {
+            const cached = this.elementCache.get(key);
+            // Verify cached element is still in DOM
+            if (document.contains(cached)) {
+                return cached;
+            }
+            // Remove stale cache entry
+            this.elementCache.delete(key);
         }
-        return document.getElementById(key);
+
+        // Check if key is registered in registry
+        const elementId = this.elements.get(key);
+        if (elementId) {
+            // Key is registered, get element by registered ID
+            const element = document.getElementById(elementId);
+            if (element) {
+                // Cache the element for future use
+                this.elementCache.set(key, element);
+                return element;
+            }
+            // Element not found, but key was registered - return null silently
+            return null;
+        }
+
+        // Key not registered - fallback: try to use key as direct element ID
+        // This is expected for dynamic IDs, so no warning
+        const directElement = document.getElementById(key);
+        if (directElement) {
+            // Cache the element for future use
+            this.elementCache.set(key, directElement);
+        }
+        return directElement;
     }
 
     /**

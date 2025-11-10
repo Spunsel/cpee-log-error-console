@@ -194,7 +194,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render CPEE graph
             if (!this.inputGraphRenderer) {
-                this.inputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus, this.stateManager);
+                this.inputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus, this.stateManager, this.domRegistry);
             }
             
             // Set up post-render callback for highlighting
@@ -257,7 +257,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render CPEE graph
             if (!this.outputGraphRenderer) {
-                this.outputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus, this.stateManager);
+                this.outputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus, this.stateManager, this.domRegistry);
             }
             
             // Set up post-render callback for highlighting
@@ -327,7 +327,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render Mermaid diagram
             if (!this.inputMermaidRenderer) {
-                this.inputMermaidRenderer = new MermaidRenderer(this.eventBus, this.stateManager);
+                this.inputMermaidRenderer = new MermaidRenderer(this.eventBus, this.stateManager, this.domRegistry);
             }
             
             // Set up post-render callback for highlighting
@@ -396,7 +396,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render Mermaid diagram
             if (!this.outputMermaidRenderer) {
-                this.outputMermaidRenderer = new MermaidRenderer(this.eventBus, this.stateManager);
+                this.outputMermaidRenderer = new MermaidRenderer(this.eventBus, this.stateManager, this.domRegistry);
             }
             
             // Set up post-render callback for highlighting
@@ -611,7 +611,11 @@ export class ContentVisualizationCoordinator {
      * @param {string} sectionId - Section identifier
      */
     restoreVisualContent(sectionId) {
-        const sectionElement = document.getElementById(sectionId);
+        // Use DOMRegistry if available, fallback to getElementById for dynamic section IDs
+        // Use getElementSafe to avoid warnings for unregistered dynamic IDs
+        const sectionElement = this.domRegistry 
+            ? (this.domRegistry.getElementSafe(sectionId) || document.getElementById(sectionId))
+            : document.getElementById(sectionId);
         if (!sectionElement) {
             return;
         }

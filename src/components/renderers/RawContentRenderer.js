@@ -490,7 +490,11 @@ export class RawContentRenderer {
         let renderer = null;
         
         // Determine current view mode (use passed mode, fallback to checking DOM)
-        const sectionElement = document.getElementById(sectionId);
+        // Use DOMRegistry if available, fallback to getElementById for dynamic section IDs
+        // Use getElementSafe to avoid warnings for unregistered dynamic IDs
+        const sectionElement = this.domRegistry 
+            ? (this.domRegistry.getElementSafe(sectionId) || document.getElementById(sectionId))
+            : document.getElementById(sectionId);
         const sectionViewMode = (mode !== undefined && mode !== null) ? mode : (sectionElement?.dataset?.viewMode || 'raw');
 
         // Get raw content based on section
@@ -889,6 +893,17 @@ export class RawContentRenderer {
      * @returns {HTMLElement|null} Container element or null
      */
     getContainerForSection(sectionId) {
+        // Try to get section element via DOMRegistry first
+        // Use getElementSafe for dynamic section IDs to avoid warnings
+        const sectionElement = this.domRegistry 
+            ? (this.domRegistry.getElementSafe(sectionId) || document.getElementById(sectionId))
+            : document.getElementById(sectionId);
+        
+        if (sectionElement) {
+            return sectionElement.querySelector('.raw-content-container');
+        }
+        
+        // Fallback to querySelector
         return document.querySelector(`#${sectionId} .raw-content-container`);
     }
 

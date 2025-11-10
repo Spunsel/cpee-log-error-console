@@ -107,7 +107,7 @@ export class DarkModeToggle {
      * @param {boolean} isDark - Whether dark mode is enabled
      */
     updatePrismTheme(isDark) {
-        const prismThemeLink = document.getElementById('prism-theme');
+        const prismThemeLink = this.domRegistry?.getElementSafe('prismTheme') || document.getElementById('prism-theme');
         if (prismThemeLink) {
             if (isDark) {
                 prismThemeLink.href = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
@@ -139,7 +139,7 @@ export class DarkModeToggle {
      */
     updateButton() {
         if (!this.button) {
-            this.button = document.getElementById('dark-mode-toggle-btn');
+            this.button = this.domRegistry?.getElementSafe('darkModeToggleBtn') || document.getElementById('dark-mode-toggle-btn');
         }
         
         if (this.button) {
@@ -154,7 +154,7 @@ export class DarkModeToggle {
      */
     attachToggleListener() {
         if (!this.button) {
-            this.button = document.getElementById('dark-mode-toggle-btn');
+            this.button = this.domRegistry?.getElementSafe('darkModeToggleBtn') || document.getElementById('dark-mode-toggle-btn');
         }
         
         if (this.button) {
