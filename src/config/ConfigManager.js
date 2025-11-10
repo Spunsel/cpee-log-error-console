@@ -338,7 +338,12 @@ export class ConfigManager {
                 outputCpee: 'output-cpee',
                 
                 // Instance loader (now has ID in HTML)
-                loadSingleInstanceSection: 'load-single-instance-section'
+                loadSingleInstanceSection: 'load-single-instance-section',
+                advancedInstanceLoading: 'advanced-instance-loading',
+                
+                // UI elements
+                darkModeToggleContainer: 'dark-mode-toggle-container',
+                bugReportLink: 'bug-report-link',
                 
                 // Note: The following elements are dynamically created and registered by their components:
                 // - themeDropdownTrigger, themeDropdownMenu, themeDropdownContainer (registered by ThemeSelector.initialize())

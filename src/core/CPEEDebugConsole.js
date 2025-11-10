@@ -102,7 +102,7 @@ export class CPEEDebugConsole {
         this.sidebar.initializeToggle();
         
         // Initialize dark mode toggle
-        const darkModeContainer = document.getElementById('dark-mode-toggle-container');
+        const darkModeContainer = this.domRegistry.getElement('darkModeToggleContainer');
         if (darkModeContainer) {
             this.darkModeToggle.initialize(darkModeContainer);
         }
@@ -235,7 +235,7 @@ export class CPEEDebugConsole {
      * Setup bug report modal
      */
     setupBugReportModal() {
-        const bugReportLink = document.getElementById('bug-report-link');
+        const bugReportLink = this.domRegistry.getElement('bugReportLink');
         if (bugReportLink && this.bugReportModal) {
             bugReportLink.addEventListener('click', () => {
                 this.bugReportModal.open();
@@ -317,7 +317,7 @@ export class CPEEDebugConsole {
         this.instanceLoaderViewer.hide();
         
         // Hide advanced instance loading section when selecting an instance
-        const advancedInstanceLoading = document.querySelector('.advanced-instance-loading');
+        const advancedInstanceLoading = this.domRegistry.getElement('advancedInstanceLoading');
         if (advancedInstanceLoading) {
             advancedInstanceLoading.classList.add('hidden');
         }
@@ -409,7 +409,7 @@ export class CPEEDebugConsole {
         this.logViewer.hideRawLog();
         
         // Show advanced instance loading section when returning home
-        const advancedInstanceLoading = document.querySelector('.advanced-instance-loading');
+        const advancedInstanceLoading = this.domRegistry.getElement('advancedInstanceLoading');
         if (advancedInstanceLoading) {
             advancedInstanceLoading.classList.remove('hidden');
         }
