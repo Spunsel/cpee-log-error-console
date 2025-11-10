@@ -15,23 +15,20 @@ import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
-import { serviceFactory } from '../../core/ServiceFactory.js';
 import { StepSection } from '../ui/StepSection.js';
 import { SectionExpandCollapse } from '../ui/SectionExpandCollapse.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
 
 export class ContentVisualizationCoordinator {
-    constructor(domRegistry = null, highlightCoordinator = null, eventBus = null, stateManager = null) {
+    constructor(domRegistry = null, highlightCoordinator = null, eventBus = null, stateManager = null, eventProcessingService = null, contentProcessingService = null) {
         this.domRegistry = domRegistry;
         this.highlightCoordinator = highlightCoordinator;
         this.eventBus = eventBus || defaultEventBus;
         this.stateManager = stateManager || defaultStateManager;
         
-        // Get EventProcessingService for user input processing
-        this.eventProcessingService = serviceFactory.get('EventProcessingService');
-        
-        // Get ContentProcessingService for renderers
-        this.contentProcessingService = serviceFactory.get('ContentProcessingService');
+        // Services injected via constructor
+        this.eventProcessingService = eventProcessingService;
+        this.contentProcessingService = contentProcessingService;
         
         // Renderer instances
         this.inputGraphRenderer = null;

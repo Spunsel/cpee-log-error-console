@@ -12,7 +12,7 @@ import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class StepNavigator {
-    constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null) {
+    constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null, eventProcessingService = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
@@ -23,7 +23,7 @@ export class StepNavigator {
         this.navigationContainer = null;
 
         // Initialize dropdown (pass instanceService so it can handle navigation directly)
-        this.dropdown = new StepDropdown(domRegistry, this.eventBus, instanceService);
+        this.dropdown = new StepDropdown(domRegistry, this.eventBus, instanceService, eventProcessingService);
         
         // Initialize scale display
         this.scaleDisplay = new ScaleDisplay(domRegistry, this.eventBus, this.stateManager);

@@ -13,10 +13,9 @@ import { ViewModeToggle } from '../ui/ViewModeToggle.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
-import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class RawContentCoordinator {
-    constructor(instanceService, domRegistry = null, contentSectionCoordinator = null, eventBus = null, stateManager = null) {
+    constructor(instanceService, domRegistry = null, contentSectionCoordinator = null, eventBus = null, stateManager = null, contentProcessingService = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.contentSectionCoordinator = contentSectionCoordinator;
@@ -25,7 +24,6 @@ export class RawContentCoordinator {
 
         // Content View Components (pass stateManager so ViewModeToggle can read state)
         this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus, this.stateManager);
-        const contentProcessingService = serviceFactory.get('ContentProcessingService');
         this.rawContentRenderer = new RawContentRenderer(domRegistry, this.eventBus, contentProcessingService);
         
         // Action bars per section (moved to RawContentRenderer)

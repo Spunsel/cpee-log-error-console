@@ -9,16 +9,16 @@ import { stateManager as defaultStateManager } from '../../core/StateManager.js'
 import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class InstanceLoaderViewer {
-    constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null) {
+    constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null, logFetchService = null, eventProcessingService = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
         this.stateManager = stateManager || defaultStateManager;
         this.isVisible = true;
         
-        // Get new services from ServiceFactory
-        this.logFetchService = serviceFactory.get('LogFetchService');
-        this.eventProcessingService = serviceFactory.get('EventProcessingService');
+        // Services injected via constructor
+        this.logFetchService = logFetchService;
+        this.eventProcessingService = eventProcessingService;
     }
 
     /**

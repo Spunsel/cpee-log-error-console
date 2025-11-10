@@ -4,12 +4,11 @@
  * Provides functionality to render step list and handle dropdown interactions
  */
 
-import { createStepNumberIcon, ICONS } from '../../assets/icons.js';
+import { createStepNumberIcon } from '../../assets/icons.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
-import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class StepDropdown {
-    constructor(domRegistry, eventBus = null, instanceService = null) {
+    constructor(domRegistry, eventBus = null, instanceService = null, eventProcessingService = null) {
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
         this.instanceService = instanceService;
@@ -18,8 +17,8 @@ export class StepDropdown {
         this.currentStep = 0;
         this.container = null;
         
-        // Get EventProcessingService from ServiceFactory
-        this.eventProcessingService = serviceFactory.get('EventProcessingService');
+        // Service injected via constructor
+        this.eventProcessingService = eventProcessingService;
     }
 
     /**
@@ -39,9 +38,9 @@ export class StepDropdown {
 
     /**
      * Initialize dropdown (elements are already in DOM, just attach listeners)
-     * @param {HTMLElement} parentContainer - Parent container (navigation container)
+     * @param {HTMLElement} _parentContainer - Parent container (navigation container)
      */
-    initialize(parentContainer) {
+    initialize(_parentContainer) {
         // Dropdown elements are now already in the navigation container
         // Just find the container and attach listeners
         const container = document.getElementById('step-dropdown-container');

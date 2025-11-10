@@ -14,7 +14,7 @@ import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
 export class StepViewer {
-    constructor(instanceService, domRegistry = null, rawContentCoordinator = null, highlightCoordinator = null, eventBus = null, stateManager = null) {
+    constructor(instanceService, domRegistry = null, rawContentCoordinator = null, highlightCoordinator = null, eventBus = null, stateManager = null, eventProcessingService = null, contentProcessingService = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
         this.rawContentCoordinator = rawContentCoordinator;
@@ -23,8 +23,8 @@ export class StepViewer {
         this.stateManager = stateManager || defaultStateManager;
         
         // Initialize extracted components
-        this.navigator = new StepNavigator(instanceService, domRegistry, this.eventBus, this.stateManager);
-        this.contentCoordinator = new ContentVisualizationCoordinator(domRegistry, highlightCoordinator, this.eventBus, this.stateManager);
+        this.navigator = new StepNavigator(instanceService, domRegistry, this.eventBus, this.stateManager, eventProcessingService);
+        this.contentCoordinator = new ContentVisualizationCoordinator(domRegistry, highlightCoordinator, this.eventBus, this.stateManager, eventProcessingService, contentProcessingService);
         
         // Pass ContentVisualizationCoordinator to RawContentCoordinator for coordination
         if (this.rawContentCoordinator) {

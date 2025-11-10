@@ -9,15 +9,14 @@
  * - Implement state persistence across step navigation
  */
 
-import { serviceFactory } from '../../core/ServiceFactory.js';
 import { SVGClickDetector } from '../../utils/interaction/SVGClickDetector.js';
 
 export class HighlightCoordinator {
-    constructor(domRegistry = null) {
+    constructor(domRegistry = null, highlightingService = null) {
         this.domRegistry = domRegistry;
         
-        // Core services
-        this.highlightingService = serviceFactory.get('HighlightingService');
+        // Core services injected via constructor
+        this.highlightingService = highlightingService;
         this.taskMapper = null; // Set externally
         
         // Click detection

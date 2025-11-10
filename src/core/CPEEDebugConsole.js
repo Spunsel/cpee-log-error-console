@@ -28,18 +28,22 @@ export class CPEEDebugConsole {
         this.stateManager = stateManager;
         this.instanceService = this.serviceFactory.get('InstanceService');
         
-        // Get new services from ServiceFactory
+        // Get all services from ServiceFactory for dependency injection
         this.logFetchService = this.serviceFactory.get('LogFetchService');
         this.stepAssemblyService = this.serviceFactory.get('StepAssemblyService');
+        const highlightingService = this.serviceFactory.get('HighlightingService');
+        const eventProcessingService = this.serviceFactory.get('EventProcessingService');
+        const contentProcessingService = this.serviceFactory.get('ContentProcessingService');
         
-        this.highlightCoordinator = new HighlightCoordinator(this.domRegistry);
-        this.rawContentCoordinator = new RawContentCoordinator(this.instanceService, this.domRegistry, null, this.eventBus, this.stateManager);
+        // Initialize coordinators with injected services
+        this.highlightCoordinator = new HighlightCoordinator(this.domRegistry, highlightingService);
+        this.rawContentCoordinator = new RawContentCoordinator(this.instanceService, this.domRegistry, null, this.eventBus, this.stateManager, contentProcessingService);
         
         // Initialize components with DOM registry, event bus, and state manager
         this.sidebar = new Sidebar(this.instanceService, this.domRegistry, this.eventBus);
-        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentCoordinator, this.highlightCoordinator, this.eventBus, this.stateManager);
+        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentCoordinator, this.highlightCoordinator, this.eventBus, this.stateManager, eventProcessingService, contentProcessingService);
         this.logViewer = new LogViewer(this.domRegistry, this.eventBus, this.stateManager);
-        this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager);
+        this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager, this.logFetchService, eventProcessingService);
         this.bugReportModal = new BugReportModal(this.serviceFactory);
         this.darkModeToggle = new DarkModeToggle(this.domRegistry, this.eventBus, this.stateManager);
         
