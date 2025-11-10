@@ -1,53 +1,38 @@
 /**
  * RawContentRenderer
- * Renders raw content (Mermaid, CPEE XML, user input) as plain text
- * Handles all raw content rendering, search functionality, and action bar management
+ * Renders raw/preprocessed content (Mermaid, CPEE XML, user input) as plain text
+ * Single responsibility: Raw view rendering only
  * 
  * Responsibilities:
- * - Render raw content into DOM elements
- * - Provide DOM structure for content display
- * - Handle search highlighting and navigation
+ * - Render raw/preprocessed content into DOM elements
+ * - Provide DOM structure for raw content display
+ * - Handle search highlighting and navigation for raw view
  * - Manage action bars for raw content
  * - Handle content restoration and hiding
+ * 
+ * View Mode Separation:
+ * - Raw view: This renderer (preprocessed content)
+ * - Log view: LogContentRenderer (untouched log content)
+ * - Traces view: TraceContentRenderer (execution traces)
  */
 
 import { ActionBar } from '../ui/ActionBar.js';
-import { CopyButton } from '../ui/CopyButton.js';
-import { Trace } from '../../models/Trace.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { configManager } from '../../config/ConfigManager.js';
-import { RawUntouchedLogRender } from './RawUntouchedLogRender.js';
-import { TraceDisplay } from '../ui/TraceDisplay.js';
-import { CPEETraceCalculator } from '../../utils/trace/CPEETraceCalculator.js';
-import { MermaidTraceCalculator } from '../../utils/trace/MermaidTraceCalculator.js';
-import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class RawContentRenderer {
-    constructor(domRegistry = null, eventBus = null, contentProcessingService = null) {
+    constructor(domRegistry = null, _eventBus = null, contentProcessingService = null) {
         this.domRegistry = domRegistry;
-        this.eventBus = eventBus || defaultEventBus;
         this.contentProcessingService = contentProcessingService || serviceFactory.get('ContentProcessingService');
         
         // Search service
         this.searchService = serviceFactory.get('SearchService');
-        
-        // Log renderer for untouched log view
-        this.logRenderer = new RawUntouchedLogRender(domRegistry, this.contentProcessingService);
         
         // Action bars per section
         this.actionBars = new Map();
         
         // Store original content per section (for copy functionality)
         this.originalContent = new Map();
-        
-        // Trace displays per section
-        this.traceDisplays = new Map();
-        
-        // Cache calculated traces per section (to avoid recalculation)
-        this.traceCache = new Map();
-        
-        // Copy buttons for traces per section
-        this.traceCopyButtons = new Map();
     }
 
     /**
@@ -140,394 +125,50 @@ export class RawContentRenderer {
         return container;
     }
 
-    /**
-     * Render traces content for a section
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} container - Content container
-     * @param {Object} step - Current step object
-     * @returns {HTMLElement|null} Trace display container or null
-     */
-    renderTracesContent(sectionId, container, step) {
-        console.log(`[RawContentRenderer] Rendering traces content for ${sectionId}`);
-        
-        if (!step || !container) {
-            console.warn('[RawContentRenderer] Missing step or container for traces rendering');
-            return null;
-        }
-
-        // Check cache first
-        const cacheKey = `${sectionId}-${step.stepNumber || 'unknown'}`;
-        if (this.traceCache.has(cacheKey)) {
-            console.log(`[RawContentRenderer] Using cached traces for ${sectionId}`);
-            const cachedTraces = this.traceCache.get(cacheKey);
-            return this.renderCachedTraces(sectionId, container, cachedTraces);
-        }
-
-        // Extract raw content based on section type
-        let rawContent = null;
-        let contentString = null;
-        let isCPEE = false;
-        let isMermaid = false;
-
-        try {
-            switch (sectionId) {
-                case 'input-cpee':
-                case 'output-cpee':
-                    rawContent = sectionId === 'input-cpee' 
-                        ? step.getInputCpeeTreeRaw() 
-                        : step.getOutputCpeeTreeRaw();
-                    if (rawContent && rawContent.getContent) {
-                        contentString = rawContent.getContent();
-                        isCPEE = true;
-                    }
-                    break;
-                case 'input-intermediate':
-                case 'output-intermediate':
-                    rawContent = sectionId === 'input-intermediate'
-                        ? step.getInputMermaidRaw()
-                        : step.getOutputMermaidRaw();
-                    if (rawContent && rawContent.getContent) {
-                        contentString = rawContent.getContent();
-                        isMermaid = true;
-                    }
-                    break;
-            }
-
-            if (!contentString || (!isCPEE && !isMermaid)) {
-                console.warn(`[RawContentRenderer] No valid content found for ${sectionId}`);
-                return this.renderNoTracesMessage(container);
-            }
-
-            // Calculate traces using appropriate calculator
-            let traces = [];
-            const options = {
-                maxLoopIterations: 1,
-                maxPathLength: 50
-            };
-
-            if (isCPEE) {
-                console.log(`[RawContentRenderer] Calculating CPEE traces for ${sectionId}`);
-                traces = CPEETraceCalculator.calculateAllTraces(contentString, options);
-            } else if (isMermaid) {
-                console.log(`[RawContentRenderer] Calculating Mermaid traces for ${sectionId}`);
-                traces = MermaidTraceCalculator.calculateAllTraces(contentString, options);
-            }
-
-            // Cache the results
-            this.traceCache.set(cacheKey, traces);
-
-            // Emit traces:calculated event (Phase 31.15) - silent if no listeners (informational event)
-            this.eventBus.emit('traces:calculated', {
-                sectionId,
-                stepNumber: step.stepNumber || 'unknown',
-                traceCount: traces.length,
-                traces
-            }, { silent: true });
-
-            // Render traces
-            return this.renderTraces(sectionId, container, traces);
-
-        } catch (error) {
-            console.error(`[RawContentRenderer] Error calculating traces for ${sectionId}:`, error);
-            
-            // Emit traces:error event (Phase 31.15)
-            this.eventBus.emit('traces:error', {
-                sectionId,
-                stepNumber: step.stepNumber || 'unknown',
-                error: error.message || 'Unknown error occurred',
-                errorObject: error
-            });
-            
-            return this.renderErrorMessage(container, error);
-        }
-    }
-
-    /**
-     * Render cached traces
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} container - Content container
-     * @param {Array} traces - Cached traces
-     * @returns {HTMLElement} Trace display container
-     */
-    renderCachedTraces(sectionId, container, traces) {
-        // Emit traces:calculated event for cached traces (Phase 31.15) - silent if no listeners (informational event)
-        this.eventBus.emit('traces:calculated', {
-            sectionId,
-            traceCount: traces.length,
-            traces,
-            cached: true
-        }, { silent: true });
-        
-        return this.renderTraces(sectionId, container, traces);
-    }
-
-    /**
-     * Format traces as JSON arrays separated by commas for copying
-     * @param {Array} traces - Array of Trace objects or plain trace arrays
-     * @returns {string} Formatted string with JSON arrays
-     */
-    formatTracesForCopy(traces) {
-        if (!traces || traces.length === 0) {
-            return '';
-        }
-        
-        // Convert traces to JSON arrays
-        const traceArrays = traces.map(trace => {
-            // Handle Trace objects
-            if (trace instanceof Trace || (trace && trace.path)) {
-                const path = trace.path || trace;
-                return path.map(task => ({
-                    id: task.id || '',
-                    alt_id: task.alt_id || '',
-                    task: task.task || ''
-                }));
-            }
-            // Handle plain arrays
-            if (Array.isArray(trace)) {
-                return trace.map(task => ({
-                    id: task.id || '',
-                    alt_id: task.alt_id || '',
-                    task: task.task || ''
-                }));
-            }
-            return [];
-        }).filter(arr => arr.length > 0);
-
-        // Format each trace as a JSON array with proper indentation
-        const formattedTraces = traceArrays.map(traceArray => {
-            const jsonLines = traceArray.map(task => '    ' + JSON.stringify(task, null, 0));
-            return '[\n' + jsonLines.join(',\n') + '\n]';
-        });
-
-        // Join traces with comma and newline (no trailing comma after last trace)
-        return formattedTraces.join(',\n\n');
-    }
-
-    /**
-     * Add copy button for traces to a container
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} container - Container element (traces container)
-     * @param {Array} traces - Traces to copy
-     */
-    addTraceCopyButton(sectionId, container, traces) {
-        if (!traces || traces.length === 0) {
-            // Remove copy button if no traces
-            if (this.traceCopyButtons.has(sectionId)) {
-                const copyButton = this.traceCopyButtons.get(sectionId);
-                if (copyButton && copyButton.element && copyButton.element.parentNode) {
-                    copyButton.element.parentNode.removeChild(copyButton.element);
-                }
-                this.traceCopyButtons.delete(sectionId);
-            }
-            return;
-        }
-
-        // Format traces for copying
-        const contentToCopy = this.formatTracesForCopy(traces);
-
-        // Get or create copy button
-        let copyButton = this.traceCopyButtons.get(sectionId);
-        
-        if (!copyButton) {
-            // Create new copy button
-            copyButton = new CopyButton(this.domRegistry, { showText: false });
-            this.traceCopyButtons.set(sectionId, copyButton);
-        }
-
-        // Update content
-        copyButton.setContent(contentToCopy);
-
-        // Create button element if it doesn't exist
-        if (!copyButton.element) {
-            const button = copyButton.createButton(contentToCopy, '');
-            
-            // Attach to parent container (non-scrolling) similar to action bar
-            const parentContainer = container.closest('.content-box') || container.parentElement;
-            if (parentContainer) {
-                // Check if button already exists in DOM
-                const existingButton = parentContainer.querySelector('.trace-copy-button-container');
-                if (existingButton) {
-                    existingButton.remove();
-                }
-                
-                // Create wrapper container for the copy button
-                const buttonContainer = this.domRegistry.createElement('div', {
-                    className: 'trace-copy-button-container'
-                });
-                buttonContainer.appendChild(button);
-                parentContainer.appendChild(buttonContainer);
-            } else {
-                // Fallback to traces container
-                const buttonContainer = this.domRegistry.createElement('div', {
-                    className: 'trace-copy-button-container'
-                });
-                buttonContainer.appendChild(button);
-                container.appendChild(buttonContainer);
-            }
-        } else {
-            // Update existing button content
-            copyButton.setContent(contentToCopy);
-            
-            // Ensure button container is visible
-            const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
-            if (buttonContainer) {
-                buttonContainer.style.display = 'block';
-            }
-        }
-    }
-
-    /**
-     * Render traces using TraceDisplay
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} container - Content container (traces container)
-     * @param {Array} traces - Traces to render
-     * @returns {HTMLElement} Trace display container
-     */
-    renderTraces(sectionId, container, traces) {
-        // Get or create trace display for this section
-        let traceDisplay = this.traceDisplays.get(sectionId);
-        if (!traceDisplay) {
-            traceDisplay = new TraceDisplay(this.domRegistry);
-            this.traceDisplays.set(sectionId, traceDisplay);
-        }
-
-        // Clear container first
-        container.innerHTML = '';
-
-        // Create trace display container
-        if (!traceDisplay.getContainer()) {
-            traceDisplay.createContainer();
-        } else {
-            // Reuse existing container but clear it
-            const existingContainer = traceDisplay.getContainer();
-            if (existingContainer.parentNode) {
-                existingContainer.parentNode.removeChild(existingContainer);
-            }
-            traceDisplay.createContainer();
-        }
-
-        container.appendChild(traceDisplay.getContainer());
-
-        // Render traces
-        if (traces && traces.length > 0) {
-            traceDisplay.renderTraces(traces, {
-                showLabels: false, // Show alt_ids in preview
-                expandable: true,
-                highlightStartEnd: true
-            });
-            
-            // Add copy button for traces
-            this.addTraceCopyButton(sectionId, container, traces);
-        } else {
-            traceDisplay.clear();
-            this.renderNoTracesMessage(container);
-            // Remove copy button if no traces
-            this.addTraceCopyButton(sectionId, container, []);
-        }
-
-        return container;
-    }
-
-    /**
-     * Render "No traces found" message
-     * @param {HTMLElement} container - Container element
-     * @returns {HTMLElement} Message container
-     */
-    renderNoTracesMessage(container) {
-        const messageContainer = this.domRegistry.createElement('div', {
-            className: 'trace-empty-message',
-            textContent: 'No traces found'
-        });
-        container.innerHTML = '';
-        container.appendChild(messageContainer);
-        return container;
-    }
-
-    /**
-     * Render error message
-     * @param {HTMLElement} container - Container element
-     * @param {Error} error - Error object
-     * @returns {HTMLElement} Error message container
-     */
-    renderErrorMessage(container, error) {
-        const errorContainer = this.domRegistry.createElement('div', {
-            className: 'trace-error-message'
-        });
-        const errorTitle = this.domRegistry.createElement('div', {
-            className: 'trace-error-title',
-            textContent: 'Error calculating traces'
-        });
-        const errorText = this.domRegistry.createElement('div', {
-            className: 'trace-error-text',
-            textContent: error.message || 'Unknown error occurred'
-        });
-        errorContainer.appendChild(errorTitle);
-        errorContainer.appendChild(errorText);
-        container.innerHTML = '';
-        container.appendChild(errorContainer);
-        return container;
-    }
 
     /**
      * Display raw content for a section
+     * Renders preprocessed content (Mermaid, CPEE XML, user input) in raw view mode
      * @param {string} sectionId - Section identifier
      * @param {HTMLElement} container - Content container
      * @param {Object} step - Current step object
-     * @param {string} mode - View mode ('raw', 'log', or 'traces')
+     * @param {Object} _options - Rendering options (unused, kept for consistency with other renderers)
+     * @note Log mode is handled by LogContentRenderer, traces mode by TraceContentRenderer
      */
-    displayRawContent(sectionId, container, step, mode = 'raw') {
+    display(sectionId, container, step, _options = {}) {
         if (!step || !container) {
             return;
         }
 
-        // Handle traces mode
-        if (mode === 'traces') {
-            this.displayTracesContent(sectionId, container, step);
-            return;
-        }
+        // This renderer only handles raw mode
+        // Mode validation is handled by RawContentCoordinator
 
         let rawContent = null;
         let renderer = null;
-        
-        // Determine current view mode (use passed mode, fallback to checking DOM)
-        // Use DOMRegistry if available, fallback to getElementById for dynamic section IDs
-        // Use getElementSafe to avoid warnings for unregistered dynamic IDs
-        const sectionElement = this.domRegistry 
-            ? (this.domRegistry.getElementSafe(sectionId) || document.getElementById(sectionId))
-            : document.getElementById(sectionId);
-        const sectionViewMode = (mode !== undefined && mode !== null) ? mode : (sectionElement?.dataset?.viewMode || 'raw');
 
         // Get raw content based on section
         switch (sectionId) {
             case 'input-cpee':
                 rawContent = step.getInputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
-                    // CPEE sections: log mode behaves same as raw mode
                     renderer = () => this.renderRawCPEETree(rawContent.getContent());
                 }
                 break;
             case 'input-intermediate':
                 rawContent = step.getInputMermaidRaw();
                 if (rawContent) {
-                    // Mermaid sections: use log renderer with rawExposition for log mode, raw renderer for raw mode
-                    renderer = sectionViewMode === 'log' 
-                        ? () => this.logRenderer.renderLogMermaid(rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(), { type: 'input' })
-                        : () => this.renderRawMermaid(rawContent.getContent());
+                    renderer = () => this.renderRawMermaid(rawContent.getContent());
                 }
                 break;
             case 'output-intermediate':
                 rawContent = step.getOutputMermaidRaw();
                 if (rawContent) {
-                    // Mermaid sections: use log renderer with rawExposition for log mode, raw renderer for raw mode
-                    renderer = sectionViewMode === 'log'
-                        ? () => this.logRenderer.renderLogMermaid(rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(), { type: 'output' })
-                        : () => this.renderRawMermaid(rawContent.getContent());
+                    renderer = () => this.renderRawMermaid(rawContent.getContent());
                 }
                 break;
             case 'output-cpee':
                 rawContent = step.getOutputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
-                    // CPEE sections: log mode behaves same as raw mode
                     renderer = () => this.renderRawCPEETree(rawContent.getContent());
                 }
                 break;
@@ -539,25 +180,6 @@ export class RawContentRenderer {
         }
 
         try {
-            // Hide traces content when switching to raw/log
-            const tracesElements = container.querySelectorAll('[data-content-type="traces"]');
-            tracesElements.forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                el.style.pointerEvents = 'none';
-            });
-
-            // Hide trace copy button when switching away from trace view
-            if (this.traceCopyButtons.has(sectionId)) {
-                const copyButton = this.traceCopyButtons.get(sectionId);
-                if (copyButton && copyButton.element) {
-                    const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
-                    if (buttonContainer) {
-                        buttonContainer.style.display = 'none';
-                    }
-                }
-            }
-
             // Check if raw content container already exists
             let rawContainer = container.querySelector('[data-content-type="raw"]');
             if (!rawContainer) {
@@ -630,12 +252,6 @@ export class RawContentRenderer {
                 try {
                     const syntaxService = serviceFactory.get('SyntaxHighlightingService');
                     syntaxService.highlightCodeBlocks(rawContainer);
-                    // Mark preprocessing lines after syntax highlighting (for log mode only)
-                    if (mode === 'log') {
-                        // Wait for line numbers to be added, then mark preprocessing lines
-                        // Use multiple attempts with delays to ensure line numbers are added
-                        this.logRenderer.waitForLineNumbersAndMark(rawContainer, 0, 10);
-                    }
                 } catch (_) {
                     // Fallback to direct Prism highlighting if service not available
                     try {
@@ -647,11 +263,6 @@ export class RawContentRenderer {
                                     window.Prism.highlightElement(block);
                                 });
                             }
-                        }
-                        // Mark preprocessing lines after Prism highlighting (for log mode only)
-                        if (mode === 'log') {
-                            // Wait for line numbers to be added, then mark preprocessing lines
-                            this.logRenderer.waitForLineNumbersAndMark(rawContainer, 0, 10);
                         }
                     } catch (__) {
                         // No-op if Prism/config not available
@@ -674,14 +285,11 @@ export class RawContentRenderer {
                             actionBar.setCopyContent(displayedText);
                         }
                     } else {
-                        // Fallback: determine content to copy based on current mode
+                        // Fallback: determine content to copy
                         if (rawContent) {
                             let contentToCopy = null;
-                            if (sectionViewMode === 'log' && rawContent.getRawExposition) {
-                                // Log mode: use raw exposition for Mermaid sections
-                                contentToCopy = rawContent.getRawExposition();
-                            } else if (rawContent.getContent) {
-                                // Raw mode or CPEE sections: use regular content
+                            if (rawContent.getContent) {
+                                // Use regular content
                                 contentToCopy = rawContent.getContent();
                             } else if (rawContent.getText) {
                                 // Fallback to getText
@@ -702,78 +310,6 @@ export class RawContentRenderer {
         }
     }
 
-    /**
-     * Display traces content for a section
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} container - Content container
-     * @param {Object} step - Current step object
-     */
-    displayTracesContent(sectionId, container, step) {
-        console.log(`[RawContentRenderer] Displaying traces content for ${sectionId}`);
-        
-        // Hide visual content
-        const visualElements = container.querySelectorAll('[data-content-type="visual"]');
-        visualElements.forEach(el => {
-            el.style.display = 'none';
-            el.style.visibility = 'hidden';
-            el.style.pointerEvents = 'none';
-        });
-
-        // Hide raw/log content
-        const rawElements = container.querySelectorAll('[data-content-type="raw"]');
-        rawElements.forEach(el => {
-            el.style.display = 'none';
-            el.style.visibility = 'hidden';
-            el.style.pointerEvents = 'none';
-        });
-
-        // Hide action bars
-        const sectionIdForActionBar = sectionId;
-        if (this.actionBars.has(sectionIdForActionBar)) {
-            const actionBar = this.actionBars.get(sectionIdForActionBar);
-            if (actionBar) {
-                actionBar.hide();
-            }
-        }
-
-        // Restore container overflow (traces container handles its own scrolling)
-        container.style.overflow = 'visible';
-
-        // Get or create traces container
-        let tracesContainer = container.querySelector('[data-content-type="traces"]');
-        if (!tracesContainer) {
-            tracesContainer = this.domRegistry.createElement('div');
-            tracesContainer.setAttribute('data-content-type', 'traces');
-            container.style.position = 'relative';
-            container.appendChild(tracesContainer);
-        }
-
-        // Ensure traces container is visible
-        tracesContainer.style.display = 'block';
-        tracesContainer.style.visibility = 'visible';
-        tracesContainer.style.pointerEvents = 'auto';
-        tracesContainer.style.position = 'absolute';
-        tracesContainer.style.top = '0';
-        tracesContainer.style.left = '0';
-        tracesContainer.style.width = '100%';
-        tracesContainer.style.height = '100%';
-        tracesContainer.style.zIndex = '10';
-        tracesContainer.style.background = 'var(--surface-color)';
-
-        // Render traces content
-        this.renderTracesContent(sectionId, tracesContainer, step);
-        
-        // Show trace copy button if it exists
-        if (this.traceCopyButtons.has(sectionId)) {
-            const copyButton = this.traceCopyButtons.get(sectionId);
-            if (copyButton && copyButton.element) {
-                const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
-                if (buttonContainer) {
-                    buttonContainer.style.display = 'block';
-                }
-            }
-        }
-    }
 
     /**
      * Hide raw content when switching to visual mode
@@ -792,14 +328,6 @@ export class RawContentRenderer {
             el.style.pointerEvents = 'none';
         });
 
-        // Hide traces content elements
-        const tracesElements = container.querySelectorAll('[data-content-type="traces"]');
-        tracesElements.forEach(el => {
-            el.style.display = 'none';
-            el.style.visibility = 'hidden';
-            el.style.pointerEvents = 'none';
-        });
-
         // Hide action bar for this section and clear search
         const sectionId = container.closest('[id]')?.id;
         if (sectionId && this.actionBars.has(sectionId)) {
@@ -808,17 +336,6 @@ export class RawContentRenderer {
                 // Clear search before hiding
                 actionBar.clearSearch();
                 actionBar.hide();
-            }
-        }
-        
-        // Hide trace copy button for this section
-        if (sectionId && this.traceCopyButtons.has(sectionId)) {
-            const copyButton = this.traceCopyButtons.get(sectionId);
-            if (copyButton && copyButton.element) {
-                const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
-                if (buttonContainer) {
-                    buttonContainer.style.display = 'none';
-                }
             }
         }
     }
@@ -1057,27 +574,10 @@ export class RawContentRenderer {
     }
 
     /**
-     * Clear trace cache (called when navigating to a different step)
-     */
-    clearTraceCache() {
-        console.log('[RawContentRenderer] Clearing trace cache');
-        this.traceCache.clear();
-        
-        // Clear trace displays
-        this.traceDisplays.forEach(display => {
-            if (display && typeof display.destroy === 'function') {
-                display.destroy();
-            }
-        });
-        this.traceDisplays.clear();
-    }
-
-    /**
      * Clean up resources
      */
     destroy() {
         this.actionBars.clear();
         this.originalContent.clear();
-        this.clearTraceCache();
     }
 }

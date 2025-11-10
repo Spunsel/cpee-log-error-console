@@ -1,21 +1,19 @@
 /**
  * TraceDisplay Component
- * UI component for displaying execution traces in a scrollable container
- * Wraps TraceRenderer and provides container management
+ * Thin UI component for displaying execution traces in a scrollable container
+ * Wraps TraceContentRenderer and provides container management
  * 
  * Responsibilities:
  * - Create trace display container with scrolling
  * - Manage trace list display state
- * - Coordinate with TraceRenderer for rendering
+ * - Coordinate with TraceContentRenderer for rendering
  * - Handle trace expansion/collapse state
  */
 
-import { TraceRenderer } from '../renderers/TraceRenderer.js';
-
 export class TraceDisplay {
-    constructor(domRegistry = null) {
+    constructor(domRegistry = null, traceContentRenderer = null) {
         this.domRegistry = domRegistry;
-        this.traceRenderer = new TraceRenderer(domRegistry);
+        this.traceContentRenderer = traceContentRenderer;
         this.container = null;
         this.currentTraces = [];
     }
@@ -76,8 +74,12 @@ export class TraceDisplay {
         // Clear existing content
         traceListWrapper.innerHTML = '';
 
-        // Render traces using TraceRenderer
-        this.traceRenderer.renderTraces(traces, traceListWrapper, options);
+        // Render traces using TraceContentRenderer (merged from TraceRenderer)
+        if (this.traceContentRenderer && typeof this.traceContentRenderer.renderTracesIntoContainer === 'function') {
+            this.traceContentRenderer.renderTracesIntoContainer(traces, traceListWrapper, options);
+        } else {
+            console.warn('[TraceDisplay] TraceContentRenderer not available, cannot render traces');
+        }
 
         console.log('[TraceDisplay] Traces rendered successfully');
     }

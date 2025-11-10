@@ -1,16 +1,25 @@
 /**
  * Raw Content Coordinator
- * Handles raw content viewing functionality only
+ * Handles content viewing functionality for all text-based view modes
+ * Routes to appropriate renderers based on view mode
+ * 
  * Responsibilities:
  * - View mode toggle management
- * - Raw content display and rendering
- * - Copy functionality
- * - Raw content DOM updates
+ * - Route to appropriate renderer (RawContentRenderer, LogContentRenderer, TraceContentRenderer)
  * - View mode state coordination
+ * - Coordinate content hiding/restoration when switching modes
+ * 
+ * View Mode Routing:
+ * - 'raw' → RawContentRenderer (preprocessed content)
+ * - 'log' → LogContentRenderer (untouched log content)
+ * - 'traces' → TraceContentRenderer (execution traces)
+ * - 'visual' → ContentVisualizationCoordinator (SVG graphs)
  */
 
 import { ViewModeToggle } from '../ui/ViewModeToggle.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
+import { LogContentRenderer } from '../renderers/LogContentRenderer.js';
+import { TraceContentRenderer } from '../renderers/TraceContentRenderer.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
@@ -24,7 +33,11 @@ export class RawContentCoordinator {
 
         // Content View Components (pass stateManager so ViewModeToggle can read state)
         this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus, this.stateManager);
+        
+        // Instantiate all three renderers for different view modes
         this.rawContentRenderer = new RawContentRenderer(domRegistry, this.eventBus, contentProcessingService);
+        this.logContentRenderer = new LogContentRenderer(domRegistry, this.eventBus, contentProcessingService);
+        this.traceContentRenderer = new TraceContentRenderer(domRegistry, this.eventBus, contentProcessingService);
         
         // Action bars per section (moved to RawContentRenderer)
         // this.actionBars = new Map();
@@ -151,32 +164,45 @@ export class RawContentCoordinator {
             return;
         }
 
-        if (mode === 'raw' || mode === 'log') {
+        // Route to appropriate renderer based on view mode
+        if (mode === 'raw') {
             contentContainer.scrollTo({
                 top: 0,
                 left: 0,
             });
             // Store view mode in section element for renderer to access
             sectionElement.dataset.viewMode = mode;
-            this.rawContentRenderer.displayRawContent(sectionId, contentContainer, this.currentStep, mode);
+            this.rawContentRenderer.display(sectionId, contentContainer, this.currentStep);
+        } else if (mode === 'log') {
+            contentContainer.scrollTo({
+                top: 0,
+                left: 0,
+            });
+            // Store view mode in section element for renderer to access
+            sectionElement.dataset.viewMode = mode;
+            this.logContentRenderer.display(sectionId, contentContainer, this.currentStep);
         } else if (mode === 'traces') {
-            // Traces mode - use RawContentRenderer to display traces
             contentContainer.scrollTo({
                 top: 0,
                 left: 0,
             });
             // Store view mode in section element for renderer to access
             sectionElement.dataset.viewMode = mode;
-            this.rawContentRenderer.displayRawContent(sectionId, contentContainer, this.currentStep, mode);
+            this.traceContentRenderer.display(sectionId, contentContainer, this.currentStep);
         } else {
             // Visual mode - ContentSectionManager handles this
             // Just ensure raw/log/traces content is hidden
             delete sectionElement.dataset.viewMode;
             this.rawContentRenderer.hideRawContent(contentContainer);
+            this.logContentRenderer.hideLogContent(contentContainer);
+            this.traceContentRenderer.hideTraceContent(contentContainer);
             
             // Only restore original content if we have it stored (i.e., if we were in raw/log mode)
             if (this.rawContentRenderer.hasOriginalContent(sectionId)) {
                 this.rawContentRenderer.restoreOriginalContent(sectionId);
+            }
+            if (this.logContentRenderer.hasOriginalContent(sectionId)) {
+                this.logContentRenderer.restoreOriginalContent(sectionId);
             }
             
             // Delegate visual content restoration to ContentVisualizationCoordinator
@@ -199,9 +225,10 @@ export class RawContentCoordinator {
 
         // Clear all search states when switching to a different step
         this.rawContentRenderer.clearAllSearchStates();
+        this.logContentRenderer.clearAllSearchStates();
 
         // Clear trace cache when switching to a different step
-        this.rawContentRenderer.clearTraceCache();
+        this.traceContentRenderer.clearTraceCache();
 
         // Reset all view modes to visual for this step
         // (View mode does not persist across steps)
@@ -292,5 +319,7 @@ export class RawContentCoordinator {
     destroy() {
         this.currentStep = null;
         this.rawContentRenderer.destroy();
+        this.logContentRenderer.destroy();
+        this.traceContentRenderer.destroy();
     }
 }
