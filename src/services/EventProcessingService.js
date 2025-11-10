@@ -29,7 +29,7 @@ export class EventProcessingService {
         }
         
         return events.filter(event => 
-            event.event && event.event['cpee:lifecycle:transition'] === transitionType
+            event?.event?.['cpee:lifecycle:transition'] === transitionType
         );
     }
 

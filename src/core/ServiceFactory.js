@@ -22,7 +22,6 @@ import { MermaidTaskExtractor } from '../utils/extraction/MermaidTaskExtractor.j
 import { TaskMapper } from '../utils/mapping/TaskMapper.js';
 import { CPEETraceCalculator } from '../utils/trace/CPEETraceCalculator.js';
 import { MermaidTraceCalculator } from '../utils/trace/MermaidTraceCalculator.js';
-import { LogParser } from '../utils/content/LogParser.js';
 
 export class ServiceFactory {
     constructor() {

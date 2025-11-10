@@ -100,8 +100,12 @@ export class TraceCalculationService {
             
             // Calculate traces based on content type
             // Trace calculators have static methods - get the class (works with both class and instance)
-            const CPEETraceCalculatorClass = this.cpeeTraceCalculator.constructor || this.cpeeTraceCalculator;
-            const MermaidTraceCalculatorClass = this.mermaidTraceCalculator.constructor || this.mermaidTraceCalculator;
+            const CPEETraceCalculatorClass = (typeof this.cpeeTraceCalculator.calculateAllTraces === 'function')
+                ? this.cpeeTraceCalculator
+                : this.cpeeTraceCalculator.constructor;
+            const MermaidTraceCalculatorClass = (typeof this.mermaidTraceCalculator.calculateAllTraces === 'function')
+                ? this.mermaidTraceCalculator
+                : this.mermaidTraceCalculator.constructor;
             
             let traces = [];
             if (section.isCPEE) {
