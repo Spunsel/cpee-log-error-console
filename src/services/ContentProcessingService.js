@@ -85,5 +85,55 @@ export class ContentProcessingService {
         // Can be extended with cleaning logic if needed
         return rawContent;
     }
+
+    /**
+     * Format user input content for display
+     * Cleans the content, attempts JSON parsing for formatting, and returns HTML
+     * @param {string} rawContent - Raw user input content from logs
+     * @param {Object} options - Formatting options
+     * @param {Function} options.extractCleanUserInput - Optional function to clean user input (from EventProcessingService)
+     * @param {Function} options.escapeHtml - Optional function to escape HTML (from DOMRegistry)
+     * @returns {string} Formatted HTML content wrapped in <pre><code> tags
+     */
+    formatUserInputForDisplay(rawContent, options = {}) {
+        if (!rawContent || typeof rawContent !== 'string') {
+            return '<pre><code class="no-content">No user input available</code></pre>';
+        }
+
+        // Extract clean user input (remove headers, formatting, normalize whitespace)
+        let cleanedContent = rawContent;
+        if (options.extractCleanUserInput && typeof options.extractCleanUserInput === 'function') {
+            cleanedContent = options.extractCleanUserInput(rawContent);
+        } else {
+            // Fallback: basic cleaning if extractCleanUserInput not provided
+            cleanedContent = rawContent.replace(/^#\s*User\s*Input\s*:\s*$/gm, '').trim();
+        }
+
+        if (!cleanedContent) {
+            return '<pre><code class="no-content">No user input available</code></pre>';
+        }
+
+        try {
+            // Try to parse as JSON for better formatting
+            const parsed = JSON.parse(cleanedContent);
+            const formattedJson = JSON.stringify(parsed, null, 2);
+            return `<pre><code>${formattedJson}</code></pre>`;
+        } catch {
+            // If not JSON, display as plain text with proper escaping
+            let escaped = cleanedContent;
+            if (options.escapeHtml && typeof options.escapeHtml === 'function') {
+                escaped = options.escapeHtml(cleanedContent);
+            } else {
+                // Fallback: basic HTML escaping
+                escaped = cleanedContent
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+            return `<pre><code>${escaped}</code></pre>`;
+        }
+    }
 }
 

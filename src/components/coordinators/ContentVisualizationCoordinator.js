@@ -448,8 +448,11 @@ export class ContentVisualizationCoordinator {
         }
 
         try {
-            // Create formatted content display
-            const formattedContent = this.formatUserInputContent(content);
+            // Create formatted content display using ContentProcessingService
+            const formattedContent = this.contentProcessingService.formatUserInputForDisplay(content, {
+                extractCleanUserInput: this.eventProcessingService?.extractCleanUserInput?.bind(this.eventProcessingService),
+                escapeHtml: DOMRegistry.escapeHtml
+            });
             userInputElement.innerHTML = formattedContent;
             
             // Add class to parent content-box to identify user input section
@@ -522,25 +525,6 @@ export class ContentVisualizationCoordinator {
         element.innerHTML = errorHtml;
     }
 
-    /**
-     * Format user input content for display
-     * @param {string} content - Raw user input content
-     * @returns {string} Formatted HTML content
-     */
-    formatUserInputContent(content) {
-        // Clean the content first - remove "# User Input:" header and extra whitespace
-        const cleanedContent = this.eventProcessingService.extractCleanUserInput(content);
-        
-        try {
-            // Try to parse as JSON for better formatting
-            const parsed = JSON.parse(cleanedContent);
-            return `<pre><code>${JSON.stringify(parsed, null, 2)}</code></pre>`;
-        } catch {
-            // If not JSON, display as plain text with proper escaping
-            const escaped = DOMRegistry.escapeHtml(cleanedContent);
-            return `<pre><code>${escaped}</code></pre>`;
-        }
-    }
 
 
     /**
@@ -614,12 +598,13 @@ export class ContentVisualizationCoordinator {
      * @param {string} sectionId - Section identifier
      */
     restoreVisualContent(sectionId) {
-        // Use DOMRegistry if available, fallback to getElementById for dynamic section IDs
+        // Use DOMRegistry for consistent DOM access
         // Use getElementSafe to avoid warnings for unregistered dynamic IDs
         const sectionElement = this.domRegistry 
-            ? (this.domRegistry.getElementSafe(sectionId) || document.getElementById(sectionId))
-            : document.getElementById(sectionId);
+            ? this.domRegistry.getElementSafe(sectionId)
+            : null;
         if (!sectionElement) {
+            console.warn(`ContentVisualizationCoordinator: Section element '${sectionId}' not found`);
             return;
         }
 

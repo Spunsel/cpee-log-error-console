@@ -150,10 +150,13 @@ export class RawContentCoordinator {
             return;
         }
 
-        // Get the section element directly from DOM
-        const sectionElement = document.getElementById(sectionId);
+        // Get the section element using DOMRegistry for consistent DOM access
+        // Use getElementSafe to avoid warnings for unregistered dynamic IDs
+        const sectionElement = this.domRegistry 
+            ? this.domRegistry.getElementSafe(sectionId)
+            : null;
         if (!sectionElement) {
-            console.warn(`RawContentCoordinator: Section element with ID '${sectionId}' not found`);
+            console.warn(`RawContentCoordinator: Section element '${sectionId}' not found`);
             return;
         }
 
