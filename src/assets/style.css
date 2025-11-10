@@ -3714,6 +3714,53 @@ section h3 {
     align-items: center;
 }
 
+/* Trace copy button container - positioned similar to action bar */
+.trace-copy-button-container {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+/* Copy button in trace copy container - icon only, styled like action bar copy button */
+.trace-copy-button-container .copy-btn {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    gap: 0;
+}
+
+/* Success state - briefly show success color when showing checkmark */
+.trace-copy-button-container .copy-btn.copy-success {
+    background: var(--copy-success-color);
+    border-color: var(--copy-success-color);
+    color: var(--text-white);
+}
+
+.trace-copy-button-container .copy-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Hide text in copy button when in trace copy container */
+.trace-copy-button-container .copy-text {
+    display: none;
+}
+
 /* Copy button in action bar - icon only, styled like collapse button */
 .action-bar-copy-container .copy-btn {
     background: var(--background-color);

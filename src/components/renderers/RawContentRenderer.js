@@ -12,6 +12,8 @@
  */
 
 import { ActionBar } from '../ui/ActionBar.js';
+import { CopyButton } from '../ui/CopyButton.js';
+import { Trace } from '../../models/Trace.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { MermaidParser } from '../../utils/content/MermaidParser.js';
@@ -43,6 +45,9 @@ export class RawContentRenderer {
         
         // Cache calculated traces per section (to avoid recalculation)
         this.traceCache = new Map();
+        
+        // Copy buttons for traces per section
+        this.traceCopyButtons = new Map();
     }
 
     /**
@@ -257,6 +262,121 @@ export class RawContentRenderer {
     }
 
     /**
+     * Format traces as JSON arrays separated by commas for copying
+     * @param {Array} traces - Array of Trace objects or plain trace arrays
+     * @returns {string} Formatted string with JSON arrays
+     */
+    formatTracesForCopy(traces) {
+        if (!traces || traces.length === 0) {
+            return '';
+        }
+        
+        // Convert traces to JSON arrays
+        const traceArrays = traces.map(trace => {
+            // Handle Trace objects
+            if (trace instanceof Trace || (trace && trace.path)) {
+                const path = trace.path || trace;
+                return path.map(task => ({
+                    id: task.id || '',
+                    alt_id: task.alt_id || '',
+                    task: task.task || ''
+                }));
+            }
+            // Handle plain arrays
+            if (Array.isArray(trace)) {
+                return trace.map(task => ({
+                    id: task.id || '',
+                    alt_id: task.alt_id || '',
+                    task: task.task || ''
+                }));
+            }
+            return [];
+        }).filter(arr => arr.length > 0);
+
+        // Format each trace as a JSON array with proper indentation
+        const formattedTraces = traceArrays.map(traceArray => {
+            const jsonLines = traceArray.map(task => '    ' + JSON.stringify(task, null, 0));
+            return '[\n' + jsonLines.join(',\n') + '\n]';
+        });
+
+        // Join traces with comma and newline (no trailing comma after last trace)
+        return formattedTraces.join(',\n\n');
+    }
+
+    /**
+     * Add copy button for traces to a container
+     * @param {string} sectionId - Section identifier
+     * @param {HTMLElement} container - Container element (traces container)
+     * @param {Array} traces - Traces to copy
+     */
+    addTraceCopyButton(sectionId, container, traces) {
+        if (!traces || traces.length === 0) {
+            // Remove copy button if no traces
+            if (this.traceCopyButtons.has(sectionId)) {
+                const copyButton = this.traceCopyButtons.get(sectionId);
+                if (copyButton && copyButton.element && copyButton.element.parentNode) {
+                    copyButton.element.parentNode.removeChild(copyButton.element);
+                }
+                this.traceCopyButtons.delete(sectionId);
+            }
+            return;
+        }
+
+        // Format traces for copying
+        const contentToCopy = this.formatTracesForCopy(traces);
+
+        // Get or create copy button
+        let copyButton = this.traceCopyButtons.get(sectionId);
+        
+        if (!copyButton) {
+            // Create new copy button
+            copyButton = new CopyButton(this.domRegistry, { showText: false });
+            this.traceCopyButtons.set(sectionId, copyButton);
+        }
+
+        // Update content
+        copyButton.setContent(contentToCopy);
+
+        // Create button element if it doesn't exist
+        if (!copyButton.element) {
+            const button = copyButton.createButton(contentToCopy, '');
+            
+            // Attach to parent container (non-scrolling) similar to action bar
+            const parentContainer = container.closest('.content-box') || container.parentElement;
+            if (parentContainer) {
+                // Check if button already exists in DOM
+                const existingButton = parentContainer.querySelector('.trace-copy-button-container');
+                if (existingButton) {
+                    existingButton.remove();
+                }
+                
+                // Create wrapper container for the copy button
+                const buttonContainer = this.domRegistry.createElement('div', {
+                    className: 'trace-copy-button-container'
+                });
+                buttonContainer.appendChild(button);
+                parentContainer.appendChild(buttonContainer);
+            } else {
+                // Fallback to traces container
+                const buttonContainer = this.domRegistry.createElement('div', {
+                    className: 'trace-copy-button-container'
+                });
+                buttonContainer.appendChild(button);
+                container.appendChild(buttonContainer);
+            }
+        } else {
+            // Update existing button content
+            copyButton.setContent(contentToCopy);
+            
+            // Ensure button container is visible
+            const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
+            if (buttonContainer) {
+                buttonContainer.style.display = 'block';
+            }
+        }
+    }
+
+    /**
      * Render traces using TraceDisplay
      * @param {string} sectionId - Section identifier
      * @param {HTMLElement} container - Content container (traces container)
@@ -295,9 +415,14 @@ export class RawContentRenderer {
                 expandable: true,
                 highlightStartEnd: true
             });
+            
+            // Add copy button for traces
+            this.addTraceCopyButton(sectionId, container, traces);
         } else {
             traceDisplay.clear();
             this.renderNoTracesMessage(container);
+            // Remove copy button if no traces
+            this.addTraceCopyButton(sectionId, container, []);
         }
 
         return container;
@@ -417,6 +542,17 @@ export class RawContentRenderer {
                 el.style.visibility = 'hidden';
                 el.style.pointerEvents = 'none';
             });
+
+            // Hide trace copy button when switching away from trace view
+            if (this.traceCopyButtons.has(sectionId)) {
+                const copyButton = this.traceCopyButtons.get(sectionId);
+                if (copyButton && copyButton.element) {
+                    const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
+                    if (buttonContainer) {
+                        buttonContainer.style.display = 'none';
+                    }
+                }
+            }
 
             // Check if raw content container already exists
             let rawContainer = container.querySelector('[data-content-type="raw"]');
@@ -622,6 +758,17 @@ export class RawContentRenderer {
 
         // Render traces content
         this.renderTracesContent(sectionId, tracesContainer, step);
+        
+        // Show trace copy button if it exists
+        if (this.traceCopyButtons.has(sectionId)) {
+            const copyButton = this.traceCopyButtons.get(sectionId);
+            if (copyButton && copyButton.element) {
+                const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
+                if (buttonContainer) {
+                    buttonContainer.style.display = 'block';
+                }
+            }
+        }
     }
 
     /**
@@ -657,6 +804,17 @@ export class RawContentRenderer {
                 // Clear search before hiding
                 actionBar.clearSearch();
                 actionBar.hide();
+            }
+        }
+        
+        // Hide trace copy button for this section
+        if (sectionId && this.traceCopyButtons.has(sectionId)) {
+            const copyButton = this.traceCopyButtons.get(sectionId);
+            if (copyButton && copyButton.element) {
+                const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
+                if (buttonContainer) {
+                    buttonContainer.style.display = 'none';
+                }
             }
         }
     }
