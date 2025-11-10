@@ -216,13 +216,13 @@ export class RawContentRenderer {
             // Cache the results
             this.traceCache.set(cacheKey, traces);
 
-            // Emit traces:calculated event (Phase 31.15)
+            // Emit traces:calculated event (Phase 31.15) - silent if no listeners (informational event)
             this.eventBus.emit('traces:calculated', {
                 sectionId,
                 stepNumber: step.stepNumber || 'unknown',
                 traceCount: traces.length,
                 traces
-            });
+            }, { silent: true });
 
             // Render traces
             return this.renderTraces(sectionId, container, traces);
@@ -250,13 +250,13 @@ export class RawContentRenderer {
      * @returns {HTMLElement} Trace display container
      */
     renderCachedTraces(sectionId, container, traces) {
-        // Emit traces:calculated event for cached traces (Phase 31.15)
+        // Emit traces:calculated event for cached traces (Phase 31.15) - silent if no listeners (informational event)
         this.eventBus.emit('traces:calculated', {
             sectionId,
             traceCount: traces.length,
             traces,
             cached: true
-        });
+        }, { silent: true });
         
         return this.renderTraces(sectionId, container, traces);
     }

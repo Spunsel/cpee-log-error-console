@@ -5,12 +5,15 @@
 
 import { CPEEDebugConsole } from './core/CPEEDebugConsole.js';
 import { ICONS } from './assets/icons.js';
+import { stateManager } from './core/StateManager.js';
 
 // Apply dark mode immediately to prevent flash of wrong theme
+// Use StateManager to load persisted dark mode preference
 (function applyInitialDarkMode() {
     try {
-        const stored = localStorage.getItem('cpee-debug-console-dark-mode');
-        if (stored === 'true') {
+        // StateManager loads persisted state in constructor, so we can read it immediately
+        const isDark = stateManager.getState('ui.darkMode') || false;
+        if (isDark) {
             document.documentElement.setAttribute('data-theme', 'dark');
             // Update Prism theme
             const prismThemeLink = document.getElementById('prism-theme');

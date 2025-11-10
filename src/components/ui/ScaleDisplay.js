@@ -6,13 +6,14 @@
 
 import { ICONS } from '../../assets/icons.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { configManager } from '../../config/ConfigManager.js';
 
 export class ScaleDisplay {
     constructor(domRegistry, eventBus = null, stateManager = null) {
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
-        this.stateManager = stateManager;
+        this.stateManager = stateManager || defaultStateManager;
         this.isOpen = false;
         
         // Load scale options from configuration
@@ -29,9 +30,23 @@ export class ScaleDisplay {
             this.scaleOptions = [1.0];
         }
         
-        this.currentScale = this.defaultScale;
         this.container = null;
-        this.storageKey = 'cpee-debug-console-graph-scale';
+        
+        // Load scale from StateManager (which loads from localStorage)
+        let storedScale = this.stateManager.getState('ui.scale');
+        if (!storedScale || !this.scaleOptions.includes(storedScale)) {
+            storedScale = this.defaultScale;
+            this.stateManager.setState('ui.scale', storedScale);
+        }
+        this.currentScale = storedScale;
+        
+        // Subscribe to scale changes
+        this.stateManager.subscribe('ui.scale', (scale) => {
+            if (this.currentScale !== scale && this.scaleOptions.includes(scale)) {
+                this.currentScale = scale;
+                this.eventBus.emit('scaleDisplay:scaleChanged', { scale });
+            }
+        });
     }
 
     /**
@@ -43,8 +58,7 @@ export class ScaleDisplay {
             return this.container;
         }
 
-        // Load scale from localStorage or use default
-        this.currentScale = this.loadScaleFromStorage();
+        // Scale is already loaded from StateManager in constructor
 
         this.container = this.domRegistry.createElement('div', {
             id: 'scale-display',
@@ -115,36 +129,6 @@ export class ScaleDisplay {
         }
     }
 
-    /**
-     * Load scale from localStorage
-     * @returns {number} Scale value (default: 1.0)
-     */
-    loadScaleFromStorage() {
-        try {
-            const stored = localStorage.getItem(this.storageKey);
-            if (stored) {
-                const scale = parseFloat(stored);
-                if (this.scaleOptions.includes(scale)) {
-                    return scale;
-                }
-            }
-        } catch (error) {
-            console.warn('Failed to load scale from storage:', error);
-        }
-        return this.defaultScale; // Default scale from config
-    }
-
-    /**
-     * Save scale to localStorage
-     * @param {number} scale - Scale value to save
-     */
-    saveScaleToStorage(scale) {
-        try {
-            localStorage.setItem(this.storageKey, scale.toString());
-        } catch (error) {
-            console.warn('Failed to save scale to storage:', error);
-        }
-    }
 
     /**
      * Render dropdown scale options
@@ -280,13 +264,8 @@ export class ScaleDisplay {
         // Update current scale
         this.currentScale = scale;
 
-        // Save to localStorage
-        this.saveScaleToStorage(scale);
-
-        // Update state manager if available
-        if (this.stateManager) {
-            this.stateManager.setState('graphScale', scale);
-        }
+        // Update StateManager (which will persist to localStorage automatically)
+        this.stateManager.setState('ui.scale', scale);
 
         // Re-render dropdown to show new active state
         this.renderDropdownOptions();

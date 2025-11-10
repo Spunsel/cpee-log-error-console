@@ -11,10 +11,11 @@ import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 import { JQueryExtensions } from '../../utils/system/JQueryExtensions.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
 export class CPEEWfAdaptorRenderer {
     
-    constructor(eventBus = null) {
+    constructor(eventBus = null, stateManager = null) {
         this.adaptor = null;
         this.isRendered = false;
         this.container = null;
@@ -28,8 +29,14 @@ export class CPEEWfAdaptorRenderer {
         
         // Scale management
         this.eventBus = eventBus || defaultEventBus;
+        this.stateManager = stateManager || defaultStateManager;
         this.defaultScale = configManager.get('rendering.scaling.default') || 1.0;
-        this.currentScale = this.defaultScale;
+        
+        // Load scale from StateManager (which loads from localStorage)
+        const storedScale = this.stateManager.getState('ui.scale');
+        this.currentScale = storedScale && SVGScaleUtility.isValidScale(storedScale) 
+            ? storedScale 
+            : this.defaultScale;
         this.currentSvgElement = null; // Track current SVG container for scale updates
         
         // Listen for scale change events
@@ -76,19 +83,12 @@ export class CPEEWfAdaptorRenderer {
     }
     
     /**
-     * Load current scale from localStorage
+     * Load current scale from StateManager
      */
     loadCurrentScale() {
-        try {
-            const stored = localStorage.getItem('cpee-debug-console-graph-scale');
-            if (stored) {
-                const scale = parseFloat(stored);
-                if (SVGScaleUtility.isValidScale(scale)) {
-                    this.currentScale = scale;
-                }
-            }
-        } catch (error) {
-            console.warn('Failed to load scale from storage:', error);
+        const storedScale = this.stateManager.getState('ui.scale');
+        if (storedScale && SVGScaleUtility.isValidScale(storedScale)) {
+            this.currentScale = storedScale;
         }
     }
     

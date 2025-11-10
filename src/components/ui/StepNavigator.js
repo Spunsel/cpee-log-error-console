@@ -29,7 +29,7 @@ export class StepNavigator {
         this.scaleDisplay = new ScaleDisplay(domRegistry, this.eventBus, this.stateManager);
         
         // Initialize theme selector
-        this.themeSelector = new ThemeSelector(domRegistry, this.eventBus);
+        this.themeSelector = new ThemeSelector(domRegistry, this.eventBus, this.stateManager);
     }
 
 

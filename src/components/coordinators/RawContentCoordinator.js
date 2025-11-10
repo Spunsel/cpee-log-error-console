@@ -44,9 +44,6 @@ export class RawContentCoordinator {
         this.currentStep = null;
         this.togglesAttached = false;
 
-        // Storage key for localStorage persistence
-        this.storageKey = 'cpee-debug-console-view-modes';
-
         // Initialize view mode integration
         this.setupViewModeIntegration();
     }
@@ -55,22 +52,18 @@ export class RawContentCoordinator {
      * Setup view mode integration with StateManager
      */
     setupViewModeIntegration() {
-        // Subscribe to view mode changes from StateManager
-        this.stateManager.subscribe('viewModes', (newModes) => {
-            // Sync with localStorage for persistence
-            this.saveToStorage(newModes);
-        });
-        
-        // Initialize from StateManager or localStorage
+        // ViewModes are automatically persisted by StateManager
+        // Just ensure we have initial values if needed
         const stateModes = this.stateManager.getState('viewModes');
-        if (stateModes && Object.keys(stateModes).length > 0) {
-            // StateManager has data, use it
-        } else {
-            // Load from localStorage and sync to StateManager
-            const storedModes = this.loadFromStorage();
-            if (storedModes) {
-                this.stateManager.setState('viewModes', storedModes, { silent: true });
-            }
+        if (!stateModes || Object.keys(stateModes).length === 0) {
+            // Initialize with defaults if empty
+            const defaultModes = {
+                'input-cpee': 'visual',
+                'input-intermediate': 'visual',
+                'output-intermediate': 'visual',
+                'output-cpee': 'visual'
+            };
+            this.stateManager.setState('viewModes', defaultModes);
         }
 
         // Listen for view mode toggle events (always register listener)
@@ -118,34 +111,6 @@ export class RawContentCoordinator {
         return true;
     }
 
-    /**
-     * Load view modes from localStorage
-     * @returns {Object|null} Loaded modes or null if failed
-     */
-    loadFromStorage() {
-        try {
-            const stored = localStorage.getItem(this.storageKey);
-            if (stored) {
-                return JSON.parse(stored);
-            }
-        } catch (error) {
-            console.warn('Failed to load view modes from storage:', error);
-        }
-        return null;
-    }
-
-    /**
-     * Save view modes to localStorage
-     * @param {Object} modes - Modes to save (optional, uses StateManager if not provided)
-     */
-    saveToStorage(modes = null) {
-        try {
-            const modesToSave = modes || this.stateManager.getState('viewModes') || {};
-            localStorage.setItem(this.storageKey, JSON.stringify(modesToSave));
-        } catch (error) {
-            console.warn('Failed to save view modes to storage:', error);
-        }
-    }
 
     /**
      * Initialize raw content features for a section

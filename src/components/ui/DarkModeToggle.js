@@ -6,17 +6,28 @@
 
 import { ICONS } from '../../assets/icons.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
 export class DarkModeToggle {
-    constructor(domRegistry, eventBus = null) {
+    constructor(domRegistry, eventBus = null, stateManager = null) {
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
+        this.stateManager = stateManager || defaultStateManager;
         
-        this.storageKey = 'cpee-debug-console-dark-mode';
-        this.isDarkMode = this.loadDarkModeFromStorage();
+        // Load dark mode from StateManager (which loads from localStorage)
+        this.isDarkMode = this.stateManager.getState('ui.darkMode') || false;
         
         this.button = null;
         this.container = null;
+        
+        // Subscribe to dark mode changes
+        this.stateManager.subscribe('ui.darkMode', (isDark) => {
+            if (this.isDarkMode !== isDark) {
+                this.isDarkMode = isDark;
+                this.applyDarkMode(isDark);
+                this.updateButton();
+            }
+        });
     }
 
     /**
@@ -73,34 +84,6 @@ export class DarkModeToggle {
         this.attachToggleListener();
     }
 
-    /**
-     * Load dark mode preference from localStorage
-     * @returns {boolean} Dark mode state (default: false)
-     */
-    loadDarkModeFromStorage() {
-        try {
-            const stored = localStorage.getItem(this.storageKey);
-            if (stored !== null) {
-                return stored === 'true';
-            }
-        } catch (error) {
-            console.warn('Failed to load dark mode from storage:', error);
-        }
-        // Default to light mode
-        return false;
-    }
-
-    /**
-     * Save dark mode preference to localStorage
-     * @param {boolean} isDark - Dark mode state
-     */
-    saveDarkModeToStorage(isDark) {
-        try {
-            localStorage.setItem(this.storageKey, isDark.toString());
-        } catch (error) {
-            console.warn('Failed to save dark mode to storage:', error);
-        }
-    }
 
     /**
      * Apply dark mode to the document
@@ -139,8 +122,12 @@ export class DarkModeToggle {
      */
     toggle() {
         this.isDarkMode = !this.isDarkMode;
+        
+        // Update StateManager (which will persist to localStorage automatically)
+        this.stateManager.setState('ui.darkMode', this.isDarkMode);
+        
+        // Apply immediately (StateManager subscription will also trigger, but this ensures immediate UI update)
         this.applyDarkMode(this.isDarkMode);
-        this.saveDarkModeToStorage(this.isDarkMode);
         this.updateButton();
         
         // Emit dark mode change event

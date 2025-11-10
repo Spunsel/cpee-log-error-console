@@ -37,7 +37,7 @@ export class CPEEDebugConsole {
         this.logViewer = new LogViewer(this.domRegistry, this.eventBus, this.stateManager);
         this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager);
         this.bugReportModal = new BugReportModal();
-        this.darkModeToggle = new DarkModeToggle(this.domRegistry, this.eventBus);
+        this.darkModeToggle = new DarkModeToggle(this.domRegistry, this.eventBus, this.stateManager);
         
         // Track if InstanceLoaderViewer has been shown for the first time
         this.hasShownInstanceLoaderFirstTime = false;

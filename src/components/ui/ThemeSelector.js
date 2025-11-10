@@ -6,12 +6,14 @@
 
 import { ICONS } from '../../assets/icons.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { configManager } from '../../config/ConfigManager.js';
 
 export class ThemeSelector {
-    constructor(domRegistry, eventBus = null) {
+    constructor(domRegistry, eventBus = null, stateManager = null) {
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
+        this.stateManager = stateManager || defaultStateManager;
         this.isOpen = false;
         
         // Available themes
@@ -22,8 +24,26 @@ export class ThemeSelector {
         ];
         
         this.container = null;
-        this.storageKey = 'cpee-debug-console-theme';
-        this.currentTheme = this.loadThemeFromStorage();
+        
+        // Load theme from StateManager (which loads from localStorage)
+        let storedTheme = this.stateManager.getState('ui.theme');
+        if (!storedTheme || !this.themes.some(t => t.id === storedTheme)) {
+            storedTheme = 'presetid'; // Default
+            this.stateManager.setState('ui.theme', storedTheme);
+        }
+        this.currentTheme = storedTheme;
+        
+        // Update config to match stored theme
+        configManager.set('cpee.wfadaptor.themePath', `src/libs/cpee-layout/themes/${this.currentTheme}/theme.js`);
+        
+        // Subscribe to theme changes
+        this.stateManager.subscribe('ui.theme', (theme) => {
+            if (this.currentTheme !== theme && this.themes.some(t => t.id === theme)) {
+                this.currentTheme = theme;
+                configManager.set('cpee.wfadaptor.themePath', `src/libs/cpee-layout/themes/${theme}/theme.js`);
+                this.eventBus.emit('themeSelector:themeChanged', { theme });
+            }
+        });
     }
 
     /**
@@ -35,8 +55,7 @@ export class ThemeSelector {
             return this.container;
         }
 
-        // Load theme from localStorage or use default
-        this.currentTheme = this.loadThemeFromStorage();
+        // Theme is already loaded from StateManager in constructor
 
         this.container = this.domRegistry.createElement('div', {
             id: 'theme-selector',
@@ -102,42 +121,6 @@ export class ThemeSelector {
         }
     }
 
-    /**
-     * Load theme from localStorage
-     * @returns {string} Theme ID (default: 'presetid')
-     */
-    loadThemeFromStorage() {
-        try {
-            const stored = localStorage.getItem(this.storageKey);
-            if (stored) {
-                const themeExists = this.themes.some(t => t.id === stored);
-                if (themeExists) {
-                    // Update config to match stored theme
-                    configManager.set('cpee.wfadaptor.themePath', `src/libs/cpee-layout/themes/${stored}/theme.js`);
-                    return stored;
-                }
-            }
-        } catch (error) {
-            console.warn('Failed to load theme from storage:', error);
-        }
-        // Default theme is presetid - initialize if nothing stored
-        const defaultTheme = 'presetid';
-        this.saveThemeToStorage(defaultTheme);
-        configManager.set('cpee.wfadaptor.themePath', `src/libs/cpee-layout/themes/${defaultTheme}/theme.js`);
-        return defaultTheme;
-    }
-
-    /**
-     * Save theme to localStorage
-     * @param {string} theme - Theme ID to save
-     */
-    saveThemeToStorage(theme) {
-        try {
-            localStorage.setItem(this.storageKey, theme);
-        } catch (error) {
-            console.warn('Failed to save theme to storage:', error);
-        }
-    }
 
     /**
      * Render dropdown theme options
@@ -273,8 +256,8 @@ export class ThemeSelector {
         // Update current theme
         this.currentTheme = themeId;
 
-        // Save to localStorage
-        this.saveThemeToStorage(themeId);
+        // Update StateManager (which will persist to localStorage automatically)
+        this.stateManager.setState('ui.theme', themeId);
 
         // Update config manager
         configManager.set('cpee.wfadaptor.themePath', `src/libs/cpee-layout/themes/${themeId}/theme.js`);

@@ -13,6 +13,7 @@ import { CPEEWfAdaptorRenderer } from '../renderers/CPEEWfAdaptorRenderer.js';
 import { MermaidRenderer } from '../renderers/MermaidRenderer.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 import { TextParser } from '../../utils/content/TextParser.js';
 import { StepSection } from '../ui/StepSection.js';
@@ -20,10 +21,11 @@ import { SectionExpandCollapse } from '../ui/SectionExpandCollapse.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
 
 export class ContentVisualizationCoordinator {
-    constructor(domRegistry = null, highlightCoordinator = null, eventBus = null) {
+    constructor(domRegistry = null, highlightCoordinator = null, eventBus = null, stateManager = null) {
         this.domRegistry = domRegistry;
         this.highlightCoordinator = highlightCoordinator;
         this.eventBus = eventBus || defaultEventBus;
+        this.stateManager = stateManager || defaultStateManager;
         
         // Renderer instances
         this.inputGraphRenderer = null;
@@ -124,20 +126,13 @@ export class ContentVisualizationCoordinator {
     }
     
     /**
-     * Get current scale from localStorage
+     * Get current scale from StateManager
      * @returns {number} Current scale value (default from config)
      */
     getCurrentScale() {
-        try {
-            const stored = localStorage.getItem('cpee-debug-console-graph-scale');
-            if (stored) {
-                const scale = parseFloat(stored);
-                if (SVGScaleUtility.isValidScale(scale)) {
-                    return scale;
-                }
-            }
-        } catch (error) {
-            console.warn('Failed to load scale from storage:', error);
+        const storedScale = this.stateManager.getState('ui.scale');
+        if (storedScale && SVGScaleUtility.isValidScale(storedScale)) {
+            return storedScale;
         }
         return configManager.get('rendering.scaling.default') || 1.0; // Default scale from config
     }
@@ -199,7 +194,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render CPEE graph
             if (!this.inputGraphRenderer) {
-                this.inputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus);
+                this.inputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus, this.stateManager);
             }
             
             // Set up post-render callback for highlighting
@@ -262,7 +257,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render CPEE graph
             if (!this.outputGraphRenderer) {
-                this.outputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus);
+                this.outputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus, this.stateManager);
             }
             
             // Set up post-render callback for highlighting
@@ -332,7 +327,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render Mermaid diagram
             if (!this.inputMermaidRenderer) {
-                this.inputMermaidRenderer = new MermaidRenderer(this.eventBus);
+                this.inputMermaidRenderer = new MermaidRenderer(this.eventBus, this.stateManager);
             }
             
             // Set up post-render callback for highlighting
@@ -401,7 +396,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render Mermaid diagram
             if (!this.outputMermaidRenderer) {
-                this.outputMermaidRenderer = new MermaidRenderer(this.eventBus);
+                this.outputMermaidRenderer = new MermaidRenderer(this.eventBus, this.stateManager);
             }
             
             // Set up post-render callback for highlighting

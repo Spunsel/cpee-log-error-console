@@ -11,6 +11,11 @@ export class StateManager {
         this.debugMode = false;
         this.history = [];
         this.maxHistorySize = 50;
+        this.persistedPaths = new Set(); // Paths that should persist to localStorage
+        this.storagePrefix = 'cpee-debug-console-state-';
+        
+        // Load persisted state from localStorage
+        this.loadPersistedState();
     }
 
     /**
@@ -28,7 +33,11 @@ export class StateManager {
                 sidebarVisible: true,
                 sidebarCollapsed: true,
                 loading: false,
-                activeView: 'home' // 'home', 'instance', 'log'
+                activeView: 'home', // 'home', 'instance', 'log'
+                darkMode: false, // Dark mode preference (persisted)
+                theme: 'presetid', // CPEE theme preference (persisted)
+                scale: 1.0, // Graph scale preference (persisted)
+                graphScale: 1.0 // Default graph scale: 1x (100%) - legacy, use ui.scale
             },
             search: {
                 active: false,
@@ -37,7 +46,7 @@ export class StateManager {
                 wholeWord: false
             },
             viewModes: {
-                // View modes for each section: 'visual', 'raw', 'log', or 'traces'
+                // View modes for each section: 'visual', 'raw', 'log', or 'traces' (persisted)
                 'input-cpee': 'visual',
                 'input-intermediate': 'visual',
                 'output-intermediate': 'visual',
@@ -45,7 +54,7 @@ export class StateManager {
             },
             // Optional: Cache trace calculation results per section (Phase 31.14)
             traceCache: {}, // Structure: { 'sectionId-stepNumber': Trace[] }
-            graphScale: 1.0 // Default graph scale: 1x (100%)
+            graphScale: 1.0 // Default graph scale: 1x (100%) - legacy, use ui.scale
         };
     }
 
@@ -107,6 +116,8 @@ export class StateManager {
      * @param {string|Array} path - Dot notation path or array of keys
      * @param {*} value - Value to set
      * @param {Object} options - Additional options
+     * @param {boolean} options.silent - Don't add to history or notify listeners
+     * @param {boolean} options.persist - Persist to localStorage (default: auto-detect based on persistedPaths)
      */
     setState(path, value, options = {}) {
         this.logDebug(`Setting state: ${path} =`, value);
@@ -119,6 +130,17 @@ export class StateManager {
         }
 
         this.setNestedValue(this.state, path, value);
+        
+        // Persist to localStorage if this path is marked for persistence
+        const pathKey = this.normalizePath(path);
+        const shouldPersist = options.persist !== undefined 
+            ? options.persist 
+            : this.persistedPaths.has(pathKey) || this.isPersistedPath(pathKey);
+        
+        if (shouldPersist) {
+            this.persistToStorage(pathKey, value);
+        }
+        
         this.notifyListeners(path, value, oldValue);
     }
 
@@ -473,12 +495,152 @@ export class StateManager {
     }
 
     /**
+     * Register a path for localStorage persistence
+     * @param {string|Array} path - Path to persist
+     */
+    registerPersistedPath(path) {
+        const pathKey = this.normalizePath(path);
+        this.persistedPaths.add(pathKey);
+        this.logDebug(`Registered persisted path: ${pathKey}`);
+    }
+
+    /**
+     * Unregister a path from localStorage persistence
+     * @param {string|Array} path - Path to stop persisting
+     */
+    unregisterPersistedPath(path) {
+        const pathKey = this.normalizePath(path);
+        this.persistedPaths.delete(pathKey);
+        this.logDebug(`Unregistered persisted path: ${pathKey}`);
+    }
+
+    /**
+     * Check if a path should be persisted
+     * @param {string} pathKey - Normalized path key
+     * @returns {boolean} True if path should be persisted
+     */
+    isPersistedPath(pathKey) {
+        // Check exact match
+        if (this.persistedPaths.has(pathKey)) {
+            return true;
+        }
+        
+        // Check if any parent path is persisted
+        const parentPaths = this.getParentPaths(pathKey);
+        return parentPaths.some(parentPath => this.persistedPaths.has(parentPath));
+    }
+
+    /**
+     * Get storage key for a path
+     * @param {string} pathKey - Normalized path key
+     * @returns {string} Storage key
+     */
+    getStorageKey(pathKey) {
+        return `${this.storagePrefix}${pathKey.replace(/\./g, '-')}`;
+    }
+
+    /**
+     * Persist state value to localStorage
+     * @param {string} pathKey - Normalized path key
+     * @param {*} value - Value to persist
+     */
+    persistToStorage(pathKey, value) {
+        try {
+            const storageKey = this.getStorageKey(pathKey);
+            // Only persist primitive values and simple objects
+            if (value === null || value === undefined) {
+                localStorage.removeItem(storageKey);
+            } else if (typeof value === 'object' && !(value instanceof Map)) {
+                localStorage.setItem(storageKey, JSON.stringify(value));
+            } else if (typeof value !== 'object') {
+                localStorage.setItem(storageKey, String(value));
+            }
+            this.logDebug(`Persisted ${pathKey} to localStorage`);
+        } catch (error) {
+            console.warn(`[StateManager] Failed to persist ${pathKey} to localStorage:`, error);
+        }
+    }
+
+    /**
+     * Load persisted state from localStorage
+     */
+    loadPersistedState() {
+        // Register paths that should be persisted
+        this.registerPersistedPath('ui.darkMode');
+        this.registerPersistedPath('ui.theme');
+        this.registerPersistedPath('ui.scale');
+        this.registerPersistedPath('viewModes');
+        
+        // Load each persisted path
+        this.persistedPaths.forEach(pathKey => {
+            try {
+                const storageKey = this.getStorageKey(pathKey);
+                const stored = localStorage.getItem(storageKey);
+                
+                if (stored !== null) {
+                    let value;
+                    // Try to parse as JSON first
+                    try {
+                        value = JSON.parse(stored);
+                    } catch {
+                        // If not JSON, try to parse as number or boolean
+                        if (stored === 'true') {
+                            value = true;
+                        } else if (stored === 'false') {
+                            value = false;
+                        } else if (!isNaN(stored) && stored !== '') {
+                            value = parseFloat(stored);
+                        } else {
+                            value = stored;
+                        }
+                    }
+                    
+                    // Set the value in state (silently to avoid triggering persistence again)
+                    this.setNestedValue(this.state, pathKey, value);
+                    this.logDebug(`Loaded persisted state: ${pathKey} =`, value);
+                }
+            } catch (error) {
+                console.warn(`[StateManager] Failed to load persisted state for ${pathKey}:`, error);
+            }
+        });
+    }
+
+    /**
+     * Clear persisted state from localStorage
+     * @param {string|Array} path - Path to clear (optional, clears all if not provided)
+     */
+    clearPersistedState(path = null) {
+        if (path) {
+            const pathKey = this.normalizePath(path);
+            const storageKey = this.getStorageKey(pathKey);
+            try {
+                localStorage.removeItem(storageKey);
+                this.logDebug(`Cleared persisted state: ${pathKey}`);
+            } catch (error) {
+                console.warn(`[StateManager] Failed to clear persisted state for ${pathKey}:`, error);
+            }
+        } else {
+            // Clear all persisted state
+            this.persistedPaths.forEach(pathKey => {
+                const storageKey = this.getStorageKey(pathKey);
+                try {
+                    localStorage.removeItem(storageKey);
+                } catch (error) {
+                    console.warn(`[StateManager] Failed to clear persisted state for ${pathKey}:`, error);
+                }
+            });
+            this.logDebug('Cleared all persisted state');
+        }
+    }
+
+    /**
      * Destroy the state manager
      */
     destroy() {
         this.listeners.clear();
         this.history = [];
         this.state = {};
+        this.persistedPaths.clear();
         
         this.logDebug('Destroyed');
     }

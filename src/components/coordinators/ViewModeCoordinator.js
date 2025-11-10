@@ -13,12 +13,11 @@ import { stateManager } from '../../core/StateManager.js';
 export class ViewModeCoordinator {
     constructor(instanceService = null) {
         this.instanceService = instanceService;
-        this.storageKey = 'cpee-debug-console-view-modes';
         
         // Callback for mode changes
         this.onModeChange = null;
         
-        // Subscribe to StateManager changes
+        // Setup StateManager integration
         this.setupStateManagerIntegration();
     }
 
@@ -26,23 +25,18 @@ export class ViewModeCoordinator {
      * Setup StateManager integration
      */
     setupStateManagerIntegration() {
-        // Subscribe to view mode changes
-        stateManager.subscribe('viewModes', (newModes) => {
-            // Sync with localStorage for persistence
-            this.saveToStorage(newModes);
-        });
-        
-        // Initialize from StateManager or localStorage
+        // ViewModes are automatically persisted by StateManager
+        // Just ensure we have initial values if needed
         const stateModes = stateManager.getState('viewModes');
-        if (stateModes && Object.keys(stateModes).length > 0) {
-            // StateManager has data, use it
-            return;
-        }
-        
-        // Load from localStorage and sync to StateManager
-        const storedModes = this.loadFromStorage();
-        if (storedModes) {
-            stateManager.setState('viewModes', storedModes, { silent: true });
+        if (!stateModes || Object.keys(stateModes).length === 0) {
+            // Initialize with defaults if empty
+            const defaultModes = {
+                'input-cpee': 'visual',
+                'input-intermediate': 'visual',
+                'output-intermediate': 'visual',
+                'output-cpee': 'visual'
+            };
+            stateManager.setState('viewModes', defaultModes);
         }
     }
     /**
@@ -164,34 +158,6 @@ export class ViewModeCoordinator {
         }
     }
 
-    /**
-     * Load view modes from localStorage
-     * @returns {Object|null} Loaded modes or null if failed
-     */
-    loadFromStorage() {
-        try {
-            const stored = localStorage.getItem(this.storageKey);
-            if (stored) {
-                return JSON.parse(stored);
-            }
-        } catch (error) {
-            console.warn('Failed to load view modes from storage:', error);
-        }
-        return null;
-    }
-
-    /**
-     * Save view modes to localStorage
-     * @param {Object} modes - Modes to save (optional, uses StateManager if not provided)
-     */
-    saveToStorage(modes = null) {
-        try {
-            const modesToSave = modes || stateManager.getState('viewModes') || {};
-            localStorage.setItem(this.storageKey, JSON.stringify(modesToSave));
-        } catch (error) {
-            console.warn('Failed to save view modes to storage:', error);
-        }
-    }
 
     /**
      * Restore view modes from storage for current instance
@@ -223,7 +189,7 @@ export class ViewModeCoordinator {
      */
     clearStorageForInstance(uuid) {
         this.viewModes.delete(uuid);
-        this.saveToStorage();
+        // StateManager will handle persistence automatically
     }
 
     /**
@@ -231,11 +197,14 @@ export class ViewModeCoordinator {
      */
     clearAllStorage() {
         this.viewModes.clear();
-        try {
-            localStorage.removeItem(this.storageKey);
-        } catch (error) {
-            console.warn('Failed to clear all view modes from storage:', error);
-        }
+        // Reset to defaults via StateManager
+        const defaultModes = {
+            'input-cpee': 'visual',
+            'input-intermediate': 'visual',
+            'output-intermediate': 'visual',
+            'output-cpee': 'visual'
+        };
+        stateManager.setState('viewModes', defaultModes);
     }
 
     /**

@@ -16,6 +16,7 @@ export class EventBus {
      * @param {string} event - Event name
      * @param {*} data - Event data
      * @param {Object} options - Additional options
+     * @param {boolean} options.silent - If true, suppress warning when no listeners (default: false)
      */
     emit(event, data = null, options = {}) {
         if (this.debugMode) {
@@ -25,7 +26,7 @@ export class EventBus {
         const listeners = this.events.get(event) || [];
         
         if (listeners.length === 0) {
-            if (this.debugMode) {
+            if (this.debugMode && !options.silent) {
                 console.warn(`[EventBus] No listeners for event: ${event}`);
             }
             return;

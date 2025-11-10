@@ -24,7 +24,7 @@ export class StepViewer {
         
         // Initialize extracted components
         this.navigator = new StepNavigator(instanceService, domRegistry, this.eventBus, this.stateManager);
-        this.contentCoordinator = new ContentVisualizationCoordinator(domRegistry, highlightCoordinator, this.eventBus);
+        this.contentCoordinator = new ContentVisualizationCoordinator(domRegistry, highlightCoordinator, this.eventBus, this.stateManager);
         
         // Pass ContentVisualizationCoordinator to RawContentCoordinator for coordination
         if (this.rawContentCoordinator) {
