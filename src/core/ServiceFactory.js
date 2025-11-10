@@ -16,6 +16,7 @@ import { TaskMappingService } from '../services/TaskMappingService.js';
 import { TraceCalculationService } from '../services/TraceCalculationService.js';
 import { ProxyRotationService, proxyRotationService } from '../services/ProxyRotationService.js';
 import { EmailService } from '../services/EmailService.js';
+import { ContentProcessingService } from '../services/ContentProcessingService.js';
 import { configManager } from '../config/ConfigManager.js';
 import { CPEETaskExtractor } from '../utils/extraction/CPEETaskExtractor.js';
 import { MermaidTaskExtractor } from '../utils/extraction/MermaidTaskExtractor.js';
@@ -38,7 +39,8 @@ export class ServiceFactory {
             'TaskMappingService',
             'TraceCalculationService',
             'ProxyRotationService',
-            'EmailService'
+            'EmailService',
+            'ContentProcessingService'
         ]);
         this.serviceConfigs = new Map();
         this.debugMode = false;
@@ -126,10 +128,15 @@ export class ServiceFactory {
             case 'StepAssemblyService':
                 {
                     const eventProcessingService = this.get('EventProcessingService');
+                    const contentProcessingService = this.get('ContentProcessingService');
                     const taskMappingService = this.get('TaskMappingService');
                     const traceCalculationService = this.get('TraceCalculationService');
-                    // ContentProcessingService will be null for now (Issue #3)
-                    return new StepAssemblyService(eventProcessingService, null, taskMappingService, traceCalculationService);
+                    return new StepAssemblyService(
+                        eventProcessingService, 
+                        contentProcessingService,
+                        taskMappingService, 
+                        traceCalculationService
+                    );
                 }
             
             case 'TaskMappingService':
@@ -152,6 +159,9 @@ export class ServiceFactory {
             
             case 'EmailService':
                 return new EmailService(...args);
+            
+            case 'ContentProcessingService':
+                return new ContentProcessingService();
             
             default:
                 throw new Error(`ServiceFactory: Unknown service "${serviceName}"`);

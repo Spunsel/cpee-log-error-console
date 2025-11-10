@@ -5,7 +5,6 @@
 
 import { DOMStatusManager } from '../../utils/dom/DOMStatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
-import { CPEEParser } from '../../utils/content/CPEEParser.js';
 import { SVGProcessor } from '../../utils/dom/SVGProcessor.js';
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 import { JQueryExtensions } from '../../utils/system/JQueryExtensions.js';
@@ -13,10 +12,11 @@ import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class CPEEWfAdaptorRenderer {
     
-    constructor(eventBus = null, stateManager = null, domRegistry = null) {
+    constructor(eventBus = null, stateManager = null, domRegistry = null, contentProcessingService = null) {
         this.domRegistry = domRegistry;
         this.adaptor = null;
         this.isRendered = false;
@@ -28,6 +28,9 @@ export class CPEEWfAdaptorRenderer {
         
         // Post-render callback for highlighting integration
         this.postRenderCallback = null;
+        
+        // Content processing service
+        this.contentProcessingService = contentProcessingService || serviceFactory.get('ContentProcessingService');
         
         // Scale management
         this.eventBus = eventBus || defaultEventBus;
@@ -218,7 +221,7 @@ export class CPEEWfAdaptorRenderer {
             this.showStatus('Loading CPEE WfAdaptor...', 'loading');
             
             // Validate XML first
-            const cleanedXML = CPEEParser.cleanAndValidateXML(cpeeXML);
+            const cleanedXML = this.contentProcessingService.processAndValidateCPEEXML(cpeeXML);
             
             // Load the WfAdaptor and theme system
             await this.loadWfAdaptor();

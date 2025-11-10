@@ -30,6 +30,9 @@ export class ContentVisualizationCoordinator {
         // Get EventProcessingService for user input processing
         this.eventProcessingService = serviceFactory.get('EventProcessingService');
         
+        // Get ContentProcessingService for renderers
+        this.contentProcessingService = serviceFactory.get('ContentProcessingService');
+        
         // Renderer instances
         this.inputGraphRenderer = null;
         this.outputGraphRenderer = null;
@@ -197,7 +200,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render CPEE graph
             if (!this.inputGraphRenderer) {
-                this.inputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus, this.stateManager, this.domRegistry);
+                this.inputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus, this.stateManager, this.domRegistry, this.contentProcessingService);
             }
             
             // Set up post-render callback for highlighting
@@ -260,7 +263,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render CPEE graph
             if (!this.outputGraphRenderer) {
-                this.outputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus, this.stateManager, this.domRegistry);
+                this.outputGraphRenderer = new CPEEWfAdaptorRenderer(this.eventBus, this.stateManager, this.domRegistry, this.contentProcessingService);
             }
             
             // Set up post-render callback for highlighting
@@ -330,7 +333,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render Mermaid diagram
             if (!this.inputMermaidRenderer) {
-                this.inputMermaidRenderer = new MermaidRenderer(this.eventBus, this.stateManager, this.domRegistry);
+                this.inputMermaidRenderer = new MermaidRenderer(this.eventBus, this.stateManager, this.domRegistry, this.contentProcessingService);
             }
             
             // Set up post-render callback for highlighting
@@ -399,7 +402,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize and render Mermaid diagram
             if (!this.outputMermaidRenderer) {
-                this.outputMermaidRenderer = new MermaidRenderer(this.eventBus, this.stateManager, this.domRegistry);
+                this.outputMermaidRenderer = new MermaidRenderer(this.eventBus, this.stateManager, this.domRegistry, this.contentProcessingService);
             }
             
             // Set up post-render callback for highlighting

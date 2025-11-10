@@ -9,17 +9,18 @@
  * - Mark affected line numbers with background highlight
  */
 
-import { MermaidParser } from '../../utils/content/MermaidParser.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class RawUntouchedLogRender {
-    constructor(domRegistry = null) {
+    constructor(domRegistry = null, contentProcessingService = null) {
         this.domRegistry = domRegistry;
+        this.contentProcessingService = contentProcessingService || serviceFactory.get('ContentProcessingService');
     }
 
     /**
      * Render log Mermaid content with minimal processing
      * Only removes: %% Input/Output Intermediate comment, ```mermaid markers, and fixes indentation
-     * Uses MermaidParser.cleanMermaidForLogView() for minimal cleaning
+     * Uses ContentProcessingService.processMermaidForLogView() for minimal cleaning
      * @param {string} mermaidText - Raw Mermaid diagram text from logs (rawExposition)
      * @param {Object} options - Rendering options (can include 'type' for input/output)
      * @returns {HTMLElement} Container with rendered content
@@ -34,7 +35,7 @@ export class RawUntouchedLogRender {
         let processedText = mermaidText || '';
         
         try {
-            processedText = MermaidParser.cleanMermaidForLogView(processedText, type);
+            processedText = this.contentProcessingService.processMermaidForLogView(processedText, type);
         } catch (error) {
             console.warn('Failed to clean log Mermaid content, using raw text:', error);
             // Fallback to raw text if cleaning fails
@@ -45,7 +46,7 @@ export class RawUntouchedLogRender {
         // Parse with preprocessing to get appliedSteps, but don't use the processed code
         let affectedLineNumbers = [];
         try {
-            const cleanResult = MermaidParser.cleanAndValidate(processedText, true);
+            const cleanResult = this.contentProcessingService.processAndValidateMermaid(processedText, true);
             if (cleanResult.appliedSteps && cleanResult.appliedSteps.length > 0) {
                 // Collect all line numbers from all applied steps
                 cleanResult.appliedSteps.forEach(step => {

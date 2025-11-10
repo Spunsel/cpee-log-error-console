@@ -8,16 +8,16 @@
 import { DOMStatusManager } from '../../utils/dom/DOMStatusManager.js';
 import { LibraryLoader } from '../../utils/system/LibraryLoader.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
-import { MermaidParser } from '../../utils/content/MermaidParser.js';
 import { MermaidErrorHandler } from '../../utils/content/MermaidErrorHandler.js';
 import { MermaidWarningHandler } from '../../utils/content/MermaidWarningHandler.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class MermaidRenderer {
-    constructor(eventBus = null, stateManager = null, domRegistry = null) {
+    constructor(eventBus = null, stateManager = null, domRegistry = null, contentProcessingService = null) {
         this.domRegistry = domRegistry;
         this.container = null;
         this.statusManager = null;
@@ -28,6 +28,9 @@ export class MermaidRenderer {
         
         // Post-render callback for highlighting integration
         this.postRenderCallback = null;
+        
+        // Content processing service
+        this.contentProcessingService = contentProcessingService || serviceFactory.get('ContentProcessingService');
         
         // Scale management
         this.eventBus = eventBus || defaultEventBus;
@@ -345,7 +348,7 @@ export class MermaidRenderer {
                 this.statusManager.showLoading('🎨 Rendering Mermaid graph...');
             }
 
-            const cleanResult = MermaidParser.cleanAndValidate(mermaidCode);
+            const cleanResult = this.contentProcessingService.processAndValidateMermaid(mermaidCode);
             const cleanedCode = cleanResult.code;
             const appliedSteps = cleanResult.appliedSteps || [];
             

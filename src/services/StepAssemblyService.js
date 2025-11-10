@@ -5,20 +5,18 @@
  */
 
 import { CPEEStep } from '../models/CPEEStep.js';
-import { MermaidParser } from '../utils/content/MermaidParser.js';
-import { CPEEParser } from '../utils/content/CPEEParser.js';
 
 export class StepAssemblyService {
     /**
      * Create a new StepAssemblyService instance
      * @param {EventProcessingService} eventProcessingService - Service for event processing
-     * @param {ContentProcessingService|null} contentProcessingService - Service for content processing (optional, will be created in Issue #3)
+     * @param {ContentProcessingService} contentProcessingService - Service for content processing
      * @param {TaskMappingService} taskMappingService - Service for task mapping
      * @param {TraceCalculationService} traceCalculationService - Service for trace calculation
      */
     constructor(eventProcessingService, contentProcessingService, taskMappingService, traceCalculationService) {
         this.eventProcessingService = eventProcessingService;
-        this.contentProcessingService = contentProcessingService; // Will be used in Issue #3
+        this.contentProcessingService = contentProcessingService;
         this.taskMappingService = taskMappingService;
         this.traceCalculationService = traceCalculationService;
     }
@@ -125,33 +123,31 @@ export class StepAssemblyService {
     processExpositionEvent(event, cpeeStep) {
         const exposition = event['cpee:exposition'] || '';
         
-        // TODO: Delegate content cleaning to ContentProcessingService when Issue #3 is implemented
-        // For now, keep content cleaning inline
-        
         if (exposition.includes('<!-- Input CPEE-Tree -->')) {
-            const cleanedContent = CPEEParser.cleanCPEETreeContent(exposition, 'input');
+            const cleanedContent = this.contentProcessingService.processCPEETreeContent(exposition, 'input');
             cpeeStep.setInputCpeeTreeRaw(cleanedContent);
         } else if (exposition.includes('%% Input Intermediate')) {
-            const cleanedContent = MermaidParser.cleanMermaidContent(exposition, 'input');
+            const cleanedContent = this.contentProcessingService.processMermaidContent(exposition, 'input');
             const mermaidRaw = cpeeStep.getInputMermaidRaw();
             mermaidRaw.setContent(cleanedContent);
             mermaidRaw.setRawExposition(exposition); // Store completely unprocessed content for log view
             cpeeStep.setInputMermaidRaw(mermaidRaw);
         } else if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
-            cpeeStep.setUserInputRaw(exposition);
+            const processedContent = this.contentProcessingService.processUserInput(exposition);
+            cpeeStep.setUserInputRaw(processedContent);
         } else if (exposition.includes('# Used LLM:')) {
             const llmMatch = exposition.match(/#\s*Used\s*LLM:\s*([^\n]+)/i);
             if (llmMatch && llmMatch[1]) {
                 cpeeStep.usedLLM = llmMatch[1].trim();
             }
         } else if (exposition.includes('%% Output Intermediate')) {
-            const cleanedContent = MermaidParser.cleanMermaidContent(exposition, 'output');
+            const cleanedContent = this.contentProcessingService.processMermaidContent(exposition, 'output');
             const mermaidRaw = cpeeStep.getOutputMermaidRaw();
             mermaidRaw.setContent(cleanedContent);
             mermaidRaw.setRawExposition(exposition); // Store completely unprocessed content for log view
             cpeeStep.setOutputMermaidRaw(mermaidRaw);
         } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
-            const cleanedContent = CPEEParser.cleanCPEETreeContent(exposition, 'output');
+            const cleanedContent = this.contentProcessingService.processCPEETreeContent(exposition, 'output');
             cpeeStep.setOutputCpeeTreeRaw(cleanedContent);
         }
     }

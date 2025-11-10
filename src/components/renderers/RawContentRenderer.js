@@ -16,7 +16,6 @@ import { CopyButton } from '../ui/CopyButton.js';
 import { Trace } from '../../models/Trace.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { configManager } from '../../config/ConfigManager.js';
-import { MermaidParser } from '../../utils/content/MermaidParser.js';
 import { RawUntouchedLogRender } from './RawUntouchedLogRender.js';
 import { TraceDisplay } from '../ui/TraceDisplay.js';
 import { CPEETraceCalculator } from '../../utils/trace/CPEETraceCalculator.js';
@@ -24,15 +23,16 @@ import { MermaidTraceCalculator } from '../../utils/trace/MermaidTraceCalculator
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class RawContentRenderer {
-    constructor(domRegistry = null, eventBus = null) {
+    constructor(domRegistry = null, eventBus = null, contentProcessingService = null) {
         this.domRegistry = domRegistry;
         this.eventBus = eventBus || defaultEventBus;
+        this.contentProcessingService = contentProcessingService || serviceFactory.get('ContentProcessingService');
         
         // Search service
         this.searchService = serviceFactory.get('SearchService');
         
         // Log renderer for untouched log view
-        this.logRenderer = new RawUntouchedLogRender(domRegistry);
+        this.logRenderer = new RawUntouchedLogRender(domRegistry, this.contentProcessingService);
         
         // Action bars per section
         this.actionBars = new Map();
@@ -65,7 +65,7 @@ export class RawContentRenderer {
         // Apply preprocessing to match what visual view shows
         let processedText = mermaidText || '';
         try {
-            const cleanResult = MermaidParser.cleanAndValidate(processedText, true);
+            const cleanResult = this.contentProcessingService.processAndValidateMermaid(processedText, true);
             processedText = cleanResult.code;
         } catch (error) {
             console.warn('Failed to preprocess raw Mermaid content, using original text:', error);
