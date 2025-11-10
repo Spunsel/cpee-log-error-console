@@ -117,7 +117,21 @@ export class ContentProcessingService {
             // Try to parse as JSON for better formatting
             const parsed = JSON.parse(cleanedContent);
             const formattedJson = JSON.stringify(parsed, null, 2);
-            return `<pre><code>${formattedJson}</code></pre>`;
+            // Escape HTML-sensitive characters to prevent XSS
+            let escapedJson = formattedJson;
+            if (options.escapeHtml && typeof options.escapeHtml === 'function') {
+                escapedJson = options.escapeHtml(formattedJson);
+            } else {
+                // Fallback: basic HTML escaping
+                escapedJson = formattedJson
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;')
+                    .replace(/`/g, '&#96;');
+            }
+            return `<pre><code>${escapedJson}</code></pre>`;
         } catch {
             // If not JSON, display as plain text with proper escaping
             let escaped = cleanedContent;
@@ -130,7 +144,8 @@ export class ContentProcessingService {
                     .replace(/</g, '&lt;')
                     .replace(/>/g, '&gt;')
                     .replace(/"/g, '&quot;')
-                    .replace(/'/g, '&#39;');
+                    .replace(/'/g, '&#39;')
+                    .replace(/`/g, '&#96;');
             }
             return `<pre><code>${escaped}</code></pre>`;
         }

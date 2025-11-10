@@ -7,8 +7,8 @@ import { Sidebar } from '../components/ui/Sidebar.js';
 import { StepViewer } from '../components/views/StepViewer.js';
 import { LogViewer } from '../components/views/LogViewer.js';
 import { InstanceLoaderViewer } from '../components/views/InstanceLoaderViewer.js';
-import { RawContentCoordinator } from '../components/coordinators/RawContentCoordinator.js';
-import { HighlightCoordinator } from '../components/coordinators/HighlightCoordinator.js';
+import { ContentViewCoordinator } from '../components/coordinators/ContentViewCoordinator.js';
+import { CrossGraphHighlightCoordinator } from '../components/coordinators/CrossGraphHighlightCoordinator.js';
 import { BugReportModal } from '../components/ui/BugReportModal.js';
 import { DarkModeToggle } from '../components/ui/DarkModeToggle.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
@@ -36,12 +36,12 @@ export class CPEEDebugConsole {
         const contentProcessingService = this.serviceFactory.get('ContentProcessingService');
         
         // Initialize coordinators with injected services
-        this.highlightCoordinator = new HighlightCoordinator(this.domRegistry, highlightingService);
-        this.rawContentCoordinator = new RawContentCoordinator(this.instanceService, this.domRegistry, null, this.eventBus, this.stateManager, contentProcessingService);
+        this.highlightCoordinator = new CrossGraphHighlightCoordinator(this.domRegistry, highlightingService, this.stateManager);
+        this.contentViewCoordinator = new ContentViewCoordinator(this.domRegistry, null, this.eventBus, this.stateManager, contentProcessingService);
         
         // Initialize components with DOM registry, event bus, and state manager
         this.sidebar = new Sidebar(this.instanceService, this.domRegistry, this.eventBus);
-        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.rawContentCoordinator, this.highlightCoordinator, this.eventBus, this.stateManager, eventProcessingService, contentProcessingService);
+        this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.contentViewCoordinator, this.highlightCoordinator, this.eventBus, this.stateManager, eventProcessingService, contentProcessingService);
         this.logViewer = new LogViewer(this.domRegistry, this.eventBus, this.stateManager);
         this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager, this.logFetchService, eventProcessingService);
         this.bugReportModal = new BugReportModal(this.serviceFactory);

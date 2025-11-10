@@ -87,7 +87,7 @@ export class ViewModeToggle {
         // Update button states (UI only)
         this.updateToggleState(sectionId, mode);
 
-        // Emit event - StateManager will be updated by the listener (RawContentCoordinator)
+        // Emit event - StateManager will be updated by the listener (ContentViewCoordinator)
         this.eventBus.emit('viewModeToggle:modeChanged', { sectionId, mode });
     }
 

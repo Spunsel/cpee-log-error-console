@@ -1,22 +1,24 @@
 /**
- * Highlight Coordinator
- * Coordinates task highlighting across all 4 content sections
+ * Cross-Graph Highlight Coordinator
+ * Coordinates task highlighting across all 4 content sections (cross-graph coordination)
  * Responsibilities:
  * - Track rendered SVG containers in all sections
- * - Handle task click events and propagate highlights
+ * - Handle task click events and propagate highlights across graphs
  * - Coordinate with HighlightingService and TaskMapper
  * - Manage visual vs raw view mode (only highlight in visual mode)
  * - Implement state persistence across step navigation
  */
 
 import { SVGClickDetector } from '../../utils/interaction/SVGClickDetector.js';
+import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
-export class HighlightCoordinator {
-    constructor(domRegistry = null, highlightingService = null) {
+export class CrossGraphHighlightCoordinator {
+    constructor(domRegistry = null, highlightingService = null, stateManager = null) {
         this.domRegistry = domRegistry;
         
         // Core services injected via constructor
         this.highlightingService = highlightingService;
+        this.stateManager = stateManager || defaultStateManager;
         this.taskMapper = null; // Set externally
         
         // Click detection
@@ -45,7 +47,7 @@ export class HighlightCoordinator {
         // Initialize click outside handler
         this.initializeClickOutsideHandler();
         
-        console.log('[HighlightCoordinator] Initialized');
+        console.log('[CrossGraphHighlightCoordinator] Initialized');
     }
 
     /**
@@ -54,7 +56,7 @@ export class HighlightCoordinator {
      */
     setTaskMapper(taskMapper) {
         this.taskMapper = taskMapper;
-        console.log('[HighlightCoordinator] TaskMapper set');
+        console.log('[CrossGraphHighlightCoordinator] TaskMapper set');
     }
 
     /**
@@ -64,7 +66,7 @@ export class HighlightCoordinator {
      */
     registerSection(sectionId, container) {
         this.sections[sectionId] = container;
-        console.log(`[HighlightCoordinator] Registered section: ${sectionId}`);
+        console.log(`[CrossGraphHighlightCoordinator] Registered section: ${sectionId}`);
     }
 
     /**
@@ -73,14 +75,14 @@ export class HighlightCoordinator {
      * @param {string} sectionId - Section identifier
      */
     attachCPEEClickHandlers(svgElement, sectionId) {
-        console.log(`[HighlightCoordinator] Attaching CPEE click handlers to ${sectionId}`);
+        console.log(`[CrossGraphHighlightCoordinator] Attaching CPEE click handlers to ${sectionId}`);
         
         // Remove any existing listener for this section
         this.removeClickHandlers(sectionId);
         
         // Find all task elements and make them clickable
         const taskElements = svgElement.querySelectorAll('g.element[element-id]');
-        console.log(`[HighlightCoordinator] Found ${taskElements.length} CPEE task elements in ${sectionId}`);
+        console.log(`[CrossGraphHighlightCoordinator] Found ${taskElements.length} CPEE task elements in ${sectionId}`);
         
         taskElements.forEach(taskElement => {
             taskElement.classList.add('task-clickable');
@@ -91,7 +93,7 @@ export class HighlightCoordinator {
             if (taskContainer) {
                 const taskId = taskContainer.getAttribute('element-id');
                 if (taskId) {
-                    console.log(`[HighlightCoordinator] CPEE task clicked in ${sectionId}: ${taskId}`);
+                    console.log(`[CrossGraphHighlightCoordinator] CPEE task clicked in ${sectionId}: ${taskId}`);
                     this.onTaskClicked(taskId, sectionId, sectionId);
                 }
             }
@@ -107,14 +109,14 @@ export class HighlightCoordinator {
      * @param {string} sectionId - Section identifier
      */
     attachMermaidClickHandlers(svgElement, sectionId) {
-        console.log(`[HighlightCoordinator] Attaching Mermaid click handlers to ${sectionId}`);
+        console.log(`[CrossGraphHighlightCoordinator] Attaching Mermaid click handlers to ${sectionId}`);
         
         // Remove any existing listener for this section
         this.removeClickHandlers(sectionId);
         
         // Find all node elements and make them clickable
         const nodeElements = svgElement.querySelectorAll('g.node');
-        console.log(`[HighlightCoordinator] Found ${nodeElements.length} Mermaid node elements in ${sectionId}`);
+        console.log(`[CrossGraphHighlightCoordinator] Found ${nodeElements.length} Mermaid node elements in ${sectionId}`);
         
         nodeElements.forEach(nodeElement => {
             nodeElement.classList.add('task-clickable');
@@ -125,7 +127,7 @@ export class HighlightCoordinator {
             if (taskContainer) {
                 const nodeId = taskContainer.id;
                 if (nodeId) {
-                    console.log(`[HighlightCoordinator] Mermaid node clicked in ${sectionId}: ${nodeId}`);
+                    console.log(`[CrossGraphHighlightCoordinator] Mermaid node clicked in ${sectionId}: ${nodeId}`);
                     this.onTaskClicked(nodeId, sectionId, sectionId);
                 }
             }
@@ -144,7 +146,7 @@ export class HighlightCoordinator {
         if (cleanup && typeof cleanup === 'function') {
             cleanup();
             this.clickListenerCleanups.delete(sectionId);
-            console.log(`[HighlightCoordinator] Removed click handlers for ${sectionId}`);
+            console.log(`[CrossGraphHighlightCoordinator] Removed click handlers for ${sectionId}`);
         }
     }
 
@@ -155,7 +157,7 @@ export class HighlightCoordinator {
      * @param {string} sectionId - Source section identifier
      */
     onTaskClicked(taskId, sourceFormat, sectionId) {
-        console.log(`[HighlightCoordinator] Task clicked: ${taskId} in ${sectionId}`);
+        console.log(`[CrossGraphHighlightCoordinator] Task clicked: ${taskId} in ${sectionId}`);
         
         // Check if clicking the same task again
         if (this.isSameTaskClicked(taskId, sectionId)) {
@@ -204,7 +206,7 @@ export class HighlightCoordinator {
         const match = taskId.match(/-([a-z0-9]+):task:/) || taskId.match(/^([a-z0-9]+):task:/);
         if (match) {
             const baseId = match[1];
-            console.log(`[HighlightCoordinator] Extracted base ID: ${baseId} from ${taskId}`);
+            console.log(`[CrossGraphHighlightCoordinator] Extracted base ID: ${baseId} from ${taskId}`);
             return baseId;
         }
         
@@ -257,21 +259,21 @@ export class HighlightCoordinator {
      * @param {string} sectionId - Source section identifier
      */
     highlightWithTaskMapper(baseTaskId, sourceFormat, sectionId, originalTaskId) {
-        console.log(`[HighlightCoordinator] Using TaskMapper to find related tasks for: ${baseTaskId} (original: ${originalTaskId})`);
-        console.log(`[HighlightCoordinator] Source format: ${sourceFormat}, Section ID: ${sectionId}`);
+        console.log(`[CrossGraphHighlightCoordinator] Using TaskMapper to find related tasks for: ${baseTaskId} (original: ${originalTaskId})`);
+        console.log(`[CrossGraphHighlightCoordinator] Source format: ${sourceFormat}, Section ID: ${sectionId}`);
         
         // Find equivalent tasks in all formats
         const equivalentTasks = this.findEquivalentTasks(baseTaskId, sourceFormat);
         
         if (equivalentTasks.length === 0) {
-            console.log(`[HighlightCoordinator] No equivalent tasks found for: ${baseTaskId}`);
-            console.log(`[HighlightCoordinator] Just highlighting in source section: ${sectionId}`);
+            console.log(`[CrossGraphHighlightCoordinator] No equivalent tasks found for: ${baseTaskId}`);
+            console.log(`[CrossGraphHighlightCoordinator] Just highlighting in source section: ${sectionId}`);
             // Just highlight in source section using original ID
             this.highlightInSection(sectionId, originalTaskId, true);
             return;
         }
         
-        console.log(`[HighlightCoordinator] Found ${equivalentTasks.length} equivalent tasks`);
+        console.log(`[CrossGraphHighlightCoordinator] Found ${equivalentTasks.length} equivalent tasks`);
         
         // Highlight in each section
         equivalentTasks.forEach(({ taskId: mappedTaskId, format: mappedFormat, task: taskObject }) => {
@@ -283,10 +285,10 @@ export class HighlightCoordinator {
             if (taskObject && taskObject.metadata && taskObject.metadata.fullId) {
                 // Prefer full SVG ID for better matching
                 highlightTaskId = taskObject.metadata.fullId;
-                console.log(`[HighlightCoordinator] Using full SVG ID from metadata: ${highlightTaskId}`);
+                console.log(`[CrossGraphHighlightCoordinator] Using full SVG ID from metadata: ${highlightTaskId}`);
             }
             
-            console.log(`[HighlightCoordinator] Highlighting ${highlightTaskId} (base: ${mappedTaskId}) in ${mappedSectionId} (isActive=${isActive})`);
+            console.log(`[CrossGraphHighlightCoordinator] Highlighting ${highlightTaskId} (base: ${mappedTaskId}) in ${mappedSectionId} (isActive=${isActive})`);
             this.highlightInSection(mappedSectionId, highlightTaskId, isActive);
         });
         
@@ -302,37 +304,37 @@ export class HighlightCoordinator {
      */
     findEquivalentTasks(taskId, sourceFormat) {
         if (!this.currentStepMapping) {
-            console.log('[HighlightCoordinator] No task mapping available for current step');
+            console.log('[CrossGraphHighlightCoordinator] No task mapping available for current step');
             return [];
         }
         
-        console.log(`[HighlightCoordinator] Finding equivalent tasks for ${taskId} in ${sourceFormat}`);
+        console.log(`[CrossGraphHighlightCoordinator] Finding equivalent tasks for ${taskId} in ${sourceFormat}`);
         
         try {
             // Use the step's task mapping to find equivalent tasks
             const equivalents = this.currentStepMapping.findEquivalentTasks(taskId, sourceFormat);
             
-            console.log(`[HighlightCoordinator] Task mapping returned:`, equivalents);
+            console.log(`[CrossGraphHighlightCoordinator] Task mapping returned:`, equivalents);
             
             // Convert to array format
             const result = [];
             Object.entries(equivalents).forEach(([format, tasks]) => {
-                console.log(`[HighlightCoordinator] Format ${format} has ${tasks.length} tasks`);
+                console.log(`[CrossGraphHighlightCoordinator] Format ${format} has ${tasks.length} tasks`);
                 tasks.forEach(({ task }) => {
                     result.push({
                         taskId: task.id,
                         format: format,
                         task: task // Include full task object for metadata access
                     });
-                    console.log(`[HighlightCoordinator]   → ${task.id} (${task.label}) in ${format}`);
+                    console.log(`[CrossGraphHighlightCoordinator]   → ${task.id} (${task.label}) in ${format}`);
                 });
             });
             
-            console.log(`[HighlightCoordinator] Found ${result.length} equivalent tasks`);
+            console.log(`[CrossGraphHighlightCoordinator] Found ${result.length} equivalent tasks`);
             return result;
             
         } catch (error) {
-            console.error('[HighlightCoordinator] Error finding equivalent tasks:', error);
+            console.error('[CrossGraphHighlightCoordinator] Error finding equivalent tasks:', error);
             return [];
         }
     }
@@ -371,20 +373,20 @@ export class HighlightCoordinator {
     highlightInSection(sectionId, taskId, isActive = false) {
         const container = this.sections[sectionId];
         if (!container) {
-            console.log(`[HighlightCoordinator] Section not found: ${sectionId}`);
+            console.log(`[CrossGraphHighlightCoordinator] Section not found: ${sectionId}`);
             return;
         }
         
         // Check if section is in visual mode
         if (!this.isSectionInVisualMode(sectionId)) {
-            console.log(`[HighlightCoordinator] Section ${sectionId} is in raw mode, skipping highlight`);
+            console.log(`[CrossGraphHighlightCoordinator] Section ${sectionId} is in raw mode, skipping highlight`);
             return;
         }
         
         // Find task element
         const taskElement = this.findTaskInSVG(container, taskId);
         if (!taskElement) {
-            console.log(`[HighlightCoordinator] Task element not found: ${taskId} in ${sectionId}`);
+            console.log(`[CrossGraphHighlightCoordinator] Task element not found: ${taskId} in ${sectionId}`);
             return;
         }
         
@@ -394,7 +396,7 @@ export class HighlightCoordinator {
         // Track this highlight
         this.trackHighlight(sectionId, taskId);
         
-        console.log(`[HighlightCoordinator] Highlighted ${taskId} in ${sectionId} (isActive=${isActive})`);
+        console.log(`[CrossGraphHighlightCoordinator] Highlighted ${taskId} in ${sectionId} (isActive=${isActive})`);
     }
 
     /**
@@ -437,27 +439,27 @@ export class HighlightCoordinator {
      * @returns {HTMLElement|null} Task element or null
      */
     findTaskInSVG(container, taskId) {
-        console.log(`[HighlightCoordinator] Searching for task: ${taskId} in container`);
+        console.log(`[CrossGraphHighlightCoordinator] Searching for task: ${taskId} in container`);
         
         // First, try CPEE element-id attribute (most reliable for CPEE)
         const elements = container.querySelectorAll('[element-id]');
-        console.log(`[HighlightCoordinator] Found ${elements.length} elements with element-id attribute`);
+        console.log(`[CrossGraphHighlightCoordinator] Found ${elements.length} elements with element-id attribute`);
         for (const el of elements) {
             const elementId = el.getAttribute('element-id');
             if (elementId === taskId) {
-                console.log(`[HighlightCoordinator] ✓ Found CPEE task by element-id: ${taskId}`);
+                console.log(`[CrossGraphHighlightCoordinator] ✓ Found CPEE task by element-id: ${taskId}`);
                 return el;
             }
         }
         
         // For Mermaid: look for node elements
         const nodes = container.querySelectorAll('g.node');
-        console.log(`[HighlightCoordinator] Found ${nodes.length} Mermaid nodes`);
+        console.log(`[CrossGraphHighlightCoordinator] Found ${nodes.length} Mermaid nodes`);
         
         // Try exact ID match for Mermaid first (most reliable)
         for (const node of nodes) {
             if (node.id === taskId) {
-                console.log(`[HighlightCoordinator] ✓ Found Mermaid node by exact ID: ${taskId}`);
+                console.log(`[CrossGraphHighlightCoordinator] ✓ Found Mermaid node by exact ID: ${taskId}`);
                 return node;
             }
         }
@@ -469,7 +471,7 @@ export class HighlightCoordinator {
                            taskId.match(/flowchart-([a-z0-9]+)(?:-task-|:task:|-)/);
         if (baseIdMatch && baseIdMatch[1]) {
             baseId = baseIdMatch[1];
-            console.log(`[HighlightCoordinator] Extracted base ID: ${baseId} from ${taskId}`);
+            console.log(`[CrossGraphHighlightCoordinator] Extracted base ID: ${baseId} from ${taskId}`);
         }
         
         // Try pattern matching for Mermaid with the full taskId
@@ -487,7 +489,7 @@ export class HighlightCoordinator {
                 
                 for (const pattern of patterns) {
                     if (pattern.test(node.id)) {
-                        console.log(`[HighlightCoordinator] ✓ Found Mermaid node by pattern match: ${node.id} (pattern: ${pattern})`);
+                        console.log(`[CrossGraphHighlightCoordinator] ✓ Found Mermaid node by pattern match: ${node.id} (pattern: ${pattern})`);
                         return node;
                     }
                 }
@@ -508,7 +510,7 @@ export class HighlightCoordinator {
                     
                     for (const pattern of patterns) {
                         if (pattern.test(node.id)) {
-                            console.log(`[HighlightCoordinator] ✓ Found Mermaid node by base ID pattern: ${node.id} (baseId: ${baseId})`);
+                            console.log(`[CrossGraphHighlightCoordinator] ✓ Found Mermaid node by base ID pattern: ${node.id} (baseId: ${baseId})`);
                             return node;
                         }
                     }
@@ -520,11 +522,11 @@ export class HighlightCoordinator {
         try {
             const element = container.querySelector(`#${CSS.escape(taskId)}`);
             if (element) {
-                console.log(`[HighlightCoordinator] ✓ Found task by CSS ID selector: ${taskId}`);
+                console.log(`[CrossGraphHighlightCoordinator] ✓ Found task by CSS ID selector: ${taskId}`);
                 return element;
             }
         } catch (e) {
-            console.log(`[HighlightCoordinator] ID selector failed: ${e.message}`);
+            console.log(`[CrossGraphHighlightCoordinator] ID selector failed: ${e.message}`);
         }
         
         // Fallback: Try with base ID if different
@@ -532,7 +534,7 @@ export class HighlightCoordinator {
             try {
                 const element = container.querySelector(`#${CSS.escape(baseId)}`);
                 if (element) {
-                    console.log(`[HighlightCoordinator] ✓ Found task by base ID CSS selector: ${baseId}`);
+                    console.log(`[CrossGraphHighlightCoordinator] ✓ Found task by base ID CSS selector: ${baseId}`);
                     return element;
                 }
             } catch (e) {
@@ -544,38 +546,29 @@ export class HighlightCoordinator {
         try {
             const element = container.querySelector(`[data-task-id="${taskId}"]`);
             if (element) {
-                console.log(`[HighlightCoordinator] ✓ Found task by data-task-id: ${taskId}`);
+                console.log(`[CrossGraphHighlightCoordinator] ✓ Found task by data-task-id: ${taskId}`);
                 return element;
             }
         } catch (e) {
-            console.log(`[HighlightCoordinator] data-task-id selector failed`);
+            console.log(`[CrossGraphHighlightCoordinator] data-task-id selector failed`);
         }
         
-        console.log(`[HighlightCoordinator] ✗ Could not find task element: ${taskId} (baseId: ${baseId}) in container`);
+        console.log(`[CrossGraphHighlightCoordinator] ✗ Could not find task element: ${taskId} (baseId: ${baseId}) in container`);
         return null;
     }
 
     /**
-     * Check if a section is currently in visual mode (not raw mode)
+     * Check if a section is currently in visual mode (not raw/log/traces mode)
      * @param {string} sectionId - Section identifier
      * @returns {boolean} True if section is in visual mode
      */
     isSectionInVisualMode(sectionId) {
-        // Check view mode for this section
-        // This would integrate with ViewModeCoordinator
-        // For now, assume all sections are in visual mode
-        const container = this.sections[sectionId];
-        if (!container) {
-            return false;
-        }
+        // Query StateManager for view mode (single source of truth)
+        const viewModes = this.stateManager.getState('viewModes');
+        const mode = viewModes?.[sectionId] || 'visual';
         
-        // Check if raw content overlay is visible
-        const rawContainer = container.querySelector('.raw-content-container');
-        if (rawContainer && rawContainer.style.zIndex === '10') {
-            return false; // Raw mode active
-        }
-        
-        return true; // Visual mode
+        // Only visual mode allows highlighting
+        return mode === 'visual';
     }
 
     /**
@@ -584,7 +577,7 @@ export class HighlightCoordinator {
     clearAllHighlights() {
         this.highlightingService.clearAllHighlights();
         this.highlightedTasks.clear();
-        console.log('[HighlightCoordinator] Cleared all highlights');
+        console.log('[CrossGraphHighlightCoordinator] Cleared all highlights');
     }
 
     /**
@@ -595,7 +588,7 @@ export class HighlightCoordinator {
         this.activeTaskId = null;
         this.activeSourceFormat = null;
         this.activeSourceSection = null;
-        console.log('[HighlightCoordinator] Step changed, cleared highlights');
+        console.log('[CrossGraphHighlightCoordinator] Step changed, cleared highlights');
     }
 
 
@@ -620,7 +613,7 @@ export class HighlightCoordinator {
      */
     refreshSections() {
         if (!this.domRegistry) {
-            console.log('[HighlightCoordinator] No DOMRegistry available');
+            console.log('[CrossGraphHighlightCoordinator] No DOMRegistry available');
             return;
         }
         
@@ -629,10 +622,10 @@ export class HighlightCoordinator {
             const container = this.domRegistry.getElementSafe(`${sectionId}-graph-container`);
             if (container) {
                 this.sections[sectionId] = container;
-                console.log(`[HighlightCoordinator] Refreshed section: ${sectionId}`);
+                console.log(`[CrossGraphHighlightCoordinator] Refreshed section: ${sectionId}`);
             } else {
                 this.sections[sectionId] = null;
-                console.log(`[HighlightCoordinator] Section not found: ${sectionId}`);
+                console.log(`[CrossGraphHighlightCoordinator] Section not found: ${sectionId}`);
             }
         });
     }
@@ -657,7 +650,7 @@ export class HighlightCoordinator {
             // Check if click is inside a content-box of a visual view section
             if (this.isClickInsideVisualContentBox(clickTarget)) {
                 // Click is inside a visual view content-box but not on a graph element
-                console.log('[HighlightCoordinator] Click inside visual content-box (not on graph element) detected, clearing highlights');
+                console.log('[CrossGraphHighlightCoordinator] Click inside visual content-box (not on graph element) detected, clearing highlights');
                 this.clearActiveState();
             }
             // If click is outside visual content boxes, do nothing (don't clear highlights)
@@ -665,7 +658,7 @@ export class HighlightCoordinator {
         
         // Attach listener to document (capture phase to catch all clicks)
         document.addEventListener('click', this.clickOutsideHandler, true);
-        console.log('[HighlightCoordinator] Click outside handler initialized');
+        console.log('[CrossGraphHighlightCoordinator] Click outside handler initialized');
     }
 
     /**
@@ -683,17 +676,15 @@ export class HighlightCoordinator {
         while (element && element !== document.body && element !== document.documentElement) {
             // Check if this element is a content-box or is inside one
             if (element.classList && element.classList.contains('content-box')) {
-                // Found a content-box, now check if it's in visual mode
-                // Check if the parent section has viewMode attribute set to 'raw' or 'log'
+                // Found a content-box, now check if it's in visual mode using StateManager
                 const sectionElement = element.closest('[id^="input-"], [id^="output-"], [id^="user-input"]');
-                if (sectionElement) {
-                    const viewMode = sectionElement.dataset.viewMode;
-                    // If viewMode is 'raw' or 'log', it's not visual mode
-                    if (viewMode === 'raw' || viewMode === 'log') {
-                        return false;
-                    }
-                    // If no viewMode attribute or viewMode is not raw/log, it's visual mode
-                    return true;
+                if (sectionElement && sectionElement.id) {
+                    // Query StateManager for view mode (single source of truth)
+                    const viewModes = this.stateManager.getState('viewModes');
+                    const mode = viewModes?.[sectionElement.id] || 'visual';
+                    
+                    // Only visual mode allows highlighting
+                    return mode === 'visual';
                 }
                 // If we found a content-box but can't determine the section, assume it's visual
                 return true;
@@ -808,7 +799,7 @@ export class HighlightCoordinator {
         if (this.clickOutsideHandler) {
             document.removeEventListener('click', this.clickOutsideHandler, true);
             this.clickOutsideHandler = null;
-            console.log('[HighlightCoordinator] Click outside handler removed');
+            console.log('[CrossGraphHighlightCoordinator] Click outside handler removed');
         }
     }
 
@@ -833,7 +824,7 @@ export class HighlightCoordinator {
             'output-cpee': null
         };
         this.highlightedTasks.clear();
-        console.log('[HighlightCoordinator] Reset');
+        console.log('[CrossGraphHighlightCoordinator] Reset');
     }
 
     /**
@@ -848,6 +839,6 @@ export class HighlightCoordinator {
         });
         
         this.reset();
-        console.log('[HighlightCoordinator] Destroyed');
+        console.log('[CrossGraphHighlightCoordinator] Destroyed');
     }
 }

@@ -141,7 +141,7 @@ export class RawContentRenderer {
         }
 
         // This renderer only handles raw mode
-        // Mode validation is handled by RawContentCoordinator
+        // Mode validation is handled by ContentViewCoordinator
 
         let rawContent = null;
         let renderer = null;

@@ -2,7 +2,7 @@
  * Step Viewer Component
  * Main coordinator for step content display and navigation
  * Responsibilities:
- * - Orchestrates ContentVisualizationCoordinator (visual content) and RawContentCoordinator (raw content)
+ * - Orchestrates ContentVisualizationCoordinator (visual content) and ContentViewCoordinator (content views)
  * - Coordinates step navigation and content updates
  * - Manages step header and navigation state
  * - Delegates specific rendering to specialized coordinators
@@ -14,10 +14,10 @@ import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
 export class StepViewer {
-    constructor(instanceService, domRegistry = null, rawContentCoordinator = null, highlightCoordinator = null, eventBus = null, stateManager = null, eventProcessingService = null, contentProcessingService = null) {
+    constructor(instanceService, domRegistry = null, contentViewCoordinator = null, highlightCoordinator = null, eventBus = null, stateManager = null, eventProcessingService = null, contentProcessingService = null) {
         this.instanceService = instanceService;
         this.domRegistry = domRegistry;
-        this.rawContentCoordinator = rawContentCoordinator;
+        this.contentViewCoordinator = contentViewCoordinator;
         this.highlightCoordinator = highlightCoordinator;
         this.eventBus = eventBus || defaultEventBus;
         this.stateManager = stateManager || defaultStateManager;
@@ -26,9 +26,9 @@ export class StepViewer {
         this.navigator = new StepNavigator(instanceService, domRegistry, this.eventBus, this.stateManager, eventProcessingService);
         this.contentCoordinator = new ContentVisualizationCoordinator(domRegistry, highlightCoordinator, this.eventBus, this.stateManager, eventProcessingService, contentProcessingService);
         
-        // Pass ContentVisualizationCoordinator to RawContentCoordinator for coordination
-        if (this.rawContentCoordinator) {
-            this.rawContentCoordinator.contentSectionCoordinator = this.contentCoordinator;
+        // Pass ContentVisualizationCoordinator to ContentViewCoordinator for coordination
+        if (this.contentViewCoordinator) {
+            this.contentViewCoordinator.contentSectionCoordinator = this.contentCoordinator;
         }
         
         // Setup event bus listeners
@@ -136,9 +136,9 @@ export class StepViewer {
         // Wait for all content sections to be rendered (graphs, Mermaid diagrams, etc.)
         await this.contentCoordinator.updateAllSections(stepContent);
 
-        // Initialize raw content view features for this step
-        if (this.rawContentCoordinator) {
-            this.rawContentCoordinator.setupForStep(step);
+        // Initialize content view features for this step
+        if (this.contentViewCoordinator) {
+            this.contentViewCoordinator.setupForStep(step);
         }
 
         // Setup/update navigation using StepNavigator
