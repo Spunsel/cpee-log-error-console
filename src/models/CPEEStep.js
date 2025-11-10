@@ -35,7 +35,7 @@ export class CPEEStep {
         };
         
         // Task mapping storage
-        this.taskMapping = null; // Will be TaskMapping instance from TaskMapper
+        this.taskMapping = null; // Will be TaskMapping instance from TaskMappingService
         
         // Trace calculation storage (Phase 31.11)
         // Structure: { 'input-cpee': Trace[], 'input-intermediate': Trace[], 'output-intermediate': Trace[], 'output-cpee': Trace[] }
@@ -169,7 +169,7 @@ export class CPEEStep {
         // Phase 22.3: Restore task mapping from serialization
         if (obj.taskMapping) {
             // Import TaskMapping class dynamically to avoid circular dependencies
-            import('../utils/mapping/TaskMapper.js').then(module => {
+            import('../services/TaskMappingService.js').then(module => {
                 step.taskMapping = module.TaskMapping.fromObject(obj.taskMapping);
             });
         }
@@ -334,7 +334,7 @@ export class CPEEStep {
 
     /**
      * Set task mapping for this step
-     * @param {TaskMapping} mapping - TaskMapping instance from TaskMapper
+     * @param {TaskMapping} mapping - TaskMapping instance from TaskMappingService
      */
     setTaskMapping(mapping) {
         this.taskMapping = mapping;

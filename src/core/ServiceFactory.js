@@ -20,7 +20,6 @@ import { ContentProcessingService } from '../services/ContentProcessingService.j
 import { configManager } from '../config/ConfigManager.js';
 import { CPEETaskExtractor } from '../utils/extraction/CPEETaskExtractor.js';
 import { MermaidTaskExtractor } from '../utils/extraction/MermaidTaskExtractor.js';
-import { TaskMapper } from '../utils/mapping/TaskMapper.js';
 import { CPEETraceCalculator } from '../utils/trace/CPEETraceCalculator.js';
 import { MermaidTraceCalculator } from '../utils/trace/MermaidTraceCalculator.js';
 
@@ -143,8 +142,7 @@ export class ServiceFactory {
                 {
                     const cpeeTaskExtractor = new CPEETaskExtractor();
                     const mermaidTaskExtractor = new MermaidTaskExtractor();
-                    const taskMapper = new TaskMapper();
-                    return new TaskMappingService(cpeeTaskExtractor, mermaidTaskExtractor, taskMapper);
+                    return new TaskMappingService(cpeeTaskExtractor, mermaidTaskExtractor);
                 }
             
             case 'TraceCalculationService':

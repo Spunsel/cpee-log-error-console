@@ -4,7 +4,7 @@
  * Responsibilities:
  * - Track rendered SVG containers in all sections
  * - Handle task click events and propagate highlights across graphs
- * - Coordinate with HighlightingService and TaskMapper
+ * - Coordinate with HighlightingService and TaskMapping (from CPEEStep)
  * - Manage visual vs raw view mode (only highlight in visual mode)
  * - Implement state persistence across step navigation
  */
@@ -19,7 +19,7 @@ export class CrossGraphHighlightCoordinator {
         // Core services injected via constructor
         this.highlightingService = highlightingService;
         this.stateManager = stateManager || defaultStateManager;
-        this.taskMapper = null; // Set externally
+        // Task mapping is accessed via currentStepMapping (from CPEEStep)
         
         // Click detection
         this.clickDetector = new SVGClickDetector();
@@ -52,11 +52,14 @@ export class CrossGraphHighlightCoordinator {
 
     /**
      * Set the TaskMapper instance
-     * @param {Object} taskMapper - TaskMapper instance
+     * @deprecated Task mapping is now accessed via currentStepMapping (from CPEEStep)
+     * This method is kept for backward compatibility but does nothing
+     * @param {Object} _taskMapper - TaskMapper instance (unused)
      */
-    setTaskMapper(taskMapper) {
-        this.taskMapper = taskMapper;
-        console.log('[CrossGraphHighlightCoordinator] TaskMapper set');
+    setTaskMapper(_taskMapper) {
+        // Task mapping is now accessed via currentStepMapping (from CPEEStep)
+        // This method is kept for backward compatibility
+        console.log('[CrossGraphHighlightCoordinator] setTaskMapper called (deprecated - task mapping accessed via step)');
     }
 
     /**
@@ -253,13 +256,13 @@ export class CrossGraphHighlightCoordinator {
     }
 
     /**
-     * Highlight tasks using TaskMapper to find related tasks
+     * Highlight tasks using TaskMapping to find related tasks
      * @param {string} taskId - Clicked task identifier
      * @param {string} sourceFormat - Source format
      * @param {string} sectionId - Source section identifier
      */
     highlightWithTaskMapper(baseTaskId, sourceFormat, sectionId, originalTaskId) {
-        console.log(`[CrossGraphHighlightCoordinator] Using TaskMapper to find related tasks for: ${baseTaskId} (original: ${originalTaskId})`);
+        console.log(`[CrossGraphHighlightCoordinator] Using TaskMapping to find related tasks for: ${baseTaskId} (original: ${originalTaskId})`);
         console.log(`[CrossGraphHighlightCoordinator] Source format: ${sourceFormat}, Section ID: ${sectionId}`);
         
         // Find equivalent tasks in all formats
@@ -297,7 +300,7 @@ export class CrossGraphHighlightCoordinator {
     }
 
     /**
-     * Find equivalent tasks for a given task using TaskMapper
+     * Find equivalent tasks for a given task using TaskMapping
      * @param {string} taskId - Source task identifier
      * @param {string} sourceFormat - Source format
      * @returns {Array} Array of { taskId, format }
