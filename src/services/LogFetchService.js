@@ -1,0 +1,120 @@
+/**
+ * Log Fetch Service
+ * Handles fetching and parsing of YAML log files from the CPEE API
+ * Single responsibility: Network operations and initial parsing
+ */
+
+import { LogParser } from '../utils/content/LogParser.js';
+import { configManager } from '../config/ConfigManager.js';
+import { serviceFactory } from '../core/ServiceFactory.js';
+
+export class LogFetchService {
+    /**
+     * Create a new LogFetchService instance
+     * @param {ProxyRotationService} proxyRotationService - Service for handling proxy rotation
+     * @param {LogParser} logParser - Parser for YAML content (optional, uses static methods if not provided)
+     * @param {ConfigManager} configManager - Configuration manager (optional, uses global if not provided)
+     */
+    constructor(proxyRotationService = null, logParser = null, configManagerInstance = null) {
+        // Use provided dependencies or get from service factory/config
+        this.proxyRotationService = proxyRotationService || serviceFactory.get('ProxyRotationService');
+        this.logParser = logParser || LogParser;
+        this.configManager = configManagerInstance || configManager;
+        this.debugMode = false;
+    }
+
+    /**
+     * Enable debug mode for logging
+     * @param {boolean} enabled - Whether to enable debug mode
+     */
+    setDebugMode(enabled) {
+        this.debugMode = enabled;
+    }
+
+    /**
+     * Validate UUID format
+     * @param {string} uuid - UUID to validate
+     * @returns {boolean} True if valid UUID format
+     */
+    isValidUUID(uuid) {
+        if (!uuid || typeof uuid !== 'string') {
+            return false;
+        }
+        
+        const trimmed = uuid.trim();
+        if (trimmed === '') {
+            return false;
+        }
+        
+        // Basic UUID validation (can be enhanced with regex if needed)
+        // For now, just check it's not empty and is a string
+        return trimmed.length > 0;
+    }
+
+    /**
+     * Fetch and parse log for given UUID with fallback proxies
+     * @param {string} uuid - CPEE instance UUID
+     * @returns {Promise<Array>} Parsed log events
+     * @throws {Error} If UUID is invalid or fetch fails
+     */
+    async fetchAndParseLog(uuid) {
+        if (!this.isValidUUID(uuid)) {
+            throw new Error('LogFetchService: Invalid UUID provided - must be a non-empty string');
+        }
+        
+        const logUrl = `${this.configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
+        
+        if (this.debugMode) {
+            console.log(`[LogFetchService] Fetching log from: ${logUrl}`);
+        }
+        
+        // Use proxy rotation service with rate limit handling
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => {
+                controller.abort();
+            }, this.configManager.get('network.timeouts.default'));
+            
+            try {
+                const response = await this.proxyRotationService.fetchWithRotation(logUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': this.configManager.get('api.headers.yamlAccept')
+                    },
+                    signal: controller.signal
+                });
+                
+                const yamlContent = await response.text();
+                
+                // Clear timeout after body is fully read
+                clearTimeout(timeoutId);
+                
+                if (!yamlContent || yamlContent.length < 10) {
+                    throw new Error('LogFetchService: Received empty or invalid log response');
+                }
+                
+                if (this.debugMode) {
+                    console.log(`[LogFetchService] Parsing YAML content (${yamlContent.length} characters)`);
+                }
+                
+                const events = this.logParser.parseYAMLMultiDocument(yamlContent);
+                
+                if (this.debugMode) {
+                    console.log(`[LogFetchService] Parsed ${events.length} events from log`);
+                }
+                
+                return events;
+            } finally {
+                // Ensure timeout is always cleared, even if an error occurs
+                clearTimeout(timeoutId);
+            }
+            
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                throw new Error('LogFetchService: All proxies timed out - log file may be large or servers are slow');
+            }
+            throw new Error(`LogFetchService: Failed to fetch log - ${error.message}`);
+        }
+    }
+}
+

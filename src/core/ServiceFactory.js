@@ -10,8 +10,10 @@ import { HighlightingService } from '../services/HighlightingService.js';
 import { CPEEService } from '../services/CPEEService.js';
 import { SyntaxHighlightingService } from '../services/SyntaxHighlightingService.js';
 import { LogService } from '../services/LogService.js';
+import { LogFetchService } from '../services/LogFetchService.js';
 import { ProxyRotationService, proxyRotationService } from '../services/ProxyRotationService.js';
 import { EmailService } from '../services/EmailService.js';
+import { configManager } from '../config/ConfigManager.js';
 
 export class ServiceFactory {
     constructor() {
@@ -23,6 +25,7 @@ export class ServiceFactory {
             'CPEEService',
             'SyntaxHighlightingService',
             'LogService',
+            'LogFetchService',
             'ProxyRotationService',
             'EmailService'
         ]);
@@ -103,7 +106,12 @@ export class ServiceFactory {
             case 'LogService':
                 return new LogService(...args);
             
-            case 'ProxyRotationService':
+            case 'LogFetchService':
+                {
+                const proxyRotationService = this.get('ProxyRotationService');
+                return new LogFetchService(proxyRotationService, null, configManager);
+                }
+                case 'ProxyRotationService':
                 return new ProxyRotationService(...args);
             
             case 'EmailService':
