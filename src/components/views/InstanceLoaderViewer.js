@@ -7,7 +7,6 @@ import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
-import { LogService } from '../../services/LogService.js';
 
 export class InstanceLoaderViewer {
     constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null) {
@@ -16,6 +15,10 @@ export class InstanceLoaderViewer {
         this.eventBus = eventBus || defaultEventBus;
         this.stateManager = stateManager || defaultStateManager;
         this.isVisible = true;
+        
+        // Get new services from ServiceFactory
+        this.logFetchService = serviceFactory.get('LogFetchService');
+        this.eventProcessingService = serviceFactory.get('EventProcessingService');
     }
 
     /**
@@ -276,9 +279,9 @@ export class InstanceLoaderViewer {
         const cpeeService = serviceFactory.get('CPEEService');
         
         return cpeeService.fetchUUIDFromProcessNumber(processNumber).then((uuid) => 
-            LogService.fetchAndParseLog(uuid).then((logData) => {
+            this.logFetchService.fetchAndParseLog(uuid).then((logData) => {
                 // Use lightweight check instead of full parsing
-                const { hasSteps, stepCount } = LogService.hasStepsInLog(logData);
+                const { hasSteps, stepCount } = this.eventProcessingService.hasStepsInLog(logData);
                 return {
                     hasSteps: hasSteps,
                     processNumber: processNumber,

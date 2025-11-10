@@ -9,11 +9,20 @@ import { SearchService } from '../services/SearchService.js';
 import { HighlightingService } from '../services/HighlightingService.js';
 import { CPEEService } from '../services/CPEEService.js';
 import { SyntaxHighlightingService } from '../services/SyntaxHighlightingService.js';
-import { LogService } from '../services/LogService.js';
 import { LogFetchService } from '../services/LogFetchService.js';
+import { EventProcessingService } from '../services/EventProcessingService.js';
+import { StepAssemblyService } from '../services/StepAssemblyService.js';
+import { TaskMappingService } from '../services/TaskMappingService.js';
+import { TraceCalculationService } from '../services/TraceCalculationService.js';
 import { ProxyRotationService, proxyRotationService } from '../services/ProxyRotationService.js';
 import { EmailService } from '../services/EmailService.js';
 import { configManager } from '../config/ConfigManager.js';
+import { CPEETaskExtractor } from '../utils/extraction/CPEETaskExtractor.js';
+import { MermaidTaskExtractor } from '../utils/extraction/MermaidTaskExtractor.js';
+import { TaskMapper } from '../utils/mapping/TaskMapper.js';
+import { CPEETraceCalculator } from '../utils/trace/CPEETraceCalculator.js';
+import { MermaidTraceCalculator } from '../utils/trace/MermaidTraceCalculator.js';
+import { LogParser } from '../utils/content/LogParser.js';
 
 export class ServiceFactory {
     constructor() {
@@ -24,8 +33,11 @@ export class ServiceFactory {
             'HighlightingService',
             'CPEEService',
             'SyntaxHighlightingService',
-            'LogService',
             'LogFetchService',
+            'EventProcessingService',
+            'StepAssemblyService',
+            'TaskMappingService',
+            'TraceCalculationService',
             'ProxyRotationService',
             'EmailService'
         ]);
@@ -103,15 +115,40 @@ export class ServiceFactory {
             case 'SyntaxHighlightingService':
                 return new SyntaxHighlightingService(...args);
             
-            case 'LogService':
-                return new LogService(...args);
-            
             case 'LogFetchService':
                 {
-                const proxyRotationService = this.get('ProxyRotationService');
-                return new LogFetchService(proxyRotationService, null, configManager);
+                    const proxyRotationService = this.get('ProxyRotationService');
+                    return new LogFetchService(proxyRotationService, null, configManager);
                 }
-                case 'ProxyRotationService':
+            
+            case 'EventProcessingService':
+                return new EventProcessingService();
+            
+            case 'StepAssemblyService':
+                {
+                    const eventProcessingService = this.get('EventProcessingService');
+                    const taskMappingService = this.get('TaskMappingService');
+                    const traceCalculationService = this.get('TraceCalculationService');
+                    // ContentProcessingService will be null for now (Issue #3)
+                    return new StepAssemblyService(eventProcessingService, null, taskMappingService, traceCalculationService);
+                }
+            
+            case 'TaskMappingService':
+                {
+                    const cpeeTaskExtractor = new CPEETaskExtractor();
+                    const mermaidTaskExtractor = new MermaidTaskExtractor();
+                    const taskMapper = new TaskMapper();
+                    return new TaskMappingService(cpeeTaskExtractor, mermaidTaskExtractor, taskMapper);
+                }
+            
+            case 'TraceCalculationService':
+                {
+                    const cpeeTraceCalculator = new CPEETraceCalculator();
+                    const mermaidTraceCalculator = new MermaidTraceCalculator();
+                    return new TraceCalculationService(cpeeTraceCalculator, mermaidTraceCalculator);
+                }
+            
+            case 'ProxyRotationService':
                 return new ProxyRotationService(...args);
             
             case 'EmailService':

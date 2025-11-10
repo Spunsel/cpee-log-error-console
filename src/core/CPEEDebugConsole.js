@@ -3,7 +3,6 @@
  * Coordinates all components and services
  */
 
-import { LogService } from '../services/LogService.js';
 import { Sidebar } from '../components/ui/Sidebar.js';
 import { StepViewer } from '../components/views/StepViewer.js';
 import { LogViewer } from '../components/views/LogViewer.js';
@@ -28,6 +27,11 @@ export class CPEEDebugConsole {
         this.serviceFactory = serviceFactory;
         this.stateManager = stateManager;
         this.instanceService = this.serviceFactory.get('InstanceService');
+        
+        // Get new services from ServiceFactory
+        this.logFetchService = this.serviceFactory.get('LogFetchService');
+        this.stepAssemblyService = this.serviceFactory.get('StepAssemblyService');
+        
         this.highlightCoordinator = new HighlightCoordinator(this.domRegistry);
         this.rawContentCoordinator = new RawContentCoordinator(this.instanceService, this.domRegistry, null, this.eventBus, this.stateManager);
         
@@ -250,8 +254,8 @@ export class CPEEDebugConsole {
             }
             
             // Fetch and parse log data
-            const logData = await LogService.fetchAndParseLog(uuid);
-            const steps = await LogService.parseStepsFromLog(logData);
+            const logData = await this.logFetchService.fetchAndParseLog(uuid);
+            const steps = await this.stepAssemblyService.parseStepsFromLog(logData);
             
             console.log(`Found ${steps.length} steps`);
             

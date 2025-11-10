@@ -15,7 +15,7 @@ import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
-import { TextParser } from '../../utils/content/TextParser.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 import { StepSection } from '../ui/StepSection.js';
 import { SectionExpandCollapse } from '../ui/SectionExpandCollapse.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
@@ -26,6 +26,9 @@ export class ContentVisualizationCoordinator {
         this.highlightCoordinator = highlightCoordinator;
         this.eventBus = eventBus || defaultEventBus;
         this.stateManager = stateManager || defaultStateManager;
+        
+        // Get EventProcessingService for user input processing
+        this.eventProcessingService = serviceFactory.get('EventProcessingService');
         
         // Renderer instances
         this.inputGraphRenderer = null;
@@ -526,7 +529,7 @@ export class ContentVisualizationCoordinator {
      */
     formatUserInputContent(content) {
         // Clean the content first - remove "# User Input:" header and extra whitespace
-        const cleanedContent = TextParser.extractCleanUserInput(content);
+        const cleanedContent = this.eventProcessingService.extractCleanUserInput(content);
         
         try {
             // Try to parse as JSON for better formatting

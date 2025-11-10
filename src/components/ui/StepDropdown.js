@@ -4,9 +4,9 @@
  * Provides functionality to render step list and handle dropdown interactions
  */
 
-import { LogService } from '../../services/LogService.js';
 import { createStepNumberIcon, ICONS } from '../../assets/icons.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class StepDropdown {
     constructor(domRegistry, eventBus = null, instanceService = null) {
@@ -17,6 +17,9 @@ export class StepDropdown {
         this.totalSteps = 0;
         this.currentStep = 0;
         this.container = null;
+        
+        // Get EventProcessingService from ServiceFactory
+        this.eventProcessingService = serviceFactory.get('EventProcessingService');
     }
 
     /**
@@ -108,8 +111,8 @@ export class StepDropdown {
             
             // Get user input for this step
             const step = this.steps && this.steps[i - 1] ? this.steps[i - 1] : null;
-            const displayUserInput = step ? LogService.getUserInputForStep(step, 40) : null; // Truncated for display
-            const fullUserInput = step ? LogService.getUserInputForStep(step) : null; // Full for tooltip (no truncation)
+            const displayUserInput = step ? this.eventProcessingService.getUserInputForStep(step, 40) : null; // Truncated for display
+            const fullUserInput = step ? this.eventProcessingService.getUserInputForStep(step) : null; // Full for tooltip (no truncation)
             
             // Add title attribute to icon with full user input
             stepIcon.setAttribute('title', fullUserInput || `Step ${i}`);

@@ -36,10 +36,14 @@ src/
 │   └── UserInputRaw.js
 ├── services/                # Business logic services
 │   ├── CPEEService.js
+│   ├── EventProcessingService.js
 │   ├── HighlightingService.js
 │   ├── InstanceService.js
-│   ├── LogService.js
-│   └── SearchService.js
+│   ├── LogFetchService.js
+│   ├── SearchService.js
+│   ├── StepAssemblyService.js
+│   ├── TaskMappingService.js
+│   └── TraceCalculationService.js
 ├── components/              # UI components organized by responsibility
 │   ├── ui/                 # Pure UI components
 │   │   ├── ActionBar.js
@@ -110,7 +114,11 @@ src/
 - **TaskIdentifier**: Model for identifying and mapping tasks across different views and formats
 
 #### Service Layer  
-- **LogService**: YAML/text log parsing and step extraction with CORS handling
+- **LogFetchService**: YAML log fetching and parsing with CORS handling and proxy rotation
+- **EventProcessingService**: Event filtering, grouping, and processing operations
+- **StepAssemblyService**: Orchestrates step creation from log events
+- **TaskMappingService**: Task extraction and cross-format task mapping
+- **TraceCalculationService**: Execution trace calculation for graph sections
 - **InstanceService**: Multi-instance management and navigation state
 - **CPEEService**: CPEE server communication and UUID resolution
 - **HighlightingService**: Cross-view task highlighting and visual coordination
