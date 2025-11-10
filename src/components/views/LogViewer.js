@@ -123,11 +123,8 @@ export class LogViewer {
         if (rawLogSection && rawLogContent) {
             this.domRegistry.removeClass('rawLogSection', 'hidden');
             
-            // Update header
-            // Use DOMRegistry if available, fallback to querySelector
-            const header = this.domRegistry 
-                ? (this.domRegistry.getElement('rawLogHeader')?.querySelector('h3') || document.querySelector('.raw-log-header h3'))
-                : document.querySelector('.raw-log-header h3');
+            // Update header (class-based selector, not ID-based, so use querySelector directly)
+            const header = document.querySelector('.raw-log-header h3');
             if (header) {
                 header.textContent = 'Raw Log Content';
             }
@@ -149,11 +146,8 @@ export class LogViewer {
         if (rawLogSection && rawLogContent) {
             this.domRegistry.removeClass('rawLogSection', 'hidden');
             
-            // Update header
-            // Use DOMRegistry if available, fallback to querySelector
-            const header = this.domRegistry 
-                ? (this.domRegistry.getElement('rawLogHeader')?.querySelector('h3') || document.querySelector('.raw-log-header h3'))
-                : document.querySelector('.raw-log-header h3');
+            // Update header (class-based selector, not ID-based, so use querySelector directly)
+            const header = document.querySelector('.raw-log-header h3');
             if (header) {
                 header.textContent = 'Raw Log Content';
             }

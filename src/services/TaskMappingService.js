@@ -896,6 +896,34 @@ class TaskMapping {
         return count;
     }
     
+    /**
+     * Log mapping summary
+     */
+    logMappingSummary() {
+        console.log('[TaskMapping] === Mapping Summary ===');
+        
+        const formats = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
+        
+        formats.forEach(sourceFormat => {
+            const taskCount = this.getTasksInFormat(sourceFormat).length;
+            console.log(`[TaskMapping] ${sourceFormat}: ${taskCount} tasks`);
+            
+            formats.forEach(targetFormat => {
+                if (sourceFormat !== targetFormat) {
+                    let mappingCount = 0;
+                    
+                    this.getTasksInFormat(sourceFormat).forEach(taskId => {
+                        const mappings = this.getMappings(taskId, sourceFormat, targetFormat);
+                        mappingCount += mappings.length;
+                    });
+                    
+                    if (mappingCount > 0) {
+                        console.log(`[TaskMapping]   → ${targetFormat}: ${mappingCount} mappings`);
+                    }
+                }
+            });
+        });
+    }
     
     /**
      * Convert to plain object for serialization

@@ -256,8 +256,6 @@ export class MermaidParser {
         // Basic validation - check for valid workflow-relevant diagram type
         const diagramType = this.extractDiagramType(cleanedCode);
         if (!diagramType) {
-            console.warn('⚠️ Cleaned Mermaid code:', JSON.stringify(cleanedCode));
-            
             // Throw error with metadata for MermaidErrorHandler to format
             const error = new Error('Missing diagram type declaration');
             error.name = 'MermaidValidationError';

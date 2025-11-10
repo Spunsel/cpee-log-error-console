@@ -14,7 +14,7 @@ import { EventProcessingService } from '../services/EventProcessingService.js';
 import { StepAssemblyService } from '../services/StepAssemblyService.js';
 import { TaskMappingService } from '../services/TaskMappingService.js';
 import { TraceCalculationService } from '../services/TraceCalculationService.js';
-import { ProxyRotationService, proxyRotationService } from '../services/ProxyRotationService.js';
+import { ProxyRotationService } from '../services/ProxyRotationService.js';
 import { EmailService } from '../services/EmailService.js';
 import { ContentProcessingService } from '../services/ContentProcessingService.js';
 import { configManager } from '../config/ConfigManager.js';
@@ -62,16 +62,6 @@ export class ServiceFactory {
                 console.log(`[ServiceFactory] Returning existing singleton: ${serviceName}`);
             }
             return this.services.get(serviceName);
-        }
-
-        // Special case: ProxyRotationService - use the exported singleton to avoid circular dependency
-        if (serviceName === 'ProxyRotationService' && !this.services.has(serviceName)) {
-            // Use the exported singleton instance (ProxyRotationService exports its own singleton)
-            this.services.set(serviceName, proxyRotationService);
-            if (this.debugMode) {
-                console.log(`[ServiceFactory] Using exported singleton for: ${serviceName}`);
-            }
-            return proxyRotationService;
         }
 
         // Create new service instance

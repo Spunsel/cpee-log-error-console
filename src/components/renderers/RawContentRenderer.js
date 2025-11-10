@@ -19,6 +19,7 @@
 import { ActionBar } from '../ui/ActionBar.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { configManager } from '../../config/ConfigManager.js';
+import { MermaidErrorHandler } from '../../utils/content/MermaidErrorHandler.js';
 
 export class RawContentRenderer {
     constructor(domRegistry = null, _eventBus = null, contentProcessingService = null) {
@@ -49,13 +50,23 @@ export class RawContentRenderer {
 
         // Apply preprocessing to match what visual view shows
         let processedText = mermaidText || '';
+        let validationError = null;
         try {
             const cleanResult = this.contentProcessingService.processAndValidateMermaid(processedText, true);
             processedText = cleanResult.code;
         } catch (error) {
             console.warn('Failed to preprocess raw Mermaid content, using original text:', error);
+            // Store error for display
+            validationError = error;
             // Fallback to original text if preprocessing fails
             processedText = mermaidText || '';
+        }
+
+        // Display error indicator if validation failed
+        if (validationError) {
+            // Use original text for error context (not the fallback processed text)
+            const categorizedError = MermaidErrorHandler.categorizeError(validationError, mermaidText || '');
+            MermaidErrorHandler.displayErrorIndicator(container, categorizedError);
         }
 
         const codeElement = this.domRegistry.createElement('pre', {
