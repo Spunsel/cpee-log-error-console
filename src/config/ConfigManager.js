@@ -26,7 +26,8 @@ export class ConfigManager {
             timing: this.loadTimingConfig(),
             styling: this.loadStylingConfig(),
             syntaxHighlighting: this.loadSyntaxHighlightingConfig(),
-            email: this.loadEmailConfig()
+            email: this.loadEmailConfig(),
+            recentAdditions: this.loadRecentAdditionsConfig()
         };
     }
 
@@ -98,7 +99,7 @@ export class ConfigManager {
             instances: {
                 // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
                 processNumbers: [
-                    7567, 6775, 6770, 6561, 6560, 6554, 6552, 6550, 6548, 6547, 6098, 5919, 5898, 5820, 5814, 
+                    7676, 7567, 6775, 6770, 6561, 6560, 6554, 6552, 6550, 6548, 6547, 6098, 5919, 5898, 5820, 5814, 
                     5130, 5128, 5055, 5053, 5050, 5049, 5045, 5044, 5040, 5035, 4913, 4908, 4906, 4807, 3833, 
                     1606, 1529, 1528, 1527, 1524, 1523, 1510, 1467, 1465, 1393, 1388, 1317, 1314, 1266, 1258, 
                     1134, 1133, 1132, 1126, 1124, 1123, 1118, 1098, 1091, 1087, 1086, 1069, 1055, 1047, 1046, 
@@ -800,6 +801,73 @@ export class ConfigManager {
             console.error('ConfigManager: Import failed:', error);
             return false;
         }
+    }
+
+    /**
+     * Load Recent Additions and Fixes configuration
+     * @returns {Object} Recent additions and fixes configuration
+     */
+    loadRecentAdditionsConfig() {
+        return {
+            issues: [
+                {
+                    title: 'Fixed CPEE SVG task rendering issue',
+                    status: 'closed',
+                    labels: ['cpee rendering', 'bug'],
+                    date: '2025-11-10',
+                    description: 'SVG reference attributes resolve globally -> namespace IDs for each graph, to avoid clipPath ID collisions (4913)'
+                },
+                {
+                    title: 'Handle CPEE/Mermaid graphs with 6+ parallel permutations',
+                    status: 'open',
+                    labels: ['traces', 'bug'],
+                    date: null,
+                    description: 'Trace calculation too computationally expensive (maybe reduce number of permutation calculations?) (5055)'
+                },
+                {
+                    title: 'Add CPEE pre-processing (double parenthesis)',
+                    status: 'open',
+                    labels: ['cpee preprocessing', 'bug'],
+                    date: null,
+                    description: 'convert double parenthesis within condition to safe symbol (for highlighting and traces) (6547)'
+                },
+                {
+                    title: 'Improve cross-sectional highlighting',
+                    status: 'open',
+                    labels: ['cross sectional highlighting', 'feature'],
+                    date: null,
+                    description: 'Extend graph highlighting to gateways & start/endnode'
+                },
+                {
+                    title: 'Improve cross-sectional highlighting',
+                    status: 'open',
+                    labels: ['cross sectional highlighting', 'feature'],
+                    date: null,
+                    description: 'Include script tasks, message events (6548)'
+                },
+                {
+                    title: 'Fix faulty Mermaid Trace calculation',
+                    status: 'open',
+                    labels: ['traces', 'bug'],
+                    date: null,
+                    description: 'Merm traces not calculated correctly for "AND" gateway? (5040)'
+                },
+                {
+                    title: 'Fix Mermadid Empty Task Parse Error',
+                    status: 'open',
+                    labels: ['mermaid preprocessing', 'feature'],
+                    date: null,
+                    description: 'Replace empty tasks with placeholder, so mermaid graph renders even if syntax error? (6554)'
+                },
+                {
+                    title: 'Add logic for reachability + bounds structure',
+                    status: 'open',
+                    labels: ['traces', 'feature'],
+                    date: null,
+                    description: null
+                },
+            ]
+        };
     }
 
     /**

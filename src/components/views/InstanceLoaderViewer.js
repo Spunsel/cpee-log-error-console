@@ -7,6 +7,7 @@ import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
+import { RecentAdditionsAndFixes } from '../ui/RecentAdditionsAndFixes.js';
 
 export class InstanceLoaderViewer {
     constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null, logFetchService = null, eventProcessingService = null) {
@@ -19,6 +20,9 @@ export class InstanceLoaderViewer {
         // Services injected via constructor
         this.logFetchService = logFetchService;
         this.eventProcessingService = eventProcessingService;
+        
+        // Initialize Recent Additions and Fixes component
+        this.recentAdditionsAndFixes = new RecentAdditionsAndFixes(domRegistry);
     }
 
     /**
@@ -45,6 +49,20 @@ export class InstanceLoaderViewer {
         if (loadSection) {
             loadSection.classList.remove('hidden');
             this.isVisible = true;
+        }
+        
+        // Show advanced instance loading section
+        const advancedInstanceLoading = this.domRegistry 
+            ? this.domRegistry.getElement('advancedInstanceLoading')
+            : document.getElementById('advanced-instance-loading');
+        if (advancedInstanceLoading) {
+            advancedInstanceLoading.classList.remove('hidden');
+        }
+        
+        // Show recent additions and fixes section
+        const recentAdditionsAndFixes = document.getElementById('recent-additions-and-fixes');
+        if (recentAdditionsAndFixes) {
+            recentAdditionsAndFixes.classList.remove('hidden');
         }
     }
 

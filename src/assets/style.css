@@ -109,6 +109,12 @@
     
     /* Text Selection */
     --selection-bg: #c2d1ff;
+    
+    /* Issue Label Colors */
+    --label-bug-text: #7a2e22;
+    --label-bug-bg: #f5e6e3;
+    --label-feature-text: #1e4a7a;
+    --label-feature-bg: #d6e8f5;
 }
 
 /* ========================================
@@ -162,6 +168,12 @@
 
     --search-match-bg: #5a4372;
     --search-match-active-bg: #8b5cf6;
+    
+    /* Issue Label Colors - Dark Mode */
+    --label-bug-text: #a44437;
+    --label-bug-bg: #392e36;
+    --label-feature-text: #84b6eb;
+    --label-feature-bg: #364556;
     
     --shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.25), 0.5px 0.5px 2px 0 rgba(0, 0, 0, 0.15);
     --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.25);
@@ -920,6 +932,296 @@ body {
   .instance-list-container {
     margin-top: var(--spacing-md);
   }
+
+/* ========================================
+   RECENT ADDITIONS AND FIXES SECTION
+   ======================================== */
+
+/* Recent Additions and Fixes Section Container */
+.recent-additions-and-fixes-section {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    font-family: var(--font-sans);
+}
+
+.recent-additions-and-fixes-section.collapsed .recent-additions-content {
+    display: none;
+}
+
+/* Recent Additions Header */
+.recent-additions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    background: var(--surface-color);
+    padding: 0;
+    vertical-align: middle;
+}
+
+.recent-additions-header .left-title-side {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex: 1;
+    padding: 0;
+    margin: 0;
+    background: var(--surface-color);
+    vertical-align: middle;
+    height: fit-content;
+}
+
+.recent-additions-header .right-title-side {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 0;
+    margin: 0;
+    background: var(--surface-color);
+    vertical-align: middle;
+    height: fit-content;
+}
+
+.recent-additions-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+/* Issue Status Tabs - GitHub-style tabs with counts */
+.issue-status-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0;
+    align-items: center;
+}
+
+.issue-status-tabs li {
+    margin: 0;
+    padding: 0;
+}
+
+.issue-status-tab {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-sm);
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-fast);
+    cursor: pointer;
+    border: none;
+    background: var(--surface-color);
+    margin: 0;
+}
+
+.issue-status-tab:hover {
+    background: var(--hover-bg);
+    color: var(--text-primary);
+}
+
+.issue-status-tab.active {
+    background: var(--background-color);
+    color: var(--text-primary);
+}
+
+.issue-status-tab-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.issue-status-tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 10px;
+    background: var(--hover-bg);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.issue-status-tab.active .issue-status-tab-count {
+    background: var(--surface-color);
+    color: var(--text-primary);
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Recent Additions Content */
+.recent-additions-content {
+    margin-top: var(--spacing-md);
+}
+
+.recent-additions-content.collapsed {
+    display: none;
+}
+
+/* Recent Additions List */
+.recent-additions-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+/* Issue Item */
+.issue-item {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: box-shadow var(--transition-fast);
+    padding: var(--spacing-md);
+}
+
+.issue-item:hover {
+    box-shadow: 0 2px 4px var(--shadow-md);
+}
+
+/* Issue Header */
+.issue-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    font-family: var(--font-sans);
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Issue Status Icon */
+.issue-status-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--text-primary);
+}
+
+.issue-item-open .issue-status-icon {
+    color: #57ab5a;
+}
+
+.issue-item-closed .issue-status-icon {
+    color: #986ee2;
+}
+
+.issue-status-icon svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    stroke: currentColor;
+}
+
+/* Issue Title */
+.issue-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1rem;
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Issue Labels */
+.issue-labels {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.issue-label {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    background: var(--hover-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+/* Bug Label Styling */
+.issue-label-bug {
+    background: var(--label-bug-bg);
+    color: var(--label-bug-text);
+    border: 1px solid var(--label-bug-text);
+}
+
+/* Feature Label Styling */
+.issue-label-feature {
+    background: var(--label-feature-bg);
+    color: var(--label-feature-text);
+    border: 1px solid var(--label-feature-text);
+}
+
+/* Issue Date */
+.issue-date {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    margin-left: auto;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Issue Description */
+.issue-description {
+    margin-top: var(--spacing-xs);
+    padding-left: calc(16px + var(--spacing-sm));
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* No Issues Message */
+.no-issues-message {
+    padding: var(--spacing-lg);
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-style: italic;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .issue-item-closed .issue-status-icon {
+    color: #986ee2;
+}
+
+[data-theme="dark"] .issue-item-open .issue-status-icon {
+    color: #57ab5a;
+}
   
   .instance-list {
     display: flex;

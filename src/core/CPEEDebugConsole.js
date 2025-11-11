@@ -322,6 +322,12 @@ export class CPEEDebugConsole {
             advancedInstanceLoading.classList.add('hidden');
         }
         
+        // Hide recent additions and fixes section when selecting an instance
+        const recentAdditionsAndFixes = document.getElementById('recent-additions-and-fixes');
+        if (recentAdditionsAndFixes) {
+            recentAdditionsAndFixes.classList.add('hidden');
+        }
+        
         // Hide theme toggle when navigating away from InstanceLoaderViewer
         this.darkModeToggle.hide();
         
