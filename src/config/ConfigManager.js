@@ -822,12 +822,12 @@ export class ConfigManager {
                     status: 'closed',
                     labels: ['mermaid preprocessing', 'feature'],
                     date: '2025-11-11',
-                    description: 'unique control flow arrows, e.g.: "gw40s:exclusivegateway:{x}-->gw40e:exclusivegateway:{x}" appears 20+ times in 1465.This would also resolve "Too many edges" mermaid rendering error (1465)'
+                    description: 'Made control flow arrows unique, e.g.: "gw40s:exclusivegateway:{x}-->gw40e:exclusivegateway:{x}" appears 20+ times in 1465. Resolved "Too many edges" mermaid rendering error (1465)'
                 },
                 {
                     title: 'Fix faulty Mermaid Trace calculation',
                     status: 'closed',
-                    labels: ['traces', 'bug'],
+                    labels: ['mermaid preprocessing', 'traces', 'bug'],
                     date: '2025-11-11',
                     description: '"{AND}" was missing after ":parallelgateway:" gateway nodes, causing gateways not to be recognized as parallel AND-join or AND-split (5040)'
                 },
@@ -844,7 +844,7 @@ export class ConfigManager {
                 {
                     title: 'Add CPEE pre-processing (double quotation marks)',
                     status: 'open',
-                    labels: ['cpee preprocessing', 'bug'],
+                    labels: ['cpee preprocessing', 'traces', 'bug'],
                     date: null,
                     description: 'replace double quotation marks inside condition with safe alternative (currently this breaks syntax highlighting and trace calculations) (6547)'
                 },

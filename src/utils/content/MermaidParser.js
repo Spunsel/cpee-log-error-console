@@ -126,8 +126,8 @@ export class MermaidParser {
             });
             }
         
-        // Fix 8.5: Sync gateway nodes with same ID - if one has full specification, apply to incomplete ones
-        const fix8_5LineNumbers = [];
+        // Fix 9: Sync gateway nodes with same ID - if one has full specification, apply to incomplete ones
+        const fix9LineNumbers = [];
         
         // Pattern to match gateway nodes: id:type: or id:type:{something}
         // Matches patterns like: pg1:parallelgateway: or pg1:parallelgateway:{AND}
@@ -156,8 +156,8 @@ export class MermaidParser {
         }
         
         // Second pass: replace incomplete gateway nodes with complete ones
-        const lines8_5 = processedCode.split('\n');
-        const updatedLines = lines8_5.map((line, index) => {
+        const lines9 = processedCode.split('\n');
+        const updatedLines = lines9.map((line, index) => {
             let updatedLine = line;
             
             // Check if this line contains a gateway node that needs completion
@@ -168,10 +168,14 @@ export class MermaidParser {
                     const escapedIdType = idType.replace(/:/g, '\\:');
                     const incompletePattern = new RegExp(`\\b${escapedIdType}(?!\\{[^}]+\\})`, 'g');
                     
-                    if (incompletePattern.test(updatedLine)) {
-                        // Replace incomplete gateway with complete one
-                        updatedLine = updatedLine.replace(incompletePattern, idType + specification);
-                        fix8_5LineNumbers.push(index + 1); // 1-based line numbers
+                    // Store original line to detect changes
+                    const originalLine = updatedLine;
+                    // Replace incomplete gateway with complete one
+                    updatedLine = updatedLine.replace(incompletePattern, idType + specification);
+                    
+                    // If the line changed, record the line number
+                    if (updatedLine !== originalLine) {
+                        fix9LineNumbers.push(index + 1); // 1-based line numbers
                     }
                 }
             });
@@ -179,15 +183,15 @@ export class MermaidParser {
             return updatedLine;
         });
         
-        if (fix8_5LineNumbers.length > 0) {
+        if (fix9LineNumbers.length > 0) {
             processedCode = updatedLines.join('\n');
             appliedSteps.push({
-                description: `Synchronized ${fix8_5LineNumbers.length} gateway node${fix8_5LineNumbers.length > 1 ? 's' : ''} with same ID`,
-                lineNumbers: Array.from(new Set(fix8_5LineNumbers)).sort((a, b) => a - b)
+                description: `Synchronized ${fix9LineNumbers.length} gateway node${fix9LineNumbers.length > 1 ? 's' : ''} with same ID`,
+                lineNumbers: Array.from(new Set(fix9LineNumbers)).sort((a, b) => a - b)
             });
         }
         
-        // Fix 9: Remove duplicate connection lines (exact duplicates)
+        // Fix 10: Remove duplicate connection lines (exact duplicates)
         const lines = processedCode.split('\n');
         const seenConnections = new Map(); // Map<connectionLine, firstLineNumber>
         const duplicateLineNumbers = [];
