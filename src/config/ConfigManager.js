@@ -815,7 +815,7 @@ export class ConfigManager {
                     status: 'closed',
                     labels: ['cpee rendering', 'bug'],
                     date: '2025-11-10',
-                    description: 'SVG reference attributes resolve globally -> namespace IDs for each graph, to avoid clipPath ID collisions (4913)'
+                    description: 'SVG reference attributes resolve globally -> solved by using namespace IDs for each graph, to avoid clipPath ID collisions (4913)'
                 },
                 {
                     title: 'Handle CPEE/Mermaid graphs with 6+ parallel permutations',
@@ -825,25 +825,25 @@ export class ConfigManager {
                     description: 'Trace calculation too computationally expensive (maybe reduce number of permutation calculations?) (5055)'
                 },
                 {
-                    title: 'Add CPEE pre-processing (double parenthesis)',
+                    title: 'Add CPEE pre-processing (double quotation marks)',
                     status: 'open',
                     labels: ['cpee preprocessing', 'bug'],
                     date: null,
-                    description: 'convert double parenthesis within condition to safe symbol (for highlighting and traces) (6547)'
+                    description: 'replace double quotation marks inside condition with safe alternative (currently this breaks syntax highlighting and trace calculations) (6547)'
                 },
                 {
                     title: 'Improve cross-sectional highlighting',
                     status: 'open',
                     labels: ['cross sectional highlighting', 'feature'],
                     date: null,
-                    description: 'Extend graph highlighting to gateways & start/endnode'
+                    description: 'Extend graph highlighting to gateways and start/endnode'
                 },
                 {
                     title: 'Improve cross-sectional highlighting',
                     status: 'open',
                     labels: ['cross sectional highlighting', 'feature'],
                     date: null,
-                    description: 'Include script tasks, message events (6548)'
+                    description: 'Include script tasks, message events, and other non-standard node types (6548)'
                 },
                 {
                     title: 'Fix faulty Mermaid Trace calculation',
@@ -857,7 +857,7 @@ export class ConfigManager {
                     status: 'open',
                     labels: ['mermaid preprocessing', 'feature'],
                     date: null,
-                    description: 'Replace empty tasks with placeholder, so mermaid graph renders even if syntax error? (6554)'
+                    description: 'Replace empty tasks with task-placeholder, so mermaid graph renders even if parse error? (6554)'
                 },
                 {
                     title: 'Add logic for reachability + bounds structure',
