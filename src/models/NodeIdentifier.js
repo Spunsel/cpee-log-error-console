@@ -1,18 +1,19 @@
 /**
- * TaskIdentifier Model
- * Standardized representation of tasks/nodes across different formats
+ * NodeIdentifier Model
+ * Standardized representation of tasks/nodes/gateways/events across different formats
  * (CPEE XML, Mermaid syntax, rendered SVGs)
  */
 
-export class TaskIdentifier {
+export class NodeIdentifier {
     /**
-     * Create a TaskIdentifier
-     * @param {string} id - Unique identifier for the task
+     * Create a NodeIdentifier
+     * @param {string} id - Unique identifier for the node
      * @param {string} label - Human-readable label/name
-     * @param {string} type - Task type (e.g., 'call', 'manipulate', 'task', 'decision')
+     * @param {string} type - Node type (e.g., 'call', 'manipulate', 'task', 'gateway', 'event', 'decision')
      * @param {string} sourceFormat - Source format ('cpee', 'mermaid')
      * @param {Object} metadata - Additional format-specific metadata
      * @param {number|null} position - Position/order in the workflow (0-based index)
+     * @param {string|null} altId - Alternative ID (e.g., alt_id from CPEE XML)
      */
     constructor(id, label, type, sourceFormat, metadata = {}, position = null, altId = null) {
         this.id = id;
@@ -26,7 +27,7 @@ export class TaskIdentifier {
     }
 
     /**
-     * Validate the TaskIdentifier
+     * Validate the NodeIdentifier
      * @returns {boolean} True if valid
      */
     isValid() {
@@ -46,12 +47,12 @@ export class TaskIdentifier {
     }
 
     /**
-     * Check exact equality with another TaskIdentifier
-     * @param {TaskIdentifier} other - Other TaskIdentifier to compare
+     * Check exact equality with another NodeIdentifier
+     * @param {NodeIdentifier} other - Other NodeIdentifier to compare
      * @returns {boolean} True if exactly equal
      */
     equals(other) {
-        if (!(other instanceof TaskIdentifier)) {
+        if (!(other instanceof NodeIdentifier)) {
             return false;
         }
         return this.id === other.id &&
@@ -61,13 +62,13 @@ export class TaskIdentifier {
     }
 
     /**
-     * Check if this task matches another based on flexible criteria
-     * @param {TaskIdentifier} other - Other TaskIdentifier to compare
+     * Check if this node matches another based on flexible criteria
+     * @param {NodeIdentifier} other - Other NodeIdentifier to compare
      * @param {Object} options - Matching options
      * @returns {boolean} True if matches
      */
     matches(other, options = {}) {
-        if (!(other instanceof TaskIdentifier)) {
+        if (!(other instanceof NodeIdentifier)) {
             return false;
         }
 
@@ -107,12 +108,12 @@ export class TaskIdentifier {
     }
 
     /**
-     * Check if this task is similar to another (fuzzy matching)
-     * @param {TaskIdentifier} other - Other TaskIdentifier to compare
+     * Check if this node is similar to another (fuzzy matching)
+     * @param {NodeIdentifier} other - Other NodeIdentifier to compare
      * @returns {boolean} True if similar
      */
     isSimilar(other) {
-        if (!(other instanceof TaskIdentifier)) {
+        if (!(other instanceof NodeIdentifier)) {
             return false;
         }
 
@@ -131,7 +132,7 @@ export class TaskIdentifier {
      */
     toString() {
         const altIdStr = this.altId ? `, altId="${this.altId}"` : '';
-        return `TaskIdentifier(id="${this.id}"${altIdStr}, label="${this.label}", type="${this.type}", source="${this.sourceFormat}", position=${this.position})`;
+        return `NodeIdentifier(id="${this.id}"${altIdStr}, label="${this.label}", type="${this.type}", source="${this.sourceFormat}", position=${this.position})`;
     }
 
     /**
@@ -151,12 +152,12 @@ export class TaskIdentifier {
     }
 
     /**
-     * Create TaskIdentifier from plain object
+     * Create NodeIdentifier from plain object
      * @param {Object} obj - Plain object
-     * @returns {TaskIdentifier} New TaskIdentifier instance
+     * @returns {NodeIdentifier} New NodeIdentifier instance
      */
     static fromObject(obj) {
-        return new TaskIdentifier(
+        return new NodeIdentifier(
             obj.id,
             obj.label,
             obj.type,
@@ -184,9 +185,9 @@ export class TaskIdentifier {
     }
 
     /**
-     * Compare two TaskIdentifiers for sorting by position
-     * @param {TaskIdentifier} a - First task
-     * @param {TaskIdentifier} b - Second task
+     * Compare two NodeIdentifiers for sorting by position
+     * @param {NodeIdentifier} a - First node
+     * @param {NodeIdentifier} b - Second node
      * @returns {number} Comparison result (-1, 0, 1)
      */
     static compareByPosition(a, b) {
@@ -203,19 +204,19 @@ export class TaskIdentifier {
     }
 
     /**
-     * Find matching task in an array
-     * @param {TaskIdentifier[]} tasks - Array of tasks to search
+     * Find matching node in an array
+     * @param {NodeIdentifier[]} nodes - Array of nodes to search
      * @param {Object} options - Matching options
-     * @returns {TaskIdentifier|null} Matching task or null
+     * @returns {NodeIdentifier|null} Matching node or null
      */
-    findMatch(tasks, options = {}) {
-        if (!Array.isArray(tasks)) {
+    findMatch(nodes, options = {}) {
+        if (!Array.isArray(nodes)) {
             return null;
         }
 
-        for (const task of tasks) {
-            if (this.matches(task, options)) {
-                return task;
+        for (const node of nodes) {
+            if (this.matches(node, options)) {
+                return node;
             }
         }
 
@@ -223,11 +224,11 @@ export class TaskIdentifier {
     }
 
     /**
-     * Create a copy of this TaskIdentifier
-     * @returns {TaskIdentifier} New TaskIdentifier instance
+     * Create a copy of this NodeIdentifier
+     * @returns {NodeIdentifier} New NodeIdentifier instance
      */
     clone() {
-        const cloned = new TaskIdentifier(
+        const cloned = new NodeIdentifier(
             this.id,
             this.label,
             this.type,
@@ -259,7 +260,7 @@ export class TaskIdentifier {
     }
 
     /**
-     * Check if task has metadata key
+     * Check if node has metadata key
      * @param {string} key - Metadata key
      * @returns {boolean} True if key exists
      */

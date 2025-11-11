@@ -1,7 +1,7 @@
 /**
  * CPEE SVG Click Handler
  * Identifies clicked tasks in CPEE WfAdaptor-generated SVGs
- * Matches clicked SVG elements to TaskIdentifier objects
+ * Matches clicked SVG elements to NodeIdentifier objects
  */
 
 import { SVGClickDetector } from './SVGClickDetector.js';
@@ -16,8 +16,8 @@ export class CPEESVGClickHandler {
     /**
      * Identify clicked task from SVG element
      * @param {Element} clickedElement - The element that was clicked
-     * @param {TaskIdentifier[]} cpeeTaskList - List of CPEE tasks (from SVGTaskExtractor)
-     * @returns {TaskIdentifier|null} Identified task or null
+     * @param {NodeIdentifier[]} cpeeTaskList - List of CPEE nodes (from SVGNodeExtractor)
+     * @returns {NodeIdentifier|null} Identified node or null
      */
     identifyClickedTask(clickedElement, cpeeTaskList) {
         console.log('[CPEESVGClickHandler] Identifying clicked task...');
@@ -86,8 +86,8 @@ export class CPEESVGClickHandler {
     /**
      * Find task by ID in task list
      * @param {string} taskId - Task ID to find
-     * @param {TaskIdentifier[]} taskList - List of tasks
-     * @returns {TaskIdentifier|null} Matched task or null
+     * @param {NodeIdentifier[]} taskList - List of nodes
+     * @returns {NodeIdentifier|null} Matched node or null
      */
     findTaskById(taskId, taskList) {
         if (!Array.isArray(taskList)) {
@@ -223,7 +223,7 @@ export class CPEESVGClickHandler {
     
     /**
      * Match all tasks to their SVG elements
-     * @param {TaskIdentifier[]} taskList - List of tasks
+     * @param {NodeIdentifier[]} taskList - List of tasks
      * @param {Element} svgContainer - SVG container
      * @returns {Map<string, Element>} Map of task ID to SVG element
      */

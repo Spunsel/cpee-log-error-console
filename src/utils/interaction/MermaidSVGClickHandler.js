@@ -1,7 +1,7 @@
 /**
  * Mermaid SVG Click Handler
  * Identifies clicked nodes in Mermaid-generated SVGs
- * Matches clicked SVG elements to TaskIdentifier objects
+ * Matches clicked SVG elements to NodeIdentifier objects
  */
 
 import { SVGClickDetector } from './SVGClickDetector.js';
@@ -16,8 +16,8 @@ export class MermaidSVGClickHandler {
     /**
      * Identify clicked node from SVG element
      * @param {Element} clickedElement - The element that was clicked
-     * @param {TaskIdentifier[]} mermaidTaskList - List of Mermaid nodes (from SVGTaskExtractor)
-     * @returns {TaskIdentifier|null} Identified node or null
+     * @param {NodeIdentifier[]} mermaidTaskList - List of Mermaid nodes (from SVGNodeExtractor)
+     * @returns {NodeIdentifier|null} Identified node or null
      */
     identifyClickedNode(clickedElement, mermaidTaskList) {
         console.log('[MermaidSVGClickHandler] Identifying clicked node...');
@@ -110,8 +110,8 @@ export class MermaidSVGClickHandler {
     /**
      * Find node by ID in task list
      * @param {string} nodeId - Node ID to find
-     * @param {TaskIdentifier[]} taskList - List of nodes
-     * @returns {TaskIdentifier|null} Matched node or null
+     * @param {NodeIdentifier[]} taskList - List of nodes
+     * @returns {NodeIdentifier|null} Matched node or null
      */
     findNodeById(nodeId, taskList) {
         if (!Array.isArray(taskList)) {
@@ -299,7 +299,7 @@ export class MermaidSVGClickHandler {
     
     /**
      * Match all nodes to their SVG elements
-     * @param {TaskIdentifier[]} taskList - List of nodes
+     * @param {NodeIdentifier[]} taskList - List of nodes
      * @param {Element} svgContainer - SVG container
      * @returns {Map<string, Element>} Map of node ID to SVG element
      */

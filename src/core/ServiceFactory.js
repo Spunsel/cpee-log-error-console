@@ -12,14 +12,14 @@ import { SyntaxHighlightingService } from '../services/SyntaxHighlightingService
 import { LogFetchService } from '../services/LogFetchService.js';
 import { EventProcessingService } from '../services/EventProcessingService.js';
 import { StepAssemblyService } from '../services/StepAssemblyService.js';
-import { TaskMappingService } from '../services/TaskMappingService.js';
+import { NodeMappingService } from '../services/NodeMappingService.js';
 import { TraceCalculationService } from '../services/TraceCalculationService.js';
 import { ProxyRotationService } from '../services/ProxyRotationService.js';
 import { EmailService } from '../services/EmailService.js';
 import { ContentProcessingService } from '../services/ContentProcessingService.js';
 import { configManager } from '../config/ConfigManager.js';
-import { CPEETaskExtractor } from '../utils/extraction/CPEETaskExtractor.js';
-import { MermaidTaskExtractor } from '../utils/extraction/MermaidTaskExtractor.js';
+import { CPEENodeExtractor } from '../utils/extraction/CPEETNodeExtractor.js';
+import { MermaidNodeExtractor } from '../utils/extraction/MermaidNodeExtractor.js';
 import { CPEETraceCalculator } from '../utils/trace/CPEETraceCalculator.js';
 import { MermaidTraceCalculator } from '../utils/trace/MermaidTraceCalculator.js';
 
@@ -35,7 +35,7 @@ export class ServiceFactory {
             'LogFetchService',
             'EventProcessingService',
             'StepAssemblyService',
-            'TaskMappingService',
+            'NodeMappingService',
             'TraceCalculationService',
             'ProxyRotationService',
             'EmailService',
@@ -128,11 +128,12 @@ export class ServiceFactory {
                     );
                 }
             
-            case 'TaskMappingService':
+            case 'NodeMappingService':
+            case 'TaskMappingService': // Backward compatibility
                 {
-                    const cpeeTaskExtractor = new CPEETaskExtractor();
-                    const mermaidTaskExtractor = new MermaidTaskExtractor();
-                    return new TaskMappingService(cpeeTaskExtractor, mermaidTaskExtractor);
+                    const cpeeNodeExtractor = new CPEENodeExtractor();
+                    const mermaidNodeExtractor = new MermaidNodeExtractor();
+                    return new NodeMappingService(cpeeNodeExtractor, mermaidNodeExtractor);
                 }
             
             case 'TraceCalculationService':

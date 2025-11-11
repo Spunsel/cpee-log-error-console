@@ -1,18 +1,18 @@
 /**
- * Mermaid Task Extractor
- * Extracts tasks from Mermaid flowchart syntax
+ * Mermaid Node Extractor
+ * Extracts tasks, gateways, and events from Mermaid flowchart syntax
  */
 
-import { TaskIdentifier } from '../../models/TaskIdentifier.js';
+import { NodeIdentifier } from '../../models/NodeIdentifier.js';
 
-export class MermaidTaskExtractor {
+export class MermaidNodeExtractor {
     /**
      * Extract tasks from Mermaid flowchart syntax
      * @param {string} mermaidSyntax - Mermaid flowchart code
-     * @returns {TaskIdentifier[]} Array of TaskIdentifier objects (only tasks, no gateways/events)
+     * @returns {NodeIdentifier[]} Array of NodeIdentifier objects (only tasks, no gateways/events)
      */
     static extract(mermaidSyntax) {
-        console.log('[MermaidTaskExtractor] Starting task extraction from Mermaid syntax...');
+        console.log('[MermaidNodeExtractor] Starting task extraction from Mermaid syntax...');
         
         try {
             const nodes = [];
@@ -42,21 +42,21 @@ export class MermaidTaskExtractor {
             const tasks = nodes.filter(node => node.type === 'task');
             const excluded = nodes.filter(node => node.type !== 'task');
             
-            console.log(`[MermaidTaskExtractor] Extracted ${nodes.length} total nodes`);
-            console.log(`[MermaidTaskExtractor] Filtered to ${tasks.length} tasks (excluded ${excluded.length} non-task nodes)`);
+            console.log(`[MermaidNodeExtractor] Extracted ${nodes.length} total nodes`);
+            console.log(`[MermaidNodeExtractor] Filtered to ${tasks.length} tasks (excluded ${excluded.length} non-task nodes)`);
             
             if (excluded.length > 0) {
-                console.log(`[MermaidTaskExtractor] Excluded nodes:`, excluded.map(n => `${n.id}:${n.type}`));
+                console.log(`[MermaidNodeExtractor] Excluded nodes:`, excluded.map(n => `${n.id}:${n.type}`));
             }
             
             tasks.forEach(task => {
-                console.log(`[MermaidTaskExtractor] Extracted task: ${task.toString()}`);
+                console.log(`[MermaidNodeExtractor] Extracted task: ${task.toString()}`);
             });
             
             return tasks;
             
         } catch (error) {
-            console.error('[MermaidTaskExtractor] Error extracting tasks:', error);
+            console.error('[MermaidNodeExtractor] Error extracting tasks:', error);
             return [];
         }
     }
@@ -67,7 +67,7 @@ export class MermaidTaskExtractor {
      * @returns {Object[]} Array of connection objects
      */
     static extractConnections(mermaidSyntax) {
-        console.log('[MermaidTaskExtractor] Extracting connections from Mermaid syntax...');
+        console.log('[MermaidNodeExtractor] Extracting connections from Mermaid syntax...');
         
         const connections = [];
         const lines = mermaidSyntax.split('\n');
@@ -96,12 +96,12 @@ export class MermaidTaskExtractor {
                         type: type,
                         line: lineIndex + 1
                     });
-                    console.log(`[MermaidTaskExtractor] Found connection: ${match[1]} -> ${match[2]}`);
+                    console.log(`[MermaidNodeExtractor] Found connection: ${match[1]} -> ${match[2]}`);
                 }
             });
         });
         
-        console.log(`[MermaidTaskExtractor] Extracted ${connections.length} connections`);
+        console.log(`[MermaidNodeExtractor] Extracted ${connections.length} connections`);
         return connections;
     }
 
@@ -121,7 +121,7 @@ export class MermaidTaskExtractor {
      * Extract nodes from a single line of Mermaid syntax
      * @param {string} line - Line of Mermaid code
      * @param {number} basePosition - Base position for this line's nodes
-     * @returns {TaskIdentifier[]} Array of TaskIdentifier objects
+     * @returns {NodeIdentifier[]} Array of NodeIdentifier objects
      */
     static extractNodesFromLine(line, basePosition) {
         const nodes = [];
@@ -148,7 +148,7 @@ export class MermaidTaskExtractor {
                 const id = match[1];
                 const label = match[2].trim();
                 
-                const task = new TaskIdentifier(
+                const task = new NodeIdentifier(
                     id,
                     label,
                     type,

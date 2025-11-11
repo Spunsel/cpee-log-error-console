@@ -1,18 +1,18 @@
 /**
- * CPEE Task Extractor
+ * CPEE Node Extractor
  * Extracts tasks from CPEE XML syntax
  */
 
-import { TaskIdentifier } from '../../models/TaskIdentifier.js';
+import { NodeIdentifier } from '../../models/NodeIdentifier.js';
 
-export class CPEETaskExtractor {
+export class CPEENodeExtractor {
     /**
      * Extract tasks from CPEE XML
      * @param {string} xmlString - CPEE XML content
-     * @returns {TaskIdentifier[]} Array of TaskIdentifier objects
+     * @returns {NodeIdentifier[]} Array of NodeIdentifier objects
      */
     static extract(xmlString) {
-        console.log('[CPEETaskExtractor] Starting task extraction from CPEE XML...');
+        console.log('[CPEENodeExtractor] Starting task extraction from CPEE XML...');
         
         try {
             // Fix common XML issues: unescaped < in attribute values
@@ -25,15 +25,15 @@ export class CPEETaskExtractor {
             // Check for parsing errors
             const parserError = xmlDoc.querySelector('parsererror');
             if (parserError) {
-                console.warn('[CPEETaskExtractor] XML parsing error:', parserError.textContent);
+                console.warn('[CPEENodeExtractor] XML parsing error:', parserError.textContent);
                 return [];
             }
             
-            console.log('[CPEETaskExtractor] XML parsed successfully');
+            console.log('[CPEENodeExtractor] XML parsed successfully');
             
             // Find all task elements
             const taskElements = this.findTaskElements(xmlDoc);
-            console.log(`[CPEETaskExtractor] Found ${taskElements.length} task elements`);
+            console.log(`[CPEENodeExtractor] Found ${taskElements.length} task elements`);
             
             // Extract tasks
             const tasks = [];
@@ -44,11 +44,11 @@ export class CPEETaskExtractor {
                 }
             });
             
-            console.log(`[CPEETaskExtractor] Successfully extracted ${tasks.length} tasks`);
+            console.log(`[CPEENodeExtractor] Successfully extracted ${tasks.length} tasks`);
             return tasks;
             
         } catch (error) {
-            console.error('[CPEETaskExtractor] Error extracting tasks:', error);
+            console.error('[CPEENodeExtractor] Error extracting tasks:', error);
             return [];
         }
     }
@@ -56,13 +56,13 @@ export class CPEETaskExtractor {
     /**
      * Extract tasks from multiple XML documents
      * @param {string[]} xmlStrings - Array of XML strings
-     * @returns {TaskIdentifier[][]} Array of task arrays
+     * @returns {NodeIdentifier[][]} Array of task arrays
      */
     static extractFromMultiple(xmlStrings) {
-        console.log(`[CPEETaskExtractor] Extracting from ${xmlStrings.length} XML documents`);
+        console.log(`[CPEENodeExtractor] Extracting from ${xmlStrings.length} XML documents`);
         
         const results = xmlStrings.map((xml, index) => {
-            console.log(`[CPEETaskExtractor] Processing XML document ${index + 1}/${xmlStrings.length}`);
+            console.log(`[CPEENodeExtractor] Processing XML document ${index + 1}/${xmlStrings.length}`);
             return this.extract(xml);
         });
         
@@ -78,13 +78,9 @@ export class CPEETaskExtractor {
         let fixedXml = xmlString;
         
         // Escape unescaped < and > in attribute values
-        fixedXml = fixedXml.replace(/=("([^"]*)<\s*([^"]*))"/g, (match) => {
-            return match.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        });
+        fixedXml = fixedXml.replace(/=("([^"]*)<\s*([^"]*))"/g, (match) => match.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
         
-        fixedXml = fixedXml.replace(/=('([^']*)<\s*([^']*))'/g, (match) => {
-            return match.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        });
+        fixedXml = fixedXml.replace(/=('([^']*)<\s*([^']*))'/g, (match) => match.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
         
         // Fix comparison operators in condition attributes
         fixedXml = fixedXml.replace(/condition="([^"]*)\s*<\s*([^"]*)"/g, 'condition="$1 &lt; $2"');
@@ -113,10 +109,10 @@ export class CPEETaskExtractor {
     }
 
     /**
-     * Extract TaskIdentifier from a single XML element
+     * Extract NodeIdentifier from a single XML element
      * @param {Element} element - XML element
      * @param {number} position - Position in workflow
-     * @returns {TaskIdentifier|null} TaskIdentifier or null
+     * @returns {NodeIdentifier|null} NodeIdentifier or null
      */
     static extractTaskFromElement(element, position) {
         try {
@@ -138,13 +134,13 @@ export class CPEETaskExtractor {
             const type = element.tagName.toLowerCase();
             const metadata = this.extractMetadata(element, type);
             
-            const task = new TaskIdentifier(id, label, type, 'cpee', metadata, position, altId);
+            const task = new NodeIdentifier(id, label, type, 'cpee', metadata, position, altId);
             task.position = position;
             
             return task;
             
         } catch (error) {
-            console.error('[CPEETaskExtractor] Error extracting task:', error);
+            console.error('[CPEENodeExtractor] Error extracting task:', error);
             return null;
         }
     }
@@ -240,5 +236,6 @@ export class CPEETaskExtractor {
         
         return metadata;
     }
+
 }
 
