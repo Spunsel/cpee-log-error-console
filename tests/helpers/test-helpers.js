@@ -4,6 +4,12 @@
  */
 
 import { vi } from 'vitest';
+import { createMockEvent } from '../setup.js';
+import {
+    createMockDOMRegistry,
+    createMockEventBus,
+    createMockStateManager,
+} from './mock-factory.js';
 
 /**
  * Create a mock DOM structure for testing
@@ -22,19 +28,8 @@ export function createMockDOM(html = '') {
     return fragment;
 }
 
-/**
- * Create a mock event
- * @param {string} type - Event type (e.g., 'click', 'input', 'change')
- * @param {Object} options - Event options
- * @returns {Event} Mock event object
- */
-export function createMockEvent(type, options = {}) {
-    return new Event(type, {
-        bubbles: options.bubbles !== false,
-        cancelable: options.cancelable !== false,
-        ...options,
-    });
-}
+// Re-export createMockEvent from setup.js
+export { createMockEvent };
 
 /**
  * Wait for a condition to be true
@@ -96,103 +91,30 @@ export function createMockService(methods = {}) {
 /**
  * Create a minimal component instance for testing
  * @param {Function} ComponentClass - Component class constructor
- * @param {Object} dependencies - Dependencies to inject
+ * @param {Object} dependencies - Dependencies to inject (overrides defaults)
+ * @param {Array} additionalArgs - Additional constructor arguments in the correct order
  * @returns {Object} Component instance
  */
-export function createMockComponent(ComponentClass, dependencies = {}) {
-    const defaultDeps = {
-        domRegistry: createMockDOMRegistry(),
-        eventBus: createMockEventBus(),
-        stateManager: createMockStateManager(),
-        ...dependencies,
-    };
+export function createMockComponent(ComponentClass, dependencies = {}, additionalArgs = []) {
+    // Create default dependencies with explicit property access
+    const domRegistry = dependencies.domRegistry ?? createMockDOMRegistry();
+    const eventBus = dependencies.eventBus ?? createMockEventBus();
+    const stateManager = dependencies.stateManager ?? createMockStateManager();
     
-    return new ComponentClass(...Object.values(defaultDeps));
+    // Pass dependencies explicitly in the correct order
+    // This avoids relying on object key order which is fragile
+    return new ComponentClass(
+        domRegistry,
+        eventBus,
+        stateManager,
+        ...additionalArgs
+    );
 }
 
-/**
- * Create a mock DOM registry
- * @returns {Object} Mock DOM registry
- */
-export function createMockDOMRegistry() {
-    const elements = new Map();
-    
-    return {
-        get: vi.fn((id) => elements.get(id) || document.getElementById(id)),
-        register: vi.fn((id, element) => {
-            elements.set(id, element);
-        }),
-        has: vi.fn((id) => elements.has(id) || document.getElementById(id) !== null),
-        clear: vi.fn(() => elements.clear()),
-    };
-}
-
-/**
- * Create a mock event bus
- * @returns {Object} Mock event bus
- */
-export function createMockEventBus() {
-    const subscribers = new Map();
-    
-    return {
-        subscribe: vi.fn((event, callback) => {
-            if (!subscribers.has(event)) {
-                subscribers.set(event, []);
-            }
-            subscribers.get(event).push(callback);
-            
-            // Return unsubscribe function
-            return () => {
-                const callbacks = subscribers.get(event);
-                const index = callbacks.indexOf(callback);
-                if (index > -1) {
-                    callbacks.splice(index, 1);
-                }
-            };
-        }),
-        publish: vi.fn((event, data) => {
-            const callbacks = subscribers.get(event) || [];
-            callbacks.forEach(callback => callback(data));
-        }),
-        unsubscribe: vi.fn(),
-    };
-}
-
-/**
- * Create a mock state manager
- * @returns {Object} Mock state manager
- */
-export function createMockStateManager() {
-    const state = new Map();
-    const subscribers = new Map();
-    
-    return {
-        get: vi.fn((key, defaultValue) => {
-            return state.has(key) ? state.get(key) : defaultValue;
-        }),
-        set: vi.fn((key, value) => {
-            state.set(key, value);
-            const callbacks = subscribers.get(key) || [];
-            callbacks.forEach(callback => callback(value));
-        }),
-        subscribe: vi.fn((key, callback) => {
-            if (!subscribers.has(key)) {
-                subscribers.set(key, []);
-            }
-            subscribers.get(key).push(callback);
-            
-            return () => {
-                const callbacks = subscribers.get(key);
-                const index = callbacks.indexOf(callback);
-                if (index > -1) {
-                    callbacks.splice(index, 1);
-                }
-            };
-        }),
-        clear: vi.fn(() => {
-            state.clear();
-            subscribers.clear();
-        }),
-    };
-}
+// Re-export mock factory functions
+export {
+    createMockDOMRegistry,
+    createMockEventBus,
+    createMockStateManager,
+};
 

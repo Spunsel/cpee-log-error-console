@@ -223,11 +223,11 @@ export function createMockServiceFactory(services = {}) {
  * @returns {Object} Mock clipboard object
  */
 export function createMockClipboard() {
-    // Mock ClipboardItems if not available
+    // Mock ClipboardItem if not available
     // eslint-disable-next-line no-undef
-    const ClipboardItemsClass = typeof globalThis.ClipboardItems !== 'undefined' 
-        ? globalThis.ClipboardItems 
-        : class MockClipboardItems {
+    const ClipboardItemClass = typeof globalThis.ClipboardItem !== 'undefined' 
+        ? globalThis.ClipboardItem 
+        : class MockClipboardItem {
             constructor(items) {
                 this.items = items || [];
             }
@@ -237,7 +237,7 @@ export function createMockClipboard() {
         writeText: vi.fn().mockResolvedValue(undefined),
         readText: vi.fn().mockResolvedValue(''),
         write: vi.fn().mockResolvedValue(undefined),
-        read: vi.fn().mockResolvedValue(new ClipboardItemsClass([])),
+        read: vi.fn().mockResolvedValue(new ClipboardItemClass([])),
     };
 }
 

@@ -818,7 +818,7 @@ export class ConfigManager {
                     description: 'SVG reference attributes resolve globally -> solved by using namespace IDs for each graph, to avoid clipPath ID collisions (4913)'
                 },
                 {
-                    title: 'Handle CPEE/Mermaid graphs with 6+ parallel permutations',
+                    title: 'Handle CPEE/Mermaid graphs with 6+ parallel branches',
                     status: 'open',
                     labels: ['traces', 'bug'],
                     date: null,

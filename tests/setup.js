@@ -123,9 +123,13 @@ global.createMockElement = (tagName = 'div', attributes = {}) => {
     return element;
 };
 
-global.createMockEvent = (type, options = {}) => new Event(type, {
-    bubbles: options.bubbles !== false,
-    cancelable: options.cancelable !== false,
-    ...options,
-});
+export function createMockEvent(type, options = {}) {
+    return new Event(type, {
+        bubbles: options.bubbles !== false,
+        cancelable: options.cancelable !== false,
+        ...options,
+    });
+}
+
+global.createMockEvent = createMockEvent;
 
