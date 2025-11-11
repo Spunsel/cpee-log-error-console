@@ -172,6 +172,8 @@ export class ContentViewCoordinator {
                 top: 0,
                 left: 0,
             });
+            // Hide trace content (including copy button) when switching to raw mode
+            this.traceContentRenderer.hideTraceContent(contentContainer);
             // Store view mode in section element for renderer to access
             sectionElement.dataset.viewMode = mode;
             this.rawContentRenderer.display(sectionId, contentContainer, this.currentStep);
@@ -180,6 +182,8 @@ export class ContentViewCoordinator {
                 top: 0,
                 left: 0,
             });
+            // Hide trace content (including copy button) when switching to log mode
+            this.traceContentRenderer.hideTraceContent(contentContainer);
             // Store view mode in section element for renderer to access
             sectionElement.dataset.viewMode = mode;
             this.logContentRenderer.display(sectionId, contentContainer, this.currentStep);

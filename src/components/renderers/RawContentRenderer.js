@@ -158,13 +158,13 @@ export class RawContentRenderer {
                 break;
             case 'input-intermediate':
                 rawContent = step.getInputMermaidRaw();
-                if (rawContent) {
+                if (rawContent && rawContent.getContent && rawContent.getContent().trim().length > 0) {
                     renderer = () => this.renderRawMermaid(rawContent.getContent());
                 }
                 break;
             case 'output-intermediate':
                 rawContent = step.getOutputMermaidRaw();
-                if (rawContent) {
+                if (rawContent && rawContent.getContent && rawContent.getContent().trim().length > 0) {
                     renderer = () => this.renderRawMermaid(rawContent.getContent());
                 }
                 break;
