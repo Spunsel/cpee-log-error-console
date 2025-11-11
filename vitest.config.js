@@ -5,9 +5,19 @@ export default defineConfig({
         // Test environment
         environment: 'jsdom',
         
-        // Test file patterns
-        include: ['tests/unit/**/*.test.js', 'tests/unit/**/*.spec.js'],
-        exclude: ['node_modules', 'dist', 'tests/manual'],
+        // Test file patterns - include all test types
+        include: [
+            'tests/unit/**/*.test.js',
+            'tests/unit/**/*.spec.js',
+            'tests/component/**/*.test.js',
+            'tests/component/**/*.spec.js',
+            'tests/integration/**/*.test.js',
+            'tests/integration/**/*.spec.js',
+        ],
+        exclude: ['node_modules', 'dist', 'tests/manual', 'tests/e2e', 'tests/fixtures', 'tests/helpers'],
+        
+        // Global setup file
+        setupFiles: ['./tests/setup.js'],
         
         // Coverage configuration
         coverage: {
