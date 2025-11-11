@@ -161,6 +161,18 @@ export class TraceContentRenderer {
                 return this.renderNoTracesMessage(container);
             }
 
+            // Preprocess Mermaid code before calculating traces
+            if (isMermaid && this.contentProcessingService) {
+                try {
+                    const preprocessedResult = this.contentProcessingService.processAndValidateMermaid(contentString, true);
+                    contentString = preprocessedResult.code;
+                    console.log(`[TraceContentRenderer] Preprocessed Mermaid code for ${sectionId}`);
+                } catch (error) {
+                    console.warn(`[TraceContentRenderer] Failed to preprocess Mermaid code for ${sectionId}, using original:`, error);
+                    // Continue with original content if preprocessing fails
+                }
+            }
+
             // Calculate traces using appropriate calculator
             let traces = [];
             const options = {

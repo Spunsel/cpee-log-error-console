@@ -4,6 +4,8 @@
  * Single responsibility: Trace calculation operations
  */
 
+import { MermaidParser } from '../utils/content/MermaidParser.js';
+
 export class TraceCalculationService {
     /**
      * Create a new TraceCalculationService instance
@@ -92,10 +94,22 @@ export class TraceCalculationService {
                 return [];
             }
             
-            const contentString = rawContent.getContent();
+            let contentString = rawContent.getContent();
             if (!contentString || contentString.trim() === '') {
                 console.log(`[TraceCalculationService] Empty content for ${sectionId} in Step ${cpeeStep.stepNumber}`);
                 return [];
+            }
+            
+            // Preprocess Mermaid code before calculating traces
+            if (!section.isCPEE) {
+                try {
+                    const preprocessedResult = MermaidParser.cleanAndValidate(contentString, true);
+                    contentString = preprocessedResult.code;
+                    console.log(`[TraceCalculationService] Preprocessed Mermaid code for ${sectionId}`);
+                } catch (error) {
+                    console.warn(`[TraceCalculationService] Failed to preprocess Mermaid code for ${sectionId}, using original:`, error);
+                    // Continue with original content if preprocessing fails
+                }
             }
             
             // Calculate traces based on content type

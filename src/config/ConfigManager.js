@@ -824,6 +824,13 @@ export class ConfigManager {
                     date: '2025-11-11',
                     description: 'unique control flow arrows, e.g.: "gw40s:exclusivegateway:{x}-->gw40e:exclusivegateway:{x}" appears 20+ times in 1465.This would also resolve "Too many edges" mermaid rendering error (1465)'
                 },
+                {
+                    title: 'Fix faulty Mermaid Trace calculation',
+                    status: 'closed',
+                    labels: ['traces', 'bug'],
+                    date: '2025-11-11',
+                    description: '"{AND}" was missing after ":parallelgateway:" gateway nodes, causing gateways not to be recognized as parallel AND-join or AND-split (5040)'
+                },
 
 
 
@@ -854,13 +861,6 @@ export class ConfigManager {
                     labels: ['cross sectional highlighting', 'feature'],
                     date: null,
                     description: 'Include script tasks, message events, and other non-standard node types (6548)'
-                },
-                {
-                    title: 'Fix faulty Mermaid Trace calculation',
-                    status: 'open',
-                    labels: ['traces', 'bug'],
-                    date: null,
-                    description: 'Merm traces not calculated correctly for "AND" gateway? (5040)'
                 },
                 {
                     title: 'Add logic for reachability + bounds structure',

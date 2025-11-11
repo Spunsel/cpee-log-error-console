@@ -126,6 +126,67 @@ export class MermaidParser {
             });
             }
         
+        // Fix 8.5: Sync gateway nodes with same ID - if one has full specification, apply to incomplete ones
+        const fix8_5LineNumbers = [];
+        
+        // Pattern to match gateway nodes: id:type: or id:type:{something}
+        // Matches patterns like: pg1:parallelgateway: or pg1:parallelgateway:{AND}
+        const gatewayPattern = /(\w+):(\w+):(\{[^}]+\})?/g;
+        const gatewayMap = new Map(); // Map<id:type, fullSpecification>
+        
+        // First pass: find all gateway nodes and collect their full specifications
+        let match;
+        // Use the pattern directly since it already has the 'g' flag
+        const globalPattern = new RegExp(gatewayPattern.source, gatewayPattern.flags);
+        while ((match = globalPattern.exec(processedCode)) !== null) {
+            const idType = match[1] + ':' + match[2] + ':'; // e.g., "pg1:parallelgateway:"
+            const specification = match[3]; // e.g., "{AND}" or undefined
+            
+            // If this gateway has a specification, store it
+            if (specification) {
+                if (!gatewayMap.has(idType) || gatewayMap.get(idType) === null) {
+                    gatewayMap.set(idType, specification);
+                }
+            } else {
+                // Mark that this ID exists but might need a specification
+                if (!gatewayMap.has(idType)) {
+                    gatewayMap.set(idType, null);
+                }
+            }
+        }
+        
+        // Second pass: replace incomplete gateway nodes with complete ones
+        const lines8_5 = processedCode.split('\n');
+        const updatedLines = lines8_5.map((line, index) => {
+            let updatedLine = line;
+            
+            // Check if this line contains a gateway node that needs completion
+            gatewayMap.forEach((specification, idType) => {
+                if (specification) {
+                    // Create pattern to match incomplete version (id:type: not followed by {})
+                    // Use word boundary and negative lookahead to avoid matching already complete ones
+                    const escapedIdType = idType.replace(/:/g, '\\:');
+                    const incompletePattern = new RegExp(`\\b${escapedIdType}(?!\\{[^}]+\\})`, 'g');
+                    
+                    if (incompletePattern.test(updatedLine)) {
+                        // Replace incomplete gateway with complete one
+                        updatedLine = updatedLine.replace(incompletePattern, idType + specification);
+                        fix8_5LineNumbers.push(index + 1); // 1-based line numbers
+                    }
+                }
+            });
+            
+            return updatedLine;
+        });
+        
+        if (fix8_5LineNumbers.length > 0) {
+            processedCode = updatedLines.join('\n');
+            appliedSteps.push({
+                description: `Synchronized ${fix8_5LineNumbers.length} gateway node${fix8_5LineNumbers.length > 1 ? 's' : ''} with same ID`,
+                lineNumbers: Array.from(new Set(fix8_5LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
         // Fix 9: Remove duplicate connection lines (exact duplicates)
         const lines = processedCode.split('\n');
         const seenConnections = new Map(); // Map<connectionLine, firstLineNumber>
