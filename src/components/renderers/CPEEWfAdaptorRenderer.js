@@ -11,7 +11,6 @@ import { JQueryExtensions } from '../../utils/system/JQueryExtensions.js';
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
-import { DOMRegistry } from '../../core/DOMRegistry.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class CPEEWfAdaptorRenderer {
@@ -280,6 +279,9 @@ export class CPEEWfAdaptorRenderer {
                     // Parse and set XML description using helper method
                     self.setGraphDescription(graphrealization, cleanedXML);
                     
+                    // Namespace all IDs and references to prevent collisions between input/output graphs
+                    self.namespaceSVGIds(svgElement);
+                    
                     // Mark as rendered and adjust height
                     self.isRendered = true;
                     self.adjustSVGHeight();
@@ -376,7 +378,109 @@ export class CPEEWfAdaptorRenderer {
     }
 
     /**
+     * Namespace all IDs and references within an SVG to prevent collisions
+     * between input and output graphs. This ensures clipPaths, masks, filters,
+     * and other referenced elements are unique per graph.
+     * @param {SVGElement} svgElement - The SVG element to namespace
+     */
+    namespaceSVGIds(svgElement) {
+        if (!svgElement) {
+            return;
+        }
+
+        try {
+            // Generate unique prefix based on container ID
+            const prefix = `${this.container.id}-`;
+            
+            // Find all elements with IDs (including the SVG element itself)
+            const elementsWithIds = [];
+            if (svgElement.hasAttribute('id')) {
+                elementsWithIds.push(svgElement);
+            }
+            // Add all descendant elements with IDs
+            const descendantElements = svgElement.querySelectorAll('*[id]');
+            elementsWithIds.push(...Array.from(descendantElements));
+            
+            const idMap = new Map();
+            
+            // First pass: collect all IDs and create new namespaced IDs
+            elementsWithIds.forEach(element => {
+                const oldId = element.getAttribute('id');
+                if (oldId && !oldId.startsWith(prefix)) {
+                    const newId = prefix + oldId;
+                    idMap.set(oldId, newId);
+                    element.setAttribute('id', newId);
+                }
+            });
+            
+            // If no IDs to namespace, skip the rest
+            if (idMap.size === 0) {
+                return;
+            }
+            
+            // Second pass: update all references to these IDs
+            // This includes clip-path, mask, filter, fill, stroke, xlink:href, etc.
+            const referenceAttributes = [
+                'clip-path',
+                'mask',
+                'filter',
+                'fill',
+                'stroke',
+                'marker-start',
+                'marker-end',
+                'marker-mid'
+            ];
+            
+            // Get all elements in the SVG (including the SVG element itself)
+            const allElements = [svgElement, ...Array.from(svgElement.querySelectorAll('*'))];
+            
+            allElements.forEach(element => {
+                // Update attribute-based references (url(#id))
+                referenceAttributes.forEach(attr => {
+                    const value = element.getAttribute(attr);
+                    if (value && typeof value === 'string' && value.includes('url(#')) {
+                        // Match url(#id) pattern, handling potential whitespace
+                        const urlMatch = value.match(/url\s*\(\s*#([^)]+)\s*\)/);
+                        if (urlMatch && idMap.has(urlMatch[1])) {
+                            const newValue = value.replace(
+                                /url\s*\(\s*#([^)]+)\s*\)/,
+                                (match, id) => idMap.has(id) ? `url(#${idMap.get(id)})` : match
+                            );
+                            element.setAttribute(attr, newValue);
+                        }
+                    }
+                });
+                
+                // Update xlink:href references
+                const xlinkHref = element.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
+                if (xlinkHref && xlinkHref.startsWith('#')) {
+                    const idRef = xlinkHref.substring(1);
+                    if (idMap.has(idRef)) {
+                        element.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${idMap.get(idRef)}`);
+                    }
+                }
+                
+                // Update href references (SVG 2.0)
+                const href = element.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    const idRef = href.substring(1);
+                    if (idMap.has(idRef)) {
+                        element.setAttribute('href', `#${idMap.get(idRef)}`);
+                    }
+                }
+            });
+            
+            console.log(`[CPEEWfAdaptorRenderer] Namespaced ${idMap.size} IDs in SVG for container ${this.container.id}`);
+            
+        } catch (error) {
+            console.error('[CPEEWfAdaptorRenderer] Error namespacing SVG IDs:', error);
+            // Don't throw - continue with rendering even if namespacing fails
+        }
+    }
+
+    /**
      * Dynamically adjust SVG height based on actual content dimensions
+     * Fixed to handle negative bbox.y values correctly
      */
     adjustSVGHeight() {
         if (!this.svgContainer) {
@@ -400,17 +504,40 @@ export class CPEEWfAdaptorRenderer {
             
             // Validate bbox
             if (!bbox || isNaN(bbox.height) || bbox.height <= 0) {
+                // Check for viewBox as fallback
+                const viewBox = svg.getAttribute('viewBox');
+                if (viewBox) {
+                    const vbValues = viewBox.split(/\s+/);
+                    if (vbValues.length >= 4) {
+                        const vbHeight = parseFloat(vbValues[3]);
+                        if (!isNaN(vbHeight) && vbHeight > 0) {
+                            svg.setAttribute('height', vbHeight.toString());
+                            svg.style.height = vbHeight + 'px';
+                            return;
+                        }
+                    }
+                }
                 svg.setAttribute('height', '400');
                 svg.style.height = '400px';
                 return;
             }
             
-            // Calculate required height with some padding
-            const requiredHeight = Math.max(bbox.height + bbox.y + 20, 100); // 20px padding, min 100px
+            // Calculate required height correctly handling negative bbox.y
+            // If bbox.y is negative, we need to add its absolute value to height
+            // Formula: height = max(bbox.height, bbox.y + bbox.height) + padding
+            const contentTop = bbox.y;
+            const contentBottom = bbox.y + bbox.height;
+            const requiredHeight = Math.max(
+                bbox.height,                    // Content height
+                contentBottom - Math.min(0, contentTop)  // Height accounting for negative y
+            ) + 20; // 20px padding
+            
+            // Ensure minimum height
+            const finalHeight = Math.max(requiredHeight, 100);
             
             // Update SVG height attributes
-            svg.setAttribute('height', requiredHeight.toString());
-            svg.style.height = requiredHeight + 'px';
+            svg.setAttribute('height', finalHeight.toString());
+            svg.style.height = finalHeight + 'px';
             
             
         } catch (error) {
