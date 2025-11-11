@@ -126,6 +126,40 @@ export class MermaidParser {
             });
             }
         
+        // Fix 9: Remove duplicate connection lines (exact duplicates)
+        const lines = processedCode.split('\n');
+        const seenConnections = new Map(); // Map<connectionLine, firstLineNumber>
+        const duplicateLineNumbers = [];
+        const filteredLines = [];
+        
+        lines.forEach((line, index) => {
+            const trimmedLine = line.trim();
+            
+            // Check if this line contains a connection (-->)
+            if (trimmedLine.includes('-->')) {
+                // Check if we've seen this exact connection before
+                if (seenConnections.has(trimmedLine)) {
+                    // This is a duplicate, mark it for removal
+                    duplicateLineNumbers.push(index + 1); // 1-based line numbers
+                } else {
+                    // First time seeing this connection, keep it
+                    seenConnections.set(trimmedLine, index + 1);
+                    filteredLines.push(line);
+                }
+            } else {
+                // Not a connection line, keep it as-is
+                filteredLines.push(line);
+            }
+        });
+        
+        if (duplicateLineNumbers.length > 0) {
+            processedCode = filteredLines.join('\n');
+            appliedSteps.push({
+                description: `Removed ${duplicateLineNumbers.length} duplicate connection${duplicateLineNumbers.length > 1 ? 's' : ''}`,
+                lineNumbers: duplicateLineNumbers.sort((a, b) => a - b)
+            });
+        }
+        
         if (originalCode !== processedCode && appliedSteps.length > 0) {
             console.log('🔧 Mermaid preprocessing applied:', appliedSteps.map(s => s.description));
         }
