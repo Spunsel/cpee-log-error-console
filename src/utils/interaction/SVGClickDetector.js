@@ -7,7 +7,6 @@
 export class SVGClickDetector {
     
     constructor() {
-        console.log('[SVGClickDetector] Initialized');
         this.activeListeners = new Map(); // Track active listeners for cleanup
         this.clickCount = 0;
     }
@@ -25,11 +24,8 @@ export class SVGClickDetector {
             : svgContainer;
             
         if (!container) {
-            console.error('[SVGClickDetector] Container not found:', svgContainer);
             return () => {};
         }
-        
-        console.log('[SVGClickDetector] Attaching click listener to:', this.getElementDescription(container));
         
         // Create event handler
         const clickHandler = (event) => {
@@ -45,14 +41,11 @@ export class SVGClickDetector {
             container,
             handler: clickHandler
         });
-        
-        console.log(`[SVGClickDetector] Listener attached (ID: ${listenerId})`);
-        
+                
         // Return cleanup function
         return () => {
             container.removeEventListener('click', clickHandler);
             this.activeListeners.delete(listenerId);
-            console.log(`[SVGClickDetector] Listener removed (ID: ${listenerId})`);
         };
     }
     
@@ -65,28 +58,12 @@ export class SVGClickDetector {
         this.clickCount++;
         
         const clickedElement = event.target;
-        const coordinates = {
-            x: event.clientX,
-            y: event.clientY,
-            offsetX: event.offsetX,
-            offsetY: event.offsetY
-        };
-        
-        console.log(`[SVGClickDetector] Click #${this.clickCount} detected`);
-        console.log(`[SVGClickDetector] Coordinates:`, coordinates);
-        console.log(`[SVGClickDetector] Target element:`, this.getElementDescription(clickedElement));
-        
+
         // Get element path (from clicked element up to SVG root)
         const elementPath = this.getElementPath(clickedElement);
-        console.log(`[SVGClickDetector] Element path:`, elementPath.map(el => this.getElementDescription(el)).join(' → '));
         
         // Find task/node container
         const taskContainer = this.findTaskContainer(clickedElement);
-        if (taskContainer) {
-            console.log(`[SVGClickDetector] Task container found:`, this.getElementDescription(taskContainer));
-        } else {
-            console.log(`[SVGClickDetector] No task container found (clicked on background or non-task element)`);
-        }
         
         // Call user callback
         try {
@@ -132,13 +109,11 @@ export class SVGClickDetector {
         while (current && depth < maxDepth) {
             // CPEE task: <g class="element" element-id="...">
             if (this.isCPEETask(current)) {
-                console.log(`[SVGClickDetector] Found CPEE task at depth ${depth}`);
                 return current;
             }
             
             // Mermaid node: <g class="node" id="flowchart-...">
             if (this.isMermaidNode(current)) {
-                console.log(`[SVGClickDetector] Found Mermaid node at depth ${depth}`);
                 return current;
             }
             
@@ -251,9 +226,7 @@ export class SVGClickDetector {
         // Find all Mermaid nodes
         const mermaidNodes = container.querySelectorAll('g.node');
         mermaidNodes.forEach(node => elements.push(node));
-        
-        console.log(`[SVGClickDetector] Found ${elements.length} clickable elements (${cpeeTasks.length} CPEE, ${mermaidNodes.length} Mermaid)`);
-        
+                
         return elements;
     }
     
@@ -269,18 +242,14 @@ export class SVGClickDetector {
             element.style.cursor = cursorStyle;
         });
         
-        console.log(`[SVGClickDetector] Made ${elements.length} elements clickable (cursor: ${cursorStyle})`);
     }
     
     /**
      * Remove all active listeners
      */
     cleanup() {
-        console.log(`[SVGClickDetector] Cleaning up ${this.activeListeners.size} listeners`);
-        
-        this.activeListeners.forEach((listener, id) => {
+        this.activeListeners.forEach((listener) => {
             listener.container.removeEventListener('click', listener.handler);
-            console.log(`[SVGClickDetector] Removed listener: ${id}`);
         });
         
         this.activeListeners.clear();

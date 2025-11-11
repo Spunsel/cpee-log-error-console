@@ -243,7 +243,7 @@ export class MermaidErrorHandler {
         const lineMatch = message.match(/Parse error on line (\d+):/i);
         if (lineMatch) {
             parsed.lineNumber = parseInt(lineMatch[1], 10);
-            parsed.header = `Parse error on line ${parsed.lineNumber}:`;
+            parsed.header = `on line ${parsed.lineNumber}:`;
         }
 
         // Try to extract column position from caret indicator (^)
@@ -289,14 +289,12 @@ export class MermaidErrorHandler {
             }
         }
         
-        // Store snippet info for later matching with actual code
-        if (snippetLine && caretLine) {
+        // Store snippet and caret line from original message
+        if (snippetLine) {
             parsed.errorSnippet = snippetLine.trim();
-            parsed.caretPositionInSnippet = caretLine.indexOf('^') + 1; // 1-based position in snippet
-        } else if (snippetLine) {
-            // We have a snippet but no caret - will need to infer position
-            parsed.errorSnippet = snippetLine.trim();
-            parsed.caretPositionInSnippet = null; // Will be inferred later
+        }
+        if (caretLine) {
+            parsed.caretLine = caretLine; // Store original caret line (e.g., "-----------------------^")
         }
 
         // Try to extract "Expected:" and "Got:" parts (new format)
@@ -364,248 +362,92 @@ export class MermaidErrorHandler {
             const errorLineIndex = parsed.lineNumber - 1;
             
             if (errorLineIndex >= 0 && errorLineIndex < lines.length) {
-                const actualLine = lines[errorLineIndex];
-                
-                // Calculate actual error column by matching snippet to actual line
-                let actualErrorColumn = null;
-                if (parsed.errorSnippet && parsed.caretPositionInSnippet) {
-                    const snippet = parsed.errorSnippet.trim();
-                    const caretPos0Based = parsed.caretPositionInSnippet - 1; // Convert to 0-based
-                    
-                    if (snippet.startsWith('...')) {
-                        // Truncated snippet: "...CONTENT"
-                        // The visible part starts at position 3 (after "...")
-                        const visiblePart = snippet.substring(3);
-                        const caretInVisiblePart = caretPos0Based - 3; // Position relative to visible part start
-                        
-                        if (caretInVisiblePart < 0 || caretInVisiblePart >= visiblePart.length) {
-                            // Invalid caret position, skip column calculation
-                        } else {
-                            // Strategy 2: Find unique pattern that includes the caret
-                            // Look for distinctive patterns like ":exclusivegateway:" or ": {"
-                            // Try patterns from most specific to least specific
-                            const patternsToTry = [
-                                /:exclusivegateway:\s*\{/g,      // Most specific
-                                /:\w+:\s*\{/g,                    // Node type with space before {
-                                /:\s*\{/g,                        // Colon followed by space and {
-                                /\w+:\w+:\s*\{/g                  // General node pattern
-                            ];
-                            
-                            let foundMatch = false;
-                            for (const pattern of patternsToTry) {
-                                pattern.lastIndex = 0; // Reset regex
-                                let match;
-                                while ((match = pattern.exec(visiblePart)) !== null) {
-                                    const patternStart = match.index;
-                                    const patternEnd = patternStart + match[0].length;
-                                    
-                                    // Check if caret falls within this pattern
-                                    if (caretInVisiblePart >= patternStart && caretInVisiblePart < patternEnd) {
-                                        const patternText = match[0];
-                                        const patternIndex = actualLine.indexOf(patternText);
-                                        
-                                        if (patternIndex !== -1) {
-                                            // Calculate where in the pattern the caret falls
-                                            const caretOffsetInPattern = caretInVisiblePart - patternStart;
-                                            actualErrorColumn = patternIndex + caretOffsetInPattern + 1;
-                                            foundMatch = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (foundMatch) {
-                                    break;
-                                }
-                            }
-                            
-                            // Strategy 3: Use surrounding context to find unique match
-                            // Extract context around the caret position (characters before and after)
-                            if (!foundMatch && caretInVisiblePart >= 0 && caretInVisiblePart < visiblePart.length) {
-                                const caretChar = visiblePart.charAt(caretInVisiblePart);
-                                
-                                // Try to find unique context by looking at surrounding characters
-                                // Start with larger context windows and work down to smaller ones
-                                const contextWindows = [20, 15, 10, 7, 5, 3];
-                                
-                                for (const windowSize of contextWindows) {
-                                    const contextStart = Math.max(0, caretInVisiblePart - windowSize);
-                                    const contextEnd = Math.min(visiblePart.length, caretInVisiblePart + windowSize);
-                                    const context = visiblePart.substring(contextStart, contextEnd);
-                                    const caretOffsetInContext = caretInVisiblePart - contextStart;
-                                    
-                                    // Try to find this context in the actual line
-                                    // Since the snippet is truncated, we need to search for the context pattern
-                                    // Look for all occurrences of the context in the actual line
-                                    let searchStart = 0;
-                                    let bestMatch = null;
-                                    let bestMatchIndex = -1;
-                                    
-                                    // Find all occurrences of the context in the actual line
-                                    let matchIndex = actualLine.indexOf(context, searchStart);
-                                    while (matchIndex !== -1) {
-                                        // This is a potential match
-                                        // Calculate the error column position based on caret offset in context
-                                        const potentialErrorColumn = matchIndex + caretOffsetInContext + 1;
-                                        
-                                        // Prefer matches that are later in the line (more likely to be the nested one)
-                                        if (potentialErrorColumn > bestMatchIndex) {
-                                            bestMatch = matchIndex;
-                                            bestMatchIndex = potentialErrorColumn;
-                                        }
-                                        
-                                        searchStart = matchIndex + 1;
-                                        matchIndex = actualLine.indexOf(context, searchStart);
-                                    }
-                                    
-                                    if (bestMatch !== null) {
-                                        actualErrorColumn = bestMatchIndex;
-                                        foundMatch = true;
-                                        break;
-                                    }
-                                }
-                                
-                                // Strategy 4: Fallback - count character occurrences but use context
-                                // Only use this if context matching failed
-                                if (!foundMatch && caretChar && caretChar.trim() !== '') {
-                                    // Extract a small context around the caret (at least 3 chars before and after)
-                                    const contextStart = Math.max(0, caretInVisiblePart - 5);
-                                    const contextEnd = Math.min(visiblePart.length, caretInVisiblePart + 5);
-                                    const localContext = visiblePart.substring(contextStart, contextEnd);
-                                    const localCaretOffset = caretInVisiblePart - contextStart;
-                                    
-                                    // Try to find this local context in the actual line
-                                    const contextMatchIndex = actualLine.indexOf(localContext);
-                                    if (contextMatchIndex !== -1) {
-                                        // Found the context, calculate error column from it
-                                        actualErrorColumn = contextMatchIndex + localCaretOffset + 1;
-                                        foundMatch = true;
-                                    } else {
-                                        // Last resort: count occurrences but prefer later matches
-                                        // Count how many times this char appears before the caret in the visible part
-                                        let charCount = 0;
-                                        for (let i = 0; i < caretInVisiblePart; i++) {
-                                            if (visiblePart.charAt(i) === caretChar) {
-                                                charCount++;
-                                            }
-                                        }
-                                        
-                                        // Find all occurrences in actual line and use the last one that makes sense
-                                        // (i.e., one that appears after we've seen enough context)
-                                        const contextBeforeCaret = visiblePart.substring(Math.max(0, caretInVisiblePart - 10), caretInVisiblePart);
-                                        const contextMatchInFullLine = actualLine.indexOf(contextBeforeCaret);
-                                        
-                                        if (contextMatchInFullLine !== -1) {
-                                            // Found context, now count from that point
-                                            let actualCharCount = 0;
-                                            for (let i = contextMatchInFullLine; i < actualLine.length; i++) {
-                                                if (actualLine.charAt(i) === caretChar) {
-                                                    if (actualCharCount === charCount) {
-                                                        actualErrorColumn = i + 1;
-                                                        foundMatch = true;
-                                                        break;
-                                                    }
-                                                    actualCharCount++;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        // Not truncated, find exact match
-                        const matchIndex = actualLine.indexOf(snippet);
-                        if (matchIndex !== -1) {
-                            actualErrorColumn = matchIndex + parsed.caretPositionInSnippet;
-                        }
-                    }
-                }
-                
-                // If no error column found yet, try to infer it from error patterns
-                if (!actualErrorColumn && parsed.errorSnippet) {
-                    const snippet = parsed.errorSnippet.trim();
-                    
-                    // Strategy: Use pattern matching to find likely error positions
-                    // Common error patterns:
-                    // 1. Empty parentheses: () - should highlight the closing parenthesis
-                    // 2. Missing content in node labels
-                    // 3. Invalid token sequences
-                    
-                    // Pattern 1: Empty parentheses - find () in the snippet and match to actual line
-                    // This is a common error when Mermaid expects content between parentheses
-                    const emptyParensPattern = /:\w+:\(\)/;
-                    const emptyParensMatch = snippet.match(emptyParensPattern);
-                    if (emptyParensMatch) {
-                        // Find this pattern in the actual line
-                        const pattern = emptyParensMatch[0];
-                        const patternIndex = actualLine.indexOf(pattern);
-                        if (patternIndex !== -1) {
-                            // Error is at the closing parenthesis (right after the pattern)
-                            actualErrorColumn = patternIndex + pattern.length;
-                        }
-                    }
-                    
-                    // Pattern 2: If "got" is 'PE' (Parentheses End), look for empty parentheses
-                    // This token suggests the parser encountered an unexpected closing parenthesis
-                    if (parsed.got === 'PE' && !actualErrorColumn) {
-                        // Look for empty parentheses pattern in the actual line
-                        const emptyParensRegex = /:\w+:\(\)/g;
-                        let match;
-                        let lastMatch = null;
-                        while ((match = emptyParensRegex.exec(actualLine)) !== null) {
-                            lastMatch = match;
-                        }
-                        if (lastMatch) {
-                            // Highlight the closing parenthesis (position after the pattern)
-                            actualErrorColumn = lastMatch.index + lastMatch[0].length;
-                        }
-                    }
-                    
-                    // Pattern 3: Try to match the snippet to the actual line and find the position
-                    // where the error likely occurs based on common error patterns
-                    if (!actualErrorColumn) {
-                        // Always try pattern matching on the actual line, regardless of snippet match
-                        // Look for common error patterns in the actual line
-                        // Priority: empty parentheses first (most common)
-                        const emptyParensPattern = /:\w+:\(\)/g;
-                        let match;
-                        let lastMatch = null;
-                        
-                        // Find all empty parentheses patterns
-                        emptyParensPattern.lastIndex = 0;
-                        while ((match = emptyParensPattern.exec(actualLine)) !== null) {
-                            lastMatch = match;
-                        }
-                        
-                        if (lastMatch) {
-                            // Highlight the closing parenthesis
-                            actualErrorColumn = lastMatch.index + lastMatch[0].length;
-                        } else {
-                            // Fallback: look for unclosed parentheses or other patterns
-                            const unclosedParensPattern = /:\w+:\([^)]*$/g;
-                            unclosedParensPattern.lastIndex = 0;
-                            const unclosedMatch = unclosedParensPattern.exec(actualLine);
-                            if (unclosedMatch) {
-                                actualErrorColumn = unclosedMatch.index + unclosedMatch[0].length;
-                            }
-                        }
-                    }
-                }
-                
                 // Get 2-3 lines of context (1 before, error line, 1 after)
                 const startLine = Math.max(0, errorLineIndex - 1);
                 const endLine = Math.min(lines.length - 1, errorLineIndex + 1);
                 
+                // Build context lines - use snippet for error line if available
+                const contextLines = [];
+                for (let i = startLine; i <= endLine; i++) {
+                    if (i === errorLineIndex && parsed.errorSnippet) {
+                        contextLines.push(parsed.errorSnippet);
+                    } else {
+                        contextLines.push(lines[i]);
+                    }
+                }
+                
                 parsed.codeContext = {
-                    lines: lines.slice(startLine, endLine + 1),
+                    lines: contextLines,
                     errorLineIndex: errorLineIndex - startLine,
                     startLineNumber: startLine + 1,
-                    errorColumn: actualErrorColumn
+                    caretLine: parsed.caretLine // Include original caret line from error message
                 };
             }
         }
 
         return parsed;
+    }
+
+    /**
+     * Extract the most specific error title from the error object
+     * @param {Object} categorizedError - Categorized error object
+     * @returns {string} Specific error title, or fallback to generic types
+     */
+    static getSpecificErrorTitle(categorizedError) {
+        const error = categorizedError.originalError || {};
+        const message = (categorizedError.message || error.message || '').toLowerCase();
+        const errorName = (error.name || categorizedError.name || '').toLowerCase();
+        const validationType = error.validationType || categorizedError.validationType;
+
+        // Validation type mapping
+        const validationTypeMap = {
+            'missingDiagramType': 'UnknownDiagramError',
+            'emptyCode': 'EmptyCodeError',
+            'invalidInput': 'InvalidInputError'
+        };
+        if (validationType && validationTypeMap[validationType]) {
+            return validationTypeMap[validationType];
+        }
+
+        // Error name pattern mapping
+        const namePatterns = [
+            { patterns: ['validation'], result: 'ValidationError' },
+            { patterns: ['parse', 'parsing'], result: 'ParseError' },
+            { patterns: ['lexer'], result: 'LexerError' },
+            { patterns: ['render', 'rendering'], result: 'RenderingError' },
+            { patterns: ['diagram'], result: 'DiagramError' },
+            { patterns: ['syntax'], result: 'SyntaxError' },
+            { patterns: ['graph'], result: 'GraphError' }
+        ];
+        for (const { patterns, result } of namePatterns) {
+            if (patterns.some(p => errorName.includes(p))) {
+                return result;
+            }
+        }
+
+        // Message pattern mapping
+        const messagePatterns = [
+            { patterns: ['no diagram type detected', 'unknown diagram type', 'diagram type not recognized'], result: 'UnknownDiagramError' },
+            { patterns: ['parse error on line', 'parsing error', 'parse failed'], result: 'ParseError' },
+            { patterns: ['syntax error', 'invalid syntax', 'unexpected token', 'unexpected character'], result: 'SyntaxError' },
+            { patterns: ['validation error', 'invalid input'], result: 'ValidationError' },
+            { patterns: ['empty', 'code'], result: 'EmptyCodeError', matchAll: true },
+            { patterns: ['graph', 'error'], result: 'GraphError', matchAll: true },
+            { patterns: ['render', 'rendering'], result: 'RenderingError' }
+        ];
+        for (const { patterns, result, matchAll } of messagePatterns) {
+            const matches = matchAll 
+                ? patterns.every(p => message.includes(p))
+                : patterns.some(p => message.includes(p));
+            if (matches) {
+                return result;
+            }
+        }
+
+        // Fallback to generic types
+        return categorizedError.errorType === 'syntax' ? 'SyntaxError' 
+             : categorizedError.errorType === 'rendering' ? 'GraphError' 
+             : 'UnknownError';
     }
 
     /**
@@ -636,9 +478,8 @@ export class MermaidErrorHandler {
         const errorHeader = document.createElement('div');
         errorHeader.className = 'mermaid-error-indicator__header';
         
-        const errorTypeText = categorizedError.errorType === 'syntax' 
-            ? 'Mermaid Syntax Error' 
-            : 'Mermaid Rendering Error';
+        // Get the most specific error title
+        const errorTypeText = this.getSpecificErrorTitle(categorizedError);
         
         errorHeader.appendChild(errorIcon);
         errorHeader.appendChild(document.createTextNode(` ${errorTypeText}`));
@@ -682,42 +523,36 @@ export class MermaidErrorHandler {
                 
                 const lineContent = document.createElement('span');
                 lineContent.className = 'mermaid-error-indicator__line-content';
+                lineContent.textContent = line || ' ';
                 
-                if (isErrorLine && parsedError.codeContext.errorColumn) {
-                    // Split line at error column and highlight the character
-                    const errorCol = parsedError.codeContext.errorColumn - 1; // Convert to 0-based
-                    const beforeError = line.substring(0, errorCol);
-                    const atError = line.substring(errorCol, errorCol + 1) || ' ';
-                    const afterError = line.substring(errorCol + 1);
-                    
-                    if (beforeError) {
-                        const beforeSpan = document.createTextNode(beforeError);
-                        lineContent.appendChild(beforeSpan);
-                    }
-                    
-                    // Highlight the character at error position
-                    const errorCharSpan = document.createElement('span');
-                    errorCharSpan.className = 'mermaid-error-indicator__error-char';
-                    errorCharSpan.textContent = atError;
-                    lineContent.appendChild(errorCharSpan);
-                    
-                    if (afterError) {
-                        const afterSpan = document.createTextNode(afterError);
-                        lineContent.appendChild(afterSpan);
-                    }
-                    
-                    lineWrapper.appendChild(lineContent);
-                    lineDiv.appendChild(lineNumber);
-                    lineDiv.appendChild(lineWrapper);
-                } else {
-                    // Regular line without error marker
-                    lineContent.textContent = line || ' ';
-                    lineWrapper.appendChild(lineContent);
-                    lineDiv.appendChild(lineNumber);
-                    lineDiv.appendChild(lineWrapper);
-                }
+                lineWrapper.appendChild(lineContent);
+                lineDiv.appendChild(lineNumber);
+                lineDiv.appendChild(lineWrapper);
                 
                 codeContext.appendChild(lineDiv);
+                
+                // If this is the error line and we have a caret line, add it right after
+                if (isErrorLine && parsedError.codeContext.caretLine) {
+                    const caretLineDiv = document.createElement('div');
+                    caretLineDiv.className = 'mermaid-error-indicator__code-line mermaid-error-indicator__code-line--caret';
+                    
+                    const caretLineNumber = document.createElement('span');
+                    caretLineNumber.className = 'mermaid-error-indicator__line-number';
+                    caretLineNumber.textContent = '  '; // Empty space to align with line numbers
+                    
+                    const caretLineWrapper = document.createElement('div');
+                    caretLineWrapper.className = 'mermaid-error-indicator__line-wrapper';
+                    
+                    const caretLineContent = document.createElement('span');
+                    caretLineContent.className = 'mermaid-error-indicator__line-content mermaid-error-indicator__caret-line';
+                    caretLineContent.textContent = parsedError.codeContext.caretLine;
+                    
+                    caretLineWrapper.appendChild(caretLineContent);
+                    caretLineDiv.appendChild(caretLineNumber);
+                    caretLineDiv.appendChild(caretLineWrapper);
+                    
+                    codeContext.appendChild(caretLineDiv);
+                }
             });
             
             errorMessageContainer.appendChild(codeContext);
