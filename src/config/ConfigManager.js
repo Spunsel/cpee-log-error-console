@@ -860,6 +860,13 @@ export class ConfigManager {
                     description: 'Replace empty tasks with task-placeholder, so mermaid graph renders even if parse error? (6554)'
                 },
                 {
+                    title: 'Filter duplicate control flow arrows in Mermaid Graphs',
+                    status: 'open',
+                    labels: ['mermaid preprocessing', 'feature'],
+                    date: null,
+                    description: 'unique control flow arrows, e.g.: "gw40s:exclusivegateway:{x}-->gw40e:exclusivegateway:{x}" appears 20+ times in 1465.This would also resolve "Too many edges" mermaid rendering error (1465)'
+                },
+                {
                     title: 'Add logic for reachability + bounds structure',
                     status: 'open',
                     labels: ['traces', 'feature'],
