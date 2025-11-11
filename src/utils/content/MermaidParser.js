@@ -225,6 +225,60 @@ export class MermaidParser {
             });
         }
         
+        // Fix 11: Replace double quotes with single quotes in edge labels (conditions)
+        // Only replace double quotes that appear after == or = (comparison operators)
+        // Pattern: |"..."| where content contains nested double quotes after == or =
+        // Example: |"data.refill == "no""| -> |"data.refill == 'no'"|
+        const beforeFix11 = processedCode;
+        const fix11LineNumbers = [];
+        const lines11 = processedCode.split('\n');
+        const updatedLines11 = lines11.map((line, index) => {
+            let updatedLine = line;
+            let hasChanges = false;
+            
+            // Match edge labels: |...| 
+            // Pattern to match: |"..."| where content may contain nested double quotes
+            const edgeLabelPattern = /\|([^|]*)\|/g;
+            
+            // Replace all edge labels in this line
+            updatedLine = updatedLine.replace(edgeLabelPattern, (fullMatch, labelContent) => {
+                // Check if label content contains double quotes
+                if (!labelContent.includes('"')) {
+                    return fullMatch; // No double quotes, no change needed
+                }
+                
+                // Check if label contains == or = followed by double quotes
+                // Pattern: == or = followed by optional whitespace and then a double quote
+                if (!/(==|=)\s*"/.test(labelContent)) {
+                    return fullMatch; // No == or = before double quotes, no change needed
+                }
+                
+                // Replace double quotes that come after == or = with single quotes
+                // Pattern: (==|=) followed by optional whitespace, then double quote, then value, then closing double quote
+                // Replace: == "value" -> == 'value' or = "value" -> = 'value'
+                const fixedContent = labelContent.replace(/(==|=)\s*"([^"]*)"/g, (match, operator, value) => {
+                    hasChanges = true;
+                    return `${operator} '${value}'`;
+                });
+                
+                return `|${fixedContent}|`;
+            });
+            
+            if (hasChanges) {
+                fix11LineNumbers.push(index + 1); // 1-based line numbers
+            }
+            
+            return updatedLine;
+        });
+        
+        if (beforeFix11 !== updatedLines11.join('\n')) {
+            processedCode = updatedLines11.join('\n');
+            appliedSteps.push({
+                description: `Replaced double quotes with single quotes in ${fix11LineNumbers.length} edge label${fix11LineNumbers.length > 1 ? 's' : ''}`,
+                lineNumbers: Array.from(new Set(fix11LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
         if (originalCode !== processedCode && appliedSteps.length > 0) {
             console.log('🔧 Mermaid preprocessing applied:', appliedSteps.map(s => s.description));
         }
