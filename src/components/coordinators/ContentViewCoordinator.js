@@ -192,6 +192,9 @@ export class ContentViewCoordinator {
                 top: 0,
                 left: 0,
             });
+            // Hide raw/log content (including action bars) when switching to traces mode
+            this.rawContentRenderer.hideRawContent(contentContainer);
+            this.logContentRenderer.hideLogContent(contentContainer);
             // Store view mode in section element for renderer to access
             sectionElement.dataset.viewMode = mode;
             this.traceContentRenderer.display(sectionId, contentContainer, this.currentStep);

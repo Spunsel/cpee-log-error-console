@@ -51,14 +51,12 @@ export const ICON_VISUAL = `
 `;
 
 /**
- * Raw/Code mode icon - Angle brackets
+ * Raw/Code mode icon - Code brackets with slash
  * Represents raw code/text view mode - 16x16px for toggle buttons
- * Thicker stroke (2.5) to match skip button style
  */
 export const ICON_RAW = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="16 18 22 12 16 6"></polyline>
-        <polyline points="8 6 2 12 8 18"></polyline>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.992" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 8L3 11.6923L7 16M17 8L21 11.6923L17 16M14 4L10 20"></path>
     </svg>
 `;
 
