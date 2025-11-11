@@ -484,6 +484,41 @@ export class MermaidRenderer {
                 return;
             }
             
+            // Check if SVG contains error messages rendered as nodes (e.g., "Maximum text size in diagram exceeded")
+            const svgText = svgElement.textContent || '';
+            const errorMessages = [
+                'Maximum text size in diagram exceeded',
+                'text size exceeded',
+                'text size in diagram'
+            ];
+            
+            const foundError = errorMessages.find(msg => svgText.includes(msg));
+            if (foundError) {
+                // Remove the rendered graph
+                if (graphDiv && graphDiv.parentNode) {
+                    graphDiv.remove();
+                }
+                
+                // Create error object
+                const error = new Error(foundError);
+                error.name = 'MermaidTextSizeError';
+                
+                // Categorize and handle the error
+                const categorizedError = MermaidErrorHandler.categorizeError(error, cleanedCode);
+                
+                // Remove warning panel if error occurred (error takes precedence)
+                MermaidWarningHandler.removeWarningIndicator(this.container);
+                
+                // Display error indicator in the container
+                MermaidErrorHandler.displayErrorIndicator(this.container, categorizedError);
+                
+                if (this.statusManager) {
+                    this.statusManager.showError(`❌ ${foundError}`);
+                }
+                
+                return;
+            }
+            
             // Remove any error indicators if rendering succeeded
             MermaidErrorHandler.removeErrorIndicator(this.container);
             
