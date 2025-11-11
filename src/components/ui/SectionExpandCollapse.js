@@ -85,6 +85,8 @@ export class SectionExpandCollapse {
             contentBoxMaxHeight: contentBox.style.maxHeight || '',
             contentBoxMinHeight: contentBox.style.minHeight || '',
             contentBoxOverflow: contentBox.style.overflow || '',
+            contentBoxOverflowX: contentBox.style.overflowX || '',
+            contentBoxOverflowY: contentBox.style.overflowY || '',
             sectionHeight: section.style.height || ''
         };
         this.expandedSections.set(sectionId, previousState);
@@ -107,7 +109,19 @@ export class SectionExpandCollapse {
         contentBox.style.height = `${availableHeight}px`;
         contentBox.style.maxHeight = `${availableHeight}px`;
         contentBox.style.minHeight = `${availableHeight}px`;
-        contentBox.style.overflow = 'auto';
+        
+        // Check if section contains raw content - if so, prevent horizontal scrollbar on content-box
+        // The raw content container will handle its own scrolling
+        const hasRawContent = contentBox.querySelector('[data-content-type="raw"]');
+        if (hasRawContent) {
+            // For raw content sections, only allow vertical scrolling on content-box
+            // Horizontal scrolling will be handled by the raw content container
+            contentBox.style.overflowY = 'auto';
+            contentBox.style.overflowX = 'hidden';
+        } else {
+            // For other content types, allow both directions
+            contentBox.style.overflow = 'auto';
+        }
 
         // Mark section as expanded
         section.classList.add('section-expanded');
@@ -201,10 +215,25 @@ export class SectionExpandCollapse {
             contentBox.style.removeProperty('min-height');
         }
         
+        // Restore overflow properties (handle both combined and separate properties)
         if (previousState.contentBoxOverflow) {
             contentBox.style.overflow = previousState.contentBoxOverflow;
+            // Clear separate overflow properties if we're restoring combined overflow
+            contentBox.style.removeProperty('overflow-x');
+            contentBox.style.removeProperty('overflow-y');
         } else {
             contentBox.style.removeProperty('overflow');
+            // Restore separate overflow properties if they were set
+            if (previousState.contentBoxOverflowX) {
+                contentBox.style.overflowX = previousState.contentBoxOverflowX;
+            } else {
+                contentBox.style.removeProperty('overflow-x');
+            }
+            if (previousState.contentBoxOverflowY) {
+                contentBox.style.overflowY = previousState.contentBoxOverflowY;
+            } else {
+                contentBox.style.removeProperty('overflow-y');
+            }
         }
 
         // Remove expanded class

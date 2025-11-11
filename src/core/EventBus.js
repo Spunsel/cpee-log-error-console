@@ -19,10 +19,6 @@ export class EventBus {
      * @param {boolean} options.silent - If true, suppress warning when no listeners (default: false)
      */
     emit(event, data = null, options = {}) {
-        if (this.debugMode) {
-            console.log(`[EventBus] Emitting event: ${event}`, data);
-        }
-
         const listeners = this.events.get(event) || [];
         
         if (listeners.length === 0) {
@@ -92,14 +88,6 @@ export class EventBus {
         // Sort by priority (higher priority first)
         listeners.sort((a, b) => b.priority - a.priority);
 
-        if (this.debugMode) {
-            console.log(`[EventBus] Registered listener for event: ${event}`, { 
-                totalListeners: listeners.length,
-                priority: listener.priority,
-                once: listener.once
-            });
-        }
-
         // Return unsubscribe function
         return () => this.off(event, handler);
     }
@@ -130,12 +118,6 @@ export class EventBus {
         
         if (index > -1) {
             listeners.splice(index, 1);
-            
-            if (this.debugMode) {
-                console.log(`[EventBus] Removed listener for event: ${event}`, { 
-                    remainingListeners: listeners.length 
-                });
-            }
 
             // Clean up empty event arrays
             if (listeners.length === 0) {
@@ -151,14 +133,8 @@ export class EventBus {
     removeAllListeners(event) {
         if (event) {
             this.events.delete(event);
-            if (this.debugMode) {
-                console.log(`[EventBus] Removed all listeners for event: ${event}`);
-            }
         } else {
             this.events.clear();
-            if (this.debugMode) {
-                console.log(`[EventBus] Removed all listeners for all events`);
-            }
         }
     }
 
@@ -194,7 +170,6 @@ export class EventBus {
      */
     setDebugMode(enabled) {
         this.debugMode = enabled;
-        console.log(`[EventBus] Debug mode ${enabled ? 'enabled' : 'disabled'}`);
     }
 
     /**
@@ -239,10 +214,6 @@ export class EventBus {
      * @returns {Promise} Promise that resolves when all listeners complete
      */
     async emitAsync(event, data = null, options = {}) {
-        if (this.debugMode) {
-            console.log(`[EventBus] Emitting async event: ${event}`, data);
-        }
-
         const listeners = this.events.get(event) || [];
         
         if (listeners.length === 0) {
@@ -274,12 +245,6 @@ export class EventBus {
         
         // Remove one-time listeners after execution
         toRemove.forEach(handler => this.off(event, handler));
-        
-        if (this.debugMode) {
-            const successful = results.filter(r => r.status === 'fulfilled' && r.value.success).length;
-            const failed = results.length - successful;
-            console.log(`[EventBus] Async event '${event}' completed: ${successful} successful, ${failed} failed`);
-        }
 
         return results;
     }
@@ -308,9 +273,6 @@ export class EventBus {
      */
     destroy() {
         this.events.clear();
-        if (this.debugMode) {
-            console.log(`[EventBus] Destroyed event bus`);
-        }
     }
 }
 

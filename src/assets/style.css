@@ -2959,6 +2959,17 @@ section h3 {
     transition: height 0.3s ease, max-height 0.3s ease, min-height 0.3s ease;
 }
 
+/* When section is expanded and contains raw content, prevent horizontal scrollbar on content-box */
+/* The raw content container ([data-content-type="raw"]) will handle its own scrolling */
+.section-expanded .content-box:has([data-content-type="raw"]) {
+    overflow-x: hidden !important; /* Prevent horizontal scrollbar on content-box when expanded with raw content */
+}
+
+/* Ensure raw content container handles its own overflow when section is expanded */
+.section-expanded [data-content-type="raw"] {
+    overflow-x: auto; /* Horizontal scrollbar should appear on raw content container, not content-box */
+}
+
 /* Collapsed state for content box */
 .content-box.collapsed {
     overflow: hidden;

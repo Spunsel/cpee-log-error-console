@@ -12,7 +12,7 @@
  */
 
 import { NodeIdentifier } from '../models/NodeIdentifier.js';
-import { calculateJaro, calculateJaroWinkler, calculateJaccardSimilarity } from '../utils/similarity/StringSimilarity.js';
+import { calculateJaccardSimilarity, calculateJaroWinkler } from '../utils/similarity/StringSimilarity.js';
 
 export class NodeMappingService {
     /**
