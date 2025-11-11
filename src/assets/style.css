@@ -2970,6 +2970,12 @@ section h3 {
     overflow-x: auto; /* Horizontal scrollbar should appear on raw content container, not content-box */
 }
 
+/* Ensure mermaid sections preserve horizontal scrollbar when expanded */
+.section-expanded.mermaid-section .content-box {
+    overflow-x: auto !important; /* Preserve horizontal scrollbar for mermaid sections when expanded */
+    overflow-y: auto !important; /* Preserve vertical scrollbar for mermaid sections when expanded */
+}
+
 /* Collapsed state for content box */
 .content-box.collapsed {
     overflow: hidden;

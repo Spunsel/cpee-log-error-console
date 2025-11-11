@@ -119,8 +119,15 @@ export class SectionExpandCollapse {
             contentBox.style.overflowY = 'auto';
             contentBox.style.overflowX = 'hidden';
         } else {
-            // For other content types, allow both directions
-            contentBox.style.overflow = 'auto';
+            // For mermaid sections, explicitly set both overflow directions to preserve horizontal scrollbar
+            const isMermaidSection = section.classList.contains('mermaid-section');
+            if (isMermaidSection) {
+                contentBox.style.overflowX = 'auto';
+                contentBox.style.overflowY = 'auto';
+            } else {
+                // For other content types, allow both directions
+                contentBox.style.overflow = 'auto';
+            }
         }
 
         // Mark section as expanded
