@@ -8,16 +8,19 @@
     "dev": "vite serve --host 0.0.0.0 --port 8000",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage",
+    "test": "node --test --import ./tests/setup.js 'tests/**/*.test.js'",
+    "test:watch": "node --test --watch --import ./tests/setup.js 'tests/**/*.test.js'",
+    "test:coverage": "node --test --experimental-test-coverage --import ./tests/setup.js 'tests/**/*.test.js'",
+    "test:unit": "node --test --import ./tests/setup.js 'tests/unit/**/*.test.js'",
+    "test:component": "node --test --import ./tests/setup.js 'tests/component/**/*.test.js'",
+    "test:integration": "node --test --import ./tests/setup.js 'tests/integration/**/*.test.js'",
+    "test:file": "node --test --import ./tests/setup.js",
     "lint": "eslint src --ext .js",
     "lint:fix": "eslint src --ext .js --fix",
     "format": "prettier --write \"src/**/*.{js,html,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{js,html,css,md}\"",
     "analyze": "npm-check-updates",
-    "validate": "npm run lint && npm run format:check && npm run test:coverage",
+    "validate": "npm run lint && npm run format:check && npm run test",
     "clean": "rimraf dist coverage",
     "serve": "python -m http.server 8000",
     "docs": "jsdoc -c jsdoc.conf.json",
@@ -30,8 +33,6 @@
   "devDependencies": {
     "@testing-library/dom": "^10.0.0",
     "@testing-library/user-event": "^14.5.0",
-    "@vitest/coverage-v8": "^4.0.3",
-    "@vitest/ui": "^4.0.3",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.0",
@@ -41,8 +42,7 @@
     "npm-check-updates": "^16.14.0",
     "prettier": "^3.1.0",
     "rimraf": "^5.0.5",
-    "vite": "^7.1.12",
-    "vitest": "^4.0.3"
+    "vite": "^7.1.12"
   },
   "keywords": [
     "cpee",
@@ -65,7 +65,7 @@
   },
   "homepage": "https://github.com/Spunsel/cpee-log-error-console#readme",
   "engines": {
-    "node": ">=16.0.0",
+    "node": ">=18.0.0",
     "npm": ">=8.0.0"
   },
   "browserslist": [

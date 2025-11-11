@@ -1,243 +1,269 @@
 /**
- * Mock Factory
+ * Mock Factory for Node.js Test Runner
  * Factory functions for creating common mocks
  */
 
-import { vi } from 'vitest';
+/**
+ * Create a mock fetch response
+ * @param {Object} options - Response options
+ * @param {*} options.body - Response body
+ * @param {number} options.status - HTTP status code
+ * @param {Object} options.headers - Response headers
+ * @returns {Response} Mock response
+ */
+export function createMockFetchResponse(options = {}) {
+    const {
+        body = {},
+        status = 200,
+        headers = {},
+        ok = status >= 200 && status < 300,
+    } = options;
+    
+    return {
+        ok,
+        status,
+        statusText: ok ? 'OK' : 'Error',
+        headers: new Headers(headers),
+        json: async () => body,
+        text: async () => typeof body === 'string' ? body : JSON.stringify(body),
+        blob: async () => new Blob([JSON.stringify(body)]),
+        arrayBuffer: async () => new ArrayBuffer(0),
+        clone: function() { return this; },
+    };
+}
 
 /**
  * Create a mock fetch function
- * @param {Object} responses - Map of URLs to responses
+ * @param {Object} options - Mock options
+ * @param {Function} options.handler - Custom handler function
  * @returns {Function} Mock fetch function
  */
-export function createMockFetch(responses = {}) {
-    return vi.fn((url) => {
-        const response = responses[url] || responses['*'] || {
-            ok: true,
-            status: 200,
-            text: () => Promise.resolve(''),
-            json: () => Promise.resolve({}),
-        };
-        
-        return Promise.resolve({
-            ok: response.ok !== false,
-            status: response.status || 200,
-            statusText: response.statusText || 'OK',
-            headers: new Headers(response.headers || {}),
-            text: () => Promise.resolve(
-                typeof response.text === 'function' 
-                    ? response.text() 
-                    : (response.text || '')
-            ),
-            json: () => Promise.resolve(
-                typeof response.json === 'function'
-                    ? response.json()
-                    : (response.json || {})
-            ),
-            blob: () => Promise.resolve(response.blob || new Blob()),
-            arrayBuffer: () => Promise.resolve(response.arrayBuffer || new ArrayBuffer()),
-        });
-    });
+export function createMockFetch(options = {}) {
+    const { handler } = options;
+    
+    if (handler) {
+        return handler;
+    }
+    
+    return async () => createMockFetchResponse();
 }
 
 /**
- * Create a mock localStorage
- * @returns {Object} Mock localStorage object
+ * Create a mock localStorage with actual storage
+ * @returns {Object} Mock localStorage
  */
 export function createMockLocalStorage() {
-    const store = {};
+    const store = new Map();
     
     return {
-        getItem: vi.fn((key) => store[key] || null),
-        setItem: vi.fn((key, value) => {
-            store[key] = String(value);
-        }),
-        removeItem: vi.fn((key) => {
-            delete store[key];
-        }),
-        clear: vi.fn(() => {
-            Object.keys(store).forEach(key => delete store[key]);
-        }),
-        key: vi.fn((index) => Object.keys(store)[index] || null),
+        store,
+    getItem: (key) => {
+        const value = store.get(String(key));
+        return value !== undefined ? value : null;
+    },
+    setItem: (key, value) => {
+        store.set(String(key), String(value));
+    },
+    removeItem: (key) => {
+        store.delete(String(key));
+    },
+    clear: () => {
+        store.clear();
+    },
+    key: (index) => {
+        const keys = Array.from(store.keys());
+        return keys[index] || null;
+    },
         get length() {
-            return Object.keys(store).length;
+            return store.size;
         },
-        _store: store, // Expose for testing
+        reset: () => {
+            store.clear();
+        },
     };
 }
 
 /**
- * Create a mock sessionStorage
- * @returns {Object} Mock sessionStorage object
- */
-export function createMockSessionStorage() {
-    return createMockLocalStorage(); // Same implementation
-}
-
-/**
- * Create a mock event bus
- * @returns {Object} Mock event bus
+ * Create a mock EventBus
+ * @returns {Object} Mock EventBus
  */
 export function createMockEventBus() {
-    const subscribers = new Map();
+    const listeners = new Map();
     
     return {
-        subscribe: vi.fn((event, callback) => {
-            if (!subscribers.has(event)) {
-                subscribers.set(event, []);
+        listeners,
+        subscribe: (event, callback) => {
+            if (!listeners.has(event)) {
+                listeners.set(event, []);
             }
-            subscribers.get(event).push(callback);
+            listeners.get(event).push(callback);
             
+            // Return unsubscribe function
             return () => {
-                const callbacks = subscribers.get(event);
-                const index = callbacks.indexOf(callback);
-                if (index > -1) {
-                    callbacks.splice(index, 1);
+                const callbacks = listeners.get(event);
+                if (callbacks) {
+                    const index = callbacks.indexOf(callback);
+                    if (index > -1) {
+                        callbacks.splice(index, 1);
+                    }
                 }
             };
-        }),
-        publish: vi.fn((event, data) => {
-            const callbacks = subscribers.get(event) || [];
-            callbacks.forEach(callback => {
+        },
+        publish: (event, data) => {
+            const callbacks = listeners.get(event) || [];
+            callbacks.forEach((callback) => {
                 try {
                     callback(data);
                 } catch (error) {
-                    console.error(`Error in event subscriber for ${event}:`, error);
+                    console.error(`Error in event listener for ${event}:`, error);
                 }
             });
-        }),
-        unsubscribe: vi.fn(),
-        _subscribers: subscribers, // Expose for testing
-    };
-}
-
-/**
- * Create a mock state manager
- * @returns {Object} Mock state manager
- */
-export function createMockStateManager() {
-    const state = new Map();
-    const subscribers = new Map();
-    
-    return {
-        get: vi.fn((key, defaultValue) => {
-            return state.has(key) ? state.get(key) : defaultValue;
-        }),
-        set: vi.fn((key, value) => {
-            const oldValue = state.get(key);
-            state.set(key, value);
-            
-            const callbacks = subscribers.get(key) || [];
-            callbacks.forEach(callback => {
-                try {
-                    callback(value, oldValue);
-                } catch (error) {
-                    console.error(`Error in state subscriber for ${key}:`, error);
-                }
-            });
-        }),
-        subscribe: vi.fn((key, callback) => {
-            if (!subscribers.has(key)) {
-                subscribers.set(key, []);
-            }
-            subscribers.get(key).push(callback);
-            
-            return () => {
-                const callbacks = subscribers.get(key);
+        },
+        unsubscribe: (event, callback) => {
+            const callbacks = listeners.get(event);
+            if (callbacks) {
                 const index = callbacks.indexOf(callback);
                 if (index > -1) {
                     callbacks.splice(index, 1);
                 }
-            };
-        }),
-        clear: vi.fn(() => {
-            state.clear();
-            subscribers.clear();
-        }),
-        _state: state, // Expose for testing
-        _subscribers: subscribers, // Expose for testing
+            }
+        },
+        clear: () => {
+            listeners.clear();
+        },
     };
 }
 
 /**
- * Create a mock DOM registry
- * @returns {Object} Mock DOM registry
+ * Create a mock StateManager
+ * @returns {Object} Mock StateManager
+ */
+export function createMockStateManager() {
+    const state = {};
+    const listeners = new Map();
+    
+    return {
+        state,
+        listeners,
+        getState: (path) => {
+            const keys = path.split('.');
+            let current = state;
+            for (const key of keys) {
+                if (current && typeof current === 'object' && key in current) {
+                    current = current[key];
+                } else {
+                    return undefined;
+                }
+            }
+            return current;
+        },
+        setState: (path, value) => {
+            const keys = path.split('.');
+            const lastKey = keys.pop();
+            let current = state;
+            
+            for (const key of keys) {
+                if (!(key in current) || typeof current[key] !== 'object') {
+                    current[key] = {};
+                }
+                current = current[key];
+            }
+            
+            current[lastKey] = value;
+            
+            // Notify listeners
+            const pathKey = path;
+            const callbacks = listeners.get(pathKey) || [];
+            callbacks.forEach((callback) => {
+                try {
+                    callback(value);
+                } catch (error) {
+                    console.error(`Error in state listener for ${pathKey}:`, error);
+                }
+            });
+        },
+        subscribe: (path, callback) => {
+            if (!listeners.has(path)) {
+                listeners.set(path, []);
+            }
+            listeners.get(path).push(callback);
+            
+            return () => {
+                const callbacks = listeners.get(path);
+                if (callbacks) {
+                    const index = callbacks.indexOf(callback);
+                    if (index > -1) {
+                        callbacks.splice(index, 1);
+                    }
+                }
+            };
+        },
+        reset: () => {
+            Object.keys(state).forEach((key) => {
+                delete state[key];
+            });
+        },
+    };
+}
+
+/**
+ * Create a mock DOMRegistry
+ * @returns {Object} Mock DOMRegistry
  */
 export function createMockDOMRegistry() {
-    const elements = new Map();
+    const registry = new Map();
     
     return {
-        get: vi.fn((id) => {
-            return elements.get(id) || document.getElementById(id);
-        }),
-        register: vi.fn((id, element) => {
-            elements.set(id, element);
-            if (element && !element.id) {
-                element.id = id;
-            }
-        }),
-        has: vi.fn((id) => {
-            return elements.has(id) || document.getElementById(id) !== null;
-        }),
-        clear: vi.fn(() => {
-            elements.clear();
-        }),
-        _elements: elements, // Expose for testing
+        registry,
+        register: (key, element) => {
+            registry.set(key, element);
+        },
+        get: (key) => {
+            return registry.get(key) || null;
+        },
+        has: (key) => {
+            return registry.has(key);
+        },
+        clear: () => {
+            registry.clear();
+        },
     };
 }
 
 /**
- * Create a mock service factory
- * @param {Object} services - Map of service names to service instances
- * @returns {Object} Mock service factory
+ * Create a mock ServiceFactory
+ * @param {Object} services - Pre-registered services
+ * @returns {Object} Mock ServiceFactory
  */
 export function createMockServiceFactory(services = {}) {
-    const serviceCache = new Map();
+    const serviceCache = new Map(Object.entries(services));
     
     return {
-        get: vi.fn((serviceName) => {
+        serviceCache,
+        create: (serviceName, ...args) => {
             if (serviceCache.has(serviceName)) {
                 return serviceCache.get(serviceName);
             }
             
-            const service = services[serviceName];
-            if (service) {
-                serviceCache.set(serviceName, service);
-                return service;
-            }
+            // Create a mock service if not found
+            const mockService = {
+                name: serviceName,
+                init: () => {},
+                destroy: () => {},
+            };
             
-            throw new Error(`Service ${serviceName} not found`);
-        }),
-        register: vi.fn((serviceName, service) => {
+            serviceCache.set(serviceName, mockService);
+            return mockService;
+        },
+        register: (serviceName, service) => {
             serviceCache.set(serviceName, service);
-        }),
-        clear: vi.fn(() => {
+        },
+        get: (serviceName) => {
+            return serviceCache.get(serviceName) || null;
+        },
+        clear: () => {
             serviceCache.clear();
-        }),
-        _cache: serviceCache, // Expose for testing
-    };
-}
-
-/**
- * Create a mock clipboard API
- * @returns {Object} Mock clipboard object
- */
-export function createMockClipboard() {
-    // Mock ClipboardItem if not available
-    // eslint-disable-next-line no-undef
-    const ClipboardItemClass = typeof globalThis.ClipboardItem !== 'undefined' 
-        ? globalThis.ClipboardItem 
-        : class MockClipboardItem {
-            constructor(items) {
-                this.items = items || [];
-            }
-        };
-    
-    return {
-        writeText: vi.fn().mockResolvedValue(undefined),
-        readText: vi.fn().mockResolvedValue(''),
-        write: vi.fn().mockResolvedValue(undefined),
-        read: vi.fn().mockResolvedValue(new ClipboardItemClass([])),
+        },
     };
 }
 

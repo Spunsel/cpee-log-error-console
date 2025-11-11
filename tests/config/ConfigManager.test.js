@@ -1,56 +1,73 @@
 /**
  * ConfigManager Test Suite
  * Tests the centralized configuration management system
+ * 
+ * Uses Node.js built-in test runner (Node 18+)
  */
 
+import { afterEach, beforeEach, describe, test } from 'node:test';
+import assert from 'node:assert';
 import { configManager } from '../../src/config/ConfigManager.js';
 
 describe('ConfigManager', () => {
-    
+    let originalValues = {};
+
+    beforeEach(() => {
+        // Store original values for restoration
+        originalValues = {};
+    });
+
+    afterEach(() => {
+        // Restore original values if they were changed
+        Object.entries(originalValues).forEach(([path, value]) => {
+            configManager.set(path, value);
+        });
+        originalValues = {};
+    });
+
     test('should load all configuration sections', () => {
         const config = configManager.getAll();
         
-        expect(config).toHaveProperty('api');
-        expect(config).toHaveProperty('ui');
-        expect(config).toHaveProperty('rendering');
-        expect(config).toHaveProperty('network');
-        expect(config).toHaveProperty('mermaid');
-        expect(config).toHaveProperty('cpee');
-        expect(config).toHaveProperty('dom');
-        expect(config).toHaveProperty('timing');
-        expect(config).toHaveProperty('styling');
+        assert.ok('api' in config);
+        assert.ok('ui' in config);
+        assert.ok('rendering' in config);
+        assert.ok('network' in config);
+        assert.ok('mermaid' in config);
+        assert.ok('cpee' in config);
+        assert.ok('dom' in config);
+        assert.ok('timing' in config);
+        assert.ok('styling' in config);
     });
 
     test('should get configuration values by path', () => {
         const cpeeBase = configManager.get('api.endpoints.cpeeBase');
-        expect(cpeeBase).toBe('https://cpee.org/flow/engine');
+        assert.strictEqual(cpeeBase, 'https://cpee.org/flow/engine');
         
         const timeout = configManager.get('network.timeouts.default');
-        expect(timeout).toBe(15000);
+        assert.strictEqual(timeout, 15000);
         
         const successColor = configManager.get('styling.colors.success');
-        expect(successColor).toBe('#28a745');
+        assert.strictEqual(successColor, '#28a745');
     });
 
     test('should return default value for non-existent path', () => {
         const nonExistent = configManager.get('non.existent.path', 'default');
-        expect(nonExistent).toBe('default');
+        assert.strictEqual(nonExistent, 'default');
     });
 
     test('should set configuration values', () => {
-        const originalValue = configManager.get('ui.notifications.successDuration');
+        const path = 'ui.notifications.successDuration';
+        const originalValue = configManager.get(path);
+        originalValues[path] = originalValue;
         
-        configManager.set('ui.notifications.successDuration', 3000);
-        expect(configManager.get('ui.notifications.successDuration')).toBe(3000);
-        
-        // Restore original value
-        configManager.set('ui.notifications.successDuration', originalValue);
+        configManager.set(path, 3000);
+        assert.strictEqual(configManager.get(path), 3000);
     });
 
     test('should validate configuration', () => {
         const validation = configManager.validate();
-        expect(validation.valid).toBe(true);
-        expect(validation.errors).toHaveLength(0);
+        assert.strictEqual(validation.valid, true);
+        assert.strictEqual(validation.errors.length, 0);
     });
 
     test('should merge configuration objects', () => {
@@ -58,7 +75,7 @@ describe('ConfigManager', () => {
         const toMerge = { b: { d: 3 }, e: 4 };
         
         const merged = configManager.deepMerge(original, toMerge);
-        expect(merged).toEqual({
+        assert.deepStrictEqual(merged, {
             a: 1,
             b: { c: 2, d: 3 },
             e: 4
@@ -69,15 +86,19 @@ describe('ConfigManager', () => {
         let changeNotified = false;
         let notifiedValue = null;
         
-        const unsubscribe = configManager.subscribe('ui.notifications.successDuration', (newValue) => {
+        const path = 'ui.notifications.successDuration';
+        const originalValue = configManager.get(path);
+        originalValues[path] = originalValue;
+        
+        const unsubscribe = configManager.subscribe(path, (newValue) => {
             changeNotified = true;
             notifiedValue = newValue;
         });
         
-        configManager.set('ui.notifications.successDuration', 5000);
+        configManager.set(path, 5000);
         
-        expect(changeNotified).toBe(true);
-        expect(notifiedValue).toBe(5000);
+        assert.strictEqual(changeNotified, true);
+        assert.strictEqual(notifiedValue, 5000);
         
         unsubscribe();
     });
@@ -85,53 +106,57 @@ describe('ConfigManager', () => {
     test('should get configuration summary', () => {
         const summary = configManager.getSummary();
         
-        expect(summary).toHaveProperty('sections');
-        expect(summary).toHaveProperty('totalKeys');
-        expect(summary).toHaveProperty('observers');
-        expect(summary).toHaveProperty('validation');
+        assert.ok('sections' in summary);
+        assert.ok('totalKeys' in summary);
+        assert.ok('observers' in summary);
+        assert.ok('validation' in summary);
         
-        expect(Array.isArray(summary.sections)).toBe(true);
-        expect(typeof summary.totalKeys).toBe('number');
-        expect(summary.totalKeys).toBeGreaterThan(0);
+        assert.ok(Array.isArray(summary.sections));
+        assert.strictEqual(typeof summary.totalKeys, 'number');
+        assert.ok(summary.totalKeys > 0);
     });
 
     test('should export and import configuration', () => {
         const exported = configManager.export();
-        expect(typeof exported).toBe('string');
+        assert.strictEqual(typeof exported, 'string');
         
         const parsed = JSON.parse(exported);
-        expect(parsed).toHaveProperty('api');
-        expect(parsed).toHaveProperty('ui');
+        assert.ok('api' in parsed);
+        assert.ok('ui' in parsed);
         
         // Test import
         const importSuccess = configManager.import(exported);
-        expect(importSuccess).toBe(true);
+        assert.strictEqual(importSuccess, true);
     });
 
     test('should handle section-specific configuration', () => {
         const apiConfig = configManager.getSection('api');
-        expect(apiConfig).toHaveProperty('endpoints');
-        expect(apiConfig).toHaveProperty('cors');
-        expect(apiConfig).toHaveProperty('headers');
+        assert.ok('endpoints' in apiConfig);
+        assert.ok('cors' in apiConfig);
+        assert.ok('headers' in apiConfig);
         
         const uiConfig = configManager.getSection('ui');
-        expect(uiConfig).toHaveProperty('layout');
-        expect(uiConfig).toHaveProperty('forms');
-        expect(uiConfig).toHaveProperty('navigation');
+        assert.ok('layout' in uiConfig);
+        assert.ok('forms' in uiConfig);
+        assert.ok('navigation' in uiConfig);
     });
 
     test('should check if configuration path exists', () => {
-        expect(configManager.has('api.endpoints.cpeeBase')).toBe(true);
-        expect(configManager.has('non.existent.path')).toBe(false);
+        assert.strictEqual(configManager.has('api.endpoints.cpeeBase'), true);
+        // Test with a simple non-existent top-level key
+        assert.strictEqual(configManager.has('xyz123abc456'), false);
+        // Test with a nested path that definitely doesn't exist
+        assert.strictEqual(configManager.has('xyz123abc456.nested.path'), false);
     });
 
     test('should reset configuration to defaults', () => {
-        const originalValue = configManager.get('ui.notifications.successDuration');
+        const path = 'ui.notifications.successDuration';
+        const originalValue = configManager.get(path);
         
-        configManager.set('ui.notifications.successDuration', 9999);
-        expect(configManager.get('ui.notifications.successDuration')).toBe(9999);
+        configManager.set(path, 9999);
+        assert.strictEqual(configManager.get(path), 9999);
         
         configManager.reset();
-        expect(configManager.get('ui.notifications.successDuration')).toBe(originalValue);
+        assert.strictEqual(configManager.get(path), originalValue);
     });
 });

@@ -1,87 +1,54 @@
 /**
- * Test Helper Utilities
+ * Test Helper Utilities for Node.js Test Runner
  * Common utilities for writing tests
  */
 
-import { vi } from 'vitest';
-import { createMockEvent } from '../setup.js';
-import {
-    createMockDOMRegistry,
-    createMockEventBus,
-    createMockStateManager,
-} from './mock-factory.js';
-
 /**
- * Create a mock DOM structure for testing
- * @param {string} html - HTML string to create
- * @returns {DocumentFragment} Document fragment with the created elements
- */
-export function createMockDOM(html = '') {
-    const fragment = document.createDocumentFragment();
-    const container = document.createElement('div');
-    container.innerHTML = html;
-    
-    while (container.firstChild) {
-        fragment.appendChild(container.firstChild);
-    }
-    
-    return fragment;
-}
-
-// Re-export createMockEvent from setup.js
-export { createMockEvent };
-
-/**
- * Wait for a condition to be true
- * @param {Function} condition - Function that returns a boolean
- * @param {number} timeout - Maximum time to wait in ms
- * @param {number} interval - Check interval in ms
+ * Wait for async operations to complete
+ * @param {number} ms - Milliseconds to wait
  * @returns {Promise<void>}
  */
-export function waitFor(condition, timeout = 5000, interval = 100) {
-    return new Promise((resolve, reject) => {
-        const startTime = Date.now();
-        
-        const check = () => {
-            if (condition()) {
-                resolve();
-            } else if (Date.now() - startTime >= timeout) {
-                reject(new Error(`Timeout waiting for condition after ${timeout}ms`));
-            } else {
-                setTimeout(check, interval);
-            }
-        };
-        
-        check();
+export function waitFor(ms = 0) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
     });
 }
 
 /**
- * Wait for an element to appear in the DOM
- * @param {string} selector - CSS selector
- * @param {number} timeout - Maximum time to wait in ms
- * @returns {Promise<Element>}
+ * Wait for a condition to become true
+ * @param {Function} condition - Function that returns true when condition is met
+ * @param {Object} options - Options
+ * @param {number} options.timeout - Maximum time to wait (default: 5000ms)
+ * @param {number} options.interval - Check interval (default: 50ms)
+ * @returns {Promise<void>}
  */
-export function waitForElement(selector, timeout = 5000) {
-    return waitFor(
-        () => document.querySelector(selector) !== null,
-        timeout
-    ).then(() => document.querySelector(selector));
+export async function waitForCondition(condition, options = {}) {
+    const { timeout = 5000, interval = 50 } = options;
+    const startTime = Date.now();
+    
+    while (Date.now() - startTime < timeout) {
+        if (condition()) {
+            return;
+        }
+        await waitFor(interval);
+    }
+    
+    throw new Error(`Condition not met within ${timeout}ms`);
 }
 
 /**
  * Create a mock service instance
  * @param {Object} methods - Methods to mock
- * @returns {Object} Mock service object
+ * @returns {Object} Mock service
  */
 export function createMockService(methods = {}) {
     const mockService = {};
     
-    Object.entries(methods).forEach(([methodName, implementation]) => {
-        if (typeof implementation === 'function') {
-            mockService[methodName] = implementation;
+    Object.entries(methods).forEach(([key, value]) => {
+        if (typeof value === 'function') {
+            mockService[key] = value;
         } else {
-            mockService[methodName] = vi.fn().mockReturnValue(implementation);
+            mockService[key] = value;
         }
     });
     
@@ -90,31 +57,170 @@ export function createMockService(methods = {}) {
 
 /**
  * Create a minimal component instance for testing
- * @param {Function} ComponentClass - Component class constructor
- * @param {Object} dependencies - Dependencies to inject (overrides defaults)
- * @param {Array} additionalArgs - Additional constructor arguments in the correct order
- * @returns {Object} Component instance
+ * @param {Object} props - Component properties
+ * @returns {Object} Mock component
  */
-export function createMockComponent(ComponentClass, dependencies = {}, additionalArgs = []) {
-    // Create default dependencies with explicit property access
-    const domRegistry = dependencies.domRegistry ?? createMockDOMRegistry();
-    const eventBus = dependencies.eventBus ?? createMockEventBus();
-    const stateManager = dependencies.stateManager ?? createMockStateManager();
-    
-    // Pass dependencies explicitly in the correct order
-    // This avoids relying on object key order which is fragile
-    return new ComponentClass(
-        domRegistry,
-        eventBus,
-        stateManager,
-        ...additionalArgs
-    );
+export function createMockComponent(props = {}) {
+    return {
+        init: () => {},
+        destroy: () => {},
+        update: () => {},
+        render: () => {},
+        ...props,
+    };
 }
 
-// Re-export mock factory functions
-export {
-    createMockDOMRegistry,
-    createMockEventBus,
-    createMockStateManager,
-};
+/**
+ * Create a promise that can be resolved/rejected externally
+ * @returns {Object} Promise with resolve/reject methods
+ */
+export function createDeferred() {
+    let resolve;
+    let reject;
+    const promise = new Promise((res, rej) => {
+        resolve = res;
+        reject = rej;
+    });
+    
+    return { promise, resolve, reject };
+}
+
+/**
+ * Create a mock event with custom properties
+ * @param {string} type - Event type
+ * @param {Object} options - Event options
+ * @returns {Event} Mock event
+ */
+export function createMockEvent(type, options = {}) {
+    return new Event(type, {
+        bubbles: options.bubbles !== false,
+        cancelable: options.cancelable !== false,
+        ...options,
+    });
+}
+
+/**
+ * Flush all pending promises
+ * Useful for testing async code
+ * @returns {Promise<void>}
+ */
+export function flushPromises() {
+    return new Promise((resolve) => {
+        setImmediate(resolve);
+    });
+}
+
+/**
+ * Create a spy that tracks all calls
+ * @param {Function} fn - Function to spy on (optional)
+ * @returns {Function} Spy function
+ */
+export function createSpy(fn = null) {
+    const calls = [];
+    const spy = function(...args) {
+        calls.push(args);
+        if (fn) {
+            return fn(...args);
+        }
+    };
+    
+    spy.calls = calls;
+    spy.callCount = calls.length;
+    spy.called = calls.length > 0;
+    spy.calledWith = (...args) => {
+        return calls.some(call => {
+            return args.every((arg, i) => call[i] === arg);
+        });
+    };
+    spy.reset = () => {
+        calls.length = 0;
+    };
+    
+    return spy;
+}
+
+/**
+ * Mock console methods to prevent test output pollution
+ * @returns {Object} Object with restore function
+ */
+export function mockConsole() {
+    const originalConsole = { ...console };
+    const calls = {
+        log: [],
+        warn: [],
+        error: [],
+        info: [],
+        debug: [],
+    };
+    
+    const mocks = {
+        log: (...args) => { calls.log.push(args); },
+        warn: (...args) => { calls.warn.push(args); },
+        error: (...args) => { calls.error.push(args); },
+        info: (...args) => { calls.info.push(args); },
+        debug: (...args) => { calls.debug.push(args); },
+    };
+    
+    Object.assign(console, mocks);
+    
+    return {
+        ...mocks,
+        calls,
+        restore: () => {
+            Object.assign(console, originalConsole);
+        },
+    };
+}
+
+/**
+ * Create a timer mock for testing time-dependent code
+ * @returns {Object} Timer mock with control methods
+ */
+export function createTimerMock() {
+    let now = 0;
+    const timers = new Map();
+    let timerId = 0;
+    
+    const mock = {
+        now: () => now,
+        advance: (ms) => {
+            now += ms;
+            // Trigger any timers that should fire
+            timers.forEach((timer, id) => {
+                if (timer.scheduled <= now && !timer.fired) {
+                    timer.fired = true;
+                    timer.callback();
+                    timers.delete(id);
+                }
+            });
+        },
+        setTimeout: (callback, delay) => {
+            const id = timerId++;
+            timers.set(id, {
+                callback,
+                scheduled: now + delay,
+                fired: false,
+            });
+            return id;
+        },
+        clearTimeout: (id) => {
+            timers.delete(id);
+        },
+        setInterval: (callback, delay) => {
+            const id = timerId++;
+            timers.set(id, {
+                callback,
+                scheduled: now + delay,
+                fired: false,
+                interval: delay,
+            });
+            return id;
+        },
+        clearInterval: (id) => {
+            timers.delete(id);
+        },
+    };
+    
+    return mock;
+}
 

@@ -16,12 +16,12 @@ export function createElement(tagName = 'div', attributes = {}, textContent = ''
     Object.entries(attributes).forEach(([key, value]) => {
         if (key === 'className') {
             element.className = value;
-        } else if (key === 'id') {
-            element.id = value;
         } else if (key === 'style' && typeof value === 'object') {
             Object.assign(element.style, value);
-        } else {
+        } else if (key.startsWith('data-')) {
             element.setAttribute(key, value);
+        } else {
+            element[key] = value;
         }
     });
     
@@ -34,22 +34,17 @@ export function createElement(tagName = 'div', attributes = {}, textContent = ''
 
 /**
  * Create an SVG element
- * @param {string} tagName - SVG tag name (e.g., 'svg', 'circle', 'path')
- * @param {Object} attributes - SVG attributes
- * @param {string} innerHTML - Inner SVG content
+ * @param {string} tagName - SVG tag name
+ * @param {Object} attributes - Element attributes
  * @returns {SVGElement} Created SVG element
  */
-export function createSVG(tagName = 'svg', attributes = {}, innerHTML = '') {
+export function createSVG(tagName = 'svg', attributes = {}) {
     const namespace = 'http://www.w3.org/2000/svg';
     const element = document.createElementNS(namespace, tagName);
     
     Object.entries(attributes).forEach(([key, value]) => {
         element.setAttribute(key, value);
     });
-    
-    if (innerHTML) {
-        element.innerHTML = innerHTML;
-    }
     
     return element;
 }
@@ -58,88 +53,38 @@ export function createSVG(tagName = 'svg', attributes = {}, innerHTML = '') {
  * Simulate a click event
  * @param {HTMLElement} element - Element to click
  * @param {Object} options - Click options
- * @returns {Event} The click event
+ * @returns {boolean} Whether default was prevented
  */
 export function simulateClick(element, options = {}) {
     const event = new MouseEvent('click', {
         bubbles: true,
         cancelable: true,
-        view: window,
         ...options,
     });
     
-    element.dispatchEvent(event);
-    return event;
+    return element.dispatchEvent(event);
 }
 
 /**
  * Simulate an input event
- * @param {HTMLElement} element - Input element
- * @param {string} value - Input value
- * @returns {Event} The input event
+ * @param {HTMLInputElement} element - Input element
+ * @param {string} value - Value to set
+ * @returns {void}
  */
 export function simulateInput(element, value) {
-    if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
-        element.value = value;
-    } else {
-        element.textContent = value;
-    }
-    
+    element.value = value;
     const event = new Event('input', {
         bubbles: true,
         cancelable: true,
     });
-    
     element.dispatchEvent(event);
-    return event;
-}
-
-/**
- * Simulate a change event
- * @param {HTMLElement} element - Element to change
- * @param {string} value - New value
- * @returns {Event} The change event
- */
-export function simulateChange(element, value) {
-    if (element instanceof HTMLInputElement || element instanceof HTMLSelectElement) {
-        element.value = value;
-    } else {
-        element.textContent = value;
-    }
-    
-    const event = new Event('change', {
-        bubbles: true,
-        cancelable: true,
-    });
-    
-    element.dispatchEvent(event);
-    return event;
-}
-
-/**
- * Simulate a keyboard event
- * @param {HTMLElement} element - Target element
- * @param {string} key - Key to press
- * @param {Object} options - Keyboard event options
- * @returns {KeyboardEvent} The keyboard event
- */
-export function simulateKeyPress(element, key, options = {}) {
-    const event = new KeyboardEvent('keydown', {
-        key,
-        bubbles: true,
-        cancelable: true,
-        ...options,
-    });
-    
-    element.dispatchEvent(event);
-    return event;
 }
 
 /**
  * Query selector with optional container
  * @param {string} selector - CSS selector
- * @param {HTMLElement} container - Container element (defaults to document)
- * @returns {HTMLElement|null} Found element or null
+ * @param {HTMLElement} container - Container element (default: document)
+ * @returns {HTMLElement|null} Found element
  */
 export function querySelector(selector, container = document) {
     return container.querySelector(selector);
@@ -148,7 +93,7 @@ export function querySelector(selector, container = document) {
 /**
  * Query all elements matching selector
  * @param {string} selector - CSS selector
- * @param {HTMLElement} container - Container element (defaults to document)
+ * @param {HTMLElement} container - Container element (default: document)
  * @returns {NodeList} Found elements
  */
 export function querySelectorAll(selector, container = document) {
@@ -157,80 +102,102 @@ export function querySelectorAll(selector, container = document) {
 
 /**
  * Clean up DOM after tests
- * @param {HTMLElement} container - Container to clean (defaults to document.body)
+ * @param {HTMLElement} element - Element to remove (optional, removes all if not provided)
+ * @returns {void}
  */
-export function cleanupDOM(container = document.body) {
-    if (container) {
-        container.innerHTML = '';
+export function cleanupDOM(element = null) {
+    if (element) {
+        element.remove();
+    } else {
+        document.body.innerHTML = '';
+        document.head.innerHTML = '';
     }
 }
 
 /**
- * Append element to container
- * @param {HTMLElement} element - Element to append
- * @param {HTMLElement} container - Container element (defaults to document.body)
- * @returns {HTMLElement} The appended element
+ * Wait for element to appear in DOM
+ * @param {string} selector - CSS selector
+ * @param {Object} options - Options
+ * @param {number} options.timeout - Maximum wait time (default: 5000ms)
+ * @param {number} options.interval - Check interval (default: 50ms)
+ * @returns {Promise<HTMLElement>} Found element
  */
-export function appendElement(element, container = document.body) {
-    container.appendChild(element);
-    return element;
-}
-
-/**
- * Remove element from DOM
- * @param {HTMLElement} element - Element to remove
- */
-export function removeElement(element) {
-    if (element && element.parentNode) {
-        element.parentNode.removeChild(element);
+export async function waitForElement(selector, options = {}) {
+    const { timeout = 5000, interval = 50 } = options;
+    const startTime = Date.now();
+    
+    while (Date.now() - startTime < timeout) {
+        const element = document.querySelector(selector);
+        if (element) {
+            return element;
+        }
+        await new Promise((resolve) => setTimeout(resolve, interval));
     }
+    
+    throw new Error(`Element "${selector}" not found within ${timeout}ms`);
 }
 
 /**
- * Get computed style for an element
- * @param {HTMLElement} element - Element to get style for
- * @param {string} property - CSS property name
- * @returns {string} Computed style value
+ * Wait for element to be removed from DOM
+ * @param {string} selector - CSS selector
+ * @param {Object} options - Options
+ * @param {number} options.timeout - Maximum wait time (default: 5000ms)
+ * @param {number} options.interval - Check interval (default: 50ms)
+ * @returns {Promise<void>}
  */
-export function getComputedStyle(element, property) {
-    const styles = window.getComputedStyle(element);
-    return styles.getPropertyValue(property);
+export async function waitForElementRemoval(selector, options = {}) {
+    const { timeout = 5000, interval = 50 } = options;
+    const startTime = Date.now();
+    
+    while (Date.now() - startTime < timeout) {
+        const element = document.querySelector(selector);
+        if (!element) {
+            return;
+        }
+        await new Promise((resolve) => setTimeout(resolve, interval));
+    }
+    
+    throw new Error(`Element "${selector}" still present after ${timeout}ms`);
 }
 
 /**
- * Check if element has class
+ * Get computed styles for an element
+ * @param {HTMLElement} element - Element
+ * @returns {CSSStyleDeclaration} Computed styles
+ */
+export function getComputedStyles(element) {
+    return window.getComputedStyle(element);
+}
+
+/**
+ * Check if element is visible
  * @param {HTMLElement} element - Element to check
- * @param {string} className - Class name
- * @returns {boolean} True if element has class
+ * @returns {boolean} Whether element is visible
  */
-export function hasClass(element, className) {
-    return element.classList.contains(className);
+export function isVisible(element) {
+    if (!element) {
+        return false;
+    }
+    
+    const styles = getComputedStyles(element);
+    return (
+        styles.display !== 'none' &&
+        styles.visibility !== 'hidden' &&
+        styles.opacity !== '0'
+    );
 }
 
 /**
- * Add class to element
- * @param {HTMLElement} element - Element
- * @param {string} className - Class name to add
+ * Create a test container in the DOM
+ * @param {string} id - Container ID
+ * @returns {HTMLElement} Container element
  */
-export function addClass(element, className) {
-    element.classList.add(className);
-}
-
-/**
- * Remove class from element
- * @param {HTMLElement} element - Element
- * @param {string} className - Class name to remove
- */
-export function removeClass(element, className) {
-    element.classList.remove(className);
-}
-
-/**
- * Toggle class on element
- * @param {HTMLElement} element - Element
- * @param {string} className - Class name to toggle
- */
-export function toggleClass(element, className) {
-    element.classList.toggle(className);
+export function createTestContainer(id = 'test-container') {
+    let container = document.getElementById(id);
+    if (!container) {
+        container = createElement('div', { id });
+        document.body.appendChild(container);
+    }
+    return container;
 }
 

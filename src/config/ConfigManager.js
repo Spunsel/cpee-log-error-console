@@ -601,7 +601,23 @@ export class ConfigManager {
      * @returns {boolean} True if path exists
      */
     has(path) {
-        return this.get(path, undefined) !== undefined;
+        try {
+            const keys = path.split('.');
+            let current = this.config;
+            
+            for (const key of keys) {
+                if (current && typeof current === 'object' && key in current) {
+                    current = current[key];
+                } else {
+                    return false;
+                }
+            }
+            
+            return true;
+        } catch (error) {
+            console.warn(`ConfigManager: Error checking path '${path}':`, error);
+            return false;
+        }
     }
 
     /**
