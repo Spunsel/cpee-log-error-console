@@ -1,13 +1,18 @@
 /**
  * Mermaid Trace Calculator
- * Calculates all possible execution traces (paths) from Mermaid flowchart syntax
- * Uses graph traversal algorithm based on node types (similar to CPEETraceCalculator)
+ * Implements Graph Trace Analysis (GTA) approach from Tbaileh et al. (2017)
+ * 
+ * Reference: Tbaileh, A., Jain, H., Broadwater, R., Cordova, J., Arghandeh, R., & Dilek, M. (2017).
+ * Graph Trace Analysis: An object-oriented power flow, verifications and comparisons.
+ * Electric Power Systems Research, 147, 145-153.
+ * 
+ * This implementation adapts GTA concepts from power system analysis to workflow graph trace calculation.
  */
 
 import { Trace } from '../../models/Trace.js';
 import { MermaidParser } from '../content/MermaidParser.js';
 
-// Global constant for maximum loop iterations (default: 1)
+// Global constants
 const MAX_LOOP_ITERATIONS = 1;
 const TIMEOUT_MS = 2000;
 
@@ -23,7 +28,7 @@ class TimeoutChecker {
     check() {
         const elapsed = Date.now() - this.startTime;
         if (elapsed > this.timeoutMs) {
-            throw new Error(`Trace calculation exceeded ${this.timeoutMs}ms timeout. The Mermaid graph it too complex to calculate all traces.`);
+            throw new Error(`Trace calculation exceeded ${this.timeoutMs}ms timeout. The Mermaid graph is too complex to calculate all traces.`);
         }
     }
     
@@ -32,15 +37,381 @@ class TimeoutChecker {
     }
 }
 
+/**
+ * GTA Topology Iterators for Graph Structure
+ * Following the paper's definition of topology iterators, adapted for graph-based workflows
+ */
+class TopologyIterators {
+    /**
+     * Forward Iterator p[f]
+     * Returns next component(s) in forward trace direction (outgoing edges)
+     * @param {Object} graph - Graph object
+     * @param {string} nodeId - Current node ID
+     * @returns {Array<string>} Array of next node IDs (forward components)
+     */
+    static forwardIterator(graph, nodeId) {
+        const outgoingEdges = graph.adjacencyList.get(nodeId) || [];
+        return outgoingEdges.map(edge => edge.to);
+    }
+
+    /**
+     * Backward Iterator p[b]
+     * Returns previous component(s) in backward trace direction (incoming edges)
+     * @param {Object} graph - Graph object
+     * @param {string} nodeId - Current node ID
+     * @returns {Array<string>} Array of previous node IDs
+     */
+    static backwardIterator(graph, nodeId) {
+        const result = [];
+        for (const [fromId, edges] of graph.adjacencyList.entries()) {
+            if (edges.some(edge => edge.to === nodeId)) {
+                result.push(fromId);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Feeder Path Iterator p[fp]
+     * Returns component that supplies to p from reference source
+     * For workflows, this is the path from start to current node (same as forward trace)
+     * @param {Array<Object>} forwardTraceSet - Current forward trace set
+     * @returns {Array<Object>} Feeder path (tasks from start to current node)
+     */
+    static feederPathIterator(forwardTraceSet) {
+        // For workflows, feeder path is the accumulated forward trace set
+        return forwardTraceSet;
+    }
+
+    /**
+     * Cotree Iterator p[ct]
+     * Returns cotree component that, if removed, breaks an independent loop
+     * For workflows, this identifies nodes that create cycles
+     * @param {string} nodeId - Current node ID
+     * @param {Array<Object>} forwardTraceSet - Current forward trace set
+     * @returns {boolean} True if this node is a cotree edge (creates a loop)
+     */
+    static cotreeIterator(nodeId, forwardTraceSet) {
+        if (!nodeId) {
+            return false;
+        }
+        
+        // A cotree edge is one that creates a cycle when added to the forward trace
+        // Check if current node ID appears in forward trace set
+        return forwardTraceSet.some(task => {
+            const taskId = task.id || task.alt_id;
+            return taskId === nodeId;
+        });
+    }
+}
+
+/**
+ * GTA Trace Sets for Graph Structure
+ * Following the paper's definition of trace sets, adapted for graph-based workflows
+ */
+class TraceSets {
+    /**
+     * Forward Trace (FT_i)
+     * Ordered set created with recursive application of forward iterator f starting at component i
+     * FT_i = {p | p is reachable from i via forward iterator f}
+     * 
+     * @param {Object} graph - Graph object
+     * @param {string} currentNodeId - Current node ID
+     * @param {string} targetNodeId - Target end node ID
+     * @param {Array<Object>} currentFT - Current forward trace set
+     * @param {number} depth - Recursion depth
+     * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker
+     * @returns {Array<Array<Object>>} Array of forward trace arrays
+     */
+    static forwardTrace(graph, currentNodeId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker) {
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
+        
+        // Check if we reached the target
+        if (currentNodeId === targetNodeId) {
+            return [[...currentFT]]; // Return current forward trace set
+        }
+        
+        // Get node info
+        const node = graph.nodes.find(n => n.id === currentNodeId);
+        if (!node) {
+            return [];
+        }
+        
+        // Check if loop detected (cotree edge)
+        const isCotreeEdge = TopologyIterators.cotreeIterator(currentNodeId, currentFT);
+        if (isCotreeEdge) {
+            // Loop detected - apply bounded iteration
+            const loopCount = graph.nodesInMultipleLoops?.get(currentNodeId) || 1;
+            const visitLimit = (maxLoopIterations + 1) * loopCount;
+            
+            // Count how many times this node appears in current trace
+            const visitCount = currentFT.filter(task => {
+                const taskId = task.id || task.alt_id;
+                return taskId === currentNodeId;
+            }).length;
+            
+            if (visitCount >= visitLimit) {
+                return []; // Loop limit reached
+            }
+        }
+        
+        // Get outgoing edges (forward iterator)
+        const nextNodeIds = TopologyIterators.forwardIterator(graph, currentNodeId);
+        
+        if (nextNodeIds.length === 0) {
+            // Dead end (not the target)
+            return [];
+        }
+        
+        // Handle different node types
+        switch (node.type) {
+            case 'task': {
+                // Task node: add to forward trace set
+                const task = MermaidTraceCalculator.extractTask(node);
+                if (!task) {
+                    return [];
+                }
+                
+                // Create new forward trace set: FT_new = FT ∪ {task}
+                const newFT = [...currentFT, task];
+                
+                // Process next nodes with new forward trace set
+                return this.combineSequentialForwardTrace(
+                    graph,
+                    nextNodeIds,
+                    targetNodeId,
+                    newFT,
+                    depth + 1,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
+            case 'exclusivegateway': {
+                // XOR Gateway: union of alternatives
+                // Process each alternative with same forward trace set
+                const alternativeTraces = nextNodeIds.flatMap(nextNodeId => 
+                    this.forwardTrace(
+                        graph,
+                        nextNodeId,
+                        targetNodeId,
+                        currentFT,
+                        depth + 1,
+                        maxLoopIterations,
+                        timeoutChecker
+                    )
+                );
+                
+                return alternativeTraces;
+            }
+            
+            case 'parallelgateway': {
+                // AND Gateway: interleave parallel branches
+                return this.handleParallelGateway(
+                    graph,
+                    currentNodeId,
+                    targetNodeId,
+                    currentFT,
+                    depth,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
+            case 'startevent':
+            case 'endevent': {
+                // Start/end events: pass through (no task added)
+                return this.combineSequentialForwardTrace(
+                    graph,
+                    nextNodeIds,
+                    targetNodeId,
+                    currentFT,
+                    depth + 1,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
+            default: {
+                // Unknown node type: treat as pass-through
+                return this.combineSequentialForwardTrace(
+                    graph,
+                    nextNodeIds,
+                    targetNodeId,
+                    currentFT,
+                    depth + 1,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+        }
+    }
+
+    /**
+     * Handle parallel gateway - find join gateway and interleave branches
+     * @param {Object} graph - Graph object
+     * @param {string} splitGatewayId - Parallel split gateway node ID
+     * @param {string} targetNodeId - Target end node ID
+     * @param {Array<Object>} currentFT - Current forward trace set
+     * @param {number} depth - Current depth
+     * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
+     * @returns {Array<Array<Object>>} Array of trace arrays
+     */
+    static handleParallelGateway(graph, splitGatewayId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker = null) {
+        const outgoingEdges = graph.adjacencyList.get(splitGatewayId) || [];
+        
+        if (outgoingEdges.length === 0) {
+            return [];
+        }
+        
+        // Find the join gateway (parallel gateway that all branches connect to)
+        const branchStartIds = outgoingEdges.map(e => e.to);
+        const joinGateway = MermaidTraceCalculator.findJoinGateway(graph, splitGatewayId, branchStartIds);
+        
+        if (!joinGateway) {
+            // No join gateway found - treat branches as independent paths to target
+            const branchTraces = branchStartIds.flatMap(branchStartId => 
+                this.forwardTrace(
+                    graph,
+                    branchStartId,
+                    targetNodeId,
+                    currentFT,
+                    depth + 1,
+                    maxLoopIterations,
+                    timeoutChecker
+                )
+            );
+            return branchTraces;
+        }
+        
+        // Collect traces through each branch until join gateway
+        // Each branch processes with same forward trace set
+        const branchTraces = branchStartIds.map(branchStartId => {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+            return this.forwardTrace(
+                graph,
+                branchStartId,
+                joinGateway,
+                currentFT,
+                depth + 1,
+                maxLoopIterations,
+                timeoutChecker
+            );
+        });
+        
+        // Extract only the new tasks from each branch (remove the common prefix)
+        const branchSpecificTraces = branchTraces.map(branchTraceArray => 
+            branchTraceArray.map(trace => {
+                // Remove the common prefix (currentFT) from each trace
+                const prefixLength = currentFT.length;
+                return trace.slice(prefixLength);
+            })
+        );
+        
+        // Interleave branch-specific traces
+        const interleaved = MermaidTraceCalculator.interleave(branchSpecificTraces, timeoutChecker);
+        
+        // Continue from join gateway to target
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
+        const joinTraces = this.forwardTrace(
+            graph,
+            joinGateway,
+            targetNodeId,
+            currentFT,
+            depth + 1,
+            maxLoopIterations,
+            timeoutChecker
+        );
+        
+        // Combine interleaved traces with join traces
+        const result = [];
+        for (const interleavedTrace of interleaved) {
+            for (const joinTrace of joinTraces) {
+                // Prepend common prefix and combine
+                const combinedTrace = [...currentFT, ...interleavedTrace];
+                // Remove common prefix from join trace and append
+                const joinTraceSuffix = joinTrace.slice(currentFT.length);
+                result.push([...combinedTrace, ...joinTraceSuffix]);
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Combine Sequential Forward Trace
+     * Implements sequential processing where each next node receives accumulated trace set
+     * 
+     * @param {Object} graph - Graph object
+     * @param {Array<string>} nextNodeIds - Next node IDs to process
+     * @param {string} targetNodeId - Target end node ID
+     * @param {Array<Object>} initialFT - Initial forward trace set
+     * @param {number} depth - Recursion depth
+     * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker
+     * @returns {Array<Array<Object>>} Combined trace arrays
+     */
+    static combineSequentialForwardTrace(graph, nextNodeIds, targetNodeId, initialFT, depth, maxLoopIterations, timeoutChecker) {
+        if (nextNodeIds.length === 0) {
+            return [[...initialFT]];
+        }
+        
+        // Start with initial forward trace set
+        let currentTraces = [[...initialFT]];
+        
+        // Process each next node sequentially, accumulating forward trace set
+        for (const nextNodeId of nextNodeIds) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+            
+            const newTraces = [];
+            
+            // For each current trace, process next node and accumulate
+            for (const currentTrace of currentTraces) {
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
+                
+                // Process next node with current accumulated trace set
+                const nextTraces = this.forwardTrace(
+                    graph,
+                    nextNodeId,
+                    targetNodeId,
+                    currentTrace,
+                    depth + 1,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+                
+                // Accumulate next traces
+                newTraces.push(...nextTraces);
+            }
+            
+            currentTraces = newTraces;
+        }
+        
+        return currentTraces;
+    }
+}
+
 export class MermaidTraceCalculator {
     /**
-     * Calculate all possible execution traces from Mermaid syntax
+     * Calculate all possible execution traces from Mermaid syntax using GTA approach
      * @param {string} mermaidString - Mermaid flowchart syntax
      * @param {Object} options - Calculation options
      * @param {number} options.maxLoopIterations - Maximum loop iterations (default: 1)
      * @returns {Trace[]} Array of Trace objects
      */
-    static calculateAllTraces(mermaidString, options = {}) {        
+    static calculateAllTraces(mermaidString, options = {}) {
         // Log input for debugging
         if (!mermaidString || typeof mermaidString !== 'string') {
             console.warn('[MermaidTraceCalculator] Invalid input: mermaidString is', typeof mermaidString, mermaidString);
@@ -56,7 +427,6 @@ export class MermaidTraceCalculator {
         
         try {
             // Preprocess Mermaid code before calculating traces
-            // This ensures preprocessing always happens, regardless of how the calculator is called
             let preprocessedCode = mermaidString;
             try {
                 const preprocessResult = MermaidParser.cleanAndValidate(mermaidString, true);
@@ -64,22 +434,21 @@ export class MermaidTraceCalculator {
                 console.log('[MermaidTraceCalculator] Applied preprocessing before trace calculation');
             } catch (error) {
                 console.warn('[MermaidTraceCalculator] Failed to preprocess Mermaid code, using original:', error);
-                // Continue with original content if preprocessing fails
             }
             
-            // Parse Mermaid syntax to build graph (using preprocessed code)
+            // Parse Mermaid syntax to build graph
             const graph = this.parseMermaid(preprocessedCode);
             
             if (!graph || graph.nodes.length === 0) {
-                console.warn('[MermaidTraceCalculator] No valid graph found - parsed', graph ? graph.nodes.length : 0, 'nodes and', graph ? graph.edges.length : 0, 'edges');
+                console.warn('[MermaidTraceCalculator] No valid graph found');
                 return [];
             }
-                        
-            // Pre-process: Identify nodes in multiple loops (Alternative 3)
-            const nodesInMultipleLoops = this.identifyNodesInMultipleLoops(graph);
-            graph.nodesInMultipleLoops = nodesInMultipleLoops; // Store for use during traversal
             
-            // Find start and end nodes
+            // Pre-process: Identify nodes in multiple loops
+            const nodesInMultipleLoops = this.identifyNodesInMultipleLoops(graph);
+            graph.nodesInMultipleLoops = nodesInMultipleLoops;
+            
+            // Find start and end nodes (reference sources and targets)
             const startNodes = graph.nodes.filter(n => n.type === 'startevent');
             const endNodes = graph.nodes.filter(n => n.type === 'endevent');
             
@@ -93,21 +462,29 @@ export class MermaidTraceCalculator {
                 return [];
             }
             
-            // Calculate traces from each start node to each end node
+            // Calculate traces from each start node to each end node using GTA
             const allTraceArrays = [];
             
             for (const startNode of startNodes) {
                 for (const endNode of endNodes) {
-                    timeoutChecker.check(); // Check timeout before each path calculation
-                    const traceArrays = this.traces(
+                    if (timeoutChecker) {
+                        timeoutChecker.check();
+                    }
+                    
+                    // Initialize forward trace set: FT = [] (empty set)
+                    const initialForwardTrace = [];
+                    
+                    // Calculate traces using GTA forward trace
+                    const traceArrays = TraceSets.forwardTrace(
                         graph,
                         startNode.id,
                         endNode.id,
+                        initialForwardTrace,
                         0,
                         maxLoopIterations,
-                        new Map(),
                         timeoutChecker
                     );
+                    
                     allTraceArrays.push(...traceArrays);
                 }
             }
@@ -117,7 +494,11 @@ export class MermaidTraceCalculator {
             
             // Convert to Trace objects
             const traces = uniqueTraces.map((path, index) => {
-                const trace = new Trace(`trace-${index + 1}`, path, this.determineTraceType(path, graph));
+                const trace = new Trace(
+                    `trace-${index + 1}`,
+                    path,
+                    this.determineTraceType(path, graph)
+                );
                 return trace;
             });
             
@@ -128,317 +509,9 @@ export class MermaidTraceCalculator {
             if (error.message && error.message.includes('exceeded') && error.message.includes('timeout')) {
                 throw error;
             }
+            console.error('[MermaidTraceCalculator] Error calculating traces:', error);
             return [];
         }
-    }
-
-    /**
-     * Main graph traversal function
-     * Returns array of trace arrays (each trace is an array of task objects)
-     * @param {Object} graph - Graph object with nodes and edges
-     * @param {string} currentNodeId - Current node ID
-     * @param {string} targetNodeId - Target end node ID
-     * @param {number} depth - Current depth (for debugging)
-     * @param {number} maxLoopIterations - Maximum loop iterations
-     * @param {Map<string, number>} visitCounts - Map of node IDs to visit counts (for cycle detection)
-     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
-     * @returns {Array<Array<Object>>} Array of trace arrays
-     */
-    static traces(graph, currentNodeId, targetNodeId, depth = 0, maxLoopIterations = MAX_LOOP_ITERATIONS, visitCounts = new Map(), timeoutChecker = null) {
-        // Check timeout at the start of each recursive call
-        if (timeoutChecker) {
-            timeoutChecker.check();
-        }
-        
-        // Check if we reached the target
-        if (currentNodeId === targetNodeId) {
-            return [[]]; // Return empty trace (base case)
-        }
-        
-        // Get node info
-        const node = graph.nodes.find(n => n.id === currentNodeId);
-        if (!node) {
-            return [];
-        }
-        
-        // Check loop limit - allow maxLoopIterations + 1 visits (initial + loop iterations)
-        // For nodes in multiple loops, increase limit proportionally (Alternative 3)
-        const loopCount = graph.nodesInMultipleLoops?.get(currentNodeId) || 1;
-        const visitLimit = (maxLoopIterations + 1) * loopCount;
-        
-        const currentVisitCount = visitCounts.get(currentNodeId) || 0;
-        if (currentVisitCount >= visitLimit) {
-            return []; // Loop limit reached
-        }
-        
-        // Increment visit count for current node
-        const newVisitCounts = new Map(visitCounts);
-        newVisitCounts.set(currentNodeId, currentVisitCount + 1);
-        
-        // Get outgoing edges
-        const outgoingEdges = graph.adjacencyList.get(currentNodeId) || [];
-        
-        if (outgoingEdges.length === 0) {
-            // Dead end (not the target)
-            return [];
-        }
-        
-        // Handle different node types
-        switch (node.type) {
-            case 'task': {
-                // Task node - extract task and continue
-                const task = this.extractTask(node);
-                if (!task) {
-                    return [];
-                }
-                
-                // Get traces from all outgoing edges
-                const childTraceSets = outgoingEdges.map(edge => {
-                    if (timeoutChecker) {
-                        timeoutChecker.check();
-                    }
-                    return this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts, timeoutChecker);
-                });
-                
-                // If multiple outgoing edges, treat as alternatives (union)
-                // Otherwise, combine sequentially: task + each child trace
-                if (outgoingEdges.length > 1) {
-                    const alternativeTraces = this.union(childTraceSets);
-                    return alternativeTraces.map(trace => [task, ...trace]);
-                } else {
-                    // Single outgoing edge - combine sequentially
-                    const result = [];
-                    for (const childTraces of childTraceSets) {
-                        for (const childTrace of childTraces) {
-                            result.push([task, ...childTrace]);
-                        }
-                    }
-                    return result;
-                }
-            }
-            
-            case 'exclusivegateway': {
-                // Exclusive gateway (XOR) - union of all alternatives
-                const alternativeTraces = outgoingEdges.map(edge => {
-                    if (timeoutChecker) {
-                        timeoutChecker.check();
-                    }
-                    return this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts, timeoutChecker);
-                });
-                return this.union(alternativeTraces);
-            }
-            
-            case 'parallelgateway': {
-                // Parallel gateway - need to find join gateway and interleave branches
-                return this.handleParallelGateway(
-                    graph,
-                    currentNodeId,
-                    targetNodeId,
-                    depth,
-                    maxLoopIterations,
-                    newVisitCounts,
-                    timeoutChecker
-                );
-            }
-            
-            case 'startevent':
-            case 'endevent': {
-                // Start/end events - just pass through
-                const childTraceSets = outgoingEdges.map(edge => {
-                    if (timeoutChecker) {
-                        timeoutChecker.check();
-                    }
-                    return this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts, timeoutChecker);
-                });
-                return this.combineSequential(childTraceSets, timeoutChecker);
-            }
-            
-            default: {
-                // Unknown node type - treat as pass-through
-                const childTraceSets = outgoingEdges.map(edge => {
-                    if (timeoutChecker) {
-                        timeoutChecker.check();
-                    }
-                    return this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, newVisitCounts, timeoutChecker);
-                });
-                return this.combineSequential(childTraceSets, timeoutChecker);
-            }
-        }
-    }
-
-    /**
-     * Handle parallel gateway - find join gateway and interleave branches
-     * @param {Object} graph - Graph object
-     * @param {string} splitGatewayId - Parallel split gateway node ID
-     * @param {string} targetNodeId - Target end node ID
-     * @param {number} depth - Current depth
-     * @param {number} maxLoopIterations - Maximum loop iterations
-     * @param {Map<string, number>} visitCounts - Map of visit counts
-     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
-     * @returns {Array<Array<Object>>} Array of trace arrays
-     */
-    static handleParallelGateway(graph, splitGatewayId, targetNodeId, depth, maxLoopIterations, visitCounts, timeoutChecker = null) {
-        const outgoingEdges = graph.adjacencyList.get(splitGatewayId) || [];
-        
-        if (outgoingEdges.length === 0) {
-            return [];
-        }
-        
-        // Find the join gateway (parallel gateway that all branches connect to)
-        const joinGateway = this.findJoinGateway(graph, splitGatewayId, outgoingEdges.map(e => e.to));
-        
-        if (!joinGateway) {
-            // No join gateway found - treat branches as independent paths to target
-            const branchTraces = outgoingEdges.map(edge => {
-                if (timeoutChecker) {
-                    timeoutChecker.check();
-                }
-                return this.traces(graph, edge.to, targetNodeId, depth + 1, maxLoopIterations, new Map(visitCounts), timeoutChecker);
-            });
-            return this.union(branchTraces);
-        }
-        
-        // Collect traces through each branch until join gateway
-        // Each branch should use a fresh visit count map to allow independent exploration
-        const branchTraceSets = [];
-        
-        for (const edge of outgoingEdges) {
-            if (timeoutChecker) {
-                timeoutChecker.check();
-            }
-            const branchTraces = this.traces(
-                graph,
-                edge.to,
-                joinGateway,
-                depth + 1,
-                maxLoopIterations,
-                new Map(visitCounts),
-                timeoutChecker
-            );
-            branchTraceSets.push(branchTraces);
-        }
-        
-        // Interleave branches (generate all permutations of branch orderings)
-        const interleavedTraces = this.interleave(branchTraceSets, timeoutChecker);
-        
-        // Continue from join gateway to target
-        // Use the original visitCounts to maintain loop limits across the parallel section
-        if (timeoutChecker) {
-            timeoutChecker.check();
-        }
-        const joinTraces = this.traces(
-            graph,
-            joinGateway,
-            targetNodeId,
-            depth + 1,
-            maxLoopIterations,
-            new Map(visitCounts),
-            timeoutChecker
-        );
-        
-        // Combine interleaved traces with join traces
-        const result = [];
-        for (const interleavedTrace of interleavedTraces) {
-            for (const joinTrace of joinTraces) {
-                result.push([...interleavedTrace, ...joinTrace]);
-            }
-        }
-        
-        return result;
-    }
-
-    /**
-     * Find the join gateway for a parallel split gateway
-     * @param {Object} graph - Graph object
-     * @param {string} splitGatewayId - Split gateway ID
-     * @param {Array<string>} branchStartIds - IDs of nodes where branches start
-     * @returns {string|null} Join gateway ID or null
-     */
-    static findJoinGateway(graph, splitGatewayId, branchStartIds) {
-        // Look for a parallel gateway that all branches can reach
-        for (const node of graph.nodes) {
-            if (node.type === 'parallelgateway' && node.id !== splitGatewayId) {
-                // Check if all branches can reach this gateway
-                let allBranchesReach = true;
-                for (const branchStartId of branchStartIds) {
-                    if (!this.pathExists(graph, branchStartId, node.id)) {
-                        allBranchesReach = false;
-                        break;
-                    }
-                }
-                
-                if (allBranchesReach) {
-                    return node.id;
-                }
-            }
-        }
-        
-        return null;
-    }
-
-    /**
-     * Check if a path exists from source to target
-     * @param {Object} graph - Graph object
-     * @param {string} source - Source node ID
-     * @param {string} target - Target node ID
-     * @param {number} maxDepth - Maximum search depth (default: 50)
-     * @param {Set<string>} visited - Visited nodes (for cycle detection)
-     * @returns {boolean} True if path exists
-     */
-    static pathExists(graph, source, target, maxDepth = 50, visited = new Set()) {
-        if (source === target) {
-            return true;
-        }
-        if (maxDepth <= 0 || visited.has(source)) {
-            return false;
-        }
-        
-        const newVisited = new Set(visited);
-        newVisited.add(source);
-        
-        const neighbors = graph.adjacencyList.get(source) || [];
-        for (const edge of neighbors) {
-            if (this.pathExists(graph, edge.to, target, maxDepth - 1, newVisited)) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-
-    /**
-     * Cartesian product concatenation
-     * Combines sequences sequentially (each trace from first set concatenated with each trace from second set)
-     * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace set arrays
-     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
-     * @returns {Array<Array<Object>>} Combined trace arrays
-     */
-    static combineSequential(listOfTraceSets, timeoutChecker = null) {
-        if (listOfTraceSets.length === 0) {
-            return [[]];
-        }
-        
-        return listOfTraceSets.reduce(
-            (acc, next) => {
-                // acc is array of traces (each trace is array of tasks)
-                // next is array of traces (each trace is array of tasks)
-                // For each trace in acc, concatenate with each trace in next
-                const result = [];
-                for (const a of acc) {
-                    if (timeoutChecker) {
-                        timeoutChecker.check();
-                    }
-                    for (const b of next) {
-                        if (timeoutChecker) {
-                            timeoutChecker.check();
-                        }
-                        result.push([...a, ...b]);
-                    }
-                }
-                return result;
-            },
-            [[]] // Start with empty trace
-        );
     }
 
     /**
@@ -456,7 +529,6 @@ export class MermaidTraceCalculator {
             return branches[0];
         }
         
-        // Check timeout before generating permutations
         if (timeoutChecker) {
             timeoutChecker.check();
         }
@@ -472,15 +544,19 @@ export class MermaidTraceCalculator {
             if (timeoutChecker) {
                 timeoutChecker.check();
             }
-            // Get one trace from each branch (cartesian product)
-            const branchTraces = perm.map(idx => branches[idx]);
-            const combinations = this.cartesianProduct(branchTraces, timeoutChecker);
+            
+            // Get trace arrays for each branch in permutation order
+            const branchTraceArrays = perm.map(idx => branches[idx]);
+            
+            // Take cartesian product: one trace from each branch
+            const combinations = this.cartesianProduct(branchTraceArrays, timeoutChecker);
             
             // For each combination, concatenate the traces in order
             for (const combination of combinations) {
                 if (timeoutChecker) {
                     timeoutChecker.check();
                 }
+                // Each element in combination is a trace (array of tasks)
                 const concatenated = combination.flat();
                 result.push(concatenated);
             }
@@ -546,15 +622,6 @@ export class MermaidTraceCalculator {
     }
 
     /**
-     * Union of trace sets (flatten array of trace arrays)
-     * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace set arrays
-     * @returns {Array<Array<Object>>} Flattened trace arrays
-     */
-    static union(listOfTraceSets) {
-        return listOfTraceSets.flat();
-    }
-
-    /**
      * Extract task information from task node
      * @param {Object} node - Node object
      * @returns {Object|null} Task object: {id, alt_id, task} or null
@@ -574,6 +641,65 @@ export class MermaidTraceCalculator {
             console.error('[MermaidTraceCalculator] Error extracting task:', error);
             return null;
         }
+    }
+
+    /**
+     * Find the join gateway for a parallel split gateway
+     * @param {Object} graph - Graph object
+     * @param {string} splitGatewayId - Split gateway ID
+     * @param {Array<string>} branchStartIds - IDs of nodes where branches start
+     * @returns {string|null} Join gateway ID or null
+     */
+    static findJoinGateway(graph, splitGatewayId, branchStartIds) {
+        // Look for a parallel gateway that all branches can reach
+        for (const node of graph.nodes) {
+            if (node.type === 'parallelgateway' && node.id !== splitGatewayId) {
+                // Check if all branches can reach this gateway
+                let allBranchesReach = true;
+                for (const branchStartId of branchStartIds) {
+                    if (!this.pathExists(graph, branchStartId, node.id)) {
+                        allBranchesReach = false;
+                        break;
+                    }
+                }
+                
+                if (allBranchesReach) {
+                    return node.id;
+                }
+            }
+        }
+        
+        return null;
+    }
+
+    /**
+     * Check if a path exists from source to target
+     * @param {Object} graph - Graph object
+     * @param {string} source - Source node ID
+     * @param {string} target - Target node ID
+     * @param {number} maxDepth - Maximum search depth (default: 50)
+     * @param {Set<string>} visited - Visited nodes (for cycle detection)
+     * @returns {boolean} True if path exists
+     */
+    static pathExists(graph, source, target, maxDepth = 50, visited = new Set()) {
+        if (source === target) {
+            return true;
+        }
+        if (maxDepth <= 0 || visited.has(source)) {
+            return false;
+        }
+        
+        const newVisited = new Set(visited);
+        newVisited.add(source);
+        
+        const neighbors = graph.adjacencyList.get(source) || [];
+        for (const edge of neighbors) {
+            if (this.pathExists(graph, edge.to, target, maxDepth - 1, newVisited)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     /**
@@ -597,14 +723,13 @@ export class MermaidTraceCalculator {
         );
                 
         // Parse nodes and edges
-        let lastNodeId = null; // Track last node for continuation lines
+        let lastNodeId = null;
         let skippedLines = 0;
         for (const line of contentLines) {
             // Parse edge: node1 --> node2 or node1 -->|label| node2
             const arrowIndex = line.indexOf('-->');
             if (arrowIndex === -1) {
-                // No arrow - might be a node definition, try to extract it
-                // Check if it looks like a node: id:type:(label)
+                // No arrow - might be a node definition
                 const nodeMatch = line.match(/^([^:]+):([^:]+):(.+)$/);
                 if (nodeMatch) {
                     lastNodeId = line.trim();
@@ -616,25 +741,22 @@ export class MermaidTraceCalculator {
             const beforeArrow = line.substring(0, arrowIndex).trim();
             const afterArrow = line.substring(arrowIndex + 3).trim();
             
-            // Handle continuation lines (arrow on separate line)
+            // Handle continuation lines
             let fromNodeIdFull;
             if (beforeArrow) {
-                // Normal case: node1 --> node2
                 fromNodeIdFull = beforeArrow;
-                lastNodeId = beforeArrow; // Update last node
+                lastNodeId = beforeArrow;
             } else if (lastNodeId) {
-                // Continuation line: --> node2 (use last node as source)
                 fromNodeIdFull = lastNodeId;
             } else {
-                // Skip invalid edge (no source node)
                 skippedLines++;
-                if (skippedLines <= 5) { // Only log first 5 skipped lines to avoid spam
+                if (skippedLines <= 5) {
                     console.warn(`[MermaidTraceCalculator] Skipping edge with no source: ${line}`);
                 }
                 continue;
             }
             
-            // Extract edge label if present: |label|
+            // Extract edge label if present
             let edgeLabel = null;
             let toNodeId = afterArrow;
             
@@ -646,21 +768,20 @@ export class MermaidTraceCalculator {
             
             const toNodeIdFull = toNodeId;
             
-            // Ensure nodes exist and get their short IDs
+            // Ensure nodes exist
             const fromNodeId = this.ensureNodeExists(graph, fromNodeIdFull);
             const toNodeIdShort = this.ensureNodeExists(graph, toNodeIdFull);
             
-            // Update last node to the destination
             lastNodeId = toNodeIdFull;
             
-            // Add edge (using short IDs)
+            // Add edge
             graph.edges.push({
                 from: fromNodeId,
                 to: toNodeIdShort,
                 label: edgeLabel
             });
             
-            // Add to adjacency list (using short IDs)
+            // Add to adjacency list
             if (!graph.adjacencyList.has(fromNodeId)) {
                 graph.adjacencyList.set(fromNodeId, []);
             }
@@ -680,17 +801,16 @@ export class MermaidTraceCalculator {
     /**
      * Ensure a node exists in the graph, parsing it if needed
      * @param {Object} graph - Graph object
-     * @param {string} nodeId - Node identifier (full ID like "0:startevent:((startevent))")
-     * @returns {string} The short node ID (like "0")
+     * @param {string} nodeId - Node identifier
+     * @returns {string} The short node ID
      */
     static ensureNodeExists(graph, nodeId) {
-        // Check if node already exists by fullId
         const existingNode = graph.nodes.find(n => n.fullId === nodeId);
         if (existingNode) {
-            return existingNode.id; // Return the short ID
+            return existingNode.id;
         }
         
-        // Parse node definition: id:type:(label) or id:type:{label} or id:type:((label))
+        // Parse node definition: id:type:(label)
         const nodeMatch = nodeId.match(/^([^:]+):([^:]+):(.+)$/);
         
         let shortId, nodeType, nodeLabel;
@@ -701,34 +821,28 @@ export class MermaidTraceCalculator {
             nodeType = type.trim();
             let label = '';
             
-            // Extract label from parentheses or curly braces (handle nested)
+            // Extract label from parentheses or curly braces
             if (labelPart.startsWith('(') && labelPart.endsWith(')')) {
-                // Remove outer parentheses (handle nested like ((label)))
                 label = labelPart.slice(1, -1);
-                // If still has outer parentheses, remove them too
                 if (label.startsWith('(') && label.endsWith(')')) {
                     label = label.slice(1, -1);
                 }
             } else if (labelPart.startsWith('{') && labelPart.endsWith('}')) {
-                // Remove outer curly braces
                 label = labelPart.slice(1, -1);
             } else {
-                // No parentheses/braces, use as-is
                 label = labelPart;
             }
             
             nodeLabel = label.trim();
         } else {
-            // If parsing fails, use the full ID as both short ID and label
             shortId = nodeId;
             nodeType = 'unknown';
             nodeLabel = nodeId;
         }
         
-        // Check if a node with this short ID already exists
+        // Check if node with short ID already exists
         const existingShortIdNode = graph.nodes.find(n => n.id === shortId);
         if (existingShortIdNode) {
-            // Update the fullId if different
             if (existingShortIdNode.fullId !== nodeId) {
                 existingShortIdNode.fullId = nodeId;
             }
@@ -746,23 +860,19 @@ export class MermaidTraceCalculator {
     }
 
     /**
-     * Identify nodes that are part of multiple loops (Alternative 3)
-     * Detects cycles in the graph and counts how many loops each node belongs to
-     * @param {Object} graph - Graph object with nodes and edges
-     * @returns {Map<string, number>} Map of nodeId -> loopCount (only for nodes in multiple loops)
+     * Identify nodes that are part of multiple loops
+     * @param {Object} graph - Graph object
+     * @returns {Map<string, number>} Map of nodeId -> loopCount
      */
     static identifyNodesInMultipleLoops(graph) {
         const nodeLoopCounts = new Map();
         
-        // Initialize all nodes with 0 loop count
         for (const node of graph.nodes) {
             nodeLoopCounts.set(node.id, 0);
         }
         
-        // Find all cycles in the graph
         const cycles = this.findAllCycles(graph);
         
-        // Count how many cycles each node belongs to
         for (const cycle of cycles) {
             for (const nodeId of cycle) {
                 const currentCount = nodeLoopCounts.get(nodeId) || 0;
@@ -770,7 +880,6 @@ export class MermaidTraceCalculator {
             }
         }
         
-        // Return only nodes that are in multiple loops (loopCount > 1)
         const result = new Map();
         for (const [nodeId, loopCount] of nodeLoopCounts) {
             if (loopCount > 1) {
@@ -783,25 +892,20 @@ export class MermaidTraceCalculator {
 
     /**
      * Find all cycles in the graph
-     * A cycle is a path that starts and ends at the same node
-     * @param {Object} graph - Graph object with nodes and edges
-     * @returns {Array<Set<string>>} Array of cycles, each cycle is a Set of node IDs
+     * @param {Object} graph - Graph object
+     * @returns {Array<Set<string>>} Array of cycles
      */
     static findAllCycles(graph) {
         const allCycles = [];
-        const cycleSignatures = new Set(); // To avoid duplicates
+        const cycleSignatures = new Set();
         
-        // For each node, try to find cycles starting from it
         for (const node of graph.nodes) {
-            // Find cycles starting from this node
             const cyclesFromNode = this.findCyclesFromNode(graph, node.id, new Set(), []);
             
             for (const cycle of cyclesFromNode) {
-                // Create a normalized signature for the cycle (sorted node IDs)
                 const cycleSet = new Set(cycle);
                 const signature = Array.from(cycleSet).sort().join(',');
                 
-                // Only add if we haven't seen this cycle before
                 if (!cycleSignatures.has(signature) && cycleSet.size > 1) {
                     cycleSignatures.add(signature);
                     allCycles.push(cycleSet);
@@ -813,41 +917,36 @@ export class MermaidTraceCalculator {
     }
 
     /**
-     * Find cycles starting from a specific node using DFS
+     * Find cycles starting from a specific node
      * @param {Object} graph - Graph object
      * @param {string} currentNode - Current node ID
      * @param {Set<string>} visitedInPath - Nodes visited in current path
      * @param {Array<string>} currentPath - Current path being explored
-     * @param {number} maxDepth - Maximum search depth (default: 20)
-     * @returns {Array<Array<string>>} Array of cycles (each cycle is an array of node IDs)
+     * @param {number} maxDepth - Maximum search depth
+     * @returns {Array<Array<string>>} Array of cycles
      */
     static findCyclesFromNode(graph, currentNode, visitedInPath = new Set(), currentPath = [], maxDepth = 20) {
         if (maxDepth <= 0) {
             return [];
         }
         
-        // If we've visited this node in the current path, we found a cycle
         if (visitedInPath.has(currentNode)) {
             const cycleStartIndex = currentPath.indexOf(currentNode);
             if (cycleStartIndex !== -1) {
-                // Extract the cycle: from cycleStartIndex to end, then back to start
                 const cycle = currentPath.slice(cycleStartIndex);
-                cycle.push(currentNode); // Complete the cycle by returning to start
+                cycle.push(currentNode);
                 return [cycle];
             }
             return [];
         }
         
-        // Add current node to path
         const newVisitedInPath = new Set(visitedInPath);
         newVisitedInPath.add(currentNode);
         const newPath = [...currentPath, currentNode];
         
-        // Get outgoing edges
         const neighbors = graph.adjacencyList.get(currentNode) || [];
         const cycles = [];
         
-        // Explore each neighbor
         for (const edge of neighbors) {
             const cyclesFromNeighbor = this.findCyclesFromNode(
                 graph,
@@ -872,7 +971,6 @@ export class MermaidTraceCalculator {
         const result = [];
         
         for (const trace of traces) {
-            // Skip empty traces
             if (trace.length === 0) {
                 continue;
             }
@@ -889,25 +987,18 @@ export class MermaidTraceCalculator {
 
     /**
      * Determine trace type based on path
-     * Checks if repeated nodes indicate a true cycle (loop) vs parallel convergence
      * @param {Array<Object>} path - Path array
-     * @param {Object} graph - Graph object (optional, for cycle detection)
+     * @param {Object} graph - Graph object
      * @returns {string} Trace type
      */
     static determineTraceType(path, graph = null) {
         const nodeIds = path.map(t => t.id || t.alt_id);
         const uniqueNodes = new Set(nodeIds);
         
-        // If no repeated nodes, it's sequential
         if (nodeIds.length === uniqueNodes.size) {
             return 'sequential';
         }
         
-        // Check if repeated nodes indicate a true cycle
-        // A true loop means there's a path from a repeated node back to itself
-        // Parallel convergence means a node appears twice but it's just a join point
-        
-        // Find all repeated nodes
         const nodeOccurrences = new Map();
         for (let i = 0; i < nodeIds.length; i++) {
             const nodeId = nodeIds[i];
@@ -917,48 +1008,40 @@ export class MermaidTraceCalculator {
             nodeOccurrences.get(nodeId).push(i);
         }
         
-        // Check each repeated node to see if it's part of a cycle
         for (const [nodeId, indices] of nodeOccurrences) {
             if (indices.length < 2) {
-                continue; // Not repeated
+                continue;
             }
             
-            // Check if there's a path from this node back to itself in the graph
-            // This indicates a true cycle, not just parallel convergence
             if (graph && this.hasCycleIncludingNode(graph, nodeId)) {
                 return 'loop';
             }
             
-            // If graph is not available, default to 'loop' for backward compatibility
-            // (we can't distinguish without graph structure
             if (!graph) {
                 return 'loop';
             }
         }
         
-        // If we have graph but no cycles found, it's sequential (parallel convergence)
         return 'sequential';
     }
     
     /**
-     * Check if a node is part of a cycle in the graph
+     * Check if a node is part of a cycle
      * @param {Object} graph - Graph object
      * @param {string} nodeId - Node ID to check
      * @returns {boolean} True if node is part of a cycle
      */
     static hasCycleIncludingNode(graph, nodeId) {
-        // Check if there's a path from this node back to itself
-        // (excluding direct self-loops which are handled separately)
         const visited = new Set();
         return this.hasPathToSelf(graph, nodeId, nodeId, visited, 50);
     }
     
     /**
-     * Check if there's a path from a node back to itself (cycle detection)
+     * Check if there's a path from a node back to itself
      * @param {Object} graph - Graph object
      * @param {string} startNode - Starting node
-     * @param {string} targetNode - Target node (same as start for cycle)
-     * @param {Set<string>} visited - Visited nodes in current path
+     * @param {string} targetNode - Target node
+     * @param {Set<string>} visited - Visited nodes
      * @param {number} maxDepth - Maximum search depth
      * @returns {boolean} True if path exists
      */
@@ -970,7 +1053,6 @@ export class MermaidTraceCalculator {
         const neighbors = graph.adjacencyList.get(startNode) || [];
         for (const edge of neighbors) {
             if (edge.to === targetNode && visited.size > 0) {
-                // Found a path back to target (cycle), but not a direct self-loop
                 return true;
             }
             
