@@ -263,6 +263,13 @@ body {
     color: var(--primary-dark);
 }
 
+/* Header Buttons Container */
+.header-buttons-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
 /* Dark Mode Toggle */
 .dark-mode-toggle {
     display: flex;
@@ -306,6 +313,60 @@ body {
     width: 20px;
     height: 20px;
     display: block;
+}
+
+/* Hide Title Button */
+.hide-title-button {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.hide-title-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    height: 36px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.hide-title-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.hide-title-icon svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+.hide-title-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.hide-title-btn:active {
+    background: var(--hover-bg-dark);
+    transform: scale(0.95);
+}
+
+.hide-title-btn:focus {
+    outline: 2px solid var(--copy-btn-focus-outline);
+    outline-offset: 2px;
 }
 
 /* Theme Info Button */

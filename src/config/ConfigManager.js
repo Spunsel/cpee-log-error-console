@@ -99,7 +99,8 @@ export class ConfigManager {
             instances: {
                 // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
                 processNumbers: [
-                    12319, 12318, 12317, 12316, 12315, 12314, 12312, 11540, 10741, 9934, 9808, 9802, 9785, 9784, 9779, 7676,
+                    12505, 12377, 12376, 12328, 12319, 12318,
+                    12317, 12316, 12315, 12314, 12312, 11540, 10741, 9934, 9808, 9802, 9785, 9784, 9779, 7676,
                     7567, 6775, 6770, 6561, 6560, 6554, 6552, 6550, 6548, 6547, 6098, 5919, 5898, 5820, 5814, 
                     5130, 5128, 5055, 5053, 5050, 5049, 5045, 5044, 5040, 5035, 4913, 4908, 4906, 4807, 3833, 
                     1606, 1529, 1528, 1527, 1524, 1523, 1510, 1467, 1465, 1393, 1388, 1317, 1314, 1266, 1258, 
@@ -345,6 +346,7 @@ export class ConfigManager {
                 
                 // UI elements
                 darkModeToggleContainer: 'dark-mode-toggle-container',
+                hideTitleButtonContainer: 'hide-title-button-container',
                 bugReportLink: 'bug-report-link',
                 
                 // Note: The following elements are dynamically created and registered by their components:

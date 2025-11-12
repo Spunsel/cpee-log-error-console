@@ -552,6 +552,21 @@ export const ICON_COLLAPSE_TRACE = `
 `;
 
 /**
+ * Title Collapse icon
+ * 16x16px for trace toggle buttons
+ */
+export const ICON_COLLAPSE_TITLE = `
+    <svg fill="currentColor" viewBox="-6.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" transform="matrix(1, 0, 0, -1, 0, 0)">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <title>dropdown</title>
+            <path d="M18.813 11.406l-7.906 9.906c-0.75 0.906-1.906 0.906-2.625 0l-7.906-9.906c-0.75-0.938-0.375-1.656 0.781-1.656h16.875c1.188 0 1.531 0.719 0.781 1.656z"></path>
+        </g>
+    </svg>
+`;
+
+/**
  * Expand Section icon - Vertical expand arrows
  * Represents expanding a section to fill browser height - 20x20px for section expand buttons
  */
@@ -668,6 +683,8 @@ export const ICONS = {
     // Section expand/collapse icons
     EXPAND_SECTION: ICON_EXPAND_SECTION,
     COLLAPSE_SECTION: ICON_COLLAPSE_SECTION,
+    // Title collapse icon
+    COLLAPSE_TITLE: ICON_COLLAPSE_TITLE,
     // Issue status icons
     ISSUE_CLOSED: ICON_ISSUE_CLOSED,
     ISSUE_OPEN: ICON_ISSUE_OPEN
