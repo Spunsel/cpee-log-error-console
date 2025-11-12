@@ -5125,8 +5125,178 @@
         // Expose functions globally
         window.calculateTraces = calculateTraces;
 
+        // CPEE renderer instance for custom input
+        let customCPEERenderer = null;
+
+        // Initialize CPEE renderer for custom input
+        async function initializeCustomCPEERenderer() {
+            if (!customCPEERenderer) {
+                customCPEERenderer = new CPEEWfAdaptorRenderer();
+                await customCPEERenderer.initialize('custom-cpee-graph-container', null, null);
+            }
+        }
+
+        // Custom input trace calculation
+        async function calculateCustomCPEETraces() {
+            const customInput = document.getElementById('custom-cpee-input').value.trim();
+            if (!customInput) {
+                alert('Please enter CPEE XML');
+                return;
+            }
+
+            const resultContainer = document.getElementById('custom-traces-result');
+            const graphContainer = document.getElementById('custom-cpee-graph-container');
+            resultContainer.innerHTML = '<div class="empty-state">Calculating traces...</div>';
+            if (graphContainer) {
+                graphContainer.innerHTML = '<div class="empty-state">Rendering graph...</div>';
+            }
+
+            try {
+                // Calculate traces
+                const traces = CPEETraceCalculator.calculateAllTraces(customInput, {
+                    maxLoopIterations: MAX_LOOP_ITERATIONS,
+                    maxPathLength: 100
+                });
+
+                resultContainer.innerHTML = '';
+                
+                if (traces.length === 0) {
+                    resultContainer.innerHTML = '<div class="empty-state">No traces calculated</div>';
+                } else {
+                    const countElement = document.getElementById('custom-traces-count');
+                    countElement.textContent = traces.length;
+
+                    traces.forEach((trace, index) => {
+                        const traceItem = document.createElement('div');
+                        traceItem.className = 'trace-item compact';
+                        
+                        // Create header
+                        const header = document.createElement('div');
+                        header.className = 'trace-item-header';
+                        
+                        const traceId = document.createElement('span');
+                        traceId.className = 'trace-id';
+                        traceId.textContent = `Trace ${index + 1}`;
+                        
+                        const traceType = document.createElement('span');
+                        traceType.className = 'trace-type';
+                        traceType.textContent = trace.type || 'sequential';
+                        
+                        header.appendChild(traceId);
+                        header.appendChild(traceType);
+                        
+                        // Create path
+                        const path = document.createElement('div');
+                        path.className = 'trace-path compact';
+                        
+                        trace.path.forEach((task, taskIndex) => {
+                            if (taskIndex > 0) {
+                                const separator = document.createTextNode(' → ');
+                                path.appendChild(separator);
+                            }
+                            
+                            const taskSpan = document.createElement('span');
+                            taskSpan.className = 'trace-task';
+                            const taskLabel = task.task || task.id || task.alt_id || '';
+                            const taskId = task.id || task.alt_id || '';
+                            taskSpan.textContent = `${taskLabel} (${taskId})`;
+                            path.appendChild(taskSpan);
+                        });
+                        
+                        traceItem.appendChild(header);
+                        traceItem.appendChild(path);
+                        resultContainer.appendChild(traceItem);
+                    });
+                }
+
+                // Render graph
+                try {
+                    await initializeCustomCPEERenderer();
+                    await customCPEERenderer.renderGraph(customInput);
+                    
+                    // Ensure proper scrolling after scaling
+                    setTimeout(() => {
+                        const svg = graphContainer?.querySelector('svg');
+                        if (svg) {
+                            const parent = svg.parentElement;
+                            if (parent && parent !== graphContainer) {
+                                parent.style.overflow = 'visible';
+                            }
+                        }
+                    }, 100);
+                } catch (renderError) {
+                    console.error('Error rendering CPEE graph:', renderError);
+                    if (graphContainer) {
+                        graphContainer.innerHTML = '';
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'empty-state';
+                        errorDiv.style.color = '#ef4444';
+                        errorDiv.textContent = `Error rendering graph: ${renderError.message}`;
+                        graphContainer.appendChild(errorDiv);
+                    }
+                }
+            } catch (error) {
+                resultContainer.innerHTML = '';
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'empty-state';
+                errorDiv.style.color = '#ef4444';
+                errorDiv.textContent = `Error: ${error.message}`;
+                resultContainer.appendChild(errorDiv);
+                
+                if (graphContainer) {
+                    graphContainer.innerHTML = '';
+                    const graphErrorDiv = document.createElement('div');
+                    graphErrorDiv.className = 'empty-state';
+                    graphErrorDiv.style.color = '#ef4444';
+                    graphErrorDiv.textContent = `Error: ${error.message}`;
+                    graphContainer.appendChild(graphErrorDiv);
+                }
+                console.error('Error calculating custom traces:', error);
+            }
+        }
+
+        // Expose custom function globally
+        window.calculateCustomCPEETraces = calculateCustomCPEETraces;
+
         // Load initial example
         loadExample('1528-Step1');
     </script>
+    
+    <div class="panel full-width" style="margin-top: 2rem; border-top: 2px solid #334155; padding-top: 2rem;">
+        <h2>Custom CPEE XML Input</h2>
+        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: flex-start;">
+            <textarea 
+                id="custom-cpee-input" 
+                placeholder="Enter CPEE XML here..."
+                style="flex: 1; padding: 0.75rem; border: 2px solid #475569; border-radius: 6px; background: #0f172a; color: #e2e8f0; font-family: 'Courier New', monospace; font-size: 0.875rem; min-height: 150px; resize: vertical;"
+            ></textarea>
+            <button class="btn" onclick="calculateCustomCPEETraces()" style="align-self: flex-start; margin-top: 0;">Calculate Traces</button>
+        </div>
+        <div class="trace-section compact">
+            <div class="trace-section-title">
+                <span>Calculated Traces</span>
+                <span class="trace-count" id="custom-traces-count">0</span>
+            </div>
+            <div id="custom-traces-result" class="compact-traces"></div>
+        </div>
+        
+        <div class="trace-section compact" style="margin-top: 2rem;">
+            <div class="trace-section-title">
+                <span>Graph Visualization</span>
+            </div>
+            <div id="custom-cpee-graph-container" style="background: #1e293b; border-radius: 6px; padding: 1rem; min-height: 300px; max-height: 800px; overflow: auto; border: 1px solid #334155;">
+                <style>
+                    #custom-cpee-graph-container svg {
+                        transform: scale(2);
+                        transform-origin: 0 0;
+                        display: block;
+                    }
+                    #custom-cpee-graph-container > div {
+                        overflow: visible;
+                    }
+                </style>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

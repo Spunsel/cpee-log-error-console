@@ -30,6 +30,7 @@ Object.defineProperty(global, 'navigator', {
 global.HTMLElement = dom.window.HTMLElement;
 global.Element = dom.window.Element;
 global.Node = dom.window.Node;
+global.DOMParser = dom.window.DOMParser;
 
 // Mock global fetch API
 global.fetch = async (url, options) => {
