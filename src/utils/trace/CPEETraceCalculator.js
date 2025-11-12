@@ -1,12 +1,17 @@
 /**
  * CPEE Trace Calculator
- * Calculates all possible execution traces (paths) from CPEE XML workflow
- * Uses graph traversal algorithm based on node types
+ * Implements Graph Trace Analysis (GTA) approach from Tbaileh et al. (2017)
+ * 
+ * Reference: Tbaileh, A., Jain, H., Broadwater, R., Cordova, J., Arghandeh, R., & Dilek, M. (2017).
+ * Graph Trace Analysis: An object-oriented power flow, verifications and comparisons.
+ * Electric Power Systems Research, 147, 145-153.
+ * 
+ * This implementation adapts GTA concepts from power system analysis to workflow graph trace calculation.
  */
 
 import { Trace } from '../../models/Trace.js';
 
-// Global constant for maximum loop iterations (default: 1)
+// Global constants
 const MAX_LOOP_ITERATIONS = 1;
 const TIMEOUT_MS = 2000;
 
@@ -22,7 +27,7 @@ class TimeoutChecker {
     check() {
         const elapsed = Date.now() - this.startTime;
         if (elapsed > this.timeoutMs) {
-            throw new Error(`Trace calculation exceeded ${this.timeoutMs}ms timeout. The CPEE graph it too complex to calculate all traces.`);
+            throw new Error(`Trace calculation exceeded ${this.timeoutMs}ms timeout. The CPEE graph is too complex to calculate all traces.`);
         }
     }
     
@@ -31,20 +36,426 @@ class TimeoutChecker {
     }
 }
 
+/**
+ * GTA Topology Iterators
+ * Following the paper's definition of topology iterators
+ */
+class TopologyIterators {
+    /**
+     * Forward Iterator p[f]
+     * Returns next component(s) in forward trace direction (children/outgoing edges)
+     * @param {Element} node - Current XML node
+     * @returns {Array<Element>} Array of child nodes (forward components)
+     */
+    static forwardIterator(node) {
+        return Array.from(node.children || []);
+    }
+
+    /**
+     * Backward Iterator p[b]
+     * Returns previous component(s) in backward trace direction (parent/incoming edges)
+     * For workflow execution traces, this is less relevant but included for completeness
+     * @param {Element} node - Current XML node
+     * @returns {Array<Element>} Array containing parent node (if exists)
+     */
+    static backwardIterator(node) {
+        return node.parentElement ? [node.parentElement] : [];
+    }
+
+    /**
+     * Feeder Path Iterator p[fp]
+     * Returns component that supplies to p from reference source
+     * For workflows, this is the path from start to current node (same as forward trace)
+     * @param {Element} node - Current XML node
+     * @param {Array<Object>} forwardTraceSet - Current forward trace set
+     * @returns {Array<Object>} Feeder path (tasks from start to current node)
+     */
+    static feederPathIterator(node, forwardTraceSet) {
+        // For workflows, feeder path is the accumulated forward trace set
+        return forwardTraceSet;
+    }
+
+    /**
+     * Cotree Iterator p[ct]
+     * Returns cotree component that, if removed, breaks an independent loop
+     * For workflows, this identifies loop nodes that create cycles
+     * @param {Element} node - Current XML node (loop node)
+     * @param {Array<Object>} forwardTraceSet - Current forward trace set
+     * @returns {boolean} True if this node is a cotree edge (creates a loop)
+     */
+    static cotreeIterator(node, forwardTraceSet) {
+        // Check if current node ID appears in forward trace set (loop detection)
+        const nodeId = node.getAttribute('id');
+        if (!nodeId) {
+            return false;
+        }
+        
+        // A cotree edge is one that creates a cycle when added to the forward trace
+        return forwardTraceSet.some(task => task.id === nodeId);
+    }
+}
+
+/**
+ * GTA Trace Sets
+ * Following the paper's definition of trace sets
+ */
+class TraceSets {
+    /**
+     * Forward Trace (FT_i)
+     * Ordered set created with recursive application of forward iterator f starting at component i
+     * FT_i = {p | p is reachable from i via forward iterator f}
+     * 
+     * @param {Element} node - Starting node
+     * @param {Array<Object>} currentFT - Current forward trace set
+     * @param {number} depth - Recursion depth
+     * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker
+     * @returns {Array<Array<Object>>} Array of forward trace arrays
+     */
+    static forwardTrace(node, currentFT, depth, maxLoopIterations, timeoutChecker) {
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
+        
+        const tagName = node.tagName ? node.tagName.toLowerCase() : '';
+        
+        switch (tagName) {
+            case 'call':
+            case 'manipulate':
+            case 'script': {
+                // Task node: add to forward trace set
+                const task = CPEETraceCalculator.extractTask(node);
+                if (!task) {
+                    return [];
+                }
+                
+                // Create new forward trace set: FT_new = FT ∪ {task}
+                const newFT = [...currentFT, task];
+                return [newFT];
+            }
+            
+            case 'description': {
+                // Sequential container: process children sequentially
+                return this.combineSequentialForwardTrace(
+                    TopologyIterators.forwardIterator(node),
+                    currentFT,
+                    depth,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
+            case 'choose': {
+                // XOR Gateway: union of alternatives
+                const alternatives = TopologyIterators.forwardIterator(node)
+                    .filter(child => child.tagName.toLowerCase() === 'alternative');
+                
+                if (alternatives.length === 0) {
+                    return [];
+                }
+                
+                // Process each alternative with same forward trace set
+                const alternativeTraces = alternatives.flatMap(alt => 
+                    this.forwardTrace(alt, currentFT, depth + 1, maxLoopIterations, timeoutChecker)
+                );
+                
+                return alternativeTraces;
+            }
+            
+            case 'alternative': {
+                // Alternative branch: process children sequentially
+                const children = TopologyIterators.forwardIterator(node)
+                    .filter(child => child.tagName.toLowerCase() !== 'condition');
+                
+                // Check for escape
+                const escapeIndex = children.findIndex(child => child.tagName.toLowerCase() === 'escape');
+                
+                if (escapeIndex !== -1) {
+                    const beforeEscape = children.slice(0, escapeIndex);
+                    if (beforeEscape.length > 0) {
+                        const traces = this.combineSequentialForwardTrace(
+                            beforeEscape,
+                            currentFT,
+                            depth + 1,
+                            maxLoopIterations,
+                            timeoutChecker
+                        );
+                        return traces.map(trace => {
+                            trace._terminatedByEscape = true;
+                            return trace;
+                        });
+                    } else {
+                        const emptyTrace = [...currentFT];
+                        emptyTrace._terminatedByEscape = true;
+                        return [emptyTrace];
+                    }
+                } else {
+                    return this.combineSequentialForwardTrace(
+                        children,
+                        currentFT,
+                        depth + 1,
+                        maxLoopIterations,
+                        timeoutChecker
+                    );
+                }
+            }
+            
+            case 'parallel': {
+                // AND Gateway: interleave parallel branches
+                const branches = TopologyIterators.forwardIterator(node)
+                    .filter(child => child.tagName.toLowerCase() === 'parallel_branch');
+                
+                if (branches.length === 0) {
+                    return [];
+                }
+                
+                // Process each branch with same forward trace set
+                const branchTraces = branches.map(branch => 
+                    this.forwardTrace(branch, currentFT, depth + 1, maxLoopIterations, timeoutChecker)
+                );
+                
+                // Extract only the new tasks from each branch (remove the common prefix)
+                // Each branch trace includes currentFT as prefix, we only want the branch-specific tasks
+                const branchSpecificTraces = branchTraces.map(branchTraceArray => 
+                    branchTraceArray.map(trace => {
+                        // Remove the common prefix (currentFT) from each trace
+                        // Only keep tasks that were added by this branch
+                        const prefixLength = currentFT.length;
+                        return trace.slice(prefixLength);
+                    })
+                );
+                
+                // Interleave branch-specific traces
+                const interleaved = CPEETraceCalculator.interleave(branchSpecificTraces, timeoutChecker);
+                
+                // Prepend the common prefix to each interleaved result
+                return interleaved.map(interleavedTrace => [...currentFT, ...interleavedTrace]);
+            }
+            
+            case 'parallel_branch': {
+                // Parallel branch: process children sequentially
+                const children = TopologyIterators.forwardIterator(node)
+                    .filter(child => child.tagName.toLowerCase() !== 'condition');
+                
+                return this.combineSequentialForwardTrace(
+                    children,
+                    currentFT,
+                    depth + 1,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
+            case 'loop': {
+                // Loop: implement Loop Trace (LT) using cotree concept
+                return this.loopTrace(
+                    node,
+                    currentFT,
+                    depth,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
+            case 'escape': {
+                // Escape terminates trace early
+                return [];
+            }
+            
+            default: {
+                // Unknown element: try to process children
+                const children = TopologyIterators.forwardIterator(node);
+                if (children.length > 0) {
+                    return this.combineSequentialForwardTrace(
+                        children,
+                        currentFT,
+                        depth + 1,
+                        maxLoopIterations,
+                        timeoutChecker
+                    );
+                }
+                return [];
+            }
+        }
+    }
+
+    /**
+     * Loop Trace (LT_ct)
+     * Ordered set created by union of recursive application of fp, starting at the cotree edge for ct,
+     * with recursive application of fp, starting at the adjacent edge for ct
+     * 
+     * For workflows: detects cycles and applies bounded iteration
+     * 
+     * @param {Element} loopNode - Loop node
+     * @param {Array<Object>} currentFT - Current forward trace set
+     * @param {number} depth - Recursion depth
+     * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker
+     * @returns {Array<Array<Object>>} Array of loop trace arrays
+     */
+    static loopTrace(loopNode, currentFT, depth, maxLoopIterations, timeoutChecker) {
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
+        
+        const children = TopologyIterators.forwardIterator(loopNode)
+            .filter(child => child.tagName.toLowerCase() !== 'condition');
+        
+        // Process loop body to get body traces
+        const bodyTraces = this.combineSequentialForwardTrace(
+            children,
+            [], // Start with empty FT for loop body
+            depth + 1,
+            maxLoopIterations,
+            timeoutChecker
+        );
+        
+        // Check if loop node is a cotree edge (creates a cycle)
+        const loopNodeId = loopNode.getAttribute('id');
+        const isCotreeEdge = loopNodeId ? 
+            TopologyIterators.cotreeIterator(loopNode, currentFT) : false;
+        
+        // Get loop mode
+        const mode = loopNode.getAttribute('mode')?.toLowerCase() || 'pre_test';
+        
+        // Determine iteration limit based on cotree detection
+        // If loop detected in forward trace (cotree edge), limit iterations
+        const iterationLimit = isCotreeEdge ? 1 : maxLoopIterations;
+        const maxIter = Math.min(iterationLimit, 2);
+        
+        const result = [];
+        
+        // Check if loop is directly connected to end node
+        const isLastElement = loopNode.nextElementSibling === null;
+        const parentTag = loopNode.parentElement ? 
+            loopNode.parentElement.tagName.toLowerCase() : '';
+        const isDirectlyConnectedToEnd = isLastElement && parentTag === 'description';
+        
+        // 0 iterations (condition false from start)
+        // Skip 0 iterations if loop is directly connected to end node
+        if (!isDirectlyConnectedToEnd) {
+            if (mode === 'pre_test' || mode === 'post_test') {
+                // Return current forward trace (no loop execution)
+                result.push([...currentFT]);
+            } else {
+                // Check if loop is before closing XOR
+                const isBeforeClosingXor = isLastElement && 
+                    (parentTag === 'choose' || parentTag === 'alternative');
+                const isInsideLoop = parentTag === 'loop';
+                
+                if ((!isLastElement || isInsideLoop) && !isBeforeClosingXor) {
+                    result.push([...currentFT]);
+                }
+            }
+        }
+        
+        // 1 iteration
+        if (maxIter >= 1) {
+            // Combine current FT with body traces
+            for (const bodyTrace of bodyTraces) {
+                result.push([...currentFT, ...bodyTrace]);
+            }
+        }
+        
+        // 2 iterations (if allowed)
+        if (maxIter >= 2) {
+            // For 2 iterations, combine body traces twice
+            for (const bodyTrace1 of bodyTraces) {
+                for (const bodyTrace2 of bodyTraces) {
+                    result.push([...currentFT, ...bodyTrace1, ...bodyTrace2]);
+                }
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Combine Sequential Forward Trace
+     * Implements sequential processing where each child receives accumulated trace set
+     * from previous children (GTA forward trace accumulation)
+     * 
+     * @param {Array<Element>} children - Child nodes to process
+     * @param {Array<Object>} initialFT - Initial forward trace set
+     * @param {number} depth - Recursion depth
+     * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker
+     * @returns {Array<Array<Object>>} Combined trace arrays
+     */
+    static combineSequentialForwardTrace(children, initialFT, depth, maxLoopIterations, timeoutChecker) {
+        if (children.length === 0) {
+            return [[...initialFT]];
+        }
+        
+        // Start with initial forward trace set
+        let currentTraces = [[...initialFT]];
+        
+        // Process each child sequentially, accumulating forward trace set
+        for (const child of children) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+            
+            const newTraces = [];
+            
+            // For each current trace, process child and accumulate
+            for (const currentTrace of currentTraces) {
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
+                
+                // Check if trace was terminated by escape
+                const isTerminated = currentTrace._terminatedByEscape === true;
+                
+                if (isTerminated) {
+                    // If terminated, don't process further children
+                    newTraces.push(currentTrace);
+                } else {
+                    // Process child with current accumulated trace set
+                    const childTraces = this.forwardTrace(
+                        child,
+                        currentTrace,
+                        depth + 1,
+                        maxLoopIterations,
+                        timeoutChecker
+                    );
+                    
+                    // Accumulate child traces
+                    for (const childTrace of childTraces) {
+                        if (timeoutChecker) {
+                            timeoutChecker.check();
+                        }
+                        
+                        // Preserve termination flag
+                        if (childTrace._terminatedByEscape) {
+                            newTraces.push(childTrace);
+                        } else {
+                            newTraces.push(childTrace);
+                        }
+                    }
+                }
+            }
+            
+            currentTraces = newTraces;
+        }
+        
+        return currentTraces;
+    }
+}
+
 export class CPEETraceCalculator {
     /**
-     * Calculate all possible execution traces from CPEE XML
+     * Calculate all possible execution traces from CPEE XML using GTA approach
      * @param {string} xmlString - CPEE XML content
      * @param {Object} options - Calculation options
      * @param {number} options.maxLoopIterations - Maximum loop iterations (default: 1)
      * @returns {Trace[]} Array of Trace objects
      */
-    static calculateAllTraces(xmlString, options = {}) {        
+    static calculateAllTraces(xmlString, options = {}) {
         const maxLoopIterations = options.maxLoopIterations !== undefined 
             ? options.maxLoopIterations 
             : MAX_LOOP_ITERATIONS;
         
-        // Create timeout checker
         const timeoutChecker = new TimeoutChecker(TIMEOUT_MS);
         
         try {
@@ -61,23 +472,36 @@ export class CPEETraceCalculator {
                 console.warn('[CPEETraceCalculator] XML parsing error:', parserError.textContent);
                 return [];
             }
-                        
-            // Get root description element
+            
+            // Get root description element (reference source)
             const description = xmlDoc.querySelector('description') || xmlDoc.documentElement;
             if (!description) {
                 console.warn('[CPEETraceCalculator] No description element found');
                 return [];
             }
             
-            // Calculate traces using graph traversal
-            const traceArrays = this.traces(description, 0, maxLoopIterations, timeoutChecker);
+            // Initialize forward trace set: FT = [] (empty set)
+            const initialForwardTrace = [];
+            
+            // Calculate traces using GTA forward trace
+            const traceArrays = TraceSets.forwardTrace(
+                description,
+                initialForwardTrace,
+                0,
+                maxLoopIterations,
+                timeoutChecker
+            );
             
             // Filter duplicate traces
             const uniqueTraces = this.filterDuplicateTraces(traceArrays);
             
             // Convert to Trace objects
             const traces = uniqueTraces.map((path, index) => {
-                const trace = new Trace(`trace-${index + 1}`, path, this.determineTraceType(path));
+                const trace = new Trace(
+                    `trace-${index + 1}`,
+                    path,
+                    this.determineTraceType(path)
+                );
                 return trace;
             });
             
@@ -85,7 +509,6 @@ export class CPEETraceCalculator {
             
         } catch (error) {
             console.error('[CPEETraceCalculator] Error calculating traces:', error);
-            // Re-throw timeout errors so they can be displayed in the UI
             if (error.message && error.message.includes('exceeded') && error.message.includes('timeout')) {
                 throw error;
             }
@@ -94,247 +517,10 @@ export class CPEETraceCalculator {
     }
 
     /**
-     * Main graph traversal function
-     * Returns array of trace arrays (each trace is an array of task objects)
-     * @param {Element} node - XML node to process
-     * @param {number} depth - Current depth (for debugging)
-     * @param {number} maxLoopIterations - Maximum loop iterations
-     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
-     * @returns {Array<Array<Object>>} Array of trace arrays
-     */
-    static traces(node, depth = 0, maxLoopIterations = MAX_LOOP_ITERATIONS, timeoutChecker = null) {
-        // Check timeout at the start of each recursive call
-        if (timeoutChecker) {
-            timeoutChecker.check();
-        }
-        const tagName = node.tagName ? node.tagName.toLowerCase() : '';
-        
-        switch (tagName) {
-            case 'call':
-            case 'manipulate':
-            case 'script': {
-                const task = this.extractTask(node);
-                if (task) {
-                    return [[task]];
-                }
-                return [];
-            }
-            
-            case 'description': {
-                const children = Array.from(node.children);
-                if (timeoutChecker) {
-                    timeoutChecker.check();
-                }
-                const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker));
-                return this.combineSequential(childTraces, timeoutChecker);
-            }
-            
-            case 'choose': {
-                const alternatives = Array.from(node.children)
-                    .filter(child => child.tagName.toLowerCase() === 'alternative');
-                if (alternatives.length === 0) {
-                    return [];
-                }
-                if (timeoutChecker) {
-                    timeoutChecker.check();
-                }
-                const alternativeTraces = alternatives.map(alt => this.traces(alt, depth + 1, maxLoopIterations, timeoutChecker));
-                return this.union(alternativeTraces);
-            }
-            
-            case 'alternative': {
-                const children = Array.from(node.children).filter(child => 
-                    child.tagName.toLowerCase() !== 'condition'
-                );
-                
-                // Check if there's an escape in this alternative
-                const escapeIndex = children.findIndex(child => child.tagName.toLowerCase() === 'escape');
-                
-                if (escapeIndex !== -1) {
-                    // Process elements before escape, then terminate
-                    const beforeEscape = children.slice(0, escapeIndex);
-                    if (beforeEscape.length > 0) {
-                        if (timeoutChecker) {
-                            timeoutChecker.check();
-                        }
-                        const beforeEscapeTraces = beforeEscape.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker));
-                        const combined = this.combineSequential(beforeEscapeTraces, timeoutChecker);
-                        // Mark traces as terminated by escape
-                        return combined.map(trace => {
-                            trace._terminatedByEscape = true;
-                            return trace;
-                        });
-                    } else {
-                        // Escape is first - return empty trace marked as terminated
-                        const emptyTrace = [];
-                        emptyTrace._terminatedByEscape = true;
-                        return [emptyTrace];
-                    }
-                } else {
-                    // No escape - process normally
-                    if (timeoutChecker) {
-                        timeoutChecker.check();
-                    }
-                    const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker));
-                    return this.combineSequential(childTraces, timeoutChecker);
-                }
-            }
-            
-            case 'parallel': {
-                const branches = Array.from(node.children)
-                    .filter(child => child.tagName.toLowerCase() === 'parallel_branch');
-                if (branches.length === 0) {
-                    return [];
-                }
-                if (timeoutChecker) {
-                    timeoutChecker.check();
-                }
-                const branchTraces = branches.map(branch => this.traces(branch, depth + 1, maxLoopIterations, timeoutChecker));
-                return this.interleave(branchTraces, timeoutChecker);
-            }
-            
-            case 'parallel_branch': {
-                const children = Array.from(node.children).filter(child => 
-                    child.tagName.toLowerCase() !== 'condition'
-                );
-                if (timeoutChecker) {
-                    timeoutChecker.check();
-                }
-                const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker));
-                return this.combineSequential(childTraces, timeoutChecker);
-            }
-            
-            case 'loop': {
-                const children = Array.from(node.children).filter(child => 
-                    child.tagName.toLowerCase() !== 'condition'
-                );
-                if (timeoutChecker) {
-                    timeoutChecker.check();
-                }
-                const bodyTraces = this.combineSequential(children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker)), timeoutChecker);
-                
-                // Get loop mode (default to 'pre_test' if not specified)
-                const mode = node.getAttribute('mode')?.toLowerCase() || 'pre_test';
-                
-                // Unroll 0, 1, 2 times (but bounded by maxLoopIterations)
-                const maxIter = Math.min(maxLoopIterations, 2);
-                const result = [];
-                
-                // For pre_test loops, always include 0-iteration path (condition checked before execution)
-                // For post_test loops, also include 0-iteration path (though typically they execute at least once)
-                // The 0-iteration path represents the case where the loop condition is false from the start
-                if (mode === 'pre_test' || mode === 'post_test') {
-                    result.push([]);
-                } else {
-                    // For other modes or unspecified, use the original heuristic
-                    // Check if loop is directly connected to end (no next sibling)
-                    const isLastElement = node.nextElementSibling === null;
-                    
-                    // Check if loop is directly before closing XOR gateway (last element in choose/alternative)
-                    const parentTag = node.parentElement ? node.parentElement.tagName.toLowerCase() : '';
-                    const isBeforeClosingXor = isLastElement && (parentTag === 'choose' || parentTag === 'alternative');
-                    
-                    // Check if loop is indirectly connected to end (e.g., inside another loop)
-                    const isInsideLoop = parentTag === 'loop';
-                    
-                    // 0 iterations (empty trace) - allow if:
-                    // - Not directly connected to end (has siblings), OR
-                    // - Indirectly connected to end via another loop gateway (nested inside a loop)
-                    // Skip only if directly connected to end or closing XOR gateway
-                    if ((!isLastElement || isInsideLoop) && !isBeforeClosingXor) {
-                        result.push([]);
-                    }
-                }
-                
-                // 1 iteration
-                if (maxIter >= 1) {
-                    result.push(...bodyTraces);
-                }
-                
-                // 2 iterations (if allowed)
-                if (maxIter >= 2) {
-                    result.push(...this.combineSequential([bodyTraces, bodyTraces], timeoutChecker));
-                }
-                
-                return result;
-            }
-            
-            case 'escape': {
-                // Escape terminates trace early - return empty trace marked as terminated
-                // This will be handled by the parent (alternative) to stop processing
-                return [];
-            }
-            
-            default: {
-                // For unknown elements, try to process children
-                if (node.children && node.children.length > 0) {
-                    const children = Array.from(node.children);
-                    if (timeoutChecker) {
-                        timeoutChecker.check();
-                    }
-                    const childTraces = children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker));
-                    return this.combineSequential(childTraces, timeoutChecker);
-                }
-                return [];
-            }
-        }
-    }
-
-    /**
-     * Cartesian product concatenation
-     * Combines sequences sequentially (each trace from first set concatenated with each trace from second set)
-     * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace set arrays
-     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
-     * @returns {Array<Array<Object>>} Combined trace arrays
-     */
-    static combineSequential(listOfTraceSets, timeoutChecker = null) {
-        if (listOfTraceSets.length === 0) {
-            return [[]];
-        }
-        
-        return listOfTraceSets.reduce(
-            (acc, next) => {
-                // acc is array of traces (each trace is array of tasks)
-                // next is array of traces (each trace is array of tasks)
-                // For each trace in acc, concatenate with each trace in next
-                const result = [];
-                for (const a of acc) {
-                    if (timeoutChecker) {
-                        timeoutChecker.check();
-                    }
-                    // Check if trace was terminated by escape
-                    const aTerminated = a._terminatedByEscape === true;
-                    
-                    if (aTerminated) {
-                        // If trace was terminated, don't append next - just keep the trace as is
-                        result.push(a);
-                    } else {
-                        for (const b of next) {
-                            if (timeoutChecker) {
-                                timeoutChecker.check();
-                            }
-                            // Check if next trace was terminated
-                            const bTerminated = b._terminatedByEscape === true;
-                            
-                            // Create new trace by concatenating
-                            const newTrace = [...a, ...b];
-                            if (bTerminated) {
-                                newTrace._terminatedByEscape = true;
-                            }
-                            result.push(newTrace);
-                        }
-                    }
-                }
-                return result;
-            },
-            [[]] // Start with empty trace
-        );
-    }
-
-    /**
      * Parallel interleaving (permutations of branch order)
      * Each branch is treated as a single unit - tasks within a branch stay together
      * @param {Array<Array<Array<Object>>>} branches - Array of branch trace sets
+     *   Each branch is an array of traces, where each trace is an array of tasks
      * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
      * @returns {Array<Array<Object>>} All trace arrays with branch permutations
      */
@@ -346,7 +532,6 @@ export class CPEETraceCalculator {
             return branches[0];
         }
         
-        // Check timeout before generating permutations
         if (timeoutChecker) {
             timeoutChecker.check();
         }
@@ -362,15 +547,23 @@ export class CPEETraceCalculator {
             if (timeoutChecker) {
                 timeoutChecker.check();
             }
-            // Get one trace from each branch (cartesian product)
-            const branchTraces = perm.map(idx => branches[idx]);
-            const combinations = this.cartesianProduct(branchTraces, timeoutChecker);
+            
+            // Get trace arrays for each branch in permutation order
+            // branches[perm[i]] is an array of traces for that branch
+            const branchTraceArrays = perm.map(idx => branches[idx]);
+            
+            // Take cartesian product: one trace from each branch
+            // Each branchTraceArray is an array of traces, so we need to combine them
+            const combinations = this.cartesianProduct(branchTraceArrays, timeoutChecker);
             
             // For each combination, concatenate the traces in order
+            // Each combination is an array of traces (one from each branch)
             for (const combination of combinations) {
                 if (timeoutChecker) {
                     timeoutChecker.check();
                 }
+                // Each element in combination is a trace (array of tasks)
+                // Concatenate all tasks from all traces in the combination
                 const concatenated = combination.flat();
                 result.push(concatenated);
             }
@@ -436,15 +629,6 @@ export class CPEETraceCalculator {
     }
 
     /**
-     * Union of trace sets (flatten array of trace arrays)
-     * @param {Array<Array<Array<Object>>>} listOfTraceSets - Array of trace set arrays
-     * @returns {Array<Array<Object>>} Flattened trace arrays
-     */
-    static union(listOfTraceSets) {
-        return listOfTraceSets.flat();
-    }
-
-    /**
      * Extract task information from call/manipulate/script node
      * @param {Element} callNode - Task element
      * @returns {Object|null} Task object: {id, alt_id, task} or null
@@ -469,11 +653,9 @@ export class CPEETraceCalculator {
                     (label.startsWith("'") && label.endsWith("'"))) {
                     label = label.slice(1, -1);
                 }
-                // Clean up task label - remove XML artifacts like ") & 9:task:("
+                // Clean up task label - remove XML artifacts
                 label = label.replace(/"?\s*\)\s*&\s*\d+:task:\(\s*"?/g, ', ');
-                // Remove any remaining quotes around individual items
                 label = label.replace(/"([^"]+)"/g, '$1');
-                // Clean up any double commas or extra spaces
                 label = label.replace(/,+/g, ',').replace(/,\s*,/g, ',').replace(/,\s*$/g, '');
                 label = label.trim();
             }
@@ -536,7 +718,6 @@ export class CPEETraceCalculator {
             const traceString = JSON.stringify(cleanTrace.map(t => ({ id: t.id, alt_id: t.alt_id, task: t.task })));
             if (!uniqueTraces.has(traceString)) {
                 uniqueTraces.add(traceString);
-                // Return clean trace without the _terminatedByEscape property
                 result.push(cleanTrace);
             }
         }
