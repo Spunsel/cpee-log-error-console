@@ -279,6 +279,92 @@ export class MermaidParser {
             });
         }
         
+        // Fix 12: Wrap task labels containing parentheses in double quotes
+        // Example: 1:task:(United States (Government)) -> 1:task:("United States (Government)")
+        const beforeFix12 = processedCode;
+        const fix12LineNumbers = [];
+        const lines12 = processedCode.split('\n');
+        const updatedLines12 = lines12.map((line, index) => {
+            const updatedLine = line;
+            let hasChanges = false;
+            let result = '';
+            let i = 0;
+            
+            while (i < updatedLine.length) {
+                // Look for task node pattern: id:task:(
+                const taskMatch = updatedLine.substring(i).match(/^(\w+):task:\(/);
+                
+                if (taskMatch) {
+                    const id = taskMatch[1];
+                    const taskStart = i + taskMatch[0].length;
+                    
+                    // Find the matching closing parenthesis
+                    let depth = 1;
+                    let pos = taskStart;
+                    
+                    while (pos < updatedLine.length && depth > 0) {
+                        if (updatedLine[pos] === '(') {
+                            depth++;
+                        } else if (updatedLine[pos] === ')') {
+                            depth--;
+                        }
+                        pos++;
+                    }
+                    
+                    if (depth === 0) {
+                        // Found matching closing parenthesis
+                        let label = updatedLine.substring(taskStart, pos - 1);
+                        
+                        // Remove all backslashes before "(" or ")" within the label
+                        const originalLabel = label;
+                        label = label.replace(/\\+([()])/g, '$1');
+                        const removedBackslashes = label !== originalLabel;
+                        
+                        // Check if label contains parentheses and is not already wrapped in quotes
+                        const hasParentheses = label.includes('(') || label.includes(')');
+                        const needsQuotes = hasParentheses && !(label.startsWith('"') && label.endsWith('"'));
+                        
+                        if (removedBackslashes || needsQuotes) {
+                            hasChanges = true;
+                            // Wrap in quotes if it contains parentheses
+                            if (needsQuotes) {
+                                result += `${id}:task:("${label}")`;
+                            } else {
+                                // Only backslashes removed, no quotes needed
+                                result += `${id}:task:(${label})`;
+                            }
+                            i = pos;
+                            continue;
+                        } else {
+                            // Task node found but no change needed, add original
+                            result += updatedLine.substring(i, pos);
+                            i = pos;
+                            continue;
+                        }
+                    }
+                }
+                
+                // No match, add current character
+                result += updatedLine[i];
+                i++;
+            }
+            
+            if (hasChanges) {
+                fix12LineNumbers.push(index + 1); // 1-based line numbers
+                return result;
+            }
+            
+            return updatedLine;
+        });
+        
+        if (beforeFix12 !== updatedLines12.join('\n')) {
+            processedCode = updatedLines12.join('\n');
+            appliedSteps.push({
+                description: `Wrapped ${fix12LineNumbers.length} task${fix12LineNumbers.length > 1 ? 's' : ''} with nested braces in quotation marks`,
+                lineNumbers: Array.from(new Set(fix12LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
         if (originalCode !== processedCode && appliedSteps.length > 0) {
             console.log('🔧 Mermaid preprocessing applied:', appliedSteps.map(s => s.description));
         }

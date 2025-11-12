@@ -192,12 +192,19 @@ export class SyntaxHighlightingService {
                 pattern: /-->/,
                 alias: 'mermaid-punctuation'
             },
+            // Quoted strings inside parentheses: ("House of Representatives (435 Members)")
+            // This must come before parentheses-content to match the entire quoted string
+            'quoted-parentheses-content': {
+                pattern: /(?<=\()"[^"]+"(?=\))/,
+                alias: 'mermaid-parentheses'
+            },
             // Text content inside parentheses: (startevent), (Task X), ((startevent)), etc.
             // Match just the content, not the brackets themselves (brackets will be matched by punctuation pattern)
             // Use fixed-length lookbehind for single opening paren, lookahead for single closing paren
             // For multiple parens like ((startevent)), extra parens will be matched by punctuation pattern
+            // This pattern should not match quoted strings (handled above) - negative lookahead ensures no quote immediately after opening paren
             'parentheses-content': {
-                pattern: /(?<=\()[^()]+(?=\))/,
+                pattern: /(?<=\()(?!")[^()]+(?=\))/,
                 alias: 'mermaid-parentheses'
             },
             // Text content inside curly braces: {AND}, {x}
