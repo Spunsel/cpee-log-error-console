@@ -13,16 +13,76 @@ import assert from 'node:assert';
 import { MermaidTraceCalculator } from '../../../src/utils/trace/MermaidTraceCalculator.js';
 import { CPEETraceCalculator } from '../../../src/utils/trace/CPEETraceCalculator.js';
 
+/**
+ * Helper function to compare traces from Mermaid and CPEE
+ * Verifies that:
+ * 1. Both calculate the same number of traces
+ * 2. For each Mermaid trace, there's a corresponding CPEE trace where all alt_ids are present
+ * @param {Array} mermaidTraces - Traces calculated from Mermaid
+ * @param {Array} cpeeTraces - Traces calculated from CPEE
+ * @param {string} testName - Name of the test for error messages
+ */
+function assertTracesMatch(mermaidTraces, cpeeTraces, testName) {
+    // Check same number of traces
+    assert.strictEqual(
+        mermaidTraces.length,
+        cpeeTraces.length,
+        `${testName}: Mermaid and CPEE should calculate the same number of traces. Mermaid: ${mermaidTraces.length}, CPEE: ${cpeeTraces.length}`
+    );
+
+    // For each Mermaid trace, find a matching CPEE trace
+    for (let i = 0; i < mermaidTraces.length; i++) {
+        const mermaidTrace = mermaidTraces[i];
+        
+        // Extract all alt_ids from Mermaid trace (skip if alt_id is null/undefined)
+        const mermaidAltIds = mermaidTrace.path
+            .map(task => task.alt_id)
+            .filter(altId => altId !== null && altId !== undefined);
+        
+        // If no alt_ids in Mermaid trace, skip comparison for this trace
+        if (mermaidAltIds.length === 0) {
+            continue;
+        }
+
+        // Find a CPEE trace that contains all these alt_ids
+        const matchingCpeeTrace = cpeeTraces.find(cpeeTrace => {
+            // Extract all identifiers from CPEE trace (both id and alt_id)
+            const cpeeIdentifiers = new Set();
+            cpeeTrace.path.forEach(task => {
+                if (task.id) {
+                    cpeeIdentifiers.add(task.id);
+                }
+                if (task.alt_id) {
+                    cpeeIdentifiers.add(task.alt_id);
+                }
+            });
+            
+            // Check if all Mermaid alt_ids are present in CPEE identifiers
+            return mermaidAltIds.every(altId => cpeeIdentifiers.has(altId));
+        });
+
+        assert.ok(
+            matchingCpeeTrace !== undefined,
+            `${testName}: Mermaid trace ${i + 1} (alt_ids: ${mermaidAltIds.join(', ')}) should have a matching CPEE trace with all these alt_ids present`
+        );
+    }
+}
+
 describe('Trace Calculation Edge Cases', () => {
     
+    // ============================================================================
     // Edge Case 1: Self-looping task node
+    // ============================================================================
     test('Edge Case 1: Self-looping task node', () => {
-        const mermaid = `graph LR
+        const mermaid = `
+graph LR
 se:startevent:((start)) --> t1:task:(Process)
 t1:task:(Process) --> |retry| t1:task:(Process)
-t1:task:(Process) --> ee:endevent:((end))`;
+t1:task:(Process) --> ee:endevent:((end))
+        `.trim();
 
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+        const cpee = `
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
   <call id="t1" endpoint="" a:alt_id="t1">
     <parameters>
       <label>Process</label>
@@ -41,7 +101,8 @@ t1:task:(Process) --> ee:endevent:((end))`;
       </parameters>
     </call>
   </loop>
-</description>`;
+</description>
+        `.trim();
 
         const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid, { maxLoopIterations: 2 });
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee, { maxLoopIterations: 2 });
@@ -49,18 +110,25 @@ t1:task:(Process) --> ee:endevent:((end))`;
         assert.ok(mermaidTraces.length > 0, 'Mermaid should calculate at least one trace');
         assert.ok(cpeeTraces.length > 0, 'CPEE should calculate at least one trace');
         assert.ok(mermaidTraces.some(trace => trace.type === 'loop'), 'Should contain a loop trace');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 1');
     });
 
+    // ============================================================================
     // Edge Case 2: Empty parallel gateway (no branches)
+    // ============================================================================
     test('Edge Case 2: Empty parallel gateway', () => {
-        const mermaid = `graph LR
+        const mermaid = `
+graph LR
 se:startevent:((start)) --> pg:parallelgateway:{AND}
-pg:parallelgateway:{AND} --> ee:endevent:((end))`;
+pg:parallelgateway:{AND} --> ee:endevent:((end))
+        `.trim();
 
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+        const cpee = `
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
   <parallel wait="-1" cancel="last" a:alt_id="pg">
   </parallel>
-</description>`;
+</description>
+        `.trim();
 
         const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid);
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee);
@@ -70,18 +138,23 @@ pg:parallelgateway:{AND} --> ee:endevent:((end))`;
         assert.ok(Array.isArray(cpeeTraces), 'CPEE should return array');
     });
 
+    // ============================================================================
     // Edge Case 3: Nested loops with escape conditions
+    // ============================================================================
     test('Edge Case 3: Nested loops with escape conditions', () => {
-        const mermaid = `graph LR
+        const mermaid = `
+graph LR
 se:startevent:((start)) --> t1:task:(Outer Task)
 t1:task:(Outer Task) --> gw1:exclusivegateway:{x}
 gw1:exclusivegateway:{x} --> |loop| t1:task:(Outer Task)
 gw1:exclusivegateway:{x} --> |continue| t2:task:(Inner Task)
 t2:task:(Inner Task) --> gw2:exclusivegateway:{x}
 gw2:exclusivegateway:{x} --> |loop| t2:task:(Inner Task)
-gw2:exclusivegateway:{x} --> |exit| ee:endevent:((end))`;
+gw2:exclusivegateway:{x} --> |exit| ee:endevent:((end))
+        `.trim();
 
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+        const cpee = `
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
   <loop mode="pre_test" condition="true" a:alt_id="outer">
     <call id="t1" endpoint="" a:alt_id="t1">
       <parameters>
@@ -102,22 +175,29 @@ gw2:exclusivegateway:{x} --> |exit| ee:endevent:((end))`;
       </call>
     </loop>
   </loop>
-</description>`;
+</description>
+        `.trim();
 
         const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid, { maxLoopIterations: 2 });
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee, { maxLoopIterations: 2 });
 
         assert.ok(mermaidTraces.length > 0, 'Mermaid should handle nested loops');
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle nested loops');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 3');
     });
 
+    // ============================================================================
     // Edge Case 4: Task with escaped quotes in label
+    // ============================================================================
     test('Edge Case 4: Task with escaped quotes in label', () => {
-        const mermaid = `graph LR
+        const mermaid = `
+graph LR
 se:startevent:((start)) --> t1:task:("Task with \\"quotes\\"")
-t1:task:("Task with \\"quotes\\"") --> ee:endevent:((end))`;
+t1:task:("Task with \\"quotes\\"") --> ee:endevent:((end))
+        `.trim();
 
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+        const cpee = `
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
   <call id="t1" endpoint="" a:alt_id="t1">
     <parameters>
       <label>Task with "quotes"</label>
@@ -126,7 +206,8 @@ t1:task:("Task with \\"quotes\\"") --> ee:endevent:((end))`;
       <arguments/>
     </parameters>
   </call>
-</description>`;
+</description>
+        `.trim();
 
         const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid);
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee);
@@ -136,17 +217,23 @@ t1:task:("Task with \\"quotes\\"") --> ee:endevent:((end))`;
         assert.ok(mermaidTraces.some(trace => 
             trace.path.some(task => task.task === 'Task with "quotes"')
         ), 'Should preserve quotes in task label');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 4');
     });
 
+    // ============================================================================
     // Edge Case 5: Multiple start events (disconnected components)
+    // ============================================================================
     test('Edge Case 5: Multiple start events', () => {
-        const mermaid = `graph LR
+        const mermaid = `
+graph LR
 se1:startevent:((start1)) --> t1:task:(Task 1)
 t1:task:(Task 1) --> ee1:endevent:((end1))
 se2:startevent:((start2)) --> t2:task:(Task 2)
-t2:task:(Task 2) --> ee2:endevent:((end2))`;
+t2:task:(Task 2) --> ee2:endevent:((end2))
+        `.trim();
 
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+        const cpee = `
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
   <call id="t1" endpoint="" a:alt_id="t1">
     <parameters>
       <label>Task 1</label>
@@ -163,27 +250,35 @@ t2:task:(Task 2) --> ee2:endevent:((end2))`;
       <arguments/>
     </parameters>
   </call>
-</description>`;
+</description>
+        `.trim();
 
         const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid);
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee);
 
         assert.ok(mermaidTraces.length >= 2, 'Mermaid should calculate traces for each start event');
         assert.ok(cpeeTraces.length >= 1, 'CPEE should calculate at least one trace');
+        // Note: Edge Case 5 has different behavior (Mermaid finds multiple disconnected components, CPEE finds sequential)
+        // So we skip trace matching for this case
     });
 
+    // ============================================================================
     // Edge Case 6: Complex parallel merge with different path lengths
+    // ============================================================================
     test('Edge Case 6: Complex parallel merge with different path lengths', () => {
-        const mermaid = `graph LR
+        const mermaid = `
+graph LR
 se:startevent:((start)) --> pg1:parallelgateway:{AND}
 pg1:parallelgateway:{AND} --> t1:task:(Quick Task)
 pg1:parallelgateway:{AND} --> t2:task:(Task A)
 t2:task:(Task A) --> t3:task:(Task B)
 t1:task:(Quick Task) --> pg2:parallelgateway:{AND}
 t3:task:(Task B) --> pg2:parallelgateway:{AND}
-pg2:parallelgateway:{AND} --> ee:endevent:((end))`;
+pg2:parallelgateway:{AND} --> ee:endevent:((end))
+        `.trim();
 
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+        const cpee = `
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
   <parallel wait="-1" cancel="last" a:alt_id="pg1">
     <parallel_branch>
       <call id="t1" endpoint="" a:alt_id="t1">
@@ -214,25 +309,32 @@ pg2:parallelgateway:{AND} --> ee:endevent:((end))`;
       </call>
     </parallel_branch>
   </parallel>
-</description>`;
+</description>
+        `.trim();
 
         const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid);
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee);
 
         assert.ok(mermaidTraces.length > 0, 'Mermaid should handle parallel paths with different lengths');
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle parallel paths with different lengths');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 6');
     });
 
+    // ============================================================================
     // Edge Case 7: Exclusive gateway with all conditions false (dead end)
+    // ============================================================================
     test('Edge Case 7: Exclusive gateway with all conditions false', () => {
-        const mermaid = `graph LR
+        const mermaid = `
+graph LR
 se:startevent:((start)) --> t1:task:(Task)
 t1:task:(Task) --> gw:exclusivegateway:{x}
 gw:exclusivegateway:{x} --> |"false"| t2:task:(Never Reached)
 gw:exclusivegateway:{x} --> |"false"| t3:task:(Also Never)
-gw:exclusivegateway:{x} --> ee:endevent:((end))`;
+gw:exclusivegateway:{x} --> ee:endevent:((end))
+        `.trim();
 
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+        const cpee = `
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
   <call id="t1" endpoint="" a:alt_id="t1">
     <parameters>
       <label>Task</label>
@@ -263,7 +365,8 @@ gw:exclusivegateway:{x} --> ee:endevent:((end))`;
       </call>
     </alternative>
   </choose>
-</description>`;
+</description>
+        `.trim();
 
         const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid);
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee);
@@ -273,13 +376,18 @@ gw:exclusivegateway:{x} --> ee:endevent:((end))`;
         assert.ok(Array.isArray(cpeeTraces), 'CPEE should return array even with dead ends');
     });
 
+    // ============================================================================
     // Edge Case 8: Task with parentheses in label (already quoted)
+    // ============================================================================
     test('Edge Case 8: Task with parentheses in label', () => {
-        const mermaid = `graph LR
+        const mermaid = `
+graph LR
 se:startevent:((start)) --> t1:task:("Task (with parentheses)")
-t1:task:("Task (with parentheses)") --> ee:endevent:((end))`;
+t1:task:("Task (with parentheses)") --> ee:endevent:((end))
+        `.trim();
 
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+        const cpee = `
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
   <call id="t1" endpoint="" a:alt_id="t1">
     <parameters>
       <label>Task (with parentheses)</label>
@@ -288,7 +396,8 @@ t1:task:("Task (with parentheses)") --> ee:endevent:((end))`;
       <arguments/>
     </parameters>
   </call>
-</description>`;
+</description>
+        `.trim();
 
         const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid);
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee);
@@ -296,11 +405,15 @@ t1:task:("Task (with parentheses)") --> ee:endevent:((end))`;
         assert.ok(mermaidTraces.length > 0, 'Mermaid should handle parentheses in quoted labels');
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle parentheses in labels');
         assert.ok(mermaidTraces[0].path[0].task.includes('('), 'Should preserve parentheses in task label');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 8');
     });
 
+    // ============================================================================
     // Edge Case 9: Deeply nested structure (5+ levels)
+    // ============================================================================
     test('Edge Case 9: Deeply nested structure', () => {
-        const mermaid = `graph LR
+        const mermaid = `
+graph LR
 se:startevent:((start)) --> t1:task:(Level 1)
 t1:task:(Level 1) --> pg1:parallelgateway:{AND}
 pg1:parallelgateway:{AND} --> t2:task:(Level 2)
@@ -312,9 +425,11 @@ t4:task:(Level 4) --> t5:task:(Level 5)
 t5:task:(Level 5) --> pg2:parallelgateway:{AND}
 pg2:parallelgateway:{AND} --> gw1:exclusivegateway:{x}
 gw1:exclusivegateway:{x} --> pg1:parallelgateway:{AND}
-pg1:parallelgateway:{AND} --> ee:endevent:((end))`;
+pg1:parallelgateway:{AND} --> ee:endevent:((end))
+        `.trim();
 
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+        const cpee = `
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
   <call id="t1" endpoint="" a:alt_id="t1">
     <parameters>
       <label>Level 1</label>
@@ -367,18 +482,23 @@ pg1:parallelgateway:{AND} --> ee:endevent:((end))`;
       </choose>
     </parallel_branch>
   </parallel>
-</description>`;
+</description>
+        `.trim();
 
         const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid);
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee);
 
         assert.ok(mermaidTraces.length > 0, 'Mermaid should handle deep nesting');
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle deep nesting');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 9');
     });
 
+    // ============================================================================
     // Edge Case 10: Mixed gateway types in sequence
+    // ============================================================================
     test('Edge Case 10: Mixed gateway types in sequence', () => {
-        const mermaid = `graph LR
+        const mermaid = `
+graph LR
 se:startevent:((start)) --> pg:parallelgateway:{AND}
 pg:parallelgateway:{AND} --> t1:task:(Task 1)
 pg:parallelgateway:{AND} --> t2:task:(Task 2)
@@ -388,9 +508,11 @@ gw:exclusivegateway:{x} --> |"path1"| t3:task:(Path 1)
 gw:exclusivegateway:{x} --> |"path2"| t4:task:(Path 2)
 t3:task:(Path 1) --> pg2:parallelgateway:{AND}
 t4:task:(Path 2) --> pg2:parallelgateway:{AND}
-pg2:parallelgateway:{AND} --> ee:endevent:((end))`;
+pg2:parallelgateway:{AND} --> ee:endevent:((end))
+        `.trim();
 
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+        const cpee = `
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
   <parallel wait="-1" cancel="last" a:alt_id="pg">
     <parallel_branch>
       <call id="t1" endpoint="" a:alt_id="t1">
@@ -457,7 +579,8 @@ pg2:parallelgateway:{AND} --> ee:endevent:((end))`;
       </call>
     </parallel_branch>
   </parallel>
-</description>`;
+</description>
+        `.trim();
 
         const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid);
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee);
@@ -466,6 +589,7 @@ pg2:parallelgateway:{AND} --> ee:endevent:((end))`;
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle mixed gateway types');
         // Should have multiple traces due to parallel and exclusive combinations
         assert.ok(mermaidTraces.length >= 2, 'Should generate multiple traces from mixed gateways');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 10');
     });
 });
 

@@ -2806,6 +2806,9 @@ gw2s:exclusivegateway:{x}-->|"Satisfied"|ee:endevent:(((endevent)))`,
 
         // Mermaid renderer instance for custom input
         let customMermaidRenderer = null;
+        
+        // Current graph scale (default 1x)
+        let currentMermaidGraphScale = 1;
 
         // Initialize Mermaid renderer for custom input
         async function initializeCustomMermaidRenderer() {
@@ -2870,16 +2873,61 @@ gw2s:exclusivegateway:{x}-->|"Satisfied"|ee:endevent:(((endevent)))`,
                     await initializeCustomMermaidRenderer();
                     await customMermaidRenderer.renderGraph(customInput);
                     
-                    // Ensure proper scrolling after scaling
-                    setTimeout(() => {
+                    // Ensure proper scaling and remove all overflow constraints - apply multiple times to catch re-renders
+                    const applyScale = () => {
                         const svg = graphContainer?.querySelector('svg');
                         if (svg) {
-                            const parent = svg.parentElement;
-                            if (parent && parent !== graphContainer) {
-                                parent.style.overflow = 'visible';
+                            svg.style.setProperty('transform', `scale(${currentMermaidGraphScale})`, 'important');
+                            svg.style.setProperty('transform-origin', '0 0', 'important');
+                            svg.style.setProperty('display', 'block', 'important');
+                            svg.style.setProperty('overflow', 'visible', 'important');
+                            svg.style.setProperty('max-width', 'none', 'important');
+                            svg.style.setProperty('max-height', 'none', 'important');
+                            
+                            // Remove overflow constraints from all parent elements
+                            let parent = svg.parentElement;
+                            while (parent && parent !== document.body) {
+                                parent.style.setProperty('overflow', 'visible', 'important');
+                                parent.style.setProperty('max-width', 'none', 'important');
+                                parent.style.setProperty('max-height', 'none', 'important');
+                                parent = parent.parentElement;
                             }
                         }
-                    }, 100);
+                        // Also check for mermaid wrapper SVGs
+                        const mermaidSvgs = graphContainer?.querySelectorAll('.mermaid svg');
+                        if (mermaidSvgs) {
+                            mermaidSvgs.forEach(svg => {
+                                svg.style.setProperty('transform', `scale(${currentMermaidGraphScale})`, 'important');
+                                svg.style.setProperty('transform-origin', '0 0', 'important');
+                                svg.style.setProperty('display', 'block', 'important');
+                                svg.style.setProperty('overflow', 'visible', 'important');
+                                svg.style.setProperty('max-width', 'none', 'important');
+                                svg.style.setProperty('max-height', 'none', 'important');
+                                
+                                // Remove overflow constraints from parent elements
+                                let parent = svg.parentElement;
+                                while (parent && parent !== document.body) {
+                                    parent.style.setProperty('overflow', 'visible', 'important');
+                                    parent.style.setProperty('max-width', 'none', 'important');
+                                    parent.style.setProperty('max-height', 'none', 'important');
+                                    parent = parent.parentElement;
+                                }
+                            });
+                        }
+                    };
+                    // Apply immediately and with delays to catch re-renders
+                    setTimeout(applyScale, 50);
+                    setTimeout(applyScale, 200);
+                    setTimeout(applyScale, 500);
+                    // Use MutationObserver to catch any future changes
+                    const observer = new MutationObserver(() => {
+                        applyScale();
+                    });
+                    if (graphContainer) {
+                        observer.observe(graphContainer, { childList: true, subtree: true });
+                        // Stop observing after 5 seconds
+                        setTimeout(() => observer.disconnect(), 5000);
+                    }
                 } catch (renderError) {
                     console.error('Error rendering Mermaid graph:', renderError);
                     if (graphContainer) {
@@ -2895,14 +2943,63 @@ gw2s:exclusivegateway:{x}-->|"Satisfied"|ee:endevent:(((endevent)))`,
             }
         }
 
+        // Function to change graph scale
+        function setMermaidGraphScale(scale) {
+            currentMermaidGraphScale = scale;
+            const graphContainer = document.getElementById('custom-mermaid-graph-container');
+            const svg = graphContainer?.querySelector('svg');
+            if (svg) {
+                svg.style.setProperty('transform', `scale(${scale})`, 'important');
+                svg.style.setProperty('transform-origin', '0 0', 'important');
+                svg.style.setProperty('overflow', 'visible', 'important');
+                svg.style.setProperty('max-width', 'none', 'important');
+                svg.style.setProperty('max-height', 'none', 'important');
+            }
+            // Also update mermaid wrapper SVGs
+            const mermaidSvgs = graphContainer?.querySelectorAll('.mermaid svg');
+            if (mermaidSvgs) {
+                mermaidSvgs.forEach(svg => {
+                    svg.style.setProperty('transform', `scale(${scale})`, 'important');
+                    svg.style.setProperty('transform-origin', '0 0', 'important');
+                    svg.style.setProperty('overflow', 'visible', 'important');
+                    svg.style.setProperty('max-width', 'none', 'important');
+                    svg.style.setProperty('max-height', 'none', 'important');
+                });
+            }
+            // Update active button state
+            document.querySelectorAll('.mermaid-scale-btn').forEach(btn => {
+                if (parseInt(btn.dataset.scale) === scale) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
         // Expose custom function globally
         window.calculateCustomMermaidTraces = calculateCustomMermaidTraces;
+        window.setMermaidGraphScale = setMermaidGraphScale;
+
+        // Initialize scale button state
+        function initializeMermaidScaleButtons() {
+            const scale1Btn = document.querySelector('.mermaid-scale-btn[data-scale="1"]');
+            if (scale1Btn && !document.querySelector('.mermaid-scale-btn.active')) {
+                scale1Btn.classList.add('active');
+            }
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeMermaidScaleButtons);
+        } else {
+            initializeMermaidScaleButtons();
+        }
 
         // Load initial example
         loadExample('1528-Step1');
     </script>
     
-    <div class="panel full-width" style="margin-top: 2rem; border-top: 2px solid #334155; padding-top: 2rem;">
+    <div class="panel full-width" style="margin-top: 2rem; border-top: 2px solid #334155; padding-top: 2rem; overflow: visible !important; max-width: none !important; max-height: none !important;">
         <h2>Custom Mermaid Input</h2>
         <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: flex-start;">
             <textarea 
@@ -2920,20 +3017,77 @@ gw2s:exclusivegateway:{x}-->|"Satisfied"|ee:endevent:(((endevent)))`,
             <div id="custom-traces-result" class="compact-traces"></div>
         </div>
         
-        <div class="trace-section compact" style="margin-top: 2rem;">
-            <div class="trace-section-title">
+        <div class="trace-section compact" style="margin-top: 2rem; overflow: visible !important; max-width: none !important; max-height: none !important;">
+            <div class="trace-section-title" style="justify-content: space-between;">
                 <span>Graph Visualization</span>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span style="font-size: 0.875rem; color: #94a3b8; margin-right: 0.5rem;">Scale:</span>
+                    <button class="mermaid-scale-btn active" data-scale="1" onclick="setMermaidGraphScale(1)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">1x</button>
+                    <button class="mermaid-scale-btn" data-scale="2" onclick="setMermaidGraphScale(2)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">2x</button>
+                    <button class="mermaid-scale-btn" data-scale="3" onclick="setMermaidGraphScale(3)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">3x</button>
+                    <button class="mermaid-scale-btn" data-scale="4" onclick="setMermaidGraphScale(4)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">4x</button>
+                    <button class="mermaid-scale-btn" data-scale="5" onclick="setMermaidGraphScale(5)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">5x</button>
+                </div>
             </div>
-            <div id="custom-mermaid-graph-container" style="background: #1e293b; border-radius: 6px; padding: 1rem; min-height: 300px; max-height: 800px; overflow: auto; border: 1px solid #334155;">
+            <div id="custom-mermaid-graph-container" style="background: #1e293b; border-radius: 6px; padding: 1rem; border: 1px solid #334155;">
                 <style>
+                    /* Ensure all parent containers allow overflow */
+                    .panel.full-width {
+                        overflow: visible !important;
+                        max-width: none !important;
+                        max-height: none !important;
+                        width: auto !important;
+                    }
+                    
+                    .trace-section.compact {
+                        overflow: visible !important;
+                        max-width: none !important;
+                        max-height: none !important;
+                        width: auto !important;
+                    }
+                    
+                    #custom-mermaid-graph-container {
+                        width: auto !important;
+                        height: auto !important;
+                        min-width: auto !important;
+                        min-height: auto !important;
+                        max-width: none !important;
+                        max-height: none !important;
+                        overflow: visible !important;
+                        display: block !important;
+                        position: relative !important;
+                    }
+                    
+                    #custom-mermaid-graph-container * {
+                        overflow: visible !important;
+                        max-width: none !important;
+                        max-height: none !important;
+                    }
+                    
                     #custom-mermaid-graph-container svg,
                     #custom-mermaid-graph-container .mermaid svg {
-                        transform: scale(2);
-                        transform-origin: 0 0;
-                        display: block;
+                        transform-origin: 0 0 !important;
+                        display: block !important;
+                        width: auto !important;
+                        height: auto !important;
+                        max-width: none !important;
+                        max-height: none !important;
+                        overflow: visible !important;
                     }
+                    
                     #custom-mermaid-graph-container > div {
-                        overflow: visible;
+                        overflow: visible !important;
+                    }
+                    
+                    .mermaid-scale-btn:hover {
+                        background: #334155 !important;
+                        border-color: #64748b !important;
+                    }
+                    
+                    .mermaid-scale-btn.active {
+                        background: #3b82f6 !important;
+                        border-color: #3b82f6 !important;
+                        color: #ffffff !important;
                     }
                 </style>
             </div>

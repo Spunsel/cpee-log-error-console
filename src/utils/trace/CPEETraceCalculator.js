@@ -39,9 +39,7 @@ export class CPEETraceCalculator {
      * @param {number} options.maxLoopIterations - Maximum loop iterations (default: 1)
      * @returns {Trace[]} Array of Trace objects
      */
-    static calculateAllTraces(xmlString, options = {}) {
-        console.log('[CPEETraceCalculator] Starting trace calculation from CPEE XML...');
-        
+    static calculateAllTraces(xmlString, options = {}) {        
         const maxLoopIterations = options.maxLoopIterations !== undefined 
             ? options.maxLoopIterations 
             : MAX_LOOP_ITERATIONS;
@@ -63,9 +61,7 @@ export class CPEETraceCalculator {
                 console.warn('[CPEETraceCalculator] XML parsing error:', parserError.textContent);
                 return [];
             }
-            
-            console.log('[CPEETraceCalculator] XML parsed successfully');
-            
+                        
             // Get root description element
             const description = xmlDoc.querySelector('description') || xmlDoc.documentElement;
             if (!description) {
@@ -85,7 +81,6 @@ export class CPEETraceCalculator {
                 return trace;
             });
             
-            console.log(`[CPEETraceCalculator] Calculated ${traces.length} unique traces`);
             return traces;
             
         } catch (error) {
@@ -218,26 +213,37 @@ export class CPEETraceCalculator {
                 }
                 const bodyTraces = this.combineSequential(children.map(child => this.traces(child, depth + 1, maxLoopIterations, timeoutChecker)), timeoutChecker);
                 
+                // Get loop mode (default to 'pre_test' if not specified)
+                const mode = node.getAttribute('mode')?.toLowerCase() || 'pre_test';
+                
                 // Unroll 0, 1, 2 times (but bounded by maxLoopIterations)
                 const maxIter = Math.min(maxLoopIterations, 2);
                 const result = [];
                 
-                // Check if loop is directly connected to end (no next sibling)
-                const isLastElement = node.nextElementSibling === null;
-                
-                // Check if loop is directly before closing XOR gateway (last element in choose/alternative)
-                const parentTag = node.parentElement ? node.parentElement.tagName.toLowerCase() : '';
-                const isBeforeClosingXor = isLastElement && (parentTag === 'choose' || parentTag === 'alternative');
-                
-                // Check if loop is indirectly connected to end (e.g., inside another loop)
-                const isInsideLoop = parentTag === 'loop';
-                
-                // 0 iterations (empty trace) - allow if:
-                // - Not directly connected to end (has siblings), OR
-                // - Indirectly connected to end via another loop gateway (nested inside a loop)
-                // Skip only if directly connected to end or closing XOR gateway
-                if ((!isLastElement || isInsideLoop) && !isBeforeClosingXor) {
+                // For pre_test loops, always include 0-iteration path (condition checked before execution)
+                // For post_test loops, also include 0-iteration path (though typically they execute at least once)
+                // The 0-iteration path represents the case where the loop condition is false from the start
+                if (mode === 'pre_test' || mode === 'post_test') {
                     result.push([]);
+                } else {
+                    // For other modes or unspecified, use the original heuristic
+                    // Check if loop is directly connected to end (no next sibling)
+                    const isLastElement = node.nextElementSibling === null;
+                    
+                    // Check if loop is directly before closing XOR gateway (last element in choose/alternative)
+                    const parentTag = node.parentElement ? node.parentElement.tagName.toLowerCase() : '';
+                    const isBeforeClosingXor = isLastElement && (parentTag === 'choose' || parentTag === 'alternative');
+                    
+                    // Check if loop is indirectly connected to end (e.g., inside another loop)
+                    const isInsideLoop = parentTag === 'loop';
+                    
+                    // 0 iterations (empty trace) - allow if:
+                    // - Not directly connected to end (has siblings), OR
+                    // - Indirectly connected to end via another loop gateway (nested inside a loop)
+                    // Skip only if directly connected to end or closing XOR gateway
+                    if ((!isLastElement || isInsideLoop) && !isBeforeClosingXor) {
+                        result.push([]);
+                    }
                 }
                 
                 // 1 iteration

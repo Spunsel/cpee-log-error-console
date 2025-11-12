@@ -39,17 +39,12 @@ export class MermaidTraceCalculator {
      * @param {number} options.maxLoopIterations - Maximum loop iterations (default: 1)
      * @returns {Trace[]} Array of Trace objects
      */
-    static calculateAllTraces(mermaidString, options = {}) {
-        console.log('[MermaidTraceCalculator] Starting trace calculation from Mermaid syntax...');
-        
+    static calculateAllTraces(mermaidString, options = {}) {        
         // Log input for debugging
         if (!mermaidString || typeof mermaidString !== 'string') {
             console.warn('[MermaidTraceCalculator] Invalid input: mermaidString is', typeof mermaidString, mermaidString);
             return [];
         }
-        
-        const inputPreview = mermaidString.substring(0, 200).replace(/\n/g, '\\n');
-        console.log(`[MermaidTraceCalculator] Input preview (first 200 chars): ${inputPreview}${mermaidString.length > 200 ? '...' : ''}`);
         
         const maxLoopIterations = options.maxLoopIterations !== undefined 
             ? options.maxLoopIterations 
@@ -66,17 +61,10 @@ export class MermaidTraceCalculator {
                 console.warn('[MermaidTraceCalculator] No valid graph found - parsed', graph ? graph.nodes.length : 0, 'nodes and', graph ? graph.edges.length : 0, 'edges');
                 return [];
             }
-            
-            console.log('[MermaidTraceCalculator] Graph parsed successfully');
-            
+                        
             // Pre-process: Identify nodes in multiple loops (Alternative 3)
             const nodesInMultipleLoops = this.identifyNodesInMultipleLoops(graph);
             graph.nodesInMultipleLoops = nodesInMultipleLoops; // Store for use during traversal
-            
-            if (nodesInMultipleLoops.size > 0) {
-                console.log('[MermaidTraceCalculator] Nodes in multiple loops:', 
-                    Array.from(nodesInMultipleLoops.entries()).map(([id, count]) => `${id}:${count}`).join(', '));
-            }
             
             // Find start and end nodes
             const startNodes = graph.nodes.filter(n => n.type === 'startevent');
@@ -120,11 +108,9 @@ export class MermaidTraceCalculator {
                 return trace;
             });
             
-            console.log(`[MermaidTraceCalculator] Calculated ${traces.length} unique traces`);
             return traces;
             
         } catch (error) {
-            console.error('[MermaidTraceCalculator] Error calculating traces:', error);
             // Re-throw timeout errors so they can be displayed in the UI
             if (error.message && error.message.includes('exceeded') && error.message.includes('timeout')) {
                 throw error;
@@ -591,19 +577,14 @@ export class MermaidTraceCalculator {
         
         // Normalize line endings and split into lines
         const lines = mermaidString.split(/\r?\n/).map(line => line.trim()).filter(line => line.length > 0);
-        
-        console.log(`[MermaidTraceCalculator] Parsing ${lines.length} lines of Mermaid syntax`);
-        
+                
         // Skip graph/flowchart declaration line
         const contentLines = lines.filter(line => 
             !line.match(/^(graph|flowchart)\s+(LR|TD|TB|RL|BT)/i)
         );
-        
-        console.log(`[MermaidTraceCalculator] After filtering graph declarations: ${contentLines.length} content lines`);
-        
+                
         // Parse nodes and edges
         let lastNodeId = null; // Track last node for continuation lines
-        let parsedEdges = 0;
         let skippedLines = 0;
         for (const line of contentLines) {
             // Parse edge: node1 --> node2 or node1 -->|label| node2
@@ -674,16 +655,12 @@ export class MermaidTraceCalculator {
                 to: toNodeIdShort,
                 label: edgeLabel
             });
-            
-            parsedEdges++;
         }
         
         if (skippedLines > 5) {
             console.warn(`[MermaidTraceCalculator] Skipped ${skippedLines} lines total (only first 5 logged)`);
         }
-        
-        console.log(`[MermaidTraceCalculator] Parsed ${graph.nodes.length} nodes and ${graph.edges.length} edges (${parsedEdges} edges processed, ${skippedLines} lines skipped)`);
-        
+                
         return graph;
     }
 
