@@ -328,6 +328,10 @@
             margin-top: 1rem;
         }
 
+        .trace-section.compact {
+            margin-top: 1rem;
+        }
+
         .compact-traces {
             max-height: 400px;
             overflow-y: auto;
@@ -5128,8 +5132,8 @@
         // CPEE renderer instance for custom input
         let customCPEERenderer = null;
         
-        // Current graph scale (default 1x)
-        let currentGraphScale = 1;
+        // Current graph scale (default 2x)
+        let currentGraphScale = 2;
 
         // Initialize CPEE renderer for custom input
         async function initializeCustomCPEERenderer() {
@@ -5141,14 +5145,36 @@
 
         // Custom input trace calculation
         async function calculateCustomCPEETraces() {
+            // Simulate page refresh: reset all state before calculation
+            customCPEERenderer = null;
+            currentGraphScale = 2;
+            
+            const resultContainer = document.getElementById('custom-traces-result');
+            const graphContainer = document.getElementById('custom-cpee-graph-direct');
+            
+            // Clear all containers
+            if (resultContainer) {
+                resultContainer.innerHTML = '';
+            }
+            if (graphContainer) {
+                graphContainer.innerHTML = '';
+            }
+            
+            // Reset scale buttons to default (2x)
+            document.querySelectorAll('.scale-btn').forEach(btn => {
+                if (parseInt(btn.dataset.scale) === 2) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
             const customInput = document.getElementById('custom-cpee-input').value.trim();
             if (!customInput) {
                 alert('Please enter CPEE XML');
                 return;
             }
 
-            const resultContainer = document.getElementById('custom-traces-result');
-            const graphContainer = document.getElementById('custom-cpee-graph-direct');
             resultContainer.innerHTML = '<div class="empty-state">Calculating traces...</div>';
             if (graphContainer) {
                 graphContainer.innerHTML = '<div class="empty-state">Rendering graph...</div>';
@@ -5307,9 +5333,9 @@
 
         // Initialize scale button state
         function initializeScaleButtons() {
-            const scale1Btn = document.querySelector('.scale-btn[data-scale="1"]');
-            if (scale1Btn && !document.querySelector('.scale-btn.active')) {
-                scale1Btn.classList.add('active');
+            const scale2Btn = document.querySelector('.scale-btn[data-scale="2"]');
+            if (scale2Btn && !document.querySelector('.scale-btn.active')) {
+                scale2Btn.classList.add('active');
             }
         }
         
@@ -5347,8 +5373,8 @@
                 <span>Graph Visualization</span>
                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                     <span style="font-size: 0.875rem; color: #94a3b8; margin-right: 0.5rem;">Scale:</span>
-                    <button class="scale-btn active" data-scale="1" onclick="setGraphScale(1)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">1x</button>
-                    <button class="scale-btn" data-scale="2" onclick="setGraphScale(2)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">2x</button>
+                    <button class="scale-btn" data-scale="1" onclick="setGraphScale(1)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">1x</button>
+                    <button class="scale-btn active" data-scale="2" onclick="setGraphScale(2)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">2x</button>
                     <button class="scale-btn" data-scale="3" onclick="setGraphScale(3)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">3x</button>
                     <button class="scale-btn" data-scale="4" onclick="setGraphScale(4)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">4x</button>
                     <button class="scale-btn" data-scale="5" onclick="setGraphScale(5)" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #e2e8f0; cursor: pointer; transition: all 0.2s;">5x</button>

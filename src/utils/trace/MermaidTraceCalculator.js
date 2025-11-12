@@ -5,6 +5,7 @@
  */
 
 import { Trace } from '../../models/Trace.js';
+import { MermaidParser } from '../content/MermaidParser.js';
 
 // Global constant for maximum loop iterations (default: 1)
 const MAX_LOOP_ITERATIONS = 1;
@@ -54,8 +55,20 @@ export class MermaidTraceCalculator {
         const timeoutChecker = new TimeoutChecker(TIMEOUT_MS);
         
         try {
-            // Parse Mermaid syntax to build graph
-            const graph = this.parseMermaid(mermaidString);
+            // Preprocess Mermaid code before calculating traces
+            // This ensures preprocessing always happens, regardless of how the calculator is called
+            let preprocessedCode = mermaidString;
+            try {
+                const preprocessResult = MermaidParser.cleanAndValidate(mermaidString, true);
+                preprocessedCode = preprocessResult.code;
+                console.log('[MermaidTraceCalculator] Applied preprocessing before trace calculation');
+            } catch (error) {
+                console.warn('[MermaidTraceCalculator] Failed to preprocess Mermaid code, using original:', error);
+                // Continue with original content if preprocessing fails
+            }
+            
+            // Parse Mermaid syntax to build graph (using preprocessed code)
+            const graph = this.parseMermaid(preprocessedCode);
             
             if (!graph || graph.nodes.length === 0) {
                 console.warn('[MermaidTraceCalculator] No valid graph found - parsed', graph ? graph.nodes.length : 0, 'nodes and', graph ? graph.edges.length : 0, 'edges');

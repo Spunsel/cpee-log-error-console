@@ -151,6 +151,9 @@ export class SyntaxHighlightingService {
         css += `.token.mermaid-parentheses { color: ${activeMermaid.parentheses || (isDarkMode ? '#86efac' : '#008000')} !important; }`;
         css += `.token.mermaid-condition { color: ${activeMermaid.condition || (isDarkMode ? '#6ba3f5' : '#2563eb')} !important; }`;
         css += `.token.node-type { color: ${mermaidDefault} !important; }`;
+        css += `.token.brace-content, .language-mermaid .token.brace-content, code.language-mermaid .token.brace-content { color: ${mermaidDefault} !important; }`;
+        // Override punctuation color for brace-content tokens specifically
+        css += `.token.brace-content.punctuation, .token.punctuation.brace-content { color: ${mermaidDefault} !important; }`;
         
         // User input override
         css += `.user-input-raw code, .user-input-section code, #user-input-content code, code.language-text { color: var(--text-primary, #1e293b) !important; }`;
@@ -182,9 +185,8 @@ export class SyntaxHighlightingService {
             },
             // Quoted strings inside parentheses: ("House of Representatives (435 Members)")
             // This must come before parentheses-content to match the entire quoted string
-            // Pattern handles escaped quotes and backslashes: matches non-quote/non-backslash chars or escaped chars
             'quoted-parentheses-content': {
-                pattern: /(?<=\()"(?:[^"\\]|\\.)+"(?=\))/,
+                pattern: /(?<=\()"[^"]+"(?=\))/,
                 alias: 'mermaid-parentheses'
             },
             // Text content inside parentheses: (startevent), (Task X), ((startevent)), etc.
@@ -195,6 +197,12 @@ export class SyntaxHighlightingService {
             'parentheses-content': {
                 pattern: /(?<=\()(?!")[^()]+(?=\))/,
                 alias: 'mermaid-parentheses'
+            },
+            // Text content inside curly braces: {AND}, {x}
+            // Match just the content, not the brackets themselves (brackets will be matched by punctuation pattern)
+            // No alias - uses default color (not parentheses green)
+            'brace-content': {
+                pattern: /(?<=\{)[^}]+(?=\})/
             },
             // IDs: alphanumeric + underscore/hyphen at start of line or after whitespace, before colon
             // Pattern: word chars followed by colon then letter (node type)

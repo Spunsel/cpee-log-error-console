@@ -2822,14 +2822,36 @@ gw2s:exclusivegateway:{x}-->|"Satisfied"|ee:endevent:(((endevent)))`,
 
         // Custom input trace calculation
         async function calculateCustomMermaidTraces() {
+            // Simulate page refresh: reset all state before calculation
+            customMermaidRenderer = null;
+            currentMermaidGraphScale = 1;
+            
+            const resultContainer = document.getElementById('custom-traces-result');
+            const graphContainer = document.getElementById('custom-mermaid-graph-container');
+            
+            // Clear all containers
+            if (resultContainer) {
+                resultContainer.innerHTML = '';
+            }
+            if (graphContainer) {
+                graphContainer.innerHTML = '';
+            }
+            
+            // Reset scale buttons to default
+            document.querySelectorAll('.mermaid-scale-btn').forEach(btn => {
+                if (parseInt(btn.dataset.scale) === 1) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
             const customInput = document.getElementById('custom-mermaid-input').value.trim();
             if (!customInput) {
                 alert('Please enter Mermaid syntax');
                 return;
             }
 
-            const resultContainer = document.getElementById('custom-traces-result');
-            const graphContainer = document.getElementById('custom-mermaid-graph-container');
             resultContainer.innerHTML = '<div class="empty-state">Calculating traces...</div>';
             if (graphContainer) {
                 graphContainer.innerHTML = '<div class="empty-state">Rendering graph...</div>';

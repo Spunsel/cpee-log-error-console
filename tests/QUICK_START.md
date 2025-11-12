@@ -11,6 +11,11 @@ npm run test:file tests/unit/core/StateManager.test.js
 # Or directly:
 node --test --import ./tests/setup.js tests/unit/core/StateManager.test.js
 
+# Run specific test by name pattern (e.g., only "Edge Case 9")
+node --test --test-name-pattern "Edge Case 9" --import ./tests/setup.js tests/unit/trace/TraceCalculationEdgeCases.test.js
+# Or using npm:
+npm run test:file tests/unit/trace/TraceCalculationEdgeCases.test.js -- --test-name-pattern "Edge Case 9"
+
 # Watch mode
 npm run test:watch
 
