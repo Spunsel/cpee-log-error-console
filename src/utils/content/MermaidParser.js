@@ -328,7 +328,9 @@ export class MermaidParser {
                             hasChanges = true;
                             // Wrap in quotes if it contains parentheses
                             if (needsQuotes) {
-                                result += `${id}:task:("${label}")`;
+                                // Escape backslashes first, then escape double quotes
+                                const escapedLabel = label.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+                                result += `${id}:task:("${escapedLabel}")`;
                             } else {
                                 // Only backslashes removed, no quotes needed
                                 result += `${id}:task:(${label})`;
@@ -360,7 +362,7 @@ export class MermaidParser {
         if (beforeFix12 !== updatedLines12.join('\n')) {
             processedCode = updatedLines12.join('\n');
             appliedSteps.push({
-                description: `Wrapped ${fix12LineNumbers.length} task${fix12LineNumbers.length > 1 ? 's' : ''} with nested braces in quotation marks`,
+                description: `Wrapped ${fix12LineNumbers.length} task${fix12LineNumbers.length > 1 ? 's' : ''} with nested parentheses in quotation marks`,
                 lineNumbers: Array.from(new Set(fix12LineNumbers)).sort((a, b) => a - b)
             });
         }

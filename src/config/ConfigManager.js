@@ -476,16 +476,12 @@ export class ConfigManager {
         return {
             enabled: true,
             highlightOnRender: true,
-            // Theme handling (light theme only)
             // themeUrl: 'https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-coldark-cold.min.css',
             // themeUrl: 'https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-base16-ateliersulphurpool.light.min.css',
             themeUrl: 'https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-duotone-light.min.css',
 
-            // Autoloader path for languages
             autoloaderPath: 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/',
-            // Explicit languages to ensure are available (informational)
             languages: ['xml', 'mermaid'],
-            // Typography overrides for code blocks
             typography: {
                 fontSize: '13px',
                 fontFamily: 'Adwaita Mono Regular',
@@ -497,55 +493,45 @@ export class ConfigManager {
                     style: 'normal'
                 }
             },
-            // Code block background (entire block background, not individual token backgrounds)
-            codeBlockBackground: 'var(--surface-color)', // Background of entire code block (pre element) - null = use theme default
-            // Color overrides for syntax highlighting tokens
+            codeBlockBackground: 'var(--surface-color)',
             colors: {
-                // XML/HTML specific - Light mode
-                tag: '#374151', // XML tags (e.g., <process>, <task>) - null = use theme default
-                attrName: '#2563eb', // Attribute names (e.g., name="value") - modern cyan-teal for crisp readability
-                attrValue: '#b91c1c', // Attribute values - vibrant coral-pink that pops beautifully against light background
-                punctuation: '#9ca3af', // Punctuation like < > = " - neutral gray-blue, keeps structure subtle
-                textContent: '#008000', // Text content inside tags (e.g., "Task X" in <label>Task X</label>) - warm amber focal accent
-                // Dark mode colors
+                tag: '#374151',
+                attrName: '#2563eb',
+                attrValue: '#b91c1c',
+                punctuation: '#9ca3af',
+                textContent: '#008000',
                 dark: {
-                    tag: '#a8b8d0', // Softer light gray for tags
-                    attrName: '#6ba3f5', // Softer blue for attribute names
-                    attrValue: '#f5a5a5', // Softer red/pink for attribute values
-                    punctuation: '#94a3b8', // Softer gray for punctuation
-                    textContent: '#86efac' // Softer green for text content
+                    tag: '#a8b8d0',
+                    attrName: '#6ba3f5',
+                    attrValue: '#f5a5a5',
+                    punctuation: '#94a3b8',
+                    textContent: '#86efac'
                 }
             },
-            // Mermaid-specific syntax highlighting colors
             mermaid: {
-                // Light mode
-                id: '#b91c1c', // Node IDs (e.g., "se", "a2", "gw1s") - red
-                punctuation: '#9ca3af', // Punctuation (., :, (, ), -, >, etc.) - gray
-                parentheses: '#008000', // Text in parentheses (e.g., "startevent", "Task X") - orange
-                condition: '#2563eb', // Conditions in pipes (e.g., |"true"|, |"Results Require"|) - blue
-                default: '#374151', // Everything else (keywords, node types) - black
-                // Dark mode colors
+                id: '#b91c1c',
+                punctuation: '#9ca3af',
+                parentheses: '#008000',
+                condition: '#2563eb',
+                default: '#374151',
                 dark: {
-                    id: '#f5a5a5', // Softer red for node IDs
-                    punctuation: '#94a3b8', // Softer gray for punctuation
-                    parentheses: '#86efac', // Softer green for parentheses content
-                    condition: '#6ba3f5', // Softer blue for conditions
-                    default: '#a8b8d0' // Softer light gray for default text
+                    id: '#f5a5a5',
+                    punctuation: '#94a3b8',
+                    parentheses: '#86efac',
+                    condition: '#6ba3f5',
+                    default: '#a8b8d0'
                 }
             },
-            // Trace JSON-specific syntax highlighting colors
             trace: {
-                // JSON specific - Light mode
-                punctuation: '#9ca3af', // Punctuation ({, }, ,) - same as colors.punctuation
-                keys: '#000000', // JSON keys (id, alt_id, task) - black
-                ids: '#b91c1c', // IDs (id, alt_id values) - same as colors.attrValue
-                tasks: '#008000', // Tasks (task values) - same as colors.textContent
-                // Dark mode colors
+                punctuation: '#9ca3af',
+                keys: '#000000',
+                ids: '#b91c1c',
+                tasks: '#008000',
                 dark: {
-                    punctuation: '#94a3b8', // Punctuation ({, }, ,) - same as colors.dark.punctuation
-                    keys: '#b8c5d8', // JSON keys (id, alt_id, task) - lighter than punctuation (#94a3b8)
-                    ids: '#f5a5a5', // IDs (id, alt_id values) - same as colors.dark.attrValue
-                    tasks: '#86efac' // Tasks (task values) - same as colors.dark.textContent
+                    punctuation: '#94a3b8',
+                    keys: '#b8c5d8',
+                    ids: '#f5a5a5',
+                    tasks: '#86efac'
                 }
             }             
         };

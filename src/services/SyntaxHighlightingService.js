@@ -102,69 +102,57 @@ export class SyntaxHighlightingService {
             document.head.appendChild(styleEl);
         }
 
-        // Check if dark mode is active
         const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-
+        const colors = sh.colors || {};
+        const activeColors = isDarkMode && colors.dark ? colors.dark : colors;
+        const mermaid = sh.mermaid || {};
+        const activeMermaid = isDarkMode && mermaid.dark ? mermaid.dark : mermaid;
+        const mermaidDefault = activeMermaid.default || (isDarkMode ? '#a8b8d0' : '#374151');
+        const typo = sh.typography || {};
+        
         let css = '';
         
-        // Apply typography (font-face + font family/size)
-        const typo = sh.typography || {};
-        if (typo.fontFace && typo.fontFace.enabled && typo.fontFace.src && typo.fontFace.name) {
-            // Only .ttf font files are supported
+        // Typography
+        if (typo.fontFace?.enabled && typo.fontFace?.src && typo.fontFace?.name) {
             css += `@font-face{font-family:"${typo.fontFace.name}";src:url("${typo.fontFace.src}") format("truetype");font-weight:${typo.fontFace.weight||'400'};font-style:${typo.fontFace.style||'normal'};font-display:swap;}`;
         }
-        
         const fontFamily = typo.fontFamily || 'Adwaita Mono Regular';
         const fontSize = typo.fontSize || '13px';
         css += `.raw-content-container pre, .raw-content-container code, pre.raw-code-block, pre.raw-code-block code, pre code { font-family: ${fontFamily}; font-size: ${fontSize}; }`;
         
-        // Apply code block background if configured
+        // Code block background
         if (sh.codeBlockBackground !== null && sh.codeBlockBackground !== undefined) {
             css += `.raw-content-container pre, pre.raw-code-block, pre { background-color: ${sh.codeBlockBackground} !important; }`;
         }
         
-        // Apply XML/CPEE color overrides - use dark mode colors if available
-        const colors = sh.colors || {};
-        const activeColors = isDarkMode && colors.dark ? colors.dark : colors;
-        
-        // Handle textContent separately - styles the base code element (affects unstyled text)
-        // Exclude Mermaid code blocks and user input as they have their own default color
+        // XML/CPEE colors
         if (activeColors.textContent !== null && activeColors.textContent !== undefined) {
-            css += `.raw-content-container pre code:not(.language-mermaid):not(.language-text), `;
-            css += `pre code:not(.language-mermaid):not(.language-text) { color: ${activeColors.textContent} !important; }`;
+            css += `.raw-content-container pre code:not(.language-mermaid):not(.language-text), pre code:not(.language-mermaid):not(.language-text) { color: ${activeColors.textContent} !important; }`;
         }
         
-        const colorMappings = {
+        const xmlMappings = {
             tag: '.token.tag',
             attrName: '.token.attr-name',
             attrValue: '.token.attr-value',
             punctuation: '.token.punctuation'
         };
-        
-        Object.entries(colorMappings).forEach(([configKey, cssSelector]) => {
-            const color = activeColors[configKey];
-            if (color !== null && color !== undefined) {
-                css += `${cssSelector} { color: ${color} !important; }`;
+        Object.entries(xmlMappings).forEach(([key, selector]) => {
+            if (activeColors[key] !== null && activeColors[key] !== undefined) {
+                css += `${selector} { color: ${activeColors[key]} !important; }`;
             }
         });
         
-        // Apply Mermaid-specific syntax highlighting colors - use dark mode colors if available
-        const mermaid = sh.mermaid || {};
-        const activeMermaid = isDarkMode && mermaid.dark ? mermaid.dark : mermaid;
-        const mermaidDefault = activeMermaid.default || (isDarkMode ? '#a8b8d0' : '#000000');
-        
+        // Mermaid colors
         if (activeMermaid.default !== null && activeMermaid.default !== undefined) {
             css += `.language-mermaid, code.language-mermaid { color: ${mermaidDefault} !important; }`;
         }
-        css += `.token.mermaid-id { color: ${activeMermaid.id || (isDarkMode ? '#f5a5a5' : '#dc2626')} !important; }`;
+        css += `.token.mermaid-id { color: ${activeMermaid.id || (isDarkMode ? '#f5a5a5' : '#b91c1c')} !important; }`;
         css += `.token.mermaid-punctuation { color: ${activeMermaid.punctuation || (isDarkMode ? '#94a3b8' : '#9ca3af')} !important; }`;
-        css += `.token.mermaid-parentheses { color: ${activeMermaid.parentheses || (isDarkMode ? '#86efac' : '#ea580c')} !important; }`;
+        css += `.token.mermaid-parentheses { color: ${activeMermaid.parentheses || (isDarkMode ? '#86efac' : '#008000')} !important; }`;
         css += `.token.mermaid-condition { color: ${activeMermaid.condition || (isDarkMode ? '#6ba3f5' : '#2563eb')} !important; }`;
-        // Ensure node-type tokens (like :task:, :exclusivegateway:) use default color
         css += `.token.node-type { color: ${mermaidDefault} !important; }`;
         
-        // Explicitly ensure user input is not affected by syntax highlighting
-        // Override all syntax highlighting colors for user input sections
+        // User input override
         css += `.user-input-raw code, .user-input-section code, #user-input-content code, code.language-text { color: var(--text-primary, #1e293b) !important; }`;
         css += `.user-input-raw code .token, .user-input-section code .token, #user-input-content code .token, code.language-text .token { color: inherit !important; }`;
         
@@ -194,8 +182,9 @@ export class SyntaxHighlightingService {
             },
             // Quoted strings inside parentheses: ("House of Representatives (435 Members)")
             // This must come before parentheses-content to match the entire quoted string
+            // Pattern handles escaped quotes and backslashes: matches non-quote/non-backslash chars or escaped chars
             'quoted-parentheses-content': {
-                pattern: /(?<=\()"[^"]+"(?=\))/,
+                pattern: /(?<=\()"(?:[^"\\]|\\.)+"(?=\))/,
                 alias: 'mermaid-parentheses'
             },
             // Text content inside parentheses: (startevent), (Task X), ((startevent)), etc.
@@ -205,12 +194,6 @@ export class SyntaxHighlightingService {
             // This pattern should not match quoted strings (handled above) - negative lookahead ensures no quote immediately after opening paren
             'parentheses-content': {
                 pattern: /(?<=\()(?!")[^()]+(?=\))/,
-                alias: 'mermaid-parentheses'
-            },
-            // Text content inside curly braces: {AND}, {x}
-            // Match just the content, not the brackets themselves (brackets will be matched by punctuation pattern)
-            'brace-content': {
-                pattern: /(?<=\{)[^}]+(?=\})/,
                 alias: 'mermaid-parentheses'
             },
             // IDs: alphanumeric + underscore/hyphen at start of line or after whitespace, before colon
