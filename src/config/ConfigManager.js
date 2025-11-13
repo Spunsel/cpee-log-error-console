@@ -100,16 +100,13 @@ export class ConfigManager {
                 // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
                 processNumbers: [
                     19044, 18195, 18184, 14972, 12919, 12505, 12377, 12376, 12328, 12319, 12318,
-                    12317, 12316, 12315, 12314, 12312, 11540, 10741, 9934, 9808, 9802, 9785, 9784,
-                    9779, 7676, 7567, 7491, 7482, 7414, 7401, 7400, 6909, 6775, 6770, 6561, 6560,
-                    6554, 6552, 6550, 6548, 6547, 6269, 6098, 5919, 5898, 5849, 5835, 5820, 5814,
-                    5693, 5130, 5128, 5138, 5055, 5053, 5050, 5049, 5048, 5045, 5044, 5040, 5035,
-                    4913, 4908, 4906, 4807, 3833, 2181, 1606, 1574, 1568, 1567, 1529, 1528, 1527,
-                    1524, 1523, 1510, 1467, 1465, 1393, 1388, 1317, 1314, 1266, 1258, 1134, 1133,
-                    1132, 1126, 1124, 1123, 1118, 1098, 1091, 1087, 1086, 1069, 1055, 1047, 1046,
-                    1039, 1021, 975, 972, 967, 930, 926, 920, 914, 890, 860, 853, 852, 850, 849,
-                    845, 694, 665, 664, 561, 559, 558, 461, 460, 457, 449, 424, 384, 378, 377, 361,
-                    266, 262, 260, 259, 214, 193
+                    12317, 12316, 12315, 12314, 12312, 11540, 10741, 9934, 9808, 9802, 9785, 9784, 9779, 7676,
+                    7567, 7491, 7414, 7402, 7401, 7400, 6909,6775, 6770, 6561, 6560, 6554, 6552, 6550, 6548, 6547, 6269, 6098, 5919, 5898, 5820, 5814, 5693,
+                    5130, 5128, 5055, 5053, 5050, 5049, 5045, 5044, 5040, 5035, 4913, 4908, 4906, 4807, 3833, 2181,
+                    1606, 1574, 1568, 1567, 1529, 1528, 1527, 1524, 1523, 1510, 1467, 1465, 1393, 1388, 1317, 1314, 1266, 1258, 
+                    1134, 1133, 1132, 1126, 1124, 1123, 1118, 1098, 1091, 1087, 1086, 1069, 1055, 1047, 1046, 
+                    1039, 1021, 975, 972, 967, 930, 926, 920, 914, 890, 860, 853, 852, 850, 849, 845, 694, 665, 
+                    664, 561, 559, 558, 461, 460, 457, 449, 424, 384, 378, 377, 361, 266, 262, 260, 259, 214, 193
                 ]
             }
         };
@@ -193,7 +190,7 @@ export class ConfigManager {
                 initialDelay: 1000
             },
             interRequestDelay: 0.1,  // Delay between consecutive log fetch requests (in milliseconds) - set to 0 to remove delay
-            scanConcurrency: 10  // Number of concurrent instance checks during scanning (default: 50)
+            scanConcurrency: 200  // Number of concurrent instance checks during scanning (default: 50)
         };
     }
 
@@ -837,7 +834,7 @@ export class ConfigManager {
                     status: 'closed',
                     labels: ['mermaid preprocessing', 'traces', 'bug'],
                     date: '2025-11-11',
-                    description: '"{AND}" was missing after ":parallelgateway:" in egdes, causing edges not to be recognized as parallel AND-join or AND-split (5040)'
+                    description: '"{AND}" was missing after ":parallelgateway:" edges, causing edges not to be recognized as parallel AND-join or AND-split (5040)'
                 },
 
 
