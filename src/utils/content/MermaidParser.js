@@ -512,9 +512,6 @@ export class MermaidParser {
             
             throw error;
         }
-
-        console.log('✅ Mermaid code validation successful');
-        console.log('🔍 Cleaned Mermaid code:', cleanedCode);
         
         // Return object with code and preprocessing steps
         return {

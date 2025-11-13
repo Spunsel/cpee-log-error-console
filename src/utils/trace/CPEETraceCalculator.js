@@ -331,9 +331,18 @@ class TraceSets {
             loopNode.parentElement.tagName.toLowerCase() : '';
         const isDirectlyConnectedToEnd = isLastElement && parentTag === 'description';
         
+        // Count tasks in loop body (call, manipulate, script)
+        const loopBodyTaskCount = children.filter(child => {
+            const tagName = child.tagName ? child.tagName.toLowerCase() : '';
+            return tagName === 'call' || tagName === 'manipulate' || tagName === 'script';
+        }).length;
+        
         // 0 iterations (condition false from start)
-        // Skip 0 iterations if loop is directly connected to end node
-        if (!isDirectlyConnectedToEnd) {
+        // Skip 0 iterations if loop is directly connected to end node AND contains more than one task
+        // Exception: if loop contains only ONE task, allow 0 iterations even if directly connected to end
+        const shouldSkipZeroIterations = isDirectlyConnectedToEnd && loopBodyTaskCount > 1;
+        
+        if (!shouldSkipZeroIterations) {
             if (mode === 'pre_test' || mode === 'post_test') {
                 // Return current forward trace (no loop execution)
                 result.push([...currentFT]);

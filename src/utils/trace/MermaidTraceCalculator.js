@@ -144,17 +144,21 @@ class TraceSets {
         const isCotreeEdge = TopologyIterators.cotreeIterator(currentNodeId, currentFT);
         if (isCotreeEdge) {
             // Loop detected - apply bounded iteration
-            const loopCount = graph.nodesInMultipleLoops?.get(currentNodeId) || 1;
-            const visitLimit = (maxLoopIterations + 1) * loopCount;
-            
-            // Count how many times this node appears in current trace
+            // Count how many times this node appears in current trace (before adding current visit)
             const visitCount = currentFT.filter(task => {
                 const taskId = task.id || task.alt_id;
                 return taskId === currentNodeId;
             }).length;
             
-            if (visitCount >= visitLimit) {
-                return []; // Loop limit reached
+            // visitCount represents how many times we've already visited this node
+            // visitCount = 0: first visit (not a loop yet) - always allow
+            // visitCount = 1: second visit (would be first loop iteration) - allow if maxLoopIterations >= 1
+            // visitCount = 2: third visit (would be second loop iteration) - allow if maxLoopIterations >= 2
+            // We want to allow up to maxLoopIterations loop iterations
+            // So we allow if visitCount <= maxLoopIterations
+            // (visitCount=0 is initial visit, visitCount=1 is 1st loop iteration, etc.)
+            if (visitCount > maxLoopIterations) {
+                return []; // Loop limit reached - too many loop iterations
             }
         }
         
@@ -178,16 +182,34 @@ class TraceSets {
                 // Create new forward trace set: FT_new = FT ∪ {task}
                 const newFT = [...currentFT, task];
                 
-                // Process next nodes with new forward trace set
-                return this.combineSequentialForwardTrace(
-                    graph,
-                    nextNodeIds,
-                    targetNodeId,
-                    newFT,
-                    depth + 1,
-                    maxLoopIterations,
-                    timeoutChecker
-                );
+                // If task has multiple outgoing edges, treat them as XOR alternatives (union)
+                // This handles cases like self-loops where a task can either loop back or continue
+                if (nextNodeIds.length > 1) {
+                    // Process each alternative path with same forward trace set
+                    const alternativeTraces = nextNodeIds.flatMap(nextNodeId => 
+                        this.forwardTrace(
+                            graph,
+                            nextNodeId,
+                            targetNodeId,
+                            newFT,
+                            depth + 1,
+                            maxLoopIterations,
+                            timeoutChecker
+                        )
+                    );
+                    return alternativeTraces;
+                } else {
+                    // Single outgoing edge: process sequentially
+                    return this.combineSequentialForwardTrace(
+                        graph,
+                        nextNodeIds,
+                        targetNodeId,
+                        newFT,
+                        depth + 1,
+                        maxLoopIterations,
+                        timeoutChecker
+                    );
+                }
             }
             
             case 'exclusivegateway': {
