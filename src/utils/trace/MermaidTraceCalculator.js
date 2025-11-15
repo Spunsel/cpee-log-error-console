@@ -453,7 +453,6 @@ export class MermaidTraceCalculator {
             try {
                 const preprocessResult = MermaidParser.cleanAndValidate(mermaidString, true);
                 preprocessedCode = preprocessResult.code;
-                console.log('[MermaidTraceCalculator] Applied preprocessing before trace calculation');
             } catch (error) {
                 console.warn('[MermaidTraceCalculator] Failed to preprocess Mermaid code, using original:', error);
             }

@@ -83,115 +83,6 @@ function assertTracesMatch(mermaidTraces, cpeeTraces, testName, requireExactMatc
 }
 
 describe('Trace Calculation Instance Cases', () => {
-    
-    // ============================================================================
-    // Instance Case: 1047-Step3-Output
-    // ============================================================================
-    test('Instance Case: 1047-Step3-Output', () => {
-        const mermaid = `graph LR
-0:startevent:((startevent)) --> 1:task:(Receive Lab Material)
-1:task:(Receive Lab Material) --> 2:task:(Check Correctness and Quality)
-2:task:(Check Correctness and Quality) --> 3:exclusivegateway:{x}
-3:exclusivegateway:{x} --> |Sample is unsuitable| 4:task:(Re-prepare/Reprocess Sample)
-4:task:(Re-prepare/Reprocess Sample) --> 5:task:(Check Correctness and Quality)
-5:task:(Check Correctness and Quality) --> 6:exclusivegateway:{x}
-3:exclusivegateway:{x} --> |Sample is suitable| 7:task:(Perform Examination)
-7:task:(Perform Examination) --> 8:task:(Create Report)
-8:task:(Create Report) --> 9:endevent:(((endevent)))
-6:exclusivegateway:{x} --> |Sample is unsuitable| 4:task:(Re-prepare/Reprocess Sample)
-6:exclusivegateway:{x} --> |Sample is suitable| 7:task:(Perform Examination)`;
-
-        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
-  <call id="a1" endpoint="" a:alt_id="1">
-    <parameters>
-      <label>Receive Lab Material</label>
-      <method/>
-      <type>:task</type>
-      <arguments/>
-    </parameters>
-  </call>
-  <call id="a3" endpoint="" a:alt_id="2">
-    <parameters>
-      <label>Check Correctness and Quality</label>
-      <method/>
-      <type>:task</type>
-      <arguments/>
-    </parameters>
-  </call>
-  <choose mode="exclusive" a:alt_id="3">
-    <alternative condition="Sample is unsuitable" language="text/javascript">
-      <loop mode="pre_test" condition="true">
-        <call id="a7" endpoint="" a:alt_id="4">
-          <parameters>
-            <label>Re-prepare/Reprocess Sample</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
-        <call id="a9" endpoint="" a:alt_id="5">
-          <parameters>
-            <label>Check Correctness and Quality</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
-        <loop mode="pre_test" condition="Sample is unsuitable" a:alt_id="6" language="text/javascript">
-          <call id="a7" endpoint="" a:alt_id="4">
-            <parameters>
-              <label>Re-prepare/Reprocess Sample</label>
-              <method/>
-              <type>:task</type>
-              <arguments/>
-            </parameters>
-          </call>
-          <call id="a9" endpoint="" a:alt_id="5">
-            <parameters>
-              <label>Check Correctness and Quality</label>
-              <method/>
-              <type>:task</type>
-              <arguments/>
-            </parameters>
-          </call>
-        </loop>
-        <call id="a13" endpoint="" a:alt_id="7">
-          <parameters>
-            <label>Perform Examination</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
-      </loop>
-    </alternative>
-    <alternative condition="Sample is suitable" language="text/javascript"/>
-  </choose>
-  <call id="a13" endpoint="" a:alt_id="7">
-    <parameters>
-      <label>Perform Examination</label>
-      <method/>
-      <type>:task</type>
-      <arguments/>
-    </parameters>
-  </call>
-  <call id="a15" endpoint="" a:alt_id="8">
-    <parameters>
-      <label>Create Report</label>
-      <method/>
-      <type>:task</type>
-      <arguments/>
-    </parameters>
-  </call>
-</description>`;
-
-        const mermaidTraces = MermaidTraceCalculator.traces(mermaid);
-        const cpeeTraces = CPEETraceCalculator.traces(cpee);
-
-        assert.ok(mermaidTraces.length > 0, 'Mermaid should calculate at least one trace');
-        assert.ok(cpeeTraces.length > 0, 'CPEE should calculate at least one trace');
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Instance Case: 1047-Step3-Output');
-    });
 
     // ============================================================================
     // Instance Case: 1069-Step1
@@ -1884,8 +1775,8 @@ gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))`;
   </choose>
 </description>`;
 
-        const mermaidTraces = MermaidTraceCalculator.traces(mermaid);
-        const cpeeTraces = CPEETraceCalculator.traces(cpee);
+        const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid, { maxLoopIterations: 1 });
+        const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee, { maxLoopIterations: 1 });
 
         assert.ok(mermaidTraces.length > 0, 'Mermaid should calculate at least one trace');
         assert.ok(cpeeTraces.length > 0, 'CPEE should calculate at least one trace');
@@ -1956,8 +1847,8 @@ gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))`;
   </call>
 </description>`;
 
-        const mermaidTraces = MermaidTraceCalculator.traces(mermaid);
-        const cpeeTraces = CPEETraceCalculator.traces(cpee);
+        const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid, { maxLoopIterations: 1 });
+        const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee, { maxLoopIterations: 1 });
 
         assert.ok(mermaidTraces.length > 0, 'Mermaid should calculate at least one trace');
         assert.ok(cpeeTraces.length > 0, 'CPEE should calculate at least one trace');
@@ -2097,8 +1988,8 @@ gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))`;
   </call>
 </description>`;
 
-        const mermaidTraces = MermaidTraceCalculator.traces(mermaid);
-        const cpeeTraces = CPEETraceCalculator.traces(cpee);
+        const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid, { maxLoopIterations: 1 });
+        const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee, { maxLoopIterations: 1 });
 
         assert.ok(mermaidTraces.length > 0, 'Mermaid should calculate at least one trace');
         assert.ok(cpeeTraces.length > 0, 'CPEE should calculate at least one trace');

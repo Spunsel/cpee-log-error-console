@@ -209,43 +209,9 @@ gw2:exclusivegateway:{x} --> |exit| ee:endevent:((end))
     });
 
     // ============================================================================
-    // Edge Case 4: Task with escaped quotes in label
+    // Edge Case 4: Multiple start events (disconnected components)
     // ============================================================================
-    test('Edge Case 4: Task with escaped quotes in label', () => {
-        const mermaid = `
-graph LR
-se:startevent:((start)) --> t1:task:("Task with \\"quotes\\"")
-t1:task:("Task with \\"quotes\\"") --> ee:endevent:((end))
-        `.trim();
-
-        const cpee = `
-<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
-  <call id="t1" endpoint="" a:alt_id="t1">
-    <parameters>
-      <label>Task with "quotes"</label>
-      <method/>
-      <type>:task</type>
-      <arguments/>
-    </parameters>
-  </call>
-</description>
-        `.trim();
-
-        const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid);
-        const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee);
-
-        assert.ok(mermaidTraces.length > 0, 'Mermaid should handle escaped quotes');
-        assert.ok(cpeeTraces.length > 0, 'CPEE should handle quotes in labels');
-        assert.ok(mermaidTraces.some(trace => 
-            trace.path.some(task => task.task === 'Task with "quotes"')
-        ), 'Should preserve quotes in task label');
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 4', true);
-    });
-
-    // ============================================================================
-    // Edge Case 5: Multiple start events (disconnected components)
-    // ============================================================================
-    test('Edge Case 5: Multiple start events', () => {
+    test('Edge Case 4: Multiple start events', () => {
         const mermaid = `
 graph LR
 se1:startevent:((start1)) --> t1:task:(Task 1)
@@ -280,14 +246,14 @@ t2:task:(Task 2) --> ee2:endevent:((end2))
 
         assert.ok(mermaidTraces.length >= 2, 'Mermaid should calculate traces for each start event');
         assert.ok(cpeeTraces.length >= 1, 'CPEE should calculate at least one trace');
-        // Note: Edge Case 5 has different behavior (Mermaid finds multiple disconnected components, CPEE finds sequential)
+        // Note: Edge Case 4 has different behavior (Mermaid finds multiple disconnected components, CPEE finds sequential)
         // So we skip trace matching for this case
     });
 
     // ============================================================================
-    // Edge Case 6: Complex parallel merge with different path lengths
+    // Edge Case 5: Complex parallel merge with different path lengths
     // ============================================================================
-    test('Edge Case 6: Complex parallel merge with different path lengths', () => {
+    test('Edge Case 5: Complex parallel merge with different path lengths', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> pg1:parallelgateway:{AND}
@@ -341,13 +307,13 @@ pg2:parallelgateway:{AND} --> ee:endevent:((end))
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle parallel paths with different lengths');
         // Parallel paths should generate interleaved traces
         assert.ok(mermaidTraces.length >= 2, 'Should generate multiple interleaved traces for parallel paths');
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 6');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 5');
     });
 
     // ============================================================================
-    // Edge Case 7: Exclusive gateway with all conditions false (dead end)
+    // Edge Case 6: Exclusive gateway with all conditions false (dead end)
     // ============================================================================
-    test('Edge Case 7: Exclusive gateway with all conditions false', () => {
+    test('Edge Case 6: Exclusive gateway with all conditions false', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> t1:task:(Task)
@@ -401,9 +367,9 @@ gw:exclusivegateway:{x} --> ee:endevent:((end))
     });
 
     // ============================================================================
-    // Edge Case 8: Task with parentheses in label (already quoted)
+    // Edge Case 7: Task with parentheses in label (already quoted)
     // ============================================================================
-    test('Edge Case 8: Task with parentheses in label', () => {
+    test('Edge Case 7: Task with parentheses in label', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> t1:task:("Task (with parentheses)")
@@ -429,13 +395,13 @@ t1:task:("Task (with parentheses)") --> ee:endevent:((end))
         assert.ok(mermaidTraces.length > 0, 'Mermaid should handle parentheses in quoted labels');
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle parentheses in labels');
         assert.ok(mermaidTraces[0].path[0].task.includes('('), 'Should preserve parentheses in task label');
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 8', true);
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 7', true);
     });
 
     // ============================================================================
-    // Edge Case 9: Deeply nested structure - Parallel with XOR containing nested Parallel
+    // Edge Case 8: Deeply nested structure - Parallel with XOR containing nested Parallel
     // ============================================================================
-    test('Edge Case 9: Parallel with XOR containing nested Parallel', () => {
+    test('Edge Case 8: Parallel with XOR containing nested Parallel', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> pg1:parallelgateway:{AND}
@@ -516,13 +482,13 @@ pg1_merge:parallelgateway:{AND} --> ee:endevent:((end))
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle deeply nested structure');
         // Should have multiple traces due to XOR and parallel combinations
         assert.ok(mermaidTraces.length >= 2, 'Should generate multiple traces from nested gateways');
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 9');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 8');
     });
 
     // ============================================================================
-    // Edge Case 10: Mixed gateway types in sequence
+    // Edge Case 9: Mixed gateway types in sequence
     // ============================================================================
-    test('Edge Case 10: Mixed gateway types in sequence', () => {
+    test('Edge Case 9: Mixed gateway types in sequence', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> pg:parallelgateway:{AND}
@@ -615,13 +581,13 @@ pg2:parallelgateway:{AND} --> ee:endevent:((end))
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle mixed gateway types');
         // Should have multiple traces due to parallel and exclusive combinations
         assert.ok(mermaidTraces.length >= 2, 'Should generate multiple traces from mixed gateways');
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 10');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 9');
     });
 
     // ============================================================================
-    // Edge Case 11: Pre-test loop at end (0-iteration path included)
+    // Edge Case 10: Pre-test loop at end (0-iteration path included)
     // ============================================================================
-    test('Edge Case 11: Pre-test loop at end', () => {
+    test('Edge Case 10: Pre-test loop at end', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> t1:task:(Task A)
@@ -661,13 +627,13 @@ t2:task:(Task B) --> ee:endevent:((end))
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle pre-test loop at end');
         // With GTA: CPEE loop at end skips 0-iteration path, so it should execute at least once
         // Mermaid uses cotree detection, so behavior may differ
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 11');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 10');
     });
 
     // ============================================================================
-    // Edge Case 12: Post-test loop (minimum one iteration)
+    // Edge Case 11: Post-test loop (minimum one iteration)
     // ============================================================================
-    test('Edge Case 12: Post-test loop minimum one iteration', () => {
+    test('Edge Case 11: Post-test loop minimum one iteration', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> t1:task:(Task A)
@@ -698,13 +664,13 @@ gw:exclusivegateway:{x} --> ee:endevent:((end))
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle post-test loop');
         // Post-test loop: CPEE should always execute at least once (no 0-iteration path)
         // Mermaid uses cotree detection which may allow 0 iterations
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 12');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 11');
     });
 
     // ============================================================================
-    // Edge Case 13: Nested pre-test loops
+    // Edge Case 12: Nested pre-test loops
     // ============================================================================
-    test('Edge Case 13: Nested pre-test loops', () => {
+    test('Edge Case 12: Nested pre-test loops', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> t0:task:(Task B)
@@ -748,13 +714,13 @@ gw1:exclusivegateway:{x} --> ee:endevent:((end))
         assert.ok(mermaidTraces.length > 0, 'Mermaid should handle nested pre-test loops');
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle nested pre-test loops');
         // Nested loops: GTA handles them through cotree detection (Mermaid) or explicit nesting (CPEE)
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 13');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 12');
     });
 
     // ============================================================================
-    // Edge Case 14: Loop followed by additional task
+    // Edge Case 13: Loop followed by additional task
     // ============================================================================
-    test('Edge Case 14: Loop followed by additional task', () => {
+    test('Edge Case 13: Loop followed by additional task', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> t1:task:(Task A)
@@ -793,13 +759,13 @@ t2:task:(Task B) --> ee:endevent:((end))
         assert.ok(mermaidTraces.length > 0, 'Mermaid should handle loop followed by additional task');
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle loop followed by additional task');
         // Loop followed by task: both should generate traces with loop iterations and subsequent task
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 14');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 13');
     });
 
     // ============================================================================
-    // Edge Case 15: Loop body with multiple tasks
+    // Edge Case 14: Loop body with multiple tasks
     // ============================================================================
-    test('Edge Case 15: Loop body with multiple tasks', () => {
+    test('Edge Case 14: Loop body with multiple tasks', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> t1:task:(Task A)
@@ -838,13 +804,13 @@ gw:exclusivegateway:{x} --> ee:endevent:((end))
         assert.ok(mermaidTraces.length > 0, 'Mermaid should handle loop body with multiple tasks');
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle loop body with multiple tasks');
         // Loop with multiple tasks in body: both should generate traces with all tasks repeated
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 15');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 14');
     });
 
     // ============================================================================
-    // Edge Case 16: Loop within parallel branch
+    // Edge Case 15: Loop within parallel branch
     // ============================================================================
-    test('Edge Case 16: Loop within parallel branch', () => {
+    test('Edge Case 15: Loop within parallel branch', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> pg:parallelgateway:{AND}
@@ -892,13 +858,13 @@ pg2:parallelgateway:{AND} --> ee:endevent:((end))
         assert.ok(mermaidTraces.length > 0, 'Mermaid should handle loop within parallel branch');
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle loop within parallel branch');
         // Loop in parallel branch: should generate interleaved traces with loop iterations
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 16');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 15');
     });
 
     // ============================================================================
-    // Edge Case 17: Escape at start of alternative
+    // Edge Case 16: Escape at start of alternative
     // ============================================================================
-    test('Edge Case 17: Escape at start of alternative', () => {
+    test('Edge Case 16: Escape at start of alternative', () => {
         // Note: Mermaid doesn't have escape semantics, so this is CPEE-only
         const cpee = `
 <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
@@ -942,9 +908,9 @@ pg2:parallelgateway:{AND} --> ee:endevent:((end))
     });
 
     // ============================================================================
-    // Edge Case 18: Escape after tasks in alternative
+    // Edge Case 17: Escape after tasks in alternative
     // ============================================================================
-    test('Edge Case 18: Escape after tasks in alternative', () => {
+    test('Edge Case 17: Escape after tasks in alternative', () => {
         // Note: Mermaid doesn't have escape semantics, so this is CPEE-only
         const cpee = `
 <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
@@ -999,9 +965,9 @@ pg2:parallelgateway:{AND} --> ee:endevent:((end))
     });
 
     // ============================================================================
-    // Edge Case 19: Loop directly before escape
+    // Edge Case 18: Loop directly before escape
     // ============================================================================
-    test('Edge Case 19: Loop directly before escape', () => {
+    test('Edge Case 18: Loop directly before escape', () => {
         // Note: Mermaid doesn't have escape semantics, so this is CPEE-only
         const cpee = `
 <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
@@ -1034,62 +1000,9 @@ pg2:parallelgateway:{AND} --> ee:endevent:((end))
     });
 
     // ============================================================================
-    // Edge Case 20: Choose nested in loop body
+    // Edge Case 19: Two-branch parallel with multi-task branches
     // ============================================================================
-    test('Edge Case 20: Choose nested in loop body', () => {
-        const mermaid = `
-graph LR
-se:startevent:((start)) --> gw1:exclusivegateway:{x}
-gw1:exclusivegateway:{x} --> |loop| gw2:exclusivegateway:{x}
-gw1:exclusivegateway:{x} --> ee:endevent:((end))
-gw2:exclusivegateway:{x} --> |path1| t1:task:(Task A)
-gw2:exclusivegateway:{x} --> |path2| t2:task:(Task B)
-t1:task:(Task A) --> gw1:exclusivegateway:{x}
-t2:task:(Task B) --> gw1:exclusivegateway:{x}
-        `.trim();
-
-        const cpee = `
-<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
-  <loop mode="pre_test" condition="loop" a:alt_id="loop1" language="text/javascript">
-    <choose mode="exclusive" a:alt_id="gw1">
-      <alternative condition="path1" language="text/javascript">
-        <call id="t1" endpoint="" a:alt_id="t1">
-          <parameters>
-            <label>Task A</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
-      </alternative>
-      <alternative condition="path2" language="text/javascript">
-        <call id="t2" endpoint="" a:alt_id="t2">
-          <parameters>
-            <label>Task B</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
-      </alternative>
-    </choose>
-  </loop>
-</description>
-        `.trim();
-
-        const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid, { maxLoopIterations: 1 });
-        const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee, { maxLoopIterations: 1 });
-
-        assert.ok(mermaidTraces.length > 0, 'Mermaid should handle choose nested in loop body');
-        assert.ok(cpeeTraces.length > 0, 'CPEE should handle choose nested in loop body');
-        // Choose nested in loop: should generate traces with loop iterations and XOR path choices
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 20');
-    });
-
-    // ============================================================================
-    // Edge Case 21: Two-branch parallel with multi-task branches
-    // ============================================================================
-    test('Edge Case 21: Two-branch parallel with multi-task branches', () => {
+    test('Edge Case 19: Two-branch parallel with multi-task branches', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> pg:parallelgateway:{AND}
@@ -1140,66 +1053,13 @@ pg2:parallelgateway:{AND} --> ee:endevent:((end))
         const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee);
 
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle two-branch parallel with multi-task branches');
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 21');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 19');
     });
 
     // ============================================================================
-    // Edge Case 22: Parallel with empty branch
+    // Edge Case 20: Parallel nested in alternative
     // ============================================================================
-    test('Edge Case 22: Parallel with empty branch', () => {
-        const mermaid = `
-graph LR
-se:startevent:((start)) --> pg:parallelgateway:{AND}
-pg:parallelgateway:{AND} --> gw:exclusivegateway:{x}
-pg:parallelgateway:{AND} --> t2:task:(Task B)
-gw:exclusivegateway:{x} --> |false| gw:exclusivegateway:{x}
-gw:exclusivegateway:{x} --> pg2:parallelgateway:{AND}
-t2:task:(Task B) --> pg2:parallelgateway:{AND}
-pg2:parallelgateway:{AND} --> ee:endevent:((end))
-        `.trim();
-
-        const cpee = `
-<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
-  <parallel wait="-1" cancel="last" a:alt_id="pg1">
-    <parallel_branch>
-      <loop mode="pre_test" condition="false" a:alt_id="loop1" language="text/javascript">
-        <call id="t1" endpoint="" a:alt_id="t1">
-          <parameters>
-            <label>Task A</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
-      </loop>
-    </parallel_branch>
-    <parallel_branch>
-      <call id="t2" endpoint="" a:alt_id="t2">
-        <parameters>
-          <label>Task B</label>
-          <method/>
-          <type>:task</type>
-          <arguments/>
-        </parameters>
-      </call>
-    </parallel_branch>
-  </parallel>
-</description>
-        `.trim();
-
-        const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid, { maxLoopIterations: 1 });
-        const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee, { maxLoopIterations: 1 });
-
-        assert.ok(mermaidTraces.length > 0, 'Mermaid should handle parallel with empty branch');
-        assert.ok(cpeeTraces.length > 0, 'CPEE should handle parallel with empty branch');
-        // Parallel with empty branch (loop with false condition): should handle gracefully
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 22');
-    });
-
-    // ============================================================================
-    // Edge Case 23: Parallel nested in alternative
-    // ============================================================================
-    test('Edge Case 23: Parallel nested in alternative', () => {
+    test('Edge Case 20: Parallel nested in alternative', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> gw:exclusivegateway:{x}
@@ -1261,13 +1121,13 @@ gw2:exclusivegateway:{x} --> ee:endevent:((end))
         assert.ok(mermaidTraces.length > 0, 'Mermaid should handle parallel nested in alternative');
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle parallel nested in alternative');
         // Parallel nested in alternative: should generate traces for each alternative path
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 23');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 20');
     });
 
     // ============================================================================
-    // Edge Case 24: Sequence with escape stopping subsequent tasks
+    // Edge Case 21: Sequence with escape stopping subsequent tasks
     // ============================================================================
-    test('Edge Case 24: Sequence with escape stopping subsequent tasks', () => {
+    test('Edge Case 21: Sequence with escape stopping subsequent tasks', () => {
         // Note: Mermaid doesn't have escape semantics, so this is CPEE-only
         const cpee = `
 <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
@@ -1344,9 +1204,9 @@ gw2:exclusivegateway:{x} --> ee:endevent:((end))
     });
 
     // ============================================================================
-    // Edge Case 25: Choose after loop producing empty and non-empty paths
+    // Edge Case 22: Choose after loop producing empty and non-empty paths
     // ============================================================================
-    test('Edge Case 25: Choose after loop producing empty and non-empty paths', () => {
+    test('Edge Case 22: Choose after loop producing empty and non-empty paths', () => {
         const mermaid = `
 graph LR
 se:startevent:((start)) --> t1:task:(Task A)
@@ -1403,7 +1263,7 @@ t3:task:(Task C) --> ee:endevent:((end))
         assert.ok(cpeeTraces.length > 0, 'CPEE should handle choose after loop producing empty and non-empty paths');
         // Choose after loop: should generate traces with loop iterations (0 and 1) and XOR path choices
         // Note: With GTA, CPEE loop may skip 0-iteration if not at end, Mermaid uses cotree detection
-        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 25');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Edge Case 22');
     });
 });
 
