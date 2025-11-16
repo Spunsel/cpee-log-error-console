@@ -90,6 +90,25 @@ export class MermaidParser {
             });
         }
         
+        // Fix 4: Replace double quotes with single quotes within task labels
+        const beforeFix4 = processedCode;
+        // Match task labels: nodeId:task:(label with "quotes")
+        // Pattern: :task:(...) or :gateway:(...) etc. - any node type with parentheses containing double quotes
+        const fix4LineNumbers = findLineNumbersMultiLine(processedCode, /:\w+:\([^)]*"[^)]*\)/g);
+        // Replace all double quotes inside parentheses of node labels
+        processedCode = processedCode.replace(/(:\w+:\([^)]*)"([^)]*\))/g, (match, beforeQuote, afterQuote) => {
+            // Reconstruct the full label and replace all double quotes with single quotes
+            // afterQuote already includes the closing parenthesis, so don't add another one
+            const fullMatch = beforeQuote + '"' + afterQuote;
+            return fullMatch.replace(/"/g, "'");
+        });
+        if (beforeFix4 !== processedCode) {
+            appliedSteps.push({
+                description: 'Replaced double quotes with single quotes in task labels',
+                lineNumbers: Array.from(new Set(fix4LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
         // Fix 5: Remove empty parentheses - DISABLED: preserve empty parentheses like ()
         // Removed to preserve empty parentheses in Mermaid code (e.g., a1:task:())
         
