@@ -294,6 +294,57 @@ class TraceSets {
     }
 
     /**
+     * Check if a loop is directly connected to the end node
+     * A loop is directly connected to the end if it's the last element in a description
+     * @param {Element} loopNode - Loop node to check
+     * @returns {boolean} True if the loop is directly connected to the end node
+     */
+    static isDirectlyConnectedToEnd(loopNode) {
+        const isLastElement = loopNode.nextElementSibling === null;
+        const parentTag = loopNode.parentElement ? 
+            loopNode.parentElement.tagName.toLowerCase() : '';
+        return isLastElement && parentTag === 'description';
+    }
+
+    /**
+     * Check if a loop is in a chain of directly connected loops that lead to the end node
+     * This recursively checks if the loop is directly connected to another loop that is
+     * directly connected to the end node (or in such a chain)
+     * A loop is "directly connected" to another loop if it is the last child of that loop
+     * @param {Element} loopNode - Loop node to check
+     * @param {Set<Element>} visited - Set of visited loops to prevent infinite recursion
+     * @returns {boolean} True if the loop is in a chain leading to the end node
+     */
+    static isInChainToEnd(loopNode, visited = new Set()) {
+        // Prevent infinite recursion
+        if (visited.has(loopNode)) {
+            return false;
+        }
+        visited.add(loopNode);
+        
+        // Check if this loop is directly connected to the end
+        if (this.isDirectlyConnectedToEnd(loopNode)) {
+            return true;
+        }
+        
+        // Check if this loop is the last child of another loop that is in a chain to the end
+        const parent = loopNode.parentElement;
+        if (parent && parent.tagName && parent.tagName.toLowerCase() === 'loop') {
+            // Get all siblings (excluding conditions)
+            const siblings = Array.from(parent.children)
+                .filter(child => child.tagName.toLowerCase() !== 'condition');
+            
+            // Check if this loop is the last child of its parent loop
+            if (siblings.length > 0 && siblings[siblings.length - 1] === loopNode) {
+                // Recursively check if the parent loop is in a chain to the end
+                return this.isInChainToEnd(parent, visited);
+            }
+        }
+        
+        return false;
+    }
+
+    /**
      * Loop Trace (LT_ct)
      * Ordered set created by union of recursive application of fp, starting at the cotree edge for ct,
      * with recursive application of fp, starting at the adjacent edge for ct
@@ -340,21 +391,21 @@ class TraceSets {
         const result = [];
         
         // Check if loop is directly connected to end node
+        const isDirectlyConnectedToEnd = this.isDirectlyConnectedToEnd(loopNode);
+        
+        // Check if loop is in a chain of directly connected loops leading to the end node
+        const isInChainToEnd = this.isInChainToEnd(loopNode);
+        
+        // Get parent info for other checks
         const isLastElement = loopNode.nextElementSibling === null;
         const parentTag = loopNode.parentElement ? 
             loopNode.parentElement.tagName.toLowerCase() : '';
-        const isDirectlyConnectedToEnd = isLastElement && parentTag === 'description';
-        
-        // Count tasks in loop body (call, manipulate, script)
-        const loopBodyTaskCount = children.filter(child => {
-            const tagName = child.tagName ? child.tagName.toLowerCase() : '';
-            return tagName === 'call' || tagName === 'manipulate' || tagName === 'script';
-        }).length;
         
         // 0 iterations (condition false from start)
-        // Skip 0 iterations if loop is directly connected to end node AND contains more than one task
-        // Exception: if loop contains only ONE task, allow 0 iterations even if directly connected to end
-        const shouldSkipZeroIterations = isDirectlyConnectedToEnd && loopBodyTaskCount > 1;
+        // Skip 0 iterations if:
+        // 1. Loop is directly connected to end node, OR
+        // 2. Loop is in a chain to end node
+        const shouldSkipZeroIterations = isDirectlyConnectedToEnd || isInChainToEnd;
         
         if (!shouldSkipZeroIterations) {
             if (mode === 'pre_test' || mode === 'post_test') {

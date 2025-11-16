@@ -1995,5 +1995,284 @@ gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))`;
         assert.ok(cpeeTraces.length > 0, 'CPEE should calculate at least one trace');
         assertTracesMatch(mermaidTraces, cpeeTraces, 'Instance Case: 5044');
     });
+
+    // ============================================================================
+    // Instance Case: 5128-Step1-Output
+    // ============================================================================
+    test('Instance Case: 5128-Step1-Output', () => {
+        const mermaid = `graph LR
+0:startevent:((startevent)) --> 1:task:(Successful Service)
+1:task:(Successful Service) --> 2:task:(Service Necessary)
+2:task:(Service Necessary) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Yes| 4:task:(Car Registered)
+3:exclusivegateway:{x} --> |No| 14:endevent:(((endevent)))
+4:task:(Car Registered) --> 5:task:(Notify User)
+5:task:(Notify User) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Service Done| 8:task:(Mechanic Enters Problems)
+6:exclusivegateway:{x} --> |No Service| 7:task:(Fine After 30 Days)
+7:task:(Fine After 30 Days) --> 8:task:(Mechanic Enters Problems)
+8:task:(Mechanic Enters Problems) --> 9:task:(Status Updates)
+9:task:(Status Updates) --> 10:task:(Pay Through App)
+10:task:(Pay Through App) --> 11:task:(Repair Successful)
+11:task:(Repair Successful) --> 12:task:(Enter Next Service Time)
+12:task:(Enter Next Service Time) --> 13:endevent:(((endevent)))
+14:endevent:(((endevent)))`;
+
+        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Successful Service</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Service Necessary</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="3">
+    <alternative condition="">
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Car Registered</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Notify User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="Service Done" language="text/javascript"/>
+        <alternative condition="No Service" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Fine After 30 Days</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Mechanic Enters Problems</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Status Updates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Pay Through App</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Repair Successful</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Enter Next Service Time</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="No" language="text/javascript"/>
+  </choose>
+</description>`;
+
+        const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid, { maxLoopIterations: 1 });
+        const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee, { maxLoopIterations: 1 });
+
+        assert.ok(mermaidTraces.length > 0, 'Mermaid should calculate at least one trace');
+        assert.ok(cpeeTraces.length > 0, 'CPEE should calculate at least one trace');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Instance Case: 5128-Step1-Output');
+    });
+
+    // ============================================================================
+    // Instance Case: 5820-Step2-Output
+    // ============================================================================
+    test('Instance Case: 5820-Step2-Output', () => {
+        const mermaid = `flowchart LR
+se:startevent:((startevent))-->a1:task:(Receive Order)
+a1:task:(Receive Order)-->a3:task:(Define Properties)
+a3:task:(Define Properties)-->gw1s:parallelgateway:{AND}
+gw1s:parallelgateway:{AND}-->a7:task:(Order Guide Bar)
+a7:task:(Order Guide Bar)-->gw1e:parallelgateway:{AND}
+gw1s:parallelgateway:{AND}-->a9:task:(Order Chain)
+a9:task:(Order Chain)-->gw1e:parallelgateway:{AND}
+gw1s:parallelgateway:{AND}-->a11:task:(Order Motor/Electric Parts)
+a11:task:(Order Motor/Electric Parts)-->gw1e:parallelgateway:{AND}
+gw1e:parallelgateway:{AND}-->a19:task:(Inspect Parts)
+a19:task:(Inspect Parts)-->a21:task:(Assemble Chainsaw)
+a21:task:(Assemble Chainsaw)-->gw3s:parallelgateway:{AND}
+gw3s:parallelgateway:{AND}-->a23:task:(Send Updates)
+a23:task:(Send Updates)-->gw3e:parallelgateway:{AND}
+gw3s:parallelgateway:{AND}-->a25:task:(Produce First Saw)
+a25:task:(Produce First Saw)-->gw3e:parallelgateway:{AND}
+gw3e:parallelgateway:{AND}-->a27:task:(Send First Saw to Customer)
+a27:task:(Send First Saw to Customer)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Customer Likes It"|a31:task:(Produce Rest of Order)
+a31:task:(Produce Rest of Order)-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Customer Doesn't Like It"|a33:task:(Stop Production)
+a33:task:(Stop Production)-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))`;
+
+        const cpee = `<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Receive Order</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="a3">
+    <parameters>
+      <label>Define Properties</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+    <parallel_branch>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Order Guide Bar</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="a11" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Order Chain</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="a15" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Order Motor/Electric Parts</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+  </parallel>
+  <call id="a19" endpoint="" a:alt_id="a19">
+    <parameters>
+      <label>Inspect Parts</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a21" endpoint="" a:alt_id="a21">
+    <parameters>
+      <label>Assemble Chainsaw</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+    <parallel_branch>
+      <call id="a25" endpoint="" a:alt_id="a23">
+        <parameters>
+          <label>Send Updates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="a29" endpoint="" a:alt_id="a25">
+        <parameters>
+          <label>Produce First Saw</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+  </parallel>
+  <call id="a33" endpoint="" a:alt_id="a27">
+    <parameters>
+      <label>Send First Saw to Customer</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="gw2s">
+    <alternative condition="Customer Likes It" language="text/javascript">
+      <call id="a37" endpoint="" a:alt_id="a31">
+        <parameters>
+          <label>Produce Rest of Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Customer Doesn't Like It" language="text/javascript">
+      <call id="a41" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Stop Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+</description>`;
+
+        const mermaidTraces = MermaidTraceCalculator.calculateAllTraces(mermaid, { maxLoopIterations: 1 });
+        const cpeeTraces = CPEETraceCalculator.calculateAllTraces(cpee, { maxLoopIterations: 1 });
+
+        assert.ok(mermaidTraces.length > 0, 'Mermaid should calculate at least one trace');
+        assert.ok(cpeeTraces.length > 0, 'CPEE should calculate at least one trace');
+        assertTracesMatch(mermaidTraces, cpeeTraces, 'Instance Case: 5820-Step2-Output');
+    });
 });
 
