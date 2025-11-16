@@ -48,8 +48,6 @@ export class TraceComparisonCoordinator {
         
         // Setup event listeners for step navigation
         this.setupStepNavigationListeners();
-        
-        console.log('[TraceComparisonCoordinator] Initialized');
     }
     
     /**
@@ -61,7 +59,6 @@ export class TraceComparisonCoordinator {
         this.eventBus.on('stepViewer:stepChanged', (data) => {
             const newStepNumber = data.step?.stepNumber || null;
             if (newStepNumber !== this.currentStepNumber) {
-                console.log(`[TraceComparisonCoordinator] Step changed from ${this.currentStepNumber} to ${newStepNumber}, clearing comparison state`);
                 this.handleStepChange(newStepNumber);
             }
         });
@@ -70,7 +67,6 @@ export class TraceComparisonCoordinator {
         this.eventBus.on('stepNavigator:stepChanged', (data) => {
             const newStepNumber = data.step?.stepNumber || null;
             if (newStepNumber !== this.currentStepNumber) {
-                console.log(`[TraceComparisonCoordinator] Step navigated from ${this.currentStepNumber} to ${newStepNumber}, clearing comparison state`);
                 this.handleStepChange(newStepNumber);
             }
         });
@@ -89,8 +85,6 @@ export class TraceComparisonCoordinator {
         
         // Update current step number
         this.currentStepNumber = stepNumber;
-        
-        console.log(`[TraceComparisonCoordinator] Step change handled for step ${stepNumber}`);
     }
     
     /**
@@ -108,7 +102,6 @@ export class TraceComparisonCoordinator {
             const sectionPair = container.getAttribute('data-section-pair');
             if (sectionPair === 'input' || sectionPair === 'output') {
                 this.infoBoxContainers[sectionPair] = container;
-                console.log(`[TraceComparisonCoordinator] Found container for section pair: ${sectionPair}`);
             }
         });
     }
@@ -143,11 +136,8 @@ export class TraceComparisonCoordinator {
      * @returns {Object|null} Comparison result or null if comparison failed
      */
     compareInputTraces(cpeeTraces, mermaidTraces, stepNumber = null) {
-        console.log('[TraceComparisonCoordinator] Comparing input traces');
-        
         // Handle null/undefined cases
         if (!cpeeTraces && !mermaidTraces) {
-            console.log('[TraceComparisonCoordinator] Both trace arrays are null/undefined, skipping comparison');
             this.clearInfoBox('input');
             this.emitComparisonEvent('input', null, stepNumber, 'skipped');
             return null;
@@ -183,11 +173,8 @@ export class TraceComparisonCoordinator {
      * @returns {Object|null} Comparison result or null if comparison failed
      */
     compareOutputTraces(cpeeTraces, mermaidTraces, stepNumber = null) {
-        console.log('[TraceComparisonCoordinator] Comparing output traces');
-        
         // Handle null/undefined cases
         if (!cpeeTraces && !mermaidTraces) {
-            console.log('[TraceComparisonCoordinator] Both trace arrays are null/undefined, skipping comparison');
             this.clearInfoBox('output');
             this.emitComparisonEvent('output', null, stepNumber, 'skipped');
             return null;
@@ -230,13 +217,11 @@ export class TraceComparisonCoordinator {
         
         // Clear info box if traces match perfectly
         if (comparisonResult.isMatch && comparisonResult.traceCountMatch) {
-            console.log(`[TraceComparisonCoordinator] Traces match perfectly for ${sectionPair}, clearing info box`);
             ComparisonInfoBox.removeInfoBox(container, sectionPair);
             return;
         }
         
         // Create or update info box
-        console.log(`[TraceComparisonCoordinator] Updating info box for ${sectionPair}`);
         ComparisonInfoBox.updateInfoBox(comparisonResult, sectionPair, container);
     }
     
@@ -249,7 +234,6 @@ export class TraceComparisonCoordinator {
         
         if (container) {
             ComparisonInfoBox.removeInfoBox(container, sectionPair);
-            console.log(`[TraceComparisonCoordinator] Cleared info box for ${sectionPair}`);
         }
         
         // Clear cache
@@ -262,7 +246,6 @@ export class TraceComparisonCoordinator {
     clearAllInfoBoxes() {
         this.clearInfoBox('input');
         this.clearInfoBox('output');
-        console.log('[TraceComparisonCoordinator] Cleared all info boxes');
     }
     
     /**
@@ -282,7 +265,6 @@ export class TraceComparisonCoordinator {
             input: null,
             output: null
         };
-        console.log('[TraceComparisonCoordinator] Cleared comparison cache');
     }
     
     /**
@@ -295,8 +277,6 @@ export class TraceComparisonCoordinator {
      * @param {number|null} stepNumber - Optional step number for event context
      */
     compareAllTraces(traceData, stepNumber = null) {
-        console.log('[TraceComparisonCoordinator] Comparing all traces');
-        
         if (traceData.inputCpeeTraces && traceData.inputMermaidTraces) {
             this.compareInputTraces(traceData.inputCpeeTraces, traceData.inputMermaidTraces, stepNumber);
         }
@@ -315,7 +295,6 @@ export class TraceComparisonCoordinator {
      */
     emitComparisonEvent(sectionPair, comparisonResult, stepNumber = null, status = 'compared') {
         if (status === 'skipped' || status === 'error') {
-            console.log(`[TraceComparisonCoordinator] Skipping event emission for ${sectionPair} (status: ${status})`);
             return;
         }
         
@@ -340,7 +319,6 @@ export class TraceComparisonCoordinator {
                 comparisonResult,
                 timestamp: new Date().toISOString()
             }, { silent: true });
-            console.log(`[TraceComparisonCoordinator] Emitted traceComparison:match event for ${sectionPair}`);
         } else {
             this.eventBus.emit('traceComparison:mismatch', {
                 sectionPair,
@@ -348,10 +326,7 @@ export class TraceComparisonCoordinator {
                 comparisonResult,
                 timestamp: new Date().toISOString()
             }, { silent: true });
-            console.log(`[TraceComparisonCoordinator] Emitted traceComparison:mismatch event for ${sectionPair}`);
         }
-        
-        console.log(`[TraceComparisonCoordinator] Emitted traceComparison:compared event for ${sectionPair}`);
     }
 }
 

@@ -52,6 +52,15 @@ export class CPEEStep {
             input: null,
             output: null
         };
+        
+        // Soundness and boundedness verification results storage
+        // Structure: { 'input-cpee': VerificationResult|null, 'input-intermediate': VerificationResult|null, 'output-intermediate': VerificationResult|null, 'output-cpee': VerificationResult|null }
+        this.verificationResults = {
+            'input-cpee': null,
+            'input-intermediate': null,
+            'output-intermediate': null,
+            'output-cpee': null
+        };
     }
 
     /**
@@ -553,6 +562,86 @@ export class CPEEStep {
             avgLength: traces.reduce((sum, trace) => sum + trace.path.length, 0) / traces.length,
             minLength: Math.min(...traces.map(trace => trace.path.length)),
             maxLength: Math.max(...traces.map(trace => trace.path.length))
+        };
+    }
+
+    // ===================================================================
+    // Soundness and Boundedness Verification Methods
+    // ===================================================================
+
+    /**
+     * Set verification result for a specific section
+     * @param {string} sectionId - Section identifier ('input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee')
+     * @param {Object} verificationResult - Verification result object
+     */
+    setVerificationResult(sectionId, verificationResult) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            console.warn(`[CPEEStep] Invalid section ID for verification result: ${sectionId}`);
+            return;
+        }
+        
+        this.verificationResults[sectionId] = verificationResult;
+        console.log(`[CPEEStep] Stored verification result for ${sectionId} in Step ${this.stepNumber}: sound=${verificationResult?.sound}, bounded=${verificationResult?.bounded}`);
+    }
+
+    /**
+     * Get verification result for a specific section
+     * @param {string} sectionId - Section identifier ('input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee')
+     * @returns {Object|null} Verification result object or null if not verified
+     */
+    getVerificationResult(sectionId) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            console.warn(`[CPEEStep] Invalid section ID for verification result: ${sectionId}`);
+            return null;
+        }
+        
+        return this.verificationResults[sectionId];
+    }
+
+    /**
+     * Check if verification has been performed for a specific section
+     * @param {string} sectionId - Section identifier
+     * @returns {boolean} True if verification result exists for this section
+     */
+    hasVerificationResult(sectionId) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            return false;
+        }
+        
+        return this.verificationResults[sectionId] !== null;
+    }
+
+    /**
+     * Get all verification results for all sections
+     * @returns {Object} Object with verification results for each section
+     */
+    getAllVerificationResults() {
+        return { ...this.verificationResults };
+    }
+
+    /**
+     * Clear verification result for a specific section
+     * @param {string} sectionId - Section identifier
+     */
+    clearVerificationResult(sectionId) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            return;
+        }
+        
+        console.log(`[CPEEStep] Clearing verification result for ${sectionId} in Step ${this.stepNumber}`);
+        this.verificationResults[sectionId] = null;
+    }
+
+    /**
+     * Clear all verification results for all sections
+     */
+    clearAllVerificationResults() {
+        console.log(`[CPEEStep] Clearing all verification results for Step ${this.stepNumber}`);
+        this.verificationResults = {
+            'input-cpee': null,
+            'input-intermediate': null,
+            'output-intermediate': null,
+            'output-cpee': null
         };
     }
 

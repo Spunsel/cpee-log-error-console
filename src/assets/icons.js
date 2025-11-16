@@ -645,6 +645,21 @@ export const ICON_COMPARISON_INFO = `
     </svg>
 `;
 
+/**
+ * Analysis mode icon - Magnifying glass with search circle
+ * Represents analysis view mode - displays soundness and boundedness verification results - 16x16px for toggle buttons
+ * Design: Magnifying glass with search circle representing analysis/verification
+ */
+export const ICON_ANALYSIS = `
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve" width="16" height="16" fill="currentColor" aria-hidden="true">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path fill="currentColor" d="M21,13c0,0.339-0.028,0.672-0.069,1H11c-0.553,0-1-0.448-1-1s0.447-1,1-1h9.931 C20.972,12.328,21,12.661,21,13z M11,10h9.411c-0.295-0.726-0.692-1.398-1.176-2H11c-0.553,0-1,0.448-1,1S10.447,10,11,10z M10,17 c0,0.552,0.447,1,1,1h8.235c0.484-0.602,0.881-1.274,1.176-2H11C10.447,16,10,16.448,10,17z M29.414,29.414 c-0.812,0.812-2.047,0.781-2.828,0l-4-4c-0.522-0.522-0.687-1.259-0.511-1.925l-2.037-2.037C18.13,23.042,15.677,24,13,24 C6.925,24,2,19.075,2,13S6.925,2,13,2s11,4.925,11,11c0,2.677-0.958,5.13-2.549,7.037l2.037,2.037 c0.666-0.176,1.403-0.011,1.925,0.511l4,4C30.195,27.367,30.195,28.633,29.414,29.414z M22,13c0-4.971-4.029-9-9-9s-9,4.029-9,9 c0,4.971,4.029,9,9,9S22,17.971,22,13z"></path>
+        </g>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -704,7 +719,9 @@ export const ICONS = {
     ISSUE_CLOSED: ICON_ISSUE_CLOSED,
     ISSUE_OPEN: ICON_ISSUE_OPEN,
     // Comparison info icon
-    COMPARISON_INFO: ICON_COMPARISON_INFO
+    COMPARISON_INFO: ICON_COMPARISON_INFO,
+    // Analysis mode icon
+    ANALYSIS: ICON_ANALYSIS
 };
 
 /**
@@ -756,7 +773,9 @@ export function getIcon(iconName) {
         'issue-closed': ICON_ISSUE_CLOSED,
         'issue-open': ICON_ISSUE_OPEN,
         // Comparison info icon
-        'comparison-info': ICON_COMPARISON_INFO
+        'comparison-info': ICON_COMPARISON_INFO,
+        // Analysis mode icon
+        'analysis': ICON_ANALYSIS
     };
 
     return iconMap[iconName.toLowerCase()] || '';

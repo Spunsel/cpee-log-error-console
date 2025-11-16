@@ -46,7 +46,7 @@ export class StateManager {
                 wholeWord: false
             },
             viewModes: {
-                // View modes for each section: 'visual', 'raw', 'log', or 'traces' (persisted)
+                // View modes for each section: 'visual', 'raw', 'log', 'traces', or 'analysis' (persisted)
                 'input-cpee': 'visual',
                 'input-intermediate': 'visual',
                 'output-intermediate': 'visual',
@@ -422,20 +422,20 @@ export class StateManager {
     }
 
     /**
-     * Validate view mode value (Phase 31.14)
+     * Validate view mode value (Phase 31.14, updated Phase 34.9)
      * @param {string} mode - View mode to validate
      * @returns {boolean} True if mode is valid
      */
     isValidViewMode(mode) {
-        return mode === 'visual' || mode === 'raw' || mode === 'log' || mode === 'traces';
+        return mode === 'visual' || mode === 'raw' || mode === 'log' || mode === 'traces' || mode === 'analysis';
     }
 
     /**
-     * Get all valid view modes (Phase 31.14)
+     * Get all valid view modes (Phase 31.14, updated Phase 34.9)
      * @returns {Array<string>} Array of valid view mode values
      */
     getValidViewModes() {
-        return ['visual', 'raw', 'log', 'traces'];
+        return ['visual', 'raw', 'log', 'traces', 'analysis'];
     }
 
     /**

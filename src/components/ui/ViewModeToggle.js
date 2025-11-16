@@ -1,7 +1,7 @@
 /**
  * ViewModeToggle Component
- * Manages visual/raw/log/traces mode toggle buttons for content sections
- * Provides toggle interface for switching between rendered, raw code, log, and traces views
+ * Manages visual/raw/log/traces/analysis mode toggle buttons for content sections
+ * Provides toggle interface for switching between rendered, raw code, log, traces, and analysis views
  */
 
 import { ICONS } from '../../assets/icons.js';
@@ -64,16 +64,27 @@ export class ViewModeToggle {
         });
         tracesBtn.innerHTML = ICONS.TRACES;
 
+        // Create analysis mode button
+        const analysisBtn = this.domRegistry.createElement('button', {
+            className: 'toggle-btn toggle-btn-analysis',
+            'data-mode': 'analysis',
+            'aria-label': `Show ${sectionTitle} soundness and boundedness analysis`,
+            title: 'Analysis View (Soundness & Boundedness)'
+        });
+        analysisBtn.innerHTML = ICONS.ANALYSIS;
+
         // Add click handlers
         visualBtn.addEventListener('click', () => this.switchMode(sectionId, 'visual'));
         rawBtn.addEventListener('click', () => this.switchMode(sectionId, 'raw'));
         logBtn.addEventListener('click', () => this.switchMode(sectionId, 'log'));
         tracesBtn.addEventListener('click', () => this.switchMode(sectionId, 'traces'));
+        analysisBtn.addEventListener('click', () => this.switchMode(sectionId, 'analysis'));
 
         toggleContainer.appendChild(visualBtn);
         toggleContainer.appendChild(rawBtn);
         toggleContainer.appendChild(logBtn);
         toggleContainer.appendChild(tracesBtn);
+        toggleContainer.appendChild(analysisBtn);
 
         return toggleContainer;
     }
@@ -81,7 +92,7 @@ export class ViewModeToggle {
     /**
      * Switch view mode for a section
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - Mode to switch to ('visual', 'raw', 'log', or 'traces')
+     * @param {string} mode - Mode to switch to ('visual', 'raw', 'log', 'traces', or 'analysis')
      */
     switchMode(sectionId, mode) {
         // Update button states (UI only)
@@ -94,7 +105,7 @@ export class ViewModeToggle {
     /**
      * Update toggle button states for a section
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - Current mode ('visual', 'raw', 'log', or 'traces')
+     * @param {string} mode - Current mode ('visual', 'raw', 'log', 'traces', or 'analysis')
      */
     updateToggleState(sectionId, mode) {
         const toggleContainer = document.querySelector(`.view-mode-toggle[data-section-id="${sectionId}"]`);
@@ -110,7 +121,7 @@ export class ViewModeToggle {
     /**
      * Get current mode for a section (reads from StateManager)
      * @param {string} sectionId - Section identifier
-     * @returns {string} Current mode ('visual', 'raw', 'log', or 'traces')
+     * @returns {string} Current mode ('visual', 'raw', 'log', 'traces', or 'analysis')
      */
     getMode(sectionId) {
         const viewModes = this.stateManager.getState('viewModes') || {};
@@ -120,7 +131,7 @@ export class ViewModeToggle {
     /**
      * Set mode for a section programmatically
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - Mode to set ('visual', 'raw', 'log', or 'traces')
+     * @param {string} mode - Mode to set ('visual', 'raw', 'log', 'traces', or 'analysis')
      */
     setMode(sectionId, mode) {
         this.switchMode(sectionId, mode);
@@ -136,7 +147,7 @@ export class ViewModeToggle {
 
     /**
      * Reset all sections to visual mode
-     * Resets all view modes (visual, raw, log, traces) to visual
+     * Resets all view modes (visual, raw, log, traces, analysis) to visual
      */
     resetAllToVisual() {
         const sectionIds = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];

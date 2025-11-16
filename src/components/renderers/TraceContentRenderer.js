@@ -120,8 +120,6 @@ export class TraceContentRenderer {
      * @returns {HTMLElement|null} Trace display container or null
      */
     renderTracesContent(sectionId, container, step) {
-        console.log(`[TraceContentRenderer] Rendering traces content for ${sectionId}`);
-        
         if (!step || !container) {
             console.warn('[TraceContentRenderer] Missing step or container for traces rendering');
             return null;
@@ -130,7 +128,6 @@ export class TraceContentRenderer {
         // Check cache first
         const cacheKey = `${sectionId}-${step.stepNumber || 'unknown'}`;
         if (this.traceCache.has(cacheKey)) {
-            console.log(`[TraceContentRenderer] Using cached traces for ${sectionId}`);
             const cachedTraces = this.traceCache.get(cacheKey);
             return this.renderCachedTraces(sectionId, container, cachedTraces);
         }
@@ -175,7 +172,6 @@ export class TraceContentRenderer {
                 try {
                     const preprocessedResult = this.contentProcessingService.processAndValidateMermaid(contentString, true);
                     contentString = preprocessedResult.code;
-                    console.log(`[TraceContentRenderer] Preprocessed Mermaid code for ${sectionId}`);
                 } catch (error) {
                     console.warn(`[TraceContentRenderer] Failed to preprocess Mermaid code for ${sectionId}, using original:`, error);
                     // Continue with original content if preprocessing fails
@@ -190,10 +186,8 @@ export class TraceContentRenderer {
             };
 
             if (isCPEE) {
-                console.log(`[TraceContentRenderer] Calculating CPEE traces for ${sectionId}`);
                 traces = CPEETraceCalculator.calculateAllTraces(contentString, options);
             } else if (isMermaid) {
-                console.log(`[TraceContentRenderer] Calculating Mermaid traces for ${sectionId}`);
                 traces = MermaidTraceCalculator.calculateAllTraces(contentString, options);
             }
 
@@ -314,8 +308,6 @@ export class TraceContentRenderer {
      * @param {boolean} options.highlightStartEnd - Highlight start and end nodes (default: true)
      */
     renderTracesIntoContainer(traces, containerElement, options = {}) {
-        console.log('[TraceContentRenderer] Rendering traces:', traces?.length || 0);
-        
         const {
             showLabels = true,
             expandable = true,
@@ -331,7 +323,6 @@ export class TraceContentRenderer {
                 textContent: 'No traces found'
             });
             containerElement.appendChild(emptyMessage);
-            console.log('[TraceContentRenderer] No traces to render');
             return;
         }
 
@@ -385,7 +376,6 @@ export class TraceContentRenderer {
                 }, 0);
             }
         }
-        console.log(`[TraceContentRenderer] Rendered ${traceObjects.length} traces`);
     }
 
     /**
@@ -814,7 +804,6 @@ export class TraceContentRenderer {
      * Clear trace cache (called when navigating to a different step)
      */
     clearTraceCache() {
-        console.log('[TraceContentRenderer] Clearing trace cache');
         this.traceCache.clear();
         
         // Clear trace displays
@@ -835,7 +824,6 @@ export class TraceContentRenderer {
             const { sectionPair, comparisonResult } = data;
             if (sectionPair && comparisonResult) {
                 this.comparisonResults[sectionPair] = comparisonResult;
-                console.log(`[TraceContentRenderer] Stored comparison results for ${sectionPair}`);
                 // Re-render traces if they're currently displayed to apply colors
                 this.updateTraceColorsForSectionPair(sectionPair);
             }

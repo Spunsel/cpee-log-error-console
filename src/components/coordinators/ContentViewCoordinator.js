@@ -1,11 +1,11 @@
 /**
  * Content View Coordinator
- * Coordinates all content view modes (visual, raw, log, traces)
+ * Coordinates all content view modes (visual, raw, log, traces, analysis)
  * Routes to appropriate renderers based on view mode
  * 
  * Responsibilities:
  * - View mode toggle management
- * - Route to appropriate renderer (RawContentRenderer, LogContentRenderer, TraceContentRenderer, ContentVisualizationCoordinator)
+ * - Route to appropriate renderer (RawContentRenderer, LogContentRenderer, TraceContentRenderer, AnalysisContentRenderer, ContentVisualizationCoordinator)
  * - View mode state coordination
  * - Coordinate content hiding/restoration when switching modes
  * 
@@ -13,6 +13,7 @@
  * - 'raw' → RawContentRenderer (preprocessed content)
  * - 'log' → LogContentRenderer (untouched log content)
  * - 'traces' → TraceContentRenderer (execution traces)
+ * - 'analysis' → AnalysisContentRenderer (soundness and boundedness verification)
  * - 'visual' → ContentVisualizationCoordinator (SVG graphs)
  */
 
@@ -20,9 +21,11 @@ import { ViewModeToggle } from '../ui/ViewModeToggle.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
 import { LogContentRenderer } from '../renderers/LogContentRenderer.js';
 import { TraceContentRenderer } from '../renderers/TraceContentRenderer.js';
+import { AnalysisContentRenderer } from '../renderers/AnalysisContentRenderer.js';
 import { TraceComparisonCoordinator } from './TraceComparisonCoordinator.js';
 import { CPEETraceCalculator } from '../../utils/trace/CPEETraceCalculator.js';
 import { MermaidTraceCalculator } from '../../utils/trace/MermaidTraceCalculator.js';
+import { verifySoundnessAndBoundedness } from '../../utils/trace/SoundnessBoundednessVerifier.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
@@ -36,10 +39,11 @@ export class ContentViewCoordinator {
         // Content View Components (pass stateManager so ViewModeToggle can read state)
         this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus, this.stateManager);
         
-        // Instantiate all three renderers for different view modes
+        // Instantiate all renderers for different view modes
         this.rawContentRenderer = new RawContentRenderer(domRegistry, this.eventBus, contentProcessingService);
         this.logContentRenderer = new LogContentRenderer(domRegistry, this.eventBus, contentProcessingService);
         this.traceContentRenderer = new TraceContentRenderer(domRegistry, this.eventBus, contentProcessingService);
+        this.analysisContentRenderer = new AnalysisContentRenderer(domRegistry, this.eventBus);
         
         // Trace comparison coordinator
         this.traceComparisonCoordinator = new TraceComparisonCoordinator(domRegistry, this.eventBus);
@@ -92,12 +96,32 @@ export class ContentViewCoordinator {
 
         // Listen for view mode toggle events (always register listener)
         this.eventBus.on('viewModeToggle:modeChanged', (data) => {
-            console.log(`Mode changed: ${data.sectionId} → ${data.mode}`);
             this.setViewMode(data.sectionId, data.mode);
             this.updateSectionDisplay(data.sectionId, data.mode);
             
             // Note: Comparison info boxes remain visible regardless of view mode
             // Traces are kept in calculatedTraces map for comparison purposes
+        });
+        
+        // Listen for step changes to handle analysis view updates (Phase 34.12)
+        this.eventBus.on('stepViewer:stepChanged', (data) => {
+            const { step } = data;
+            if (step) {
+                // Check if any section is in analysis mode and update if needed
+                const viewModes = this.stateManager.getState('viewModes') || {};
+                Object.keys(viewModes).forEach(sectionId => {
+                    if (viewModes[sectionId] === 'analysis') {
+                        // Re-render analysis content for this section with new step
+                        const sectionElement = this.domRegistry.getElementSafe(sectionId);
+                        if (sectionElement) {
+                            const contentContainer = sectionElement.querySelector('.content-box');
+                            if (contentContainer) {
+                                this.analysisContentRenderer.display(sectionId, contentContainer, step);
+                            }
+                        }
+                    }
+                });
+            }
         });
 
         // Listen to StateManager changes to sync toggle button UI
@@ -127,8 +151,6 @@ export class ContentViewCoordinator {
         // Note: View mode changes are already handled in setupViewModeIntegration()
         // We don't need a separate listener here since updateSectionDisplay() handles traces mode
         // and checkTraceCacheAndCompare() is called when switching to traces mode
-        
-        console.log('[ContentViewCoordinator] Trace comparison integration setup complete');
     }
     
     /**
@@ -138,12 +160,9 @@ export class ContentViewCoordinator {
     handleTraceCalculated(data) {
         const { sectionId, traces, stepNumber } = data;
         
-        console.log(`[ContentViewCoordinator] Trace calculated for ${sectionId}, step ${stepNumber}, count: ${traces?.length || 0}`);
-        
         // Store calculated traces regardless of view mode (for comparison display)
         if (traces && Array.isArray(traces)) {
             this.calculatedTraces.set(sectionId, traces);
-            console.log(`[ContentViewCoordinator] Stored ${traces.length} traces for ${sectionId}`);
             
             // Check if we can perform comparison now
             this.checkAndPerformComparison();
@@ -183,7 +202,6 @@ export class ContentViewCoordinator {
         const cachedTraces = this.traceContentRenderer.traceCache?.get(cacheKey);
         
         if (cachedTraces && Array.isArray(cachedTraces) && cachedTraces.length > 0) {
-            console.log(`[ContentViewCoordinator] Found cached traces for ${sectionId}, storing for comparison`);
             this.calculatedTraces.set(sectionId, cachedTraces);
             // Check if we can perform comparison now
             this.checkAndPerformComparison();
@@ -200,7 +218,6 @@ export class ContentViewCoordinator {
         const inputMermaidTraces = this.calculatedTraces.get('input-intermediate');
         
         if (inputCpeeTraces && inputMermaidTraces) {
-            console.log('[ContentViewCoordinator] Performing input trace comparison');
             const stepNumber = this.currentStep?.stepNumber || null;
             this.traceComparisonCoordinator.compareInputTraces(inputCpeeTraces, inputMermaidTraces, stepNumber);
         }
@@ -210,7 +227,6 @@ export class ContentViewCoordinator {
         const outputMermaidTraces = this.calculatedTraces.get('output-intermediate');
         
         if (outputCpeeTraces && outputMermaidTraces) {
-            console.log('[ContentViewCoordinator] Performing output trace comparison');
             const stepNumber = this.currentStep?.stepNumber || null;
             this.traceComparisonCoordinator.compareOutputTraces(outputCpeeTraces, outputMermaidTraces, stepNumber);
         }
@@ -229,11 +245,11 @@ export class ContentViewCoordinator {
     /**
      * Set view mode for a section
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - View mode ('visual', 'raw', 'log', or 'traces')
+     * @param {string} mode - View mode ('visual', 'raw', 'log', 'traces', or 'analysis')
      * @returns {boolean} True if mode was set successfully
      */
     setViewMode(sectionId, mode) {
-        if (!(mode === 'visual' || mode === 'raw' || mode === 'log' || mode === 'traces')) {
+        if (!(mode === 'visual' || mode === 'raw' || mode === 'log' || mode === 'traces' || mode === 'analysis')) {
             return false;
         }
         
@@ -264,7 +280,7 @@ export class ContentViewCoordinator {
     /**
      * Update section display based on view mode
      * @param {string} sectionId - Section identifier
-     * @param {string} mode - View mode (visual, raw, log, or traces)
+     * @param {string} mode - View mode (visual, raw, log, traces, or analysis)
      */
     updateSectionDisplay(sectionId, mode) {
         if (!this.currentStep) {
@@ -294,8 +310,9 @@ export class ContentViewCoordinator {
                 top: 0,
                 left: 0,
             });
-            // Hide trace content (including copy button) when switching to raw mode
+            // Hide other content types when switching to raw mode
             this.traceContentRenderer.hideTraceContent(contentContainer);
+            this.analysisContentRenderer.hideAnalysisContent(contentContainer);
             // Store view mode in section element for renderer to access
             sectionElement.dataset.viewMode = mode;
             this.rawContentRenderer.display(sectionId, contentContainer, this.currentStep);
@@ -304,8 +321,9 @@ export class ContentViewCoordinator {
                 top: 0,
                 left: 0,
             });
-            // Hide trace content (including copy button) when switching to log mode
+            // Hide other content types when switching to log mode
             this.traceContentRenderer.hideTraceContent(contentContainer);
+            this.analysisContentRenderer.hideAnalysisContent(contentContainer);
             // Store view mode in section element for renderer to access
             sectionElement.dataset.viewMode = mode;
             this.logContentRenderer.display(sectionId, contentContainer, this.currentStep);
@@ -314,9 +332,10 @@ export class ContentViewCoordinator {
                 top: 0,
                 left: 0,
             });
-            // Hide raw/log content (including action bars) when switching to traces mode
+            // Hide other content types when switching to traces mode
             this.rawContentRenderer.hideRawContent(contentContainer);
             this.logContentRenderer.hideLogContent(contentContainer);
+            this.analysisContentRenderer.hideAnalysisContent(contentContainer);
             // Store view mode in section element for renderer to access
             sectionElement.dataset.viewMode = mode;
             this.traceContentRenderer.display(sectionId, contentContainer, this.currentStep);
@@ -326,13 +345,26 @@ export class ContentViewCoordinator {
             // The comparison will be triggered in handleTraceCalculated()
             // Also check trace cache directly in case traces are already calculated
             this.checkTraceCacheAndCompare(sectionId);
+        } else if (mode === 'analysis') {
+            contentContainer.scrollTo({
+                top: 0,
+                left: 0,
+            });
+            // Hide other content types when switching to analysis mode
+            this.rawContentRenderer.hideRawContent(contentContainer);
+            this.logContentRenderer.hideLogContent(contentContainer);
+            this.traceContentRenderer.hideTraceContent(contentContainer);
+            // Store view mode in section element for renderer to access
+            sectionElement.dataset.viewMode = mode;
+            this.analysisContentRenderer.display(sectionId, contentContainer, this.currentStep);
         } else {
             // Visual mode - ContentSectionManager handles this
-            // Just ensure raw/log/traces content is hidden
+            // Just ensure all other content types are hidden
             delete sectionElement.dataset.viewMode;
             this.rawContentRenderer.hideRawContent(contentContainer);
             this.logContentRenderer.hideLogContent(contentContainer);
             this.traceContentRenderer.hideTraceContent(contentContainer);
+            this.analysisContentRenderer.hideAnalysisContent(contentContainer);
             
             // Only restore original content if we have it stored (i.e., if we were in raw/log mode)
             if (this.rawContentRenderer.hasOriginalContent(sectionId)) {
@@ -372,6 +404,9 @@ export class ContentViewCoordinator {
         
         // Clear comparison info boxes when switching to a different step
         this.traceComparisonCoordinator.clearAllInfoBoxes();
+        
+        // Clear analysis displays and cache when switching to a different step (Phase 34.12)
+        this.analysisContentRenderer.clearAll();
 
         // Reset all view modes to visual for this step
         // (View mode does not persist across steps)
@@ -450,6 +485,34 @@ export class ContentViewCoordinator {
                     traces = MermaidTraceCalculator.calculateAllTraces(contentString, options);
                 }
                 
+                // Store traces in step
+                step.setTraces(section.id, traces);
+                
+                // Perform soundness and boundedness verification
+                try {
+                    const format = section.isCPEE ? 'cpee' : 'mermaid';
+                    const verificationResult = verifySoundnessAndBoundedness(
+                        traces,
+                        contentString,
+                        format,
+                        { maxLoopIterations: options.maxLoopIterations }
+                    );
+                    
+                    // Store verification result in step
+                    step.setVerificationResult(section.id, verificationResult);
+                    
+                    // Emit verification completion event
+                    this.eventBus.emit('verification:complete', {
+                        sectionId: section.id,
+                        stepNumber: step.stepNumber || 'unknown',
+                        verificationResult: verificationResult
+                    }, { silent: true });
+                } catch (verificationError) {
+                    console.error(`[ContentViewCoordinator] Verification failed for ${section.id}:`, verificationError);
+                    console.error(`[ContentViewCoordinator] Verification error stack:`, verificationError.stack);
+                    // Don't fail trace calculation if verification fails
+                }
+                
                 // Cache traces in renderer
                 const cacheKey = `${section.id}-${step.stepNumber || 'unknown'}`;
                 this.traceContentRenderer.traceCache.set(cacheKey, traces);
@@ -461,8 +524,6 @@ export class ContentViewCoordinator {
                     traceCount: traces.length,
                     traces
                 }, { silent: true });
-                
-                console.log(`[ContentViewCoordinator] Calculated ${traces.length} traces for ${section.id}`);
             } catch (error) {
                 console.warn(`[ContentViewCoordinator] Failed to calculate traces for ${section.id}:`, error);
                 // Emit error event
@@ -475,7 +536,6 @@ export class ContentViewCoordinator {
             }
         });
     }
-
 
     /**
      * Reset all view modes to visual
@@ -509,6 +569,10 @@ export class ContentViewCoordinator {
         this.rawContentRenderer.destroy();
         this.logContentRenderer.destroy();
         this.traceContentRenderer.destroy();
+        // AnalysisContentRenderer doesn't have a destroy method, but we can clear displays if needed
+        if (this.analysisContentRenderer && this.analysisContentRenderer.analysisDisplays) {
+            this.analysisContentRenderer.analysisDisplays.clear();
+        }
     }
 }
 

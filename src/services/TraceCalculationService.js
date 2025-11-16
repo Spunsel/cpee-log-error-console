@@ -5,6 +5,7 @@
  */
 
 import { MermaidParser } from '../utils/content/MermaidParser.js';
+import { verifySoundnessAndBoundedness } from '../utils/trace/SoundnessBoundednessVerifier.js';
 
 export class TraceCalculationService {
     /**
@@ -50,13 +51,55 @@ export class TraceCalculationService {
         // Wait for all trace calculations to complete
         const results = await Promise.all(tracePromises);
         
-        // Store results in step
+        // Store results in step and perform verification
         results.forEach(({ sectionId, traces, error }) => {
             if (error) {
                 // Store empty array to indicate calculation was attempted but failed
                 cpeeStep.setTraces(sectionId, []);
             } else {
                 cpeeStep.setTraces(sectionId, traces);
+                
+                // Perform soundness and boundedness verification
+                try {
+                    const sectionConfig = {
+                        'input-cpee': { rawGetter: 'getInputCpeeTreeRaw', isCPEE: true },
+                        'input-intermediate': { rawGetter: 'getInputMermaidRaw', isCPEE: false },
+                        'output-intermediate': { rawGetter: 'getOutputMermaidRaw', isCPEE: false },
+                        'output-cpee': { rawGetter: 'getOutputCpeeTreeRaw', isCPEE: true }
+                    };
+                    
+                    const section = sectionConfig[sectionId];
+                    if (section) {
+                        const rawContent = cpeeStep[section.rawGetter]();
+                        if (rawContent && !rawContent.isEmpty()) {
+                            const contentString = rawContent.getContent();
+                            if (contentString && contentString.trim() !== '') {
+                                const format = section.isCPEE ? 'cpee' : 'mermaid';
+                                const verificationResult = verifySoundnessAndBoundedness(
+                                    traces,
+                                    contentString,
+                                    format,
+                                    { maxLoopIterations: maxLoopIterations }
+                                );
+                                
+                                // Store verification result in step
+                                cpeeStep.setVerificationResult(sectionId, verificationResult);
+                                
+                                console.log(`[TraceCalculationService] Verification complete for ${sectionId}: sound=${verificationResult.sound}, bounded=${verificationResult.bounded}`);
+                                
+                                // Emit verification completion event (Phase 34.11)
+                                this.eventBus.emit('verification:complete', {
+                                    sectionId: sectionId,
+                                    stepNumber: cpeeStep.stepNumber || 'unknown',
+                                    verificationResult: verificationResult
+                                });
+                            }
+                        }
+                    }
+                } catch (verificationError) {
+                    console.warn(`[TraceCalculationService] Verification failed for ${sectionId}:`, verificationError);
+                    // Don't fail trace calculation if verification fails
+                }
             }
         });
     }
