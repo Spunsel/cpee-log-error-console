@@ -20,6 +20,9 @@ import { ViewModeToggle } from '../ui/ViewModeToggle.js';
 import { RawContentRenderer } from '../renderers/RawContentRenderer.js';
 import { LogContentRenderer } from '../renderers/LogContentRenderer.js';
 import { TraceContentRenderer } from '../renderers/TraceContentRenderer.js';
+import { TraceComparisonCoordinator } from './TraceComparisonCoordinator.js';
+import { CPEETraceCalculator } from '../../utils/trace/CPEETraceCalculator.js';
+import { MermaidTraceCalculator } from '../../utils/trace/MermaidTraceCalculator.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
@@ -37,6 +40,12 @@ export class ContentViewCoordinator {
         this.rawContentRenderer = new RawContentRenderer(domRegistry, this.eventBus, contentProcessingService);
         this.logContentRenderer = new LogContentRenderer(domRegistry, this.eventBus, contentProcessingService);
         this.traceContentRenderer = new TraceContentRenderer(domRegistry, this.eventBus, contentProcessingService);
+        
+        // Trace comparison coordinator
+        this.traceComparisonCoordinator = new TraceComparisonCoordinator(domRegistry, this.eventBus);
+        
+        // Track calculated traces per section for comparison
+        this.calculatedTraces = new Map(); // Map<sectionId, traces>
         
         // Action bars per section (moved to RawContentRenderer)
         // this.actionBars = new Map();
@@ -58,6 +67,9 @@ export class ContentViewCoordinator {
 
         // Initialize view mode integration
         this.setupViewModeIntegration();
+        
+        // Setup trace comparison integration
+        this.setupTraceComparisonIntegration();
     }
 
     /**
@@ -83,6 +95,9 @@ export class ContentViewCoordinator {
             console.log(`Mode changed: ${data.sectionId} → ${data.mode}`);
             this.setViewMode(data.sectionId, data.mode);
             this.updateSectionDisplay(data.sectionId, data.mode);
+            
+            // Note: Comparison info boxes remain visible regardless of view mode
+            // Traces are kept in calculatedTraces map for comparison purposes
         });
 
         // Listen to StateManager changes to sync toggle button UI
@@ -92,6 +107,113 @@ export class ContentViewCoordinator {
                 this.viewModeToggle.updateToggleState(sectionId, newModes[sectionId]);
             });
         });
+    }
+    
+    /**
+     * Setup trace comparison integration
+     * Listens for trace calculation events and triggers comparison when appropriate
+     */
+    setupTraceComparisonIntegration() {
+        // Listen for trace calculation events
+        this.eventBus.on('traces:calculated', (data) => {
+            this.handleTraceCalculated(data);
+        });
+        
+        // Listen for trace calculation errors
+        this.eventBus.on('traces:error', (data) => {
+            this.handleTraceError(data);
+        });
+        
+        // Note: View mode changes are already handled in setupViewModeIntegration()
+        // We don't need a separate listener here since updateSectionDisplay() handles traces mode
+        // and checkTraceCacheAndCompare() is called when switching to traces mode
+        
+        console.log('[ContentViewCoordinator] Trace comparison integration setup complete');
+    }
+    
+    /**
+     * Handle trace calculation event
+     * @param {Object} data - Event data with sectionId, stepNumber, traceCount, traces
+     */
+    handleTraceCalculated(data) {
+        const { sectionId, traces, stepNumber } = data;
+        
+        console.log(`[ContentViewCoordinator] Trace calculated for ${sectionId}, step ${stepNumber}, count: ${traces?.length || 0}`);
+        
+        // Store calculated traces regardless of view mode (for comparison display)
+        if (traces && Array.isArray(traces)) {
+            this.calculatedTraces.set(sectionId, traces);
+            console.log(`[ContentViewCoordinator] Stored ${traces.length} traces for ${sectionId}`);
+            
+            // Check if we can perform comparison now
+            this.checkAndPerformComparison();
+        }
+    }
+    
+    /**
+     * Handle trace calculation error
+     * @param {Object} data - Event data with sectionId, stepNumber, error
+     */
+    handleTraceError(data) {
+        const { sectionId } = data;
+        console.warn(`[ContentViewCoordinator] Trace calculation error for ${sectionId}:`, data.error);
+        
+        // Remove traces for this section (don't compare if calculation failed)
+        this.calculatedTraces.delete(sectionId);
+        
+        // Clear comparison info box for the affected pair
+        if (sectionId === 'input-cpee' || sectionId === 'input-intermediate') {
+            this.traceComparisonCoordinator.clearInfoBox('input');
+        } else if (sectionId === 'output-cpee' || sectionId === 'output-intermediate') {
+            this.traceComparisonCoordinator.clearInfoBox('output');
+        }
+    }
+    
+    /**
+     * Check trace cache for a section and store if found
+     * @param {string} sectionId - Section identifier
+     */
+    checkTraceCacheAndCompare(sectionId) {
+        if (!this.currentStep) {
+            return;
+        }
+        
+        // Get trace cache from TraceContentRenderer
+        const cacheKey = `${sectionId}-${this.currentStep.stepNumber || 'unknown'}`;
+        const cachedTraces = this.traceContentRenderer.traceCache?.get(cacheKey);
+        
+        if (cachedTraces && Array.isArray(cachedTraces) && cachedTraces.length > 0) {
+            console.log(`[ContentViewCoordinator] Found cached traces for ${sectionId}, storing for comparison`);
+            this.calculatedTraces.set(sectionId, cachedTraces);
+            // Check if we can perform comparison now
+            this.checkAndPerformComparison();
+        }
+    }
+    
+    /**
+     * Check if all traces for a pair are calculated and perform comparison
+     * Performs comparison regardless of view mode (info box should be visible when step opens)
+     */
+    checkAndPerformComparison() {
+        // Compare input traces if both are available (regardless of view mode)
+        const inputCpeeTraces = this.calculatedTraces.get('input-cpee');
+        const inputMermaidTraces = this.calculatedTraces.get('input-intermediate');
+        
+        if (inputCpeeTraces && inputMermaidTraces) {
+            console.log('[ContentViewCoordinator] Performing input trace comparison');
+            const stepNumber = this.currentStep?.stepNumber || null;
+            this.traceComparisonCoordinator.compareInputTraces(inputCpeeTraces, inputMermaidTraces, stepNumber);
+        }
+        
+        // Compare output traces if both are available (regardless of view mode)
+        const outputCpeeTraces = this.calculatedTraces.get('output-cpee');
+        const outputMermaidTraces = this.calculatedTraces.get('output-intermediate');
+        
+        if (outputCpeeTraces && outputMermaidTraces) {
+            console.log('[ContentViewCoordinator] Performing output trace comparison');
+            const stepNumber = this.currentStep?.stepNumber || null;
+            this.traceComparisonCoordinator.compareOutputTraces(outputCpeeTraces, outputMermaidTraces, stepNumber);
+        }
     }
 
     /**
@@ -198,6 +320,12 @@ export class ContentViewCoordinator {
             // Store view mode in section element for renderer to access
             sectionElement.dataset.viewMode = mode;
             this.traceContentRenderer.display(sectionId, contentContainer, this.currentStep);
+            
+            // After displaying traces, check if we can perform comparison
+            // (traces will be calculated and emitted via traces:calculated event)
+            // The comparison will be triggered in handleTraceCalculated()
+            // Also check trace cache directly in case traces are already calculated
+            this.checkTraceCacheAndCompare(sectionId);
         } else {
             // Visual mode - ContentSectionManager handles this
             // Just ensure raw/log/traces content is hidden
@@ -238,6 +366,12 @@ export class ContentViewCoordinator {
 
         // Clear trace cache when switching to a different step
         this.traceContentRenderer.clearTraceCache();
+        
+        // Clear calculated traces when switching to a different step
+        this.calculatedTraces.clear();
+        
+        // Clear comparison info boxes when switching to a different step
+        this.traceComparisonCoordinator.clearAllInfoBoxes();
 
         // Reset all view modes to visual for this step
         // (View mode does not persist across steps)
@@ -253,9 +387,93 @@ export class ContentViewCoordinator {
             }
             this.togglesAttached = true;
         }
+        
+        // Trigger trace calculation for all sections to enable comparison display
+        // This ensures traces are calculated when step opens, regardless of view mode
+        this.triggerTraceCalculationForStep(step);
 
         // Toggle change handler is now managed via EventBus in setupViewModeIntegration()
         // No need to set up direct callbacks here
+    }
+    
+    /**
+     * Trigger trace calculation for all sections when step opens
+     * This ensures comparison info boxes can be displayed immediately
+     * Calculates traces without rendering them to the DOM
+     * @param {CPEEStep} step - Current step
+     */
+    triggerTraceCalculationForStep(step) {
+        if (!step) {
+            return;
+        }
+        
+        const sections = [
+            { id: 'input-cpee', rawGetter: 'getInputCpeeTreeRaw', isCPEE: true },
+            { id: 'input-intermediate', rawGetter: 'getInputMermaidRaw', isCPEE: false },
+            { id: 'output-intermediate', rawGetter: 'getOutputMermaidRaw', isCPEE: false },
+            { id: 'output-cpee', rawGetter: 'getOutputCpeeTreeRaw', isCPEE: true }
+        ];
+        
+        sections.forEach(section => {
+            try {
+                // Get raw content
+                const rawContent = step[section.rawGetter]();
+                if (!rawContent || !rawContent.getContent) {
+                    return;
+                }
+                
+                let contentString = rawContent.getContent();
+                if (!contentString || contentString.trim() === '') {
+                    return;
+                }
+                
+                // Preprocess Mermaid code if needed
+                if (!section.isCPEE && this.contentProcessingService) {
+                    try {
+                        const preprocessedResult = this.contentProcessingService.processAndValidateMermaid(contentString, true);
+                        contentString = preprocessedResult.code;
+                    } catch (error) {
+                        console.warn(`[ContentViewCoordinator] Failed to preprocess Mermaid for ${section.id}, using original:`, error);
+                    }
+                }
+                
+                // Calculate traces
+                const options = {
+                    maxLoopIterations: 1,
+                    maxPathLength: 50
+                };
+                
+                let traces = [];
+                if (section.isCPEE) {
+                    traces = CPEETraceCalculator.calculateAllTraces(contentString, options);
+                } else {
+                    traces = MermaidTraceCalculator.calculateAllTraces(contentString, options);
+                }
+                
+                // Cache traces in renderer
+                const cacheKey = `${section.id}-${step.stepNumber || 'unknown'}`;
+                this.traceContentRenderer.traceCache.set(cacheKey, traces);
+                
+                // Emit traces:calculated event
+                this.eventBus.emit('traces:calculated', {
+                    sectionId: section.id,
+                    stepNumber: step.stepNumber || 'unknown',
+                    traceCount: traces.length,
+                    traces
+                }, { silent: true });
+                
+                console.log(`[ContentViewCoordinator] Calculated ${traces.length} traces for ${section.id}`);
+            } catch (error) {
+                console.warn(`[ContentViewCoordinator] Failed to calculate traces for ${section.id}:`, error);
+                // Emit error event
+                this.eventBus.emit('traces:error', {
+                    sectionId: section.id,
+                    stepNumber: step.stepNumber || 'unknown',
+                    error: error.message || 'Unknown error occurred',
+                    errorObject: error
+                }, { silent: true });
+            }
+        });
     }
 
 

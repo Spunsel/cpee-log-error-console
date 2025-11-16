@@ -167,10 +167,21 @@ class TraceSets {
                 const children = TopologyIterators.forwardIterator(node)
                     .filter(child => child.tagName.toLowerCase() !== 'condition');
                 
-                // Check for escape
-                const escapeIndex = children.findIndex(child => child.tagName.toLowerCase() === 'escape');
+                // Check for escape with alt_id="-1" (indicates trace should end)
+                const escapeIndex = children.findIndex(child => {
+                    if (child.tagName.toLowerCase() !== 'escape') {
+                        return false;
+                    }
+                    // Check if escape has alt_id="-1" (or any escape if alt_id is not specified)
+                    const altId = child.getAttributeNS('http://cpee.org/ns/annotation/1.0', 'alt_id') || 
+                                  child.getAttribute('a:alt_id') ||
+                                  child.getAttribute('alt_id');
+                    // If alt_id is "-1" or not specified, treat as end node
+                    return altId === '-1' || altId === null || altId === undefined;
+                });
                 
                 if (escapeIndex !== -1) {
+                    // Process only children before the escape
                     const beforeEscape = children.slice(0, escapeIndex);
                     if (beforeEscape.length > 0) {
                         const traces = this.combineSequentialForwardTrace(
@@ -180,16 +191,19 @@ class TraceSets {
                             maxLoopIterations,
                             timeoutChecker
                         );
+                        // Mark all traces as terminated by escape (trace ends here)
                         return traces.map(trace => {
                             trace._terminatedByEscape = true;
                             return trace;
                         });
                     } else {
+                        // No tasks before escape, trace ends at current point
                         const emptyTrace = [...currentFT];
                         emptyTrace._terminatedByEscape = true;
                         return [emptyTrace];
                     }
                 } else {
+                    // No escape found, process all children normally
                     return this.combineSequentialForwardTrace(
                         children,
                         currentFT,
@@ -362,16 +376,34 @@ class TraceSets {
         if (maxIter >= 1) {
             // Combine current FT with body traces
             for (const bodyTrace of bodyTraces) {
-                result.push([...currentFT, ...bodyTrace]);
+                // Combine traces
+                const combinedTrace = [...currentFT, ...bodyTrace];
+                // Preserve termination flag from body trace
+                if (bodyTrace._terminatedByEscape) {
+                    combinedTrace._terminatedByEscape = true;
+                }
+                result.push(combinedTrace);
             }
         }
         
         // 2 iterations (if allowed)
         if (maxIter >= 2) {
             // For 2 iterations, combine body traces twice
+            // But only if first iteration wasn't terminated
             for (const bodyTrace1 of bodyTraces) {
+                // If first iteration was terminated, don't add second iteration
+                if (bodyTrace1._terminatedByEscape) {
+                    // Trace already ended in first iteration, don't add second
+                    continue;
+                }
                 for (const bodyTrace2 of bodyTraces) {
-                    result.push([...currentFT, ...bodyTrace1, ...bodyTrace2]);
+                    // Combine traces
+                    const combinedTrace = [...currentFT, ...bodyTrace1, ...bodyTrace2];
+                    // Preserve termination flag from second iteration
+                    if (bodyTrace2._terminatedByEscape) {
+                        combinedTrace._terminatedByEscape = true;
+                    }
+                    result.push(combinedTrace);
                 }
             }
         }

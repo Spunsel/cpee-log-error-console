@@ -45,6 +45,13 @@ export class CPEEStep {
             'output-intermediate': null,
             'output-cpee': null
         };
+        
+        // Trace comparison results storage (Phase 33.11)
+        // Structure: { input: ComparisonResult|null, output: ComparisonResult|null }
+        this.comparisonResults = {
+            input: null,
+            output: null
+        };
     }
 
     /**
@@ -130,7 +137,9 @@ export class CPEEStep {
             // Phase 22.3: Include task mapping in serialization
             taskMapping: this.taskMapping ? this.taskMapping.toObject() : null,
             // Phase 31.11: Include traces in serialization (store as null for now, traces are calculated on-demand)
-            traces: null
+            traces: null,
+            // Phase 33.11: Include comparison results in serialization (store as null for now, results are calculated on-demand)
+            comparisonResults: null
         };
     }
 
@@ -545,5 +554,118 @@ export class CPEEStep {
             minLength: Math.min(...traces.map(trace => trace.path.length)),
             maxLength: Math.max(...traces.map(trace => trace.path.length))
         };
+    }
+
+    // ===================================================================
+    // Trace Comparison Methods (Phase 33.11)
+    // ===================================================================
+
+    /**
+     * Get input CPEE traces
+     * @returns {Array<Trace>|null} Array of Trace objects or null if not calculated
+     */
+    getInputCPEETraces() {
+        return this.getTraces('input-cpee');
+    }
+
+    /**
+     * Get input Mermaid traces
+     * @returns {Array<Trace>|null} Array of Trace objects or null if not calculated
+     */
+    getInputMermaidTraces() {
+        return this.getTraces('input-intermediate');
+    }
+
+    /**
+     * Get output CPEE traces
+     * @returns {Array<Trace>|null} Array of Trace objects or null if not calculated
+     */
+    getOutputCPEETraces() {
+        return this.getTraces('output-cpee');
+    }
+
+    /**
+     * Get output Mermaid traces
+     * @returns {Array<Trace>|null} Array of Trace objects or null if not calculated
+     */
+    getOutputMermaidTraces() {
+        return this.getTraces('output-intermediate');
+    }
+
+    /**
+     * Get comparison results for a section pair
+     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
+     * @returns {Object|null} Comparison result object or null if not available
+     */
+    getComparisonResults(sectionPair) {
+        if (sectionPair !== 'input' && sectionPair !== 'output') {
+            console.warn(`[CPEEStep] Invalid section pair for comparison results: ${sectionPair}`);
+            return null;
+        }
+        
+        return this.comparisonResults[sectionPair] || null;
+    }
+
+    /**
+     * Set comparison results for a section pair
+     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
+     * @param {Object} comparisonResult - Comparison result object from TraceComparison.compareTraces()
+     */
+    setComparisonResults(sectionPair, comparisonResult) {
+        if (sectionPair !== 'input' && sectionPair !== 'output') {
+            console.warn(`[CPEEStep] Invalid section pair for comparison results: ${sectionPair}`);
+            return;
+        }
+        
+        this.comparisonResults[sectionPair] = comparisonResult;
+        console.log(`[CPEEStep] Stored comparison results for ${sectionPair} pair in Step ${this.stepNumber}`);
+    }
+
+    /**
+     * Get all comparison results
+     * @returns {Object} Object with comparison results for both input and output pairs
+     */
+    getAllComparisonResults() {
+        return {
+            input: this.comparisonResults.input,
+            output: this.comparisonResults.output
+        };
+    }
+
+    /**
+     * Clear comparison results for a specific section pair
+     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
+     */
+    clearComparisonResults(sectionPair) {
+        if (sectionPair !== 'input' && sectionPair !== 'output') {
+            return;
+        }
+        
+        console.log(`[CPEEStep] Clearing comparison results for ${sectionPair} pair in Step ${this.stepNumber}`);
+        this.comparisonResults[sectionPair] = null;
+    }
+
+    /**
+     * Clear all comparison results
+     */
+    clearAllComparisonResults() {
+        console.log(`[CPEEStep] Clearing all comparison results for Step ${this.stepNumber}`);
+        this.comparisonResults = {
+            input: null,
+            output: null
+        };
+    }
+
+    /**
+     * Check if comparison results exist for a section pair
+     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
+     * @returns {boolean} True if comparison results exist
+     */
+    hasComparisonResults(sectionPair) {
+        if (sectionPair !== 'input' && sectionPair !== 'output') {
+            return false;
+        }
+        
+        return this.comparisonResults[sectionPair] !== null;
     }
 }

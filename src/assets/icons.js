@@ -630,6 +630,21 @@ export const ICON_ISSUE_OPEN = `
     </svg>
 `;
 
+/**
+ * Comparison Info icon - Circle with exclamation mark
+ * Represents trace comparison information/discrepancy - 20x20px for comparison info boxes
+ * Design: Circle with exclamation mark (info symbol)
+ */
+export const ICON_COMPARISON_INFO = `
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" aria-hidden="true">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path fill="currentColor" fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zm-9 7a9 9 0 1118 0 9 9 0 01-18 0zm8-4a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1zm.01 8a1 1 0 102 0V9a1 1 0 10-2 0v5z"></path>
+        </g>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -687,7 +702,9 @@ export const ICONS = {
     COLLAPSE_TITLE: ICON_COLLAPSE_TITLE,
     // Issue status icons
     ISSUE_CLOSED: ICON_ISSUE_CLOSED,
-    ISSUE_OPEN: ICON_ISSUE_OPEN
+    ISSUE_OPEN: ICON_ISSUE_OPEN,
+    // Comparison info icon
+    COMPARISON_INFO: ICON_COMPARISON_INFO
 };
 
 /**
@@ -737,7 +754,9 @@ export function getIcon(iconName) {
         'collapse-section': ICON_COLLAPSE_SECTION,
         // Issue status icons
         'issue-closed': ICON_ISSUE_CLOSED,
-        'issue-open': ICON_ISSUE_OPEN
+        'issue-open': ICON_ISSUE_OPEN,
+        // Comparison info icon
+        'comparison-info': ICON_COMPARISON_INFO
     };
 
     return iconMap[iconName.toLowerCase()] || '';

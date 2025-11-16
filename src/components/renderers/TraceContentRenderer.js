@@ -34,6 +34,15 @@ export class TraceContentRenderer {
         
         // Copy buttons for traces per section
         this.traceCopyButtons = new Map();
+        
+        // Store comparison results per section pair for trace coloring
+        this.comparisonResults = {
+            input: null,
+            output: null
+        };
+        
+        // Listen for comparison events to update trace colors
+        this.setupComparisonListeners();
     }
 
     /**
@@ -347,6 +356,10 @@ export class TraceContentRenderer {
             className: 'trace-list'
         });
 
+        // Determine section pair for comparison results
+        // Note: sectionId is not directly available here, so we'll apply colors after rendering
+        // via updateTraceColorsForSectionPair when comparison results are available
+
         // Render each trace
         traceObjects.forEach((trace, index) => {
             const traceItem = this.createTraceItem(trace, index + 1, {
@@ -358,6 +371,20 @@ export class TraceContentRenderer {
         });
 
         containerElement.appendChild(traceList);
+        
+        // Try to apply trace colors if comparison results are available
+        // We need to find the sectionId from the container's parent
+        const sectionElement = containerElement.closest('[id^="input-"], [id^="output-"]');
+        if (sectionElement) {
+            const sectionId = sectionElement.id;
+            const sectionPair = this.getSectionPair(sectionId);
+            if (sectionPair) {
+                // Small delay to ensure DOM is ready
+                setTimeout(() => {
+                    this.updateTraceColorsForSectionPair(sectionPair);
+                }, 0);
+            }
+        }
         console.log(`[TraceContentRenderer] Rendered ${traceObjects.length} traces`);
     }
 
@@ -797,6 +824,112 @@ export class TraceContentRenderer {
             }
         });
         this.traceDisplays.clear();
+    }
+
+    /**
+     * Setup event listeners for comparison results
+     */
+    setupComparisonListeners() {
+        // Listen for comparison events to store results for trace coloring
+        this.eventBus.on('traceComparison:compared', (data) => {
+            const { sectionPair, comparisonResult } = data;
+            if (sectionPair && comparisonResult) {
+                this.comparisonResults[sectionPair] = comparisonResult;
+                console.log(`[TraceContentRenderer] Stored comparison results for ${sectionPair}`);
+                // Re-render traces if they're currently displayed to apply colors
+                this.updateTraceColorsForSectionPair(sectionPair);
+            }
+        });
+    }
+
+    /**
+     * Update trace colors for a section pair after comparison results are available
+     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
+     */
+    updateTraceColorsForSectionPair(sectionPair) {
+        const comparisonResult = this.comparisonResults[sectionPair];
+        if (!comparisonResult) {
+            return;
+        }
+
+        // Determine which sections belong to this pair
+        const sectionIds = sectionPair === 'input' 
+            ? ['input-cpee', 'input-intermediate']
+            : ['output-cpee', 'output-intermediate'];
+
+        sectionIds.forEach(sectionId => {
+            const container = document.getElementById(sectionId);
+            if (!container) {
+                return;
+            }
+
+            const tracesContainer = container.querySelector('[data-content-type="traces"]');
+            if (!tracesContainer) {
+                return;
+            }
+
+            const traceItems = tracesContainer.querySelectorAll('.trace-item');
+            traceItems.forEach((traceItem, index) => {
+                const traceNumberEl = traceItem.querySelector('.trace-number');
+                if (!traceNumberEl) {
+                    return;
+                }
+
+                // Determine if this is a CPEE or Mermaid section
+                const isCPEE = sectionId.includes('cpee');
+                const traceIndex = index; // 0-based
+
+                // Determine trace status
+                let isMatching = false;
+                let isProblematic = false;
+
+                if (isCPEE) {
+                    // For CPEE traces, check details array
+                    const detail = comparisonResult.details?.[traceIndex];
+                    if (detail) {
+                        isMatching = detail.match === true;
+                        isProblematic = detail.match === false;
+                    }
+                } else {
+                    // For Mermaid traces, check if it's in uniqueMermaidTraces (problematic)
+                    const isUnique = comparisonResult.uniqueMermaidTraces?.some(
+                        uniqueTrace => uniqueTrace.traceIndex === traceIndex
+                    );
+                    if (isUnique) {
+                        isProblematic = true;
+                    } else {
+                        // Mermaid trace is matching if it was matched by a CPEE trace
+                        // Check if any detail has this Mermaid trace index as its match
+                        isMatching = comparisonResult.details?.some(
+                            detail => detail.mermaidTraceIndex === traceIndex && detail.match === true
+                        ) || false;
+                    }
+                }
+
+                // Apply color classes for matching and problematic traces
+                traceNumberEl.classList.remove('trace-number--matching', 'trace-number--problematic');
+                if (isMatching) {
+                    traceNumberEl.classList.add('trace-number--matching');
+                } else if (isProblematic) {
+                    traceNumberEl.classList.add('trace-number--problematic');
+                }
+            });
+        });
+    }
+
+    /**
+     * Get section pair identifier for a section
+     * @param {string} sectionId - Section identifier
+     * @returns {string|null} Section pair identifier ('input' or 'output') or null
+     */
+    getSectionPair(sectionId) {
+        if (sectionId === 'input-cpee' || sectionId === 'input-intermediate') {
+            return 'input';
+        }
+        if (sectionId === 'output-cpee' || sectionId === 'output-intermediate') {
+            return 'output';
+        }
+        return null;
     }
 
     /**
