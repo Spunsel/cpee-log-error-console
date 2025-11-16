@@ -274,24 +274,63 @@ export class MermaidErrorHandler {
         // Sometimes Mermaid shows the problematic line without a caret indicator
         if (!snippetLine) {
             // Look for lines that look like code (contain node patterns like :task:, :exclusivegateway:, etc.)
+            // But be careful not to match lines that are clearly part of the next line
             for (let i = 0; i < messageLines.length; i++) {
                 const line = messageLines[i].trim();
                 // Check if line looks like Mermaid code (contains node patterns)
+                // But skip if it looks like it starts mid-line (starts with --> or node pattern without proper prefix)
                 if (line && (
                     /:\w+:/g.test(line) ||  // Contains :task:, :exclusivegateway:, etc.
                     /-->/g.test(line) ||    // Contains edge arrows
                     /\(\(/.test(line) ||    // Contains double parentheses
                     /\{x\}/.test(line)       // Contains {x}
                 )) {
-                    snippetLine = line;
-                    break;
+                    // Check if this line looks like it might be concatenated with the next line
+                    // If it ends with a node pattern that could continue, check the next line
+                    // But if it ends with a complete statement (like )-->nodeId:task:()), use it
+                    // If line ends with :task:() or similar complete pattern, it's likely the full problematic line
+                    // If line ends with incomplete pattern, it might be truncated
+                    const endsWithCompletePattern = /\)\s*$/.test(line) || /:\w+:\{[^}]+\}\s*$/.test(line);
+                    const mightBeTruncated = line.endsWith(':') || line.endsWith('(') || /:\w+:\s*$/.test(line);
+                    
+                    if (endsWithCompletePattern || !mightBeTruncated) {
+                        snippetLine = line;
+                        break;
+                    } else if (mightBeTruncated && i + 1 < messageLines.length) {
+                        // Check if next line continues this pattern - if so, this is likely a concatenated error
+                        const nextLine = messageLines[i + 1].trim();
+                        // If next line starts with a node pattern, the current line is likely truncated
+                        // Extract just the part before the truncation marker (if any)
+                        // For now, use the line as-is but be aware it might be truncated
+                        snippetLine = line;
+                        break;
+                    } else {
+                        snippetLine = line;
+                        break;
+                    }
                 }
             }
         }
         
         // Store snippet and caret line from original message
         if (snippetLine) {
-            parsed.errorSnippet = snippetLine.trim();
+            // Check if snippet line contains concatenated lines (e.g., "...tevent))-->a0:task:()a0:task:()-->gw1s:")
+            // Pattern: ends with a complete node pattern like :task:() or :gateway:{x} followed immediately by another node pattern
+            // We want to extract only up to the first complete node pattern
+            let cleanedSnippet = snippetLine.trim();
+            
+            // Pattern to detect concatenated lines: node pattern ending with ) or {x} followed immediately (no space) by another node ID
+            // Example: "...tevent))-->a0:task:()a0:task:()-->gw1s:"
+            // Should extract: "...tevent))-->a0:task:()"
+            // Match: complete node pattern (ending with ) or {x}) followed immediately by node ID (alphanumeric:)
+            const concatenatedPattern = /(.+?:\w+:(?:\([^)]*\)|\{[^}]+\}))([a-zA-Z0-9_]+:\w+:)/;
+            const match = cleanedSnippet.match(concatenatedPattern);
+            if (match) {
+                // Found concatenated lines - extract only the first part (up to the first complete node pattern)
+                cleanedSnippet = match[1];
+            }
+            
+            parsed.errorSnippet = cleanedSnippet;
         }
         if (caretLine) {
             parsed.caretLine = caretLine; // Store original caret line (e.g., "-----------------------^")
