@@ -26,6 +26,7 @@ import { TraceComparisonCoordinator } from './TraceComparisonCoordinator.js';
 import { CPEETraceCalculator } from '../../utils/trace/CPEETraceCalculator.js';
 import { MermaidTraceCalculator } from '../../utils/trace/MermaidTraceCalculator.js';
 import { verifySoundnessAndBoundedness } from '../../utils/trace/SoundnessBoundednessVerifier.js';
+import { analyzeReachability } from '../../utils/trace/ReachabilityAnalyzer.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
@@ -407,6 +408,12 @@ export class ContentViewCoordinator {
         
         // Clear analysis displays and cache when switching to a different step (Phase 34.12)
         this.analysisContentRenderer.clearAll();
+        
+        // Clear reachability results when navigating to new step (Phase 35.21)
+        if (step) {
+            step.clearAllReachabilityResults();
+            console.log('[ContentViewCoordinator] Cleared reachability results for new step');
+        }
 
         // Reset all view modes to visual for this step
         // (View mode does not persist across steps)
@@ -511,6 +518,43 @@ export class ContentViewCoordinator {
                     console.error(`[ContentViewCoordinator] Verification failed for ${section.id}:`, verificationError);
                     console.error(`[ContentViewCoordinator] Verification error stack:`, verificationError.stack);
                     // Don't fail trace calculation if verification fails
+                }
+                
+                // Perform reachability analysis (Phase 35.10, 35.21)
+                try {
+                    const format = section.isCPEE ? 'cpee' : 'mermaid';
+                    console.log(`[ContentViewCoordinator] Starting reachability analysis for ${section.id}...`);
+                    
+                    const reachabilityResult = analyzeReachability(
+                        contentString,
+                        format,
+                        { 
+                            maxLoopIterations: options.maxLoopIterations,
+                            timeout: 5000,
+                            computeTransitiveClosure: false // Optional, can be expensive
+                        }
+                    );
+                    
+                    // Store reachability result in step
+                    step.setReachabilityResult(section.id, reachabilityResult);
+                    
+                    if (reachabilityResult.success) {
+                        console.log(`[ContentViewCoordinator] Reachability analysis complete for ${section.id}: useful=${reachabilityResult.nodeClassification?.usefulCount || 0}, deadEnd=${reachabilityResult.nodeClassification?.deadEndCount || 0}, unreachable=${reachabilityResult.nodeClassification?.unreachableCount || 0}`);
+                    } else {
+                        console.warn(`[ContentViewCoordinator] Reachability analysis failed for ${section.id}: ${reachabilityResult.error || 'Unknown error'}`);
+                    }
+                    
+                    // Emit reachability analysis completion event (Phase 35.20)
+                    this.eventBus.emit('reachability:analyzed', {
+                        sectionId: section.id,
+                        stepNumber: step.stepNumber || 'unknown',
+                        reachabilityResult: reachabilityResult
+                    }, { silent: true });
+                    console.log(`[ContentViewCoordinator] Emitted reachability:analyzed event for ${section.id} (Step ${step.stepNumber || 'unknown'})`);
+                } catch (reachabilityError) {
+                    console.error(`[ContentViewCoordinator] Reachability analysis failed for ${section.id}:`, reachabilityError);
+                    console.error(`[ContentViewCoordinator] Reachability error stack:`, reachabilityError.stack);
+                    // Don't fail trace calculation if reachability analysis fails
                 }
                 
                 // Cache traces in renderer

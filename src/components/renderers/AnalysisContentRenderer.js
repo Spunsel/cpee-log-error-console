@@ -94,12 +94,42 @@ export class AnalysisContentRenderer {
             // The view will be updated when the user switches to analysis mode or when updateAnalysisView() is called
         });
         
-        // Listen for view mode changes (Phase 34.11)
-        this.eventBus.on('viewModeToggle:modeChanged', (data) => {
-            const { mode } = data;
-            if (mode === 'analysis') {
-                // Analysis mode activated
+        // Listen for reachability analysis completion events (Phase 35.11, 35.20)
+        this.eventBus.on('reachability:analyzed', (data) => {
+            const { sectionId, stepNumber, reachabilityResult } = data;
+            
+            // Enhanced logging for reachability events (Phase 35.20)
+            console.log(`[AnalysisContentRenderer] Reachability analysis completed for ${sectionId} (Step ${stepNumber})`);
+            if (reachabilityResult && reachabilityResult.success) {
+                console.log(`[AnalysisContentRenderer]   - Useful nodes: ${reachabilityResult.nodeClassification?.usefulCount || 0}`);
+                console.log(`[AnalysisContentRenderer]   - Dead-end nodes: ${reachabilityResult.nodeClassification?.deadEndCount || 0}`);
+                console.log(`[AnalysisContentRenderer]   - Unreachable nodes: ${reachabilityResult.nodeClassification?.unreachableCount || 0}`);
             }
+            
+            // Invalidate cache for this section
+            if (sectionId && stepNumber) {
+                this.invalidateCache(sectionId, stepNumber);
+            }
+            
+            // Note: View will be updated when user switches to analysis mode or when updateAnalysisView() is called
+        });
+        
+        // Listen for view mode changes (Phase 34.11, 35.20)
+        this.eventBus.on('viewModeToggle:modeChanged', (data) => {
+            const { mode, sectionId } = data;
+            if (mode === 'analysis') {
+                // Analysis mode activated - reachability view will be shown/hidden automatically
+                console.log(`[AnalysisContentRenderer] Analysis mode activated for ${sectionId || 'all sections'}`);
+            }
+        });
+        
+        // Listen for graph content changes to trigger re-analysis (Phase 35.20)
+        // Note: This is a placeholder - actual content change detection would need to be implemented
+        // based on how graph content is updated in the application
+        this.eventBus.on('graph:contentChanged', (data) => {
+            const { sectionId, stepNumber } = data;
+            console.log(`[AnalysisContentRenderer] Graph content changed for ${sectionId} (Step ${stepNumber}) - reachability will be re-analyzed`);
+            // Cache will be invalidated when traces are recalculated, which triggers reachability re-analysis
         });
     }
 
@@ -208,7 +238,9 @@ export class AnalysisContentRenderer {
         if (cached && cached.rendered) {
             // Check if verification result has changed
             const currentResult = step.getVerificationResult(sectionId);
-            if (currentResult && this.isSameResult(cached.verificationResult, currentResult)) {
+            const currentReachabilityResult = step.getReachabilityResult(sectionId);
+            if (currentResult && this.isSameResult(cached.verificationResult, currentResult) &&
+                this.isSameReachabilityResult(cached.reachabilityResult, currentReachabilityResult)) {
                 // Reuse cached display
                 container.innerHTML = '';
                 const clonedContent = cached.rendered.cloneNode(true);
@@ -282,15 +314,25 @@ export class AnalysisContentRenderer {
         // Render boundedness section (single collapsible panel)
         this.renderBoundednessSection(analysisList, verificationResult.boundedness);
         
+        // Retrieve and render reachability results (Phase 35.11, 35.21)
+        const reachabilityResult = step.getReachabilityResult(sectionId);
+        if (reachabilityResult) {
+            this.renderReachabilitySection(analysisList, reachabilityResult);
+        } else {
+            // Handle missing reachability data gracefully (Phase 35.21)
+            this.renderNoReachabilityMessage(analysisList, sectionId);
+        }
+        
         analysisContentWrapper.appendChild(analysisList);
         container.appendChild(analysisContentWrapper);
         
         // Store display reference
         this.analysisDisplays.set(sectionId, analysisContentWrapper);
         
-        // Cache the rendered result
+        // Cache the rendered result (including reachability)
         this.verificationCache.set(cacheKey, {
             verificationResult: verificationResult,
+            reachabilityResult: reachabilityResult,
             timestamp: Date.now(),
             rendered: analysisContentWrapper.cloneNode(true)
         });
@@ -320,6 +362,32 @@ export class AnalysisContentRenderer {
                result1.traceCount === result2.traceCount &&
                result1.taskCount === result2.taskCount &&
                result1.format === result2.format &&
+               result1.timestamp === result2.timestamp;
+    }
+
+    /**
+     * Check if two reachability results are the same (Phase 35.11)
+     * Compares key properties to determine if results are identical
+     * Used for cache validation to avoid unnecessary re-rendering
+     * @param {Object|null} result1 - First reachability result
+     * @param {Object|null} result2 - Second reachability result
+     * @returns {boolean} True if results have the same key properties
+     */
+    isSameReachabilityResult(result1, result2) {
+        if (!result1 && !result2) {
+            return true;
+        }
+        if (!result1 || !result2) {
+            return false;
+        }
+        
+        // Compare key properties
+        const nodeClass1 = result1.nodeClassification || {};
+        const nodeClass2 = result2.nodeClassification || {};
+        
+        return nodeClass1.usefulCount === nodeClass2.usefulCount &&
+               nodeClass1.deadEndCount === nodeClass2.deadEndCount &&
+               nodeClass1.unreachableCount === nodeClass2.unreachableCount &&
                result1.timestamp === result2.timestamp;
     }
 
@@ -446,13 +514,13 @@ export class AnalysisContentRenderer {
 
     /**
      * Create status indicator element without icon (for expandable sections)
-     * Creates a visual status indicator with label and optional issue badge, but no checkmark icon
+     * Creates a visual status indicator with label, but no checkmark icon or issue badge
      * @param {string} label - Status label (e.g., 'Sound', 'Bounded')
      * @param {boolean} status - Status value (true = pass, false = fail)
-     * @param {number} issueCount - Number of issues (displayed as badge if > 0)
+     * @param {number} _issueCount - Number of issues (not displayed, kept for API compatibility)
      * @returns {HTMLElement} Status indicator element with appropriate styling (no icon)
      */
-    createStatusIndicatorWithoutIcon(label, status, issueCount) {
+    createStatusIndicatorWithoutIcon(label, status, _issueCount) {
         const indicator = this.domRegistry.createElement('div');
         indicator.className = `status-indicator ${status ? 'status-pass' : 'status-fail'}`;
         
@@ -461,12 +529,7 @@ export class AnalysisContentRenderer {
         labelSpan.textContent = label;
         indicator.appendChild(labelSpan);
         
-        if (issueCount > 0) {
-            const issueBadge = this.domRegistry.createElement('span');
-            issueBadge.className = 'issue-badge';
-            issueBadge.textContent = `${issueCount} issue${issueCount !== 1 ? 's' : ''}`;
-            indicator.appendChild(issueBadge);
-        }
+        // Issue badge removed - not displayed in status indicator
         
         return indicator;
     }
@@ -538,6 +601,9 @@ export class AnalysisContentRenderer {
         optionToCompleteDetails.appendChild(reachingEndItem);
         
         const notReachingEndItem = this.domRegistry.createElement('li');
+        if (tracesNotReachingEnd > 0) {
+            notReachingEndItem.className = 'reachability-dead-end';
+        }
         notReachingEndItem.innerHTML = `- ${tracesNotReachingEnd} traces that don't reach the end node(s)`;
         optionToCompleteDetails.appendChild(notReachingEndItem);
         
@@ -573,6 +639,9 @@ export class AnalysisContentRenderer {
         properCompletionDetails.appendChild(endingProperlyItem);
         
         const notEndingProperlyItem = this.domRegistry.createElement('li');
+        if (tracesNotEndingProperly > 0) {
+            notEndingProperlyItem.className = 'reachability-dead-end';
+        }
         notEndingProperlyItem.innerHTML = `- ${tracesNotEndingProperly} traces that don't end without residual tasks`;
         properCompletionDetails.appendChild(notEndingProperlyItem);
         
@@ -608,6 +677,9 @@ export class AnalysisContentRenderer {
         deadTransitionsDetails.appendChild(appearingItem);
         
         const notAppearingItem = this.domRegistry.createElement('li');
+        if (tasksNotAppearing > 0) {
+            notAppearingItem.className = 'reachability-dead-end';
+        }
         notAppearingItem.innerHTML = `- ${tasksNotAppearing} tasks that don't appear in at least one trace`;
         deadTransitionsDetails.appendChild(notAppearingItem);
         
@@ -708,6 +780,9 @@ export class AnalysisContentRenderer {
         placesDetails.appendChild(boundedItem);
         
         const unboundedItem = this.domRegistry.createElement('li');
+        if (unboundedPlaceCount > 0) {
+            unboundedItem.className = 'reachability-dead-end';
+        }
         unboundedItem.innerHTML = `- ${unboundedPlaceCount} unbounded places`;
         placesDetails.appendChild(unboundedItem);
         
@@ -743,6 +818,9 @@ export class AnalysisContentRenderer {
         parallelBranchesDetails.appendChild(notCreatingItem);
         
         const creatingItem = this.domRegistry.createElement('li');
+        if (parallelCreating > 0) {
+            creatingItem.className = 'reachability-dead-end';
+        }
         creatingItem.innerHTML = `- ${parallelCreating} parallel branches that create unbounded token accumulation`;
         parallelBranchesDetails.appendChild(creatingItem);
         
@@ -775,6 +853,261 @@ export class AnalysisContentRenderer {
         boundednessSection.appendChild(traceHeader);
         boundednessSection.appendChild(content);
         container.appendChild(boundednessSection);
+    }
+
+    /**
+     * Render reachability section with collapsible functionality (Phase 35.11)
+     * Displays forward/backward reachability statistics, node classifications, and SCC information
+     * @param {HTMLElement} container - Container element
+     * @param {Object} reachabilityResult - Reachability analysis result
+     * @returns {void}
+     */
+    renderReachabilitySection(container, reachabilityResult) {
+        if (!reachabilityResult) {
+            console.warn('[AnalysisContentRenderer] Cannot render reachability section: reachabilityResult is null');
+            return;
+        }
+
+        // Handle error in reachability result
+        if (reachabilityResult.error) {
+            console.warn(`[AnalysisContentRenderer] Reachability error: ${reachabilityResult.error}`);
+            return;
+        }
+
+        const reachabilitySection = this.domRegistry.createElement('div');
+        reachabilitySection.className = 'reachability-section trace-item';
+
+        // Create trace-header structure (matching trace items)
+        const traceHeader = this.domRegistry.createElement('div');
+        traceHeader.className = 'trace-header';
+        traceHeader.setAttribute('role', 'button');
+        traceHeader.setAttribute('tabindex', '0');
+        traceHeader.setAttribute('aria-expanded', 'false');
+
+        // Add expand button (matching trace-expand-btn)
+        const expandBtn = this.domRegistry.createElement('button');
+        expandBtn.className = 'trace-expand-btn';
+        expandBtn.setAttribute('aria-label', 'Toggle reachability details');
+        expandBtn.setAttribute('aria-expanded', 'false');
+        expandBtn.innerHTML = ICONS.EXPAND_TRACE;
+        expandBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggleSection(reachabilitySection);
+        });
+        traceHeader.appendChild(expandBtn);
+
+        // Determine overall status: "Reachable" if all nodes are useful, "Issues Found" otherwise
+        const nodeClass = reachabilityResult.nodeClassification || {};
+        const totalNodes = nodeClass.usefulCount + nodeClass.deadEndCount + nodeClass.unreachableCount;
+        const hasIssues = (nodeClass.deadEndCount > 0) || (nodeClass.unreachableCount > 0);
+        const allReachable = totalNodes > 0 && nodeClass.unreachableCount === 0 && nodeClass.deadEndCount === 0;
+
+        // Create clickable status indicator
+        const statusIndicator = this.createStatusIndicatorWithoutIcon(
+            allReachable ? 'All Tasks Reachable' : 'Reachability Issues Found',
+            allReachable,
+            hasIssues ? (nodeClass.deadEndCount + nodeClass.unreachableCount) : 0
+        );
+        statusIndicator.classList.add('analysis-status-indicator');
+        traceHeader.appendChild(statusIndicator);
+
+        // Create collapsible content (initially hidden)
+        const content = this.domRegistry.createElement('div');
+        content.className = 'trace-details analysis-section-content collapsed';
+
+        // Create enumeration list for reachability properties
+        const reachabilityList = this.domRegistry.createElement('ul');
+        reachabilityList.className = 'analysis-property-list';
+
+        // Forward Reachability
+        const forwardReach = reachabilityResult.forwardReachability || {};
+        const forwardReachableCount = forwardReach.count || 0;
+        const forwardUnreachableCount = (forwardReach.unreachableNodes || []).length;
+        // Coverage is already a percentage (0-100), no need to multiply by 100
+        const forwardCoverage = forwardReach.coverage !== undefined ? forwardReach.coverage.toFixed(1) : 'N/A';
+
+        const forwardItem = this.domRegistry.createElement('li');
+        forwardItem.className = 'analysis-property-item';
+        forwardItem.innerHTML = `<strong>Forward Reachability</strong>`;
+
+        const forwardDetails = this.domRegistry.createElement('ul');
+        forwardDetails.className = 'analysis-property-details';
+
+        const forwardReachableItem = this.domRegistry.createElement('li');
+        forwardReachableItem.innerHTML = `- ${forwardReachableCount} tasks reachable from start node(s)`;
+        forwardDetails.appendChild(forwardReachableItem);
+
+        if (forwardUnreachableCount > 0) {
+            const forwardUnreachableItem = this.domRegistry.createElement('li');
+            forwardUnreachableItem.className = 'reachability-unreachable';
+            forwardUnreachableItem.innerHTML = `- ${forwardUnreachableCount} tasks not reachable from start node(s)`;
+            forwardDetails.appendChild(forwardUnreachableItem);
+
+            if (forwardReach.unreachableNodes && forwardReach.unreachableNodes.length > 0) {
+                const detailsItem = this.domRegistry.createElement('li');
+                detailsItem.className = 'analysis-property-detail-item';
+                detailsItem.innerHTML = `<strong>Unreachable Tasks:</strong> ${forwardReach.unreachableNodes.slice(0, 20).join(', ')}${forwardReach.unreachableNodes.length > 20 ? '...' : ''}`;
+                forwardDetails.appendChild(detailsItem);
+            }
+        }
+
+        const forwardCoverageItem = this.domRegistry.createElement('li');
+        forwardCoverageItem.innerHTML = `- Coverage: ${forwardCoverage}%`;
+        forwardDetails.appendChild(forwardCoverageItem);
+
+        forwardItem.appendChild(forwardDetails);
+        reachabilityList.appendChild(forwardItem);
+
+        // Backward Reachability
+        const backwardReach = reachabilityResult.backwardReachability || {};
+        const backwardReachableCount = backwardReach.count || 0;
+        const backwardUnreachableCount = (backwardReach.unreachableNodes || []).length;
+        // Coverage is already a percentage (0-100), no need to multiply by 100
+        const backwardCoverage = backwardReach.coverage !== undefined ? backwardReach.coverage.toFixed(1) : 'N/A';
+
+        const backwardItem = this.domRegistry.createElement('li');
+        backwardItem.className = 'analysis-property-item';
+        backwardItem.innerHTML = `<strong>Backward Reachability</strong>`;
+
+        const backwardDetails = this.domRegistry.createElement('ul');
+        backwardDetails.className = 'analysis-property-details';
+
+        const backwardReachableItem = this.domRegistry.createElement('li');
+        backwardReachableItem.innerHTML = `- ${backwardReachableCount} tasks can reach end node(s)`;
+        backwardDetails.appendChild(backwardReachableItem);
+
+        if (backwardUnreachableCount > 0) {
+            const backwardUnreachableItem = this.domRegistry.createElement('li');
+            backwardUnreachableItem.className = 'reachability-dead-end';
+            backwardUnreachableItem.innerHTML = `- ${backwardUnreachableCount} tasks cannot reach end node(s)`;
+            backwardDetails.appendChild(backwardUnreachableItem);
+
+            if (backwardReach.unreachableNodes && backwardReach.unreachableNodes.length > 0) {
+                const detailsItem = this.domRegistry.createElement('li');
+                detailsItem.className = 'analysis-property-detail-item';
+                detailsItem.innerHTML = `<strong>Dead-End Tasks:</strong> ${backwardReach.unreachableNodes.slice(0, 20).join(', ')}${backwardReach.unreachableNodes.length > 20 ? '...' : ''}`;
+                backwardDetails.appendChild(detailsItem);
+            }
+        }
+
+        const backwardCoverageItem = this.domRegistry.createElement('li');
+        backwardCoverageItem.innerHTML = `- Coverage: ${backwardCoverage}%`;
+        backwardDetails.appendChild(backwardCoverageItem);
+
+        backwardItem.appendChild(backwardDetails);
+        reachabilityList.appendChild(backwardItem);
+
+        // Node Classification
+        const bidirectionalReach = reachabilityResult.bidirectionalReachability || {};
+        const deadEndNodes = bidirectionalReach.deadEndNodes || [];
+        const unreachableNodes = bidirectionalReach.unreachableNodes || [];
+
+        const classificationItem = this.domRegistry.createElement('li');
+        classificationItem.className = 'analysis-property-item';
+        classificationItem.innerHTML = `<strong>Task Classification</strong>`;
+
+        const classificationDetails = this.domRegistry.createElement('ul');
+        classificationDetails.className = 'analysis-property-details';
+
+        const usefulItem = this.domRegistry.createElement('li');
+        usefulItem.innerHTML = `- ${nodeClass.usefulCount || 0} useful tasks (reachable from start AND can reach end)`;
+        classificationDetails.appendChild(usefulItem);
+
+        if (nodeClass.deadEndCount > 0) {
+            const deadEndItem = this.domRegistry.createElement('li');
+            deadEndItem.className = 'reachability-dead-end';
+            deadEndItem.innerHTML = `- ${nodeClass.deadEndCount} dead-end tasks (reachable from start but cannot reach end)`;
+            classificationDetails.appendChild(deadEndItem);
+
+            if (deadEndNodes.length > 0) {
+                const detailsItem = this.domRegistry.createElement('li');
+                detailsItem.className = 'analysis-property-detail-item';
+                detailsItem.innerHTML = `<strong>Dead-End Tasks:</strong> ${deadEndNodes.slice(0, 20).join(', ')}${deadEndNodes.length > 20 ? '...' : ''}`;
+                classificationDetails.appendChild(detailsItem);
+            }
+        }
+
+        if (nodeClass.unreachableCount > 0) {
+            const unreachableItem = this.domRegistry.createElement('li');
+            unreachableItem.className = 'reachability-unreachable';
+            unreachableItem.innerHTML = `- ${nodeClass.unreachableCount} unreachable tasks (not reachable from start)`;
+            classificationDetails.appendChild(unreachableItem);
+
+            if (unreachableNodes.length > 0) {
+                const detailsItem = this.domRegistry.createElement('li');
+                detailsItem.className = 'analysis-property-detail-item';
+                detailsItem.innerHTML = `<strong>Unreachable Tasks:</strong> ${unreachableNodes.slice(0, 20).join(', ')}${unreachableNodes.length > 20 ? '...' : ''}`;
+                classificationDetails.appendChild(detailsItem);
+            }
+        }
+
+        // Reachability Coverage
+        const coverage = reachabilityResult.bidirectionalReachability?.statistics?.reachabilityCoverage;
+        if (coverage !== undefined) {
+            const coverageItem = this.domRegistry.createElement('li');
+            // Coverage is already a percentage (0-100), no need to multiply by 100
+            coverageItem.innerHTML = `- Overall Reachability Coverage: ${coverage.toFixed(1)}%`;
+            classificationDetails.appendChild(coverageItem);
+        }
+
+        classificationItem.appendChild(classificationDetails);
+        reachabilityList.appendChild(classificationItem);
+
+        // SCC Information (if available)
+        const sccs = reachabilityResult.sccs;
+        if (sccs && sccs.components && sccs.components.length > 0) {
+            const sccItem = this.domRegistry.createElement('li');
+            sccItem.className = 'analysis-property-item';
+            sccItem.innerHTML = `<strong>Strongly Connected Components (SCCs)</strong>`;
+
+            const sccDetails = this.domRegistry.createElement('ul');
+            sccDetails.className = 'analysis-property-details';
+
+            const sccCount = sccs.components.length;
+            const cyclicComponents = sccs.cyclicComponents || [];
+            const acyclicComponents = sccCount - cyclicComponents.length;
+            const nodesInCycles = (sccs.nodesInCycles || []).length;
+
+            const sccCountItem = this.domRegistry.createElement('li');
+            sccCountItem.innerHTML = `- ${sccCount} strongly connected component(s) found`;
+            sccDetails.appendChild(sccCountItem);
+
+            if (cyclicComponents.length > 0) {
+                const cyclicItem = this.domRegistry.createElement('li');
+                cyclicItem.innerHTML = `- ${cyclicComponents.length} cyclic component(s) (contain cycles)`;
+                sccDetails.appendChild(cyclicItem);
+            }
+
+            if (acyclicComponents > 0) {
+                const acyclicItem = this.domRegistry.createElement('li');
+                acyclicItem.innerHTML = `- ${acyclicComponents} acyclic component(s) (no cycles)`;
+                sccDetails.appendChild(acyclicItem);
+            }
+
+            if (nodesInCycles > 0) {
+                const cyclesItem = this.domRegistry.createElement('li');
+                cyclesItem.innerHTML = `- ${nodesInCycles} node(s) involved in cycles`;
+                sccDetails.appendChild(cyclesItem);
+            }
+
+            sccItem.appendChild(sccDetails);
+            reachabilityList.appendChild(sccItem);
+        }
+
+        content.appendChild(reachabilityList);
+
+        // Add toggle functionality to header
+        traceHeader.addEventListener('click', () => this.toggleSection(reachabilitySection));
+        traceHeader.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.toggleSection(reachabilitySection);
+            }
+        });
+
+        reachabilitySection.appendChild(traceHeader);
+        reachabilitySection.appendChild(content);
+        container.appendChild(reachabilitySection);
     }
 
     /**
@@ -941,9 +1274,10 @@ export class AnalysisContentRenderer {
      * @returns {void}
      */
     reattachEventListeners(container) {
-        // Find all soundness and boundedness sections
+        // Find all soundness, boundedness, and reachability sections
         const soundnessSection = container.querySelector('.soundness-section');
         const boundednessSection = container.querySelector('.boundedness-section');
+        const reachabilitySection = container.querySelector('.reachability-section');
         
         // Reattach listeners for soundness section
         if (soundnessSection) {
@@ -1002,6 +1336,35 @@ export class AnalysisContentRenderer {
                 }
             }
         }
+        
+        // Reattach listeners for reachability section
+        if (reachabilitySection) {
+            const traceHeader = reachabilitySection.querySelector('.trace-header');
+            
+            if (traceHeader) {
+                // Remove any existing listeners by cloning the header
+                const newHeader = traceHeader.cloneNode(true);
+                traceHeader.parentNode.replaceChild(newHeader, traceHeader);
+                
+                // Reattach event listeners
+                newHeader.addEventListener('click', () => this.toggleSection(reachabilitySection));
+                newHeader.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.toggleSection(reachabilitySection);
+                    }
+                });
+                
+                // Reattach expand button listener
+                const newExpandBtn = newHeader.querySelector('.trace-expand-btn');
+                if (newExpandBtn) {
+                    newExpandBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.toggleSection(reachabilitySection);
+                    });
+                }
+            }
+        }
     }
 
     /**
@@ -1017,6 +1380,7 @@ export class AnalysisContentRenderer {
         const content = section.querySelector('.analysis-section-content');
         
         if (!traceHeader || !content) {
+            console.warn('[AnalysisContentRenderer] toggleSection: Missing traceHeader or content', { section, traceHeader, content });
             return;
         }
         
@@ -1027,7 +1391,12 @@ export class AnalysisContentRenderer {
         if (expandBtn) {
             expandBtn.setAttribute('aria-expanded', newState.toString());
             expandBtn.innerHTML = newState ? ICONS.COLLAPSE_TRACE : ICONS.EXPAND_TRACE;
+            // Ensure button remains clickable
+            expandBtn.style.pointerEvents = 'auto';
         }
+        // Ensure header remains clickable
+        traceHeader.style.pointerEvents = 'auto';
+        
         // Use max-height transition like trace-details
         // Keep padding consistent during transition to avoid visual shift
         if (newState) {
@@ -1035,12 +1404,16 @@ export class AnalysisContentRenderer {
             content.style.maxHeight = '2000px';
             content.classList.add('expanded');
             content.classList.remove('collapsed');
+            // Ensure content doesn't block clicks when expanded
+            content.style.pointerEvents = 'auto';
         } else {
             // Keep padding during collapse to prevent upward shift
             // Only change max-height, padding stays the same
             content.style.maxHeight = '0';
             content.classList.remove('expanded');
             content.classList.add('collapsed');
+            // Ensure collapsed content doesn't block clicks on header/button
+            content.style.pointerEvents = 'none';
             // Remove padding after transition completes
             setTimeout(() => {
                 if (content.classList.contains('collapsed')) {
@@ -1139,6 +1512,36 @@ export class AnalysisContentRenderer {
     clearAll() {
         this.analysisDisplays.clear();
         this.clearCache();
+    }
+
+    /**
+     * Render message when no reachability results are available (Phase 35.21)
+     * Handles cases where reachability analysis hasn't been performed yet or step has missing reachability data
+     * @param {HTMLElement} container - Container element
+     * @param {string} sectionId - Section identifier
+     * @returns {HTMLElement} Message element
+     */
+    renderNoReachabilityMessage(container, _sectionId) {
+        const message = this.domRegistry.createElement('div');
+        message.className = 'analysis-no-reachability';
+        
+        const icon = this.domRegistry.createElement('div');
+        icon.className = 'no-reachability-icon';
+        icon.innerHTML = ICONS.INFO;
+        message.appendChild(icon);
+        
+        const text = this.domRegistry.createElement('div');
+        text.className = 'no-reachability-text';
+        text.innerHTML = `
+            <h3>No Reachability Analysis Available</h3>
+            <p>Reachability analysis results are not yet available for this section.</p>
+            <p>Reachability analysis is performed automatically after trace calculation. Please ensure traces have been calculated for this section.</p>
+            <p>If this step has missing or incomplete reachability data, analysis may not have been performed yet.</p>
+        `;
+        message.appendChild(text);
+        
+        container.appendChild(message);
+        return message;
     }
 
     /**

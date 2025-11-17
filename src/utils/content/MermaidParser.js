@@ -384,6 +384,87 @@ export class MermaidParser {
             });
         }
         
+        // Fix 13: Fill missing task labels by finding tasks with same ID that have labels
+        const fix13LineNumbers = [];
+        const taskLabelMap = new Map(); // Map<taskId, label>
+        
+        // First pass: collect all task nodes with labels (handles nested parentheses)
+        // Use a depth-based approach to properly extract labels with nested parentheses
+        let i = 0;
+        while (i < processedCode.length) {
+            // Look for task node pattern: id:task:(
+            const taskMatch = processedCode.substring(i).match(/^(\w+):task:\(/);
+            
+            if (taskMatch) {
+                const taskId = taskMatch[1];
+                const taskStart = i + taskMatch[0].length;
+                
+                // Find the matching closing parenthesis
+                let depth = 1;
+                let pos = taskStart;
+                
+                while (pos < processedCode.length && depth > 0) {
+                    if (processedCode[pos] === '(') {
+                        depth++;
+                    } else if (processedCode[pos] === ')') {
+                        depth--;
+                    }
+                    pos++;
+                }
+                
+                if (depth === 0) {
+                    // Found matching closing parenthesis
+                    const label = processedCode.substring(taskStart, pos - 1);
+                    // Store the label for this task ID (keep first occurrence if multiple exist)
+                    if (!taskLabelMap.has(taskId)) {
+                        taskLabelMap.set(taskId, label);
+                    }
+                    i = pos;
+                    continue;
+                }
+            }
+            
+            i++;
+        }
+        
+        // Second pass: find tasks missing labels and fill them in
+        const lines13 = processedCode.split('\n');
+        const updatedLines13 = lines13.map((line, index) => {
+            let updatedLine = line;
+            let hasChanges = false;
+            
+            // Pattern to match task nodes without labels: id:task: not followed by (
+            // This matches patterns like: a5:task: or a5:task:--> or a5:task:|label|
+            // We need to be careful not to match tasks that already have labels
+            const taskWithoutLabelPattern = /(\w+):task:(?!\()/g;
+            
+            updatedLine = updatedLine.replace(taskWithoutLabelPattern, (match, taskId) => {
+                // Check if we have a label for this task ID
+                if (taskLabelMap.has(taskId)) {
+                    const label = taskLabelMap.get(taskId);
+                    hasChanges = true;
+                    // Replace id:task: with id:task:(label)
+                    return `${taskId}:task:(${label})`;
+                }
+                // No label found, keep original
+                return match;
+            });
+            
+            if (hasChanges) {
+                fix13LineNumbers.push(index + 1); // 1-based line numbers
+            }
+            
+            return updatedLine;
+        });
+        
+        if (fix13LineNumbers.length > 0) {
+            processedCode = updatedLines13.join('\n');
+            appliedSteps.push({
+                description: `Filled missing task labels for ${fix13LineNumbers.length} task${fix13LineNumbers.length > 1 ? 's' : ''}`,
+                lineNumbers: Array.from(new Set(fix13LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
         if (originalCode !== processedCode && appliedSteps.length > 0) {
             console.log('🔧 Mermaid preprocessing applied:', appliedSteps.map(s => s.description));
         }

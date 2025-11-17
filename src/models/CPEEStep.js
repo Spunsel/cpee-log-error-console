@@ -61,6 +61,15 @@ export class CPEEStep {
             'output-intermediate': null,
             'output-cpee': null
         };
+        
+        // Reachability analysis results storage (Phase 35.10)
+        // Structure: { 'input-cpee': ReachabilityResult|null, 'input-intermediate': ReachabilityResult|null, 'output-intermediate': ReachabilityResult|null, 'output-cpee': ReachabilityResult|null }
+        this.reachabilityResults = {
+            'input-cpee': null,
+            'input-intermediate': null,
+            'output-intermediate': null,
+            'output-cpee': null
+        };
     }
 
     /**
@@ -638,6 +647,86 @@ export class CPEEStep {
     clearAllVerificationResults() {
         console.log(`[CPEEStep] Clearing all verification results for Step ${this.stepNumber}`);
         this.verificationResults = {
+            'input-cpee': null,
+            'input-intermediate': null,
+            'output-intermediate': null,
+            'output-cpee': null
+        };
+    }
+
+    // ===================================================================
+    // Reachability Analysis Methods (Phase 35.10)
+    // ===================================================================
+
+    /**
+     * Set reachability analysis result for a specific section
+     * @param {string} sectionId - Section identifier ('input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee')
+     * @param {Object} reachabilityResult - Reachability analysis result from analyzeReachability()
+     */
+    setReachabilityResult(sectionId, reachabilityResult) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            console.warn(`[CPEEStep] Invalid section ID for reachability result: ${sectionId}`);
+            return;
+        }
+        
+        this.reachabilityResults[sectionId] = reachabilityResult;
+        console.log(`[CPEEStep] Stored reachability result for ${sectionId} in Step ${this.stepNumber}`);
+    }
+
+    /**
+     * Get reachability analysis result for a specific section
+     * @param {string} sectionId - Section identifier
+     * @returns {Object|null} Reachability analysis result or null if not available
+     */
+    getReachabilityResult(sectionId) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            console.warn(`[CPEEStep] Invalid section ID for reachability result: ${sectionId}`);
+            return null;
+        }
+        
+        return this.reachabilityResults[sectionId];
+    }
+
+    /**
+     * Check if reachability analysis has been performed for a specific section
+     * @param {string} sectionId - Section identifier
+     * @returns {boolean} True if reachability result exists for this section
+     */
+    hasReachabilityResult(sectionId) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            return false;
+        }
+        
+        return this.reachabilityResults[sectionId] !== null;
+    }
+
+    /**
+     * Get all reachability results for all sections
+     * @returns {Object} Object with reachability results for each section
+     */
+    getAllReachabilityResults() {
+        return { ...this.reachabilityResults };
+    }
+
+    /**
+     * Clear reachability result for a specific section
+     * @param {string} sectionId - Section identifier
+     */
+    clearReachabilityResult(sectionId) {
+        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
+            return;
+        }
+        
+        console.log(`[CPEEStep] Clearing reachability result for ${sectionId} in Step ${this.stepNumber}`);
+        this.reachabilityResults[sectionId] = null;
+    }
+
+    /**
+     * Clear all reachability results for all sections
+     */
+    clearAllReachabilityResults() {
+        console.log(`[CPEEStep] Clearing all reachability results for Step ${this.stepNumber}`);
+        this.reachabilityResults = {
             'input-cpee': null,
             'input-intermediate': null,
             'output-intermediate': null,

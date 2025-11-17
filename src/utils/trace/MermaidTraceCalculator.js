@@ -894,13 +894,16 @@ export class MermaidTraceCalculator {
             return existingNode.id;
         }
         
-        // Parse node definition: id:type:(label)
-        const nodeMatch = nodeId.match(/^([^:]+):([^:]+):(.+)$/);
+        // Parse node definition: id:type:(label) or id:type: or id:type:{x}
+        // Handle cases: id:type:, id:type:(label), id:type:{x}
+        const nodeMatchWithLabel = nodeId.match(/^([^:]+):([^:]+):(.+)$/);
+        const nodeMatchWithoutLabel = nodeId.match(/^([^:]+):([^:]+):$/);
         
         let shortId, nodeType, nodeLabel;
         
-        if (nodeMatch) {
-            const [, id, type, labelPart] = nodeMatch;
+        if (nodeMatchWithLabel) {
+            // Has label: id:type:(label) or id:type:{x}
+            const [, id, type, labelPart] = nodeMatchWithLabel;
             shortId = id.trim();
             nodeType = type.trim();
             let label = '';
@@ -918,17 +921,29 @@ export class MermaidTraceCalculator {
             }
             
             nodeLabel = label.trim();
+        } else if (nodeMatchWithoutLabel) {
+            // No label: id:type: - extract just the id part
+            const [, id, type] = nodeMatchWithoutLabel;
+            shortId = id.trim();
+            nodeType = type.trim();
+            nodeLabel = '';
         } else {
+            // Fallback: treat as simple ID
             shortId = nodeId;
             nodeType = 'unknown';
             nodeLabel = nodeId;
         }
         
-        // Check if node with short ID already exists
+        // Check if node with short ID already exists (this handles deduplication)
         const existingShortIdNode = graph.nodes.find(n => n.id === shortId);
         if (existingShortIdNode) {
+            // Update fullId if this is a more complete version
             if (existingShortIdNode.fullId !== nodeId) {
-                existingShortIdNode.fullId = nodeId;
+                // If existing node has no label but new one does, update it
+                if (!existingShortIdNode.label && nodeLabel) {
+                    existingShortIdNode.fullId = nodeId;
+                    existingShortIdNode.label = nodeLabel;
+                }
             }
             return shortId;
         }
