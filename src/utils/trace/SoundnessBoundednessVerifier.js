@@ -409,8 +409,7 @@ function checkBoundedness(traces, allTasks, maxLoopIterations, _graphStructure =
             result.bounded = false;
             result.parallelBranchesCreatingUnbounded++;
             result.issues.push(
-                `High trace count (${traces.length}) relative to task count (${taskCount}) ` +
-                `may indicate unbounded parallelism. Full analysis requires state space exploration.`
+                `High trace count (${traces.length}) relative to task count (${taskCount}) INVESTIGATE`
             );
         } else {
             result.parallelBranchesNotCreatingUnbounded++;

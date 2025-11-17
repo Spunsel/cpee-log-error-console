@@ -923,8 +923,8 @@ export class AnalysisContentRenderer {
         const forwardReach = reachabilityResult.forwardReachability || {};
         const forwardReachableCount = forwardReach.count || 0;
         const forwardUnreachableCount = (forwardReach.unreachableNodes || []).length;
-        // Coverage is already a percentage (0-100), no need to multiply by 100
-        const forwardCoverage = forwardReach.coverage !== undefined ? forwardReach.coverage.toFixed(1) : 'N/A';
+        // Coverage is a decimal (0-1), multiply by 100 to get percentage
+        const forwardCoverage = forwardReach.coverage !== undefined ? (forwardReach.coverage * 100).toFixed(1) : 'N/A';
 
         const forwardItem = this.domRegistry.createElement('li');
         forwardItem.className = 'analysis-property-item';
@@ -962,8 +962,8 @@ export class AnalysisContentRenderer {
         const backwardReach = reachabilityResult.backwardReachability || {};
         const backwardReachableCount = backwardReach.count || 0;
         const backwardUnreachableCount = (backwardReach.unreachableNodes || []).length;
-        // Coverage is already a percentage (0-100), no need to multiply by 100
-        const backwardCoverage = backwardReach.coverage !== undefined ? backwardReach.coverage.toFixed(1) : 'N/A';
+        // Coverage is a decimal (0-1), multiply by 100 to get percentage
+        const backwardCoverage = backwardReach.coverage !== undefined ? (backwardReach.coverage * 100).toFixed(1) : 'N/A';
 
         const backwardItem = this.domRegistry.createElement('li');
         backwardItem.className = 'analysis-property-item';
@@ -1045,8 +1045,8 @@ export class AnalysisContentRenderer {
         const coverage = reachabilityResult.bidirectionalReachability?.statistics?.reachabilityCoverage;
         if (coverage !== undefined) {
             const coverageItem = this.domRegistry.createElement('li');
-            // Coverage is already a percentage (0-100), no need to multiply by 100
-            coverageItem.innerHTML = `- Overall Reachability Coverage: ${coverage.toFixed(1)}%`;
+            // Coverage is a decimal (0-1), multiply by 100 to get percentage
+            coverageItem.innerHTML = `- Overall Reachability Coverage: ${(coverage * 100).toFixed(1)}%`;
             classificationDetails.appendChild(coverageItem);
         }
 

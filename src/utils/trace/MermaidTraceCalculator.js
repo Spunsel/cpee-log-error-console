@@ -166,58 +166,18 @@ class TraceSets {
             // Solution: if visitCount = 1 and we're visiting a task node again, check
             // if we've also visited other task nodes that are part of the same loop since
             // the last visit. If we have, we've completed a cycle and are starting a new one.
-            if (visitCount >= maxLoopIterations && node.type === 'task') {
-                // Find the index of the last occurrence of this node
-                let lastOccurrenceIndex = -1;
-                for (let i = currentFT.length - 1; i >= 0; i--) {
-                    const taskId = currentFT[i].id || currentFT[i].alt_id;
-                    if (taskId === currentNodeId) {
-                        lastOccurrenceIndex = i;
-                        break;
-                    }
-                }
-                
-                // If we've visited this node once and we're visiting it again,
-                // and there are other task nodes between the visits that have also
-                // been visited before (indicating a cycle), we've completed a loop
-                // cycle and are starting a second iteration.
-                if (lastOccurrenceIndex >= 0 && currentFT.length > lastOccurrenceIndex + 1) {
-                    const nodesSinceLastVisit = currentFT.slice(lastOccurrenceIndex + 1);
-                    // Check if there are other task nodes (not just this node) since the last visit
-                    const otherTaskNodes = nodesSinceLastVisit.filter(t => {
-                        const taskId = t.id || t.alt_id;
-                        return taskId !== currentNodeId;
-                    });
-                    
-                    // Check if any of these other task nodes have also been visited before
-                    // the last visit to this node (indicating they're part of a cycle with this node)
-                    // OR if they appear multiple times in the trace (also indicating a cycle)
-                    const nodesBeforeLastVisit = currentFT.slice(0, lastOccurrenceIndex);
-                    const hasCyclicNode = otherTaskNodes.some(t => {
-                        const taskId = t.id || t.alt_id;
-                        // Check if this node was visited before the last visit to currentNodeId
-                        const visitedBefore = nodesBeforeLastVisit.some(prevTask => {
-                            const prevTaskId = prevTask.id || prevTask.alt_id;
-                            return prevTaskId === taskId;
-                        });
-                        // OR check if this node appears multiple times in the entire trace (cycle indicator)
-                        const visitCountForOtherNode = currentFT.filter(prevTask => {
-                            const prevTaskId = prevTask.id || prevTask.alt_id;
-                            return prevTaskId === taskId;
-                        }).length;
-                        return visitedBefore || visitCountForOtherNode > 1;
-                    });
-                    
-                    // If we've visited other task nodes since the last visit to this node,
-                    // AND those nodes have also been visited before OR appear multiple times
-                    // (indicating they're part of a cycle with this node),
-                    // we've completed a loop cycle and are starting a second iteration.
-                    // With maxLoopIterations = 1, we can only do this once, so block it.
-                    if (otherTaskNodes.length > 0 && hasCyclicNode) {
-                        return []; // Loop limit reached - cannot repeat loop more than 1 time
-                    }
-                }
-            }
+            // Note: We previously had logic here to detect if we've completed a loop cycle
+            // by checking if other task nodes in the cycle were visited before. However, that
+            // logic was too strict and blocked valid loop traces like:
+            // 1 → 2 → 3 → 4 → 7 → 3 → 4 → 6, where node 4 is revisited after the loop
+            // but we're still in the first iteration.
+            // 
+            // The issue: When visitCount = maxLoopIterations (e.g., 1), we're at the limit
+            // but haven't exceeded it. This first revisit is part of completing the first
+            // loop iteration, which should be allowed. We should only block if visitCount > maxLoopIterations,
+            // which is already handled by the check below.
+            // 
+            // Removed the overly strict check that was blocking valid traces.
             
             // Also block if visitCount exceeds maxLoopIterations (safety check)
             if (visitCount > maxLoopIterations) {
@@ -937,11 +897,11 @@ export class MermaidTraceCalculator {
         // Check if node with short ID already exists (this handles deduplication)
         const existingShortIdNode = graph.nodes.find(n => n.id === shortId);
         if (existingShortIdNode) {
-            // Update fullId if this is a more complete version
+            // Update fullId if it's different (preserve the most complete version)
             if (existingShortIdNode.fullId !== nodeId) {
-                // If existing node has no label but new one does, update it
+                existingShortIdNode.fullId = nodeId;
+                // Update label if the new one is more complete (has label when existing doesn't)
                 if (!existingShortIdNode.label && nodeLabel) {
-                    existingShortIdNode.fullId = nodeId;
                     existingShortIdNode.label = nodeLabel;
                 }
             }

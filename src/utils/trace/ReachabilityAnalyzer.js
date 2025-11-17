@@ -38,6 +38,10 @@ const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes TTL
 const reachabilityQueryCache = new Map();
 const QUERY_CACHE_MAX_SIZE = 1000; // Maximum number of cached queries
 
+// Periodic cache cleaning state
+let reachabilityQueryCacheCleanCounter = 0;
+const REACHABILITY_QUERY_CACHE_CLEAN_INTERVAL = 100; // Clean every 100 queries
+
 /**
  * Timeout checker class to track elapsed time during reachability analysis
  */
@@ -99,6 +103,7 @@ function cleanTransitiveClosureCache() {
 
 /**
  * Clean expired entries from reachability query cache (Phase 35.16)
+ * Called periodically to avoid performance overhead
  */
 function cleanReachabilityQueryCache() {
     // Simple LRU: if cache is too large, remove oldest entries
@@ -567,7 +572,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
                     forwardCoverage: metrics.forwardCoverage,
                     backwardCoverage: metrics.backwardCoverage,
                     intersectionCoverage: metrics.forwardReachableCount > 0 
-                        ? (metrics.usefulNodeCount / metrics.forwardReachableCount) * 100 
+                        ? (metrics.usefulNodeCount / metrics.forwardReachableCount) 
                         : 0
                 }
             },
@@ -609,9 +614,9 @@ export function analyzeReachability(graphContent, format, options = {}) {
         console.log('[ReachabilityAnalyzer] Analysis Time:', result.analysisTime, 'ms');
         console.log('[ReachabilityAnalyzer] Node Classification:');
         if (result.metrics) {
-            console.log('[ReachabilityAnalyzer]   - Useful nodes:', result.nodeClassification.usefulCount, `(${(result.metrics.usefulCoverage || 0).toFixed(1)}%)`);
-            console.log('[ReachabilityAnalyzer]   - Dead-end nodes:', result.nodeClassification.deadEndCount, `(${(result.metrics.deadEndCoverage || 0).toFixed(1)}%)`);
-            console.log('[ReachabilityAnalyzer]   - Unreachable nodes:', result.nodeClassification.unreachableCount, `(${(result.metrics.unreachableCoverage || 0).toFixed(1)}%)`);
+            console.log('[ReachabilityAnalyzer]   - Useful nodes:', result.nodeClassification.usefulCount, `(${((result.metrics.usefulCoverage || 0) * 100).toFixed(1)}%)`);
+            console.log('[ReachabilityAnalyzer]   - Dead-end nodes:', result.nodeClassification.deadEndCount, `(${((result.metrics.deadEndCoverage || 0) * 100).toFixed(1)}%)`);
+            console.log('[ReachabilityAnalyzer]   - Unreachable nodes:', result.nodeClassification.unreachableCount, `(${((result.metrics.unreachableCoverage || 0) * 100).toFixed(1)}%)`);
         } else {
             console.log('[ReachabilityAnalyzer]   - Useful nodes:', result.nodeClassification.usefulCount);
             console.log('[ReachabilityAnalyzer]   - Dead-end nodes:', result.nodeClassification.deadEndCount);
@@ -619,10 +624,10 @@ export function analyzeReachability(graphContent, format, options = {}) {
         }
         console.log('[ReachabilityAnalyzer] Reachability Coverage:');
         if (result.forwardReachability && result.forwardReachability.coverage !== undefined) {
-            console.log('[ReachabilityAnalyzer]   - Forward Coverage:', result.forwardReachability.coverage.toFixed(1), '%');
+            console.log('[ReachabilityAnalyzer]   - Forward Coverage:', (result.forwardReachability.coverage * 100).toFixed(1), '%');
         }
         if (result.backwardReachability && result.backwardReachability.coverage !== undefined) {
-            console.log('[ReachabilityAnalyzer]   - Backward Coverage:', result.backwardReachability.coverage.toFixed(1), '%');
+            console.log('[ReachabilityAnalyzer]   - Backward Coverage:', (result.backwardReachability.coverage * 100).toFixed(1), '%');
         }
         if (result.warnings && result.warnings.length > 0) {
             console.warn('[ReachabilityAnalyzer] Warnings:', result.warnings);
@@ -1059,21 +1064,21 @@ function computeBidirectionalReachability(forwardReachability, backwardReachabil
     // Calculate reachability coverage percentage (will be recalculated in metrics with proper filtering)
     // These are temporary values - actual coverage is calculated in calculateReachabilityMetrics
     const totalNodes = allNodes.length;
-    const usefulCoverage = totalNodes > 0 ? (usefulCount / totalNodes) * 100 : 0;
-    const deadEndCoverage = totalNodes > 0 ? (deadEndCount / totalNodes) * 100 : 0;
-    const unreachableCoverage = totalNodes > 0 ? (unreachableCount / totalNodes) * 100 : 0;
+    const usefulCoverage = totalNodes > 0 ? (usefulCount / totalNodes) : 0;
+    const deadEndCoverage = totalNodes > 0 ? (deadEndCount / totalNodes) : 0;
+    const unreachableCoverage = totalNodes > 0 ? (unreachableCount / totalNodes) : 0;
     
     // Calculate forward reachability coverage
     const forwardReachableCount = forwardReachableSet.size;
-    const forwardCoverage = totalNodes > 0 ? (forwardReachableCount / totalNodes) * 100 : 0;
+    const forwardCoverage = totalNodes > 0 ? (forwardReachableCount / totalNodes) : 0;
     
     // Calculate backward reachability coverage
     const backwardReachableCount = backwardReachableSet.size;
-    const backwardCoverage = totalNodes > 0 ? (backwardReachableCount / totalNodes) * 100 : 0;
+    const backwardCoverage = totalNodes > 0 ? (backwardReachableCount / totalNodes) : 0;
     
     // Calculate intersection coverage
     const intersectionCoverage = forwardReachableCount > 0 
-        ? (usefulCount / forwardReachableCount) * 100 
+        ? (usefulCount / forwardReachableCount) 
         : 0;
     
     // Identify nodes that are in cycles (from forward and backward statistics)
@@ -1200,11 +1205,11 @@ function calculateReachabilityMetrics(forwardReachability, backwardReachability,
         usefulNodeCount: usefulCount,
         deadEndNodeCount: deadEndCount,
         unreachableNodeCount: unreachableCount,
-        forwardCoverage: totalNodes > 0 ? (forwardCount / totalNodes) * 100 : 0,
-        backwardCoverage: totalNodes > 0 ? (backwardCount / totalNodes) * 100 : 0,
-        usefulCoverage: totalNodes > 0 ? (usefulCount / totalNodes) * 100 : 0,
-        deadEndCoverage: totalNodes > 0 ? (deadEndCount / totalNodes) * 100 : 0,
-        unreachableCoverage: totalNodes > 0 ? (unreachableCount / totalNodes) * 100 : 0
+        forwardCoverage: totalNodes > 0 ? (forwardCount / totalNodes) : 0,
+        backwardCoverage: totalNodes > 0 ? (backwardCount / totalNodes) : 0,
+        usefulCoverage: totalNodes > 0 ? (usefulCount / totalNodes) : 0,
+        deadEndCoverage: totalNodes > 0 ? (deadEndCount / totalNodes) : 0,
+        unreachableCoverage: totalNodes > 0 ? (unreachableCount / totalNodes) : 0
     };
 }
 
@@ -1870,28 +1875,64 @@ function identifyMermaidBackEdges(graph, edges) {
 
 /**
  * Check if there's a path from source to target (excluding direct edge)
+ * Uses iterative BFS to avoid stack overflow on deep graphs
  * @param {Object} graph - Graph object
  * @param {string} source - Source node ID
  * @param {string} target - Target node ID
- * @param {Set<string>} visited - Visited nodes
+ * @param {Set<string>} visited - Visited nodes (initial visited set)
  * @param {number} maxDepth - Maximum search depth
  * @returns {boolean} True if path exists
  */
 function hasPath(graph, source, target, visited = new Set(), maxDepth = 50) {
+    // Early return: if source equals target and we've already visited at least one node, it's a cycle
     if (source === target && visited.size > 0) {
         return true; // Found a cycle (path exists and we've visited at least one node)
     }
-    if (maxDepth <= 0 || visited.has(source)) {
+    if (maxDepth <= 0) {
         return false;
     }
     
-    const newVisited = new Set(visited);
-    newVisited.add(source);
+    // Use BFS with explicit queue to avoid recursion
+    const queue = [];
+    const currentVisited = new Set(visited);
     
-    const neighbors = graph.adjacencyList.get(source) || [];
-    for (const edge of neighbors) {
-        if (hasPath(graph, edge.to, target, newVisited, maxDepth - 1)) {
+    // Initialize: if source is already visited, no path possible
+    if (currentVisited.has(source)) {
+        return false;
+    }
+    
+    // Start BFS from source
+    queue.push({ nodeId: source, depth: 0 });
+    currentVisited.add(source);
+    
+    while (queue.length > 0) {
+        const { nodeId, depth } = queue.shift();
+        
+        // Check if we found the target and have visited at least one node (cycle detection)
+        if (nodeId === target && depth > 0) {
             return true;
+        }
+        
+        // Skip if max depth reached
+        if (depth >= maxDepth) {
+            continue;
+        }
+        
+        // Get neighbors and process them
+        const neighbors = graph.adjacencyList.get(nodeId) || [];
+        for (const edge of neighbors) {
+            const neighborId = edge.to;
+            
+            // Check for cycle: if neighbor is target and we've visited at least one node
+            if (neighborId === target && depth >= 0) {
+                return true;
+            }
+            
+            // Skip if already visited or would exceed max depth
+            if (!currentVisited.has(neighborId) && depth + 1 < maxDepth) {
+                currentVisited.add(neighborId);
+                queue.push({ nodeId: neighborId, depth: depth + 1 });
+            }
         }
     }
     
@@ -2099,57 +2140,110 @@ function findStronglyConnectedComponents(graphStructure, timeoutChecker) {
     });
     
     // Step 1: First DFS to get finishing times (on original graph)
+    // Uses iterative DFS to avoid stack overflow
     const visited = new Set();
     const finishOrder = [];
-    
-    function dfs1(nodeId) {
-        timeoutChecker.check();
-        visited.add(nodeId);
-        const neighbors = forwardAdj.get(nodeId) || [];
-        neighbors.forEach(neighbor => {
-            if (!visited.has(neighbor)) {
-                dfs1(neighbor);
-            }
-        });
-        finishOrder.push(nodeId);
-    }
     
     nodes.forEach(node => {
         timeoutChecker.check();
         const nodeId = node.id || node.alt_id;
-        if (nodeId && !visited.has(nodeId)) {
-            dfs1(nodeId);
+        if (!nodeId || visited.has(nodeId)) {
+            return;
+        }
+        
+        // Iterative DFS using explicit stack
+        // Stack entries: { nodeId, neighborIndex, neighbors }
+        // neighborIndex tracks which neighbor we're processing
+        const stack = [];
+        
+        stack.push({ nodeId, neighborIndex: 0, neighbors: forwardAdj.get(nodeId) || [] });
+        visited.add(nodeId);
+        
+        while (stack.length > 0) {
+            timeoutChecker.check();
+            
+            const frame = stack[stack.length - 1];
+            const { nodeId: currentNodeId, neighborIndex, neighbors } = frame;
+            
+            // Check if we've processed all neighbors
+            if (neighborIndex >= neighbors.length) {
+                // All neighbors processed, add to finish order and pop
+                finishOrder.push(currentNodeId);
+                stack.pop();
+                continue;
+            }
+            
+            // Process next neighbor
+            const neighborId = neighbors[neighborIndex];
+            frame.neighborIndex++; // Move to next neighbor
+            
+            if (!visited.has(neighborId)) {
+                visited.add(neighborId);
+                stack.push({ 
+                    nodeId: neighborId, 
+                    neighborIndex: 0, 
+                    neighbors: forwardAdj.get(neighborId) || [] 
+                });
+            }
         }
     });
     
     // Step 2: Second DFS on reverse graph (in reverse finish order)
+    // Uses iterative DFS to avoid stack overflow
     visited.clear();
     const components = [];
     const nodeToComponent = new Map();
-    
-    function dfs2(nodeId, component) {
-        timeoutChecker.check();
-        visited.add(nodeId);
-        component.push(nodeId);
-        nodeToComponent.set(nodeId, components.length);
-        const neighbors = reverseAdj.get(nodeId) || [];
-        neighbors.forEach(neighbor => {
-            if (!visited.has(neighbor)) {
-                dfs2(neighbor, component);
-            }
-        });
-    }
     
     // Process in reverse finish order
     for (let i = finishOrder.length - 1; i >= 0; i--) {
         timeoutChecker.check();
         const nodeId = finishOrder[i];
-        if (!visited.has(nodeId)) {
-            const component = [];
-            dfs2(nodeId, component);
-            if (component.length > 0) {
-                components.push(component);
+        if (visited.has(nodeId)) {
+            continue;
+        }
+        
+        const component = [];
+        const componentIndex = components.length;
+        
+        // Iterative DFS using explicit stack
+        // Stack entries: { nodeId, neighborIndex, neighbors }
+        const stack = [];
+        stack.push({ nodeId, neighborIndex: 0, neighbors: reverseAdj.get(nodeId) || [] });
+        visited.add(nodeId);
+        component.push(nodeId);
+        nodeToComponent.set(nodeId, componentIndex);
+        
+        while (stack.length > 0) {
+            timeoutChecker.check();
+            
+            const frame = stack[stack.length - 1];
+            const { neighborIndex, neighbors } = frame;
+            
+            // Check if we've processed all neighbors
+            if (neighborIndex >= neighbors.length) {
+                // All neighbors processed, pop
+                stack.pop();
+                continue;
             }
+            
+            // Process next neighbor
+            const neighborId = neighbors[neighborIndex];
+            frame.neighborIndex++; // Move to next neighbor
+            
+            if (!visited.has(neighborId)) {
+                visited.add(neighborId);
+                component.push(neighborId);
+                nodeToComponent.set(neighborId, componentIndex);
+                stack.push({ 
+                    nodeId: neighborId, 
+                    neighborIndex: 0, 
+                    neighbors: reverseAdj.get(neighborId) || [] 
+                });
+            }
+        }
+        
+        if (component.length > 0) {
+            components.push(component);
         }
     }
     
@@ -2321,26 +2415,35 @@ function computeTransitiveClosureMatrix(forwardAdj, allNodes, timeoutChecker, ma
         const reachable = new Set();
         const visited = new Set();
         
-        // DFS from source node
-        function dfs(currentNodeId, depth) {
+        // Iterative DFS from source node using explicit stack to avoid stack overflow
+        const stack = [];
+        stack.push({ nodeId: sourceNodeId, depth: 0 });
+        
+        while (stack.length > 0) {
             timeoutChecker.check();
             
-            if (depth >= maxDepth || visited.has(currentNodeId)) {
-                return;
+            const { nodeId, depth } = stack.pop();
+            
+            // Skip if already visited or max depth exceeded
+            if (depth >= maxDepth || visited.has(nodeId)) {
+                continue;
             }
             
-            visited.add(currentNodeId);
-            reachable.add(currentNodeId);
+            // Mark as visited and add to reachable set
+            visited.add(nodeId);
+            reachable.add(nodeId);
             
-            const neighbors = forwardAdj.get(currentNodeId) || [];
-            neighbors.forEach(neighborId => {
-                if (!visited.has(neighborId)) {
-                    dfs(neighborId, depth + 1);
+            // Get neighbors and push them onto stack (in reverse order to maintain DFS order)
+            const neighbors = forwardAdj.get(nodeId) || [];
+            // Push in reverse order so we process in original order
+            for (let i = neighbors.length - 1; i >= 0; i--) {
+                const neighborId = neighbors[i];
+                if (!visited.has(neighborId) && depth + 1 < maxDepth) {
+                    stack.push({ nodeId: neighborId, depth: depth + 1 });
                 }
-            });
+            }
         }
         
-        dfs(sourceNodeId, 0);
         sparseMatrix.set(sourceNodeId, reachable);
         totalReachablePairs += reachable.size;
     });
@@ -2404,8 +2507,12 @@ export function isReachable(transitiveClosure, fromNodeId, toNodeId) {
         return reachabilityQueryCache.get(queryKey);
     }
     
-    // Clean cache periodically
-    cleanReachabilityQueryCache();
+    // Clean cache periodically (every N queries to avoid performance overhead)
+    reachabilityQueryCacheCleanCounter++;
+    if (reachabilityQueryCacheCleanCounter >= REACHABILITY_QUERY_CACHE_CLEAN_INTERVAL) {
+        cleanReachabilityQueryCache();
+        reachabilityQueryCacheCleanCounter = 0;
+    }
     
     // Compute result
     const reachable = transitiveClosure.sparseMatrix.get(fromNodeId);
@@ -2445,6 +2552,3 @@ function createErrorResult(message) {
         timestamp: new Date().toISOString()
     };
 }
-
-
-

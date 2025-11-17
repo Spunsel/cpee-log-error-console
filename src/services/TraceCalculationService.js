@@ -11,6 +11,18 @@ import { eventBus as defaultEventBus } from '../core/EventBus.js';
 
 export class TraceCalculationService {
     /**
+     * Section configuration mapping section IDs to their properties
+     * @static
+     * @type {Object<string, {rawGetter: string, isCPEE: boolean}>}
+     */
+    static SECTION_CONFIG = {
+        'input-cpee': { rawGetter: 'getInputCpeeTreeRaw', isCPEE: true },
+        'input-intermediate': { rawGetter: 'getInputMermaidRaw', isCPEE: false },
+        'output-intermediate': { rawGetter: 'getOutputMermaidRaw', isCPEE: false },
+        'output-cpee': { rawGetter: 'getOutputCpeeTreeRaw', isCPEE: true }
+    };
+
+    /**
      * Create a new TraceCalculationService instance
      * @param {CPEETraceCalculator} cpeeTraceCalculator - Calculator for CPEE traces
      * @param {MermaidTraceCalculator} mermaidTraceCalculator - Calculator for Mermaid traces
@@ -65,14 +77,7 @@ export class TraceCalculationService {
                 
                 // Perform soundness and boundedness verification
                 try {
-                    const sectionConfig = {
-                        'input-cpee': { rawGetter: 'getInputCpeeTreeRaw', isCPEE: true },
-                        'input-intermediate': { rawGetter: 'getInputMermaidRaw', isCPEE: false },
-                        'output-intermediate': { rawGetter: 'getOutputMermaidRaw', isCPEE: false },
-                        'output-cpee': { rawGetter: 'getOutputCpeeTreeRaw', isCPEE: true }
-                    };
-                    
-                    const section = sectionConfig[sectionId];
+                    const section = TraceCalculationService.SECTION_CONFIG[sectionId];
                     if (section) {
                         const rawContent = cpeeStep[section.rawGetter]();
                         if (rawContent && !rawContent.isEmpty()) {
@@ -108,14 +113,7 @@ export class TraceCalculationService {
                 // Perform reachability analysis (Phase 35.10)
                 try {
                     console.log(`[TraceCalculationService] Starting reachability analysis for ${sectionId}...`);
-                    const sectionConfig = {
-                        'input-cpee': { rawGetter: 'getInputCpeeTreeRaw', isCPEE: true },
-                        'input-intermediate': { rawGetter: 'getInputMermaidRaw', isCPEE: false },
-                        'output-intermediate': { rawGetter: 'getOutputMermaidRaw', isCPEE: false },
-                        'output-cpee': { rawGetter: 'getOutputCpeeTreeRaw', isCPEE: true }
-                    };
-                    
-                    const section = sectionConfig[sectionId];
+                    const section = TraceCalculationService.SECTION_CONFIG[sectionId];
                     if (!section) {
                         console.warn(`[TraceCalculationService] No section config found for ${sectionId}, skipping reachability analysis`);
                     } else {
@@ -203,14 +201,7 @@ export class TraceCalculationService {
      */
     calculateTracesForSection(cpeeStep, sectionId, options) {
         // Map section ID to configuration
-        const sectionConfig = {
-            'input-cpee': { rawGetter: 'getInputCpeeTreeRaw', isCPEE: true },
-            'input-intermediate': { rawGetter: 'getInputMermaidRaw', isCPEE: false },
-            'output-intermediate': { rawGetter: 'getOutputMermaidRaw', isCPEE: false },
-            'output-cpee': { rawGetter: 'getOutputCpeeTreeRaw', isCPEE: true }
-        };
-        
-        const section = sectionConfig[sectionId];
+        const section = TraceCalculationService.SECTION_CONFIG[sectionId];
         if (!section) {
             console.warn(`[TraceCalculationService] Unknown section ID: ${sectionId}`);
             return [];

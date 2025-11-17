@@ -11,7 +11,7 @@ export class ReachabilityMetrics {
      * @param {Object} metrics - Metrics object
      * @param {number} metrics.reachableCount - Number of reachable nodes
      * @param {number} metrics.unreachableCount - Number of unreachable nodes
-     * @param {number} metrics.coverage - Coverage percentage (0-1)
+     * @param {number} metrics.coverage - Coverage value as decimal (0-1)
      * @param {string} label - Label for the metrics (e.g., 'Forward Reachability')
      * @param {Object} options - Display options
      * @returns {HTMLElement} Metrics display element
@@ -94,7 +94,7 @@ export class ReachabilityMetrics {
 
     /**
      * Format coverage value
-     * @param {number} coverage - Coverage value (0-100, percentage)
+     * @param {number} coverage - Coverage value as decimal (0-1)
      * @param {string} format - Format type ('percentage' or 'decimal')
      * @returns {string} Formatted coverage string
      */
@@ -104,11 +104,11 @@ export class ReachabilityMetrics {
         }
         
         if (format === 'percentage') {
-            // Coverage is already a percentage (0-100), no need to multiply by 100
-            return `${coverage.toFixed(1)}%`;
+            // Coverage is a decimal (0-1), multiply by 100 to get percentage
+            return `${(coverage * 100).toFixed(1)}%`;
         } else {
             // Return as decimal (0-1) for decimal format
-            return (coverage / 100).toFixed(3);
+            return coverage.toFixed(3);
         }
     }
 

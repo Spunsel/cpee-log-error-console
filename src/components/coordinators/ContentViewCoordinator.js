@@ -36,6 +36,7 @@ export class ContentViewCoordinator {
         this.contentSectionCoordinator = contentSectionCoordinator;
         this.eventBus = eventBus || defaultEventBus;
         this.stateManager = stateManager || defaultStateManager;
+        this.contentProcessingService = contentProcessingService || null;
 
         // Content View Components (pass stateManager so ViewModeToggle can read state)
         this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus, this.stateManager);
