@@ -186,7 +186,7 @@ export class ConfigManager {
                 initialDelay: 1000
             },
             interRequestDelay: 0.1,  // Delay between consecutive log fetch requests (in milliseconds) - set to 0 to remove delay
-            scanConcurrency: 1  // Number of concurrent instance checks during scanning (default: 50)
+            scanConcurrency: 50  // Number of concurrent instance checks during scanning (default: 50)
         };
     }
 

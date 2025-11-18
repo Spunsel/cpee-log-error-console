@@ -293,36 +293,43 @@ export class InstanceLoaderViewer {
      * @param {number} processNumber - Process instance number
      * @returns {Promise<{hasSteps: boolean, processNumber: number, uuid: string|null}>}
      */
-    checkInstanceForSteps(processNumber) {
+    async checkInstanceForSteps(processNumber) {
         const cpeeService = serviceFactory.get('CPEEService');
         
-        return cpeeService.fetchUUIDFromProcessNumber(processNumber).then((uuid) => 
-            this.logFetchService.fetchAndParseLog(uuid).then((logData) => {
+        try {
+            // Fetch UUID from process number
+            const uuid = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+            
+            try {
+                // Fetch and parse log
+                const logData = await this.logFetchService.fetchAndParseLog(uuid);
+                
                 // Use lightweight check instead of full parsing
                 const { hasSteps, stepCount } = this.eventProcessingService.hasStepsInLog(logData);
                 return {
-                    hasSteps: hasSteps,
-                    processNumber: processNumber,
-                    uuid: uuid,
-                    stepCount: stepCount
+                    hasSteps,
+                    processNumber,
+                    uuid,
+                    stepCount
                 };
-            }).catch((error) => {
+            } catch (error) {
+                // Log fetch/parse failed, but we have the UUID
                 console.warn(`Failed to fetch/parse log for instance ${processNumber}:`, error);
                 return {
                     hasSteps: false,
-                    processNumber: processNumber,
-                    uuid: uuid,
+                    processNumber,
+                    uuid,
                     error: error.message
                 };
-            })
-        ).catch((error) => {
+            }
+        } catch (error) {
             // Check if it's a 404 (process number doesn't exist) - this is expected, not an error
             const isNotFound = error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'));
             if (isNotFound) {
                 // Silently skip - process number doesn't exist, no need to log as error
                 return {
                     hasSteps: false,
-                    processNumber: processNumber,
+                    processNumber,
                     uuid: null,
                     error: 'Process number does not exist',
                     isNotFound: true
@@ -331,11 +338,11 @@ export class InstanceLoaderViewer {
             // Other errors (network issues, rate limits, etc.) - silently handle
             return {
                 hasSteps: false,
-                processNumber: processNumber,
+                processNumber,
                 uuid: null,
                 error: error.message
             };
-        });
+        }
     }
 
     /**
