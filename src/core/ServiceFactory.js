@@ -14,7 +14,6 @@ import { EventProcessingService } from '../services/EventProcessingService.js';
 import { StepAssemblyService } from '../services/StepAssemblyService.js';
 import { NodeMappingService } from '../services/NodeMappingService.js';
 import { TraceCalculationService } from '../services/TraceCalculationService.js';
-import { ProxyRotationService } from '../services/ProxyRotationService.js';
 import { EmailService } from '../services/EmailService.js';
 import { ContentProcessingService } from '../services/ContentProcessingService.js';
 import { configManager } from '../config/ConfigManager.js';
@@ -37,7 +36,6 @@ export class ServiceFactory {
             'StepAssemblyService',
             'NodeMappingService',
             'TraceCalculationService',
-            'ProxyRotationService',
             'EmailService',
             'ContentProcessingService'
         ]);
@@ -106,10 +104,7 @@ export class ServiceFactory {
                 return new SyntaxHighlightingService(...args);
             
             case 'LogFetchService':
-                {
-                    const proxyRotationService = this.get('ProxyRotationService');
-                    return new LogFetchService(proxyRotationService, null, configManager);
-                }
+                return new LogFetchService(null, configManager);
             
             case 'EventProcessingService':
                 return new EventProcessingService();
@@ -142,9 +137,6 @@ export class ServiceFactory {
                     const mermaidTraceCalculator = new MermaidTraceCalculator();
                     return new TraceCalculationService(cpeeTraceCalculator, mermaidTraceCalculator);
                 }
-            
-            case 'ProxyRotationService':
-                return new ProxyRotationService(...args);
             
             case 'EmailService':
                 return new EmailService(...args);

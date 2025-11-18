@@ -6,7 +6,6 @@
 import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
-import { serviceFactory } from '../../core/ServiceFactory.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
 
 export class LogViewer {
@@ -53,15 +52,16 @@ export class LogViewer {
             // Show loading state
             this.showLogLoading();
             
-            // Fetch raw log using proxy rotation service with rate limit handling
+            // Fetch raw log using proxy for CORS handling
             const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
             
             // Create timeout controller
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), configManager.get('network.timeouts.default'));
             
-            const proxyRotationService = serviceFactory.get('ProxyRotationService');
-            const response = await proxyRotationService.fetchWithRotation(logUrl, {
+            const proxy = configManager.get('api.cors.proxy');
+            const proxyUrl = proxy + encodeURIComponent(logUrl);
+            const response = await fetch(proxyUrl, {
                 method: 'GET',
                 headers: {
                     'Accept': configManager.get('api.headers.yamlAccept')

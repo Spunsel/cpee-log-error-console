@@ -6,18 +6,14 @@
 
 import { LogParser } from '../utils/content/LogParser.js';
 import { configManager } from '../config/ConfigManager.js';
-import { serviceFactory } from '../core/ServiceFactory.js';
 
 export class LogFetchService {
     /**
      * Create a new LogFetchService instance
-     * @param {ProxyRotationService} proxyRotationService - Service for handling proxy rotation
      * @param {LogParser} logParser - Parser for YAML content (optional, uses static methods if not provided)
      * @param {ConfigManager} configManager - Configuration manager (optional, uses global if not provided)
      */
-    constructor(proxyRotationService = null, logParser = null, configManagerInstance = null) {
-        // Use provided dependencies or get from service factory/config
-        this.proxyRotationService = proxyRotationService || serviceFactory.get('ProxyRotationService');
+    constructor(logParser = null, configManagerInstance = null) {
         this.logParser = logParser || LogParser;
         this.configManager = configManagerInstance || configManager;
         this.debugMode = false;
@@ -52,7 +48,7 @@ export class LogFetchService {
     }
 
     /**
-     * Fetch and parse log for given UUID with fallback proxies
+     * Fetch and parse log for given UUID using proxy
      * @param {string} uuid - CPEE instance UUID
      * @returns {Promise<Array>} Parsed log events
      * @throws {Error} If UUID is invalid or fetch fails
@@ -68,7 +64,7 @@ export class LogFetchService {
             console.log(`[LogFetchService] Fetching log from: ${logUrl}`);
         }
         
-        // Use proxy rotation service with rate limit handling
+        // Use proxy for CORS handling
         try {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => {
@@ -76,13 +72,19 @@ export class LogFetchService {
             }, this.configManager.get('network.timeouts.default'));
             
             try {
-                const response = await this.proxyRotationService.fetchWithRotation(logUrl, {
+                const proxy = this.configManager.get('api.cors.proxy');
+                const proxyUrl = proxy + encodeURIComponent(logUrl);
+                const response = await fetch(proxyUrl, {
                     method: 'GET',
                     headers: {
                         'Accept': this.configManager.get('api.headers.yamlAccept')
                     },
                     signal: controller.signal
                 });
+                
+                if (!response.ok) {
+                    throw new Error(`LogFetchService: HTTP ${response.status} - ${response.statusText}`);
+                }
                 
                 const yamlContent = await response.text();
                 
@@ -111,7 +113,7 @@ export class LogFetchService {
             
         } catch (error) {
             if (error.name === 'AbortError') {
-                throw new Error('LogFetchService: All proxies timed out - log file may be large or servers are slow');
+                throw new Error('LogFetchService: Request timed out - log file may be large or server is slow');
             }
             throw new Error(`LogFetchService: Failed to fetch log - ${error.message}`);
         }

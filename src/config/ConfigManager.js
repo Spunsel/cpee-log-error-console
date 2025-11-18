@@ -43,11 +43,7 @@ export class ConfigManager {
                 cpeeGraph: 'https://cpee.org/flow/graph.html'
             },
             cors: {
-                proxies: [
-                    'https://corsproxy.io/?',
-                    'https://api.cors.lol/?url=',
-                    'https://api.codetabs.com/v1/proxy?quest='
-                ],
+                proxy: 'https://api.codetabs.com/v1/proxy?quest=',
                 timeout: 15000,
                 retryCount: 3
             },
@@ -190,7 +186,7 @@ export class ConfigManager {
                 initialDelay: 1000
             },
             interRequestDelay: 0.1,  // Delay between consecutive log fetch requests (in milliseconds) - set to 0 to remove delay
-            scanConcurrency: 300  // Number of concurrent instance checks during scanning (default: 50)
+            scanConcurrency: 1  // Number of concurrent instance checks during scanning (default: 50)
         };
     }
 
@@ -748,8 +744,8 @@ export class ConfigManager {
                 result.errors.push('Missing API endpoint: cpeeBase');
                 result.valid = false;
             }
-            if (!config.api.cors?.proxies?.length) {
-                result.warnings.push('No CORS proxies configured');
+            if (!config.api.cors?.proxy) {
+                result.warnings.push('No CORS proxy configured');
             }
         }
 
