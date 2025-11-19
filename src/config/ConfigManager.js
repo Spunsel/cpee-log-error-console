@@ -841,6 +841,7 @@ export class ConfigManager {
                 },
 
 
+                
                 {
                     title: 'Handle CPEE/Mermaid graphs with 6+ parallel branches',
                     status: 'open',
