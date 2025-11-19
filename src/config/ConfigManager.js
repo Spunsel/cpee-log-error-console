@@ -832,7 +832,13 @@ export class ConfigManager {
                     date: '2025-11-11',
                     description: '"{AND}" was missing after ":parallelgateway:" edges, causing edges not to be recognized as parallel AND-join or AND-split (5040)'
                 },
-
+                {
+                    title: 'Add logic for reachability + bounds structure',
+                    status: 'closed',
+                    labels: ['traces', 'feature'],
+                    date: null,
+                    description: null
+                },
 
 
                 {
@@ -854,22 +860,8 @@ export class ConfigManager {
                     status: 'open',
                     labels: ['cross sectional highlighting', 'feature'],
                     date: null,
-                    description: 'Extend graph highlighting to gateways and start/endnode'
-                },
-                {
-                    title: 'Improve cross-sectional highlighting',
-                    status: 'open',
-                    labels: ['cross sectional highlighting', 'feature'],
-                    date: null,
                     description: 'Include script tasks, message events, and other non-standard node types (6548)'
-                },
-                {
-                    title: 'Add logic for reachability + bounds structure',
-                    status: 'open',
-                    labels: ['traces', 'feature'],
-                    date: null,
-                    description: null
-                },
+                }
             ]
         };
     }
