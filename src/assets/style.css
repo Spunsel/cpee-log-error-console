@@ -935,14 +935,8 @@ body {
 }
 
 /* Instance Scanner Section */
-.instance-scanner-section {
-    padding: var(--spacing-lg);
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-lg);
-}
-
-/* Load All Instances Section */
+/* Instance Scanner and Load All Instances Sections */
+.instance-scanner-section,
 .load-all-instances-section {
     padding: var(--spacing-lg);
     background: var(--surface-color);
@@ -951,25 +945,7 @@ body {
 }
 
 .load-all-instances-section h3,
-.load-all-instances-section h4 {
-    text-align: center;
-    color: var(--text-secondary);
-    margin-top: 0;
-    font-weight: normal;
-}
-
-.load-all-instances-section h3 {
-    margin-bottom: var(--spacing-sm);
-    padding: var(--spacing-xs);
-    font-size: 1.25rem;
-    font-weight: 600;
-}
-
-.load-all-instances-section h4 {
-    margin: var(--spacing-md) 0 var(--spacing-sm);
-    font-size: 1rem;
-}
-
+.load-all-instances-section h4,
 .instance-scanner-section h3,
 .instance-scanner-section h4 {
     text-align: center;
@@ -978,6 +954,7 @@ body {
     font-weight: normal;
 }
 
+.load-all-instances-section h3,
 .instance-scanner-section h3 {
     margin-bottom: var(--spacing-sm);
     padding: var(--spacing-xs);
@@ -985,6 +962,7 @@ body {
     font-weight: 600;
 }
 
+.load-all-instances-section h4,
 .instance-scanner-section h4 {
     margin: var(--spacing-md) 0 var(--spacing-sm);
     font-size: 1rem;
@@ -2544,9 +2522,6 @@ section h3 {
     align-items: flex-start;
     padding: 2px 0;
     color: var(--text-primary);
-}
-
-.mermaid-error-indicator__code-line {
     position: relative;
 }
 
@@ -5222,7 +5197,6 @@ section h3 {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: 0;
-    box-shadow: var(--shadow);
     overflow: hidden;
 }
 
