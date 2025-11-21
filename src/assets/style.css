@@ -202,6 +202,17 @@ body {
     line-height: 1.6;
 }
 
+/* Global text selection styling */
+::selection {
+    background-color: var(--selection-bg) !important;
+    color: inherit;
+}
+
+::-moz-selection {
+    background-color: var(--selection-bg) !important;
+    color: inherit;
+}
+
 #app {
     min-height: 100vh;
     display: flex;
@@ -3642,28 +3653,6 @@ section h3 {
     z-index: 10;
     scrollbar-gutter: stable;
     display: block;
-    scrollbar-color: var(--scrollbar-thumb) var(--surface-color);
-    scrollbar-width: thin;
-}
-
-/* Scrollbar styling for traces content - matches raw content scrollbar */
-[data-content-type="traces"]::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-[data-content-type="traces"]::-webkit-scrollbar-track {
-    background: var(--surface-color);
-}
-
-[data-content-type="traces"]::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border-radius: 5px;
-    transition: background 0.2s ease;
-}
-
-[data-content-type="traces"]::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-thumb-hover);
 }
 
 /* Analysis content type - matches traces content container styling */
@@ -3678,29 +3667,7 @@ section h3 {
     z-index: 10;
     scrollbar-gutter: stable;
     display: block;
-    scrollbar-color: var(--scrollbar-thumb) var(--surface-color);
-    scrollbar-width: thin;
     padding: var(--spacing-md);
-}
-
-/* Scrollbar styling for analysis content - matches traces content scrollbar */
-[data-content-type="analysis"]::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-[data-content-type="analysis"]::-webkit-scrollbar-track {
-    background: var(--surface-color);
-}
-
-[data-content-type="analysis"]::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border-radius: 5px;
-    transition: background 0.2s ease;
-}
-
-[data-content-type="analysis"]::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-thumb-hover);
 }
 
 .content-box {
@@ -3801,24 +3768,6 @@ section h3 {
     user-select: text !important;
     -webkit-user-select: text !important;
     -moz-user-select: text !important;
-}
-
-.raw-content-container ::selection,
-.raw-code-block ::selection,
-.raw-code-block code::selection,
-.raw-text-block ::selection,
-.raw-text-block code::selection {
-    background-color: var(--selection-bg) !important;
-    color: inherit;
-}
-
-.raw-content-container ::-moz-selection,
-.raw-code-block ::-moz-selection,
-.raw-code-block code::-moz-selection,
-.raw-text-block ::-moz-selection,
-.raw-text-block code::-moz-selection {
-    background-color: var(--selection-bg) !important;
-    color: inherit;
 }
 
 .raw-text-block {
@@ -3961,36 +3910,6 @@ section h3 {
     scrollbar-width: thin;
 }
 
-/* Scrollbar Styling - Enhanced (for specific elements, inherits from global) */
-.raw-code-block::-webkit-scrollbar,
-.raw-text-block::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-.raw-code-block::-webkit-scrollbar-track,
-.raw-text-block::-webkit-scrollbar-track {
-    background: var(--surface-color);
-}
-
-.raw-code-block::-webkit-scrollbar-thumb,
-.raw-text-block::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border-radius: 5px;
-    transition: background 0.2s ease;
-}
-
-.raw-code-block::-webkit-scrollbar-thumb:hover,
-.raw-text-block::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-thumb-hover);
-}
-
-/* Firefox Scrollbar */
-.raw-code-block,
-.raw-text-block {
-    scrollbar-color: var(--scrollbar-thumb) var(--surface-color);
-    scrollbar-width: thin;
-}
 
 /* Responsive Animations */
 @media (max-width: 768px) {

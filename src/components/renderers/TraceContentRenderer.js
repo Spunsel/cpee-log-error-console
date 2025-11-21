@@ -426,6 +426,12 @@ export class TraceContentRenderer {
                 expandBtn.setAttribute('aria-expanded', !isExpanded);
                 expandBtn.innerHTML = isExpanded ? ICONS.EXPAND_TRACE : ICONS.COLLAPSE_TRACE;
                 traceDetails.classList.toggle('expanded', !isExpanded);
+                
+                // When expanding, ensure task tokens are marked (fixes issue where tokens aren't marked on first load)
+                if (!isExpanded) {
+                    // Trace is being expanded, mark task tokens with retry to ensure they're marked
+                    this.markTaskStringTokensWithRetry(traceDetailsCode, 3, 50);
+                }
             });
             traceHeader.appendChild(expandBtn);
         }
@@ -471,22 +477,19 @@ export class TraceContentRenderer {
             const syntaxService = serviceFactory.get('SyntaxHighlightingService');
             if (syntaxService && typeof syntaxService.highlightCodeBlocks === 'function') {
                 syntaxService.highlightCodeBlocks(traceDetailsContent);
-                setTimeout(() => {
-                    this.markTaskStringTokens(traceDetailsCode);
-                }, 0);
+                // Use a longer timeout and retry mechanism to ensure tokens are marked
+                this.markTaskStringTokensWithRetry(traceDetailsCode);
             } else if (window.Prism && typeof window.Prism.highlightElement === 'function') {
                 window.Prism.highlightElement(traceDetailsCode);
-                setTimeout(() => {
-                    this.markTaskStringTokens(traceDetailsCode);
-                }, 0);
+                // Use a longer timeout and retry mechanism to ensure tokens are marked
+                this.markTaskStringTokensWithRetry(traceDetailsCode);
             }
         } catch (error) {
             if (window.Prism && typeof window.Prism.highlightElement === 'function') {
                 try {
                     window.Prism.highlightElement(traceDetailsCode);
-                    setTimeout(() => {
-                        this.markTaskStringTokens(traceDetailsCode);
-                    }, 0);
+                    // Use a longer timeout and retry mechanism to ensure tokens are marked
+                    this.markTaskStringTokensWithRetry(traceDetailsCode);
                 } catch (prismError) {
                     console.warn('[TraceContentRenderer] Failed to highlight trace JSON:', prismError);
                 }
@@ -556,13 +559,15 @@ export class TraceContentRenderer {
     /**
      * Mark task string tokens in JSON for CSS styling (merged from TraceRenderer)
      * @param {HTMLElement} codeElement - Code element with Prism tokens
+     * @returns {boolean} True if tokens were found and marked, false otherwise
      */
     markTaskStringTokens(codeElement) {
         if (!codeElement) {
-            return;
+            return false;
         }
 
         const propertyTokens = codeElement.querySelectorAll('.token.property');
+        let markedCount = 0;
         
         propertyTokens.forEach(propertyToken => {
             if (propertyToken.textContent.trim() === '"task"') {
@@ -585,6 +590,7 @@ export class TraceContentRenderer {
                         if (current.nodeType === Node.ELEMENT_NODE) {
                             if (current.classList.contains('token') && current.classList.contains('string')) {
                                 current.classList.add('token-task-string');
+                                markedCount++;
                                 break;
                             }
                         }
@@ -593,6 +599,32 @@ export class TraceContentRenderer {
                 }
             }
         });
+        
+        return markedCount > 0;
+    }
+
+    /**
+     * Mark task string tokens with retry mechanism to handle timing issues
+     * @param {HTMLElement} codeElement - Code element with Prism tokens
+     * @param {number} maxRetries - Maximum number of retries (default: 3)
+     * @param {number} delay - Delay between retries in milliseconds (default: 100)
+     */
+    markTaskStringTokensWithRetry(codeElement, maxRetries = 3, delay = 100) {
+        if (!codeElement) {
+            return;
+        }
+
+        let retries = 0;
+        const tryMark = () => {
+            const success = this.markTaskStringTokens(codeElement);
+            if (!success && retries < maxRetries) {
+                retries++;
+                setTimeout(tryMark, delay);
+            }
+        };
+        
+        // Start with a small delay to allow Prism to finish highlighting
+        setTimeout(tryMark, 50);
     }
 
     /**
