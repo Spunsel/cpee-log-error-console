@@ -65,7 +65,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Setup event listeners for verification result updates (Phase 34.14)
+     * Setup event listeners for verification result updates 
      * Registers listeners for trace calculation, verification completion, and view mode changes
      * Handles cache invalidation and event emission for analysis view
      * @returns {void}
@@ -81,7 +81,7 @@ export class AnalysisContentRenderer {
             }
         });
         
-        // Listen for verification completion events (Phase 34.11)
+        // Listen for verification completion events 
         this.eventBus.on('verification:complete', (data) => {
             const { sectionId, stepNumber } = data;
             
@@ -94,11 +94,11 @@ export class AnalysisContentRenderer {
             // The view will be updated when the user switches to analysis mode or when updateAnalysisView() is called
         });
         
-        // Listen for reachability analysis completion events (Phase 35.11, 35.20)
+        // Listen for reachability analysis completion events (, 35.20)
         this.eventBus.on('reachability:analyzed', (data) => {
             const { sectionId, stepNumber, reachabilityResult } = data;
             
-            // Enhanced logging for reachability events (Phase 35.20)
+            // Enhanced logging for reachability events 
             console.log(`[AnalysisContentRenderer] Reachability analysis completed for ${sectionId} (Step ${stepNumber})`);
             if (reachabilityResult && reachabilityResult.success) {
                 console.log(`[AnalysisContentRenderer]   - Useful nodes: ${reachabilityResult.nodeClassification?.usefulCount || 0}`);
@@ -114,7 +114,7 @@ export class AnalysisContentRenderer {
             // Note: View will be updated when user switches to analysis mode or when updateAnalysisView() is called
         });
         
-        // Listen for view mode changes (Phase 34.11, 35.20)
+        // Listen for view mode changes (, 35.20)
         this.eventBus.on('viewModeToggle:modeChanged', (data) => {
             const { mode, sectionId } = data;
             if (mode === 'analysis') {
@@ -123,7 +123,7 @@ export class AnalysisContentRenderer {
             }
         });
         
-        // Listen for graph content changes to trigger re-analysis (Phase 35.20)
+        // Listen for graph content changes to trigger re-analysis 
         // Note: This is a placeholder - actual content change detection would need to be implemented
         // based on how graph content is updated in the application
         this.eventBus.on('graph:contentChanged', (data) => {
@@ -134,7 +134,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Get cache key for a section (Phase 34.14)
+     * Get cache key for a section 
      * Generates a unique cache key from section ID and step number
      * @param {string} sectionId - Section identifier
      * @param {number|string} stepNumber - Step number
@@ -145,7 +145,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Invalidate cache for a section (Phase 34.14)
+     * Invalidate cache for a section 
      * Removes cached analysis display for a specific section-step combination
      * Called when verification results change or traces are recalculated
      * @param {string} sectionId - Section identifier
@@ -160,7 +160,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Clear all verification cache (Phase 34.14)
+     * Clear all verification cache 
      * Removes all cached analysis displays
      * Called when navigating to a new step or clearing data
      * @returns {void}
@@ -170,7 +170,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Display analysis content for a section (Phase 34.14)
+     * Display analysis content for a section 
      * Main entry point for displaying analysis view
      * Hides other content types and shows analysis container
      * @param {string} sectionId - Section identifier ('input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee')
@@ -216,7 +216,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render analysis content for a section (Phase 34.14)
+     * Render analysis content for a section 
      * Retrieves verification results and renders analysis display
      * Handles caching, error states, and missing data gracefully
      * @param {string} sectionId - Section identifier
@@ -263,7 +263,7 @@ export class AnalysisContentRenderer {
         // Retrieve verification results from step model
         const verificationResult = step.getVerificationResult(sectionId);
         
-        // Handle null/undefined verification results gracefully (Phase 34.13)
+        // Handle null/undefined verification results gracefully 
         if (!verificationResult) {
             const message = this.renderNoVerificationMessage(container, sectionId);
             // Cache the "no verification" state
@@ -275,7 +275,7 @@ export class AnalysisContentRenderer {
             return message;
         }
 
-        // Handle error in verification result (Phase 34.13)
+        // Handle error in verification result 
         if (verificationResult.error) {
             console.warn(`[AnalysisContentRenderer] Verification error for ${sectionId}: ${verificationResult.error}`);
             const error = this.renderErrorMessage(container, verificationResult.error);
@@ -288,7 +288,7 @@ export class AnalysisContentRenderer {
             return error;
         }
 
-        // Validate verification result structure (Phase 34.13)
+        // Validate verification result structure 
         if (!this.isValidVerificationResult(verificationResult)) {
             console.error(`[AnalysisContentRenderer] Invalid verification result structure for ${sectionId}:`, verificationResult);
             const error = this.renderErrorMessage(container, 'Verification result has invalid structure');
@@ -314,12 +314,12 @@ export class AnalysisContentRenderer {
         // Render boundedness section (single collapsible panel)
         this.renderBoundednessSection(analysisList, verificationResult.boundedness);
         
-        // Retrieve and render reachability results (Phase 35.11, 35.21)
+        // Retrieve and render reachability results (, 35.21)
         const reachabilityResult = step.getReachabilityResult(sectionId);
         if (reachabilityResult) {
             this.renderReachabilitySection(analysisList, reachabilityResult);
         } else {
-            // Handle missing reachability data gracefully (Phase 35.21)
+            // Handle missing reachability data gracefully 
             this.renderNoReachabilityMessage(analysisList, sectionId);
         }
         
@@ -341,7 +341,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Check if two verification results are the same (Phase 34.14)
+     * Check if two verification results are the same 
      * Compares key properties to determine if results are identical
      * Used for cache validation to avoid unnecessary re-rendering
      * @param {Object|null} result1 - First verification result
@@ -366,7 +366,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Check if two reachability results are the same (Phase 35.11)
+     * Check if two reachability results are the same 
      * Compares key properties to determine if results are identical
      * Used for cache validation to avoid unnecessary re-rendering
      * @param {Object|null} result1 - First reachability result
@@ -392,7 +392,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Validate verification result structure (Phase 34.13)
+     * Validate verification result structure 
      * @param {Object} verificationResult - Verification result to validate
      * @returns {boolean} True if verification result has valid structure
      */
@@ -435,7 +435,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render summary section with overall status (Phase 34.14)
+     * Render summary section with overall status 
      * Displays verification summary with sound/bounded indicators and statistics
      * @param {HTMLElement} container - Container element
      * @param {Object} verificationResult - Verification result object
@@ -481,7 +481,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Create status indicator element (Phase 34.14)
+     * Create status indicator element 
      * Creates a visual status indicator with icon, label, and optional issue badge
      * @param {string} label - Status label (e.g., 'Sound', 'Bounded')
      * @param {boolean} status - Status value (true = pass, false = fail)
@@ -710,7 +710,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render boundedness section with collapsible functionality (Phase 34.14)
+     * Render boundedness section with collapsible functionality 
      * Displays three boundedness properties: Bounded Places, Bounded Loops, Bounded Parallelism
      * Includes collapsible detail sections for unbounded places and max tokens
      * @param {HTMLElement} container - Container element
@@ -856,7 +856,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render reachability section with collapsible functionality (Phase 35.11)
+     * Render reachability section with collapsible functionality 
      * Displays forward/backward reachability statistics, node classifications, and SCC information
      * @param {HTMLElement} container - Container element
      * @param {Object} reachabilityResult - Reachability analysis result
@@ -1111,7 +1111,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Create property indicator element (Phase 34.14)
+     * Create property indicator element 
      * Creates a property status indicator with icon, name, and description
      * Used for individual soundness and boundedness properties
      * @param {string} propertyName - Property name (e.g., 'Option to Complete')
@@ -1147,7 +1147,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render issues section with collapsible functionality (Phase 34.14)
+     * Render issues section with collapsible functionality 
      * Displays all issues and violations from soundness and boundedness checks
      * Shows issue count in header and list of issues in collapsible content
      * @param {HTMLElement} container - Container element
@@ -1220,7 +1220,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Create a collapsible details section for additional information (Phase 34.14)
+     * Create a collapsible details section for additional information 
      * Creates a nested collapsible section for detailed information (e.g., dead tasks, unbounded places)
      * Starts collapsed by default, can be expanded by clicking the header
      * @param {string} title - Section title (e.g., 'Dead Tasks Details')
@@ -1268,7 +1268,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Reattach event listeners to cloned content (Phase 34.14)
+     * Reattach event listeners to cloned content 
      * Event listeners are lost when cloning DOM nodes, so we need to reattach them
      * @param {HTMLElement} container - Container element with cloned content
      * @returns {void}
@@ -1368,7 +1368,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Toggle section expand/collapse state (Phase 34.14)
+     * Toggle section expand/collapse state 
      * Toggles the visibility of main analysis sections (soundness, boundedness, issues)
      * Updates ARIA attributes and icon state for accessibility
      * @param {HTMLElement} section - Section element to toggle
@@ -1397,35 +1397,36 @@ export class AnalysisContentRenderer {
         // Ensure header remains clickable
         traceHeader.style.pointerEvents = 'auto';
         
-        // Use max-height transition like trace-details
-        // Keep padding consistent during transition to avoid visual shift
+        // Use max-height for expand/collapse
         if (newState) {
-            content.style.padding = 'var(--spacing-sm) var(--spacing-md)';
-            content.style.maxHeight = '2000px';
-            content.classList.add('expanded');
+            // Expanding: set all properties at once
             content.classList.remove('collapsed');
-            // Ensure content doesn't block clicks when expanded
+            content.classList.add('expanded');
+            content.style.maxHeight = '2000px';
+            content.style.overflow = 'hidden';
+            content.style.padding = 'var(--spacing-sm) var(--spacing-md)';
+            content.style.visibility = 'visible';
+            content.style.opacity = '1';
             content.style.pointerEvents = 'auto';
         } else {
-            // Keep padding during collapse to prevent upward shift
-            // Only change max-height, padding stays the same
-            content.style.maxHeight = '0';
+            // Collapsing: set all properties synchronously to hide immediately
             content.classList.remove('expanded');
             content.classList.add('collapsed');
-            // Ensure collapsed content doesn't block clicks on header/button
+            content.style.maxHeight = '0';
+            content.style.overflow = 'hidden';
+            content.style.paddingTop = '0';
+            content.style.paddingBottom = '0';
+            content.style.paddingLeft = 'var(--spacing-md)';
+            content.style.paddingRight = 'var(--spacing-md)';
+            content.style.visibility = 'hidden';
+            content.style.opacity = '0';
             content.style.pointerEvents = 'none';
-            // Remove padding after transition completes
-            setTimeout(() => {
-                if (content.classList.contains('collapsed')) {
-                    content.style.padding = '0 var(--spacing-md)';
-                }
-            }, 300); // Match CSS transition duration
         }
         section.classList.toggle('collapsed', !newState);
     }
 
     /**
-     * Toggle details section expand/collapse state (Phase 34.14)
+     * Toggle details section expand/collapse state 
      * Toggles the visibility of nested detail sections (dead tasks, unbounded places, etc.)
      * Updates ARIA attributes and icon state for accessibility
      * @param {HTMLElement} detailsSection - Details section element to toggle
@@ -1469,7 +1470,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Update analysis view when verification results change (Phase 34.14)
+     * Update analysis view when verification results change 
      * Invalidates cache and re-renders analysis content if currently displayed
      * Called programmatically when verification completes or results change
      * @param {string} sectionId - Section identifier
@@ -1494,7 +1495,7 @@ export class AnalysisContentRenderer {
             const container = analysisDisplay.parentElement;
             this.renderAnalysisContent(sectionId, container, step);
             
-            // Emit analysis view updated event (Phase 34.11)
+            // Emit analysis view updated event 
             this.eventBus.emit('analysis:updated', {
                 sectionId: sectionId,
                 stepNumber: stepNumber,
@@ -1504,7 +1505,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Clear all analysis displays and cache (Phase 34.14)
+     * Clear all analysis displays and cache 
      * Removes all analysis displays and clears verification cache
      * Called when navigating to a new step or clearing data
      * @returns {void}
@@ -1515,7 +1516,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render message when no reachability results are available (Phase 35.21)
+     * Render message when no reachability results are available 
      * Handles cases where reachability analysis hasn't been performed yet or step has missing reachability data
      * @param {HTMLElement} container - Container element
      * @param {string} sectionId - Section identifier
@@ -1545,7 +1546,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render message when no verification results are available (Phase 34.13)
+     * Render message when no verification results are available 
      * Handles cases where verification hasn't been performed yet or step has missing verification data
      * @param {HTMLElement} container - Container element
      * @param {string} sectionId - Section identifier
@@ -1576,7 +1577,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render error message (Phase 34.13)
+     * Render error message 
      * Displays appropriate message when verification failed or results are malformed
      * Provides fallback UI for error states
      * @param {HTMLElement} container - Container element
@@ -1610,7 +1611,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Sanitize error message to prevent XSS (Phase 34.13)
+     * Sanitize error message to prevent XSS 
      * @param {string} errorMessage - Error message to sanitize
      * @returns {string} Sanitized error message
      */

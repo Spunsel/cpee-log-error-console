@@ -52,7 +52,7 @@ export class StateManager {
                 'output-intermediate': 'visual',
                 'output-cpee': 'visual'
             },
-            // Optional: Cache trace calculation results per section (Phase 31.14)
+            // Optional: Cache trace calculation results per section 
             traceCache: {}, // Structure: { 'sectionId-stepNumber': Trace[] }
             graphScale: 1.0 // Default graph scale: 1x (100%) - legacy, use ui.scale
         };
@@ -422,7 +422,7 @@ export class StateManager {
     }
 
     /**
-     * Validate view mode value (Phase 31.14, updated Phase 34.9)
+     * Validate view mode value
      * @param {string} mode - View mode to validate
      * @returns {boolean} True if mode is valid
      */
@@ -431,7 +431,7 @@ export class StateManager {
     }
 
     /**
-     * Get all valid view modes (Phase 31.14, updated Phase 34.9)
+     * Get all valid view modes
      * @returns {Array<string>} Array of valid view mode values
      */
     getValidViewModes() {
@@ -439,7 +439,7 @@ export class StateManager {
     }
 
     /**
-     * Get trace cache for a section (Phase 31.14)
+     * Get trace cache for a section 
      * @param {string} sectionId - Section identifier
      * @param {number} stepNumber - Step number
      * @returns {Array|null} Cached traces or null
@@ -450,7 +450,7 @@ export class StateManager {
     }
 
     /**
-     * Set trace cache for a section (Phase 31.14)
+     * Set trace cache for a section 
      * @param {string} sectionId - Section identifier
      * @param {number} stepNumber - Step number
      * @param {Array} traces - Traces to cache
@@ -465,7 +465,7 @@ export class StateManager {
     }
 
     /**
-     * Clear trace cache for a section (Phase 31.14)
+     * Clear trace cache for a section 
      * @param {string} sectionId - Section identifier (optional, clears all if not provided)
      * @param {number} stepNumber - Step number (optional)
      */

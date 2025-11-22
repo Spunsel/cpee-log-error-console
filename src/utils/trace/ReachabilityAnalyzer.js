@@ -27,13 +27,13 @@ import { MermaidTraceCalculator } from './MermaidTraceCalculator.js';
 const DEFAULT_TIMEOUT_MS = 5000;
 const DEFAULT_MAX_DEPTH = 1000;
 
-// Performance optimization: Cache for transitive closure computations (Phase 35.16)
+// Performance optimization: Cache for transitive closure computations
 // Key: graphContent hash, Value: { transitiveClosure, timestamp, nodeCount }
 const transitiveClosureCache = new Map();
 const CACHE_MAX_SIZE = 50; // Maximum number of cached results
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes TTL
 
-// Performance optimization: Memoization for reachability queries (Phase 35.16)
+// Performance optimization: Memoization for reachability queries
 // Key: `${fromNodeId}->${toNodeId}`, Value: boolean (is reachable)
 const reachabilityQueryCache = new Map();
 const QUERY_CACHE_MAX_SIZE = 1000; // Maximum number of cached queries
@@ -64,7 +64,7 @@ class TimeoutChecker {
 }
 
 /**
- * Generate a simple hash for graph content (Phase 35.16)
+ * Generate a simple hash for graph content
  * Used for caching transitive closure computations
  * @param {string} content - Graph content
  * @returns {string} Hash string
@@ -82,7 +82,7 @@ function hashGraphContent(content) {
 }
 
 /**
- * Clean expired entries from transitive closure cache (Phase 35.16)
+ * Clean expired entries from transitive closure cache
  */
 function cleanTransitiveClosureCache() {
     const now = Date.now();
@@ -102,7 +102,7 @@ function cleanTransitiveClosureCache() {
 }
 
 /**
- * Clean expired entries from reachability query cache (Phase 35.16)
+ * Clean expired entries from reachability query cache
  * Called periodically to avoid performance overhead
  */
 function cleanReachabilityQueryCache() {
@@ -115,7 +115,7 @@ function cleanReachabilityQueryCache() {
 }
 
 /**
- * Clear all caches (Phase 35.16)
+ * Clear all caches
  * Useful for testing or memory management
  */
 export function clearReachabilityCaches() {
@@ -196,7 +196,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
         maxDepth = DEFAULT_MAX_DEPTH
     } = options;
 
-    // Enhanced logging for debugging (Phase 35.18)
+    // Enhanced logging for debugging 
     console.log('[ReachabilityAnalyzer] ===== Starting Reachability Analysis =====');
     console.log('[ReachabilityAnalyzer] Format:', format);
     console.log('[ReachabilityAnalyzer] Timeout:', timeout, 'ms');
@@ -231,7 +231,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
             }
         } catch (error) {
             console.error('[ReachabilityAnalyzer] Error extracting graph structure:', error);
-            // Provide more specific error messages for parsing errors (Phase 35.17)
+            // Provide more specific error messages for parsing errors 
             let errorMessage = `Failed to extract graph structure: ${error.message}`;
             if (error.message.includes('parsererror') || error.message.includes('XML')) {
                 errorMessage = `Failed to parse ${format === 'cpee' ? 'CPEE XML' : 'Mermaid'} content: ${error.message}. Please check that the graph content is valid.`;
@@ -241,7 +241,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
             return createErrorResult(errorMessage);
         }
 
-        // Handle empty graphs (Phase 35.17)
+        // Handle empty graphs 
         if (!graphStructure || graphStructure.nodes.length === 0) {
             console.warn('[ReachabilityAnalyzer] Empty graph detected');
             return createErrorResult('No nodes found in graph. The graph appears to be empty.');
@@ -257,19 +257,19 @@ export function analyzeReachability(graphContent, format, options = {}) {
             ? endNodeIds 
             : findEndNodes(graphStructure, format);
 
-        // Handle graphs with no start nodes (Phase 35.17)
+        // Handle graphs with no start nodes 
         if (detectedStartNodes.length === 0) {
             console.warn('[ReachabilityAnalyzer] No start nodes found in graph');
             // Continue analysis but mark all nodes as unreachable from start
         }
 
-        // Handle graphs with no end nodes (Phase 35.17)
+        // Handle graphs with no end nodes 
         if (detectedEndNodes.length === 0) {
             console.warn('[ReachabilityAnalyzer] No end nodes found in graph');
             // Continue analysis but mark all nodes as unable to reach end
         }
 
-        // Enhanced logging for node identification (Phase 35.18)
+        // Enhanced logging for node identification 
         console.log('[ReachabilityAnalyzer] Graph Structure Extracted:');
         console.log('[ReachabilityAnalyzer]   - Total Nodes:', allNodes.length);
         console.log('[ReachabilityAnalyzer]   - Total Edges:', graphStructure.edges.length);
@@ -299,7 +299,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
 
         timeoutChecker.check();
 
-        // Perform forward reachability analysis (Phase 35.17: handle partial failures)
+        // Perform forward reachability analysis ( handle partial failures)
         console.log('[ReachabilityAnalyzer] Computing forward reachability...');
         let forwardReachability = null;
         try {
@@ -330,7 +330,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
 
         timeoutChecker.check();
 
-        // Perform backward reachability analysis (Phase 35.17: handle partial failures)
+        // Perform backward reachability analysis ( handle partial failures)
         console.log('[ReachabilityAnalyzer] Computing backward reachability...');
         let backwardReachability = null;
         try {
@@ -361,7 +361,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
 
         timeoutChecker.check();
 
-        // Compute bidirectional reachability (useful nodes) (Phase 35.17: handle partial failures)
+        // Compute bidirectional reachability (useful nodes) ( handle partial failures)
         console.log('[ReachabilityAnalyzer] Computing bidirectional reachability (node classification)...');
         let bidirectionalReachability = null;
         try {
@@ -410,7 +410,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
         timeoutChecker.check();
 
         // Compute transitive closure (optional, can be expensive for large graphs)
-        // Performance optimization: Check cache first (Phase 35.16)
+        // Performance optimization: Check cache first 
         let transitiveClosure = null;
         if (computeTransitiveClosure) {
             try {
@@ -448,7 +448,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
             }
         }
 
-        // Detect edge cases and add warnings (Phase 35.17)
+        // Detect edge cases and add warnings 
         const warnings = [];
         
         // Check for disconnected components
@@ -609,7 +609,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
             transitiveClosure: transitiveClosure
         };
 
-        // Enhanced logging for analysis completion (Phase 35.18)
+        // Enhanced logging for analysis completion
         console.log('[ReachabilityAnalyzer] ===== Analysis Complete =====');
         console.log('[ReachabilityAnalyzer] Analysis Time:', result.analysisTime, 'ms');
         console.log('[ReachabilityAnalyzer] Node Classification:');
@@ -641,7 +641,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
     } catch (error) {
         console.error('[ReachabilityAnalyzer] Error during analysis:', error);
         
-        // Return error result with meaningful message (Phase 35.17)
+        // Return error result with meaningful message 
         let errorMessage = `Reachability analysis failed: ${error.message}`;
         
         // Provide more specific error messages for common issues
@@ -988,7 +988,7 @@ function computeBackwardReachability(backwardAdj, endNodes, allNodes, timeoutChe
  * 
  * This function classifies nodes into three categories based on forward and backward reachability:
  * 
- * Node Classification System (Phase 35.18):
+ * Node Classification System :
  * 1. **Useful Nodes**: Nodes that are reachable from start AND can reach end
  *    - These nodes are part of valid execution paths from start to end
  *    - Represent "live" code that can be executed in a complete workflow
@@ -2351,7 +2351,7 @@ function findStronglyConnectedComponents(graphStructure, timeoutChecker) {
  * - Time Complexity: O(V * (V + E)) where V is vertices and E is edges
  * - Space Complexity: O(V^2) worst case, but uses sparse representation for efficiency
  * - For large graphs (>100 nodes), only sparse matrix is built to save memory
- * - Cached results can be reused for repeated queries (Phase 35.16)
+ * - Cached results can be reused for repeated queries 
  * 
  * Limitations:
  * - Expensive for large graphs (consider timeout and maxDepth)
@@ -2487,7 +2487,7 @@ function computeTransitiveClosureMatrix(forwardAdj, allNodes, timeoutChecker, ma
 }
 
 /**
- * Query transitive closure for reachability with memoization (Phase 35.16)
+ * Query transitive closure for reachability with memoization 
  * Fast O(1) lookup if transitive closure was computed
  * Uses memoization cache for repeated queries
  * 
@@ -2501,7 +2501,7 @@ export function isReachable(transitiveClosure, fromNodeId, toNodeId) {
         return false;
     }
     
-    // Check memoization cache first (Phase 35.16)
+    // Check memoization cache first 
     const queryKey = `${fromNodeId}->${toNodeId}`;
     if (reachabilityQueryCache.has(queryKey)) {
         return reachabilityQueryCache.get(queryKey);

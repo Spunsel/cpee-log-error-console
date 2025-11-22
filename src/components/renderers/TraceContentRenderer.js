@@ -194,7 +194,7 @@ export class TraceContentRenderer {
             // Cache the results
             this.traceCache.set(cacheKey, traces);
 
-            // Emit traces:calculated event (Phase 31.15) - silent if no listeners (informational event)
+            // Emit traces:calculated event  - silent if no listeners (informational event)
             this.eventBus.emit('traces:calculated', {
                 sectionId,
                 stepNumber: step.stepNumber || 'unknown',
@@ -208,7 +208,7 @@ export class TraceContentRenderer {
         } catch (error) {
             console.error(`[TraceContentRenderer] Error calculating traces for ${sectionId}:`, error);
             
-            // Emit traces:error event (Phase 31.15)
+            // Emit traces:error event 
             this.eventBus.emit('traces:error', {
                 sectionId,
                 stepNumber: step.stepNumber || 'unknown',
@@ -228,7 +228,7 @@ export class TraceContentRenderer {
      * @returns {HTMLElement} Trace display container
      */
     renderCachedTraces(sectionId, container, traces) {
-        // Emit traces:calculated event for cached traces (Phase 31.15) - silent if no listeners (informational event)
+        // Emit traces:calculated event for cached traces  - silent if no listeners (informational event)
         this.eventBus.emit('traces:calculated', {
             sectionId,
             traceCount: traces.length,

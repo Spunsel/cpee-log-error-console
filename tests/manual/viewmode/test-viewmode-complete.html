@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phase 21 Complete Test - View Mode Toggle & Raw Content</title>
+    <title> Complete Test - View Mode Toggle & Raw Content</title>
     <style>
         * {
             margin: 0;
@@ -358,20 +358,20 @@
 <body>
     <div class="container">
         <header>
-            <h1>🧪 Phase 21 Complete Test Suite</h1>
+            <h1>🧪  Complete Test Suite</h1>
             <p>Testing View Mode Toggle, State Management, Raw Content, and Rendering</p>
             <div class="status-grid">
                 <div class="status-item pass">
-                    ✅ Phase 21.1: ViewModeToggle
+                    ✅  ViewModeToggle
                 </div>
                 <div class="status-item pass">
-                    ✅ Phase 21.2: ViewModeManager
+                    ✅  ViewModeManager
                 </div>
                 <div class="status-item pass">
-                    ✅ Phase 21.3: Raw Content Models
+                    ✅  Raw Content Models
                 </div>
                 <div class="status-item pass">
-                    ✅ Phase 21.4: RawContentRenderer
+                    ✅  RawContentRenderer
                 </div>
             </div>
         </header>
@@ -383,7 +383,7 @@
                     <h2>📋 Test Controls</h2>
 
                     <div class="test-panel">
-                        <h3>Phase 21.1: ViewModeToggle</h3>
+                        <h3> ViewModeToggle</h3>
                         <div class="button-group">
                             <button onclick="testCreateToggle()">Create Toggle</button>
                             <button onclick="testToggleVisual()">Toggle Visual</button>
@@ -393,7 +393,7 @@
                     </div>
 
                     <div class="test-panel">
-                        <h3>Phase 21.2: ViewModeManager & State</h3>
+                        <h3> ViewModeManager & State</h3>
                         <div class="button-group">
                             <button onclick="testCreateInstance()">Create Instance</button>
                             <button onclick="testSetViewMode()">Set View Mode</button>
@@ -403,7 +403,7 @@
                     </div>
 
                     <div class="test-panel">
-                        <h3>Phase 21.3: Raw Content Models</h3>
+                        <h3> Raw Content Models</h3>
                         <div class="button-group">
                             <button onclick="testMermaidRaw()">Test MermaidRaw</button>
                             <button onclick="testCPEETreeRaw()">Test CPEETreeRaw</button>
@@ -413,7 +413,7 @@
                     </div>
 
                     <div class="test-panel">
-                        <h3>Phase 21.4: Rendering</h3>
+                        <h3> Rendering</h3>
                         <div class="button-group">
                             <button onclick="testRenderMermaid()">Render Mermaid</button>
                             <button onclick="testRenderXML()">Render XML</button>
@@ -548,7 +548,7 @@
             output.scrollTop = output.scrollHeight;
         };
 
-        // Test: Phase 21.1
+        // Test:
         window.testCreateToggle = function() {
             try {
                 log('toggle-output', 'Creating ViewModeToggle instance...', 'info');
@@ -595,7 +595,7 @@
             }
         };
 
-        // Test: Phase 21.2
+        // Test:
         window.testCreateInstance = function() {
             try {
                 log('state-output', 'Creating CPEEInstance...', 'info');
@@ -648,7 +648,7 @@
             }
         };
 
-        // Test: Phase 21.3
+        // Test:
         window.testMermaidRaw = function() {
             try {
                 log('models-output', 'Testing MermaidRaw model...', 'info');
@@ -695,7 +695,7 @@
             }
         };
 
-        // Test: Phase 21.4
+        // Test:
         window.testRenderMermaid = function() {
             try {
                 log('render-output', 'Testing Mermaid rendering...', 'info');
@@ -805,7 +805,7 @@
         };
 
         // Initialize
-        log('toggle-output', 'Phase 21 Test Suite Ready ✅', 'success');
+        log('toggle-output', ' Test Suite Ready ✅', 'success');
     </script>
 </body>
 </html>

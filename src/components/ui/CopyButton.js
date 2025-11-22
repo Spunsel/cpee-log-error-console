@@ -1,7 +1,7 @@
 /**
  * CopyButton Component
  * Provides copy-to-clipboard functionality with feedback
- * Phase 21.5: Copy Functionality
+ *  Copy Functionality
  */
 
 import { ICONS } from '../../assets/icons.js';

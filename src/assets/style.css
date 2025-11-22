@@ -3,7 +3,7 @@
 /* ========================================
    0. FONT FACE DECLARATIONS
    ======================================== */
-   @font-face {
+@font-face {
     font-family: 'Adwaita Sans Regular';
     src: url('fonts/adwaita-sans-regular.ttf') format('truetype');
     font-weight: normal;
@@ -50,6 +50,8 @@
     --nav-bar-color: #f8fafc;
     --copy-success-color: #6B8E23;
     
+    --preprocessing-bg: #CC7000;
+    
     --hover-bg: rgba(59, 130, 246, 0.08);
     --hover-bg-dark: rgba(0, 0, 0, 0.08);
     
@@ -92,15 +94,19 @@
     --font-sans-italic: 'Adwaita Sans Italic';
     --font-mono: 'Adwaita Mono Regular';
     
+    /* Font Sizes */
+    --font-size-xs: 11px;
+    --font-size-sm: 14px;
+    --font-size-md: 18px;
+    --font-size-lg: 20px;
+    --font-size-xl: 24px;
+    
     /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 0.75rem;
     --spacing-md: 1rem;
     --spacing-lg: 1.5rem;
     --spacing-xl: 2rem;
-    
-    /* Transitions */
-    --transition-fast: all 0.2s ease;
     
     /* Highlight Colors */
     --highlight-stroke: #f57900; /* Stroke color for highlighted tasks in graphs */
@@ -115,6 +121,25 @@
     --label-bug-bg: #f5e6e3;
     --label-feature-text: #1e4a7a;
     --label-feature-bg: #d6e8f5;
+    
+    /* Toggle Button Colors - Theme-aware properties */
+    --toggle-btn-color: var(--text-primary);
+    --toggle-btn-active-color: var(--primary-color);
+    --toggle-btn-hover-color: var(--text-primary);
+    --toggle-btn-svg-fill: currentColor;
+    --toggle-btn-svg-stroke: currentColor;
+    
+    /* Button Component Variables */
+    --button-padding-sm: var(--spacing-xs);
+    --button-padding-md: var(--spacing-sm) var(--spacing-md);
+    --button-padding-lg: var(--spacing-xs) 12px;
+    --button-border-radius: var(--border-radius);
+    --button-transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+    
+    /* Icon Sizes */
+    --icon-size-sm: 16px;
+    --icon-size-md: 20px;
+    --icon-size-lg: 25px;
 }
 
 /* ========================================
@@ -183,6 +208,25 @@
     --highlight-active-opacity: 0.4;
     
     --selection-bg: #3d5a7b;
+    
+    /* Toggle Button Colors - Theme-aware properties */
+    --toggle-btn-color: var(--text-primary);
+    --toggle-btn-active-color: var(--primary-color);
+    --toggle-btn-hover-color: var(--text-primary);
+    --toggle-btn-svg-fill: currentColor;
+    --toggle-btn-svg-stroke: currentColor;
+    
+    /* Button Component Variables - Dark Mode */
+    --button-padding-sm: var(--spacing-xs);
+    --button-padding-md: var(--spacing-sm) var(--spacing-md);
+    --button-padding-lg: var(--spacing-xs) 12px;
+    --button-border-radius: var(--border-radius);
+    --button-transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+    
+    /* Icon Sizes - Dark Mode (same as light) */
+    --icon-size-sm: 16px;
+    --icon-size-md: 20px;
+    --icon-size-lg: 25px;
 }
 
 /* ========================================
@@ -208,10 +252,6 @@ body {
     color: inherit;
 }
 
-::-moz-selection {
-    background-color: var(--selection-bg) !important;
-    color: inherit;
-}
 
 #app {
     min-height: 100vh;
@@ -260,13 +300,12 @@ body {
 
 .header h1 {
     color: var(--primary-color);
-    font-size: 1.5rem;
+    font-size: var(--font-size-xl);
     font-weight: 600;
 }
 
 .app-title {
     cursor: pointer;
-    transition: var(--transition-fast);
     user-select: none;
 }
 
@@ -289,42 +328,6 @@ body {
     position: relative;
 }
 
-.dark-mode-toggle-btn {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-primary);
-    transition: var(--transition-fast);
-    width: 36px;
-    height: 36px;
-}
-
-.dark-mode-toggle-btn:hover {
-    background: var(--hover-bg);
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-
-.dark-mode-toggle-btn:active {
-    background: var(--hover-bg-dark);
-    transform: scale(0.95);
-}
-
-.dark-mode-toggle-btn:focus {
-    outline: 2px solid var(--copy-btn-focus-outline);
-    outline-offset: 2px;
-}
-
-.dark-mode-toggle-btn svg {
-    width: 20px;
-    height: 20px;
-    display: block;
-}
 
 /* Hide Title Button */
 .hide-title-button {
@@ -336,19 +339,19 @@ body {
 .hide-title-btn {
     background: transparent;
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 8px 12px;
+    border-radius: var(--button-border-radius);
+    padding: var(--button-padding-lg);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
     color: var(--text-primary);
-    transition: var(--transition-fast);
     height: 36px;
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     white-space: nowrap;
+    transition: var(--button-transition);
 }
 
 .hide-title-icon {
@@ -359,8 +362,8 @@ body {
 }
 
 .hide-title-icon svg {
-    width: 16px;
-    height: 16px;
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
     display: block;
 }
 
@@ -380,43 +383,9 @@ body {
     outline-offset: 2px;
 }
 
-/* Theme Info Button */
+/* Theme Info Button - additional margin */
 .theme-info-btn {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-primary);
-    transition: var(--transition-fast);
-    width: 36px;
-    height: 36px;
     margin-right: 8px;
-}
-
-.theme-info-btn:hover {
-    background: var(--hover-bg);
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-
-.theme-info-btn:active {
-    background: var(--hover-bg-dark);
-    transform: scale(0.95);
-}
-
-.theme-info-btn:focus {
-    outline: 2px solid var(--copy-btn-focus-outline);
-    outline-offset: 2px;
-}
-
-.theme-info-btn svg {
-    width: 20px;
-    height: 20px;
-    display: block;
 }
 
 /* Theme Info Popup */
@@ -428,12 +397,11 @@ body {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: 0;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-md);
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    transition: opacity var(--transition-fast), visibility var(--transition-fast), transform var(--transition-fast);
     min-width: 280px;
     max-width: 400px;
 }
@@ -447,7 +415,7 @@ body {
 .theme-info-content {
     padding: var(--spacing-md);
     color: var(--text-primary);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     line-height: 1.5;
 }
 
@@ -458,7 +426,6 @@ body {
     grid-template-columns: 300px 1fr;
     gap: 0;
     min-height: 0;
-    transition: grid-template-columns 0.4s ease-out, all 0.4s ease-out;
 }
 
 /* Adjust grid when sidebar is collapsed */
@@ -499,7 +466,7 @@ body {
 .sidebar h3 {
     color: var(--text-primary);
     margin-bottom: 0;
-    font-size: 1.125rem;
+    font-size: var(--font-size-md);
     flex: 1;
 }
 
@@ -507,17 +474,16 @@ body {
 .sidebar-toggle-btn {
     background: transparent;
     border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 4px;
+    border-radius: var(--border-radius-sm);
+    padding: var(--button-padding-sm);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
     width: 32px;
     height: 32px;
-    min-width: 32px;
     outline: none;
+    transition: var(--button-transition);
 }
 
 .sidebar-toggle-btn:hover {
@@ -572,7 +538,7 @@ body {
 /* Show instance tabs in collapsed state with process number */
 .sidebar.sidebar-collapsed .instance-tab {
     padding: var(--spacing-xs);
-    font-size: 0.85rem;
+    font-size: var(--font-size-sm);
     font-weight: bold;
     text-align: center;
     white-space: nowrap;
@@ -610,7 +576,7 @@ body {
     padding: var(--spacing-md) var(--spacing-xl);
     text-align: center;
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
 }
 
 .footer-separator {
@@ -627,7 +593,6 @@ body {
     font-family: inherit;
     text-decoration: underline;
     padding: 0;
-    transition: color 0.2s ease;
 }
 
 .footer-link-btn:hover {
@@ -691,7 +656,7 @@ body {
 
 .bug-report-modal-header h2 {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: var(--font-size-lg);
     color: var(--text-primary);
     font-weight: 600;
 }
@@ -706,7 +671,6 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: var(--border-radius-sm);
-    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .bug-report-close-btn:hover {
@@ -732,7 +696,7 @@ body {
     margin-bottom: var(--spacing-xs);
     color: var(--text-primary);
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
 }
 
 .form-group input,
@@ -743,10 +707,9 @@ body {
     border: 2px solid var(--border-color);
     border-radius: var(--border-radius);
     font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--text-primary);
     background: var(--surface-color);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box;
 }
 
@@ -767,7 +730,7 @@ body {
 .character-counter {
     margin-top: var(--spacing-xs);
     text-align: right;
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
 }
 
@@ -787,7 +750,7 @@ body {
     padding: var(--spacing-lg);
     border-radius: var(--border-radius);
     margin: var(--spacing-lg);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
 }
 
 .bug-report-success {
@@ -811,21 +774,131 @@ body {
    4. UI COMPONENTS
    ======================================== */
 
-/* Button Base Classes */
-.btn {
-    padding: var(--spacing-sm) var(--spacing-md);
+/* ========================================
+   BUTTON BASE CLASSES
+   ======================================== */
+
+/* Base Button Class - All buttons inherit common properties */
+.btn-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: var(--button-border-radius);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: var(--button-transition);
+}
+
+.btn-base:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.btn-base:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Button Size Variants */
+.btn-base--sm {
+    padding: var(--button-padding-sm);
+    min-width: 32px;
+    height: 32px;
+}
+
+.btn-base--md {
+    padding: var(--button-padding-md);
+    min-width: 36px;
+    height: 36px;
+}
+
+.btn-base--lg {
+    padding: var(--button-padding-lg);
+    min-width: 40px;
+    height: 36px;
+}
+
+/* Button Style Variants */
+.btn-base--primary {
+    background: var(--primary-color);
+    color: var(--text-white);
+}
+
+.btn-base--primary:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.btn-base--secondary {
+    background: var(--secondary-color);
+    color: var(--text-white);
+}
+
+.btn-base--secondary:hover:not(:disabled) {
+    background: var(--secondary-color);
+    filter: brightness(1.1);
+}
+
+.btn-base--transparent {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.btn-base--transparent:hover:not(:disabled) {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-base--transparent:active:not(:disabled) {
+    background: var(--hover-bg-dark);
+    transform: scale(0.95);
+}
+
+.btn-base--transparent:focus {
+    outline: 2px solid var(--copy-btn-focus-outline);
+    outline-offset: 2px;
+}
+
+/* Icon SVG Base Styles - Applied to all button icons */
+.btn-base svg {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+    display: block;
+    fill: currentColor;
+}
+
+.btn-base--sm svg {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+}
+
+.btn-base--lg svg {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+}
+
+/* Legacy Button Classes - Maintained for backward compatibility */
+/* These classes now use the new base system */
+.btn {
+    /* Inherits from .btn-base and .btn-base--md */
+    padding: var(--button-padding-md);
+    border: none;
+    border-radius: var(--button-border-radius);
     cursor: pointer;
     font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
-    transition: var(--transition-fast);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     white-space: nowrap;
+    transition: var(--button-transition);
 }
 
 .btn:hover:not(:disabled) {
@@ -837,7 +910,6 @@ body {
     opacity: 0.6;
 }
 
-/* Button Variants */
 .btn-primary {
     background: var(--primary-color);
     color: var(--surface-color);
@@ -857,14 +929,133 @@ body {
     filter: brightness(1.1);
 }
 
+/* Icon Button - 36x36px square icon buttons */
+.btn-icon,
+.theme-dropdown-trigger,
+.step-dropdown-trigger,
+.scale-dropdown-trigger {
+    background: var(--primary-color);
+    color: var(--surface-color);
+    border: none;
+    padding: var(--button-padding-sm);
+    border-radius: var(--button-border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: var(--font-size-md);
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    transition: var(--button-transition);
+}
+
+.btn-icon:hover:not(:disabled),
+.btn-icon:active:not(:disabled),
+.theme-dropdown-trigger:hover:not(:disabled),
+.theme-dropdown-trigger:active:not(:disabled),
+.step-dropdown-trigger:hover,
+.step-dropdown-trigger:active,
+.scale-dropdown-trigger:hover:not(:disabled),
+.scale-dropdown-trigger:active:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.btn-icon svg,
+.theme-dropdown-trigger svg,
+.step-dropdown-trigger svg,
+.scale-dropdown-trigger svg {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+    display: block;
+    fill: currentColor;
+}
+
+/* Icon Button Large - 40x36px for navigation buttons */
+.btn-icon-lg,
+.nav-btn {
+    background: var(--primary-color);
+    color: var(--surface-color);
+    border: none;
+    padding: var(--button-padding-lg);
+    border-radius: var(--button-border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: var(--font-size-md);
+    min-width: 40px;
+    width: 40px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    transition: var(--button-transition);
+}
+
+.btn-icon-lg:hover:not(:disabled),
+.btn-icon-lg:active:not(:disabled),
+.nav-btn:hover:not(:disabled),
+.nav-btn:active:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+/* Transparent Icon Button - for header buttons with border */
+.btn-icon-transparent,
+.dark-mode-toggle-btn,
+.theme-info-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--button-border-radius);
+    padding: var(--button-padding-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    width: 36px;
+    height: 36px;
+    transition: var(--button-transition);
+}
+
+.btn-icon-transparent:hover,
+.dark-mode-toggle-btn:hover,
+.theme-info-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-icon-transparent:active,
+.dark-mode-toggle-btn:active,
+.theme-info-btn:active {
+    background: var(--hover-bg-dark);
+    transform: scale(0.95);
+}
+
+.btn-icon-transparent:focus,
+.dark-mode-toggle-btn:focus,
+.theme-info-btn:focus {
+    outline: 2px solid var(--copy-btn-focus-outline);
+    outline-offset: 2px;
+}
+
+.btn-icon-transparent svg,
+.dark-mode-toggle-btn svg,
+.theme-info-btn svg {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+    display: block;
+}
+
 
 /* Input Components */
 .input-base {
     padding: var(--spacing-sm);
     border: 2px solid var(--border-color);
     border-radius: var(--border-radius);
-    font-size: 0.9rem;
-    transition: var(--transition-fast);
+    font-size: var(--font-size-sm);
     font-family: var(--font-sans);
     background: var(--background-color);
     color: var(--text-primary);
@@ -905,7 +1096,7 @@ body {
     font-weight: 600;
     color: var(--text-primary);
     white-space: nowrap;
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm);
 }
 
 /* Specific Input Styling */
@@ -969,14 +1160,14 @@ body {
 .instance-scanner-section h3 {
     margin-bottom: var(--spacing-sm);
     padding: var(--spacing-xs);
-    font-size: 1.25rem;
+    font-size: var(--font-size-lg);
     font-weight: 600;
 }
 
 .load-all-instances-section h4,
 .instance-scanner-section h4 {
     margin: var(--spacing-md) 0 var(--spacing-sm);
-    font-size: 1rem;
+    font-size: var(--font-size-md);
 }
   
   .instance-list-container {
@@ -1038,7 +1229,7 @@ body {
 
 .recent-additions-header h3 {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--text-secondary);
     vertical-align: middle;
@@ -1068,9 +1259,8 @@ body {
     text-decoration: none;
     color: var(--text-primary);
     font-weight: 600;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     border-radius: var(--border-radius-sm);
-    transition: var(--transition-fast);
     cursor: pointer;
     border: none;
     background: var(--surface-color);
@@ -1100,10 +1290,10 @@ body {
     min-width: 20px;
     height: 20px;
     padding: 0 6px;
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
     font-weight: 600;
     line-height: 1;
-    border-radius: 10px;
+    border-radius: var(--border-radius-lg);
     background: var(--hover-bg);
     color: var(--text-secondary);
     border: 1px solid var(--border-color);
@@ -1149,12 +1339,11 @@ body {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     overflow: hidden;
-    transition: box-shadow var(--transition-fast);
     padding: var(--spacing-md);
 }
 
 .issue-item:hover {
-    box-shadow: 0 2px 4px var(--shadow-md);
+    box-shadow: var(--shadow-md);
 }
 
 /* Issue Header */
@@ -1197,7 +1386,7 @@ body {
 .issue-title {
     font-weight: 600;
     color: var(--text-primary);
-    font-size: 1rem;
+    font-size: var(--font-size-md);
     flex: 1;
     min-width: 200px;
 }
@@ -1212,9 +1401,9 @@ body {
 
 .issue-label {
     display: inline-block;
-    padding: 2px 8px;
+    padding: 2px var(--spacing-xs);
     border-radius: var(--border-radius-sm);
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     background: var(--hover-bg);
     color: var(--text-primary);
@@ -1238,7 +1427,7 @@ body {
 
 /* Issue Date */
 .issue-date {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
     flex-shrink: 0;
     margin-left: auto;
@@ -1250,7 +1439,7 @@ body {
 .issue-description {
     margin-top: var(--spacing-xs);
     padding-left: calc(16px + var(--spacing-sm));
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
     line-height: 1.5;
 }
@@ -1260,7 +1449,7 @@ body {
     padding: var(--spacing-lg);
     text-align: center;
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     font-style: italic;
 }
 
@@ -1290,13 +1479,12 @@ body {
     font-family: var(--font-mono);
     box-sizing: border-box;
     cursor: pointer;
-    transition: var(--transition-fast);
     white-space: nowrap;
   }
   
   /* Number box */
   .instance-number-box {
-    font-size: 0.85rem;
+    font-size: var(--font-size-sm);
     font-weight: bold;
     color: var(--text-primary);
     display: inline-flex;
@@ -1343,7 +1531,7 @@ body {
   
   .instance-tab {
     padding: var(--spacing-sm);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     width: fit-content;
     min-width: 100%;
   }
@@ -1405,36 +1593,6 @@ body {
     display: inline-block;
 }
 
-.theme-dropdown-trigger {
-    background: var(--primary-color);
-    color: var(--surface-color);
-    border: none;
-    padding: 8px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    font-size: 1rem;
-    min-width: 36px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-}
-
-.theme-dropdown-trigger:hover:not(:disabled),
-.theme-dropdown-trigger:active:not(:disabled) {
-    background: var(--primary-dark);
-}
-
-.theme-dropdown-trigger svg {
-    width: 20px;
-    height: 20px;
-    display: block;
-    fill: currentColor;
-}
 
 .theme-dropdown-menu {
     position: absolute;
@@ -1452,19 +1610,23 @@ body {
     overflow-y: auto;
 }
 
-.theme-dropdown-item {
+/* Dropdown Item Base - for centered dropdown items */
+.dropdown-item,
+.theme-dropdown-item,
+.scale-dropdown-item {
     padding: var(--spacing-sm) var(--spacing-md);
     cursor: pointer;
-    transition: background-color 0.15s ease;
     user-select: none;
     color: var(--text-primary);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.theme-dropdown-item:not(.active):hover {
+.dropdown-item:not(.active):hover,
+.theme-dropdown-item:not(.active):hover,
+.scale-dropdown-item:not(.active):hover {
     background-color: var(--primary-light);
     color: var(--text-primary);
 }
@@ -1515,30 +1677,6 @@ body {
 }
 
 
-/* Navigation buttons */
-.nav-btn {
-    background: var(--primary-color);
-    color: var(--surface-color);
-    border: none;
-    padding: 8px 12px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    font-size: 1rem;
-    min-width: 40px;
-    width: 40px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-}
-
-.nav-btn:hover:not(:disabled),
-.nav-btn:active:not(:disabled) {
-    background: var(--primary-dark);
-}
 
 /* Specific button styling */
 .nav-btn-start,
@@ -1565,7 +1703,7 @@ body {
 #step-counter {
     font-weight: 600;
     color: var(--text-primary);
-    font-size: 1rem;
+    font-size: var(--font-size-md);
     padding: 0 10px;
     white-space: nowrap; /* Prevent wrapping to multiple lines */
 }
@@ -1576,30 +1714,6 @@ body {
     display: inline-block;
 }
 
-/* Dropdown trigger button */
-.step-dropdown-trigger {
-    background: var(--primary-color);
-    color: var(--surface-color);
-    border: none;
-    padding: 8px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    font-size: 1rem;
-    min-width: 36px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-}
-
-.step-dropdown-trigger:hover,
-.step-dropdown-trigger:active {
-    background: var(--primary-dark);
-}
 
 /* Dropdown menu */
 .step-dropdown-menu {
@@ -1622,10 +1736,9 @@ body {
 .step-dropdown-item {
     padding: var(--spacing-xs);
     cursor: pointer;
-    transition: background-color 0.15s ease;
     user-select: none;
     color: var(--text-primary);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
@@ -1676,35 +1789,6 @@ body {
     display: inline-block;
 }
 
-.scale-dropdown-trigger {
-    background: var(--primary-color);
-    color: var(--surface-color);
-    border: none;
-    padding: 8px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    font-size: 1rem;
-    min-width: 36px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-}
-
-.scale-dropdown-trigger:hover:not(:disabled),
-.scale-dropdown-trigger:active:not(:disabled) {
-    background: var(--primary-dark);
-}
-
-.scale-dropdown-trigger svg {
-    width: 20px;
-    height: 20px;
-    display: block;
-}
 
 .scale-dropdown-menu {
     position: absolute;
@@ -1723,23 +1807,7 @@ body {
     overflow-y: auto;
 }
 
-.scale-dropdown-item {
-    padding: var(--spacing-sm) var(--spacing-md);
-    cursor: pointer;
-    transition: background-color 0.15s ease;
-    user-select: none;
-    color: var(--text-primary);
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.scale-dropdown-item:not(.active):hover {
-    background-color: var(--primary-light);
-    color: var(--text-primary);
-}
-
+/* Scale dropdown item active state - different background color */
 .scale-dropdown-item.active {
     background-color: var(--primary-color);
     color: var(--surface-color);
@@ -1749,7 +1817,7 @@ body {
 .metadata-display {
     display: flex;
     flex-direction: column;
-    align-items: right;
+    align-items: flex-end;
     justify-content: center;
     gap: var(--spacing-xs);
     background: var(--surface-color);
@@ -1758,7 +1826,7 @@ body {
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow);
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
     min-width: 250px;
     order: 4; /* Metadata appears fourth (after scale display) */
@@ -1803,7 +1871,6 @@ body {
     cursor: pointer;
     color: var(--text-secondary);
     opacity: 0.7;
-    transition: all 0.2s ease;
     border-radius: 4px;
 }
 
@@ -1843,7 +1910,7 @@ body {
 }
 
 .loading h2 {
-    font-size: 1.5rem;
+    font-size: var(--font-size-xl);
     font-weight: 600;
     color: var(--text-secondary);
     margin: 0 0 var(--spacing-lg) 0;
@@ -1865,14 +1932,14 @@ body {
     box-shadow: var(--shadow);
 }
 
-.section h3,
-section h3 {
+/* Section header styling - targets h3 within .section class */
+.section h3 {
     background: var(--section-header-bg);
     padding: 0; /* Remove all padding from h3 */
     margin: 0;
     border-bottom: 1px solid var(--border-color);
     color: var(--text-primary);
-    font-size: 1rem;
+    font-size: var(--font-size-md);
     font-weight: 600;
 }
 
@@ -1887,7 +1954,7 @@ section h3 {
     padding: var(--spacing-md);
     border-radius: 0;
     font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
     line-height: 1.4;
     color: var(--text-primary);
     white-space: pre-wrap;
@@ -1914,9 +1981,7 @@ section h3 {
 
 /* CPEE sections */
 .cpee-section .content-box {
-    height: 400px;
-    max-height: 400px;
-    min-height: 400px;
+    height: 400px; /* Fixed height - max-height and min-height are redundant when equal */
     overflow: auto;
     position: relative;
 }
@@ -1942,11 +2007,9 @@ section h3 {
 
 /* User Input sections */
 .user-input-section .content-box {
-    height: auto;
-    max-height: none;
-    min-height: auto;
+    height: auto; /* Auto height - max-height: none and min-height: auto are redundant */
     overflow: hidden;
-    padding: 0px;
+    padding: 0;
 }
 
 #user-input-content {
@@ -1998,7 +2061,7 @@ section h3 {
 .raw-log-header h3 {
     margin: 0;
     color: var(--text-primary);
-    font-size: 1.125rem;
+    font-size: var(--font-size-md);
 }
 
 .raw-log-container {
@@ -2014,7 +2077,7 @@ section h3 {
     border: none;
     border-radius: 0;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
     line-height: 1.4;
     color: var(--text-primary);
     white-space: pre-wrap;
@@ -2042,33 +2105,11 @@ section h3 {
     margin: 0;
     min-height: 40px;
     height: auto;
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     padding: 0;
 }
 
-.graph-error {
-    padding: var(--spacing-md);
-    background: var(--background-color);
-    border: none;
-    border-radius: 0;
-    color: var(--error-text);
-    margin: 0;
-}
-
-.graph-error summary {
-    cursor: pointer;
-    margin-top: var(--spacing-xs);
-    font-weight: 500;
-}
-
-.graph-error pre {
-    margin-top: var(--spacing-xs);
-    background: var(--background-color);
-    color: var(--text-secondary);
-    font-size: 0.75rem;
-    max-height: 200px;
-    overflow-y: auto;
-}
+/* .graph-error class removed - replaced by .mermaid-error-indicator */
 
 /* ========================================
    6. GRAPH RENDERERS
@@ -2122,7 +2163,7 @@ section h3 {
 .mermaid-warning-indicator__header {
     font-weight: 600;
     color: var(--alert-warning-text);
-    font-size: 13px;
+    font-size: var(--font-size-sm);
     margin-bottom: 0;
     display: flex;
     align-items: center;
@@ -2158,7 +2199,6 @@ section h3 {
     justify-content: center;
     color: var(--alert-warning-text);
     opacity: 0.8;
-    transition: opacity 0.2s;
     width: 18px;
     height: 18px;
     flex-shrink: 0;
@@ -2209,13 +2249,12 @@ section h3 {
     opacity: 0.75;
     font-weight: normal;
     margin-left: 4px;
-    font-size: 11px;
+    font-size: var(--font-size-xs);
 }
 
 /* Comparison Info Box */
 .comparison-info-box-container {
     margin: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Ensure info box containers are visible when they have content, regardless of view mode */
@@ -2242,7 +2281,7 @@ section h3 {
 .comparison-info-box__header {
     font-weight: 600;
     color: var(--alert-info-text);
-    font-size: 13px;
+    font-size: var(--font-size-sm);
     margin-bottom: 0;
     display: flex;
     align-items: center;
@@ -2278,7 +2317,6 @@ section h3 {
     justify-content: center;
     color: var(--alert-info-text);
     opacity: 0.8;
-    transition: opacity 0.2s;
     width: 18px;
     height: 18px;
     flex-shrink: 0;
@@ -2302,7 +2340,7 @@ section h3 {
 
 .comparison-info-box__message {
     color: var(--alert-info-text);
-    font-size: 13px;
+    font-size: var(--font-size-sm);
     line-height: 1.4;
 }
 
@@ -2351,7 +2389,7 @@ section h3 {
 
 .comparison-info-box__summary {
     margin-bottom: 12px;
-    padding: 8px;
+    padding: var(--spacing-xs);
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: var(--border-radius-sm);
     border-left: 3px solid var(--alert-info-border);
@@ -2378,7 +2416,7 @@ section h3 {
 
 .comparison-info-box__detail-item {
     margin-bottom: 10px;
-    padding: 8px;
+    padding: var(--spacing-xs);
     border-radius: var(--border-radius-sm);
     background-color: rgba(255, 255, 255, 0.1);
 }
@@ -2420,18 +2458,18 @@ section h3 {
 
 .comparison-info-box__sequences {
     margin-top: 8px;
-    padding: 8px;
+    padding: var(--spacing-xs);
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: var(--border-radius-sm);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: var(--font-size-xs);
 }
 
 .comparison-info-box__sequence-label {
     font-weight: 600;
     color: var(--alert-info-text);
     margin-bottom: 6px;
-    font-size: 11px;
+    font-size: var(--font-size-xs);
     font-family: var(--font-sans);
 }
 
@@ -2504,14 +2542,14 @@ section h3 {
 
 .mermaid-error-indicator__message {
     color: var(--alert-danger-text);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     margin-bottom: 15px;
     line-height: 1.5;
 }
 
 .mermaid-error-indicator__parse-header {
     font-family: var(--font-sans);
-    font-size: 13px;
+    font-size: var(--font-size-sm);
     font-weight: 600;
     margin-bottom: 12px;
     color: var(--alert-danger-text);
@@ -2538,7 +2576,7 @@ section h3 {
 
 .mermaid-error-indicator__code-line--error {
     background-color: rgba(202, 69, 69, 0.1);
-    padding: 4px 8px;
+    padding: 4px var(--spacing-xs);
     margin: 0 -8px;
     border-left: 3px solid var(--alert-danger-border);
 }
@@ -2564,7 +2602,7 @@ section h3 {
 
 .mermaid-error-indicator__error-char {
     background-color: var(--alert-danger-border);
-    color: #ffffff;
+    color: var(--text-white);
     font-weight: bold;
     padding: 2px 1px;
     border-radius: 2px;
@@ -3062,7 +3100,7 @@ section h3 {
     /* Navigation Button Mobile Adjustments - Only size/spacing changes */
     .nav-btn {
         padding: var(--spacing-xs) var(--spacing-sm);
-        font-size: 0.875rem;
+        font-size: var(--font-size-sm);
         min-width: 32px;
         height: 32px;
     }
@@ -3085,7 +3123,6 @@ section h3 {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    transition: none;
     flex-wrap: nowrap;
     gap: var(--spacing-sm);
 }
@@ -3121,7 +3158,6 @@ section h3 {
     width: 20px;
     height: 20px;
     color: var(--text-primary, #1e293b);
-    transition: transform 0.2s ease, color 0.2s ease;
     flex-shrink: 0;
 }
 
@@ -3145,9 +3181,8 @@ section h3 {
 }
 
 .section-toggle-icon svg {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.2s ease;
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
 }
 
 /* Section expand/collapse button */
@@ -3163,7 +3198,6 @@ section h3 {
     width: 20px;
     height: 20px;
     color: var(--text-primary, #1e293b);
-    transition: transform 0.2s ease, color 0.2s ease;
     flex-shrink: 0;
 }
 
@@ -3179,8 +3213,8 @@ section h3 {
 }
 
 .section-expand-collapse-btn svg {
-    width: 20px;
-    height: 20px;
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
     fill: currentColor;
     stroke: currentColor;
 }
@@ -3266,9 +3300,6 @@ section h3 {
 }
 
 /* Expanded section state */
-.section-expanded .content-box {
-    transition: height 0.3s ease, max-height 0.3s ease, min-height 0.3s ease;
-}
 
 /* When section is expanded and contains raw content, prevent horizontal scrollbar on content-box */
 /* The raw content container ([data-content-type="raw"]) will handle its own scrolling */
@@ -3324,7 +3355,7 @@ section h3 {
     flex: 1 1 auto; /* Fill remaining width */
     min-width: 0;
     align-self: stretch; /* Stretch to full height of section header */
-    padding: 0px; /* No top/bottom padding, 0px padding on right */
+    padding: 0; /* No top/bottom padding, 0 padding on right */
     overflow: hidden; /* Hide the border-bottom from h3 */
     background: var(--section-header-bg); /* Match header background to cover border */
     margin-bottom: -1px; /* Pull down to cover border */
@@ -3343,8 +3374,7 @@ section h3 {
 
 /* Dark mode: Brighter section title text */
 [data-theme="dark"] .section-title,
-[data-theme="dark"] .section h3,
-[data-theme="dark"] section h3 {
+[data-theme="dark"] .section h3 {
     color: #f1f5f9;
 }
 
@@ -3353,7 +3383,7 @@ section h3 {
     display: flex;
     background: var(--section-header-bg); /* Match section header background */
     border-radius: var(--border-radius);
-    padding: 0px;
+    padding: 0;
     gap: 2px;
     width: 100%; /* Fill the right-title-side width */
     height: calc(100% + 2px); /* Extend 2px below to fully cover border */
@@ -3369,7 +3399,6 @@ section h3 {
     background: var(--section-header-bg); /* Match title bar background */
     cursor: pointer;
     border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
-    transition: var(--transition-fast);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3387,101 +3416,89 @@ section h3 {
 .toggle-btn.active {
     background: var(--surface-color);
     color: var(--primary-color); /* Use primary color for active state */
-    box-shadow: 0 1px 2px var(--hover-bg-dark);
+    box-shadow: var(--shadow-md);
 }
 
 /* Toggle Button Icons - Match CPEE graph element colors */
 .toggle-btn svg {
     display: block;
-    width: 25px;
-    height: 25px;
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
     fill: currentColor;
     stroke: currentColor;
     color: inherit;
 }
 
-/* CPEE Section Toggle Buttons - Match graph element colors */
+/* CPEE Section Toggle Buttons - Match graph element colors using CSS variables */
 .cpee-section .toggle-btn,
+.cpee-section .toggle-btn-traces,
+.cpee-section .toggle-btn-analysis,
 #input-cpee .toggle-btn,
-#output-cpee .toggle-btn {
-    color: var(--text-primary) !important;
+#input-cpee .toggle-btn-traces,
+#input-cpee .toggle-btn-analysis,
+#output-cpee .toggle-btn,
+#output-cpee .toggle-btn-traces,
+#output-cpee .toggle-btn-analysis {
+    color: var(--toggle-btn-color) !important;
 }
 
 .cpee-section .toggle-btn.active,
+.cpee-section .toggle-btn-traces.active,
+.cpee-section .toggle-btn-analysis.active,
 #input-cpee .toggle-btn.active,
-#output-cpee .toggle-btn.active {
-    color: var(--primary-color) !important;
+#input-cpee .toggle-btn-traces.active,
+#input-cpee .toggle-btn-analysis.active,
+#output-cpee .toggle-btn.active,
+#output-cpee .toggle-btn-traces.active,
+#output-cpee .toggle-btn-analysis.active {
+    color: var(--toggle-btn-active-color) !important;
 }
 
-/* CPEE Section Toggle Button SVG Icons */
+.cpee-section .toggle-btn:hover,
+.cpee-section .toggle-btn-traces:hover,
+.cpee-section .toggle-btn-analysis:hover,
+#input-cpee .toggle-btn:hover,
+#input-cpee .toggle-btn-traces:hover,
+#input-cpee .toggle-btn-analysis:hover,
+#output-cpee .toggle-btn:hover,
+#output-cpee .toggle-btn-traces:hover,
+#output-cpee .toggle-btn-analysis:hover {
+    color: var(--toggle-btn-hover-color) !important;
+}
+
+/* CPEE Section Toggle Button SVG Icons - All variants */
 .cpee-section .toggle-btn svg,
+.cpee-section .toggle-btn-traces svg,
+.cpee-section .toggle-btn-analysis svg,
 #input-cpee .toggle-btn svg,
-#output-cpee .toggle-btn svg {
-    fill: currentColor !important;
-    stroke: currentColor !important;
+#input-cpee .toggle-btn-traces svg,
+#input-cpee .toggle-btn-analysis svg,
+#output-cpee .toggle-btn svg,
+#output-cpee .toggle-btn-traces svg,
+#output-cpee .toggle-btn-analysis svg {
+    fill: var(--toggle-btn-svg-fill) !important;
+    stroke: var(--toggle-btn-svg-stroke) !important;
     color: inherit !important;
 }
 
-/* CPEE Section Toggle Button SVG nested elements (paths, groups, etc.) */
-.cpee-section .toggle-btn svg path,
-.cpee-section .toggle-btn svg g,
+/* CPEE Section Toggle Button SVG nested elements - All variants */
 .cpee-section .toggle-btn svg *,
-#input-cpee .toggle-btn svg path,
-#input-cpee .toggle-btn svg g,
+.cpee-section .toggle-btn-traces svg *,
+.cpee-section .toggle-btn-analysis svg *,
 #input-cpee .toggle-btn svg *,
-#output-cpee .toggle-btn svg path,
-#output-cpee .toggle-btn svg g,
-#output-cpee .toggle-btn svg * {
-    fill: currentColor !important;
-    stroke: currentColor !important;
+#input-cpee .toggle-btn-traces svg *,
+#input-cpee .toggle-btn-analysis svg *,
+#output-cpee .toggle-btn svg *,
+#output-cpee .toggle-btn-traces svg *,
+#output-cpee .toggle-btn-analysis svg * {
+    fill: var(--toggle-btn-svg-fill) !important;
+    stroke: var(--toggle-btn-svg-stroke) !important;
     color: inherit !important;
 }
 
-/* Dark mode: CPEE toggle buttons use same colors as graph elements */
-[data-theme="dark"] .cpee-section .toggle-btn,
-[data-theme="dark"] #input-cpee .toggle-btn,
-[data-theme="dark"] #output-cpee .toggle-btn {
-    color: var(--text-primary) !important; /* Lighter color like graph text */
-}
-
-[data-theme="dark"] .cpee-section .toggle-btn.active,
-[data-theme="dark"] #input-cpee .toggle-btn.active,
-[data-theme="dark"] #output-cpee .toggle-btn.active {
-    color: var(--primary-color) !important; /* Keep primary color for active state */
-}
-
-[data-theme="dark"] .cpee-section .toggle-btn:hover,
-[data-theme="dark"] #input-cpee .toggle-btn:hover,
-[data-theme="dark"] #output-cpee .toggle-btn:hover {
-    color: var(--text-primary) !important;
-}
-
-[data-theme="dark"] .cpee-section .toggle-btn svg,
-[data-theme="dark"] #input-cpee .toggle-btn svg,
-[data-theme="dark"] #output-cpee .toggle-btn svg {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-    color: inherit !important;
-}
-
-/* Dark mode: CPEE toggle button SVG nested elements (paths, groups, etc.) */
-[data-theme="dark"] .cpee-section .toggle-btn svg path,
-[data-theme="dark"] .cpee-section .toggle-btn svg g,
-[data-theme="dark"] .cpee-section .toggle-btn svg *,
-[data-theme="dark"] #input-cpee .toggle-btn svg path,
-[data-theme="dark"] #input-cpee .toggle-btn svg g,
-[data-theme="dark"] #input-cpee .toggle-btn svg *,
-[data-theme="dark"] #output-cpee .toggle-btn svg path,
-[data-theme="dark"] #output-cpee .toggle-btn svg g,
-[data-theme="dark"] #output-cpee .toggle-btn svg * {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-    color: inherit !important;
-}
-
-/* Log and Traces mode button styling
- * The .toggle-btn-log and .toggle-btn-traces classes inherit all styles from .toggle-btn
- * via CSS class cascade. Flexbox in .view-mode-toggle automatically accommodates four buttons.
+/* Traces mode button styling
+ * The .toggle-btn-traces class inherits all styles from .toggle-btn
+ * via CSS class cascade. Flexbox in .view-mode-toggle automatically accommodates multiple buttons.
  */
 
 /* Traces button hover state - consistent with other buttons */
@@ -3494,97 +3511,20 @@ section h3 {
 .toggle-btn-traces.active {
     background: var(--surface-color);
     color: var(--primary-color);
-    box-shadow: 0 1px 2px var(--hover-bg-dark);
+    box-shadow: var(--shadow-md);
 }
 
 /* Ensure traces button SVG icons are styled consistently */
 .toggle-btn-traces svg {
     display: block;
-    width: 25px;
-    height: 25px;
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
     fill: currentColor;
     stroke: currentColor;
     color: inherit;
 }
 
-/* CPEE Section Traces Button - Match graph element colors */
-.cpee-section .toggle-btn-traces,
-#input-cpee .toggle-btn-traces,
-#output-cpee .toggle-btn-traces {
-    color: var(--text-primary) !important;
-}
-
-.cpee-section .toggle-btn-traces.active,
-#input-cpee .toggle-btn-traces.active,
-#output-cpee .toggle-btn-traces.active {
-    color: var(--primary-color) !important;
-}
-
-/* CPEE Section Traces Button SVG Icons */
-.cpee-section .toggle-btn-traces svg,
-#input-cpee .toggle-btn-traces svg,
-#output-cpee .toggle-btn-traces svg {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-    color: inherit !important;
-}
-
-/* CPEE Section Traces Button SVG nested elements */
-.cpee-section .toggle-btn-traces svg path,
-.cpee-section .toggle-btn-traces svg g,
-.cpee-section .toggle-btn-traces svg *,
-#input-cpee .toggle-btn-traces svg path,
-#input-cpee .toggle-btn-traces svg g,
-#input-cpee .toggle-btn-traces svg *,
-#output-cpee .toggle-btn-traces svg path,
-#output-cpee .toggle-btn-traces svg g,
-#output-cpee .toggle-btn-traces svg * {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-    color: inherit !important;
-}
-
-/* Dark mode: CPEE traces toggle buttons */
-[data-theme="dark"] .cpee-section .toggle-btn-traces,
-[data-theme="dark"] #input-cpee .toggle-btn-traces,
-[data-theme="dark"] #output-cpee .toggle-btn-traces {
-    color: var(--text-primary) !important;
-}
-
-[data-theme="dark"] .cpee-section .toggle-btn-traces.active,
-[data-theme="dark"] #input-cpee .toggle-btn-traces.active,
-[data-theme="dark"] #output-cpee .toggle-btn-traces.active {
-    color: var(--primary-color) !important;
-}
-
-[data-theme="dark"] .cpee-section .toggle-btn-traces:hover,
-[data-theme="dark"] #input-cpee .toggle-btn-traces:hover,
-[data-theme="dark"] #output-cpee .toggle-btn-traces:hover {
-    color: var(--text-primary) !important;
-}
-
-[data-theme="dark"] .cpee-section .toggle-btn-traces svg,
-[data-theme="dark"] #input-cpee .toggle-btn-traces svg,
-[data-theme="dark"] #output-cpee .toggle-btn-traces svg {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-    color: inherit !important;
-}
-
-/* Dark mode: CPEE traces toggle button SVG nested elements */
-[data-theme="dark"] .cpee-section .toggle-btn-traces svg path,
-[data-theme="dark"] .cpee-section .toggle-btn-traces svg g,
-[data-theme="dark"] .cpee-section .toggle-btn-traces svg *,
-[data-theme="dark"] #input-cpee .toggle-btn-traces svg path,
-[data-theme="dark"] #input-cpee .toggle-btn-traces svg g,
-[data-theme="dark"] #input-cpee .toggle-btn-traces svg *,
-[data-theme="dark"] #output-cpee .toggle-btn-traces svg path,
-[data-theme="dark"] #output-cpee .toggle-btn-traces svg g,
-[data-theme="dark"] #output-cpee .toggle-btn-traces svg * {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-    color: inherit !important;
-}
+/* CPEE Section Traces Button - Now consolidated with base toggle button rules above */
 
 /* Accessibility */
 .toggle-btn:focus-visible {
@@ -3625,7 +3565,6 @@ section h3 {
     border-radius: 0;
     overflow: visible;
     border: none;
-    transition: none;
 }
 
 [data-content-type="raw"] {
@@ -3679,10 +3618,10 @@ section h3 {
     margin: 0;
     background: var(--surface-color);
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     line-height: 1.5;
     color: var(--text-primary);
-    padding: 8px;
+    padding: var(--spacing-xs);
     overflow: visible;
     white-space: pre;
     word-wrap: normal;
@@ -3711,15 +3650,13 @@ section h3 {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    padding: 9px 12px 8px 8px;
+    padding: 9px 12px var(--spacing-xs) var(--spacing-xs);
     background: transparent;
     border-right: 1px solid var(--border-color);
     text-align: right;
     user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: var(--font-size-xs);
     line-height: 1.625;
     color: var(--text-secondary);
 }
@@ -3734,14 +3671,14 @@ section h3 {
 
 /* Mark preprocessing line numbers with background highlight (log view only) */
 .raw-code-line-number.preprocessing-line-number {
-    background-color: #CC7000;
-    color: #ffffff;
+    background-color: var(--preprocessing-bg);
+    color: var(--text-white);
 }
 
 .raw-code-content {
     flex: 1;
     min-width: 0;
-    padding: 8px 8px 8px 0;
+    padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) 0;
     overflow-x: auto;
 }
 
@@ -3766,15 +3703,13 @@ section h3 {
 .raw-text-block,
 .raw-text-block * {
     user-select: text !important;
-    -webkit-user-select: text !important;
-    -moz-user-select: text !important;
 }
 
 .raw-text-block {
     margin: 0;
     background: var(--surface-color);
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     line-height: 1.6;
     color: var(--text-primary);
     white-space: pre-wrap;
@@ -3786,11 +3721,11 @@ section h3 {
 /* Responsive Design */
 @media (max-width: 768px) {
     .raw-code-block {
-        font-size: 0.8rem;
+        font-size: var(--font-size-sm);
     }
     
     .raw-text-block {
-        font-size: 0.8rem;
+        font-size: var(--font-size-sm);
     }
 }
 
@@ -3806,12 +3741,12 @@ section h3 {
     background: var(--copy-btn-bg);
     color: var(--copy-btn-text);
     border: 1px solid var(--copy-btn-border);
-    border-radius: 6px;
+    border-radius: var(--border-radius-sm);
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: var(--font-size-sm);
     font-weight: 400;
-    transition: background 0.15s ease, border-color 0.15s ease;
     white-space: nowrap;
+    transition: var(--button-transition);
 }
 
 .copy-btn:hover:not(:disabled) {
@@ -3866,17 +3801,13 @@ section h3 {
 }
 
 /* Copy Button Animation - Minimal */
-.copy-btn.copy-success,
-.copy-btn.copy-error {
-    transition: all 0.2s ease;
-}
 
 
 /* Responsive Design for Copy Button */
 @media (max-width: 768px) {
     .copy-btn {
         padding: 5px 10px;
-        font-size: 0.8rem;
+        font-size: var(--font-size-sm);
     }
 }
 
@@ -3896,8 +3827,7 @@ section h3 {
 
 *::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb);
-    border-radius: 5px;
-    transition: background 0.2s ease;
+    border-radius: var(--border-radius-sm);
 }
 
 *::-webkit-scrollbar-thumb:hover {
@@ -3915,7 +3845,7 @@ section h3 {
 @media (max-width: 768px) {
     .toggle-btn {
         padding: 5px 10px;
-        font-size: 0.8rem;
+        font-size: var(--font-size-sm);
     }
 
 
@@ -3928,7 +3858,6 @@ section h3 {
     /* No animations on mobile */
     .raw-content-container {
         animation: none;
-        transition: none;
     }
 }
 
@@ -3942,17 +3871,6 @@ section h3 {
         transition-duration: 0.01ms !important;
     }
 
-    .raw-content-container {
-        transition: none;
-    }
-
-    .toggle-btn {
-        transition: none;
-    }
-
-    .copy-btn {
-        transition: none;
-    }
 }
 
 /* ========================================
@@ -3962,7 +3880,6 @@ section h3 {
 /* Highlightable Task Elements */
 .task-clickable {
     cursor: pointer;
-    transition: var(--transition-fast);
 }
 
 .task-clickable:hover {
@@ -4010,7 +3927,7 @@ section h3 {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 12px;
+    padding: var(--spacing-xs) 12px;
     background: var(--background-color);
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -4044,15 +3961,14 @@ section h3 {
 /* Search input field */
 .search-input {
     width: 100%;
-    padding: 6px 8px 6px 32px;
+    padding: 6px var(--spacing-xs) 6px 32px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     background: var(--background-color);
     color: var(--text-primary);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     font-family: inherit;
     outline: none;
-    transition: border-color 0.2s ease;
 }
 
 .search-input:focus {
@@ -4079,7 +3995,6 @@ section h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .search-clear-btn:hover {
@@ -4103,12 +4018,12 @@ section h3 {
     color: var(--text-primary);
     cursor: pointer;
     padding: 4px 6px;
-    border-radius: 4px;
+    border-radius: var(--border-radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
     font-size: 12px;
+    transition: var(--button-transition);
 }
 
 .search-prev-btn:hover:not(:disabled),
@@ -4166,7 +4081,6 @@ section h3 {
     box-sizing: border-box;
     /* Don't take up space in document flow */
     pointer-events: auto;
-    transition: transform 0.3s ease;
 }
 
 /* Action bar wrapper - stacks content and copy button vertically */
@@ -4182,13 +4096,12 @@ section h3 {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    padding: 8px;
+    padding: var(--spacing-xs);
     background: var(--background-color);
     border: 1px solid var(--border-color);
     border-radius: 4px;
     box-shadow: var(--shadow-md);
     min-width: 200px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* Collapsed state - slide content to the right (off-screen) */
@@ -4213,12 +4126,11 @@ section h3 {
     border: 1px solid var(--border-color);
     color: var(--text-primary);
     cursor: pointer;
-    padding: 8px;
+    padding: var(--spacing-xs);
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
     width: 32px;
     height: 32px;
     box-sizing: border-box;
@@ -4226,11 +4138,12 @@ section h3 {
 
 
 .action-bar-collapse-btn svg {
-    width: 16px;
-    height: 16px;
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
 }
 
-/* Top row: empty now (counter moved below search bar) */
+/* Top row: intentionally hidden (counter moved below search bar) */
+/* Note: Class is still used in ActionBar.js for DOM structure, but visually hidden */
 .action-bar-top-row {
     display: none; /* Hide top row since counter is now below search bar */
 }
@@ -4257,14 +4170,14 @@ section h3 {
     color: var(--text-primary);
     cursor: pointer;
     padding: 4px 6px;
-    border-radius: 4px;
+    border-radius: var(--border-radius-sm);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
     font-size: 12px;
     min-width: 24px;
     height: 24px;
+    transition: var(--button-transition);
 }
 
 .action-bar-nav-btn:hover:not(:disabled) {
@@ -4278,8 +4191,8 @@ section h3 {
 }
 
 .action-bar-nav-btn svg {
-    width: 14px;
-    height: 14px;
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
 }
 
 /* Copy button container (below collapser, outside action bar content) */
@@ -4307,12 +4220,11 @@ section h3 {
     border: 1px solid var(--border-color);
     color: var(--text-primary);
     cursor: pointer;
-    padding: 8px;
+    padding: var(--spacing-xs);
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
     width: 32px;
     height: 32px;
     box-sizing: border-box;
@@ -4327,8 +4239,8 @@ section h3 {
 }
 
 .trace-copy-button-container .copy-btn svg {
-    width: 16px;
-    height: 16px;
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
 }
 
 /* Hide text in copy button when in trace copy container */
@@ -4342,12 +4254,11 @@ section h3 {
     border: 1px solid var(--border-color);
     color: var(--text-primary);
     cursor: pointer;
-    padding: 8px;
+    padding: var(--spacing-xs);
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
     width: 32px;
     height: 32px;
     box-sizing: border-box;
@@ -4363,8 +4274,8 @@ section h3 {
 }
 
 .action-bar-copy-container .copy-btn svg {
-    width: 16px;
-    height: 16px;
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
 }
 
 /* Hide text in copy button when in action bar */
@@ -4476,27 +4387,51 @@ section h3 {
    ============================================ */
 
 /* Highlight all outline elements simultaneously - rects and part-middle standlines */
-/* These rules must be grouped together to ensure simultaneous highlighting */
+/* Target all elements at once with equal specificity to ensure simultaneous highlighting */
+.cpee-task-highlighted > rect[class*="stand"]:not([class*="without"]),
 .cpee-task-highlighted rect[class*="stand"]:not([class*="without"]),
+.cpee-task-highlighted > .part-middle > line[class*="standline"],
 .cpee-task-highlighted .part-middle line[class*="standline"],
+.cpee-task-highlighted > circle,
 .cpee-task-highlighted circle,
+.cpee-task-highlighted > polygon,
 .cpee-task-highlighted polygon,
+.cpee-task-highlighted > ellipse,
 .cpee-task-highlighted ellipse {
     stroke: var(--highlight-stroke) !important;
     stroke-width: 3px !important;
     filter: none !important;
-    transition: none !important; /* No transitions to ensure simultaneous highlighting */
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+    /* Force immediate rendering - prevents staggered application */
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    /* Ensure paint happens immediately */
+    contain: layout style paint;
 }
 
+.cpee-task-highlighted-active > rect[class*="stand"]:not([class*="without"]),
 .cpee-task-highlighted-active rect[class*="stand"]:not([class*="without"]),
+.cpee-task-highlighted-active > .part-middle > line[class*="standline"],
 .cpee-task-highlighted-active .part-middle line[class*="standline"],
+.cpee-task-highlighted-active > circle,
 .cpee-task-highlighted-active circle,
+.cpee-task-highlighted-active > polygon,
 .cpee-task-highlighted-active polygon,
+.cpee-task-highlighted-active > ellipse,
 .cpee-task-highlighted-active ellipse {
     stroke: var(--highlight-stroke) !important;
     stroke-width: 4px !important;
     filter: none !important;
-    transition: none !important; /* No transitions to ensure simultaneous highlighting */
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+    /* Force immediate rendering - prevents staggered application */
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    /* Ensure paint happens immediately */
+    contain: layout style paint;
 }
 
 /* Explicitly exclude the background fill rect (standwithout) from highlighting */
@@ -4589,11 +4524,10 @@ section h3 {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     overflow: hidden;
-    transition: box-shadow var(--transition-fast);
 }
 
 .trace-item:hover {
-    box-shadow: 0 2px 4px var(--shadow-md);
+    box-shadow: var(--shadow-md);
 }
 
 /* Trace Header */
@@ -4613,15 +4547,15 @@ section h3 {
     border: none;
     color: var(--text-primary);
     cursor: pointer;
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
     padding: var(--spacing-sm);
-    transition: transform var(--transition-fast);
     flex-shrink: 0;
     min-width: 32px;
     min-height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: var(--button-transition);
 }
 
 .trace-expand-btn:hover {
@@ -4632,8 +4566,8 @@ section h3 {
 
 .trace-expand-btn svg {
     display: block;
-    width: 16px;
-    height: 16px;
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
     fill: currentColor !important;
     stroke: none !important;
 }
@@ -4690,7 +4624,7 @@ section h3 {
 .trace-number {
     font-weight: 600;
     color: var(--text-primary);
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     flex-shrink: 0;
     font-family: var(--font-sans);
 }
@@ -4716,9 +4650,9 @@ section h3 {
 /* Trace Type Badge */
 .trace-type-badge {
     display: inline-block;
-    padding: 2px 8px;
+    padding: 2px var(--spacing-xs);
     border-radius: var(--border-radius-sm);
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -4769,9 +4703,9 @@ section h3 {
 /* Trace Length Badge */
 .trace-length-badge {
     display: inline-block;
-    padding: 2px 8px;
+    padding: 2px var(--spacing-xs);
     border-radius: var(--border-radius-sm);
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
     background: var(--background-color);
     color: var(--text-secondary);
     flex-shrink: 0;
@@ -4782,7 +4716,7 @@ section h3 {
     flex: 1;
     min-width: 0;
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -4792,7 +4726,7 @@ section h3 {
 /* Trace Length Display (on the right) */
 .trace-length-display {
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     flex-shrink: 0;
     margin-left: auto;
@@ -4803,7 +4737,6 @@ section h3 {
 .trace-details {
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--transition-medium);
     background: var(--surface-color);
 }
 
@@ -4818,7 +4751,7 @@ section h3 {
     background: var(--background-color);
     border-top: 1px solid var(--border-color);
     font-family: var(--font-mono);
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
     line-height: 1.6;
     overflow-x: auto;
 }
@@ -4894,17 +4827,16 @@ section h3 {
     align-items: center;
     gap: 4px;
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
 }
 
 /* Trace Task */
 .trace-task {
     display: inline-block;
-    padding: 4px 8px;
+    padding: 4px var(--spacing-xs);
     background: var(--background-color);
     border-radius: var(--border-radius-sm);
     color: var(--text-primary);
-    transition: background var(--transition-fast);
 }
 
 .trace-task:hover {
@@ -4954,7 +4886,7 @@ section h3 {
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: var(--spacing-sm);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     font-family: var(--font-sans);
 }
 
@@ -4962,7 +4894,7 @@ section h3 {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
     font-family: var(--font-sans);
 }
@@ -4989,7 +4921,7 @@ section h3 {
 
 /* Analysis Section Title */
 .analysis-section-title {
-    font-size: 1.125rem;
+    font-size: var(--font-size-md);
     font-weight: 600;
     color: var(--text-primary);
     margin: 0;
@@ -5020,7 +4952,7 @@ section h3 {
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius-sm);
     font-weight: 500;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
 }
 
 .status-indicator.status-pass {
@@ -5031,7 +4963,7 @@ section h3 {
     border-radius: var(--border-radius-sm);
     border: 1px solid #6ee7b7; /* --alert-success-border from line 61 */
     font-weight: 600;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     flex-shrink: 0;
     font-family: var(--font-sans);
     width: fit-content;
@@ -5045,7 +4977,7 @@ section h3 {
     border-radius: var(--border-radius-sm);
     border: 1px solid var(--alert-danger-border);
     font-weight: 600;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     flex-shrink: 0;
     font-family: var(--font-sans);
     width: fit-content;
@@ -5073,7 +5005,7 @@ section h3 {
     padding: 0.125rem 0.5rem;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: var(--border-radius-sm);
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
 }
 
@@ -5095,7 +5027,7 @@ section h3 {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
 }
 
 .stat-label {
@@ -5119,9 +5051,6 @@ section h3 {
     overflow: hidden;
 }
 
-.analysis-collapsible-section {
-    transition: box-shadow 0.2s ease;
-}
 
 .analysis-collapsible-section:hover {
     box-shadow: var(--shadow-md);
@@ -5136,7 +5065,6 @@ section h3 {
     user-select: none;
     background-color: var(--surface-color);
     border-bottom: 1px solid var(--border-color);
-    transition: background-color 0.2s ease;
 }
 
 .analysis-section-header:hover {
@@ -5154,7 +5082,6 @@ section h3 {
     width: 20px;
     height: 20px;
     color: var(--text-secondary);
-    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .analysis-section-header:hover .section-toggle-icon {
@@ -5166,15 +5093,17 @@ section h3 {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
-    transition: max-height 0.3s ease, opacity 0.3s ease;
+    text-align: left;
+    overflow: hidden;
 }
 
 .analysis-collapsible-section.collapsed .analysis-section-content {
-    max-height: 0;
-    overflow: hidden;
-    padding-top: 0;
-    padding-bottom: 0;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
     opacity: 0;
+    visibility: hidden;
 }
 
 /* Analysis Container Styles */
@@ -5205,15 +5134,12 @@ section h3 {
     flex-shrink: 0;
 }
 
-/* Analysis Section Content - Initial Collapsed State */
-.analysis-section-content {
-    text-align: left;
-    overflow: hidden;
-}
-
 .analysis-section-content.collapsed {
-    max-height: 0;
-    padding: 0 var(--spacing-md);
+    max-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    overflow: hidden !important;
+    visibility: hidden;
 }
 
 /* Analysis Property Lists */
@@ -5238,7 +5164,7 @@ section h3 {
     margin-top: 4px;
 }
 
-/* Reachability Color Coding (Phase 35.11) */
+/* Reachability Color Coding  */
 .reachability-reachable {
     color: #065f46; /* Green - nodes that are reachable/useful */
 }
@@ -5251,7 +5177,7 @@ section h3 {
     color: #d97706; /* Orange/Yellow - nodes that are dead-ends */
 }
 
-/* Reachability Display Components (Phase 35.13) */
+/* Reachability Display Components  */
 .reachability-display {
     width: 100%;
 }
@@ -5261,7 +5187,6 @@ section h3 {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-lg);
-    transition: max-height 0.3s ease, opacity 0.3s ease;
     overflow: hidden;
 }
 
@@ -5286,7 +5211,6 @@ section h3 {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-sm);
-    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .reachability-subsection:hover {
@@ -5294,7 +5218,7 @@ section h3 {
 }
 
 .reachability-subsection-title {
-    font-size: 1rem;
+    font-size: var(--font-size-md);
     font-weight: 600;
     color: var(--text-primary);
     margin: 0 0 var(--spacing-sm) 0;
@@ -5339,13 +5263,12 @@ section h3 {
 
 .node-item {
     display: inline-block;
-    padding: 2px 8px;
+    padding: 2px var(--spacing-xs);
     border-radius: var(--border-radius-sm);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     font-family: var(--font-mono);
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .node-item.node-useful {
@@ -5375,14 +5298,14 @@ section h3 {
 .node-item-more {
     color: var(--text-secondary);
     font-style: italic;
-    font-size: 0.875rem;
-    padding: 2px 8px;
+    font-size: var(--font-size-sm);
+    padding: 2px var(--spacing-xs);
 }
 
 .node-list-compact {
     display: inline;
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--text-primary);
 }
 
@@ -5398,7 +5321,6 @@ section h3 {
     gap: var(--spacing-xs);
     padding: var(--spacing-sm);
     border-radius: var(--border-radius-sm);
-    transition: background-color 0.2s ease;
 }
 
 .node-classification-item:hover {
@@ -5432,7 +5354,7 @@ section h3 {
 .node-classification-nodes {
     margin-left: 28px; /* Align with label after icon */
     margin-top: var(--spacing-xs);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
 }
 
 /* Reachability Metrics */
@@ -5471,13 +5393,13 @@ section h3 {
 .reachability-stat-label {
     font-weight: 500;
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
 }
 
 .reachability-stat-value {
     font-weight: 600;
     color: var(--text-primary);
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
 }
 
 .reachability-stat-reachable .reachability-stat-value {
@@ -5507,7 +5429,7 @@ section h3 {
 }
 
 .reachability-metrics-title {
-    font-size: 1.125rem;
+    font-size: var(--font-size-md);
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: var(--spacing-sm);
@@ -5556,7 +5478,7 @@ section h3 {
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--border-radius-sm);
     background: var(--surface-color);
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
 }
 
 .scc-stat-cyclic {
@@ -5589,7 +5511,6 @@ section h3 {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-sm);
     background: var(--surface-color);
-    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .scc-component-item:hover {
@@ -5632,7 +5553,7 @@ section h3 {
 
 .scc-component-nodes {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
     padding: var(--spacing-sm);
     background: var(--surface-color);
@@ -5653,7 +5574,7 @@ section h3 {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-sm);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
 }
 
@@ -5710,7 +5631,7 @@ section h3 {
     }
 }
 
-/* Dark Theme Support for Reachability (Phase 35.13) */
+/* Dark Theme Support for Reachability  */
 [data-theme="dark"] .reachability-subsection {
     background: var(--surface-color);
     border-color: var(--border-color);
@@ -5792,7 +5713,6 @@ section h3 {
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius-sm);
     border: 1px solid transparent;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .property-indicator.property-pass {
@@ -5828,12 +5748,12 @@ section h3 {
 
 .property-name {
     font-weight: 600;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     color: var(--text-primary);
 }
 
 .property-description {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
     line-height: 1.5;
 }
@@ -5855,7 +5775,6 @@ section h3 {
     cursor: pointer;
     user-select: none;
     background-color: var(--hover-bg);
-    transition: background-color 0.2s ease;
 }
 
 .details-section-header:hover {
@@ -5868,7 +5787,7 @@ section h3 {
 }
 
 .details-section-title {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     font-weight: 600;
     color: var(--text-primary);
     margin: 0;
@@ -5880,7 +5799,6 @@ section h3 {
     width: 16px;
     height: 16px;
     color: var(--text-secondary);
-    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .details-section-header:hover .details-toggle-icon {
@@ -5890,7 +5808,6 @@ section h3 {
 .details-section-content {
     padding: var(--spacing-sm) var(--spacing-md);
     border-top: 1px solid var(--border-color);
-    transition: max-height 0.3s ease, opacity 0.3s ease;
     overflow: hidden;
 }
 
@@ -5906,7 +5823,7 @@ section h3 {
 .incomplete-traces-list,
 .unbounded-places-list,
 .max-tokens-info {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--text-primary);
     line-height: 1.6;
     padding: var(--spacing-sm) 0;
@@ -5940,11 +5857,11 @@ section h3 {
 .issue-item {
     padding: var(--spacing-sm) var(--spacing-md);
     margin-bottom: var(--spacing-xs);
-    border-left: 3px solid var(--alert-danger-border);
-    background-color: var(--alert-danger-bg);
-    color: var(--alert-danger-text);
+    border-left: 3px solid var(--border-color);
+    background-color: var(--surface-color);
+    color: var(--text-primary);
     border-radius: var(--border-radius-sm);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     line-height: 1.5;
 }
 
@@ -5988,7 +5905,7 @@ section h3 {
 
 .no-verification-text h3,
 .error-text h3 {
-    font-size: 1.125rem;
+    font-size: var(--font-size-md);
     font-weight: 600;
     color: var(--text-primary);
     margin: 0 0 var(--spacing-sm) 0;
@@ -5996,7 +5913,7 @@ section h3 {
 
 .no-verification-text p,
 .error-text p {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
     margin: var(--spacing-xs) 0;
     line-height: 1.6;
@@ -6021,51 +5938,18 @@ section h3 {
 .toggle-btn-analysis.active {
     background: var(--surface-color);
     color: var(--primary-color);
-    box-shadow: 0 1px 2px var(--hover-bg-dark);
+    box-shadow: var(--shadow-md);
 }
 
 .toggle-btn-analysis svg {
     display: block;
-    width: 25px;
-    height: 25px;
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
     fill: currentColor;
     stroke: currentColor;
 }
 
-/* CPEE Section Analysis Button */
-.cpee-section .toggle-btn-analysis,
-#input-cpee .toggle-btn-analysis,
-#output-cpee .toggle-btn-analysis {
-    color: var(--text-primary) !important;
-}
-
-.cpee-section .toggle-btn-analysis.active,
-#input-cpee .toggle-btn-analysis.active,
-#output-cpee .toggle-btn-analysis.active {
-    color: var(--primary-color) !important;
-}
-
-.cpee-section .toggle-btn-analysis svg,
-#input-cpee .toggle-btn-analysis svg,
-#output-cpee .toggle-btn-analysis svg {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-    color: inherit !important;
-}
-
-.cpee-section .toggle-btn-analysis svg path,
-.cpee-section .toggle-btn-analysis svg g,
-.cpee-section .toggle-btn-analysis svg *,
-#input-cpee .toggle-btn-analysis svg path,
-#input-cpee .toggle-btn-analysis svg g,
-#input-cpee .toggle-btn-analysis svg *,
-#output-cpee .toggle-btn-analysis svg path,
-#output-cpee .toggle-btn-analysis svg g,
-#output-cpee .toggle-btn-analysis svg * {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-    color: inherit !important;
-}
+/* CPEE Section Analysis Button - Now consolidated with base toggle button rules above */
 
 /* Dark Theme Support for Analysis */
 [data-theme="dark"] .analysis-content {
@@ -6104,9 +5988,9 @@ section h3 {
 }
 
 [data-theme="dark"] .issue-item {
-    background-color: rgba(157, 74, 74, 0.15);
-    color: var(--alert-danger-text);
-    border-left-color: var(--alert-danger-border);
+    background-color: var(--surface-color);
+    color: var(--text-primary);
+    border-left-color: var(--border-color);
 }
 
 [data-theme="dark"] .issue-item.issue-none {
@@ -6115,45 +5999,7 @@ section h3 {
     border-left-color: var(--alert-success-border);
 }
 
-[data-theme="dark"] .cpee-section .toggle-btn-analysis,
-[data-theme="dark"] #input-cpee .toggle-btn-analysis,
-[data-theme="dark"] #output-cpee .toggle-btn-analysis {
-    color: var(--text-primary) !important;
-}
-
-[data-theme="dark"] .cpee-section .toggle-btn-analysis.active,
-[data-theme="dark"] #input-cpee .toggle-btn-analysis.active,
-[data-theme="dark"] #output-cpee .toggle-btn-analysis.active {
-    color: var(--primary-color) !important;
-}
-
-[data-theme="dark"] .cpee-section .toggle-btn-analysis:hover,
-[data-theme="dark"] #input-cpee .toggle-btn-analysis:hover,
-[data-theme="dark"] #output-cpee .toggle-btn-analysis:hover {
-    color: var(--text-primary) !important;
-}
-
-[data-theme="dark"] .cpee-section .toggle-btn-analysis svg,
-[data-theme="dark"] #input-cpee .toggle-btn-analysis svg,
-[data-theme="dark"] #output-cpee .toggle-btn-analysis svg {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-    color: inherit !important;
-}
-
-[data-theme="dark"] .cpee-section .toggle-btn-analysis svg path,
-[data-theme="dark"] .cpee-section .toggle-btn-analysis svg g,
-[data-theme="dark"] .cpee-section .toggle-btn-analysis svg *,
-[data-theme="dark"] #input-cpee .toggle-btn-analysis svg path,
-[data-theme="dark"] #input-cpee .toggle-btn-analysis svg g,
-[data-theme="dark"] #input-cpee .toggle-btn-analysis svg *,
-[data-theme="dark"] #output-cpee .toggle-btn-analysis svg path,
-[data-theme="dark"] #output-cpee .toggle-btn-analysis svg g,
-[data-theme="dark"] #output-cpee .toggle-btn-analysis svg * {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-    color: inherit !important;
-}
+/* CPEE toggle button analysis - dark mode now handled by consolidated rules above */
 
 /* Responsive Design for Analysis View */
 @media (max-width: 768px) {
@@ -6205,12 +6051,12 @@ section h3 {
 
 .trace-error-title {
     font-weight: 600;
-    font-size: 1rem;
+    font-size: var(--font-size-md);
     margin-bottom: var(--spacing-sm);
     color: var(--error-text);
 }
 
 .trace-error-text {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--text-secondary);
 }

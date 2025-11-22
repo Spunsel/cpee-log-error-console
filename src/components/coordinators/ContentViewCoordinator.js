@@ -105,7 +105,7 @@ export class ContentViewCoordinator {
             // Traces are kept in calculatedTraces map for comparison purposes
         });
         
-        // Listen for step changes to handle analysis view updates (Phase 34.12)
+        // Listen for step changes to handle analysis view updates 
         this.eventBus.on('stepViewer:stepChanged', (data) => {
             const { step } = data;
             if (step) {
@@ -407,10 +407,10 @@ export class ContentViewCoordinator {
         // Clear comparison info boxes when switching to a different step
         this.traceComparisonCoordinator.clearAllInfoBoxes();
         
-        // Clear analysis displays and cache when switching to a different step (Phase 34.12)
+        // Clear analysis displays and cache when switching to a different step 
         this.analysisContentRenderer.clearAll();
         
-        // Clear reachability results when navigating to new step (Phase 35.21)
+        // Clear reachability results when navigating to new step 
         if (step) {
             step.clearAllReachabilityResults();
             console.log('[ContentViewCoordinator] Cleared reachability results for new step');
@@ -521,7 +521,7 @@ export class ContentViewCoordinator {
                     // Don't fail trace calculation if verification fails
                 }
                 
-                // Perform reachability analysis (Phase 35.10, 35.21)
+                // Perform reachability analysis (, 35.21)
                 try {
                     const format = section.isCPEE ? 'cpee' : 'mermaid';
                     console.log(`[ContentViewCoordinator] Starting reachability analysis for ${section.id}...`);
@@ -545,7 +545,7 @@ export class ContentViewCoordinator {
                         console.warn(`[ContentViewCoordinator] Reachability analysis failed for ${section.id}: ${reachabilityResult.error || 'Unknown error'}`);
                     }
                     
-                    // Emit reachability analysis completion event (Phase 35.20)
+                    // Emit reachability analysis completion event 
                     this.eventBus.emit('reachability:analyzed', {
                         sectionId: section.id,
                         stepNumber: step.stepNumber || 'unknown',

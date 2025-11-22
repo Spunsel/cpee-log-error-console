@@ -96,7 +96,7 @@ export class TraceCalculationService {
                                 
                                 console.log(`[TraceCalculationService] Verification complete for ${sectionId}: sound=${verificationResult.sound}, bounded=${verificationResult.bounded}`);
                                 
-                                // Emit verification completion event (Phase 34.11)
+                                // Emit verification completion event 
                                 this.eventBus.emit('verification:complete', {
                                     sectionId: sectionId,
                                     stepNumber: cpeeStep.stepNumber || 'unknown',
@@ -110,7 +110,7 @@ export class TraceCalculationService {
                     // Don't fail trace calculation if verification fails
                 }
                 
-                // Perform reachability analysis (Phase 35.10)
+                // Perform reachability analysis 
                 try {
                     console.log(`[TraceCalculationService] Starting reachability analysis for ${sectionId}...`);
                     const section = TraceCalculationService.SECTION_CONFIG[sectionId];
@@ -165,7 +165,7 @@ export class TraceCalculationService {
                                     console.warn(`[TraceCalculationService] Reachability analysis failed for ${sectionId}: ${reachabilityResult.error || 'Unknown error'}`);
                                 }
                                 
-                                // Emit reachability analysis completion event (Phase 35.20)
+                                // Emit reachability analysis completion event 
                                 if (this.eventBus) {
                                     this.eventBus.emit('reachability:analyzed', {
                                         sectionId: sectionId,
@@ -175,7 +175,7 @@ export class TraceCalculationService {
                                     console.log(`[TraceCalculationService] Emitted reachability:analyzed event for ${sectionId} (Step ${cpeeStep.stepNumber || 'unknown'})`);
                                 }
                                 
-                                // State Management (Phase 35.19):
+                                // State Management :
                                 // Reachability results are stored in the step model (cpeeStep.reachabilityResults)
                                 // Step data is automatically persisted as part of instance data, so no explicit
                                 // state persistence is needed. The results are available when the step is loaded.

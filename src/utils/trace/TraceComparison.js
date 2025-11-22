@@ -174,10 +174,6 @@ function compareMermaidWithCPEE(mermaidSeq, cpeeTrace) {
  * }
  */
 export function compareTraces(cpeeTraces, mermaidTraces) {
-    console.log('[TraceComparison] Starting trace comparison');
-    console.log('[TraceComparison] CPEE traces:', cpeeTraces?.length || 0);
-    console.log('[TraceComparison] Mermaid traces:', mermaidTraces?.length || 0);
-
     // Handle null/undefined inputs
     const cpee = Array.isArray(cpeeTraces) ? cpeeTraces : [];
     const mermaid = Array.isArray(mermaidTraces) ? mermaidTraces : [];
@@ -185,9 +181,6 @@ export function compareTraces(cpeeTraces, mermaidTraces) {
     // Check trace count match
     const traceCountMatch = cpee.length === mermaid.length;
     const totalCount = Math.max(cpee.length, mermaid.length);
-
-    console.log('[TraceComparison] Trace count match:', traceCountMatch);
-    console.log('[TraceComparison] Total traces:', totalCount);
 
     // Even if counts don't match, we still compare traces to find matches
     // Unmatched traces will be marked as unique
@@ -205,9 +198,7 @@ export function compareTraces(cpeeTraces, mermaidTraces) {
     for (let i = 0; i < cpee.length; i++) {
         const cpeeTrace = cpee[i];
         const cpeeSeq = extractCPEESequence(cpeeTrace);
-        
-        console.log(`[TraceComparison] CPEE trace ${i} sequence:`, cpeeSeq);
-        
+                
         // Find matching Mermaid trace (order-independent)
         let matchedMermaidIndex = -1;
         let matchedMermaidSeq = null;
@@ -245,10 +236,8 @@ export function compareTraces(cpeeTraces, mermaidTraces) {
 
         if (sequencesMatch) {
             matchCount++;
-            console.log(`[TraceComparison] CPEE trace ${i} matches Mermaid trace ${matchedMermaidIndex}: ✓ Match`);
         } else {
             discrepancies.push(i);
-            console.log(`[TraceComparison] CPEE trace ${i}: ✗ No matching Mermaid trace found`);
         }
     }
     
@@ -276,7 +265,6 @@ export function compareTraces(cpeeTraces, mermaidTraces) {
                 traceIndex: j,
                 sequence: mermaidSeq
             });
-            console.log(`[TraceComparison] Mermaid trace ${j} has no matching CPEE trace`);
         }
     }
 
@@ -296,10 +284,6 @@ export function compareTraces(cpeeTraces, mermaidTraces) {
         uniqueMermaidTraces: uniqueMermaidTraces,
         problematicCount: problematicCount
     };
-
-    console.log('[TraceComparison] Comparison result:', result);
-    console.log(`[TraceComparison] Matches: ${matchCount}/${totalCount}, Discrepancies: ${discrepancies.length}`);
-
     return result;
 }
 

@@ -47,7 +47,6 @@ export class HighlightingService {
         }
 
         const elements = Array.from(elementList);
-        console.log(`HighlightingService: Highlighting ${elements.length} element(s), isActive=${isActive}`);
 
         elements.forEach(element => {
             if (!element) {
@@ -67,8 +66,6 @@ export class HighlightingService {
         if (!svgElement) {
             return;
         }
-
-        console.log(`HighlightingService: Highlighting CPEE task element, isActive=${isActive}`);
         
         const taskGroup = this.findSVGGroup(svgElement, ['task-group', 'element', 'primitive']);
         if (taskGroup) {
@@ -86,8 +83,6 @@ export class HighlightingService {
         if (!svgElement) {
             return;
         }
-
-        console.log(`HighlightingService: Highlighting Mermaid node element, isActive=${isActive}`);
         
         const nodeGroup = this.findSVGGroup(svgElement, ['node']);
         if (nodeGroup) {
@@ -106,7 +101,6 @@ export class HighlightingService {
         }
 
         const elements = Array.from(elementList);
-        console.log(`HighlightingService: Setting ${elements.length} element(s) as clickable`);
 
         elements.forEach(element => {
             if (!element) {
@@ -122,8 +116,6 @@ export class HighlightingService {
      * Clears all highlights from all tracked elements
      */
     clearAllHighlights() {
-        console.log(`HighlightingService: Clearing highlights from ${this.highlightedElements.size} element(s)`);
-
         this.highlightedElements.forEach(element => {
             this.clearElementHighlight(element);
         });
@@ -138,8 +130,6 @@ export class HighlightingService {
      * Clears all clickable states
      */
     clearAllClickable() {
-        console.log(`HighlightingService: Clearing clickable state from ${this.clickableElements.size} element(s)`);
-
         this.clickableElements.forEach(element => {
             element.classList.remove('task-clickable');
         });
@@ -340,7 +330,6 @@ export class HighlightingService {
      */
     destroy() {
         this.reset();
-        console.log('HighlightingService: Destroyed');
     }
 }
 

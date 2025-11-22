@@ -37,7 +37,7 @@ export class CPEEStep {
         // Task mapping storage
         this.taskMapping = null; // Will be NodeMapping instance from NodeMappingService
         
-        // Trace calculation storage (Phase 31.11)
+        // Trace calculation storage 
         // Structure: { 'input-cpee': Trace[], 'input-intermediate': Trace[], 'output-intermediate': Trace[], 'output-cpee': Trace[] }
         this.traces = {
             'input-cpee': null,
@@ -46,7 +46,7 @@ export class CPEEStep {
             'output-cpee': null
         };
         
-        // Trace comparison results storage (Phase 33.11)
+        // Trace comparison results storage 
         // Structure: { input: ComparisonResult|null, output: ComparisonResult|null }
         this.comparisonResults = {
             input: null,
@@ -62,7 +62,7 @@ export class CPEEStep {
             'output-cpee': null
         };
         
-        // Reachability analysis results storage (Phase 35.10)
+        // Reachability analysis results storage 
         // Structure: { 'input-cpee': ReachabilityResult|null, 'input-intermediate': ReachabilityResult|null, 'output-intermediate': ReachabilityResult|null, 'output-cpee': ReachabilityResult|null }
         this.reachabilityResults = {
             'input-cpee': null,
@@ -144,7 +144,7 @@ export class CPEEStep {
             changeUuid: this.changeUuid,
             timestamp: this.timestamp,
             content: { ...this.content },
-            // Phase 21.3: Include raw content in serialization
+            //  Include raw content in serialization
             rawContent: {
                 inputMermaidRaw: this.rawContent.inputMermaidRaw.toObject(),
                 inputCpeeTreeRaw: this.rawContent.inputCpeeTreeRaw.toObject(),
@@ -152,11 +152,11 @@ export class CPEEStep {
                 outputMermaidRaw: this.rawContent.outputMermaidRaw.toObject(),
                 outputCpeeTreeRaw: this.rawContent.outputCpeeTreeRaw.toObject()
             },
-            // Phase 22.3: Include task mapping in serialization
+            //  Include task mapping in serialization
             taskMapping: this.taskMapping ? this.taskMapping.toObject() : null,
-            // Phase 31.11: Include traces in serialization (store as null for now, traces are calculated on-demand)
+            //  Include traces in serialization (store as null for now, traces are calculated on-demand)
             traces: null,
-            // Phase 33.11: Include comparison results in serialization (store as null for now, results are calculated on-demand)
+            //  Include comparison results in serialization (store as null for now, results are calculated on-demand)
             comparisonResults: null
         };
     }
@@ -174,7 +174,7 @@ export class CPEEStep {
             obj.content
         );
         
-        // Phase 21.3: Restore raw content from serialization
+        //  Restore raw content from serialization
         if (obj.rawContent) {
             if (obj.rawContent.inputMermaidRaw) {
                 step.rawContent.inputMermaidRaw = MermaidRaw.fromObject(obj.rawContent.inputMermaidRaw);
@@ -193,7 +193,7 @@ export class CPEEStep {
             }
         }
         
-        // Phase 22.3: Restore task mapping from serialization
+        //  Restore task mapping from serialization
         if (obj.taskMapping) {
             // Import NodeMapping class dynamically to avoid circular dependencies
             const module = await import('../services/NodeMappingService.js');
@@ -475,7 +475,7 @@ export class CPEEStep {
     }
 
     // ===================================================================
-    // Trace Calculation Methods (Phase 31.11)
+    // Trace Calculation Methods 
     // ===================================================================
 
     /**
@@ -655,7 +655,7 @@ export class CPEEStep {
     }
 
     // ===================================================================
-    // Reachability Analysis Methods (Phase 35.10)
+    // Reachability Analysis Methods 
     // ===================================================================
 
     /**
@@ -735,7 +735,7 @@ export class CPEEStep {
     }
 
     // ===================================================================
-    // Trace Comparison Methods (Phase 33.11)
+    // Trace Comparison Methods 
     // ===================================================================
 
     /**
