@@ -6,6 +6,7 @@
 import { CPEEDebugConsole } from './core/CPEEDebugConsole.js';
 import { ICONS } from './assets/icons.js';
 import { stateManager } from './core/StateManager.js';
+import { serviceFactory } from './core/ServiceFactory.js';
 
 // Apply dark mode immediately to prevent flash of wrong theme
 // Use StateManager to load persisted dark mode preference
@@ -27,11 +28,21 @@ import { stateManager } from './core/StateManager.js';
 })();
 
 // Load the app icon
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Load app icon into header
     const appIconElement = document.getElementById('app-icon');
     if (appIconElement) {
         appIconElement.innerHTML = ICONS.APP;
+    }
+
+    // Ensure services are initialized before creating CPEEDebugConsole
+    // This prevents race conditions where services are accessed before they're loaded
+    try {
+        await serviceFactory.initialize();
+        console.log('[App] Services initialized, starting application');
+    } catch (error) {
+        console.error('[App] Failed to initialize services:', error);
+        // Continue anyway - services will be loaded on-demand if needed
     }
 
     // Initialize the application
