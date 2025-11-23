@@ -5,6 +5,7 @@
  */
 
 import { MermaidParser } from '../utils/content/MermaidParser.js';
+import { CPEEParser } from '../utils/content/CPEEParser.js';
 import { verifySoundnessAndBoundedness } from '../utils/trace/SoundnessBoundednessVerifier.js';
 import { analyzeReachability } from '../utils/trace/ReachabilityAnalyzer.js';
 import { eventBus as defaultEventBus } from '../core/EventBus.js';
@@ -125,8 +126,17 @@ export class TraceCalculationService {
                             if (!contentString || contentString.trim() === '') {
                                 console.warn(`[TraceCalculationService] Empty content string for ${sectionId}, skipping reachability analysis`);
                             } else {
-                                // Preprocess Mermaid code before reachability analysis (for consistency with ContentViewCoordinator)
-                                if (!section.isCPEE) {
+                                // Preprocess content before reachability analysis (for consistency with ContentViewCoordinator)
+                                if (section.isCPEE) {
+                                    try {
+                                        const preprocessedResult = CPEEParser.cleanAndValidate(contentString, true);
+                                        contentString = preprocessedResult.xml;
+                                        console.log(`[TraceCalculationService] Preprocessed CPEE XML for reachability analysis in ${sectionId}`);
+                                    } catch (error) {
+                                        console.warn(`[TraceCalculationService] Failed to preprocess CPEE XML for ${sectionId}, using original:`, error);
+                                        // Continue with original content if preprocessing fails
+                                    }
+                                } else {
                                     try {
                                         const preprocessedResult = MermaidParser.cleanAndValidate(contentString, true);
                                         contentString = preprocessedResult.code;
@@ -223,8 +233,17 @@ export class TraceCalculationService {
                 return [];
             }
             
-            // Preprocess Mermaid code before calculating traces
-            if (!section.isCPEE) {
+            // Preprocess content before calculating traces
+            if (section.isCPEE) {
+                try {
+                    const preprocessedResult = CPEEParser.cleanAndValidate(contentString, true);
+                    contentString = preprocessedResult.xml;
+                    console.log(`[TraceCalculationService] Preprocessed CPEE XML for ${sectionId}`);
+                } catch (error) {
+                    console.warn(`[TraceCalculationService] Failed to preprocess CPEE XML for ${sectionId}, using original:`, error);
+                    // Continue with original content if preprocessing fails
+                }
+            } else {
                 try {
                     const preprocessedResult = MermaidParser.cleanAndValidate(contentString, true);
                     contentString = preprocessedResult.code;

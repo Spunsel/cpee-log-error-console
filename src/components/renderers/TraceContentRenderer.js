@@ -167,8 +167,16 @@ export class TraceContentRenderer {
                 return this.renderNoTracesMessage(container);
             }
 
-            // Preprocess Mermaid code before calculating traces
-            if (isMermaid && this.contentProcessingService) {
+            // Preprocess content before calculating traces
+            if (isCPEE && this.contentProcessingService) {
+                try {
+                    const preprocessedResult = this.contentProcessingService.processAndValidateCPEE(contentString, true);
+                    contentString = preprocessedResult.xml;
+                } catch (error) {
+                    console.warn(`[TraceContentRenderer] Failed to preprocess CPEE XML for ${sectionId}, using original:`, error);
+                    // Continue with original content if preprocessing fails
+                }
+            } else if (isMermaid && this.contentProcessingService) {
                 try {
                     const preprocessedResult = this.contentProcessingService.processAndValidateMermaid(contentString, true);
                     contentString = preprocessedResult.code;

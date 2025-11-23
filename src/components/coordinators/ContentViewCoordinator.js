@@ -470,8 +470,15 @@ export class ContentViewCoordinator {
                     return;
                 }
                 
-                // Preprocess Mermaid code if needed
-                if (!section.isCPEE && this.contentProcessingService) {
+                // Preprocess content if needed
+                if (section.isCPEE && this.contentProcessingService) {
+                    try {
+                        const preprocessedResult = this.contentProcessingService.processAndValidateCPEE(contentString, true);
+                        contentString = preprocessedResult.xml;
+                    } catch (error) {
+                        console.warn(`[ContentViewCoordinator] Failed to preprocess CPEE XML for ${section.id}, using original:`, error);
+                    }
+                } else if (!section.isCPEE && this.contentProcessingService) {
                     try {
                         const preprocessedResult = this.contentProcessingService.processAndValidateMermaid(contentString, true);
                         contentString = preprocessedResult.code;

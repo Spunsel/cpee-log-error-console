@@ -10,6 +10,7 @@
  */
 
 import { Trace } from '../../models/Trace.js';
+import { CPEEParser } from '../content/CPEEParser.js';
 
 // Global constants
 const MAX_LOOP_ITERATIONS = 1;
@@ -551,12 +552,19 @@ export class CPEETraceCalculator {
         const timeoutChecker = new TimeoutChecker(TIMEOUT_MS);
         
         try {
-            // Fix common XML issues
-            const fixedXml = this.fixXMLIssues(xmlString);
+            // Preprocess CPEE XML before calculating traces
+            let preprocessedXml = xmlString;
+            try {
+                const preprocessResult = CPEEParser.cleanAndValidate(xmlString, true);
+                preprocessedXml = preprocessResult.xml;
+            } catch (error) {
+                console.warn('[CPEETraceCalculator] Failed to preprocess CPEE XML, using original:', error);
+                // Fallback to original XML if preprocessing fails
+            }
             
             // Parse XML
             const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(fixedXml, 'text/xml');
+            const xmlDoc = parser.parseFromString(preprocessedXml, 'text/xml');
             
             // Check for parsing errors
             const parserError = xmlDoc.querySelector('parsererror');

@@ -12,6 +12,50 @@
 export class CPEEParser {
     
     /**
+     * Preprocess CPEE XML syntax to fix common issues
+     * @param {string} xml - Raw CPEE XML code
+     * @returns {{xml: string, appliedSteps: Array<{description: string, lineNumbers: Array<number>}>}} Preprocessed XML and list of applied steps with line numbers
+     */
+    static preprocessSyntax(xml) {
+        let processedXml = xml;
+        const appliedSteps = [];
+        
+        // Helper function to find line numbers where a regex matches
+        const findLineNumbers = (text, regex) => {
+            const lines = text.split('\n');
+            const lineNumbers = [];
+            // Create a fresh regex for each search to avoid state issues
+            const testRegex = new RegExp(regex.source, regex.flags);
+            lines.forEach((line, index) => {
+                if (testRegex.test(line)) {
+                    lineNumbers.push(index + 1); // 1-based line numbers
+                }
+            });
+            return lineNumbers;
+        };
+        
+        // Fix: Replace unescaped & with &amp;
+        // Match & that is not part of an XML entity
+        // Valid entities: &amp;, &lt;, &gt;, &quot;, &apos;, &#...; (character references)
+        // Pattern: & not followed by valid entity pattern (# or letters/digits ending with ;)
+        const beforeFix = processedXml;
+        const fixLineNumbers = findLineNumbers(processedXml, /&(?![#a-zA-Z0-9]+;)/g);
+        // Replace & with &amp; but only if it's not already part of an entity
+        processedXml = processedXml.replace(/&(?![#a-zA-Z0-9]+;)/g, '&amp;');
+        if (beforeFix !== processedXml) {
+            appliedSteps.push({
+                description: 'Replaced unescaped & with &amp;',
+                lineNumbers: Array.from(new Set(fixLineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
+        return {
+            xml: processedXml,
+            appliedSteps: appliedSteps
+        };
+    }
+    
+    /**
      * Parse XML string to DOM document
      * @param {string} xmlString - XML string to parse
      * @returns {Document} Parsed XML document
@@ -193,6 +237,102 @@ export class CPEEParser {
         }
         
         return result;
+    }
+
+    /**
+     * Clean and validate CPEE XML with optional preprocessing
+     * Similar to MermaidParser.cleanAndValidate but for CPEE XML
+     * 
+     * @param {string} xml - Raw CPEE XML string
+     * @param {boolean} preprocess - Whether to apply syntax preprocessing (default: true)
+     * @returns {{xml: string, appliedSteps: Array}} Cleaned and validated XML with preprocessing steps
+     * @throws {Error} If XML is invalid
+     */
+    static cleanAndValidate(xml, preprocess = true) {
+        if (!xml || typeof xml !== 'string') {
+            const error = new Error('Invalid CPEE XML input');
+            error.name = 'CPEEValidationError';
+            error.validationType = 'invalidInput';
+            error.details = 'Input must be a non-empty string';
+            throw error;
+        }
+
+        // Remove HTML comments and extra whitespace
+        let cleanedXml = xml.replace(/<!--[\s\S]*?-->/g, '').trim();
+        
+        // Remove leading whitespace
+        cleanedXml = cleanedXml.replace(/^\s+/, '');
+
+        // Extract XML from markdown code blocks if present
+        const xmlBlockMatch = cleanedXml.match(/```xml\s*\n([\s\S]*?)\n\s*```/);
+        if (xmlBlockMatch) {
+            cleanedXml = xmlBlockMatch[1].trim();
+        }
+
+        // Remove any remaining markdown code block syntax
+        cleanedXml = cleanedXml.replace(/^```.*$/gm, '').trim();
+        cleanedXml = cleanedXml.replace(/```\s*$/gm, '').trim();
+
+        // Normalize line endings
+        cleanedXml = cleanedXml.replace(/\r\n/g, '\n');
+
+        let appliedSteps = [];
+
+        // Apply preprocessing (only if preprocess is true)
+        if (preprocess) {
+            const preprocessResult = this.preprocessSyntax(cleanedXml);
+            cleanedXml = preprocessResult.xml;
+            appliedSteps = preprocessResult.appliedSteps;
+        }
+
+        if (cleanedXml.length === 0) {
+            const error = new Error('Empty CPEE XML after cleaning');
+            error.name = 'CPEEValidationError';
+            error.validationType = 'emptyCode';
+            error.details = 'XML became empty after cleaning and preprocessing';
+            error.xml = xml; // Store original XML for context
+            throw error;
+        }
+
+        // Validate basic XML structure
+        if (!cleanedXml.includes('<description')) {
+            const error = new Error('Invalid CPEE XML - missing <description> element');
+            error.name = 'CPEEValidationError';
+            error.validationType = 'missingDescription';
+            error.xml = cleanedXml;
+            throw error;
+        }
+
+        // Try to parse the XML to validate structure
+        try {
+            const xmlDoc = this.parseXML(cleanedXml);
+            
+            // Check for required CPEE elements
+            const descElement = xmlDoc.querySelector('description');
+            if (!descElement) {
+                const error = new Error('Missing required <description> element');
+                error.name = 'CPEEValidationError';
+                error.validationType = 'missingDescription';
+                error.xml = cleanedXml;
+                throw error;
+            }
+        } catch (error) {
+            // If parsing fails, throw validation error
+            if (error.name === 'CPEEValidationError') {
+                throw error;
+            }
+            const validationError = new Error('Invalid XML structure - ' + error.message);
+            validationError.name = 'CPEEValidationError';
+            validationError.validationType = 'parseError';
+            validationError.xml = cleanedXml;
+            throw validationError;
+        }
+        
+        // Return object with XML and preprocessing steps
+        return {
+            xml: cleanedXml,
+            appliedSteps: appliedSteps
+        };
     }
 
     /**

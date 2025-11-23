@@ -39,6 +39,17 @@ export class ContentProcessingService {
     }
 
     /**
+     * Process and validate CPEE XML with optional preprocessing
+     * @param {string} cpeeXML - Raw CPEE XML
+     * @param {boolean} preprocess - Whether to apply syntax preprocessing (default: true)
+     * @returns {{xml: string, appliedSteps: Array}} Cleaned and validated XML with preprocessing steps
+     * @throws {Error} If XML is invalid
+     */
+    processAndValidateCPEE(cpeeXML, preprocess = true) {
+        return CPEEParser.cleanAndValidate(cpeeXML, preprocess);
+    }
+
+    /**
      * Process Mermaid content from log exposition
      * @param {string} rawContent - Raw content from exposition
      * @param {string} type - 'input' or 'output'

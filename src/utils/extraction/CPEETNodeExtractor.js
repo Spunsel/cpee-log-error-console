@@ -4,6 +4,7 @@
  */
 
 import { NodeIdentifier } from '../../models/NodeIdentifier.js';
+import { CPEEParser } from '../content/CPEEParser.js';
 
 export class CPEENodeExtractor {
     /**
@@ -15,12 +16,19 @@ export class CPEENodeExtractor {
         console.log('[CPEENodeExtractor] Starting task extraction from CPEE XML...');
         
         try {
-            // Fix common XML issues: unescaped < in attribute values
-            const fixedXml = this.fixXMLIssues(xmlString);
+            // Preprocess CPEE XML before extracting nodes
+            let preprocessedXml = xmlString;
+            try {
+                const preprocessResult = CPEEParser.cleanAndValidate(xmlString, true);
+                preprocessedXml = preprocessResult.xml;
+            } catch (error) {
+                console.warn('[CPEENodeExtractor] Failed to preprocess CPEE XML, using original:', error);
+                // Fallback to original XML if preprocessing fails
+            }
             
             // Parse XML
             const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(fixedXml, 'text/xml');
+            const xmlDoc = parser.parseFromString(preprocessedXml, 'text/xml');
             
             // Check for parsing errors
             const parserError = xmlDoc.querySelector('parsererror');
