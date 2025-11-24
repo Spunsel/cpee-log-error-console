@@ -226,10 +226,10 @@ export class MermaidErrorHandler {
     /**
      * Parse error message to extract structured information
      * @param {string} message - Error message
-     * @param {string} code - Mermaid code (optional)
+     * @param {string} _code - Mermaid code (optional, not used - we use original error text)
      * @returns {Object} Parsed error information
      */
-    static parseErrorMessage(message, code = null) {
+    static parseErrorMessage(message, _code = null) {
         const parsed = {
             header: null,
             lineNumber: null,
@@ -246,94 +246,60 @@ export class MermaidErrorHandler {
             parsed.header = `on line ${parsed.lineNumber}:`;
         }
 
-        // Try to extract column position from caret indicator (^)
-        // Format: lines with caret like "-----------------------^"
-        // The error message shows a truncated snippet, so we need to find the actual position in the real line
+        // Extract the original error snippet and caret line from Mermaid error message
+        // Format: snippet line followed by caret line like "-----------------------^"
         const messageLines = message.split('\n');
-        let snippetLine = null;
-        let caretLine = null;
+        let originalSnippetLine = null;
+        let originalCaretLine = null;
         
+        // Find the caret line (line with only dashes/spaces and a caret)
         for (let i = 0; i < messageLines.length; i++) {
             const line = messageLines[i];
             if (line.includes('^')) {
                 const lineWithoutCaret = line.replace(/\^/g, '');
                 // Check if line contains only dashes/spaces and a caret
                 if (/^[\s-]+$/.test(lineWithoutCaret.trim())) {
-                    // This line contains only dashes/spaces and a caret - it's the marker line
-                    caretLine = line;
+                    // This is the caret marker line
+                    originalCaretLine = line;
                     // The snippet line should be right before this
                     if (i > 0) {
-                        snippetLine = messageLines[i - 1];
+                        originalSnippetLine = messageLines[i - 1];
                     }
                     break;
                 }
             }
         }
         
-        // If no caret line found, try to extract snippet line directly from error message
-        // Sometimes Mermaid shows the problematic line without a caret indicator
-        if (!snippetLine) {
-            // Look for lines that look like code (contain node patterns like :task:, :exclusivegateway:, etc.)
-            // But be careful not to match lines that are clearly part of the next line
-            for (let i = 0; i < messageLines.length; i++) {
-                const line = messageLines[i].trim();
-                // Check if line looks like Mermaid code (contains node patterns)
-                // But skip if it looks like it starts mid-line (starts with --> or node pattern without proper prefix)
-                if (line && (
-                    /:\w+:/g.test(line) ||  // Contains :task:, :exclusivegateway:, etc.
-                    /-->/g.test(line) ||    // Contains edge arrows
-                    /\(\(/.test(line) ||    // Contains double parentheses
-                    /\{x\}/.test(line)       // Contains {x}
-                )) {
-                    // Check if this line looks like it might be concatenated with the next line
-                    // If it ends with a node pattern that could continue, check the next line
-                    // But if it ends with a complete statement (like )-->nodeId:task:()), use it
-                    // If line ends with :task:() or similar complete pattern, it's likely the full problematic line
-                    // If line ends with incomplete pattern, it might be truncated
-                    const endsWithCompletePattern = /\)\s*$/.test(line) || /:\w+:\{[^}]+\}\s*$/.test(line);
-                    const mightBeTruncated = line.endsWith(':') || line.endsWith('(') || /:\w+:\s*$/.test(line);
-                    
-                    if (endsWithCompletePattern || !mightBeTruncated) {
-                        snippetLine = line;
-                        break;
-                    } else if (mightBeTruncated && i + 1 < messageLines.length) {
-                        // Check if next line continues this pattern - if so, this is likely a concatenated error
-                        const nextLine = messageLines[i + 1].trim();
-                        // If next line starts with a node pattern, the current line is likely truncated
-                        // Extract just the part before the truncation marker (if any)
-                        // For now, use the line as-is but be aware it might be truncated
-                        snippetLine = line;
-                        break;
-                    } else {
-                        snippetLine = line;
-                        break;
-                    }
+        // Clean snippet line to remove concatenated content from next line
+        // Mermaid sometimes concatenates the next line when showing errors
+        // Pattern: complete node pattern (ending with ) or {x}) followed immediately by node ID (e.g., "4:task:")
+        let cleanedSnippetLine = originalSnippetLine;
+        if (originalSnippetLine) {
+            // Detect concatenation: look for pattern where a complete node is followed immediately by a new node ID
+            // Example: "...e| 9:endevent:(((End))4:task:(Check Don" should become "...e| 9:endevent:(((End))"
+            // Pattern: look for closing parens or braces followed immediately (no space) by node ID pattern (digits:task:)
+            // This indicates the next line got concatenated
+            const concatenationPattern = /(.+?[)}]+)([0-9a-zA-Z_]+:\w+:)/;
+            const match = originalSnippetLine.match(concatenationPattern);
+            
+            if (match) {
+                // Found concatenated line - extract only the part up to the closing parens/braces
+                // Make sure we're not cutting off a valid part by checking if the match makes sense
+                // The second group should look like a node ID (e.g., "4:task:")
+                if (match[2] && /^[0-9a-zA-Z_]+:\w+:/.test(match[2])) {
+                    cleanedSnippetLine = match[1];
                 }
             }
         }
         
-        // Store snippet and caret line from original message
-        if (snippetLine) {
-            // Check if snippet line contains concatenated lines (e.g., "...tevent))-->a0:task:()a0:task:()-->gw1s:")
-            // Pattern: ends with a complete node pattern like :task:() or :gateway:{x} followed immediately by another node pattern
-            // We want to extract only up to the first complete node pattern
-            let cleanedSnippet = snippetLine.trim();
-            
-            // Pattern to detect concatenated lines: node pattern ending with ) or {x} followed immediately (no space) by another node ID
-            // Example: "...tevent))-->a0:task:()a0:task:()-->gw1s:"
-            // Should extract: "...tevent))-->a0:task:()"
-            // Match: complete node pattern (ending with ) or {x}) followed immediately by node ID (alphanumeric:)
-            const concatenatedPattern = /(.+?:\w+:(?:\([^)]*\)|\{[^}]+\}))([a-zA-Z0-9_]+:\w+:)/;
-            const match = cleanedSnippet.match(concatenatedPattern);
-            if (match) {
-                // Found concatenated lines - extract only the first part (up to the first complete node pattern)
-                cleanedSnippet = match[1];
-            }
-            
-            parsed.errorSnippet = cleanedSnippet;
-        }
-        if (caretLine) {
-            parsed.caretLine = caretLine; // Store original caret line (e.g., "-----------------------^")
+        // Store cleaned error text (snippet + caret)
+        if (cleanedSnippetLine && originalCaretLine) {
+            parsed.originalErrorText = cleanedSnippetLine + '\n' + originalCaretLine;
+            parsed.errorSnippet = cleanedSnippetLine;
+            parsed.caretLine = originalCaretLine;
+        } else if (cleanedSnippetLine) {
+            parsed.originalErrorText = cleanedSnippetLine;
+            parsed.errorSnippet = cleanedSnippetLine;
         }
 
         // Try to extract "Expected:" and "Got:" parts (new format)
@@ -368,60 +334,15 @@ export class MermaidErrorHandler {
             }
         }
         
-        // Also try to extract code lines from error message if not found in snippet
-        // Look for lines after "Parse error on line X:" that look like code
-        if (!snippetLine && parsed.lineNumber) {
-            const messageLines = message.split('\n');
-            // Find the line after "Parse error on line X:"
-            for (let i = 0; i < messageLines.length; i++) {
-                if (messageLines[i].includes('Parse error on line')) {
-                    // The next line(s) should be the code
-                    if (i + 1 < messageLines.length) {
-                        const codeLine1 = messageLines[i + 1].trim();
-                        const codeLine2 = i + 2 < messageLines.length ? messageLines[i + 2].trim() : null;
-                        // Check if these look like code (not empty, not "Expected:", not "Got:")
-                        if (codeLine1 && !codeLine1.startsWith('Expected:') && !codeLine1.startsWith('Got:')) {
-                            snippetLine = codeLine1;
-                            if (codeLine2 && !codeLine2.startsWith('Expected:') && !codeLine2.startsWith('Got:')) {
-                                // Store both lines as context
-                                parsed.errorSnippet = `${codeLine1}\n${codeLine2}`;
-                            } else {
-                                parsed.errorSnippet = codeLine1;
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Extract code context if code is available and line number is known
-        if (code && parsed.lineNumber) {
-            const lines = code.split('\n');
-            const errorLineIndex = parsed.lineNumber - 1;
-            
-            if (errorLineIndex >= 0 && errorLineIndex < lines.length) {
-                // Get 2-3 lines of context (1 before, error line, 1 after)
-                const startLine = Math.max(0, errorLineIndex - 1);
-                const endLine = Math.min(lines.length - 1, errorLineIndex + 1);
-                
-                // Build context lines - use snippet for error line if available
-                const contextLines = [];
-                for (let i = startLine; i <= endLine; i++) {
-                    if (i === errorLineIndex && parsed.errorSnippet) {
-                        contextLines.push(parsed.errorSnippet);
-                    } else {
-                        contextLines.push(lines[i]);
-                    }
-                }
-                
-                parsed.codeContext = {
-                    lines: contextLines,
-                    errorLineIndex: errorLineIndex - startLine,
-                    startLineNumber: startLine + 1,
-                    caretLine: parsed.caretLine // Include original caret line from error message
-                };
-            }
+        // Store code context using original error text from Mermaid
+        // Only show the faulty line, not surrounding lines
+        if (parsed.originalErrorText && parsed.lineNumber) {
+            parsed.codeContext = {
+                originalErrorText: parsed.originalErrorText,
+                lineNumber: parsed.lineNumber,
+                snippetLine: parsed.errorSnippet,
+                caretLine: parsed.caretLine
+            };
         }
 
         return parsed;
@@ -538,61 +459,61 @@ export class MermaidErrorHandler {
             errorMessageContainer.appendChild(headerText);
         }
 
-        // Add code context if available
-        if (parsedError.codeContext && parsedError.codeContext.lines.length > 0) {
+        // Add code context if available - use original Mermaid error text
+        if (parsedError.codeContext && parsedError.codeContext.originalErrorText) {
             const codeContext = document.createElement('div');
             codeContext.className = 'mermaid-error-indicator__code-context';
             
-            parsedError.codeContext.lines.forEach((line, index) => {
-                const lineDiv = document.createElement('div');
-                lineDiv.className = 'mermaid-error-indicator__code-line';
+            // Split original error text into snippet and caret lines
+            const errorTextLines = parsedError.codeContext.originalErrorText.split('\n');
+            const snippetLine = errorTextLines[0] || '';
+            const caretLine = errorTextLines[1] || '';
+            
+            // Show only the faulty line with line number
+            const lineDiv = document.createElement('div');
+            lineDiv.className = 'mermaid-error-indicator__code-line mermaid-error-indicator__code-line--error';
+            
+            const lineNumber = document.createElement('span');
+            lineNumber.className = 'mermaid-error-indicator__line-number';
+            lineNumber.textContent = `${parsedError.codeContext.lineNumber}: `;
+            
+            // Create line content wrapper
+            const lineWrapper = document.createElement('div');
+            lineWrapper.className = 'mermaid-error-indicator__line-wrapper';
+            
+            // Use original snippet line as-is
+            const lineContent = document.createElement('span');
+            lineContent.className = 'mermaid-error-indicator__line-content';
+            lineContent.textContent = snippetLine;
+            
+            lineWrapper.appendChild(lineContent);
+            lineDiv.appendChild(lineNumber);
+            lineDiv.appendChild(lineWrapper);
+            
+            codeContext.appendChild(lineDiv);
+            
+            // Add caret line if available
+            if (caretLine) {
+                const caretLineDiv = document.createElement('div');
+                caretLineDiv.className = 'mermaid-error-indicator__code-line mermaid-error-indicator__code-line--caret';
                 
-                const isErrorLine = index === parsedError.codeContext.errorLineIndex;
-                if (isErrorLine) {
-                    lineDiv.classList.add('mermaid-error-indicator__code-line--error');
-                }
+                const caretLineNumber = document.createElement('span');
+                caretLineNumber.className = 'mermaid-error-indicator__line-number';
+                caretLineNumber.textContent = '  '; // Empty space to align with line numbers
                 
-                const lineNumber = document.createElement('span');
-                lineNumber.className = 'mermaid-error-indicator__line-number';
-                lineNumber.textContent = `${parsedError.codeContext.startLineNumber + index}: `;
+                const caretLineWrapper = document.createElement('div');
+                caretLineWrapper.className = 'mermaid-error-indicator__line-wrapper';
                 
-                // Create line content wrapper
-                const lineWrapper = document.createElement('div');
-                lineWrapper.className = 'mermaid-error-indicator__line-wrapper';
+                const caretLineContent = document.createElement('span');
+                caretLineContent.className = 'mermaid-error-indicator__line-content mermaid-error-indicator__caret-line';
+                caretLineContent.textContent = caretLine;
                 
-                const lineContent = document.createElement('span');
-                lineContent.className = 'mermaid-error-indicator__line-content';
-                lineContent.textContent = line || ' ';
+                caretLineWrapper.appendChild(caretLineContent);
+                caretLineDiv.appendChild(caretLineNumber);
+                caretLineDiv.appendChild(caretLineWrapper);
                 
-                lineWrapper.appendChild(lineContent);
-                lineDiv.appendChild(lineNumber);
-                lineDiv.appendChild(lineWrapper);
-                
-                codeContext.appendChild(lineDiv);
-                
-                // If this is the error line and we have a caret line, add it right after
-                if (isErrorLine && parsedError.codeContext.caretLine) {
-                    const caretLineDiv = document.createElement('div');
-                    caretLineDiv.className = 'mermaid-error-indicator__code-line mermaid-error-indicator__code-line--caret';
-                    
-                    const caretLineNumber = document.createElement('span');
-                    caretLineNumber.className = 'mermaid-error-indicator__line-number';
-                    caretLineNumber.textContent = '  '; // Empty space to align with line numbers
-                    
-                    const caretLineWrapper = document.createElement('div');
-                    caretLineWrapper.className = 'mermaid-error-indicator__line-wrapper';
-                    
-                    const caretLineContent = document.createElement('span');
-                    caretLineContent.className = 'mermaid-error-indicator__line-content mermaid-error-indicator__caret-line';
-                    caretLineContent.textContent = parsedError.codeContext.caretLine;
-                    
-                    caretLineWrapper.appendChild(caretLineContent);
-                    caretLineDiv.appendChild(caretLineNumber);
-                    caretLineDiv.appendChild(caretLineWrapper);
-                    
-                    codeContext.appendChild(caretLineDiv);
-                }
-            });
+                codeContext.appendChild(caretLineDiv);
+            }
             
             errorMessageContainer.appendChild(codeContext);
         }
