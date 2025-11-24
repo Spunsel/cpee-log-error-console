@@ -465,6 +465,54 @@ export class MermaidParser {
             });
         }
         
+        // Fix 14: Normalize parentheses for start/end nodes
+        // If opening and closing parentheses are unequal, normalize to the higher count
+        // Examples: (Start)) -> ((Start)), (End))) -> (((End))), (((End)) -> (((End)))
+        const beforeFix14 = processedCode;
+        const fix14LineNumbers = [];
+        const lines14 = processedCode.split('\n');
+        const updatedLines14 = lines14.map((line, index) => {
+            let updatedLine = line;
+            let hasChanges = false;
+            
+            // Pattern to match start/end nodes: id:startevent:((Start)) or id:endevent:(((End)))
+            // Captures: id, node type, opening parens, node name (any text), closing parens
+            // Matches any text between parentheses, not just "Start" or "End"
+            const startEndPattern = /(\w+):(startevent|endevent):(\(+)([^)]+)(\)+)/g;
+            
+            updatedLine = updatedLine.replace(startEndPattern, (match, id, nodeType, openParens, nodeName, closeParens) => {
+                const openCount = openParens.length;
+                const closeCount = closeParens.length;
+                
+                // If counts are equal, no change needed
+                if (openCount === closeCount) {
+                    return match;
+                }
+                
+                // Normalize to the higher count
+                const normalizedCount = Math.max(openCount, closeCount);
+                const normalizedOpenParens = '('.repeat(normalizedCount);
+                const normalizedCloseParens = ')'.repeat(normalizedCount);
+                
+                hasChanges = true;
+                return `${id}:${nodeType}:${normalizedOpenParens}${nodeName}${normalizedCloseParens}`;
+            });
+            
+            if (hasChanges) {
+                fix14LineNumbers.push(index + 1); // 1-based line numbers
+            }
+            
+            return updatedLine;
+        });
+        
+        if (beforeFix14 !== updatedLines14.join('\n')) {
+            processedCode = updatedLines14.join('\n');
+            appliedSteps.push({
+                description: `Fixed mismatched parentheses in ${fix14LineNumbers.length} start/end node${fix14LineNumbers.length > 1 ? 's' : ''}`,
+                lineNumbers: Array.from(new Set(fix14LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
         if (originalCode !== processedCode && appliedSteps.length > 0) {
             console.log('🔧 Mermaid preprocessing applied:', appliedSteps.map(s => s.description));
         }
