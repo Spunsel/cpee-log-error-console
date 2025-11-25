@@ -128,7 +128,6 @@ export class SearchBar {
         this.nextBtn = searchBar.querySelector('.search-next-btn');
         
         this.setupEventListeners(searchBar);
-        console.log('SearchBar: Attached to container and event listeners set up');
     }
 
     /**
@@ -225,8 +224,6 @@ export class SearchBar {
                 }
             }
         });
-
-        console.log('SearchBar: Event listeners attached');
     }
 
     /**
@@ -262,8 +259,6 @@ export class SearchBar {
         if (!term) {
             return;
         }
-
-        console.log(`SearchBar: Performing search for "${term}"`);
         
         if (this.onSearch) {
             this.onSearch(term);
@@ -283,8 +278,6 @@ export class SearchBar {
         if (this.navigation) {
             this.navigation.style.display = 'none';
         }
-
-        console.log('SearchBar: Search cleared');
 
         if (this.onClear) {
             this.onClear();
@@ -308,8 +301,6 @@ export class SearchBar {
         if (!state || state.matches.length === 0) {
             return;
         }
-
-        console.log(`SearchBar: Requesting navigation ${direction}`);
 
         // Delegate navigation to coordinator via callback
         // Coordinator will call SearchService.navigateToMatch() and then update UI
@@ -354,8 +345,6 @@ export class SearchBar {
         }
 
         this.updateNavigationDisplay(stateMatches, currentIndex);
-
-        console.log(`SearchBar: Updated with ${stateMatches.length} matches`);
     }
 
     /**

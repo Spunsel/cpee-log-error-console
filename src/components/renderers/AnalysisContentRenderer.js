@@ -96,15 +96,10 @@ export class AnalysisContentRenderer {
         
         // Listen for reachability analysis completion events (, 35.20)
         this.eventBus.on('reachability:analyzed', (data) => {
-            const { sectionId, stepNumber, reachabilityResult } = data;
+            const { sectionId, stepNumber, _reachabilityResult } = data;
             
             // Enhanced logging for reachability events 
-            console.log(`[AnalysisContentRenderer] Reachability analysis completed for ${sectionId} (Step ${stepNumber})`);
-            if (reachabilityResult && reachabilityResult.success) {
-                console.log(`[AnalysisContentRenderer]   - Useful nodes: ${reachabilityResult.nodeClassification?.usefulCount || 0}`);
-                console.log(`[AnalysisContentRenderer]   - Dead-end nodes: ${reachabilityResult.nodeClassification?.deadEndCount || 0}`);
-                console.log(`[AnalysisContentRenderer]   - Unreachable nodes: ${reachabilityResult.nodeClassification?.unreachableCount || 0}`);
-            }
+            // removed
             
             // Invalidate cache for this section
             if (sectionId && stepNumber) {

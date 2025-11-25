@@ -373,19 +373,16 @@ export class RawContentRenderer {
         
         // Set up search functionality
         actionBar.setOnSearch((searchTerm) => {
-            console.log(`Searching in ${sectionId} for:`, searchTerm);
             this.performSearch(sectionId, searchTerm, contentToCopy);
         });
         
         // Set up search clear
         actionBar.setOnClear(() => {
-            console.log(`Cleared search in ${sectionId}`);
             this.clearSearch(sectionId);
         });
         
         // Set up search navigation (direction only - SearchService handles index)
         actionBar.setOnNavigate((direction) => {
-            console.log(`Navigate ${direction} in ${sectionId}`);
             this.navigateToMatch(sectionId, direction);
         });
 
@@ -487,9 +484,7 @@ export class RawContentRenderer {
      * @param {string} sectionId - Section identifier
      * @param {string} direction - 'next' or 'prev'
      */
-    navigateToMatch(sectionId, direction) {
-        console.log(`RawContentRenderer: Navigating ${direction} in ${sectionId}`);
-        
+    navigateToMatch(sectionId, direction) {        
         // Find the raw content container for this section
         const container = this.getContainerForSection(sectionId);
         if (!container) {

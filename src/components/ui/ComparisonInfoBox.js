@@ -59,16 +59,12 @@ export class ComparisonInfoBox {
         }
 
         // Remove any existing info box for this section pair
-        this.removeInfoBox(container, sectionPair);
+        this.removeInfoBox(container);
 
         // Only show info box if there are discrepancies
         if (comparisonResult.isMatch && comparisonResult.traceCountMatch) {
-            console.log('[ComparisonInfoBox] No discrepancies found, not showing info box');
             return null;
         }
-
-        console.log('[ComparisonInfoBox] Creating info box for section pair:', sectionPair);
-        console.log('[ComparisonInfoBox] Comparison result:', comparisonResult);
 
         // Create info box
         const infoBox = document.createElement('div');
@@ -214,8 +210,6 @@ export class ComparisonInfoBox {
         container.style.display = 'block';
         container.setAttribute('aria-hidden', 'false');
 
-        console.log('[ComparisonInfoBox] Info box created and displayed');
-
         return infoBox;
     }
 
@@ -229,7 +223,7 @@ export class ComparisonInfoBox {
      * @param {string} sectionPair - Section pair identifier ('input' or 'output')
      * @returns {void}
      */
-    static removeInfoBox(container, sectionPair) {
+    static removeInfoBox(container) {
         if (!container) {
             return;
         }
@@ -238,7 +232,6 @@ export class ComparisonInfoBox {
         container.innerHTML = '';
         container.style.display = 'none';
         container.setAttribute('aria-hidden', 'true');
-        console.log('[ComparisonInfoBox] Removed info box for section pair:', sectionPair);
     }
 
     /**
@@ -261,7 +254,6 @@ export class ComparisonInfoBox {
             container.style.display = 'none';
             container.setAttribute('aria-hidden', 'true');
         });
-        console.log('[ComparisonInfoBox] Removed all info boxes');
     }
 
     /**
@@ -277,7 +269,7 @@ export class ComparisonInfoBox {
      */
     static updateInfoBox(comparisonResult, sectionPair, container) {
         // Remove existing and create new
-        this.removeInfoBox(container, sectionPair);
+        this.removeInfoBox(container);
         return this.createInfoBox(comparisonResult, sectionPair, container);
     }
 }

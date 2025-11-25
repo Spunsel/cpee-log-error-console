@@ -12,8 +12,6 @@ export class MermaidNodeExtractor {
      * @returns {NodeIdentifier[]} Array of NodeIdentifier objects (only tasks, no gateways/events)
      */
     static extract(mermaidSyntax) {
-        console.log('[MermaidNodeExtractor] Starting task extraction from Mermaid syntax...');
-        
         try {
             const nodes = [];
             const lines = mermaidSyntax.split('\n');
@@ -39,20 +37,7 @@ export class MermaidNodeExtractor {
             });
             
             // Filter to keep only tasks
-            const tasks = nodes.filter(node => node.type === 'task');
-            const excluded = nodes.filter(node => node.type !== 'task');
-            
-            console.log(`[MermaidNodeExtractor] Extracted ${nodes.length} total nodes`);
-            console.log(`[MermaidNodeExtractor] Filtered to ${tasks.length} tasks (excluded ${excluded.length} non-task nodes)`);
-            
-            if (excluded.length > 0) {
-                console.log(`[MermaidNodeExtractor] Excluded nodes:`, excluded.map(n => `${n.id}:${n.type}`));
-            }
-            
-            tasks.forEach(task => {
-                console.log(`[MermaidNodeExtractor] Extracted task: ${task.toString()}`);
-            });
-            
+            const tasks = nodes.filter(node => node.type === 'task');            
             return tasks;
             
         } catch (error) {
@@ -66,9 +51,7 @@ export class MermaidNodeExtractor {
      * @param {string} mermaidSyntax - Mermaid flowchart code
      * @returns {Object[]} Array of connection objects
      */
-    static extractConnections(mermaidSyntax) {
-        console.log('[MermaidNodeExtractor] Extracting connections from Mermaid syntax...');
-        
+    static extractConnections(mermaidSyntax) {        
         const connections = [];
         const lines = mermaidSyntax.split('\n');
         
@@ -96,12 +79,9 @@ export class MermaidNodeExtractor {
                         type: type,
                         line: lineIndex + 1
                     });
-                    console.log(`[MermaidNodeExtractor] Found connection: ${match[1]} -> ${match[2]}`);
                 }
             });
         });
-        
-        console.log(`[MermaidNodeExtractor] Extracted ${connections.length} connections`);
         return connections;
     }
 

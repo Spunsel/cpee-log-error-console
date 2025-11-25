@@ -291,7 +291,6 @@ export class CPEEWfAdaptorRenderer {
                     
                     // Call post-render callback if set
                     if (self.postRenderCallback) {
-                        console.log('[CPEEWfAdaptorRenderer] Calling post-render callback');
                         self.postRenderCallback(self.container.id, svgElement);
                     }
                     
@@ -366,7 +365,6 @@ export class CPEEWfAdaptorRenderer {
      */
     setPostRenderCallback(callback) {
         this.postRenderCallback = callback;
-        console.log('[CPEEWfAdaptorRenderer] Post-render callback set');
     }
 
     /**

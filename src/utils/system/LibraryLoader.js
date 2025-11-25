@@ -33,7 +33,6 @@ export class LibraryLoader {
             const script = document.createElement('script');
             script.src = url;
             script.onload = () => {
-                console.log(`✅ ${name} loaded successfully`);
                 this.loadedLibraries.set(name, true);
                 this.loadingPromises.delete(name);
                 resolve();
@@ -82,7 +81,6 @@ export class LibraryLoader {
             link.rel = 'stylesheet';
             link.href = url;
             link.onload = () => {
-                console.log(`✅ ${name} CSS loaded successfully`);
                 this.loadedLibraries.set(name, true);
                 this.loadingPromises.delete(name);
                 resolve();

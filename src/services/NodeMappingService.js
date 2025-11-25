@@ -77,7 +77,6 @@ export class NodeMappingService {
                     nodes.outputCpeeTasks
                 );
                 cpeeStep.setTaskMapping(taskMapping);
-                console.log(`[NodeMappingService] Node mapping generated for Step ${cpeeStep.stepNumber}`);
                 return taskMapping;
             } catch (error) {
                 console.warn(`[NodeMappingService] Failed to generate node mapping for Step ${cpeeStep.stepNumber}:`, error);
@@ -894,35 +893,6 @@ class NodeMapping {
         });
         
         return count;
-    }
-    
-    /**
-     * Log mapping summary
-     */
-    logMappingSummary() {
-        console.log('[NodeMapping] === Mapping Summary ===');
-        
-        const formats = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
-        
-        formats.forEach(sourceFormat => {
-            const taskCount = this.getTasksInFormat(sourceFormat).length;
-            console.log(`[NodeMapping] ${sourceFormat}: ${taskCount} tasks`);
-            
-            formats.forEach(targetFormat => {
-                if (sourceFormat !== targetFormat) {
-                    let mappingCount = 0;
-                    
-                    this.getTasksInFormat(sourceFormat).forEach(taskId => {
-                        const mappings = this.getMappings(taskId, sourceFormat, targetFormat);
-                        mappingCount += mappings.length;
-                    });
-                    
-                    if (mappingCount > 0) {
-                        console.log(`[NodeMapping]   → ${targetFormat}: ${mappingCount} mappings`);
-                    }
-                }
-            });
-        });
     }
     
     /**

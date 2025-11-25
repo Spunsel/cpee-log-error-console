@@ -12,9 +12,7 @@ export class CPEENodeExtractor {
      * @param {string} xmlString - CPEE XML content
      * @returns {NodeIdentifier[]} Array of NodeIdentifier objects
      */
-    static extract(xmlString) {
-        console.log('[CPEENodeExtractor] Starting task extraction from CPEE XML...');
-        
+    static extract(xmlString) {        
         try {
             // Preprocess CPEE XML before extracting nodes
             let preprocessedXml = xmlString;
@@ -36,13 +34,9 @@ export class CPEENodeExtractor {
                 console.warn('[CPEENodeExtractor] XML parsing error:', parserError.textContent);
                 return [];
             }
-            
-            console.log('[CPEENodeExtractor] XML parsed successfully');
-            
+                        
             // Find all task elements
-            const taskElements = this.findTaskElements(xmlDoc);
-            console.log(`[CPEENodeExtractor] Found ${taskElements.length} task elements`);
-            
+            const taskElements = this.findTaskElements(xmlDoc);            
             // Extract tasks
             const tasks = [];
             taskElements.forEach((element, index) => {
@@ -51,12 +45,9 @@ export class CPEENodeExtractor {
                     tasks.push(task);
                 }
             });
-            
-            console.log(`[CPEENodeExtractor] Successfully extracted ${tasks.length} tasks`);
             return tasks;
             
         } catch (error) {
-            console.error('[CPEENodeExtractor] Error extracting tasks:', error);
             return [];
         }
     }
@@ -66,11 +57,8 @@ export class CPEENodeExtractor {
      * @param {string[]} xmlStrings - Array of XML strings
      * @returns {NodeIdentifier[][]} Array of task arrays
      */
-    static extractFromMultiple(xmlStrings) {
-        console.log(`[CPEENodeExtractor] Extracting from ${xmlStrings.length} XML documents`);
-        
-        const results = xmlStrings.map((xml, index) => {
-            console.log(`[CPEENodeExtractor] Processing XML document ${index + 1}/${xmlStrings.length}`);
+    static extractFromMultiple(xmlStrings) {        
+        const results = xmlStrings.map((xml) => {
             return this.extract(xml);
         });
         

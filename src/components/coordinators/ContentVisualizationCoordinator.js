@@ -202,7 +202,6 @@ export class ContentVisualizationCoordinator {
             
             // Set up post-render callback for highlighting
             this.inputGraphRenderer.setPostRenderCallback((sectionId, svgElement) => {
-                console.log(`[ContentVisualizationCoordinator] Post-render callback for ${sectionId}`);
                 if (this.highlightCoordinator) {
                     this.highlightCoordinator.registerSection('input-cpee', svgElement);
                     this.highlightCoordinator.attachCPEEClickHandlers(svgElement, 'input-cpee');
@@ -216,9 +215,7 @@ export class ContentVisualizationCoordinator {
             
             // Restore normal height behavior
             cleanup();
-            
-            console.log('✅ Input CPEE section updated with graph');
-            
+                        
         } catch (error) {
             console.error('❌ Error updating input CPEE section:', error);
             this.showSectionError(inputCpeeElement, 'Failed to render CPEE graph', error.message);
@@ -265,7 +262,6 @@ export class ContentVisualizationCoordinator {
             
             // Set up post-render callback for highlighting
             this.outputGraphRenderer.setPostRenderCallback((sectionId, svgElement) => {
-                console.log(`[ContentVisualizationCoordinator] Post-render callback for ${sectionId}`);
                 if (this.highlightCoordinator) {
                     this.highlightCoordinator.registerSection('output-cpee', svgElement);
                     this.highlightCoordinator.attachCPEEClickHandlers(svgElement, 'output-cpee');
@@ -279,9 +275,7 @@ export class ContentVisualizationCoordinator {
             
             // Restore normal height behavior
             cleanup();
-            
-            console.log('✅ Output CPEE section updated with graph');
-            
+                        
         } catch (error) {
             console.error('❌ Error updating output CPEE section:', error);
             this.showSectionError(outputCpeeElement, 'Failed to render CPEE graph', error.message);
@@ -335,7 +329,6 @@ export class ContentVisualizationCoordinator {
             
             // Set up post-render callback for highlighting
             this.inputMermaidRenderer.setPostRenderCallback((sectionId, svgElement) => {
-                console.log(`[ContentVisualizationCoordinator] Post-render callback for ${sectionId}`);
                 if (this.highlightCoordinator) {
                     this.highlightCoordinator.registerSection('input-intermediate', svgElement);
                     this.highlightCoordinator.attachMermaidClickHandlers(svgElement, 'input-intermediate');
@@ -347,9 +340,7 @@ export class ContentVisualizationCoordinator {
             
             // Restore normal height behavior
             cleanup();
-            
-            console.log('✅ Input intermediate section updated with Mermaid');
-            
+                        
         } catch (error) {
             console.error('❌ Error updating input intermediate section:', error);
             // Show fallback with raw content instead of error
@@ -404,7 +395,6 @@ export class ContentVisualizationCoordinator {
             
             // Set up post-render callback for highlighting
             this.outputMermaidRenderer.setPostRenderCallback((sectionId, svgElement) => {
-                console.log(`[ContentVisualizationCoordinator] Post-render callback for ${sectionId}`);
                 if (this.highlightCoordinator) {
                     this.highlightCoordinator.registerSection('output-intermediate', svgElement);
                     this.highlightCoordinator.attachMermaidClickHandlers(svgElement, 'output-intermediate');
@@ -416,9 +406,7 @@ export class ContentVisualizationCoordinator {
             
             // Restore normal height behavior
             cleanup();
-            
-            console.log('✅ Output intermediate section updated with Mermaid');
-            
+                        
         } catch (error) {
             console.error('❌ Error updating output intermediate section:', error);
             // Show fallback with raw content instead of error
@@ -463,9 +451,7 @@ export class ContentVisualizationCoordinator {
             
             // Initialize StepSection for collapsible functionality
             this.initializeStepSection('user-input');
-            
-            console.log('✅ User input section updated');
-            
+                        
         } catch (error) {
             console.error('❌ Error updating user input section:', error);
             this.showSectionError(userInputElement, 'Failed to display user input', error.message);
@@ -487,7 +473,6 @@ export class ContentVisualizationCoordinator {
                 startCollapsed: false
             });
             this.stepSections.set(sectionId, stepSection);
-            console.log(`✅ StepSection initialized for ${sectionId}`);
         } catch (error) {
             console.warn(`⚠️ Failed to initialize StepSection for ${sectionId}:`, error);
         }
@@ -627,8 +612,6 @@ export class ContentVisualizationCoordinator {
             el.style.pointerEvents = 'auto';
             el.style.zIndex = '1';
         });
-
-        console.log(`✅ Restored visual content for ${sectionId}`);
     }
 
     /**

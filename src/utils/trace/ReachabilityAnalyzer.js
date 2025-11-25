@@ -197,13 +197,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
     } = options;
 
     // Enhanced logging for debugging 
-    console.log('[ReachabilityAnalyzer] ===== Starting Reachability Analysis =====');
-    console.log('[ReachabilityAnalyzer] Format:', format);
-    console.log('[ReachabilityAnalyzer] Timeout:', timeout, 'ms');
-    console.log('[ReachabilityAnalyzer] Max Depth:', maxDepth);
-    console.log('[ReachabilityAnalyzer] Include Paths:', includePaths);
-    console.log('[ReachabilityAnalyzer] Compute Transitive Closure:', computeTransitiveClosure);
-    console.log('[ReachabilityAnalyzer] Graph Content Length:', graphContent ? graphContent.length : 0, 'characters');
+    // removed
 
     const timeoutChecker = new TimeoutChecker(timeout);
 
@@ -270,37 +264,18 @@ export function analyzeReachability(graphContent, format, options = {}) {
         }
 
         // Enhanced logging for node identification 
-        console.log('[ReachabilityAnalyzer] Graph Structure Extracted:');
-        console.log('[ReachabilityAnalyzer]   - Total Nodes:', allNodes.length);
-        console.log('[ReachabilityAnalyzer]   - Total Edges:', graphStructure.edges.length);
-        console.log('[ReachabilityAnalyzer]   - Back Edges (Loops):', graphStructure.backEdges.length);
-        if (format === 'mermaid' && allNodes.length > 0) {
-            console.log('[ReachabilityAnalyzer]   - Node IDs:', allNodes.map(n => n.id || n.alt_id).filter(Boolean).join(', '));
-            console.log('[ReachabilityAnalyzer]   - Edges:', graphStructure.edges.map(e => `${e.from}->${e.to}`).join(', '));
-        }
-        console.log('[ReachabilityAnalyzer] Start nodes:', detectedStartNodes.length > 0 ? detectedStartNodes : '(none)');
-        console.log('[ReachabilityAnalyzer] End nodes:', detectedEndNodes.length > 0 ? detectedEndNodes : '(none)');
+        // removed
 
         // Build adjacency lists for efficient traversal
         const forwardAdj = buildForwardAdjacencyList(graphStructure);
         const backwardAdj = buildBackwardAdjacencyList(graphStructure);
         
         // Debug logging for adjacency lists (for Mermaid only)
-        if (format === 'mermaid') {
-            console.log('[ReachabilityAnalyzer] Forward adjacency list:');
-            forwardAdj.forEach((neighbors, nodeId) => {
-                console.log(`[ReachabilityAnalyzer]   ${nodeId} -> [${neighbors.join(', ')}]`);
-            });
-            console.log('[ReachabilityAnalyzer] Backward adjacency list:');
-            backwardAdj.forEach((predecessors, nodeId) => {
-                console.log(`[ReachabilityAnalyzer]   ${nodeId} <- [${predecessors.join(', ')}]`);
-            });
-        }
+        // removed
 
         timeoutChecker.check();
 
         // Perform forward reachability analysis ( handle partial failures)
-        console.log('[ReachabilityAnalyzer] Computing forward reachability...');
         let forwardReachability = null;
         try {
             forwardReachability = computeForwardReachability(
@@ -311,7 +286,6 @@ export function analyzeReachability(graphContent, format, options = {}) {
                 maxDepth,
                 includePaths
             );
-            console.log('[ReachabilityAnalyzer] Forward reachability complete:', forwardReachability.reachable.size, 'nodes reachable');
         } catch (error) {
             console.warn('[ReachabilityAnalyzer] Forward reachability analysis failed:', error);
             // Create empty result for forward reachability
@@ -331,7 +305,6 @@ export function analyzeReachability(graphContent, format, options = {}) {
         timeoutChecker.check();
 
         // Perform backward reachability analysis ( handle partial failures)
-        console.log('[ReachabilityAnalyzer] Computing backward reachability...');
         let backwardReachability = null;
         try {
             backwardReachability = computeBackwardReachability(
@@ -342,7 +315,6 @@ export function analyzeReachability(graphContent, format, options = {}) {
                 maxDepth,
                 includePaths
             );
-            console.log('[ReachabilityAnalyzer] Backward reachability complete:', backwardReachability.reachable.size, 'nodes can reach end');
         } catch (error) {
             console.warn('[ReachabilityAnalyzer] Backward reachability analysis failed:', error);
             // Create empty result for backward reachability
@@ -362,7 +334,6 @@ export function analyzeReachability(graphContent, format, options = {}) {
         timeoutChecker.check();
 
         // Compute bidirectional reachability (useful nodes) ( handle partial failures)
-        console.log('[ReachabilityAnalyzer] Computing bidirectional reachability (node classification)...');
         let bidirectionalReachability = null;
         try {
             bidirectionalReachability = computeBidirectionalReachability(
@@ -370,10 +341,6 @@ export function analyzeReachability(graphContent, format, options = {}) {
                 backwardReachability,
                 allNodes
             );
-            console.log('[ReachabilityAnalyzer] Node classification complete:');
-            console.log('[ReachabilityAnalyzer]   - Useful:', bidirectionalReachability.useful.size);
-            console.log('[ReachabilityAnalyzer]   - Dead-end:', bidirectionalReachability.deadEnd.size);
-            console.log('[ReachabilityAnalyzer]   - Unreachable:', bidirectionalReachability.unreachable.size);
         } catch (error) {
             console.warn('[ReachabilityAnalyzer] Bidirectional reachability analysis failed:', error);
             // Create empty result for bidirectional reachability
@@ -394,14 +361,9 @@ export function analyzeReachability(graphContent, format, options = {}) {
         timeoutChecker.check();
 
         // Detect strongly connected components (optional, for cycle analysis)
-        console.log('[ReachabilityAnalyzer] Detecting strongly connected components (SCCs)...');
         let sccInfo = null;
         try {
             sccInfo = findStronglyConnectedComponents(graphStructure, timeoutChecker);
-            console.log('[ReachabilityAnalyzer] SCC detection complete:', sccInfo.components.length, 'components found');
-            if (sccInfo.nodesInCycles.length > 0) {
-                console.log('[ReachabilityAnalyzer]   - Nodes in cycles:', sccInfo.nodesInCycles.length);
-            }
         } catch (error) {
             console.warn('[ReachabilityAnalyzer] SCC detection failed:', error);
             // Continue without SCC info
@@ -422,10 +384,8 @@ export function analyzeReachability(graphContent, format, options = {}) {
                 const cached = transitiveClosureCache.get(cacheKey);
                 
                 if (cached && (Date.now() - cached.timestamp) < CACHE_TTL_MS) {
-                    console.log('[ReachabilityAnalyzer] Using cached transitive closure');
                     transitiveClosure = cached.transitiveClosure;
                 } else {
-                    console.log('[ReachabilityAnalyzer] Computing transitive closure...');
                     transitiveClosure = computeTransitiveClosureMatrix(
                         forwardAdj,
                         allNodes,
@@ -439,9 +399,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
                         timestamp: Date.now(),
                         nodeCount: allNodes.length
                     });
-                    
-                    console.log('[ReachabilityAnalyzer] Transitive closure computed and cached');
-                }
+                                    }
             } catch (error) {
                 console.warn('[ReachabilityAnalyzer] Transitive closure computation failed:', error);
                 // Continue without transitive closure
@@ -610,31 +568,7 @@ export function analyzeReachability(graphContent, format, options = {}) {
         };
 
         // Enhanced logging for analysis completion
-        console.log('[ReachabilityAnalyzer] ===== Analysis Complete =====');
-        console.log('[ReachabilityAnalyzer] Analysis Time:', result.analysisTime, 'ms');
-        console.log('[ReachabilityAnalyzer] Node Classification:');
-        if (result.metrics) {
-            console.log('[ReachabilityAnalyzer]   - Useful nodes:', result.nodeClassification.usefulCount, `(${((result.metrics.usefulCoverage || 0) * 100).toFixed(1)}%)`);
-            console.log('[ReachabilityAnalyzer]   - Dead-end nodes:', result.nodeClassification.deadEndCount, `(${((result.metrics.deadEndCoverage || 0) * 100).toFixed(1)}%)`);
-            console.log('[ReachabilityAnalyzer]   - Unreachable nodes:', result.nodeClassification.unreachableCount, `(${((result.metrics.unreachableCoverage || 0) * 100).toFixed(1)}%)`);
-        } else {
-            console.log('[ReachabilityAnalyzer]   - Useful nodes:', result.nodeClassification.usefulCount);
-            console.log('[ReachabilityAnalyzer]   - Dead-end nodes:', result.nodeClassification.deadEndCount);
-            console.log('[ReachabilityAnalyzer]   - Unreachable nodes:', result.nodeClassification.unreachableCount);
-        }
-        console.log('[ReachabilityAnalyzer] Reachability Coverage:');
-        if (result.forwardReachability && result.forwardReachability.coverage !== undefined) {
-            console.log('[ReachabilityAnalyzer]   - Forward Coverage:', (result.forwardReachability.coverage * 100).toFixed(1), '%');
-        }
-        if (result.backwardReachability && result.backwardReachability.coverage !== undefined) {
-            console.log('[ReachabilityAnalyzer]   - Backward Coverage:', (result.backwardReachability.coverage * 100).toFixed(1), '%');
-        }
-        if (result.warnings && result.warnings.length > 0) {
-            console.warn('[ReachabilityAnalyzer] Warnings:', result.warnings);
-        }
-        if (result.stronglyConnectedComponents) {
-            console.log('[ReachabilityAnalyzer] SCCs:', result.stronglyConnectedComponents.count, 'components found');
-        }
+        // removed
 
         return result;
 

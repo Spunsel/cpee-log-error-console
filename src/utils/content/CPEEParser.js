@@ -120,8 +120,6 @@ export class CPEEParser {
             if (!descElement) {
                 throw new Error('CPEEParser: Missing required <description> element');
             }
-            
-            console.log('✅ XML validation successful');
             return cleanedXML;
         } catch (error) {
             console.error('❌ XML validation failed:', error);

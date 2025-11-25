@@ -100,8 +100,6 @@ export class StepViewer {
             return;
         }
 
-        console.log(`Displaying ${step.getDisplayName()}`);
-
         // Clear highlights from previous step
         if (this.highlightCoordinator) {
             this.highlightCoordinator.onStepChanged();
@@ -120,7 +118,6 @@ export class StepViewer {
         // Set current step mapping for highlighting
         if (this.highlightCoordinator && step.hasTaskMapping()) {
             this.highlightCoordinator.setCurrentStepMapping(step.getTaskMapping());
-            console.log(`[StepViewer] Set task mapping for step ${step.stepNumber}`);
         }
 
         // Update content sections using ContentVisualizationCoordinator

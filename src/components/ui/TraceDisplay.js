@@ -23,9 +23,7 @@ export class TraceDisplay {
      * @param {string} containerId - Optional container ID
      * @returns {HTMLElement} Container element
      */
-    createContainer(containerId = null) {
-        console.log('[TraceDisplay] Creating trace display container');
-        
+    createContainer(containerId = null) {        
         const container = this.domRegistry.createElement('div', {
             className: 'trace-display-container',
             id: containerId || undefined
@@ -39,7 +37,6 @@ export class TraceDisplay {
         container.appendChild(traceListWrapper);
         this.container = container;
         
-        console.log('[TraceDisplay] Container created');
         return container;
     }
 
@@ -80,16 +77,12 @@ export class TraceDisplay {
         } else {
             console.warn('[TraceDisplay] TraceContentRenderer not available, cannot render traces');
         }
-
-        console.log('[TraceDisplay] Traces rendered successfully');
     }
 
     /**
      * Clear all traces from display
      */
     clear() {
-        console.log('[TraceDisplay] Clearing trace display');
-        
         if (this.container) {
             const traceListWrapper = this.container.querySelector('.trace-list-wrapper');
             if (traceListWrapper) {
@@ -114,7 +107,6 @@ export class TraceDisplay {
      * @param {Object} options - Rendering options
      */
     update(traces, options = {}) {
-        console.log('[TraceDisplay] Updating trace display');
         this.renderTraces(traces, options);
     }
 
@@ -122,9 +114,9 @@ export class TraceDisplay {
      * Expand all trace details
      */
     expandAll() {
-        console.log('[TraceDisplay] Expanding all trace details');
-        
-        if (!this.container) return;
+        if (!this.container) {
+            return;
+        }
         
         const expandButtons = this.container.querySelectorAll('.trace-expand-btn');
         expandButtons.forEach(btn => {
@@ -138,10 +130,10 @@ export class TraceDisplay {
     /**
      * Collapse all trace details
      */
-    collapseAll() {
-        console.log('[TraceDisplay] Collapsing all trace details');
-        
-        if (!this.container) return;
+    collapseAll() {        
+        if (!this.container) {
+            return;
+        }
         
         const expandButtons = this.container.querySelectorAll('.trace-expand-btn');
         expandButtons.forEach(btn => {
@@ -171,9 +163,7 @@ export class TraceDisplay {
     /**
      * Destroy the trace display and clean up
      */
-    destroy() {
-        console.log('[TraceDisplay] Destroying trace display');
-        
+    destroy() {        
         if (this.container) {
             this.container.innerHTML = '';
             this.container = null;

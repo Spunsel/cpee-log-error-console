@@ -177,7 +177,6 @@ export class SearchService {
         }
 
         if (ranges.length === 0) {
-            console.log('SearchService: Applied 0 highlights');
             return [];
         }
 
@@ -233,7 +232,6 @@ export class SearchService {
             range.surroundContents(span);
         }
 
-        console.log(`SearchService: Applied ${ranges.length} highlights`);
         return ranges.map((r, idx) => ({ index: idx, length: r.end - r.start, text: r.text }));
     }
 
@@ -254,8 +252,6 @@ export class SearchService {
             const textNode = document.createTextNode(el.textContent);
             el.parentNode.replaceChild(textNode, el);
         });
-
-        console.log('SearchService: Cleared search highlighting');
     }
 
     /**
@@ -301,8 +297,6 @@ export class SearchService {
             matches.forEach((match, idx) => {
                 match.classList.toggle('search-match-active', idx === matchIndex);
             });
-
-            console.log(`SearchService: Scrolled to match ${matchIndex + 1}`);
             return true;
         }
 
@@ -403,7 +397,6 @@ export class SearchService {
     destroy() {
         this.searchStates.clear();
         this.originalContent.clear();
-        console.log('SearchService: Destroyed');
     }
 }
 

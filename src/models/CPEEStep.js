@@ -365,9 +365,6 @@ export class CPEEStep {
     setTaskMapping(mapping) {
         this.taskMapping = mapping;
         console.log(`[CPEEStep] Task mapping stored for Step ${this.stepNumber}`);
-        if (mapping) {
-            mapping.logMappingSummary();
-        }
     }
 
     /**

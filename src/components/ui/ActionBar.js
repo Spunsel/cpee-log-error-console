@@ -302,8 +302,6 @@ export class ActionBar {
         const actionBar = this.createActionBar();
         // Prepend to ensure it appears first and anchors correctly during scrolling
         container.insertBefore(actionBar, container.firstChild);
-        
-        console.log('ActionBar: Attached to container');
     }
 
     /**
@@ -313,8 +311,6 @@ export class ActionBar {
         if (this.element) {
             this.element.style.display = 'flex';
             this.isVisible = true;
-            
-            console.log('ActionBar: Shown');
         } else {
             console.warn('ActionBar: No element reference found');
         }
@@ -327,7 +323,6 @@ export class ActionBar {
         if (this.element) {
             this.element.style.display = 'none';
             this.isVisible = false;
-            console.log('ActionBar: Hidden');
         } else {
             console.warn('ActionBar: No element reference found');
         }

@@ -9,7 +9,6 @@ import { NodeIdentifier } from '../../models/NodeIdentifier.js';
 export class SVGNodeExtractor {
     
     constructor() {
-        console.log('[SVGNodeExtractor] Initialized');
     }
     
     /**
@@ -17,27 +16,20 @@ export class SVGNodeExtractor {
      * @param {Element} svgElement - SVG DOM element
      * @returns {NodeIdentifier[]} Array of NodeIdentifier objects
      */
-    extractTasksFromCPEESVG(svgElement) {
-        console.log('[SVGNodeExtractor] Starting task extraction from CPEE SVG...');
-        
+    extractTasksFromCPEESVG(svgElement) {        
         try {
             const tasks = [];
             
             // Find all task groups in CPEE SVG
             // CPEE uses <g class="element" element-id="..."> for tasks
             const taskGroups = svgElement.querySelectorAll('g.element[element-id]');
-            
-            console.log(`[SVGNodeExtractor] Found ${taskGroups.length} <g> elements in CPEE SVG`);
-            
+                        
             taskGroups.forEach((_group, index) => {
                 const task = this.extractTaskFromCPEEGroup(_group, index);
                 if (task && task.isValid()) {
                     tasks.push(task);
-                    console.log(`[SVGNodeExtractor] Extracted CPEE task: ${task.toString()}`);
                 }
             });
-            
-            console.log(`[SVGNodeExtractor] Successfully extracted ${tasks.length} tasks from CPEE SVG`);
             return tasks;
             
         } catch (error) {
@@ -162,27 +154,20 @@ export class SVGNodeExtractor {
      * @param {Element} svgElement - SVG DOM element
      * @returns {NodeIdentifier[]} Array of NodeIdentifier objects
      */
-    extractTasksFromMermaidSVG(svgElement) {
-        console.log('[SVGNodeExtractor] Starting task extraction from Mermaid SVG...');
-        
+    extractTasksFromMermaidSVG(svgElement) {        
         try {
             const tasks = [];
             
             // Find all node groups in Mermaid SVG
             // Mermaid uses <g class="node"> for nodes
             const nodeGroups = svgElement.querySelectorAll('g.node');
-            
-            console.log(`[SVGNodeExtractor] Found ${nodeGroups.length} <g class="node"> elements in Mermaid SVG`);
-            
+                        
             nodeGroups.forEach((_group, index) => {
                 const task = this.extractTaskFromMermaidGroup(_group, index);
                 if (task && task.isValid()) {
                     tasks.push(task);
-                    console.log(`[SVGNodeExtractor] Extracted Mermaid task: ${task.toString()}`);
                 }
             });
-            
-            console.log(`[SVGNodeExtractor] Successfully extracted ${tasks.length} nodes from Mermaid SVG`);
             return tasks;
             
         } catch (error) {
@@ -362,20 +347,16 @@ export class SVGNodeExtractor {
      * @param {Element} svgElement - SVG DOM element
      * @returns {NodeIdentifier[]} Array of NodeIdentifier objects
      */
-    extractTasks(svgElement) {
-        console.log('[SVGNodeExtractor] Auto-detecting SVG format...');
-        
+    extractTasks(svgElement) {        
         // Check for CPEE indicators
         const cpeeElements = svgElement.querySelectorAll('g.element[element-id]');
         if (cpeeElements.length > 0) {
-            console.log('[SVGNodeExtractor] Detected CPEE SVG format');
             return this.extractTasksFromCPEESVG(svgElement);
         }
         
         // Check for Mermaid indicators
         const mermaidNodes = svgElement.querySelectorAll('g.node');
         if (mermaidNodes.length > 0) {
-            console.log('[SVGNodeExtractor] Detected Mermaid SVG format');
             return this.extractTasksFromMermaidSVG(svgElement);
         }
         

@@ -47,10 +47,6 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
         endNodeIds = []
     } = options;
 
-    console.log('[SoundnessBoundednessVerifier] Starting verification');
-    console.log('[SoundnessBoundednessVerifier] Format:', format);
-    console.log('[SoundnessBoundednessVerifier] Traces:', traces?.length || 0);
-
     // Handle null/undefined inputs
     const traceArray = Array.isArray(traces) ? traces : [];
     
@@ -94,10 +90,6 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
         taskCount: allTasks.length,
         timestamp: new Date().toISOString()
     };
-
-    console.log('[SoundnessBoundednessVerifier] Verification complete');
-    console.log('[SoundnessBoundednessVerifier] Sound:', result.sound);
-    console.log('[SoundnessBoundednessVerifier] Bounded:', result.bounded);
 
     return result;
 }
