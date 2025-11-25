@@ -1,6 +1,6 @@
 # CPEE Log Error Console
 
-A modern, modular web-based debugging console for the CPEE LLM service with visual graph analysis, step-by-step tracking, and comprehensive trace analysis capabilities.
+The fundamental goal of this project is to address the "black box" problem inherent in the LLM-driven workflow modification pipeline within the Cloud Process Execution Engine (CPEE), by providing a visual console for transparency, traceability, and systematic debugging capabilities.
 
 ## Features
 
@@ -214,10 +214,6 @@ src/
 
 ## Quick Start
 
-### Prerequisites
-- Node.js >= 18.0.0
-- npm >= 8.0.0
-
 ### Setup
 ```bash
 # Clone the repository
@@ -286,31 +282,6 @@ npm run format:check
 npm run validate
 ```
 
-## Testing
-
-The project includes a comprehensive test suite located in the `tests/` directory:
-
-- **Unit Tests**: Core functionality testing (`tests/unit/`)
-- **Component Tests**: Component-level testing
-- **Integration Tests**: End-to-end integration testing
-- **Manual Tests**: Manual testing scenarios (`tests/manual/`)
-
-Run tests with:
-```bash
-npm test                    # Run all tests
-npm run test:unit          # Run only unit tests
-npm run test:watch         # Run tests in watch mode
-npm run test:coverage      # Run tests with coverage
-```
-
-## Documentation
-
-Additional documentation is available in the `docs/` directory:
-- Architecture documentation and refactoring notes
-- Class analysis and design documents
-- Implementation plans and explanations
-- Testing documentation
-
 ## Dependencies
 
 ### Runtime Dependencies
@@ -327,7 +298,6 @@ Additional documentation is available in the `docs/` directory:
 - **@testing-library/dom**: DOM testing utilities
 - **@testing-library/user-event**: User interaction testing
 - **jsdoc**: API documentation generation
-- **madge**: Dependency graph analysis
 
 ## License
 
@@ -337,7 +307,3 @@ This project is part of a Bachelor's thesis at TUM (Technical University of Muni
 
 Christian Horne <christian.horne@tum.de>
 
-## Repository
-
-- **GitHub**: https://github.com/Spunsel/cpee-log-error-console
-- **Issues**: https://github.com/Spunsel/cpee-log-error-console/issues
