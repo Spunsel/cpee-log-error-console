@@ -95,7 +95,8 @@ export class ConfigManager {
             instances: {
                 // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
                 processNumbers: [
-                    75050, 75048, 75015, 
+                    77050, 77013, 
+                    76934, 76762, 76600, 76461, 76403, 76400, 76397, 76385, 75608, 75605, 75050, 75048, 75015, 
                     75001, 75000, 74996, 74992, 74976, 74974, 74971, 74966, 73589, 73557, 73373, 73227, 73190,  
                     // archivated instances:
                     // 70783, 65138, 65082, 64998, 64992, 
