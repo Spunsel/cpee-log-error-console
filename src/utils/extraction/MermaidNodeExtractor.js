@@ -7,9 +7,9 @@ import { NodeIdentifier } from '../../models/NodeIdentifier.js';
 
 export class MermaidNodeExtractor {
     /**
-     * Extract tasks from Mermaid flowchart syntax
+     * Extract tasks and gateways from Mermaid flowchart syntax
      * @param {string} mermaidSyntax - Mermaid flowchart code
-     * @returns {NodeIdentifier[]} Array of NodeIdentifier objects (only tasks, no gateways/events)
+     * @returns {NodeIdentifier[]} Array of NodeIdentifier objects (tasks and gateways)
      */
     static extract(mermaidSyntax) {
         try {
@@ -17,7 +17,7 @@ export class MermaidNodeExtractor {
             const lines = mermaidSyntax.split('\n');
             let position = 0;
             
-            lines.forEach((line, lineIndex) => {
+            lines.forEach((line, _lineIndex) => {
                 const trimmedLine = line.trim();
                 
                 if (!trimmedLine || 
@@ -36,9 +36,11 @@ export class MermaidNodeExtractor {
                 position += extractedNodes.length;
             });
             
-            // Filter to keep only tasks
-            const tasks = nodes.filter(node => node.type === 'task');            
-            return tasks;
+            // Filter to keep tasks and gateways
+            const tasksAndGateways = nodes.filter(node => 
+                node.type === 'task' || node.type === 'gateway'
+            );            
+            return tasksAndGateways;
             
         } catch (error) {
             console.error('[MermaidNodeExtractor] Error extracting tasks:', error);
@@ -164,6 +166,93 @@ export class MermaidNodeExtractor {
         };
         
         return shapeTypeMap[shape] || 'task';
+    }
+    
+    // ============ Gateway Utility Methods ============
+    
+    /**
+     * Check if a task/node is a gateway
+     * @param {Object} task - Task object with id and type
+     * @returns {boolean} True if gateway
+     */
+    static isGateway(task) {
+        if (!task) {
+            return false;
+        }
+        return task.type === 'gateway' || 
+               task.type === 'decision' ||
+               (task.id && task.id.match(/^gw\d+[se]?$/i));
+    }
+    
+    /**
+     * Check if a gateway ID is a START gateway (ends with 's')
+     * @param {string} gatewayId - Gateway ID
+     * @returns {boolean} True if start gateway
+     */
+    static isStartGateway(gatewayId) {
+        return gatewayId && gatewayId.match(/^gw\d+s$/i);
+    }
+    
+    /**
+     * Check if a gateway ID is an END gateway (ends with 'e')
+     * @param {string} gatewayId - Gateway ID
+     * @returns {boolean} True if end gateway
+     */
+    static isEndGateway(gatewayId) {
+        return gatewayId && gatewayId.match(/^gw\d+e$/i);
+    }
+    
+    /**
+     * Get the paired gateway ID (start ↔ end)
+     * @param {string} gatewayId - Gateway ID (can be full Mermaid SVG ID or base ID)
+     * @returns {string|null} Paired gateway ID or null
+     */
+    static getPairedGatewayId(gatewayId) {
+        // Extract base ID from full Mermaid SVG ID if needed
+        let baseId = gatewayId;
+        const baseIdMatch = gatewayId.match(/flowchart-(gw\d+[se]):(?:exclusivegateway|parallelgateway):/i) ||
+                           gatewayId.match(/^(gw\d+[se])$/i);
+        if (baseIdMatch) {
+            baseId = baseIdMatch[1];
+        }
+        
+        // Swap s ↔ e
+        if (baseId.match(/s$/i)) {
+            return baseId.replace(/s$/i, 'e');
+        } else if (baseId.match(/e$/i)) {
+            return baseId.replace(/e$/i, 's');
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Convert END gateway ID to START gateway ID
+     * @param {string} gatewayId - Gateway ID
+     * @returns {string} Start gateway ID (or original if not an end gateway)
+     */
+    static toStartGatewayId(gatewayId) {
+        if (this.isEndGateway(gatewayId)) {
+            return gatewayId.replace(/e$/i, 's');
+        }
+        return gatewayId;
+    }
+    
+    /**
+     * Extract base gateway ID from full Mermaid SVG ID
+     * @param {string} fullId - Full SVG ID (e.g., "flowchart-gw1s:exclusivegateway:-5")
+     * @returns {string} Base ID (e.g., "gw1s")
+     */
+    static extractBaseGatewayId(fullId) {
+        const match = fullId.match(/flowchart-(gw\d+[se]?):(?:exclusivegateway|parallelgateway):/i);
+        if (match) {
+            return match[1];
+        }
+        // Already a base ID
+        if (fullId.match(/^gw\d+[se]?$/i)) {
+            return fullId;
+        }
+        return fullId;
     }
 }
 

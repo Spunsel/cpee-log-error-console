@@ -4467,6 +4467,89 @@ body {
     fill: var(--text-primary) !important;
 }
 
+/* ============================================
+   CPEE Gateway-specific highlighting
+   ============================================ */
+
+/* Highlight gateway outline elements - similar to tasks but for gateways */
+.cpee-gateway-highlighted > rect[class*="stand"]:not([class*="without"]),
+.cpee-gateway-highlighted rect[class*="stand"]:not([class*="without"]),
+.cpee-gateway-highlighted > .part-middle > line[class*="standline"],
+.cpee-gateway-highlighted .part-middle line[class*="standline"],
+.cpee-gateway-highlighted > circle,
+.cpee-gateway-highlighted circle,
+.cpee-gateway-highlighted > polygon,
+.cpee-gateway-highlighted polygon,
+.cpee-gateway-highlighted > ellipse,
+.cpee-gateway-highlighted ellipse {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 3px !important;
+    filter: none !important;
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+    /* Force immediate rendering - prevents staggered application */
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    /* Ensure paint happens immediately */
+    contain: layout style paint;
+}
+
+.cpee-gateway-highlighted-active > rect[class*="stand"]:not([class*="without"]),
+.cpee-gateway-highlighted-active rect[class*="stand"]:not([class*="without"]),
+.cpee-gateway-highlighted-active > .part-middle > line[class*="standline"],
+.cpee-gateway-highlighted-active .part-middle line[class*="standline"],
+.cpee-gateway-highlighted-active > circle,
+.cpee-gateway-highlighted-active circle,
+.cpee-gateway-highlighted-active > polygon,
+.cpee-gateway-highlighted-active polygon,
+.cpee-gateway-highlighted-active > ellipse,
+.cpee-gateway-highlighted-active ellipse {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 4px !important;
+    filter: none !important;
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+    /* Force immediate rendering - prevents staggered application */
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    /* Ensure paint happens immediately */
+    contain: layout style paint;
+}
+
+/* Explicitly exclude the background fill rect (standwithout) from highlighting */
+.cpee-gateway-highlighted rect[class*="without"],
+.cpee-gateway-highlighted-active rect[class*="without"] {
+    stroke: none !important;
+    stroke-width: 0 !important;
+}
+
+/* Exclude other lines (not part-middle standlines) from highlighting */
+.cpee-gateway-highlighted .part-start line,
+.cpee-gateway-highlighted .part-end line,
+.cpee-gateway-highlighted-active .part-start line,
+.cpee-gateway-highlighted-active .part-end line {
+    stroke: none !important;
+    stroke-width: 0 !important;
+}
+
+/* Exclude lines that don't have standline class in part-middle */
+.cpee-gateway-highlighted .part-middle line:not([class*="standline"]),
+.cpee-gateway-highlighted-active .part-middle line:not([class*="standline"]) {
+    stroke: none !important;
+    stroke-width: 0 !important;
+}
+
+/* Explicitly exclude text from highlighting */
+.cpee-gateway-highlighted text,
+.cpee-gateway-highlighted-active text,
+.cpee-gateway-highlighted .label,
+.cpee-gateway-highlighted-active .label {
+    stroke: none !important;
+    fill: var(--text-primary) !important;
+}
+
 /* Mermaid-specific highlighting */
 .mermaid-node-highlighted {
     stroke: var(--highlight-stroke) !important;

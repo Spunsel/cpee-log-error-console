@@ -467,7 +467,6 @@ export class CPEEStep {
      * Clear task mapping
      */
     clearTaskMapping() {
-        console.log(`[CPEEStep] Clearing task mapping for Step ${this.stepNumber}`);
         this.taskMapping = null;
     }
 
@@ -534,7 +533,6 @@ export class CPEEStep {
             return;
         }
         
-        console.log(`[CPEEStep] Clearing traces for ${sectionId} in Step ${this.stepNumber}`);
         this.traces[sectionId] = null;
     }
 
@@ -542,7 +540,6 @@ export class CPEEStep {
      * Clear all traces for all sections
      */
     clearAllTraces() {
-        console.log(`[CPEEStep] Clearing all traces for Step ${this.stepNumber}`);
         this.traces = {
             'input-cpee': null,
             'input-intermediate': null,
@@ -587,7 +584,6 @@ export class CPEEStep {
         }
         
         this.verificationResults[sectionId] = verificationResult;
-        console.log(`[CPEEStep] Stored verification result for ${sectionId} in Step ${this.stepNumber}: sound=${verificationResult?.sound}, bounded=${verificationResult?.bounded}`);
     }
 
     /**
@@ -634,7 +630,6 @@ export class CPEEStep {
             return;
         }
         
-        console.log(`[CPEEStep] Clearing verification result for ${sectionId} in Step ${this.stepNumber}`);
         this.verificationResults[sectionId] = null;
     }
 
@@ -642,7 +637,6 @@ export class CPEEStep {
      * Clear all verification results for all sections
      */
     clearAllVerificationResults() {
-        console.log(`[CPEEStep] Clearing all verification results for Step ${this.stepNumber}`);
         this.verificationResults = {
             'input-cpee': null,
             'input-intermediate': null,
@@ -667,7 +661,6 @@ export class CPEEStep {
         }
         
         this.reachabilityResults[sectionId] = reachabilityResult;
-        console.log(`[CPEEStep] Stored reachability result for ${sectionId} in Step ${this.stepNumber}`);
     }
 
     /**
@@ -714,7 +707,6 @@ export class CPEEStep {
             return;
         }
         
-        console.log(`[CPEEStep] Clearing reachability result for ${sectionId} in Step ${this.stepNumber}`);
         this.reachabilityResults[sectionId] = null;
     }
 
@@ -722,7 +714,6 @@ export class CPEEStep {
      * Clear all reachability results for all sections
      */
     clearAllReachabilityResults() {
-        console.log(`[CPEEStep] Clearing all reachability results for Step ${this.stepNumber}`);
         this.reachabilityResults = {
             'input-cpee': null,
             'input-intermediate': null,
@@ -793,7 +784,6 @@ export class CPEEStep {
         }
         
         this.comparisonResults[sectionPair] = comparisonResult;
-        console.log(`[CPEEStep] Stored comparison results for ${sectionPair} pair in Step ${this.stepNumber}`);
     }
 
     /**
@@ -816,7 +806,6 @@ export class CPEEStep {
             return;
         }
         
-        console.log(`[CPEEStep] Clearing comparison results for ${sectionPair} pair in Step ${this.stepNumber}`);
         this.comparisonResults[sectionPair] = null;
     }
 
@@ -824,7 +813,6 @@ export class CPEEStep {
      * Clear all comparison results
      */
     clearAllComparisonResults() {
-        console.log(`[CPEEStep] Clearing all comparison results for Step ${this.stepNumber}`);
         this.comparisonResults = {
             input: null,
             output: null

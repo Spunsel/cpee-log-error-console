@@ -325,9 +325,42 @@ export class NodeMappingService {
             }
         } else if (targetIsCpee) {
             // Mermaid → CPEE: match Mermaid.id to CPEE.altId
-            const match = targetTasks.find(t => t.altId === sourceTask.id);
+            let match = targetTasks.find(t => t.altId === sourceTask.id);
             if (match) {
                 return match;
+            }
+            
+            // SPECIAL CASE: Gateway matching between input-intermediate and input-cpee
+            // Input-intermediate gateways have id="gw1s", "gw2s" etc.
+            // Input-cpee gateways have numeric alt_ids like "3", "6"
+            // They don't match by ID, so use position-based matching for gateways
+            if (sourceFormat === 'input-intermediate' && targetFormat === 'input-cpee') {
+                const isSourceGateway = sourceTask.type === 'gateway' || 
+                                       (sourceTask.id && sourceTask.id.match(/^gw\d+/i));
+                if (isSourceGateway && sourceTask.position !== null && sourceTask.position !== undefined) {
+                    // Find target gateways sorted by position
+                    const targetGateways = targetTasks
+                        .filter(t => (t.type === 'gateway' || t.type === 'choose' || t.type === 'parallel') && 
+                                    t.position !== null && t.position !== undefined)
+                        .sort((a, b) => (a.position ?? 0) - (b.position ?? 0));
+                    
+                    // Find target gateway with same position (or closest)
+                    match = targetGateways.find(g => g.position === sourceTask.position);
+                    if (!match && targetGateways.length > 0) {
+                        // If exact position match fails, use index-based matching
+                        // Extract numeric part from gw1s, gw2s etc. (1, 2, etc.)
+                        const gwMatch = sourceTask.id.match(/^gw(\d+)/i);
+                        if (gwMatch) {
+                            const gwIndex = parseInt(gwMatch[1], 10) - 1; // Convert to 0-based index
+                            if (gwIndex >= 0 && gwIndex < targetGateways.length) {
+                                match = targetGateways[gwIndex];
+                            }
+                        }
+                    }
+                    if (match) {
+                        return match;
+                    }
+                }
             }
         } else if (sourceIsCpee) {
             // CPEE → Other Mermaid: match CPEE.altId to Mermaid.id
@@ -840,10 +873,17 @@ class NodeMapping {
         let sourceTask = this.getTask(taskId, sourceFormat);
         
         // If not found, try to extract base ID and search again (for Mermaid SVG IDs)
-        if (!sourceTask && taskId.includes(':task:')) {
+        // Support both task and gateway patterns
+        if (!sourceTask && (taskId.includes(':task:') || taskId.includes(':exclusivegateway:') || taskId.includes(':parallelgateway:'))) {
             const baseIdMatch = taskId.match(/:([a-z0-9]+):task:/) || 
                                taskId.match(/^([a-z0-9]+):task:/) ||
-                               taskId.match(/flowchart-([a-z0-9]+)(?:-task-|:task:|-)/);
+                               taskId.match(/:([a-z0-9]+):exclusivegateway:/) ||
+                               taskId.match(/^([a-z0-9]+):exclusivegateway:/) ||
+                               taskId.match(/:([a-z0-9]+):parallelgateway:/) ||
+                               taskId.match(/^([a-z0-9]+):parallelgateway:/) ||
+                               taskId.match(/flowchart-([a-z0-9]+)(?:-task-|:task:|-)/) ||
+                               taskId.match(/flowchart-([a-z0-9]+)(?:-exclusivegateway-|:exclusivegateway:|-)/) ||
+                               taskId.match(/flowchart-([a-z0-9]+)(?:-parallelgateway-|:parallelgateway:|-)/);
             if (baseIdMatch && baseIdMatch[1]) {
                 const baseId = baseIdMatch[1];
                 sourceTask = this.getTask(baseId, sourceFormat);

@@ -39,7 +39,7 @@ export class HighlightingService {
      * Highlights a list of elements
      * 
      * @param {Element[]|NodeList|Set} elementList - List of elements to highlight
-     * @param {boolean} isActive - Whether this is the active (clicked) task
+     * @param {boolean} isActive - Whether this is the active (clicked) task or gateway
      */
     highlightElements(elementList, isActive = false) {
         if (!elementList) {
@@ -60,7 +60,7 @@ export class HighlightingService {
      * Highlights a CPEE task element
      * 
      * @param {Element} svgElement - SVG element containing the CPEE task
-     * @param {boolean} isActive - Whether this is the active (clicked) task
+     * @param {boolean} isActive - Whether this is the active (clicked) task or gateway
      */
     highlightCPEETask(svgElement, isActive = false) {
         if (!svgElement) {
@@ -77,7 +77,7 @@ export class HighlightingService {
      * Highlights a Mermaid node element
      * 
      * @param {Element} svgElement - SVG element containing the Mermaid node
-     * @param {boolean} isActive - Whether this is the active (clicked) task
+     * @param {boolean} isActive - Whether this is the active (clicked) task or gateway
      */
     highlightMermaidNode(svgElement, isActive = false) {
         if (!svgElement) {
@@ -87,6 +87,31 @@ export class HighlightingService {
         const nodeGroup = this.findSVGGroup(svgElement, ['node']);
         if (nodeGroup) {
             this.applySVGHighlight(nodeGroup, 'mermaid-node-highlighted', isActive);
+        }
+    }
+
+    /**
+     * Highlights a CPEE gateway element
+     * 
+     * @param {Element} svgElement - SVG element containing the CPEE gateway
+     * @param {boolean} isActive - Whether this is the active (clicked) gateway
+     */
+    highlightCPEEGateway(svgElement, isActive = false) {
+        if (!svgElement) {
+            return;
+        }
+        
+        // Gateways might be in different group structures
+        const gatewayGroup = this.findSVGGroup(svgElement, [
+            'gateway-group', 
+            'element', 
+            'complex', 
+            'choose', 
+            'parallel',
+            'primitive'
+        ]);
+        if (gatewayGroup) {
+            this.applySVGHighlight(gatewayGroup, 'cpee-gateway-highlighted', isActive);
         }
     }
 
@@ -241,6 +266,7 @@ export class HighlightingService {
         const highlightClasses = [
             'task-highlighted', 'task-highlighted-active',
             'cpee-task-highlighted', 'cpee-task-highlighted-active',
+            'cpee-gateway-highlighted', 'cpee-gateway-highlighted-active',
             'mermaid-node-highlighted', 'mermaid-node-highlighted-active'
         ];
         

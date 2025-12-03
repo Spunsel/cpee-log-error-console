@@ -467,9 +467,7 @@ export class CPEEWfAdaptorRenderer {
                     }
                 }
             });
-            
-            console.log(`[CPEEWfAdaptorRenderer] Namespaced ${idMap.size} IDs in SVG for container ${this.container.id}`);
-            
+                        
         } catch (error) {
             console.error('[CPEEWfAdaptorRenderer] Error namespacing SVG IDs:', error);
             // Don't throw - continue with rendering even if namespacing fails

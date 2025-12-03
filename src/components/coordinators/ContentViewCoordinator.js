@@ -413,7 +413,6 @@ export class ContentViewCoordinator {
         // Clear reachability results when navigating to new step 
         if (step) {
             step.clearAllReachabilityResults();
-            console.log('[ContentViewCoordinator] Cleared reachability results for new step');
         }
 
         // Reset all view modes to visual for this step
@@ -530,9 +529,7 @@ export class ContentViewCoordinator {
                 
                 // Perform reachability analysis (, 35.21)
                 try {
-                    const format = section.isCPEE ? 'cpee' : 'mermaid';
-                    console.log(`[ContentViewCoordinator] Starting reachability analysis for ${section.id}...`);
-                    
+                    const format = section.isCPEE ? 'cpee' : 'mermaid';                    
                     const reachabilityResult = analyzeReachability(
                         contentString,
                         format,
@@ -546,19 +543,12 @@ export class ContentViewCoordinator {
                     // Store reachability result in step
                     step.setReachabilityResult(section.id, reachabilityResult);
                     
-                    if (reachabilityResult.success) {
-                        console.log(`[ContentViewCoordinator] Reachability analysis complete for ${section.id}: useful=${reachabilityResult.nodeClassification?.usefulCount || 0}, deadEnd=${reachabilityResult.nodeClassification?.deadEndCount || 0}, unreachable=${reachabilityResult.nodeClassification?.unreachableCount || 0}`);
-                    } else {
-                        console.warn(`[ContentViewCoordinator] Reachability analysis failed for ${section.id}: ${reachabilityResult.error || 'Unknown error'}`);
-                    }
-                    
                     // Emit reachability analysis completion event 
                     this.eventBus.emit('reachability:analyzed', {
                         sectionId: section.id,
                         stepNumber: step.stepNumber || 'unknown',
                         reachabilityResult: reachabilityResult
                     }, { silent: true });
-                    console.log(`[ContentViewCoordinator] Emitted reachability:analyzed event for ${section.id} (Step ${step.stepNumber || 'unknown'})`);
                 } catch (reachabilityError) {
                     console.error(`[ContentViewCoordinator] Reachability analysis failed for ${section.id}:`, reachabilityError);
                     console.error(`[ContentViewCoordinator] Reachability error stack:`, reachabilityError.stack);

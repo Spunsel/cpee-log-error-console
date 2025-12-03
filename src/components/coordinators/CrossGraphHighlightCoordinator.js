@@ -1,33 +1,28 @@
-/**
- * Cross-Graph Highlight Coordinator
- * Coordinates task highlighting across all 4 content sections (cross-graph coordination)
- * Responsibilities:
- * - Track rendered SVG containers in all sections
- * - Handle task click events and propagate highlights across graphs
- * - Coordinate with HighlightingService and TaskMapping (from CPEEStep)
- * - Manage visual vs raw view mode (only highlight in visual mode)
- * - Implement state persistence across step navigation
- */
+    /**
+     * Cross-Graph Highlight Coordinator
+     * Coordinates task and gateway highlighting across all 4 content sections (cross-graph coordination)
+ * 
+     * Responsibilities:
+     * - Track rendered SVG containers in all sections
+     * - Handle task and gateway click events and propagate highlights across graphs
+     * - Coordinate with HighlightingService and TaskMapping (from CPEEStep)
+     * - Manage visual vs raw view mode (only highlight in visual mode)
+     */
 
 import { SVGClickDetector } from '../../utils/interaction/SVGClickDetector.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
+import { MermaidNodeExtractor } from '../../utils/extraction/MermaidNodeExtractor.js';
+import { CPEENodeExtractor } from '../../utils/extraction/CPEETNodeExtractor.js';
 
 export class CrossGraphHighlightCoordinator {
     constructor(domRegistry = null, highlightingService = null, stateManager = null) {
         this.domRegistry = domRegistry;
-        
-        // Core services injected via constructor
         this.highlightingService = highlightingService;
         this.stateManager = stateManager || defaultStateManager;
-        // Task mapping is accessed via currentStepMapping (from CPEEStep)
         
-        // Click detection
         this.clickDetector = new SVGClickDetector();
+        this.clickListenerCleanups = new Map();
         
-        // Track click listener cleanup functions
-        this.clickListenerCleanups = new Map(); // Map<sectionId, cleanupFunction>
-        
-        // Section tracking
         this.sections = {
             'input-cpee': null,
             'input-intermediate': null,
@@ -35,711 +30,586 @@ export class CrossGraphHighlightCoordinator {
             'output-cpee': null
         };
         
-        // Current highlight state
         this.activeTaskId = null;
-        this.activeSourceFormat = null;
         this.activeSourceSection = null;
-        this.highlightedTasks = new Map(); // Map<sectionId, Set<taskId>>
+        this.highlightedTasks = new Map();
+        this.currentStepMapping = null;
         
-        // Click outside handler
         this.clickOutsideHandler = null;
-        
-        // Initialize click outside handler
         this.initializeClickOutsideHandler();
     }
 
-    /**
-     * Set the TaskMapper instance
-     * @deprecated Task mapping is now accessed via currentStepMapping (from CPEEStep)
-     * This method is kept for backward compatibility but does nothing
-     * @param {Object} _taskMapper - TaskMapper instance (unused)
-     */
-    setTaskMapper(_taskMapper) {
-        // Task mapping is now accessed via currentStepMapping (from CPEEStep)
-        // This method is kept for backward compatibility
-    }
-
-    /**
-     * Register a content section's SVG container
-     * @param {string} sectionId - Section identifier (e.g., 'input-cpee')
-     * @param {HTMLElement} container - SVG container element
-     */
+    // ============ Section Registration ============
+    
     registerSection(sectionId, container) {
         this.sections[sectionId] = container;
     }
 
-    /**
-     * Attach click handlers for CPEE SVG (called when SVG is ready)
-     * @param {HTMLElement} svgElement - SVG container element
-     * @param {string} sectionId - Section identifier
-     */
     attachCPEEClickHandlers(svgElement, sectionId) {
-        // Remove any existing listener for this section
         this.removeClickHandlers(sectionId);
         
-        // Find all task elements and make them clickable
-        const taskElements = svgElement.querySelectorAll('g.element[element-id]');
+        // Make all task and gateway elements clickable
+        svgElement.querySelectorAll('g.element[element-id]').forEach(el => el.classList.add('task-clickable'));
+        svgElement.querySelectorAll('g.choose[element-id], g.parallel[element-id]').forEach(el => el.classList.add('task-clickable'));
         
-        taskElements.forEach(taskElement => {
-            taskElement.classList.add('task-clickable');
-        });
-        
-        // Attach click listener for the entire SVG
         const cleanup = this.clickDetector.attachClickListener(svgElement, (event, clickedElement, elementPath, taskContainer) => {
             if (taskContainer) {
                 const taskId = taskContainer.getAttribute('element-id');
                 if (taskId) {
-                    this.onTaskClicked(taskId, sectionId, sectionId);
+                    this.onTaskClicked(taskId, sectionId);
                 }
             }
         });
         
-        // Store cleanup function
         this.clickListenerCleanups.set(sectionId, cleanup);
     }
 
-    /**
-     * Attach click handlers for Mermaid SVG (called when SVG is ready)
-     * @param {HTMLElement} svgElement - SVG container element
-     * @param {string} sectionId - Section identifier
-     */
     attachMermaidClickHandlers(svgElement, sectionId) {
-        // Remove any existing listener for this section
         this.removeClickHandlers(sectionId);
         
-        // Find all node elements and make them clickable
-        const nodeElements = svgElement.querySelectorAll('g.node');
+        svgElement.querySelectorAll('g.node').forEach(el => el.classList.add('task-clickable'));
         
-        nodeElements.forEach(nodeElement => {
-            nodeElement.classList.add('task-clickable');
-        });
-        
-        // Attach click listener for the entire SVG
         const cleanup = this.clickDetector.attachClickListener(svgElement, (event, clickedElement, elementPath, taskContainer) => {
-            if (taskContainer) {
-                const nodeId = taskContainer.id;
-                if (nodeId) {
-                    this.onTaskClicked(nodeId, sectionId, sectionId);
-                }
+            if (taskContainer?.id) {
+                this.onTaskClicked(taskContainer.id, sectionId);
             }
         });
         
-        // Store cleanup function
         this.clickListenerCleanups.set(sectionId, cleanup);
     }
 
-    /**
-     * Remove click handlers for a section
-     * @param {string} sectionId - Section identifier
-     */
     removeClickHandlers(sectionId) {
         const cleanup = this.clickListenerCleanups.get(sectionId);
-        if (cleanup && typeof cleanup === 'function') {
+        if (cleanup) {
             cleanup();
             this.clickListenerCleanups.delete(sectionId);
         }
     }
 
-    /**
-     * Handle task click event from any section
-     * @param {string} taskId - Clicked task identifier
-     * @param {string} sourceFormat - Source format (e.g., 'input-cpee', 'input-intermediate')
-     * @param {string} sectionId - Source section identifier
-     */
-    onTaskClicked(taskId, sourceFormat, sectionId) {
-        // Check if clicking the same task again
-        if (this.isSameTaskClicked(taskId, sectionId)) {
+    // ============ Click Handling ============
+    
+    onTaskClicked(taskId, sectionId) {
+        console.log('[CrossGraphHighlight] onTaskClicked', { taskId, sectionId });
+
+        // Toggle off if clicking same element
+        if (this.activeTaskId === taskId && this.activeSourceSection === sectionId) {
             this.clearActiveState();
             return;
         }
         
-        // Extract base task ID for mapping
-        const baseTaskId = this.extractBaseTaskId(taskId);
+        // Resolve CPEE gateway element-id to mapping ID
+        let resolvedId = taskId;
+        let gatewayObject = null;
         
-        // Update active state
-        this.setActiveState(taskId, baseTaskId, sourceFormat, sectionId);
-        
-        // Clear previous highlights and apply new highlights
-        this.clearAllHighlights();
-        this.applyHighlights(baseTaskId, sourceFormat, sectionId, taskId);
-    }
-
-    /**
-     * Check if the same task is clicked again
-     * @param {string} taskId - Task identifier
-     * @param {string} sectionId - Section identifier
-     * @returns {boolean} True if same task clicked
-     */
-    isSameTaskClicked(taskId, sectionId) {
-        return this.activeTaskId === taskId && this.activeSourceSection === sectionId;
-    }
-
-    /**
-     * Extract base task ID from Mermaid ID format
-     * Handles both formats:
-     * - "flowchart-a1:task:-5" → "a1"
-     * - "flowchart-1:task:-5" → "1"
-     * - "1:task:" → "1"
-     * @param {string} taskId - Task identifier
-     * @returns {string} Base task ID
-     */
-    extractBaseTaskId(taskId) {
-        // If it doesn't contain :task:, it's likely already a base ID (CPEE format)
-        if (!taskId.includes(':task:')) {
-            return taskId;
+        if (this.isCPEESection(sectionId) && CPEENodeExtractor.isCPEEGatewayElementId(taskId)) {
+            const resolved = this.resolveCPEEGatewayElementId(taskId, sectionId);
+            if (resolved) {
+                resolvedId = resolved.altId || resolved.id;
+                gatewayObject = resolved;
+            }
         }
         
-        // Try pattern: flowchart-XXX:task: or XXX:task:
-        // Match: -([a-z0-9]+):task: or ^([a-z0-9]+):task:
-        const match = taskId.match(/-([a-z0-9]+):task:/) || taskId.match(/^([a-z0-9]+):task:/);
-        if (match) {
-            const baseId = match[1];
-            return baseId;
-        }
+        const baseTaskId = this.extractBaseTaskId(resolvedId);
         
-        return taskId;
-    }
-
-    /**
-     * Set active state
-     * @param {string} taskId - Task identifier
-     * @param {string} baseTaskId - Base task identifier
-     * @param {string} sourceFormat - Source format
-     * @param {string} sectionId - Section identifier
-     */
-    setActiveState(taskId, baseTaskId, sourceFormat, sectionId) {
         this.activeTaskId = taskId;
-        this.activeTaskBaseId = baseTaskId;
-        this.activeSourceFormat = sourceFormat;
         this.activeSourceSection = sectionId;
-    }
-
-    /**
-     * Clear active state
-     */
-    clearActiveState() {
-        this.activeTaskId = null;
-        this.activeSourceFormat = null;
-        this.activeSourceSection = null;
+        
         this.clearAllHighlights();
+        this.applyHighlights(baseTaskId, sectionId, taskId, gatewayObject);
     }
 
-    /**
-     * Apply highlights for a task
-     * @param {string} baseTaskId - Base task identifier
-     * @param {string} sourceFormat - Source format
-     * @param {string} sectionId - Section identifier
-     * @param {string} originalTaskId - Original task identifier
-     */
-    applyHighlights(baseTaskId, sourceFormat, sectionId, originalTaskId) {
-        if (this.currentStepMapping) {
-            this.highlightWithTaskMapper(baseTaskId, sourceFormat, sectionId, originalTaskId);
+    // ============ Highlight Application ============
+    
+    applyHighlights(baseTaskId, sectionId, originalTaskId, gatewayObject) {
+        if (!this.currentStepMapping) {
+            this.highlightInSection(sectionId, originalTaskId, true, gatewayObject);
+            return;
+        }
+        
+        // Check if this is a gateway click
+        const isGateway = this.isGatewayId(baseTaskId) || this.isGateway(gatewayObject);
+        
+        if (isGateway) {
+            this.highlightGatewaysAcrossAllSections(baseTaskId, sectionId, originalTaskId, gatewayObject);
         } else {
-            this.highlightInSection(sectionId, originalTaskId, true);
+            this.highlightTasksAcrossAllSections(baseTaskId, sectionId, originalTaskId);
         }
     }
 
-    /**
-     * Highlight tasks using TaskMapping to find related tasks
-     * @param {string} taskId - Clicked task identifier
-     * @param {string} sourceFormat - Source format
-     * @param {string} sectionId - Source section identifier
-     */
-    highlightWithTaskMapper(baseTaskId, sourceFormat, sectionId, originalTaskId) {
-        // Find equivalent tasks in all formats
-        const equivalentTasks = this.findEquivalentTasks(baseTaskId, sourceFormat);
+    highlightTasksAcrossAllSections(baseTaskId, sectionId, originalTaskId) {
+        const equivalents = this.findEquivalentTasks(baseTaskId, sectionId);
         
-        if (equivalentTasks.length === 0) {
-            // Just highlight in source section using original ID
+        if (equivalents.length === 0) {
             this.highlightInSection(sectionId, originalTaskId, true);
             return;
         }
         
-        // Highlight in each section
-        equivalentTasks.forEach(({ taskId: mappedTaskId, format: mappedFormat, task: taskObject }) => {
-            const mappedSectionId = this.formatToSectionId(mappedFormat);
-            const isActive = (mappedFormat === sourceFormat);
-            
-            // Try to use the full SVG ID from metadata if available (for Mermaid nodes)
-            let highlightTaskId = mappedTaskId;
-            if (taskObject && taskObject.metadata && taskObject.metadata.fullId) {
-                // Prefer full SVG ID for better matching
-                highlightTaskId = taskObject.metadata.fullId;
-            }
-            
-            this.highlightInSection(mappedSectionId, highlightTaskId, isActive);
+        equivalents.forEach(({ taskId, format, task }) => {
+            const targetSection = format;
+            const isSource = (targetSection === sectionId);
+            const highlightId = this.isCPEESection(targetSection) ? (task?.altId || task?.id || taskId) : taskId;
+            this.highlightInSection(targetSection, highlightId, isSource, task);
         });
         
-        // Also highlight the source task using original ID
+        // Ensure source is highlighted
         this.highlightInSection(sectionId, originalTaskId, true);
     }
 
-    /**
-     * Find equivalent tasks for a given task using TaskMapping
-     * @param {string} taskId - Source task identifier
-     * @param {string} sourceFormat - Source format
-     * @returns {Array} Array of { taskId, format }
-     */
-    findEquivalentTasks(taskId, sourceFormat) {
-        if (!this.currentStepMapping) {
-            return [];
+    highlightGatewaysAcrossAllSections(baseTaskId, sectionId, originalTaskId, gatewayObject) {
+        const gatewayIndex = this.getGatewayIndex(baseTaskId, sectionId, gatewayObject);
+        
+        if (gatewayIndex < 0) {
+            console.warn('[CrossGraphHighlight] Could not determine gateway index');
+            this.highlightInSection(sectionId, originalTaskId, true, gatewayObject);
+            return;
         }
         
-        try {
-            // Use the step's task mapping to find equivalent tasks
-            const equivalents = this.currentStepMapping.findEquivalentTasks(taskId, sourceFormat);
+        const allSections = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
+        
+        for (const targetSection of allSections) {
+            if (!this.sections[targetSection]) {
+                continue;
+            }
             
-            // Convert to array format
-            const result = [];
-            Object.entries(equivalents).forEach(([format, tasks]) => {
-                tasks.forEach(({ task }) => {
-                    result.push({
-                        taskId: task.id,
-                        format: format,
-                        task: task // Include full task object for metadata access
-                    });
-                });
-            });
+            const isSource = (targetSection === sectionId);
+            const isMermaid = this.isMermaidSection(targetSection);
+            const targetGateway = this.getGatewayAtIndex(targetSection, gatewayIndex);
             
-            return result;
+            if (!targetGateway) {
+                continue;
+            }
             
-        } catch (error) {
-            console.error('[CrossGraphHighlightCoordinator] Error finding equivalent tasks:', error);
-            return [];
+            if (isSource) {
+                this.highlightInSection(targetSection, originalTaskId, true, gatewayObject || targetGateway);
+            } else {
+                const targetId = targetGateway.altId || targetGateway.id;
+                this.highlightInSection(targetSection, targetId, false, targetGateway);
+            }
+            
+            // For Mermaid, also highlight paired gateway (start ↔ end)
+            if (isMermaid) {
+                const pairedId = MermaidNodeExtractor.getPairedGatewayId(isSource ? originalTaskId : targetGateway.id);
+                if (pairedId) {
+                    this.highlightInSection(targetSection, pairedId, isSource, null);
+                }
+            }
         }
     }
 
-    /**
-     * Convert format key to section ID
-     * @param {string} format - Format key (e.g., 'input-cpee')
-     * @returns {string} Section ID
-     */
-    formatToSectionId(format) {
-        // Format and section ID are the same for our sections
-        return format;
-    }
-
-    /**
-     * Get section type based on section ID
-     * @param {string} sectionId - Section identifier
-     * @returns {string} Section type
-     */
-    getSectionType(sectionId) {
-        if (sectionId.includes('cpee')) {
-            return 'cpee';
-        }
-        if (sectionId.includes('intermediate')) {
-            return 'mermaid';
-        }
-        return 'unknown';
-    }
-
-    /**
-     * Highlight a task in a specific section
-     * @param {string} sectionId - Section identifier
-     * @param {string} taskId - Task identifier
-     * @param {boolean} isActive - Whether this is the active (clicked) task
-     */
-    highlightInSection(sectionId, taskId, isActive = false) {
+    // ============ Element Finding & Highlighting ============
+    
+    highlightInSection(sectionId, taskId, isActive = false, taskObject = null) {
         const container = this.sections[sectionId];
-        if (!container) {
+        if (!container || !this.isSectionInVisualMode(sectionId)) {
             return;
         }
         
-        // Check if section is in visual mode
-        if (!this.isSectionInVisualMode(sectionId)) {
+        const element = this.findElementInSection(container, taskId, sectionId, taskObject);
+        
+        if (!element) {
+            console.warn('[CrossGraphHighlight] Element not found', { sectionId, taskId });
             return;
         }
         
-        // Find task element
-        const taskElement = this.findTaskInSVG(container, taskId);
-        if (!taskElement) {
-            return;
-        }
-        
-        // Apply appropriate highlighting based on section type
-        this.applySectionHighlight(sectionId, taskElement, isActive);
-        
-        // Track this highlight
-        this.trackHighlight(sectionId, taskId);
+        this.applyHighlightToElement(sectionId, element, isActive);
+        this.highlightedTasks.set(sectionId, (this.highlightedTasks.get(sectionId) || new Set()).add(taskId));
     }
 
-    /**
-     * Apply highlighting based on section type
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} taskElement - Task element
-     * @param {boolean} isActive - Whether this is the active task
-     */
-    applySectionHighlight(sectionId, taskElement, isActive) {
-        const sectionType = this.getSectionType(sectionId);
+    findElementInSection(container, taskId, sectionId, taskObject) {
+        const isCPEE = this.isCPEESection(sectionId);
         
-        switch (sectionType) {
-            case 'cpee':
-                this.highlightingService.highlightCPEETask(taskElement, isActive);
-                break;
-            case 'mermaid':
-                this.highlightingService.highlightMermaidNode(taskElement, isActive);
-                break;
-            default:
-                this.highlightingService.highlightElements([taskElement], isActive);
+        // For CPEE gateway element-ids (choose_N, parallel_N)
+        if (isCPEE && CPEENodeExtractor.isCPEEGatewayElementId(taskId)) {
+            return container.querySelector(`g.element.complex[element-id="${CSS.escape(taskId)}"]`) ||
+                   container.querySelector(`g.element[element-id="${CSS.escape(taskId)}"]`);
         }
-    }
-
-    /**
-     * Track a highlight
-     * @param {string} sectionId - Section identifier
-     * @param {string} taskId - Task identifier
-     */
-    trackHighlight(sectionId, taskId) {
-        if (!this.highlightedTasks.has(sectionId)) {
-            this.highlightedTasks.set(sectionId, new Set());
-        }
-        this.highlightedTasks.get(sectionId).add(taskId);
-    }
-
-    /**
-     * Find task element in SVG container
-     * @param {HTMLElement} container - SVG container element
-     * @param {string} taskId - Task identifier to find (can be full SVG ID or base ID)
-     * @returns {HTMLElement|null} Task element or null
-     */
-    findTaskInSVG(container, taskId) {
-        // First, try CPEE element-id attribute (most reliable for CPEE)
-        const elements = container.querySelectorAll('[element-id]');
-        for (const el of elements) {
-            const elementId = el.getAttribute('element-id');
-            if (elementId === taskId) {
-                return el;
+        
+        // Try direct element-id match (CPEE)
+        if (isCPEE) {
+            const byElementId = container.querySelector(`g.element[element-id="${CSS.escape(taskId)}"]`);
+            if (byElementId) {
+                return byElementId;
+            }
+            
+            // Try altId fallback
+            if (taskObject?.altId) {
+                const byAltId = container.querySelector(`g.element[element-id="${CSS.escape(taskObject.altId)}"]`);
+                if (byAltId) {
+                    return byAltId;
+                }
+            }
+            
+            // For gateways, use index-based mapping
+            if (taskObject && this.isGateway(taskObject)) {
+                return this.findCPEEGatewayByMapping(container, taskObject, sectionId);
             }
         }
         
-        // For Mermaid: look for node elements
+        // For Mermaid, find by node ID
         const nodes = container.querySelectorAll('g.node');
         
-        // Try exact ID match for Mermaid first (most reliable)
+        // Exact match
         for (const node of nodes) {
             if (node.id === taskId) {
                 return node;
             }
         }
         
-        // Extract base ID if taskId is a full Mermaid SVG ID
-        let baseId = taskId;
-        const baseIdMatch = taskId.match(/:([a-z0-9]+):task:/) || 
-                           taskId.match(/^([a-z0-9]+):task:/) ||
-                           taskId.match(/flowchart-([a-z0-9]+)(?:-task-|:task:|-)/);
-        if (baseIdMatch && baseIdMatch[1]) {
-            baseId = baseIdMatch[1];
-        }
-        
-        // Try pattern matching for Mermaid with the full taskId
+        // Pattern match for Mermaid IDs
+        const baseId = this.extractBaseTaskId(taskId);
         for (const node of nodes) {
-            if (node.id) {
-                // Escape special regex characters in taskId
-                const escapedTaskId = taskId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                // Try various patterns that Mermaid might use
-                const patterns = [
-                    new RegExp(`^flowchart-${escapedTaskId}(?:-task-|:task:|-|$)`),
-                    new RegExp(`flowchart-${escapedTaskId}(?:-task-|:task:)`),
-                    new RegExp(`(?:^|-)${escapedTaskId}(?:-task-|:task:)`),
-                    new RegExp(`^${escapedTaskId}(?:-task-|:task:)`)
-                ];
-                
-                for (const pattern of patterns) {
-                    if (pattern.test(node.id)) {
-                        return node;
-                    }
-                }
+            if (node.id?.includes(baseId)) {
+                return node;
             }
-        }
-        
-        // Try pattern matching with base ID (if different from taskId)
-        if (baseId !== taskId) {
-            for (const node of nodes) {
-                if (node.id) {
-                    const escapedBaseId = baseId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                    const patterns = [
-                        new RegExp(`^flowchart-${escapedBaseId}(?:-task-|:task:|-|$)`),
-                        new RegExp(`flowchart-${escapedBaseId}(?:-task-|:task:)`),
-                        new RegExp(`(?:^|-)${escapedBaseId}(?:-task-|:task:)`),
-                        new RegExp(`^${escapedBaseId}(?:-task-|:task:)`)
-                    ];
-                    
-                    for (const pattern of patterns) {
-                        if (pattern.test(node.id)) {
-                            return node;
-                        }
-                    }
-                }
-            }
-        }
-        
-        // Fallback: Try to find element by ID (CSS selector)
-        try {
-            const element = container.querySelector(`#${CSS.escape(taskId)}`);
-            if (element) {
-                return element;
-            }
-        } catch (e) {
-            // ID selector failed
-        }
-        
-        // Fallback: Try with base ID if different
-        if (baseId !== taskId) {
-            try {
-                const element = container.querySelector(`#${CSS.escape(baseId)}`);
-                if (element) {
-                    return element;
-                }
-            } catch (e) {
-                // Ignore
-            }
-        }
-        
-        // Fallback: Look for elements with data-task-id attribute
-        try {
-            const element = container.querySelector(`[data-task-id="${taskId}"]`);
-            if (element) {
-                return element;
-            }
-        } catch (e) {
-            // data-task-id selector failed
         }
         
         return null;
     }
 
-    /**
-     * Check if a section is currently in visual mode (not raw/log/traces mode)
-     * @param {string} sectionId - Section identifier
-     * @returns {boolean} True if section is in visual mode
-     */
-    isSectionInVisualMode(sectionId) {
-        // Query StateManager for view mode (single source of truth)
-        const viewModes = this.stateManager.getState('viewModes');
-        const mode = viewModes?.[sectionId] || 'visual';
+    findCPEEGatewayByMapping(container, taskObject, sectionId) {
+        const targetId = taskObject.altId || taskObject.id;
+        const gatewayType = taskObject.type === 'choose' || taskObject.metadata?.tagName === 'choose' ? 'choose' : 'parallel';
         
-        // Only visual mode allows highlighting
-        return mode === 'visual';
+        // Try direct attribute match first
+        const allGateways = container.querySelectorAll(`g.element.complex[element-id^="${gatewayType}_"]`);
+        for (const gateway of allGateways) {
+            for (const attr of gateway.attributes) {
+                if (attr.value === targetId) {
+                    return gateway;
+                }
+            }
+        }
+        
+        // Fall back to index alignment
+        const svgGateways = this.getSVGGatewaysInOrder(container, gatewayType);
+        const mappingGateways = this.getGatewaysOfType(sectionId, gatewayType);
+        
+        const targetIndex = mappingGateways.findIndex(g => 
+            g.id === targetId || g.altId === targetId || 
+            g.id === taskObject.id || g.altId === taskObject.altId
+        );
+        
+        if (targetIndex >= 0 && targetIndex < svgGateways.length) {
+            return svgGateways[targetIndex];
+        }
+        
+        return null;
     }
 
-    /**
-     * Clear all highlights
-     */
+    getSVGGatewaysInOrder(container, gatewayType) {
+        const allGateways = container.querySelectorAll(`g.element.complex[element-id^="${gatewayType}_"]`);
+        const topLevel = [];
+        
+        for (const gateway of allGateways) {
+            // Check if nested inside another gateway of same type
+            let isNested = false;
+            let parent = gateway.parentElement;
+            while (parent && parent !== container) {
+                if (parent.classList?.contains('complex') && parent.getAttribute('element-id')?.startsWith(`${gatewayType}_`)) {
+                    isNested = true;
+                    break;
+                }
+                parent = parent.parentElement;
+            }
+            if (!isNested) {
+                topLevel.push(gateway);
+            }
+        }
+        
+        // Reverse: SVG order is inverted relative to mapping order
+        return topLevel.reverse();
+    }
+
+    applyHighlightToElement(sectionId, element, isActive) {
+        if (this.isCPEESection(sectionId)) {
+            const isGateway = element.classList?.contains('choose') || 
+                             element.classList?.contains('parallel') || 
+                             element.classList?.contains('complex');
+            if (isGateway && this.highlightingService.highlightCPEEGateway) {
+                this.highlightingService.highlightCPEEGateway(element, isActive);
+            } else {
+                this.highlightingService.highlightCPEETask(element, isActive);
+            }
+        } else if (this.isMermaidSection(sectionId)) {
+            this.highlightingService.highlightMermaidNode(element, isActive);
+        } else {
+            this.highlightingService.highlightElements([element], isActive);
+        }
+    }
+
+    // ============ Gateway Utilities ============
+    
+    isGateway(task) {
+        if (!task) {
+            return false;
+        }
+        return MermaidNodeExtractor.isGateway(task) || CPEENodeExtractor.isGateway(task);
+    }
+
+    isGatewayId(id) {
+        return id && /^gw\d+/i.test(id);
+    }
+
+    getGatewaysFromFormat(format, startOnly = true) {
+        if (!this.currentStepMapping) {
+            return [];
+        }
+        
+        const taskIds = this.currentStepMapping.getTasksInFormat(format);
+        const gateways = [];
+        const isMermaid = this.isMermaidSection(format);
+        
+        for (const taskId of taskIds) {
+            const task = this.currentStepMapping.getTask(taskId, format);
+            if (task && this.isGateway(task)) {
+                if (isMermaid && startOnly) {
+                    if (MermaidNodeExtractor.isStartGateway(task.id)) {
+                        gateways.push(task);
+                    }
+                } else {
+                    gateways.push(task);
+                }
+            }
+        }
+        
+        return gateways;
+    }
+
+    getGatewaysOfType(format, gatewayType) {
+        if (!this.currentStepMapping) {
+            return [];
+        }
+        
+        const taskIds = this.currentStepMapping.getTasksInFormat(format);
+        const gateways = [];
+        
+        for (const taskId of taskIds) {
+            const task = this.currentStepMapping.getTask(taskId, format);
+            if (task && this.isGateway(task)) {
+                const matchesType = gatewayType === 'choose' ? 
+                    (task.type === 'choose' || task.type === 'gateway' || task.metadata?.tagName === 'choose') :
+                    (task.type === 'parallel' || task.type === 'gateway' || task.metadata?.tagName === 'parallel');
+                if (matchesType) {
+                    gateways.push(task);
+                }
+            }
+        }
+        
+        return gateways;
+    }
+
+    getGatewayIndex(gatewayId, format, gatewayObject) {
+        const gateways = this.getGatewaysFromFormat(format, true);
+        
+        for (let i = 0; i < gateways.length; i++) {
+            const g = gateways[i];
+            if (g.id === gatewayId || g.altId === gatewayId ||
+                (gatewayObject && (g.id === gatewayObject.id || g.altId === gatewayObject.altId))) {
+                return i;
+            }
+        }
+        
+        // Handle Mermaid END gateways
+        if (MermaidNodeExtractor.isEndGateway(gatewayId)) {
+            const startId = MermaidNodeExtractor.toStartGatewayId(gatewayId);
+            return gateways.findIndex(g => g.id === startId);
+        }
+        
+        return -1;
+    }
+
+    getGatewayAtIndex(format, index) {
+        if (index < 0) {
+            return null;
+        }
+        const gateways = this.getGatewaysFromFormat(format, true);
+        return gateways[index] || null;
+    }
+
+    resolveCPEEGatewayElementId(elementId, sectionId) {
+        if (!this.currentStepMapping) {
+            return null;
+        }
+        
+        const gatewayType = CPEENodeExtractor.extractGatewayType(elementId);
+        const svgIndex = CPEENodeExtractor.extractSvgIndex(elementId);
+        
+        if (!gatewayType || svgIndex < 0) {
+            return null;
+        }
+        
+        const mappingGateways = this.getGatewaysOfType(sectionId, gatewayType);
+        if (mappingGateways.length === 0) {
+            return null;
+        }
+        
+        // SVG gateways are inverted: choose_n → first mapping, choose_0 → last
+        const invertedIndex = mappingGateways.length - 1 - svgIndex;
+        
+        return (invertedIndex >= 0 && invertedIndex < mappingGateways.length) 
+            ? mappingGateways[invertedIndex] 
+            : null;
+    }
+
+    // ============ Task Mapping ============
+    
+    findEquivalentTasks(taskId, sourceFormat) {
+        if (!this.currentStepMapping) {
+            return [];
+        }
+        
+        try {
+            const equivalents = this.currentStepMapping.findEquivalentTasks(taskId, sourceFormat);
+            const result = [];
+            
+            Object.entries(equivalents).forEach(([format, tasks]) => {
+                tasks.forEach(({ task }) => {
+                    result.push({ taskId: task.id, format, task });
+                });
+            });
+            
+            return result;
+        } catch (error) {
+            console.error('[CrossGraphHighlight] Error finding equivalents:', error);
+            return [];
+        }
+    }
+
+    extractBaseTaskId(taskId) {
+        // Already a base ID if no type markers
+        if (!/:(task|exclusivegateway|parallelgateway):/.test(taskId)) {
+            return taskId;
+        }
+        
+        // Extract from Mermaid format: flowchart-ID:type:-N or ID:type:
+        const patterns = [
+            /flowchart-([a-z0-9]+):/i,
+            /-([a-z0-9]+):(task|exclusivegateway|parallelgateway):/i,
+            /^([a-z0-9]+):(task|exclusivegateway|parallelgateway):/i
+        ];
+        
+        for (const pattern of patterns) {
+            const match = taskId.match(pattern);
+            if (match?.[1]) {
+                return match[1];
+            }
+        }
+        
+        return taskId;
+    }
+
+    // ============ Section Utilities ============
+    
+    isCPEESection(sectionId) {
+        return sectionId?.includes('cpee');
+    }
+
+    isMermaidSection(sectionId) {
+        return sectionId?.includes('intermediate');
+    }
+
+    isSectionInVisualMode(sectionId) {
+        const viewModes = this.stateManager.getState('viewModes');
+        return (viewModes?.[sectionId] || 'visual') === 'visual';
+    }
+
+    // ============ State Management ============
+    
+    setCurrentStepMapping(taskMapping) {
+        this.currentStepMapping = taskMapping;
+    }
+
+    getCurrentStepMapping() {
+        return this.currentStepMapping;
+    }
+
+    clearActiveState() {
+        this.activeTaskId = null;
+        this.activeSourceSection = null;
+        this.clearAllHighlights();
+    }
+
     clearAllHighlights() {
         this.highlightingService.clearAllHighlights();
         this.highlightedTasks.clear();
     }
 
-    /**
-     * Clear highlights when navigating to a different step
-     */
     onStepChanged() {
-        this.clearAllHighlights();
-        this.activeTaskId = null;
-        this.activeSourceFormat = null;
-        this.activeSourceSection = null;
+        this.clearActiveState();
     }
 
-
-    /**
-     * Set the current step mapping for task lookups
-     * @param {TaskMapping} taskMapping - Current step's task mapping
-     */
-    setCurrentStepMapping(taskMapping) {
-        this.currentStepMapping = taskMapping;
+    hasActiveHighlights() {
+        return this.activeTaskId !== null || this.highlightedTasks.size > 0;
     }
 
-    /**
-     * Get the current step mapping
-     * @returns {TaskMapping|null} Current step mapping or null
-     */
-    getCurrentStepMapping() {
-        return this.currentStepMapping;
-    }
-
-    /**
-     * Refresh sections - re-query DOM for SVG containers
-     */
     refreshSections() {
         if (!this.domRegistry) {
             return;
         }
         
-        const sectionIds = Object.keys(this.sections);
-        sectionIds.forEach(sectionId => {
+        Object.keys(this.sections).forEach(sectionId => {
             const container = this.domRegistry.getElementSafe(`${sectionId}-graph-container`);
-            if (container) {
-                this.sections[sectionId] = container;
-            } else {
-                this.sections[sectionId] = null;
-            }
+            this.sections[sectionId] = container || null;
         });
     }
 
-    /**
-     * Initialize click outside handler to clear highlights when clicking inside content boxes of visual view
-     */
+    // ============ Click Outside Handler ============
+    
     initializeClickOutsideHandler() {
         this.clickOutsideHandler = (event) => {
-            // Check if there are any active highlights
             if (!this.hasActiveHighlights()) {
                 return;
             }
             
-            // Check if click is on an actual graph element (task, node, etc.)
-            // If click is on a graph element, do nothing (let task click handler process it)
-            const clickTarget = event.target;
-            if (this.isClickOnGraphElement(clickTarget)) {
+            const target = event.target;
+            if (this.isClickOnGraphElement(target)) {
                 return;
             }
             
-            // Check if click is inside a content-box of a visual view section
-            if (this.isClickInsideVisualContentBox(clickTarget)) {
-                // Click is inside a visual view content-box but not on a graph element
+            if (this.isClickInsideVisualContentBox(target)) {
                 this.clearActiveState();
             }
-            // If click is outside visual content boxes, do nothing (don't clear highlights)
         };
         
-        // Attach listener to document (capture phase to catch all clicks)
         document.addEventListener('click', this.clickOutsideHandler, true);
     }
 
-    /**
-     * Check if a click target is inside a content-box of a visual view section
-     * @param {Element} target - Click target element
-     * @returns {boolean} True if click is inside a visual view content-box
-     */
     isClickInsideVisualContentBox(target) {
-        if (!target) {
-            return false;
-        }
-        
-        // Walk up the DOM tree to find if we're inside a content-box
         let element = target;
-        while (element && element !== document.body && element !== document.documentElement) {
-            // Check if this element is a content-box or is inside one
-            if (element.classList && element.classList.contains('content-box')) {
-                // Found a content-box, now check if it's in visual mode using StateManager
-                const sectionElement = element.closest('[id^="input-"], [id^="output-"], [id^="user-input"]');
-                if (sectionElement && sectionElement.id) {
-                    // Query StateManager for view mode (single source of truth)
-                    const viewModes = this.stateManager.getState('viewModes');
-                    const mode = viewModes?.[sectionElement.id] || 'visual';
-                    
-                    // Only visual mode allows highlighting
-                    return mode === 'visual';
+        while (element && element !== document.body) {
+            if (element.classList?.contains('content-box')) {
+                const section = element.closest('[id^="input-"], [id^="output-"]');
+                if (section?.id) {
+                    return this.isSectionInVisualMode(section.id);
                 }
-                // If we found a content-box but can't determine the section, assume it's visual
                 return true;
             }
-            
             element = element.parentElement;
         }
-        
         return false;
     }
 
-    /**
-     * Check if there are active highlights
-     * @returns {boolean} True if there are active highlights
-     */
-    hasActiveHighlights() {
-        return this.activeTaskId !== null || this.highlightedTasks.size > 0;
-    }
-
-    /**
-     * Check if a click target is on an actual graph element (task, node, etc.)
-     * This distinguishes between clicking on a graph element vs empty space in a graph container
-     * @param {Element} target - Click target element
-     * @returns {boolean} True if click is on a graph element
-     */
     isClickOnGraphElement(target) {
-        if (!target) {
-            return false;
-        }
-        
-        // Walk up the DOM tree to check if we're on a graph element
         let element = target;
-        while (element && element !== document.body && element !== document.documentElement) {
-            // Check for task-clickable class (indicates a clickable graph element)
-            try {
-                if (element.classList && element.classList.contains('task-clickable')) {
+        while (element && element !== document.body) {
+            // Check for clickable graph elements
+            if (element.classList?.contains('task-clickable') ||
+                element.classList?.contains('node') ||
+                (element.tagName?.toLowerCase() === 'g' && element.getAttribute('element-id'))) {
                     return true;
-                }
-            } catch (e) {
-                // Some SVG elements might not have classList, ignore
             }
             
-            // Check for CPEE element groups with element-id attribute
-            if (element.tagName === 'g' || element.tagName === 'G') {
-                const elementId = element.getAttribute('element-id');
-                const elementType = element.getAttribute('element-type');
-                // If it has element-id or element-type, it's a CPEE task element
-                if (elementId || elementType) {
-                    return true;
-                }
-            }
-            
-            // Check for Mermaid node elements
-            try {
-                if (element.classList) {
-                    const classList = element.classList;
-                    // Mermaid nodes have class "node"
-                    if (classList.contains('node')) {
-                        return true;
-                    }
-                    // CPEE elements have class "element"
-                    if (classList.contains('element') && element.getAttribute('element-id')) {
-                        return true;
-                    }
-                }
-            } catch (e) {
-                // Some SVG elements might not have classList, ignore
-            }
-            
-            // If we've reached an SVG element without finding a graph element,
-            // the click is on empty space within the SVG (not on a graph element)
-            if (element.tagName === 'svg' || element.tagName === 'SVG') {
-                return false;
-            }
-            
-            // If we've reached a graph container without finding a graph element,
-            // the click is on empty space within the container
-            if (this.isGraphContainer(element)) {
+            // Stop at SVG or container boundaries
+            if (element.tagName?.toLowerCase() === 'svg' || 
+                element.id?.includes('-graph-container')) {
                 return false;
             }
             
             element = element.parentElement;
         }
-        
         return false;
     }
 
-    /**
-     * Check if an element is a graph container
-     * @param {Element} element - Element to check
-     * @returns {boolean} True if element is a graph container
-     */
-    isGraphContainer(element) {
-        if (!element || !element.id) {
-            return false;
-        }
-        
-        const id = element.id;
-        
-        // Check for graph container IDs
-        return id.includes('-graph-container') ||
-               id.startsWith('graphcanvas-') ||
-               id.startsWith('graphgrid-') ||
-               id.startsWith('modelling-') ||
-               id.includes('mermaid-graph-');
-    }
-
-    /**
-     * Remove click outside handler (cleanup)
-     */
     removeClickOutsideHandler() {
         if (this.clickOutsideHandler) {
             document.removeEventListener('click', this.clickOutsideHandler, true);
@@ -747,18 +617,15 @@ export class CrossGraphHighlightCoordinator {
         }
     }
 
-    /**
-     * Reset all state
-     */
+    // ============ Cleanup ============
+    
     reset() {
-        // Remove all click handlers
         this.clickListenerCleanups.forEach((cleanup, sectionId) => {
             this.removeClickHandlers(sectionId);
         });
         
         this.clearAllHighlights();
         this.activeTaskId = null;
-        this.activeSourceFormat = null;
         this.activeSourceSection = null;
         this.currentStepMapping = null;
         this.sections = {
@@ -770,17 +637,16 @@ export class CrossGraphHighlightCoordinator {
         this.highlightedTasks.clear();
     }
 
-    /**
-     * Destroy the coordinator and clean up resources
-     */
     destroy() {
         this.removeClickOutsideHandler();
-        
-        // Remove all click handlers
-        this.clickListenerCleanups.forEach((cleanup, sectionId) => {
+        this.clickListenerCleanups.forEach((_, sectionId) => {
             this.removeClickHandlers(sectionId);
         });
-        
         this.reset();
     }
+
+    // ============ Backward Compatibility ============
+    
+    /** @deprecated Use setCurrentStepMapping instead */
+    setTaskMapper(_taskMapper) {}
 }

@@ -8,9 +8,9 @@ import { CPEEParser } from '../content/CPEEParser.js';
 
 export class CPEENodeExtractor {
     /**
-     * Extract tasks from CPEE XML
+     * Extract tasks and gateways from CPEE XML
      * @param {string} xmlString - CPEE XML content
-     * @returns {NodeIdentifier[]} Array of NodeIdentifier objects
+     * @returns {NodeIdentifier[]} Array of NodeIdentifier objects (tasks and gateways)
      */
     static extract(xmlString) {        
         try {
@@ -35,16 +35,30 @@ export class CPEENodeExtractor {
                 return [];
             }
                         
-            // Find all task elements
-            const taskElements = this.findTaskElements(xmlDoc);            
-            // Extract tasks
+            // Find all task and gateway elements
+            const taskElements = this.findTaskElements(xmlDoc);
+            const gatewayElements = this.findGatewayElements(xmlDoc);
+            
+            // Extract tasks and gateways
             const tasks = [];
-            taskElements.forEach((element, index) => {
-                const task = this.extractTaskFromElement(element, index);
+            let position = 0;
+            
+            taskElements.forEach((element) => {
+                const task = this.extractTaskFromElement(element, position);
                 if (task && task.isValid()) {
                     tasks.push(task);
+                    position++;
                 }
             });
+            
+            gatewayElements.forEach((element) => {
+                const gateway = this.extractTaskFromElement(element, position);
+                if (gateway && gateway.isValid()) {
+                    tasks.push(gateway);
+                    position++;
+                }
+            });
+            
             return tasks;
             
         } catch (error) {
@@ -58,11 +72,7 @@ export class CPEENodeExtractor {
      * @returns {NodeIdentifier[][]} Array of task arrays
      */
     static extractFromMultiple(xmlStrings) {        
-        const results = xmlStrings.map((xml) => {
-            return this.extract(xml);
-        });
-        
-        return results;
+        return xmlStrings.map((xml) => this.extract(xml));
     }
 
     /**
@@ -105,6 +115,23 @@ export class CPEENodeExtractor {
     }
 
     /**
+     * Find all gateway elements in XML document
+     * @param {Document} xmlDoc - Parsed XML document
+     * @returns {Element[]} Array of gateway elements
+     */
+    static findGatewayElements(xmlDoc) {
+        const gatewayTypes = ['choose', 'parallel'];
+        const elements = [];
+        
+        gatewayTypes.forEach(type => {
+            const found = xmlDoc.querySelectorAll(type);
+            found.forEach(element => elements.push(element));
+        });
+        
+        return elements;
+    }
+
+    /**
      * Extract NodeIdentifier from a single XML element
      * @param {Element} element - XML element
      * @param {number} position - Position in workflow
@@ -112,7 +139,8 @@ export class CPEENodeExtractor {
      */
     static extractTaskFromElement(element, position) {
         try {
-            const id = element.getAttribute('id') || `task-${position}`;
+            const tagName = element.tagName.toLowerCase();
+            const isGateway = tagName === 'choose' || tagName === 'parallel';
             
             // Extract alt_id from annotation namespace (a:alt_id)
             let altId = null;
@@ -121,14 +149,32 @@ export class CPEENodeExtractor {
                    element.getAttributeNS('http://cpee.org/ns/annotation/1.0', 'alt_id') ||
                    null;
             
+            // For gateways, they often don't have an id attribute, use alt_id as id if available
+            let id = element.getAttribute('id');
+            if (!id) {
+                if (isGateway && altId) {
+                    // For gateways, use alt_id as the id (since SVG element-id is usually set to alt_id)
+                    id = altId;
+                } else {
+                    id = isGateway ? `gateway-${position}` : `task-${position}`;
+                }
+            }
+            
             let label = this.extractLabel(element);
             
             if (!label) {
                 label = id;
             }
             
-            const type = element.tagName.toLowerCase();
-            const metadata = this.extractMetadata(element, type);
+            // Map CPEE tag names to node types
+            let type = tagName;
+            if (tagName === 'choose') {
+                type = 'gateway'; // XOR gateway
+            } else if (tagName === 'parallel') {
+                type = 'gateway'; // AND gateway
+            }
+            
+            const metadata = this.extractMetadata(element, tagName);
             
             const task = new NodeIdentifier(id, label, type, 'cpee', metadata, position, altId);
             task.position = position;
@@ -231,6 +277,51 @@ export class CPEENodeExtractor {
         });
         
         return metadata;
+    }
+    
+    // ============ Gateway Utility Methods ============
+    
+    /**
+     * Check if a task/node is a gateway
+     * @param {Object} task - Task object with type
+     * @returns {boolean} True if gateway
+     */
+    static isGateway(task) {
+        if (!task) {
+            return false;
+        }
+        return task.type === 'gateway' || 
+               task.type === 'choose' || 
+               task.type === 'parallel';
+    }
+    
+    /**
+     * Check if an element-id is a CPEE gateway element-id (choose_N, parallel_N)
+     * @param {string} elementId - Element ID
+     * @returns {boolean} True if CPEE gateway element-id
+     */
+    static isCPEEGatewayElementId(elementId) {
+        return elementId && elementId.match(/^(choose|parallel)_\d+$/);
+    }
+    
+    /**
+     * Extract gateway type from element-id
+     * @param {string} elementId - Element ID (e.g., "choose_1", "parallel_0")
+     * @returns {string|null} Gateway type ("choose" or "parallel") or null
+     */
+    static extractGatewayType(elementId) {
+        const match = elementId && elementId.match(/^(choose|parallel)_\d+$/);
+        return match ? match[1] : null;
+    }
+    
+    /**
+     * Extract SVG index from element-id
+     * @param {string} elementId - Element ID (e.g., "choose_1")
+     * @returns {number} SVG index or -1
+     */
+    static extractSvgIndex(elementId) {
+        const match = elementId && elementId.match(/^(?:choose|parallel)_(\d+)$/);
+        return match ? parseInt(match[1], 10) : -1;
     }
 
 }
