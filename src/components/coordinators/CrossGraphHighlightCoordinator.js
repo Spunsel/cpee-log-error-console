@@ -198,9 +198,11 @@ export class CrossGraphHighlightCoordinator {
     
     /**
      * Resolve CPEE gateway element-id (like "choose_1") to the actual gateway object from mapping
-     * Uses index alignment: SVG gateways in DOM order (inverted) match mapping gateways in mapping order
+     * Uses index alignment:
+     * - For choose/parallel: SVG gateways inverted (choose_n → first mapping gateway)
+     * - For loop: Direct order (loop_0 → first mapping gateway)
      * Uses CPEENodeExtractor for parsing and type matching
-     * @param {string} elementId - CPEE element-id like "choose_1", "parallel_0"
+     * @param {string} elementId - CPEE element-id like "choose_1", "parallel_0", "loop_0"
      * @param {string} sectionId - Section ID ('input-cpee' or 'output-cpee')
      * @returns {Object|null} Gateway object from mapping with id and altId, or null
      */
@@ -248,16 +250,25 @@ export class CrossGraphHighlightCoordinator {
             return null;
         }
         
-        // SVG gateways are inverted (choose_n maps to first mapping gateway, choose_0 to last)
-        // So we need to invert the index: if there are N gateways, svgIndex 0 → mapping index N-1
-        const invertedIndex = mappingGateways.length - 1 - svgIndex;
+        // For choose/parallel: SVG gateways are inverted (choose_n maps to first mapping gateway)
+        // For loop: Direct order (loop_0 maps to first mapping gateway)
+        let targetIndex;
+        if (gatewayType === 'loop') {
+            // Direct index for loops
+            targetIndex = svgIndex;
+            console.log('[CrossGraphHighlight] Using direct index for loop:', { svgIndex, targetIndex });
+        } else {
+            // Inverted index for choose/parallel
+            targetIndex = mappingGateways.length - 1 - svgIndex;
+            console.log('[CrossGraphHighlight] Using inverted index for', gatewayType + ':', { svgIndex, targetIndex });
+        }
         
-        if (invertedIndex >= 0 && invertedIndex < mappingGateways.length) {
-            const gateway = mappingGateways[invertedIndex];
+        if (targetIndex >= 0 && targetIndex < mappingGateways.length) {
+            const gateway = mappingGateways[targetIndex];
             console.log('[CrossGraphHighlight] ✓ Resolved CPEE gateway element-id to mapping gateway:', {
                 elementId: elementId,
                 svgIndex: svgIndex,
-                invertedIndex: invertedIndex,
+                targetIndex: targetIndex,
                 gatewayId: gateway.id,
                 gatewayAltId: gateway.altId
             });
@@ -356,7 +367,9 @@ export class CrossGraphHighlightCoordinator {
         console.log('[CrossGraphHighlight] highlightWithTaskMapper', { baseTaskId, sourceFormat, sectionId, originalTaskId, hasSourceGatewayObject: !!sourceGatewayObject });
         
         // Check if this is a gateway click (using extractors for detection)
+        // Check both baseTaskId and originalTaskId since originalTaskId may contain gateway markers like :exclusivegateway:
         const isGatewayClick = MermaidNodeExtractor.isGatewayId(baseTaskId) || 
+                              MermaidNodeExtractor.isGatewayId(originalTaskId) ||
                               (sourceGatewayObject && CPEENodeExtractor.isGatewayType(sourceGatewayObject.type));
         
         // For gateway clicks, use dedicated gateway highlighting (bypasses broken mapping)
@@ -451,26 +464,33 @@ export class CrossGraphHighlightCoordinator {
             if (isSource) {
                 this.highlightInSection(targetSection, originalTaskId, true, sourceGatewayObject || targetGateway);
                 
-                // For Mermaid source sections, also highlight the paired gateway (start/end)
+                // For Mermaid source sections with gw pattern, also highlight the paired gateway (start/end)
                 if (isMermaidSection) {
-                    const pairedGatewayId = this.getPairedMermaidGatewayId(originalTaskId);
-                    if (pairedGatewayId) {
-                        console.log('[CrossGraphHighlight] Also highlighting paired Mermaid gateway:', pairedGatewayId);
-                        this.highlightInSection(targetSection, pairedGatewayId, true, null);
+                    const baseId = MermaidNodeExtractor.extractBaseId(originalTaskId);
+                    if (MermaidNodeExtractor.usesGwNamingConvention(baseId)) {
+                        const pairedGatewayId = this.getPairedMermaidGatewayId(originalTaskId);
+                        if (pairedGatewayId) {
+                            console.log('[CrossGraphHighlight] Also highlighting paired Mermaid gateway:', pairedGatewayId);
+                            this.highlightInSection(targetSection, pairedGatewayId, true, null);
+                        }
                     }
+                    // For numeric IDs (1, 4, etc.), only highlight the single gateway - no pairing
                 }
             } else {
                 // For other sections, use the gateway's ID
                 const targetId = targetGateway.altId || targetGateway.id;
                 this.highlightInSection(targetSection, targetId, false, targetGateway);
                 
-                // For Mermaid target sections, also highlight the END gateway
+                // For Mermaid target sections with gw pattern, also highlight the paired/END gateway
                 if (isMermaidSection && targetGateway.id) {
-                    const endGatewayId = targetGateway.id.replace(/s$/i, 'e');
-                    if (endGatewayId !== targetGateway.id) {
-                        console.log('[CrossGraphHighlight] Also highlighting END gateway:', endGatewayId);
-                        this.highlightInSection(targetSection, endGatewayId, false, null);
+                    if (MermaidNodeExtractor.usesGwNamingConvention(targetGateway.id)) {
+                        const pairedGatewayId = MermaidNodeExtractor.getPairedGatewayId(targetGateway.id);
+                        if (pairedGatewayId && pairedGatewayId !== targetGateway.id) {
+                            console.log('[CrossGraphHighlight] Also highlighting paired gateway:', pairedGatewayId);
+                            this.highlightInSection(targetSection, pairedGatewayId, false, null);
+                        }
                     }
+                    // For numeric IDs (1, 4, etc.), only highlight the single gateway - no pairing
                 }
             }
         }
@@ -508,13 +528,23 @@ export class CrossGraphHighlightCoordinator {
             const task = this.currentStepMapping.getTask(taskId, format);
             if (task) {
                 // Use extractors to detect gateway type
+                // Check type, ID pattern, metadata tagName, and metadata shape
                 const isGateway = CPEENodeExtractor.isGatewayType(task.type) ||
-                                 MermaidNodeExtractor.isGatewayId(task.id);
+                                 MermaidNodeExtractor.isGatewayId(task.id) ||
+                                 (task.metadata && task.metadata.tagName && 
+                                  ['choose', 'parallel', 'loop'].includes(task.metadata.tagName)) ||
+                                 (task.metadata && task.metadata.shape === 'diamond');
                 if (isGateway) {
-                    // For Mermaid, only include START gateways (ending with 's')
-                    // This aligns with CPEE which only has the choose/parallel elements (not separate end markers)
+                    // For Mermaid, only include START gateways (ending with 's') for gw pattern
                     if (isMermaidFormat) {
-                        if (MermaidNodeExtractor.isStartGateway(task.id)) {
+                        // For gw pattern (gw1s, gw2s), only include start gateways
+                        if (MermaidNodeExtractor.usesGwNamingConvention(task.id)) {
+                            if (MermaidNodeExtractor.isStartGateway(task.id)) {
+                                gateways.push(task);
+                            }
+                        } else {
+                            // For non-gw patterns (numeric IDs like "3", "6"), include all gateways
+                            // We cannot distinguish start vs end from the ID alone
                             gateways.push(task);
                         }
                     } else {
@@ -552,7 +582,7 @@ export class CrossGraphHighlightCoordinator {
     
     /**
      * Get gateway at a specific index within a format
-     * For Mermaid formats, only counts START gateways (ending with 's') to align with CPEE
+     * For Mermaid formats, only counts START gateways (for gw pattern) or all gateways (for numeric IDs)
      * Uses MermaidNodeExtractor and CPEENodeExtractor for gateway detection
      * @param {string} format - Format to get gateway from
      * @param {number} index - Index of gateway
@@ -571,12 +601,22 @@ export class CrossGraphHighlightCoordinator {
             const task = this.currentStepMapping.getTask(taskId, format);
             if (task) {
                 // Use extractors to detect gateway type
+                // Check type, ID pattern, metadata tagName, and metadata shape
                 const isGateway = CPEENodeExtractor.isGatewayType(task.type) ||
-                                 MermaidNodeExtractor.isGatewayId(task.id);
+                                 MermaidNodeExtractor.isGatewayId(task.id) ||
+                                 (task.metadata && task.metadata.tagName && 
+                                  ['choose', 'parallel', 'loop'].includes(task.metadata.tagName)) ||
+                                 (task.metadata && task.metadata.shape === 'diamond');
                 if (isGateway) {
-                    // For Mermaid, only include START gateways (ending with 's')
+                    // For Mermaid, filter based on naming convention
                     if (isMermaidFormat) {
-                        if (MermaidNodeExtractor.isStartGateway(task.id)) {
+                        // For gw pattern (gw1s, gw2s), only include start gateways
+                        if (MermaidNodeExtractor.usesGwNamingConvention(task.id)) {
+                            if (MermaidNodeExtractor.isStartGateway(task.id)) {
+                                gateways.push(task);
+                            }
+                        } else {
+                            // For non-gw patterns (numeric IDs like "3", "6"), include all gateways
                             gateways.push(task);
                         }
                     } else {
@@ -592,7 +632,7 @@ export class CrossGraphHighlightCoordinator {
         
         return null;
     }
-
+    
     /**
      * Find equivalent tasks for a given task using TaskMapping
      * @param {string} taskId - Source task identifier
@@ -996,6 +1036,9 @@ export class CrossGraphHighlightCoordinator {
         // Determine gateway type from task object
         const gatewayType = taskObject.type === 'choose' || (taskObject.metadata && taskObject.metadata.tagName === 'choose') ? 'choose' :
                           taskObject.type === 'parallel' || (taskObject.metadata && taskObject.metadata.tagName === 'parallel') ? 'parallel' :
+                          taskObject.type === 'loop' || (taskObject.metadata && taskObject.metadata.tagName === 'loop') ? 'loop' :
+                          // For Mermaid gateways with 'gateway' type, default to 'choose' (most common)
+                          taskObject.type === 'gateway' ? 'choose' :
                           null;
         
         if (!gatewayType) {
@@ -1079,10 +1122,14 @@ export class CrossGraphHighlightCoordinator {
             }
         }
         
-        // Invert the sequence: reverse so choose_n maps to first mapping gateway, choose_0 to last
-        svgGateways.reverse();
-        
-        console.log('[CrossGraphHighlight] SVG gateways in inverted order:', svgGateways.map(g => g.getAttribute('element-id')));
+        // For choose and parallel gateways, invert the sequence (choose_n maps to first mapping gateway)
+        // For loop gateways, keep direct order (loop_0 maps to first mapping gateway)
+        if (gatewayType !== 'loop') {
+            svgGateways.reverse();
+            console.log('[CrossGraphHighlight] SVG gateways in inverted order:', svgGateways.map(g => g.getAttribute('element-id')));
+        } else {
+            console.log('[CrossGraphHighlight] SVG gateways in DOM order (no inversion for loops):', svgGateways.map(g => g.getAttribute('element-id')));
+        }
         
         if (sectionId === 'input-cpee') {
             console.log('[CrossGraphHighlight] [INPUT-CPEE] SVG gateways array:', svgGateways.map((g, idx) => ({

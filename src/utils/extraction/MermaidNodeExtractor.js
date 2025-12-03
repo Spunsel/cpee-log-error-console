@@ -112,6 +112,7 @@ export class MermaidNodeExtractor {
             { regex: /(\w+):task:\(([^)]+)\)/g, shape: 'rectangle', type: 'task' },
             { regex: /(\w+):\w+:\(\(([^)]+)\)\)/g, shape: 'circle', type: 'event' },
             { regex: /(\w+):exclusivegateway:\{([^}]+)\}/g, shape: 'diamond', type: 'gateway' },
+            { regex: /(\w+):parallelgateway:\{([^}]+)\}/g, shape: 'diamond', type: 'gateway' },
             { regex: /(\w+)\[([^\]]+)\]/g, shape: 'rectangle', type: 'task' },
             { regex: /(\w+)\(\[([^\]]+)\]\)/g, shape: 'rounded', type: 'event' },
             { regex: /(\w+)\{([^}]+)\}/g, shape: 'diamond', type: 'decision' },
@@ -213,7 +214,11 @@ export class MermaidNodeExtractor {
     }
     
     /**
-     * Check if a Mermaid ID represents a gateway (matches gw\d+ pattern)
+     * Check if a Mermaid ID represents a gateway
+     * Recognizes:
+     * - gw\d+ pattern (e.g., "gw1s", "gw2e")
+     * - Full SVG IDs containing :exclusivegateway: or :parallelgateway:
+     * - Numeric IDs that came from gateway nodes (when full ID is provided)
      * @param {string} id - Mermaid node ID (base or full SVG ID)
      * @returns {boolean} True if it's a gateway ID
      */
@@ -221,34 +226,74 @@ export class MermaidNodeExtractor {
         if (!id) {
             return false;
         }
+        
+        // Check if full ID contains gateway type markers
+        // This catches cases like "flowchart-6:exclusivegateway:-107" where base ID is "6"
+        if (/:exclusivegateway:|:parallelgateway:/.test(id)) {
+            return true;
+        }
+        
+        // Check gw\d+ pattern for base IDs
         const baseId = this.extractBaseId(id);
         return /^gw\d+/i.test(baseId);
     }
     
     /**
      * Check if a Mermaid gateway ID is a START gateway (ends with 's')
+     * For gw\d+s pattern, returns true only if it ends with 's'
+     * For non-gw patterns (like numeric IDs "3", "6"), returns true as a fallback
+     * since we cannot distinguish start/end from the ID alone
      * @param {string} id - Gateway ID (base or full SVG ID)
-     * @returns {boolean} True if it's a start gateway
+     * @returns {boolean} True if it's a start gateway or undetermined
      */
     static isStartGateway(id) {
         if (!id) {
             return false;
         }
         const baseId = this.extractBaseId(id);
-        return /^gw\d+s$/i.test(baseId);
+        
+        // For gw pattern, check if it ends with 's'
+        if (/^gw\d+/i.test(baseId)) {
+            return /^gw\d+s$/i.test(baseId);
+        }
+        
+        // For non-gw patterns (numeric IDs like "3", "6"), we cannot determine
+        // start vs end from the ID alone. Return true to include in mapping.
+        // This treats all non-gw gateways as potential start gateways.
+        if (this.isGatewayId(id)) {
+            return true;
+        }
+        
+        return false;
     }
     
     /**
      * Check if a Mermaid gateway ID is an END gateway (ends with 'e')
+     * Only works reliably for gw\d+e pattern
+     * For non-gw patterns, returns false (we cannot determine)
      * @param {string} id - Gateway ID (base or full SVG ID)
-     * @returns {boolean} True if it's an end gateway
+     * @returns {boolean} True if it's definitely an end gateway
      */
     static isEndGateway(id) {
         if (!id) {
             return false;
         }
         const baseId = this.extractBaseId(id);
+        // Only the gw pattern can reliably identify end gateways
         return /^gw\d+e$/i.test(baseId);
+    }
+    
+    /**
+     * Check if a gateway ID uses the gw\d+[se] naming convention
+     * @param {string} id - Gateway ID
+     * @returns {boolean} True if it uses the gw pattern
+     */
+    static usesGwNamingConvention(id) {
+        if (!id) {
+            return false;
+        }
+        const baseId = this.extractBaseId(id);
+        return /^gw\d+/i.test(baseId);
     }
     
     /**

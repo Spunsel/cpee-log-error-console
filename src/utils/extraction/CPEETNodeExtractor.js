@@ -124,7 +124,7 @@ export class CPEENodeExtractor {
      * @returns {Element[]} Array of gateway elements
      */
     static findGatewayElements(xmlDoc) {
-        const gatewayTypes = ['choose', 'parallel'];
+        const gatewayTypes = ['choose', 'parallel', 'loop'];
         const elements = [];
         
         gatewayTypes.forEach(type => {
@@ -144,7 +144,7 @@ export class CPEENodeExtractor {
     static extractTaskFromElement(element, position) {
         try {
             const tagName = element.tagName.toLowerCase();
-            const isGateway = tagName === 'choose' || tagName === 'parallel';
+            const isGateway = tagName === 'choose' || tagName === 'parallel' || tagName === 'loop';
             
             // Extract alt_id from annotation namespace (a:alt_id)
             let altId = null;
@@ -176,6 +176,8 @@ export class CPEENodeExtractor {
                 type = 'gateway'; // XOR gateway
             } else if (tagName === 'parallel') {
                 type = 'gateway'; // AND gateway
+            } else if (tagName === 'loop') {
+                type = 'gateway'; // Loop gateway (back-edge)
             }
             
             const metadata = this.extractMetadata(element, tagName);
@@ -294,20 +296,20 @@ export class CPEENodeExtractor {
         if (!elementId) {
             return false;
         }
-        return /^(choose|parallel)_\d+$/.test(elementId);
+        return /^(choose|parallel|loop)_\d+$/.test(elementId);
     }
     
     /**
      * Parse a CPEE gateway element-id to extract type and index
-     * @param {string} elementId - Element ID like "choose_1" or "parallel_0"
-     * @returns {Object|null} { type: 'choose'|'parallel', index: number } or null
+     * @param {string} elementId - Element ID like "choose_1", "parallel_0", or "loop_0"
+     * @returns {Object|null} { type: 'choose'|'parallel'|'loop', index: number } or null
      */
     static parseCPEEGatewayElementId(elementId) {
         if (!elementId) {
             return null;
         }
         
-        const match = elementId.match(/^(choose|parallel)_(\d+)$/);
+        const match = elementId.match(/^(choose|parallel|loop)_(\d+)$/);
         if (!match) {
             return null;
         }
@@ -320,7 +322,7 @@ export class CPEENodeExtractor {
     
     /**
      * Build a CPEE gateway element-id from type and index
-     * @param {string} type - Gateway type ('choose' or 'parallel')
+     * @param {string} type - Gateway type ('choose', 'parallel', or 'loop')
      * @param {number} index - SVG index
      * @returns {string} Element ID like "choose_1"
      */
@@ -329,30 +331,46 @@ export class CPEENodeExtractor {
     }
     
     /**
-     * Check if a node type represents a gateway in CPEE
+     * Check if a node type represents a gateway
+     * Includes CPEE types (choose, parallel, loop) and Mermaid types (exclusivegateway, parallelgateway)
      * @param {string} type - Node type
      * @returns {boolean} True if it's a gateway type
      */
     static isGatewayType(type) {
-        return type === 'gateway' || type === 'choose' || type === 'parallel';
+        return type === 'gateway' || 
+               type === 'choose' || 
+               type === 'parallel' ||
+               type === 'loop' ||
+               type === 'exclusivegateway' ||
+               type === 'parallelgateway' ||
+               type === 'decision';  // Mermaid diamond shapes may have 'decision' type
     }
     
     /**
      * Determine if a gateway type matches a specific CPEE gateway element type
      * @param {string} nodeType - Node type from mapping
-     * @param {string} elementType - CPEE element type ('choose' or 'parallel')
+     * @param {string} elementType - CPEE element type ('choose', 'parallel', or 'loop')
      * @param {Object|null} metadata - Node metadata (may contain tagName)
      * @returns {boolean} True if types match
      */
     static gatewayTypeMatches(nodeType, elementType, metadata = null) {
         if (elementType === 'choose') {
             return nodeType === 'choose' || 
-                   nodeType === 'gateway' || 
+                   nodeType === 'gateway' ||
+                   nodeType === 'exclusivegateway' ||
+                   nodeType === 'decision' ||
                    (metadata && metadata.tagName === 'choose');
         } else if (elementType === 'parallel') {
             return nodeType === 'parallel' || 
-                   nodeType === 'gateway' || 
+                   nodeType === 'gateway' ||
+                   nodeType === 'parallelgateway' ||
                    (metadata && metadata.tagName === 'parallel');
+        } else if (elementType === 'loop') {
+            return nodeType === 'loop' || 
+                   nodeType === 'gateway' ||
+                   nodeType === 'exclusivegateway' ||  // Loops are represented as exclusive gateways in Mermaid
+                   nodeType === 'decision' ||
+                   (metadata && metadata.tagName === 'loop');
         }
         return false;
     }
