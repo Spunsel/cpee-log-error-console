@@ -4388,8 +4388,13 @@ body {
 
 /* Highlight all outline elements simultaneously - rects and part-middle standlines */
 /* Target all elements at once with equal specificity to ensure simultaneous highlighting */
+/* High specificity selectors to override CPEE library's colorstyle/markstyle/hoverstyle classes */
 .cpee-task-highlighted > rect[class*="stand"]:not([class*="without"]),
 .cpee-task-highlighted rect[class*="stand"]:not([class*="without"]),
+.cpee-task-highlighted rect.colorstyle:not([class*="without"]),
+.cpee-task-highlighted rect.markstyle:not([class*="without"]),
+.cpee-task-highlighted rect.hoverstyle:not([class*="without"]),
+.cpee-task-highlighted rect.colorstyle.markstyle.hoverstyle.stand:not([class*="without"]),
 .cpee-task-highlighted > .part-middle > line[class*="standline"],
 .cpee-task-highlighted .part-middle line[class*="standline"],
 .cpee-task-highlighted > circle,
@@ -4413,6 +4418,10 @@ body {
 
 .cpee-task-highlighted-active > rect[class*="stand"]:not([class*="without"]),
 .cpee-task-highlighted-active rect[class*="stand"]:not([class*="without"]),
+.cpee-task-highlighted-active rect.colorstyle:not([class*="without"]),
+.cpee-task-highlighted-active rect.markstyle:not([class*="without"]),
+.cpee-task-highlighted-active rect.hoverstyle:not([class*="without"]),
+.cpee-task-highlighted-active rect.colorstyle.markstyle.hoverstyle.stand:not([class*="without"]),
 .cpee-task-highlighted-active > .part-middle > line[class*="standline"],
 .cpee-task-highlighted-active .part-middle line[class*="standline"],
 .cpee-task-highlighted-active > circle,
@@ -4471,7 +4480,51 @@ body {
    CPEE Gateway-specific highlighting
    ============================================ */
 
-/* Highlight gateway outline elements - similar to tasks but for gateways */
+/* Direct rect highlighting - when class is applied directly to the diamond rect element */
+/* High specificity selectors to override CPEE library's colorstyle/markstyle/hoverstyle classes */
+rect.cpee-gateway-highlighted,
+rect.cpee-gateway-highlighted.stand,
+rect.cpee-gateway-highlighted.colorstyle,
+rect.cpee-gateway-highlighted.markstyle,
+rect.cpee-gateway-highlighted.hoverstyle,
+rect.cpee-gateway-highlighted.stand.colorstyle,
+rect.cpee-gateway-highlighted.stand.markstyle,
+rect.cpee-gateway-highlighted.stand.hoverstyle,
+rect.cpee-gateway-highlighted.colorstyle.markstyle,
+rect.cpee-gateway-highlighted.colorstyle.hoverstyle,
+rect.cpee-gateway-highlighted.markstyle.hoverstyle,
+rect.cpee-gateway-highlighted.colorstyle.markstyle.hoverstyle,
+rect.cpee-gateway-highlighted.colorstyle.markstyle.hoverstyle.stand,
+rect.stand.cpee-gateway-highlighted {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 3px !important;
+    filter: none !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+rect.cpee-gateway-highlighted-active,
+rect.cpee-gateway-highlighted-active.stand,
+rect.cpee-gateway-highlighted-active.colorstyle,
+rect.cpee-gateway-highlighted-active.markstyle,
+rect.cpee-gateway-highlighted-active.hoverstyle,
+rect.cpee-gateway-highlighted-active.stand.colorstyle,
+rect.cpee-gateway-highlighted-active.stand.markstyle,
+rect.cpee-gateway-highlighted-active.stand.hoverstyle,
+rect.cpee-gateway-highlighted-active.colorstyle.markstyle,
+rect.cpee-gateway-highlighted-active.colorstyle.hoverstyle,
+rect.cpee-gateway-highlighted-active.markstyle.hoverstyle,
+rect.cpee-gateway-highlighted-active.colorstyle.markstyle.hoverstyle,
+rect.cpee-gateway-highlighted-active.colorstyle.markstyle.hoverstyle.stand,
+rect.stand.cpee-gateway-highlighted-active {
+    stroke: var(--highlight-stroke) !important;
+    stroke-width: 4px !important;
+    filter: none !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+/* Fallback: Highlight gateway outline elements when class is on parent group */
 .cpee-gateway-highlighted > rect[class*="stand"]:not([class*="without"]),
 .cpee-gateway-highlighted rect[class*="stand"]:not([class*="without"]),
 .cpee-gateway-highlighted > .part-middle > line[class*="standline"],

@@ -381,16 +381,31 @@ export class CrossGraphHighlightCoordinator {
         
         // For regular task clicks, use the standard mapping-based highlighting
         const equivalentTasks = this.findEquivalentTasks(baseTaskId, sourceFormat);
-        console.log('[CrossGraphHighlight] equivalents', equivalentTasks.map(e => ({ format: e.format, id: e.taskId, altId: e.task?.altId, type: e.task?.type })));
+        console.log('[CrossGraphHighlight] equivalents (raw)', equivalentTasks.map(e => ({ format: e.format, id: e.taskId, altId: e.task?.altId, type: e.task?.type })));
         
-        if (equivalentTasks.length === 0) {
-            console.log('[CrossGraphHighlight] no equivalents, highlight only source');
-            this.highlightInSection(sectionId, originalTaskId, true);
+        // Filter out gateways - tasks should only map to tasks, not gateways
+        const taskOnlyEquivalents = equivalentTasks.filter(({ task }) => {
+            if (!task) { return true; } // Keep if no task object (can't determine type)
+            // Exclude if it's a gateway type
+            const isGateway = CPEENodeExtractor.isGatewayType(task.type) ||
+                             (task.metadata && task.metadata.tagName && 
+                              ['choose', 'parallel', 'loop'].includes(task.metadata.tagName));
+            if (isGateway) {
+                console.log('[CrossGraphHighlight] Filtering out gateway from task equivalents:', { id: task.id, altId: task.altId, type: task.type });
+            }
+            return !isGateway;
+        });
+        console.log('[CrossGraphHighlight] equivalents (tasks only)', taskOnlyEquivalents.map(e => ({ format: e.format, id: e.taskId, altId: e.task?.altId, type: e.task?.type })));
+        
+        if (taskOnlyEquivalents.length === 0) {
+            console.log('[CrossGraphHighlight] no task equivalents from mapping, trying direct ID lookup');
+            // Fallback: try to find tasks by baseTaskId directly in all sections
+            this.highlightTaskByIdFallback(baseTaskId, sourceFormat, sectionId, originalTaskId);
             return;
         }
         
         // Highlight in each section
-        equivalentTasks.forEach(({ taskId: mappedTaskId, format: mappedFormat, task: taskObject }) => {
+        taskOnlyEquivalents.forEach(({ taskId: mappedTaskId, format: mappedFormat, task: taskObject }) => {
             const mappedSectionId = this.formatToSectionId(mappedFormat);
             const isActive = (mappedFormat === sourceFormat);
             
@@ -408,6 +423,75 @@ export class CrossGraphHighlightCoordinator {
         
         // Also highlight the source task using original ID
         this.highlightInSection(sectionId, originalTaskId, true, sourceGatewayObject);
+    }
+    
+    /**
+     * Fallback method to find and highlight tasks by ID/altId when mapping fails
+     * @param {string} baseTaskId - Base task ID to search for
+     * @param {string} sourceFormat - Source format
+     * @param {string} sectionId - Source section identifier
+     * @param {string} originalTaskId - Original task identifier
+     */
+    highlightTaskByIdFallback(baseTaskId, sourceFormat, sectionId, originalTaskId) {
+        console.log('[CrossGraphHighlight] highlightTaskByIdFallback', { baseTaskId, sourceFormat, sectionId });
+        
+        // Always highlight the source
+        this.highlightInSection(sectionId, originalTaskId, true);
+        
+        if (!this.currentStepMapping) {
+            console.log('[CrossGraphHighlight] No mapping available for fallback');
+            return;
+        }
+        
+        // Try to find matching tasks in all other sections
+        const allFormats = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
+        
+        for (const format of allFormats) {
+            if (format === sourceFormat) {
+                continue; // Skip source format
+            }
+            
+            const taskIds = this.currentStepMapping.getTasksInFormat(format);
+            if (!taskIds || taskIds.length === 0) {
+                continue;
+            }
+            
+            // Search for task with matching id or altId
+            for (const taskId of taskIds) {
+                const task = this.currentStepMapping.getTask(taskId, format);
+                if (!task) {
+                    continue;
+                }
+                
+                // Skip gateways
+                if (CPEENodeExtractor.isGatewayType(task.type) ||
+                    (task.metadata && task.metadata.tagName && 
+                     ['choose', 'parallel', 'loop'].includes(task.metadata.tagName))) {
+                    continue;
+                }
+                
+                // Check if id or altId matches baseTaskId
+                const matches = task.id === baseTaskId || 
+                               task.altId === baseTaskId ||
+                               taskId === baseTaskId;
+                
+                if (matches) {
+                    const targetSectionId = this.formatToSectionId(format);
+                    const highlightId = format.includes('cpee') ? (task.altId || task.id) : 
+                                       (task.metadata?.fullId || task.id);
+                    
+                    console.log('[CrossGraphHighlight] Fallback found matching task:', {
+                        format,
+                        taskId: task.id,
+                        altId: task.altId,
+                        highlightId,
+                        type: task.type
+                    });
+                    
+                    this.highlightInSection(targetSectionId, highlightId, false, task);
+                }
+            }
+        }
     }
     
     /**

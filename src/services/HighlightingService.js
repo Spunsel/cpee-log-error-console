@@ -92,6 +92,7 @@ export class HighlightingService {
 
     /**
      * Highlights a CPEE gateway element
+     * Applies highlight directly to the diamond rect element inside .part-start
      * 
      * @param {Element} svgElement - SVG element containing the CPEE gateway
      * @param {boolean} isActive - Whether this is the active (clicked) gateway
@@ -110,7 +111,30 @@ export class HighlightingService {
             'parallel',
             'primitive'
         ]);
-        if (gatewayGroup) {
+        
+        if (!gatewayGroup) {
+            return;
+        }
+        
+        // Find the diamond rect element inside .part-start
+        // This is the rotated rect that forms the diamond shape
+        const diamondRect = gatewayGroup.querySelector('.part-start rect.stand') ||
+                           gatewayGroup.querySelector('.part-start rect') ||
+                           gatewayGroup.querySelector('rect[transform*="rotate"]');
+        
+        if (diamondRect) {
+            // Apply highlight directly to the diamond rect
+            this.applyElementHighlight(diamondRect, 'cpee-gateway-highlighted', isActive);
+            // Also set inline styles to override CPEE library's colorstyle/markstyle classes
+            this.applyInlineHighlightStyle(diamondRect, isActive);
+            // Also mark the group so we can find it later for clearing
+            gatewayGroup.classList.add('cpee-gateway-group-highlighted');
+            if (isActive) {
+                gatewayGroup.classList.add('cpee-gateway-group-highlighted-active');
+            }
+            this.highlightedElements.add(gatewayGroup);
+        } else {
+            // Fallback: highlight the entire group if diamond rect not found
             this.applySVGHighlight(gatewayGroup, 'cpee-gateway-highlighted', isActive);
         }
     }
@@ -206,6 +230,25 @@ export class HighlightingService {
         }
     }
 
+    /**
+     * Applies inline highlight styles to override CPEE library styles
+     * 
+     * @private
+     * @param {Element} element - Element to apply inline styles to
+     * @param {boolean} isActive - Whether this is the active element
+     */
+    applyInlineHighlightStyle(element, isActive = false) {
+        // Get the highlight color from CSS variable, fallback to orange
+        const computedStyle = getComputedStyle(document.documentElement);
+        const highlightColor = computedStyle.getPropertyValue('--highlight-stroke').trim() || '#f57900';
+        
+        // Store original styles first
+        this.storeOriginalStyles(element);
+        
+        // Apply inline styles to override any CPEE library styles
+        element.style.stroke = highlightColor;
+        element.style.strokeWidth = isActive ? '4px' : '3px';
+    }
 
     /**
      * Applies highlighting to a single element with animation support
@@ -252,6 +295,13 @@ export class HighlightingService {
         const shapeElements = groupElement.querySelectorAll('rect, circle, polygon, ellipse');
         shapeElements.forEach(shape => {
             this.applyElementHighlight(shape, baseClass, isActive);
+            // Apply inline styles to override CPEE library styles (colorstyle, markstyle, etc.)
+            // Only apply to elements that have these CPEE classes
+            if (shape.classList.contains('colorstyle') || 
+                shape.classList.contains('markstyle') || 
+                shape.classList.contains('stand')) {
+                this.applyInlineHighlightStyle(shape, isActive);
+            }
         });
     }
 
@@ -267,6 +317,7 @@ export class HighlightingService {
             'task-highlighted', 'task-highlighted-active',
             'cpee-task-highlighted', 'cpee-task-highlighted-active',
             'cpee-gateway-highlighted', 'cpee-gateway-highlighted-active',
+            'cpee-gateway-group-highlighted', 'cpee-gateway-group-highlighted-active',
             'mermaid-node-highlighted', 'mermaid-node-highlighted-active'
         ];
         
@@ -358,4 +409,3 @@ export class HighlightingService {
         this.reset();
     }
 }
-
