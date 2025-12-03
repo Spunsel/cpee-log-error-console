@@ -72,7 +72,11 @@ export class CPEENodeExtractor {
      * @returns {NodeIdentifier[][]} Array of task arrays
      */
     static extractFromMultiple(xmlStrings) {        
-        return xmlStrings.map((xml) => this.extract(xml));
+        const results = xmlStrings.map((xml) => {
+            return this.extract(xml);
+        });
+        
+        return results;
     }
 
     /**
@@ -279,49 +283,78 @@ export class CPEENodeExtractor {
         return metadata;
     }
     
-    // ============ Gateway Utility Methods ============
+    // ==================== Gateway Element-ID Utility Methods ====================
     
     /**
-     * Check if a task/node is a gateway
-     * @param {Object} task - Task object with type
-     * @returns {boolean} True if gateway
-     */
-    static isGateway(task) {
-        if (!task) {
-            return false;
-        }
-        return task.type === 'gateway' || 
-               task.type === 'choose' || 
-               task.type === 'parallel';
-    }
-    
-    /**
-     * Check if an element-id is a CPEE gateway element-id (choose_N, parallel_N)
-     * @param {string} elementId - Element ID
-     * @returns {boolean} True if CPEE gateway element-id
+     * Check if a string is a CPEE gateway element-id (e.g., "choose_1", "parallel_0")
+     * @param {string} elementId - Element ID to check
+     * @returns {boolean} True if it's a CPEE gateway element-id
      */
     static isCPEEGatewayElementId(elementId) {
-        return elementId && elementId.match(/^(choose|parallel)_\d+$/);
+        if (!elementId) {
+            return false;
+        }
+        return /^(choose|parallel)_\d+$/.test(elementId);
     }
     
     /**
-     * Extract gateway type from element-id
-     * @param {string} elementId - Element ID (e.g., "choose_1", "parallel_0")
-     * @returns {string|null} Gateway type ("choose" or "parallel") or null
+     * Parse a CPEE gateway element-id to extract type and index
+     * @param {string} elementId - Element ID like "choose_1" or "parallel_0"
+     * @returns {Object|null} { type: 'choose'|'parallel', index: number } or null
      */
-    static extractGatewayType(elementId) {
-        const match = elementId && elementId.match(/^(choose|parallel)_\d+$/);
-        return match ? match[1] : null;
+    static parseCPEEGatewayElementId(elementId) {
+        if (!elementId) {
+            return null;
+        }
+        
+        const match = elementId.match(/^(choose|parallel)_(\d+)$/);
+        if (!match) {
+            return null;
+        }
+        
+        return {
+            type: match[1],
+            index: parseInt(match[2], 10)
+        };
     }
     
     /**
-     * Extract SVG index from element-id
-     * @param {string} elementId - Element ID (e.g., "choose_1")
-     * @returns {number} SVG index or -1
+     * Build a CPEE gateway element-id from type and index
+     * @param {string} type - Gateway type ('choose' or 'parallel')
+     * @param {number} index - SVG index
+     * @returns {string} Element ID like "choose_1"
      */
-    static extractSvgIndex(elementId) {
-        const match = elementId && elementId.match(/^(?:choose|parallel)_(\d+)$/);
-        return match ? parseInt(match[1], 10) : -1;
+    static buildCPEEGatewayElementId(type, index) {
+        return `${type}_${index}`;
+    }
+    
+    /**
+     * Check if a node type represents a gateway in CPEE
+     * @param {string} type - Node type
+     * @returns {boolean} True if it's a gateway type
+     */
+    static isGatewayType(type) {
+        return type === 'gateway' || type === 'choose' || type === 'parallel';
+    }
+    
+    /**
+     * Determine if a gateway type matches a specific CPEE gateway element type
+     * @param {string} nodeType - Node type from mapping
+     * @param {string} elementType - CPEE element type ('choose' or 'parallel')
+     * @param {Object|null} metadata - Node metadata (may contain tagName)
+     * @returns {boolean} True if types match
+     */
+    static gatewayTypeMatches(nodeType, elementType, metadata = null) {
+        if (elementType === 'choose') {
+            return nodeType === 'choose' || 
+                   nodeType === 'gateway' || 
+                   (metadata && metadata.tagName === 'choose');
+        } else if (elementType === 'parallel') {
+            return nodeType === 'parallel' || 
+                   nodeType === 'gateway' || 
+                   (metadata && metadata.tagName === 'parallel');
+        }
+        return false;
     }
 
 }
