@@ -259,18 +259,19 @@ export class CrossGraphHighlightCoordinator {
         }
         
         if (gatewayType !== 'loop') {
-            // Check minimum depth to determine sorting strategy
+            // Check if gateways are nested (different depths) or sequential (same depth)
             // (same logic as findCPEESvgElementIdForGateway)
             const depths = mappingGateways.map(g => g.metadata?.nestingDepth ?? 0);
             const minDepth = Math.min(...depths);
             const maxDepth = Math.max(...depths);
             
-            // Only use depth sorting if there are top-level gateways (depth 0) with nesting
-            const useDepthSorting = minDepth === 0 && maxDepth > 0;
+            // Nested gateways have different depths, sequential have same depth
+            const areNested = minDepth !== maxDepth;
             
             let sortedMappingGateways;
             
-            if (useDepthSorting) {
+            if (areNested) {
+                // Nested: sort by depth descending (innermost first)
                 sortedMappingGateways = [...mappingGateways].map((g, originalIndex) => ({
                     ...g,
                     originalIndex
@@ -283,6 +284,7 @@ export class CrossGraphHighlightCoordinator {
                     return a.originalIndex - b.originalIndex;
                 });
             } else {
+                // Sequential: use document order
                 sortedMappingGateways = mappingGateways.map((g, originalIndex) => ({
                     ...g,
                     originalIndex
@@ -294,7 +296,7 @@ export class CrossGraphHighlightCoordinator {
                 clickedElementId: elementId,
                 svgIndex,
                 minDepth, maxDepth,
-                strategy: useDepthSorting ? 'depth-sorted' : 'document-order',
+                strategy: areNested ? 'depth-sorted' : 'document-order',
                 order: sortedMappingGateways.map(g => ({ id: g.id, depth: g.metadata?.nestingDepth }))
             });
             
@@ -305,7 +307,7 @@ export class CrossGraphHighlightCoordinator {
                     svgIndex,
                     gatewayId: gateway.id,
                     gatewayAltId: gateway.altId,
-                    strategy: useDepthSorting ? 'depth-sorted' : 'document-order'
+                    strategy: areNested ? 'depth-sorted' : 'document-order'
                 });
                 return gateway;
             }
@@ -864,15 +866,15 @@ export class CrossGraphHighlightCoordinator {
             const minDepth = Math.min(...depths);
             const maxDepth = Math.max(...depths);
             
-            // Only use depth sorting if:
-            // 1. There are gateways at top level (depth 0), AND
-            // 2. There are nested gateways (different depths)
-            const useDepthSorting = minDepth === 0 && maxDepth > 0;
+            // Use depth sorting when gateways have DIFFERENT depths (nested)
+            // Use document order when gateways have SAME depth (sequential)
+            // The key insight: CPEE renders nested gateways inner-first (higher depth = lower element-id)
+            const areNested = minDepth !== maxDepth;
             
             let sortedMappingGateways;
             
-            if (useDepthSorting) {
-                // Depth sorting: innermost (highest depth) first
+            if (areNested) {
+                // Nested gateways: sort by depth descending (innermost first)
                 sortedMappingGateways = [...mappingGateways].map((g, originalIndex) => ({
                     ...g,
                     originalIndex
@@ -885,19 +887,19 @@ export class CrossGraphHighlightCoordinator {
                     return a.originalIndex - b.originalIndex;
                 });
                 
-                console.log('[CrossGraphHighlight] Using DEPTH sorting (top-level nesting):', {
+                console.log('[CrossGraphHighlight] Using DEPTH sorting (nested gateways):', {
                     minDepth, maxDepth,
                     mappingOrder: mappingGateways.map(g => ({ id: g.id, depth: g.metadata?.nestingDepth })),
                     sortedOrder: sortedMappingGateways.map(g => ({ id: g.id, depth: g.metadata?.nestingDepth }))
                 });
             } else {
-                // Document order: all gateways inside a container (loop, etc.)
+                // Sequential gateways (same depth): use document order
                 sortedMappingGateways = mappingGateways.map((g, originalIndex) => ({
                     ...g,
                     originalIndex
                 }));
                 
-                console.log('[CrossGraphHighlight] Using DOCUMENT order (all inside container):', {
+                console.log('[CrossGraphHighlight] Using DOCUMENT order (sequential gateways):', {
                     minDepth, maxDepth,
                     order: sortedMappingGateways.map(g => ({ id: g.id, depth: g.metadata?.nestingDepth }))
                 });
@@ -912,7 +914,7 @@ export class CrossGraphHighlightCoordinator {
                 targetGateway: { id: gatewayTask.id, altId: gatewayTask.altId },
                 sortedIndex,
                 svgElements: svgGateways.map(g => g.elementId),
-                strategy: useDepthSorting ? 'depth-sorted' : 'document-order'
+                strategy: areNested ? 'depth-sorted' : 'document-order'
             });
             
             // Handle count mismatch
@@ -929,7 +931,7 @@ export class CrossGraphHighlightCoordinator {
                     sortedIndex,
                     elementId: matched.elementId,
                     gatewayType,
-                    strategy: useDepthSorting ? 'depth-sorted' : 'document-order'
+                    strategy: areNested ? 'depth-sorted' : 'document-order'
                 });
                 return matched.elementId;
             }
