@@ -200,14 +200,15 @@ export class MermaidNodeExtractor {
             return null;
         };
         
-        const alnum = '([a-z0-9]+)';
+        // Include underscores, hyphens in middle, and alphanumeric characters for IDs like "task_c", "a3", etc.
+        const idPattern = '([a-z0-9_][a-z0-9_-]*)';
         const patterns = [
-            new RegExp(`-${alnum}:task:`), new RegExp(`^${alnum}:task:`),
-            new RegExp(`-${alnum}:exclusivegateway:`), new RegExp(`^${alnum}:exclusivegateway:`),
-            new RegExp(`-${alnum}:parallelgateway:`), new RegExp(`^${alnum}:parallelgateway:`),
-            new RegExp(`flowchart-${alnum}(?:-task-|:task:|-)`),
-            new RegExp(`flowchart-${alnum}(?:-exclusivegateway-|:exclusivegateway:|-)`),
-            new RegExp(`flowchart-${alnum}(?:-parallelgateway-|:parallelgateway:|-)`)
+            new RegExp(`-${idPattern}:task:`, 'i'), new RegExp(`^${idPattern}:task:`, 'i'),
+            new RegExp(`-${idPattern}:exclusivegateway:`, 'i'), new RegExp(`^${idPattern}:exclusivegateway:`, 'i'),
+            new RegExp(`-${idPattern}:parallelgateway:`, 'i'), new RegExp(`^${idPattern}:parallelgateway:`, 'i'),
+            new RegExp(`flowchart-${idPattern}(?:-task-|:task:|-)`, 'i'),
+            new RegExp(`flowchart-${idPattern}(?:-exclusivegateway-|:exclusivegateway:|-)`, 'i'),
+            new RegExp(`flowchart-${idPattern}(?:-parallelgateway-|:parallelgateway:|-)`, 'i')
         ];
         
         return tryMatch(patterns) || svgId;

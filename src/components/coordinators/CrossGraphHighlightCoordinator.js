@@ -459,6 +459,9 @@ export class CrossGraphHighlightCoordinator {
         }
         
         // Highlight in each section
+        // Track which sections have been highlighted
+        const highlightedSections = new Set();
+        
         taskOnlyEquivalents.forEach(({ taskId: mappedTaskId, format: mappedFormat, task: taskObject }) => {
             const mappedSectionId = this.formatToSectionId(mappedFormat);
             const isActive = (mappedFormat === sourceFormat);
@@ -473,10 +476,30 @@ export class CrossGraphHighlightCoordinator {
             
             console.log('[CrossGraphHighlight] mapping -> highlightInSection', { mappedSectionId, highlightTaskId, isActive, type: taskObject?.type });
             this.highlightInSection(mappedSectionId, highlightTaskId, isActive, taskObject);
+            highlightedSections.add(mappedSectionId);
         });
         
         // Also highlight the source task using original ID
         this.highlightInSection(sectionId, originalTaskId, true, sourceGatewayObject);
+        highlightedSections.add(sectionId);
+        
+        // Fallback: ensure paired CPEE section is checked if missing from equivalents
+        // (e.g., if clicking in output-intermediate, also try output-cpee)
+        const allSections = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
+        for (const targetSection of allSections) {
+            if (highlightedSections.has(targetSection)) {
+                continue; // Already highlighted
+            }
+            
+            // Try to find task by baseTaskId in this section
+            const task = this.currentStepMapping?.getTask(baseTaskId, targetSection);
+            if (task) {
+                const isCpee = targetSection.includes('cpee');
+                const highlightId = isCpee ? (task.altId || task.id || baseTaskId) : (task.metadata?.fullId || task.id || baseTaskId);
+                console.log('[CrossGraphHighlight] Fallback highlight in', targetSection, ':', highlightId);
+                this.highlightInSection(targetSection, highlightId, false, task);
+            }
+        }
     }
     
     /**
@@ -603,6 +626,24 @@ export class CrossGraphHighlightCoordinator {
                             mermaidAltId: altId,
                             cpeeGateway: targetGateway.id
                         });
+                    }
+                }
+                
+                if (!targetGateway) {
+                    // For CPEE sections: try paired gateway if this is an end gateway (gwXe → gwXs)
+                    // CPEE only has one element for the entire gateway (no separate start/end)
+                    if (isCPEESection && MermaidNodeExtractor.usesGwNamingConvention(altId)) {
+                        const pairedId = MermaidNodeExtractor.getPairedGatewayId(altId);
+                        if (pairedId && pairedId !== altId) {
+                            targetGateway = this.findGatewayByAltIdInSection(pairedId, targetSection);
+                            if (targetGateway) {
+                                console.log('[CrossGraphHighlight] Found paired gateway in CPEE:', {
+                                    originalAltId: altId,
+                                    pairedAltId: pairedId,
+                                    foundGateway: targetGateway.id
+                                });
+                            }
+                        }
                     }
                 }
                 
