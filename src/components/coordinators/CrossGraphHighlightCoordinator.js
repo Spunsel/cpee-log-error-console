@@ -238,48 +238,95 @@ export class CrossGraphHighlightCoordinator {
             return null;
         }
         
-        const svgGatewaysNodeList = container.querySelectorAll(
-            `g.element.complex[element-id^="${gatewayType}_"]`
-        );
+        // For parallel gateways, exclude parallel_branch elements
+        let selector;
+        if (gatewayType === 'parallel') {
+            selector = `g.element.complex[element-id^="parallel_"]:not([element-id^="parallel_branch"])`;
+        } else {
+            selector = `g.element.complex[element-id^="${gatewayType}_"]`;
+        }
+        const svgGatewaysNodeList = container.querySelectorAll(selector);
         
         const svgGatewaysArray = Array.from(svgGatewaysNodeList);
-        let svgGatewaysSorted = svgGatewaysArray.map(el => el.getAttribute('element-id'));
+        const svgElementIds = svgGatewaysArray.map(el => el.getAttribute('element-id'));
         
-        // Determine if we should reverse based on gateway type and nesting
-        // - For LOOPS: Never reverse
-        // - For CHOOSE/PARALLEL: Only reverse if gateways are NESTED (use metadata)
-        let shouldReverse = false;
+        // Find which SVG index was clicked (choose_0 = 0, choose_1 = 1, etc.)
+        const svgIndex = svgElementIds.indexOf(elementId);
         
-        if (gatewayType !== 'loop') {
-            const areNested = this.areGatewaysNested(mappingGateways);
-            shouldReverse = areNested;
-            
-            if (areNested) {
-                svgGatewaysSorted = svgGatewaysSorted.reverse();
-            }
+        if (svgIndex < 0) {
+            console.log('[CrossGraphHighlight] ✗ Clicked element-id not found in SVG:', elementId);
+            return null;
         }
         
-        // Find the position of the clicked element-id in the sorted list
-        const sortedIndex = svgGatewaysSorted.indexOf(elementId);
-        
-        console.log('[CrossGraphHighlight] SVG gateways:', {
-            sorted: svgGatewaysSorted,
-            clickedElementId: elementId,
-            sortedIndex: sortedIndex,
-            gatewayType: gatewayType,
-            reversed: shouldReverse,
-            nested: shouldReverse
-        });
-        
-        if (sortedIndex >= 0 && sortedIndex < mappingGateways.length) {
-            const gateway = mappingGateways[sortedIndex];
-            console.log('[CrossGraphHighlight] ✓ Resolved CPEE gateway element-id to mapping gateway:', {
-                elementId: elementId,
-                sortedIndex: sortedIndex,
-                gatewayId: gateway.id,
-                gatewayAltId: gateway.altId
+        if (gatewayType !== 'loop') {
+            // Check minimum depth to determine sorting strategy
+            // (same logic as findCPEESvgElementIdForGateway)
+            const depths = mappingGateways.map(g => g.metadata?.nestingDepth ?? 0);
+            const minDepth = Math.min(...depths);
+            const maxDepth = Math.max(...depths);
+            
+            // Only use depth sorting if there are top-level gateways (depth 0) with nesting
+            const useDepthSorting = minDepth === 0 && maxDepth > 0;
+            
+            let sortedMappingGateways;
+            
+            if (useDepthSorting) {
+                sortedMappingGateways = [...mappingGateways].map((g, originalIndex) => ({
+                    ...g,
+                    originalIndex
+                })).sort((a, b) => {
+                    const depthA = a.metadata?.nestingDepth ?? 0;
+                    const depthB = b.metadata?.nestingDepth ?? 0;
+                    if (depthB !== depthA) {
+                        return depthB - depthA;
+                    }
+                    return a.originalIndex - b.originalIndex;
+                });
+            } else {
+                sortedMappingGateways = mappingGateways.map((g, originalIndex) => ({
+                    ...g,
+                    originalIndex
+                }));
+            }
+            
+            console.log('[CrossGraphHighlight] Resolving CPEE gateway:', {
+                svgElementIds,
+                clickedElementId: elementId,
+                svgIndex,
+                minDepth, maxDepth,
+                strategy: useDepthSorting ? 'depth-sorted' : 'document-order',
+                order: sortedMappingGateways.map(g => ({ id: g.id, depth: g.metadata?.nestingDepth }))
             });
-            return gateway;
+            
+            if (svgIndex < sortedMappingGateways.length) {
+                const gateway = sortedMappingGateways[svgIndex];
+                console.log('[CrossGraphHighlight] ✓ Resolved CPEE gateway element-id to mapping gateway:', {
+                    elementId,
+                    svgIndex,
+                    gatewayId: gateway.id,
+                    gatewayAltId: gateway.altId,
+                    strategy: useDepthSorting ? 'depth-sorted' : 'document-order'
+                });
+                return gateway;
+            }
+        } else {
+            // For loops, use direct document order
+            console.log('[CrossGraphHighlight] Resolving loop gateway (direct order):', {
+                svgElementIds,
+                clickedElementId: elementId,
+                svgIndex
+            });
+            
+            if (svgIndex < mappingGateways.length) {
+                const gateway = mappingGateways[svgIndex];
+                console.log('[CrossGraphHighlight] ✓ Resolved loop gateway element-id to mapping gateway:', {
+                    elementId,
+                    svgIndex,
+                    gatewayId: gateway.id,
+                    gatewayAltId: gateway.altId
+                });
+                return gateway;
+            }
         }
         
         console.log('[CrossGraphHighlight] ✗ Could not resolve CPEE gateway element-id, index out of range');
@@ -538,11 +585,49 @@ export class CrossGraphHighlightCoordinator {
             }
             
             // Find gateway with matching alt_id in this section's mapping
-            const targetGateway = this.findGatewayByAltIdInSection(altId, targetSection);
+            let targetGateway = this.findGatewayByAltIdInSection(altId, targetSection);
             
             if (!targetGateway) {
-                console.log('[CrossGraphHighlight] No gateway with alt_id', altId, 'found in section:', targetSection);
-                continue;
+                // Special case: Mermaid has 2 parallel gateways (fork/join), CPEE has 1
+                // If this is a parallel gateway click and we can't find it by alt_id,
+                // try to find any parallel gateway in this section
+                const isParallelGateway = originalTaskId && originalTaskId.includes(':parallelgateway:');
+                
+                if (isParallelGateway && isCPEESection) {
+                    const parallelGateways = this.getGatewaysOfTypeInSection(targetSection, 'parallel');
+                    if (parallelGateways.length > 0) {
+                        // Use the first parallel gateway found - in CPEE, there's usually just one
+                        // that represents the entire parallel construct
+                        targetGateway = parallelGateways[0];
+                        console.log('[CrossGraphHighlight] Mermaid parallel join -> CPEE parallel:', {
+                            mermaidAltId: altId,
+                            cpeeGateway: targetGateway.id
+                        });
+                    }
+                }
+                
+                if (!targetGateway) {
+                    // Even if gateway not in mapping, highlight source directly if this is source section
+                    if (isSource && isMermaidSection) {
+                        console.log('[CrossGraphHighlight] Gateway not in mapping, highlighting source directly:', originalTaskId);
+                        this.highlightInSection(targetSection, originalTaskId, true, null);
+                        
+                        // For parallel gateways, also highlight all other parallels in this section
+                        const isParallelClick = originalTaskId && originalTaskId.includes(':parallelgateway:');
+                        if (isParallelClick) {
+                            const allParallels = this.getGatewaysOfTypeInSection(targetSection, 'parallel');
+                            for (const pg of allParallels) {
+                                if (pg.id !== altId) {
+                                    console.log('[CrossGraphHighlight] Also highlighting parallel gateway:', pg.id);
+                                    this.highlightInSection(targetSection, pg.id, true, pg);
+                                }
+                            }
+                        }
+                    } else {
+                        console.log('[CrossGraphHighlight] No gateway with alt_id', altId, 'found in section:', targetSection);
+                    }
+                    continue;
+                }
             }
             
             console.log('[CrossGraphHighlight] Highlighting gateway in', targetSection, ':', {
@@ -580,7 +665,32 @@ export class CrossGraphHighlightCoordinator {
                             this.highlightInSection(targetSection, pairedGatewayId, isSource, null);
                         }
                     }
-                    // For numeric IDs (1, 4, etc.), only highlight the single gateway - no pairing
+                }
+                
+                // For parallel gateways with numeric IDs, highlight ALL parallel gateways (fork + join)
+                const isParallelGatewayClick = originalTaskId && originalTaskId.includes(':parallelgateway:');
+                if (isParallelGatewayClick && !MermaidNodeExtractor.usesGwNamingConvention(targetGateway.id)) {
+                    const allMermaidParallels = this.getGatewaysOfTypeInSection(targetSection, 'parallel');
+                    for (const mermaidGateway of allMermaidParallels) {
+                        if (mermaidGateway.id !== targetGateway.id) {
+                            console.log('[CrossGraphHighlight] Also highlighting Mermaid parallel:', mermaidGateway.id);
+                            this.highlightInSection(targetSection, mermaidGateway.id, isSource, mermaidGateway);
+                        }
+                    }
+                } else {
+                    // Keep existing CPEE source logic for parallel highlighting
+                    const isCPEESource = sectionId && sectionId.includes('cpee');
+                    const gatewayType = this.getGatewayTypeFromTask(sourceGatewayObject || targetGateway);
+                    
+                    if (isCPEESource && gatewayType === 'parallel') {
+                        const allMermaidParallels = this.getGatewaysOfTypeInSection(targetSection, 'parallel');
+                        for (const mermaidGateway of allMermaidParallels) {
+                            if (mermaidGateway.id !== targetGateway.id) {
+                                console.log('[CrossGraphHighlight] Also highlighting Mermaid parallel (from CPEE):', mermaidGateway.id);
+                                this.highlightInSection(targetSection, mermaidGateway.id, false, mermaidGateway);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -687,62 +797,116 @@ export class CrossGraphHighlightCoordinator {
         }
         
         // Get all SVG gateways of this type
-        const svgGatewaysNodeList = container.querySelectorAll(
-            `g.element.complex[element-id^="${gatewayType}_"]`
-        );
+        // For parallel gateways, exclude parallel_branch elements (they're not gateways)
+        let selector;
+        if (gatewayType === 'parallel') {
+            // Match parallel_N but NOT parallel_branch_N
+            selector = `g.element.complex[element-id^="parallel_"]:not([element-id^="parallel_branch"])`;
+        } else {
+            selector = `g.element.complex[element-id^="${gatewayType}_"]`;
+        }
+        const svgGatewaysNodeList = container.querySelectorAll(selector);
         
-        let svgGatewaysSorted = Array.from(svgGatewaysNodeList)
+        const svgGateways = Array.from(svgGatewaysNodeList)
             .map(el => ({ element: el, elementId: el.getAttribute('element-id') }));
         
-        // Determine if we should reverse based on gateway type and nesting
-        // - For LOOPS: Never reverse - loop numbering follows document order
-        // - For CHOOSE/PARALLEL: Only reverse if gateways are NESTED (one inside another)
-        //   - Nested gateways: inner rendered first (choose_0), so reverse to match mapping
-        //   - Sequential gateways: rendered in document order, no reverse needed
-        let shouldReverse = false;
+        // CPEE gateway rendering order depends on structure:
+        // 1. Top-level nesting (min depth = 0): Depth sorting applies (inner first)
+        // 2. All inside container (min depth > 0): Document order applies
+        // 
+        // This is because CPEE only reverses for direct parent-child at root level,
+        // but uses document order when all gateways are inside a loop/other container.
         
         if (gatewayType !== 'loop') {
-            // Check if gateways are nested using mapping metadata (nesting depth)
-            const areNested = this.areGatewaysNested(mappingGateways);
-            shouldReverse = areNested;
+            // Check minimum depth to determine sorting strategy
+            const depths = mappingGateways.map(g => g.metadata?.nestingDepth ?? 0);
+            const minDepth = Math.min(...depths);
+            const maxDepth = Math.max(...depths);
             
-            if (areNested) {
-                svgGatewaysSorted = svgGatewaysSorted.reverse();
-                console.log('[CrossGraphHighlight] SVG gateways (NESTED - reversed):', {
-                    count: svgGatewaysSorted.length,
-                    elementIds: svgGatewaysSorted.map(g => g.elementId)
+            // Only use depth sorting if:
+            // 1. There are gateways at top level (depth 0), AND
+            // 2. There are nested gateways (different depths)
+            const useDepthSorting = minDepth === 0 && maxDepth > 0;
+            
+            let sortedMappingGateways;
+            
+            if (useDepthSorting) {
+                // Depth sorting: innermost (highest depth) first
+                sortedMappingGateways = [...mappingGateways].map((g, originalIndex) => ({
+                    ...g,
+                    originalIndex
+                })).sort((a, b) => {
+                    const depthA = a.metadata?.nestingDepth ?? 0;
+                    const depthB = b.metadata?.nestingDepth ?? 0;
+                    if (depthB !== depthA) {
+                        return depthB - depthA;
+                    }
+                    return a.originalIndex - b.originalIndex;
+                });
+                
+                console.log('[CrossGraphHighlight] Using DEPTH sorting (top-level nesting):', {
+                    minDepth, maxDepth,
+                    mappingOrder: mappingGateways.map(g => ({ id: g.id, depth: g.metadata?.nestingDepth })),
+                    sortedOrder: sortedMappingGateways.map(g => ({ id: g.id, depth: g.metadata?.nestingDepth }))
                 });
             } else {
-                console.log('[CrossGraphHighlight] SVG gateways (SEQUENTIAL - not reversed):', {
-                    count: svgGatewaysSorted.length,
-                    elementIds: svgGatewaysSorted.map(g => g.elementId)
+                // Document order: all gateways inside a container (loop, etc.)
+                sortedMappingGateways = mappingGateways.map((g, originalIndex) => ({
+                    ...g,
+                    originalIndex
+                }));
+                
+                console.log('[CrossGraphHighlight] Using DOCUMENT order (all inside container):', {
+                    minDepth, maxDepth,
+                    order: sortedMappingGateways.map(g => ({ id: g.id, depth: g.metadata?.nestingDepth }))
                 });
             }
+            
+            // Find the target gateway's position in the sorted/ordered list
+            const sortedIndex = sortedMappingGateways.findIndex(g => 
+                g.altId === gatewayTask.altId || g.id === gatewayTask.id
+            );
+            
+            console.log('[CrossGraphHighlight] Gateway matching result:', {
+                targetGateway: { id: gatewayTask.id, altId: gatewayTask.altId },
+                sortedIndex,
+                svgElements: svgGateways.map(g => g.elementId),
+                strategy: useDepthSorting ? 'depth-sorted' : 'document-order'
+            });
+            
+            // Handle count mismatch
+            if (svgGateways.length !== mappingGateways.length) {
+                console.log('[CrossGraphHighlight] Count mismatch:', {
+                    svgCount: svgGateways.length,
+                    mappingCount: mappingGateways.length
+                });
+            }
+            
+            if (sortedIndex >= 0 && sortedIndex < svgGateways.length) {
+                const matched = svgGateways[sortedIndex];
+                console.log('[CrossGraphHighlight] Matched gateway:', {
+                    sortedIndex,
+                    elementId: matched.elementId,
+                    gatewayType,
+                    strategy: useDepthSorting ? 'depth-sorted' : 'document-order'
+                });
+                return matched.elementId;
+            }
         } else {
-            console.log('[CrossGraphHighlight] SVG gateways (direct order for loops):', {
-                count: svgGatewaysSorted.length,
-                elementIds: svgGatewaysSorted.map(g => g.elementId)
+            // For loops, use direct document order (no depth sorting needed)
+            console.log('[CrossGraphHighlight] Loop gateways (direct order):', {
+                svgElements: svgGateways.map(g => g.elementId),
+                targetIndex
             });
-        }
-        
-        // Handle count mismatch (e.g., SVG has loops without alt_id)
-        if (svgGatewaysSorted.length !== mappingGateways.length) {
-            console.log('[CrossGraphHighlight] Count mismatch - SVG has elements without alt_id:', {
-                svgCount: svgGatewaysSorted.length,
-                mappingCount: mappingGateways.length
-            });
-        }
-        
-        // Use index matching
-        if (targetIndex < svgGatewaysSorted.length) {
-            const matched = svgGatewaysSorted[targetIndex];
-            console.log('[CrossGraphHighlight] Matched gateway by index:', {
-                targetIndex,
-                elementId: matched.elementId,
-                gatewayType,
-                reversed: shouldReverse
-            });
-            return matched.elementId;
+            
+            if (targetIndex < svgGateways.length) {
+                const matched = svgGateways[targetIndex];
+                console.log('[CrossGraphHighlight] Matched loop gateway by index:', {
+                    targetIndex,
+                    elementId: matched.elementId
+                });
+                return matched.elementId;
+            }
         }
         
         return null;
