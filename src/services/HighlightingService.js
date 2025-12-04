@@ -116,25 +116,60 @@ export class HighlightingService {
             return;
         }
         
-        // Find the diamond rect element inside .part-start
-        // This is the rotated rect that forms the diamond shape
-        const diamondRect = gatewayGroup.querySelector('.part-start rect.stand') ||
-                           gatewayGroup.querySelector('.part-start rect') ||
-                           gatewayGroup.querySelector('rect[transform*="rotate"]');
+        // Find the diamond rect elements in both .part-start and .part-end
+        // XOR (choose) and parallel gateways have both opening and closing diamonds
+        const startDiamondRect = gatewayGroup.querySelector('.part-start rect.stand') ||
+                                gatewayGroup.querySelector('.part-start rect') ||
+                                gatewayGroup.querySelector('rect[transform*="rotate"]');
         
-        if (diamondRect) {
-            // Apply highlight directly to the diamond rect
-            this.applyElementHighlight(diamondRect, 'cpee-gateway-highlighted', isActive);
-            // Also set inline styles to override CPEE library's colorstyle/markstyle classes
-            this.applyInlineHighlightStyle(diamondRect, isActive);
-            // Also mark the group so we can find it later for clearing
+        // Try multiple selectors for end diamond - CPEE might use different structures
+        let endDiamondRect = gatewayGroup.querySelector('.part-end rect.stand') ||
+                           gatewayGroup.querySelector('.part-end rect') ||
+                           gatewayGroup.querySelector('g.part-end rect');
+        
+        // If not found, try finding all rotated rects and pick the second one
+        if (!endDiamondRect) {
+            const allRotatedRects = gatewayGroup.querySelectorAll('rect[transform*="rotate"]');
+            if (allRotatedRects.length > 1) {
+                endDiamondRect = allRotatedRects[allRotatedRects.length - 1]; // Last one is the closing
+            }
+        }
+        
+        // Debug logging
+        console.log('[HighlightingService] highlightCPEEGateway:', {
+            elementId: gatewayGroup.getAttribute('element-id'),
+            startFound: !!startDiamondRect,
+            endFound: !!endDiamondRect,
+            partEndExists: !!gatewayGroup.querySelector('.part-end'),
+            allRotatedRects: gatewayGroup.querySelectorAll('rect[transform*="rotate"]').length
+        });
+        
+        let foundDiamond = false;
+        
+        // Highlight the start diamond (opening gateway)
+        if (startDiamondRect) {
+            this.applyElementHighlight(startDiamondRect, 'cpee-gateway-highlighted', isActive);
+            this.applyInlineHighlightStyle(startDiamondRect, isActive);
+            foundDiamond = true;
+        }
+        
+        // Highlight the end diamond (closing gateway) if present
+        if (endDiamondRect && endDiamondRect !== startDiamondRect) {
+            this.applyElementHighlight(endDiamondRect, 'cpee-gateway-highlighted', isActive);
+            this.applyInlineHighlightStyle(endDiamondRect, isActive);
+            foundDiamond = true;
+            console.log('[HighlightingService] ✓ Also highlighted end diamond');
+        }
+        
+        if (foundDiamond) {
+            // Mark the group so we can find it later for clearing
             gatewayGroup.classList.add('cpee-gateway-group-highlighted');
             if (isActive) {
                 gatewayGroup.classList.add('cpee-gateway-group-highlighted-active');
             }
             this.highlightedElements.add(gatewayGroup);
         } else {
-            // Fallback: highlight the entire group if diamond rect not found
+            // Fallback: highlight the entire group if no diamond rects found
             this.applySVGHighlight(gatewayGroup, 'cpee-gateway-highlighted', isActive);
         }
     }

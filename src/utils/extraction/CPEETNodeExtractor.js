@@ -136,6 +136,29 @@ export class CPEENodeExtractor {
     }
 
     /**
+     * Calculate the nesting depth of a gateway element in the XML
+     * Counts how many ancestor gateway elements (choose, parallel, loop) exist
+     * This is used to distinguish nested gateways (different depths) from sequential gateways (same depth)
+     * @param {Element} element - Gateway XML element
+     * @returns {number} Nesting depth (0 = top level, 1 = inside one gateway, etc.)
+     */
+    static calculateNestingDepth(element) {
+        const gatewayTypes = ['choose', 'parallel', 'loop'];
+        let depth = 0;
+        let parent = element.parentElement;
+        
+        while (parent) {
+            const tagName = parent.tagName?.toLowerCase();
+            if (tagName && gatewayTypes.includes(tagName)) {
+                depth++;
+            }
+            parent = parent.parentElement;
+        }
+        
+        return depth;
+    }
+
+    /**
      * Extract NodeIdentifier from a single XML element
      * @param {Element} element - XML element
      * @param {number} position - Position in workflow
@@ -181,6 +204,12 @@ export class CPEENodeExtractor {
             }
             
             const metadata = this.extractMetadata(element, tagName);
+            
+            // For gateways, calculate and store nesting depth
+            // This is used to distinguish nested vs sequential gateways
+            if (isGateway) {
+                metadata.nestingDepth = this.calculateNestingDepth(element);
+            }
             
             const task = new NodeIdentifier(id, label, type, 'cpee', metadata, position, altId);
             task.position = position;
