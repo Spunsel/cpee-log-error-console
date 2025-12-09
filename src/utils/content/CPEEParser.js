@@ -34,7 +34,7 @@ export class CPEEParser {
             return lineNumbers;
         };
         
-        // Fix: Escape < and > characters inside attribute values (e.g., condition="Counter < 10")
+        // Fix 1: Escape < and > characters inside attribute values (e.g., condition="Counter < 10")
         // This regex matches attribute values and escapes comparison operators inside them
         const beforeLtGtFix = processedXml;
         const ltGtLineNumbers = [];
@@ -52,7 +52,7 @@ export class CPEEParser {
                     ltGtLineNumbers.push(lineNumber);
                     
                     // Escape < and > but preserve already-escaped entities
-                    let escapedValue = value
+                    const escapedValue = value
                         .replace(/</g, '&lt;')
                         .replace(/>/g, '&gt;');
                     
@@ -69,7 +69,7 @@ export class CPEEParser {
             });
         }
         
-        // Fix: Replace unescaped & with &amp;
+        // Fix 2: Replace unescaped & with &amp;
         // Match & that is not part of an XML entity
         // Valid entities: &amp;, &lt;, &gt;, &quot;, &apos;, &#...; (character references)
         // Pattern: & not followed by valid entity pattern (# or letters/digits ending with ;)
