@@ -312,9 +312,14 @@ class TraceSets {
      * This recursively checks if the loop is directly connected to another loop that is
      * directly connected to the end node (or in such a chain)
      * A loop is "directly connected" to another loop if it is the last child of that loop
+     * 
+     * NOTE: This only returns true for the OUTERMOST loop that is directly connected to end.
+     * Inner loops should NOT skip their "0 iterations" path because we want to generate
+     * diverse traces (inner loop executes vs inner loop skips).
+     * 
      * @param {Element} loopNode - Loop node to check
      * @param {Set<Element>} visited - Set of visited loops to prevent infinite recursion
-     * @returns {boolean} True if the loop is in a chain leading to the end node
+     * @returns {boolean} True if the loop is directly connected to end (not just in a chain)
      */
     static isInChainToEnd(loopNode, visited = new Set()) {
         // Prevent infinite recursion
@@ -323,25 +328,15 @@ class TraceSets {
         }
         visited.add(loopNode);
         
-        // Check if this loop is directly connected to the end
+        // Only return true if this loop is DIRECTLY connected to the end
+        // Inner loops (loops inside other loops) should return false
+        // so they can still generate "skip" paths
         if (this.isDirectlyConnectedToEnd(loopNode)) {
             return true;
         }
         
-        // Check if this loop is the last child of another loop that is in a chain to the end
-        const parent = loopNode.parentElement;
-        if (parent && parent.tagName && parent.tagName.toLowerCase() === 'loop') {
-            // Get all siblings (excluding conditions)
-            const siblings = Array.from(parent.children)
-                .filter(child => child.tagName.toLowerCase() !== 'condition');
-            
-            // Check if this loop is the last child of its parent loop
-            if (siblings.length > 0 && siblings[siblings.length - 1] === loopNode) {
-                // Recursively check if the parent loop is in a chain to the end
-                return this.isInChainToEnd(parent, visited);
-            }
-        }
-        
+        // For nested loops: DO NOT propagate the "chain to end" status to inner loops
+        // Inner loops should still be able to skip, generating different trace variants
         return false;
     }
 

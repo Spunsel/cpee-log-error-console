@@ -34,6 +34,41 @@ export class CPEEParser {
             return lineNumbers;
         };
         
+        // Fix: Escape < and > characters inside attribute values (e.g., condition="Counter < 10")
+        // This regex matches attribute values and escapes comparison operators inside them
+        const beforeLtGtFix = processedXml;
+        const ltGtLineNumbers = [];
+        
+        // Process the XML to escape < and > inside attribute values
+        // Pattern: find attribute="value" pairs and escape < > inside the value
+        processedXml = processedXml.replace(
+            /(\w+\s*=\s*)(["'])([^"']*?)(["'])/g,
+            (match, attrPrefix, openQuote, value, closeQuote, offset) => {
+                // Check if the value contains unescaped < or >
+                if (value.includes('<') || value.includes('>')) {
+                    // Find line number for this match
+                    const upToMatch = processedXml.substring(0, offset);
+                    const lineNumber = (upToMatch.match(/\n/g) || []).length + 1;
+                    ltGtLineNumbers.push(lineNumber);
+                    
+                    // Escape < and > but preserve already-escaped entities
+                    let escapedValue = value
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+                    
+                    return attrPrefix + openQuote + escapedValue + closeQuote;
+                }
+                return match;
+            }
+        );
+        
+        if (beforeLtGtFix !== processedXml) {
+            appliedSteps.push({
+                description: 'Escaped < and > characters in attribute values',
+                lineNumbers: Array.from(new Set(ltGtLineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
         // Fix: Replace unescaped & with &amp;
         // Match & that is not part of an XML entity
         // Valid entities: &amp;, &lt;, &gt;, &quot;, &apos;, &#...; (character references)
