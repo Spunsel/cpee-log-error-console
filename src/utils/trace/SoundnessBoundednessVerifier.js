@@ -8,6 +8,13 @@
  * This implementation adapts workflow net soundness and boundedness concepts
  * to CPEE and Mermaid workflow graph traces.
  * 
+ * IMPORTANT: Analysis is performed on TASKS ONLY (call, manipulate, script).
+ * Gateways (choose, parallel, loop) are excluded because:
+ * - Tasks represent actual work activities that need to be reachable
+ * - Gateway reachability is implied by the reachability of connected tasks
+ * - Many trace representations don't explicitly include gateway traversals
+ * - This avoids false "dead transition" errors from control structures
+ * 
  * Soundness Properties (adapted from van der Aalst):
  * 1. Option to Complete: All traces should reach end nodes (proper termination)
  * 2. Proper Completion: Traces end at end nodes without residual tasks
@@ -54,15 +61,20 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
         return createErrorResult('Invalid graph content');
     }
 
-    // Extract all tasks from the graph
+    // Extract all tasks from the graph (excluding gateways for soundness/boundedness analysis)
+    // Only tasks (call, manipulate, script) are relevant - gateways are control structures
     let allTasks = [];
     let graphStructure = null;
     try {
         if (format === 'cpee') {
-            allTasks = CPEENodeExtractor.extract(graphContent);
+            const allNodes = CPEENodeExtractor.extract(graphContent);
+            // Filter to only include tasks (call, manipulate, script), exclude gateways (choose, parallel, loop)
+            allTasks = allNodes.filter(node => !CPEENodeExtractor.isGatewayType(node.type));
             graphStructure = extractCPEEGraphStructure(graphContent, allTasks);
         } else if (format === 'mermaid') {
-            allTasks = MermaidNodeExtractor.extract(graphContent);
+            const allNodes = MermaidNodeExtractor.extract(graphContent);
+            // Filter to only include tasks, exclude gateways and decisions
+            allTasks = allNodes.filter(node => node.type === 'task');
             const connections = MermaidNodeExtractor.extractConnections(graphContent);
             graphStructure = buildGraphStructure(allTasks, connections);
         } else {
