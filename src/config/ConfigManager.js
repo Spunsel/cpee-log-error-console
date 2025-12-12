@@ -95,7 +95,7 @@ export class ConfigManager {
             instances: {
                 // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
                 processNumbers: [
-                    82268, 82267, 82264, 82263, 82226, 82187, 82187, 82151, 82143, 82141, 82120, 82118, 82117, 82116, 82115, 82114, 82072, 
+                    83170, 83162, 83131, 83129, 83125, 83124, 82868, 82862, 82268, 82267, 82264, 82263, 82226, 82187, 82187, 82151, 82143, 82141, 82120, 82118, 82117, 82116, 82115, 82114, 82072, 
                     82060, 82050, 82025, 82019, 81951, 77655, 77526, 77275, 77237, 77235, 77228, 77050, 77013, 
                     76934, 76762, 76600, 76461, 76403, 76400, 76397, 76385, 75608, 75605, 75050, 75048, 75015, 
                     75001, 75000, 74996, 74992, 74976, 74974, 74971, 74966, 73589, 73557, 73373, 73227, 73190,  
@@ -274,7 +274,7 @@ export class ConfigManager {
     loadCPEEConfig() {
         return {
             wfadaptor: {
-                themePath: 'src/libs/cpee-layout/themes/presetid/theme.js',
+                themePath: 'src/libs/cpee-layout/themes/presetaltid/theme.js',
                 cssPath: 'https://cpee.org/flow/css/wfadaptor.css', // replaced: 'src/libs/cpee-layout/wfadaptor.css'
                 baseThemePath: 'https://cpee.org/flow/themes/base.js', // replaced: 'src/libs/cpee-layout/themes/base.js'
                 wfadaptorPath: 'https://cpee.org/flow/js/wfadaptor.js' // replaced: 'src/libs/cpee-layout/wfadaptor.js'

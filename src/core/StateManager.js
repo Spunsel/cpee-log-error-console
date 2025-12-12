@@ -35,7 +35,7 @@ export class StateManager {
                 loading: false,
                 activeView: 'home', // 'home', 'instance', 'log'
                 darkMode: false, // Dark mode preference (persisted)
-                theme: 'presetid', // CPEE theme preference (persisted)
+                theme: 'presetaltid', // CPEE theme preference (persisted) - shows alt_id in labels
                 scale: 1.0, // Graph scale preference (persisted)
                 graphScale: 1.0 // Default graph scale: 1x (100%) - legacy, use ui.scale
             },

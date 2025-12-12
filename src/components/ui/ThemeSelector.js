@@ -28,7 +28,7 @@ export class ThemeSelector {
         // Load theme from StateManager (which loads from localStorage)
         let storedTheme = this.stateManager.getState('ui.theme');
         if (!storedTheme || !this.themes.some(t => t.id === storedTheme)) {
-            storedTheme = 'presetid'; // Default
+            storedTheme = 'presetaltid'; // Default - shows alt_id in labels
             this.stateManager.setState('ui.theme', storedTheme);
         }
         this.currentTheme = storedTheme;

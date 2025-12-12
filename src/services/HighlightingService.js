@@ -15,8 +15,8 @@ export class HighlightingService {
         this.highlightedElements = new Set();
         this.clickableElements = new Set();
         this.originalStyles = new Map();
-        this.animationEnabled = true;
-        this.animationDuration = 300; // milliseconds
+        //this.animationEnabled = true;
+        //this.animationDuration = 300;
     }
 
     /**

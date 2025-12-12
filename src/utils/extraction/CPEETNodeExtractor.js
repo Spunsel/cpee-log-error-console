@@ -403,6 +403,63 @@ export class CPEENodeExtractor {
         }
         return false;
     }
+    
+    // ==================== SVG Element Alt-ID Extraction ====================
+    
+    /**
+     * Extract alt_id from CPEE SVG gateway element
+     * Looks for element-alt_id attribute on the gateway element or its parent group ("Übergruppe")
+     * 
+     * The presetaltid theme adds element-alt_id attributes directly to gateway SVG elements.
+     * For gateways, the alt_id is on the parent group that contains both the splitting
+     * and merging gateway (for XOR) or just the splitting gateway (for parallel).
+     * 
+     * @param {Element} svgElement - SVG element (gateway or its child)
+     * @returns {string|null} The alt_id or null
+     */
+    static extractAltIdFromSvgElement(svgElement) {
+        if (!svgElement) return null;
+        
+        // Check if element itself has element-alt_id
+        let altId = svgElement.getAttribute('element-alt_id');
+        if (altId) return altId;
+        
+        // Check parent group ("Übergruppe") - gateways have alt_id on their parent group
+        const parentGroup = svgElement.closest('g[element-alt_id]');
+        if (parentGroup) {
+            return parentGroup.getAttribute('element-alt_id');
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Find CPEE SVG element by its element-alt_id attribute
+     * This is the new direct lookup method that replaces the complex positional index resolution
+     * 
+     * @param {Element} container - SVG container to search in
+     * @param {string} altId - The alt_id to search for (e.g., "gw1s", "3")
+     * @returns {Element|null} The matching SVG element or null
+     */
+    static findSvgElementByAltId(container, altId) {
+        if (!container || !altId) return null;
+        
+        // Direct lookup by element-alt_id attribute
+        const element = container.querySelector(`g[element-alt_id="${CSS.escape(altId)}"]`);
+        if (element) return element;
+        
+        // Also check for elements where the alt_id might be on a child element
+        const allWithAltId = container.querySelectorAll('[element-alt_id]');
+        for (const el of allWithAltId) {
+            if (el.getAttribute('element-alt_id') === altId) {
+                // Return the g.element parent if possible
+                const parent = el.closest('g.element');
+                return parent || el;
+            }
+        }
+        
+        return null;
+    }
 
 }
 
