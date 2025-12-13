@@ -835,48 +835,20 @@ export class CrossGraphHighlightCoordinator {
      * @returns {HTMLElement|null} Task or gateway element or null
      */
     findTaskInSVG(container, taskId) {
-        // NEW: For CPEE sections, try direct element-alt_id lookup first
-        // This is the preferred method when using presetaltid theme which adds
-        // element-alt_id attributes directly to gateway SVG elements
-        if (container.id && container.id.includes('cpee')) {
-            // Try direct alt_id lookup on gateway elements
-            const gatewayByAltId = CPEENodeExtractor.findSvgElementByAltId(container, taskId);
-            if (gatewayByAltId) {
-                console.log('[CrossGraphHighlight] ✓ Found element by direct element-alt_id:', taskId);
-                return gatewayByAltId;
-            }
-            
-            // For gw pattern IDs (gw1s, gw1e), also check the paired gateway
-            // CPEE has one element for both start/end, Mermaid has separate elements
-            if (MermaidNodeExtractor.usesGwNamingConvention(taskId)) {
-                const pairedId = MermaidNodeExtractor.getPairedGatewayId(taskId);
-                if (pairedId) {
-                    const pairedGateway = CPEENodeExtractor.findSvgElementByAltId(container, pairedId);
-                    if (pairedGateway) {
-                        console.log('[CrossGraphHighlight] ✓ Found element by paired gateway element-alt_id:', pairedId);
-                        return pairedGateway;
-                    }
-                }
-            }
-        }
-        
         // For CPEE gateway element-ids (choose_N, parallel_N), use specific selector
-        // to find the correct gateway group element (g.element.complex)
         if (CPEENodeExtractor.isCPEEGatewayElementId(taskId)) {
             const gatewayElement = container.querySelector(`g.element.complex[element-id="${CSS.escape(taskId)}"]`);
             if (gatewayElement) {
                 return gatewayElement;
             }
-            // Fallback: try without .complex class (some gateways might not have it)
             const gatewayElementAlt = container.querySelector(`g.element[element-id="${CSS.escape(taskId)}"]`);
             if (gatewayElementAlt) {
                 return gatewayElementAlt;
             }
         }
         
-        // First, try CPEE element-id attribute (most reliable for CPEE)
-        // This includes both tasks (g.element) and gateways (g.choose, g.parallel)
-        // Prefer g.element elements over other elements with element-id
+        // PRIORITY 1: Try CPEE element-id attribute first (most reliable for tasks)
+        // This finds elements by their XML id attribute
         const groupElements = container.querySelectorAll('g.element[element-id]');
         for (const el of groupElements) {
             const elementId = el.getAttribute('element-id');
@@ -885,7 +857,7 @@ export class CrossGraphHighlightCoordinator {
             }
         }
         
-        // Fallback: try any element with element-id
+        // Try any element with element-id
         const elements = container.querySelectorAll('[element-id]');
         for (const el of elements) {
             const elementId = el.getAttribute('element-id');
@@ -893,11 +865,25 @@ export class CrossGraphHighlightCoordinator {
                 return el;
             }
         }
-        // Also try by element-type+alt/id for CPEE if element-id carried those
+        
+        // PRIORITY 2: For CPEE sections, try element-alt_id lookup (for gateway alt_ids)
+        // This is used when we're looking for a gateway by its alt_id (e.g., "gw1s", "a3")
+        // NOTE: Only do this AFTER element-id lookup to avoid collisions
         if (container.id && container.id.includes('cpee')) {
-            const el = container.querySelector(`[element-id="${CSS.escape(taskId)}"]`);
-            if (el) {
-                return el;
+            const elementByAltId = CPEENodeExtractor.findSvgElementByAltId(container, taskId);
+            if (elementByAltId) {
+                return elementByAltId;
+            }
+            
+            // For gw pattern IDs (gw1s, gw1e), also check the paired gateway
+            if (MermaidNodeExtractor.usesGwNamingConvention(taskId)) {
+                const pairedId = MermaidNodeExtractor.getPairedGatewayId(taskId);
+                if (pairedId) {
+                    const pairedGateway = CPEENodeExtractor.findSvgElementByAltId(container, pairedId);
+                    if (pairedGateway) {
+                        return pairedGateway;
+                    }
+                }
             }
         }
         
