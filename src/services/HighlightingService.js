@@ -13,26 +13,7 @@ export class HighlightingService {
      */
     constructor() {
         this.highlightedElements = new Set();
-        this.clickableElements = new Set();
         this.originalStyles = new Map();
-        //this.animationEnabled = true;
-        //this.animationDuration = 300;
-    }
-
-    /**
-     * Enable or disable highlighting animations
-     * @param {boolean} enabled - Whether to enable animations
-     */
-    setAnimationEnabled(enabled) {
-        this.animationEnabled = enabled;
-    }
-
-    /**
-     * Set animation duration
-     * @param {number} duration - Animation duration in milliseconds
-     */
-    setAnimationDuration(duration) {
-        this.animationDuration = duration;
     }
 
     /**
@@ -175,28 +156,6 @@ export class HighlightingService {
     }
 
     /**
-     * Sets elements as clickable with hover effects
-     * 
-     * @param {Element[]|NodeList|Set} elementList - List of elements to make clickable
-     */
-    setClickableElements(elementList) {
-        if (!elementList) {
-            return;
-        }
-
-        const elements = Array.from(elementList);
-
-        elements.forEach(element => {
-            if (!element) {
-                return;
-            }
-
-            element.classList.add('task-clickable');
-            this.clickableElements.add(element);
-        });
-    }
-
-    /**
      * Clears all highlights from all tracked elements
      */
     clearAllHighlights() {
@@ -211,22 +170,10 @@ export class HighlightingService {
     }
 
     /**
-     * Clears all clickable states
-     */
-    clearAllClickable() {
-        this.clickableElements.forEach(element => {
-            element.classList.remove('task-clickable');
-        });
-
-        this.clickableElements.clear();
-    }
-
-    /**
-     * Resets all highlighting and clickable states
+     * Resets all highlighting states
      */
     reset() {
         this.clearAllHighlights();
-        this.clearAllClickable();
         this.originalStyles.clear();
     }
 
@@ -240,9 +187,7 @@ export class HighlightingService {
         if (!this.originalStyles.has(element)) {
             const styles = {
                 stroke: element.style.stroke,
-                strokeWidth: element.style.strokeWidth,
-                opacity: element.style.opacity,
-                filter: element.style.filter,
+                strokeWidth: element.style.strokeWidth
             };
             this.originalStyles.set(element, styles);
         }
@@ -259,8 +204,6 @@ export class HighlightingService {
         if (styles) {
             element.style.stroke = styles.stroke;
             element.style.strokeWidth = styles.strokeWidth;
-            element.style.opacity = styles.opacity;
-            element.style.filter = styles.filter;
             this.originalStyles.delete(element);
         }
     }
@@ -286,7 +229,7 @@ export class HighlightingService {
     }
 
     /**
-     * Applies highlighting to a single element with animation support
+     * Applies highlighting to a single element
      * 
      * @private
      * @param {Element} element - Element to highlight
@@ -304,11 +247,6 @@ export class HighlightingService {
         classesToAdd.forEach(className => {
             element.classList.add(className);
         });
-
-        // Add animation if enabled
-        if (this.animationEnabled) {
-            this.addHighlightAnimation(element);
-        }
 
         // Add to tracked elements
         this.highlightedElements.add(element);
@@ -385,22 +323,6 @@ export class HighlightingService {
     }
 
     /**
-     * Adds highlighting animation to an element
-     * 
-     * @private
-     * @param {Element} element - Element to animate
-     */
-    addHighlightAnimation(element) {
-        // Add CSS transition for smooth highlighting
-        element.style.transition = `all ${this.animationDuration}ms ease-in-out`;
-        
-        // Remove transition after animation completes
-        setTimeout(() => {
-            element.style.transition = '';
-        }, this.animationDuration);
-    }
-
-    /**
      * Finds SVG group element by class names
      * 
      * @private
@@ -430,10 +352,7 @@ export class HighlightingService {
     getStats() {
         return {
             highlightedElementsCount: this.highlightedElements.size,
-            clickableElementsCount: this.clickableElements.size,
-            originalStylesCount: this.originalStyles.size,
-            animationEnabled: this.animationEnabled,
-            animationDuration: this.animationDuration
+            originalStylesCount: this.originalStyles.size
         };
     }
 

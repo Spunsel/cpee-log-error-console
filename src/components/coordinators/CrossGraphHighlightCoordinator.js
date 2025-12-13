@@ -501,57 +501,35 @@ export class CrossGraphHighlightCoordinator {
             let targetGateway = this.findGatewayByAltIdInSection(altId, targetSection);
             
             if (!targetGateway) {
-                // Special case: Mermaid has 2 parallel gateways (fork/join), CPEE has 1
-                // If this is a parallel gateway click and we can't find it by alt_id,
-                // try to find any parallel gateway in this section
-                const isParallelGateway = originalTaskId && originalTaskId.includes(':parallelgateway:');
-                
-                if (isParallelGateway && isCPEESection) {
-                    const parallelGateways = this.getGatewaysOfTypeInSection(targetSection, 'parallel');
-                    if (parallelGateways.length > 0) {
-                        // Use the first parallel gateway found - in CPEE, there's usually just one
-                        // that represents the entire parallel construct
-                        targetGateway = parallelGateways[0];
-                        console.log('[CrossGraphHighlight] Mermaid parallel join -> CPEE parallel:', {
-                            mermaidAltId: altId,
-                            cpeeGateway: targetGateway.id
-                        });
-                    }
-                }
-                
-                if (!targetGateway) {
-                    // For CPEE sections: try paired gateway if this is an end gateway (gwXe → gwXs)
-                    // CPEE only has one element for the entire gateway (no separate start/end)
-                    if (isCPEESection && MermaidNodeExtractor.usesGwNamingConvention(altId)) {
-                        const pairedId = MermaidNodeExtractor.getPairedGatewayId(altId);
-                        if (pairedId && pairedId !== altId) {
-                            targetGateway = this.findGatewayByAltIdInSection(pairedId, targetSection);
-                            if (targetGateway) {
-                                console.log('[CrossGraphHighlight] Found paired gateway in CPEE:', {
-                                    originalAltId: altId,
-                                    pairedAltId: pairedId,
-                                    foundGateway: targetGateway.id
-                                });
-                            }
+                // For gw naming convention (gw1s/gw1e): try paired gateway
+                // CPEE only has one element for start+end (e.g., gw1s represents both gw1s and gw1e)
+                // NOTE: This does NOT apply to numeric IDs (1, 4) - they are separate gateways
+                if (isCPEESection && MermaidNodeExtractor.usesGwNamingConvention(altId)) {
+                    const pairedId = MermaidNodeExtractor.getPairedGatewayId(altId);
+                    if (pairedId && pairedId !== altId) {
+                        targetGateway = this.findGatewayByAltIdInSection(pairedId, targetSection);
+                        if (targetGateway) {
+                            console.log('[CrossGraphHighlight] Found paired gateway in CPEE (gw pattern):', {
+                                originalAltId: altId,
+                                pairedAltId: pairedId,
+                                foundGateway: targetGateway.id
+                            });
                         }
                     }
                 }
                 
                 if (!targetGateway) {
-                    // Even if gateway not in mapping, highlight source directly if this is source section
+                    // Gateway not found - highlight source if this is source section
                     if (isSource && isMermaidSection) {
                         console.log('[CrossGraphHighlight] Gateway not in mapping, highlighting source directly:', originalTaskId);
                         this.highlightInSection(targetSection, originalTaskId, true, null);
                         
-                        // For parallel gateways, also highlight all other parallels in this section
-                        const isParallelClick = originalTaskId && originalTaskId.includes(':parallelgateway:');
-                        if (isParallelClick) {
-                            const allParallels = this.getGatewaysOfTypeInSection(targetSection, 'parallel');
-                            for (const pg of allParallels) {
-                                if (pg.id !== altId) {
-                                    console.log('[CrossGraphHighlight] Also highlighting parallel gateway:', pg.id);
-                                    this.highlightInSection(targetSection, pg.id, true, pg);
-                                }
+                        // For gw naming convention, also highlight the paired gateway (start/end)
+                        if (MermaidNodeExtractor.usesGwNamingConvention(altId)) {
+                            const pairedGatewayId = MermaidNodeExtractor.getPairedGatewayId(altId);
+                            if (pairedGatewayId && pairedGatewayId !== altId) {
+                                console.log('[CrossGraphHighlight] Also highlighting paired Mermaid gateway:', pairedGatewayId);
+                                this.highlightInSection(targetSection, pairedGatewayId, true, null);
                             }
                         }
                     } else {
@@ -608,40 +586,13 @@ export class CrossGraphHighlightCoordinator {
                     this.highlightInSection(targetSection, targetGateway.id, false, targetGateway);
                 }
                 
-                // For Mermaid sections with gw pattern, also highlight the paired gateway (start/end)
-                if (isMermaidSection && targetGateway.id) {
-                    if (MermaidNodeExtractor.usesGwNamingConvention(targetGateway.id)) {
-                        const pairedGatewayId = MermaidNodeExtractor.getPairedGatewayId(targetGateway.id);
-                        if (pairedGatewayId && pairedGatewayId !== targetGateway.id) {
-                            console.log('[CrossGraphHighlight] Also highlighting paired Mermaid gateway:', pairedGatewayId);
-                            this.highlightInSection(targetSection, pairedGatewayId, isSource, null);
-                        }
-                    }
-                }
-                
-                // For parallel gateways with numeric IDs, highlight ALL parallel gateways (fork + join)
-                const isParallelGatewayClick = originalTaskId && originalTaskId.includes(':parallelgateway:');
-                if (isParallelGatewayClick && !MermaidNodeExtractor.usesGwNamingConvention(targetGateway.id)) {
-                    const allMermaidParallels = this.getGatewaysOfTypeInSection(targetSection, 'parallel');
-                    for (const mermaidGateway of allMermaidParallels) {
-                        if (mermaidGateway.id !== targetGateway.id) {
-                            console.log('[CrossGraphHighlight] Also highlighting Mermaid parallel:', mermaidGateway.id);
-                            this.highlightInSection(targetSection, mermaidGateway.id, isSource, mermaidGateway);
-                        }
-                    }
-                } else {
-                    // Keep existing CPEE source logic for parallel highlighting
-                    const isCPEESource = sectionId && sectionId.includes('cpee');
-                    const gatewayType = this.getGatewayTypeFromTask(sourceGatewayObject || targetGateway);
-                    
-                    if (isCPEESource && gatewayType === 'parallel') {
-                        const allMermaidParallels = this.getGatewaysOfTypeInSection(targetSection, 'parallel');
-                        for (const mermaidGateway of allMermaidParallels) {
-                            if (mermaidGateway.id !== targetGateway.id) {
-                                console.log('[CrossGraphHighlight] Also highlighting Mermaid parallel (from CPEE):', mermaidGateway.id);
-                                this.highlightInSection(targetSection, mermaidGateway.id, false, mermaidGateway);
-                            }
-                        }
+                // For gw naming convention (gw1s/gw1e), also highlight the paired gateway
+                // NOTE: This does NOT apply to numeric IDs - they are separate gateways
+                if (isMermaidSection && targetGateway.id && MermaidNodeExtractor.usesGwNamingConvention(targetGateway.id)) {
+                    const pairedGatewayId = MermaidNodeExtractor.getPairedGatewayId(targetGateway.id);
+                    if (pairedGatewayId && pairedGatewayId !== targetGateway.id) {
+                        console.log('[CrossGraphHighlight] Also highlighting paired Mermaid gateway (gw pattern):', pairedGatewayId);
+                        this.highlightInSection(targetSection, pairedGatewayId, isSource, null);
                     }
                 }
             }
@@ -719,54 +670,6 @@ export class CrossGraphHighlightCoordinator {
     }
     
     /**
-     * Get the gateway type (choose, parallel, loop) from a task
-     * @param {Object} task - Task object
-     * @returns {string|null} Gateway type or null
-     */
-    getGatewayTypeFromTask(task) {
-        if (!task) { return null; }
-        
-        // Check metadata tagName first (most reliable for CPEE)
-        if (task.metadata && task.metadata.tagName) {
-            const tagName = task.metadata.tagName.toLowerCase();
-            if (['choose', 'parallel', 'loop'].includes(tagName)) {
-                return tagName;
-            }
-        }
-        
-        // Check task type
-        if (task.type) {
-            const type = task.type.toLowerCase();
-            if (type === 'choose' || type.includes('exclusive')) {
-                return 'choose';
-            }
-            if (type === 'parallel') {
-                return 'parallel';
-            }
-            if (type === 'loop') {
-                return 'loop';
-            }
-        }
-        
-        // For Mermaid gateways, check the full ID for type markers
-        if (task.metadata && task.metadata.fullId) {
-            if (task.metadata.fullId.includes(':exclusivegateway:')) {
-                return 'choose';
-            }
-            if (task.metadata.fullId.includes(':parallelgateway:')) {
-                return 'parallel';
-            }
-        }
-        
-        // Default to 'choose' for unknown gateway types (XOR is most common)
-        if (this.isGatewayTask(task)) {
-            return 'choose';
-        }
-        
-        return null;
-    }
-    
-    /**
      * Get the gateway type (choose, parallel, loop) from a CPEE element-id
      * @param {string} elementId - CPEE element-id like "choose_1", "parallel_0", "loop_0"
      * @returns {string|null} Gateway type or null
@@ -787,33 +690,6 @@ export class CrossGraphHighlightCoordinator {
         }
         
         return null;
-    }
-    
-    /**
-     * Get all gateways of a specific type in a section
-     * @param {string} sectionId - Section ID
-     * @param {string} gatewayType - Gateway type (choose, parallel, loop)
-     * @returns {Array} Array of gateway task objects
-     */
-    getGatewaysOfTypeInSection(sectionId, gatewayType) {
-        if (!this.currentStepMapping) {
-            return [];
-        }
-        
-        const taskIds = this.currentStepMapping.getTasksInFormat(sectionId);
-        const gateways = [];
-        
-        for (const taskId of taskIds) {
-            const task = this.currentStepMapping.getTask(taskId, sectionId);
-            if (task && this.isGatewayTask(task)) {
-                const taskGatewayType = this.getGatewayTypeFromTask(task);
-                if (taskGatewayType === gatewayType) {
-                    gateways.push(task);
-                }
-            }
-        }
-        
-        return gateways;
     }
     
     /**
