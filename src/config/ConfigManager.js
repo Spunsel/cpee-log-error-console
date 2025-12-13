@@ -850,29 +850,38 @@ export class ConfigManager {
                     date: null,
                     description: null
                 },
+                {
+                    title: 'Improve cross-sectional highlighting',
+                    status: 'closed',
+                    labels: ['cross sectional highlighting', 'feature'],
+                    date: null,
+                    description: 'Include script tasks, message events, and other non-standard node types (6548)'
+                },
 
 
                 
+
+
                 {
-                    title: 'Handle CPEE/Mermaid graphs with 6+ parallel branches',
+                    title: 'Add log fetching by uuid (+drag & drop logs)',
                     status: 'open',
-                    labels: ['traces', 'bug'],
+                    labels: ['feature'],
                     date: null,
-                    description: 'Trace calculation too computationally expensive (maybe reduce number of permutation calculations?) (5055)'
-                },
-                {
-                    title: 'Add CPEE pre-processing (double quotation marks)',
-                    status: 'open',
-                    labels: ['cpee preprocessing', 'traces', 'bug'],
-                    date: null,
-                    description: 'replace double quotation marks inside condition with safe alternative (currently this breaks syntax highlighting and trace calculations) (6547)'
+                    description: null
                 },
                 {
                     title: 'Improve cross-sectional highlighting',
                     status: 'open',
                     labels: ['cross sectional highlighting', 'feature'],
                     date: null,
-                    description: 'Include script tasks, message events, and other non-standard node types (6548)'
+                    description: 'Include highlighting for start, end nodes'
+                },
+                {
+                    title: 'Task/Gateway hover functionality',
+                    status: 'open',
+                    labels: ['feature'],
+                    date: null,
+                    description: 'On Task/Gateway hover: show alt_id, id, (confidence of match)'
                 }
             ]
         };
