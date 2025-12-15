@@ -95,7 +95,7 @@ export class ConfigManager {
             instances: {
                 // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
                 processNumbers: [
-                    83316, 83313, 
+                    84747, 84687, 83316, 83313, 
                     83270, 83268, 83265, 83264, 83260, 83258, 83256, 83254, 83252, 83242, 83241, 83213, 83199,
                     83193, 83170, 83162, 83131, 83129, 83125, 83124, 82868, 82862, 82268, 82267, 82264, 82263, 
                     82226, 82187, 82187, 82151, 82143, 82141, 82120, 82118, 82117, 82116, 82115, 82114, 82072, 
@@ -347,8 +347,7 @@ export class ConfigManager {
                 outputIntermediate: 'output-intermediate',
                 outputCpee: 'output-cpee',
                 
-                // Instance loader (now has ID in HTML)
-                loadSingleInstanceSection: 'load-single-instance-section',
+                // Instance loader
                 advancedInstanceLoading: 'advanced-instance-loading',
                 
                 // UI elements
@@ -870,11 +869,11 @@ export class ConfigManager {
                     description: null
                 },
                 {
-                    title: 'Improve cross-sectional highlighting',
+                    title: 'Clean newlines in user input',
                     status: 'open',
-                    labels: ['cross sectional highlighting', 'feature'],
+                    labels: ['user input preprocessing', 'bug'],
                     date: null,
-                    description: 'Include highlighting for start, end nodes'
+                    description: "e.g.: %% Output Intermediate\nTextual blabla (83199)"
                 },
                 {
                     title: 'Task/Gateway hover functionality',

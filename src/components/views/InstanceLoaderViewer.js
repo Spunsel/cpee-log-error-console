@@ -42,10 +42,8 @@ export class InstanceLoaderViewer {
      * Show the instance loader view
      */
     show() {
-        // Use DOMRegistry if available, fallback to getElementById
-        const loadSection = this.domRegistry 
-            ? (this.domRegistry.getElement('loadSingleInstanceSection') || document.getElementById('load-single-instance-section'))
-            : document.getElementById('load-single-instance-section');
+        // Use class selector to find the load section
+        const loadSection = document.querySelector('.load-single-instance-section');
         if (loadSection) {
             loadSection.classList.remove('hidden');
             this.isVisible = true;
@@ -70,10 +68,8 @@ export class InstanceLoaderViewer {
      * Hide the instance loader view
      */
     hide() {
-        // Use DOMRegistry if available, fallback to getElementById
-        const loadSection = this.domRegistry 
-            ? (this.domRegistry.getElement('loadSingleInstanceSection') || document.getElementById('load-single-instance-section'))
-            : document.getElementById('load-single-instance-section');
+        // Use class selector to find the load section
+        const loadSection = document.querySelector('.load-single-instance-section');
         if (loadSection) {
             loadSection.classList.add('hidden');
             this.isVisible = false;

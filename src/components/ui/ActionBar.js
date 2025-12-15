@@ -9,7 +9,7 @@ import { SearchBar } from './SearchBar.js';
 import { ICONS } from '../../assets/icons.js';
 
 export class ActionBar {
-    constructor(domRegistry = null, searchService = null, sectionId = null, options = {}) {
+    constructor(domRegistry = null, searchService = null, sectionId = null, _options = {}) {
         this.domRegistry = domRegistry;
         this.copyButton = new CopyButton(domRegistry);
         this.searchBar = new SearchBar(domRegistry, searchService, sectionId);

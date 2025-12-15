@@ -60,23 +60,21 @@
 
             <main class="content">
                 <!-- Load Single Instance Section (for InstanceLoaderViewer) -->
-                <div id="load-single-instance-section" class="load-single-instance-section">
-                    <div class="loading">
-                        <h2>Load Single Instance</h2>
-                        
-                        <div class="input-group">
-                            <div class="input-row">
-                                <label for="process-number-input">Process Number:</label>
-                                <input type="number" id="process-number-input" class="input-base" placeholder="e.g., 214" />
-                                <button id="fetch-uuid" class="btn btn-primary">Fetch UUID</button>
-                                
-                                <label for="uuid-input">Process UUID:</label>
-                                <input type="text" id="uuid-input" class="input-base" placeholder="UUID will appear here after fetching" readonly />
-                            </div>
-                            <div class="button-group">
-                                <button id="load-instance" class="btn btn-primary">Load Instance</button>
-                                <button id="view-log" class="btn btn-secondary">View Raw Log</button>
-                            </div>
+                <div class="load-single-instance-section">
+                    <h2>Load Single Instance</h2>
+                    
+                    <div class="input-group">
+                        <div class="input-row">
+                            <label for="process-number-input">Process Number:</label>
+                            <input type="number" id="process-number-input" class="input-base" placeholder="e.g., 214" />
+                            <button id="fetch-uuid" class="btn btn-primary">Fetch UUID</button>
+                            
+                            <label for="uuid-input">Process UUID:</label>
+                            <input type="text" id="uuid-input" class="input-base" placeholder="UUID will appear here after fetching" readonly />
+                        </div>
+                        <div class="button-group">
+                            <button id="load-instance" class="btn btn-primary">Load Instance</button>
+                            <button id="view-log" class="btn btn-secondary">View Raw Log</button>
                         </div>
                     </div>
                 </div>
