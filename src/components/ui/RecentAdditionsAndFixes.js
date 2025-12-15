@@ -11,7 +11,7 @@ export class RecentAdditionsAndFixes {
     constructor(domRegistry = null, configManagerInstance = null) {
         this.domRegistry = domRegistry;
         this.configManager = configManagerInstance || configManager;
-        this.sectionId = 'recent-additions-and-fixes';
+        this.sectionClass = 'recent-additions-and-fixes-section';
         this.isCollapsed = true;
         this.showOpen = true; // Default to showing open issues
         this.showClosed = false; // Default to hiding closed issues
@@ -39,9 +39,9 @@ export class RecentAdditionsAndFixes {
      * Initialize the component
      */
     init() {
-        const section = document.getElementById(this.sectionId);
+        const section = document.querySelector(`.${this.sectionClass}`);
         if (!section) {
-            console.warn(`[RecentAdditionsAndFixes] Section ${this.sectionId} not found`);
+            console.warn(`[RecentAdditionsAndFixes] Section .${this.sectionClass} not found`);
             return;
         }
         

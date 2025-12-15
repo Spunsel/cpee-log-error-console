@@ -61,16 +61,18 @@
             <main class="content">
                 <!-- Load Single Instance Section (for InstanceLoaderViewer) -->
                 <div class="load-single-instance-section">
-                    <h2>Load Single Instance</h2>
+                    <h2>Load Instance</h2>
                     
                     <div class="input-group">
+                        <p class="input-description">Enter either the Process Number or Process UUID to get started.</p>
                         <div class="input-row">
                             <label for="process-number-input">Process Number:</label>
-                            <input type="number" id="process-number-input" class="input-base" placeholder="e.g., 214" />
-                            <button id="fetch-uuid" class="btn btn-primary">Fetch UUID</button>
+                            <input type="number" id="process-number-input" class="input-base" placeholder="e.g., 84747" />
                             
-                            <label for="uuid-input">Process UUID:</label>
-                            <input type="text" id="uuid-input" class="input-base" placeholder="UUID will appear here after fetching" readonly />
+                            <span class="input-separator">or</span>
+                            
+                            <label for="uuid-input">UUID:</label>
+                            <input type="text" id="uuid-input" class="input-base" placeholder="e.g., 8a22c296-daa5-4acf-..." />
                         </div>
                         <div class="button-group">
                             <button id="load-instance" class="btn btn-primary">Load Instance</button>
@@ -79,35 +81,47 @@
                     </div>
                 </div>
                 
-                <div id="advanced-instance-loading" class="advanced-instance-loading">
-                    <div class="instance-scanner-section">
-                        <h3>Scan for CPEE LLM Instances (throttled)</h3>
-                        <div class="input-row">
-                            <label for="scan-start-input">Start:</label>
-                            <input type="number" id="scan-start-input" class="input-base" placeholder="e.g. 200" autocomplete="off" />
-                            <label for="scan-end-input">End:</label>
-                            <input type="number" id="scan-end-input" class="input-base" placeholder="e.g. 250" autocomplete="off" />
-                            <button id="scan-instances" class="btn btn-secondary">Scan Instances</button>
-                        </div>
-                        <div id="instance-list-container" class="instance-list-container hidden">
-                            <h4>CPEE LLM Instances:</h4>
-                            <div id="instance-list" class="instance-list"></div>
-                        </div>
+                <div class="advanced-instance-loading collapsed">
+                    <div class="advanced-options-header">
+                        <button class="section-toggle-button" aria-label="Toggle Advanced Options" aria-expanded="false">
+                            <span class="section-toggle-icon"></span>
+                        </button>
+                        <h3>Advanced Options</h3>
                     </div>
-                    <div class="load-all-instances-section">
-                        <h3>Load All CPEE LLM Instances</h3>
-                        <div class="input-row">
-                            <button id="load-all-instances" class="btn btn-secondary">Load All</button>
+                    <div class="advanced-options-content">
+                        <div class="instance-scanner-section">
+                            <h4>Scan for CPEE LLM Instances</h4>
+                            <p class="section-description">Scan a range of instance numbers to find instances that were created using the CPEE LLM.</p>
+                            <p class="section-description">Then select an instance number to load it in one click.</p>
+                            <div class="input-row">
+                                <label for="scan-start-input">Start:</label>
+                                <input type="number" id="scan-start-input" class="input-base" placeholder="e.g. 73100" autocomplete="off" />
+                                <label for="scan-end-input">End:</label>
+                                <input type="number" id="scan-end-input" class="input-base" placeholder="e.g. 73400" autocomplete="off" />
+                                <button id="scan-instances" class="btn btn-secondary">Scan</button>
+                            </div>
+                            <div id="instance-list-container" class="instance-list-container hidden">
+                                <h5>Found Instances:</h5>
+                                <div id="instance-list" class="instance-list"></div>
+                            </div>
                         </div>
-                        <div id="load-all-instances-list-container" class="instance-list-container hidden">
-                            <h4>CPEE LLM Instances:</h4>
-                            <div id="load-all-instances-list" class="instance-list"></div>
+                        <div class="load-all-instances-section">
+                            <h4>Known CPEE LLM Instances</h4>
+                            <p class="section-description">Load from a pre-configured list of known CPEE LLM instances.</p>
+                            <p class="section-description">Then select an instance number to load it in one click.</p>
+                            <div class="input-row">
+                                <button id="load-all-instances" class="btn btn-secondary">Show Known Instances</button>
+                            </div>
+                            <div id="load-all-instances-list-container" class="instance-list-container hidden">
+                                <h5>Known Instances:</h5>
+                                <div id="load-all-instances-list" class="instance-list"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Recent Additions and Fixes Section -->
-                <div id="recent-additions-and-fixes" class="recent-additions-and-fixes-section collapsed">
+                <div class="recent-additions-and-fixes-section collapsed">
                     <div class="recent-additions-header">
                         <div class="left-title-side">
                             <button class="section-toggle-button" aria-label="Toggle Recent Additions and Fixes" aria-expanded="false">

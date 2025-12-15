@@ -319,7 +319,6 @@ export class ConfigManager {
                 // Form elements
                 uuidInput: 'uuid-input',
                 processNumberInput: 'process-number-input',
-                fetchUuid: 'fetch-uuid',
                 loadInstance: 'load-instance',
                 scanStartInput: 'scan-start-input',
                 scanEndInput: 'scan-end-input',
@@ -347,8 +346,6 @@ export class ConfigManager {
                 outputIntermediate: 'output-intermediate',
                 outputCpee: 'output-cpee',
                 
-                // Instance loader
-                advancedInstanceLoading: 'advanced-instance-loading',
                 
                 // UI elements
                 darkModeToggleContainer: 'dark-mode-toggle-container',

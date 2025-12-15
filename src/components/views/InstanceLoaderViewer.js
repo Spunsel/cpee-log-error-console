@@ -8,6 +8,7 @@ import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { RecentAdditionsAndFixes } from '../ui/RecentAdditionsAndFixes.js';
+import { ICONS } from '../../assets/icons.js';
 
 export class InstanceLoaderViewer {
     constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null, logFetchService = null, eventProcessingService = null) {
@@ -23,6 +24,68 @@ export class InstanceLoaderViewer {
         
         // Initialize Recent Additions and Fixes component
         this.recentAdditionsAndFixes = new RecentAdditionsAndFixes(domRegistry);
+        
+        // Track collapsed state of advanced options
+        this.advancedOptionsCollapsed = true;
+        
+        // Initialize advanced options toggle
+        this.initAdvancedOptionsToggle();
+    }
+    
+    /**
+     * Initialize the advanced options collapsible section
+     */
+    initAdvancedOptionsToggle() {
+        const advancedSection = document.querySelector('.advanced-instance-loading');
+        if (!advancedSection) {
+            return;
+        }
+        
+        const header = advancedSection.querySelector('.advanced-options-header');
+        const toggleIcon = advancedSection.querySelector('.section-toggle-icon');
+        
+        // Set initial icon state (collapsed)
+        if (toggleIcon) {
+            toggleIcon.innerHTML = ICONS.SECTION_EXPAND;
+        }
+        
+        // Add click handler to header
+        if (header) {
+            header.addEventListener('click', () => this.toggleAdvancedOptions());
+        }
+    }
+    
+    /**
+     * Toggle the advanced options section
+     */
+    toggleAdvancedOptions() {
+        const advancedSection = document.querySelector('.advanced-instance-loading');
+        if (!advancedSection) {
+            return;
+        }
+        
+        const toggleButton = advancedSection.querySelector('.section-toggle-button');
+        const toggleIcon = advancedSection.querySelector('.section-toggle-icon');
+        
+        this.advancedOptionsCollapsed = !this.advancedOptionsCollapsed;
+        
+        if (this.advancedOptionsCollapsed) {
+            advancedSection.classList.add('collapsed');
+            if (toggleButton) {
+                toggleButton.setAttribute('aria-expanded', 'false');
+            }
+            if (toggleIcon) {
+                toggleIcon.innerHTML = ICONS.SECTION_EXPAND;
+            }
+        } else {
+            advancedSection.classList.remove('collapsed');
+            if (toggleButton) {
+                toggleButton.setAttribute('aria-expanded', 'true');
+            }
+            if (toggleIcon) {
+                toggleIcon.innerHTML = ICONS.SECTION_COLLAPSE;
+            }
+        }
     }
 
     /**
@@ -50,15 +113,13 @@ export class InstanceLoaderViewer {
         }
         
         // Show advanced instance loading section
-        const advancedInstanceLoading = this.domRegistry 
-            ? this.domRegistry.getElement('advancedInstanceLoading')
-            : document.getElementById('advanced-instance-loading');
+        const advancedInstanceLoading = document.querySelector('.advanced-instance-loading');
         if (advancedInstanceLoading) {
             advancedInstanceLoading.classList.remove('hidden');
         }
         
         // Show recent additions and fixes section
-        const recentAdditionsAndFixes = document.getElementById('recent-additions-and-fixes');
+        const recentAdditionsAndFixes = document.querySelector('.recent-additions-and-fixes-section');
         if (recentAdditionsAndFixes) {
             recentAdditionsAndFixes.classList.remove('hidden');
         }
@@ -92,58 +153,34 @@ export class InstanceLoaderViewer {
         
         const loadButton = this.getElement('loadInstance');
         const viewLogButton = this.getElement('viewLog');
-        const fetchUuidButton = this.getElement('fetchUuid');
         const uuidInput = this.getElement('uuidInput');
         const processNumberInput = this.getElement('processNumberInput');
 
-        // Load instance button
-        if (loadButton && uuidInput) {
-            loadButton.addEventListener('click', () => {
-                const uuid = uuidInput.value.trim();
-                if (uuid) {
-                    // Set loading state
-                    this.stateManager.setState('ui.loading', true);
-                    this.eventBus.emit('instanceLoader:loadInstance', { uuid });
-                } else {
-                    alert('Please use "Fetch UUID" from process number first.');
-                }
-            });
+        // Load instance button - bidirectional loading
+        if (loadButton) {
+            loadButton.addEventListener('click', () => this.handleLoadInstance());
         }
 
-        // Fetch UUID button
-        if (fetchUuidButton && processNumberInput && uuidInput) {
-            fetchUuidButton.addEventListener('click', async () => {
-                const processNumber = processNumberInput.value.trim();
-                if (processNumber) {
-                    await this.fetchUUIDFromProcessNumber(parseInt(processNumber, 10));
-                } else {
-                    alert('Please enter a process number first.');
-                }
-            });
-        }
-
-        // Allow Enter key in process number input
+        // Allow Enter key in either input to trigger load
         if (processNumberInput) {
-            processNumberInput.addEventListener('keypress', async (e) => {
+            processNumberInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
-                    const processNumber = processNumberInput.value.trim();
-                    if (processNumber) {
-                        await this.fetchUUIDFromProcessNumber(parseInt(processNumber, 10));
-                    }
+                    this.handleLoadInstance();
+                }
+            });
+        }
+        
+        if (uuidInput) {
+            uuidInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.handleLoadInstance();
                 }
             });
         }
 
         // View log button
-        if (viewLogButton && uuidInput) {
-            viewLogButton.addEventListener('click', () => {
-                const uuid = uuidInput.value.trim();
-                if (uuid) {
-                    this.eventBus.emit('instanceLoader:viewLog', { uuid });
-                } else {
-                    alert('Please enter a UUID first');
-                }
-            });
+        if (viewLogButton) {
+            viewLogButton.addEventListener('click', () => this.handleViewLog());
         }
 
         // Scan instances button
@@ -180,57 +217,87 @@ export class InstanceLoaderViewer {
             });
         }
     }
-
+    
     /**
-     * Fetch UUID from CPEE process number
-     * @param {number} processNumber - CPEE process instance number
+     * Handle load instance - bidirectional loading logic
+     * - If UUID is provided → load directly
+     * - If only process number → fetch UUID first, then load
+     * - If neither → show error
      */
-    async fetchUUIDFromProcessNumber(processNumber) {
+    async handleLoadInstance() {
+        const uuidInput = this.getElement('uuidInput');
+        const processNumberInput = this.getElement('processNumberInput');
+        const loadButton = this.getElement('loadInstance');
+        
+        const uuid = uuidInput?.value.trim() || '';
+        const processNumber = processNumberInput?.value.trim() || '';
+        
+        // Validate: at least one input must be provided
+        if (!uuid && !processNumber) {
+            alert('Please enter a process number or UUID.');
+            return;
+        }
+        
+        // Set loading state on button
+        if (loadButton) {
+            loadButton.disabled = true;
+            loadButton.textContent = 'Loading...';
+        }
+        
         try {
-            console.log(`Fetching UUID for process number: ${processNumber}`);
-
-            // Show loading state
-            const fetchButton = this.getElement('fetchUuid');
-            const uuidInput = this.getElement('uuidInput');
-
-            if (fetchButton) {
-                fetchButton.textContent = 'Fetching...';
-                fetchButton.disabled = true;
-            }
-
-            // Fetch UUID from CPEE service
-            const cpeeService = serviceFactory.get('CPEEService');
-            const uuid = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
-
-            // Update UUID input field and store the process number for later use
-            if (uuidInput) {
-                uuidInput.value = uuid;
-                // Store process number as data attribute for later use
-                uuidInput.dataset.processNumber = processNumber;
-                console.log(`UUID fetched successfully: ${uuid}`);
-
-                // Show success message
-                const processNumberInput = this.getElement('processNumberInput');
-                if (processNumberInput) {
-                    processNumberInput.style.borderColor = configManager.get('styling.colors.success');
-                    setTimeout(() => {
-                        processNumberInput.style.borderColor = '';
-                    }, configManager.get('ui.notifications.successDuration'));
+            let finalUuid = uuid;
+            
+            // If UUID is provided, use it directly
+            if (uuid && this.isValidUUID(uuid)) {
+                // UUID provided - load directly
+                console.log(`Loading instance with UUID: ${uuid}`);
+            } 
+            // If only process number is provided, fetch UUID first
+            else if (processNumber) {
+                const processNum = parseInt(processNumber, 10);
+                if (isNaN(processNum) || processNum <= 0) {
+                    alert('Please enter a valid process number (positive integer).');
+                    return;
                 }
-            }
-
-        } catch (error) {
-            // Check if it's a 404 (process number doesn't exist)
-            if (error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'))) {
-                console.log(`Process number ${processNumber} does not exist (404)`);
-                alert(`Process number ${processNumber} does not exist. Please enter a valid process number.`);
+                
+                console.log(`Fetching UUID for process number: ${processNum}`);
+                
+                // Fetch UUID from process number
+                const cpeeService = serviceFactory.get('CPEEService');
+                finalUuid = await cpeeService.fetchUUIDFromProcessNumber(processNum);
+                
+                // Update UUID input with fetched value
+                if (uuidInput) {
+                    uuidInput.value = finalUuid;
+                    uuidInput.dataset.processNumber = processNum.toString();
+                }
+                
+                console.log(`UUID fetched successfully: ${finalUuid}`);
             } else {
-                console.error('Error fetching UUID:', error);
-                alert(`Failed to fetch UUID: ${error.message}`);
+                // UUID was provided but invalid format
+                alert('Please enter a valid UUID format (e.g., 8a22c296-daa5-4acf-b167-4286c998e54e).');
+                return;
             }
-
-            // Show error state
-            const processNumberInput = this.getElement('processNumberInput');
+            
+            // Store process number if available
+            if (uuidInput && processNumber) {
+                uuidInput.dataset.processNumber = processNumber;
+            }
+            
+            // Trigger load instance event
+            this.stateManager.setState('ui.loading', true);
+            this.eventBus.emit('instanceLoader:loadInstance', { uuid: finalUuid });
+            
+        } catch (error) {
+            // Handle specific error types
+            if (error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'))) {
+                alert(`Process number ${processNumber} does not exist. Please check and try again.`);
+            } else {
+                console.error('Error loading instance:', error);
+                alert(`Failed to load instance: ${error.message}`);
+            }
+            
+            // Show error state on process number input
             if (processNumberInput) {
                 processNumberInput.style.borderColor = configManager.get('styling.colors.error');
                 setTimeout(() => {
@@ -239,11 +306,138 @@ export class InstanceLoaderViewer {
             }
         } finally {
             // Reset button state
-            const fetchButton = this.getElement('fetchUuid');
-            if (fetchButton) {
-                fetchButton.textContent = 'Fetch UUID';
-                fetchButton.disabled = false;
+            if (loadButton) {
+                loadButton.disabled = false;
+                loadButton.textContent = 'Load Instance';
             }
+        }
+    }
+    
+    /**
+     * Handle view log button - similar bidirectional logic
+     */
+    async handleViewLog() {
+        const uuidInput = this.getElement('uuidInput');
+        const processNumberInput = this.getElement('processNumberInput');
+        const viewLogButton = this.getElement('viewLog');
+        
+        const uuid = uuidInput?.value.trim() || '';
+        const processNumber = processNumberInput?.value.trim() || '';
+        
+        // Validate: at least one input must be provided
+        if (!uuid && !processNumber) {
+            alert('Please enter a process number or UUID.');
+            return;
+        }
+        
+        try {
+            let finalUuid = uuid;
+            
+            // If only process number is provided, fetch UUID first
+            if (!uuid && processNumber) {
+                const processNum = parseInt(processNumber, 10);
+                if (isNaN(processNum) || processNum <= 0) {
+                    alert('Please enter a valid process number.');
+                    return;
+                }
+                
+                // Temporarily disable button
+                if (viewLogButton) {
+                    viewLogButton.disabled = true;
+                    viewLogButton.textContent = 'Fetching...';
+                }
+                
+                const cpeeService = serviceFactory.get('CPEEService');
+                finalUuid = await cpeeService.fetchUUIDFromProcessNumber(processNum);
+                
+                // Update UUID input
+                if (uuidInput) {
+                    uuidInput.value = finalUuid;
+                    uuidInput.dataset.processNumber = processNum.toString();
+                }
+            }
+            
+            // Emit view log event
+            this.eventBus.emit('instanceLoader:viewLog', { uuid: finalUuid });
+            
+        } catch (error) {
+            if (error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'))) {
+                alert(`Process number ${processNumber} does not exist.`);
+            } else {
+                alert(`Failed to view log: ${error.message}`);
+            }
+        } finally {
+            // Reset button state
+            if (viewLogButton) {
+                viewLogButton.disabled = false;
+                viewLogButton.textContent = 'View Raw Log';
+            }
+        }
+    }
+    
+    /**
+     * Validate UUID format
+     * @param {string} uuid - UUID string to validate
+     * @returns {boolean} True if valid UUID format
+     */
+    isValidUUID(uuid) {
+        if (!uuid || typeof uuid !== 'string') {
+            return false;
+        }
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        return uuidRegex.test(uuid);
+    }
+
+    /**
+     * Fetch UUID from CPEE process number and update UI
+     * @param {number} processNumber - CPEE process instance number
+     * @returns {Promise<string>} The fetched UUID
+     */
+    async fetchUUIDFromProcessNumber(processNumber) {
+        const uuidInput = this.getElement('uuidInput');
+        const processNumberInput = this.getElement('processNumberInput');
+        
+        try {
+            console.log(`Fetching UUID for process number: ${processNumber}`);
+
+            // Fetch UUID from CPEE service
+            const cpeeService = serviceFactory.get('CPEEService');
+            const uuid = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+
+            // Update UUID input field and store the process number for later use
+            if (uuidInput) {
+                uuidInput.value = uuid;
+                uuidInput.dataset.processNumber = processNumber;
+                console.log(`UUID fetched successfully: ${uuid}`);
+            }
+            
+            // Show success feedback
+            if (processNumberInput) {
+                processNumberInput.style.borderColor = configManager.get('styling.colors.success');
+                setTimeout(() => {
+                    processNumberInput.style.borderColor = '';
+                }, configManager.get('ui.notifications.successDuration'));
+            }
+            
+            return uuid;
+
+        } catch (error) {
+            // Check if it's a 404 (process number doesn't exist)
+            if (error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'))) {
+                console.log(`Process number ${processNumber} does not exist (404)`);
+            } else {
+                console.error('Error fetching UUID:', error);
+            }
+
+            // Show error state
+            if (processNumberInput) {
+                processNumberInput.style.borderColor = configManager.get('styling.colors.error');
+                setTimeout(() => {
+                    processNumberInput.style.borderColor = '';
+                }, configManager.get('ui.notifications.errorDuration'));
+            }
+            
+            throw error; // Re-throw for caller to handle
         }
     }
 

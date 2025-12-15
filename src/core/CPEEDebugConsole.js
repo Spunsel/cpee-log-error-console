@@ -329,13 +329,13 @@ export class CPEEDebugConsole {
         this.instanceLoaderViewer.hide();
         
         // Hide advanced instance loading section when selecting an instance
-        const advancedInstanceLoading = this.domRegistry.getElement('advancedInstanceLoading');
+        const advancedInstanceLoading = document.querySelector('.advanced-instance-loading');
         if (advancedInstanceLoading) {
             advancedInstanceLoading.classList.add('hidden');
         }
         
         // Hide recent additions and fixes section when selecting an instance
-        const recentAdditionsAndFixes = document.getElementById('recent-additions-and-fixes');
+        const recentAdditionsAndFixes = document.querySelector('.recent-additions-and-fixes-section');
         if (recentAdditionsAndFixes) {
             recentAdditionsAndFixes.classList.add('hidden');
         }
@@ -430,7 +430,7 @@ export class CPEEDebugConsole {
         this.logViewer.hideRawLog();
         
         // Show advanced instance loading section when returning home
-        const advancedInstanceLoading = this.domRegistry.getElement('advancedInstanceLoading');
+        const advancedInstanceLoading = document.querySelector('.advanced-instance-loading');
         if (advancedInstanceLoading) {
             advancedInstanceLoading.classList.remove('hidden');
         }

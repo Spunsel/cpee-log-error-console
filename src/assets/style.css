@@ -1112,6 +1112,22 @@ body {
     width: 120px;
 }
 
+/* Input Separator ("or" text between inputs) */
+.input-separator {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-style: italic;
+    padding: 0 var(--spacing-sm);
+    user-select: none;
+}
+
+/* Input Description Text */
+.input-description {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    margin: 0 0 var(--spacing-md) 0;
+}
+
 /* Button Groups */
 .button-group {
     display: flex;
@@ -1126,53 +1142,82 @@ body {
 /* Advanced Instance Loading Container */
 .advanced-instance-loading {
     margin-top: var(--spacing-xl);
-    display: flex;
-    gap: var(--spacing-lg);
-    flex-wrap: wrap;
-}
-
-.advanced-instance-loading > * {
-    flex: 1;
-    min-width: 300px;
-}
-
-/* Instance Scanner Section */
-/* Instance Scanner and Load All Instances Sections */
-.instance-scanner-section,
-.load-all-instances-section {
     padding: var(--spacing-lg);
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
 }
 
-.load-all-instances-section h3,
-.load-all-instances-section h4,
-.instance-scanner-section h3,
-.instance-scanner-section h4 {
-    text-align: center;
-    color: var(--text-secondary);
-    margin-top: 0;
-    font-weight: normal;
+/* Advanced Options Header */
+.advanced-options-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
 }
 
-.load-all-instances-section h3,
-.instance-scanner-section h3 {
-    margin-bottom: var(--spacing-sm);
-    padding: var(--spacing-xs);
-    font-size: var(--font-size-lg);
+.advanced-options-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Advanced Options Content */
+.advanced-options-content {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-lg);
+}
+
+.advanced-options-content > * {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Collapsed state */
+.advanced-instance-loading.collapsed .advanced-options-content {
+    display: none;
+}
+
+/* Instance Scanner and Load All Instances Sections */
+.instance-scanner-section,
+.load-all-instances-section {
+    padding: var(--spacing-lg);
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.instance-scanner-section h4,
+.load-all-instances-section h4 {
+    text-align: center;
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: var(--font-size-md);
     font-weight: 600;
 }
 
-.load-all-instances-section h4,
-.instance-scanner-section h4 {
+.instance-scanner-section h5,
+.load-all-instances-section h5 {
+    color: var(--text-secondary);
     margin: var(--spacing-md) 0 var(--spacing-sm);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
 }
-  
-  .instance-list-container {
+
+/* Section description text */
+.section-description {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    margin: 0 0 var(--spacing-md) 0;
+    text-align: center;
+}
+
+.instance-list-container {
     margin-top: var(--spacing-md);
-  }
+}
 
 /* ========================================
    RECENT ADDITIONS AND FIXES SECTION
@@ -1511,7 +1556,7 @@ body {
   /* Scan inputs */
   #scan-start-input,
   #scan-end-input {
-    width: 100px;
+    width: 130px;
   }
   
   /* Tabs */
