@@ -856,15 +856,6 @@ export class ConfigManager {
 
 
                 
-
-
-                {
-                    title: 'Add log fetching by uuid (+drag & drop logs)',
-                    status: 'open',
-                    labels: ['feature'],
-                    date: null,
-                    description: null
-                },
                 {
                     title: 'Clean newlines in user input',
                     status: 'open',
