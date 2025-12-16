@@ -328,8 +328,9 @@ class TraceSets {
         const joinGateway = MermaidTraceCalculator.findJoinGateway(graph, splitGatewayId, branchStartIds);
         
         if (!joinGateway) {
-            // No join gateway found - treat branches as independent paths to target
-            const branchTraces = branchStartIds.flatMap(branchStartId => 
+            // No explicit join gateway found - still interleave branches to target
+            // (parallel branches should be interleaved, not treated as XOR alternatives)
+            const branchTraces = branchStartIds.map(branchStartId => 
                 this.forwardTrace(
                     graph,
                     branchStartId,
@@ -341,7 +342,20 @@ class TraceSets {
                     new Set(visitedNodes)
                 )
             );
-            return branchTraces;
+            
+            // Extract branch-specific traces (remove common prefix)
+            const branchSpecificTraces = branchTraces.map(branchTraceArray => 
+                branchTraceArray.map(trace => {
+                    const prefixLength = currentFT.length;
+                    return trace.slice(prefixLength);
+                })
+            );
+            
+            // Interleave the branch traces
+            const interleaved = MermaidTraceCalculator.interleave(branchSpecificTraces, timeoutChecker);
+            
+            // Return interleaved traces with common prefix
+            return interleaved.map(interleavedTrace => [...currentFT, ...interleavedTrace]);
         }
         
         // Collect traces through each branch until join gateway
@@ -711,9 +725,30 @@ export class MermaidTraceCalculator {
      * @returns {string|null} Join gateway ID or null
      */
     static findJoinGateway(graph, splitGatewayId, branchStartIds) {
-        // Look for a parallel gateway that all branches can reach
+        // First, look for a parallel gateway that all branches can reach
         for (const node of graph.nodes) {
             if (node.type === 'parallelgateway' && node.id !== splitGatewayId) {
+                // Check if all branches can reach this gateway
+                let allBranchesReach = true;
+                for (const branchStartId of branchStartIds) {
+                    if (!this.pathExists(graph, branchStartId, node.id)) {
+                        allBranchesReach = false;
+                        break;
+                    }
+                }
+                
+                if (allBranchesReach) {
+                    return node.id;
+                }
+            }
+        }
+        
+        // If no parallel gateway found, look for any gateway (exclusive or parallel)
+        // that all branches converge at - this handles cases where parallel branches
+        // converge at an exclusive gateway before continuing
+        for (const node of graph.nodes) {
+            if ((node.type === 'exclusivegateway' || node.type === 'parallelgateway') && 
+                node.id !== splitGatewayId) {
                 // Check if all branches can reach this gateway
                 let allBranchesReach = true;
                 for (const branchStartId of branchStartIds) {
