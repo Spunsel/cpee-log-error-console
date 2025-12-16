@@ -295,48 +295,46 @@ class TraceSets {
     }
 
     /**
-     * Check if a loop is directly connected to the end node
-     * A loop is directly connected to the end if it's the last element in a description
-     * @param {Element} loopNode - Loop node to check
-     * @returns {boolean} True if the loop is directly connected to the end node
+     * Get the condition value from a loop node
+     * @param {Element} loopNode - Loop node
+     * @returns {string} Condition value (empty string if not found)
      */
-    static isDirectlyConnectedToEnd(loopNode) {
-        const isLastElement = loopNode.nextElementSibling === null;
-        const parentTag = loopNode.parentElement ? 
-            loopNode.parentElement.tagName.toLowerCase() : '';
-        return isLastElement && parentTag === 'description';
+    static getLoopCondition(loopNode) {
+        // First check for condition attribute
+        const conditionAttr = loopNode.getAttribute('condition');
+        if (conditionAttr !== null) {
+            return conditionAttr.trim();
+        }
+        
+        // Then check for condition child element
+        const conditionElement = Array.from(loopNode.children || [])
+            .find(child => child.tagName.toLowerCase() === 'condition');
+        if (conditionElement) {
+            return conditionElement.textContent.trim();
+        }
+        
+        return '';
     }
 
     /**
-     * Check if a loop is in a chain of directly connected loops that lead to the end node
-     * This recursively checks if the loop is directly connected to another loop that is
-     * directly connected to the end node (or in such a chain)
-     * A loop is "directly connected" to another loop if it is the last child of that loop
-     * 
-     * NOTE: This only returns true for the OUTERMOST loop that is directly connected to end.
-     * Inner loops should NOT skip their "0 iterations" path because we want to generate
-     * diverse traces (inner loop executes vs inner loop skips).
-     * 
-     * @param {Element} loopNode - Loop node to check
-     * @param {Set<Element>} visited - Set of visited loops to prevent infinite recursion
-     * @returns {boolean} True if the loop is directly connected to end (not just in a chain)
+     * Check if any task from the loop body is already in the current trace
+     * @param {Array<Array<Object>>} bodyTraces - Traces from the loop body
+     * @param {Array<Object>} currentFT - Current forward trace
+     * @returns {boolean} True if at least one task from body is in current trace
      */
-    static isInChainToEnd(loopNode, visited = new Set()) {
-        // Prevent infinite recursion
-        if (visited.has(loopNode)) {
-            return false;
-        }
-        visited.add(loopNode);
+    static hasBodyTaskInTrace(bodyTraces, currentFT) {
+        // Get all task IDs from the current trace
+        const currentTaskIds = new Set(currentFT.map(task => task.id).filter(id => id));
         
-        // Only return true if this loop is DIRECTLY connected to the end
-        // Inner loops (loops inside other loops) should return false
-        // so they can still generate "skip" paths
-        if (this.isDirectlyConnectedToEnd(loopNode)) {
-            return true;
+        // Check if any body trace contains a task that's already in the current trace
+        for (const bodyTrace of bodyTraces) {
+            for (const task of bodyTrace) {
+                if (task.id && currentTaskIds.has(task.id)) {
+                    return true;
+                }
+            }
         }
         
-        // For nested loops: DO NOT propagate the "chain to end" status to inner loops
-        // Inner loops should still be able to skip, generating different trace variants
         return false;
     }
 
@@ -376,9 +374,6 @@ class TraceSets {
         const isCotreeEdge = loopNodeId ? 
             TopologyIterators.cotreeIterator(loopNode, currentFT) : false;
         
-        // Get loop mode
-        const mode = loopNode.getAttribute('mode')?.toLowerCase() || 'pre_test';
-        
         // Determine iteration limit based on cotree detection
         // If loop detected in forward trace (cotree edge), limit iterations
         const iterationLimit = isCotreeEdge ? 1 : maxLoopIterations;
@@ -386,37 +381,20 @@ class TraceSets {
         
         const result = [];
         
-        // Check if loop is directly connected to end node
-        const isDirectlyConnectedToEnd = this.isDirectlyConnectedToEnd(loopNode);
+        // Get the loop condition
+        const condition = this.getLoopCondition(loopNode);
         
-        // Check if loop is in a chain of directly connected loops leading to the end node
-        const isInChainToEnd = this.isInChainToEnd(loopNode);
+        // Determine if we should skip 0 iterations:
+        // - If condition is exactly "true", skip 0 iterations (loop must execute at least once)
+        // - UNLESS a task from the loop body is already in the current trace (allows exiting after one cycle)
+        const isConditionTrue = condition === 'true';
+        const hasBodyTaskAlreadyInTrace = this.hasBodyTaskInTrace(bodyTraces, currentFT);
+        const shouldSkipZeroIterations = isConditionTrue && !hasBodyTaskAlreadyInTrace;
         
-        // Get parent info for other checks
-        const isLastElement = loopNode.nextElementSibling === null;
-        const parentTag = loopNode.parentElement ? 
-            loopNode.parentElement.tagName.toLowerCase() : '';
-        
-        // 0 iterations (condition false from start)
-        // Skip 0 iterations if:
-        // 1. Loop is directly connected to end node, OR
-        // 2. Loop is in a chain to end node
-        const shouldSkipZeroIterations = isDirectlyConnectedToEnd || isInChainToEnd;
-        
+        // 0 iterations (condition false from start, or loop can be skipped)
         if (!shouldSkipZeroIterations) {
-            if (mode === 'pre_test' || mode === 'post_test') {
-                // Return current forward trace (no loop execution)
-                result.push([...currentFT]);
-            } else {
-                // Check if loop is before closing XOR
-                const isBeforeClosingXor = isLastElement && 
-                    (parentTag === 'choose' || parentTag === 'alternative');
-                const isInsideLoop = parentTag === 'loop';
-                
-                if ((!isLastElement || isInsideLoop) && !isBeforeClosingXor) {
-                    result.push([...currentFT]);
-                }
-            }
+            // Return current forward trace (no loop execution)
+            result.push([...currentFT]);
         }
         
         // 1 iteration
