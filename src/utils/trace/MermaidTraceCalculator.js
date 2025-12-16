@@ -313,6 +313,21 @@ class TraceSets {
             return [];
         }
         
+        // Check if this is a JOIN gateway (single outgoing edge) vs SPLIT gateway (multiple outgoing edges)
+        // JOIN gateways converge multiple paths into one - they should be treated as pass-through
+        if (outgoingEdges.length === 1) {
+            // This is a JOIN gateway (or single path through) - just continue to the next node
+            return this.forwardTrace(
+                graph,
+                outgoingEdges[0].to,
+                targetNodeId,
+                currentFT,
+                depth + 1,
+                maxLoopIterations,
+                timeoutChecker
+            );
+        }
+        
         // Find the join gateway (parallel gateway that all branches connect to)
         const branchStartIds = outgoingEdges.map(e => e.to);
         const joinGateway = MermaidTraceCalculator.findJoinGateway(graph, splitGatewayId, branchStartIds);
