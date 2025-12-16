@@ -247,13 +247,9 @@ export class InstanceLoaderViewer {
         try {
             let finalUuid = uuid;
             
-            // If UUID is provided, use it directly
-            if (uuid && this.isValidUUID(uuid)) {
-                // UUID provided - load directly
-                console.log(`Loading instance with UUID: ${uuid}`);
-            } 
-            // If only process number is provided, fetch UUID first
-            else if (processNumber) {
+            // If process number is provided, always use it to fetch UUID
+            // This ensures process number takes priority when both fields have values
+            if (processNumber) {
                 const processNum = parseInt(processNumber, 10);
                 if (isNaN(processNum) || processNum <= 0) {
                     alert('Please enter a valid process number (positive integer).');
@@ -273,6 +269,11 @@ export class InstanceLoaderViewer {
                 }
                 
                 console.log(`UUID fetched successfully: ${finalUuid}`);
+            } 
+            // If only UUID is provided (no process number), use it directly
+            else if (uuid && this.isValidUUID(uuid)) {
+                // UUID provided - load directly
+                console.log(`Loading instance with UUID: ${uuid}`);
             } else {
                 // UUID was provided but invalid format
                 alert('Please enter a valid UUID format (e.g., 8a22c296-daa5-4acf-b167-4286c998e54e).');
@@ -333,8 +334,9 @@ export class InstanceLoaderViewer {
         try {
             let finalUuid = uuid;
             
-            // If only process number is provided, fetch UUID first
-            if (!uuid && processNumber) {
+            // If process number is provided, always use it to fetch UUID
+            // This ensures process number takes priority when both fields have values
+            if (processNumber) {
                 const processNum = parseInt(processNumber, 10);
                 if (isNaN(processNum) || processNum <= 0) {
                     alert('Please enter a valid process number.');
