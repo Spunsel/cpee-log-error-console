@@ -47,6 +47,7 @@ export class RecentAdditionsAndFixes {
         
         this.section = section;
         this.toggleButton = section.querySelector('.section-toggle-button');
+        this.leftTitleSide = section.querySelector('.left-title-side');
         this.contentBox = section.querySelector('.recent-additions-content');
         this.listContainer = section.querySelector('#recent-additions-list');
         this.openTab = section.querySelector('.issue-status-tab-open');
@@ -54,8 +55,9 @@ export class RecentAdditionsAndFixes {
         this.openCount = section.querySelector('.issue-status-tab-open .issue-status-tab-count');
         this.closedCount = section.querySelector('.issue-status-tab-closed .issue-status-tab-count');
         
-        if (this.toggleButton) {
-            this.toggleButton.addEventListener('click', () => this.toggle());
+        // Make the entire left side (icon + title) clickable to toggle
+        if (this.leftTitleSide) {
+            this.leftTitleSide.addEventListener('click', () => this.toggle());
         }
         
         if (this.openTab) {
