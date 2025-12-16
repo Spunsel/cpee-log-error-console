@@ -122,9 +122,10 @@ class TraceSets {
      * @param {number} depth - Recursion depth
      * @param {number} maxLoopIterations - Maximum loop iterations
      * @param {TimeoutChecker} timeoutChecker - Timeout checker
+     * @param {Set<string>} visitedNodes - Set of visited node IDs (for cycle detection in non-task nodes)
      * @returns {Array<Array<Object>>} Array of forward trace arrays
      */
-    static forwardTrace(graph, currentNodeId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker) {
+    static forwardTrace(graph, currentNodeId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker, visitedNodes = new Set()) {
         if (timeoutChecker) {
             timeoutChecker.check();
         }
@@ -140,7 +141,15 @@ class TraceSets {
             return [];
         }
         
-        // Check if loop detected (cotree edge)
+        // Check if this non-task node was already visited in this path (cycle through gateways)
+        const isTaskType = node.type === 'task' || node.type.endsWith('task');
+        if (!isTaskType && visitedNodes.has(currentNodeId)) {
+            // Cycle detected through non-task nodes (e.g., gateways)
+            // This prevents infinite loops between gateways
+            return [];
+        }
+        
+        // Check if loop detected (cotree edge) for task nodes
         const isCotreeEdge = TopologyIterators.cotreeIterator(currentNodeId, currentFT);
         if (isCotreeEdge) {
             // Loop detected - apply bounded iteration
@@ -150,39 +159,16 @@ class TraceSets {
                 return taskId === currentNodeId;
             }).length;
             
-            // If we've visited this node before (visitCount >= 1), we need to check if
-            // we've completed a full loop cycle. The key insight: if visitCount = 1 and
-            // we're visiting again, we've done one loop iteration. Visiting again would
-            // start a second iteration, which should be blocked when maxLoopIterations = 1.
-            //
-            // However, we need to be careful: in Trace 2, node 6 appears twice but in
-            // different contexts (before gateway and in loop). We should allow that.
-            //
-            // The difference: in Trace 3, we revisit node 5 after having visited both
-            // 5 and 6, which indicates we've completed a full cycle. In Trace 2, we
-            // visit node 6 twice but we don't revisit node 5, so we haven't completed
-            // a second full cycle.
-            //
-            // Solution: if visitCount = 1 and we're visiting a task node again, check
-            // if we've also visited other task nodes that are part of the same loop since
-            // the last visit. If we have, we've completed a cycle and are starting a new one.
-            // Note: We previously had logic here to detect if we've completed a loop cycle
-            // by checking if other task nodes in the cycle were visited before. However, that
-            // logic was too strict and blocked valid loop traces like:
-            // 1 → 2 → 3 → 4 → 7 → 3 → 4 → 6, where node 4 is revisited after the loop
-            // but we're still in the first iteration.
-            // 
-            // The issue: When visitCount = maxLoopIterations (e.g., 1), we're at the limit
-            // but haven't exceeded it. This first revisit is part of completing the first
-            // loop iteration, which should be allowed. We should only block if visitCount > maxLoopIterations,
-            // which is already handled by the check below.
-            // 
-            // Removed the overly strict check that was blocking valid traces.
-            
-            // Also block if visitCount exceeds maxLoopIterations (safety check)
+            // Block if visitCount exceeds maxLoopIterations (safety check)
             if (visitCount > maxLoopIterations) {
                 return []; // Loop limit reached - cannot repeat loop more than 1 time
             }
+        }
+        
+        // Create new visited set with current node (for non-task nodes)
+        const newVisitedNodes = new Set(visitedNodes);
+        if (!isTaskType) {
+            newVisitedNodes.add(currentNodeId);
         }
         
         // Get outgoing edges (forward iterator)
@@ -194,9 +180,6 @@ class TraceSets {
         }
         
         // Handle different node types
-        // Check if this is any kind of task (task, scripttask, servicetask, usertask, etc.)
-        const isTaskType = node.type === 'task' || node.type.endsWith('task');
-        
         if (isTaskType) {
             // Task node: add to forward trace set
             const task = MermaidTraceCalculator.extractTask(node);
@@ -211,6 +194,7 @@ class TraceSets {
             // This handles cases like self-loops where a task can either loop back or continue
             if (nextNodeIds.length > 1) {
                 // Process each alternative path with same forward trace set
+                // Reset visitedNodes for task nodes (they use currentFT for cycle detection)
                 const alternativeTraces = nextNodeIds.flatMap(nextNodeId => 
                     this.forwardTrace(
                         graph,
@@ -219,7 +203,8 @@ class TraceSets {
                         newFT,
                         depth + 1,
                         maxLoopIterations,
-                        timeoutChecker
+                        timeoutChecker,
+                        new Set() // Reset visited for new path after task
                     )
                 );
                 return alternativeTraces;
@@ -232,7 +217,8 @@ class TraceSets {
                     newFT,
                     depth + 1,
                     maxLoopIterations,
-                    timeoutChecker
+                    timeoutChecker,
+                    new Set() // Reset visited for new path after task
                 );
             }
         }
@@ -249,7 +235,8 @@ class TraceSets {
                         currentFT,
                         depth + 1,
                         maxLoopIterations,
-                        timeoutChecker
+                        timeoutChecker,
+                        newVisitedNodes
                     )
                 );
                 
@@ -265,7 +252,8 @@ class TraceSets {
                     currentFT,
                     depth,
                     maxLoopIterations,
-                    timeoutChecker
+                    timeoutChecker,
+                    newVisitedNodes
                 );
             }
             
@@ -279,7 +267,8 @@ class TraceSets {
                     currentFT,
                     depth + 1,
                     maxLoopIterations,
-                    timeoutChecker
+                    timeoutChecker,
+                    newVisitedNodes
                 );
             }
             
@@ -292,7 +281,8 @@ class TraceSets {
                     currentFT,
                     depth + 1,
                     maxLoopIterations,
-                    timeoutChecker
+                    timeoutChecker,
+                    newVisitedNodes
                 );
             }
         }
@@ -307,9 +297,10 @@ class TraceSets {
      * @param {number} depth - Current depth
      * @param {number} maxLoopIterations - Maximum loop iterations
      * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
+     * @param {Set<string>} visitedNodes - Set of visited node IDs
      * @returns {Array<Array<Object>>} Array of trace arrays
      */
-    static handleParallelGateway(graph, splitGatewayId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker = null) {
+    static handleParallelGateway(graph, splitGatewayId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker = null, visitedNodes = new Set()) {
         const outgoingEdges = graph.adjacencyList.get(splitGatewayId) || [];
         
         if (outgoingEdges.length === 0) {
@@ -327,7 +318,8 @@ class TraceSets {
                 currentFT,
                 depth + 1,
                 maxLoopIterations,
-                timeoutChecker
+                timeoutChecker,
+                visitedNodes
             );
         }
         
@@ -345,7 +337,8 @@ class TraceSets {
                     currentFT,
                     depth + 1,
                     maxLoopIterations,
-                    timeoutChecker
+                    timeoutChecker,
+                    new Set(visitedNodes)
                 )
             );
             return branchTraces;
@@ -364,7 +357,8 @@ class TraceSets {
                 currentFT,
                 depth + 1,
                 maxLoopIterations,
-                timeoutChecker
+                timeoutChecker,
+                new Set(visitedNodes)
             );
         });
         
@@ -391,7 +385,8 @@ class TraceSets {
             currentFT,
             depth + 1,
             maxLoopIterations,
-            timeoutChecker
+            timeoutChecker,
+            new Set(visitedNodes)
         );
         
         // Combine interleaved traces with join traces
@@ -420,9 +415,10 @@ class TraceSets {
      * @param {number} depth - Recursion depth
      * @param {number} maxLoopIterations - Maximum loop iterations
      * @param {TimeoutChecker} timeoutChecker - Timeout checker
+     * @param {Set<string>} visitedNodes - Set of visited node IDs
      * @returns {Array<Array<Object>>} Combined trace arrays
      */
-    static combineSequentialForwardTrace(graph, nextNodeIds, targetNodeId, initialFT, depth, maxLoopIterations, timeoutChecker) {
+    static combineSequentialForwardTrace(graph, nextNodeIds, targetNodeId, initialFT, depth, maxLoopIterations, timeoutChecker, visitedNodes = new Set()) {
         if (nextNodeIds.length === 0) {
             return [[...initialFT]];
         }
@@ -452,7 +448,8 @@ class TraceSets {
                     currentTrace,
                     depth + 1,
                     maxLoopIterations,
-                    timeoutChecker
+                    timeoutChecker,
+                    visitedNodes
                 );
                 
                 // Accumulate next traces
