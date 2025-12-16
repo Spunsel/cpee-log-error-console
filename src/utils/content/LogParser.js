@@ -192,18 +192,22 @@ export class LogParser {
         const lines = yamlDoc.split('\n');
         const result = {};
         let currentSection = null;
-        let multiLineState = null; // { key, content, inProgress }
+        let multiLineState = null; // { key, content, inProgress, type }
         
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
             const trimmed = line.trim();
             
             if (!trimmed) {
+                // For flow scalars, empty lines might be significant - add space
+                if (multiLineState?.inProgress && multiLineState.type === 'flow') {
+                    multiLineState.content += ' ';
+                }
                 continue;
             }
             
-            // Handle multi-line strings
-            if (multiLineState?.inProgress) {
+            // Handle multi-line strings (block scalars)
+            if (multiLineState?.inProgress && multiLineState.type === 'block') {
                 if (this.isNewKeyLine(line, trimmed) || i === lines.length - 1) {
                     this.finalizeMultiLineString(result, currentSection, multiLineState);
                     multiLineState = null;
@@ -215,6 +219,24 @@ export class LogParser {
                     this.addToMultiLineContent(multiLineState, line, trimmed);
                     continue;
                 }
+            }
+            
+            // Handle flow scalars (double-quoted strings spanning multiple lines)
+            if (multiLineState?.inProgress && multiLineState.type === 'flow') {
+                // Check if this line contains the closing quote
+                const closingQuoteIndex = trimmed.indexOf('"');
+                if (closingQuoteIndex !== -1) {
+                    // Found closing quote - add content up to the quote and finalize
+                    multiLineState.content += ' ' + trimmed.substring(0, closingQuoteIndex);
+                    const target = currentSection || result;
+                    // Process escape sequences in the flow scalar
+                    target[multiLineState.key] = this.processFlowScalarEscapes(multiLineState.content);
+                    multiLineState = null;
+                } else {
+                    // No closing quote yet - append this line (with space for line folding)
+                    multiLineState.content += ' ' + trimmed;
+                }
+                continue;
             }
             
             const { key, value } = this.parseKeyValue(trimmed);
@@ -233,7 +255,19 @@ export class LogParser {
             
             // Handle block scalars
             if (this.BLOCK_SCALARS.includes(value)) {
-                multiLineState = { key, content: '', inProgress: true };
+                multiLineState = { key, content: '', inProgress: true, type: 'block' };
+                continue;
+            }
+            
+            // Handle flow scalars (double-quoted strings that might span multiple lines)
+            if (value.startsWith('"') && !value.endsWith('"')) {
+                // Opening quote without closing quote - this is a multi-line flow scalar
+                multiLineState = { 
+                    key, 
+                    content: value.substring(1), // Remove opening quote
+                    inProgress: true, 
+                    type: 'flow' 
+                };
                 continue;
             }
             
@@ -249,10 +283,46 @@ export class LogParser {
         
         // Finalize any remaining multi-line string
         if (multiLineState?.inProgress) {
-            this.finalizeMultiLineString(result, currentSection, multiLineState);
+            if (multiLineState.type === 'flow') {
+                // Unclosed flow scalar - store what we have
+                const target = currentSection || result;
+                target[multiLineState.key] = this.processFlowScalarEscapes(multiLineState.content);
+            } else {
+                this.finalizeMultiLineString(result, currentSection, multiLineState);
+            }
         }
         
         return result;
+    }
+    
+    /**
+     * Process escape sequences in YAML flow scalars (double-quoted strings)
+     * @param {string} content - Content with escape sequences
+     * @returns {string} Content with escape sequences resolved
+     */
+    static processFlowScalarEscapes(content) {
+        if (!content) return content;
+        
+        // YAML double-quoted string escape sequences
+        return content
+            .replace(/\\n/g, '\n')      // Newline
+            .replace(/\\t/g, '\t')      // Tab
+            .replace(/\\r/g, '\r')      // Carriage return
+            .replace(/\\\\/g, '\\')     // Backslash
+            .replace(/\\"/g, '"')       // Double quote
+            .replace(/\\'/g, "'")       // Single quote (though not standard in YAML double-quoted)
+            .replace(/\\ /g, ' ')       // Escaped space
+            .replace(/\\0/g, '\0')      // Null
+            .replace(/\\a/g, '\x07')    // Bell
+            .replace(/\\b/g, '\b')      // Backspace
+            .replace(/\\f/g, '\f')      // Form feed
+            .replace(/\\v/g, '\v')      // Vertical tab
+            .replace(/\\e/g, '\x1B')    // Escape
+            .replace(/\\_/g, '\xA0')    // Non-breaking space
+            .replace(/\\N/g, '\x85')    // Next line
+            .replace(/\\L/g, '\u2028')  // Line separator
+            .replace(/\\P/g, '\u2029')  // Paragraph separator
+            .trim();
     }
 
     // ============================================

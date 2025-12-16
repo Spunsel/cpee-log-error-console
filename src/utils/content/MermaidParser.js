@@ -725,6 +725,13 @@ export class MermaidParser {
         
         let cleaned = content;
         
+        // Unescape escaped characters from YAML/log format
+        // Order matters: unescape \\ last to avoid double-replacing
+        cleaned = cleaned.replace(/\\n/g, '\n');
+        cleaned = cleaned.replace(/\\t/g, '\t');
+        cleaned = cleaned.replace(/\\"/g, '"');
+        cleaned = cleaned.replace(/\\\\/g, '\\');
+        
         // Remove Mermaid comments
         if (type === 'input') {
             cleaned = cleaned.replace(/%% Input Intermediate\s*/g, '');
@@ -732,9 +739,23 @@ export class MermaidParser {
             cleaned = cleaned.replace(/%% Output Intermediate\s*/g, '');
         }
         
-        // Remove markdown code block markers
-        cleaned = cleaned.replace(/```mermaid\s*/g, '');
-        cleaned = cleaned.replace(/```\s*$/g, '');
+        // Extract ONLY the content within ```mermaid code block for raw view
+        // This removes all surrounding text description and shows only the Mermaid diagram code
+        const mermaidBlockMatch = cleaned.match(/```mermaid\s*\n?([\s\S]*?)\n?\s*```/);
+        if (mermaidBlockMatch && mermaidBlockMatch[1]) {
+            cleaned = mermaidBlockMatch[1];
+        } else {
+            // Fallback: if no code block found, try to extract flowchart/graph content directly
+            // This handles cases where content might already be just the Mermaid code
+            const flowchartMatch = cleaned.match(/((?:flowchart|graph)\s+(?:LR|RL|TB|BT|TD)[\s\S]*)/i);
+            if (flowchartMatch) {
+                cleaned = flowchartMatch[1];
+            } else {
+                // Last resort: remove markdown markers if present
+                cleaned = cleaned.replace(/```mermaid\s*/g, '');
+                cleaned = cleaned.replace(/```\s*$/g, '');
+            }
+        }
         
         // Remove any leading/trailing whitespace
         cleaned = cleaned.trim();
@@ -761,6 +782,13 @@ export class MermaidParser {
         }
         
         let cleaned = content;
+        
+        // Unescape escaped characters from YAML/log format
+        // Order matters: unescape \\ last to avoid double-replacing
+        cleaned = cleaned.replace(/\\n/g, '\n');
+        cleaned = cleaned.replace(/\\t/g, '\t');
+        cleaned = cleaned.replace(/\\"/g, '"');
+        cleaned = cleaned.replace(/\\\\/g, '\\');
         
         // Remove Mermaid comments (%% Input Intermediate or %% Output Intermediate)
         if (type === 'input') {
