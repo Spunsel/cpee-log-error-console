@@ -740,19 +740,29 @@ export class CPEETraceCalculator {
                           null;
             
             let label = '';
-            const labelElement = callNode.querySelector('parameters > label');
-            if (labelElement) {
-                label = labelElement.textContent.trim();
-                // Remove surrounding quotes if present
-                if ((label.startsWith('"') && label.endsWith('"')) || 
-                    (label.startsWith("'") && label.endsWith("'"))) {
-                    label = label.slice(1, -1);
+            
+            // First, check for label attribute on the element itself (used by manipulate/script)
+            const labelAttr = callNode.getAttribute('label');
+            if (labelAttr) {
+                label = labelAttr.trim();
+            }
+            
+            // If no label attribute, check for label in parameters (used by call)
+            if (!label) {
+                const labelElement = callNode.querySelector('parameters > label');
+                if (labelElement) {
+                    label = labelElement.textContent.trim();
+                    // Remove surrounding quotes if present
+                    if ((label.startsWith('"') && label.endsWith('"')) || 
+                        (label.startsWith("'") && label.endsWith("'"))) {
+                        label = label.slice(1, -1);
+                    }
+                    // Clean up task label - remove XML artifacts
+                    label = label.replace(/"?\s*\)\s*&\s*\d+:task:\(\s*"?/g, ', ');
+                    label = label.replace(/"([^"]+)"/g, '$1');
+                    label = label.replace(/,+/g, ',').replace(/,\s*,/g, ',').replace(/,\s*$/g, '');
+                    label = label.trim();
                 }
-                // Clean up task label - remove XML artifacts
-                label = label.replace(/"?\s*\)\s*&\s*\d+:task:\(\s*"?/g, ', ');
-                label = label.replace(/"([^"]+)"/g, '$1');
-                label = label.replace(/,+/g, ',').replace(/,\s*,/g, ',').replace(/,\s*$/g, '');
-                label = label.trim();
             }
             
             return {

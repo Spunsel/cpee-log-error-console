@@ -194,47 +194,50 @@ class TraceSets {
         }
         
         // Handle different node types
-        switch (node.type) {
-            case 'task': {
-                // Task node: add to forward trace set
-                const task = MermaidTraceCalculator.extractTask(node);
-                if (!task) {
-                    return [];
-                }
-                
-                // Create new forward trace set: FT_new = FT ∪ {task}
-                const newFT = [...currentFT, task];
-                
-                // If task has multiple outgoing edges, treat them as XOR alternatives (union)
-                // This handles cases like self-loops where a task can either loop back or continue
-                if (nextNodeIds.length > 1) {
-                    // Process each alternative path with same forward trace set
-                    const alternativeTraces = nextNodeIds.flatMap(nextNodeId => 
-                        this.forwardTrace(
-                            graph,
-                            nextNodeId,
-                            targetNodeId,
-                            newFT,
-                            depth + 1,
-                            maxLoopIterations,
-                            timeoutChecker
-                        )
-                    );
-                    return alternativeTraces;
-                } else {
-                    // Single outgoing edge: process sequentially
-                    return this.combineSequentialForwardTrace(
+        // Check if this is any kind of task (task, scripttask, servicetask, usertask, etc.)
+        const isTaskType = node.type === 'task' || node.type.endsWith('task');
+        
+        if (isTaskType) {
+            // Task node: add to forward trace set
+            const task = MermaidTraceCalculator.extractTask(node);
+            if (!task) {
+                return [];
+            }
+            
+            // Create new forward trace set: FT_new = FT ∪ {task}
+            const newFT = [...currentFT, task];
+            
+            // If task has multiple outgoing edges, treat them as XOR alternatives (union)
+            // This handles cases like self-loops where a task can either loop back or continue
+            if (nextNodeIds.length > 1) {
+                // Process each alternative path with same forward trace set
+                const alternativeTraces = nextNodeIds.flatMap(nextNodeId => 
+                    this.forwardTrace(
                         graph,
-                        nextNodeIds,
+                        nextNodeId,
                         targetNodeId,
                         newFT,
                         depth + 1,
                         maxLoopIterations,
                         timeoutChecker
-                    );
-                }
+                    )
+                );
+                return alternativeTraces;
+            } else {
+                // Single outgoing edge: process sequentially
+                return this.combineSequentialForwardTrace(
+                    graph,
+                    nextNodeIds,
+                    targetNodeId,
+                    newFT,
+                    depth + 1,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
             }
-            
+        }
+        
+        switch (node.type) {
             case 'exclusivegateway': {
                 // XOR Gateway: union of alternatives
                 // Process each alternative with same forward trace set
@@ -687,7 +690,8 @@ export class MermaidTraceCalculator {
      */
     static extractTask(node) {
         try {
-            if (!node || node.type !== 'task') {
+            // Accept any task type (task, scripttask, servicetask, usertask, etc.)
+            if (!node || (node.type !== 'task' && !node.type.endsWith('task'))) {
                 return null;
             }
             
