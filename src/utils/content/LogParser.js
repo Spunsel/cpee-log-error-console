@@ -301,7 +301,9 @@ export class LogParser {
      * @returns {string} Content with escape sequences resolved
      */
     static processFlowScalarEscapes(content) {
-        if (!content) return content;
+        if (!content) {
+            return content;
+        }
         
         // YAML double-quoted string escape sequences
         return content

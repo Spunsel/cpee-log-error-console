@@ -798,10 +798,10 @@ export class MermaidParser {
         }
         
         // Remove markdown code block markers at the start
-        cleaned = cleaned.replace(/^\s*```\s*mermaid\s*\n?/i, '');
+                cleaned = cleaned.replace(/^\s*```\s*mermaid\s*\n?/i, '');
         
         // Remove markdown code block markers at the end
-        cleaned = cleaned.replace(/\n?\s*```\s*$/g, '');
+                cleaned = cleaned.replace(/\n?\s*```\s*$/g, '');
         
         // Remove all indentation: all lines start at column 0
         const lines = cleaned.split('\n');
