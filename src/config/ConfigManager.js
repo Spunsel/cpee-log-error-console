@@ -96,11 +96,11 @@ export class ConfigManager {
                 // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
                 processNumbers: [
                     // active instances
-                    88503, 85514, 85513, 
+                    88719, 88503, 85514, 85513, 
                     84963, 84957, 84954, 84953, 84950, 84949, 84946, 84945, 84882, 84747, 84687, 83316, 83313, 
                     83270, 83268, 83265, 83264, 83260, 83258, 83256, 83254, 83252, 83242, 83241, 83213, 83199,
-                    83193, 83170, 83162, 83131, 83129, 83125, 83124, 82868, 82862, 82268, 82267, 82264, 82263, 
-                    82226, 82187, 82187, 82151, 82143, 82141, 82120, 82118, 82117, 82116, 82115, 82114, 82072, 
+                    83193, /*83170,*/ 83162, 83131, 83129, 83125, 83124, 82868, 82862, 82268, 82267, 82264, 82263, 
+                    82226, 82187, 82151, 82143, 82141, 82120, 82118, 82117, 82116, 82115, 82114, 82072, 
                     82060, 82050, 82025, 82019, 81951, 77655, 77526, 77275, 77237, 77235, 77228, 77050, 77013, 
                     76934, 76762, 76600, 76461, 76403, 76400, 76397, 76385, 75608, 75605, 75050, 75048, 75015, 
                     75001, 75000, 74996, 74992, 74976, 74974, 74971, 74966, 73589, 73557, 73373, 73227, 73190,  
@@ -326,6 +326,7 @@ export class ConfigManager {
                 scanEndInput: 'scan-end-input',
                 scanInstances: 'scan-instances',
                 loadAllInstances: 'load-all-instances',
+                loadAllKnownInstances: 'load-all-known-instances',
                 instanceListContainer: 'instance-list-container',
                 instanceList: 'instance-list',
                 loadAllInstancesListContainer: 'load-all-instances-list-container',

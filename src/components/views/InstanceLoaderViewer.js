@@ -209,11 +209,19 @@ export class InstanceLoaderViewer {
             });
         }
 
-        // Load all instances button
+        // Load all instances button (shows the known instances list)
         const loadAllButton = this.getElement('loadAllInstances');
         if (loadAllButton) {
             loadAllButton.addEventListener('click', () => {
                 this.loadAllCPEEInstances();
+            });
+        }
+        
+        // Load all known instances button (sequentially loads all instances)
+        const loadAllKnownButton = this.getElement('loadAllKnownInstances');
+        if (loadAllKnownButton) {
+            loadAllKnownButton.addEventListener('click', () => {
+                this.loadAllKnownInstancesSequentially();
             });
         }
     }
@@ -754,6 +762,12 @@ export class InstanceLoaderViewer {
             instanceListContainer.classList.remove('hidden');
         }
         
+        // Show the "Load All" button now that instances are visible
+        const loadAllKnownButton = this.getElement('loadAllKnownInstances');
+        if (loadAllKnownButton) {
+            loadAllKnownButton.classList.remove('hidden');
+        }
+        
         // Clear existing list
         if (instanceList) {
             instanceList.innerHTML = '';
@@ -790,5 +804,121 @@ export class InstanceLoaderViewer {
         });
         
         console.log(`Loaded ${processNumbers.length} CPEE instance buttons`);
+    }
+    
+    /**
+     * Sequentially load all known CPEE instances
+     * Each instance is loaded only after the previous one has finished loading
+     */
+    async loadAllKnownInstancesSequentially() {
+        const loadAllKnownButton = this.getElement('loadAllKnownInstances');
+        const processNumbers = configManager.get('ui.instances.processNumbers', []);
+        
+        // Validate that we have process numbers
+        if (!Array.isArray(processNumbers) || processNumbers.length === 0) {
+            console.warn('No process numbers configured in ui.instances.processNumbers');
+            alert('No process numbers configured. Please check the configuration.');
+            return;
+        }
+        
+        // Disable the button and show loading state
+        if (loadAllKnownButton) {
+            loadAllKnownButton.disabled = true;
+            loadAllKnownButton.textContent = 'Loading...';
+        }
+        
+        let loadedCount = 0;
+        let failedCount = 0;
+        
+        // Load instances sequentially
+        for (const processNumber of processNumbers) {
+            try {
+                // Update button text to show progress
+                if (loadAllKnownButton) {
+                    loadAllKnownButton.textContent = `Loading ${loadedCount + 1}/${processNumbers.length}...`;
+                }
+                
+                // Fetch UUID for this process number
+                const cpeeService = serviceFactory.get('CPEEService');
+                const uuid = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+                
+                if (uuid) {
+                    // Wait for instance to load using a promise that resolves on load completion
+                    await this.loadInstanceAndWait(uuid, processNumber);
+                    loadedCount++;
+                    console.log(`Successfully loaded instance ${processNumber} (${loadedCount}/${processNumbers.length})`);
+                }
+            } catch (error) {
+                failedCount++;
+                console.error(`Failed to load instance ${processNumber}:`, error);
+                // Continue loading other instances even if one fails
+            }
+        }
+        
+        // Reset button state
+        if (loadAllKnownButton) {
+            loadAllKnownButton.disabled = false;
+            loadAllKnownButton.textContent = 'Load All';
+        }
+        
+        // Show completion message
+        if (failedCount > 0) {
+            console.log(`Finished loading: ${loadedCount} succeeded, ${failedCount} failed`);
+        } else {
+            console.log(`Successfully loaded all ${loadedCount} instances`);
+        }
+    }
+    
+    /**
+     * Load an instance and wait for it to complete
+     * @param {string} uuid - Instance UUID
+     * @param {number} processNumber - Process number for logging
+     * @returns {Promise<void>} Resolves when instance is loaded
+     */
+    loadInstanceAndWait(uuid, processNumber) {
+        return new Promise((resolve, reject) => {
+            // Set up one-time listeners for load completion or failure
+            const onLoadComplete = (data) => {
+                if (data.uuid === uuid) {
+                    this.eventBus.off('instance:loaded', onLoadComplete);
+                    this.eventBus.off('instance:loadFailed', onLoadFailed);
+                    resolve();
+                }
+            };
+            
+            const onLoadFailed = (data) => {
+                if (data.uuid === uuid) {
+                    this.eventBus.off('instance:loaded', onLoadComplete);
+                    this.eventBus.off('instance:loadFailed', onLoadFailed);
+                    reject(new Error(`Failed to load instance ${processNumber}`));
+                }
+            };
+            
+            // Subscribe to events
+            this.eventBus.on('instance:loaded', onLoadComplete);
+            this.eventBus.on('instance:loadFailed', onLoadFailed);
+            
+            // Set the process number on the UUID input so it's available when loading
+            const uuidInput = this.getElement('uuidInput');
+            const processNumberInput = this.getElement('processNumberInput');
+            if (uuidInput) {
+                uuidInput.value = uuid;
+                uuidInput.dataset.processNumber = processNumber.toString();
+            }
+            if (processNumberInput) {
+                processNumberInput.value = processNumber.toString();
+            }
+            
+            // Trigger the load
+            this.stateManager.setState('ui.loading', true);
+            this.eventBus.emit('instanceLoader:loadInstance', { uuid });
+            
+            // Set a timeout to prevent hanging forever
+            setTimeout(() => {
+                this.eventBus.off('instance:loaded', onLoadComplete);
+                this.eventBus.off('instance:loadFailed', onLoadFailed);
+                reject(new Error(`Timeout loading instance ${processNumber}`));
+            }, 60000); // 60 second timeout per instance
+        });
     }
 }
