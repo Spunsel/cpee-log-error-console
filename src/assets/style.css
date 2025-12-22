@@ -2078,8 +2078,10 @@ body {
 
 /* User Input sections */
 .user-input-section .content-box {
-    height: auto; /* Auto height - max-height: none and min-height: auto are redundant */
-    overflow: hidden;
+    height: auto;
+    max-height: 300px; /* Limit height to prevent excessive expansion */
+    overflow-y: auto; /* Scrollable when content overflows vertically */
+    overflow-x: hidden;
     padding: 0;
 }
 
