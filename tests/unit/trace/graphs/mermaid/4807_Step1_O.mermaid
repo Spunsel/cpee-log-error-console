@@ -1,0 +1,24 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Submit Expense Claim)
+1:task:(Submit Expense Claim) --> 2:task:(Travel Admin Approval)
+2:task:(Travel Admin Approval) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Approved| 4:task:(Forward to Budget Owner)
+3:exclusivegateway:{x} --> |Rejected| 17:endevent:(((endevent)))
+4:task:(Forward to Budget Owner) --> 5:task:(Forward to Supervisor)
+5:task:(Forward to Supervisor) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Budget Owner and Supervisor are same| 8:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Budget Owner and Supervisor are different| 7:task:(Director Approval)
+7:task:(Director Approval) --> 8:exclusivegateway:{x}
+8:exclusivegateway:{x} --> |Director Approval Needed| 9:task:(Director Approval)
+8:exclusivegateway:{x} --> |Director Approval Not Needed| 10:exclusivegateway:{O}
+9:task:(Director Approval) --> 10:exclusivegateway:{O}
+10:exclusivegateway:{O} --> 11:exclusivegateway:{x}
+11:exclusivegateway:{x} --> |Domestic Trip| 12:task:(Reimbursement Claim)
+11:exclusivegateway:{x} --> |International Trip| 13:task:(File Travel Permit)
+13:task:(File Travel Permit) --> 14:task:(Supervisor Permission)
+14:task:(Supervisor Permission) --> 15:exclusivegateway:{x}
+15:exclusivegateway:{x} --> |Permission Granted| 16:task:(Reimbursement Claim)
+15:exclusivegateway:{x} --> |Permission Denied| 17:endevent:(((endevent)))
+12:task:(Reimbursement Claim) --> 18:exclusivegateway:{O}
+16:task:(Reimbursement Claim) --> 18:exclusivegateway:{O}
+18:exclusivegateway:{O} --> 17:endevent:(((endevent)))

@@ -1,0 +1,11 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Design Base Model)
+1:task:(Design Base Model) --> 2:task:(Manufacture Base Model)
+2:task:(Manufacture Base Model) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} -->|Choose Interior| 4:task:(Customize Interior)
+3:exclusivegateway:{x} -->|No Customization| 6:exclusivegateway:{x}
+4:task:(Customize Interior) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> 7:task:(Final Assembly)
+6:exclusivegateway:{x} --> 7:task:(Final Assembly)
+7:task:(Final Assembly) --> 8:task:(Quality Check)
+8:task:(Quality Check) --> 9:endevent:(((endevent)))

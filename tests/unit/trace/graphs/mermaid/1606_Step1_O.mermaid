@@ -1,0 +1,19 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Receive Specifications)
+1:task:(Receive Specifications) --> 2:task:(Send Requirements to Teams)
+2:task:(Send Requirements to Teams) --> 3:parallelgateway:{AND}
+3:parallelgateway:{AND} --> 4:task:(Manufacture Parts)
+3:parallelgateway:{AND} --> 5:task:(Manufacture Parts)
+3:parallelgateway:{AND} --> 6:task:(Manufacture Parts)
+4:task:(Manufacture Parts) --> 7:parallelgateway:{AND}
+5:task:(Manufacture Parts) --> 7:parallelgateway:{AND}
+6:task:(Manufacture Parts) --> 7:parallelgateway:{AND}
+7:parallelgateway:{AND} --> 8:task:(Assemble Interior)
+8:task:(Assemble Interior) --> 9:task:(Test Flight)
+9:task:(Test Flight) --> 10:task:(Create Test Protocol)
+10:task:(Create Test Protocol) --> 11:task:(Send Protocol to Customer)
+11:task:(Send Protocol to Customer) --> 12:exclusivegateway:{x}
+12:exclusivegateway:{x} --> |Confirmed| 14:task:(Deliver Plane)
+12:exclusivegateway:{x} --> |Not Confirmed| 13:task:(Rework)
+13:task:(Rework) --> 9:task:(Test Flight)
+14:task:(Deliver Plane) --> 15:endevent:(((endevent)))

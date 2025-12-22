@@ -1,0 +1,20 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Receive Customer Order)
+1:task:(Receive Customer Order) --> 2:task:(Define Chainsaw Properties)
+2:task:(Define Chainsaw Properties) --> 3:parallelgateway:{AND}
+3:parallelgateway:{AND} --> 4:task:(Order Guide Bar)
+3:parallelgateway:{AND} --> 5:task:(Order Chain)
+3:parallelgateway:{AND} --> 6:task:(Order Motor/Electric Components)
+4:task:(Order Guide Bar) --> 7:parallelgateway:{AND}
+5:task:(Order Chain) --> 7:parallelgateway:{AND}
+6:task:(Order Motor/Electric Components) --> 7:parallelgateway:{AND}
+7:parallelgateway:{AND} --> 8:task:(Inspect Parts)
+8:task:(Inspect Parts) --> 9:task:(Assemble Chainsaw)
+9:task:(Assemble Chainsaw) --> 10:task:(Send Updates to Customer)
+10:task:(Send Updates to Customer) --> 11:task:(Produce First Chainsaw)
+11:task:(Produce First Chainsaw) --> 12:task:(Send First Chainsaw to Customer)
+12:task:(Send First Chainsaw to Customer) --> 13:exclusivegateway:{x}
+13:exclusivegateway:{x} --> |Customer Likes It| 14:task:(Produce Remaining Chainsaws)
+13:exclusivegateway:{x} --> |Customer Doesn't Like It| 15:task:(Adjust and Re-produce)
+14:task:(Produce Remaining Chainsaws) --> 16:endevent:(((endevent)))
+15:task:(Adjust and Re-produce) --> 16:endevent:(((endevent)))

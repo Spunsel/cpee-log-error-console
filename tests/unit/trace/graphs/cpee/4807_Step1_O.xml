@@ -1,0 +1,108 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Submit Expense Claim</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Travel Admin Approval</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="3">
+    <alternative condition="Approved" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Forward to Budget Owner</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Forward to Supervisor</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="Budget Owner and Supervisor are same" language="text/javascript"/>
+        <alternative condition="Budget Owner and Supervisor are different" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Director Approval</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <choose mode="exclusive" a:alt_id="8">
+        <alternative condition="Director Approval Needed" language="text/javascript">
+          <call id="a21" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Director Approval</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Director Approval Not Needed" language="text/javascript"/>
+      </choose>
+      <choose mode="exclusive" a:alt_id="11">
+        <alternative condition="Domestic Trip" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Reimbursement Claim</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="International Trip" language="text/javascript">
+          <call id="a31" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>File Travel Permit</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Supervisor Permission</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="15">
+            <alternative condition="Permission Granted" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Reimbursement Claim</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Permission Denied" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+    </alternative>
+    <alternative condition="Rejected" language="text/javascript"/>
+  </choose>
+</description>

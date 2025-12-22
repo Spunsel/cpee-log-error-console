@@ -1,0 +1,27 @@
+graph LR
+0:startevent:((Start Event))
+1:task:(Prepare Patient List)
+2:task:(Review Patient History)
+3:parallelgateway:{AND}
+4:task:(Conduct Patient Examination)
+5:task:(Update Medical Records)
+6:parallelgateway:{AND}
+7:exclusivegateway:{x}
+8:task:(Prescribe Medication)
+9:task:(Schedule Follow-up)
+10:task:(Discharge Patient)
+11:endevent:(((End Event)))
+0:startevent:((Start Event)) --> 1:task:(Prepare Patient List)
+1:task:(Prepare Patient List) --> 2:task:(Review Patient History)
+2:task:(Review Patient History) --> 3:parallelgateway:{AND}
+3:parallelgateway:{AND} --> 4:task:(Conduct Patient Examination)
+3:parallelgateway:{AND} --> 5:task:(Update Medical Records)
+4:task:(Conduct Patient Examination) --> 6:parallelgateway:{AND}
+5:task:(Update Medical Records) --> 6:parallelgateway:{AND}
+6:parallelgateway:{AND} --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Medication Needed| 8:task:(Prescribe Medication)
+7:exclusivegateway:{x} --> |Follow-up Required| 9:task:(Schedule Follow-up)
+7:exclusivegateway:{x} --> |Ready for Discharge| 10:task:(Discharge Patient)
+8:task:(Prescribe Medication) --> 11:endevent:(((End Event)))
+9:task:(Schedule Follow-up) --> 11:endevent:(((End Event)))
+10:task:(Discharge Patient) --> 11:endevent:(((End Event)))

@@ -1,0 +1,22 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Receive Order Details)
+1:task:(Receive Order Details) --> 2:task:(Order Parts Online)
+2:task:(Order Parts Online) --> 3:parallelgateway:{AND}
+3:parallelgateway:{AND} --> 4:task:(Order Guide Bar)
+3:parallelgateway:{AND} --> 5:task:(Order Chain)
+3:parallelgateway:{AND} --> 6:task:(Order Motor/Electric Components)
+4:task:(Order Guide Bar) --> 7:task:(Receive Guide Bar)
+5:task:(Order Chain) --> 8:task:(Receive Chain)
+6:task:(Order Motor/Electric Components) --> 9:task:(Receive Motor/Electric Components)
+7:task:(Receive Guide Bar) --> 10:parallelgateway:{AND}
+8:task:(Receive Chain) --> 10:parallelgateway:{AND}
+9:task:(Receive Motor/Electric Components) --> 10:parallelgateway:{AND}
+10:parallelgateway:{AND} --> 11:task:(Inspect Parts)
+11:task:(Inspect Parts) --> 12:task:(Assemble Chainsaw)
+12:task:(Assemble Chainsaw) --> 13:task:(Send Updates to Customer)
+13:task:(Send Updates to Customer) --> 14:task:(Produce First Chainsaw)
+14:task:(Produce First Chainsaw) --> 15:task:(Send First Chainsaw to Customer)
+15:task:(Send First Chainsaw to Customer) --> 16:exclusivegateway:{x}
+16:exclusivegateway:{x} --> |Customer Likes It| 17:task:(Produce Remaining Chainsaws)
+16:exclusivegateway:{x} --> |Customer Doesn't Like It| 18:endevent:(((endevent)))
+17:task:(Produce Remaining Chainsaws) --> 18:endevent:(((endevent)))

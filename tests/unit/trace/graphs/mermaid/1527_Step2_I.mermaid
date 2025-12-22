@@ -1,0 +1,14 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Receive Order)
+a1:task:(Receive Order)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Order Amount > $100"|a5:task:(Approve Order)
+a5:task:(Approve Order)-->a9:task:(Process Order)
+a9:task:(Process Order)-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Order Amount <= $100"|a7:task:(Process Order)
+a7:task:(Process Order)-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Payment Received"|a15:task:(Ship Order)
+a15:task:(Ship Order)-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Payment Not Received"|a17:task:(Cancel Order)
+a17:task:(Cancel Order)-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))

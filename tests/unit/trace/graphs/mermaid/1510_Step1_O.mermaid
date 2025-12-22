@@ -1,0 +1,17 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Define Chess Goals)
+1:task:(Define Chess Goals) --> 2:task:(Study Chess Principles)
+2:task:(Study Chess Principles) --> 3:task:(Practice Regularly)
+3:task:(Practice Regularly) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Yes| 5:task:(Analyze Games)
+5:task:(Analyze Games) --> 6:task:(Learn from Mistakes)
+6:task:(Learn from Mistakes) --> 7:exclusivegateway:{O}
+4:exclusivegateway:{x} --> |No| 7:exclusivegateway:{O}
+7:exclusivegateway:{O} --> 8:task:(Play More Games)
+8:task:(Play More Games) --> 9:task:(Review Openings)
+9:task:(Review Openings) --> 10:task:(Study Endgames)
+10:task:(Study Endgames) --> 11:task:(Solve Puzzles)
+11:task:(Solve Puzzles) --> 12:task:(Track Progress)
+12:task:(Track Progress) --> 13:exclusivegateway:{x}
+13:exclusivegateway:{x} --> |Satisfied| 14:endevent:(((endevent)))
+13:exclusivegateway:{x} --> |Not Satisfied| 1:task:(Define Chess Goals)
