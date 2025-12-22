@@ -646,6 +646,22 @@ export const ICON_COMPARISON_INFO = `
 `;
 
 /**
+ * Download icon - Document with download arrow
+ * Represents file download functionality - 20x20px for download buttons
+ * Design: Document with downward arrow
+ */
+export const ICON_DOWNLOAD = `
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H12M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M17.5 15V21M17.5 21L15 18.5M17.5 21L20 18.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </svg>
+`;
+
+/**
  * Analysis mode icon - Magnifying glass with search circle
  * Represents analysis view mode - displays soundness and boundedness verification results - 16x16px for toggle buttons
  * Design: Magnifying glass with search circle representing analysis/verification
@@ -721,7 +737,9 @@ export const ICONS = {
     // Comparison info icon
     COMPARISON_INFO: ICON_COMPARISON_INFO,
     // Analysis mode icon
-    ANALYSIS: ICON_ANALYSIS
+    ANALYSIS: ICON_ANALYSIS,
+    // Download icon
+    DOWNLOAD: ICON_DOWNLOAD
 };
 
 /**
@@ -775,7 +793,9 @@ export function getIcon(iconName) {
         // Comparison info icon
         'comparison-info': ICON_COMPARISON_INFO,
         // Analysis mode icon
-        'analysis': ICON_ANALYSIS
+        'analysis': ICON_ANALYSIS,
+        // Download icon
+        'download': ICON_DOWNLOAD
     };
 
     return iconMap[iconName.toLowerCase()] || '';

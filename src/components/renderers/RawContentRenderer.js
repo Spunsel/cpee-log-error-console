@@ -212,7 +212,7 @@ export class RawContentRenderer {
             if (rawContent.getLength && rawContent.getLength() > 0) {
                 if (!this.actionBars.has(sectionId)) {
                     // Create new action bar and attach to container
-                    this.addActionBar(rawContainer, sectionId, rawContent);
+                    this.addActionBar(rawContainer, sectionId, rawContent, step);
                 } else {
                     // Action bar instance exists - check if it's in the DOM
                     const actionBar = this.actionBars.get(sectionId);
@@ -272,11 +272,22 @@ export class RawContentRenderer {
                 }
             }
             
-            // Update copy content based on currently displayed content
-            // Extract text from the rendered DOM to ensure we copy exactly what's shown
+            // Update copy and download content based on currently displayed content
+            // Extract text from the rendered DOM to ensure we copy/download exactly what's shown
             if (this.actionBars.has(sectionId)) {
                 const actionBar = this.actionBars.get(sectionId);
                 if (actionBar) {
+                    // Update download metadata (in case step changed)
+                    try {
+                        const instanceService = serviceFactory.get('InstanceService');
+                        const currentInstance = instanceService.getCurrentInstance();
+                        if (currentInstance && currentInstance.processNumber && step) {
+                            actionBar.setDownloadMetadata(currentInstance.processNumber, step.stepNumber);
+                        }
+                    } catch (error) {
+                        // Silently ignore - download button just won't appear
+                    }
+                    
                     // Extract the actual text content from the rendered code element
                     // This ensures we copy exactly what's displayed, including any processing
                     const codeElement = rawContainer.querySelector('pre code');
@@ -285,9 +296,10 @@ export class RawContentRenderer {
                         const displayedText = codeElement.textContent || codeElement.innerText || '';
                         if (displayedText) {
                             actionBar.setCopyContent(displayedText);
+                            actionBar.setDownloadContent(displayedText);
                         }
                     } else {
-                        // Fallback: determine content to copy
+                        // Fallback: determine content to copy/download
                         if (rawContent) {
                             let contentToCopy = null;
                             if (rawContent.getContent) {
@@ -298,9 +310,10 @@ export class RawContentRenderer {
                                 contentToCopy = rawContent.getText();
                             }
                             
-                            // Update the copy button with the current content
+                            // Update the copy and download buttons with the current content
                             if (contentToCopy) {
                                 actionBar.setCopyContent(contentToCopy);
+                                actionBar.setDownloadContent(contentToCopy);
                             }
                         }
                     }
@@ -343,12 +356,13 @@ export class RawContentRenderer {
     }
 
     /**
-     * Add action bar (copy button + search bar) to raw content container
+     * Add action bar (copy button + download button + search bar) to raw content container
      * @param {HTMLElement} container - Container element (raw container)
      * @param {string} sectionId - Section identifier
      * @param {Object} rawContent - Raw content object
+     * @param {Object} step - Current step object
      */
-    addActionBar(container, sectionId, rawContent) {
+    addActionBar(container, sectionId, rawContent, step) {
         // Get content to copy
         const contentToCopy = rawContent.getContent ? rawContent.getContent() : rawContent.getText();
 
@@ -365,6 +379,17 @@ export class RawContentRenderer {
         
         // Store action bar for this section
         this.actionBars.set(sectionId, actionBar);
+        
+        // Get instance number for download filename
+        try {
+            const instanceService = serviceFactory.get('InstanceService');
+            const currentInstance = instanceService.getCurrentInstance();
+            if (currentInstance && currentInstance.processNumber && step) {
+                actionBar.setDownloadMetadata(currentInstance.processNumber, step.stepNumber);
+            }
+        } catch (error) {
+            console.warn('RawContentRenderer: Could not get instance number for download filename', error);
+        }
         
         // Set up copy functionality
         actionBar.setOnCopy((content) => {
@@ -398,6 +423,9 @@ export class RawContentRenderer {
         
         // Set copy content after attaching
         actionBar.setCopyContent(contentToCopy);
+        
+        // Set download content after attaching
+        actionBar.setDownloadContent(contentToCopy);
         
         // Show the action bar
         actionBar.show();

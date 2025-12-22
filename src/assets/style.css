@@ -4356,6 +4356,114 @@ body {
     display: none;
 }
 
+/* ========================================
+   DOWNLOAD BUTTON COMPONENT
+   ======================================== */
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs);
+    gap: var(--spacing-xs);
+    background: var(--copy-btn-bg);
+    border: 1px solid var(--copy-btn-border);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.download-btn:hover:not(:disabled) {
+    background: var(--copy-btn-hover-bg);
+    border-color: var(--copy-btn-hover-border);
+}
+
+.download-btn:active:not(:disabled) {
+    background: var(--copy-btn-active-bg);
+}
+
+.download-btn:focus-visible {
+    outline: 2px solid var(--copy-btn-focus-outline);
+    outline-offset: 2px;
+}
+
+.download-btn:disabled,
+.download-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Download Button Content */
+.download-btn-content {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+/* Download Button States */
+.download-btn.download-success, 
+.download-btn.download-success:hover {
+    background: var(--copy-success-color);
+    border-color: var(--copy-success-color);
+    color: var(--text-white);
+}
+
+.download-btn.download-error {
+    background: var(--error-color);
+    border-color: var(--error-color);
+    color: var(--text-white);
+}
+
+.download-btn.download-error:hover {
+    background: var(--error-text);
+    border-color: var(--error-text);
+}
+
+/* Buttons container in action bar - holds download and copy buttons side by side */
+.action-bar-buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+/* Download button in action bar - icon only, styled like copy button */
+.action-bar-download-container .download-btn {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    gap: 0;
+}
+
+/* Success state - briefly show success color when showing checkmark */
+.action-bar-download-container .download-btn.download-success {
+    background: var(--copy-success-color);
+    border-color: var(--copy-success-color);
+    color: var(--text-white);
+}
+
+.action-bar-download-container .download-btn svg {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+}
+
+/* Hide text in download button when in action bar */
+.action-bar-download-container .download-text {
+    display: none;
+}
+
 /* Bottom row: search bar */
 .action-bar-bottom-row {
     display: flex;

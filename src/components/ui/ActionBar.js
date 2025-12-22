@@ -1,10 +1,11 @@
 /**
  * Action Bar Component
- * Combines copy button and search bar in a sticky container
+ * Combines copy button, download button and search bar in a sticky container
  * Provides unified interface for raw content actions
  */
 
 import { CopyButton } from './CopyButton.js';
+import { DownloadButton } from './DownloadButton.js';
 import { SearchBar } from './SearchBar.js';
 import { ICONS } from '../../assets/icons.js';
 
@@ -12,13 +13,20 @@ export class ActionBar {
     constructor(domRegistry = null, searchService = null, sectionId = null, _options = {}) {
         this.domRegistry = domRegistry;
         this.copyButton = new CopyButton(domRegistry);
+        this.downloadButton = new DownloadButton(domRegistry, { showText: false });
         this.searchBar = new SearchBar(domRegistry, searchService, sectionId);
+        this.sectionId = sectionId;
         this.isVisible = false;
         this.onCopy = null;
+        this.onDownload = null;
         this.onSearch = null;
         this.onClear = null;
         this.onNavigate = null;
         this.element = null; // Store reference to the action bar DOM element
+        
+        // Download metadata
+        this.instanceNumber = null;
+        this.stepNumber = null;
     }
 
     /**
@@ -176,18 +184,31 @@ export class ActionBar {
         contentWrapper.appendChild(topRow);
         contentWrapper.appendChild(bottomRow);
         
+        // Create buttons container (for download and copy buttons side by side)
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.className = 'action-bar-buttons-container';
+        
+        // Create download button container (left of copy button)
+        const downloadButtonContainer = document.createElement('div');
+        downloadButtonContainer.className = 'action-bar-download-container';
+        
         // Create copy button container (outside action-bar-content, underneath it)
         const copyButtonContainer = document.createElement('div');
         copyButtonContainer.className = 'action-bar-copy-container';
         
-        // Store reference to copy button container
+        // Store references to button containers
+        this.downloadButtonContainer = downloadButtonContainer;
         this.copyButtonContainer = copyButtonContainer;
         
-        // Create wrapper to stack content and copy button vertically
+        // Assemble buttons container (download on left, copy on right)
+        buttonsContainer.appendChild(downloadButtonContainer);
+        buttonsContainer.appendChild(copyButtonContainer);
+        
+        // Create wrapper to stack content and buttons vertically
         const wrapper = document.createElement('div');
         wrapper.className = 'action-bar-wrapper';
         wrapper.appendChild(contentWrapper);
-        wrapper.appendChild(copyButtonContainer);
+        wrapper.appendChild(buttonsContainer);
         
         // Assemble action bar (no collapser - always visible)
         actionBar.appendChild(wrapper);
@@ -287,6 +308,57 @@ export class ActionBar {
                 }
             });
         }
+    }
+
+    /**
+     * Set download metadata for filename generation
+     * @param {number} instanceNumber - CPEE instance/process number
+     * @param {number} stepNumber - Step number
+     */
+    setDownloadMetadata(instanceNumber, stepNumber) {
+        this.instanceNumber = instanceNumber;
+        this.stepNumber = stepNumber;
+    }
+
+    /**
+     * Set download content and create button
+     * @param {string} content - Content to download
+     */
+    setDownloadContent(content) {
+        if (!content || !this.downloadButtonContainer || !this.instanceNumber || !this.stepNumber || !this.sectionId) {
+            return;
+        }
+        
+        // Clear existing download button
+        this.downloadButtonContainer.innerHTML = '';
+        
+        // Generate filename based on metadata
+        const filename = DownloadButton.generateFilename(this.instanceNumber, this.stepNumber, this.sectionId);
+        
+        // Create download button with icon only (no text label)
+        const downloadButtonInstance = new DownloadButton(this.domRegistry, { showText: false });
+        const button = downloadButtonInstance.createButton(content, filename, '');
+        this.downloadButtonContainer.appendChild(button);
+        
+        // Update the downloadButton reference
+        this.downloadButton = downloadButtonInstance;
+        
+        // Set up download button callback for button click
+        if (this.downloadButton.element) {
+            this.downloadButton.element.addEventListener('click', () => {
+                if (this.onDownload) {
+                    this.onDownload(filename, this.downloadButton.content);
+                }
+            });
+        }
+    }
+
+    /**
+     * Set callback for download functionality
+     * @param {Function} callback - Callback function to call with filename and content
+     */
+    setOnDownload(callback) {
+        this.onDownload = callback;
     }
 
     /**
