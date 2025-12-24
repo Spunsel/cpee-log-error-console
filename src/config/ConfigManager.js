@@ -43,7 +43,7 @@ export class ConfigManager {
                 cpeeGraph: 'https://cpee.org/flow/graph.html'
             },
             cors: {
-                proxy: 'https://api.codetabs.com/v1/proxy?quest=',
+                proxy: 'https://corsproxy.io/?',  // Faster than codetabs
                 timeout: 15000,
                 retryCount: 3
             },
@@ -279,10 +279,12 @@ export class ConfigManager {
     loadCPEEConfig() {
         return {
             wfadaptor: {
-                themePath: 'src/libs/cpee-layout/themes/presetaltid/theme.js',
-                cssPath: 'https://cpee.org/flow/css/wfadaptor.css', // replaced: 'src/libs/cpee-layout/wfadaptor.css'
-                baseThemePath: 'https://cpee.org/flow/themes/base.js', // replaced: 'src/libs/cpee-layout/themes/base.js'
-                wfadaptorPath: 'https://cpee.org/flow/js/wfadaptor.js' // replaced: 'src/libs/cpee-layout/wfadaptor.js'
+                // Theme resources loaded from cpee.org - CORS proxy handles rngs/*.rng and symbols/*.svg
+                themeBaseUrl: 'https://cpee.org/flow/themes',
+                themePath: 'https://cpee.org/flow/themes/presetaltid/theme.js',
+                cssPath: 'https://cpee.org/flow/css/wfadaptor.css',
+                baseThemePath: 'https://cpee.org/flow/themes/base.js',
+                wfadaptorPath: 'https://cpee.org/flow/js/wfadaptor.js'
             },
             rendering: {
                 minHeight: '100px',

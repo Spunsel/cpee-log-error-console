@@ -33,14 +33,16 @@ export class ThemeSelector {
         }
         this.currentTheme = storedTheme;
         
-        // Update config to match stored theme
-        configManager.set('cpee.wfadaptor.themePath', `src/libs/cpee-layout/themes/${this.currentTheme}/theme.js`);
+        // Update config to match stored theme (CORS proxy handles remote rngs/symbols)
+        const themeBaseUrl = configManager.get('cpee.wfadaptor.themeBaseUrl');
+        configManager.set('cpee.wfadaptor.themePath', `${themeBaseUrl}/${this.currentTheme}/theme.js`);
         
         // Subscribe to theme changes
         this.stateManager.subscribe('ui.theme', (theme) => {
             if (this.currentTheme !== theme && this.themes.some(t => t.id === theme)) {
                 this.currentTheme = theme;
-                configManager.set('cpee.wfadaptor.themePath', `src/libs/cpee-layout/themes/${theme}/theme.js`);
+                const baseUrl = configManager.get('cpee.wfadaptor.themeBaseUrl');
+                configManager.set('cpee.wfadaptor.themePath', `${baseUrl}/${theme}/theme.js`);
                 this.eventBus.emit('themeSelector:themeChanged', { theme });
             }
         });
@@ -260,7 +262,8 @@ export class ThemeSelector {
         this.stateManager.setState('ui.theme', themeId);
 
         // Update config manager
-        configManager.set('cpee.wfadaptor.themePath', `src/libs/cpee-layout/themes/${themeId}/theme.js`);
+        const baseUrl = configManager.get('cpee.wfadaptor.themeBaseUrl');
+        configManager.set('cpee.wfadaptor.themePath', `${baseUrl}/${themeId}/theme.js`);
 
         // Re-render dropdown to show new active state
         this.renderDropdownOptions();

@@ -474,8 +474,8 @@
         // Global configuration
         const MAX_LOOP_ITERATIONS = 1;
 
-        // Configure paths for test file (use CDN URLs as libraries may not be in local directory)
-        configManager.set('cpee.wfadaptor.themePath', '../../../src/libs/cpee-layout/themes/preset/theme.js');
+        // Configure paths for test file (cpee.org with CORS proxy)
+        configManager.set('cpee.wfadaptor.themePath', 'https://cpee.org/flow/themes/preset/theme.js');
         configManager.set('cpee.wfadaptor.cssPath', 'https://cpee.org/flow/css/wfadaptor.css');
         configManager.set('cpee.wfadaptor.baseThemePath', 'https://cpee.org/flow/themes/base.js');
         configManager.set('cpee.wfadaptor.wfadaptorPath', 'https://cpee.org/flow/js/wfadaptor.js');
@@ -518,54 +518,11 @@
             });
         }
         
-        // Setup jQuery path interceptors for CPEE libraries
-        function setupJQueryInterceptors() {
-            if (!window.$ || !window.$.ajax) {
-                return;
-            }
-            
-            // Intercept $.ajax
-            const originalAjax = window.$.ajax;
-            window.$.ajax = function(url, options) {
-                let actualUrl = typeof url === 'string' ? url : (options || url).url;
-                
-                if (actualUrl && actualUrl.includes('src/libs/cpee-layout') && !actualUrl.startsWith('../../../')) {
-                    actualUrl = actualUrl.replace(/^.*?(src\/libs\/cpee-layout.*)/, '../../../$1');
-                    if (!actualUrl.endsWith('.svg')) {
-                        console.log(`[Interceptor] ajax: ${actualUrl}`);
-                    }
-                    
-                    if (typeof url === 'string') {
-                        url = actualUrl;
-                    } else {
-                        (options || url).url = actualUrl;
-                    }
-                }
-                
-                return originalAjax.call(this, url, options);
-            };
-            
-            // Intercept $.getScript
-            const originalGetScript = window.$.getScript;
-            window.$.getScript = function(url, callback) {
-                if (url && url.includes('src/libs/cpee-layout') && !url.startsWith('../../../')) {
-                    url = url.replace(/^.*?(src\/libs\/cpee-layout.*)/, '../../../$1');
-                    console.log(`[Interceptor] getScript: ${url}`);
-                }
-                return originalGetScript.call(this, url, callback);
-            };
-            
-            console.log('[Test] jQuery path interceptors installed');
-        }
-        
         // Initialize graph renderer
         async function initializeGraphRenderer() {
             if (!graphRenderer) {
                 // Load jQuery first
                 await loadJQuery();
-                
-                // Setup interceptors after jQuery is loaded
-                setupJQueryInterceptors();
                 
                 // Provide dummy functions for WfAdaptor
                 window.save = function() {

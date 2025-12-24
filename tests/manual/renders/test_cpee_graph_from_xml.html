@@ -671,8 +671,8 @@
         import { RawContentRenderer } from '../../../src/components/renderers/RawContentRenderer.js';
         import { ICONS } from '../../../src/assets/icons.js';
 
-        // Configure paths for test file (relative to test file location)
-        configManager.set('cpee.wfadaptor.themePath', '../../../src/libs/cpee-layout/themes/presetid/theme.js');
+        // Configure paths for test file (cpee.org with CORS proxy)
+        configManager.set('cpee.wfadaptor.themePath', 'https://cpee.org/flow/themes/presetid/theme.js');
         configManager.set('cpee.wfadaptor.cssPath', 'https://cpee.org/flow/css/wfadaptor.css');
         configManager.set('cpee.wfadaptor.baseThemePath', 'https://cpee.org/flow/themes/base.js');
         configManager.set('cpee.wfadaptor.wfadaptorPath', 'https://cpee.org/flow/js/wfadaptor.js');

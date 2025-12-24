@@ -291,22 +291,22 @@
             if (!document.querySelector('link[href*="wfadaptor.css"]')) {
                 const cssLink = document.createElement('link');
                 cssLink.rel = 'stylesheet';
-                cssLink.href = '../../../src/libs/cpee-layout/wfadaptor.css';
+                cssLink.href = 'https://cpee.org/flow/css/wfadaptor.css';
                 document.head.appendChild(cssLink);
             }
             
-            // Load base theme
+            // Load base theme from cpee.org (JS loaded via script tag, no CORS issues)
             return new Promise((resolve, reject) => {
                 const baseScript = document.createElement('script');
-                baseScript.src = '../../../src/libs/cpee-layout/themes/base.js';
+                baseScript.src = 'https://cpee.org/flow/themes/base.js';
                 baseScript.onload = () => {
-                    // Load preset theme
+                    // Load preset theme from cpee.org
                     const presetScript = document.createElement('script');
-                    presetScript.src = '../../../src/libs/cpee-layout/themes/preset/theme.js';
+                    presetScript.src = 'https://cpee.org/flow/themes/preset/theme.js';
                     presetScript.onload = () => {
                         // Load wfadaptor
                         const wfScript = document.createElement('script');
-                        wfScript.src = '../../../src/libs/cpee-layout/wfadaptor.js';
+                        wfScript.src = 'https://cpee.org/flow/js/wfadaptor.js';
                         wfScript.onload = () => {
                             // Wait a bit for globals to be set
                             setTimeout(() => {
@@ -341,44 +341,6 @@
                 
                 await cpeeRenderer.initialize('cpee-svg-container');
                 logToConsole('✅ CPEE Renderer ready', 'console-success');
-                
-                // Intercept jQuery AJAX methods AFTER jQuery is loaded by renderer
-                if (window.$ && window.$.ajax) {
-                    // Intercept $.ajax for all resource types (SVG, RNG, JS, etc.)
-                    const originalAjax = window.$.ajax;
-                    window.$.ajax = function(url, options) {
-                        // Handle both $.ajax(url, options) and $.ajax(options)
-                        let actualUrl = typeof url === 'string' ? url : (url && url.url);
-                        
-                        if (actualUrl && actualUrl.includes('src/libs/cpee-layout') && !actualUrl.startsWith('../../../')) {
-                            const fixedUrl = actualUrl.replace(/^.*?(src\/libs\/cpee-layout.*)/, '../../../$1');
-                            
-                            if (typeof url === 'string') {
-                                url = fixedUrl;
-                            } else if (url && url.url) {
-                                url.url = fixedUrl;
-                            }
-                            
-                            // Only log JS files to avoid spam
-                            if (fixedUrl.endsWith('.js')) {
-                                logToConsole(`🔧 Redirected: ${fixedUrl}`, 'console-info');
-                            }
-                        }
-                        
-                        return originalAjax.call(this, url, options);
-                    };
-                    
-                    // Also intercept $.getScript (it uses $.ajax internally but has its own wrapper)
-                    const originalGetScript = window.$.getScript;
-                    window.$.getScript = function(url, callback) {
-                        if (url && url.includes('src/libs/cpee-layout') && !url.startsWith('../../../')) {
-                            url = url.replace(/^.*?(src\/libs\/cpee-layout.*)/, '../../../$1');
-                        }
-                        return originalGetScript.call(this, url, callback);
-                    };
-                    
-                    logToConsole('✅ jQuery path interceptors installed (ajax & getScript)', 'console-success');
-                }
             } catch (error) {
                 logToConsole(`❌ CPEE Renderer error: ${error.message}`, 'console-error');
             }

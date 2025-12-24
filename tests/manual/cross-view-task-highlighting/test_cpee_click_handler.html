@@ -323,65 +323,26 @@
                 if (!document.querySelector('link[href*="wfadaptor.css"]')) {
                     const cssLink = document.createElement('link');
                     cssLink.rel = 'stylesheet';
-                    cssLink.href = '../../../src/libs/cpee-layout/wfadaptor.css';
+                    cssLink.href = 'https://cpee.org/flow/css/wfadaptor.css';
                     document.head.appendChild(cssLink);
                 }
                 
-                // Load base theme
+                // Load base theme from cpee.org (JS loaded via script tag, no CORS issues)
                 const baseScript = document.createElement('script');
-                baseScript.src = '../../../src/libs/cpee-layout/themes/base.js';
+                baseScript.src = 'https://cpee.org/flow/themes/base.js';
                 baseScript.onload = () => {
-                    // Load preset theme
+                    // Load preset theme from cpee.org
                     const presetScript = document.createElement('script');
-                    presetScript.src = '../../../src/libs/cpee-layout/themes/preset/theme.js';
+                    presetScript.src = 'https://cpee.org/flow/themes/preset/theme.js';
                     presetScript.onload = () => {
                         // Load wfadaptor
                         const wfScript = document.createElement('script');
-                        wfScript.src = '../../../src/libs/cpee-layout/wfadaptor.js';
+                        wfScript.src = 'https://cpee.org/flow/js/wfadaptor.js';
                         wfScript.onload = () => {
                             // Wait for globals to be set
                             setTimeout(() => {
                                 if (typeof WfAdaptor !== 'undefined' && typeof WFAdaptorManifestationBase !== 'undefined') {
                                     addLog('✅ CPEE libraries loaded successfully', 'success');
-                                    
-                                    // Install jQuery path interceptors
-                                    if (window.$ && window.$.ajax) {
-                                        // Intercept $.ajax
-                                        const originalAjax = window.$.ajax;
-                                        window.$.ajax = function(url, options) {
-                                            let actualUrl = typeof url === 'string' ? url : (options || url).url;
-                                            const originalUrl = actualUrl;
-                                            
-                                            if (actualUrl && actualUrl.includes('src/libs/cpee-layout') && !actualUrl.startsWith('../../../')) {
-                                                actualUrl = actualUrl.replace('src/libs/cpee-layout', '../../../src/libs/cpee-layout');
-                                                console.log(`[Interceptor] ajax: ${originalUrl} → ${actualUrl}`);
-                                                
-                                                if (typeof url === 'string') {
-                                                    url = actualUrl;
-                                                } else {
-                                                    (options || url).url = actualUrl;
-                                                }
-                                            }
-                                            
-                                            return originalAjax.call(this, url, options);
-                                        };
-                                        
-                                        // Intercept $.getScript  
-                                        const originalGetScript = window.$.getScript;
-                                        window.$.getScript = function(url, callback) {
-                                            let actualUrl = url;
-                                            const originalUrl = actualUrl;
-                                            
-                                            if (actualUrl && actualUrl.includes('src/libs/cpee-layout') && !actualUrl.startsWith('../../../')) {
-                                                actualUrl = actualUrl.replace('src/libs/cpee-layout', '../../../src/libs/cpee-layout');
-                                                console.log(`[Interceptor] getScript: ${originalUrl} → ${actualUrl}`);
-                                            }
-                                            
-                                            return originalGetScript.call(this, actualUrl, callback);
-                                        };
-                                        
-                                        addLog('✅ jQuery path interceptors installed (ajax + getScript)', 'success');
-                                    }
                                     
                                     resolve();
                                 } else {
@@ -458,44 +419,6 @@
                 window.save = function() {
                     console.log('[Dummy] save() called - ignoring in test environment');
                 };
-                
-                // Install jQuery path interceptors AFTER renderer initialization (when jQuery is loaded)
-                if (window.$ && window.$.ajax) {
-                    // Intercept $.ajax for all resource types
-                    const originalAjax = window.$.ajax;
-                    window.$.ajax = function(url, options) {
-                        let actualUrl = typeof url === 'string' ? url : (url && url.url);
-                        
-                        if (actualUrl && actualUrl.includes('src/libs/cpee-layout') && !actualUrl.startsWith('../../../')) {
-                            const fixedUrl = actualUrl.replace(/^.*?(src\/libs\/cpee-layout.*)/, '../../../$1');
-                            // Only log non-SVG files to reduce spam
-                            if (!fixedUrl.endsWith('.svg')) {
-                                console.log(`[Interceptor] ajax: ${actualUrl} → ${fixedUrl}`);
-                            }
-                            
-                            if (typeof url === 'string') {
-                                url = fixedUrl;
-                            } else if (url && url.url) {
-                                url.url = fixedUrl;
-                            }
-                        }
-                        
-                        return originalAjax.call(this, url, options);
-                    };
-                    
-                    // Intercept $.getScript
-                    const originalGetScript = window.$.getScript;
-                    window.$.getScript = function(url, callback) {
-                        if (url && url.includes('src/libs/cpee-layout') && !url.startsWith('../../../')) {
-                            const fixedUrl = url.replace(/^.*?(src\/libs\/cpee-layout.*)/, '../../../$1');
-                            console.log(`[Interceptor] getScript: ${url} → ${fixedUrl}`);
-                            url = fixedUrl;
-                        }
-                        return originalGetScript.call(this, url, callback);
-                    };
-                    
-                    addLog('✅ jQuery path interceptors installed after initialization', 'success');
-                }
                 
                 // Render graph (doesn't return SVG, renders directly to container)
                 await cpeeRenderer.renderGraph(sampleCPEEXML);

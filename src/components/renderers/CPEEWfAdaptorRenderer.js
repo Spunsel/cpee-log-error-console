@@ -357,6 +357,63 @@ export class CPEEWfAdaptorRenderer {
         if (promises.length > 0) {
             await Promise.all(promises);
         }
+        
+        // Install jQuery AJAX interceptor to route cpee.org requests through CORS proxy
+        this.installCorsProxyInterceptor();
+    }
+    
+    /**
+     * Install jQuery AJAX interceptor to route cpee.org theme requests through CORS proxy
+     * This is needed because WfAdaptor internally uses jQuery.ajax() to fetch rngs/*.rng and symbols/*.svg
+     * and cpee.org doesn't have CORS headers enabled for those files
+     */
+    installCorsProxyInterceptor() {
+        // Only install once
+        if (window._cpeeProxyInterceptorInstalled) {
+            return;
+        }
+        
+        const corsProxy = configManager.get('api.cors.proxy');
+        if (!corsProxy) {
+            console.warn('[CPEEWfAdaptorRenderer] No CORS proxy configured, remote theme URLs may fail');
+            return;
+        }
+        
+        // Override jQuery.ajax to intercept cpee.org requests
+        const originalAjax = window.$.ajax;
+        window.$.ajax = function(url, options) {
+            // Handle both $.ajax(url, options) and $.ajax(options) signatures
+            if (typeof url === 'object') {
+                options = url;
+                url = options.url;
+            }
+            options = options || {};
+            if (typeof url === 'string') {
+                options.url = url;
+            }
+            
+            // Check if this is a cpee.org request that needs proxying
+            const requestUrl = options.url || '';
+            if (requestUrl.includes('cpee.org') && 
+                (requestUrl.endsWith('.rng') || requestUrl.endsWith('.svg'))) {
+                // Route through CORS proxy
+                options.url = corsProxy + encodeURIComponent(requestUrl);
+            }
+            
+            return originalAjax.call(this, options);
+        };
+        
+        // Also intercept $.get and $.getScript for completeness
+        const originalGet = window.$.get;
+        window.$.get = function(url, ...args) {
+            if (typeof url === 'string' && url.includes('cpee.org') && 
+                (url.endsWith('.rng') || url.endsWith('.svg'))) {
+                url = corsProxy + encodeURIComponent(url);
+            }
+            return originalGet.call(this, url, ...args);
+        };
+        
+        window._cpeeProxyInterceptorInstalled = true;
     }
     
     /**
