@@ -1,0 +1,78 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Budgetantrag erstellen</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Budgetantrag an Krankenkasse senden</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a5" endpoint="" a:alt_id="3">
+    <parameters>
+      <label>Krankenkasse prüft Budgetantrag</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="4">
+    <alternative condition="Genehmigt" language="text/javascript">
+      <call id="a9" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Budget genehmigen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Abgelehnt" language="text/javascript">
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Nachverhandlungen führen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="Einigung erzielt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Budget genehmigen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Keine Einigung" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Schiedsverfahren einleiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </alternative>
+  </choose>
+  <call id="a23" endpoint="" a:alt_id="10">
+    <parameters>
+      <label>Budget freigeben</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>

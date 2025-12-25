@@ -1,0 +1,14 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Budgetantrag erstellen)
+1:task:(Budgetantrag erstellen) --> 2:task:(Budgetantrag an Krankenkasse senden)
+2:task:(Budgetantrag an Krankenkasse senden) --> 3:task:(Krankenkasse prüft Budgetantrag)
+3:task:(Krankenkasse prüft Budgetantrag) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Genehmigt| 7:task:(Budget genehmigen)
+4:exclusivegateway:{x} --> |Abgelehnt| 5:task:(Nachverhandlungen führen)
+5:task:(Nachverhandlungen führen) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Einigung erzielt| 7:task:(Budget genehmigen)
+6:exclusivegateway:{x} --> |Keine Einigung| 8:task:(Schiedsverfahren einleiten)
+7:task:(Budget genehmigen) --> 9:exclusivegateway:{x}
+8:task:(Schiedsverfahren einleiten) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> 10:task:(Budget freigeben)
+10:task:(Budget freigeben) --> 11:endevent:(((endevent)))
