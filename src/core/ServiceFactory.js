@@ -112,13 +112,52 @@ export class ServiceFactory {
      * Services are loaded asynchronously but cached for synchronous access
      * @returns {Promise<void>}
      */
-    async initialize() {
-        // Load all services in parallel for better performance
-        const loadPromises = Array.from(this.serviceRegistry.keys()).map(serviceName => 
-            this.loadServiceClass(serviceName)
-        );
+    initialize() {
+        // Track if initialization is already in progress to prevent duplicate runs
+        if (this._initializationPromise) {
+            return this._initializationPromise;
+        }
         
-        await Promise.all(loadPromises);
+        this._initializationPromise = this._doInitialize();
+        return this._initializationPromise;
+    }
+    
+    /**
+     * Internal initialization logic
+     * @returns {Promise<void>}
+     * @private
+     */
+    async _doInitialize() {
+        // Load services in dependency order to avoid race conditions
+        // Phase 1: Services with no dependencies
+        const phase1Services = [
+            'InstanceService',
+            'SearchService', 
+            'HighlightingService',
+            'CPEEService',
+            'SyntaxHighlightingService',
+            'LogFetchService',
+            'EventProcessingService',
+            'EmailService',
+            'ContentProcessingService'
+        ];
+        
+        // Phase 2: Services that depend only on extractors/calculators (no other services)
+        const phase2Services = [
+            'NodeMappingService',
+            'TraceCalculationService'
+        ];
+        
+        // Phase 3: Services that depend on other services
+        const phase3Services = [
+            'StepAssemblyService',
+            'TaskMappingService'
+        ];
+        
+        // Load each phase sequentially, but services within each phase in parallel
+        await Promise.all(phase1Services.map(name => this.loadServiceClass(name)));
+        await Promise.all(phase2Services.map(name => this.loadServiceClass(name)));
+        await Promise.all(phase3Services.map(name => this.loadServiceClass(name)));
         
         if (this.debugMode) {
             console.log('[ServiceFactory] All services loaded and cached');
@@ -142,8 +181,10 @@ export class ServiceFactory {
         }
 
         // Execute async factory to get service instance and extract class
-        const service = await factory();
-        const ServiceClass = service.constructor;
+        // Some services return a dummy object with _isDummyForClassExtraction flag
+        // to avoid instantiating with dependencies during parallel loading
+        const result = await factory();
+        const ServiceClass = result.constructor;
 
         // Create synchronous factory function based on service type
         let syncFactory;
@@ -302,24 +343,16 @@ export class ServiceFactory {
         });
 
         // Services with dependencies that need other services
+        // Note: The async factory just imports the class. Actual instantiation with dependencies
+        // happens in the sync factory created by loadServiceClass() after all dependencies are loaded.
         this.serviceRegistry.set('StepAssemblyService', async () => {
             if (!this.importPromises.has('StepAssemblyService')) {
                 this.importPromises.set('StepAssemblyService', import('../services/StepAssemblyService.js'));
             }
             const { StepAssemblyService } = await this.importPromises.get('StepAssemblyService');
-            // Note: Dependencies will be resolved via preloadService or get() calls
-            // For async factory, we need to await get() calls, but get() is now sync
-            // So we'll handle this in the sync factory after preloading
-            const eventProcessingService = this.get('EventProcessingService');
-            const contentProcessingService = this.get('ContentProcessingService');
-            const taskMappingService = this.get('TaskMappingService');
-            const traceCalculationService = this.get('TraceCalculationService');
-            return new StepAssemblyService(
-                eventProcessingService, 
-                contentProcessingService,
-                taskMappingService, 
-                traceCalculationService
-            );
+            // Return a dummy instance just to extract the class for the sync factory
+            // The sync factory will create proper instances with dependencies
+            return { constructor: StepAssemblyService, _isDummyForClassExtraction: true };
         });
 
         // NodeMappingService with extractor dependencies
