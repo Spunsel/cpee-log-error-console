@@ -2106,6 +2106,16 @@ body {
     padding: 0;
 }
 
+/* Hide Mermaid graph container when EXPANDED and not in visual mode (raw/log/traces/analysis) */
+/* Prevents graph from being visible when scrolling horizontally in other view modes */
+/* Only applies when section is expanded (has section-expanded class) */
+/* The graph containers have class="graph-container" and are inside mermaid-sections */
+#input-intermediate.section-expanded[data-view-mode] .graph-container,
+#output-intermediate.section-expanded[data-view-mode] .graph-container,
+.mermaid-section.section-expanded[data-view-mode] .graph-container {
+    display: none !important;
+}
+
 #input-cpee-content .content-box,
 #output-cpee-content .content-box {
     padding: 0;
