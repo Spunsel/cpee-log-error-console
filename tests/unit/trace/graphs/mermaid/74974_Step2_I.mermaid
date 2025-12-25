@@ -1,0 +1,13 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Receive Order)
+a1:task:(Receive Order)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Bake Pizza)
+a3:task:(Bake Pizza)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->a7:task:(Deliver Pizza)
+a7:task:(Deliver Pizza)-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Pizza Not Ready"|a3:task:(Bake Pizza)
+a3:task:(Bake Pizza)-->-1:escalate:((^))
+-1:escalate:((^))-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

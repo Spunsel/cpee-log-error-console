@@ -1,0 +1,26 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Customer requests bike rental)
+1:task:(Customer requests bike rental) --> 2:task:(Customer sends availability request email)
+2:task:(Customer sends availability request email) --> 3:task:(Online service contacts store employees)
+3:task:(Online service contacts store employees) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Bikes available| 5:task:(Customer fills info and pays)
+4:exclusivegateway:{x} --> |No bikes available| 17:task:(Notify customer service not supported)
+17:task:(Notify customer service not supported) --> 18:endevent:(((endevent)))
+5:task:(Customer fills info and pays) --> 6:task:(Store prepares bike)
+6:task:(Store prepares bike) --> 7:task:(Customer gets bike, contract starts)
+7:task:(Customer gets bike, contract starts) --> 8:task:(Bike usage)
+8:task:(Bike usage) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> |Maintenance needed| 10:task:(Request maintenance)
+9:exclusivegateway:{x} --> |Contract termination| 19:task:(Customer sends termination warning)
+10:task:(Request maintenance) --> 11:task:(Customer brings bike to store or staff picks up)
+11:task:(Customer brings bike to store or staff picks up) --> 12:task:(Analyze bike)
+12:task:(Analyze bike) --> 13:exclusivegateway:{x}
+13:exclusivegateway:{x} --> |Swap bike| 14:task:(Bike swapped)
+13:exclusivegateway:{x} --> |Fix bike| 15:task:(Bike fixed)
+14:task:(Bike swapped) --> 16:task:(Customer picks up bike)
+15:task:(Bike fixed) --> 16:task:(Customer picks up bike)
+16:task:(Customer picks up bike) --> 8:task:(Bike usage)
+19:task:(Customer sends termination warning) --> 20:task:(Customer brings bike to shop)
+20:task:(Customer brings bike to shop) --> 21:task:(Employees check bike)
+21:task:(Employees check bike) --> 22:task:(Register bike as available)
+22:task:(Register bike as available) --> 18:endevent:(((endevent)))

@@ -1,0 +1,8 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Rechnung prüfen)
+a1:task:(Rechnung prüfen)-->a3:task:(In Excel eintragen)
+a3:task:(In Excel eintragen)-->a5:task:(Von Buchhaltung entgegennehmen)
+a5:task:(Von Buchhaltung entgegennehmen)-->a7:task:(Buchhaltung prüfen)
+a7:task:(Buchhaltung prüfen)-->a9:task:(Überweisen)
+a9:task:(Überweisen)-->ee:endevent:(((endevent)))
+a1:task:(Rechnung prüfen) --> |evtl wird es nach der Prüfung verworfen| ee:endevent:

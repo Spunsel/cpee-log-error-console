@@ -1,0 +1,47 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Rechnung prüfen</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="0">
+    <alternative condition="">
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>In Excel eintragen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Von Buchhaltung entgegennehmen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Buchhaltung prüfen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Überweisen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition=""/>
+  </choose>
+</description>

@@ -1,0 +1,13 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Patient Arrives)
+1:task:(Patient Arrives) --> 2:task:(Triage)
+2:task:(Triage) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Critical| 4:task:(Immediate Treatment)
+3:exclusivegateway:{x} --> |Non-Critical| 5:task:(Wait for Doctor)
+4:task:(Immediate Treatment) --> 6:task:(Treatment)
+5:task:(Wait for Doctor) --> 6:task:(Treatment)
+6:task:(Treatment) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Admit| 8:task:(Admit Patient)
+7:exclusivegateway:{x} --> |Discharge| 9:task:(Discharge Patient)
+8:task:(Admit Patient) --> 10:endevent:(((endevent)))
+9:task:(Discharge Patient) --> 10:endevent:(((endevent)))
