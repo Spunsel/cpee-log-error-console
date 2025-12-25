@@ -4567,6 +4567,20 @@ body {
    CPEE-specific highlighting
    ============================================ */
 
+/* Hide the CPEE checkmark/tick that appears on hover and click for all node types */
+/* This tick is in a <g class="hoverstyle markstyle"> element with circle and path children */
+.cpee-section g.hoverstyle.markstyle,
+.cpee-section g.markstyle.hoverstyle,
+[id*="-graph-container"] g.hoverstyle.markstyle,
+[id*="-graph-container"] g.markstyle.hoverstyle,
+[id*="graphcanvas"] g.hoverstyle.markstyle,
+[id*="graphcanvas"] g.markstyle.hoverstyle {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
 /* Highlight all outline elements simultaneously - rects and part-middle standlines */
 /* Target all elements at once with equal specificity to ensure simultaneous highlighting */
 /* High specificity selectors to override CPEE library's colorstyle/markstyle/hoverstyle classes */
