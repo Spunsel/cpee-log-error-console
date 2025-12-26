@@ -438,13 +438,26 @@ export class CrossGraphHighlightCoordinator {
                 }
                 
                 // Check if id or altId matches baseTaskId
-                const matches = task.id === baseTaskId || 
-                               task.altId === baseTaskId ||
-                               taskId === baseTaskId;
+                // For output-cpee: ONLY match by altId, never by id
+                // This is because CPEE internal IDs (a1, a3, a7) don't correspond to Mermaid task IDs
+                // The alt_id attribute is what maps to Mermaid task identifiers
+                let matches;
+                if (format === 'output-cpee') {
+                    // For CPEE output, only match by altId
+                    matches = task.altId === baseTaskId;
+                } else {
+                    // For other formats, match by id or altId
+                    matches = task.id === baseTaskId || 
+                             task.altId === baseTaskId ||
+                             taskId === baseTaskId;
+                }
                 
                 if (matches) {
                     const targetSectionId = format; // Format and section ID are the same
-                    const highlightId = format.includes('cpee') ? (task.altId || task.id) : 
+                    // For CPEE: use task.id (internal XML id like 'a7') because SVG elements use that id
+                    // NOT task.altId (like 'a3') which is just a semantic mapping attribute
+                    // For Mermaid: use fullId or id
+                    const highlightId = format.includes('cpee') ? task.id : 
                                        (task.metadata?.fullId || task.id);
                     
                     console.log('[CrossGraphHighlight] Fallback found matching task:', {
