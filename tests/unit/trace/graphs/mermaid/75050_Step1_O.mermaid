@@ -1,0 +1,21 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Identify business need)
+1:task:(Identify business need) --> 2:task:(Define procurement requirements)
+2:task:(Define procurement requirements) --> 3:task:(Draft initial specifications)
+3:task:(Draft initial specifications) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |No| 5:task:(Revise specifications)
+5:task:(Revise specifications) --> 44:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Yes| 6:task:(Identify qualified suppliers)
+6:task:(Identify qualified suppliers) --> 7:task:("Issue request for quotation (RFQ)")
+7:task:("Issue request for quotation (RFQ)") --> 8:task:(Receive and log supplier responses)
+8:task:(Receive and log supplier responses) --> 9:task:(Evaluate quotes against criteria)
+9:task:(Evaluate quotes against criteria) --> 10:exclusivegateway:{x}
+10:exclusivegateway:{x} --> |No| 6:task:(Identify qualified suppliers)
+10:exclusivegateway:{x} --> |Yes| 11:task:(Select supplier and obtain approval)
+11:task:(Select supplier and obtain approval) --> 12:task:(Negotiate contract terms)
+12:task:(Negotiate contract terms) --> 13:task:("Issue purchase order (PO)")
+13:task:("Issue purchase order (PO)") --> 14:task:(Receive goods or services)
+14:task:(Receive goods or services) --> 15:task:(Verify delivery and quality)
+15:task:(Verify delivery and quality) --> 16:task:(Process invoice and execute payment)
+16:task:(Process invoice and execute payment) --> 17:endevent:(((endevent)))
+44:exclusivegateway:{x} --> 6:task:(Identify qualified suppliers)

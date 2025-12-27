@@ -1,0 +1,11 @@
+graph LR
+se:startevent:((startevent))-->t1:task:(Receive Order)
+t1:task:(Receive Order)-->t2:task:(Check Credit)
+t2:task:(Check Credit)-->eg1:exclusivegateway:{x}
+eg1:exclusivegateway:{x}-->|Credit Approved|t3:task:(Process Order)
+eg1:exclusivegateway:{x}-->|Credit Denied|t4:task:(Reject Order)
+t3:task:(Process Order)-->t5:task:(Ship Order)
+t4:task:(Reject Order)-->ee:endevent:(((endevent)))
+t5:task:(Ship Order)-->t6:task:(Send Invoice)
+t6:task:(Send Invoice)-->t7:task:(Receive Payment)
+t7:task:(Receive Payment)-->ee:endevent:(((endevent)))

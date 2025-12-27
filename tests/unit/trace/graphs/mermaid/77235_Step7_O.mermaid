@@ -1,0 +1,12 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag und schickt diesen an den Vorgesetzten)
+a1:task:(Mitarbeiter stellt Urlaubsantrag und schickt diesen an den Vorgesetzten)-->a3:task:(Vorgesetzter entscheidet)
+a3:task:(Vorgesetzter entscheidet)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a7:task:(Urlaub genehmigt)
+a7:task:(Urlaub genehmigt)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a11:task:(Urlaub abgelehnt)
+a11:task:(Urlaub abgelehnt)-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))

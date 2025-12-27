@@ -1,0 +1,44 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Mitarbeiter stellt Urlaubsantrag und schickt diesen an den Vorgesetzten</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="a3">
+    <parameters>
+      <label>Vorgesetzter entscheidet</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="gw1s">
+    <alternative condition="" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Urlaub genehmigt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="" language="text/javascript"/>
+        <alternative condition="" language="text/javascript"/>
+      </choose>
+    </alternative>
+    <alternative condition="" language="text/javascript">
+      <call id="a13" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Urlaub abgelehnt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+</description>

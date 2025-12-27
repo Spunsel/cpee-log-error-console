@@ -1,0 +1,155 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Identify business need</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Define procurement requirements</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a5" endpoint="" a:alt_id="3">
+    <parameters>
+      <label>Draft initial specifications</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="4">
+    <alternative condition="No" language="text/javascript">
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Revise specifications</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Yes" language="text/javascript"/>
+  </choose>
+  <loop mode="pre_test" condition="true">
+    <call id="a13" endpoint="" a:alt_id="6">
+      <parameters>
+        <label>Identify qualified suppliers</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a15" endpoint="" a:alt_id="7">
+      <parameters>
+        <label>Issue request for quotation (RFQ)</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a17" endpoint="" a:alt_id="8">
+      <parameters>
+        <label>Receive and log supplier responses</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a19" endpoint="" a:alt_id="9">
+      <parameters>
+        <label>Evaluate quotes against criteria</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="No" a:alt_id="10" language="text/javascript">
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Identify qualified suppliers</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Issue request for quotation (RFQ)</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Receive and log supplier responses</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Evaluate quotes against criteria</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </loop>
+    <call id="a25" endpoint="" a:alt_id="11">
+      <parameters>
+        <label>Select supplier and obtain approval</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a27" endpoint="" a:alt_id="12">
+      <parameters>
+        <label>Negotiate contract terms</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a29" endpoint="" a:alt_id="13">
+      <parameters>
+        <label>Issue purchase order (PO)</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a31" endpoint="" a:alt_id="14">
+      <parameters>
+        <label>Receive goods or services</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a33" endpoint="" a:alt_id="15">
+      <parameters>
+        <label>Verify delivery and quality</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a35" endpoint="" a:alt_id="16">
+      <parameters>
+        <label>Process invoice and execute payment</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+  </loop>
+</description>

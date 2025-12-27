@@ -1,0 +1,64 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="t1">
+    <parameters>
+      <label>Receive Order</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="t2">
+    <parameters>
+      <label>Check Credit</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="eg1">
+    <alternative condition="Credit Approved" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="t3">
+        <parameters>
+          <label>Process Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="t5">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="t6">
+        <parameters>
+          <label>Send Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="t7">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Credit Denied" language="text/javascript">
+      <call id="a9" endpoint="" a:alt_id="t4">
+        <parameters>
+          <label>Reject Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+</description>

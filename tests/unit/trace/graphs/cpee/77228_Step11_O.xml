@@ -1,0 +1,61 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <loop mode="pre_test" condition="true">
+    <call id="a1" endpoint="" a:alt_id="a1">
+      <parameters>
+        <label>Mitarbeiter stellt Urlaubsantrag</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a3" endpoint="" a:alt_id="a3">
+      <parameters>
+        <label>Vorgesetzter erhält Urlauibsantrag</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="Urlaub wird nicht genehmigt">
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>der Mitarbeiter erhält keinen Urlaub</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Neuer Antrag" language="text/javascript">
+          <call id="a1" endpoint="" a:alt_id="a1">
+            <parameters>
+              <label>Mitarbeiter stellt Urlaubsantrag</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Vorgesetzter erhält Urlauibsantrag</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Ende" language="text/javascript">
+          <escape a:alt_id="-1"/>
+        </alternative>
+      </choose>
+    </loop>
+    <call id="a7" endpoint="" a:alt_id="a7">
+      <parameters>
+        <label>der Mitarbeiter erhält Urlaub</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+  </loop>
+</description>

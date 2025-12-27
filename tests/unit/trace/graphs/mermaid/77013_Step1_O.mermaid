@@ -1,0 +1,15 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Request to lend the book)
+1:task:(Request to lend the book) --> 2:task:(Reply on the book status)
+2:task:(Reply on the book status) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Book is available| 4:task:(Submit the order to lend it)
+4:task:(Submit the order to lend it) --> 5:task:(Lending the book)
+5:task:(Lending the book) --> 12:endevent:(((endevent)))
+3:exclusivegateway:{x} --> |Book is unavailable/on loan| 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |On loan for 1 month| 7:task:(Cancel the request)
+7:task:(Cancel the request) --> 12:endevent:(((endevent)))
+6:exclusivegateway:{x} --> |On loan for 2 weeks| 8:task:(Request to hold the book)
+8:task:(Request to hold the book) --> 9:task:(Receive the availability of the book status)
+9:task:(Receive the availability of the book status) --> 10:task:(Get the book)
+10:task:(Get the book) --> 11:task:(Lent the book)
+11:task:(Lent the book) --> 12:endevent:(((endevent)))

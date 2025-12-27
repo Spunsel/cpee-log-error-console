@@ -1,0 +1,30 @@
+flowchart LR
+se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Find Property)
+a1:task:(Find Property)-->a3:task:(Schedule Viewing)
+a3:task:(Schedule Viewing)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Property Suitable"|gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->|"Property Suitable"|a7:task:(Submit Application)
+a7:task:(Submit Application)-->a11:task:(Landlord Review)
+a11:task:(Landlord Review)-->gw5s:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->|"Application Rejected"|a1:task:(Find Property)
+a1:task:(Find Property)-->gw5e:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->|"Application Approved"|a15:task:(Sign Lease)
+a15:task:(Sign Lease)-->a19:task:(Pay Deposit)
+a19:task:(Pay Deposit)-->gw6s:exclusivegateway:{x}
+gw6s:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
+gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->|"Property Not Suitable"|a1:task:(Find Property)
+a1:task:(Find Property)-->gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+-1:escalate:((^))-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
