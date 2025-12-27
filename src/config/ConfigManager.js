@@ -860,14 +860,7 @@ export class ConfigManager {
                 },
 
 
-                
-                {
-                    title: 'Clean newlines in user input',
-                    status: 'open',
-                    labels: ['user input preprocessing', 'bug'],
-                    date: null,
-                    description: "e.g.: %% Output Intermediate\nTextual blabla (83199)"
-                },
+            
                 {
                     title: 'Task/Gateway hover functionality',
                     status: 'open',

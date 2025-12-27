@@ -266,5 +266,136 @@ export class SVGClickDetector {
             totalClicks: this.clickCount
         };
     }
+    
+    // ==================== Click Target Classification Methods ====================
+    
+    /**
+     * Check if a click target is on an actual graph element (task, node, gateway, etc.)
+     * This distinguishes between clicking on a graph element vs empty space in a graph container
+     * @param {Element} target - Click target element
+     * @returns {boolean} True if click is on a graph element
+     */
+    isClickOnGraphElement(target) {
+        if (!target) {
+            return false;
+        }
+        
+        // Walk up the DOM tree to check if we're on a graph element
+        let element = target;
+        while (element && element !== document.body && element !== document.documentElement) {
+            // Check for task-clickable class (indicates a clickable graph element)
+            try {
+                if (element.classList && element.classList.contains('task-clickable')) {
+                    return true;
+                }
+            } catch (e) {
+                // Some SVG elements might not have classList, ignore
+            }
+            
+            // Check for CPEE element groups with element-id attribute (tasks and gateways)
+            if (element.tagName === 'g' || element.tagName === 'G') {
+                const elementId = element.getAttribute('element-id');
+                const elementType = element.getAttribute('element-type');
+                // If it has element-id or element-type, it's a CPEE task or gateway element
+                if (elementId || elementType) {
+                    return true;
+                }
+            }
+            
+            // Check for Mermaid node elements (tasks and gateways)
+            try {
+                if (element.classList) {
+                    const classList = element.classList;
+                    // Mermaid nodes have class "node" (includes tasks and gateways)
+                    if (classList.contains('node')) {
+                        return true;
+                    }
+                    // CPEE elements have class "element" (tasks)
+                    if (classList.contains('element') && element.getAttribute('element-id')) {
+                        return true;
+                    }
+                    // CPEE gateways have class "choose" or "parallel"
+                    if ((classList.contains('choose') || classList.contains('parallel')) && element.getAttribute('element-id')) {
+                        return true;
+                    }
+                }
+            } catch (e) {
+                // Some SVG elements might not have classList, ignore
+            }
+            
+            // If we've reached an SVG element without finding a graph element,
+            // the click is on empty space within the SVG (not on a graph element)
+            if (element.tagName === 'svg' || element.tagName === 'SVG') {
+                return false;
+            }
+            
+            // If we've reached a graph container without finding a graph element,
+            // the click is on empty space within the container
+            if (this.isGraphContainer(element)) {
+                return false;
+            }
+            
+            element = element.parentElement;
+        }
+        
+        return false;
+    }
+
+    /**
+     * Check if a click target is inside a content-box of a visual view section
+     * @param {Element} target - Click target element
+     * @param {Function} getViewMode - Function to get view mode for a section ID (returns 'visual', 'raw', etc.)
+     * @returns {boolean} True if click is inside a visual view content-box
+     */
+    isClickInsideVisualContentBox(target, getViewMode = null) {
+        if (!target) {
+            return false;
+        }
+        
+        // Walk up the DOM tree to find if we're inside a content-box
+        let element = target;
+        while (element && element !== document.body && element !== document.documentElement) {
+            // Check if this element is a content-box or is inside one
+            if (element.classList && element.classList.contains('content-box')) {
+                // Found a content-box, now check if it's in visual mode
+                const sectionElement = element.closest('[id^="input-"], [id^="output-"], [id^="user-input"]');
+                if (sectionElement && sectionElement.id) {
+                    // Use provided function to get view mode, or assume visual if not provided
+                    if (getViewMode) {
+                        const mode = getViewMode(sectionElement.id);
+                        return mode === 'visual';
+                    }
+                    // If no getViewMode function provided, assume it's visual
+                    return true;
+                }
+                // If we found a content-box but can't determine the section, assume it's visual
+                return true;
+            }
+            
+            element = element.parentElement;
+        }
+        
+        return false;
+    }
+
+    /**
+     * Check if an element is a graph container
+     * @param {Element} element - Element to check
+     * @returns {boolean} True if element is a graph container
+     */
+    isGraphContainer(element) {
+        if (!element || !element.id) {
+            return false;
+        }
+        
+        const id = element.id;
+        
+        // Check for graph container IDs
+        return id.includes('-graph-container') ||
+               id.startsWith('graphcanvas-') ||
+               id.startsWith('graphgrid-') ||
+               id.startsWith('modelling-') ||
+               id.includes('mermaid-graph-');
+    }
 }
 

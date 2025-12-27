@@ -423,6 +423,199 @@ export class HighlightingService {
         return null;
     }
 
+    // ==================== SVG Element Lookup Methods ====================
+    
+    /**
+     * Find task or gateway element in SVG container
+     * @param {HTMLElement} container - SVG container element
+     * @param {string} taskId - Task or gateway identifier to find (can be full SVG ID or base ID)
+     * @param {Object} options - Optional configuration
+     * @param {Function} options.findSvgElementByAltId - Function to find element by alt_id (for CPEE)
+     * @param {Function} options.isCPEEGatewayElementId - Function to check if ID is CPEE gateway element-id
+     * @param {Function} options.usesGwNamingConvention - Function to check if ID uses gw naming convention
+     * @param {Function} options.getPairedGatewayId - Function to get paired gateway ID
+     * @returns {HTMLElement|null} Task or gateway element or null
+     */
+    findTaskInSVG(container, taskId, options = {}) {
+        const {
+            findSvgElementByAltId = null,
+            isCPEEGatewayElementId = null,
+            usesGwNamingConvention = null,
+            getPairedGatewayId = null
+        } = options;
+        
+        // For CPEE gateway element-ids (choose_N, parallel_N), use specific selector
+        if (isCPEEGatewayElementId && isCPEEGatewayElementId(taskId)) {
+            const gatewayElement = container.querySelector(`g.element.complex[element-id="${CSS.escape(taskId)}"]`);
+            if (gatewayElement) {
+                return gatewayElement;
+            }
+            const gatewayElementAlt = container.querySelector(`g.element[element-id="${CSS.escape(taskId)}"]`);
+            if (gatewayElementAlt) {
+                return gatewayElementAlt;
+            }
+        }
+        
+        // PRIORITY 1: Try CPEE element-id attribute first (most reliable for tasks)
+        // This finds elements by their XML id attribute
+        const groupElements = container.querySelectorAll('g.element[element-id]');
+        for (const el of groupElements) {
+            const elementId = el.getAttribute('element-id');
+            if (elementId === taskId) {
+                return el;
+            }
+        }
+        
+        // Try any element with element-id
+        const elements = container.querySelectorAll('[element-id]');
+        for (const el of elements) {
+            const elementId = el.getAttribute('element-id');
+            if (elementId === taskId) {
+                return el;
+            }
+        }
+        
+        // PRIORITY 2: For CPEE sections, try element-alt_id lookup (for gateway alt_ids)
+        // This is used when we're looking for a gateway by its alt_id (e.g., "gw1s", "a3")
+        // NOTE: Only do this AFTER element-id lookup to avoid collisions
+        if (container.id && container.id.includes('cpee') && findSvgElementByAltId) {
+            const elementByAltId = findSvgElementByAltId(container, taskId);
+            if (elementByAltId) {
+                return elementByAltId;
+            }
+            
+            // For gw pattern IDs (gw1s, gw1e), also check the paired gateway
+            if (usesGwNamingConvention && getPairedGatewayId && usesGwNamingConvention(taskId)) {
+                const pairedId = getPairedGatewayId(taskId);
+                if (pairedId) {
+                    const pairedGateway = findSvgElementByAltId(container, pairedId);
+                    if (pairedGateway) {
+                        return pairedGateway;
+                    }
+                }
+            }
+        }
+        
+        // For Mermaid: look for node elements
+        const nodes = container.querySelectorAll('g.node');
+        
+        // Try exact ID match for Mermaid first (most reliable)
+        for (const node of nodes) {
+            if (node.id === taskId) {
+                return node;
+            }
+        }
+        
+        // Extract base ID if taskId is a full Mermaid SVG ID
+        // Support both task and gateway patterns
+        let baseId = taskId;
+        const baseIdMatch = taskId.match(/:([a-z0-9]+):task:/) || 
+                           taskId.match(/^([a-z0-9]+):task:/) ||
+                           taskId.match(/:([a-z0-9]+):exclusivegateway:/) ||
+                           taskId.match(/^([a-z0-9]+):exclusivegateway:/) ||
+                           taskId.match(/:([a-z0-9]+):parallelgateway:/) ||
+                           taskId.match(/^([a-z0-9]+):parallelgateway:/) ||
+                           taskId.match(/flowchart-([a-z0-9]+)(?:-task-|:task:|-)/) ||
+                           taskId.match(/flowchart-([a-z0-9]+)(?:-exclusivegateway-|:exclusivegateway:|-)/) ||
+                           taskId.match(/flowchart-([a-z0-9]+)(?:-parallelgateway-|:parallelgateway:|-)/);
+        if (baseIdMatch && baseIdMatch[1]) {
+            baseId = baseIdMatch[1];
+        }
+        
+        // Try pattern matching for Mermaid with the full taskId
+        // Support both task and gateway patterns
+        for (const node of nodes) {
+            if (node.id) {
+                // Escape special regex characters in taskId
+                const escapedTaskId = taskId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                // Try various patterns that Mermaid might use for tasks and gateways
+                const patterns = [
+                    new RegExp(`^flowchart-${escapedTaskId}(?:-task-|:task:|-|$)`),
+                    new RegExp(`flowchart-${escapedTaskId}(?:-task-|:task:)`),
+                    new RegExp(`(?:^|-)${escapedTaskId}(?:-task-|:task:)`),
+                    new RegExp(`^${escapedTaskId}(?:-task-|:task:)`),
+                    new RegExp(`^flowchart-${escapedTaskId}(?:-exclusivegateway-|:exclusivegateway:|-|$)`),
+                    new RegExp(`flowchart-${escapedTaskId}(?:-exclusivegateway-|:exclusivegateway:)`),
+                    new RegExp(`(?:^|-)${escapedTaskId}(?:-exclusivegateway-|:exclusivegateway:)`),
+                    new RegExp(`^${escapedTaskId}(?:-exclusivegateway-|:exclusivegateway:)`),
+                    new RegExp(`^flowchart-${escapedTaskId}(?:-parallelgateway-|:parallelgateway:|-|$)`),
+                    new RegExp(`flowchart-${escapedTaskId}(?:-parallelgateway-|:parallelgateway:)`),
+                    new RegExp(`(?:^|-)${escapedTaskId}(?:-parallelgateway-|:parallelgateway:)`),
+                    new RegExp(`^${escapedTaskId}(?:-parallelgateway-|:parallelgateway:)`)
+                ];
+                
+                for (const pattern of patterns) {
+                    if (pattern.test(node.id)) {
+                        return node;
+                    }
+                }
+            }
+        }
+        
+        // Try pattern matching with base ID (if different from taskId)
+        if (baseId !== taskId) {
+            for (const node of nodes) {
+                if (node.id) {
+                    const escapedBaseId = baseId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const patterns = [
+                        new RegExp(`^flowchart-${escapedBaseId}(?:-task-|:task:|-|$)`),
+                        new RegExp(`flowchart-${escapedBaseId}(?:-task-|:task:)`),
+                        new RegExp(`(?:^|-)${escapedBaseId}(?:-task-|:task:)`),
+                        new RegExp(`^${escapedBaseId}(?:-task-|:task:)`),
+                        new RegExp(`^flowchart-${escapedBaseId}(?:-exclusivegateway-|:exclusivegateway:|-|$)`),
+                        new RegExp(`flowchart-${escapedBaseId}(?:-exclusivegateway-|:exclusivegateway:)`),
+                        new RegExp(`(?:^|-)${escapedBaseId}(?:-exclusivegateway-|:exclusivegateway:)`),
+                        new RegExp(`^${escapedBaseId}(?:-exclusivegateway-|:exclusivegateway:)`),
+                        new RegExp(`^flowchart-${escapedBaseId}(?:-parallelgateway-|:parallelgateway:|-|$)`),
+                        new RegExp(`flowchart-${escapedBaseId}(?:-parallelgateway-|:parallelgateway:)`),
+                        new RegExp(`(?:^|-)${escapedBaseId}(?:-parallelgateway-|:parallelgateway:)`),
+                        new RegExp(`^${escapedBaseId}(?:-parallelgateway-|:parallelgateway:)`)
+                    ];
+                    
+                    for (const pattern of patterns) {
+                        if (pattern.test(node.id)) {
+                            return node;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Fallback: Try to find element by ID (CSS selector)
+        try {
+            const element = container.querySelector(`#${CSS.escape(taskId)}`);
+            if (element) {
+                return element;
+            }
+        } catch (e) {
+            // ID selector failed
+        }
+        
+        // Fallback: Try with base ID if different
+        if (baseId !== taskId) {
+            try {
+                const element = container.querySelector(`#${CSS.escape(baseId)}`);
+                if (element) {
+                    return element;
+                }
+            } catch (e) {
+                // Ignore
+            }
+        }
+        
+        // Fallback: Look for elements with data-task-id attribute
+        try {
+            const element = container.querySelector(`[data-task-id="${taskId}"]`);
+            if (element) {
+                return element;
+            }
+        } catch (e) {
+            // data-task-id selector failed
+        }
+        
+        return null;
+    }
+
     /**
      * Get service statistics
      * @returns {Object} Service statistics

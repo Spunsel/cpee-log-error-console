@@ -917,6 +917,85 @@ class NodeMapping {
         return equivalents;
     }
     
+    // ==================== Gateway Resolution Methods ====================
+    
+    /**
+     * Find a gateway by its alt_id in a specific section's mapping
+     * @param {string} altId - The alt_id to search for (e.g., 'gw1s', '3')
+     * @param {string} sectionId - Section ID (e.g., 'input-cpee', 'output-intermediate')
+     * @param {Function} isGatewayType - Function to check if a type is a gateway type
+     * @returns {NodeIdentifier|null} Gateway task object or null
+     */
+    findGatewayByAltId(altId, sectionId, isGatewayType = null) {
+        const taskIds = this.getTasksInFormat(sectionId);
+        
+        for (const taskId of taskIds) {
+            const task = this.getTask(taskId, sectionId);
+            if (task && this._isGatewayTask(task, isGatewayType)) {
+                // Match by altId or id
+                if (task.altId === altId || task.id === altId) {
+                    return task;
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Find all gateways in a section
+     * @param {string} sectionId - Section ID
+     * @param {Function} isGatewayType - Function to check if a type is a gateway type
+     * @returns {NodeIdentifier[]} Array of gateway tasks
+     */
+    getGatewaysInSection(sectionId, isGatewayType = null) {
+        const taskIds = this.getTasksInFormat(sectionId);
+        const gateways = [];
+        
+        for (const taskId of taskIds) {
+            const task = this.getTask(taskId, sectionId);
+            if (task && this._isGatewayTask(task, isGatewayType)) {
+                gateways.push(task);
+            }
+        }
+        
+        return gateways;
+    }
+    
+    /**
+     * Check if a task is a gateway
+     * @param {NodeIdentifier} task - Task object
+     * @param {Function} isGatewayType - Optional function to check gateway type
+     * @returns {boolean} True if task is a gateway
+     * @private
+     */
+    _isGatewayTask(task, isGatewayType = null) {
+        if (!task) { return false; }
+        
+        // Use provided function if available
+        if (isGatewayType && isGatewayType(task.type)) {
+            return true;
+        }
+        
+        // Fallback: check common gateway types
+        const gatewayTypes = ['gateway', 'choose', 'parallel', 'loop', 'exclusivegateway', 'parallelgateway', 'decision'];
+        if (gatewayTypes.includes(task.type)) {
+            return true;
+        }
+        
+        // Check metadata
+        if (task.metadata) {
+            if (task.metadata.tagName && ['choose', 'parallel', 'loop'].includes(task.metadata.tagName)) {
+                return true;
+            }
+            if (task.metadata.shape === 'diamond') {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
     /**
      * Get total mapping count
      * @returns {number} Total number of mappings
