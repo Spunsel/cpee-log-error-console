@@ -74,7 +74,7 @@ export class MermaidParser {
         processedCode = processedCode.replace(/-->\|\|\|/g, '-->');
         if (beforeFix1 !== processedCode) {
             appliedSteps.push({
-                description: 'Removed empty edge labels (|""|, |\'\'|, |||)',
+                description: 'Removed empty edge labels',
                 lineNumbers: Array.from(fix1LineNumbers).sort((a, b) => a - b)
             });
         }
@@ -298,8 +298,10 @@ export class MermaidParser {
             });
         }
         
-        // Fix 12: Wrap task labels containing parentheses in double quotes
+        // Fix 12: Wrap node labels containing parentheses in double quotes
         // Example: 1:task:(United States (Government)) -> 1:task:("United States (Government)")
+        // Example: a43:subprocess:(Apply tire shine (optional)) -> a43:subprocess:("Apply tire shine (optional)")
+        // Works for any node type: task, subprocess, etc.
         const beforeFix12 = processedCode;
         const fix12LineNumbers = [];
         const lines12 = processedCode.split('\n');
@@ -310,16 +312,25 @@ export class MermaidParser {
             let i = 0;
             
             while (i < updatedLine.length) {
-                // Look for task node pattern: id:task:(
-                const taskMatch = updatedLine.substring(i).match(/^(\w+):task:\(/);
+                // Look for any node pattern: id:nodeType:(
+                const nodeMatch = updatedLine.substring(i).match(/^(\w+):(\w+):\(/);
                 
-                if (taskMatch) {
-                    const id = taskMatch[1];
-                    const taskStart = i + taskMatch[0].length;
+                if (nodeMatch) {
+                    const id = nodeMatch[1];
+                    const nodeType = nodeMatch[2];
+                    const nodeStart = i + nodeMatch[0].length;
+                    
+                    // Skip start/end/escalate event nodes - they use multiple parentheses for styling, not labels
+                    const nodeTypeLower = nodeType.toLowerCase();
+                    if (nodeTypeLower.includes('start') || nodeTypeLower.includes('end') || nodeTypeLower.includes('escalate')) {
+                        result += updatedLine[i];
+                        i++;
+                        continue;
+                    }
                     
                     // Find the matching closing parenthesis
                     let depth = 1;
-                    let pos = taskStart;
+                    let pos = nodeStart;
                     
                     while (pos < updatedLine.length && depth > 0) {
                         if (updatedLine[pos] === '(') {
@@ -332,7 +343,7 @@ export class MermaidParser {
                     
                     if (depth === 0) {
                         // Found matching closing parenthesis
-                        let label = updatedLine.substring(taskStart, pos - 1);
+                        let label = updatedLine.substring(nodeStart, pos - 1);
                         
                         // Remove all backslashes before "(" or ")" within the label
                         const originalLabel = label;
@@ -347,15 +358,15 @@ export class MermaidParser {
                             hasChanges = true;
                             // Wrap in quotes if it contains parentheses
                             if (needsQuotes) {
-                                result += `${id}:task:("${label}")`;
+                                result += `${id}:${nodeType}:("${label}")`;
                             } else {
                                 // Only backslashes removed, no quotes needed
-                                result += `${id}:task:(${label})`;
+                                result += `${id}:${nodeType}:(${label})`;
                             }
                             i = pos;
                             continue;
                         } else {
-                            // Task node found but no change needed, add original
+                            // Node found but no change needed, add original
                             result += updatedLine.substring(i, pos);
                             i = pos;
                             continue;
@@ -379,7 +390,7 @@ export class MermaidParser {
         if (beforeFix12 !== updatedLines12.join('\n')) {
             processedCode = updatedLines12.join('\n');
             appliedSteps.push({
-                description: `Wrapped ${fix12LineNumbers.length} task${fix12LineNumbers.length > 1 ? 's' : ''} with nested braces in quotation marks`,
+                description: `Wrapped ${fix12LineNumbers.length} node${fix12LineNumbers.length > 1 ? 's' : ''} with nested parentheses in quotation marks`,
                 lineNumbers: Array.from(new Set(fix12LineNumbers)).sort((a, b) => a - b)
             });
         }

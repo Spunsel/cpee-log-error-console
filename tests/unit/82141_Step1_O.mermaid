@@ -1,0 +1,11 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Urlaubsantrag ausfüllen)
+1:task:(Urlaubsantrag ausfüllen) --> 2:task:(Antrag beim Vorgesetzten einreichen)
+2:task:(Antrag beim Vorgesetzten einreichen) --> 3:task:(Verfügbarkeit prüfen)
+3:task:(Verfügbarkeit prüfen) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Genehmigt| 5:task:(Antrag an Personalabteilung weiterleiten)
+4:exclusivegateway:{x} --> |Abgelehnt| 6:task:(Begründung senden)
+5:task:(Antrag an Personalabteilung weiterleiten) --> 7:task:(Urlaub im System erfassen)
+7:task:(Urlaub im System erfassen) --> 8:task:(Bestätigung senden)
+8:task:(Bestätigung senden) --> 9:endevent:(((endevent)))
+6:task:(Begründung senden) --> 1:task:(Urlaubsantrag ausfüllen)

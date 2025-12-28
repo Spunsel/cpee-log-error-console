@@ -1,0 +1,19 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Initial Assessment)
+1:task:(Initial Assessment) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Severe Trauma| 3:task:(Trauma Protocol)
+2:exclusivegateway:{x} --> |Isolated Fracture| 4:task:(Fracture Evaluation)
+3:task:(Trauma Protocol) --> 5:task:(Stabilize Patient)
+4:task:(Fracture Evaluation) --> 6:task:(Imaging)
+5:task:(Stabilize Patient) --> 7:parallelgateway:{AND}
+6:task:(Imaging) --> 7:parallelgateway:{AND}
+7:parallelgateway:{AND} --> 8:task:(Surgical Planning)
+8:task:(Surgical Planning) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> |Surgery Needed| 10:task:(Perform Surgery)
+9:exclusivegateway:{x} --> |No Surgery| 11:task:(Non-operative Treatment)
+10:task:(Perform Surgery) --> 12:parallelgateway:{AND}
+11:task:(Non-operative Treatment) --> 12:parallelgateway:{AND}
+12:parallelgateway:{AND} --> 13:task:(Rehabilitation)
+13:task:(Rehabilitation) --> 14:exclusivegateway:{x}
+14:exclusivegateway:{x} --> |Further Treatment Needed| 1:task:(Initial Assessment)
+14:exclusivegateway:{x} --> |Treatment Complete| 15:endevent:(((endevent)))

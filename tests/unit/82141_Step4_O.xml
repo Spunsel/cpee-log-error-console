@@ -1,0 +1,246 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <loop mode="pre_test" condition="true">
+    <choose mode="exclusive" a:alt_id="1">
+      <alternative condition="true" language="text/javascript">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Urlaubsantrag ausfüllen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="0">
+          <alternative condition="">
+            <call id="a5" endpoint="" a:alt_id="3">
+              <parameters>
+                <label>Antrag beim Vorgesetzten einreichen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Verfügbarkeit prüfen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="6">
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="7">
+                  <alternative condition=""/>
+                  <alternative condition="Abgelehnt" language="text/javascript">
+                    <choose mode="exclusive" a:alt_id="8">
+                      <alternative condition="Abgelehnt" language="text/javascript">
+                        <call id="a17" endpoint="" a:alt_id="9">
+                          <parameters>
+                            <label>Begründung senden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a3" endpoint="" a:alt_id="2">
+                          <parameters>
+                            <label>Urlaubsantrag ausfüllen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="" language="text/javascript"/>
+                      <alternative condition="">
+                        <call id="a29" endpoint="" a:alt_id="13">
+                          <parameters>
+                            <label>Antrag an Personalabteilung weiterleiten</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a31" endpoint="" a:alt_id="14">
+                          <parameters>
+                            <label>Urlaub im System erfassen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a33" endpoint="" a:alt_id="15">
+                          <parameters>
+                            <label>Bestätigung senden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="16">
+                          <alternative condition=""/>
+                          <alternative condition=""/>
+                        </choose>
+                      </alternative>
+                    </choose>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <choose mode="exclusive" a:alt_id="7">
+              <alternative condition=""/>
+              <alternative condition="Abgelehnt" language="text/javascript">
+                <choose mode="exclusive" a:alt_id="8">
+                  <alternative condition="Abgelehnt" language="text/javascript">
+                    <call id="a17" endpoint="" a:alt_id="9">
+                      <parameters>
+                        <label>Begründung senden</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a3" endpoint="" a:alt_id="2">
+                      <parameters>
+                        <label>Urlaubsantrag ausfüllen</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="" language="text/javascript"/>
+                  <alternative condition="">
+                    <call id="a29" endpoint="" a:alt_id="13">
+                      <parameters>
+                        <label>Antrag an Personalabteilung weiterleiten</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a31" endpoint="" a:alt_id="14">
+                      <parameters>
+                        <label>Urlaub im System erfassen</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a33" endpoint="" a:alt_id="15">
+                      <parameters>
+                        <label>Bestätigung senden</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="16">
+                      <alternative condition=""/>
+                      <alternative condition=""/>
+                    </choose>
+                  </alternative>
+                </choose>
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+        </choose>
+      </alternative>
+      <alternative condition="false" language="text/javascript">
+        <choose mode="exclusive" a:alt_id="6">
+          <alternative condition="">
+            <choose mode="exclusive" a:alt_id="7">
+              <alternative condition=""/>
+              <alternative condition="Abgelehnt" language="text/javascript">
+                <choose mode="exclusive" a:alt_id="8">
+                  <alternative condition="Abgelehnt" language="text/javascript">
+                    <call id="a17" endpoint="" a:alt_id="9">
+                      <parameters>
+                        <label>Begründung senden</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a3" endpoint="" a:alt_id="2">
+                      <parameters>
+                        <label>Urlaubsantrag ausfüllen</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="0">
+                      <alternative condition="">
+                        <call id="a5" endpoint="" a:alt_id="3">
+                          <parameters>
+                            <label>Antrag beim Vorgesetzten einreichen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a7" endpoint="" a:alt_id="4">
+                          <parameters>
+                            <label>Verfügbarkeit prüfen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition=""/>
+                    </choose>
+                  </alternative>
+                  <alternative condition="" language="text/javascript"/>
+                  <alternative condition="">
+                    <call id="a29" endpoint="" a:alt_id="13">
+                      <parameters>
+                        <label>Antrag an Personalabteilung weiterleiten</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a31" endpoint="" a:alt_id="14">
+                      <parameters>
+                        <label>Urlaub im System erfassen</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a33" endpoint="" a:alt_id="15">
+                      <parameters>
+                        <label>Bestätigung senden</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="16">
+                      <alternative condition=""/>
+                      <alternative condition=""/>
+                    </choose>
+                  </alternative>
+                </choose>
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </alternative>
+    </choose>
+  </loop>
+</description>

@@ -1,0 +1,86 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <loop mode="pre_test" condition="true">
+    <call id="a1" endpoint="" a:alt_id="1">
+      <parameters>
+        <label>Urlaubsantrag ausfüllen</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a3" endpoint="" a:alt_id="2">
+      <parameters>
+        <label>Antrag beim Vorgesetzten einreichen</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a5" endpoint="" a:alt_id="3">
+      <parameters>
+        <label>Verfügbarkeit prüfen</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="Abgelehnt" a:alt_id="4" language="text/javascript">
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Begründung senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Urlaubsantrag ausfüllen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Antrag beim Vorgesetzten einreichen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Verfügbarkeit prüfen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </loop>
+    <call id="a9" endpoint="" a:alt_id="5">
+      <parameters>
+        <label>Antrag an Personalabteilung weiterleiten</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a13" endpoint="" a:alt_id="7">
+      <parameters>
+        <label>Urlaub im System erfassen</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a15" endpoint="" a:alt_id="8">
+      <parameters>
+        <label>Bestätigung senden</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+  </loop>
+</description>

@@ -1,0 +1,26 @@
+flowchart LR
+0:startevent:((startevent))-->1:exclusivegateway:{x}
+1:exclusivegateway:{x}-->|true|2:task:(Urlaubsantrag ausfüllen)
+2:task:(Urlaubsantrag ausfüllen)-->3:task:(Antrag beim Vorgesetzten einreichen)
+3:task:(Antrag beim Vorgesetzten einreichen)-->4:task:(Verfügbarkeit prüfen)
+4:task:(Verfügbarkeit prüfen)-->5:exclusivegateway:{x}
+5:exclusivegateway:{x}-->6:exclusivegateway:{x}
+6:exclusivegateway:{x}-->7:exclusivegateway:{x}
+7:exclusivegateway:{x}-->|Abgelehnt|8:exclusivegateway:{x}
+8:exclusivegateway:{x}-->|Abgelehnt|9:task:(Begründung senden)
+9:task:(Begründung senden)-->2:task:(Urlaubsantrag ausfüllen)
+2:task:(Urlaubsantrag ausfüllen)-->10:exclusivegateway:{x}
+8:exclusivegateway:{x}-->11:exclusivegateway:{x}
+11:exclusivegateway:{x}-->12:exclusivegateway:{x}
+12:exclusivegateway:{x}-->10:exclusivegateway:{x}
+8:exclusivegateway:{x}-->|Genehmigt|13:task:(Antrag an Personalabteilung weiterleiten)
+13:task:(Antrag an Personalabteilung weiterleiten)-->14:task:(Urlaub im System erfassen)
+14:task:(Urlaub im System erfassen)-->15:task:(Bestätigung senden)
+15:task:(Bestätigung senden)-->16:exclusivegateway:{x}
+16:exclusivegateway:{x}-->12:exclusivegateway:{x}
+16:exclusivegateway:{x}-->10:exclusivegateway:{x}
+10:exclusivegateway:{x}-->17:escalate:((^))
+17:escalate:((^))-->7:exclusivegateway:{x}
+7:exclusivegateway:{x}-->1:exclusivegateway:{x}
+1:exclusivegateway:{x}-->|false|6:exclusivegateway:{x}
+6:exclusivegateway:{x}-->18:endevent:((endevent))

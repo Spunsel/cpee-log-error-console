@@ -1,0 +1,13 @@
+flowchart LR
+se:startevent:((startevent))-->a3:task:(Urlaubsantrag ausfüllen)
+a3:task:(Urlaubsantrag ausfüllen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
+a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(Verfügbarkeit prüfen)
+a7:task:(Verfügbarkeit prüfen)-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Genehmigt"|a11:task:(Antrag an Personalabteilung weiterleiten)
+a11:task:(Antrag an Personalabteilung weiterleiten)-->a13:task:(Urlaub im System erfassen)
+a13:task:(Urlaub im System erfassen)-->a15:task:(Bestätigung senden)
+a15:task:(Bestätigung senden)-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Abgelehnt"|a19:task:(Begründung senden)
+a19:task:(Begründung senden)-->a3:task:(Urlaubsantrag ausfüllen)
+gw3e:exclusivegateway:{x}-->ee:endevent:((endevent))
+gw3s:exclusivegateway:{x}-->|"Genehmigt innerhalb von drei Werktagen"|gw3e:exclusivegateway:{x}

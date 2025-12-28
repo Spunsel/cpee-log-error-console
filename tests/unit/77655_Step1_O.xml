@@ -1,0 +1,284 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Radelt zum Sport und stürzt</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Fährt zur Hausärztin</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a5" endpoint="" a:alt_id="3">
+    <parameters>
+      <label>Anamnese und Untersuchung durch Hausärztin</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a7" endpoint="" a:alt_id="4">
+    <parameters>
+      <label>Dokumentation in Patientenakte</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="5">
+    <alternative condition="Prellung vermutet" language="text/javascript">
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Tetanusstatus wird abgefragt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Impfung nötig" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Auffrischimpfung und Impfausweis</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Keine Impfung nötig" language="text/javascript"/>
+      </choose>
+    </alternative>
+    <alternative condition="Fraktur vermutet" language="text/javascript"/>
+  </choose>
+  <call id="a13" endpoint="" a:alt_id="10">
+    <parameters>
+      <label>Überweisung zum Röntgen</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a23" endpoint="" a:alt_id="11">
+    <parameters>
+      <label>Termin in radiologischer Praxis vereinbaren</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a25" endpoint="" a:alt_id="12">
+    <parameters>
+      <label>Röntgenuntersuchung</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a27" endpoint="" a:alt_id="13">
+    <parameters>
+      <label>Radiologe meldet sich telefonisch</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="14">
+    <alternative condition="">
+      <call id="a31" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Empfehlung Vorstellung in Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Vorstellung in städtischer Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Warten in Notaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Anamnese durch Unfallchirurg</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="20">
+        <alternative condition="Medikation unbekannt" language="text/javascript">
+          <call id="a45" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Anruf in Hausarztpraxis</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Medikation bekannt" language="text/javascript"/>
+      </choose>
+      <call id="a47" endpoint="" a:alt_id="22">
+        <parameters>
+          <label>Röntgenbilder können nicht geöffnet werden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Arm wird eingegipst</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Empfehlung zur erneuten Vorstellung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Rezept und AU</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Neue CD erstellen lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Erneute Vorstellung in Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Anamnese durch andere Ärztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Oberärztin stellt OP Indikation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="30">
+        <alternative condition="SL-Bandverletzung möglich" language="text/javascript">
+          <call id="a67" endpoint="" a:alt_id="31">
+            <parameters>
+              <label>MRT wird beschlossen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a71" endpoint="" a:alt_id="33">
+            <parameters>
+              <label>MRT Untersuchung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a73" endpoint="" a:alt_id="34">
+            <parameters>
+              <label>Befundbesprechung mit Oberärztin</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="SL-Bandverletzung ausgeschlossen" language="text/javascript"/>
+      </choose>
+      <call id="a69" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>OP Termin wird vereinbart</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a77" endpoint="" a:alt_id="35">
+        <parameters>
+          <label>Aufklärungsgespräch Anästhesie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a79" endpoint="" a:alt_id="36">
+        <parameters>
+          <label>Vorstellung auf Station</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a81" endpoint="" a:alt_id="37">
+        <parameters>
+          <label>OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a83" endpoint="" a:alt_id="38">
+        <parameters>
+          <label>Entlassung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Kein Bruch festgestellt" language="text/javascript">
+      <call id="a33" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Befund geht an Hausärztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+</description>

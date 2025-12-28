@@ -63,7 +63,7 @@ export class CPEEParser {
                     if (rest.length === 0 ||                           // end of string
                         rest[0] === '>' ||                             // end of tag
                         rest.startsWith('/>') ||                       // self-closing tag
-                        /^\s+\w+\s*=/.test(rest) ||                    // space + next attribute
+                        /^\s+[\w:]+\s*=/.test(rest) ||                 // space + next attribute (including namespaced like a:alt_id)
                         /^\s*>/.test(rest) ||                          // optional space + end of tag
                         /^\s*\/>/.test(rest)) {                        // optional space + self-closing
                         closingQuotePos = i;
@@ -104,48 +104,62 @@ export class CPEEParser {
         
         // Fix 2: Clean malformed a:alt_id attributes
         // Example: a:alt_id=""|a8" -> a:alt_id="a8"
-        // Valid format: alphanumeric starting with letter (e.g., "a8", "gw1s", "abc123")
+        // Valid format: letters, numbers, underscores, dashes (e.g., "a8", "7", "gw1s", "my_id", "alt-1")
         const altIdLineNumbers = [];
         
         const lines2 = processedXml.split('\n');
         const updatedLines2 = lines2.map((line, index) => {
-            // Match a:alt_id attribute with potentially malformed value
-            // Pattern captures the full value including any embedded quotes until we hit > or whitespace
-            // Example: a:alt_id=""|a8" - captures ""|a8"
-            const altIdPattern = /(a:alt_id\s*=\s*)("[^">]*(?:"[^">]*)*")/g;
-            let hasChange = false;
-            
-            const fixedLine = line.replace(altIdPattern, (match, prefix, fullValue) => {
-                // fullValue includes the outer quotes, e.g., ""|a8"
-                // Remove outer quotes to check inner content
-                const innerValue = fullValue.slice(1, -1);
-                
-                // Check if it's already valid: alphanumeric starting with a letter
-                const isAlreadyValid = /^[a-z][a-z0-9]*$/i.test(innerValue);
-                
-                if (isAlreadyValid) {
-                    return match; // Already valid, no change needed
-                }
-                
-                // Extract valid alt_id pattern: alphanumeric starting with letter
-                // Matches: a8, gw1s, abc123, A1, etc.
-                const validMatches = fullValue.match(/[a-z][a-z0-9]*/gi);
-                
-                if (validMatches && validMatches.length > 0) {
-                    hasChange = true;
-                    // Use the last valid match (in case of ""|a8", we want "a8")
-                    const cleanedValue = validMatches[validMatches.length - 1];
-                    return prefix + '"' + cleanedValue + '"';
-                }
-                
-                return match;
-            });
-            
-            if (hasChange) {
-                altIdLineNumbers.push(index + 1); // 1-based line numbers
+            // Find a:alt_id attribute
+            const altIdMatch = line.match(/a:alt_id\s*=\s*"/);
+            if (!altIdMatch) {
+                return line;
             }
             
-            return fixedLine;
+            // Find the position where alt_id value starts (after the opening quote)
+            const startPos = line.indexOf(altIdMatch[0]) + altIdMatch[0].length;
+            
+            // Find the closing quote - similar approach to condition fix
+            // The closing quote is followed by: space + attribute, >, />, or end of string
+            let closingQuotePos = -1;
+            for (let i = startPos; i < line.length; i++) {
+                if (line[i] === '"') {
+                    const rest = line.substring(i + 1);
+                    if (rest.length === 0 ||
+                        rest[0] === '>' ||
+                        rest.startsWith('/>') ||
+                        /^\s+[\w:]+\s*=/.test(rest) ||
+                        /^\s*>/.test(rest) ||
+                        /^\s*\/>/.test(rest)) {
+                        closingQuotePos = i;
+                        break;
+                    }
+                }
+            }
+            
+            if (closingQuotePos === -1 || closingQuotePos <= startPos) {
+                return line; // No valid closing quote found
+            }
+            
+            // Extract the content between opening and closing quotes
+            const innerValue = line.substring(startPos, closingQuotePos);
+            
+            // Check if it's already valid: any combination of letters, numbers, underscores, and dashes
+            if (/^[a-z0-9_-]+$/i.test(innerValue)) {
+                return line; // Already valid, no change needed
+            }
+            
+            // Extract valid alt_id pattern: any alphanumeric sequence with underscores/dashes
+            const validMatches = innerValue.match(/[a-z0-9_-]+/gi);
+            
+            if (validMatches && validMatches.length > 0) {
+                altIdLineNumbers.push(index + 1); // 1-based line numbers
+                // Use the last valid match (in case of ""|a8", we want "a8")
+                const cleanedValue = validMatches[validMatches.length - 1];
+                // Reconstruct the line with the cleaned value
+                return line.substring(0, startPos) + cleanedValue + line.substring(closingQuotePos);
+            }
+            
+            return line;
         });
         
         if (altIdLineNumbers.length > 0) {

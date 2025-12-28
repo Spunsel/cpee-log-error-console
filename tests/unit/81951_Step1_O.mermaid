@@ -1,0 +1,12 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Order Pizza)
+1:task:(Order Pizza) --> 2:task:(Pay for Pizza)
+2:task:(Pay for Pizza) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Payment Accepted| 4:task:(Prepare Pizza)
+3:exclusivegateway:{x} --> |Payment Declined| 10:endevent:(((endevent)))
+4:task:(Prepare Pizza) --> 5:task:(Bake Pizza)
+5:task:(Bake Pizza) --> 6:task:(Deliver Pizza)
+6:task:(Deliver Pizza) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Pizza Delivered| 8:task:(Receive Payment)
+7:exclusivegateway:{x} --> |Pizza Not Delivered| 6:task:(Deliver Pizza)
+8:task:(Receive Payment) --> 9:endevent:(((endevent)))

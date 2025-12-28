@@ -1,0 +1,21 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Create)
+a1:task:(Create)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a5:task:(Task A)
+a5:task:(Task A)-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a9:task:(Task B)
+a9:task:(Task B)-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->a13:task:(Task C)
+a13:task:(Task C)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->|"true"|a15:task:(Task D)
+a15:task:(Task D)-->gw4s:parallelgateway:{AND}
+gw4s:parallelgateway:{AND}-->a16:task:(Task E)
+gw4s:parallelgateway:{AND}-->a17:task:(Task F)
+a16:task:(Task E)-->gw4e:parallelgateway:{AND}
+a17:task:(Task F)-->gw4e:parallelgateway:{AND}
+gw4e:parallelgateway:{AND}-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Counter < 10"|a15:task:(Task D)
+gw3e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->ee:endevent:(((endevent)))

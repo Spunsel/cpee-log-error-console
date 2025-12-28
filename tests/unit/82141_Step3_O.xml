@@ -1,0 +1,96 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <loop mode="pre_test" condition="true">
+    <call id="a1" endpoint="" a:alt_id="a3">
+      <parameters>
+        <label>Urlaubsantrag ausfüllen</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a3" endpoint="" a:alt_id="a5">
+      <parameters>
+        <label>Antrag beim Vorgesetzten einreichen</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a5" endpoint="" a:alt_id="a7">
+      <parameters>
+        <label>Verfügbarkeit prüfen</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="Abgelehnt">
+      <choose mode="exclusive" a:alt_id="gw3s">
+        <alternative condition="Abgelehnt" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Begründung senden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Urlaubsantrag ausfüllen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Antrag beim Vorgesetzten einreichen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Verfügbarkeit prüfen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <escape a:alt_id="-1"/>
+        </alternative>
+        <alternative condition="Genehmigt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Antrag an Personalabteilung weiterleiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Urlaub im System erfassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Bestätigung senden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Genehmigt innerhalb von drei Werktagen" language="text/javascript"/>
+      </choose>
+    </loop>
+  </loop>
+</description>

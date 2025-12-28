@@ -1,0 +1,12 @@
+flowchart LR
+se:startevent:((startevent))-->a2:task:(Check Coffee Level)
+a2:task:(Check Coffee Level)-->a1:task:(Collect Email Addresses)
+a1:task:(Collect Email Addresses)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"data.refill == 'no'"|a4:task:(Send No Coffee Email)
+a4:task:(Send No Coffee Email)-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"data.refill == 'yes'"|a6:task:(Confirm Coffee Preferences)
+a6:task:(Confirm Coffee Preferences)-->a7:task:(Send Confirmation Email to Office)
+a7:task:(Send Confirmation Email to Office)-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"|"|a8:task:(Boil water. Prepare coffee ground and set up the brewer. Pour water and serve.)
+a8:task:(Boil water. Prepare coffee ground and set up the brewer. Pour water and serve.)-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
