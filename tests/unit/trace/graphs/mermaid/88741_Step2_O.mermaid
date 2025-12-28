@@ -1,0 +1,9 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Solicita nevoi training)
+a1:task:(Solicita nevoi training)-->a3:task:(Manageri evalueaza personalul)
+a3:task:(Manageri evalueaza personalul)-->a5:task:(Completeaza lista)
+a5:task:(Completeaza lista)-->a7:task:(Trimite lista la HR)
+a7:task:(Trimite lista la HR)-->a9:task:(HR centralizeaza lista)
+a9:task:(HR centralizeaza lista)-->eg1:exclusivegateway:{x}
+eg1:exclusivegateway:{x}-->|Lista OK|ee:endevent:(((endevent)))
+eg1:exclusivegateway:{x}-->|Lista Not OK|a5:task:(Completeaza lista)

@@ -1,0 +1,19 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Personal Data Breach Occurs)
+1:task:(Personal Data Breach Occurs) --> 2:task:(Processor Notifies Controller)
+2:task:(Processor Notifies Controller) --> 3:task:(Controller Becomes Aware)
+3:task:(Controller Becomes Aware) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Breach unlikely to result in a risk| 14:task:(Document the personal data breach)
+4:exclusivegateway:{x} --> |Breach likely to result in a risk| 5:task:(Notify Supervisory Authority)
+5:task:(Notify Supervisory Authority) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Notification within 72 hours| 7:task:(Describe the nature of the personal data breach)
+6:exclusivegateway:{x} --> |Notification not within 72 hours| 8:task:(Provide reasons for the delay)
+8:task:(Provide reasons for the delay) --> 7:task:(Describe the nature of the personal data breach)
+7:task:(Describe the nature of the personal data breach) --> 9:task:(Communicate contact details of DPO)
+9:task:(Communicate contact details of DPO) --> 10:task:(Describe likely consequences)
+10:task:(Describe likely consequences) --> 11:task:(Describe measures taken)
+11:task:(Describe measures taken) --> 12:exclusivegateway:{x}
+12:exclusivegateway:{x} --> |Information provided at the same time| 14:task:(Document the personal data breach)
+12:exclusivegateway:{x} --> |Information provided in phases| 13:task:(Provide information in phases)
+13:task:(Provide information in phases) --> 14:task:(Document the personal data breach)
+14:task:(Document the personal data breach) --> 15:endevent:(((endevent)))

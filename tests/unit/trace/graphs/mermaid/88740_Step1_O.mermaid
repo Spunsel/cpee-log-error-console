@@ -1,0 +1,17 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Receive Site Information)
+1:task:(Receive Site Information) --> 2:task:(Architectural Assessment)
+2:task:(Architectural Assessment) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Project not feasible| 4:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Project feasible| 7:task:(Develop Construction Proposal)
+4:exclusivegateway:{x} --> |Withdraw order| 5:endevent:(((endevent)))
+4:exclusivegateway:{x} --> |New location proposals| 6:task:(New Location Proposals)
+6:task:(New Location Proposals) --> 2:task:(Architectural Assessment)
+7:task:(Develop Construction Proposal) --> 8:task:(Create Cost Plan)
+8:task:(Create Cost Plan) --> 9:task:(Present Proposal)
+9:task:(Present Proposal) --> 10:exclusivegateway:{x}
+10:exclusivegateway:{x} --> |Proposal accepted| 11:task:(Create Tender)
+10:exclusivegateway:{x} --> |Proposal rejected| 15:endevent:(((endevent)))
+11:task:(Create Tender) --> 12:task:(Build Hall)
+12:task:(Build Hall) --> 13:task:(Send Invoice)
+13:task:(Send Invoice) --> 14:endevent:(((endevent)))

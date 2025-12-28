@@ -1,0 +1,38 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Accident while cycling)
+1:task:(Accident while cycling) --> 2:task:(Visit family doctor)
+2:task:(Visit family doctor) --> 3:task:(Anamnesis and examination)
+3:task:(Anamnesis and examination) --> 4:task:(Document results)
+4:task:(Document results) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> |Swelling suspected| 6:task:(Check tetanus status)
+5:exclusivegateway:{x} --> |No swelling suspected| 10:task:(Referral for X-ray)
+6:task:(Check tetanus status) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Tetanus vaccination needed| 8:task:(Tetanus vaccination)
+7:exclusivegateway:{x} --> |Tetanus vaccination not needed| 10:task:(Referral for X-ray)
+8:task:(Tetanus vaccination) --> 10:task:(Referral for X-ray)
+10:task:(Referral for X-ray) --> 11:task:(Find radiology practice)
+11:task:(Find radiology practice) --> 12:task:(X-ray examination)
+12:task:(X-ray examination) --> 13:task:(Radiologist evaluates X-ray)
+13:task:(Radiologist evaluates X-ray) --> 14:exclusivegateway:{x}
+14:exclusivegateway:{x} --> |Fracture detected| 15:task:(Call Lothar)
+14:exclusivegateway:{x} --> |No fracture detected| 16:task:(Send report to family doctor)
+15:task:(Call Lothar) --> 17:task:(Referral to surgical clinic)
+16:task:(Send report to family doctor) --> 22:exclusivegateway:{O}
+17:task:(Referral to surgical clinic) --> 18:task:(Visit surgical clinic)
+18:task:(Visit surgical clinic) --> 19:task:(Anamnesis by surgeon)
+19:task:(Anamnesis by surgeon) --> 20:task:(Arm is put in plaster)
+20:task:(Arm is put in plaster) --> 21:task:(Follow-up appointment)
+21:task:(Follow-up appointment) --> 22:exclusivegateway:{O}
+22:exclusivegateway:{O} --> 23:exclusivegateway:{x}
+23:exclusivegateway:{x} --> |Indication for surgery| 24:task:(Schedule surgery)
+23:exclusivegateway:{x} --> |No indication for surgery| 31:task:(Prescription for pain medication)
+24:task:(Schedule surgery) --> 25:task:(MRI examination)
+25:task:(MRI examination) --> 26:task:(Anesthesia consultation)
+26:task:(Anesthesia consultation) --> 27:task:(Prepare for surgery)
+27:task:(Prepare for surgery) --> 28:task:(Surgery)
+28:task:(Surgery) --> 29:task:(Recovery)
+29:task:(Recovery) --> 30:task:(Discharge)
+30:task:(Discharge) --> 31:task:(Prescription for pain medication)
+31:task:(Prescription for pain medication) --> 32:task:(Follow-up with family doctor)
+32:task:(Follow-up with family doctor) --> 33:task:(Physiotherapy)
+33:task:(Physiotherapy) --> 34:endevent:(((endevent)))

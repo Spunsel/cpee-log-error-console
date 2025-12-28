@@ -1,0 +1,239 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Accident while cycling</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Visit family doctor</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a5" endpoint="" a:alt_id="3">
+    <parameters>
+      <label>Anamnesis and examination</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a7" endpoint="" a:alt_id="4">
+    <parameters>
+      <label>Document results</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="5">
+    <alternative condition="Swelling suspected" language="text/javascript">
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Check tetanus status</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Tetanus vaccination needed" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Tetanus vaccination</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Tetanus vaccination not needed" language="text/javascript"/>
+      </choose>
+    </alternative>
+    <alternative condition="No swelling suspected" language="text/javascript"/>
+  </choose>
+  <call id="a13" endpoint="" a:alt_id="10">
+    <parameters>
+      <label>Referral for X-ray</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a23" endpoint="" a:alt_id="11">
+    <parameters>
+      <label>Find radiology practice</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a25" endpoint="" a:alt_id="12">
+    <parameters>
+      <label>X-ray examination</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a27" endpoint="" a:alt_id="13">
+    <parameters>
+      <label>Radiologist evaluates X-ray</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="14">
+    <alternative condition="Fracture detected" language="text/javascript">
+      <call id="a31" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Call Lothar</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Referral to surgical clinic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Visit surgical clinic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Anamnesis by surgeon</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Arm is put in plaster</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="21">
+        <parameters>
+          <label>Follow-up appointment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="No fracture detected" language="text/javascript">
+      <call id="a33" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Send report to family doctor</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+  <choose mode="exclusive" a:alt_id="23">
+    <alternative condition="Indication for surgery" language="text/javascript">
+      <call id="a51" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Schedule surgery</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>MRI examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Anesthesia consultation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Prepare for surgery</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Surgery</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Recovery</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Discharge</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="No indication for surgery" language="text/javascript"/>
+  </choose>
+  <call id="a53" endpoint="" a:alt_id="31">
+    <parameters>
+      <label>Prescription for pain medication</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a69" endpoint="" a:alt_id="32">
+    <parameters>
+      <label>Follow-up with family doctor</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a71" endpoint="" a:alt_id="33">
+    <parameters>
+      <label>Physiotherapy</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>

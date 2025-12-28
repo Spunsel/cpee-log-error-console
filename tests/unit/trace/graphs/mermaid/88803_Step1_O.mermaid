@@ -1,0 +1,11 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Go to the mall)
+1:task:(Go to the mall) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Find supplies| 3:task:(Find supplies in a store)
+2:exclusivegateway:{x} --> |Do not find supplies| 4:task:(Go to another store)
+3:task:(Find supplies in a store) --> 5:exclusivegateway:{x}
+4:task:(Go to another store) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> |Supplies found| 6:task:(Buy supplies)
+5:exclusivegateway:{x} --> |Supplies not found| 7:task:(Leave the mall)
+6:task:(Buy supplies) --> 7:task:(Leave the mall)
+7:task:(Leave the mall) --> 8:endevent:(((endevent)))

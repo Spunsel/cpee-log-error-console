@@ -1,0 +1,9 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Anfrage erhalten)
+1:task:(Anfrage erhalten) --> 2:task:(Dokumente prüfen)
+2:task:(Dokumente prüfen) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |nicht genügend Informationen| 2:task:(Dokumente prüfen)
+3:exclusivegateway:{x} --> |genügend Informationen| 4:task:(Votum verfassen)
+4:task:(Votum verfassen) --> 5:task:(Fall dokumentieren)
+5:task:(Fall dokumentieren) --> 6:task:(Fall archivieren)
+6:task:(Fall archivieren) --> 7:endevent:(((endevent)))
