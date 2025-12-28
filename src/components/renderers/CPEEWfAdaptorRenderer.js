@@ -12,6 +12,7 @@ import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
+import { CPEEWarningHandler } from '../../utils/content/CPEEWarningHandler.js';
 
 export class CPEEWfAdaptorRenderer {
     
@@ -219,8 +220,17 @@ export class CPEEWfAdaptorRenderer {
         try {
             this.showStatus('Loading CPEE WfAdaptor...', 'loading');
             
-            // Validate XML first
-            const cleanedXML = this.contentProcessingService.processAndValidateCPEEXML(cpeeXML);
+            // Process and validate XML with preprocessing
+            const cleanResult = this.contentProcessingService.processAndValidateCPEE(cpeeXML, true);
+            const cleanedXML = cleanResult.xml;
+            const appliedSteps = cleanResult.appliedSteps || [];
+            
+            // Display warning panel if preprocessing steps were applied
+            if (appliedSteps.length > 0) {
+                CPEEWarningHandler.displayWarningIndicator(this.container, appliedSteps);
+            } else {
+                CPEEWarningHandler.removeWarningIndicator(this.container);
+            }
             
             // Load the WfAdaptor and theme system
             await this.loadWfAdaptor();

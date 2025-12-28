@@ -50,6 +50,16 @@ export class ContentProcessingService {
     }
 
     /**
+     * Preprocess CPEE XML without full validation
+     * Use this for raw/log views where we want preprocessed content even if final validation fails
+     * @param {string} cpeeXML - Raw CPEE XML
+     * @returns {{xml: string, appliedSteps: Array}} Preprocessed XML with applied steps
+     */
+    preprocessCPEEOnly(cpeeXML) {
+        return CPEEParser.preprocessOnly(cpeeXML);
+    }
+
+    /**
      * Process Mermaid content from log exposition
      * @param {string} rawContent - Raw content from exposition
      * @param {string} type - 'input' or 'output'

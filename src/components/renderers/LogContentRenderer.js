@@ -51,8 +51,8 @@ export class LogContentRenderer {
             case 'input-cpee':
                 rawContent = step.getInputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
-                    // CPEE sections: log mode behaves same as raw mode
-                    renderer = () => this.renderRawCPEETree(rawContent.getContent());
+                    // CPEE sections: log mode shows original with preprocessing line markers
+                    renderer = () => this.renderLogCPEETree(rawContent.getContent());
                 }
                 break;
             case 'input-intermediate':
@@ -78,8 +78,8 @@ export class LogContentRenderer {
             case 'output-cpee':
                 rawContent = step.getOutputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
-                    // CPEE sections: log mode behaves same as raw mode
-                    renderer = () => this.renderRawCPEETree(rawContent.getContent());
+                    // CPEE sections: log mode shows original with preprocessing line markers
+                    renderer = () => this.renderLogCPEETree(rawContent.getContent());
                 }
                 break;
         }
@@ -299,6 +299,7 @@ export class LogContentRenderer {
 
     /**
      * Wait for line numbers to be added, then mark preprocessing lines (log mode only)
+     * Works for both Mermaid and CPEE log containers
      * @param {HTMLElement} container - Container with rendered content
      * @param {number} attempt - Current attempt number
      * @param {number} maxAttempts - Maximum number of attempts
@@ -308,8 +309,8 @@ export class LogContentRenderer {
             return;
         }
 
-        // Check if line numbers have been added
-        const logContainer = container.querySelector('.mermaid-log') || container;
+        // Check if line numbers have been added - supports both mermaid-log and cpee-log
+        const logContainer = container.querySelector('.mermaid-log') || container.querySelector('.cpee-log') || container;
         const lineNumberElements = logContainer.querySelectorAll('.raw-code-line-number');
         
         if (lineNumberElements.length > 0) {
@@ -325,6 +326,7 @@ export class LogContentRenderer {
 
     /**
      * Mark line numbers with background highlight for lines that have preprocessing fixes applied (log mode only)
+     * Works for both Mermaid and CPEE log containers
      * @param {HTMLElement} container - Container with rendered content
      */
     markPreprocessingLines(container) {
@@ -332,8 +334,8 @@ export class LogContentRenderer {
             return;
         }
 
-        // Find the mermaid-log container (might be nested)
-        const logContainer = container.querySelector('.mermaid-log') || container;
+        // Find the log container (might be nested) - supports both mermaid-log and cpee-log
+        const logContainer = container.querySelector('.mermaid-log') || container.querySelector('.cpee-log') || container;
         const preprocessingLinesAttr = logContainer.getAttribute('data-preprocessing-lines');
         
         if (!preprocessingLinesAttr) {
@@ -360,7 +362,63 @@ export class LogContentRenderer {
     }
 
     /**
-     * Render raw CPEE XML content as plain text (used for CPEE sections in log mode)
+     * Render log CPEE XML content as plain text
+     * Shows original (unprocessed) content with line number markers for preprocessing
+     * @param {string} xmlText - Raw CPEE XML text
+     * @param {Object} options - Rendering options
+     * @returns {HTMLElement} Container with rendered content
+     */
+    renderLogCPEETree(xmlText, _options = {}) {
+        const container = this.domRegistry.createElement('div', {
+            className: 'raw-content-container cpee-log'
+        });
+
+        // Keep original text for display
+        const originalText = xmlText || '';
+
+        // Detect which lines would have preprocessing fixes applied
+        // Use preprocessCPEEOnly to avoid validation errors
+        let affectedLineNumbers = [];
+        try {
+            const cleanResult = this.contentProcessingService.preprocessCPEEOnly(originalText);
+            if (cleanResult.appliedSteps && cleanResult.appliedSteps.length > 0) {
+                // Collect all line numbers from all applied steps
+                cleanResult.appliedSteps.forEach(step => {
+                    if (step.lineNumbers && Array.isArray(step.lineNumbers)) {
+                        affectedLineNumbers.push(...step.lineNumbers);
+                    }
+                });
+                // Remove duplicates and sort
+                affectedLineNumbers = Array.from(new Set(affectedLineNumbers)).sort((a, b) => a - b);
+            }
+        } catch (error) {
+            // If parsing fails, just continue without marking lines
+            console.warn('Failed to detect CPEE preprocessing steps for log view:', error);
+        }
+
+        // Store affected line numbers in data attribute for later marking
+        if (affectedLineNumbers.length > 0) {
+            container.setAttribute('data-preprocessing-lines', affectedLineNumbers.join(','));
+        }
+
+        const codeElement = this.domRegistry.createElement('pre', {
+            className: 'raw-code-block'
+        });
+
+        const codeContent = this.domRegistry.createElement('code', {
+            className: 'language-xml',
+            textContent: originalText
+        });
+
+        codeElement.appendChild(codeContent);
+        container.appendChild(codeElement);
+
+        return container;
+    }
+
+    /**
+     * Render raw CPEE XML content as plain text (used for CPEE sections in raw mode)
+     * Shows preprocessed content
      * @param {string} xmlText - Raw CPEE XML text
      * @param {Object} options - Rendering options
      * @returns {HTMLElement} Container with rendered content

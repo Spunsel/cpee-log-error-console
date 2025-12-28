@@ -2052,6 +2052,7 @@ body {
 
 /* CPEE sections */
 .cpee-section .content-box {
+    padding: 0;
     height: 400px; /* Fixed height - max-height and min-height are redundant when equal */
     overflow: auto;
     position: relative;
@@ -2094,7 +2095,8 @@ body {
 /* Specific Content Sections */
 #input-cpee-content,
 #output-cpee-content {
-    padding: 0;
+    padding: 0 !important; /* Override .content-box pre padding */
+    margin: 0;
     min-height: 100px;
     height: auto;
     background: var(--surface-color);
@@ -2331,6 +2333,126 @@ body {
     color: var(--alert-warning-text);
     opacity: 0.75;
     font-weight: normal;
+    margin-left: 4px;
+    font-size: var(--font-size-xs);
+}
+
+/* CPEE Warning Indicator - Same styling as Mermaid Warning Indicator */
+.cpee-warning-indicator {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    border: 2px solid var(--alert-warning-border);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    background-color: var(--alert-warning-bg);
+    padding: 10px 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+    font-family: var(--font-sans);
+}
+
+/* Ensure warning indicator connects to section header when in content-box */
+.section .content-box > .cpee-warning-indicator {
+    margin-top: 0;
+}
+
+.cpee-warning-indicator__header {
+    font-weight: 600;
+    color: var(--alert-warning-text);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-sans);
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    line-height: 1.2;
+    width: 100%;
+}
+
+.cpee-warning-indicator__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    color: var(--alert-warning-border);
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.cpee-warning-indicator__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.cpee-warning-indicator__toggle {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--alert-warning-text);
+    opacity: 0.8;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.cpee-warning-indicator__toggle:hover {
+    opacity: 1;
+}
+
+.cpee-warning-indicator__toggle:focus {
+    outline: 2px solid var(--alert-warning-border);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.cpee-warning-indicator__toggle svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.cpee-warning-indicator__steps-container {
+    margin-top: 6px;
+}
+
+.cpee-warning-indicator__message {
+    color: var(--alert-warning-text);
+    font-size: 12px;
+    font-family: var(--font-sans);
+    margin-bottom: 6px;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+.cpee-warning-indicator__steps {
+    margin: 0;
+    padding-left: 16px;
+    color: var(--alert-warning-text);
+    font-size: 12px;
+    font-family: var(--font-sans);
+    line-height: 1.4;
+}
+
+.cpee-warning-indicator__steps li {
+    margin-bottom: 3px;
+    font-family: var(--font-sans);
+}
+
+.cpee-warning-indicator__line-numbers {
+    color: var(--alert-warning-text);
+    opacity: 0.75;
+    font-weight: normal;
+    font-family: var(--font-sans);
     margin-left: 4px;
     font-size: var(--font-size-xs);
 }

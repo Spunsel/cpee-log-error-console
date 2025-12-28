@@ -76,7 +76,8 @@ export class RawContentRenderer {
     }
 
     /**
-     * Render raw CPEE XML content as plain text
+     * Render raw CPEE XML content as plain text with preprocessing applied
+     * The raw view should show the preprocessed content (same as what would be rendered visually)
      * @param {string} xmlText - Raw CPEE XML text
      * @param {Object} options - Rendering options
      * @returns {HTMLElement} Container with rendered content
@@ -86,13 +87,25 @@ export class RawContentRenderer {
             className: 'raw-content-container cpee-raw'
         });
 
+        // Apply preprocessing to match what visual view shows
+        // Use preprocessCPEEOnly to avoid validation errors - we just want preprocessed content
+        let processedText = xmlText || '';
+        try {
+            const cleanResult = this.contentProcessingService.preprocessCPEEOnly(processedText);
+            processedText = cleanResult.xml;
+        } catch (error) {
+            console.warn('Failed to preprocess raw CPEE content, using original text:', error);
+            // Fallback to original text if preprocessing fails
+            processedText = xmlText || '';
+        }
+
         const codeElement = this.domRegistry.createElement('pre', {
             className: 'raw-code-block'
         });
 
         const codeContent = this.domRegistry.createElement('code', {
             className: 'language-xml',
-            textContent: xmlText
+            textContent: processedText
         });
 
         codeElement.appendChild(codeContent);
