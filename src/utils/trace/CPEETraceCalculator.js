@@ -147,9 +147,12 @@ class TraceSets {
             }
             
             case 'choose': {
-                // XOR Gateway: union of alternatives
+                // XOR Gateway: union of alternatives (including otherwise as default branch)
                 const alternatives = TopologyIterators.forwardIterator(node)
-                    .filter(child => child.tagName.toLowerCase() === 'alternative');
+                    .filter(child => {
+                        const tag = child.tagName.toLowerCase();
+                        return tag === 'alternative' || tag === 'otherwise';
+                    });
                 
                 if (alternatives.length === 0) {
                     return [];
@@ -163,10 +166,37 @@ class TraceSets {
                 return alternativeTraces;
             }
             
+            case 'otherwise': {
+                // Otherwise branch (default case): process children sequentially
+                // Filter out metadata elements like _probability
+                const children = TopologyIterators.forwardIterator(node)
+                    .filter(child => {
+                        const tag = child.tagName.toLowerCase();
+                        return !tag.startsWith('_') && tag !== 'condition';
+                    });
+                
+                if (children.length === 0) {
+                    // Empty otherwise branch - return current trace as-is
+                    return [currentFT];
+                }
+                
+                return this.combineSequentialForwardTrace(
+                    children,
+                    currentFT,
+                    depth + 1,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
             case 'alternative': {
                 // Alternative branch: process children sequentially
+                // Filter out condition and metadata elements (those starting with _)
                 const children = TopologyIterators.forwardIterator(node)
-                    .filter(child => child.tagName.toLowerCase() !== 'condition');
+                    .filter(child => {
+                        const tag = child.tagName.toLowerCase();
+                        return !tag.startsWith('_') && tag !== 'condition';
+                    });
                 
                 // Check for escape with alt_id="-1" (indicates trace should end)
                 const escapeIndex = children.findIndex(child => {
@@ -249,8 +279,12 @@ class TraceSets {
             
             case 'parallel_branch': {
                 // Parallel branch: process children sequentially
+                // Filter out condition and metadata elements (those starting with _)
                 const children = TopologyIterators.forwardIterator(node)
-                    .filter(child => child.tagName.toLowerCase() !== 'condition');
+                    .filter(child => {
+                        const tag = child.tagName.toLowerCase();
+                        return !tag.startsWith('_') && tag !== 'condition';
+                    });
                 
                 return this.combineSequentialForwardTrace(
                     children,
