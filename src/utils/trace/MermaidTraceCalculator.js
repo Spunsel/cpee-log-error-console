@@ -855,10 +855,20 @@ export class MermaidTraceCalculator {
             let edgeLabel = null;
             let toNodeId = afterArrow;
             
-            const labelMatch = afterArrow.match(/^\|([^|]+)\|\s*(.+)$/);
-            if (labelMatch) {
-                edgeLabel = labelMatch[1].trim();
-                toNodeId = labelMatch[2].trim();
+            // Handle edge labels that may contain quoted strings with | characters
+            // Examples: |"data.refill == 'yes'"| or |"|"| (empty/default condition)
+            // First try to match quoted string labels, then fall back to simple labels
+            const quotedLabelMatch = afterArrow.match(/^\|("(?:[^"\\]|\\.)*")\|\s*(.+)$/);
+            const simpleLabelMatch = afterArrow.match(/^\|([^|]+)\|\s*(.+)$/);
+            
+            if (quotedLabelMatch) {
+                // Quoted label like |"data.refill == 'yes'"| or |"|"|
+                edgeLabel = quotedLabelMatch[1].trim();
+                toNodeId = quotedLabelMatch[2].trim();
+            } else if (simpleLabelMatch) {
+                // Simple label without quotes
+                edgeLabel = simpleLabelMatch[1].trim();
+                toNodeId = simpleLabelMatch[2].trim();
             }
             
             const toNodeIdFull = toNodeId;
