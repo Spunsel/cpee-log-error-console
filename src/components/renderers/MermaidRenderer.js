@@ -16,6 +16,9 @@ import { stateManager as defaultStateManager } from '../../core/StateManager.js'
 import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 
+// Static counter for globally unique render IDs across all MermaidRenderer instances
+let globalRenderCount = 0;
+
 export class MermaidRenderer {
     constructor(eventBus = null, stateManager = null, domRegistry = null, contentProcessingService = null) {
         this.domRegistry = domRegistry;
@@ -24,7 +27,7 @@ export class MermaidRenderer {
         this.inputElement = null;
         this.isRendered = false;
         this.mermaidLoaded = false;
-        this.renderCount = 0; // To generate unique IDs
+        this.renderCount = 0; // Instance-specific counter for tracking
         
         // Post-render callback for highlighting integration
         this.postRenderCallback = null;
@@ -370,8 +373,12 @@ export class MermaidRenderer {
             const root = document.documentElement;
             const backgroundColor = getComputedStyle(root).getPropertyValue('--surface-color').trim() || '#ffffff';
             
+            // Use global counter for unique render IDs across all instances
+            const uniqueRenderId = ++globalRenderCount;
+            this.renderCount++; // Also increment instance counter for tracking
+            
             const graphDiv = document.createElement('div');
-            graphDiv.id = `mermaid-graph-${++this.renderCount}-${Date.now()}`;
+            graphDiv.id = `mermaid-graph-${uniqueRenderId}-${Date.now()}`;
             graphDiv.style.cssText = `width: 100%; height: auto; text-align: center; padding: 20px; box-sizing: border-box; overflow: visible; background-color: ${backgroundColor};`;
             
             // Pre-append to container but keep invisible to allow layout calculation
@@ -387,7 +394,7 @@ export class MermaidRenderer {
             // Render SVG with error handling
             let svg, bindFunctions;
             try {
-                const result = await window.mermaid.render(`graph-${this.renderCount}`, cleanedCode);
+                const result = await window.mermaid.render(`graph-${uniqueRenderId}`, cleanedCode);
                 svg = result.svg;
                 bindFunctions = result.bindFunctions;
             } catch (renderError) {

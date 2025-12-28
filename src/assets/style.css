@@ -2389,6 +2389,23 @@ body {
     display: block;
 }
 
+/* Override CPEE section SVG styles that set fill: none on paths */
+.cpee-warning-indicator__icon svg path,
+.cpee-section .cpee-warning-indicator__icon svg path,
+[data-theme="dark"] .cpee-warning-indicator__icon svg path,
+[data-theme="dark"] .cpee-section .cpee-warning-indicator__icon svg path {
+    fill: currentColor !important;
+    stroke: none !important;
+}
+
+.cpee-warning-indicator__toggle svg path,
+.cpee-section .cpee-warning-indicator__toggle svg path,
+[data-theme="dark"] .cpee-warning-indicator__toggle svg path,
+[data-theme="dark"] .cpee-section .cpee-warning-indicator__toggle svg path {
+    fill: none !important;
+    stroke: currentColor !important;
+}
+
 .cpee-warning-indicator__toggle {
     background: none;
     border: none;

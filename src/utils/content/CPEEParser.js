@@ -41,33 +41,63 @@ export class CPEEParser {
         // Process line by line to find and fix nested quotes in condition attributes
         const lines = processedXml.split('\n');
         const updatedLines = lines.map((line, index) => {
-            // Match condition attribute: condition="..."
-            // This regex captures: condition="<content>"
-            const conditionPattern = /(condition\s*=\s*")(.*?)("(?:\s|>|\/|$))/g;
-            let hasChange = false;
-            
-            const fixedLine = line.replace(conditionPattern, (match, prefix, content, suffix) => {
-                // Check if content has nested double quotes (after == or = operators)
-                if (content.includes('"')) {
-                    hasChange = true;
-                    // Replace double quotes inside the condition value with single quotes
-                    const fixedContent = content.replace(/"/g, "'");
-                    return prefix + fixedContent + suffix;
-                }
-                return match;
-            });
-            
-            if (hasChange) {
-                conditionLineNumbers.push(index + 1); // 1-based line numbers
+            // Match condition attribute with potential nested quotes
+            const conditionMatch = line.match(/condition\s*=\s*"/);
+            if (!conditionMatch) {
+                return line; // No condition attribute on this line
             }
             
-            return fixedLine;
+            // Find the position where condition value starts (after the opening quote)
+            const startPos = line.indexOf(conditionMatch[0]) + conditionMatch[0].length;
+            
+            // Find the closing quote of the condition attribute
+            // The closing quote is followed by:
+            // - space + attribute name + = (next attribute)
+            // - > or /> (end of tag)
+            // - end of string
+            let closingQuotePos = -1;
+            for (let i = startPos; i < line.length; i++) {
+                if (line[i] === '"') {
+                    const rest = line.substring(i + 1);
+                    // Check if this quote is followed by patterns indicating end of attribute
+                    if (rest.length === 0 ||                           // end of string
+                        rest[0] === '>' ||                             // end of tag
+                        rest.startsWith('/>') ||                       // self-closing tag
+                        /^\s+\w+\s*=/.test(rest) ||                    // space + next attribute
+                        /^\s*>/.test(rest) ||                          // optional space + end of tag
+                        /^\s*\/>/.test(rest)) {                        // optional space + self-closing
+                        closingQuotePos = i;
+                        break;
+                    }
+                }
+            }
+            
+            if (closingQuotePos === -1 || closingQuotePos <= startPos) {
+                return line; // No valid closing quote found
+            }
+            
+            // Extract the content between opening and closing quotes
+            const content = line.substring(startPos, closingQuotePos);
+            
+            // Check if content has nested double quotes (either literal " or HTML entity &quot;)
+            if (content.includes('"') || content.includes('&quot;')) {
+                conditionLineNumbers.push(index + 1); // 1-based line numbers
+                // Replace double quotes with single quotes in the content
+                // Handle both literal quotes and HTML entities
+                const fixedContent = content
+                    .replace(/"/g, "'")
+                    .replace(/&quot;/g, "'");
+                // Reconstruct the line
+                return line.substring(0, startPos) + fixedContent + line.substring(closingQuotePos);
+            }
+            
+            return line;
         });
         
         if (conditionLineNumbers.length > 0) {
             processedXml = updatedLines.join('\n');
             appliedSteps.push({
-                description: `Replaced nested double quotes with single quotes in ${conditionLineNumbers.length} condition${conditionLineNumbers.length > 1 ? 's' : ''}`,
+                description: `Replaced nested double quotes with single quotes in ${conditionLineNumbers.length} condition attribute${conditionLineNumbers.length > 1 ? 's' : ''}`,
                 lineNumbers: conditionLineNumbers
             });
         }
@@ -121,7 +151,7 @@ export class CPEEParser {
         if (altIdLineNumbers.length > 0) {
             processedXml = updatedLines2.join('\n');
             appliedSteps.push({
-                description: `Cleaned malformed alt_id attribute${altIdLineNumbers.length > 1 ? 's' : ''} (${altIdLineNumbers.length} fixed)`,
+                description: `Standardized ${altIdLineNumbers.length} malformed alt_id attribute${altIdLineNumbers.length > 1 ? 's' : ''} to valid format`,
                 lineNumbers: altIdLineNumbers
             });
         }
@@ -155,9 +185,10 @@ export class CPEEParser {
         );
         
         if (beforeLtGtFix !== processedXml) {
+            const uniqueLtGtLines = Array.from(new Set(ltGtLineNumbers)).sort((a, b) => a - b);
             appliedSteps.push({
-                description: 'Escaped < and > characters in attribute values',
-                lineNumbers: Array.from(new Set(ltGtLineNumbers)).sort((a, b) => a - b)
+                description: `Escaped < and > characters to &lt; and &gt; in ${uniqueLtGtLines.length} attribute value${uniqueLtGtLines.length > 1 ? 's' : ''}`,
+                lineNumbers: uniqueLtGtLines
             });
         }
         
@@ -170,14 +201,11 @@ export class CPEEParser {
         // Replace & with &amp; but only if it's not already part of an entity
         processedXml = processedXml.replace(/&(?![#a-zA-Z0-9]+;)/g, '&amp;');
         if (beforeFix !== processedXml) {
+            const uniqueAmpLines = Array.from(new Set(fixLineNumbers)).sort((a, b) => a - b);
             appliedSteps.push({
-                description: 'Replaced unescaped & with &amp;',
-                lineNumbers: Array.from(new Set(fixLineNumbers)).sort((a, b) => a - b)
+                description: `Escaped ${uniqueAmpLines.length} unescaped & character${uniqueAmpLines.length > 1 ? 's' : ''} to &amp;`,
+                lineNumbers: uniqueAmpLines
             });
-        }
-        
-        if (appliedSteps.length > 0) {
-            console.log('🔧 CPEE preprocessing applied:', appliedSteps.map(s => s.description));
         }
         
         return {
