@@ -570,8 +570,8 @@ export class InstanceLoaderViewer {
         
         // Create array of instance numbers to check
         const instancesToCheck = Array.from({ length: end - start + 1 }, (_, i) => start + i);
-        const instancesWithSteps = [];
         const concurrency = configManager.get('network.scanConcurrency', 5);
+        let foundCount = 0;
         
         // Track progress
         let completedCount = 0;
@@ -600,7 +600,9 @@ export class InstanceLoaderViewer {
                 const result = await this.checkInstanceForSteps(processNumber);
                 
                 if (result && result.hasSteps && result.uuid) {
-                    instancesWithSteps.push(result);
+                    // Immediately append to the list as soon as found
+                    foundCount++;
+                    this.appendInstanceToList(result, instanceList);
                 } else if (result && result.error) {
                     // Check if it's a 404 (process doesn't exist) - skip silently
                     if (result.isNotFound) {
@@ -637,7 +639,7 @@ export class InstanceLoaderViewer {
             if (isRateLimited && rateLimitedCount > 0) {
                 const delay = Math.min(5000 * rateLimitedCount, 30000); // Max 30s delay
                 if (scanButton) {
-                    scanButton.textContent = `Rate limited. Waiting ${delay/1000}s...`;
+                    scanButton.textContent = `Rate limited. Waiting ${delay/1000}s... (${completedCount}/${instancesToCheck.length})`;
                 }
                 await new Promise(resolve => setTimeout(resolve, delay));
                 // Reset rate limit flag after delay
@@ -671,16 +673,50 @@ export class InstanceLoaderViewer {
             scanButton.textContent = 'Scan for CPEE LLM Instances';
         }
         
-        try {
-            this.displayInstanceList(instancesWithSteps);
-        } catch (displayError) {
-            // Silently handle display errors
-        }
-        
-        if (instancesWithSteps.length === 0) {
+        // Show message if no instances found
+        if (foundCount === 0) {
             if (instanceList) {
                 instanceList.innerHTML = '<p style="color: var(--text-secondary); font-style: italic;">No CPEE LLM Instances found in the specified range.</p>';
             }
+        }
+    }
+    
+    /**
+     * Append a single instance to the instance list in sorted order
+     * @param {Object} instance - Instance with processNumber and uuid
+     * @param {HTMLElement} instanceList - The list container element
+     */
+    appendInstanceToList(instance, instanceList) {
+        if (!instanceList) {
+            return;
+        }
+        
+        const box = document.createElement('div');
+        box.className = 'instance-number-box';
+        box.textContent = instance.processNumber.toString();
+        box.title = `Click to load instance ${instance.processNumber}`;
+        box.dataset.processNumber = instance.processNumber;
+        
+        // Add click handler to simulate "load instance"
+        box.addEventListener('click', () => {
+            this.loadInstanceForProcessNumber(instance.processNumber, instance.uuid);
+        });
+        
+        // Insert in sorted order (by process number)
+        const existingBoxes = instanceList.querySelectorAll('.instance-number-box');
+        let inserted = false;
+        
+        for (const existingBox of existingBoxes) {
+            const existingNumber = parseInt(existingBox.dataset.processNumber, 10);
+            if (instance.processNumber < existingNumber) {
+                instanceList.insertBefore(box, existingBox);
+                inserted = true;
+                break;
+            }
+        }
+        
+        if (!inserted) {
+            instanceList.appendChild(box);
         }
     }
 
