@@ -348,7 +348,13 @@ export class SyntaxHighlightingService {
         // Get the original text content to count lines
         const originalText = codeElement.textContent || '';
         const lines = originalText.split('\n');
-        const lineCount = lines.length;
+        
+        // If content ends with a newline, the last element will be empty - don't count it
+        // "line1\nline2\n" splits to ["line1", "line2", ""] - we want 2 lines, not 3
+        let lineCount = lines.length;
+        if (lineCount > 0 && lines[lineCount - 1] === '') {
+            lineCount--;
+        }
         
         // If there's only one empty line or no content, don't add line numbers
         if (lineCount <= 1 && !originalText.trim()) {

@@ -3,7 +3,6 @@
    Main entry point - imports all CSS partials
    
    This file orchestrates the CSS architecture using a modular partial system.
-   Each partial is prefixed with underscore (_) following SCSS convention.
    
    Import order matters:
    1. Foundation - Variables must come first (other files depend on them)
@@ -19,44 +18,44 @@
    ======================================== */
 
 /* Foundation */
-@import '_variables.css';
-@import '_reset.css';
+@import 'variables.css';
+@import 'reset.css';
 
 /* Layout */
-@import '_layout.css';
-@import '_sidebar.css';
+@import 'layout.css';
+@import 'sidebar.css';
 
 /* Components - Buttons & Inputs */
-@import '_buttons.css';
-@import '_instance-loading.css';
+@import 'buttons.css';
+@import 'instance-loading.css';
 
 /* Components - UI */
-@import '_modals.css';
-@import '_navigation.css';
-@import '_view-mode.css';
-@import '_action-bar.css';
+@import 'modals.css';
+@import 'navigation.css';
+@import 'view-mode.css';
+@import 'action-bar.css';
 
 /* Content Sections */
-@import '_content-sections.css';
-@import '_raw-content.css';
+@import 'content-sections.css';
+@import 'raw-content.css';
 
 /* Graphs & Visualization */
-@import '_graphs.css';
-@import '_highlighting.css';
-@import '_comparison.css';
+@import 'graphs.css';
+@import 'highlighting.css';
+@import 'comparison.css';
 
 /* Alerts & Indicators */
-@import '_alerts.css';
+@import 'alerts.css';
 
 /* Traces & Analysis */
-@import '_traces.css';
-@import '_analysis.css';
+@import 'traces.css';
+@import 'analysis.css';
 
 /* Search */
-@import '_search.css';
+@import 'search.css';
 
 /* Features */
-@import '_issues.css';
+@import 'issues.css';
 
 /* Utilities */
-@import '_utilities.css';
+@import 'utilities.css';
