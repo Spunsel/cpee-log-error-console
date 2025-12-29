@@ -1,0 +1,173 @@
+/* ========================================
+   _raw-content.css
+   
+   Raw text and code content display with syntax highlighting support.
+   
+   Contains:
+   - Raw content container: base wrapper with visible overflow
+   - [data-content-type="raw"]: full-size absolute positioning for raw view
+   - Content box positioning for view mode switching
+   - Raw code block: monospace pre-formatted text display
+   - Code block with line numbers: two-column layout (numbers + code)
+   - Line numbers column: right-aligned, non-selectable, border separator
+   - Individual line number styling with consistent height
+   - Preprocessing line number highlighting: colored background for marked lines
+   - Code content area: flexible width with horizontal scroll
+   - Code element styling: transparent background, inherited font
+   - Text selection enablement: ensuring content is selectable
+   - Raw text block: plain text display with word wrapping
+   - Responsive adjustments for font sizes on mobile
+   
+   Concerns:
+   - Readable display of raw log files and code
+   - Optional line numbers for reference and navigation
+   - Preprocessing tag visualization (highlighted line numbers)
+   - Horizontal scrolling for long lines without wrapping
+   - User-selectable text for copy operations
+   - Consistent monospace typography with proper line height
+   ======================================== */
+
+/* ========================================
+   RAW CONTENT RENDERER STYLING
+   ======================================== */
+
+/* Raw Content Container - Ensure proper overflow for sticky positioning */
+.raw-content-container {
+   background: var(--surface-color);
+   border-radius: 0;
+   overflow: visible;
+   border: none;
+}
+
+[data-content-type="raw"] {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   overflow: auto;
+   background-color: var(--surface-color);
+   z-index: 10;
+   scrollbar-gutter: stable;
+   display: block;
+}
+
+.content-box {
+   position: relative;
+}
+
+
+.raw-code-block {
+   margin: 0;
+   background: var(--surface-color);
+   font-family: var(--font-mono);
+   font-size: var(--font-size-sm);
+   line-height: 1.5;
+   color: var(--text-primary);
+   padding: var(--spacing-xs);
+   overflow: visible;
+   white-space: pre;
+   word-wrap: normal;
+   width: max-content;
+   min-width: 100%;
+}
+
+.raw-code-block code {
+   background: transparent;
+   border: none;
+   padding: 0;
+   color: inherit;
+   font-size: inherit;
+}
+
+/* Line numbers for syntax-highlighted code */
+.raw-code-block-with-lines {
+   display: flex;
+   align-items: flex-start;
+   width: 100%;
+   min-width: 100%;
+   margin: 0;
+}
+
+.raw-code-line-numbers {
+   display: flex;
+   flex-direction: column;
+   flex-shrink: 0;
+   padding: 9px 12px var(--spacing-xs) var(--spacing-xs);
+   background: transparent;
+   border-right: 1px solid var(--border-color);
+   text-align: right;
+   user-select: none;
+   font-family: var(--font-mono);
+   font-size: var(--font-size-xs);
+   line-height: 1.625;
+   color: var(--text-secondary);
+}
+
+.raw-code-line-number {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   height: 1;
+   color: inherit;
+}
+
+/* Mark preprocessing line numbers with background highlight (Raw View only) */
+.raw-code-line-number.preprocessing-line-number {
+   background-color: var(--preprocessing-bg);
+   color: var(--text-white);
+}
+
+.raw-code-content {
+   flex: 1;
+   min-width: 0;
+   padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) 0;
+   overflow-x: auto;
+}
+
+.raw-code-content code {
+   background: transparent;
+   border: none;
+   padding: 0;
+   margin: 0;
+   color: inherit;
+   font-size: inherit;
+   font-family: inherit;
+   white-space: pre;
+   word-wrap: normal;
+   display: block;
+   line-height: 1.5;
+}
+
+.raw-content-container,
+.raw-content-container *,
+.raw-code-block,
+.raw-code-block *,
+.raw-text-block,
+.raw-text-block * {
+   user-select: text !important;
+}
+
+.raw-text-block {
+   margin: 0;
+   background: var(--surface-color);
+   font-family: var(--font-mono);
+   font-size: var(--font-size-sm);
+   line-height: 1.6;
+   color: var(--text-primary);
+   white-space: pre-wrap;
+   word-wrap: break-word;
+   height: 100%;
+   overflow: hidden;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+   .raw-code-block {
+       font-size: var(--font-size-sm);
+   }
+   
+   .raw-text-block {
+       font-size: var(--font-size-sm);
+   }
+}

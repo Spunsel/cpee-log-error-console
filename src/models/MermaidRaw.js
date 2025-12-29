@@ -7,7 +7,7 @@
 export class MermaidRaw {
     constructor(content = '') {
         this.content = content || '';
-        this.rawExposition = ''; // Completely unprocessed content from log exposition (for log view)
+        this.rawExposition = ''; // Completely unprocessed content from log exposition (for Raw View)
         this.extractedAt = new Date();
         this.isValid = this.validateMermaidSyntax();
     }
@@ -21,7 +21,7 @@ export class MermaidRaw {
     }
 
     /**
-     * Get the completely unprocessed content from log exposition (for log view)
+     * Get the completely unprocessed content from log exposition (for Raw View)
      * @returns {string} Unprocessed exposition content
      */
     getRawExposition() {

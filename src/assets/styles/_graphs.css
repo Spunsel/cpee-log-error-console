@@ -1,0 +1,428 @@
+/* ========================================
+   _graphs.css
+   
+   SVG graph visualization styling for CPEE and Mermaid diagrams.
+   
+   Contains:
+   - Graph container base: isolation context, minimum dimensions
+   - SVG display properties: block layout, auto sizing
+   - Graph text styling: Adwaita Sans font family for all SVG text/tspan
+   - CPEE graph containers: max-content width, relative positioning
+   - CPEE SVG overrides: font protection from Prism theme interference
+   - Mermaid graph containers: inline-block display, nowrap, min-width
+   - Mermaid SVG sizing: auto dimensions with no max constraints
+   - Mermaid element styling: node shapes (circles, rects, polygons)
+   - Event and task node specific styles
+   - Gateway and decision node styles
+   - Graphgrid outline color matching
+   - Dark mode CPEE: background, text, path, shape color inversions
+   - Dark mode edge labels: stroke matching surface color
+   - Dark mode arrows and markers
+   - Dark mode standwithout elements (background fills)
+   - Dark mode graphics symbols: filter for icon inversion
+   - Dark mode Mermaid: consistent theming with CPEE
+   - Graph element isolation: hiding modelling/input elements
+   - Form input override: ensuring main inputs remain visible
+   
+   Concerns:
+   - Consistent graph appearance across different diagram types
+   - Proper dark mode support with inverted colors
+   - Font consistency using CSS variables
+   - SVG element targeting for styling without breaking functionality
+   - Preventing graph rendering artifacts
+   ======================================== */
+
+/* ========================================
+   GRAPH CONTAINERS
+   ======================================== */
+
+/* Step Graph Containers */
+[id*="-graph-container"] {
+   margin: 0;
+   isolation: isolate;
+   min-height: 100px;
+   height: auto;
+}
+
+[id*="-graph-container"] svg {
+   display: block;
+   width: auto;
+   height: auto;
+}
+
+/* All Graph Text - Apply Adwaita Sans to all SVG text elements in graphs */
+[id*="-graph-container"] svg text,
+[id*="-graph-container"] svg tspan {
+   font-family: var(--font-sans) !important;
+}
+/* Note: Font size for Mermaid graphs is controlled ONLY via ConfigManager and applied programmatically via MermaidRenderer */
+
+/* ========================================
+   CPEE GRAPH CONTAINERS
+   ======================================== */
+
+.cpee-section [id*="-graph-container"] {
+   min-width: 100%;
+   width: max-content;
+   position: relative;
+}
+
+.cpee-section [id*="-graph-container"] svg {
+   width: auto !important;
+   max-width: none !important;
+   display: block;
+}
+
+/* CPEE Graph Text Styling - Protected from Prism theme font overrides */
+.cpee-section [id*="-graph-container"] svg text,
+.cpee-section [id*="-graph-container"] svg text.label,
+.cpee-section [id*="-graph-container"] svg tspan,
+.cpee-section svg text,
+.cpee-section svg tspan {
+   font-family: var(--font-sans) !important;
+   /* Prevent Prism theme from overriding CPEE SVG fonts */
+}
+
+/* Additional protection: Ensure CPEE SVGs are not affected by code block font styles */
+.cpee-section [id*="-graph-container"] svg,
+.cpee-section svg {
+   font-family: var(--font-sans) !important;
+}
+
+/* Protect CPEE SVG text from any pre/code font inheritance */
+.cpee-section pre [id*="-graph-container"] svg text,
+.cpee-section code [id*="-graph-container"] svg text,
+.raw-content-container [id*="-graph-container"] svg text,
+.cpee-section pre svg text,
+.cpee-section code svg text {
+   font-family: var(--font-sans) !important;
+}
+
+#input-cpee-content [id*="-graph-container"] svg {
+   display: block;
+   width: auto;
+   height: auto;
+   min-height: 100px;
+}
+
+/* ========================================
+   MERMAID GRAPH CONTAINERS
+   ======================================== */
+
+[id*="input-intermediate-"][id*="-graph-container"],
+[id*="output-intermediate-"][id*="-graph-container"] {
+   background: var(--surface-color);
+   border: none;
+   border-radius: 0;
+   margin: 0;
+   padding: 5px;
+   height: auto;
+   min-height: auto;
+   text-align: left;
+   display: inline-block;
+   white-space: nowrap;
+   width: auto;
+   min-width: 200px;
+   overflow-y: visible;
+}
+
+[id*="input-intermediate-"][id*="-graph-container"] svg,
+[id*="output-intermediate-"][id*="-graph-container"] svg {
+   display: inline-block;
+   width: auto !important;
+   height: auto !important;
+   max-width: none !important;
+   min-width: 200px;
+   max-height: none !important;
+   vertical-align: top;
+}
+
+/* Mermaid Graph Text Styling */
+/* Font family only - font size is controlled ONLY via ConfigManager and applied programmatically via MermaidRenderer */
+[id*="input-intermediate-"][id*="-graph-container"] svg text,
+[id*="output-intermediate-"][id*="-graph-container"] svg text,
+[id*="input-intermediate-"][id*="-graph-container"] svg .nodeLabel,
+[id*="output-intermediate-"][id*="-graph-container"] svg .nodeLabel,
+.mermaid-section [id*="-graph-container"] svg text {
+   font-family: var(--font-sans) !important;
+}
+
+/* Mermaid Element Styling */
+[id*="input-intermediate-"][id*="-graph-container"] .node circle,
+[id*="output-intermediate-"][id*="-graph-container"] .node circle,
+[id*="input-intermediate-"][id*="-graph-container"] .node rect,
+[id*="output-intermediate-"][id*="-graph-container"] .node rect,
+[id*="input-intermediate-"][id*="-graph-container"] .node polygon,
+[id*="output-intermediate-"][id*="-graph-container"] .node polygon,
+[id*="input-intermediate-"][id*="-graph-container"] .node path,
+[id*="output-intermediate-"][id*="-graph-container"] .node path,
+[id*="input-intermediate-"][id*="-graph-container"] .node ellipse,
+[id*="output-intermediate-"][id*="-graph-container"] .node ellipse {
+   fill: var(--surface-color) !important;
+   stroke: var(--text-primary) !important;
+   stroke-width: 2px !important;
+}
+
+[id*="input-intermediate-"][id*="-graph-container"] g[id*="startevent"] circle,
+[id*="input-intermediate-"][id*="-graph-container"] g[id*="endevent"] circle,
+[id*="output-intermediate-"][id*="-graph-container"] g[id*="startevent"] circle,
+[id*="output-intermediate-"][id*="-graph-container"] g[id*="endevent"] circle,
+[id*="input-intermediate-"][id*="-graph-container"] g[id*="task"] rect,
+[id*="output-intermediate-"][id*="-graph-container"] g[id*="task"] rect {
+   fill: var(--surface-color) !important;
+   stroke: var(--text-primary) !important;
+   stroke-width: 2px !important;
+}
+
+[id*="input-intermediate-"][id*="-graph-container"] g[id*="gateway"] *,
+[id*="input-intermediate-"][id*="-graph-container"] g[id*="decision"] *,
+[id*="output-intermediate-"][id*="-graph-container"] g[id*="gateway"] *,
+[id*="output-intermediate-"][id*="-graph-container"] g[id*="decision"] * {
+   fill: var(--surface-color) !important;
+   stroke: var(--text-primary) !important;
+   stroke-width: 2px !important;
+}
+
+[id*="-graph-container"] [id*="modelling"],
+[id*="-graph-container"] [id*="graphgrid"] {
+   height: auto !important;
+   min-height: 100px;
+}
+
+/* Ensure graphgrid-input-cpee outline is always surface color */
+[id^="graphgrid-input-cpee"] {
+   outline-color: var(--surface-color) !important;
+}
+
+/* ========================================
+   DARK MODE GRAPH STYLING
+   ======================================== */
+
+/* CPEE Graph Dark Mode - Dark background with light elements */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] {
+   background-color: var(--surface-color) !important;
+}
+
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg {
+   background-color: var(--surface-color) !important;
+}
+
+[data-theme="dark"] .cpee-section [id*="-graph-container"] div {
+   background-color: var(--surface-color) !important;
+}
+
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg text,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg tspan,
+[data-theme="dark"] .cpee-section svg text,
+[data-theme="dark"] .cpee-section svg tspan {
+   fill: var(--text-primary) !important;
+   color: var(--text-primary) !important;
+}
+
+/* CPEE Graph - Edge label standalone text (stroke should match surface color) */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg text.label.standalone,
+[data-theme="dark"] .cpee-section svg text.label.standalone {
+   stroke: var(--surface-color) !important;
+   fill: var(--text-primary) !important;
+}
+
+/* CPEE Graph - All paths, lines, edges in light gray */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg path,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg line,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg polyline,
+[data-theme="dark"] .cpee-section svg path,
+[data-theme="dark"] .cpee-section svg line,
+[data-theme="dark"] .cpee-section svg polyline {
+   stroke: var(--text-primary) !important;
+   fill: none !important;
+}
+
+/* CPEE Graph - Arrows and markers */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg marker *,
+[data-theme="dark"] .cpee-section svg marker * {
+   fill: var(--text-primary) !important;
+   stroke: var(--text-primary) !important;
+}
+
+/* CPEE Graph - Node shapes (rectangles, circles, etc.) */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg rect,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg circle,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg ellipse,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg polygon,
+[data-theme="dark"] .cpee-section svg rect,
+[data-theme="dark"] .cpee-section svg circle,
+[data-theme="dark"] .cpee-section svg ellipse,
+[data-theme="dark"] .cpee-section svg polygon {
+   fill: var(--surface-color) !important;
+   stroke: var(--text-primary) !important;
+}
+
+/* CPEE Graph - Groups and containers */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g {
+   fill: none !important;
+}
+
+/* CPEE Graph - standwithout elements (background fill rects) */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg rect.standwithout,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg [class*="standwithout"],
+[data-theme="dark"] .cpee-section svg rect.standwithout,
+[data-theme="dark"] .cpee-section svg [class*="standwithout"] {
+   stroke: var(--surface-color) !important;
+}
+
+/* CPEE Graph - Graphics symbols (icons, images, use elements) */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg image,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg use,
+[data-theme="dark"] .cpee-section svg image,
+[data-theme="dark"] .cpee-section svg use {
+   /* Use filter to make images/icons light gray */
+   filter: brightness(0) saturate(100%) invert(85%);
+   opacity: 0.9;
+}
+
+/* CPEE Graph - Graphics symbols in paths (icon paths, symbol paths) */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="symbol"] path,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="icon"] path,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="graphic"] path,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="symbol"] *,
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="icon"] *,
+[data-theme="dark"] .cpee-section svg g[class*="symbol"] path,
+[data-theme="dark"] .cpee-section svg g[class*="icon"] path,
+[data-theme="dark"] .cpee-section svg g[class*="graphic"] path,
+[data-theme="dark"] .cpee-section svg g[class*="symbol"] *,
+[data-theme="dark"] .cpee-section svg g[class*="icon"] * {
+   fill: var(--text-primary) !important;
+   stroke: var(--text-primary) !important;
+}
+
+/* CPEE Graph - Paths that are graphics symbols (not edges) - target paths inside groups that might be icons */
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="node"] path:not([class*="edge"]):not([class*="line"]),
+[data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="task"] path:not([class*="edge"]):not([class*="line"]),
+[data-theme="dark"] .cpee-section svg g[class*="node"] path:not([class*="edge"]):not([class*="line"]),
+[data-theme="dark"] .cpee-section svg g[class*="task"] path:not([class*="edge"]):not([class*="line"]) {
+   fill: var(--text-primary) !important;
+   stroke: var(--text-primary) !important;
+}
+
+/* Mermaid Graph Dark Mode - Dark background */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"],
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] {
+   background: var(--surface-color) !important;
+}
+
+/* Mermaid Graph - SVG background and all nested elements */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg {
+   background-color: var(--surface-color) !important;
+}
+
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] > div,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] > div,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] > div {
+   background-color: var(--surface-color) !important;
+}
+
+/* Mermaid Graph - All text elements */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg text,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg text,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg tspan,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg tspan,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg text,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg tspan {
+   fill: var(--text-secondary) !important;
+   color: var(--text-secondary) !important;
+}
+
+/* Mermaid Graph - All paths, lines, edges (connections/arrows) - Comprehensive targeting */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg path,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg path,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg line,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg line,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg polyline,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg polyline,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg path,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg line,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg polyline {
+   stroke: var(--text-primary) !important;
+   fill: none !important;
+}
+
+/* Mermaid Graph - Edge paths (specifically for connections between nodes) */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg .edgePath path,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg .edgePath path,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg .flowchart-link,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg .flowchart-link,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg .edgePath path,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg .flowchart-link {
+   stroke: var(--text-primary) !important;
+   fill: none !important;
+}
+
+/* Mermaid Graph - Node shapes */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] .node circle,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] .node circle,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] .node rect,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] .node rect,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] .node polygon,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] .node polygon,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] .node ellipse,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] .node ellipse {
+   fill: var(--background-color) !important;
+   stroke: var(--text-primary) !important;
+   stroke-width: 2px !important;
+}
+
+/* Mermaid Graph - Event and task nodes */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] g[id*="startevent"] circle,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] g[id*="endevent"] circle,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] g[id*="startevent"] circle,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] g[id*="endevent"] circle,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] g[id*="task"] rect,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] g[id*="task"] rect {
+   fill: var(--background-color) !important;
+   stroke: var(--text-primary) !important;
+   stroke-width: 2px !important;
+}
+
+/* Mermaid Graph - Gateway and decision nodes */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] g[id*="gateway"] *,
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] g[id*="decision"] *,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] g[id*="gateway"] *,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] g[id*="decision"] * {
+   fill: var(--background-color) !important;
+   stroke: var(--text-primary) !important;
+   stroke-width: 2px !important;
+}
+
+/* Mermaid Graph - Arrows and markers */
+[data-theme="dark"] [id*="input-intermediate-"][id*="-graph-container"] svg marker *,
+[data-theme="dark"] [id*="output-intermediate-"][id*="-graph-container"] svg marker *,
+[data-theme="dark"] .mermaid-section [id*="-graph-container"] svg marker * {
+   fill: var(--text-primary) !important;
+   stroke: var(--text-primary) !important;
+}
+
+/* ========================================
+   GRAPH ELEMENT ISOLATION
+   ======================================== */
+
+[id*="step-"][id*="-input"],
+[id*="step-"][id*="-modelling"],
+[id*="output-step-"][id*="-input"],
+[id*="output-step-"][id*="-modelling"] {
+   pointer-events: none !important;
+   position: absolute !important;
+   left: -9999px !important;
+   visibility: hidden !important;
+}
+
+/* Override isolation for main form inputs */
+#process-number-input,
+#uuid-input {
+   pointer-events: auto !important;
+   position: relative !important;
+   left: auto !important;
+   visibility: visible !important;
+   z-index: 1 !important;
+}

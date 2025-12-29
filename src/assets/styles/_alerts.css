@@ -1,0 +1,443 @@
+/* ========================================
+   _alerts.css
+   
+   Warning and error indicator components for graph parsing feedback.
+   
+   Contains:
+   - Mermaid error indicator: danger-styled box with red border
+   - Error header: bold title with icon
+   - Error icon: sized SVG container
+   - Error message: descriptive text with proper line-height
+   - Parse error header: section title for code context
+   - Code context block: bordered area showing problematic code
+   - Code line display: flex layout for line number + content
+   - Error line highlight: red background with left border
+   - Line number styling: secondary color, non-selectable
+   - Line wrapper and content: flexible layout
+   - Error character highlighting: red background, white text
+   - Expectation section: showing expected vs. got values
+   - Mermaid warning indicator: warning-styled box with yellow/orange border
+   - Warning header: semibold title with icon and toggle
+   - Warning icon and toggle button styling
+   - Steps container: collapsible warning details
+   - Warning message and steps list
+   - Line numbers within warnings
+   - CPEE warning indicator: same structure adapted for CPEE context
+   - CPEE SVG path overrides: ensuring correct fill/stroke in CPEE sections
+   - Toggle button SVG overrides for CPEE
+   
+   Concerns:
+   - Clear communication of parsing errors with context
+   - Visual distinction between errors (critical) and warnings (informational)
+   - Code context display for debugging parse failures
+   - Collapsible warnings to reduce visual noise
+   - Consistent appearance in both CPEE and Mermaid sections
+   ======================================== */
+
+/* ========================================
+   MERMAID ERROR INDICATOR
+   ======================================== */
+
+/* Error indicator appears directly under section header with rounded corners only on bottom */
+.mermaid-error-indicator {
+   position: relative;
+   width: 100%;
+   min-height: 100px;
+   border: 3px solid var(--alert-danger-border);
+   border-radius: 0 0 var(--border-radius) var(--border-radius);
+   background-color: var(--alert-danger-bg);
+   padding: 20px;
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   justify-content: center;
+}
+
+/* Ensure error indicator connects to section header when in content-box */
+.section .content-box > .mermaid-error-indicator {
+   margin-top: 0;
+}
+
+.mermaid-error-indicator__header {
+   font-weight: bold;
+   color: var(--alert-danger-text);
+   font-size: 16px;
+   margin-bottom: 10px;
+   display: flex;
+   align-items: center;
+}
+
+.mermaid-error-indicator__icon {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   margin-right: 10px;
+   color: var(--alert-danger-border);
+   flex-shrink: 0;
+   width: 24px;
+   height: 24px;
+}
+
+.mermaid-error-indicator__icon svg {
+   width: 100%;
+   height: 100%;
+   display: block;
+}
+
+.mermaid-error-indicator__message {
+   color: var(--alert-danger-text);
+   font-size: var(--font-size-sm);
+   margin-bottom: 15px;
+   line-height: 1.5;
+}
+
+.mermaid-error-indicator__parse-header {
+   font-family: var(--font-sans);
+   font-size: var(--font-size-sm);
+   font-weight: 600;
+   margin-bottom: 12px;
+   color: var(--alert-danger-text);
+}
+
+.mermaid-error-indicator__code-context {
+   background-color: var(--surface-color);
+   border: 1px solid var(--alert-danger-border);
+   border-radius: var(--border-radius-sm);
+   padding: 12px;
+   margin: 12px 0;
+   font-family: var(--font-mono);
+   font-size: 12px;
+   line-height: 1.6;
+}
+
+.mermaid-error-indicator__code-line {
+   display: flex;
+   align-items: flex-start;
+   padding: 2px 0;
+   color: var(--text-primary);
+   position: relative;
+}
+
+.mermaid-error-indicator__code-line--error {
+   background-color: rgba(202, 69, 69, 0.1);
+   padding: 4px var(--spacing-xs);
+   margin: 0 -8px;
+   border-left: 3px solid var(--alert-danger-border);
+}
+
+.mermaid-error-indicator__line-number {
+   color: var(--text-secondary);
+   margin-right: 6px;
+   user-select: none;
+   flex-shrink: 0;
+   min-width: 40px;
+}
+
+.mermaid-error-indicator__line-wrapper {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+}
+
+.mermaid-error-indicator__line-content {
+   white-space: pre;
+   word-break: break-all;
+}
+
+.mermaid-error-indicator__error-char {
+   background-color: var(--alert-danger-border);
+   color: var(--text-white);
+   font-weight: bold;
+   padding: 2px 1px;
+   border-radius: 2px;
+   position: relative;
+}
+
+.mermaid-error-indicator__expectation {
+   margin-top: 12px;
+   padding-top: 12px;
+   border-top: 1px solid var(--alert-danger-border);
+}
+
+.mermaid-error-indicator__expecting,
+.mermaid-error-indicator__got {
+   font-family: var(--font-mono);
+   font-size: 12px;
+   margin-bottom: 8px;
+   line-height: 1.6;
+}
+
+.mermaid-error-indicator__expecting:last-child,
+.mermaid-error-indicator__got:last-child {
+   margin-bottom: 0;
+}
+
+.mermaid-error-indicator__label {
+   font-weight: 600;
+   color: var(--alert-danger-text);
+   margin-right: 8px;
+}
+
+.mermaid-error-indicator__value {
+   color: var(--text-primary);
+}
+
+/* ========================================
+   MERMAID WARNING INDICATOR
+   ======================================== */
+
+/* Warning indicator appears directly under section header with rounded corners only on bottom */
+.mermaid-warning-indicator {
+   position: relative;
+   width: 100%;
+   min-height: auto;
+   border: 2px solid var(--alert-warning-border);
+   border-radius: 0 0 var(--border-radius) var(--border-radius);
+   background-color: var(--alert-warning-bg);
+   padding: 10px 15px;
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   justify-content: flex-start;
+   margin-bottom: 8px;
+}
+
+/* Ensure warning indicator connects to section header when in content-box */
+.section .content-box > .mermaid-warning-indicator {
+   margin-top: 0;
+}
+
+.mermaid-warning-indicator__header {
+   font-weight: 600;
+   color: var(--alert-warning-text);
+   font-size: var(--font-size-sm);
+   margin-bottom: 0;
+   display: flex;
+   align-items: center;
+   line-height: 1.2;
+   width: 100%;
+}
+
+.mermaid-warning-indicator__icon {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   margin-right: 6px;
+   color: var(--alert-warning-border);
+   flex-shrink: 0;
+   width: 18px;
+   height: 18px;
+}
+
+.mermaid-warning-indicator__icon svg {
+   width: 100%;
+   height: 100%;
+   display: block;
+}
+
+.mermaid-warning-indicator__toggle {
+   background: none;
+   border: none;
+   padding: 0;
+   margin-right: 6px;
+   cursor: pointer;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   color: var(--alert-warning-text);
+   opacity: 0.8;
+   width: 18px;
+   height: 18px;
+   flex-shrink: 0;
+}
+
+.mermaid-warning-indicator__toggle:hover {
+   opacity: 1;
+}
+
+.mermaid-warning-indicator__toggle:focus {
+   outline: 2px solid var(--alert-warning-border);
+   outline-offset: 2px;
+   border-radius: 2px;
+}
+
+.mermaid-warning-indicator__toggle svg {
+   width: 100%;
+   height: 100%;
+   display: block;
+}
+
+.mermaid-warning-indicator__steps-container {
+   margin-top: 6px;
+}
+
+.mermaid-warning-indicator__message {
+   color: var(--alert-warning-text);
+   font-size: 12px;
+   margin-bottom: 6px;
+   line-height: 1.4;
+   opacity: 0.9;
+}
+
+.mermaid-warning-indicator__steps {
+   margin: 0;
+   padding-left: 16px;
+   color: var(--alert-warning-text);
+   font-size: 12px;
+   line-height: 1.4;
+}
+
+.mermaid-warning-indicator__steps li {
+   margin-bottom: 3px;
+}
+
+.mermaid-warning-indicator__line-numbers {
+   color: var(--alert-warning-text);
+   opacity: 0.75;
+   font-weight: normal;
+   margin-left: 4px;
+   font-size: var(--font-size-xs);
+}
+
+/* ========================================
+   CPEE WARNING INDICATOR
+   ======================================== */
+
+.cpee-warning-indicator {
+   position: relative;
+   width: 100%;
+   min-height: auto;
+   border: 2px solid var(--alert-warning-border);
+   border-radius: 0 0 var(--border-radius) var(--border-radius);
+   background-color: var(--alert-warning-bg);
+   padding: 10px 15px;
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   justify-content: flex-start;
+   margin-bottom: 8px;
+   font-family: var(--font-sans);
+}
+
+/* Ensure warning indicator connects to section header when in content-box */
+.section .content-box > .cpee-warning-indicator {
+   margin-top: 0;
+}
+
+.cpee-warning-indicator__header {
+   font-weight: 600;
+   color: var(--alert-warning-text);
+   font-size: var(--font-size-sm);
+   font-family: var(--font-sans);
+   margin-bottom: 0;
+   display: flex;
+   align-items: center;
+   line-height: 1.2;
+   width: 100%;
+}
+
+.cpee-warning-indicator__icon {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   margin-right: 6px;
+   color: var(--alert-warning-border);
+   flex-shrink: 0;
+   width: 18px;
+   height: 18px;
+}
+
+.cpee-warning-indicator__icon svg {
+   width: 100%;
+   height: 100%;
+   display: block;
+}
+
+/* Override CPEE section SVG styles that set fill: none on paths */
+.cpee-warning-indicator__icon svg path,
+.cpee-section .cpee-warning-indicator__icon svg path,
+[data-theme="dark"] .cpee-warning-indicator__icon svg path,
+[data-theme="dark"] .cpee-section .cpee-warning-indicator__icon svg path {
+   fill: currentColor !important;
+   stroke: none !important;
+}
+
+.cpee-warning-indicator__toggle svg path,
+.cpee-section .cpee-warning-indicator__toggle svg path,
+[data-theme="dark"] .cpee-warning-indicator__toggle svg path,
+[data-theme="dark"] .cpee-section .cpee-warning-indicator__toggle svg path {
+   fill: none !important;
+   stroke: currentColor !important;
+}
+
+.cpee-warning-indicator__toggle {
+   background: none;
+   border: none;
+   padding: 0;
+   margin-right: 6px;
+   cursor: pointer;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   color: var(--alert-warning-text);
+   opacity: 0.8;
+   width: 18px;
+   height: 18px;
+   flex-shrink: 0;
+}
+
+.cpee-warning-indicator__toggle:hover {
+   opacity: 1;
+}
+
+.cpee-warning-indicator__toggle:focus {
+   outline: 2px solid var(--alert-warning-border);
+   outline-offset: 2px;
+   border-radius: 2px;
+}
+
+.cpee-warning-indicator__toggle svg {
+   width: 100%;
+   height: 100%;
+   display: block;
+}
+
+.cpee-warning-indicator__steps-container {
+   margin-top: 6px;
+}
+
+.cpee-warning-indicator__message {
+   color: var(--alert-warning-text);
+   font-size: 12px;
+   font-family: var(--font-sans);
+   margin-bottom: 6px;
+   line-height: 1.4;
+   opacity: 0.9;
+}
+
+.cpee-warning-indicator__steps {
+   margin: 0;
+   padding-left: 16px;
+   color: var(--alert-warning-text);
+   font-size: 12px;
+   font-family: var(--font-sans);
+   line-height: 1.4;
+}
+
+.cpee-warning-indicator__steps li {
+   margin-bottom: 3px;
+   font-family: var(--font-sans);
+}
+
+.cpee-warning-indicator__line-numbers {
+   color: var(--alert-warning-text);
+   opacity: 0.75;
+   font-weight: normal;
+   font-family: var(--font-sans);
+   margin-left: 4px;
+   font-size: var(--font-size-xs);
+}
+

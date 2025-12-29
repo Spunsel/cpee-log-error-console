@@ -1,0 +1,189 @@
+/* ========================================
+   _modals.css
+   
+   Modal dialogs and overlay components for user interactions.
+   
+   Contains:
+   - Bug report modal: full-screen overlay with centered dialog
+   - Modal visibility states (hidden by default, .active to show)
+   - Modal content container: white card with shadow, max dimensions
+   - Modal header: title and close button layout
+   - Close button: positioned icon button with hover/focus states
+   - Form groups within modal: labels, inputs, textareas
+   - Character counter for text length feedback
+   - Modal actions: button row for submit/cancel
+   - Success message: green confirmation with icon
+   - Error message: red alert styling for failures
+   
+   Concerns:
+   - Accessible modal pattern with focus management
+   - Semi-transparent backdrop for modal isolation
+   - Responsive sizing that works on mobile devices
+   - Clear visual feedback for form validation and submission states
+   - Z-index management to ensure modal appears above all content
+   ======================================== */
+
+/* Bug Report Modal */
+.bug-report-modal {
+   display: none;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   z-index: 10000;
+   align-items: center;
+   justify-content: center;
+}
+
+.bug-report-modal.active {
+   display: flex;
+}
+
+.bug-report-modal-content {
+   background: var(--surface-color);
+   border-radius: var(--border-radius-lg);
+   box-shadow: var(--shadow-md);
+   width: 90%;
+   max-width: 500px;
+   max-height: 90vh;
+   overflow-y: auto;
+   position: relative;
+   animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+   from {
+       opacity: 0;
+       transform: scale(0.95);
+   }
+   to {
+       opacity: 1;
+       transform: scale(1);
+   }
+}
+
+.bug-report-modal-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: var(--spacing-lg);
+   border-bottom: 1px solid var(--border-color);
+}
+
+.bug-report-modal-header h2 {
+   margin: 0;
+   font-size: var(--font-size-lg);
+   color: var(--text-primary);
+   font-weight: 600;
+}
+
+.bug-report-close-btn {
+   background: none;
+   border: none;
+   cursor: pointer;
+   color: var(--text-secondary);
+   padding: 4px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: var(--border-radius-sm);
+}
+
+.bug-report-close-btn:hover {
+   background: var(--background-color);
+   color: var(--text-primary);
+}
+
+.bug-report-close-btn:focus {
+   outline: 2px solid var(--primary-color);
+   outline-offset: 2px;
+}
+
+.bug-report-form {
+   padding: var(--spacing-lg);
+}
+
+.form-group {
+   margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+   display: block;
+   margin-bottom: var(--spacing-xs);
+   color: var(--text-primary);
+   font-weight: 500;
+   font-size: var(--font-size-sm);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+   width: 100%;
+   padding: var(--spacing-sm);
+   border: 2px solid var(--border-color);
+   border-radius: var(--border-radius);
+   font-family: var(--font-sans);
+   font-size: var(--font-size-sm);
+   color: var(--text-primary);
+   background: var(--surface-color);
+   box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+   outline: none;
+   border-color: var(--primary-color);
+   box-shadow: 0 0 0 3px var(--primary-color-alpha);
+}
+
+.form-group textarea {
+   resize: vertical;
+   min-height: 120px;
+   font-family: var(--font-sans);
+}
+
+.character-counter {
+   margin-top: var(--spacing-xs);
+   text-align: right;
+   font-size: var(--font-size-sm);
+   color: var(--text-secondary);
+}
+
+.character-counter.at-limit {
+   color: var(--error-color);
+   font-weight: 600;
+}
+
+.form-actions {
+   display: flex;
+   gap: var(--spacing-sm);
+   justify-content: flex-end;
+   margin-top: var(--spacing-lg);
+}
+
+.bug-report-message {
+   padding: var(--spacing-lg);
+   border-radius: var(--border-radius);
+   margin: var(--spacing-lg);
+   font-size: var(--font-size-sm);
+}
+
+.bug-report-success {
+   background-color: var(--alert-success-bg);
+   color: var(--alert-success-text);
+   border: 1px solid var(--alert-success-border);
+}
+
+.bug-report-error {
+   background-color: var(--alert-danger-bg);
+   color: var(--alert-danger-text);
+   border: 1px solid var(--alert-danger-border);
+}
+
+.bug-report-message strong {
+   display: block;
+   margin-bottom: var(--spacing-xs);
+}

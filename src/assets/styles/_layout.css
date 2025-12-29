@@ -1,0 +1,266 @@
+/* ========================================
+   _layout.css
+   
+   Top-level page structure and major layout regions.
+   
+   Contains:
+   - Header: app branding, title, icon, dark mode toggle, theme info popup
+   - Header buttons container and hide-title functionality
+   - Main container: CSS Grid layout with sidebar and content columns
+   - Content area: scrollable main content region with padding
+   - Footer: hidden by default, with separator and link button styles
+   - Responsive adjustments for smaller screens
+   
+   Concerns:
+   - Establishing the overall page grid structure
+   - Header component with app branding and global controls
+   - Responsive behavior for mobile viewports
+   - Theme info popup positioning and visibility states
+   
+   Note: Sidebar-specific styles are in _sidebar.css for modularity.
+   ======================================== */
+
+/* ========================================
+   3. LAYOUT COMPONENTS
+   ======================================== */
+
+/* Header */
+.header {
+   background: var(--surface-color);
+   border-bottom: 1px solid var(--border-color);
+   padding: var(--spacing-md) var(--spacing-xl);
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   box-shadow: var(--shadow);
+}
+
+/* Header content wrapper for title and icon */
+.header-content {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+   cursor: pointer; /* Indicate clickable area */
+}
+
+/* App icon styling */
+.app-icon {
+   flex-shrink: 0;
+   width: 64px;
+   height: 64px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.app-icon svg {
+   width: 100%;
+   height: 100%;
+   display: block;
+}
+
+.header h1 {
+   color: var(--primary-color);
+   font-size: var(--font-size-xl);
+   font-weight: 600;
+}
+
+.app-title {
+   cursor: pointer;
+   user-select: none;
+}
+
+.app-title:hover {
+   color: var(--primary-dark);
+}
+
+/* Header Buttons Container */
+.header-buttons-container {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+   display: flex;
+   align-items: center;
+   margin-left: auto;
+   position: relative;
+}
+
+
+/* Hide Title Button */
+.hide-title-button {
+   display: flex;
+   align-items: center;
+   position: relative;
+}
+
+.hide-title-btn {
+   background: transparent;
+   border: 1px solid var(--border-color);
+   border-radius: var(--button-border-radius);
+   padding: var(--button-padding-lg);
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 6px;
+   color: var(--text-primary);
+   height: 36px;
+   font-size: var(--font-size-sm);
+   font-weight: 500;
+   white-space: nowrap;
+   transition: var(--button-transition);
+}
+
+.hide-title-icon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-shrink: 0;
+}
+
+.hide-title-icon svg {
+   width: var(--icon-size-sm);
+   height: var(--icon-size-sm);
+   display: block;
+}
+
+.hide-title-btn:hover {
+   background: var(--hover-bg);
+   border-color: var(--primary-color);
+   color: var(--primary-color);
+}
+
+.hide-title-btn:active {
+   background: var(--hover-bg-dark);
+   transform: scale(0.95);
+}
+
+.hide-title-btn:focus {
+   outline: 2px solid var(--copy-btn-focus-outline);
+   outline-offset: 2px;
+}
+
+/* Theme Info Button - additional margin */
+.theme-info-btn {
+   margin-right: 8px;
+}
+
+/* Theme Info Popup */
+.theme-info-popup {
+   position: absolute;
+   top: calc(100% + 8px);
+   right: 0;
+   background: var(--surface-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius);
+   padding: 0;
+   box-shadow: var(--shadow-md);
+   z-index: 1000;
+   opacity: 0;
+   visibility: hidden;
+   transform: translateY(-10px);
+   min-width: 280px;
+   max-width: 400px;
+}
+
+.theme-info-popup.visible {
+   opacity: 1;
+   visibility: visible;
+   transform: translateY(0);
+}
+
+.theme-info-content {
+   padding: var(--spacing-md);
+   color: var(--text-primary);
+   font-size: var(--font-size-sm);
+   line-height: 1.5;
+}
+
+/* ========================================
+   MAIN LAYOUT
+   ======================================== */
+
+.main-container {
+   flex: 1;
+   display: grid;
+   grid-template-columns: 300px 1fr;
+   gap: 0;
+   min-height: 0;
+}
+
+/* Adjust grid when sidebar is collapsed */
+.main-container .sidebar.sidebar-collapsed {
+   grid-column: 1 / 2;
+}
+
+.main-container:has(.sidebar.sidebar-collapsed) {
+   grid-template-columns: min-content 1fr;
+}
+
+/* Grid uses default 300px 1fr when sidebar is expanded (no :has rule needed) */
+
+.content {
+   padding: var(--spacing-lg);
+   overflow-y: auto;
+   background: var(--background-color);
+   width: 100%;
+   min-width: 0;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer {
+   display: none; /* Hidden for now */
+   background: var(--surface-color);
+   border-top: 1px solid var(--border-color);
+   padding: var(--spacing-md) var(--spacing-xl);
+   text-align: center;
+   color: var(--text-secondary);
+   font-size: var(--font-size-sm);
+}
+
+.footer-separator {
+   margin: 0 var(--spacing-xs);
+   color: var(--text-secondary);
+}
+
+.footer-link-btn {
+   background: none;
+   border: none;
+   color: var(--primary-color);
+   cursor: pointer;
+   font-size: inherit;
+   font-family: inherit;
+   text-decoration: underline;
+   padding: 0;
+}
+
+.footer-link-btn:hover {
+   color: var(--primary-dark);
+}
+
+.footer-link-btn:focus {
+   outline: 2px solid var(--primary-color);
+   outline-offset: 2px;
+   border-radius: 2px;
+}
+
+/* ========================================
+   RESPONSIVE - LAYOUT
+   ======================================== */
+
+@media (max-width: 480px) {
+   .header {
+      padding: var(--spacing-sm);
+   }
+
+   .content {
+      padding: var(--spacing-md);
+   }
+}

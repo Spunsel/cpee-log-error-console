@@ -1,0 +1,422 @@
+/* ========================================
+   _navigation.css
+   
+   Step-by-step navigation controls and instance metadata display.
+   
+   Contains:
+   - Navigation wrapper: flex container for all navigation elements
+   - Step navigation: prev/next/skip buttons with step counter display
+   - Step counter: current step indicator with dropdown for direct access
+   - Step dropdown menu: scrollable list for jumping to specific steps
+   - Navigation buttons (.nav-btn): icon buttons for prev/next/skip actions
+   - Button disabled states when at bounds
+   - Theme selector: dropdown for switching between graph rendering themes
+   - Scale display: zoom level indicator for graph visualization
+   - Scale dropdown: preset scale options for quick adjustment
+   - Metadata display: UUID and LLM model information with copy buttons
+   - Dropdown triggers: consistent button styling for all dropdowns
+   - Dropdown menus: positioned panels with options
+   - Hover and active states for all interactive elements
+   - Responsive adjustments for smaller screens
+   
+   Concerns:
+   - Intuitive navigation between processing steps
+   - Quick access to step jumping via dropdown
+   - Theme and scale controls for graph customization
+   - Instance context display (UUID, LLM model used)
+   - Consistent dropdown behavior and positioning
+   ======================================== */
+
+/* Navigation Wrapper - flexbox container */
+.navigation-wrapper {
+   display: flex;
+   gap: var(--spacing-sm);
+   margin-top: 0;
+   margin-bottom: var(--spacing-lg);
+   flex-wrap: wrap;
+   align-items: stretch;
+}
+
+/* Step Navigation */
+.step-navigation {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background: var(--surface-color);
+   padding: var(--spacing-md) var(--spacing-lg);
+   border-radius: var(--border-radius);
+   border: 1px solid var(--border-color);
+   box-shadow: var(--shadow);
+   flex: 1;
+   min-width: 400px;
+   order: 1; /* Navigation appears first */
+   position: relative;
+   gap: var(--spacing-sm);
+}
+
+/* Theme Selector */
+.theme-selector-wrapper {
+   display: flex;
+   align-items: center;
+   order: 0; /* Appears first, before step navigation */
+}
+
+.theme-selector {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: var(--surface-color);
+   padding: var(--spacing-lg) var(--spacing-lg);
+   border-radius: var(--border-radius);
+   border: 1px solid var(--border-color);
+   box-shadow: var(--shadow);
+}
+
+.theme-dropdown-container {
+   position: relative;
+   display: inline-block;
+}
+
+
+.theme-dropdown-menu {
+   position: absolute;
+   top: calc(100% + 4px);
+   left: 0;
+   right: auto;
+   min-width: 120px;
+   background: var(--surface-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius);
+   box-shadow: var(--shadow);
+   z-index: 1000;
+   max-height: 250px;
+   overflow-x: hidden;
+   overflow-y: auto;
+}
+
+/* Dropdown Item Base - for centered dropdown items */
+.dropdown-item,
+.theme-dropdown-item,
+.scale-dropdown-item {
+   padding: var(--spacing-sm) var(--spacing-md);
+   cursor: pointer;
+   user-select: none;
+   color: var(--text-primary);
+   font-size: var(--font-size-sm);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.dropdown-item:not(.active):hover,
+.theme-dropdown-item:not(.active):hover,
+.scale-dropdown-item:not(.active):hover {
+   background-color: var(--primary-light);
+   color: var(--text-primary);
+}
+
+.theme-dropdown-item.active {
+   background-color: var(--background-color);
+   font-weight: 600;
+   cursor: default;
+   color: var(--text-secondary);
+}
+
+/* Left section - navigation buttons */
+.step-navigation-left {
+   flex: 1;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   gap: var(--spacing-sm);
+}
+
+/* Center group in left section */
+.step-navigation-left .nav-center-group {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: var(--spacing-sm);
+   flex: 1;
+}
+
+/* Right section - skip button */
+.step-navigation-right {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   gap: var(--spacing-md);
+   flex-shrink: 0;
+   height: 100%;
+   padding-left: var(--spacing-md);
+}
+
+/* Vertical separator in navigation */
+.nav-separator {
+   width: 1px;
+   background-color: var(--border-color);
+   margin: 0;
+   flex-shrink: 0;
+   align-self: stretch;
+}
+
+
+
+/* Specific button styling */
+.nav-btn-start,
+.nav-btn-end {
+   background: var(--secondary-color);
+}
+
+.nav-btn-start:hover:not(:disabled),
+.nav-btn-end:hover:not(:disabled) {
+   background: var(--text-secondary);
+}
+
+/* Disabled state styling */
+.nav-btn:disabled {
+   opacity: 0.5 !important;
+   color: var(--text-secondary) !important;
+   background-color: var(--copy-btn-bg) !important;
+   border-color: var(--border-color) !important;
+   cursor: not-allowed !important;
+   pointer-events: none !important;
+}
+
+/* Step counter styling */
+#step-counter {
+   font-weight: 600;
+   color: var(--text-primary);
+   font-size: var(--font-size-md);
+   padding: 0 10px;
+   white-space: nowrap; /* Prevent wrapping to multiple lines */
+}
+
+/* Dropdown container */
+.step-dropdown-container {
+   position: relative;
+   display: inline-block;
+}
+
+
+/* Dropdown menu */
+.step-dropdown-menu {
+   position: absolute;
+   top: calc(100% + 4px);
+   left: -6px;
+   background: var(--surface-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius);
+   box-shadow: var(--shadow);
+   z-index: 1000;
+   min-width: 200px;
+   max-width: 400px;
+   max-height: 300px;
+   overflow-y: auto;
+   overflow-x: hidden;
+}
+
+/* Dropdown items */
+.step-dropdown-item {
+   padding: var(--spacing-xs);
+   cursor: pointer;
+   user-select: none;
+   color: var(--text-primary);
+   font-size: var(--font-size-sm);
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-xs);
+}
+
+/* Step number icon */
+.step-number-icon {
+   flex-shrink: 0;
+   width: 28px;
+   height: 28px;
+}
+
+/* Step dropdown text */
+.step-dropdown-text {
+   flex: 1;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.step-dropdown-item.active {
+   background-color: var(--background-color);
+   font-weight: 600;
+   cursor: default;
+   color: var(--text-secondary);
+}
+
+.step-dropdown-item:not(.active):hover {
+   background-color: var(--primary-light);
+   color: var(--text-primary);
+}
+
+/* ========================================
+   RESPONSIVE - NAVIGATION
+   ======================================== */
+
+@media (max-width: 680px) {
+   /* Navigation wrapper - stack vertically when containers can't fit side by side */
+   .navigation-wrapper {
+      flex-direction: column;
+   }
+
+   .step-navigation {
+      min-width: 100%;
+      max-width: 100%;
+      /* Keep order: 2 to appear below when stacked */
+   }
+
+   .metadata-display {
+      min-width: 100%;
+      max-width: 100%;
+      align-items: flex-start; /* Align contents to the left when stacked */
+      /* Keep order: 1 to appear above when stacked */
+   }
+
+   .metadata-field {
+      justify-content: flex-start; /* Align each field to the left */
+      width: 100%;
+   }
+}
+
+@media (max-width: 480px) {
+   /* Navigation Button Mobile Adjustments - Only size/spacing changes */
+   .nav-btn {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      font-size: var(--font-size-sm);
+      min-width: 32px;
+      height: 32px;
+   }
+
+   /* Step Counter Mobile */
+   .step-navigation #step-counter {
+      font-weight: 500;
+      color: var(--text-primary);
+      user-select: none;
+   }
+}
+
+/* Scale Display */
+.scale-display {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: var(--surface-color);
+   padding: var(--spacing-sm) var(--spacing-lg);
+   border-radius: var(--border-radius);
+   border: 1px solid var(--border-color);
+   box-shadow: var(--shadow);
+   order: 2; /* Scale display appears between navigation and metadata */
+}
+
+.scale-dropdown-container {
+   position: relative;
+   display: inline-block;
+}
+
+
+.scale-dropdown-menu {
+   position: absolute;
+   top: calc(100% + 4px);
+   left: -25px;
+   right: auto;
+   width: 86px;
+   background: var(--surface-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius);
+   box-shadow: var(--shadow);
+   z-index: 1000;
+   min-width: 70px;
+   max-height: 250px;
+   overflow-x: hidden;
+   overflow-y: auto;
+}
+
+/* Scale dropdown item active state - different background color */
+.scale-dropdown-item.active {
+   background-color: var(--primary-color);
+   color: var(--surface-color);
+   font-weight: 600;
+}
+
+.metadata-display {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   justify-content: center;
+   gap: var(--spacing-xs);
+   background: var(--surface-color);
+   padding: var(--spacing-sm) var(--spacing-lg);
+   border-radius: var(--border-radius);
+   border: 1px solid var(--border-color);
+   box-shadow: var(--shadow);
+   font-family: var(--font-mono);
+   font-size: var(--font-size-sm);
+   color: var(--text-secondary);
+   min-width: 250px;
+   order: 4; /* Metadata appears fourth (after scale display) */
+}
+
+.metadata-field {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-xs);
+}
+
+.metadata-label {
+   font-weight: 600;
+   color: var(--text-primary);
+   font-family: var(--font-sans); /* Same font as step-counter */
+}
+
+.metadata-display #uuid-value,
+.metadata-display #llm-value {
+   font-weight: 600;
+   color: var(--secondary-color);
+   user-select: text;
+   cursor: text;
+}
+
+/* UUID wrapper and copy button */
+.uuid-wrapper {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-xs);
+}
+
+.uuid-copy-btn {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 20px;
+   height: 20px;
+   padding: 0;
+   background: transparent;
+   border: 1px solid transparent;
+   cursor: pointer;
+   color: var(--text-secondary);
+   opacity: 0.7;
+   border-radius: 4px;
+}
+
+.uuid-copy-btn:hover {
+   opacity: 1;
+   background-color: var(--hover-bg);
+}
+
+.uuid-copy-btn.copied {
+   background: var(--copy-success-color);
+   color: var(--text-white);
+   opacity: 1;
+   border: 1px solid var(--copy-success-color);
+}
+
+.uuid-copy-btn svg {
+   width: 16px;
+   height: 16px;
+}

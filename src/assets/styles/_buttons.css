@@ -1,0 +1,451 @@
+/* ========================================
+   _buttons.css
+   
+   Comprehensive button system with variants for all UI contexts.
+   
+   Contains:
+   - Base button class (.btn-base): common properties, disabled states, hover transforms
+   - Size variants: small (32px), medium (36px), large (40px)
+   - Style variants: primary (blue), secondary (gray), transparent (bordered)
+   - Legacy button classes (.btn, .btn-primary, .btn-secondary) for backwards compatibility
+   - Icon buttons (.btn-icon): square 36x36 buttons for toolbar actions
+   - Large icon buttons (.btn-icon-lg, .nav-btn): 40x36 for navigation
+   - Transparent icon buttons (.btn-icon-transparent): header buttons with borders
+   - Dark mode toggle and theme info button specific styles
+   - Copy button (.copy-btn): clipboard actions with success/error states
+   - Download button (.download-btn): file download with feedback states
+   - SVG icon sizing within buttons
+   - Responsive adjustments for mobile
+   
+   Concerns:
+   - Consistent button appearance across the application
+   - Clear visual feedback for hover, active, focus, and disabled states
+   - Accessibility with focus-visible outlines
+   - Theme-aware colors using CSS variables
+   ======================================== */
+
+/* ========================================
+   4. UI COMPONENTS - BUTTONS
+   ======================================== */
+
+/* ========================================
+   BUTTON BASE CLASSES
+   ======================================== */
+
+/* Base Button Class - All buttons inherit common properties */
+.btn-base {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   border: none;
+   border-radius: var(--button-border-radius);
+   font-family: var(--font-sans);
+   font-size: var(--font-size-sm);
+   font-weight: 500;
+   text-decoration: none;
+   white-space: nowrap;
+   transition: var(--button-transition);
+}
+
+.btn-base:hover:not(:disabled) {
+   transform: translateY(-1px);
+}
+
+.btn-base:disabled {
+   cursor: not-allowed;
+   opacity: 0.6;
+}
+
+/* Button Size Variants */
+.btn-base--sm {
+   padding: var(--button-padding-sm);
+   min-width: 32px;
+   height: 32px;
+}
+
+.btn-base--md {
+   padding: var(--button-padding-md);
+   min-width: 36px;
+   height: 36px;
+}
+
+.btn-base--lg {
+   padding: var(--button-padding-lg);
+   min-width: 40px;
+   height: 36px;
+}
+
+/* Button Style Variants */
+.btn-base--primary {
+   background: var(--primary-color);
+   color: var(--text-white);
+}
+
+.btn-base--primary:hover:not(:disabled) {
+   background: var(--primary-dark);
+}
+
+.btn-base--secondary {
+   background: var(--secondary-color);
+   color: var(--text-white);
+}
+
+.btn-base--secondary:hover:not(:disabled) {
+   background: var(--secondary-color);
+   filter: brightness(1.1);
+}
+
+.btn-base--transparent {
+   background: transparent;
+   border: 1px solid var(--border-color);
+   color: var(--text-primary);
+}
+
+.btn-base--transparent:hover:not(:disabled) {
+   background: var(--hover-bg);
+   border-color: var(--primary-color);
+   color: var(--primary-color);
+}
+
+.btn-base--transparent:active:not(:disabled) {
+   background: var(--hover-bg-dark);
+   transform: scale(0.95);
+}
+
+.btn-base--transparent:focus {
+   outline: 2px solid var(--copy-btn-focus-outline);
+   outline-offset: 2px;
+}
+
+/* Icon SVG Base Styles - Applied to all button icons */
+.btn-base svg {
+   width: var(--icon-size-md);
+   height: var(--icon-size-md);
+   display: block;
+   fill: currentColor;
+}
+
+.btn-base--sm svg {
+   width: var(--icon-size-sm);
+   height: var(--icon-size-sm);
+}
+
+.btn-base--lg svg {
+   width: var(--icon-size-lg);
+   height: var(--icon-size-lg);
+}
+
+/* Legacy Button Classes - Maintained for backward compatibility */
+/* These classes now use the new base system */
+.btn {
+   /* Inherits from .btn-base and .btn-base--md */
+   padding: var(--button-padding-md);
+   border: none;
+   border-radius: var(--button-border-radius);
+   cursor: pointer;
+   font-family: var(--font-sans);
+   font-size: var(--font-size-sm);
+   font-weight: 500;
+   text-decoration: none;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   white-space: nowrap;
+   transition: var(--button-transition);
+}
+
+.btn:hover:not(:disabled) {
+   transform: translateY(-1px);
+}
+
+.btn:disabled {
+   cursor: not-allowed;
+   opacity: 0.6;
+}
+
+.btn-primary {
+   background: var(--primary-color);
+   color: var(--surface-color);
+}
+
+.btn-primary:hover:not(:disabled) {
+   background: var(--primary-dark);
+}
+
+.btn-secondary {
+   background: var(--secondary-color);
+   color: var(--surface-color);
+}
+
+.btn-secondary:hover:not(:disabled) {
+   background: var(--secondary-color);
+   filter: brightness(1.1);
+}
+
+/* Icon Button - 36x36px square icon buttons */
+.btn-icon,
+.theme-dropdown-trigger,
+.step-dropdown-trigger,
+.scale-dropdown-trigger {
+   background: var(--primary-color);
+   color: var(--surface-color);
+   border: none;
+   padding: var(--button-padding-sm);
+   border-radius: var(--button-border-radius);
+   cursor: pointer;
+   font-weight: 500;
+   font-size: var(--font-size-md);
+   min-width: 36px;
+   width: 36px;
+   height: 36px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   white-space: nowrap;
+   transition: var(--button-transition);
+}
+
+.btn-icon:hover:not(:disabled),
+.btn-icon:active:not(:disabled),
+.theme-dropdown-trigger:hover:not(:disabled),
+.theme-dropdown-trigger:active:not(:disabled),
+.step-dropdown-trigger:hover,
+.step-dropdown-trigger:active,
+.scale-dropdown-trigger:hover:not(:disabled),
+.scale-dropdown-trigger:active:not(:disabled) {
+   background: var(--primary-dark);
+}
+
+.btn-icon svg,
+.theme-dropdown-trigger svg,
+.step-dropdown-trigger svg,
+.scale-dropdown-trigger svg {
+   width: var(--icon-size-md);
+   height: var(--icon-size-md);
+   display: block;
+   fill: currentColor;
+}
+
+/* Icon Button Large - 40x36px for navigation buttons */
+.btn-icon-lg,
+.nav-btn {
+   background: var(--primary-color);
+   color: var(--surface-color);
+   border: none;
+   padding: var(--button-padding-lg);
+   border-radius: var(--button-border-radius);
+   cursor: pointer;
+   font-weight: 500;
+   font-size: var(--font-size-md);
+   min-width: 40px;
+   width: 40px;
+   height: 36px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   white-space: nowrap;
+   transition: var(--button-transition);
+}
+
+.btn-icon-lg:hover:not(:disabled),
+.btn-icon-lg:active:not(:disabled),
+.nav-btn:hover:not(:disabled),
+.nav-btn:active:not(:disabled) {
+   background: var(--primary-dark);
+}
+
+/* Transparent Icon Button - for header buttons with border */
+.btn-icon-transparent,
+.dark-mode-toggle-btn,
+.theme-info-btn {
+   background: transparent;
+   border: 1px solid var(--border-color);
+   border-radius: var(--button-border-radius);
+   padding: var(--button-padding-sm);
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: var(--text-primary);
+   width: 36px;
+   height: 36px;
+   transition: var(--button-transition);
+}
+
+.btn-icon-transparent:hover,
+.dark-mode-toggle-btn:hover,
+.theme-info-btn:hover {
+   background: var(--hover-bg);
+   border-color: var(--primary-color);
+   color: var(--primary-color);
+}
+
+.btn-icon-transparent:active,
+.dark-mode-toggle-btn:active,
+.theme-info-btn:active {
+   background: var(--hover-bg-dark);
+   transform: scale(0.95);
+}
+
+.btn-icon-transparent:focus,
+.dark-mode-toggle-btn:focus,
+.theme-info-btn:focus {
+   outline: 2px solid var(--copy-btn-focus-outline);
+   outline-offset: 2px;
+}
+
+.btn-icon-transparent svg,
+.dark-mode-toggle-btn svg,
+.theme-info-btn svg {
+   width: var(--icon-size-md);
+   height: var(--icon-size-md);
+   display: block;
+}
+
+/* ========================================
+   COPY BUTTON COMPONENT
+   ======================================== */
+
+.copy-btn {
+   display: inline-flex;
+   align-items: center;
+   gap: var(--spacing-xs);
+   padding: 6px 10px;
+   background: var(--copy-btn-bg);
+   color: var(--copy-btn-text);
+   border: 1px solid var(--copy-btn-border);
+   border-radius: var(--border-radius-sm);
+   cursor: pointer;
+   font-size: var(--font-size-sm);
+   font-weight: 400;
+   white-space: nowrap;
+   transition: var(--button-transition);
+}
+
+.copy-btn:hover:not(:disabled) {
+   background: var(--copy-btn-hover-bg);
+   border-color: var(--copy-btn-hover-border);
+}
+
+.copy-btn:active:not(:disabled) {
+   background: var(--copy-btn-active-bg);
+}
+
+.copy-btn:focus-visible {
+   outline: 2px solid var(--copy-btn-focus-outline);
+   outline-offset: 2px;
+}
+
+.copy-btn:disabled,
+.copy-btn.disabled {
+   opacity: 0.4;
+   cursor: not-allowed;
+}
+
+/* Copy Button Content */
+.copy-btn-content {
+   display: inline-flex;
+   align-items: center;
+   gap: var(--spacing-xs);
+}
+
+.copy-text {
+   display: inline;
+}
+
+/* Copy Button States */
+.copy-btn.copy-success, 
+.copy-btn.copy-success:hover {
+   background: var(--copy-success-color);
+   border-color: var(--copy-success-color);
+   color: var(--text-white);
+}
+
+.copy-btn.copy-error {
+   background: var(--error-color);
+   border-color: var(--error-color);
+   color: var(--text-white);
+}
+
+.copy-btn.copy-error:hover {
+   background: var(--error-text);
+   border-color: var(--error-text);
+}
+
+/* ========================================
+   DOWNLOAD BUTTON COMPONENT
+   ======================================== */
+
+.download-btn {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   padding: var(--spacing-xs);
+   gap: var(--spacing-xs);
+   background: var(--copy-btn-bg);
+   border: 1px solid var(--copy-btn-border);
+   border-radius: var(--border-radius-sm);
+   color: var(--text-primary);
+   font-family: var(--font-sans);
+   font-size: var(--font-size-sm);
+   cursor: pointer;
+   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.download-btn:hover:not(:disabled) {
+   background: var(--copy-btn-hover-bg);
+   border-color: var(--copy-btn-hover-border);
+}
+
+.download-btn:active:not(:disabled) {
+   background: var(--copy-btn-active-bg);
+}
+
+.download-btn:focus-visible {
+   outline: 2px solid var(--copy-btn-focus-outline);
+   outline-offset: 2px;
+}
+
+.download-btn:disabled,
+.download-btn.disabled {
+   opacity: 0.4;
+   cursor: not-allowed;
+}
+
+/* Download Button Content */
+.download-btn-content {
+   display: inline-flex;
+   align-items: center;
+   gap: var(--spacing-xs);
+}
+
+/* Download Button States */
+.download-btn.download-success, 
+.download-btn.download-success:hover {
+   background: var(--copy-success-color);
+   border-color: var(--copy-success-color);
+   color: var(--text-white);
+}
+
+.download-btn.download-error {
+   background: var(--error-color);
+   border-color: var(--error-color);
+   color: var(--text-white);
+}
+
+.download-btn.download-error:hover {
+   background: var(--error-text);
+   border-color: var(--error-text);
+}
+
+/* ========================================
+   RESPONSIVE - BUTTONS
+   ======================================== */
+
+@media (max-width: 768px) {
+   .copy-btn {
+      padding: 5px 10px;
+      font-size: var(--font-size-sm);
+   }
+}

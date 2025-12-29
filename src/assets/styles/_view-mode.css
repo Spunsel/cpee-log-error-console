@@ -1,0 +1,415 @@
+/* ========================================
+   _view-mode.css
+   
+   View mode toggle component for switching between content representations.
+   
+   Contains:
+   - Section toggle button: expand/collapse chevron for collapsible sections
+   - Section expand/collapse button: icon button with SVG rotation
+   - CPEE section SVG overrides: ensuring correct icon rendering in CPEE context
+   - Dark mode overrides for toggle button SVGs
+   - Expanded section states: overflow handling for raw content
+   - Collapsed content box states: hidden overflow, display rules
+   - User input section collapsed styling
+   - View mode toggle container: tab bar for switching views (Visual/Raw/Traces/Analysis)
+   - Toggle buttons (.toggle-btn): tab-style buttons with active state highlighting
+   - CPEE section toggle overrides: consistent styling within CPEE graphs
+   - Traces mode button: specific styling for traces view toggle
+   - Accessibility: focus-visible outlines for keyboard navigation
+   - Disabled toggle state styling
+   - Responsive adjustments for mobile viewports
+   
+   Concerns:
+   - Seamless switching between different content views
+   - Visual indication of active view mode
+   - Section expand/collapse functionality
+   - Consistent toggle appearance across all section types (Mermaid, CPEE, etc.)
+   - Proper SVG icon handling within different contexts
+   ======================================== */
+
+/* ========================================
+   VIEW MODE TOGGLE COMPONENT
+   ======================================== */
+
+/* Section toggle button */
+.section-toggle-button {
+   background: none;
+   border: none;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 20px;
+   height: 20px;
+   color: var(--text-primary, #1e293b);
+   flex-shrink: 0;
+}
+
+.section-toggle-button:hover {
+   color: var(--accent-color, #3b82f6);
+   transform: scale(1.1);
+}
+
+.section-toggle-button:focus {
+   outline: 2px solid var(--accent-color, #3b82f6);
+   outline-offset: 2px;
+   border-radius: 2px;
+}
+
+.section-toggle-icon {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 100%;
+}
+
+.section-toggle-icon svg {
+   width: var(--icon-size-sm);
+   height: var(--icon-size-sm);
+}
+
+/* Section expand/collapse button */
+.section-expand-collapse-btn {
+   background: none;
+   border: none;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 20px;
+   height: 20px;
+   color: var(--text-primary, #1e293b);
+   flex-shrink: 0;
+}
+
+.section-expand-collapse-btn:hover {
+   color: var(--accent-color, #3b82f6);
+   transform: scale(1.1);
+}
+
+.section-expand-collapse-btn:focus {
+   outline: 2px solid var(--accent-color, #3b82f6);
+   outline-offset: 2px;
+   border-radius: 2px;
+}
+
+.section-expand-collapse-btn svg {
+   width: var(--icon-size-md);
+   height: var(--icon-size-md);
+   fill: currentColor;
+   stroke: currentColor;
+}
+
+/* Expand/Collapse Button SVG rect elements - match section header background */
+.section-expand-collapse-btn svg rect {
+   fill: var(--section-header-bg) !important;
+   stroke: none !important;
+   stroke-width: 0 !important;
+}
+
+/* CPEE Section Expand/Collapse Button SVG Overrides */
+/* Override any CPEE-specific SVG styles that might affect the expand/collapse button */
+.cpee-section .section-expand-collapse-btn svg,
+#input-cpee .section-expand-collapse-btn svg,
+#output-cpee .section-expand-collapse-btn svg {
+   width: 20px !important;
+   height: 20px !important;
+   fill: currentColor !important;
+   stroke: currentColor !important;
+   color: inherit !important;
+   font-family: inherit !important;
+   display: block !important;
+}
+
+/* CPEE Section Expand/Collapse Button SVG nested elements */
+.cpee-section .section-expand-collapse-btn svg path,
+.cpee-section .section-expand-collapse-btn svg g,
+.cpee-section .section-expand-collapse-btn svg *,
+#input-cpee .section-expand-collapse-btn svg path,
+#input-cpee .section-expand-collapse-btn svg g,
+#input-cpee .section-expand-collapse-btn svg *,
+#output-cpee .section-expand-collapse-btn svg path,
+#output-cpee .section-expand-collapse-btn svg g,
+#output-cpee .section-expand-collapse-btn svg * {
+   fill: currentColor !important;
+   stroke: currentColor !important;
+   color: inherit !important;
+}
+
+/* CPEE Section Expand/Collapse Button SVG rect elements - match section header background */
+.cpee-section .section-expand-collapse-btn svg rect,
+#input-cpee .section-expand-collapse-btn svg rect,
+#output-cpee .section-expand-collapse-btn svg rect {
+   fill: var(--section-header-bg) !important;
+   stroke: none !important;
+   stroke-width: 0 !important;
+}
+
+/* Dark mode: CPEE expand/collapse button SVG */
+[data-theme="dark"] .cpee-section .section-expand-collapse-btn svg,
+[data-theme="dark"] #input-cpee .section-expand-collapse-btn svg,
+[data-theme="dark"] #output-cpee .section-expand-collapse-btn svg {
+   width: 20px !important;
+   height: 20px !important;
+   fill: currentColor !important;
+   stroke: currentColor !important;
+   color: inherit !important;
+}
+
+/* Dark mode: CPEE expand/collapse button SVG nested elements */
+[data-theme="dark"] .cpee-section .section-expand-collapse-btn svg path,
+[data-theme="dark"] .cpee-section .section-expand-collapse-btn svg g,
+[data-theme="dark"] .cpee-section .section-expand-collapse-btn svg *,
+[data-theme="dark"] #input-cpee .section-expand-collapse-btn svg path,
+[data-theme="dark"] #input-cpee .section-expand-collapse-btn svg g,
+[data-theme="dark"] #input-cpee .section-expand-collapse-btn svg *,
+[data-theme="dark"] #output-cpee .section-expand-collapse-btn svg path,
+[data-theme="dark"] #output-cpee .section-expand-collapse-btn svg g,
+[data-theme="dark"] #output-cpee .section-expand-collapse-btn svg * {
+   fill: currentColor !important;
+   stroke: currentColor !important;
+   color: inherit !important;
+}
+
+/* Dark mode: CPEE expand/collapse button SVG rect elements - match section header background */
+[data-theme="dark"] .cpee-section .section-expand-collapse-btn svg rect,
+[data-theme="dark"] #input-cpee .section-expand-collapse-btn svg rect,
+[data-theme="dark"] #output-cpee .section-expand-collapse-btn svg rect {
+   fill: var(--section-header-bg) !important;
+   stroke: none !important;
+   stroke-width: 0 !important;
+}
+
+/* Expanded section state */
+
+/* When section is expanded and contains raw content, prevent horizontal scrollbar on content-box */
+/* The raw content container ([data-content-type="raw"]) will handle its own scrolling */
+.section-expanded .content-box:has([data-content-type="raw"]) {
+   overflow-x: hidden !important; /* Prevent horizontal scrollbar on content-box when expanded with raw content */
+}
+
+/* Ensure raw content container handles its own overflow when section is expanded */
+.section-expanded [data-content-type="raw"] {
+   overflow-x: auto; /* Horizontal scrollbar should appear on raw content container, not content-box */
+}
+
+/* Ensure mermaid sections preserve horizontal scrollbar when expanded */
+.section-expanded.mermaid-section .content-box {
+   overflow-x: auto !important; /* Preserve horizontal scrollbar for mermaid sections when expanded */
+   overflow-y: auto !important; /* Preserve vertical scrollbar for mermaid sections when expanded */
+}
+
+/* Collapsed state for content box */
+.content-box.collapsed {
+   overflow: hidden;
+}
+
+.content-box.collapsed pre,
+.content-box.collapsed code {
+   display: block;
+   overflow: hidden;
+}
+
+/* User input section when collapsed - change to surface color */
+#user-input.collapsed,
+.user-input-section.collapsed {
+   background: var(--surface-color);
+}
+
+#user-input.collapsed h3,
+.user-input-section.collapsed h3 {
+   background: var(--surface-color);
+}
+
+/* Toggle Button Container */
+.view-mode-toggle {
+   display: flex;
+   background: var(--section-header-bg); /* Match section header background */
+   border-radius: var(--border-radius);
+   padding: 0;
+   gap: 2px;
+   width: 100%; /* Fill the right-title-side width */
+   height: calc(100% + 2px); /* Extend 2px below to fully cover border */
+   align-items: stretch; /* Make buttons fill height */
+   margin-bottom: -2px; /* Pull down to cover the border */
+   position: relative; /* Allow z-index to work */
+   z-index: 1; /* Ensure it's above the border */
+}
+
+/* Toggle Buttons */
+.toggle-btn {
+   border: none;
+   background: var(--section-header-bg); /* Match title bar background */
+   cursor: pointer;
+   border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: var(--text-primary); /* Use CSS variable for theme-aware color */
+   flex: 1; /* Fill available width equally */
+   height: 100%; /* Fill the toggle container height */
+   margin-bottom: -1px; /* Extend below to cover border */
+}
+
+.toggle-btn:hover {
+   background: var(--hover-bg);
+   color: var(--text-primary);
+}
+
+.toggle-btn.active {
+   background: var(--surface-color);
+   color: var(--primary-color); /* Use primary color for active state */
+   box-shadow: var(--shadow-md);
+}
+
+/* Toggle Button Icons - Match CPEE graph element colors */
+.toggle-btn svg {
+   display: block;
+   width: var(--icon-size-lg);
+   height: var(--icon-size-lg);
+   fill: currentColor;
+   stroke: currentColor;
+   color: inherit;
+}
+
+/* CPEE Section Toggle Buttons - Match graph element colors using CSS variables */
+.cpee-section .toggle-btn,
+.cpee-section .toggle-btn-traces,
+.cpee-section .toggle-btn-analysis,
+#input-cpee .toggle-btn,
+#input-cpee .toggle-btn-traces,
+#input-cpee .toggle-btn-analysis,
+#output-cpee .toggle-btn,
+#output-cpee .toggle-btn-traces,
+#output-cpee .toggle-btn-analysis {
+   color: var(--toggle-btn-color) !important;
+}
+
+.cpee-section .toggle-btn.active,
+.cpee-section .toggle-btn-traces.active,
+.cpee-section .toggle-btn-analysis.active,
+#input-cpee .toggle-btn.active,
+#input-cpee .toggle-btn-traces.active,
+#input-cpee .toggle-btn-analysis.active,
+#output-cpee .toggle-btn.active,
+#output-cpee .toggle-btn-traces.active,
+#output-cpee .toggle-btn-analysis.active {
+   color: var(--toggle-btn-active-color) !important;
+}
+
+.cpee-section .toggle-btn:hover,
+.cpee-section .toggle-btn-traces:hover,
+.cpee-section .toggle-btn-analysis:hover,
+#input-cpee .toggle-btn:hover,
+#input-cpee .toggle-btn-traces:hover,
+#input-cpee .toggle-btn-analysis:hover,
+#output-cpee .toggle-btn:hover,
+#output-cpee .toggle-btn-traces:hover,
+#output-cpee .toggle-btn-analysis:hover {
+   color: var(--toggle-btn-hover-color) !important;
+}
+
+/* CPEE Section Toggle Button SVG Icons - All variants */
+.cpee-section .toggle-btn svg,
+.cpee-section .toggle-btn-traces svg,
+.cpee-section .toggle-btn-analysis svg,
+#input-cpee .toggle-btn svg,
+#input-cpee .toggle-btn-traces svg,
+#input-cpee .toggle-btn-analysis svg,
+#output-cpee .toggle-btn svg,
+#output-cpee .toggle-btn-traces svg,
+#output-cpee .toggle-btn-analysis svg {
+   fill: var(--toggle-btn-svg-fill) !important;
+   stroke: var(--toggle-btn-svg-stroke) !important;
+   color: inherit !important;
+}
+
+/* CPEE Section Toggle Button SVG nested elements - All variants */
+.cpee-section .toggle-btn svg *,
+.cpee-section .toggle-btn-traces svg *,
+.cpee-section .toggle-btn-analysis svg *,
+#input-cpee .toggle-btn svg *,
+#input-cpee .toggle-btn-traces svg *,
+#input-cpee .toggle-btn-analysis svg *,
+#output-cpee .toggle-btn svg *,
+#output-cpee .toggle-btn-traces svg *,
+#output-cpee .toggle-btn-analysis svg * {
+   fill: var(--toggle-btn-svg-fill) !important;
+   stroke: var(--toggle-btn-svg-stroke) !important;
+   color: inherit !important;
+}
+
+/* Traces mode button styling
+* The .toggle-btn-traces class inherits all styles from .toggle-btn
+* via CSS class cascade. Flexbox in .view-mode-toggle automatically accommodates multiple buttons.
+*/
+
+/* Traces button hover state - consistent with other buttons */
+.toggle-btn-traces:hover {
+   background: var(--hover-bg);
+   color: var(--text-primary);
+}
+
+/* Traces button active state - consistent with other buttons */
+.toggle-btn-traces.active {
+   background: var(--surface-color);
+   color: var(--primary-color);
+   box-shadow: var(--shadow-md);
+}
+
+/* Ensure traces button SVG icons are styled consistently */
+.toggle-btn-traces svg {
+   display: block;
+   width: var(--icon-size-lg);
+   height: var(--icon-size-lg);
+   fill: currentColor;
+   stroke: currentColor;
+   color: inherit;
+}
+
+/* CPEE Section Traces Button - Now consolidated with base toggle button rules above */
+
+/* Accessibility */
+.toggle-btn:focus-visible {
+   outline: 2px solid var(--primary-color);
+   outline-offset: 2px;
+}
+
+/* Disabled State */
+.toggle-btn:disabled {
+   opacity: 0.5;
+   cursor: not-allowed;
+}
+
+.toggle-btn:disabled:hover {
+   background: transparent;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+   .toggle-btn {
+      padding: 5px 10px;
+      font-size: var(--font-size-sm);
+   }
+
+   /* Keep title and toggle on one line on small screens */
+   .section-header-container {
+       flex-direction: row;
+       align-items: center;
+       gap: var(--spacing-sm);
+   }
+
+   .right-title-side {
+       justify-content: flex-end;
+   }
+
+   /* No animations on mobile */
+   .raw-content-container {
+       animation: none;
+   }
+}

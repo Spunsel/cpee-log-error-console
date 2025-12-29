@@ -230,7 +230,7 @@ export class CPEEParser {
     
     /**
      * Apply preprocessing only (without full validation)
-     * Use this for raw view where we want to show preprocessed content even if final validation fails
+     * Use this for Cleaned View where we want to show preprocessed content even if final validation fails
      * @param {string} xml - Raw CPEE XML code
      * @returns {{xml: string, appliedSteps: Array<{description: string, lineNumbers: Array<number>}>}} Preprocessed XML and list of applied steps
      */

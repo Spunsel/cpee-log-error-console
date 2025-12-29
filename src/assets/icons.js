@@ -36,8 +36,8 @@ export const ICON_CHECK = `
 `;
 
 /**
- * Visual/Graph mode icon - Network/Graph symbol
- * Represents visual/graphical view mode - 16x16px for toggle buttons
+ * Graph mode icon - Network/Graph symbol
+ * Represents graph/visual view mode - 16x16px for toggle buttons
  * Network/graph icon representing visual connections and relationships
  */
 export const ICON_VISUAL = `
@@ -51,18 +51,42 @@ export const ICON_VISUAL = `
 `;
 
 /**
- * Raw/Code mode icon - Code brackets with slash
- * Represents raw code/text view mode - 16x16px for toggle buttons
+ * Cleaned/Preprocessed mode icon - Broom/cleaning symbol
+ * Represents cleaned/preprocessed code view mode - 16x16px for toggle buttons
+ * Shows preprocessed content (same as what would be rendered visually)
  */
 export const ICON_RAW = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.992" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M7 8L3 11.6923L7 16M17 8L21 11.6923L17 16M14 4L10 20"></path>
+    <svg fill="currentColor" width="16" height="16" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.999 511.999" xml:space="preserve">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <g>
+                <g>
+                    <path d="M296.746,279.798c-4.668-13.065-8.542-23.919-11.204-31.369c-0.683-1.903-2.56-3.029-4.557-2.739 c-7.936,1.152-16.316,1.775-25.02,1.775c-8.653,0-16.998-0.606-24.9-1.758c-1.997-0.29-3.874,0.836-4.557,2.739l-11.221,31.411 c-0.836,2.33,0.435,4.932,2.825,5.572c10.923,2.918,23.697,4.702,37.854,4.702c14.208,0,27.034-1.792,37.973-4.736 C296.328,284.756,297.582,282.12,296.746,279.798z"></path>
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path d="M307.669,310.382l-2.313-6.468c-0.768-2.15-2.987-3.243-5.154-2.628c-13.116,3.763-28.117,5.914-44.237,5.914 c-16.077,0-31.036-2.133-44.126-5.871c-2.167-0.614-4.395,0.503-5.154,2.628l-2.321,6.502c-0.768,2.15,0.239,4.574,2.364,5.41 c12.954,5.06,29.807,8.397,49.237,8.397c19.49,0,36.386-3.354,49.357-8.448C307.447,314.981,308.437,312.532,307.669,310.382z"></path>
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path d="M255.078,0.016c-9.429,0.418-16.179,7.45-16.179,17.05v207.795c0,2.022,1.382,3.831,3.371,4.224 c4.284,0.836,8.849,1.314,13.653,1.314c4.838,0,9.429-0.486,13.747-1.331c1.98-0.401,3.362-2.21,3.362-4.232V17.962 C273.032,8.054,264.976-0.419,255.078,0.016z"></path>
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path d="M366.498,475.143c-0.009-0.026-26.778-74.991-50.244-140.732c-0.811-2.278-3.294-3.354-5.547-2.483 c-15.317,5.922-34.142,9.387-54.741,9.387c-20.557,0-39.339-3.456-54.639-9.353c-2.253-0.87-4.736,0.23-5.547,2.5l-50.185,140.536 c-0.324,0.913-0.495,1.886-0.495,2.867c0,17.596,26.539,25.6,51.2,25.6c3.234,0,6.187-1.826,7.637-4.719l0.896-1.801l0.247,0.503 c2.219,10.718,18.697,14.592,34.108,14.549c2.773-0.008,5.333-1.493,6.869-3.797l9.975-14.959l9.967,14.95 c1.536,2.304,4.096,3.789,6.869,3.797c15.42,0.043,31.898-3.831,34.108-14.549l0.256-0.495l0.896,1.801 c1.451,2.893,4.403,4.719,7.637,4.719c24.303,0,50.389-7.799,51.132-24.875C366.907,478.463,366.796,476.022,366.498,475.143z"></path>
+                </g>
+            </g>
+        </g>
     </svg>
 `;
 
 /**
  * Log mode icon - Document/file icon
- * Represents log view mode - displays un-preprocessed Mermaid code - 16x16px for toggle buttons
+ * Represents raw view mode - displays un-preprocessed/original code - 16x16px for toggle buttons
  */
 export const ICON_LOG = `
     <svg fill="currentColor" width="16" height="16" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 548.291 548.291" xml:space="preserve">

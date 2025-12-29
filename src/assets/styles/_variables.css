@@ -1,0 +1,266 @@
+/* ========================================
+   _variables.css
+   
+   Design tokens and theming foundation for the entire application.
+   
+   Contains:
+   - @font-face declarations for Adwaita Sans and Adwaita Mono font families
+   - CSS custom properties (variables) for consistent theming
+   - Light mode (default :root) color palette and spacing values
+   - Dark mode [data-theme="dark"] color overrides
+   
+   Variables defined:
+   - Colors: primary, secondary, text, background, surface, border, alert states
+   - Typography: font families, sizes (xs to xl)
+   - Spacing: consistent spacing scale (xs, sm, md, lg, xl)
+   - Shadows: elevation levels (shadow, shadow-md)
+   - Border radii: consistent corner rounding
+   - Button properties: padding, transitions, border radius
+   - Highlight colors: selection, search matches, task highlighting
+   - Component-specific: copy button states, scrollbars, toggle buttons
+   
+   Note: This file must be imported first as all other styles depend on these variables.
+   ======================================== */
+
+/* ========================================
+   0. FONT FACE DECLARATIONS
+   ======================================== */
+   @font-face {
+      font-family: 'Adwaita Sans Regular';
+      src: url('../fonts/adwaita-sans-regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+  }
+  
+  @font-face {
+      font-family: 'Adwaita Mono Regular';
+      src: url('../fonts/adwaita-mono-regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+  }
+  
+  @font-face {
+      font-family: 'Adwaita Sans Italic';
+      src: url('../fonts/adwaita-sans-italic.ttf') format('truetype');
+      font-weight: normal;
+      font-style: italic;
+      font-display: swap;
+  }
+  
+  /* ========================================
+     1. CSS VARIABLES
+     ======================================== */
+  :root {
+      --primary-color: #3070b2;
+      --primary-dark: #1450d2;
+      --primary-light: #c2d1ff;
+      --primary-color-alpha: rgba(59, 130, 246, 0.12);
+      --secondary-color: #64748b;
+      --error-color: #e58a8a;
+      --error-text: #d47a7a;
+      --background-color: #edf2f7;
+      --surface-color: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --text-white: #ffffff;
+      --border-color: #cbd5e1;
+      --disabled-bg: #becbda;
+      --section-header-bg: #d0dae4;
+      --copy-btn-bg: #f1f5f9;
+      --nav-bar-color: #f8fafc;
+      --copy-success-color: #6B8E23;
+      
+      --preprocessing-bg: #CC7000;
+      
+      --hover-bg: rgba(59, 130, 246, 0.08);
+      --hover-bg-dark: rgba(0, 0, 0, 0.08);
+      
+      --alert-info-text: #1e40af;
+      --alert-info-bg: #dbeafe;
+      --alert-info-border: #93c5fd;
+      --alert-success-text: #065f46;
+      --alert-success-bg: #e8fcf2;
+      --alert-success-border: #6ee7b7;
+      --alert-warning-text: #9d6a2e;
+      --alert-warning-bg: #fef7e3;
+      --alert-warning-border: #e5b84a;
+      --alert-danger-text: #9d4a4a;
+      --alert-danger-border: #d47a7a;
+      --alert-danger-bg: #fef5f5;
+      
+      --copy-btn-text: #475569;
+      --copy-btn-border: #cbd5e1;
+      --copy-btn-hover-bg: #e2e8f0;
+      --copy-btn-hover-border: #94a3b8;
+      --copy-btn-active-bg: #cbd5e1;
+      --copy-btn-focus-outline: #3b82f6;
+      
+      --scrollbar-thumb: #cbd5e1;
+      --scrollbar-thumb-hover: #94a3b8;
+      
+      --search-match-bg: #fef08a;
+      --search-match-active-bg: #3b82f6;
+      
+      /* Border Radius */
+      --border-radius-sm: 6px;
+      --border-radius: 8px;
+      --border-radius-lg: 12px;
+      
+      --shadow: 1px 1px 3px 0 var(--hover-bg-dark), 0.5px 0.5px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 2px 4px var(--hover-bg-dark);
+      
+      /* Typography */
+      --font-sans: 'Adwaita Sans Regular';
+      --font-sans-italic: 'Adwaita Sans Italic';
+      --font-mono: 'Adwaita Mono Regular';
+      
+      /* Font Sizes */
+      --font-size-xs: 11px;
+      --font-size-sm: 14px;
+      --font-size-md: 18px;
+      --font-size-lg: 20px;
+      --font-size-xl: 24px;
+      
+      /* Spacing */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 0.75rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      
+      /* Highlight Colors */
+      --highlight-stroke: #f57900; /* Stroke color for highlighted tasks in graphs */
+      --highlight-opacity: 0.2; /* Fill opacity for highlighted tasks */
+      --highlight-active-opacity: 0.4; /* Fill opacity for active/highlighted tasks */
+      
+      /* Text Selection */
+      --selection-bg: #c2d1ff;
+      
+      /* Issue Label Colors */
+      --label-bug-text: #7a2e22;
+      --label-bug-bg: #f5e6e3;
+      --label-feature-text: #1e4a7a;
+      --label-feature-bg: #d6e8f5;
+      
+      /* Toggle Button Colors - Theme-aware properties */
+      --toggle-btn-color: var(--text-primary);
+      --toggle-btn-active-color: var(--primary-color);
+      --toggle-btn-hover-color: var(--text-primary);
+      --toggle-btn-svg-fill: currentColor;
+      --toggle-btn-svg-stroke: currentColor;
+      
+      /* Button Component Variables */
+      --button-padding-sm: var(--spacing-xs);
+      --button-padding-md: var(--spacing-sm) var(--spacing-md);
+      --button-padding-lg: var(--spacing-xs) 12px;
+      --button-border-radius: var(--border-radius);
+      --button-transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+      
+      /* Icon Sizes */
+      --icon-size-sm: 16px;
+      --icon-size-md: 20px;
+      --icon-size-lg: 25px;
+  }
+  
+  /* ========================================
+     1.5. DARK MODE CSS VARIABLES
+     ======================================== */
+  [data-theme="dark"] {
+      --primary-color: #4978E8;
+      --primary-dark: #4d91ff;
+      --primary-light: #3d5a7b;
+      --primary-color-alpha: rgba(107, 163, 245, 0.15);
+      --secondary-color: #a3b3c8;
+      --error-color: #f5a5a5;
+      --error-text: #f8b8b8;
+      --background-color: #2f3a49;
+      --surface-color: #252f3d;
+      --text-primary: #e2e8f0;
+      --text-secondary: #a8b8d0;
+      --text-white: #ffffff;
+      --border-color: #3d4a5f;
+      --disabled-bg: #4a5568;
+      --section-header-bg: #404b5a;
+      --copy-btn-bg: #2f3a49;
+      --nav-bar-color: #252f3d;
+      --copy-success-color: #94cc26;
+      
+      --hover-bg: rgba(107, 163, 245, 0.12);
+      --hover-bg-dark: rgba(255, 255, 255, 0.08);
+      
+      --alert-info-text: #a3c5fd;
+      --alert-info-bg: #2e4a6f;
+      --alert-info-border: #4b92f6;
+      --alert-success-text: #B8D4C1;
+      --alert-success-bg: #1A2A1F;
+      --alert-success-border: #5A7A65;
+      --alert-warning-text: #D5D3B3;
+      --alert-warning-border: #8F8A4B;
+      --alert-warning-bg: #1A1B14;
+      --alert-danger-text: #D3C7CA;
+      --alert-danger-border: #8A5C64;
+      --alert-danger-bg: #1A1617;
+      
+      --copy-btn-text: #a8b8d0;
+      --copy-btn-border: #4a5568;
+      --copy-btn-hover-bg: #3d4a5f;
+      --copy-btn-hover-border: #6a7b92;
+      --copy-btn-active-bg: #4a5568;
+      --copy-btn-focus-outline: #6ba3f5;
+      
+      --scrollbar-thumb: #4a5568;
+      --scrollbar-thumb-hover: #5a6578;
+  
+      --search-match-bg: #5a4372;
+      --search-match-active-bg: #8b5cf6;
+      
+      /* Issue Label Colors - Dark Mode */
+      --label-bug-text: #a44437;
+      --label-bug-bg: #392e36;
+      --label-feature-text: #84b6eb;
+      --label-feature-bg: #364556;
+      
+      --shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.25), 0.5px 0.5px 2px 0 rgba(0, 0, 0, 0.15);
+      --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.25);
+      
+      --highlight-stroke: #f5ae1b;
+      --highlight-opacity: 0.25;
+      --highlight-active-opacity: 0.4;
+      
+      --selection-bg: #3d5a7b;
+      
+      /* Toggle Button Colors - Theme-aware properties */
+      --toggle-btn-color: var(--text-primary);
+      --toggle-btn-active-color: var(--primary-color);
+      --toggle-btn-hover-color: var(--text-primary);
+      --toggle-btn-svg-fill: currentColor;
+      --toggle-btn-svg-stroke: currentColor;
+      
+      /* Button Component Variables - Dark Mode */
+      --button-padding-sm: var(--spacing-xs);
+      --button-padding-md: var(--spacing-sm) var(--spacing-md);
+      --button-padding-lg: var(--spacing-xs) 12px;
+      --button-border-radius: var(--border-radius);
+      --button-transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+      
+    /* Icon Sizes - Dark Mode (same as light) */
+    --icon-size-sm: 16px;
+    --icon-size-md: 20px;
+    --icon-size-lg: 25px;
+}
+
+/* ========================================
+   RESPONSIVE - SPACING ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 480px) {
+    :root {
+        --spacing-xs: 0.25rem;
+        --spacing-sm: 0.5rem;
+        --spacing-md: 0.75rem;
+        --spacing-lg: 1rem;
+        --spacing-xl: 1.5rem;
+    }
+}

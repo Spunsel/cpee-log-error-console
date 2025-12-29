@@ -5,7 +5,7 @@
      * - Track rendered SVG containers in all sections
      * - Handle task and gateway click events and propagate highlights across graphs
      * - Coordinate with HighlightingService and TaskMapping (from CPEEStep)
-     * - Manage visual vs raw view mode (only highlight in visual mode)
+     * - Manage Graph View vs other view modes (only highlight in Graph View)
      * - Implement state persistence across step navigation
      */
 
@@ -855,7 +855,7 @@ export class CrossGraphHighlightCoordinator {
     }
 
     /**
-     * Initialize click outside handler to clear highlights when clicking inside content boxes of visual view
+     * Initialize click outside handler to clear highlights when clicking inside content boxes of Graph View
      */
     initializeClickOutsideHandler() {
         // Create a view mode getter function for SVGClickDetector
@@ -877,9 +877,9 @@ export class CrossGraphHighlightCoordinator {
                 return;
             }
             
-            // Check if click is inside a content-box of a visual view section
+            // Check if click is inside a content-box of a Graph View section
             if (this.clickDetector.isClickInsideVisualContentBox(clickTarget, getViewMode)) {
-                // Click is inside a visual view content-box but not on a graph element
+                // Click is inside a Graph View content-box but not on a graph element
                 this.clearActiveState();
             }
             // If click is outside visual content boxes, do nothing (don't clear highlights)

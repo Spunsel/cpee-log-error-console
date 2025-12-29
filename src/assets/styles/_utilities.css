@@ -1,0 +1,92 @@
+/* ========================================
+   _utilities.css
+   
+   Global utility classes and cross-cutting concerns.
+   
+   Contains:
+   - Display utilities: .hidden for hiding elements
+   - Text alignment: .text-center, .text-left, .text-right
+   - Spacing reset: .m-0, .p-0 for margin/padding removal
+   - Global scrollbar styling (Webkit): track, thumb, hover states
+   - Firefox scrollbar: scrollbar-width, scrollbar-color
+   - Scrollbar color customization using CSS variables
+   - Reduced motion support: @media (prefers-reduced-motion)
+   - Animation duration reset for accessibility
+   - Transition duration reset for accessibility
+   - Screen reader only text (.sr-only if needed)
+   
+   Concerns:
+   - Consistent scrollbar appearance across browsers
+   - Respecting user accessibility preferences (reduced motion)
+   - Quick utility classes for common styling needs
+   - Cross-browser compatibility for scrollbar styling
+   
+   Note: Keep utilities minimal to avoid CSS bloat.
+   Use component-specific styles when possible.
+   ======================================== */
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.hidden {
+   display: none !important;
+}
+
+.text-center {
+   text-align: center;
+}
+
+.text-left {
+   text-align: left;
+}
+
+.text-right {
+   text-align: right;
+}
+
+.m-0 { margin: 0; }
+.p-0 { padding: 0; }
+
+/* ========================================
+   GLOBAL SCROLLBAR STYLING
+   ======================================== */
+
+/* Webkit (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+   width: 10px;
+   height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+   background: var(--surface-color);
+}
+
+*::-webkit-scrollbar-thumb {
+   background: var(--scrollbar-thumb);
+   border-radius: var(--border-radius-sm);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+   background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox Scrollbar */
+* {
+   scrollbar-color: var(--scrollbar-thumb) var(--surface-color);
+   scrollbar-width: thin;
+}
+
+/* ========================================
+   ACCESSIBILITY - REDUCED MOTION SUPPORT
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+   *,
+   *::before,
+   *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+   }
+}

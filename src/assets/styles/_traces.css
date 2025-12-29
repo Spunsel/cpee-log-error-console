@@ -1,0 +1,519 @@
+/* ========================================
+   _traces.css
+   
+   Trace visualization for displaying execution paths and sequences.
+   
+   Contains:
+   - [data-content-type="traces"]: full-size container for traces view mode
+   - Trace display container: flex column layout with background
+   - Trace list wrapper: padded container without own scrolling
+   - Trace list: vertical stack of trace items with gaps
+   - Trace item: bordered card with hover shadow effect
+   - Trace header: expandable row with click interaction
+   - Expand button: icon button for showing/hiding details
+   - CPEE section SVG overrides for expand buttons
+   - Dark mode expand button styling
+   - Trace number: styled badge with weight and color
+   - Trace number variants: matching (green), problematic (red), reconciled (blue)
+   - Trace length badge: secondary info display
+   - Trace path preview: truncated path with ellipsis
+   - Trace length display: right-aligned count
+   - Trace details: expandable container with max-height animation
+   - Trace details JSON: monospace code block for formatted JSON
+   - JSON syntax highlighting: punctuation, operators, property names
+   - String value colors: IDs (red), tasks (green) via token classes
+   - Dark mode JSON syntax colors
+   - Trace path container: visual path display with task badges
+   - Trace task: inline badge for each step in path
+   - Start/end node highlighting: special colors for terminal nodes
+   - Trace arrow: separator between path elements
+   - Trace metadata: expandable section with key-value pairs
+   - Trace copy button: positioned action for copying trace data
+   - Empty and error message displays
+   
+   Concerns:
+   - Efficient display of potentially many traces
+   - Expandable detail pattern to manage information density
+   - Visual encoding of trace status (matching, problematic, reconciled)
+   - Syntax highlighting for JSON readability
+   - Interactive path visualization with task highlighting
+   ======================================== */
+
+/* ========================================
+   TRACE CONTENT TYPE
+   ======================================== */
+
+/* Traces content type container */
+[data-content-type="traces"] {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   overflow: auto;
+   background-color: var(--surface-color);
+   z-index: 10;
+   scrollbar-gutter: stable;
+   display: block;
+}
+
+/* ========================================
+   TRACE RENDERER STYLING
+   ======================================== */
+
+/* Trace Display Container */
+.trace-display-container {
+   width: 100%;
+   min-height: 100%;
+   display: flex;
+   flex-direction: column;
+   background: var(--surface-color);
+   border-radius: var(--border-radius);
+   font-family: var(--font-sans);
+}
+
+/* Trace List Wrapper - No scrolling, parent container handles it */
+.trace-list-wrapper {
+   flex: 1;
+   padding: var(--spacing-md);
+}
+
+/* Trace List Container */
+.trace-list {
+   display: flex;
+   flex-direction: column;
+   gap: var(--spacing-sm);
+}
+
+/* Trace Item */
+.trace-item {
+   background: var(--surface-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius);
+   overflow: hidden;
+}
+
+.trace-item:hover {
+   box-shadow: var(--shadow-md);
+}
+
+/* Trace Header */
+.trace-header {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+   padding: var(--spacing-xs);
+   background: var(--surface-color);
+   cursor: pointer;
+   flex-wrap: wrap;
+   font-family: var(--font-sans);
+}
+
+.trace-expand-btn {
+   background: transparent;
+   border: none;
+   color: var(--text-primary);
+   cursor: pointer;
+   font-size: var(--font-size-sm);
+   padding: var(--spacing-sm);
+   flex-shrink: 0;
+   min-width: 32px;
+   min-height: 32px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: var(--button-transition);
+}
+
+.trace-expand-btn:hover {
+   color: var(--primary-color);
+   background: var(--hover-bg);
+   border-radius: var(--border-radius-sm);
+}
+
+.trace-expand-btn svg {
+   display: block;
+   width: var(--icon-size-sm);
+   height: var(--icon-size-sm);
+   fill: currentColor !important;
+   stroke: none !important;
+}
+
+/* Ensure trace expand buttons are always filled, even in CPEE sections */
+.cpee-section .trace-expand-btn svg,
+#input-cpee .trace-expand-btn svg,
+#output-cpee .trace-expand-btn svg {
+   fill: currentColor !important;
+   stroke: none !important;
+}
+
+/* Ensure trace expand button SVG paths are filled */
+.cpee-section .trace-expand-btn svg path,
+.cpee-section .trace-expand-btn svg g,
+.cpee-section .trace-expand-btn svg *,
+#input-cpee .trace-expand-btn svg path,
+#input-cpee .trace-expand-btn svg g,
+#input-cpee .trace-expand-btn svg *,
+#output-cpee .trace-expand-btn svg path,
+#output-cpee .trace-expand-btn svg g,
+#output-cpee .trace-expand-btn svg * {
+   fill: currentColor !important;
+   stroke: none !important;
+}
+
+/* Dark mode: Ensure trace expand buttons are always filled */
+[data-theme="dark"] .trace-expand-btn svg {
+   fill: currentColor !important;
+   stroke: none !important;
+}
+
+[data-theme="dark"] .cpee-section .trace-expand-btn svg,
+[data-theme="dark"] #input-cpee .trace-expand-btn svg,
+[data-theme="dark"] #output-cpee .trace-expand-btn svg {
+   fill: currentColor !important;
+   stroke: none !important;
+}
+
+[data-theme="dark"] .cpee-section .trace-expand-btn svg path,
+[data-theme="dark"] .cpee-section .trace-expand-btn svg g,
+[data-theme="dark"] .cpee-section .trace-expand-btn svg *,
+[data-theme="dark"] #input-cpee .trace-expand-btn svg path,
+[data-theme="dark"] #input-cpee .trace-expand-btn svg g,
+[data-theme="dark"] #input-cpee .trace-expand-btn svg *,
+[data-theme="dark"] #output-cpee .trace-expand-btn svg path,
+[data-theme="dark"] #output-cpee .trace-expand-btn svg g,
+[data-theme="dark"] #output-cpee .trace-expand-btn svg * {
+   fill: currentColor !important;
+   stroke: none !important;
+}
+
+/* Trace Number */
+.trace-number {
+   font-weight: 600;
+   color: var(--text-primary);
+   font-size: var(--font-size-sm);
+   flex-shrink: 0;
+   font-family: var(--font-sans);
+}
+
+/* Trace Number - Matching (success color with background) */
+.trace-number--matching {
+   color: var(--alert-success-text);
+   background-color: var(--alert-success-bg);
+   padding: 2px 6px;
+   border-radius: var(--border-radius-sm);
+   border: 1px solid var(--alert-success-border);
+}
+
+/* Trace Number - Problematic (danger color with background) */
+.trace-number--problematic {
+   color: var(--alert-danger-text);
+   background-color: var(--alert-danger-bg);
+   padding: 2px 6px;
+   border-radius: var(--border-radius-sm);
+   border: 1px solid var(--alert-danger-border);
+}
+
+/* Trace Number - Reconciled (info color with background) */
+/* Used for traces that were validated across graph formats */
+.trace-number--reconciled {
+   color: var(--alert-info-text);
+   background-color: var(--alert-info-bg);
+   padding: 2px 6px;
+   border-radius: var(--border-radius-sm);
+   border: 1px solid var(--alert-info-border);
+}
+
+/* Trace Length Badge */
+.trace-length-badge {
+   display: inline-block;
+   padding: 2px var(--spacing-xs);
+   border-radius: var(--border-radius-sm);
+   font-size: var(--font-size-sm);
+   background: var(--background-color);
+   color: var(--text-secondary);
+   flex-shrink: 0;
+}
+
+/* Trace Path Preview */
+.trace-path-preview {
+   flex: 1;
+   min-width: 0;
+   color: var(--text-secondary);
+   font-size: var(--font-size-sm);
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   font-family: var(--font-sans);
+}
+
+/* Trace Length Display (on the right) */
+.trace-length-display {
+   color: var(--text-secondary);
+   font-size: var(--font-size-sm);
+   font-weight: 500;
+   flex-shrink: 0;
+   margin-left: auto;
+   font-family: var(--font-sans);
+}
+
+/* Trace Details (Expandable) */
+.trace-details {
+   max-height: 0;
+   overflow: hidden;
+   background: var(--surface-color);
+}
+
+.trace-details.expanded {
+   max-height: 2000px;
+}
+
+/* Trace Details JSON Format */
+.trace-details-json {
+   margin: 0;
+   padding: var(--spacing-md);
+   background: var(--background-color);
+   border-top: 1px solid var(--border-color);
+   font-family: var(--font-mono);
+   font-size: var(--font-size-sm);
+   line-height: 1.6;
+   overflow-x: auto;
+}
+
+.trace-details-json code {
+   background: transparent;
+   border: none;
+   padding: 0;
+   color: var(--text-primary);
+   font-size: inherit;
+   font-family: var(--font-mono);
+}
+
+/* Trace JSON Syntax Highlighting Colors - Light Mode */
+/* Punctuation: {, }, , */
+.trace-details-json code.language-json .token.punctuation {
+   color: #9ca3af !important; /* colors.trace.punctuation */
+}
+
+/* Operators: : (colon) */
+.trace-details-json code.language-json .token.operator {
+   color: #9ca3af !important; /* colors.trace.operator - same as punctuation */
+}
+
+/* Keys: JSON property names (id, alt_id, task) */
+.trace-details-json code.language-json .token.property {
+   color: #000000 !important; /* colors.trace.keys - black */
+}
+
+/* IDs: string values after "id" and "alt_id" properties */
+/* Default all string values to ID color (covers id and alt_id) */
+.trace-details-json code.language-json .token.string {
+   color: #b91c1c !important; /* colors.trace.ids */
+}
+
+/* Tasks: string values after "task" property */
+/* Each object structure: {"id":"...","alt_id":"...","task":"..."} */
+/* Target string tokens marked with token-task-string class (added by JavaScript) */
+.trace-details-json code.language-json .token.string.token-task-string {
+   color: #008000 !important; /* colors.trace.tasks - task string values */
+}
+
+/* Dark Mode Trace JSON Syntax Highlighting */
+[data-theme="dark"] .trace-details-json code.language-json .token.punctuation {
+   color: #94a3b8 !important; /* colors.trace.dark.punctuation */
+}
+
+/* Operators: : (colon) - Dark Mode */
+[data-theme="dark"] .trace-details-json code.language-json .token.operator {
+   color: #94a3b8 !important; /* colors.trace.dark.operator - same as punctuation */
+}
+
+/* Keys: JSON property names (id, alt_id, task) - Dark Mode */
+[data-theme="dark"] .trace-details-json code.language-json .token.property {
+   color: #b8c5d8 !important; /* colors.trace.dark.keys - lighter than punctuation */
+}
+
+[data-theme="dark"] .trace-details-json code.language-json .token.string {
+   color: #f5a5a5 !important; /* colors.trace.dark.ids - default for all strings */
+}
+
+/* Tasks: string values after "task" property - Dark Mode */
+/* Target string tokens marked with token-task-string class (added by JavaScript) */
+[data-theme="dark"] .trace-details-json code.language-json .token.string.token-task-string {
+   color: #86efac !important; /* colors.trace.dark.tasks - task string values (green) */
+}
+
+/* Trace Path Container */
+.trace-path-container {
+   padding: var(--spacing-md);
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   gap: 4px;
+   font-family: var(--font-mono);
+   font-size: var(--font-size-sm);
+}
+
+/* Trace Task */
+.trace-task {
+   display: inline-block;
+   padding: 4px var(--spacing-xs);
+   background: var(--background-color);
+   border-radius: var(--border-radius-sm);
+   color: var(--text-primary);
+}
+
+.trace-task:hover {
+   background: var(--hover-bg);
+}
+
+/* Trace Task - Start Node */
+.trace-task-start {
+   background: var(--primary-light);
+   color: var(--primary-dark);
+   font-weight: 600;
+}
+
+[data-theme="dark"] .trace-task-start {
+   background: rgba(37, 99, 235, 0.3);
+   color: #93c5fd;
+}
+
+/* Trace Task - End Node */
+.trace-task-end {
+   background: var(--alert-success-bg);
+   color: var(--alert-success-text);
+   font-weight: 600;
+}
+
+[data-theme="dark"] .trace-task-end {
+   background: var(--alert-success-bg);
+   color: var(--alert-success-text);
+}
+
+/* Trace Arrow */
+.trace-arrow {
+   color: var(--text-secondary);
+   font-weight: 500;
+   user-select: none;
+}
+
+/* Trace Metadata */
+.trace-metadata {
+   padding: var(--spacing-md);
+   border-top: 1px solid var(--border-color);
+   background: var(--surface-color);
+   font-family: var(--font-sans);
+}
+
+.trace-metadata-title {
+   font-weight: 600;
+   color: var(--text-primary);
+   margin-bottom: var(--spacing-sm);
+   font-size: var(--font-size-sm);
+   font-family: var(--font-sans);
+}
+
+.trace-metadata-list {
+   display: grid;
+   grid-template-columns: auto 1fr;
+   gap: var(--spacing-xs) var(--spacing-sm);
+   font-size: var(--font-size-sm);
+   color: var(--text-secondary);
+   font-family: var(--font-sans);
+}
+
+.trace-metadata-list dt {
+   font-weight: 500;
+   color: var(--text-primary);
+   font-family: var(--font-sans);
+}
+
+/* ========================================
+   TRACE COPY BUTTON
+   ======================================== */
+
+/* Trace copy button container - positioned similar to action bar */
+.trace-copy-button-container {
+   position: absolute;
+   top: 12px;
+   right: 15px;
+   z-index: 100;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   pointer-events: auto;
+}
+
+/* Copy button in trace copy container - icon only, styled like action bar copy button */
+.trace-copy-button-container .copy-btn {
+   background: var(--background-color);
+   border: 1px solid var(--border-color);
+   color: var(--text-primary);
+   cursor: pointer;
+   padding: var(--spacing-xs);
+   border-radius: 4px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 32px;
+   height: 32px;
+   box-sizing: border-box;
+   gap: 0;
+}
+
+/* Success state - briefly show success color when showing checkmark */
+.trace-copy-button-container .copy-btn.copy-success {
+   background: var(--copy-success-color);
+   border-color: var(--copy-success-color);
+   color: var(--text-white);
+}
+
+.trace-copy-button-container .copy-btn svg {
+   width: var(--icon-size-sm);
+   height: var(--icon-size-sm);
+}
+
+/* Hide text in copy button when in trace copy container */
+.trace-copy-button-container .copy-text {
+   display: none;
+}
+
+/* ========================================
+   TRACE METADATA & MESSAGES
+   ======================================== */
+
+.trace-metadata-list dd {
+   margin: 0;
+   color: var(--text-secondary);
+   font-family: var(--font-sans);
+}
+
+/* Trace Empty Message */
+.trace-empty-message {
+   padding: var(--spacing-lg);
+   text-align: center;
+   color: var(--text-secondary);
+   font-style: italic;
+   font-family: var(--font-sans);
+}
+
+/* Trace Error Message */
+.trace-error-message {
+   padding: var(--spacing-lg);
+   text-align: center;
+   color: var(--error-text);
+   font-family: var(--font-sans);
+}
+
+.trace-error-title {
+   font-weight: 600;
+   font-size: var(--font-size-md);
+   margin-bottom: var(--spacing-sm);
+   color: var(--error-text);
+}
+
+.trace-error-text {
+   font-size: var(--font-size-sm);
+   color: var(--text-secondary);
+}

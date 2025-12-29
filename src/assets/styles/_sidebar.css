@@ -1,0 +1,259 @@
+/* ========================================
+   _sidebar.css
+   
+   Sidebar component for instance navigation and selection.
+   
+   Contains:
+   - Sidebar container: sticky positioning, flex column layout, full viewport height
+   - Sidebar header: title and toggle button arrangement
+   - Sidebar toggle button: expand/collapse with hover and focus states
+   - Collapsed state: compact width, centered content, hidden title
+   - Expanded state: full 300px width for content display
+   - Sidebar content wrapper: scrollable area with hidden scrollbar
+   - Instance list: flex-wrap grid of instance number boxes
+   - Instance tabs: clickable tabs for switching between loaded instances
+   - Active tab states and hover interactions
+   - Scan input fields for instance range selection
+   
+   Concerns:
+   - Responsive sidebar that can collapse to save space
+   - Smooth transitions between collapsed/expanded states
+   - Instance navigation UI for multi-instance workflows
+   - Hidden scrollbar for clean appearance while maintaining scrollability
+   ======================================== */
+
+/* ========================================
+   SIDEBAR CONTAINER
+   ======================================== */
+
+.sidebar {
+   background: var(--surface-color);
+   border-right: 1px solid var(--border-color);
+   padding: var(--spacing-md);
+   overflow: hidden;
+   display: flex;
+   flex-direction: column;
+   /* Sticky positioning to stay in view and adjust with viewport */
+   position: sticky;
+   top: 0;
+   height: 100vh; /* Full viewport height */
+   min-height: 200px; /* Minimum usable height */
+}
+
+/* Sidebar header container */
+.sidebar-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: var(--spacing-md);
+   flex-shrink: 0; /* Don't shrink the header */
+}
+
+.sidebar h3 {
+   color: var(--text-primary);
+   margin-bottom: 0;
+   font-size: var(--font-size-md);
+   flex: 1;
+}
+
+/* Sidebar toggle button */
+.sidebar-toggle-btn {
+   background: transparent;
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius-sm);
+   padding: var(--button-padding-sm);
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 32px;
+   height: 32px;
+   outline: none;
+   transition: var(--button-transition);
+}
+
+.sidebar-toggle-btn:hover {
+   background: var(--background-color);
+   border-color: var(--primary-color);
+}
+
+.sidebar-toggle-btn:focus-visible {
+   outline: 2px solid var(--primary-color);
+   outline-offset: 2px;
+}
+
+.sidebar-toggle-icon {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   color: var(--text-primary);
+}
+
+/* ========================================
+   SIDEBAR COLLAPSED STATE
+   ======================================== */
+
+.sidebar.sidebar-collapsed {
+   width: auto !important;
+   min-width: 80px;
+   max-width: none;
+   padding: var(--spacing-md);
+   align-items: center;
+   overflow: hidden;
+   box-sizing: border-box;
+}
+
+.sidebar.sidebar-collapsed .sidebar-header {
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+   gap: var(--spacing-sm);
+}
+
+.sidebar.sidebar-collapsed h3 {
+   display: none;
+}
+
+.sidebar.sidebar-collapsed .sidebar-content {
+   display: block;
+}
+
+.sidebar.sidebar-collapsed .sidebar-toggle-btn {
+   width: 32px;
+   margin: 0;
+   height: 32px;
+}
+
+/* Show instance tabs in collapsed state with process number */
+.sidebar.sidebar-collapsed .instance-tab {
+   padding: var(--spacing-xs);
+   font-size: var(--font-size-sm);
+   font-weight: bold;
+   text-align: center;
+   white-space: nowrap;
+   min-height: 2.5em;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: fit-content;
+   min-width: 100%;
+   box-sizing: border-box;
+}
+
+.sidebar.sidebar-collapsed .instance-tab.active {
+   background: var(--primary-color);
+   color: var(--surface-color);
+   border-color: var(--primary-color);
+}
+
+/* ========================================
+   SIDEBAR EXPANDED STATE
+   ======================================== */
+
+.sidebar.sidebar-expanded {
+   width: 300px;
+   min-width: 300px;
+   box-sizing: border-box;
+}
+
+/* ========================================
+   SIDEBAR CONTENT WRAPPER
+   ======================================== */
+
+.sidebar-content {
+   flex: 1; /* Take remaining space */
+   overflow-y: auto;
+   overflow-x: hidden;
+   /* Hide scrollbar but keep functionality */
+   scrollbar-width: none; /* Firefox */
+   -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sidebar-content::-webkit-scrollbar {
+   display: none;
+}
+
+/* ========================================
+   INSTANCE LIST & TABS
+   ======================================== */
+
+.instance-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--spacing-sm);
+   margin-top: var(--spacing-sm);
+}
+
+/* Common box styles */
+.instance-number-box,
+.instance-tab {
+   padding: var(--spacing-xs);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius);
+   background: var(--surface-color);
+   font-family: var(--font-mono);
+   box-sizing: border-box;
+   cursor: pointer;
+   white-space: nowrap;
+}
+
+/* Number box */
+.instance-number-box {
+   font-size: var(--font-size-sm);
+   font-weight: bold;
+   color: var(--text-primary);
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   user-select: none;
+   width: auto;
+   height: auto;
+   flex-shrink: 0;
+}
+
+.instance-number-box:hover,
+.instance-tab:hover {
+   background: var(--background-color);
+   border-color: var(--primary-color);
+}
+
+.instance-number-box:focus,
+.instance-number-box:focus-visible {
+   outline: 2px solid var(--primary-color);
+   outline-offset: 2px;
+}
+
+/* Scan inputs */
+#scan-start-input,
+#scan-end-input {
+   width: 130px;
+}
+
+/* Tabs */
+#instance-tabs {
+   display: flex;
+   flex-direction: column;
+   gap: var(--spacing-xs);
+}
+
+.no-instances {
+   color: var(--text-secondary);
+   font-family: var(--font-sans-italic);
+   font-style: italic;
+   text-align: center;
+   padding: var(--spacing-md);
+}
+
+.instance-tab {
+   padding: var(--spacing-sm);
+   font-size: var(--font-size-sm);
+   width: fit-content;
+   min-width: 100%;
+}
+
+.instance-tab.active {
+   background: var(--primary-color);
+   color: var(--surface-color);
+   border-color: var(--primary-color);
+}

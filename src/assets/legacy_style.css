@@ -1,5 +1,10 @@
 /* CPEE LLM Error Debugging Console Styles */
 
+/* ############################################################################
+   FILE: _variables.css
+   Contains: Font declarations, CSS variables (light & dark mode)
+   ############################################################################ */
+
 /* ========================================
    0. FONT FACE DECLARATIONS
    ======================================== */
@@ -229,6 +234,11 @@
     --icon-size-lg: 25px;
 }
 
+/* ############################################################################
+   FILE: _reset.css
+   Contains: Reset styles, base element styles, global selections
+   ############################################################################ */
+
 /* ========================================
    2. RESET & BASE STYLES
    ======================================== */
@@ -258,6 +268,11 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+/* ############################################################################
+   FILE: _layout.css
+   Contains: Header, main container, sidebar, footer, navigation wrapper
+   ############################################################################ */
 
 /* ========================================
    3. LAYOUT COMPONENTS
@@ -624,6 +639,11 @@ body {
     border-radius: 2px;
 }
 
+/* ############################################################################
+   FILE: _modals.css
+   Contains: Bug report modal, popups, overlays
+   ############################################################################ */
+
 /* Bug Report Modal */
 .bug-report-modal {
     display: none;
@@ -789,8 +809,13 @@ body {
     margin-bottom: var(--spacing-xs);
 }
 
+/* ############################################################################
+   FILE: _buttons.css
+   Contains: All button styles (base, primary, secondary, icon, transparent)
+   ############################################################################ */
+
 /* ========================================
-   4. UI COMPONENTS
+   4. UI COMPONENTS - BUTTONS
    ======================================== */
 
 /* ========================================
@@ -1069,6 +1094,11 @@ body {
 }
 
 
+/* ############################################################################
+   FILE: _inputs.css
+   Contains: Input fields, form groups, dropdowns, selects
+   ############################################################################ */
+
 /* Input Components */
 .input-base {
     padding: var(--spacing-sm);
@@ -1242,6 +1272,11 @@ body {
 .instance-list-container {
     margin-top: var(--spacing-md);
 }
+
+/* ############################################################################
+   FILE: _issues.css
+   Contains: Recent additions, issues list, issue items, labels
+   ############################################################################ */
 
 /* ========================================
    RECENT ADDITIONS AND FIXES SECTION
@@ -1618,6 +1653,11 @@ body {
   }
   
 
+/* ############################################################################
+   FILE: _navigation.css
+   Contains: Step navigation, theme selector, scale display, metadata
+   ############################################################################ */
+
 /* Navigation Wrapper - flexbox container */
 .navigation-wrapper {
     display: flex;
@@ -1967,6 +2007,11 @@ body {
 }
 
 
+/* ############################################################################
+   FILE: _content-sections.css
+   Contains: Section containers, content boxes, section headers
+   ############################################################################ */
+
 /* ========================================
    5. CONTENT SECTIONS
    ======================================== */
@@ -2195,6 +2240,11 @@ body {
 }
 
 /* .graph-error class removed - replaced by .mermaid-error-indicator */
+
+/* ############################################################################
+   FILE: _graphs.css
+   Contains: SVG graph styling, Mermaid overrides, graph containers
+   ############################################################################ */
 
 /* ========================================
    6. GRAPH RENDERERS
@@ -3305,6 +3355,11 @@ body {
     z-index: 1 !important;
 }
 
+/* ############################################################################
+   FILE: _utilities.css
+   Contains: Utility classes, animations, scrollbar styles
+   ############################################################################ */
+
 /* ========================================
    7. UTILITIES
    ======================================== */
@@ -3327,6 +3382,11 @@ body {
 
 .m-0 { margin: 0; }
 .p-0 { padding: 0; }
+
+/* ############################################################################
+   FILE: _responsive.css
+   Contains: Media queries, responsive breakpoints
+   ############################################################################ */
 
 /* ========================================
    8. MEDIA QUERIES
@@ -3397,6 +3457,11 @@ body {
         user-select: none;
     }
 }
+
+/* ############################################################################
+   FILE: _view-mode.css
+   Contains: View mode toggle, tab switching UI
+   ############################################################################ */
 
 /* ========================================
    VIEW MODE TOGGLE COMPONENT
@@ -3840,6 +3905,11 @@ body {
     }
 }
 
+/* ############################################################################
+   FILE: _raw-content.css
+   Contains: Raw content display, code blocks, preprocessing tags
+   ############################################################################ */
+
 /* ========================================
    RAW CONTENT RENDERER STYLING
    ======================================== */
@@ -3954,7 +4024,7 @@ body {
     color: inherit;
 }
 
-/* Mark preprocessing line numbers with background highlight (log view only) */
+/* Mark preprocessing line numbers with background highlight (Raw View only) */
 .raw-code-line-number.preprocessing-line-number {
     background-color: var(--preprocessing-bg);
     color: var(--text-white);
@@ -4013,6 +4083,11 @@ body {
         font-size: var(--font-size-sm);
     }
 }
+
+/* ############################################################################
+   FILE: _copy-button.css
+   Contains: Copy button styles, success states
+   ############################################################################ */
 
 /* ========================================
    COPY BUTTON COMPONENT
@@ -4158,6 +4233,11 @@ body {
 
 }
 
+/* ############################################################################
+   FILE: _highlighting.css
+   Contains: Task highlighting, cross-view highlighting, CPEE-specific styles
+   ############################################################################ */
+
 /* ========================================
    CROSS-VIEW TASK HIGHLIGHTING SYSTEM
    ======================================== */
@@ -4202,6 +4282,11 @@ body {
     stroke-width: 4px !important;
     fill-opacity: var(--highlight-active-opacity) !important;
 }
+
+/* ############################################################################
+   FILE: _search.css
+   Contains: Search UI, search results, match highlighting
+   ############################################################################ */
 
 /* ============================================
    RAW CONTENT SEARCH FUNCTIONALITY
@@ -4567,6 +4652,11 @@ body {
 .action-bar-copy-container .copy-text {
     display: none;
 }
+
+/* ############################################################################
+   FILE: _download-button.css
+   Contains: Download button styles (can merge with _copy-button.css)
+   ############################################################################ */
 
 /* ========================================
    DOWNLOAD BUTTON COMPONENT
@@ -5021,6 +5111,11 @@ rect.stand.cpee-gateway-highlighted-active {
     stroke-width: 4px !important;
 }
 
+/* ############################################################################
+   FILE: _traces.css
+   Contains: Trace display, trace items, trace comparison, reconciliation
+   ############################################################################ */
+
 /* ========================================
    TRACE RENDERER STYLING
    ======================================== */
@@ -5198,59 +5293,6 @@ rect.stand.cpee-gateway-highlighted-active {
     padding: 2px 6px;
     border-radius: var(--border-radius-sm);
     border: 1px solid var(--alert-info-border);
-}
-
-/* Trace Type Badge */
-.trace-type-badge {
-    display: inline-block;
-    padding: 2px var(--spacing-xs);
-    border-radius: var(--border-radius-sm);
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    flex-shrink: 0;
-    font-family: var(--font-sans);
-}
-
-.trace-type-sequential {
-    background: var(--primary-light);
-    color: var(--primary-dark);
-}
-
-.trace-type-parallel {
-    background: #e3f2fd;
-    color: #1976d2;
-}
-
-.trace-type-loop {
-    background: #fff3e0;
-    color: #f57c00;
-}
-
-.trace-type-conditional {
-    background: #f3e5f5;
-    color: #7b1fa2;
-}
-
-[data-theme="dark"] .trace-type-sequential {
-    background: rgba(37, 99, 235, 0.2);
-    color: #60a5fa;
-}
-
-[data-theme="dark"] .trace-type-parallel {
-    background: rgba(25, 118, 210, 0.2);
-    color: #64b5f6;
-}
-
-[data-theme="dark"] .trace-type-loop {
-    background: rgba(245, 124, 0, 0.2);
-    color: #ffb74d;
-}
-
-[data-theme="dark"] .trace-type-conditional {
-    background: rgba(123, 31, 162, 0.2);
-    color: #ba68c8;
 }
 
 /* Trace Length Badge */
@@ -5457,6 +5499,11 @@ rect.stand.cpee-gateway-highlighted-active {
     color: var(--text-primary);
     font-family: var(--font-sans);
 }
+
+/* ############################################################################
+   FILE: _analysis.css
+   Contains: Analysis view, verification status, reachability results
+   ############################################################################ */
 
 /* ========================================
    ANALYSIS CONTENT RENDERER STYLING

@@ -1,0 +1,213 @@
+/* ========================================
+   _instance-loading.css
+   
+   Form controls and UI for loading CPEE process instances.
+   
+   Contains:
+   - Base input styles (.input-base): text fields with focus and read-only states
+   - Input groups: vertical stacking of related form elements
+   - Input rows: horizontal flex layout for inline form fields
+   - UUID input field: wide text input for instance UUID entry
+   - Process number input: narrow input for numeric process IDs
+   - Input separator: "or" text styling between alternative inputs
+   - Input description: help text below form fields
+   - Button groups: horizontal button layouts within forms
+   - Advanced instance loading section: collapsible container for advanced options
+   - Advanced options header: clickable header with expand/collapse icon
+   - Instance scanner section: range-based instance loading UI
+   - Load all instances section: batch loading interface
+   - Section description text styling
+   - Instance list container for displaying found instances
+   - Responsive adjustments for mobile viewports
+   
+   Concerns:
+   - User-friendly forms for loading single or multiple instances
+   - Clear visual hierarchy for primary vs. advanced options
+   - Collapsible sections to reduce visual complexity
+   - Consistent form control styling with focus states
+   ======================================== */
+
+/* Input Components */
+.input-base {
+   padding: var(--spacing-sm);
+   border: 2px solid var(--border-color);
+   border-radius: var(--border-radius);
+   font-size: var(--font-size-sm);
+   font-family: var(--font-sans);
+   background: var(--background-color);
+   color: var(--text-primary);
+}
+
+.input-base:focus {
+   outline: none;
+   border-color: var(--primary-color);
+   box-shadow: 0 0 0 3px var(--primary-color-alpha);
+}
+
+.input-base:read-only {
+   background: var(--background-color);
+   cursor: not-allowed;
+}
+
+/* Input Groups */
+.input-group {
+   display: flex;
+   flex-direction: column;
+   gap: var(--spacing-md);
+   margin: var(--spacing-md) 0;
+}
+
+.input-row {
+   display: flex;
+   gap: var(--spacing-md);
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   background: var(--background-color);
+   padding: var(--spacing-lg);
+   border-radius: var(--border-radius-lg);
+   border: 1px solid var(--border-color);
+}
+
+.input-row label {
+   font-weight: 600;
+   color: var(--text-primary);
+   white-space: nowrap;
+   font-size: var(--font-size-sm);
+}
+
+/* Specific Input Styling */
+#uuid-input {
+   width: 100%;
+   max-width: 400px;
+   flex: 1;
+   min-width: 300px;
+   margin: var(--spacing-md) 0;
+}
+
+#process-number-input {
+   width: 120px;
+}
+
+/* Input Separator ("or" text between inputs) */
+.input-separator {
+   color: var(--text-secondary);
+   font-size: var(--font-size-sm);
+   font-style: italic;
+   padding: 0 var(--spacing-sm);
+   user-select: none;
+}
+
+/* Input Description Text */
+.input-description {
+   color: var(--text-secondary);
+   font-size: var(--font-size-sm);
+   margin: 0 0 var(--spacing-md) 0;
+}
+
+/* Button Groups */
+.button-group {
+   display: flex;
+   gap: var(--spacing-md);
+   margin-top: var(--spacing-md);
+}
+
+.button-group .btn {
+   flex: 1;
+}
+
+/* Advanced Instance Loading Container */
+.advanced-instance-loading {
+   margin-top: var(--spacing-xl);
+   padding: var(--spacing-lg);
+   background: var(--surface-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius-lg);
+}
+
+/* Advanced Options Header */
+.advanced-options-header {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+   cursor: pointer;
+}
+
+.advanced-options-header h3 {
+   margin: 0;
+   font-size: 20px;
+   font-weight: 600;
+   color: var(--text-secondary);
+   transition: color 0.15s ease;
+}
+
+.advanced-options-header:hover h3 {
+   color: var(--accent-color, #3b82f6);
+}
+
+/* Advanced Options Content */
+.advanced-options-content {
+   display: flex;
+   gap: var(--spacing-lg);
+   flex-wrap: wrap;
+   margin-top: var(--spacing-lg);
+}
+
+.advanced-options-content > * {
+   flex: 1;
+   min-width: 300px;
+}
+
+/* Collapsed state */
+.advanced-instance-loading.collapsed .advanced-options-content {
+   display: none;
+}
+
+/* Instance Scanner and Load All Instances Sections */
+.instance-scanner-section,
+.load-all-instances-section {
+   padding: var(--spacing-lg);
+   background: var(--background-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius);
+}
+
+.instance-scanner-section h4,
+.load-all-instances-section h4 {
+   text-align: center;
+   color: var(--text-primary);
+   margin: 0 0 var(--spacing-xs) 0;
+   font-size: var(--font-size-md);
+   font-weight: 600;
+}
+
+.instance-scanner-section h5,
+.load-all-instances-section h5 {
+   color: var(--text-secondary);
+   margin: var(--spacing-md) 0 var(--spacing-sm);
+   font-size: var(--font-size-sm);
+   font-weight: 500;
+}
+
+/* Section description text */
+.section-description {
+   color: var(--text-secondary);
+   font-size: var(--font-size-sm);
+   margin: 0 0 var(--spacing-md) 0;
+   text-align: center;
+}
+
+.instance-list-container {
+   margin-top: var(--spacing-md);
+}
+
+/* ========================================
+   RESPONSIVE - INSTANCE LOADING
+   ======================================== */
+
+@media (max-width: 480px) {
+   #uuid-input {
+      min-width: 250px;
+   }
+}
+

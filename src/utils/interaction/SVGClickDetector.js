@@ -342,10 +342,10 @@ export class SVGClickDetector {
     }
 
     /**
-     * Check if a click target is inside a content-box of a visual view section
+     * Check if a click target is inside a content-box of a Graph View section
      * @param {Element} target - Click target element
      * @param {Function} getViewMode - Function to get view mode for a section ID (returns 'visual', 'raw', etc.)
-     * @returns {boolean} True if click is inside a visual view content-box
+     * @returns {boolean} True if click is inside a Graph View content-box
      */
     isClickInsideVisualContentBox(target, getViewMode = null) {
         if (!target) {

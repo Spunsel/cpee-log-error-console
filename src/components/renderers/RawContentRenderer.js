@@ -1,19 +1,20 @@
 /**
  * RawContentRenderer
- * Renders raw/preprocessed content (Mermaid, CPEE XML, user input) as plain text
- * Single responsibility: Raw view rendering only
+ * Renders preprocessed content (Mermaid, CPEE XML, user input) as plain text
+ * Single responsibility: Cleaned View rendering only
  * 
  * Responsibilities:
- * - Render raw/preprocessed content into DOM elements
- * - Provide DOM structure for raw content display
- * - Handle search highlighting and navigation for raw view
- * - Manage action bars for raw content
+ * - Render cleaned/preprocessed content into DOM elements
+ * - Provide DOM structure for Cleaned View display
+ * - Handle search highlighting and navigation for Cleaned View
+ * - Manage action bars for cleaned content
  * - Handle content restoration and hiding
  * 
  * View Mode Separation:
- * - Raw view: This renderer (preprocessed content)
- * - Log view: LogContentRenderer (untouched log content)
- * - Traces view: TraceContentRenderer (execution traces)
+ * - Graph View: ContentSectionManager (graph rendering)
+ * - Cleaned View: This renderer (preprocessed content)
+ * - Raw View: LogContentRenderer (untouched original content)
+ * - Traces View: TraceContentRenderer (execution traces)
  */
 
 import { ActionBar } from '../ui/ActionBar.js';
@@ -36,8 +37,8 @@ export class RawContentRenderer {
     }
 
     /**
-     * Render raw Mermaid content as plain text with preprocessing applied
-     * The raw view should show the preprocessed content (same as what would be rendered visually)
+     * Render Mermaid content as plain text with preprocessing applied
+     * The Cleaned View should show the preprocessed content (same as what would be rendered in Graph View)
      * @param {string} mermaidText - Raw Mermaid diagram text
      * @param {Object} options - Rendering options
      * @returns {HTMLElement} Container with rendered content
@@ -47,9 +48,9 @@ export class RawContentRenderer {
             className: 'raw-content-container mermaid-raw'
         });
 
-        // Apply preprocessing to match what visual view shows
-        // Raw view should only show preprocessed code, not error indicators
-        // Errors are displayed in the visual view only
+        // Apply preprocessing to match what Graph View shows
+        // Cleaned View should only show preprocessed code, not error indicators
+        // Errors are displayed in the Graph View only
         let processedText = mermaidText || '';
         try {
             const cleanResult = this.contentProcessingService.processAndValidateMermaid(processedText, true);
@@ -76,8 +77,8 @@ export class RawContentRenderer {
     }
 
     /**
-     * Render raw CPEE XML content as plain text with preprocessing applied
-     * The raw view should show the preprocessed content (same as what would be rendered visually)
+     * Render CPEE XML content as plain text with preprocessing applied
+     * The Cleaned View should show the preprocessed content (same as what would be rendered in Graph View)
      * @param {string} xmlText - Raw CPEE XML text
      * @param {Object} options - Rendering options
      * @returns {HTMLElement} Container with rendered content
@@ -87,7 +88,7 @@ export class RawContentRenderer {
             className: 'raw-content-container cpee-raw'
         });
 
-        // Apply preprocessing to match what visual view shows
+        // Apply preprocessing to match what Graph View shows
         // Use preprocessCPEEOnly to avoid validation errors - we just want preprocessed content
         let processedText = xmlText || '';
         try {
@@ -142,8 +143,8 @@ export class RawContentRenderer {
 
 
     /**
-     * Display raw content for a section
-     * Renders preprocessed content (Mermaid, CPEE XML, user input) in raw view mode
+     * Display cleaned content for a section
+     * Renders preprocessed content (Mermaid, CPEE XML, user input) in Cleaned View mode
      * @param {string} sectionId - Section identifier
      * @param {HTMLElement} container - Content container
      * @param {Object} step - Current step object

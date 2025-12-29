@@ -1,0 +1,62 @@
+/* ========================================
+   CPEE LLM Error Debugging Console Styles
+   Main entry point - imports all CSS partials
+   
+   This file orchestrates the CSS architecture using a modular partial system.
+   Each partial is prefixed with underscore (_) following SCSS convention.
+   
+   Import order matters:
+   1. Foundation - Variables must come first (other files depend on them)
+   2. Reset - Normalize browser defaults before any component styles
+   3. Layout - Page structure before components
+   4. Components - UI elements that appear throughout the app
+   5. Content - Section-specific styles
+   6. Visualization - Graph rendering and highlighting
+   7. Features - Specialized functionality (traces, analysis, search)
+   8. Utilities - Helper classes (loaded last to ensure override capability)
+   
+   File count: 21 partials + 1 index = 22 CSS files
+   ======================================== */
+
+/* Foundation */
+@import '_variables.css';
+@import '_reset.css';
+
+/* Layout */
+@import '_layout.css';
+@import '_sidebar.css';
+
+/* Components - Buttons & Inputs */
+@import '_buttons.css';
+@import '_instance-loading.css';
+
+/* Components - UI */
+@import '_modals.css';
+@import '_navigation.css';
+@import '_view-mode.css';
+@import '_action-bar.css';
+
+/* Content Sections */
+@import '_content-sections.css';
+@import '_raw-content.css';
+
+/* Graphs & Visualization */
+@import '_graphs.css';
+@import '_highlighting.css';
+@import '_comparison.css';
+
+/* Alerts & Indicators */
+@import '_alerts.css';
+
+/* Traces & Analysis */
+@import '_traces.css';
+@import '_analysis.css';
+
+/* Search */
+@import '_search.css';
+
+/* Features */
+@import '_issues.css';
+
+/* Utilities */
+@import '_utilities.css';

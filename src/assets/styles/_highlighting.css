@@ -1,0 +1,322 @@
+/* ========================================
+   _highlighting.css
+   
+   Cross-view task highlighting system for graph element interaction.
+   
+   Contains:
+   - Task clickable: cursor and hover brightness for interactive elements
+   - Task highlighted state: stroke color and width for selected tasks
+   - Highlighted child shapes: circles, rects, polygons, ellipses
+   - Task highlighted active: stronger highlight for currently focused task
+   - CPEE task highlighting: targeting complex CPEE SVG structure
+   - CPEE rect elements: stand, colorstyle, markstyle, hoverstyle classes
+   - CPEE gateway elements: part-middle lines, standline classes
+   - CPEE shape elements: circles, polygons, ellipses within tasks
+   - Performance optimizations: filter, transition, animation disabling
+   - GPU acceleration: translateZ, backface-visibility, contain hints
+   - CPEE hover mark hiding: removing default CPEE selection visuals
+   - Active highlighting: distinct color for primary selection
+   - CPEE active task targeting: comprehensive selector coverage
+   
+   Concerns:
+   - Visual connection between trace items and graph elements
+   - Consistent highlighting across different graph types (Mermaid, CPEE)
+   - Overcoming CPEE's complex nested SVG structure
+   - Performance optimization for highlight animations
+   - Accessibility through clear visual distinction
+   - Suppressing default CPEE hover/click marks to avoid conflicts
+   ======================================== */
+
+/* ========================================
+   CROSS-VIEW TASK HIGHLIGHTING SYSTEM
+   ======================================== */
+
+/* Highlightable Task Elements */
+.task-clickable {
+   cursor: pointer;
+}
+
+.task-clickable:hover {
+   filter: brightness(1.1);
+}
+
+/* Task Highlighted State */
+.task-highlighted {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 3px !important;
+   opacity: 1 !important;
+}
+
+.task-highlighted circle,
+.task-highlighted rect,
+.task-highlighted polygon,
+.task-highlighted ellipse {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 3px !important;
+   fill-opacity: var(--highlight-opacity) !important;
+}
+
+/* Task Active Highlighted State (clicked task) */
+.task-highlighted-active {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 4px !important;
+   opacity: 1 !important;
+}
+
+.task-highlighted-active circle,
+.task-highlighted-active rect,
+.task-highlighted-active polygon,
+.task-highlighted-active ellipse {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 4px !important;
+   fill-opacity: var(--highlight-active-opacity) !important;
+}
+
+/* ========================================
+   CPEE-SPECIFIC HIGHLIGHTING
+   ======================================== */
+
+/* Hide the CPEE checkmark/tick that appears on hover and click for all node types */
+/* This tick is in a <g class="hoverstyle markstyle"> element with circle and path children */
+.cpee-section g.hoverstyle.markstyle,
+.cpee-section g.markstyle.hoverstyle,
+[id*="-graph-container"] g.hoverstyle.markstyle,
+[id*="-graph-container"] g.markstyle.hoverstyle,
+[id*="graphcanvas"] g.hoverstyle.markstyle,
+[id*="graphcanvas"] g.markstyle.hoverstyle {
+   display: none !important;
+   visibility: hidden !important;
+   opacity: 0 !important;
+   pointer-events: none !important;
+}
+
+/* Highlight all outline elements simultaneously - rects and part-middle standlines */
+/* Target all elements at once with equal specificity to ensure simultaneous highlighting */
+/* High specificity selectors to override CPEE library's colorstyle/markstyle/hoverstyle classes */
+.cpee-task-highlighted > rect[class*="stand"]:not([class*="without"]),
+.cpee-task-highlighted rect[class*="stand"]:not([class*="without"]),
+.cpee-task-highlighted rect.colorstyle:not([class*="without"]),
+.cpee-task-highlighted rect.markstyle:not([class*="without"]),
+.cpee-task-highlighted rect.hoverstyle:not([class*="without"]),
+.cpee-task-highlighted rect.colorstyle.markstyle.hoverstyle.stand:not([class*="without"]),
+.cpee-task-highlighted > .part-middle > line[class*="standline"],
+.cpee-task-highlighted .part-middle line[class*="standline"],
+.cpee-task-highlighted > circle,
+.cpee-task-highlighted circle,
+.cpee-task-highlighted > polygon,
+.cpee-task-highlighted polygon,
+.cpee-task-highlighted > ellipse,
+.cpee-task-highlighted ellipse {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 3px !important;
+   filter: none !important;
+   transition: none !important;
+   animation: none !important;
+   will-change: auto !important;
+   /* Force immediate rendering - prevents staggered application */
+   transform: translateZ(0) !important;
+   backface-visibility: hidden !important;
+   /* Ensure paint happens immediately */
+   contain: layout style paint;
+}
+
+.cpee-task-highlighted-active > rect[class*="stand"]:not([class*="without"]),
+.cpee-task-highlighted-active rect[class*="stand"]:not([class*="without"]),
+.cpee-task-highlighted-active rect.colorstyle:not([class*="without"]),
+.cpee-task-highlighted-active rect.markstyle:not([class*="without"]),
+.cpee-task-highlighted-active rect.hoverstyle:not([class*="without"]),
+.cpee-task-highlighted-active rect.colorstyle.markstyle.hoverstyle.stand:not([class*="without"]),
+.cpee-task-highlighted-active > .part-middle > line[class*="standline"],
+.cpee-task-highlighted-active .part-middle line[class*="standline"],
+.cpee-task-highlighted-active > circle,
+.cpee-task-highlighted-active circle,
+.cpee-task-highlighted-active > polygon,
+.cpee-task-highlighted-active polygon,
+.cpee-task-highlighted-active > ellipse,
+.cpee-task-highlighted-active ellipse {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 4px !important;
+   filter: none !important;
+   transition: none !important;
+   animation: none !important;
+   will-change: auto !important;
+   /* Force immediate rendering - prevents staggered application */
+   transform: translateZ(0) !important;
+   backface-visibility: hidden !important;
+   /* Ensure paint happens immediately */
+   contain: layout style paint;
+}
+
+/* Explicitly exclude the background fill rect (standwithout) from highlighting */
+.cpee-task-highlighted rect[class*="without"],
+.cpee-task-highlighted-active rect[class*="without"] {
+   stroke: none !important;
+   stroke-width: 0 !important;
+}
+
+/* Exclude other lines (not part-middle standlines) from highlighting */
+/* The part-middle standlines are explicitly included above with higher specificity */
+.cpee-task-highlighted .part-start line,
+.cpee-task-highlighted .part-end line,
+.cpee-task-highlighted-active .part-start line,
+.cpee-task-highlighted-active .part-end line {
+   stroke: none !important;
+   stroke-width: 0 !important;
+}
+
+/* Exclude lines that don't have standline class in part-middle */
+.cpee-task-highlighted .part-middle line:not([class*="standline"]),
+.cpee-task-highlighted-active .part-middle line:not([class*="standline"]) {
+   stroke: none !important;
+   stroke-width: 0 !important;
+}
+
+/* Explicitly exclude text from highlighting */
+.cpee-task-highlighted text,
+.cpee-task-highlighted-active text,
+.cpee-task-highlighted .label,
+.cpee-task-highlighted-active .label {
+   stroke: none !important;
+   fill: var(--text-primary) !important;
+}
+
+/* ========================================
+   CPEE GATEWAY-SPECIFIC HIGHLIGHTING
+   ======================================== */
+
+/* Direct rect highlighting - when class is applied directly to the diamond rect element */
+/* High specificity selectors to override CPEE library's colorstyle/markstyle/hoverstyle classes */
+rect.cpee-gateway-highlighted,
+rect.cpee-gateway-highlighted.stand,
+rect.cpee-gateway-highlighted.colorstyle,
+rect.cpee-gateway-highlighted.markstyle,
+rect.cpee-gateway-highlighted.hoverstyle,
+rect.cpee-gateway-highlighted.stand.colorstyle,
+rect.cpee-gateway-highlighted.stand.markstyle,
+rect.cpee-gateway-highlighted.stand.hoverstyle,
+rect.cpee-gateway-highlighted.colorstyle.markstyle,
+rect.cpee-gateway-highlighted.colorstyle.hoverstyle,
+rect.cpee-gateway-highlighted.markstyle.hoverstyle,
+rect.cpee-gateway-highlighted.colorstyle.markstyle.hoverstyle,
+rect.cpee-gateway-highlighted.colorstyle.markstyle.hoverstyle.stand,
+rect.stand.cpee-gateway-highlighted {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 3px !important;
+   filter: none !important;
+   transition: none !important;
+   animation: none !important;
+}
+
+rect.cpee-gateway-highlighted-active,
+rect.cpee-gateway-highlighted-active.stand,
+rect.cpee-gateway-highlighted-active.colorstyle,
+rect.cpee-gateway-highlighted-active.markstyle,
+rect.cpee-gateway-highlighted-active.hoverstyle,
+rect.cpee-gateway-highlighted-active.stand.colorstyle,
+rect.cpee-gateway-highlighted-active.stand.markstyle,
+rect.cpee-gateway-highlighted-active.stand.hoverstyle,
+rect.cpee-gateway-highlighted-active.colorstyle.markstyle,
+rect.cpee-gateway-highlighted-active.colorstyle.hoverstyle,
+rect.cpee-gateway-highlighted-active.markstyle.hoverstyle,
+rect.cpee-gateway-highlighted-active.colorstyle.markstyle.hoverstyle,
+rect.cpee-gateway-highlighted-active.colorstyle.markstyle.hoverstyle.stand,
+rect.stand.cpee-gateway-highlighted-active {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 4px !important;
+   filter: none !important;
+   transition: none !important;
+   animation: none !important;
+}
+
+/* Fallback: Highlight gateway outline elements when class is on parent group */
+.cpee-gateway-highlighted > rect[class*="stand"]:not([class*="without"]),
+.cpee-gateway-highlighted rect[class*="stand"]:not([class*="without"]),
+.cpee-gateway-highlighted > .part-middle > line[class*="standline"],
+.cpee-gateway-highlighted .part-middle line[class*="standline"],
+.cpee-gateway-highlighted > circle,
+.cpee-gateway-highlighted circle,
+.cpee-gateway-highlighted > polygon,
+.cpee-gateway-highlighted polygon,
+.cpee-gateway-highlighted > ellipse,
+.cpee-gateway-highlighted ellipse {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 3px !important;
+   filter: none !important;
+   transition: none !important;
+   animation: none !important;
+   will-change: auto !important;
+   /* Force immediate rendering - prevents staggered application */
+   transform: translateZ(0) !important;
+   backface-visibility: hidden !important;
+   /* Ensure paint happens immediately */
+   contain: layout style paint;
+}
+
+.cpee-gateway-highlighted-active > rect[class*="stand"]:not([class*="without"]),
+.cpee-gateway-highlighted-active rect[class*="stand"]:not([class*="without"]),
+.cpee-gateway-highlighted-active > .part-middle > line[class*="standline"],
+.cpee-gateway-highlighted-active .part-middle line[class*="standline"],
+.cpee-gateway-highlighted-active > circle,
+.cpee-gateway-highlighted-active circle,
+.cpee-gateway-highlighted-active > polygon,
+.cpee-gateway-highlighted-active polygon,
+.cpee-gateway-highlighted-active > ellipse,
+.cpee-gateway-highlighted-active ellipse {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 4px !important;
+   filter: none !important;
+   transition: none !important;
+   animation: none !important;
+   will-change: auto !important;
+   /* Force immediate rendering - prevents staggered application */
+   transform: translateZ(0) !important;
+   backface-visibility: hidden !important;
+   /* Ensure paint happens immediately */
+   contain: layout style paint;
+}
+
+/* Explicitly exclude the background fill rect (standwithout) from highlighting */
+.cpee-gateway-highlighted rect[class*="without"],
+.cpee-gateway-highlighted-active rect[class*="without"] {
+   stroke: none !important;
+   stroke-width: 0 !important;
+}
+
+/* Exclude other lines (not part-middle standlines) from highlighting */
+.cpee-gateway-highlighted .part-start line,
+.cpee-gateway-highlighted .part-end line,
+.cpee-gateway-highlighted-active .part-start line,
+.cpee-gateway-highlighted-active .part-end line {
+   stroke: none !important;
+   stroke-width: 0 !important;
+}
+
+/* Exclude lines that don't have standline class in part-middle */
+.cpee-gateway-highlighted .part-middle line:not([class*="standline"]),
+.cpee-gateway-highlighted-active .part-middle line:not([class*="standline"]) {
+   stroke: none !important;
+   stroke-width: 0 !important;
+}
+
+/* Explicitly exclude text from highlighting */
+.cpee-gateway-highlighted text,
+.cpee-gateway-highlighted-active text,
+.cpee-gateway-highlighted .label,
+.cpee-gateway-highlighted-active .label {
+   stroke: none !important;
+   fill: var(--text-primary) !important;
+}
+
+/* ========================================
+   MERMAID-SPECIFIC HIGHLIGHTING
+   ======================================== */
+
+.mermaid-node-highlighted {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 3px !important;
+}
+
+.mermaid-node-highlighted-active {
+   stroke: var(--highlight-stroke) !important;
+   stroke-width: 4px !important;
+}

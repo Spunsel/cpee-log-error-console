@@ -1,0 +1,49 @@
+/* ========================================
+   _reset.css
+   
+   CSS reset and foundational base styles for consistent cross-browser rendering.
+   
+   Contains:
+   - Universal box-sizing reset (* selector)
+   - Margin and padding reset for all elements
+   - Body element base styles (font, background, color, line-height)
+   - Global text selection (::selection) styling with theme-aware colors
+   - Root #app container setup for full-height flex layout
+   
+   Concerns:
+   - Normalize browser defaults to ensure consistent starting point
+   - Establish base typography from CSS variables
+   - Set up the main application container structure
+   
+   Note: Should be imported immediately after _variables.css.
+   ======================================== */
+
+/* ========================================
+   2. RESET & BASE STYLES
+   ======================================== */
+
+   * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  
+  body {
+      font-family: var(--font-sans);
+      background-color: var(--background-color);
+      color: var(--text-primary);
+      line-height: 1.6;
+  }
+  
+  /* Global text selection styling */
+  ::selection {
+      background-color: var(--selection-bg) !important;
+      color: inherit;
+  }
+  
+  
+  #app {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+  }

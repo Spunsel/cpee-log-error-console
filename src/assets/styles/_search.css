@@ -1,0 +1,194 @@
+/* ========================================
+   _search.css
+   
+   In-content search functionality with match highlighting.
+   
+   Contains:
+   - Search bar container: sticky positioned bar with shadow
+   - Search input group: icon + input + clear button layout
+   - Search icon: magnifying glass indicator
+   - Search input field: text input with focus states
+   - Clear button: X icon to reset search
+   - Search navigation controls: previous/next match buttons
+   - Search counter: "X of Y" match indicator
+   - Navigation button styling: compact icon buttons
+   - Disabled state for bounds
+   - Search match highlighting: background color for matches
+   - Current/active match: distinct highlight color
+   - Mark element styling: inline highlight appearance
+   - Smooth scrolling to matches
+   - Responsive adjustments for mobile
+   
+   Concerns:
+   - Non-intrusive search bar that stays visible during scrolling
+   - Clear match count feedback
+   - Easy navigation between matches
+   - Visible highlighting without obscuring content
+   - Keyboard-accessible search controls
+   ======================================== */
+
+/* ========================================
+   RAW CONTENT SEARCH FUNCTIONALITY
+   ======================================== */
+
+/* Search bar container */
+.raw-content-search-bar {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   padding: var(--spacing-xs) 12px;
+   background: var(--background-color);
+   border: 1px solid var(--border-color);
+   border-radius: 6px;
+   margin-bottom: 8px;
+   position: sticky;
+   top: 0;
+   z-index: 100;
+   box-shadow: var(--shadow-md);
+}
+
+/* Search input group */
+.search-input-group {
+   display: flex;
+   align-items: center;
+   position: relative;
+   flex: 1;
+   min-width: 200px;
+}
+
+/* Search icon */
+.search-icon {
+   position: absolute;
+   left: 8px;
+   top: 50%;
+   transform: translateY(-50%);
+   color: var(--text-secondary);
+   pointer-events: none;
+   z-index: 1;
+}
+
+/* Search input field */
+.search-input {
+   width: 100%;
+   padding: 6px var(--spacing-xs) 6px 32px;
+   border: 1px solid var(--border-color);
+   border-radius: 4px;
+   background: var(--background-color);
+   color: var(--text-primary);
+   font-size: var(--font-size-sm);
+   font-family: inherit;
+   outline: none;
+}
+
+.search-input:focus {
+   border-color: var(--primary-color);
+   box-shadow: 0 0 0 2px var(--primary-color-alpha);
+}
+
+.search-input::placeholder {
+   color: var(--text-secondary);
+}
+
+/* Clear search button */
+.search-clear-btn {
+   position: absolute;
+   right: 6px;
+   top: 50%;
+   transform: translateY(-50%);
+   background: none;
+   border: none;
+   color: var(--text-secondary);
+   cursor: pointer;
+   padding: 2px;
+   border-radius: 2px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.search-clear-btn:hover {
+   color: var(--text-primary);
+   background-color: var(--hover-bg);
+}
+
+/* Search navigation controls */
+.search-navigation {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+   flex-shrink: 0;
+}
+
+/* Navigation buttons */
+.search-prev-btn,
+.search-next-btn {
+   background: var(--background-color);
+   border: 1px solid var(--border-color);
+   color: var(--text-primary);
+   cursor: pointer;
+   padding: 4px 6px;
+   border-radius: var(--border-radius-sm);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 12px;
+   transition: var(--button-transition);
+}
+
+.search-prev-btn:hover:not(:disabled),
+.search-next-btn:hover:not(:disabled) {
+   background-color: var(--hover-bg);
+   border-color: var(--primary-color);
+}
+
+.search-prev-btn:disabled,
+.search-next-btn:disabled {
+   opacity: 0.5;
+   cursor: not-allowed;
+}
+
+/* Search counter */
+.search-counter {
+   font-size: 12px;
+   color: var(--text-secondary);
+   white-space: nowrap;
+   margin: 0 4px;
+}
+
+/* ========================================
+   SEARCH MATCH HIGHLIGHTING
+   ======================================== */
+
+.search-match {
+   background-color: var(--search-match-bg);
+   padding: 1px 2px;
+   border-radius: 2px;
+}
+
+.search-match-active {
+   background-color: var(--search-match-active-bg);
+   color: var(--text-white);
+   padding: 1px 2px;
+   border-radius: 2px;
+   font-weight: 500; /* Slightly bolder for better visibility on blue */
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+   .raw-content-search-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+   }
+   
+   .search-input-group {
+      min-width: auto;
+   }
+   
+   .search-navigation {
+      justify-content: center;
+   }
+}

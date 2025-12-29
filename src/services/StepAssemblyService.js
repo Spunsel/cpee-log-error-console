@@ -143,7 +143,7 @@ export class StepAssemblyService {
             const cleanedContent = this.contentProcessingService.processMermaidContent(exposition, 'input');
             const mermaidRaw = cpeeStep.getInputMermaidRaw();
             mermaidRaw.setContent(cleanedContent);
-            mermaidRaw.setRawExposition(exposition); // Store completely unprocessed content for log view
+            mermaidRaw.setRawExposition(exposition); // Store completely unprocessed content for Raw View
             cpeeStep.setInputMermaidRaw(mermaidRaw);
         } else if (exposition.includes('# User Input:') || exposition.includes('User Input:')) {
             const processedContent = this.contentProcessingService.processUserInput(exposition);
@@ -157,7 +157,7 @@ export class StepAssemblyService {
             const cleanedContent = this.contentProcessingService.processMermaidContent(exposition, 'output');
             const mermaidRaw = cpeeStep.getOutputMermaidRaw();
             mermaidRaw.setContent(cleanedContent);
-            mermaidRaw.setRawExposition(exposition); // Store completely unprocessed content for log view
+            mermaidRaw.setRawExposition(exposition); // Store completely unprocessed content for Raw View
             cpeeStep.setOutputMermaidRaw(mermaidRaw);
         } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
             const cleanedContent = this.contentProcessingService.processCPEETreeContent(exposition, 'output');

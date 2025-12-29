@@ -1,7 +1,12 @@
 /**
  * ViewModeToggle Component
- * Manages visual/raw/log/traces/analysis mode toggle buttons for content sections
- * Provides toggle interface for switching between rendered, raw code, log, traces, and analysis views
+ * Manages graph/cleaned/raw/traces/analysis mode toggle buttons for content sections
+ * Provides toggle interface for switching between:
+ * - Graph View (rendered visualization)
+ * - Cleaned View (preprocessed code)
+ * - Raw View (original un-preprocessed code)
+ * - Traces View (execution paths)
+ * - Analysis View (soundness & boundedness)
  */
 
 import { ICONS } from '../../assets/icons.js';
@@ -28,30 +33,30 @@ export class ViewModeToggle {
             'data-section-id': sectionId
         });
 
-        // Create visual mode button
+        // Create visual mode button (Graph View)
         const visualBtn = this.domRegistry.createElement('button', {
             className: 'toggle-btn toggle-btn-visual active',
             'data-mode': 'visual',
-            'aria-label': `Show ${sectionTitle} as rendered visualization`,
-            title: 'Visual View'
+            'aria-label': `Show ${sectionTitle} as rendered graph`,
+            title: 'Graph View'
         });
         visualBtn.innerHTML = ICONS.VISUAL;
 
-        // Create raw mode button
+        // Create raw mode button (Cleaned View - preprocessed code)
         const rawBtn = this.domRegistry.createElement('button', {
             className: 'toggle-btn toggle-btn-raw',
             'data-mode': 'raw',
-            'aria-label': `Show ${sectionTitle} as raw code`,
-            title: 'Raw Code View'
+            'aria-label': `Show ${sectionTitle} as cleaned/preprocessed code`,
+            title: 'Cleaned View (Preprocessed)'
         });
         rawBtn.innerHTML = ICONS.RAW;
 
-        // Create log mode button
+        // Create log mode button (Raw View - original un-preprocessed code)
         const logBtn = this.domRegistry.createElement('button', {
             className: 'toggle-btn toggle-btn-log',
             'data-mode': 'log',
-            'aria-label': `Show ${sectionTitle} as log (un-preprocessed code)`,
-            title: 'Log View (Un-preprocessed)'
+            'aria-label': `Show ${sectionTitle} as raw/original code`,
+            title: 'Raw View (Original)'
         });
         logBtn.innerHTML = ICONS.LOG;
 

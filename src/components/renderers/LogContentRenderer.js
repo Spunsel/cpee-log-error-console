@@ -1,15 +1,22 @@
 /**
  * LogContentRenderer
- * Renders log/untouched content for CPEE and Mermaid
- * Handles log view rendering, search functionality, and action bar management
+ * Renders raw/untouched content for CPEE and Mermaid (Raw View)
+ * Handles Raw View rendering, search functionality, and action bar management
+ * 
+ * This is the "Raw View" - shows original, un-preprocessed content from the log
  * 
  * Responsibilities:
- * - Render log content into DOM elements
- * - Provide DOM structure for log content display
+ * - Render original/raw content into DOM elements
+ * - Provide DOM structure for Raw View display
  * - Handle search highlighting and navigation
- * - Manage action bars for log content
+ * - Manage action bars for raw content
  * - Handle content restoration and hiding
  * - Mark preprocessing lines for Mermaid content
+ * 
+ * View Mode Separation:
+ * - Graph View: ContentSectionManager (graph rendering)
+ * - Cleaned View: RawContentRenderer (preprocessed content)
+ * - Raw View: This renderer (untouched original content)
  */
 
 import { ActionBar } from '../ui/ActionBar.js';
@@ -274,7 +281,7 @@ export class LogContentRenderer {
             }
         } catch (error) {
             // If parsing fails, just continue without marking lines
-            console.warn('Failed to detect preprocessing steps for log view:', error);
+            console.warn('Failed to detect preprocessing steps for Raw View:', error);
         }
 
         // Store affected line numbers in data attribute for later marking
@@ -393,7 +400,7 @@ export class LogContentRenderer {
             }
         } catch (error) {
             // If parsing fails, just continue without marking lines
-            console.warn('Failed to detect CPEE preprocessing steps for log view:', error);
+            console.warn('Failed to detect CPEE preprocessing steps for Raw View:', error);
         }
 
         // Store affected line numbers in data attribute for later marking

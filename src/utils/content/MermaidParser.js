@@ -750,7 +750,7 @@ export class MermaidParser {
             cleaned = cleaned.replace(/%% Output Intermediate\s*/g, '');
         }
         
-        // Extract ONLY the content within ```mermaid code block for raw view
+        // Extract ONLY the content within ```mermaid code block for Cleaned View
         // This removes all surrounding text description and shows only the Mermaid diagram code
         const mermaidBlockMatch = cleaned.match(/```mermaid\s*\n?([\s\S]*?)\n?\s*```/);
         if (mermaidBlockMatch && mermaidBlockMatch[1]) {
@@ -779,8 +779,8 @@ export class MermaidParser {
     }
 
     /**
-     * Minimal cleaning for log view - only removes comments, markdown markers, and removes indentation
-     * Used for displaying un-preprocessed Mermaid code from logs
+     * Minimal cleaning for Raw View - only removes comments, markdown markers, and removes indentation
+     * Used for displaying un-preprocessed Mermaid code from logs in Raw View
      * Removes all indentation: all lines start at column 0
      * 
      * @param {string} content - Raw content from exposition

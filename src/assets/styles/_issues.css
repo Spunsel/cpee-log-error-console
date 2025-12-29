@@ -1,0 +1,347 @@
+/* ========================================
+   _issues.css
+   
+   GitHub-style issue tracker display for recent changes and known issues.
+   
+   Contains:
+   - Recent additions section: collapsible container with padding
+   - Collapsed state: hidden content area
+   - Recent additions header: title with toggle and count badge
+   - Section title styling: bold, larger text
+   - Toggle button: expand/collapse icon
+   - Issue count badge: rounded pill with count
+   - Issue status tabs: GitHub-style tab bar (Open/Closed/All)
+   - Tab list: horizontal flex with gap
+   - Status tab buttons: pill-shaped with counts
+   - Active tab state: primary color background
+   - Issues list container: vertical stack of issue cards
+   - Issue item: bordered card with left accent border
+   - Issue header: icon, title, labels, date layout
+   - Issue status icon: open (green circle) or closed (purple checkmark)
+   - Issue title: bold, clickable appearance
+   - Issue labels: colored pills (bug=red, feature=blue)
+   - Issue date: secondary text, right-aligned
+   - Issue description: paragraph text below header
+   - Empty state message: italic placeholder
+   - Dark mode overrides for all components
+   - Responsive adjustments for mobile
+   
+   Concerns:
+   - Familiar GitHub-style issue presentation
+   - Clear status indication (open vs. closed)
+   - Label-based categorization (bug, feature)
+   - Collapsible to reduce visual clutter
+   - Tab filtering for issue status
+   ======================================== */
+
+/* ========================================
+   RECENT ADDITIONS AND FIXES SECTION
+   ======================================== */
+
+/* Recent Additions and Fixes Section Container */
+.recent-additions-and-fixes-section {
+   margin-top: var(--spacing-xl);
+   padding: var(--spacing-lg);
+   background: var(--surface-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius-lg);
+   font-family: var(--font-sans);
+}
+
+.recent-additions-and-fixes-section.collapsed .recent-additions-content {
+   display: none;
+}
+
+/* Recent Additions Header */
+.recent-additions-header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: var(--spacing-md);
+   flex-wrap: wrap;
+   background: var(--surface-color);
+   padding: 0;
+   vertical-align: middle;
+}
+
+.recent-additions-header .left-title-side {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+   flex: 1;
+   padding: 0;
+   margin: 0;
+   background: var(--surface-color);
+   cursor: pointer;
+   vertical-align: middle;
+   height: fit-content;
+}
+
+.recent-additions-header .right-title-side {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+   padding: 0;
+   margin: 0;
+   background: var(--surface-color);
+   vertical-align: middle;
+   height: fit-content;
+}
+
+.recent-additions-header h3 {
+   margin: 0;
+   font-size: var(--font-size-lg);
+   font-weight: 600;
+   color: var(--text-secondary);
+   vertical-align: middle;
+   transition: color 0.15s ease;
+}
+
+.recent-additions-header .left-title-side:hover h3 {
+   color: var(--accent-color, #3b82f6);
+   line-height: 1.5;
+}
+
+/* ========================================
+   ISSUE STATUS TABS
+   ======================================== */
+
+/* Issue Status Tabs - GitHub-style tabs with counts */
+.issue-status-tabs {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   gap: 0;
+   align-items: center;
+}
+
+.issue-status-tabs li {
+   margin: 0;
+   padding: 0;
+}
+
+.issue-status-tab {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-xs);
+   padding: var(--spacing-sm) var(--spacing-sm);
+   text-decoration: none;
+   color: var(--text-primary);
+   font-weight: 600;
+   font-size: var(--font-size-sm);
+   border-radius: var(--border-radius-sm);
+   cursor: pointer;
+   border: none;
+   background: var(--surface-color);
+   margin: 0;
+}
+
+.issue-status-tab:hover {
+   background: var(--hover-bg);
+   color: var(--text-primary);
+}
+
+.issue-status-tab.active {
+   background: var(--background-color);
+   color: var(--text-primary);
+}
+
+.issue-status-tab-title {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-xs);
+}
+
+.issue-status-tab-count {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   min-width: 20px;
+   height: 20px;
+   padding: 0 6px;
+   font-size: var(--font-size-sm);
+   font-weight: 600;
+   line-height: 1;
+   border-radius: var(--border-radius-lg);
+   background: var(--hover-bg);
+   color: var(--text-secondary);
+   border: 1px solid var(--border-color);
+}
+
+.issue-status-tab.active .issue-status-tab-count {
+   background: var(--surface-color);
+   color: var(--text-primary);
+}
+
+/* Screen reader only text */
+.sr-only {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   white-space: nowrap;
+   border-width: 0;
+}
+
+/* ========================================
+   RECENT ADDITIONS CONTENT
+   ======================================== */
+
+.recent-additions-content {
+   margin-top: var(--spacing-md);
+}
+
+.recent-additions-content.collapsed {
+   display: none;
+}
+
+/* Recent Additions List */
+.recent-additions-list {
+   display: flex;
+   flex-direction: column;
+   gap: var(--spacing-sm);
+}
+
+/* ========================================
+   ISSUE ITEMS
+   ======================================== */
+
+/* Issue Item */
+.issue-item {
+   background: var(--surface-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius);
+   overflow: hidden;
+   padding: var(--spacing-md);
+}
+
+.issue-item:hover {
+   box-shadow: var(--shadow-md);
+}
+
+/* Issue Header */
+.issue-header {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+   flex-wrap: wrap;
+   font-family: var(--font-sans);
+   margin-bottom: var(--spacing-xs);
+}
+
+/* Issue Status Icon */
+.issue-status-icon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-shrink: 0;
+   width: 16px;
+   height: 16px;
+   color: var(--text-primary);
+}
+
+.issue-item-open .issue-status-icon {
+   color: #57ab5a;
+}
+
+.issue-item-closed .issue-status-icon {
+   color: #986ee2;
+}
+
+.issue-status-icon svg {
+   width: 16px;
+   height: 16px;
+   fill: currentColor;
+   stroke: currentColor;
+}
+
+/* Issue Title */
+.issue-title {
+   font-weight: 600;
+   color: var(--text-primary);
+   font-size: var(--font-size-md);
+   flex: 1;
+   min-width: 200px;
+}
+
+/* ========================================
+   ISSUE LABELS
+   ======================================== */
+
+.issue-labels {
+   display: flex;
+   gap: var(--spacing-xs);
+   flex-wrap: wrap;
+   align-items: center;
+}
+
+.issue-label {
+   display: inline-block;
+   padding: 2px var(--spacing-xs);
+   border-radius: var(--border-radius-sm);
+   font-size: var(--font-size-sm);
+   font-weight: 500;
+   background: var(--hover-bg);
+   color: var(--text-primary);
+   border: 1px solid var(--border-color);
+   white-space: nowrap;
+}
+
+/* Bug Label Styling */
+.issue-label-bug {
+   background: var(--label-bug-bg);
+   color: var(--label-bug-text);
+   border: 1px solid var(--label-bug-text);
+}
+
+/* Feature Label Styling */
+.issue-label-feature {
+   background: var(--label-feature-bg);
+   color: var(--label-feature-text);
+   border: 1px solid var(--label-feature-text);
+}
+
+/* Issue Date */
+.issue-date {
+   font-size: var(--font-size-sm);
+   color: var(--text-secondary);
+   flex-shrink: 0;
+   margin-left: auto;
+   text-align: right;
+   white-space: nowrap;
+}
+
+/* Issue Description */
+.issue-description {
+   margin-top: var(--spacing-xs);
+   padding-left: calc(16px + var(--spacing-sm));
+   font-size: var(--font-size-sm);
+   color: var(--text-secondary);
+   line-height: 1.5;
+}
+
+/* No Issues Message */
+.no-issues-message {
+   padding: var(--spacing-lg);
+   text-align: center;
+   color: var(--text-secondary);
+   font-size: var(--font-size-sm);
+   font-style: italic;
+}
+
+/* ========================================
+   DARK MODE ADJUSTMENTS
+   ======================================== */
+
+[data-theme="dark"] .issue-item-closed .issue-status-icon {
+   color: #986ee2;
+}
+
+[data-theme="dark"] .issue-item-open .issue-status-icon {
+   color: #57ab5a;
+}
+
