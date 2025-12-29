@@ -543,6 +543,341 @@ class TraceSets {
     }
 }
 
+/**
+ * GTA Trace Sets for Validation Mode
+ * Same as TraceSets but with permissive rules:
+ * - No semantic restrictions on loop conditions
+ * - Allows 0 iterations for any loop regardless of condition
+ */
+class TraceSetsValidation {
+    /**
+     * Forward Trace for Validation (permissive mode)
+     * Same as TraceSets.forwardTrace but without semantic restrictions
+     */
+    static forwardTrace(node, currentFT, depth, maxLoopIterations, timeoutChecker) {
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
+        
+        const tagName = node.tagName ? node.tagName.toLowerCase() : '';
+        
+        switch (tagName) {
+            case 'call':
+            case 'manipulate':
+            case 'script': {
+                const task = CPEETraceCalculator.extractTask(node);
+                if (!task) {
+                    return [];
+                }
+                const newFT = [...currentFT, task];
+                return [newFT];
+            }
+            
+            case 'description': {
+                return this.combineSequentialForwardTrace(
+                    TopologyIterators.forwardIterator(node),
+                    currentFT,
+                    depth,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
+            case 'choose': {
+                const alternatives = TopologyIterators.forwardIterator(node)
+                    .filter(child => {
+                        const tag = child.tagName.toLowerCase();
+                        return tag === 'alternative' || tag === 'otherwise';
+                    });
+                
+                if (alternatives.length === 0) {
+                    return [];
+                }
+                
+                const alternativeTraces = alternatives.flatMap(alt => 
+                    this.forwardTrace(alt, currentFT, depth + 1, maxLoopIterations, timeoutChecker)
+                );
+                
+                return alternativeTraces;
+            }
+            
+            case 'otherwise': {
+                const children = TopologyIterators.forwardIterator(node)
+                    .filter(child => {
+                        const tag = child.tagName.toLowerCase();
+                        return !tag.startsWith('_') && tag !== 'condition';
+                    });
+                
+                if (children.length === 0) {
+                    return [currentFT];
+                }
+                
+                return this.combineSequentialForwardTrace(
+                    children,
+                    currentFT,
+                    depth + 1,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
+            case 'alternative': {
+                const children = TopologyIterators.forwardIterator(node)
+                    .filter(child => {
+                        const tag = child.tagName.toLowerCase();
+                        return !tag.startsWith('_') && tag !== 'condition';
+                    });
+                
+                const escapeIndex = children.findIndex(child => {
+                    if (child.tagName.toLowerCase() !== 'escape') {
+                        return false;
+                    }
+                    const altId = child.getAttributeNS('http://cpee.org/ns/annotation/1.0', 'alt_id') || 
+                                  child.getAttribute('a:alt_id') ||
+                                  child.getAttribute('alt_id');
+                    return altId === '-1' || altId === null || altId === undefined;
+                });
+                
+                if (escapeIndex !== -1) {
+                    const beforeEscape = children.slice(0, escapeIndex);
+                    if (beforeEscape.length > 0) {
+                        const traces = this.combineSequentialForwardTrace(
+                            beforeEscape,
+                            currentFT,
+                            depth + 1,
+                            maxLoopIterations,
+                            timeoutChecker
+                        );
+                        return traces.map(trace => {
+                            trace._terminatedByEscape = true;
+                            return trace;
+                        });
+                    } else {
+                        const emptyTrace = [...currentFT];
+                        emptyTrace._terminatedByEscape = true;
+                        return [emptyTrace];
+                    }
+                } else {
+                    return this.combineSequentialForwardTrace(
+                        children,
+                        currentFT,
+                        depth + 1,
+                        maxLoopIterations,
+                        timeoutChecker
+                    );
+                }
+            }
+            
+            case 'parallel': {
+                const branches = TopologyIterators.forwardIterator(node)
+                    .filter(child => child.tagName.toLowerCase() === 'parallel_branch');
+                
+                if (branches.length === 0) {
+                    return [];
+                }
+                
+                const branchTraces = branches.map(branch => 
+                    this.forwardTrace(branch, currentFT, depth + 1, maxLoopIterations, timeoutChecker)
+                );
+                
+                const branchSpecificTraces = branchTraces.map(branchTraceArray => 
+                    branchTraceArray.map(trace => {
+                        const prefixLength = currentFT.length;
+                        return trace.slice(prefixLength);
+                    })
+                );
+                
+                const interleaved = CPEETraceCalculator.interleave(branchSpecificTraces, timeoutChecker);
+                return interleaved.map(interleavedTrace => [...currentFT, ...interleavedTrace]);
+            }
+            
+            case 'parallel_branch': {
+                const children = TopologyIterators.forwardIterator(node)
+                    .filter(child => {
+                        const tag = child.tagName.toLowerCase();
+                        return !tag.startsWith('_') && tag !== 'condition';
+                    });
+                
+                return this.combineSequentialForwardTrace(
+                    children,
+                    currentFT,
+                    depth + 1,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
+            case 'loop': {
+                // Permissive loop handling - no semantic restrictions
+                return this.loopTracePermissive(
+                    node,
+                    currentFT,
+                    depth,
+                    maxLoopIterations,
+                    timeoutChecker
+                );
+            }
+            
+            case 'escape': {
+                return [];
+            }
+            
+            default: {
+                const children = TopologyIterators.forwardIterator(node);
+                if (children.length > 0) {
+                    return this.combineSequentialForwardTrace(
+                        children,
+                        currentFT,
+                        depth + 1,
+                        maxLoopIterations,
+                        timeoutChecker
+                    );
+                }
+                return [];
+            }
+        }
+    }
+
+    /**
+     * Permissive Loop Trace - no semantic restrictions
+     * Always allows 0 iterations regardless of condition
+     * Allows up to maxLoopIterations iterations
+     */
+    static loopTracePermissive(loopNode, currentFT, depth, maxLoopIterations, timeoutChecker) {
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
+        
+        const children = TopologyIterators.forwardIterator(loopNode)
+            .filter(child => child.tagName.toLowerCase() !== 'condition');
+        
+        // Process loop body to get body traces
+        const bodyTraces = this.combineSequentialForwardTrace(
+            children,
+            [],
+            depth + 1,
+            maxLoopIterations,
+            timeoutChecker
+        );
+        
+        const result = [];
+        
+        // Always allow 0 iterations (no semantic restriction)
+        result.push([...currentFT]);
+        
+        // Generate traces for 1 to maxLoopIterations iterations
+        for (let iter = 1; iter <= maxLoopIterations; iter++) {
+            // Generate all combinations of body traces for this iteration count
+            const iterationCombinations = this.generateIterationCombinations(
+                bodyTraces, 
+                iter, 
+                currentFT, 
+                timeoutChecker
+            );
+            result.push(...iterationCombinations);
+        }
+        
+        return result;
+    }
+
+    /**
+     * Generate all combinations of loop body traces for a given iteration count
+     */
+    static generateIterationCombinations(bodyTraces, iterationCount, prefix, timeoutChecker) {
+        if (iterationCount === 0) {
+            return [[...prefix]];
+        }
+        
+        if (iterationCount === 1) {
+            return bodyTraces.map(bodyTrace => {
+                const combined = [...prefix, ...bodyTrace];
+                if (bodyTrace._terminatedByEscape) {
+                    combined._terminatedByEscape = true;
+                }
+                return combined;
+            });
+        }
+        
+        // For multiple iterations, combine body traces
+        const results = [];
+        
+        for (const firstBodyTrace of bodyTraces) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+            
+            // If first iteration was terminated, don't add more iterations
+            if (firstBodyTrace._terminatedByEscape) {
+                const combined = [...prefix, ...firstBodyTrace];
+                combined._terminatedByEscape = true;
+                results.push(combined);
+                continue;
+            }
+            
+            // Recursively get combinations for remaining iterations
+            const remainingCombinations = this.generateIterationCombinations(
+                bodyTraces,
+                iterationCount - 1,
+                [...prefix, ...firstBodyTrace],
+                timeoutChecker
+            );
+            results.push(...remainingCombinations);
+        }
+        
+        return results;
+    }
+
+    /**
+     * Combine Sequential Forward Trace (same as TraceSets)
+     */
+    static combineSequentialForwardTrace(children, initialFT, depth, maxLoopIterations, timeoutChecker) {
+        if (children.length === 0) {
+            return [[...initialFT]];
+        }
+        
+        let currentTraces = [[...initialFT]];
+        
+        for (const child of children) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+            
+            const newTraces = [];
+            
+            for (const currentTrace of currentTraces) {
+                if (timeoutChecker) {
+                    timeoutChecker.check();
+                }
+                
+                const isTerminated = currentTrace._terminatedByEscape === true;
+                
+                if (isTerminated) {
+                    newTraces.push(currentTrace);
+                } else {
+                    const childTraces = this.forwardTrace(
+                        child,
+                        currentTrace,
+                        depth + 1,
+                        maxLoopIterations,
+                        timeoutChecker
+                    );
+                    
+                    for (const childTrace of childTraces) {
+                        if (timeoutChecker) {
+                            timeoutChecker.check();
+                        }
+                        newTraces.push(childTrace);
+                    }
+                }
+            }
+            
+            currentTraces = newTraces;
+        }
+        
+        return currentTraces;
+    }
+}
+
 export class CPEETraceCalculator {
     /**
      * Calculate all possible execution traces from CPEE XML using GTA approach
@@ -855,5 +1190,245 @@ export class CPEETraceCalculator {
             return 'loop';
         }
         return 'sequential';
+    }
+
+    /**
+     * Validate if a trace sequence is a valid navigable path in the CPEE graph
+     * 
+     * This method checks if a given sequence of task identifiers (alt_id or id)
+     * can be executed as a valid path through the CPEE workflow graph.
+     * 
+     * Uses permissive settings for validation:
+     * - Higher max loop iterations (to allow traces with multiple loop cycles)
+     * - No semantic restrictions (loops with condition "true" can execute 0 times)
+     * 
+     * @param {string} xmlString - CPEE XML content
+     * @param {Array<string>} traceSequence - Array of task identifiers (alt_id or id values)
+     * @param {Object} options - Validation options
+     * @returns {Object} Validation result: { valid: boolean, matchedPath: Array|null, reason: string|null }
+     */
+    static validateTrace(xmlString, traceSequence, options = {}) {
+        if (!traceSequence || traceSequence.length === 0) {
+            return { valid: false, matchedPath: null, reason: 'Empty trace sequence' };
+        }
+
+        try {
+            // Calculate all possible traces with permissive settings for validation
+            // Use higher loop iterations and disable semantic restrictions
+            const validationOptions = {
+                ...options,
+                maxLoopIterations: 3,  // Allow up to 3 loop iterations for validation
+                validationMode: true   // Enable permissive validation mode
+            };
+            
+            const allTraces = this.calculateAllTracesForValidation(xmlString, validationOptions);
+            
+            if (allTraces.length === 0) {
+                return { valid: false, matchedPath: null, reason: 'No traces could be calculated from CPEE graph' };
+            }
+
+            // Check if any calculated trace matches the input sequence
+            for (const trace of allTraces) {
+                if (this.traceMatchesSequence(trace, traceSequence)) {
+                    return { 
+                        valid: true, 
+                        matchedPath: trace.path,
+                        reason: null 
+                    };
+                }
+            }
+
+            return { valid: false, matchedPath: null, reason: 'Trace sequence does not match any valid path in CPEE graph' };
+
+        } catch (error) {
+            console.error('[CPEETraceCalculator] Error validating trace:', error);
+            return { valid: false, matchedPath: null, reason: `Validation error: ${error.message}` };
+        }
+    }
+
+    /**
+     * Calculate all traces with permissive settings for validation purposes
+     * Uses higher loop iterations and disables semantic restrictions
+     * 
+     * @param {string} xmlString - CPEE XML content
+     * @param {Object} options - Calculation options
+     * @returns {Trace[]} Array of Trace objects
+     */
+    static calculateAllTracesForValidation(xmlString, options = {}) {
+        const maxLoopIterations = options.maxLoopIterations !== undefined 
+            ? options.maxLoopIterations 
+            : 3; // Higher default for validation
+        
+        // Use longer timeout for validation since we calculate more traces
+        const timeoutMs = options.timeout || 5000;
+        const timeoutChecker = new TimeoutChecker(timeoutMs);
+        
+        try {
+            // Preprocess CPEE XML before calculating traces
+            let preprocessedXml = xmlString;
+            try {
+                const preprocessResult = CPEEParser.cleanAndValidate(xmlString, true);
+                preprocessedXml = preprocessResult.xml;
+            } catch (error) {
+                console.warn('[CPEETraceCalculator] Failed to preprocess CPEE XML, using original:', error);
+            }
+            
+            // Parse XML
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(preprocessedXml, 'text/xml');
+            
+            // Check for parsing errors
+            const parserError = xmlDoc.querySelector('parsererror');
+            if (parserError) {
+                console.warn('[CPEETraceCalculator] XML parsing error:', parserError.textContent);
+                return [];
+            }
+            
+            // Get root description element
+            const description = xmlDoc.querySelector('description') || xmlDoc.documentElement;
+            if (!description) {
+                console.warn('[CPEETraceCalculator] No description element found');
+                return [];
+            }
+            
+            // Initialize forward trace set
+            const initialForwardTrace = [];
+            
+            // Calculate traces using GTA forward trace with validation mode
+            const traceArrays = TraceSetsValidation.forwardTrace(
+                description,
+                initialForwardTrace,
+                0,
+                maxLoopIterations,
+                timeoutChecker
+            );
+            
+            // Filter duplicate traces
+            const uniqueTraces = this.filterDuplicateTraces(traceArrays);
+            
+            // Convert to Trace objects
+            const traces = uniqueTraces.map((path, index) => {
+                const trace = new Trace(
+                    `trace-${index + 1}`,
+                    path,
+                    this.determineTraceType(path)
+                );
+                return trace;
+            });
+            
+            return traces;
+            
+        } catch (error) {
+            console.error('[CPEETraceCalculator] Error calculating traces for validation:', error);
+            if (error.message && error.message.includes('exceeded') && error.message.includes('timeout')) {
+                throw error;
+            }
+            return [];
+        }
+    }
+
+    /**
+     * Check if a calculated trace matches a given sequence of identifiers
+     * @param {Trace} trace - Calculated Trace object
+     * @param {Array<string>} sequence - Array of task identifiers to match
+     * @returns {boolean} True if trace matches the sequence
+     */
+    static traceMatchesSequence(trace, sequence) {
+        if (!trace || !trace.path || trace.path.length !== sequence.length) {
+            return false;
+        }
+
+        for (let i = 0; i < sequence.length; i++) {
+            const task = trace.path[i];
+            const seqId = sequence[i];
+
+            // Match against alt_id (primary) or id (fallback)
+            const taskAltId = task.alt_id !== undefined && task.alt_id !== null 
+                ? String(task.alt_id) 
+                : null;
+            const taskId = task.id !== undefined && task.id !== null 
+                ? String(task.id) 
+                : null;
+
+            const seqIdStr = String(seqId);
+
+            // Check if sequence ID matches either alt_id or id
+            if (seqIdStr !== taskAltId && seqIdStr !== taskId) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Validate multiple trace sequences against a CPEE graph
+     * Uses permissive settings (higher loop iterations, no semantic restrictions)
+     * 
+     * @param {string} xmlString - CPEE XML content
+     * @param {Array<Array<string>>} traceSequences - Array of trace sequences to validate
+     * @param {Object} options - Validation options
+     * @returns {Object} Validation results: { validCount, invalidCount, results: Array<{sequence, valid, matchedPath, reason}> }
+     */
+    static validateMultipleTraces(xmlString, traceSequences, options = {}) {
+        const results = [];
+        let validCount = 0;
+        let invalidCount = 0;
+
+        // Calculate all traces once with permissive settings for efficiency
+        let allTraces;
+        try {
+            const validationOptions = {
+                ...options,
+                maxLoopIterations: 3,  // Allow up to 3 loop iterations for validation
+                validationMode: true
+            };
+            allTraces = this.calculateAllTracesForValidation(xmlString, validationOptions);
+        } catch (error) {
+            console.error('[CPEETraceCalculator] Error calculating traces for validation:', error);
+            return {
+                validCount: 0,
+                invalidCount: traceSequences.length,
+                results: traceSequences.map(seq => ({
+                    sequence: seq,
+                    valid: false,
+                    matchedPath: null,
+                    reason: `Calculation error: ${error.message}`
+                }))
+            };
+        }
+
+        for (const sequence of traceSequences) {
+            let found = false;
+            let matchedPath = null;
+
+            for (const trace of allTraces) {
+                if (this.traceMatchesSequence(trace, sequence)) {
+                    found = true;
+                    matchedPath = trace.path;
+                    break;
+                }
+            }
+
+            if (found) {
+                validCount++;
+                results.push({
+                    sequence,
+                    valid: true,
+                    matchedPath,
+                    reason: null
+                });
+            } else {
+                invalidCount++;
+                results.push({
+                    sequence,
+                    valid: false,
+                    matchedPath: null,
+                    reason: 'Trace sequence does not match any valid path'
+                });
+            }
+        }
+
+        return { validCount, invalidCount, results };
     }
 }

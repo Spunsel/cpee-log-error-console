@@ -10,6 +10,7 @@
  * - Highlights mismatched traces with visual indicators
  * - Expandable/collapsible details section
  * - Only displays when discrepancies are found (hidden if all traces match)
+ * - "Try run in" buttons to validate mismatched traces against the other graph
  * 
  * Display Behavior:
  * - Info boxes are only shown when comparisonResult.isMatch is false or traceCountMatch is false
@@ -20,8 +21,11 @@
  */
 
 import { ICON_COMPARISON_INFO, ICON_WARNING_COLLAPSE, ICON_WARNING_EXPAND } from '../../assets/icons.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class ComparisonInfoBox {
+    // Store references to buttons for updating after validation
+    static reconcileButtons = new Map();
     /**
      * Create and display a comparison info box
      * 
@@ -83,8 +87,12 @@ export class ComparisonInfoBox {
         const problematicCPEECount = comparisonResult.uniqueCPEETraces?.length || 0;
         const problematicMermaidCount = comparisonResult.uniqueMermaidTraces?.length || 0;
 
-        // Create message text with matching and problematic counts
-        const messageText = `Possible Conversion Error - Matching Traces: ${matchingCount} | Mismatch CPEE: ${problematicCPEECount} | Mismatch Mermaid: ${problematicMermaidCount}`;
+        // Store button references for this section pair
+        const buttonRefs = {
+            cpeeToMermaid: null,
+            mermaidToCPEE: null
+        };
+        this.reconcileButtons.set(sectionPair, buttonRefs);
 
         // Create expand/collapse button
         const toggleButton = document.createElement('button');
@@ -107,10 +115,74 @@ export class ComparisonInfoBox {
         infoHeader.className = 'comparison-info-box__header';
         infoHeader.appendChild(toggleButton);
         infoHeader.appendChild(infoIcon);
-        const messageSpan = document.createElement('span');
-        messageSpan.className = 'comparison-info-box__message';
-        messageSpan.textContent = messageText;
-        infoHeader.appendChild(messageSpan);
+        
+        // Create message container with inline buttons
+        const messageContainer = document.createElement('span');
+        messageContainer.className = 'comparison-info-box__message';
+        
+        // "Possible Conversion Error - Matching Traces: X | "
+        const prefixText = document.createElement('span');
+        prefixText.textContent = `Possible Conversion Error - Matching Traces: ${matchingCount} | `;
+        messageContainer.appendChild(prefixText);
+        
+        // "Mismatch CPEE: X" with button
+        const cpeeMismatchSpan = document.createElement('span');
+        cpeeMismatchSpan.className = 'comparison-info-box__mismatch-group';
+        cpeeMismatchSpan.textContent = `Mismatch CPEE: ${problematicCPEECount}`;
+        messageContainer.appendChild(cpeeMismatchSpan);
+        
+        // "Try run in Mermaid" button (only if there are CPEE mismatches)
+        if (problematicCPEECount > 0) {
+            const tryRunInMermaidBtn = document.createElement('button');
+            tryRunInMermaidBtn.className = 'comparison-info-box__reconcile-btn';
+            tryRunInMermaidBtn.setAttribute('type', 'button');
+            tryRunInMermaidBtn.setAttribute('data-action', 'try-run-in-mermaid');
+            tryRunInMermaidBtn.setAttribute('data-section-pair', sectionPair);
+            tryRunInMermaidBtn.textContent = 'Try run in Mermaid';
+            tryRunInMermaidBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                defaultEventBus.emit('traceReconciliation:tryRunInMermaid', {
+                    sectionPair,
+                    uniqueCPEETraces: comparisonResult.uniqueCPEETraces,
+                    totalCount: problematicCPEECount
+                });
+            });
+            buttonRefs.cpeeToMermaid = tryRunInMermaidBtn;
+            messageContainer.appendChild(tryRunInMermaidBtn);
+        }
+        
+        // Separator
+        const separator1 = document.createElement('span');
+        separator1.textContent = ' | ';
+        messageContainer.appendChild(separator1);
+        
+        // "Mismatch Mermaid: X" with button
+        const mermaidMismatchSpan = document.createElement('span');
+        mermaidMismatchSpan.className = 'comparison-info-box__mismatch-group';
+        mermaidMismatchSpan.textContent = `Mismatch Mermaid: ${problematicMermaidCount}`;
+        messageContainer.appendChild(mermaidMismatchSpan);
+        
+        // "Try run in CPEE" button (only if there are Mermaid mismatches)
+        if (problematicMermaidCount > 0) {
+            const tryRunInCPEEBtn = document.createElement('button');
+            tryRunInCPEEBtn.className = 'comparison-info-box__reconcile-btn';
+            tryRunInCPEEBtn.setAttribute('type', 'button');
+            tryRunInCPEEBtn.setAttribute('data-action', 'try-run-in-cpee');
+            tryRunInCPEEBtn.setAttribute('data-section-pair', sectionPair);
+            tryRunInCPEEBtn.textContent = 'Try run in CPEE';
+            tryRunInCPEEBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                defaultEventBus.emit('traceReconciliation:tryRunInCPEE', {
+                    sectionPair,
+                    uniqueMermaidTraces: comparisonResult.uniqueMermaidTraces,
+                    totalCount: problematicMermaidCount
+                });
+            });
+            buttonRefs.mermaidToCPEE = tryRunInCPEEBtn;
+            messageContainer.appendChild(tryRunInCPEEBtn);
+        }
+        
+        infoHeader.appendChild(messageContainer);
 
         // Create details content
         const detailsContent = document.createElement('div');
@@ -271,6 +343,176 @@ export class ComparisonInfoBox {
         // Remove existing and create new
         this.removeInfoBox(container);
         return this.createInfoBox(comparisonResult, sectionPair, container);
+    }
+
+    /**
+     * Update reconciliation button state after validation
+     * Changes button text and color based on validation results
+     * 
+     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
+     * @param {string} direction - Validation direction: 'cpeeToMermaid' or 'mermaidToCPEE'
+     * @param {number} validCount - Number of traces that validated successfully
+     * @param {number} totalCount - Total number of traces that were validated
+     */
+    static updateReconcileButtonState(sectionPair, direction, validCount, totalCount) {
+        const buttonRefs = this.reconcileButtons.get(sectionPair);
+        if (!buttonRefs) {
+            console.warn(`[ComparisonInfoBox] No button refs found for section pair: ${sectionPair}`);
+            return;
+        }
+
+        const button = buttonRefs[direction];
+        if (!button) {
+            console.warn(`[ComparisonInfoBox] No button found for direction: ${direction} in ${sectionPair}`);
+            return;
+        }
+
+        // Update button text with result
+        button.textContent = `${validCount}/${totalCount}`;
+
+        // Remove existing state classes
+        button.classList.remove(
+            'comparison-info-box__reconcile-btn--success',
+            'comparison-info-box__reconcile-btn--partial',
+            'comparison-info-box__reconcile-btn--failure'
+        );
+
+        // Add appropriate state class
+        if (totalCount === 0) {
+            button.classList.add('comparison-info-box__reconcile-btn--success');
+        } else if (validCount === totalCount) {
+            button.classList.add('comparison-info-box__reconcile-btn--success');
+        } else if (validCount === 0) {
+            button.classList.add('comparison-info-box__reconcile-btn--failure');
+        } else {
+            button.classList.add('comparison-info-box__reconcile-btn--partial');
+        }
+
+        // Disable button after validation (prevent re-running)
+        button.disabled = true;
+        button.setAttribute('aria-disabled', 'true');
+    }
+
+    /**
+     * Update the unique trace counts in the info box after reconciliation
+     * 
+     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
+     * @param {number} newUniqueCPEECount - New count of unique CPEE traces
+     * @param {number} newUniqueMermaidCount - New count of unique Mermaid traces
+     */
+    static updateUniqueCounts(sectionPair, newUniqueCPEECount, newUniqueMermaidCount) {
+        const container = document.querySelector(
+            `.comparison-info-box-container[data-section-pair="${sectionPair}"]`
+        );
+        if (!container) {
+            return;
+        }
+
+        // Find the mismatch group spans and update their text
+        const mismatchGroups = container.querySelectorAll('.comparison-info-box__mismatch-group');
+        mismatchGroups.forEach(group => {
+            const text = group.textContent;
+            if (text.includes('Mismatch CPEE:')) {
+                group.textContent = `Mismatch CPEE: ${newUniqueCPEECount}`;
+            } else if (text.includes('Mismatch Mermaid:')) {
+                group.textContent = `Mismatch Mermaid: ${newUniqueMermaidCount}`;
+            }
+        });
+    }
+
+    /**
+     * Update the unique trace lists in the info box after reconciliation
+     * Updates both the titles and the actual list content
+     * 
+     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
+     * @param {Array} uniqueCPEETraces - Array of unique CPEE trace objects
+     * @param {Array} uniqueMermaidTraces - Array of unique Mermaid trace objects
+     */
+    static updateUniqueTraceLists(sectionPair, uniqueCPEETraces, uniqueMermaidTraces) {
+        const container = document.querySelector(
+            `.comparison-info-box-container[data-section-pair="${sectionPair}"]`
+        );
+        if (!container) {
+            return;
+        }
+
+        // Find the details content container
+        const detailsContent = container.querySelector('.comparison-info-box__details-content');
+        if (!detailsContent) {
+            return;
+        }
+
+        // Find the unique sections
+        const uniqueSections = detailsContent.querySelectorAll('.comparison-info-box__unique-section');
+        
+        uniqueSections.forEach(section => {
+            const title = section.querySelector('.comparison-info-box__unique-title');
+            const list = section.querySelector('.comparison-info-box__unique-list');
+            
+            if (!title || !list) {
+                return;
+            }
+            
+            const titleText = title.textContent;
+            const isCPEESection = titleText.includes('CPEE');
+            const isMermaidSection = titleText.includes('Mermaid');
+            
+            if (isCPEESection) {
+                // Update CPEE section
+                title.textContent = `Traces unique to CPEE: ${uniqueCPEETraces.length}`;
+                list.innerHTML = ''; // Clear existing items
+                
+                if (uniqueCPEETraces.length === 0) {
+                    // Hide section if no unique traces
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = '';
+                    uniqueCPEETraces.forEach(uniqueTrace => {
+                        const listItem = ComparisonInfoBox.createUniqueTraceListItem(uniqueTrace);
+                        list.appendChild(listItem);
+                    });
+                }
+            } else if (isMermaidSection) {
+                // Update Mermaid section
+                title.textContent = `Traces unique to Mermaid: ${uniqueMermaidTraces.length}`;
+                list.innerHTML = ''; // Clear existing items
+                
+                if (uniqueMermaidTraces.length === 0) {
+                    // Hide section if no unique traces
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = '';
+                    uniqueMermaidTraces.forEach(uniqueTrace => {
+                        const listItem = ComparisonInfoBox.createUniqueTraceListItem(uniqueTrace);
+                        list.appendChild(listItem);
+                    });
+                }
+            }
+        });
+    }
+
+    /**
+     * Create a list item for a unique trace
+     * 
+     * @param {Object} uniqueTrace - Unique trace object with traceIndex and sequence
+     * @returns {HTMLElement} List item element
+     */
+    static createUniqueTraceListItem(uniqueTrace) {
+        const listItem = document.createElement('li');
+        listItem.className = 'comparison-info-box__unique-item';
+        
+        const traceIndexSpan = document.createElement('span');
+        traceIndexSpan.className = 'comparison-info-box__trace-index';
+        traceIndexSpan.textContent = `Trace ${uniqueTrace.traceIndex + 1}: `;
+        
+        const sequenceSpan = document.createElement('span');
+        sequenceSpan.className = 'comparison-info-box__sequence-display';
+        sequenceSpan.textContent = `[${uniqueTrace.sequence.map(s => s || 'null').join(', ')}]`;
+        
+        listItem.appendChild(traceIndexSpan);
+        listItem.appendChild(sequenceSpan);
+        
+        return listItem;
     }
 }
 

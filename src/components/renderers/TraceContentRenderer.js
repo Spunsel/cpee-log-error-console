@@ -132,6 +132,15 @@ export class TraceContentRenderer {
             return this.renderCachedTraces(sectionId, container, cachedTraces);
         }
 
+        // Check if step has pre-calculated traces (e.g., after reconciliation)
+        // These traces may have isReconciled flags that would be lost if we recalculate
+        const stepTraces = step.getTraces(sectionId);
+        if (stepTraces && Array.isArray(stepTraces) && stepTraces.length > 0) {
+            // Use step's stored traces - they may have reconciled traces added
+            this.traceCache.set(cacheKey, stepTraces);
+            return this.renderCachedTraces(sectionId, container, stepTraces);
+        }
+
         // Extract raw content based on section type
         let rawContent = null;
         let contentString = null;
@@ -415,11 +424,10 @@ export class TraceContentRenderer {
             textContent: `Trace ${traceNumber}`
         });
 
-        // Trace type badge
-        const typeBadge = this.domRegistry.createElement('span', {
-            className: `trace-type-badge trace-type-${trace.type || 'sequential'}`,
-            textContent: this.getTypeLabel(trace.type || 'sequential')
-        });
+        // Add reconciled class if trace is marked as reconciled
+        if (trace.isReconciled) {
+            traceNumberEl.classList.add('trace-number--reconciled');
+        }
 
         // Expand/collapse button (if expandable)
         if (expandable) {
@@ -445,7 +453,6 @@ export class TraceContentRenderer {
         }
 
         traceHeader.appendChild(traceNumberEl);
-        traceHeader.appendChild(typeBadge);
 
         // Trace path preview (always visible) - show alt_ids sequence
         const pathPreview = this.domRegistry.createElement('div', {
@@ -868,6 +875,87 @@ export class TraceContentRenderer {
                 this.updateTraceColorsForSectionPair(sectionPair);
             }
         });
+
+        // Listen for trace reconciliation events to re-render traces
+        this.eventBus.on('traceReconciliation:tracesAdded', (data) => {
+            const { sectionPair, targetGraph } = data;
+            if (sectionPair) {
+                // Clear trace cache for affected sections to force re-render
+                this.clearTraceCacheForSectionPair(sectionPair);
+                
+                // Re-render traces for affected sections
+                this.reRenderTracesForSectionPair(sectionPair);
+                
+                console.log(`[TraceContentRenderer] Re-rendering traces after reconciliation for ${sectionPair} (target: ${targetGraph})`);
+            }
+        });
+
+        // Listen for comparison update events to update trace colors
+        this.eventBus.on('traceComparison:updated', (data) => {
+            const { sectionPair, comparisonResult } = data;
+            if (sectionPair && comparisonResult) {
+                // Update stored comparison results
+                this.comparisonResults[sectionPair] = comparisonResult;
+                
+                // Update trace colors to reflect new comparison state
+                this.updateTraceColorsForSectionPair(sectionPair);
+            }
+        });
+    }
+
+    /**
+     * Clear trace cache for a section pair
+     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
+     */
+    clearTraceCacheForSectionPair(sectionPair) {
+        const sectionIds = sectionPair === 'input' 
+            ? ['input-cpee', 'input-intermediate']
+            : ['output-cpee', 'output-intermediate'];
+
+        // Clear cache entries for these sections
+        for (const key of this.traceCache.keys()) {
+            for (const sectionId of sectionIds) {
+                if (key.startsWith(sectionId)) {
+                    this.traceCache.delete(key);
+                }
+            }
+        }
+    }
+
+    /**
+     * Re-render traces for a section pair after reconciliation
+     * Gets updated traces from step and re-renders them
+     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
+     */
+    reRenderTracesForSectionPair(sectionPair) {
+        const sectionIds = sectionPair === 'input' 
+            ? ['input-cpee', 'input-intermediate']
+            : ['output-cpee', 'output-intermediate'];
+
+        for (const sectionId of sectionIds) {
+            const container = document.getElementById(sectionId);
+            if (!container) {
+                continue;
+            }
+
+            const tracesContainer = container.querySelector('[data-content-type="traces"]');
+            if (!tracesContainer) {
+                continue;
+            }
+
+            // Check if traces view is currently active
+            if (tracesContainer.style.display === 'none') {
+                continue;
+            }
+
+            // Get the current step from the event to access updated traces
+            // We emit an event to request re-render from the coordinator
+            this.eventBus.emit('traceContentRenderer:requestReRender', {
+                sectionId,
+                sectionPair,
+                timestamp: new Date().toISOString()
+            }, { silent: true });
+        }
     }
 
     /**
@@ -876,9 +964,6 @@ export class TraceContentRenderer {
      */
     updateTraceColorsForSectionPair(sectionPair) {
         const comparisonResult = this.comparisonResults[sectionPair];
-        if (!comparisonResult) {
-            return;
-        }
 
         // Determine which sections belong to this pair
         const sectionIds = sectionPair === 'input' 
@@ -907,36 +992,53 @@ export class TraceContentRenderer {
                 const isCPEE = sectionId.includes('cpee');
                 const traceIndex = index; // 0-based
 
-                // Determine trace status
+                // Check if this trace is reconciled (from the trace data)
+                // We need to get the trace from the cache or step
+                const cacheKey = Array.from(this.traceCache.keys()).find(k => k.startsWith(sectionId));
+                const cachedTraces = cacheKey ? this.traceCache.get(cacheKey) : null;
+                const trace = cachedTraces?.[traceIndex];
+                const isReconciled = trace?.isReconciled === true;
+
+                // Determine trace status from comparison result
                 let isMatching = false;
                 let isProblematic = false;
 
-                if (isCPEE) {
-                    // For CPEE traces, check details array
-                    const detail = comparisonResult.details?.[traceIndex];
-                    if (detail) {
-                        isMatching = detail.match === true;
-                        isProblematic = detail.match === false;
-                    }
-                } else {
-                    // For Mermaid traces, check if it's in uniqueMermaidTraces (problematic)
-                    const isUnique = comparisonResult.uniqueMermaidTraces?.some(
-                        uniqueTrace => uniqueTrace.traceIndex === traceIndex
-                    );
-                    if (isUnique) {
-                        isProblematic = true;
+                if (comparisonResult) {
+                    if (isCPEE) {
+                        // For CPEE traces, check details array
+                        const detail = comparisonResult.details?.[traceIndex];
+                        if (detail) {
+                            isMatching = detail.match === true;
+                            isProblematic = detail.match === false;
+                        }
                     } else {
-                        // Mermaid trace is matching if it was matched by a CPEE trace
-                        // Check if any detail has this Mermaid trace index as its match
-                        isMatching = comparisonResult.details?.some(
-                            detail => detail.mermaidTraceIndex === traceIndex && detail.match === true
-                        ) || false;
+                        // For Mermaid traces, check if it's in uniqueMermaidTraces (problematic)
+                        const isUnique = comparisonResult.uniqueMermaidTraces?.some(
+                            uniqueTrace => uniqueTrace.traceIndex === traceIndex
+                        );
+                        if (isUnique) {
+                            isProblematic = true;
+                        } else {
+                            // Mermaid trace is matching if it was matched by a CPEE trace
+                            // Check if any detail has this Mermaid trace index as its match
+                            isMatching = comparisonResult.details?.some(
+                                detail => detail.mermaidTraceIndex === traceIndex && detail.match === true
+                            ) || false;
+                        }
                     }
                 }
 
-                // Apply color classes for matching and problematic traces
-                traceNumberEl.classList.remove('trace-number--matching', 'trace-number--problematic');
-                if (isMatching) {
+                // Apply color classes for matching, problematic, and reconciled traces
+                traceNumberEl.classList.remove(
+                    'trace-number--matching', 
+                    'trace-number--problematic',
+                    'trace-number--reconciled'
+                );
+
+                // Reconciled traces get special styling (warning colors)
+                if (isReconciled) {
+                    traceNumberEl.classList.add('trace-number--reconciled');
+                } else if (isMatching) {
                     traceNumberEl.classList.add('trace-number--matching');
                 } else if (isProblematic) {
                     traceNumberEl.classList.add('trace-number--problematic');

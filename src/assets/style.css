@@ -2564,6 +2564,69 @@ body {
     color: var(--alert-info-text);
     font-size: var(--font-size-sm);
     line-height: 1.4;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Mismatch group styling */
+.comparison-info-box__mismatch-group {
+    display: inline;
+}
+
+/* Reconcile button styling */
+.comparison-info-box__reconcile-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    margin-left: 4px;
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--surface-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.comparison-info-box__reconcile-btn:hover:not(:disabled) {
+    background-color: var(--surface-hover);
+    border-color: var(--text-secondary);
+}
+
+.comparison-info-box__reconcile-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--focus-ring-color);
+}
+
+.comparison-info-box__reconcile-btn:disabled {
+    cursor: default;
+    opacity: 1; /* Keep full opacity for result display */
+}
+
+/* Reconcile button success state (all traces validated) */
+.comparison-info-box__reconcile-btn--success {
+    background-color: var(--alert-success-bg);
+    color: var(--alert-success-text);
+    border-color: var(--alert-success-border);
+}
+
+/* Reconcile button partial state (some traces validated) */
+.comparison-info-box__reconcile-btn--partial {
+    background-color: var(--alert-warning-bg);
+    color: var(--alert-warning-text);
+    border-color: var(--alert-warning-border);
+}
+
+/* Reconcile button failure state (no traces validated) */
+.comparison-info-box__reconcile-btn--failure {
+    background-color: var(--alert-danger-bg);
+    color: var(--alert-danger-text);
+    border-color: var(--alert-danger-border);
 }
 
 .comparison-info-box__details {
@@ -5125,6 +5188,16 @@ rect.stand.cpee-gateway-highlighted-active {
     padding: 2px 6px;
     border-radius: var(--border-radius-sm);
     border: 1px solid var(--alert-danger-border);
+}
+
+/* Trace Number - Reconciled (info color with background) */
+/* Used for traces that were validated across graph formats */
+.trace-number--reconciled {
+    color: var(--alert-info-text);
+    background-color: var(--alert-info-bg);
+    padding: 2px 6px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--alert-info-border);
 }
 
 /* Trace Type Badge */

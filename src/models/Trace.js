@@ -17,6 +17,15 @@ export class Trace {
         this.path = path; // Array of task objects: [{id, alt_id, task}, ...]
         this.type = type;
         this.metadata = metadata;
+        
+        // Reconciliation flag - true if this trace was added through cross-graph validation
+        this.isReconciled = false;
+        
+        // Original trace index in the source graph (for reconciled traces)
+        this.sourceTraceIndex = null;
+        
+        // Source graph type ('cpee' or 'mermaid') for reconciled traces
+        this.sourceGraphType = null;
     }
 
     /**
@@ -212,7 +221,10 @@ export class Trace {
             path: this.path,
             type: this.type,
             length: this.length,
-            metadata: this.metadata
+            metadata: this.metadata,
+            isReconciled: this.isReconciled,
+            sourceTraceIndex: this.sourceTraceIndex,
+            sourceGraphType: this.sourceGraphType
         };
     }
 
@@ -222,12 +234,29 @@ export class Trace {
      * @returns {Trace} New Trace instance
      */
     static fromObject(obj) {
-        return new Trace(
+        const trace = new Trace(
             obj.id,
             obj.path || [],
             obj.type || 'sequential',
             obj.metadata || {}
         );
+        trace.isReconciled = obj.isReconciled || false;
+        trace.sourceTraceIndex = obj.sourceTraceIndex !== undefined ? obj.sourceTraceIndex : null;
+        trace.sourceGraphType = obj.sourceGraphType || null;
+        return trace;
+    }
+
+    /**
+     * Mark this trace as reconciled (added through cross-graph validation)
+     * @param {number} sourceTraceIndex - Index of the original trace in the source graph
+     * @param {string} sourceGraphType - Type of source graph ('cpee' or 'mermaid')
+     * @returns {Trace} This trace (for chaining)
+     */
+    markAsReconciled(sourceTraceIndex, sourceGraphType) {
+        this.isReconciled = true;
+        this.sourceTraceIndex = sourceTraceIndex;
+        this.sourceGraphType = sourceGraphType;
+        return this;
     }
 
     /**

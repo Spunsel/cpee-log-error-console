@@ -150,6 +150,21 @@ export class ContentViewCoordinator {
             this.handleTraceError(data);
         });
         
+        // Listen for trace reconciliation events to re-render traces
+        this.eventBus.on('traceReconciliation:tracesAdded', (data) => {
+            this.handleTracesAddedAfterReconciliation(data);
+        });
+
+        // Listen for re-analysis requests after reconciliation
+        this.eventBus.on('traceReconciliation:rerunAnalysis', (data) => {
+            this.handleRerunAnalysisAfterReconciliation(data);
+        });
+
+        // Listen for trace re-render requests
+        this.eventBus.on('traceContentRenderer:requestReRender', (data) => {
+            this.handleTraceReRenderRequest(data);
+        });
+        
         // Note: View mode changes are already handled in setupViewModeIntegration()
         // We don't need a separate listener here since updateSectionDisplay() handles traces mode
         // and checkTraceCacheAndCompare() is called when switching to traces mode
@@ -187,6 +202,176 @@ export class ContentViewCoordinator {
             this.traceComparisonCoordinator.clearInfoBox('input');
         } else if (sectionId === 'output-cpee' || sectionId === 'output-intermediate') {
             this.traceComparisonCoordinator.clearInfoBox('output');
+        }
+    }
+
+    /**
+     * Handle traces added after reconciliation
+     * Re-renders trace displays for the affected sections
+     * @param {Object} data - Event data with sectionPair, targetGraph, addedCount, validatedTraces
+     */
+    handleTracesAddedAfterReconciliation(data) {
+        const { sectionPair, targetGraph, addedCount } = data;
+        
+        if (!this.currentStep) {
+            return;
+        }
+
+        console.log(`[ContentViewCoordinator] Handling ${addedCount} reconciled traces for ${sectionPair} (target: ${targetGraph})`);
+
+        // Determine which sections need re-rendering
+        const sectionIds = sectionPair === 'input'
+            ? ['input-cpee', 'input-intermediate']
+            : ['output-cpee', 'output-intermediate'];
+
+        // Update calculated traces cache with new traces from step
+        for (const sectionId of sectionIds) {
+            const traces = this.currentStep.getTraces(sectionId);
+            if (traces) {
+                this.calculatedTraces.set(sectionId, traces);
+            }
+        }
+
+        // Re-render traces for sections in traces view mode
+        const viewModes = this.stateManager.getState('viewModes') || {};
+        for (const sectionId of sectionIds) {
+            if (viewModes[sectionId] === 'traces') {
+                const sectionElement = this.domRegistry?.getElementSafe(sectionId) || document.getElementById(sectionId);
+                if (sectionElement) {
+                    const contentContainer = sectionElement.querySelector('.content-box');
+                    if (contentContainer) {
+                        this.traceContentRenderer.display(sectionId, contentContainer, this.currentStep);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Handle re-run analysis request after reconciliation
+     * Re-runs verification and reachability analysis for the affected section
+     * @param {Object} data - Event data with sectionId, sectionPair, stepNumber, traces
+     */
+    handleRerunAnalysisAfterReconciliation(data) {
+        const { sectionId, traces } = data;
+        
+        if (!this.currentStep || !traces) {
+            return;
+        }
+
+        console.log(`[ContentViewCoordinator] Re-running analysis for ${sectionId} after reconciliation`);
+
+        // Determine if this is a CPEE or Mermaid section
+        const isCPEE = sectionId.includes('cpee');
+        
+        // Get raw content
+        let rawContent = null;
+        let contentString = null;
+        
+        try {
+            if (sectionId === 'input-cpee') {
+                rawContent = this.currentStep.getInputCpeeTreeRaw();
+            } else if (sectionId === 'output-cpee') {
+                rawContent = this.currentStep.getOutputCpeeTreeRaw();
+            } else if (sectionId === 'input-intermediate') {
+                rawContent = this.currentStep.getInputMermaidRaw();
+            } else if (sectionId === 'output-intermediate') {
+                rawContent = this.currentStep.getOutputMermaidRaw();
+            }
+            
+            if (rawContent && rawContent.getContent) {
+                contentString = rawContent.getContent();
+            }
+        } catch (error) {
+            console.error(`[ContentViewCoordinator] Error getting content for ${sectionId}:`, error);
+            return;
+        }
+
+        if (!contentString) {
+            return;
+        }
+
+        // Re-run verification (soundness and boundedness)
+        try {
+            const format = isCPEE ? 'cpee' : 'mermaid';
+            const verificationResult = verifySoundnessAndBoundedness(
+                traces,
+                contentString,
+                format,
+                { maxLoopIterations: 1 }
+            );
+            
+            this.currentStep.setVerificationResult(sectionId, verificationResult);
+            
+            // Emit verification completion event
+            this.eventBus.emit('verification:complete', {
+                sectionId,
+                stepNumber: this.currentStep.stepNumber || 'unknown',
+                verificationResult,
+                afterReconciliation: true
+            });
+            
+            console.log(`[ContentViewCoordinator] Verification re-run complete for ${sectionId}: sound=${verificationResult.sound}, bounded=${verificationResult.bounded}`);
+        } catch (error) {
+            console.warn(`[ContentViewCoordinator] Verification re-run failed for ${sectionId}:`, error);
+        }
+
+        // Re-run reachability analysis
+        try {
+            const format = isCPEE ? 'cpee' : 'mermaid';
+            const reachabilityResult = analyzeReachability(
+                contentString,
+                format,
+                { maxLoopIterations: 1, timeout: 5000, computeTransitiveClosure: false }
+            );
+            
+            this.currentStep.setReachabilityResult(sectionId, reachabilityResult);
+            
+            // Emit reachability completion event
+            this.eventBus.emit('reachability:analyzed', {
+                sectionId,
+                stepNumber: this.currentStep.stepNumber || 'unknown',
+                reachabilityResult,
+                afterReconciliation: true
+            });
+            
+            if (reachabilityResult.success) {
+                console.log(`[ContentViewCoordinator] Reachability re-run complete for ${sectionId}`);
+            }
+        } catch (error) {
+            console.warn(`[ContentViewCoordinator] Reachability re-run failed for ${sectionId}:`, error);
+        }
+
+        // If analysis view is active, re-render it
+        const viewModes = this.stateManager.getState('viewModes') || {};
+        if (viewModes[sectionId] === 'analysis') {
+            const sectionElement = this.domRegistry?.getElementSafe(sectionId) || document.getElementById(sectionId);
+            if (sectionElement) {
+                const contentContainer = sectionElement.querySelector('.content-box');
+                if (contentContainer) {
+                    this.analysisContentRenderer.display(sectionId, contentContainer, this.currentStep);
+                }
+            }
+        }
+    }
+
+    /**
+     * Handle trace re-render request from TraceContentRenderer
+     * @param {Object} data - Event data with sectionId, sectionPair
+     */
+    handleTraceReRenderRequest(data) {
+        const { sectionId } = data;
+        
+        if (!this.currentStep) {
+            return;
+        }
+
+        const sectionElement = this.domRegistry?.getElementSafe(sectionId) || document.getElementById(sectionId);
+        if (sectionElement) {
+            const contentContainer = sectionElement.querySelector('.content-box');
+            if (contentContainer) {
+                this.traceContentRenderer.display(sectionId, contentContainer, this.currentStep);
+            }
         }
     }
     
@@ -394,6 +579,9 @@ export class ContentViewCoordinator {
 
         this.currentStep = step;
 
+        // Set current step on trace comparison coordinator for reconciliation
+        this.traceComparisonCoordinator.setCurrentStep(step);
+
         // Clear all search states when switching to a different step
         this.rawContentRenderer.clearAllSearchStates();
         this.logContentRenderer.clearAllSearchStates();
@@ -404,8 +592,9 @@ export class ContentViewCoordinator {
         // Clear calculated traces when switching to a different step
         this.calculatedTraces.clear();
         
-        // Clear comparison info boxes when switching to a different step
+        // Clear comparison info boxes and reconciliation state when switching to a different step
         this.traceComparisonCoordinator.clearAllInfoBoxes();
+        this.traceComparisonCoordinator.clearReconciliationState();
         
         // Clear analysis displays and cache when switching to a different step 
         this.analysisContentRenderer.clearAll();
