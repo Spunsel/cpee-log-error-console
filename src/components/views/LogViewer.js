@@ -59,7 +59,7 @@ export class LogViewer {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), configManager.get('network.timeouts.default'));
             
-            const proxy = configManager.get('api.cors.proxy');
+            const proxy = configManager.get('api.cors.logProxy');
             const proxyUrl = proxy + encodeURIComponent(logUrl);
             const response = await fetch(proxyUrl, {
                 method: 'GET',

@@ -72,7 +72,7 @@ export class LogFetchService {
             }, this.configManager.get('network.timeouts.default'));
             
             try {
-                const proxy = this.configManager.get('api.cors.proxy');
+                const proxy = this.configManager.get('api.cors.logProxy');
                 const proxyUrl = proxy + encodeURIComponent(logUrl);
                 const response = await fetch(proxyUrl, {
                     method: 'GET',

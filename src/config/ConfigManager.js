@@ -43,7 +43,8 @@ export class ConfigManager {
                 cpeeGraph: 'https://cpee.org/flow/graph.html'
             },
             cors: {
-                proxy: 'https://corsproxy.io/?',  // Faster than codetabs
+                proxy: 'https://corsproxy.io/?',  // Default proxy for CPEE graph/rendering/UUID requests
+                logProxy: 'https://api.codetabs.com/v1/proxy?quest=',  // Separate proxy for log fetching
                 timeout: 15000,
                 retryCount: 3
             },
@@ -96,7 +97,7 @@ export class ConfigManager {
                 // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
                 processNumbers: [
                     // active instances
-                    88803, 88782, 88781, 88753, 88741, 88740, 88719, 88503, 85514, 85513, 
+                    98615, 88803, 88782, 88781, 88753, 88741, 88740, 88719, 88503, 85514, 85513, 
                     84963, 84957, 84954, 84953, 84950, 84949, 84946, 84945, 84882, 84747, 84687, 83316, 83313, 
                     /*83270,*/ 83268, 83265, 83264, 83260, 83258, 83256, 83254, 83252, 83242, 83241, 83213, 83199,
                     83193, 83170, 83162, 83131, 83129, 83125, 83124, 82868, 82862, 82268, 82267, 82264, 
@@ -198,8 +199,8 @@ export class ConfigManager {
                 backoffMultiplier: 1.5,
                 initialDelay: 1000
             },
-            interRequestDelay: 0.1,  // Delay between consecutive log fetch requests (in milliseconds) - set to 0 to remove delay
-            scanConcurrency: 1  // Number of concurrent instance checks during scanning (default: 50)
+            interRequestDelay: 1000,  // Delay between consecutive log fetch requests (in milliseconds) - 200ms = 5 requests/second
+            scanConcurrency: 5  // Number of concurrent instance checks during scanning - set to 1 for rate limiting
         };
     }
 
