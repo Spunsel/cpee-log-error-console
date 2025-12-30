@@ -1,6 +1,6 @@
 # CPEE Log Error Console
 
-The fundamental goal of this project is to address the "black box" problem inherent in the LLM-driven workflow modification pipeline within the Cloud Process Execution Engine (CPEE), by providing a visual console for transparency, traceability, and systematic debugging capabilities.
+The fundamental goal of this project is to address the \"black box\" problem inherent in the LLM-driven workflow modification pipeline within the Cloud Process Execution Engine (CPEE), by providing a visual console for transparency, traceability, and systematic debugging capabilities.
 
 ## Features
 
@@ -23,124 +23,173 @@ The fundamental goal of this project is to address the "black box" problem inher
 - **Dark Mode**: Theme support with dark/light mode toggle
 - **Bug Reporting**: Integrated bug reporting system
 - **Search & Filter**: Content search and filtering functionality
+- **Fallback Support**: Local caching for offline access to logs and UUID mappings
+- **Trace Reconciliation**: Validation of traces across graph formats with reconciliation
 
 ## Architecture
 
 ### Project Structure
 ```
-src/
-├── app.js                   # Application entry point
-├── core/                    # Core application logic
-│   ├── CPEEDebugConsole.js
-│   ├── DOMRegistry.js
-│   ├── EventBus.js
-│   ├── ServiceFactory.js
-│   └── StateManager.js
-├── config/                  # Configuration management
-│   └── ConfigManager.js
-├── models/                  # Data models
-│   ├── CPEEInstance.js
-│   ├── CPEEStep.js
-│   ├── CPEETreeRaw.js
-│   ├── MermaidRaw.js
-│   ├── NodeIdentifier.js    # Standardized node/task representation
-│   ├── Trace.js             # Execution trace model
-│   └── UserInputRaw.js
-├── services/                # Business logic services
-│   ├── ContentProcessingService.js
-│   ├── CPEEService.js
-│   ├── EmailService.js
-│   ├── EventProcessingService.js
-│   ├── HighlightingService.js
-│   ├── InstanceService.js
-│   ├── LogFetchService.js
-│   ├── NodeMappingService.js
-│   ├── SearchService.js
-│   ├── StepAssemblyService.js
-│   ├── SyntaxHighlightingService.js
-│   └── TraceCalculationService.js
-├── components/              # UI components organized by responsibility
-│   ├── ui/                 # Pure UI components
-│   │   ├── ActionBar.js
-│   │   ├── BoundednessDisplay.js
-│   │   ├── BugReportModal.js
-│   │   ├── ComparisonInfoBox.js
-│   │   ├── CopyButton.js
-│   │   ├── DarkModeToggle.js
-│   │   ├── HideTitleButton.js
-│   │   ├── IssuesList.js
-│   │   ├── NodeClassificationList.js
-│   │   ├── PropertyStatusIndicator.js
-│   │   ├── ReachabilityDisplay.js
-│   │   ├── ReachabilityMetrics.js
-│   │   ├── RecentAdditionsAndFixes.js
-│   │   ├── ScaleDisplay.js
-│   │   ├── SCCDisplay.js
-│   │   ├── SearchBar.js
-│   │   ├── SectionExpandCollapse.js
-│   │   ├── Sidebar.js
-│   │   ├── SoundnessDisplay.js
-│   │   ├── StepDropdown.js
-│   │   ├── StepNavigator.js
-│   │   ├── StepSection.js
-│   │   ├── ThemeSelector.js
-│   │   ├── TraceDisplay.js
-│   │   ├── VerificationStatusCard.js
-│   │   └── ViewModeToggle.js
-│   ├── views/              # Main view components
-│   │   ├── InstanceLoaderViewer.js
-│   │   ├── LogViewer.js
-│   │   └── StepViewer.js
-│   ├── renderers/          # Graph rendering components
-│   │   ├── AnalysisContentRenderer.js
-│   │   ├── CPEEWfAdaptorRenderer.js
-│   │   ├── LogContentRenderer.js
-│   │   ├── MermaidRenderer.js
-│   │   ├── RawContentRenderer.js
-│   │   └── TraceContentRenderer.js
-│   └── coordinators/       # Content coordination
-│       ├── ContentViewCoordinator.js
-│       ├── ContentVisualizationCoordinator.js
-│       ├── CrossGraphHighlightCoordinator.js
-│       └── TraceComparisonCoordinator.js
-├── utils/                   # Helper utilities organized by domain
-│   ├── content/            # Content processing utilities
-│   │   ├── CPEEParser.js
-│   │   ├── LogParser.js
-│   │   ├── MermaidErrorHandler.js
-│   │   ├── MermaidParser.js
-│   │   └── MermaidWarningHandler.js
-│   ├── dom/                # DOM manipulation utilities
-│   │   ├── DOMStatusManager.js
-│   │   ├── DOMUtils.js
-│   │   └── SVGProcessor.js
-│   ├── extraction/         # Node/task extraction utilities
-│   │   ├── CPEETaskExtractor.js
-│   │   ├── MermaidTaskExtractor.js
-│   │   └── SVGTaskExtractor.js
-│   ├── interaction/        # User interaction handlers
-│   │   ├── CPEESVGClickHandler.js
-│   │   ├── MermaidSVGClickHandler.js
-│   │   └── SVGClickDetector.js
-│   ├── similarity/         # Similarity calculation utilities
-│   │   └── StringSimilarity.js
-│   ├── system/             # System-level utilities
-│   │   ├── JQueryExtensions.js
-│   │   ├── LibraryLoader.js
-│   │   └── URLManager.js
-│   └── trace/              # Trace calculation utilities
-│       ├── CPEETraceCalculator.js
-│       ├── MermaidTraceCalculator.js
-│       ├── ReachabilityAnalyzer.js
-│       ├── SoundnessBoundednessVerifier.js
-│       └── TraceComparison.js
-├── libs/                    # External libraries
-│   └── cpee-layout/        # CPEE WfAdaptor & themes
-│       └── themes/
-└── assets/                  # Static resources
-    ├── fonts/              # Custom fonts
-    ├── icons.js
-    └── style.css
+.
+├── .eslintrc.json
+├── .gitignore
+├── .prettierignore
+├── .prettierrc.json
+├── index.html
+├── package.json
+├── README.md
+├── docs/
+│   └── ... (documentation files)
+├── fallback/
+│   ├── cpee-themes/
+│   │   ├── base.js
+│   │   ├── default
+│   │   ├── preset/
+│   │   ├── presetaltid/
+│   │   └── presetid/
+│   ├── logs/
+│   │   └── ... (local log files)
+│   └── uuid-mapping.json
+├── scripts/
+│   ├── fetch-logs.ps1
+│   ├── fetch-uuids.ps1
+│   └── temp/
+├── src/
+│   ├── app.js
+│   ├── assets/
+│   │   ├── fonts/
+│   │   ├── icons.js
+│   │   ├── legacy_style.css
+│   │   └── styles/
+│   ├── components/
+│   │   ├── coordinators/
+│   │   │   ├── ContentViewCoordinator.js
+│   │   │   ├── ContentVisualizationCoordinator.js
+│   │   │   ├── CrossGraphHighlightCoordinator.js
+│   │   │   └── TraceComparisonCoordinator.js
+│   │   ├── renderers/
+│   │   │   ├── AnalysisContentRenderer.js
+│   │   │   ├── CPEEWfAdaptorRenderer.js
+│   │   │   ├── LogContentRenderer.js
+│   │   │   ├── MermaidRenderer.js
+│   │   │   ├── RawContentRenderer.js
+│   │   │   └── TraceContentRenderer.js
+│   │   ├── ui/
+│   │   │   ├── ActionBar.js
+│   │   │   ├── BoundednessDisplay.js
+│   │   │   ├── BugReportModal.js
+│   │   │   ├── ComparisonInfoBox.js
+│   │   │   ├── CopyButton.js
+│   │   │   ├── DarkModeToggle.js
+│   │   │   ├── DownloadButton.js
+│   │   │   ├── HideTitleButton.js
+│   │   │   ├── IssuesList.js
+│   │   │   ├── NodeClassificationList.js
+│   │   │   ├── PropertyStatusIndicator.js
+│   │   │   ├── ReachabilityDisplay.js
+│   │   ��   ├── ReachabilityMetrics.js
+│   │   │   ├── RecentAdditionsAndFixes.js
+│   │   │   ├── ScaleDisplay.js
+│   │   │   ├── SCCDisplay.js
+│   │   │   ├── SearchBar.js
+│   │   │   ├── SectionExpandCollapse.js
+│   │   │   ├── Sidebar.js
+│   │   │   ├── SoundnessDisplay.js
+│   │   │   ├── StepDropdown.js
+│   │   │   ├── StepNavigator.js
+│   │   │   ├── StepSection.js
+│   │   │   ├── ThemeSelector.js
+│   │   │   ├── TraceDisplay.js
+│   │   │   ├── VerificationStatusCard.js
+│   │   │   └── ViewModeToggle.js
+│   │   └── views/
+│   │       ├── InstanceLoaderViewer.js
+│   │       ├── LogViewer.js
+│   │       └── StepViewer.js
+│   ├── config/
+│   │   └── ConfigManager.js
+│   ├── core/
+│   │   ├── CPEEDebugConsole.js
+│   │   ├── DOMRegistry.js
+│   │   ├── EventBus.js
+│   │   ├── ServiceFactory.js
+│   │   └── StateManager.js
+│   ├── models/
+│   │   ├── CPEEInstance.js
+│   │   ├── CPEEStep.js
+│   │   ├── CPEETreeRaw.js
+│   │   ├── MermaidRaw.js
+│   │   ├── NodeIdentifier.js
+│   │   ├── Trace.js
+��   │   └── UserInputRaw.js
+│   ├── services/
+│   │   ├── ContentProcessingService.js
+│   │   ├── CPEEService.js
+│   │   ├── EmailService.js
+│   │   ├── EventProcessingService.js
+│   │   ├── HighlightingService.js
+│   │   ├── InstanceFallbackService.js
+│   │   ├── InstanceService.js
+│   │   ├── LogFetchService.js
+│   │   ├── NodeMappingService.js
+│   │   ├── SearchService.js
+│   │   ├── StepAssemblyService.js
+│   │   ├── SyntaxHighlightingService.js
+│   │   ├── TraceCalculationService.js
+│   │   └── TraceReconciliationService.js
+│   └── utils/
+│       ├── content/
+│       │   ├── CPEEParser.js
+│       │   ├── CPEEWarningHandler.js
+│       │   ├── LogParser.js
+│       │   ├── MermaidErrorHandler.js
+│       │   ├── MermaidParser.js
+│       │   └── MermaidWarningHandler.js
+│       ├── dom/
+│       │   ├── DOMStatusManager.js
+│       │   ├── SVGProcessor.js
+│       │   └── SVGScaleUtility.js
+│       ├── extraction/
+│       │   ├── CPEENodeExtractor.js
+│       │   ├── MermaidNodeExtractor.js
+│       │   └── SVGNodeExtractor.js
+│       ��── interaction/
+│       │   ├── CPEESVGClickHandler.js
+│       │   ├── MermaidSVGClickHandler.js
+│       │   └── SVGClickDetector.js
+│       ├── similarity/
+│       │   └── StringSimilarity.js
+│       ├── system/
+│       │   ├── JQueryExtensions.js
+│       │   ├── LibraryLoader.js
+│       │   └── URLManager.js
+│       └── trace/
+│           ├── CPEETraceCalculator.js
+│           ├── MermaidTraceCalculator.js
+│           ├── ReachabilityAnalyzer.js
+│           ├── SoundnessBoundednessVerifier.js
+│           └── TraceComparison.js
+├── tests/
+│   ├── ARCHITECTURE.md
+│   ├── QUICK_START.md
+│   ├── README.md
+│   ├── setup.js
+│   ├── config/
+│   │   └── ConfigManager.test.js
+│   ├── helpers/
+│   │   ├── dom-helpers.js
+│   │   ├── mock-factory.js
+│   │   ├── mock-helpers.js
+│   │   └── test-helpers.js
+│   ├── manual/
+│   │   ├── cross-view-task-highlighting/
+│   │   ├── renders/
+│   │   ├── trace-calculation/
+│   │   └── viewmode/
+│   └── unit/
+│       ├── core/
+│       └── trace/
+└── ... (other directories like node_modules/ not shown)
 ```
 
 ### Core Architecture
@@ -171,6 +220,8 @@ src/
 - **ContentProcessingService**: Centralized content processing orchestration
 - **SyntaxHighlightingService**: Syntax highlighting for code content (Prism.js integration)
 - **EmailService**: Email functionality for bug reporting
+- **InstanceFallbackService**: Local fallback for instance data and logs when remote API is unavailable
+- **TraceReconciliationService**: Validation and reconciliation of execution traces between CPEE and Mermaid formats
 
 #### Component Layer
 - **UI Components**: Comprehensive interface elements including:
@@ -178,7 +229,7 @@ src/
   - Display: Property status indicators, trace displays, verification cards
   - Analysis: Boundedness, soundness, reachability, SCC displays
   - Interaction: Search bar, copy button, dark mode toggle, theme selector
-  - Specialized: Bug report modal, issues list, comparison info boxes
+  - Specialized: Bug report modal, issues list, comparison info boxes, download button
 - **Views**: Main view components (instance loader, log viewing, step navigation)
 - **Renderers**: Graph rendering components:
   - **CPEEWfAdaptorRenderer**: CPEE WfAdaptor integration
@@ -228,6 +279,11 @@ npm run dev
 
 # The application will be available at http://localhost:8000
 ```
+
+### Fallback Data Setup (Optional)
+To enable offline fallback mode with local data:
+- Run `scripts/fetch-uuids.ps1` (PowerShell) to generate local UUID mappings
+- Run `scripts/fetch-logs.ps1` (PowerShell) to download local log files into fallback/logs/
 
 ### Alternative Setup (Simple HTTP Server)
 ```bash
@@ -306,4 +362,3 @@ This project is part of a Bachelor's thesis at TUM (Technical University of Muni
 ## Author
 
 Christian Horne <christian.horne@tum.de>
-
