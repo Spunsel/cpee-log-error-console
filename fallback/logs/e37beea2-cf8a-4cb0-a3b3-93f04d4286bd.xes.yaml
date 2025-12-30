@@ -87,7 +87,7 @@ event:
   cpee:change_uuid: 5423386b48ed529655a2f6d5ab3a4a9cbb0b4309
   cpee:exposition: |-
     # User Input:
-    Add task A: Mitarbeiter stellt Urlaubsantrag 
+    Add task A: Mitarbeiter stellt UrlaubsantragÂ 
   time:timestamp: '2025-12-01T10:46:03.954370+01:00'
 ---
 event:
@@ -217,7 +217,7 @@ event:
   cpee:change_uuid: 16076a72eecf42b3af10d059bbb25046ef0cd7e1
   cpee:exposition: |-
     # User Input:
-    Add Task B: Vorgesetzter erhält Urlauibsantrag
+    Add Task B: Vorgesetzter erhÃ¤lt Urlauibsantrag
   time:timestamp: '2025-12-01T10:46:32.415186+01:00'
 ---
 event:
@@ -261,8 +261,8 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->b:task:(Vorgesetzter erhält Urlauibsantrag)
-    b:task:(Vorgesetzter erhält Urlauibsantrag)-->ee:endevent:((endevent))
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->b:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    b:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2025-12-01T10:46:32.415512+01:00'
 ---
@@ -357,7 +357,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="b">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -406,8 +406,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->ee:endevent:((endevent))
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-01T10:47:16.954777+01:00'
 ---
 event:
@@ -423,8 +423,8 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->C:task:(Vorgesetzter entscheidet ob Urlaub genehmigt wird oder abgelehnt wird)
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->C:task:(Vorgesetzter entscheidet ob Urlaub genehmigt wird oder abgelehnt wird)
     C:task:(Vorgesetzter entscheidet ob Urlaub genehmigt wird oder abgelehnt wird)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-01T10:47:16.954903+01:00'
@@ -520,7 +520,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -578,8 +578,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->a5:task:(Vorgesetzter entscheidet ob Urlaub genehmigt wird oder abgelehnt wird)
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->a5:task:(Vorgesetzter entscheidet ob Urlaub genehmigt wird oder abgelehnt wird)
     a5:task:(Vorgesetzter entscheidet ob Urlaub genehmigt wird oder abgelehnt wird)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-01T10:47:44.802880+01:00'
 ---
@@ -596,8 +596,8 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-        a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-        a3:task:(Vorgesetzter erhält Urlauibsantrag)-->ee:endevent:((endevent))
+        a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+        a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2025-12-01T10:47:44.803000+01:00'
 ---
@@ -706,7 +706,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -753,8 +753,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->ee:endevent:((endevent))
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-01T10:49:01.333510+01:00'
 ---
 event:
@@ -770,8 +770,8 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->ex1:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->ex1:exclusivegateway:{x}
     ex1:exclusivegateway:{x} --> |condition A| c:task:(C)
     ex1:exclusivegateway:{x} --> |condition B| f:task:(F)
     c:task:(C) --> ex2:exclusivegateway:{x}
@@ -907,7 +907,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -948,7 +948,7 @@ event:
   cpee:change_uuid: d1bc1ac3771c2a347a44d3567f8c9e6638a6eabf
   cpee:exposition: |-
     # User Input:
-    Condition A ist urlaub wird genehmigt 
+    Condition A ist urlaub wird genehmigtÂ 
   time:timestamp: '2025-12-01T10:50:10.679302+01:00'
 ---
 event:
@@ -976,8 +976,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"condition A"|a7:task:(C)
     a7:task:(C)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"condition B"|a9:task:(F)
@@ -998,8 +998,8 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(C)
     a7:task:(C)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"condition B"|a9:task:(F)
@@ -1135,7 +1135,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1176,7 +1176,7 @@ event:
   cpee:change_uuid: 99c9438f5b6f3bc7fa94be4dae7444e7c1c365f0
   cpee:exposition: |+
     # User Input:
-    Condition B ist urlaub wird abgelehnt 
+    Condition B ist urlaub wird abgelehntÂ 
 
   time:timestamp: '2025-12-01T10:50:28.857383+01:00'
 ...
@@ -1206,8 +1206,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(C)
     a7:task:(C)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"condition B"|a11:task:(F)
@@ -1228,8 +1228,8 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(C)
     a7:task:(C)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(F)
@@ -1365,7 +1365,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1406,7 +1406,7 @@ event:
   cpee:change_uuid: 7ac2778bb73ab1e92b3b94b0309f05d2c2393cc5
   cpee:exposition: |-
     # User Input:
-    Task C ist, der Mitarbeiter erhält Urlaub 
+    Task C ist, der Mitarbeiter erhÃ¤lt UrlaubÂ 
   time:timestamp: '2025-12-01T10:51:02.711382+01:00'
 ---
 event:
@@ -1434,8 +1434,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(C)
     a7:task:(C)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(F)
@@ -1456,10 +1456,10 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(F)
     a11:task:(F)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -1593,7 +1593,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1603,7 +1603,7 @@ event:
         <alternative condition="Urlaub wird genehmigt" language="text/javascript">
           <call id="a7" endpoint="" a:alt_id="a7">
             <parameters>
-              <label>der Mitarbeiter erhält Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1634,7 +1634,7 @@ event:
   cpee:change_uuid: 6242329e99f1bb88c4309008266551e4d025434d
   cpee:exposition: |-
     # User Input:
-    Task F ist, der Mitarbeiter erhält keinen Urlaub 
+    Task F ist, der Mitarbeiter erhÃ¤lt keinen UrlaubÂ 
   time:timestamp: '2025-12-01T10:51:33.023674+01:00'
 ---
 event:
@@ -1662,10 +1662,10 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(F)
     a11:task:(F)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -1684,12 +1684,12 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-    a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw1e:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
     ```
   time:timestamp: '2025-12-01T10:51:33.025302+01:00'
@@ -1821,7 +1821,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1831,7 +1831,7 @@ event:
         <alternative condition="Urlaub wird genehmigt" language="text/javascript">
           <call id="a7" endpoint="" a:alt_id="a7">
             <parameters>
-              <label>der Mitarbeiter erhält Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1841,7 +1841,7 @@ event:
         <alternative condition="Urlaub wird abgelehnt" language="text/javascript">
           <call id="a11" endpoint="" a:alt_id="a11">
             <parameters>
-              <label>der Mitarbeiter erhält keinen Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt keinen Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1892,12 +1892,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-    a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw1e:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
   time:timestamp: '2025-12-01T10:52:02.609560+01:00'
 ---
@@ -1914,12 +1914,12 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-    a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw1e:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
     ```
   time:timestamp: '2025-12-01T10:52:02.609721+01:00'
@@ -2051,7 +2051,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2061,7 +2061,7 @@ event:
         <alternative condition="Urlaub wird genehmigt" language="text/javascript">
           <call id="a7" endpoint="" a:alt_id="a7">
             <parameters>
-              <label>der Mitarbeiter erhält Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2071,7 +2071,7 @@ event:
         <alternative condition="Urlaub wird abgelehnt" language="text/javascript">
           <call id="a11" endpoint="" a:alt_id="a11">
             <parameters>
-              <label>der Mitarbeiter erhält keinen Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt keinen Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2120,12 +2120,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-    a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw1e:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
   time:timestamp: '2025-12-01T10:52:38.955556+01:00'
 ---
@@ -2142,12 +2142,12 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-        a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-        a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-        a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-        a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw1e:exclusivegateway:{x}
+        a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+        a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+        a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Urlaub wird abgelehnt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+        a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw1e:exclusivegateway:{x}
         gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
     ```
   time:timestamp: '2025-12-01T10:52:38.955653+01:00'
@@ -2401,7 +2401,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2411,7 +2411,7 @@ event:
         <alternative condition="Urlaub wird genehmigt" language="text/javascript">
           <call id="a7" endpoint="" a:alt_id="a7">
             <parameters>
-              <label>der Mitarbeiter erhält Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2421,7 +2421,7 @@ event:
         <alternative condition="Urlaub wird abgelehnt" language="text/javascript">
           <call id="a11" endpoint="" a:alt_id="a11">
             <parameters>
-              <label>der Mitarbeiter erhält keinen Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt keinen Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2483,12 +2483,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->a11:task:(der Mitarbeiter erhält keinen Urlaub)
-    a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw2s:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw2s:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->|"true"|gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
@@ -2508,12 +2508,12 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-        a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-        a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-        a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-        a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw1e:exclusivegateway:{x}
+        a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+        a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+        a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+        a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw1e:exclusivegateway:{x}
         gw1e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-01T10:53:48.828158+01:00'
@@ -2666,7 +2666,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Vorgesetzter erhält Urlauibsantrag</label>
+          <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2676,7 +2676,7 @@ event:
         <alternative condition="Urlaub wird genehmigt" language="text/javascript">
           <call id="a7" endpoint="" a:alt_id="a7">
             <parameters>
-              <label>der Mitarbeiter erhält Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2686,7 +2686,7 @@ event:
         <alternative condition="Urlaub wird nicht genehmigt" language="text/javascript">
           <call id="a11" endpoint="" a:alt_id="a11">
             <parameters>
-              <label>der Mitarbeiter erhält keinen Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt keinen Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2737,12 +2737,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-    a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw1e:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
   time:timestamp: '2025-12-01T10:55:49.732310+01:00'
 ---
@@ -2759,12 +2759,12 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent))-->a1:task:(Mitarbeiter stellt Urlaubsantrag)
-        a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-        a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw1s:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-        a7:task:(der Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-        a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw2s:exclusivegateway:{x}
+        a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+        a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+        a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+        a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw2s:exclusivegateway:{x}
         gw2s:exclusivegateway:{x}-->|"Ende"|gw1e:exclusivegateway:{x}
         gw2s:exclusivegateway:{x}-->|"Neuer Antrag"|a1:task:
         gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -2947,7 +2947,7 @@ event:
         </call>
         <call id="a3" endpoint="" a:alt_id="a3">
           <parameters>
-            <label>Vorgesetzter erhält Urlauibsantrag</label>
+            <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -2956,7 +2956,7 @@ event:
         <loop mode="pre_test" condition="Urlaub wird nicht genehmigt">
           <call id="a11" endpoint="" a:alt_id="a11">
             <parameters>
-              <label>der Mitarbeiter erhält keinen Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt keinen Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2974,7 +2974,7 @@ event:
               </call>
               <call id="a3" endpoint="" a:alt_id="a3">
                 <parameters>
-                  <label>Vorgesetzter erhält Urlauibsantrag</label>
+                  <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -2988,7 +2988,7 @@ event:
         </loop>
         <call id="a7" endpoint="" a:alt_id="a7">
           <parameters>
-            <label>der Mitarbeiter erhält Urlaub</label>
+            <label>der Mitarbeiter erhÃ¤lt Urlaub</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -3049,15 +3049,15 @@ event:
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw2s:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->a7:task:(der Mitarbeiter erhält Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw3e:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-    a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw4s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Neuer Antrag"|a1:task:(Mitarbeiter stellt Urlaubsantrag)
     a1:task:(Mitarbeiter stellt Urlaubsantrag)-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Ende"|gw5s:exclusivegateway:{x}
@@ -3084,12 +3084,12 @@ event:
     flowchart LR
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"true"|a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-    gw2s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw1s:exclusivegateway:{x}
-    a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw4s:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    gw2s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw1s:exclusivegateway:{x}
+    a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Neuer Antrag"|a1:task:
     gw1s:exclusivegateway:{x}-->|"false"|ee:endevent:((endevent))
     a1:task:-->-1:escalate:((^))
@@ -3469,7 +3469,7 @@ event:
         </call>
         <call id="a3" endpoint="" a:alt_id="a3">
           <parameters>
-            <label>Vorgesetzter erhält Urlauibsantrag</label>
+            <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -3478,7 +3478,7 @@ event:
         <loop mode="pre_test" condition="Urlaub wird nicht genehmigt">
           <call id="a11" endpoint="" a:alt_id="a11">
             <parameters>
-              <label>der Mitarbeiter erhält keinen Urlaub</label>
+              <label>der Mitarbeiter erhÃ¤lt keinen Urlaub</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -3496,7 +3496,7 @@ event:
               </call>
               <call id="a3" endpoint="" a:alt_id="a3">
                 <parameters>
-                  <label>Vorgesetzter erhält Urlauibsantrag</label>
+                  <label>Vorgesetzter erhÃ¤lt Urlauibsantrag</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -3510,7 +3510,7 @@ event:
         </loop>
         <call id="a7" endpoint="" a:alt_id="a7">
           <parameters>
-            <label>der Mitarbeiter erhält Urlaub</label>
+            <label>der Mitarbeiter erhÃ¤lt Urlaub</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -3571,15 +3571,15 @@ event:
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw2s:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->a7:task:(der Mitarbeiter erhält Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw3e:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-    a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw4s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Neuer Antrag"|a1:task:(Mitarbeiter stellt Urlaubsantrag)
     a1:task:(Mitarbeiter stellt Urlaubsantrag)-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Ende"|gw5s:exclusivegateway:{x}
@@ -3606,12 +3606,12 @@ event:
     flowchart LR
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"true"|a1:task:(Mitarbeiter stellt Urlaubsantrag)
-    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhält Urlauibsantrag)
-    a3:task:(Vorgesetzter erhält Urlauibsantrag)-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhält Urlaub)
-    gw2s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhält keinen Urlaub)
-    a7:task:(der Mitarbeiter erhält Urlaub)-->gw3e:exclusivegateway:{x}
-    a11:task:(der Mitarbeiter erhält keinen Urlaub)-->gw4s:exclusivegateway:{x}
+    a1:task:(Mitarbeiter stellt Urlaubsantrag)-->a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)
+    a3:task:(Vorgesetzter erhÃ¤lt Urlauibsantrag)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Urlaub wird genehmigt"|a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)
+    gw2s:exclusivegateway:{x}-->|"Urlaub wird nicht genehmigt"|a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a7:task:(der Mitarbeiter erhÃ¤lt Urlaub)-->gw3e:exclusivegateway:{x}
+    a11:task:(der Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Neuer Antrag"|a1:task:
     gw4s:exclusivegateway:{x}-->|"Ende"|ee:endevent:((endevent))
     gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}

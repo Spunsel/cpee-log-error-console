@@ -127,7 +127,7 @@ event:
   cpee:change_uuid: 8fef12f10f10ad7dcacf937264a2c94248fa6caa
   cpee:exposition: |-
     # User Input:
-    Die Abschlussarbeit wird eingereicht. Danach durch das Prüfungsamt an den Erst- und Zweitprüfer weitergeleitet. Haben beide ihre Gutachten erstellt, werden diese zurück an das Prüfungsamt geschickt. Das Prüfungsamt kontrolliert die formale Richtigkeit und trägt nach Abschluss die Note ein. Der Prüfling wird per Post informiert. 
+    Die Abschlussarbeit wird eingereicht. Danach durch das PrÃ¼fungsamt an den Erst- und ZweitprÃ¼fer weitergeleitet. Haben beide ihre Gutachten erstellt, werden diese zurÃ¼ck an das PrÃ¼fungsamt geschickt. Das PrÃ¼fungsamt kontrolliert die formale Richtigkeit und trÃ¤gt nach Abschluss die Note ein. Der PrÃ¼fling wird per Post informiert.Â 
   time:timestamp: '2025-12-03T09:00:15.584414+01:00'
 ---
 event:
@@ -167,12 +167,12 @@ event:
     ```mermaid
     graph LR
       0:startevent:((startevent)) --> 1:task:(Einreichen der Abschlussarbeit)
-      1:task:(Einreichen der Abschlussarbeit) --> 2:task:(Weiterleitung an Prüfer)
-      2:task:(Weiterleitung an Prüfer) --> 3:task:(Gutachten erstellen)
-      3:task:(Gutachten erstellen) --> 4:task:(Rücksendung der Gutachten)
-      4:task:(Rücksendung der Gutachten) --> 5:task:(Formale Prüfung und Noteneintrag)
-      5:task:(Formale Prüfung und Noteneintrag) --> 6:task:(Information des Prüflings)
-      6:task:(Information des Prüflings) --> 7:endevent:(((endevent)))
+      1:task:(Einreichen der Abschlussarbeit) --> 2:task:(Weiterleitung an PrÃ¼fer)
+      2:task:(Weiterleitung an PrÃ¼fer) --> 3:task:(Gutachten erstellen)
+      3:task:(Gutachten erstellen) --> 4:task:(RÃ¼cksendung der Gutachten)
+      4:task:(RÃ¼cksendung der Gutachten) --> 5:task:(Formale PrÃ¼fung und Noteneintrag)
+      5:task:(Formale PrÃ¼fung und Noteneintrag) --> 6:task:(Information des PrÃ¼flings)
+      6:task:(Information des PrÃ¼flings) --> 7:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-03T09:00:15.585231+01:00'
 ---
@@ -345,7 +345,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Weiterleitung an Prüfer</label>
+          <label>Weiterleitung an PrÃ¼fer</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -361,7 +361,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Rücksendung der Gutachten</label>
+          <label>RÃ¼cksendung der Gutachten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -369,7 +369,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="5">
         <parameters>
-          <label>Formale Prüfung und Noteneintrag</label>
+          <label>Formale PrÃ¼fung und Noteneintrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -377,7 +377,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="6">
         <parameters>
-          <label>Information des Prüflings</label>
+          <label>Information des PrÃ¼flings</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -422,12 +422,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-03T09:00:47.266937+01:00'
 ---
 event:
@@ -443,12 +443,12 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-03T09:00:47.267084+01:00'
 ---
@@ -621,7 +621,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Weiterleitung an Prüfer</label>
+          <label>Weiterleitung an PrÃ¼fer</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -637,7 +637,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Rücksendung der Gutachten</label>
+          <label>RÃ¼cksendung der Gutachten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -645,7 +645,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="a9">
         <parameters>
-          <label>Formale Prüfung und Noteneintrag</label>
+          <label>Formale PrÃ¼fung und Noteneintrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -653,7 +653,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="a11">
         <parameters>
-          <label>Information des Prüflings</label>
+          <label>Information des PrÃ¼flings</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -698,12 +698,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-03T09:01:05.876694+01:00'
 ---
 event:
@@ -719,12 +719,12 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-03T09:01:05.876798+01:00'
 ---
@@ -897,7 +897,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Weiterleitung an Prüfer</label>
+          <label>Weiterleitung an PrÃ¼fer</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -913,7 +913,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Rücksendung der Gutachten</label>
+          <label>RÃ¼cksendung der Gutachten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -921,7 +921,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="a9">
         <parameters>
-          <label>Formale Prüfung und Noteneintrag</label>
+          <label>Formale PrÃ¼fung und Noteneintrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -929,7 +929,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="a11">
         <parameters>
-          <label>Information des Prüflings</label>
+          <label>Information des PrÃ¼flings</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -974,12 +974,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-03T09:01:12.877159+01:00'
 ---
 event:
@@ -995,12 +995,12 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-03T09:01:12.877313+01:00'
 ---
@@ -1173,7 +1173,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Weiterleitung an Prüfer</label>
+          <label>Weiterleitung an PrÃ¼fer</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1189,7 +1189,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Rücksendung der Gutachten</label>
+          <label>RÃ¼cksendung der Gutachten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1197,7 +1197,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="a9">
         <parameters>
-          <label>Formale Prüfung und Noteneintrag</label>
+          <label>Formale PrÃ¼fung und Noteneintrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1205,7 +1205,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="a11">
         <parameters>
-          <label>Information des Prüflings</label>
+          <label>Information des PrÃ¼flings</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1250,12 +1250,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-03T09:01:18.472183+01:00'
 ---
 event:
@@ -1271,12 +1271,12 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-03T09:01:18.472278+01:00'
 ---
@@ -1449,7 +1449,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Weiterleitung an Prüfer</label>
+          <label>Weiterleitung an PrÃ¼fer</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1465,7 +1465,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Rücksendung der Gutachten</label>
+          <label>RÃ¼cksendung der Gutachten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1473,7 +1473,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="a9">
         <parameters>
-          <label>Formale Prüfung und Noteneintrag</label>
+          <label>Formale PrÃ¼fung und Noteneintrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1481,7 +1481,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="a11">
         <parameters>
-          <label>Information des Prüflings</label>
+          <label>Information des PrÃ¼flings</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1526,12 +1526,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-03T09:01:22.793288+01:00'
 ---
 event:
@@ -1547,12 +1547,12 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-03T09:01:22.793427+01:00'
 ---
@@ -1725,7 +1725,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Weiterleitung an Prüfer</label>
+          <label>Weiterleitung an PrÃ¼fer</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1741,7 +1741,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Rücksendung der Gutachten</label>
+          <label>RÃ¼cksendung der Gutachten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1749,7 +1749,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="a9">
         <parameters>
-          <label>Formale Prüfung und Noteneintrag</label>
+          <label>Formale PrÃ¼fung und Noteneintrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1757,7 +1757,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="a11">
         <parameters>
-          <label>Information des Prüflings</label>
+          <label>Information des PrÃ¼flings</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1802,12 +1802,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-03T09:01:33.793242+01:00'
 ---
 event:
@@ -1823,12 +1823,12 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
-    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
-    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
-    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
-    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
-    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
-    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an PrÃ¼fer)
+    a3:task:(Weiterleitung an PrÃ¼fer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(RÃ¼cksendung der Gutachten)
+    a7:task:(RÃ¼cksendung der Gutachten)-->a9:task:(Formale PrÃ¼fung und Noteneintrag)
+    a9:task:(Formale PrÃ¼fung und Noteneintrag)-->a11:task:(Information des PrÃ¼flings)
+    a11:task:(Information des PrÃ¼flings)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-03T09:01:33.793398+01:00'
 ---

@@ -1,0 +1,2317 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 76446
+    cpee:name: Plain Instance
+    cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-30T23:32:46.982681+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: 6ea9daf6e41cb0d78ff93247f7ac6bfdcd49ce0d
+  time:timestamp: '2025-12-03T08:33:16.225105+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ea9daf6e41cb0d78ff93247f7ac6bfdcd49ce0d
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-03T08:33:16.225336+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ea9daf6e41cb0d78ff93247f7ac6bfdcd49ce0d
+  cpee:exposition: |-
+    # User Input:
+
+
+    Start onboarding
+    3 parallel task
+  time:timestamp: '2025-12-03T08:33:16.225768+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ea9daf6e41cb0d78ff93247f7ac6bfdcd49ce0d
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T08:33:16.225877+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ea9daf6e41cb0d78ff93247f7ac6bfdcd49ce0d
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-03T08:33:16.225960+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ea9daf6e41cb0d78ff93247f7ac6bfdcd49ce0d
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:parallelgateway:{AND}
+        1:parallelgateway:{AND} --> 2:task:(Generate a BPMN model)
+        1:parallelgateway:{AND} --> 3:task:(Generate a BPMN model)
+        1:parallelgateway:{AND} --> 4:task:(Generate a BPMN model)
+        2:task:(Generate a BPMN model) --> 5:parallelgateway:{AND}
+        3:task:(Generate a BPMN model) --> 5:parallelgateway:{AND}
+        4:task:(Generate a BPMN model) --> 5:parallelgateway:{AND}
+        5:parallelgateway:{AND} --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T08:33:16.226045+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ea9daf6e41cb0d78ff93247f7ac6bfdcd49ce0d
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-03T08:33:16.226189+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: 38c1381a05f0453632b938a7302d4515be3216e1
+  time:timestamp: '2025-12-03T08:34:19.842541+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 38c1381a05f0453632b938a7302d4515be3216e1
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-03T08:34:19.842695+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 38c1381a05f0453632b938a7302d4515be3216e1
+  cpee:exposition: "# User Input:\nSkip to content\nNew Standardized Joiner (Onboarding)
+    Process for Group Tenant\nCall Center Image\nNew Standardized Joiner (Onboarding)
+    Process for the Group Tenant\nTo ensure a seamless and consistent onboarding experience
+    across the organization, we have introduced the new standardized Joiner Process
+    for the Group Tenant. This process streamlines the integration of new employees
+    by providing a unified framework for account creation, access management, and
+    system onboarding. By implementing this approach, we aim to enhance efficiency,
+    maintain compliance, and deliver a high-quality onboarding experience for all
+    new joiners within the Group Tenant environment.\nWhat is the reason for the standardized
+    Joiner (Onboarding) Process?\nAs the Competence Centers (CCs) migrate to the Group
+    Tenant environment, we discovered variations in the joiner processes across CCs.
+    To simplify and unify the onboarding journey, we developed a standardized process
+    that ensures the best possible experience for new joiners at valantic. This process
+    guarantees that all standard accounts and hardware are delivered to the joiner
+    on their first day of employment. To achieve this, we made key adjustments to
+    existing processes.\nWhat is the standardized Joiner (Onboarding) Process?\nWhen
+    an applicant accepts an offer at valantic, several steps are required to successfully
+    onboard the new joiner. The process involves various stakeholders and teams to
+    ensure seamless collaboration. To streamline this, we partnered with HR and identified
+    three key participants in the process:\nHR: HR initiates the process by providing
+    information about the new joiner, including personal details and employment specifics.\nDepartment:
+    The new joiner's department is optionally involved, as they have the best understanding
+    of the role and requirements.\nGroup IT: Group IT is responsible for providing
+    accounts, hardware, and ensuring compliance with policies.\nThe onboarding journey
+    has been simplified to focus on key steps such as creating primary accounts (e.g.,
+    user account and email address), providing a laptop with the Group IT standard
+    setup, or ensuring CC-managed hardware complies with group policies.\nHow will
+    it be done?\nHR creates a Joiner Ticket in the self-service portal and fills in
+    all necessary information.\nIn the case of a long-term onboarding process (more
+    than 28 days before the start date), the responsible department (manager or buddy,
+    if applicable) can add specific requests, such as a special laptop or smartphone
+    type.\nFor a fast onboarding process, this option will be skipped, and the process
+    will start with the minimum standard setup.\nThe minimum standard setup includes:\nLaptop
+    (based on the joinerâ€™s level)\nUser account and email account\neSIM\nWhat options
+    do the responsible department members have?\nResponsible department members can
+    add specific requests, such as choosing a special laptop or smartphone. If no
+    additional or individual requests are made within 28 days of the joinerâ€™s start
+    date, the task will automatically be skipped to ensure a smooth onboarding process
+    with the standard setup.\nWe understand how busy you are, so we will remind you
+    about your decision! \U0001F60A\nForecast for Improvement\nOnce the process is
+    rolled out, we will continuously review and improve it. Planned enhancements include:\nAutomatically
+    creating a separate ticket after account creation to request additional permissions
+    using simple checkboxes.\nIntroducing standardized permission sets based on CC,
+    department, or other conditions, so new joiners receive the appropriate access
+    automatically."
+  time:timestamp: '2025-12-03T08:34:19.843136+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 38c1381a05f0453632b938a7302d4515be3216e1
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T08:34:19.843337+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 38c1381a05f0453632b938a7302d4515be3216e1
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    -->a3:task:(Generate a BPMN model)
+    a3:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    -->a5:task:(Generate a BPMN model)
+    a5:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    -->a7:task:(Generate a BPMN model)
+    a7:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T08:34:19.843429+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 38c1381a05f0453632b938a7302d4515be3216e1
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a3:task:(Generate a BPMN model)
+    a3:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a5:task:(Generate a BPMN model)
+    a5:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a7:task:(Generate a BPMN model)
+    a7:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T08:34:19.843511+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 38c1381a05f0453632b938a7302d4515be3216e1
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-03T08:34:19.843697+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: 4124404cffaa2ee0bd68f05e792d727e1a3e37d2
+  time:timestamp: '2025-12-03T08:34:44.921136+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4124404cffaa2ee0bd68f05e792d727e1a3e37d2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-03T08:34:44.921377+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4124404cffaa2ee0bd68f05e792d727e1a3e37d2
+  cpee:exposition: |+
+    # User Input:
+    The process starts, then proceeds to a parallel gateway where the flow splits into three parallel paths. The first path involves generating a BPMN model. The second path also involves generating a BPMN model. The third path involves generating a BPMN model as well. After all three tasks are completed, the process merges back together at a parallel gateway and then ends.
+
+  time:timestamp: '2025-12-03T08:34:44.922221+01:00'
+...
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4124404cffaa2ee0bd68f05e792d727e1a3e37d2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T08:34:44.922406+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4124404cffaa2ee0bd68f05e792d727e1a3e37d2
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    -->a3:task:(Generate a BPMN model)
+    a3:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    -->a7:task:(Generate a BPMN model)
+    a7:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    -->a11:task:(Generate a BPMN model)
+    a11:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T08:34:44.922544+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4124404cffaa2ee0bd68f05e792d727e1a3e37d2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> gw1s:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND} --> a3:task:(Generate a BPMN model)
+        a3:task:(Generate a BPMN model) --> gw1e:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND} --> a7:task:(Generate a BPMN model)
+        a7:task:(Generate a BPMN model) --> gw1e:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND} --> a11:task:(Generate a BPMN model)
+        a11:task:(Generate a BPMN model) --> gw1e:parallelgateway:{AND}
+        gw1e:parallelgateway:{AND} --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T08:34:44.922674+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4124404cffaa2ee0bd68f05e792d727e1a3e37d2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-03T08:34:44.922847+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Start two days before migration date</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Go to admin view User</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>SCIM User console and delet all SCIM User entries for Migartion company</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: bc4a8c1d3b368f2d8503b49c6ef6c9a8043b239a
+  time:timestamp: '2025-12-03T14:06:44.011884+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bc4a8c1d3b368f2d8503b49c6ef6c9a8043b239a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Generate a BPMN model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-03T14:06:44.012204+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bc4a8c1d3b368f2d8503b49c6ef6c9a8043b239a
+  cpee:exposition: |-
+    # User Input:
+    Start two days before migration date
+    Go to admin view User
+    SCIM User console and delet all SCIM User entries for Migartion company
+    Change to Userconsole
+    Filter Migrationg CC
+    Export all User with all fields
+    Open Export
+    Delete column content manager
+    Change mailadress to new mailadress
+    change company to new company name
+    import
+    check results
+  time:timestamp: '2025-12-03T14:06:44.012850+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bc4a8c1d3b368f2d8503b49c6ef6c9a8043b239a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T14:06:44.013175+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bc4a8c1d3b368f2d8503b49c6ef6c9a8043b239a
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    -->a3:task:(Generate a BPMN model)
+    a3:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    -->a7:task:(Generate a BPMN model)
+    a7:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    -->a11:task:(Generate a BPMN model)
+    a11:task:(Generate a BPMN model)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T14:06:44.013481+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bc4a8c1d3b368f2d8503b49c6ef6c9a8043b239a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> gw1s:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND} --> a3:task:(Start two days before migration date)
+        a3:task:(Start two days before migration date) --> gw1e:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND} --> a7:task:(Go to admin view User)
+        a7:task:(Go to admin view User) --> gw1e:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND} --> a11:task:(SCIM User console and delet all SCIM User entries for Migartion company)
+        a11:task:(SCIM User console and delet all SCIM User entries for Migartion company) --> gw1e:parallelgateway:{AND}
+        gw1e:parallelgateway:{AND} --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T14:06:44.013601+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bc4a8c1d3b368f2d8503b49c6ef6c9a8043b239a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Start two days before migration date</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Go to admin view User</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>SCIM User console and delet all SCIM User entries for Migartion company</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-03T14:06:44.013727+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Start two days before migration date</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Go to admin view User</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>SCIM User console and delet all SCIM User entries for Migartion company</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-03T14:07:31.206284+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: persons
+    value: 3
+  - name: card
+    value: Visa_12345
+  - name: airline
+    value: ''
+  - name: hotels
+    value: []
+  - name: from
+    value: Vienna
+  - name: to
+    value: Prague
+  - name: costs
+    value: 0
+  time:timestamp: '2025-12-03T14:07:31.209251+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: bookAir
+    value: http://gruppe.wst.univie.ac.at/~mangler/services/airline.php
+  - name: user
+    value: https-post://cpee.org/services/timeout-user.php
+  - name: auto
+    value: https-post://cpee.org/services/timeout-auto.php
+  - name: timeout
+    value: https://cpee.org/services/timeout.php
+  - name: bookHotel
+    value: http://gruppe.wst.univie.ac.at/~mangler/services/hotel.php
+  - name: subprocess
+    value: https://cpee.org/flow/start/url/
+  - name: approve
+    value: http://gruppe.wst.univie.ac.at/~mangler/services/approval.php
+  - name: send
+    value: https-post://cpee.org/ing/correlators/message/send/
+  - name: receive
+    value: https-get://cpee.org/ing/correlators/message/receive/
+  time:timestamp: '2025-12-03T14:07:31.211595+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: extended
+  - name: guarded_id
+    value: ''
+  - name: info
+    value: Coopis 2010
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: design_stage
+    value: development
+  - name: design_dir
+    value: Templates.dir
+  - name: model_uuid
+    value: a1cbb855-90e3-4d8c-b44b-d3ba7bff9f4e
+  - name: model_version
+    value: ''
+  - name: replay
+    value: https://cpee.org/replay/
+  - name: replay_target
+    value: https://cpee.org/replay-data/coopis/1274c1de-286e-4d73-9375-30b363d280fa.xes.yaml
+  - name: replay_instantiate
+    value: https://cpee.org/flow/start/url/
+  time:timestamp: '2025-12-03T14:07:31.217836+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="bookAir">
+        <parameters>
+          <label>Book Airline 1</label>
+          <method>:post</method>
+          <arguments>
+            <from>!data.from</from>
+            <to>!data.to</to>
+            <persons>!data.persons</persons>
+          </arguments>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.airline = result.value('id')
+    data.costs += result.value('costs').to_f
+    status.update 1, 'Hotel'</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <parallel wait="-1" cancel="last">
+        <loop mode="pre_test" condition="data.persons &gt; 0">
+          <parallel_branch>
+            <call id="a2" endpoint="bookHotel">
+              <parameters>
+                <label>Book Hotel</label>
+                <method>:post</method>
+                <arguments>
+                  <to>!data.to</to>
+                </arguments>
+              </parameters>
+              <code>
+                <prepare/>
+                <finalize output="result">data.hotels &lt;&lt; result.value('id')
+    data.costs += result.value('costs').to_f</finalize>
+                <update output="result"/>
+                <rescue output="result"/>
+              </code>
+              <annotations>
+                <_timing>
+                  <_timing_weight/>
+                  <_timing_avg/>
+                  <explanations/>
+                </_timing>
+                <_shifting>
+                  <_shifting_type>Duration</_shifting_type>
+                </_shifting>
+                <_context_data_analysis>
+                  <probes/>
+                  <ips/>
+                </_context_data_analysis>
+                <report>
+                  <url/>
+                </report>
+                <_notes>
+                  <_notes_general/>
+                </_notes>
+              </annotations>
+              <documentation>
+                <input/>
+                <output/>
+                <implementation>
+                  <description/>
+                </implementation>
+                <code>
+                  <description/>
+                </code>
+              </documentation>
+            </call>
+          </parallel_branch>
+          <manipulate id="a3">data.persons -= 1</manipulate>
+        </loop>
+      </parallel>
+      <choose mode="exclusive">
+        <alternative condition="data.costs &gt; 700">
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+          <call id="a4" endpoint="approve">
+            <parameters>
+              <label>Approve Hotel</label>
+              <method>:post</method>
+              <arguments>
+                <costs>!data.costs</costs>
+              </arguments>
+            </parameters>
+            <annotations>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+            </documentation>
+          </call>
+        </alternative>
+        <otherwise/>
+      </choose>
+    </description>
+  cpee:change_uuid: 5f60bded24546af5660254d84d5be643360e3356
+  time:timestamp: '2025-12-03T14:07:31.231078+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T14:07:31.530948+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="bookAir">
+        <parameters>
+          <label>Book Airline 1</label>
+          <method>:post</method>
+          <arguments>
+            <from>!data.from</from>
+            <to>!data.to</to>
+            <persons>!data.persons</persons>
+          </arguments>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.airline = result.value('id')
+    data.costs += result.value('costs').to_f
+    status.update 1, 'Hotel'</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <parallel wait="-1" cancel="last">
+        <loop mode="pre_test" condition="data.persons &gt; 0">
+          <parallel_branch>
+            <call id="a2" endpoint="bookHotel">
+              <parameters>
+                <label>Book Hotel</label>
+                <method>:post</method>
+                <arguments>
+                  <to>!data.to</to>
+                </arguments>
+              </parameters>
+              <code>
+                <prepare/>
+                <finalize output="result">data.hotels &lt;&lt; result.value('id')
+    data.costs += result.value('costs').to_f</finalize>
+                <update output="result"/>
+                <rescue output="result"/>
+              </code>
+              <annotations>
+                <_timing>
+                  <_timing_weight/>
+                  <_timing_avg/>
+                  <explanations/>
+                </_timing>
+                <_shifting>
+                  <_shifting_type>Duration</_shifting_type>
+                </_shifting>
+                <_context_data_analysis>
+                  <probes/>
+                  <ips/>
+                </_context_data_analysis>
+                <report>
+                  <url/>
+                </report>
+                <_notes>
+                  <_notes_general/>
+                </_notes>
+              </annotations>
+              <documentation>
+                <input/>
+                <output/>
+                <implementation>
+                  <description/>
+                </implementation>
+                <code>
+                  <description/>
+                </code>
+              </documentation>
+            </call>
+          </parallel_branch>
+          <manipulate id="a3">data.persons -= 1</manipulate>
+        </loop>
+      </parallel>
+      <choose mode="exclusive">
+        <alternative condition="data.costs &gt; 700">
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+          <call id="a4" endpoint="approve">
+            <parameters>
+              <label>Approve Hotel</label>
+              <method>:post</method>
+              <arguments>
+                <costs>!data.costs</costs>
+              </arguments>
+            </parameters>
+            <annotations>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+            </documentation>
+          </call>
+        </alternative>
+        <otherwise/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-03T14:07:40.364051+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: worklist
+    value: https-post://cpee.org/worklist/server/
+  time:timestamp: '2025-12-03T14:07:40.370824+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: res
+    value: []
+  - name: results
+    value:
+    - user: manglej6
+      raw:
+      - name: ok
+        value: ok
+      data:
+        ok: ok
+    - user: weissh9
+      raw:
+      - name: ok
+        value: ok
+      data:
+        ok: ok
+  time:timestamp: '2025-12-03T14:07:40.367204+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: info
+    value: Worklist Vote
+  - name: modeltype
+    value: CPEE
+  - name: organisation1
+    value: http://cpee.org/~demo/orgviz/organisation_informatik.xml
+  - name: theme
+    value: extended
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: design_stage
+    value: development
+  - name: design_dir
+    value: Templates.dir/
+  time:timestamp: '2025-12-03T14:07:40.373474+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="worklist">
+          <parameters>
+            <label>OK OR NOT OK</label>
+            <arguments>
+              <orgmodel>https://cpee.org/~demo/orgviz/organisation_vote.xml</orgmodel>
+              <form>https://cpee.org/~demo/form/form-f.html</form>
+              <role>Assistant</role>
+              <priority>42</priority>
+              <handling rngui-nonfunctional="true">collect</handling>
+              <collect>2</collect>
+              <deadline>3 days</deadline>
+              <restrictions/>
+              <data>
+                <schaden>10000</schaden>
+                <text>destroyed</text>
+              </data>
+            </arguments>
+          </parameters>
+          <code>
+            <prepare/>
+            <finalize output="result">data.res = result</finalize>
+            <update output="result">data.results ||= []
+    data.results &lt;&lt; result unless result.empty?</update>
+            <rescue output="result"/>
+          </code>
+          <annotations>
+            <_generic/>
+            <_timing>
+              <_timing_weight/>
+              <_timing_avg/>
+              <explanations/>
+            </_timing>
+            <_shifting>
+              <_shifting_type>Duration</_shifting_type>
+            </_shifting>
+            <_context_data_analysis>
+              <probes/>
+              <ips/>
+            </_context_data_analysis>
+            <report>
+              <url/>
+            </report>
+            <_notes>
+              <_notes_general/>
+            </_notes>
+          </annotations>
+          <documentation>
+            <input/>
+            <output/>
+            <implementation>
+              <description/>
+            </implementation>
+            <code>
+              <description/>
+            </code>
+          </documentation>
+        </call>
+        <stop id="a2"/>
+        <_probability>
+          <_probability_min/>
+          <_probability_max/>
+          <_probability_avg/>
+        </_probability>
+      </loop>
+    </description>
+  cpee:change_uuid: 6e0303155e0344ef36b7f9bc4e9b3711a25a48f9
+  time:timestamp: '2025-12-03T14:07:40.380455+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T14:07:40.643386+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-12-03T14:07:48.706208+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T14:07:48.927550+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="worklist">
+          <parameters>
+            <label>OK OR NOT OK</label>
+            <arguments>
+              <orgmodel>https://cpee.org/~demo/orgviz/organisation_vote.xml</orgmodel>
+              <form>https://cpee.org/~demo/form/form-f.html</form>
+              <role>Assistant</role>
+              <priority>42</priority>
+              <handling rngui-nonfunctional="true">collect</handling>
+              <collect>2</collect>
+              <deadline>3 days</deadline>
+              <restrictions/>
+              <data>
+                <schaden>10000</schaden>
+                <text>destroyed</text>
+              </data>
+            </arguments>
+          </parameters>
+          <code>
+            <prepare/>
+            <finalize output="result">data.res = result</finalize>
+            <update output="result">data.results ||= []
+    data.results &lt;&lt; result unless result.empty?</update>
+            <rescue output="result"/>
+          </code>
+          <annotations>
+            <_generic/>
+            <_timing>
+              <_timing_weight/>
+              <_timing_avg/>
+              <explanations/>
+            </_timing>
+            <_shifting>
+              <_shifting_type>Duration</_shifting_type>
+            </_shifting>
+            <_context_data_analysis>
+              <probes/>
+              <ips/>
+            </_context_data_analysis>
+            <report>
+              <url/>
+            </report>
+            <_notes>
+              <_notes_general/>
+            </_notes>
+          </annotations>
+          <documentation>
+            <input/>
+            <output/>
+            <implementation>
+              <description/>
+            </implementation>
+            <code>
+              <description/>
+            </code>
+          </documentation>
+        </call>
+        <stop id="a2"/>
+        <_probability>
+          <_probability_min/>
+          <_probability_max/>
+          <_probability_avg/>
+        </_probability>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-03T14:07:51.943832+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  time:timestamp: '2025-12-03T14:07:51.946528+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: worklist
+    value: https-post://cpee.org/worklist/server/
+  time:timestamp: '2025-12-03T14:07:51.954865+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: info
+    value: Worklist
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: extended
+  - name: organisation1
+    value: http://cpee.org/~demo/orgviz/organisation_informatik.xml
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: design_stage
+    value: development
+  - name: design_dir
+    value: Templates.dir
+  time:timestamp: '2025-12-03T14:07:51.957252+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="worklist">
+        <parameters>
+          <label>OK OR NOT OK</label>
+          <arguments>
+            <orgmodel>https://cpee.org/~demo/orgviz/organisation_informatik.xml</orgmodel>
+            <form>https://cpee.org/~demo/form/form-f.html</form>
+            <role>Assistant</role>
+            <priority>42</priority>
+            <handling>single</handling>
+            <restrictions/>
+            <data>
+              <schaden>10000</schaden>
+              <text>destroyed</text>
+            </data>
+          </arguments>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.bla = result</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+    </description>
+  cpee:change_uuid: 3b0ceb83d6b680d8ce6e7fc74c414e02afa2906f
+  time:timestamp: '2025-12-03T14:07:51.965963+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T14:07:52.234229+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="worklist">
+        <parameters>
+          <label>OK OR NOT OK</label>
+          <arguments>
+            <orgmodel>https://cpee.org/~demo/orgviz/organisation_informatik.xml</orgmodel>
+            <form>https://cpee.org/~demo/form/form-f.html</form>
+            <role>Assistant</role>
+            <priority>42</priority>
+            <handling>single</handling>
+            <restrictions/>
+            <data>
+              <schaden>10000</schaden>
+              <text>destroyed</text>
+            </data>
+          </arguments>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.bla = result</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T14:07:55.644501+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: extended
+  - name: guarded_id
+    value: ''
+  - name: info
+    value: Frames
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: model_uuid
+    value: 5ed82f61-a382-49b5-a420-c63e01d5a9f5
+  - name: model_version
+    value: ''
+  - name: design_dir
+    value: Templates.dir
+  - name: design_stage
+    value: development
+  - name: fid
+    value: gnd
+  time:timestamp: '2025-12-03T14:07:55.653554+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: res
+    value:
+      select_0: learned in class or from book
+      input_0: sadff
+      select_1: used on a class project
+      input_1: asdfsaf
+      input_2: sadfasdf
+  time:timestamp: '2025-12-03T14:07:55.647142+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: frames_init
+    value: https-post://cpee.org/out/frames/
+  - name: frames_display
+    value: https-put://cpee.org/out/frames/
+  time:timestamp: '2025-12-03T14:07:55.650453+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="frames_init">
+        <parameters>
+          <label>"Init Frame"</label>
+          <color/>
+          <arguments>
+            <style_url>https://cpee.org/form/frames.css</style_url>
+            <document_url/>
+            <x_amount>5</x_amount>
+            <y_amount>8</y_amount>
+            <lang>de-at</lang>
+            <document_name>Show Info</document_name>
+          </arguments>
+        </parameters>
+        <code>
+          <signal/>
+          <prepare>endpoints.frames_init += attributes.fid</prepare>
+          <finalize output="result"/>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <call id="a3" endpoint="frames_display">
+        <parameters>
+          <label>Clear </label>
+          <color/>
+          <arguments>
+            <type>set</type>
+            <lx>0</lx>
+            <ly>0</ly>
+            <x_amount>5</x_amount>
+            <y_amount>8</y_amount>
+            <button/>
+            <style/>
+            <urls/>
+            <default/>
+          </arguments>
+        </parameters>
+        <code>
+          <signal/>
+          <prepare>endpoints.frames_display += attributes.fid</prepare>
+          <finalize output="result"/>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <call id="a6" endpoint="frames_display">
+        <parameters>
+          <label>Show Header</label>
+          <color/>
+          <arguments>
+            <type>set</type>
+            <lx>0</lx>
+            <ly>0</ly>
+            <x_amount>5</x_amount>
+            <y_amount>1</y_amount>
+            <button/>
+            <style/>
+            <urls>
+              <urls_item>
+                <lang>de-at</lang>
+                <url>https://cpee.org/form/tum-header.html</url>
+              </urls_item>
+            </urls>
+            <default/>
+          </arguments>
+        </parameters>
+        <code>
+          <signal/>
+          <prepare>endpoints.frames_display += attributes.fid</prepare>
+          <finalize output="result"/>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <call id="a5" endpoint="frames_display">
+        <parameters>
+          <label>Display Graph</label>
+          <color/>
+          <arguments>
+            <type>set</type>
+            <lx>3</lx>
+            <ly>1</ly>
+            <x_amount>2</x_amount>
+            <y_amount>7</y_amount>
+            <button/>
+            <style/>
+            <urls>
+              <urls_item>
+                <lang>de-at</lang>
+                <url>!"https://cpee.org/flow/graph.html?monitor=" + cpee.instance_url</url>
+              </urls_item>
+            </urls>
+            <default/>
+          </arguments>
+        </parameters>
+        <code>
+          <signal/>
+          <prepare>endpoints.frames_display += attributes.fid</prepare>
+          <finalize output="result"/>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <loop mode="post_test" condition="true">
+        <_probability>
+          <_probability_min/>
+          <_probability_max/>
+          <_probability_avg/>
+        </_probability>
+        <call id="a2" endpoint="frames_display">
+          <parameters>
+            <label>Show Button</label>
+            <color/>
+            <arguments>
+              <type>wait</type>
+              <lx>0</lx>
+              <ly>1</ly>
+              <x_amount>1</x_amount>
+              <y_amount>1</y_amount>
+              <button/>
+              <style/>
+              <urls>
+                <urls_item>
+                  <lang>de-at</lang>
+                  <url>https://cpee.org/form/button.html</url>
+                </urls_item>
+              </urls>
+              <default/>
+            </arguments>
+          </parameters>
+          <code>
+            <signal/>
+            <prepare>endpoints.frames_display += attributes.fid</prepare>
+            <finalize output="result"/>
+            <update output="result"/>
+            <rescue output="result"/>
+          </code>
+          <annotations>
+            <_generic/>
+            <_timing>
+              <_timing_weight/>
+              <_timing_avg/>
+              <explanations/>
+            </_timing>
+            <_shifting>
+              <_shifting_type>Duration</_shifting_type>
+            </_shifting>
+            <_context_data_analysis>
+              <probes/>
+              <ips/>
+            </_context_data_analysis>
+            <report>
+              <url/>
+            </report>
+            <_notes>
+              <_notes_general/>
+            </_notes>
+          </annotations>
+          <documentation>
+            <input/>
+            <output/>
+            <implementation>
+              <description/>
+            </implementation>
+            <code>
+              <description/>
+            </code>
+          </documentation>
+        </call>
+        <call id="a8" endpoint="frames_display">
+          <parameters>
+            <label>Experience</label>
+            <color/>
+            <arguments>
+              <type>wait</type>
+              <lx>0</lx>
+              <ly>1</ly>
+              <x_amount>5</x_amount>
+              <y_amount>9</y_amount>
+              <button/>
+              <style/>
+              <urls>
+                <urls_item>
+                  <lang>de-at</lang>
+                  <url>https://cpee.org/quests/dataflow/questions.html</url>
+                </urls_item>
+              </urls>
+              <default>
+                <text_0>Please rate your **programming** experience with respect to the following 5-point levels:</text_0>
+                <select_0>no experience; learned in class or from book; used on a class project; used on one project in industry; used on multiple projects in industry</select_0>
+                <input_0>How many years of programming experience do you have?</input_0>
+                <text_1>Please rate your **modelling** experience with respect to the following 5-point levels:</text_1>
+                <select_1>no experience; learned in class or from book; used on a class project; used on one project in industry; used on multiple projects in industry</select_1>
+                <input_1>How many years of modelling experience do you have?</input_1>
+                <input_2>Which graphical modeling languages are you familiar with (e.g., UML, ER, etc.)?</input_2>
+              </default>
+            </arguments>
+          </parameters>
+          <code>
+            <signal/>
+            <prepare>endpoints.frames_display += attributes.fid</prepare>
+            <finalize output="result">data.res = result</finalize>
+            <update output="result"/>
+            <rescue output="result"/>
+          </code>
+          <annotations>
+            <_generic/>
+            <_timing>
+              <_timing_weight/>
+              <_timing_avg/>
+              <explanations/>
+            </_timing>
+            <_shifting>
+              <_shifting_type>Duration</_shifting_type>
+            </_shifting>
+            <_context_data_analysis>
+              <probes/>
+              <ips/>
+            </_context_data_analysis>
+            <report>
+              <url/>
+            </report>
+            <_notes>
+              <_notes_general/>
+            </_notes>
+          </annotations>
+          <documentation>
+            <input/>
+            <output/>
+            <implementation>
+              <description/>
+            </implementation>
+            <code>
+              <description/>
+            </code>
+          </documentation>
+        </call>
+        <call id="a7" endpoint="frames_display">
+          <parameters>
+            <label>Clear Button</label>
+            <color/>
+            <arguments>
+              <type>set</type>
+              <lx>0</lx>
+              <ly>1</ly>
+              <x_amount>1</x_amount>
+              <y_amount>1</y_amount>
+              <button/>
+              <style/>
+              <urls/>
+              <default/>
+            </arguments>
+          </parameters>
+          <code>
+            <signal/>
+            <prepare>endpoints.frames_display += attributes.fid</prepare>
+            <finalize output="result"/>
+            <update output="result"/>
+            <rescue output="result"/>
+          </code>
+          <annotations>
+            <_generic/>
+            <_timing>
+              <_timing_weight/>
+              <_timing_avg/>
+              <explanations/>
+            </_timing>
+            <_shifting>
+              <_shifting_type>Duration</_shifting_type>
+            </_shifting>
+            <_context_data_analysis>
+              <probes/>
+              <ips/>
+            </_context_data_analysis>
+            <report>
+              <url/>
+            </report>
+            <_notes>
+              <_notes_general/>
+            </_notes>
+          </annotations>
+          <documentation>
+            <input/>
+            <output/>
+            <implementation>
+              <description/>
+            </implementation>
+            <code>
+              <description/>
+            </code>
+          </documentation>
+        </call>
+        <stop id="a4"/>
+      </loop>
+    </description>
+  cpee:change_uuid: 6aa6746627d254fd2a9e100d8ac82395e6db5b9d
+  time:timestamp: '2025-12-03T14:07:55.665655+01:00'
+---
+event:
+  concept:instance: 76446
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 21b511d4-680d-4301-a673-871e843057d1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T14:07:55.951229+01:00'

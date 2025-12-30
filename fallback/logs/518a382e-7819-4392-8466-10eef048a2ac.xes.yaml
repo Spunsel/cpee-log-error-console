@@ -134,11 +134,11 @@ event:
   cpee:exposition: |-
     # User Input:
     1. Der Kunde gibt eine Bestellung auf.
-    2. Der Bestellprozess prüft, ob der Artikel auf Lager ist.
+    2. Der Bestellprozess prÃ¼ft, ob der Artikel auf Lager ist.
     3. Wenn der Artikel auf Lager ist, wird die Bestellung verpackt.
-    4. Wenn der Artikel nicht auf Lager ist, wird der Kunde benachrichtigt und die Bestellung wird zurückgestellt.
-    5. Der Artikel wird versendet, sobald er verfügbar ist.
-    6. Der Kunde erhält eine Versandbestätigung. 
+    4. Wenn der Artikel nicht auf Lager ist, wird der Kunde benachrichtigt und die Bestellung wird zurÃ¼ckgestellt.
+    5. Der Artikel wird versendet, sobald er verfÃ¼gbar ist.
+    6. Der Kunde erhÃ¤lt eine VersandbestÃ¤tigung.Â 
   time:timestamp: '2025-12-16T14:40:39.049950+01:00'
 ---
 event:
@@ -181,11 +181,11 @@ event:
       1:task:(Bestellung aufgeben) --> 2:exclusivegateway:{x}
       2:exclusivegateway:{x} --> |Artikel auf Lager| 3:task:(Bestellung verpacken)
       2:exclusivegateway:{x} --> |Artikel nicht auf Lager| 4:task:(Kunde benachrichtigen)
-      4:task:(Kunde benachrichtigen) --> 5:task:(Bestellung zurückstellen)
+      4:task:(Kunde benachrichtigen) --> 5:task:(Bestellung zurÃ¼ckstellen)
       3:task:(Bestellung verpacken) --> 6:task:(Artikel versenden)
-      5:task:(Bestellung zurückstellen) --> 6:task:(Artikel versenden)
-      6:task:(Artikel versenden) --> 7:task:(Versandbestätigung)
-      7:task:(Versandbestätigung) --> 8:endevent:(((endevent)))
+      5:task:(Bestellung zurÃ¼ckstellen) --> 6:task:(Artikel versenden)
+      6:task:(Artikel versenden) --> 7:task:(VersandbestÃ¤tigung)
+      7:task:(VersandbestÃ¤tigung) --> 8:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-16T14:40:39.051700+01:00'
 ---

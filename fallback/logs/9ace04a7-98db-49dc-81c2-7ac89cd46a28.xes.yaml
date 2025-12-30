@@ -1,0 +1,3401 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 83110
+    cpee:name: Plain Instance
+    cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-10T10:36:06.705627+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26fbf32b2865104fc6c7c9ac4e44fa34136fcb6d
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-10T10:36:45.726408+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>K&#xFC;che betreten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Rezept raussuchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zutaten zurechtlegen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Kochutensilien bereitlegen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Herdplatte 1 anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Nudelwasser aufsetzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Zwiebel schneiden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Knoblauch schneiden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Herdplatte 2 anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>&#xD6;l erhitzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Zwiebeln anschwitzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Mit passierten Tomaten abl&#xF6;schen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Gem&#xFC;sebr&#xFC;he hinzuf&#xFC;gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Nudelwasser salzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Nudeln in Nudelwasser geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Timer auf 7 min</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>So&#xDF;e w&#xFC;rzen mit Kr&#xE4;utern und Salz &amp; Pfeffer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>So&#xDF;e abschmecken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Herd 2 runterdrehen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="21">
+        <parameters>
+          <label>So&#xDF;e k&#xF6;cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="22">
+        <parameters>
+          <label>Teller und Besteck aus den Schr&#xE4;nken nehmen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Esszimmer betreten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Tisch decken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>K&#xFC;che betreten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Herdplatte 1 ausschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Nudeln in Nudelsieb abgie&#xDF;en</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Herdplatte 2 ausschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Nudeln zur So&#xDF;e</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Topf ins Esszimmer stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Hinsetzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>Essen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 26fbf32b2865104fc6c7c9ac4e44fa34136fcb6d
+  time:timestamp: '2025-12-10T10:36:45.726116+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26fbf32b2865104fc6c7c9ac4e44fa34136fcb6d
+  cpee:exposition: |-
+    # User Input:
+    Spaghetti Napoli
+
+    Â 
+
+    Â  Â  KÃ¼che betreten
+    Â  Â  Rezept raussuchen
+    Â  Â  Zutaten zurechtlegen
+    Â  Â  Â  Â  Spaghetti
+    Â  Â  Â  Â  Passierte Tomaten
+    Â  Â  Â  Â  Knoblauch
+    Â  Â  Â  Â  Zwiebeln
+    Â  Â  Â  Â  Parmesan
+    Â  Â  Â  Â  GewÃ¼rze
+    Â  Â  Â  Â  Wasser + Salz
+    Â  Â  Â  Â  Ã–l
+    Â  Â  Â  Â  GemÃ¼sebrÃ¼he
+    Â  Â  Kochutensilien bereitlegen
+    Â  Â  Â  Â  Topf
+    Â  Â  Â  Â  Topf
+    Â  Â  Â  Â  Brett
+    Â  Â  Â  Â  Messer
+    Â  Â  Â  Â  KochlÃ¶ffel
+    Â  Â  Â  Â  Nudelsieb
+    Â  Â  Â  Â  NudelschÃ¶pflÃ¶ffel
+    Â  Â  Herdplatte 1 anschalten
+    Â  Â  Nudelwasser aufsetzen
+    Â  Â  Zwiebel schneiden
+    Â  Â  Knoblauch schneiden
+    Â  Â  Herdplatte 2 anschalten
+    Â  Â  Ã–l erhitzen
+    Â  Â  Zwiebeln anschwitzen
+    Â  Â  Knoblauch andÃ¼nsten
+    Â  Â  Mit passierten Tomaten ablÃ¶schen
+    Â  Â  GemÃ¼sebrÃ¼he hinzufÃ¼gen
+    Â  Â  Nudelwasser salzen
+    Â  Â  Nudeln in Nudelwasser geben
+    Â  Â  Timer auf 7 min
+    Â  Â  SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz & Pfeffer
+    Â  Â  SoÃŸe abschmecken
+    Â  Â  Herd 2 runterdrehen
+    Â  Â  SoÃŸe kÃ¶cheln lassen
+    Â  Â  Teller und Besteck aus den SchrÃ¤nken nehmen
+    Â  Â  Â  Â  Tiefe Teller
+    Â  Â  Â  Â  LÃ¶ffel und Gabel
+    Â  Â  Â  Â  SchÃ¶pfkelle fÃ¼r Sauce
+    Â  Â  Â  Â  Nudelkelle
+    Â  Â  Esszimmer betreten
+    Â  Â  Tisch decken
+    Â  Â  KÃ¼che betreten
+    Â  Â  Herdplatte 1 ausschalten
+    Â  Â  Nudeln in Nudelsieb abgieÃŸen
+    Â  Â  Herdplatte 2 ausschalten
+    Â  Â  Nudeln zur SoÃŸe
+    Â  Â  Topf ins Esszimmer stellen
+    Â  Â  Hinsetzen
+    Â  Â  Essen
+  time:timestamp: '2025-12-10T10:36:45.727014+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26fbf32b2865104fc6c7c9ac4e44fa34136fcb6d
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:36:45.727216+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26fbf32b2865104fc6c7c9ac4e44fa34136fcb6d
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-10T10:36:45.727389+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26fbf32b2865104fc6c7c9ac4e44fa34136fcb6d
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(KÃ¼che betreten)
+      1:task:(KÃ¼che betreten) --> 2:task:(Rezept raussuchen)
+      2:task:(Rezept raussuchen) --> 3:task:(Zutaten zurechtlegen)
+      3:task:(Zutaten zurechtlegen) --> 4:task:(Kochutensilien bereitlegen)
+      4:task:(Kochutensilien bereitlegen) --> 5:task:(Herdplatte 1 anschalten)
+      5:task:(Herdplatte 1 anschalten) --> 6:task:(Nudelwasser aufsetzen)
+      6:task:(Nudelwasser aufsetzen) --> 7:task:(Zwiebel schneiden)
+      7:task:(Zwiebel schneiden) --> 8:task:(Knoblauch schneiden)
+      8:task:(Knoblauch schneiden) --> 9:task:(Herdplatte 2 anschalten)
+      9:task:(Herdplatte 2 anschalten) --> 10:task:(Ã–l erhitzen)
+      10:task:(Ã–l erhitzen) --> 11:task:(Zwiebeln anschwitzen)
+      11:task:(Zwiebeln anschwitzen) --> 12:task:(Knoblauch andÃ¼nsten)
+      12:task:(Knoblauch andÃ¼nsten) --> 13:task:(Mit passierten Tomaten ablÃ¶schen)
+      13:task:(Mit passierten Tomaten ablÃ¶schen) --> 14:task:(GemÃ¼sebrÃ¼he hinzufÃ¼gen)
+      14:task:(GemÃ¼sebrÃ¼he hinzufÃ¼gen) --> 15:task:(Nudelwasser salzen)
+      15:task:(Nudelwasser salzen) --> 16:task:(Nudeln in Nudelwasser geben)
+      16:task:(Nudeln in Nudelwasser geben) --> 17:task:(Timer auf 7 min)
+      17:task:(Timer auf 7 min) --> 18:task:(SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz & Pfeffer)
+      18:task:(SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz & Pfeffer) --> 19:task:(SoÃŸe abschmecken)
+      19:task:(SoÃŸe abschmecken) --> 20:task:(Herd 2 runterdrehen)
+      20:task:(Herd 2 runterdrehen) --> 21:task:(SoÃŸe kÃ¶cheln lassen)
+      21:task:(SoÃŸe kÃ¶cheln lassen) --> 22:task:(Teller und Besteck aus den SchrÃ¤nken nehmen)
+      22:task:(Teller und Besteck aus den SchrÃ¤nken nehmen) --> 23:task:(Esszimmer betreten)
+      23:task:(Esszimmer betreten) --> 24:task:(Tisch decken)
+      24:task:(Tisch decken) --> 25:task:(KÃ¼che betreten)
+      25:task:(KÃ¼che betreten) --> 26:task:(Herdplatte 1 ausschalten)
+      26:task:(Herdplatte 1 ausschalten) --> 27:task:(Nudeln in Nudelsieb abgieÃŸen)
+      27:task:(Nudeln in Nudelsieb abgieÃŸen) --> 28:task:(Herdplatte 2 ausschalten)
+      28:task:(Herdplatte 2 ausschalten) --> 29:task:(Nudeln zur SoÃŸe)
+      29:task:(Nudeln zur SoÃŸe) --> 30:task:(Topf ins Esszimmer stellen)
+      30:task:(Topf ins Esszimmer stellen) --> 31:task:(Hinsetzen)
+      31:task:(Hinsetzen) --> 32:task:(Essen)
+      32:task:(Essen) --> 33:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-10T10:36:45.727583+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26fbf32b2865104fc6c7c9ac4e44fa34136fcb6d
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>K&#xFC;che betreten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Rezept raussuchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zutaten zurechtlegen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Kochutensilien bereitlegen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Herdplatte 1 anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Nudelwasser aufsetzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Zwiebel schneiden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Knoblauch schneiden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Herdplatte 2 anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>&#xD6;l erhitzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Zwiebeln anschwitzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Mit passierten Tomaten abl&#xF6;schen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Gem&#xFC;sebr&#xFC;he hinzuf&#xFC;gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Nudelwasser salzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Nudeln in Nudelwasser geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Timer auf 7 min</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>So&#xDF;e w&#xFC;rzen mit Kr&#xE4;utern und Salz &amp; Pfeffer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>So&#xDF;e abschmecken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Herd 2 runterdrehen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="21">
+        <parameters>
+          <label>So&#xDF;e k&#xF6;cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="22">
+        <parameters>
+          <label>Teller und Besteck aus den Schr&#xE4;nken nehmen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Esszimmer betreten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Tisch decken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>K&#xFC;che betreten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Herdplatte 1 ausschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Nudeln in Nudelsieb abgie&#xDF;en</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Herdplatte 2 ausschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Nudeln zur So&#xDF;e</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Topf ins Esszimmer stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Hinsetzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>Essen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:36:45.727761+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-12-10T10:37:46.991388+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>KÃ¼che betreten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Rezept raussuchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zutaten zurechtlegen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Kochutensilien bereitlegen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Herdplatte 1 anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Nudelwasser aufsetzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Zwiebel schneiden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Knoblauch schneiden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Herdplatte 2 anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Ã–l erhitzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Zwiebeln anschwitzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Knoblauch andÃ¼nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Mit passierten Tomaten ablÃ¶schen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>GemÃ¼sebrÃ¼he hinzufÃ¼gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Nudelwasser salzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Nudeln in Nudelwasser geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Timer auf 7 min</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz &amp; Pfeffer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>SoÃŸe abschmecken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Herd 2 runterdrehen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="21">
+        <parameters>
+          <label>SoÃŸe kÃ¶cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="22">
+        <parameters>
+          <label>Teller und Besteck aus den SchrÃ¤nken nehmen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Esszimmer betreten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Tisch decken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>KÃ¼che betreten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Herdplatte 1 ausschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Nudeln in Nudelsieb abgieÃŸen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Herdplatte 2 ausschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Nudeln zur SoÃŸe</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Topf ins Esszimmer stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Hinsetzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>Essen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:37:46.991587+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    lÃ¶sche alles
+  time:timestamp: '2025-12-10T10:37:46.992003+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:37:46.992332+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(KÃ¼che betreten)
+    a1:task:(KÃ¼che betreten)-->a3:task:(Rezept raussuchen)
+    a3:task:(Rezept raussuchen)-->a5:task:(Zutaten zurechtlegen)
+    a5:task:(Zutaten zurechtlegen)-->a7:task:(Kochutensilien bereitlegen)
+    a7:task:(Kochutensilien bereitlegen)-->a9:task:(Herdplatte 1 anschalten)
+    a9:task:(Herdplatte 1 anschalten)-->a11:task:(Nudelwasser aufsetzen)
+    a11:task:(Nudelwasser aufsetzen)-->a13:task:(Zwiebel schneiden)
+    a13:task:(Zwiebel schneiden)-->a15:task:(Knoblauch schneiden)
+    a15:task:(Knoblauch schneiden)-->a17:task:(Herdplatte 2 anschalten)
+    a17:task:(Herdplatte 2 anschalten)-->a19:task:(Ã–l erhitzen)
+    a19:task:(Ã–l erhitzen)-->a21:task:(Zwiebeln anschwitzen)
+    a21:task:(Zwiebeln anschwitzen)-->a23:task:(Knoblauch andÃ¼nsten)
+    a23:task:(Knoblauch andÃ¼nsten)-->a25:task:(Mit passierten Tomaten ablÃ¶schen)
+    a25:task:(Mit passierten Tomaten ablÃ¶schen)-->a27:task:(GemÃ¼sebrÃ¼he hinzufÃ¼gen)
+    a27:task:(GemÃ¼sebrÃ¼he hinzufÃ¼gen)-->a29:task:(Nudelwasser salzen)
+    a29:task:(Nudelwasser salzen)-->a31:task:(Nudeln in Nudelwasser geben)
+    a31:task:(Nudeln in Nudelwasser geben)-->a33:task:(Timer auf 7 min)
+    a33:task:(Timer auf 7 min)-->a35:task:(SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz & Pfeffer)
+    a35:task:(SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz & Pfeffer)-->a37:task:(SoÃŸe abschmecken)
+    a37:task:(SoÃŸe abschmecken)-->a39:task:(Herd 2 runterdrehen)
+    a39:task:(Herd 2 runterdrehen)-->a41:task:(SoÃŸe kÃ¶cheln lassen)
+    a41:task:(SoÃŸe kÃ¶cheln lassen)-->a43:task:(Teller und Besteck aus den SchrÃ¤nken nehmen)
+    a43:task:(Teller und Besteck aus den SchrÃ¤nken nehmen)-->a45:task:(Esszimmer betreten)
+    a45:task:(Esszimmer betreten)-->a47:task:(Tisch decken)
+    a47:task:(Tisch decken)-->a49:task:(KÃ¼che betreten)
+    a49:task:(KÃ¼che betreten)-->a51:task:(Herdplatte 1 ausschalten)
+    a51:task:(Herdplatte 1 ausschalten)-->a53:task:(Nudeln in Nudelsieb abgieÃŸen)
+    a53:task:(Nudeln in Nudelsieb abgieÃŸen)-->a55:task:(Herdplatte 2 ausschalten)
+    a55:task:(Herdplatte 2 ausschalten)-->a57:task:(Nudeln zur SoÃŸe)
+    a57:task:(Nudeln zur SoÃŸe)-->a59:task:(Topf ins Esszimmer stellen)
+    a59:task:(Topf ins Esszimmer stellen)-->a61:task:(Hinsetzen)
+    a61:task:(Hinsetzen)-->a63:task:(Essen)
+    a63:task:(Essen)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-10T10:37:46.992725+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-12-10T10:37:46.995099+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-10T10:37:46.995223+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Saut&#xE9; Onion and Garlic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Add Tomato Paste</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Add Canned Tomatoes and Spices</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Simmer Sauce</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Boil Water</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Cook Pasta</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Drain Pasta</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a21" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Set the Table</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Place Pasta and Sauce on Table</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 642518c719ff3334d3322a078a119f3aac21df47
+  time:timestamp: '2025-12-10T10:38:07.334455+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 642518c719ff3334d3322a078a119f3aac21df47
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-10T10:38:07.334669+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 642518c719ff3334d3322a078a119f3aac21df47
+  cpee:exposition: |+
+    # User Input:
+    Ziel: Spaghetti Napoli kochen fÃ¼r zwei Personen, Zeitbedarf ca. 30 Minuten
+    Folgende Zutaten werden benÃ¶tigt: 2 Dosentomaten (2 Dosen Ã  250 Gramm, gehackt), jeweils eine Prise Salz, Pfeffer, KrÃ¤uter (Oregano), Tomatenmark (2 EsslÃ¶ffel), Ã–l (2 EsslÃ¶ffel), Zwiebel (eine kleine Zwiebel), Knoblauch (1 Zehe), Nudeln (Spaghetti, 250 Gramm).
+    Folgende Utensilien werden benÃ¶tigt: Kochtopf fÃ¼r 2 Liter (Nudeln), Kochtopf fÃ¼r SoÃŸe fÃ¼r 1 Liter, RÃ¼hrlÃ¶ffel, Schneidemesser, Nudelsieb, Pastateller, Besteck (Gabel, LÃ¶ffel), Servietten, GlÃ¤ser
+    In der KÃ¼che
+    FÃ¼r die Zubereitung der SoÃŸe werden die Zwiebeln und der Knoblauch fein gehackt und in Ã–l im Kochtopf angedÃ¼nstet. Tomatenmark hinzufÃ¼gen und mit andÃ¼nsten. Mit den gehackten Tomaten aus der Dose auffÃ¼llen und wÃ¼rzen (Salz, Pfeffer, KrÃ¤uter). Die SoÃŸe 30 Minuten bei niedriger Hitze kÃ¶cheln, ggf nach dieser Zeit nachwÃ¼rzen oder pÃ¼rieren (je nach Geschmack). In der Zwischenzeit im Nudeltopf 2 Liter Wasser leicht salzen und zum Kochen bringen. Nudeln nach Anweisung (je nach Herstellerangaben auf der Verpackung) kochen. Nach Kochzeit absieben. Nudeln (je nach Belieben) nochmals in Butter schwenken.Â 
+
+    Servieren am Tisch
+    Tisch mit 2 Pastatellern, Besteck (2x Gabel und 2x LÃ¶ffel), GlÃ¤ser, Servietten decken. Nudeln in SchÃ¼ssel mit Nudelzange versehen und auf den Tisch stellen.
+    SoÃŸe in SchÃ¼ssel mit SchÃ¶pflÃ¶ffel auf den Tisch stellen.Â 
+
+
+
+  time:timestamp: '2025-12-10T10:38:07.335014+01:00'
+...
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 642518c719ff3334d3322a078a119f3aac21df47
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:38:07.335636+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 642518c719ff3334d3322a078a119f3aac21df47
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-10T10:38:07.335891+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 642518c719ff3334d3322a078a119f3aac21df47
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Prepare Ingredients)
+      1:task:(Prepare Ingredients) --> 2:task:(SautÃ© Onion and Garlic)
+      2:task:(SautÃ© Onion and Garlic) --> 3:task:(Add Tomato Paste)
+      3:task:(Add Tomato Paste) --> 4:task:(Add Canned Tomatoes and Spices)
+      4:task:(Add Canned Tomatoes and Spices) --> 5:task:(Simmer Sauce)
+      5:task:(Simmer Sauce) --> 6:task:(Boil Water)
+      6:task:(Boil Water) --> 7:task:(Cook Pasta)
+      7:task:(Cook Pasta) --> 8:task:(Drain Pasta)
+      8:task:(Drain Pasta) --> 9:parallelgateway:{AND}
+      5:task:(Simmer Sauce) --> 9:parallelgateway:{AND}
+      9:parallelgateway:{AND} --> 10:task:(Set the Table)
+      10:task:(Set the Table) --> 11:task:(Place Pasta and Sauce on Table)
+      11:task:(Place Pasta and Sauce on Table) --> 12:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-10T10:38:07.336054+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 642518c719ff3334d3322a078a119f3aac21df47
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Saut&#xE9; Onion and Garlic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Add Tomato Paste</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Add Canned Tomatoes and Spices</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Simmer Sauce</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Boil Water</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Cook Pasta</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Drain Pasta</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a21" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Set the Table</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Place Pasta and Sauce on Table</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:38:07.336165+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Zwiebel und Knoblauch anbraten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Tomatenmark hinzuf&#xFC;gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Dosentomaten und Gew&#xFC;rze hinzuf&#xFC;gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>So&#xDF;e k&#xF6;cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Wasser kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Pasta kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Pasta abgie&#xDF;en</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="" language="text/javascript"/>
+      </choose>
+      <call id="a23" endpoint="" a:alt_id="a21">
+        <parameters>
+          <label>Tisch decken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="a23">
+        <parameters>
+          <label>Pasta und So&#xDF;e auf den Tisch stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: '01679c672ed5d7ccd4905a2516b7e8fcb4bf5662'
+  time:timestamp: '2025-12-10T10:38:39.286039+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01679c672ed5d7ccd4905a2516b7e8fcb4bf5662'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>SautÃ© Onion and Garlic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Add Tomato Paste</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Add Canned Tomatoes and Spices</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Simmer Sauce</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Boil Water</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Cook Pasta</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Drain Pasta</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a21" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Set the Table</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Place Pasta and Sauce on Table</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:38:39.286302+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01679c672ed5d7ccd4905a2516b7e8fcb4bf5662'
+  cpee:exposition: |-
+    # User Input:
+    bitte alle labels auf deutsch
+  time:timestamp: '2025-12-10T10:38:39.287234+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01679c672ed5d7ccd4905a2516b7e8fcb4bf5662'
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:38:39.287441+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01679c672ed5d7ccd4905a2516b7e8fcb4bf5662'
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->a3:task:(SautÃ© Onion and Garlic)
+    a3:task:(SautÃ© Onion and Garlic)-->a5:task:(Add Tomato Paste)
+    a5:task:(Add Tomato Paste)-->a7:task:(Add Canned Tomatoes and Spices)
+    a7:task:(Add Canned Tomatoes and Spices)-->a9:task:(Simmer Sauce)
+    a9:task:(Simmer Sauce)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|a11:task:(Boil Water)
+    a11:task:(Boil Water)-->a13:task:(Cook Pasta)
+    a13:task:(Cook Pasta)-->a15:task:(Drain Pasta)
+    a15:task:(Drain Pasta)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a21:task:(Set the Table)
+    a21:task:(Set the Table)-->a23:task:(Place Pasta and Sauce on Table)
+    a23:task:(Place Pasta and Sauce on Table)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-10T10:38:39.287576+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01679c672ed5d7ccd4905a2516b7e8fcb4bf5662'
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Zutaten vorbereiten)
+    a1:task:(Zutaten vorbereiten)-->a3:task:(Zwiebel und Knoblauch anbraten)
+    a3:task:(Zwiebel und Knoblauch anbraten)-->a5:task:(Tomatenmark hinzufÃ¼gen)
+    a5:task:(Tomatenmark hinzufÃ¼gen)-->a7:task:(Dosentomaten und GewÃ¼rze hinzufÃ¼gen)
+    a7:task:(Dosentomaten und GewÃ¼rze hinzufÃ¼gen)-->a9:task:(SoÃŸe kÃ¶cheln lassen)
+    a9:task:(SoÃŸe kÃ¶cheln lassen)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|a11:task:(Wasser kochen)
+    a11:task:(Wasser kochen)-->a13:task:(Pasta kochen)
+    a13:task:(Pasta kochen)-->a15:task:(Pasta abgieÃŸen)
+    a15:task:(Pasta abgieÃŸen)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a21:task:(Tisch decken)
+    a21:task:(Tisch decken)-->a23:task:(Pasta und SoÃŸe auf den Tisch stellen)
+    a23:task:(Pasta und SoÃŸe auf den Tisch stellen)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-12-10T10:38:39.287721+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01679c672ed5d7ccd4905a2516b7e8fcb4bf5662'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Zwiebel und Knoblauch anbraten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Tomatenmark hinzuf&#xFC;gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Dosentomaten und Gew&#xFC;rze hinzuf&#xFC;gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>So&#xDF;e k&#xF6;cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Wasser kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Pasta kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Pasta abgie&#xDF;en</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="" language="text/javascript"/>
+      </choose>
+      <call id="a23" endpoint="" a:alt_id="a21">
+        <parameters>
+          <label>Tisch decken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="a23">
+        <parameters>
+          <label>Pasta und So&#xDF;e auf den Tisch stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:38:39.287872+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-12-10T10:39:31.922450+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Zwiebel und Knoblauch anbraten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Tomatenmark hinzufÃ¼gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Dosentomaten und GewÃ¼rze hinzufÃ¼gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>SoÃŸe kÃ¶cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Wasser kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Pasta kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Pasta abgieÃŸen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="" language="text/javascript"/>
+      </choose>
+      <call id="a23" endpoint="" a:alt_id="a21">
+        <parameters>
+          <label>Tisch decken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="a23">
+        <parameters>
+          <label>Pasta und SoÃŸe auf den Tisch stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:39:31.922605+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    lÃ¶sche alles
+  time:timestamp: '2025-12-10T10:39:31.922965+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:39:31.923074+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Zutaten vorbereiten)
+    a1:task:(Zutaten vorbereiten)-->a3:task:(Zwiebel und Knoblauch anbraten)
+    a3:task:(Zwiebel und Knoblauch anbraten)-->a5:task:(Tomatenmark hinzufÃ¼gen)
+    a5:task:(Tomatenmark hinzufÃ¼gen)-->a7:task:(Dosentomaten und GewÃ¼rze hinzufÃ¼gen)
+    a7:task:(Dosentomaten und GewÃ¼rze hinzufÃ¼gen)-->a9:task:(SoÃŸe kÃ¶cheln lassen)
+    a9:task:(SoÃŸe kÃ¶cheln lassen)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|a13:task:(Wasser kochen)
+    a13:task:(Wasser kochen)-->a15:task:(Pasta kochen)
+    a15:task:(Pasta kochen)-->a17:task:(Pasta abgieÃŸen)
+    a17:task:(Pasta abgieÃŸen)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a23:task:(Tisch decken)
+    a23:task:(Tisch decken)-->a25:task:(Pasta und SoÃŸe auf den Tisch stellen)
+    a25:task:(Pasta und SoÃŸe auf den Tisch stellen)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-10T10:39:31.923175+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    %% Output Intermediate
+    flowchart LR
+  time:timestamp: '2025-12-10T10:39:31.923277+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-10T10:39:31.923371+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Chop Onion and Garlic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Saut&#xE9; Onion and Garlic in Oil</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Add Tomato Paste and Saut&#xE9;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Add Chopped Tomatoes and Season</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Simmer Sauce for 30 Minutes</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="6">
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Boil Water with Salt</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Cook Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Drain Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Toss Spaghetti in Butter</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="11">
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Place Spaghetti on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a27" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Place Sauce on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Set Table with Plates, Cutlery, Glasses, Napkins</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: da68f2c0919523f06af3dd333d015c7162dd1262
+  time:timestamp: '2025-12-10T10:39:54.012807+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da68f2c0919523f06af3dd333d015c7162dd1262
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-10T10:39:54.013144+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da68f2c0919523f06af3dd333d015c7162dd1262
+  cpee:exposition: |+
+    # User Input:
+    Ziel: Spaghetti Napoli kochen fÃ¼r zwei Personen, Zeitbedarf ca. 30 Minuten
+    Folgende Zutaten werden benÃ¶tigt: 2 Dosentomaten (2 Dosen Ã  250 Gramm, gehackt), jeweils eine Prise Salz, Pfeffer, KrÃ¤uter (Oregano), Tomatenmark (2 EsslÃ¶ffel), Ã–l (2 EsslÃ¶ffel), Zwiebel (eine kleine Zwiebel), Knoblauch (1 Zehe), Nudeln (Spaghetti, 250 Gramm).
+    Folgende Utensilien werden benÃ¶tigt: Kochtopf fÃ¼r 2 Liter (Nudeln), Kochtopf fÃ¼r SoÃŸe fÃ¼r 1 Liter, RÃ¼hrlÃ¶ffel, Schneidemesser, Nudelsieb, Pastateller, Besteck (Gabel, LÃ¶ffel), Servietten, GlÃ¤ser
+    In der KÃ¼che
+    FÃ¼r die Zubereitung der SoÃŸe werden die Zwiebeln und der Knoblauch fein gehackt und in Ã–l im Kochtopf angedÃ¼nstet. Tomatenmark hinzufÃ¼gen und mit andÃ¼nsten. Mit den gehackten Tomaten aus der Dose auffÃ¼llen und wÃ¼rzen (Salz, Pfeffer, KrÃ¤uter). Die SoÃŸe 30 Minuten bei niedriger Hitze kÃ¶cheln, ggf nach dieser Zeit nachwÃ¼rzen oder pÃ¼rieren (je nach Geschmack). In der Zwischenzeit im Nudeltopf 2 Liter Wasser leicht salzen und zum Kochen bringen. Nudeln nach Anweisung (je nach Herstellerangaben auf der Verpackung) kochen. Nach Kochzeit absieben. Nudeln (je nach Belieben) nochmals in Butter schwenken.Â 
+
+    Servieren am Tisch
+    Tisch mit 2 Pastatellern, Besteck (2x Gabel und 2x LÃ¶ffel), GlÃ¤ser, Servietten decken. Nudeln in SchÃ¼ssel mit Nudelzange versehen und auf den Tisch stellen.
+    SoÃŸe in SchÃ¼ssel mit SchÃ¶pflÃ¶ffel auf den Tisch stellen.Â 
+
+
+
+  time:timestamp: '2025-12-10T10:39:54.013932+01:00'
+...
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da68f2c0919523f06af3dd333d015c7162dd1262
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2025-12-10T10:39:54.014113+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da68f2c0919523f06af3dd333d015c7162dd1262
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-10T10:39:54.014239+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da68f2c0919523f06af3dd333d015c7162dd1262
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((Start))
+      1:task:(Chop Onion and Garlic)
+      2:task:(SautÃ© Onion and Garlic in Oil)
+      3:task:(Add Tomato Paste and SautÃ©)
+      4:task:(Add Chopped Tomatoes and Season)
+      5:task:(Simmer Sauce for 30 Minutes)
+      6:parallelgateway:{AND}
+      7:task:(Boil Water with Salt)
+      8:task:(Cook Spaghetti)
+      9:task:(Drain Spaghetti)
+      10:task:(Toss Spaghetti in Butter)
+      11:parallelgateway:{AND}
+      12:task:(Set Table with Plates, Cutlery, Glasses, Napkins)
+      13:task:(Place Spaghetti on Table)
+      14:task:(Place Sauce on Table)
+      15:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Chop Onion and Garlic)
+      1:task:(Chop Onion and Garlic) --> 2:task:(SautÃ© Onion and Garlic in Oil)
+      2:task:(SautÃ© Onion and Garlic in Oil) --> 3:task:(Add Tomato Paste and SautÃ©)
+      3:task:(Add Tomato Paste and SautÃ©) --> 4:task:(Add Chopped Tomatoes and Season)
+      4:task:(Add Chopped Tomatoes and Season) --> 5:task:(Simmer Sauce for 30 Minutes)
+      5:task:(Simmer Sauce for 30 Minutes) --> 6:parallelgateway:{AND}
+      6:parallelgateway:{AND} --> 7:task:(Boil Water with Salt)
+      6:parallelgateway:{AND} --> 12:task:(Set Table with Plates, Cutlery, Glasses, Napkins)
+      7:task:(Boil Water with Salt) --> 8:task:(Cook Spaghetti)
+      8:task:(Cook Spaghetti) --> 9:task:(Drain Spaghetti)
+      9:task:(Drain Spaghetti) --> 10:task:(Toss Spaghetti in Butter)
+      10:task:(Toss Spaghetti in Butter) --> 11:parallelgateway:{AND}
+      11:parallelgateway:{AND} --> 13:task:(Place Spaghetti on Table)
+      11:parallelgateway:{AND} --> 14:task:(Place Sauce on Table)
+      12:task:(Set Table with Plates, Cutlery, Glasses, Napkins) --> 15:endevent:(((End))
+      13:task:(Place Spaghetti on Table) --> 15:endevent:(((End))
+      14:task:(Place Sauce on Table) --> 15:endevent:(((End))
+  time:timestamp: '2025-12-10T10:39:54.014363+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da68f2c0919523f06af3dd333d015c7162dd1262
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Chop Onion and Garlic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Saut&#xE9; Onion and Garlic in Oil</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Add Tomato Paste and Saut&#xE9;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Add Chopped Tomatoes and Season</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Simmer Sauce for 30 Minutes</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="6">
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Boil Water with Salt</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Cook Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Drain Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Toss Spaghetti in Butter</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="11">
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Place Spaghetti on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a27" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Place Sauce on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Set Table with Plates, Cutlery, Glasses, Napkins</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-10T10:39:54.014506+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Chop Onion and Garlic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Saut&#xE9; Onion and Garlic in Oil</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Add Tomato Paste and Saut&#xE9;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Add Chopped Tomatoes and Season</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Simmer Sauce for 30 Minutes</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Boil Water with Salt</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Cook Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Drain Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Toss Spaghetti in Butter</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a23" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Place Spaghetti on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a27" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Place Sauce on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a33" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Set Table with Plates, Cutlery, Glasses, Napkins</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: 937ef7ead9fe8ceea78fe45a0356b741c522fc72
+  time:timestamp: '2025-12-10T10:40:53.203817+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 937ef7ead9fe8ceea78fe45a0356b741c522fc72
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Chop Onion and Garlic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>SautÃ© Onion and Garlic in Oil</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Add Tomato Paste and SautÃ©</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Add Chopped Tomatoes and Season</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Simmer Sauce for 30 Minutes</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="6">
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Boil Water with Salt</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Cook Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Drain Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Toss Spaghetti in Butter</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="11">
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Place Spaghetti on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a27" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Place Sauce on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Set Table with Plates, Cutlery, Glasses, Napkins</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-10T10:40:53.204073+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 937ef7ead9fe8ceea78fe45a0356b741c522fc72
+  cpee:exposition: |-
+    # User Input:
+    labels bitte auf deutsch
+  time:timestamp: '2025-12-10T10:40:53.204240+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 937ef7ead9fe8ceea78fe45a0356b741c522fc72
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:40:53.204336+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 937ef7ead9fe8ceea78fe45a0356b741c522fc72
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Chop Onion and Garlic)
+    a1:task:(Chop Onion and Garlic)-->a3:task:(SautÃ© Onion and Garlic in Oil)
+    a3:task:(SautÃ© Onion and Garlic in Oil)-->a5:task:(Add Tomato Paste and SautÃ©)
+    a5:task:(Add Tomato Paste and SautÃ©)-->a7:task:(Add Chopped Tomatoes and Season)
+    a7:task:(Add Chopped Tomatoes and Season)-->a9:task:(Simmer Sauce for 30 Minutes)
+    a9:task:(Simmer Sauce for 30 Minutes)-->gw1s:parallelgateway:{AND}
+    -->a13:task:(Boil Water with Salt)
+    a13:task:(Boil Water with Salt)-->a17:task:(Cook Spaghetti)
+    a17:task:(Cook Spaghetti)-->a19:task:(Drain Spaghetti)
+    a19:task:(Drain Spaghetti)-->a21:task:(Toss Spaghetti in Butter)
+    a21:task:(Toss Spaghetti in Butter)-->gw2s:parallelgateway:{AND}
+    -->a25:task:(Place Spaghetti on Table)
+    a25:task:(Place Spaghetti on Table)-->gw2e:parallelgateway:{AND}
+    -->a27:task:(Place Sauce on Table)
+    a27:task:(Place Sauce on Table)-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->gw1e:parallelgateway:{AND}
+    -->a15:task:(Set Table with Plates, Cutlery, Glasses, Napkins)
+    a15:task:(Set Table with Plates, Cutlery, Glasses, Napkins)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-10T10:40:53.204419+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 937ef7ead9fe8ceea78fe45a0356b741c522fc72
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Chop Onion and Garlic)
+        a1:task:(Chop Onion and Garlic)-->a3:task:(SautÃ© Onion and Garlic in Oil)
+        a3:task:(SautÃ© Onion and Garlic in Oil)-->a5:task:(Add Tomato Paste and SautÃ©)
+        a5:task:(Add Tomato Paste and SautÃ©)-->a7:task:(Add Chopped Tomatoes and Season)
+        a7:task:(Add Chopped Tomatoes and Season)-->a9:task:(Simmer Sauce for 30 Minutes)
+        a9:task:(Simmer Sauce for 30 Minutes)-->gw1s:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND}-->a13:task:(Boil Water with Salt)
+        a13:task:(Boil Water with Salt)-->a17:task:(Cook Spaghetti)
+        a17:task:(Cook Spaghetti)-->a19:task:(Drain Spaghetti)
+        a19:task:(Drain Spaghetti)-->a21:task:(Toss Spaghetti in Butter)
+        a21:task:(Toss Spaghetti in Butter)-->gw2s:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a25:task:(Place Spaghetti on Table)
+        a25:task:(Place Spaghetti on Table)-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a27:task:(Place Sauce on Table)
+        a27:task:(Place Sauce on Table)-->gw2e:parallelgateway:{AND}
+        gw2e:parallelgateway:{AND}-->gw1e:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND}-->a15:task:(Set Table with Plates, Cutlery, Glasses, Napkins)
+        a15:task:(Set Table with Plates, Cutlery, Glasses, Napkins)-->gw1e:parallelgateway:{AND}
+        gw1e:parallelgateway:{AND}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-10T10:40:53.204560+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 937ef7ead9fe8ceea78fe45a0356b741c522fc72
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Chop Onion and Garlic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Saut&#xE9; Onion and Garlic in Oil</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Add Tomato Paste and Saut&#xE9;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Add Chopped Tomatoes and Season</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Simmer Sauce for 30 Minutes</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Boil Water with Salt</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Cook Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Drain Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Toss Spaghetti in Butter</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a23" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Place Spaghetti on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a27" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Place Sauce on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a33" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Set Table with Plates, Cutlery, Glasses, Napkins</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-10T10:40:53.204690+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-12-10T10:41:15.032270+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Chop Onion and Garlic</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>SautÃ© Onion and Garlic in Oil</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Add Tomato Paste and SautÃ©</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Add Chopped Tomatoes and Season</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Simmer Sauce for 30 Minutes</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Boil Water with Salt</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Cook Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Drain Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Toss Spaghetti in Butter</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a23" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Place Spaghetti on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a27" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Place Sauce on Table</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a33" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Set Table with Plates, Cutlery, Glasses, Napkins</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-12-10T10:41:15.032422+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    lÃ¶sche alles
+  time:timestamp: '2025-12-10T10:41:15.032816+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:41:15.032912+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Chop Onion and Garlic)
+    a1:task:(Chop Onion and Garlic)-->a3:task:(SautÃ© Onion and Garlic in Oil)
+    a3:task:(SautÃ© Onion and Garlic in Oil)-->a5:task:(Add Tomato Paste and SautÃ©)
+    a5:task:(Add Tomato Paste and SautÃ©)-->a7:task:(Add Chopped Tomatoes and Season)
+    a7:task:(Add Chopped Tomatoes and Season)-->a9:task:(Simmer Sauce for 30 Minutes)
+    a9:task:(Simmer Sauce for 30 Minutes)-->gw1s:parallelgateway:{AND}
+    -->a13:task:(Boil Water with Salt)
+    a13:task:(Boil Water with Salt)-->a15:task:(Cook Spaghetti)
+    a15:task:(Cook Spaghetti)-->a17:task:(Drain Spaghetti)
+    a17:task:(Drain Spaghetti)-->a19:task:(Toss Spaghetti in Butter)
+    a19:task:(Toss Spaghetti in Butter)-->gw2s:parallelgateway:{AND}
+    -->a23:task:(Place Spaghetti on Table)
+    a23:task:(Place Spaghetti on Table)-->gw2e:parallelgateway:{AND}
+    -->a27:task:(Place Sauce on Table)
+    a27:task:(Place Sauce on Table)-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->gw1e:parallelgateway:{AND}
+    -->a33:task:(Set Table with Plates, Cutlery, Glasses, Napkins)
+    a33:task:(Set Table with Plates, Cutlery, Glasses, Napkins)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-10T10:41:15.033027+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-12-10T10:41:15.033135+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-10T10:41:15.033220+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Zwiebeln und Knoblauch hacken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zwiebeln und Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Tomatenmark hinzuf&#xFC;gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Gehackte Tomaten hinzuf&#xFC;gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>So&#xDF;e w&#xFC;rzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>So&#xDF;e k&#xF6;cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="8">
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Wasser salzen und kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Nudeln absieben</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Nudeln in Butter schwenken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Nudeln servieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>So&#xDF;e servieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 1021d40154546250735ef4fce3fa4a2335ea92f7
+  time:timestamp: '2025-12-10T10:41:55.838746+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1021d40154546250735ef4fce3fa4a2335ea92f7
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-10T10:41:55.838948+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1021d40154546250735ef4fce3fa4a2335ea92f7
+  cpee:exposition: |+
+    # User Input:
+    bitte labels des prozesses auf deutsch: Ziel: Spaghetti Napoli kochen fÃ¼r zwei Personen, Zeitbedarf ca. 30 Minuten
+    Folgende Zutaten werden benÃ¶tigt: 2 Dosentomaten (2 Dosen Ã  250 Gramm, gehackt), jeweils eine Prise Salz, Pfeffer, KrÃ¤uter (Oregano), Tomatenmark (2 EsslÃ¶ffel), Ã–l (2 EsslÃ¶ffel), Zwiebel (eine kleine Zwiebel), Knoblauch (1 Zehe), Nudeln (Spaghetti, 250 Gramm).
+    Folgende Utensilien werden benÃ¶tigt: Kochtopf fÃ¼r 2 Liter (Nudeln), Kochtopf fÃ¼r SoÃŸe fÃ¼r 1 Liter, RÃ¼hrlÃ¶ffel, Schneidemesser, Nudelsieb, Pastateller, Besteck (Gabel, LÃ¶ffel), Servietten, GlÃ¤ser
+    In der KÃ¼che
+    FÃ¼r die Zubereitung der SoÃŸe werden die Zwiebeln und der Knoblauch fein gehackt und in Ã–l im Kochtopf angedÃ¼nstet. Tomatenmark hinzufÃ¼gen und mit andÃ¼nsten. Mit den gehackten Tomaten aus der Dose auffÃ¼llen und wÃ¼rzen (Salz, Pfeffer, KrÃ¤uter). Die SoÃŸe 30 Minuten bei niedriger Hitze kÃ¶cheln, ggf nach dieser Zeit nachwÃ¼rzen oder pÃ¼rieren (je nach Geschmack). In der Zwischenzeit im Nudeltopf 2 Liter Wasser leicht salzen und zum Kochen bringen. Nudeln nach Anweisung (je nach Herstellerangaben auf der Verpackung) kochen. Nach Kochzeit absieben. Nudeln (je nach Belieben) nochmals in Butter schwenken.Â 
+
+    Servieren am Tisch
+    Tisch mit 2 Pastatellern, Besteck (2x Gabel und 2x LÃ¶ffel), GlÃ¤ser, Servietten decken. Nudeln in SchÃ¼ssel mit Nudelzange versehen und auf den Tisch stellen.
+    SoÃŸe in SchÃ¼ssel mit SchÃ¶pflÃ¶ffel auf den Tisch stellen.Â 
+
+
+
+
+  time:timestamp: '2025-12-10T10:41:55.839052+01:00'
+...
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1021d40154546250735ef4fce3fa4a2335ea92f7
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2025-12-10T10:41:55.839170+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1021d40154546250735ef4fce3fa4a2335ea92f7
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-10T10:41:55.839262+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1021d40154546250735ef4fce3fa4a2335ea92f7
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((Start Event))
+    1:task:(Zutaten vorbereiten)
+    2:task:(Zwiebeln und Knoblauch hacken)
+    3:task:(Zwiebeln und Knoblauch andÃ¼nsten)
+    4:task:(Tomatenmark hinzufÃ¼gen)
+    5:task:(Gehackte Tomaten hinzufÃ¼gen)
+    6:task:(SoÃŸe wÃ¼rzen)
+    7:task:(SoÃŸe kÃ¶cheln lassen)
+    8:parallelgateway:{AND}
+    9:task:(Wasser salzen und kochen)
+    10:task:(Nudeln kochen)
+    11:task:(Nudeln absieben)
+    12:task:(Nudeln in Butter schwenken)
+    13:task:(Tisch decken)
+    14:task:(Nudeln servieren)
+    15:task:(SoÃŸe servieren)
+    16:endevent:(((End Event)))
+
+    0:startevent:((Start Event)) --> 1:task:(Zutaten vorbereiten)
+    1:task:(Zutaten vorbereiten) --> 2:task:(Zwiebeln und Knoblauch hacken)
+    2:task:(Zwiebeln und Knoblauch hacken) --> 3:task:(Zwiebeln und Knoblauch andÃ¼nsten)
+    3:task:(Zwiebeln und Knoblauch andÃ¼nsten) --> 4:task:(Tomatenmark hinzufÃ¼gen)
+    4:task:(Tomatenmark hinzufÃ¼gen) --> 5:task:(Gehackte Tomaten hinzufÃ¼gen)
+    5:task:(Gehackte Tomaten hinzufÃ¼gen) --> 6:task:(SoÃŸe wÃ¼rzen)
+    6:task:(SoÃŸe wÃ¼rzen) --> 7:task:(SoÃŸe kÃ¶cheln lassen)
+    7:task:(SoÃŸe kÃ¶cheln lassen) --> 8:parallelgateway:{AND}
+    8:parallelgateway:{AND} --> 9:task:(Wasser salzen und kochen)
+    8:parallelgateway:{AND} --> 13:task:(Tisch decken)
+    9:task:(Wasser salzen und kochen) --> 10:task:(Nudeln kochen)
+    10:task:(Nudeln kochen) --> 11:task:(Nudeln absieben)
+    11:task:(Nudeln absieben) --> 12:task:(Nudeln in Butter schwenken)
+    12:task:(Nudeln in Butter schwenken) --> 14:task:(Nudeln servieren)
+    13:task:(Tisch decken) --> 14:task:(Nudeln servieren)
+    14:task:(Nudeln servieren) --> 15:task:(SoÃŸe servieren)
+    15:task:(SoÃŸe servieren) --> 16:endevent:(((End Event)))
+  time:timestamp: '2025-12-10T10:41:55.839353+01:00'
+---
+event:
+  concept:instance: 83110
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9ace04a7-98db-49dc-81c2-7ac89cd46a28
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1021d40154546250735ef4fce3fa4a2335ea92f7
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Zwiebeln und Knoblauch hacken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zwiebeln und Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Tomatenmark hinzuf&#xFC;gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Gehackte Tomaten hinzuf&#xFC;gen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>So&#xDF;e w&#xFC;rzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>So&#xDF;e k&#xF6;cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="8">
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Wasser salzen und kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Nudeln absieben</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Nudeln in Butter schwenken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Nudeln servieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>So&#xDF;e servieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:41:55.839473+01:00'

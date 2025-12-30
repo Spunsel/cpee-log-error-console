@@ -1,0 +1,2750 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 83108
+    cpee:name: Plain Instance
+    cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-10T10:19:25.838187+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d6033d7be4e25073aa9e45a51140145f099050bb
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-10T10:19:52.448456+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Arbeitsfl&#xE4;che freir&#xE4;umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zwiebeln und Knoblauch w&#xFC;rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Topf auf Herd, Herd an, &#xD6;l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Zwiebel und Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Tomatendosen &#xF6;ffnen und in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Temperatur reduzieren und Sauce k&#xF6;cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Zweiten Topf mit Wasser f&#xFC;llen und zum Kochen bringen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Nudeln hinzuf&#xFC;gen und kochen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Sieb vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Sauce umr&#xFC;hren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Tisch decken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Nudeln abgie&#xDF;en</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Topf und Sch&#xFC;ssel auf Tisch stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d6033d7be4e25073aa9e45a51140145f099050bb
+  time:timestamp: '2025-12-10T10:19:52.448112+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d6033d7be4e25073aa9e45a51140145f099050bb
+  cpee:exposition: |+
+    # User Input:
+
+
+    1. Licht anschalten
+    2. ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
+    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln
+    4. Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben
+    5. Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind
+    6. Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben
+    7. Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen
+    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen
+    9. Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen
+    10. Sieb in den Abguss stellen
+    11. Sauce ab und zu umrÃ¼hren
+    12. WÃ¤hrend die Nudeln kochen und die Sauce auf dem Herd kÃ¶chelt, kann der Tisch gedeckt werden
+    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen
+    14. Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen
+    15. Herd abschalten
+    16. Topf und SchÃ¼ssel auf den Tisch stellen
+    17. Guten Appetit
+
+  time:timestamp: '2025-12-10T10:19:52.449679+01:00'
+...
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d6033d7be4e25073aa9e45a51140145f099050bb
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:19:52.449844+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d6033d7be4e25073aa9e45a51140145f099050bb
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-10T10:19:52.450024+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d6033d7be4e25073aa9e45a51140145f099050bb
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Licht anschalten)
+        1:task:(Licht anschalten) --> 2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
+        2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten) --> 3:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
+        3:task:(Zwiebeln und Knoblauch wÃ¼rfeln) --> 4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
+        4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne) --> 5:task:(Zwiebel und Knoblauch andÃ¼nsten)
+        5:task:(Zwiebel und Knoblauch andÃ¼nsten) --> 6:task:(Tomatendosen Ã¶ffnen und in Topf geben)
+        6:task:(Tomatendosen Ã¶ffnen und in Topf geben) --> 7:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
+        7:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen) --> 8:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)
+        8:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen) --> 9:task:(Nudeln hinzufÃ¼gen und kochen)
+        9:task:(Nudeln hinzufÃ¼gen und kochen) --> 10:task:(Sieb vorbereiten)
+        10:task:(Sieb vorbereiten) --> 11:task:(Sauce umrÃ¼hren)
+        11:task:(Sauce umrÃ¼hren) --> 12:task:(Tisch decken)
+        12:task:(Tisch decken) --> 14:task:(Nudeln abgieÃŸen)
+        14:task:(Nudeln abgieÃŸen) --> 15:task:(Herd abschalten)
+        15:task:(Herd abschalten) --> 16:task:(Topf und SchÃ¼ssel auf Tisch stellen)
+        16:task:(Topf und SchÃ¼ssel auf Tisch stellen) --> 17:task:(Guten Appetit)
+        17:task:(Guten Appetit) --> 18:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-10T10:19:52.450174+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d6033d7be4e25073aa9e45a51140145f099050bb
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Arbeitsfl&#xE4;che freir&#xE4;umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zwiebeln und Knoblauch w&#xFC;rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Topf auf Herd, Herd an, &#xD6;l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Zwiebel und Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Tomatendosen &#xF6;ffnen und in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Temperatur reduzieren und Sauce k&#xF6;cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Zweiten Topf mit Wasser f&#xFC;llen und zum Kochen bringen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Nudeln hinzuf&#xFC;gen und kochen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Sieb vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Sauce umr&#xFC;hren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Tisch decken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Nudeln abgie&#xDF;en</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Topf und Sch&#xFC;ssel auf Tisch stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:19:52.450327+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-12-10T10:23:01.518460+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Tomatendosen Ã¶ffnen und in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Temperatur reduzieren und Sauce kÃ¶cheln lassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Nudeln hinzufÃ¼gen und kochen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Sieb vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Sauce umrÃ¼hren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Tisch decken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Nudeln abgieÃŸen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Topf und SchÃ¼ssel auf Tisch stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:23:01.518725+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |+
+    # User Input:
+    LÃ¶sche allesÂ 
+
+  time:timestamp: '2025-12-10T10:23:01.520098+01:00'
+...
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:23:01.520266+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Licht anschalten)
+    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
+    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
+    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
+    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomatendosen Ã¶ffnen und in Topf geben)
+    a11:task:(Tomatendosen Ã¶ffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
+    a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)-->a15:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)
+    a15:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)-->a17:task:(Nudeln hinzufÃ¼gen und kochen)
+    a17:task:(Nudeln hinzufÃ¼gen und kochen)-->a19:task:(Sieb vorbereiten)
+    a19:task:(Sieb vorbereiten)-->a21:task:(Sauce umrÃ¼hren)
+    a21:task:(Sauce umrÃ¼hren)-->a23:task:(Tisch decken)
+    a23:task:(Tisch decken)-->a25:task:(Nudeln abgieÃŸen)
+    a25:task:(Nudeln abgieÃŸen)-->a27:task:(Herd abschalten)
+    a27:task:(Herd abschalten)-->a29:task:(Topf und SchÃ¼ssel auf Tisch stellen)
+    a29:task:(Topf und SchÃ¼ssel auf Tisch stellen)-->a31:task:(Guten Appetit)
+    a31:task:(Guten Appetit)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-10T10:23:01.520377+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    %% Output Intermediate
+    flowchart LR
+  time:timestamp: '2025-12-10T10:23:01.520754+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-10T10:23:01.520901+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Arbeitsfl&#xE4;che freir&#xE4;umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zwiebeln und Knoblauch w&#xFC;rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Topf auf Herd, Herd an, &#xD6;l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Zwiebel und Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Tomaten in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="7">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Temperatur reduzieren, Sauce k&#xF6;cheln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Sauce umr&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Wasser kochen f&#xFC;r Nudeln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Teller, Besteck vorbereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Nudeln abgie&#xDF;en</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Topf und Sch&#xFC;ssel auf Tisch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 5fcf09e790a0744365483ffc955bb5a6920a0040
+  time:timestamp: '2025-12-10T10:23:13.012692+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5fcf09e790a0744365483ffc955bb5a6920a0040
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-10T10:23:13.013168+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5fcf09e790a0744365483ffc955bb5a6920a0040
+  cpee:exposition: |+
+    # User Input:
+
+
+    1. Licht anschalten
+    2. ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
+    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln
+    4. Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben
+    5. Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind
+    6. Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben
+    7. Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen
+    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen
+    9. Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen
+    10. Sieb in den Abguss stellen
+    11. Sauce ab und zu umrÃ¼hren
+    12. WÃ¤hrend die Nudeln kochen und die Sauce auf dem Herd kÃ¶chelt, kann der Tisch gedeckt werden
+    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen
+    14. Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen
+    15. Herd abschalten
+    16. Topf und SchÃ¼ssel auf den Tisch stellen
+    17. Guten Appetit
+    Parallel:
+    - Sauce kÃ¶chelt auf dem Herd und das Nudelwasser kocht
+    - Tisch decken
+    -
+
+
+
+  time:timestamp: '2025-12-10T10:23:13.013475+01:00'
+...
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5fcf09e790a0744365483ffc955bb5a6920a0040
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:23:13.013707+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5fcf09e790a0744365483ffc955bb5a6920a0040
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-10T10:23:13.013874+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5fcf09e790a0744365483ffc955bb5a6920a0040
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Licht anschalten)
+        1:task:(Licht anschalten) --> 2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
+        2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten) --> 3:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
+        3:task:(Zwiebeln und Knoblauch wÃ¼rfeln) --> 4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
+        4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne) --> 5:task:(Zwiebel und Knoblauch andÃ¼nsten)
+        5:task:(Zwiebel und Knoblauch andÃ¼nsten) --> 6:task:(Tomaten in Topf geben)
+        6:task:(Tomaten in Topf geben) --> 7:parallelgateway:{AND}
+        7:parallelgateway:{AND} --> 8:task:(Temperatur reduzieren, Sauce kÃ¶cheln)
+        7:parallelgateway:{AND} --> 9:task:(Wasser kochen fÃ¼r Nudeln)
+        7:parallelgateway:{AND} --> 12:task:(Tisch decken)
+        8:task:(Temperatur reduzieren, Sauce kÃ¶cheln) --> 15:task:(Sauce umrÃ¼hren)
+        9:task:(Wasser kochen fÃ¼r Nudeln) --> 10:task:(Nudeln kochen)
+        10:task:(Nudeln kochen) --> 16:parallelgateway:{AND}
+        12:task:(Tisch decken) --> 13:task:(Teller, Besteck vorbereiten)
+        13:task:(Teller, Besteck vorbereiten) --> 16:parallelgateway:{AND}
+        15:task:(Sauce umrÃ¼hren) --> 16:parallelgateway:{AND}
+        16:parallelgateway:{AND} --> 11:task:(Nudeln abgieÃŸen)
+        11:task:(Nudeln abgieÃŸen) --> 14:task:(Herd abschalten)
+        14:task:(Herd abschalten) --> 17:task:(Topf und SchÃ¼ssel auf Tisch)
+        17:task:(Topf und SchÃ¼ssel auf Tisch) --> 18:task:(Guten Appetit)
+        18:task:(Guten Appetit) --> 19:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-10T10:23:13.014172+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5fcf09e790a0744365483ffc955bb5a6920a0040
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Arbeitsfl&#xE4;che freir&#xE4;umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zwiebeln und Knoblauch w&#xFC;rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Topf auf Herd, Herd an, &#xD6;l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Zwiebel und Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Tomaten in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="7">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Temperatur reduzieren, Sauce k&#xF6;cheln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Sauce umr&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Wasser kochen f&#xFC;r Nudeln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Teller, Besteck vorbereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Nudeln abgie&#xDF;en</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Topf und Sch&#xFC;ssel auf Tisch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:23:13.014387+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Arbeitsfl&#xE4;che freir&#xE4;umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Zwiebeln und Knoblauch w&#xFC;rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Topf auf Herd, Herd an, &#xD6;l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Zwiebel und Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Tomaten in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Temperatur reduzieren, Sauce k&#xF6;cheln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Sauce umr&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a21" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Wasser kochen f&#xFC;r Nudeln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Teller, Besteck vorbereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Nudeln abgie&#xDF;en</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="a35">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="a37">
+        <parameters>
+          <label>Topf und Sch&#xFC;ssel auf Tisch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 57e27e2a2a3a739074873abefa26f294c368a95c
+  time:timestamp: '2025-12-10T10:27:02.425044+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 57e27e2a2a3a739074873abefa26f294c368a95c
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Tomaten in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="7">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Temperatur reduzieren, Sauce kÃ¶cheln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Sauce umrÃ¼hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Wasser kochen fÃ¼r Nudeln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Teller, Besteck vorbereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Nudeln abgieÃŸen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Topf und SchÃ¼ssel auf Tisch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:27:02.425342+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 57e27e2a2a3a739074873abefa26f294c368a95c
+  cpee:exposition: |-
+    # User Input:
+    LÃ¶schenÂ 
+  time:timestamp: '2025-12-10T10:27:02.426446+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 57e27e2a2a3a739074873abefa26f294c368a95c
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:27:02.427265+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 57e27e2a2a3a739074873abefa26f294c368a95c
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Licht anschalten)
+    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
+    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
+    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
+    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten in Topf geben)
+    a11:task:(Tomaten in Topf geben)-->gw1s:parallelgateway:{AND}
+    -->a15:task:(Temperatur reduzieren, Sauce kÃ¶cheln)
+    a15:task:(Temperatur reduzieren, Sauce kÃ¶cheln)-->a21:task:(Sauce umrÃ¼hren)
+    a21:task:(Sauce umrÃ¼hren)-->gw1e:parallelgateway:{AND}
+    -->a17:task:(Wasser kochen fÃ¼r Nudeln)
+    a17:task:(Wasser kochen fÃ¼r Nudeln)-->a23:task:(Nudeln kochen)
+    a23:task:(Nudeln kochen)-->gw1e:parallelgateway:{AND}
+    -->a19:task:(Tisch decken)
+    a19:task:(Tisch decken)-->a27:task:(Teller, Besteck vorbereiten)
+    a27:task:(Teller, Besteck vorbereiten)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a33:task:(Nudeln abgieÃŸen)
+    a33:task:(Nudeln abgieÃŸen)-->a35:task:(Herd abschalten)
+    a35:task:(Herd abschalten)-->a37:task:(Topf und SchÃ¼ssel auf Tisch)
+    a37:task:(Topf und SchÃ¼ssel auf Tisch)-->a39:task:(Guten Appetit)
+    a39:task:(Guten Appetit)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-10T10:27:02.427426+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 57e27e2a2a3a739074873abefa26f294c368a95c
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Licht anschalten)
+    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
+    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
+    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
+    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten in Topf geben)
+    a11:task:(Tomaten in Topf geben)-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a15:task:(Temperatur reduzieren, Sauce kÃ¶cheln)
+    a15:task:(Temperatur reduzieren, Sauce kÃ¶cheln)-->a21:task:(Sauce umrÃ¼hren)
+    a21:task:(Sauce umrÃ¼hren)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a17:task:(Wasser kochen fÃ¼r Nudeln)
+    a17:task:(Wasser kochen fÃ¼r Nudeln)-->a23:task:(Nudeln kochen)
+    a23:task:(Nudeln kochen)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a19:task:(Tisch decken)
+    a19:task:(Tisch decken)-->a27:task:(Teller, Besteck vorbereiten)
+    a27:task:(Teller, Besteck vorbereiten)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a33:task:(Nudeln abgieÃŸen)
+    a33:task:(Nudeln abgieÃŸen)-->a35:task:(Herd abschalten)
+    a35:task:(Herd abschalten)-->a37:task:(Topf und SchÃ¼ssel auf Tisch)
+    a37:task:(Topf und SchÃ¼ssel auf Tisch)-->a39:task:(Guten Appetit)
+    a39:task:(Guten Appetit)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-10T10:27:02.427605+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 57e27e2a2a3a739074873abefa26f294c368a95c
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Arbeitsfl&#xE4;che freir&#xE4;umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Zwiebeln und Knoblauch w&#xFC;rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Topf auf Herd, Herd an, &#xD6;l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Zwiebel und Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Tomaten in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Temperatur reduzieren, Sauce k&#xF6;cheln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Sauce umr&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a21" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Wasser kochen f&#xFC;r Nudeln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Teller, Besteck vorbereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Nudeln abgie&#xDF;en</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="a35">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="a37">
+        <parameters>
+          <label>Topf und Sch&#xFC;ssel auf Tisch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:27:02.427722+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b309eff0eac6c94521e75858179d96f91d1157ee
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Tomaten in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Temperatur reduzieren, Sauce kÃ¶cheln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Sauce umrÃ¼hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a21" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Wasser kochen fÃ¼r Nudeln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Teller, Besteck vorbereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Nudeln abgieÃŸen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="a35">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="a37">
+        <parameters>
+          <label>Topf und SchÃ¼ssel auf Tisch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:27:22.270074+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Arbeitsfl&#xE4;che freir&#xE4;umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Zwiebeln und Knoblauch w&#xFC;rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Topf auf Herd, Herd an, &#xD6;l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Zwiebel und Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Tomaten in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Temperatur reduzieren, Sauce k&#xF6;cheln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Sauce umr&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a21" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Wasser kochen f&#xFC;r Nudeln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Teller, Besteck vorbereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Nudeln abgie&#xDF;en</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="a35">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="a37">
+        <parameters>
+          <label>Topf und Sch&#xFC;ssel auf Tisch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: b309eff0eac6c94521e75858179d96f91d1157ee
+  time:timestamp: '2025-12-10T10:27:22.269606+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b309eff0eac6c94521e75858179d96f91d1157ee
+  cpee:exposition: |-
+    # User Input:
+    LÃ¶sche allesÂ 
+  time:timestamp: '2025-12-10T10:27:22.270253+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b309eff0eac6c94521e75858179d96f91d1157ee
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:27:22.270348+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b309eff0eac6c94521e75858179d96f91d1157ee
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Licht anschalten)
+    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
+    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
+    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
+    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten in Topf geben)
+    a11:task:(Tomaten in Topf geben)-->gw1s:parallelgateway:{AND}
+    -->a15:task:(Temperatur reduzieren, Sauce kÃ¶cheln)
+    a15:task:(Temperatur reduzieren, Sauce kÃ¶cheln)-->a17:task:(Sauce umrÃ¼hren)
+    a17:task:(Sauce umrÃ¼hren)-->gw1e:parallelgateway:{AND}
+    -->a21:task:(Wasser kochen fÃ¼r Nudeln)
+    a21:task:(Wasser kochen fÃ¼r Nudeln)-->a23:task:(Nudeln kochen)
+    a23:task:(Nudeln kochen)-->gw1e:parallelgateway:{AND}
+    -->a27:task:(Tisch decken)
+    a27:task:(Tisch decken)-->a29:task:(Teller, Besteck vorbereiten)
+    a29:task:(Teller, Besteck vorbereiten)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a33:task:(Nudeln abgieÃŸen)
+    a33:task:(Nudeln abgieÃŸen)-->a35:task:(Herd abschalten)
+    a35:task:(Herd abschalten)-->a37:task:(Topf und SchÃ¼ssel auf Tisch)
+    a37:task:(Topf und SchÃ¼ssel auf Tisch)-->a39:task:(Guten Appetit)
+    a39:task:(Guten Appetit)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-10T10:27:22.270429+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b309eff0eac6c94521e75858179d96f91d1157ee
+  cpee:exposition: |
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Licht anschalten)
+    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
+    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
+    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
+    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten in Topf geben)
+    a11:task:(Tomaten in Topf geben)-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a15:task:(Temperatur reduzieren, Sauce kÃ¶cheln)
+    a15:task:(Temperatur reduzieren, Sauce kÃ¶cheln)-->a17:task:(Sauce umrÃ¼hren)
+    a17:task:(Sauce umrÃ¼hren)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a21:task:(Wasser kochen fÃ¼r Nudeln)
+    a21:task:(Wasser kochen fÃ¼r Nudeln)-->a23:task:(Nudeln kochen)
+    a23:task:(Nudeln kochen)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a27:task:(Tisch decken)
+    a27:task:(Tisch decken)-->a29:task:(Teller, Besteck vorbereiten)
+    a29:task:(Teller, Besteck vorbereiten)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a33:task:(Nudeln abgieÃŸen)
+    a33:task:(Nudeln abgieÃŸen)-->a35:task:(Herd abschalten)
+    a35:task:(Herd abschalten)-->a37:task:(Topf und SchÃ¼ssel auf Tisch)
+    a37:task:(Topf und SchÃ¼ssel auf Tisch)-->a39:task:(Guten Appetit)
+    a39:task:(Guten Appetit)-->ee:endevent:(((endevent)))
+  time:timestamp: '2025-12-10T10:27:22.270530+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b309eff0eac6c94521e75858179d96f91d1157ee
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Arbeitsfl&#xE4;che freir&#xE4;umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Zwiebeln und Knoblauch w&#xFC;rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Topf auf Herd, Herd an, &#xD6;l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Zwiebel und Knoblauch and&#xFC;nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Tomaten in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Temperatur reduzieren, Sauce k&#xF6;cheln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Sauce umr&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a21" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Wasser kochen f&#xFC;r Nudeln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Teller, Besteck vorbereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Nudeln abgie&#xDF;en</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="a35">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="a37">
+        <parameters>
+          <label>Topf und Sch&#xFC;ssel auf Tisch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:27:22.270723+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Arbeitsfl&#xE4;che freir&#xE4;umen und Zutaten aus dem K&#xFC;hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Zwiebeln und Knoblauch auf einem Schneidbrett klein w&#xFC;rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Topf auf den Herd stellen, Herd anschalten und &#xD6;l in die Pfanne geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Zwiebel und Knoblauch, wenn das &#xD6;l hei&#xDF; ist in die Pfanne geben und and&#xFC;nsten bis die Zwiebeln glasig sind</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Tomatendosen &#xF6;ffnen und mit dem Dosen&#xF6;ffner &#xF6;ffnen und in den Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Temperatur des Topfes reduzieren und die Sauce k&#xF6;cheln lassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Sauce ab und zu umr&#xFC;hren, Gew&#xFC;rze hinzuf&#xFC;gen und abschmecken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a21" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Einen zweiten Topf zum Nudelkochen auf den Herd stellen, &#xBE; mit Wasser f&#xFC;llen und 1-2 Prisen Salz hinzuf&#xFC;gen &#x2013; Wasser zum kochen bringen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Wenn das Wasser kocht, 500gr Nudeln hinzuf&#xFC;gen und Temperatur reduzieren, sodass es nicht &#xFC;berkocht, Nudeln nach Packung kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesank&#xE4;se und Salz und Pfeffer auf dem Tisch stellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Nudeln in das Sieb kippen und in eine Sch&#xFC;ssel kippen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="a35">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="a37">
+        <parameters>
+          <label>Topf und Sch&#xFC;ssel auf den Tisch stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: e8e7b0d386cb5b47a459586ad1522c13b43ee373
+  time:timestamp: '2025-12-10T10:27:40.408017+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8e7b0d386cb5b47a459586ad1522c13b43ee373
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Tomaten in Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Temperatur reduzieren, Sauce kÃ¶cheln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Sauce umrÃ¼hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a21" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Wasser kochen fÃ¼r Nudeln</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Nudeln kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Teller, Besteck vorbereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Nudeln abgieÃŸen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="a35">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="a37">
+        <parameters>
+          <label>Topf und SchÃ¼ssel auf Tisch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:27:40.408421+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8e7b0d386cb5b47a459586ad1522c13b43ee373
+  cpee:exposition: |+
+    # User Input:
+
+
+    1. Licht anschalten
+    2. ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
+    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln
+    4. Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben
+    5. Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind
+    6. Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben
+    7. Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen
+    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen
+    9. Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen
+    10. Sieb in den Abguss stellen
+    11. Sauce ab und zu umrÃ¼hren, GewÃ¼rze hinzufÃ¼gen und abschmecken
+    12. WÃ¤hrend die Nudeln kochen und die Sauce auf dem Herd kÃ¶chelt, kann der Tisch gedeckt werden
+    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen
+    14. Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen
+    15. Herd abschalten
+    16. Topf und SchÃ¼ssel auf den Tisch stellen
+    17. Guten Appetit
+    Parallel:
+    - Sauce kÃ¶chelt auf dem Herd und das Nudelwasser kocht
+    - Tisch decken
+
+  time:timestamp: '2025-12-10T10:27:40.409275+01:00'
+...
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8e7b0d386cb5b47a459586ad1522c13b43ee373
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-10T10:27:40.409501+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8e7b0d386cb5b47a459586ad1522c13b43ee373
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Licht anschalten)
+    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
+    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
+    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
+    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten in Topf geben)
+    a11:task:(Tomaten in Topf geben)-->gw1s:parallelgateway:{AND}
+    -->a15:task:(Temperatur reduzieren, Sauce kÃ¶cheln)
+    a15:task:(Temperatur reduzieren, Sauce kÃ¶cheln)-->a17:task:(Sauce umrÃ¼hren)
+    a17:task:(Sauce umrÃ¼hren)-->gw1e:parallelgateway:{AND}
+    -->a21:task:(Wasser kochen fÃ¼r Nudeln)
+    a21:task:(Wasser kochen fÃ¼r Nudeln)-->a23:task:(Nudeln kochen)
+    a23:task:(Nudeln kochen)-->gw1e:parallelgateway:{AND}
+    -->a27:task:(Tisch decken)
+    a27:task:(Tisch decken)-->a29:task:(Teller, Besteck vorbereiten)
+    a29:task:(Teller, Besteck vorbereiten)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a33:task:(Nudeln abgieÃŸen)
+    a33:task:(Nudeln abgieÃŸen)-->a35:task:(Herd abschalten)
+    a35:task:(Herd abschalten)-->a37:task:(Topf und SchÃ¼ssel auf Tisch)
+    a37:task:(Topf und SchÃ¼ssel auf Tisch)-->a39:task:(Guten Appetit)
+    a39:task:(Guten Appetit)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-10T10:27:40.409691+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8e7b0d386cb5b47a459586ad1522c13b43ee373
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Licht anschalten)
+        a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)
+        a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)-->a5:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln)
+        a5:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln)-->a7:task:(Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben)
+        a7:task:(Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben)-->a9:task:(Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind)
+        a9:task:(Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind)-->a11:task:(Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben)
+        a11:task:(Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben)-->gw1s:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND}-->a15:task:(Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen)
+        a15:task:(Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen)-->a17:task:(Sauce ab und zu umrÃ¼hren, GewÃ¼rze hinzufÃ¼gen und abschmecken)
+        a17:task:(Sauce ab und zu umrÃ¼hren, GewÃ¼rze hinzufÃ¼gen und abschmecken)-->gw1e:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND}-->a21:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen)
+        a21:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen)-->a23:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen)
+        a23:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen)-->gw1e:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND}-->a27:task:(Tisch decken)
+        a27:task:(Tisch decken)-->a29:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen)
+        a29:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen)-->gw1e:parallelgateway:{AND}
+        gw1e:parallelgateway:{AND}-->a33:task:(Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen)
+        a33:task:(Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen)-->a35:task:(Herd abschalten)
+        a35:task:(Herd abschalten)-->a37:task:(Topf und SchÃ¼ssel auf den Tisch stellen)
+        a37:task:(Topf und SchÃ¼ssel auf den Tisch stellen)-->a39:task:(Guten Appetit)
+        a39:task:(Guten Appetit)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-12-10T10:27:40.410016+01:00'
+---
+event:
+  concept:instance: 83108
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fa9f4021-ab28-4969-99dc-8d59695efca6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8e7b0d386cb5b47a459586ad1522c13b43ee373
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Licht anschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Arbeitsfl&#xE4;che freir&#xE4;umen und Zutaten aus dem K&#xFC;hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Zwiebeln und Knoblauch auf einem Schneidbrett klein w&#xFC;rfeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Topf auf den Herd stellen, Herd anschalten und &#xD6;l in die Pfanne geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Zwiebel und Knoblauch, wenn das &#xD6;l hei&#xDF; ist in die Pfanne geben und and&#xFC;nsten bis die Zwiebeln glasig sind</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Tomatendosen &#xF6;ffnen und mit dem Dosen&#xF6;ffner &#xF6;ffnen und in den Topf geben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Temperatur des Topfes reduzieren und die Sauce k&#xF6;cheln lassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Sauce ab und zu umr&#xFC;hren, Gew&#xFC;rze hinzuf&#xFC;gen und abschmecken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a21" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Einen zweiten Topf zum Nudelkochen auf den Herd stellen, &#xBE; mit Wasser f&#xFC;llen und 1-2 Prisen Salz hinzuf&#xFC;gen &#x2013; Wasser zum kochen bringen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Wenn das Wasser kocht, 500gr Nudeln hinzuf&#xFC;gen und Temperatur reduzieren, sodass es nicht &#xFC;berkocht, Nudeln nach Packung kochen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Tisch decken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesank&#xE4;se und Salz und Pfeffer auf dem Tisch stellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Nudeln in das Sieb kippen und in eine Sch&#xFC;ssel kippen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="a35">
+        <parameters>
+          <label>Herd abschalten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="a37">
+        <parameters>
+          <label>Topf und Sch&#xFC;ssel auf den Tisch stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Guten Appetit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-10T10:27:40.410247+01:00'

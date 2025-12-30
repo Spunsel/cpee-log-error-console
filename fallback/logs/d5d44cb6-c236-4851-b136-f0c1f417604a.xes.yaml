@@ -163,7 +163,7 @@ event:
   cpee:change_uuid: 4d525cc67abb5977d035373b6161bb8143dfe4aa
   cpee:exposition: |-
     # User Input:
-    Der Mitarbeiter füllt das Urlaubsantragsformular mit gewünschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prüft die Verfügbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine Bestätigung sendet. Bei Ablehnung erhält der Mitarbeiter eine Begründung und kann einen neuen Antrag mit geändertem Zeitraum stellen.
+    Der Mitarbeiter fÃ¼llt das Urlaubsantragsformular mit gewÃ¼nschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prÃ¼ft die VerfÃ¼gbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine BestÃ¤tigung sendet. Bei Ablehnung erhÃ¤lt der Mitarbeiter eine BegrÃ¼ndung und kann einen neuen Antrag mit geÃ¤ndertem Zeitraum stellen.
   time:timestamp: '2025-12-05T14:39:15.572020+01:00'
 ---
 event:
@@ -202,16 +202,16 @@ event:
     %% Output Intermediate
     ```mermaid
     graph LR
-        0:startevent:((startevent)) --> 1:task:(Urlaubsantrag ausfüllen)
-        1:task:(Urlaubsantrag ausfüllen) --> 2:task:(Antrag beim Vorgesetzten einreichen)
-        2:task:(Antrag beim Vorgesetzten einreichen) --> 3:task:(Verfügbarkeit prüfen)
-        3:task:(Verfügbarkeit prüfen) --> 4:exclusivegateway:{x}
+        0:startevent:((startevent)) --> 1:task:(Urlaubsantrag ausfÃ¼llen)
+        1:task:(Urlaubsantrag ausfÃ¼llen) --> 2:task:(Antrag beim Vorgesetzten einreichen)
+        2:task:(Antrag beim Vorgesetzten einreichen) --> 3:task:(VerfÃ¼gbarkeit prÃ¼fen)
+        3:task:(VerfÃ¼gbarkeit prÃ¼fen) --> 4:exclusivegateway:{x}
         4:exclusivegateway:{x} --> |Genehmigt| 5:task:(Antrag an Personalabteilung weiterleiten)
-        4:exclusivegateway:{x} --> |Abgelehnt| 6:task:(Begründung senden)
+        4:exclusivegateway:{x} --> |Abgelehnt| 6:task:(BegrÃ¼ndung senden)
         5:task:(Antrag an Personalabteilung weiterleiten) --> 7:task:(Urlaub im System erfassen)
-        7:task:(Urlaub im System erfassen) --> 8:task:(Bestätigung senden)
-        8:task:(Bestätigung senden) --> 9:endevent:(((endevent)))
-        6:task:(Begründung senden) --> 1:task:(Urlaubsantrag ausfüllen)
+        7:task:(Urlaub im System erfassen) --> 8:task:(BestÃ¤tigung senden)
+        8:task:(BestÃ¤tigung senden) --> 9:endevent:(((endevent)))
+        6:task:(BegrÃ¼ndung senden) --> 1:task:(Urlaubsantrag ausfÃ¼llen)
     ```
   time:timestamp: '2025-12-05T14:39:15.572326+01:00'
 ---
@@ -436,7 +436,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a1" endpoint="" a:alt_id="1">
           <parameters>
-            <label>Urlaubsantrag ausfüllen</label>
+            <label>Urlaubsantrag ausfÃ¼llen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -452,7 +452,7 @@ event:
         </call>
         <call id="a5" endpoint="" a:alt_id="3">
           <parameters>
-            <label>Verfügbarkeit prüfen</label>
+            <label>VerfÃ¼gbarkeit prÃ¼fen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -461,7 +461,7 @@ event:
         <loop mode="pre_test" condition="Abgelehnt" a:alt_id="4" language="text/javascript">
           <call id="a11" endpoint="" a:alt_id="6">
             <parameters>
-              <label>Begründung senden</label>
+              <label>BegrÃ¼ndung senden</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -469,7 +469,7 @@ event:
           </call>
           <call id="a1" endpoint="" a:alt_id="1">
             <parameters>
-              <label>Urlaubsantrag ausfüllen</label>
+              <label>Urlaubsantrag ausfÃ¼llen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -485,7 +485,7 @@ event:
           </call>
           <call id="a5" endpoint="" a:alt_id="3">
             <parameters>
-              <label>Verfügbarkeit prüfen</label>
+              <label>VerfÃ¼gbarkeit prÃ¼fen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -510,7 +510,7 @@ event:
         </call>
         <call id="a15" endpoint="" a:alt_id="8">
           <parameters>
-            <label>Bestätigung senden</label>
+            <label>BestÃ¤tigung senden</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -530,7 +530,7 @@ event:
   cpee:change_uuid: b80b168639fb9ff97a11b6b23b30fa629494c499
   cpee:exposition: |-
     # User Input:
-    Der Mitarbeiter füllt das Urlaubsantragsformular mit gewünschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prüft die Verfügbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine Bestätigung sendet. Bei Ablehnung erhält der Mitarbeiter eine Begründung und kann einen neuen Antrag mit geändertem Zeitraum stellen.
+    Der Mitarbeiter fÃ¼llt das Urlaubsantragsformular mit gewÃ¼nschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prÃ¼ft die VerfÃ¼gbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine BestÃ¤tigung sendet. Bei Ablehnung erhÃ¤lt der Mitarbeiter eine BegrÃ¼ndung und kann einen neuen Antrag mit geÃ¤ndertem Zeitraum stellen.
   time:timestamp: '2025-12-05T14:39:55.797690+01:00'
 ---
 event:
@@ -559,17 +559,17 @@ event:
     flowchart LR
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfüllen)
-    a1:task:(Urlaubsantrag ausfüllen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
-    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(Verfügbarkeit prüfen)
-    a5:task:(Verfügbarkeit prüfen)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfÃ¼llen)
+    a1:task:(Urlaubsantrag ausfÃ¼llen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
+    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(VerfÃ¼gbarkeit prÃ¼fen)
+    a5:task:(VerfÃ¼gbarkeit prÃ¼fen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->a9:task:(Antrag an Personalabteilung weiterleiten)
     a9:task:(Antrag an Personalabteilung weiterleiten)-->a13:task:(Urlaub im System erfassen)
-    a13:task:(Urlaub im System erfassen)-->a15:task:(Bestätigung senden)
-    a15:task:(Bestätigung senden)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(Begründung senden)
-    a11:task:(Begründung senden)-->a1:task:(Urlaubsantrag ausfüllen)
-    a1:task:(Urlaubsantrag ausfüllen)-->-1:escalate:((^))
+    a13:task:(Urlaub im System erfassen)-->a15:task:(BestÃ¤tigung senden)
+    a15:task:(BestÃ¤tigung senden)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(BegrÃ¼ndung senden)
+    a11:task:(BegrÃ¼ndung senden)-->a1:task:(Urlaubsantrag ausfÃ¼llen)
+    a1:task:(Urlaubsantrag ausfÃ¼llen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -588,16 +588,16 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->a1:task:(Urlaubsantrag ausfüllen)
-        a1:task:(Urlaubsantrag ausfüllen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
-        a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(Verfügbarkeit prüfen)
-        a5:task:(Verfügbarkeit prüfen)-->gw2s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->a1:task:(Urlaubsantrag ausfÃ¼llen)
+        a1:task:(Urlaubsantrag ausfÃ¼llen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
+        a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(VerfÃ¼gbarkeit prÃ¼fen)
+        a5:task:(VerfÃ¼gbarkeit prÃ¼fen)-->gw2s:exclusivegateway:{x}
         gw2s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Antrag an Personalabteilung weiterleiten)
         a9:task:(Antrag an Personalabteilung weiterleiten)-->a13:task:(Urlaub im System erfassen)
-        a13:task:(Urlaub im System erfassen)-->a15:task:(Bestätigung senden)
-        a15:task:(Bestätigung senden)-->gw2e:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(Begründung senden)
-        a11:task:(Begründung senden)-->a1:task:
+        a13:task:(Urlaub im System erfassen)-->a15:task:(BestÃ¤tigung senden)
+        a15:task:(BestÃ¤tigung senden)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(BegrÃ¼ndung senden)
+        a11:task:(BegrÃ¼ndung senden)-->a1:task:
         gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
         gw1s:exclusivegateway:{x}-->|"true"|gw1e:exclusivegateway:{x}
         gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -838,7 +838,7 @@ event:
           <loop mode="pre_test" condition="true">
             <call id="a3" endpoint="" a:alt_id="a1">
               <parameters>
-                <label>Urlaubsantrag ausfüllen</label>
+                <label>Urlaubsantrag ausfÃ¼llen</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -854,7 +854,7 @@ event:
             </call>
             <call id="a7" endpoint="" a:alt_id="a5">
               <parameters>
-                <label>Verfügbarkeit prüfen</label>
+                <label>VerfÃ¼gbarkeit prÃ¼fen</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -863,7 +863,7 @@ event:
             <loop mode="pre_test" condition="Abgelehnt" a:alt_id="gw2s" language="text/javascript">
               <call id="a19" endpoint="" a:alt_id="a11">
                 <parameters>
-                  <label>Begründung senden</label>
+                  <label>BegrÃ¼ndung senden</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -871,7 +871,7 @@ event:
               </call>
               <call id="a3" endpoint="" a:alt_id="a1">
                 <parameters>
-                  <label>Urlaubsantrag ausfüllen</label>
+                  <label>Urlaubsantrag ausfÃ¼llen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -887,7 +887,7 @@ event:
               </call>
               <call id="a7" endpoint="" a:alt_id="a5">
                 <parameters>
-                  <label>Verfügbarkeit prüfen</label>
+                  <label>VerfÃ¼gbarkeit prÃ¼fen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -912,7 +912,7 @@ event:
             </call>
             <call id="a15" endpoint="" a:alt_id="a15">
               <parameters>
-                <label>Bestätigung senden</label>
+                <label>BestÃ¤tigung senden</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -939,7 +939,7 @@ event:
   cpee:change_uuid: 46260842a22b972907e9c7a863921db67d663713
   cpee:exposition: |-
     # User Input:
-    Der Mitarbeiter füllt das Urlaubsantragsformular mit gewünschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prüft die Verfügbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine Bestätigung sendet. Bei Ablehnung erhält der Mitarbeiter eine Begründung und kann einen neuen Antrag mit geändertem Zeitraum stellen.
+    Der Mitarbeiter fÃ¼llt das Urlaubsantragsformular mit gewÃ¼nschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prÃ¼ft die VerfÃ¼gbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine BestÃ¤tigung sendet. Bei Ablehnung erhÃ¤lt der Mitarbeiter eine BegrÃ¼ndung und kann einen neuen Antrag mit geÃ¤ndertem Zeitraum stellen.
   time:timestamp: '2025-12-05T14:41:34.898041+01:00'
 ---
 event:
@@ -969,17 +969,17 @@ event:
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|""|gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
-    gw2e:exclusivegateway:{x}-->|"true"|a3:task:(Urlaubsantrag ausfüllen)
-    a3:task:(Urlaubsantrag ausfüllen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
-    a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(Verfügbarkeit prüfen)
-    a7:task:(Verfügbarkeit prüfen)-->gw3s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a3:task:(Urlaubsantrag ausfÃ¼llen)
+    a3:task:(Urlaubsantrag ausfÃ¼llen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
+    a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(VerfÃ¼gbarkeit prÃ¼fen)
+    a7:task:(VerfÃ¼gbarkeit prÃ¼fen)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->a11:task:(Antrag an Personalabteilung weiterleiten)
     a11:task:(Antrag an Personalabteilung weiterleiten)-->a13:task:(Urlaub im System erfassen)
-    a13:task:(Urlaub im System erfassen)-->a15:task:(Bestätigung senden)
-    a15:task:(Bestätigung senden)-->gw3e:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"Abgelehnt"|a19:task:(Begründung senden)
-    a19:task:(Begründung senden)-->a3:task:(Urlaubsantrag ausfüllen)
-    a3:task:(Urlaubsantrag ausfüllen)-->-1:escalate:((^))
+    a13:task:(Urlaub im System erfassen)-->a15:task:(BestÃ¤tigung senden)
+    a15:task:(BestÃ¤tigung senden)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Abgelehnt"|a19:task:(BegrÃ¼ndung senden)
+    a19:task:(BegrÃ¼ndung senden)-->a3:task:(Urlaubsantrag ausfÃ¼llen)
+    a3:task:(Urlaubsantrag ausfÃ¼llen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw3e:exclusivegateway:{x}
     gw3e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
@@ -999,16 +999,16 @@ event:
     %% Output Intermediate
     ```mermaid
     flowchart LR
-        se:startevent:((startevent))-->a3:task:(Urlaubsantrag ausfüllen)
-        a3:task:(Urlaubsantrag ausfüllen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
-        a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(Verfügbarkeit prüfen)
-        a7:task:(Verfügbarkeit prüfen)-->gw3s:exclusivegateway:{x}
+        se:startevent:((startevent))-->a3:task:(Urlaubsantrag ausfÃ¼llen)
+        a3:task:(Urlaubsantrag ausfÃ¼llen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
+        a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(VerfÃ¼gbarkeit prÃ¼fen)
+        a7:task:(VerfÃ¼gbarkeit prÃ¼fen)-->gw3s:exclusivegateway:{x}
         gw3s:exclusivegateway:{x}-->|"Genehmigt"|a11:task:(Antrag an Personalabteilung weiterleiten)
         a11:task:(Antrag an Personalabteilung weiterleiten)-->a13:task:(Urlaub im System erfassen)
-        a13:task:(Urlaub im System erfassen)-->a15:task:(Bestätigung senden)
-        a15:task:(Bestätigung senden)-->gw3e:exclusivegateway:{x}
-        gw3s:exclusivegateway:{x}-->|"Abgelehnt"|a19:task:(Begründung senden)
-        a19:task:(Begründung senden)-->a3:task:
+        a13:task:(Urlaub im System erfassen)-->a15:task:(BestÃ¤tigung senden)
+        a15:task:(BestÃ¤tigung senden)-->gw3e:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"Abgelehnt"|a19:task:(BegrÃ¼ndung senden)
+        a19:task:(BegrÃ¼ndung senden)-->a3:task:
         gw3e:exclusivegateway:{x}-->ee:endevent:((endevent))
         gw3s:exclusivegateway:{x}-->|"Genehmigt innerhalb von drei Werktagen"|gw3e:exclusivegateway:{x}
     ```
@@ -1484,7 +1484,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a1" endpoint="" a:alt_id="a3">
           <parameters>
-            <label>Urlaubsantrag ausfüllen</label>
+            <label>Urlaubsantrag ausfÃ¼llen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -1500,7 +1500,7 @@ event:
         </call>
         <call id="a5" endpoint="" a:alt_id="a7">
           <parameters>
-            <label>Verfügbarkeit prüfen</label>
+            <label>VerfÃ¼gbarkeit prÃ¼fen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -1511,7 +1511,7 @@ event:
             <alternative condition="Abgelehnt" language="text/javascript">
               <call id="a17" endpoint="" a:alt_id="a19">
                 <parameters>
-                  <label>Begründung senden</label>
+                  <label>BegrÃ¼ndung senden</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -1519,7 +1519,7 @@ event:
               </call>
               <call id="a1" endpoint="" a:alt_id="a3">
                 <parameters>
-                  <label>Urlaubsantrag ausfüllen</label>
+                  <label>Urlaubsantrag ausfÃ¼llen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -1535,7 +1535,7 @@ event:
               </call>
               <call id="a5" endpoint="" a:alt_id="a7">
                 <parameters>
-                  <label>Verfügbarkeit prüfen</label>
+                  <label>VerfÃ¼gbarkeit prÃ¼fen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -1564,7 +1564,7 @@ event:
               </call>
               <call id="a13" endpoint="" a:alt_id="a15">
                 <parameters>
-                  <label>Bestätigung senden</label>
+                  <label>BestÃ¤tigung senden</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -1589,14 +1589,14 @@ event:
   cpee:exposition: |+
     # User Input:
     The process starts, and then proceeds to a decision point.
-    If the condition is true, the process continues to the "Urlaubsantrag ausfüllen" task, followed by the "Antrag beim Vorgesetzten einreichen" task, and then the "Verfügbarkeit prüfen" task.
+    If the condition is true, the process continues to the "Urlaubsantrag ausfÃ¼llen" task, followed by the "Antrag beim Vorgesetzten einreichen" task, and then the "VerfÃ¼gbarkeit prÃ¼fen" task.
     After that, the process reaches another decision point, which immediately merges into a gateway.
     The process then proceeds to another decision point.
     If the "Abgelehnt" branch is taken, the process continues to another decision point.
-    If the "Abgelehnt" branch is taken, the process continues to the "Begründung senden" task, which then loops back to the "Urlaubsantrag ausfüllen" task.
+    If the "Abgelehnt" branch is taken, the process continues to the "BegrÃ¼ndung senden" task, which then loops back to the "Urlaubsantrag ausfÃ¼llen" task.
     From there, the process continues to a decision point.
     If the empty branch is taken, the process continues to another decision point, which immediately merges into a gateway, and then proceeds to the decision point.
-    If the "Genehmigt" branch is taken, the process continues to the "Antrag an Personalabteilung weiterleiten" task, followed by the "Urlaub im System erfassen" task, and then the "Bestätigung senden" task.
+    If the "Genehmigt" branch is taken, the process continues to the "Antrag an Personalabteilung weiterleiten" task, followed by the "Urlaub im System erfassen" task, and then the "BestÃ¤tigung senden" task.
     After that, the process reaches another decision point, which immediately merges into a gateway, and then proceeds to the decision point.
     After the decision point, the process escalates and merges into a gateway.
     The process then loops back to the initial decision point.
@@ -1631,26 +1631,26 @@ event:
     flowchart LR
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfüllen)
-    a1:task:(Urlaubsantrag ausfüllen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
-    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(Verfügbarkeit prüfen)
-    a5:task:(Verfügbarkeit prüfen)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfÃ¼llen)
+    a1:task:(Urlaubsantrag ausfÃ¼llen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
+    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(VerfÃ¼gbarkeit prÃ¼fen)
+    a5:task:(VerfÃ¼gbarkeit prÃ¼fen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->|"Abgelehnt"|gw4s:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->|"Abgelehnt"|a17:task:(Begründung senden)
-    a17:task:(Begründung senden)-->a1:task:(Urlaubsantrag ausfüllen)
-    a1:task:(Urlaubsantrag ausfüllen)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Abgelehnt"|a17:task:(BegrÃ¼ndung senden)
+    a17:task:(BegrÃ¼ndung senden)-->a1:task:(Urlaubsantrag ausfÃ¼llen)
+    a1:task:(Urlaubsantrag ausfÃ¼llen)-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|""|gw5s:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
     gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Antrag an Personalabteilung weiterleiten)
     a9:task:(Antrag an Personalabteilung weiterleiten)-->a11:task:(Urlaub im System erfassen)
-    a11:task:(Urlaub im System erfassen)-->a13:task:(Bestätigung senden)
-    a13:task:(Bestätigung senden)-->gw6s:exclusivegateway:{x}
+    a11:task:(Urlaub im System erfassen)-->a13:task:(BestÃ¤tigung senden)
+    a13:task:(BestÃ¤tigung senden)-->gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
@@ -1673,23 +1673,23 @@ event:
     ```mermaid
     flowchart LR
     0:startevent:((startevent))-->1:exclusivegateway:{x}
-    1:exclusivegateway:{x}-->|true|2:task:(Urlaubsantrag ausfüllen)
-    2:task:(Urlaubsantrag ausfüllen)-->3:task:(Antrag beim Vorgesetzten einreichen)
-    3:task:(Antrag beim Vorgesetzten einreichen)-->4:task:(Verfügbarkeit prüfen)
-    4:task:(Verfügbarkeit prüfen)-->5:exclusivegateway:{x}
+    1:exclusivegateway:{x}-->|true|2:task:(Urlaubsantrag ausfÃ¼llen)
+    2:task:(Urlaubsantrag ausfÃ¼llen)-->3:task:(Antrag beim Vorgesetzten einreichen)
+    3:task:(Antrag beim Vorgesetzten einreichen)-->4:task:(VerfÃ¼gbarkeit prÃ¼fen)
+    4:task:(VerfÃ¼gbarkeit prÃ¼fen)-->5:exclusivegateway:{x}
     5:exclusivegateway:{x}-->6:exclusivegateway:{x}
     6:exclusivegateway:{x}-->7:exclusivegateway:{x}
     7:exclusivegateway:{x}-->|Abgelehnt|8:exclusivegateway:{x}
-    8:exclusivegateway:{x}-->|Abgelehnt|9:task:(Begründung senden)
-    9:task:(Begründung senden)-->2:task:
+    8:exclusivegateway:{x}-->|Abgelehnt|9:task:(BegrÃ¼ndung senden)
+    9:task:(BegrÃ¼ndung senden)-->2:task:
     2:task:-->10:exclusivegateway:{x}
     8:exclusivegateway:{x}-->|""|11:exclusivegateway:{x}
     11:exclusivegateway:{x}-->12:exclusivegateway:{x}
     12:exclusivegateway:{x}-->10:exclusivegateway:{x}
     8:exclusivegateway:{x}-->|Genehmigt|13:task:(Antrag an Personalabteilung weiterleiten)
     13:task:(Antrag an Personalabteilung weiterleiten)-->14:task:(Urlaub im System erfassen)
-    14:task:(Urlaub im System erfassen)-->15:task:(Bestätigung senden)
-    15:task:(Bestätigung senden)-->16:exclusivegateway:{x}
+    14:task:(Urlaub im System erfassen)-->15:task:(BestÃ¤tigung senden)
+    15:task:(BestÃ¤tigung senden)-->16:exclusivegateway:{x}
     16:exclusivegateway:{x}-->12:exclusivegateway:
     16:exclusivegateway:{x}-->10:exclusivegateway:
     10:exclusivegateway:{x}-->17:escalate:((^))
@@ -2244,7 +2244,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a1" endpoint="" a:alt_id="a3">
           <parameters>
-            <label>Urlaubsantrag ausfüllen</label>
+            <label>Urlaubsantrag ausfÃ¼llen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -2260,7 +2260,7 @@ event:
         </call>
         <call id="a5" endpoint="" a:alt_id="a7">
           <parameters>
-            <label>Verfügbarkeit prüfen</label>
+            <label>VerfÃ¼gbarkeit prÃ¼fen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -2271,7 +2271,7 @@ event:
             <alternative condition="Abgelehnt" language="text/javascript">
               <call id="a17" endpoint="" a:alt_id="a19">
                 <parameters>
-                  <label>Begründung senden</label>
+                  <label>BegrÃ¼ndung senden</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -2279,7 +2279,7 @@ event:
               </call>
               <call id="a1" endpoint="" a:alt_id="a3">
                 <parameters>
-                  <label>Urlaubsantrag ausfüllen</label>
+                  <label>Urlaubsantrag ausfÃ¼llen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -2295,7 +2295,7 @@ event:
               </call>
               <call id="a5" endpoint="" a:alt_id="a7">
                 <parameters>
-                  <label>Verfügbarkeit prüfen</label>
+                  <label>VerfÃ¼gbarkeit prÃ¼fen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -2324,7 +2324,7 @@ event:
               </call>
               <call id="a13" endpoint="" a:alt_id="a15">
                 <parameters>
-                  <label>Bestätigung senden</label>
+                  <label>BestÃ¤tigung senden</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -2375,26 +2375,26 @@ event:
     flowchart LR
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfüllen)
-    a1:task:(Urlaubsantrag ausfüllen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
-    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(Verfügbarkeit prüfen)
-    a5:task:(Verfügbarkeit prüfen)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfÃ¼llen)
+    a1:task:(Urlaubsantrag ausfÃ¼llen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
+    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(VerfÃ¼gbarkeit prÃ¼fen)
+    a5:task:(VerfÃ¼gbarkeit prÃ¼fen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->|"Abgelehnt"|gw4s:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->|"Abgelehnt"|a17:task:(Begründung senden)
-    a17:task:(Begründung senden)-->a1:task:(Urlaubsantrag ausfüllen)
-    a1:task:(Urlaubsantrag ausfüllen)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Abgelehnt"|a17:task:(BegrÃ¼ndung senden)
+    a17:task:(BegrÃ¼ndung senden)-->a1:task:(Urlaubsantrag ausfÃ¼llen)
+    a1:task:(Urlaubsantrag ausfÃ¼llen)-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|""|gw5s:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
     gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Antrag an Personalabteilung weiterleiten)
     a9:task:(Antrag an Personalabteilung weiterleiten)-->a11:task:(Urlaub im System erfassen)
-    a11:task:(Urlaub im System erfassen)-->a13:task:(Bestätigung senden)
-    a13:task:(Bestätigung senden)-->gw6s:exclusivegateway:{x}
+    a11:task:(Urlaub im System erfassen)-->a13:task:(BestÃ¤tigung senden)
+    a13:task:(BestÃ¤tigung senden)-->gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
@@ -2417,22 +2417,22 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfüllen)
-    a1:task:(Urlaubsantrag ausfüllen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
-    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(Verfügbarkeit prüfen)
-    a5:task:(Verfügbarkeit prüfen)-->gw2s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfÃ¼llen)
+    a1:task:(Urlaubsantrag ausfÃ¼llen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
+    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(VerfÃ¼gbarkeit prÃ¼fen)
+    a5:task:(VerfÃ¼gbarkeit prÃ¼fen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"Abgelehnt"|gw4s:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->a17:task:(Begründung senden)
-    a17:task:(Begründung senden)-->a1:task:(Urlaubsantrag ausfüllen)
+    gw4s:exclusivegateway:{x}-->a17:task:(BegrÃ¼ndung senden)
+    a17:task:(BegrÃ¼ndung senden)-->a1:task:(Urlaubsantrag ausfÃ¼llen)
     gw4s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Antrag an Personalabteilung weiterleiten)
     a9:task:(Antrag an Personalabteilung weiterleiten)-->a11:task:(Urlaub im System erfassen)
-    a11:task:(Urlaub im System erfassen)-->a13:task:(Bestätigung senden)
-    a13:task:(Bestätigung senden)-->gw6s:exclusivegateway:{x}
+    a11:task:(Urlaub im System erfassen)-->a13:task:(BestÃ¤tigung senden)
+    a13:task:(BestÃ¤tigung senden)-->gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
     gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Verfügbar"|gw3s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"VerfÃ¼gbar"|gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw4s:exclusivegateway:{x}
     gw3e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
@@ -2914,7 +2914,7 @@ event:
           <loop mode="pre_test" condition="true">
             <call id="a3" endpoint="" a:alt_id="a1">
               <parameters>
-                <label>Urlaubsantrag ausfüllen</label>
+                <label>Urlaubsantrag ausfÃ¼llen</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -2930,7 +2930,7 @@ event:
             </call>
             <call id="a7" endpoint="" a:alt_id="a5">
               <parameters>
-                <label>Verfügbarkeit prüfen</label>
+                <label>VerfÃ¼gbarkeit prÃ¼fen</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -2943,7 +2943,7 @@ event:
                     <alternative condition="">
                       <call id="a13" endpoint="" a:alt_id="a17">
                         <parameters>
-                          <label>Begründung senden</label>
+                          <label>BegrÃ¼ndung senden</label>
                           <method/>
                           <type>:task</type>
                           <arguments/>
@@ -2951,7 +2951,7 @@ event:
                       </call>
                       <call id="a3" endpoint="" a:alt_id="a1">
                         <parameters>
-                          <label>Urlaubsantrag ausfüllen</label>
+                          <label>Urlaubsantrag ausfÃ¼llen</label>
                           <method/>
                           <type>:task</type>
                           <arguments/>
@@ -2967,7 +2967,7 @@ event:
                       </call>
                       <call id="a7" endpoint="" a:alt_id="a5">
                         <parameters>
-                          <label>Verfügbarkeit prüfen</label>
+                          <label>VerfÃ¼gbarkeit prÃ¼fen</label>
                           <method/>
                           <type>:task</type>
                           <arguments/>
@@ -2993,7 +2993,7 @@ event:
                       </call>
                       <call id="a21" endpoint="" a:alt_id="a13">
                         <parameters>
-                          <label>Bestätigung senden</label>
+                          <label>BestÃ¤tigung senden</label>
                           <method/>
                           <type>:task</type>
                           <arguments/>
@@ -3007,14 +3007,14 @@ event:
                     </alternative>
                   </choose>
                 </alternative>
-                <alternative condition="Verfügbar" language="text/javascript">
+                <alternative condition="VerfÃ¼gbar" language="text/javascript">
                   <choose mode="exclusive" a:alt_id="gw3s">
                     <alternative condition="">
                       <choose mode="exclusive" a:alt_id="gw4s">
                         <alternative condition="">
                           <call id="a13" endpoint="" a:alt_id="a17">
                             <parameters>
-                              <label>Begründung senden</label>
+                              <label>BegrÃ¼ndung senden</label>
                               <method/>
                               <type>:task</type>
                               <arguments/>
@@ -3022,7 +3022,7 @@ event:
                           </call>
                           <call id="a3" endpoint="" a:alt_id="a1">
                             <parameters>
-                              <label>Urlaubsantrag ausfüllen</label>
+                              <label>Urlaubsantrag ausfÃ¼llen</label>
                               <method/>
                               <type>:task</type>
                               <arguments/>
@@ -3038,7 +3038,7 @@ event:
                           </call>
                           <call id="a7" endpoint="" a:alt_id="a5">
                             <parameters>
-                              <label>Verfügbarkeit prüfen</label>
+                              <label>VerfÃ¼gbarkeit prÃ¼fen</label>
                               <method/>
                               <type>:task</type>
                               <arguments/>
@@ -3064,7 +3064,7 @@ event:
                           </call>
                           <call id="a21" endpoint="" a:alt_id="a13">
                             <parameters>
-                              <label>Bestätigung senden</label>
+                              <label>BestÃ¤tigung senden</label>
                               <method/>
                               <type>:task</type>
                               <arguments/>
@@ -3083,14 +3083,14 @@ event:
                     </alternative>
                   </choose>
                 </alternative>
-                <alternative condition="Verfügbar" language="text/javascript">
+                <alternative condition="VerfÃ¼gbar" language="text/javascript">
                   <choose mode="exclusive" a:alt_id="gw3s">
                     <alternative condition="">
                       <choose mode="exclusive" a:alt_id="gw4s">
                         <alternative condition="">
                           <call id="a13" endpoint="" a:alt_id="a17">
                             <parameters>
-                              <label>Begründung senden</label>
+                              <label>BegrÃ¼ndung senden</label>
                               <method/>
                               <type>:task</type>
                               <arguments/>
@@ -3098,7 +3098,7 @@ event:
                           </call>
                           <call id="a3" endpoint="" a:alt_id="a1">
                             <parameters>
-                              <label>Urlaubsantrag ausfüllen</label>
+                              <label>Urlaubsantrag ausfÃ¼llen</label>
                               <method/>
                               <type>:task</type>
                               <arguments/>
@@ -3114,7 +3114,7 @@ event:
                           </call>
                           <call id="a7" endpoint="" a:alt_id="a5">
                             <parameters>
-                              <label>Verfügbarkeit prüfen</label>
+                              <label>VerfÃ¼gbarkeit prÃ¼fen</label>
                               <method/>
                               <type>:task</type>
                               <arguments/>
@@ -3140,7 +3140,7 @@ event:
                           </call>
                           <call id="a21" endpoint="" a:alt_id="a13">
                             <parameters>
-                              <label>Bestätigung senden</label>
+                              <label>BestÃ¤tigung senden</label>
                               <method/>
                               <type>:task</type>
                               <arguments/>
@@ -3178,7 +3178,7 @@ event:
   cpee:change_uuid: 45011018c6920b08abe5ce6671a614db8a955d43
   cpee:exposition: |-
     # User Input:
-    Der Mitarbeiter füllt das Urlaubsantragsformular mit gewünschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prüft die Verfügbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine Bestätigung sendet. Bei Ablehnung erhält der Mitarbeiter eine Begründung und kann einen neuen Antrag mit geändertem Zeitraum stellen.
+    Der Mitarbeiter fÃ¼llt das Urlaubsantragsformular mit gewÃ¼nschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prÃ¼ft die VerfÃ¼gbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine BestÃ¤tigung sendet. Bei Ablehnung erhÃ¤lt der Mitarbeiter eine BegrÃ¼ndung und kann einen neuen Antrag mit geÃ¤ndertem Zeitraum stellen.
   time:timestamp: '2025-12-05T14:45:36.988362+01:00'
 ---
 event:
@@ -3208,10 +3208,10 @@ event:
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"true"|gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
-    gw2e:exclusivegateway:{x}-->|"true"|a3:task:(Urlaubsantrag ausfüllen)
-    a3:task:(Urlaubsantrag ausfüllen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
-    a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(Verfügbarkeit prüfen)
-    a7:task:(Verfügbarkeit prüfen)-->gw3s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a3:task:(Urlaubsantrag ausfÃ¼llen)
+    a3:task:(Urlaubsantrag ausfÃ¼llen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
+    a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(VerfÃ¼gbarkeit prÃ¼fen)
+    a7:task:(VerfÃ¼gbarkeit prÃ¼fen)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
@@ -3220,13 +3220,13 @@ event:
     gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Abgelehnt"|gw5s:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->|"Abgelehnt"|gw6s:exclusivegateway:{x}
-    gw6s:exclusivegateway:{x}-->|""|a13:task:(Begründung senden)
-    a13:task:(Begründung senden)-->a3:task:(Urlaubsantrag ausfüllen)
-    a3:task:(Urlaubsantrag ausfüllen)-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|""|a13:task:(BegrÃ¼ndung senden)
+    a13:task:(BegrÃ¼ndung senden)-->a3:task:(Urlaubsantrag ausfÃ¼llen)
+    a3:task:(Urlaubsantrag ausfÃ¼llen)-->gw6e:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->|""|a17:task:(Antrag an Personalabteilung weiterleiten)
     a17:task:(Antrag an Personalabteilung weiterleiten)-->a19:task:(Urlaub im System erfassen)
-    a19:task:(Urlaub im System erfassen)-->a21:task:(Bestätigung senden)
-    a21:task:(Bestätigung senden)-->gw7s:exclusivegateway:{x}
+    a19:task:(Urlaub im System erfassen)-->a21:task:(BestÃ¤tigung senden)
+    a21:task:(BestÃ¤tigung senden)-->gw7s:exclusivegateway:{x}
     gw7s:exclusivegateway:{x}-->gw8s:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->gw9s:exclusivegateway:{x}
     gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
@@ -3250,15 +3250,15 @@ event:
     gw12e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
     gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"Verfügbar"|gw14s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"VerfÃ¼gbar"|gw14s:exclusivegateway:{x}
     gw14s:exclusivegateway:{x}-->|""|gw15s:exclusivegateway:{x}
-    gw15s:exclusivegateway:{x}-->|""|a13:task:(Begründung senden)
-    a13:task:(Begründung senden)-->a3:task:(Urlaubsantrag ausfüllen)
-    a3:task:(Urlaubsantrag ausfüllen)-->gw15e:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->|""|a13:task:(BegrÃ¼ndung senden)
+    a13:task:(BegrÃ¼ndung senden)-->a3:task:(Urlaubsantrag ausfÃ¼llen)
+    a3:task:(Urlaubsantrag ausfÃ¼llen)-->gw15e:exclusivegateway:{x}
     gw15s:exclusivegateway:{x}-->|""|a17:task:(Antrag an Personalabteilung weiterleiten)
     a17:task:(Antrag an Personalabteilung weiterleiten)-->a19:task:(Urlaub im System erfassen)
-    a19:task:(Urlaub im System erfassen)-->a21:task:(Bestätigung senden)
-    a21:task:(Bestätigung senden)-->gw16s:exclusivegateway:{x}
+    a19:task:(Urlaub im System erfassen)-->a21:task:(BestÃ¤tigung senden)
+    a21:task:(BestÃ¤tigung senden)-->gw16s:exclusivegateway:{x}
     gw16s:exclusivegateway:{x}-->gw17s:exclusivegateway:{x}
     gw17s:exclusivegateway:{x}-->gw18s:exclusivegateway:{x}
     gw18s:exclusivegateway:{x}-->gw18e:exclusivegateway:{x}
@@ -3290,15 +3290,15 @@ event:
     gw23s:exclusivegateway:{x}-->gw23e:exclusivegateway:{x}
     gw23e:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
     gw14e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"Verfügbar"|gw25s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"VerfÃ¼gbar"|gw25s:exclusivegateway:{x}
     gw25s:exclusivegateway:{x}-->|""|gw26s:exclusivegateway:{x}
-    gw26s:exclusivegateway:{x}-->|""|a13:task:(Begründung senden)
-    a13:task:(Begründung senden)-->a3:task:(Urlaubsantrag ausfüllen)
-    a3:task:(Urlaubsantrag ausfüllen)-->gw26e:exclusivegateway:{x}
+    gw26s:exclusivegateway:{x}-->|""|a13:task:(BegrÃ¼ndung senden)
+    a13:task:(BegrÃ¼ndung senden)-->a3:task:(Urlaubsantrag ausfÃ¼llen)
+    a3:task:(Urlaubsantrag ausfÃ¼llen)-->gw26e:exclusivegateway:{x}
     gw26s:exclusivegateway:{x}-->|""|a17:task:(Antrag an Personalabteilung weiterleiten)
     a17:task:(Antrag an Personalabteilung weiterleiten)-->a19:task:(Urlaub im System erfassen)
-    a19:task:(Urlaub im System erfassen)-->a21:task:(Bestätigung senden)
-    a21:task:(Bestätigung senden)-->gw27s:exclusivegateway:{x}
+    a19:task:(Urlaub im System erfassen)-->a21:task:(BestÃ¤tigung senden)
+    a21:task:(BestÃ¤tigung senden)-->gw27s:exclusivegateway:{x}
     gw27s:exclusivegateway:{x}-->gw28s:exclusivegateway:{x}
     gw28s:exclusivegateway:{x}-->gw29s:exclusivegateway:{x}
     gw29s:exclusivegateway:{x}-->gw29e:exclusivegateway:{x}
@@ -3353,17 +3353,17 @@ event:
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"true"|gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
-    gw2e:exclusivegateway:{x}-->|"true"|a3:task:(Urlaubsantrag ausfüllen)
-    a3:task:(Urlaubsantrag ausfüllen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
-    a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(Verfügbarkeit prüfen)
-    a7:task:(Verfügbarkeit prüfen)-->gw3s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a3:task:(Urlaubsantrag ausfÃ¼llen)
+    a3:task:(Urlaubsantrag ausfÃ¼llen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
+    a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(VerfÃ¼gbarkeit prÃ¼fen)
+    a7:task:(VerfÃ¼gbarkeit prÃ¼fen)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->|"Abgelehnt"|gw5s:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->a13:task:(Begründung senden)
-    a13:task:(Begründung senden)-->a3:task:
-    gw5s:exclusivegateway:{x}-->|"Verfügbar"|a17:task:(Antrag an Personalabteilung weiterleiten)
+    gw5s:exclusivegateway:{x}-->a13:task:(BegrÃ¼ndung senden)
+    a13:task:(BegrÃ¼ndung senden)-->a3:task:
+    gw5s:exclusivegateway:{x}-->|"VerfÃ¼gbar"|a17:task:(Antrag an Personalabteilung weiterleiten)
     a17:task:(Antrag an Personalabteilung weiterleiten)-->a19:task:(Urlaub im System erfassen)
-    a19:task:(Urlaub im System erfassen)-->a21:task:(Bestätigung senden)
-    a21:task:(Bestätigung senden)-->ee:endevent:(((endevent)))
+    a19:task:(Urlaub im System erfassen)-->a21:task:(BestÃ¤tigung senden)
+    a21:task:(BestÃ¤tigung senden)-->ee:endevent:(((endevent)))
     gw3s:exclusivegateway:{x}-->|"Genehmigt"|a17:task:(Antrag an Personalabteilung weiterleiten)
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3e:exclusivegateway:{x}-->a17:task:(Antrag an Personalabteilung weiterleiten)

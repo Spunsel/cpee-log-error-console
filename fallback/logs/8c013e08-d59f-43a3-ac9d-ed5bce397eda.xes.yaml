@@ -90,17 +90,17 @@ event:
     comment: off
 
     parsers:
-      javascript:
-        enable_partials: yes
+    Â  javascript:
+    Â  Â  enable_partials: yes
     coverage:
-      status:
-        patch:
-          default:
-            informational: false
-            threshold: 5.0
-        project:
-          default:
-            informational: true
+    Â  status:
+    Â  Â  patch:
+    Â  Â  Â  default:
+    Â  Â  Â  Â  informational: false
+    Â  Â  Â  Â  threshold: 5.0
+    Â  Â  project:
+    Â  Â  Â  default:
+    Â  Â  Â  Â  informational: true
   time:timestamp: '2025-12-11T13:37:50.905804+01:00'
 ---
 event:
@@ -239,141 +239,141 @@ event:
     const { exec, spawn } = require("child_process");
 
     async function _simulate(parameters = {}) {
-      const { filePath: originalPath, fileContents, signal } = { ...parameters };
+    Â  const { filePath: originalPath, fileContents, signal } = { ...parameters };
 
-      const taskDone = new AbortController();
+    Â  const taskDone = new AbortController();
 
-      if (signal.aborted === true)
-        throw new Error("Operation cancelled externally beforehand");
+    Â  if (signal.aborted === true)
+    Â  Â  throw new Error("Operation cancelled externally beforehand");
 
-      signal.addEventListener(
-        "abort",
-        () => {
-          console.error("Operation cancelled externally");
-          exec("taskkill /f /PID " + proc.pid);
-        },
-        {
-          once: true,
-          signal: taskDone.signal,
-        }
-      );
+    Â  signal.addEventListener(
+    Â  Â  "abort",
+    Â  Â  () => {
+    Â  Â  Â  console.error("Operation cancelled externally");
+    Â  Â  Â  exec("taskkill /f /PID " + proc.pid);
+    Â  Â  },
+    Â  Â  {
+    Â  Â  Â  once: true,
+    Â  Â  Â  signal: taskDone.signal,
+    Â  Â  }
+    Â  );
 
-      try {
-        if (signal.aborted)
-          throw new Error("Operation cancelled externally beforehand");
+    Â  try {
+    Â  Â  if (signal.aborted)
+    Â  Â  Â  throw new Error("Operation cancelled externally beforehand");
 
-        proc = spawn(
-          "java",
-          [
-            "-jar",
-            "C:\\Users\\fehrer\\dtdiwork\\abpr-5\\resources\\scylla\\scylla-0.0.1-SNAPSHOT.jar",
-            "--config=C:\\Users\\fehrer\\OneDrive - FIM Kernkompetenzzentrum\\Desktop\\sim\\189a1e4791db8b5484b374a32f5cc4a29506a9b8.bpmn",
-          ],
-          {}
-        );
+    Â  Â  proc = spawn(
+    Â  Â  Â  "java",
+    Â  Â  Â  [
+    Â  Â  Â  Â  "-jar",
+    Â  Â  Â  Â  "C:\\Users\\fehrer\\dtdiwork\\abpr-5\\resources\\scylla\\scylla-0.0.1-SNAPSHOT.jar",
+    Â  Â  Â  Â  "--config=C:\\Users\\fehrer\\OneDrive - FIM Kernkompetenzzentrum\\Desktop\\sim\\189a1e4791db8b5484b374a32f5cc4a29506a9b8.bpmn",
+    Â  Â  Â  ],
+    Â  Â  Â  {}
+    Â  Â  );
 
-        let output = "";
+    Â  Â  let output = "";
 
-        proc.stderr.on("data", (data) => {
-          output += data;
-        });
+    Â  Â  proc.stderr.on("data", (data) => {
+    Â  Â  Â  output += data;
+    Â  Â  });
 
-        proc.stdout.on("data", (data) => {
-          output += data;
-        });
+    Â  Â  proc.stdout.on("data", (data) => {
+    Â  Â  Â  output += data;
+    Â  Â  });
 
-        proc.on("error", (err) => {
-          console.log(err);
-        });
+    Â  Â  proc.on("error", (err) => {
+    Â  Â  Â  console.log(err);
+    Â  Â  });
 
-        proc.on("close", (code) => {
-          console.log(output);
-          console.log("close");
-          cancelTimer.abort();
+    Â  Â  proc.on("close", (code) => {
+    Â  Â  Â  console.log(output);
+    Â  Â  Â  console.log("close");
+    Â  Â  Â  cancelTimer.abort();
 
-          const simuPath = output.match(/Wrote activity statistics to ([^\r\n]+)/);
-          if (simuPath.length == 2) {
-            const outputPath = path.parse(simuPath[1]);
-            const contents = fs.readFileSync(path.format(outputPath)).toString();
-          }
-        });
+    Â  Â  Â  const simuPath = output.match(/Wrote activity statistics to ([^\r\n]+)/);
+    Â  Â  Â  if (simuPath.length == 2) {
+    Â  Â  Â  Â  const outputPath = path.parse(simuPath[1]);
+    Â  Â  Â  Â  const contents = fs.readFileSync(path.format(outputPath)).toString();
+    Â  Â  Â  }
+    Â  Â  });
 
-        /**
-        if (stdout) {
-          console.info(stdout);
-        }
-        if (stderr) {
-          console.error(stderr);
-          throw { message: stderr, name: "SimulationException" };
-        }
+    Â  Â  /**
+    Â  Â  if (stdout) {
+    Â  Â  Â  console.info(stdout);
+    Â  Â  }
+    Â  Â  if (stderr) {
+    Â  Â  Â  console.error(stderr);
+    Â  Â  Â  throw { message: stderr, name: "SimulationException" };
+    Â  Â  }
 
-        const simuPath = stdout.match(/Wrote activity statistics to ([^\r\n]+)/);
-        if (simuPath.length == 2) {
-          const outputPath = path.parse(simuPath[1]);
-          const { contents } = this._fs.readFile(path.format(outputPath), {
-            encoding: false,
-          });
-          rimraf(outputPath.dir);
-          fs.unlinkSync(filePath);
+    Â  Â  const simuPath = stdout.match(/Wrote activity statistics to ([^\r\n]+)/);
+    Â  Â  if (simuPath.length == 2) {
+    Â  Â  Â  const outputPath = path.parse(simuPath[1]);
+    Â  Â  Â  const { contents } = this._fs.readFile(path.format(outputPath), {
+    Â  Â  Â  Â  encoding: false,
+    Â  Â  Â  });
+    Â  Â  Â  rimraf(outputPath.dir);
+    Â  Â  Â  fs.unlinkSync(filePath);
 
-          console.info("almost done!");
+    Â  Â  Â  console.info("almost done!");
 
-          return {
-            success: true,
-            response: contents.toString(),
-          };
-        }
-        */
-      } catch {}
+    Â  Â  Â  return {
+    Â  Â  Â  Â  success: true,
+    Â  Â  Â  Â  response: contents.toString(),
+    Â  Â  Â  };
+    Â  Â  }
+    Â  Â  */
+    Â  } catch {}
     }
 
     async function simulate(parameters = {}) {
-      async function timeout() {
-        try {
-          await setTimeout(15000, undefined, {
-            signal: cancelTimer.signal,
-          });
-          console.log("kill");
-          cancelTask.abort("Time Exceeded");
-        } catch (err) {
-          return { success: false, response: "esternal stop." };
-        }
-      }
+    Â  async function timeout() {
+    Â  Â  try {
+    Â  Â  Â  await setTimeout(15000, undefined, {
+    Â  Â  Â  Â  signal: cancelTimer.signal,
+    Â  Â  Â  });
+    Â  Â  Â  console.log("kill");
+    Â  Â  Â  cancelTask.abort("Time Exceeded");
+    Â  Â  } catch (err) {
+    Â  Â  Â  return { success: false, response: "esternal stop." };
+    Â  Â  }
+    Â  }
 
-      async function task() {
-        try {
-          return await _simulate({
-            ...parameters,
-            signal: cancelTask.signal,
-          });
-        } catch (err) {
-          return err;
-        } finally {
-        }
-      }
-      console.log("asdf");
-      return await Promise.race([timeout(), task()]);
+    Â  async function task() {
+    Â  Â  try {
+    Â  Â  Â  return await _simulate({
+    Â  Â  Â  Â  ...parameters,
+    Â  Â  Â  Â  signal: cancelTask.signal,
+    Â  Â  Â  });
+    Â  Â  } catch (err) {
+    Â  Â  Â  return err;
+    Â  Â  } finally {
+    Â  Â  }
+    Â  }
+    Â  console.log("asdf");
+    Â  return await Promise.race([timeout(), task()]);
     }
 
     simulate();
 
     /**
-     * Remove directory recursively
-     * @param {string} dir_path
-     * @see https://stackoverflow.com/a/42505874/3027390
-     */
+    Â * Remove directory recursively
+    Â * @param {string} dir_path
+    Â * @see https://stackoverflow.com/a/42505874/3027390
+    Â */
     function rimraf(dir_path) {
-      if (fs.existsSync(dir_path)) {
-        fs.readdirSync(dir_path).forEach(function (entry) {
-          var entry_path = path.join(dir_path, entry);
-          if (fs.lstatSync(entry_path).isDirectory()) {
-            rimraf(entry_path);
-          } else {
-            fs.unlinkSync(entry_path);
-          }
-        });
-        fs.rmdirSync(dir_path);
-      }
+    Â  if (fs.existsSync(dir_path)) {
+    Â  Â  fs.readdirSync(dir_path).forEach(function (entry) {
+    Â  Â  Â  var entry_path = path.join(dir_path, entry);
+    Â  Â  Â  if (fs.lstatSync(entry_path).isDirectory()) {
+    Â  Â  Â  Â  rimraf(entry_path);
+    Â  Â  Â  } else {
+    Â  Â  Â  Â  fs.unlinkSync(entry_path);
+    Â  Â  Â  }
+    Â  Â  });
+    Â  Â  fs.rmdirSync(dir_path);
+    Â  }
     }
   time:timestamp: '2025-12-11T13:39:37.869666+01:00'
 ---
@@ -641,141 +641,141 @@ event:
     const { exec, spawn } = require("child_process");
 
     async function _simulate(parameters = {}) {
-      const { filePath: originalPath, fileContents, signal } = { ...parameters };
+    Â  const { filePath: originalPath, fileContents, signal } = { ...parameters };
 
-      const taskDone = new AbortController();
+    Â  const taskDone = new AbortController();
 
-      if (signal.aborted === true)
-        throw new Error("Operation cancelled externally beforehand");
+    Â  if (signal.aborted === true)
+    Â  Â  throw new Error("Operation cancelled externally beforehand");
 
-      signal.addEventListener(
-        "abort",
-        () => {
-          console.error("Operation cancelled externally");
-          exec("taskkill /f /PID " + proc.pid);
-        },
-        {
-          once: true,
-          signal: taskDone.signal,
-        }
-      );
+    Â  signal.addEventListener(
+    Â  Â  "abort",
+    Â  Â  () => {
+    Â  Â  Â  console.error("Operation cancelled externally");
+    Â  Â  Â  exec("taskkill /f /PID " + proc.pid);
+    Â  Â  },
+    Â  Â  {
+    Â  Â  Â  once: true,
+    Â  Â  Â  signal: taskDone.signal,
+    Â  Â  }
+    Â  );
 
-      try {
-        if (signal.aborted)
-          throw new Error("Operation cancelled externally beforehand");
+    Â  try {
+    Â  Â  if (signal.aborted)
+    Â  Â  Â  throw new Error("Operation cancelled externally beforehand");
 
-        proc = spawn(
-          "java",
-          [
-            "-jar",
-            "C:\\Users\\fehrer\\dtdiwork\\abpr-5\\resources\\scylla\\scylla-0.0.1-SNAPSHOT.jar",
-            "--config=C:\\Users\\fehrer\\OneDrive - FIM Kernkompetenzzentrum\\Desktop\\sim\\189a1e4791db8b5484b374a32f5cc4a29506a9b8.bpmn",
-          ],
-          {}
-        );
+    Â  Â  proc = spawn(
+    Â  Â  Â  "java",
+    Â  Â  Â  [
+    Â  Â  Â  Â  "-jar",
+    Â  Â  Â  Â  "C:\\Users\\fehrer\\dtdiwork\\abpr-5\\resources\\scylla\\scylla-0.0.1-SNAPSHOT.jar",
+    Â  Â  Â  Â  "--config=C:\\Users\\fehrer\\OneDrive - FIM Kernkompetenzzentrum\\Desktop\\sim\\189a1e4791db8b5484b374a32f5cc4a29506a9b8.bpmn",
+    Â  Â  Â  ],
+    Â  Â  Â  {}
+    Â  Â  );
 
-        let output = "";
+    Â  Â  let output = "";
 
-        proc.stderr.on("data", (data) => {
-          output += data;
-        });
+    Â  Â  proc.stderr.on("data", (data) => {
+    Â  Â  Â  output += data;
+    Â  Â  });
 
-        proc.stdout.on("data", (data) => {
-          output += data;
-        });
+    Â  Â  proc.stdout.on("data", (data) => {
+    Â  Â  Â  output += data;
+    Â  Â  });
 
-        proc.on("error", (err) => {
-          console.log(err);
-        });
+    Â  Â  proc.on("error", (err) => {
+    Â  Â  Â  console.log(err);
+    Â  Â  });
 
-        proc.on("close", (code) => {
-          console.log(output);
-          console.log("close");
-          cancelTimer.abort();
+    Â  Â  proc.on("close", (code) => {
+    Â  Â  Â  console.log(output);
+    Â  Â  Â  console.log("close");
+    Â  Â  Â  cancelTimer.abort();
 
-          const simuPath = output.match(/Wrote activity statistics to ([^\r\n]+)/);
-          if (simuPath.length == 2) {
-            const outputPath = path.parse(simuPath[1]);
-            const contents = fs.readFileSync(path.format(outputPath)).toString();
-          }
-        });
+    Â  Â  Â  const simuPath = output.match(/Wrote activity statistics to ([^\r\n]+)/);
+    Â  Â  Â  if (simuPath.length == 2) {
+    Â  Â  Â  Â  const outputPath = path.parse(simuPath[1]);
+    Â  Â  Â  Â  const contents = fs.readFileSync(path.format(outputPath)).toString();
+    Â  Â  Â  }
+    Â  Â  });
 
-        /**
-        if (stdout) {
-          console.info(stdout);
-        }
-        if (stderr) {
-          console.error(stderr);
-          throw { message: stderr, name: "SimulationException" };
-        }
+    Â  Â  /**
+    Â  Â  if (stdout) {
+    Â  Â  Â  console.info(stdout);
+    Â  Â  }
+    Â  Â  if (stderr) {
+    Â  Â  Â  console.error(stderr);
+    Â  Â  Â  throw { message: stderr, name: "SimulationException" };
+    Â  Â  }
 
-        const simuPath = stdout.match(/Wrote activity statistics to ([^\r\n]+)/);
-        if (simuPath.length == 2) {
-          const outputPath = path.parse(simuPath[1]);
-          const { contents } = this._fs.readFile(path.format(outputPath), {
-            encoding: false,
-          });
-          rimraf(outputPath.dir);
-          fs.unlinkSync(filePath);
+    Â  Â  const simuPath = stdout.match(/Wrote activity statistics to ([^\r\n]+)/);
+    Â  Â  if (simuPath.length == 2) {
+    Â  Â  Â  const outputPath = path.parse(simuPath[1]);
+    Â  Â  Â  const { contents } = this._fs.readFile(path.format(outputPath), {
+    Â  Â  Â  Â  encoding: false,
+    Â  Â  Â  });
+    Â  Â  Â  rimraf(outputPath.dir);
+    Â  Â  Â  fs.unlinkSync(filePath);
 
-          console.info("almost done!");
+    Â  Â  Â  console.info("almost done!");
 
-          return {
-            success: true,
-            response: contents.toString(),
-          };
-        }
-        */
-      } catch {}
+    Â  Â  Â  return {
+    Â  Â  Â  Â  success: true,
+    Â  Â  Â  Â  response: contents.toString(),
+    Â  Â  Â  };
+    Â  Â  }
+    Â  Â  */
+    Â  } catch {}
     }
 
     async function simulate(parameters = {}) {
-      async function timeout() {
-        try {
-          await setTimeout(15000, undefined, {
-            signal: cancelTimer.signal,
-          });
-          console.log("kill");
-          cancelTask.abort("Time Exceeded");
-        } catch (err) {
-          return { success: false, response: "esternal stop." };
-        }
-      }
+    Â  async function timeout() {
+    Â  Â  try {
+    Â  Â  Â  await setTimeout(15000, undefined, {
+    Â  Â  Â  Â  signal: cancelTimer.signal,
+    Â  Â  Â  });
+    Â  Â  Â  console.log("kill");
+    Â  Â  Â  cancelTask.abort("Time Exceeded");
+    Â  Â  } catch (err) {
+    Â  Â  Â  return { success: false, response: "esternal stop." };
+    Â  Â  }
+    Â  }
 
-      async function task() {
-        try {
-          return await _simulate({
-            ...parameters,
-            signal: cancelTask.signal,
-          });
-        } catch (err) {
-          return err;
-        } finally {
-        }
-      }
-      console.log("asdf");
-      return await Promise.race([timeout(), task()]);
+    Â  async function task() {
+    Â  Â  try {
+    Â  Â  Â  return await _simulate({
+    Â  Â  Â  Â  ...parameters,
+    Â  Â  Â  Â  signal: cancelTask.signal,
+    Â  Â  Â  });
+    Â  Â  } catch (err) {
+    Â  Â  Â  return err;
+    Â  Â  } finally {
+    Â  Â  }
+    Â  }
+    Â  console.log("asdf");
+    Â  return await Promise.race([timeout(), task()]);
     }
 
     simulate();
 
     /**
-     * Remove directory recursively
-     * @param {string} dir_path
-     * @see https://stackoverflow.com/a/42505874/3027390
-     */
+    Â * Remove directory recursively
+    Â * @param {string} dir_path
+    Â * @see https://stackoverflow.com/a/42505874/3027390
+    Â */
     function rimraf(dir_path) {
-      if (fs.existsSync(dir_path)) {
-        fs.readdirSync(dir_path).forEach(function (entry) {
-          var entry_path = path.join(dir_path, entry);
-          if (fs.lstatSync(entry_path).isDirectory()) {
-            rimraf(entry_path);
-          } else {
-            fs.unlinkSync(entry_path);
-          }
-        });
-        fs.rmdirSync(dir_path);
-      }
+    Â  if (fs.existsSync(dir_path)) {
+    Â  Â  fs.readdirSync(dir_path).forEach(function (entry) {
+    Â  Â  Â  var entry_path = path.join(dir_path, entry);
+    Â  Â  Â  if (fs.lstatSync(entry_path).isDirectory()) {
+    Â  Â  Â  Â  rimraf(entry_path);
+    Â  Â  Â  } else {
+    Â  Â  Â  Â  fs.unlinkSync(entry_path);
+    Â  Â  Â  }
+    Â  Â  });
+    Â  Â  fs.rmdirSync(dir_path);
+    Â  }
     }
   time:timestamp: '2025-12-11T13:39:52.272223+01:00'
 ---
@@ -941,141 +941,141 @@ event:
     const { exec, spawn } = require("child_process");
 
     async function _simulate(parameters = {}) {
-      const { filePath: originalPath, fileContents, signal } = { ...parameters };
+    Â  const { filePath: originalPath, fileContents, signal } = { ...parameters };
 
-      const taskDone = new AbortController();
+    Â  const taskDone = new AbortController();
 
-      if (signal.aborted === true)
-        throw new Error("Operation cancelled externally beforehand");
+    Â  if (signal.aborted === true)
+    Â  Â  throw new Error("Operation cancelled externally beforehand");
 
-      signal.addEventListener(
-        "abort",
-        () => {
-          console.error("Operation cancelled externally");
-          exec("taskkill /f /PID " + proc.pid);
-        },
-        {
-          once: true,
-          signal: taskDone.signal,
-        }
-      );
+    Â  signal.addEventListener(
+    Â  Â  "abort",
+    Â  Â  () => {
+    Â  Â  Â  console.error("Operation cancelled externally");
+    Â  Â  Â  exec("taskkill /f /PID " + proc.pid);
+    Â  Â  },
+    Â  Â  {
+    Â  Â  Â  once: true,
+    Â  Â  Â  signal: taskDone.signal,
+    Â  Â  }
+    Â  );
 
-      try {
-        if (signal.aborted)
-          throw new Error("Operation cancelled externally beforehand");
+    Â  try {
+    Â  Â  if (signal.aborted)
+    Â  Â  Â  throw new Error("Operation cancelled externally beforehand");
 
-        proc = spawn(
-          "java",
-          [
-            "-jar",
-            "C:\\Users\\fehrer\\dtdiwork\\abpr-5\\resources\\scylla\\scylla-0.0.1-SNAPSHOT.jar",
-            "--config=C:\\Users\\fehrer\\OneDrive - FIM Kernkompetenzzentrum\\Desktop\\sim\\189a1e4791db8b5484b374a32f5cc4a29506a9b8.bpmn",
-          ],
-          {}
-        );
+    Â  Â  proc = spawn(
+    Â  Â  Â  "java",
+    Â  Â  Â  [
+    Â  Â  Â  Â  "-jar",
+    Â  Â  Â  Â  "C:\\Users\\fehrer\\dtdiwork\\abpr-5\\resources\\scylla\\scylla-0.0.1-SNAPSHOT.jar",
+    Â  Â  Â  Â  "--config=C:\\Users\\fehrer\\OneDrive - FIM Kernkompetenzzentrum\\Desktop\\sim\\189a1e4791db8b5484b374a32f5cc4a29506a9b8.bpmn",
+    Â  Â  Â  ],
+    Â  Â  Â  {}
+    Â  Â  );
 
-        let output = "";
+    Â  Â  let output = "";
 
-        proc.stderr.on("data", (data) => {
-          output += data;
-        });
+    Â  Â  proc.stderr.on("data", (data) => {
+    Â  Â  Â  output += data;
+    Â  Â  });
 
-        proc.stdout.on("data", (data) => {
-          output += data;
-        });
+    Â  Â  proc.stdout.on("data", (data) => {
+    Â  Â  Â  output += data;
+    Â  Â  });
 
-        proc.on("error", (err) => {
-          console.log(err);
-        });
+    Â  Â  proc.on("error", (err) => {
+    Â  Â  Â  console.log(err);
+    Â  Â  });
 
-        proc.on("close", (code) => {
-          console.log(output);
-          console.log("close");
-          cancelTimer.abort();
+    Â  Â  proc.on("close", (code) => {
+    Â  Â  Â  console.log(output);
+    Â  Â  Â  console.log("close");
+    Â  Â  Â  cancelTimer.abort();
 
-          const simuPath = output.match(/Wrote activity statistics to ([^\r\n]+)/);
-          if (simuPath.length == 2) {
-            const outputPath = path.parse(simuPath[1]);
-            const contents = fs.readFileSync(path.format(outputPath)).toString();
-          }
-        });
+    Â  Â  Â  const simuPath = output.match(/Wrote activity statistics to ([^\r\n]+)/);
+    Â  Â  Â  if (simuPath.length == 2) {
+    Â  Â  Â  Â  const outputPath = path.parse(simuPath[1]);
+    Â  Â  Â  Â  const contents = fs.readFileSync(path.format(outputPath)).toString();
+    Â  Â  Â  }
+    Â  Â  });
 
-        /**
-        if (stdout) {
-          console.info(stdout);
-        }
-        if (stderr) {
-          console.error(stderr);
-          throw { message: stderr, name: "SimulationException" };
-        }
+    Â  Â  /**
+    Â  Â  if (stdout) {
+    Â  Â  Â  console.info(stdout);
+    Â  Â  }
+    Â  Â  if (stderr) {
+    Â  Â  Â  console.error(stderr);
+    Â  Â  Â  throw { message: stderr, name: "SimulationException" };
+    Â  Â  }
 
-        const simuPath = stdout.match(/Wrote activity statistics to ([^\r\n]+)/);
-        if (simuPath.length == 2) {
-          const outputPath = path.parse(simuPath[1]);
-          const { contents } = this._fs.readFile(path.format(outputPath), {
-            encoding: false,
-          });
-          rimraf(outputPath.dir);
-          fs.unlinkSync(filePath);
+    Â  Â  const simuPath = stdout.match(/Wrote activity statistics to ([^\r\n]+)/);
+    Â  Â  if (simuPath.length == 2) {
+    Â  Â  Â  const outputPath = path.parse(simuPath[1]);
+    Â  Â  Â  const { contents } = this._fs.readFile(path.format(outputPath), {
+    Â  Â  Â  Â  encoding: false,
+    Â  Â  Â  });
+    Â  Â  Â  rimraf(outputPath.dir);
+    Â  Â  Â  fs.unlinkSync(filePath);
 
-          console.info("almost done!");
+    Â  Â  Â  console.info("almost done!");
 
-          return {
-            success: true,
-            response: contents.toString(),
-          };
-        }
-        */
-      } catch {}
+    Â  Â  Â  return {
+    Â  Â  Â  Â  success: true,
+    Â  Â  Â  Â  response: contents.toString(),
+    Â  Â  Â  };
+    Â  Â  }
+    Â  Â  */
+    Â  } catch {}
     }
 
     async function simulate(parameters = {}) {
-      async function timeout() {
-        try {
-          await setTimeout(15000, undefined, {
-            signal: cancelTimer.signal,
-          });
-          console.log("kill");
-          cancelTask.abort("Time Exceeded");
-        } catch (err) {
-          return { success: false, response: "esternal stop." };
-        }
-      }
+    Â  async function timeout() {
+    Â  Â  try {
+    Â  Â  Â  await setTimeout(15000, undefined, {
+    Â  Â  Â  Â  signal: cancelTimer.signal,
+    Â  Â  Â  });
+    Â  Â  Â  console.log("kill");
+    Â  Â  Â  cancelTask.abort("Time Exceeded");
+    Â  Â  } catch (err) {
+    Â  Â  Â  return { success: false, response: "esternal stop." };
+    Â  Â  }
+    Â  }
 
-      async function task() {
-        try {
-          return await _simulate({
-            ...parameters,
-            signal: cancelTask.signal,
-          });
-        } catch (err) {
-          return err;
-        } finally {
-        }
-      }
-      console.log("asdf");
-      return await Promise.race([timeout(), task()]);
+    Â  async function task() {
+    Â  Â  try {
+    Â  Â  Â  return await _simulate({
+    Â  Â  Â  Â  ...parameters,
+    Â  Â  Â  Â  signal: cancelTask.signal,
+    Â  Â  Â  });
+    Â  Â  } catch (err) {
+    Â  Â  Â  return err;
+    Â  Â  } finally {
+    Â  Â  }
+    Â  }
+    Â  console.log("asdf");
+    Â  return await Promise.race([timeout(), task()]);
     }
 
     simulate();
 
     /**
-     * Remove directory recursively
-     * @param {string} dir_path
-     * @see https://stackoverflow.com/a/42505874/3027390
-     */
+    Â * Remove directory recursively
+    Â * @param {string} dir_path
+    Â * @see https://stackoverflow.com/a/42505874/3027390
+    Â */
     function rimraf(dir_path) {
-      if (fs.existsSync(dir_path)) {
-        fs.readdirSync(dir_path).forEach(function (entry) {
-          var entry_path = path.join(dir_path, entry);
-          if (fs.lstatSync(entry_path).isDirectory()) {
-            rimraf(entry_path);
-          } else {
-            fs.unlinkSync(entry_path);
-          }
-        });
-        fs.rmdirSync(dir_path);
-      }
+    Â  if (fs.existsSync(dir_path)) {
+    Â  Â  fs.readdirSync(dir_path).forEach(function (entry) {
+    Â  Â  Â  var entry_path = path.join(dir_path, entry);
+    Â  Â  Â  if (fs.lstatSync(entry_path).isDirectory()) {
+    Â  Â  Â  Â  rimraf(entry_path);
+    Â  Â  Â  } else {
+    Â  Â  Â  Â  fs.unlinkSync(entry_path);
+    Â  Â  Â  }
+    Â  Â  });
+    Â  Â  fs.rmdirSync(dir_path);
+    Â  }
     }
   time:timestamp: '2025-12-11T13:40:08.330335+01:00'
 ---
@@ -1195,16 +1195,16 @@ event:
     # User Input:
     <?xml version="1.0" encoding="UTF-8"?>
     <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_{{ ID }}" targetNamespace="http://bpmn.io/schema/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" exporter="{{ EXPORTER_NAME }}" exporterVersion="{{ EXPORTER_VERSION }}" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="{{ CAMUNDA_PLATFORM_VERSION }}">
-      <bpmn:process id="Process_{{ ID:process }}" isExecutable="true">
-        <bpmn:startEvent id="StartEvent_1" />
-      </bpmn:process>
-      <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_{{ ID:process }}">
-          <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-            <dc:Bounds x="179" y="159" width="36" height="36" />
-          </bpmndi:BPMNShape>
-        </bpmndi:BPMNPlane>
-      </bpmndi:BPMNDiagram>
+    Â  <bpmn:process id="Process_{{ ID:process }}" isExecutable="true">
+    Â  Â  <bpmn:startEvent id="StartEvent_1" />
+    Â  </bpmn:process>
+    Â  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    Â  Â  <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_{{ ID:process }}">
+    Â  Â  Â  <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+    Â  Â  Â  Â  <dc:Bounds x="179" y="159" width="36" height="36" />
+    Â  Â  Â  </bpmndi:BPMNShape>
+    Â  Â  </bpmndi:BPMNPlane>
+    Â  </bpmndi:BPMNDiagram>
     </bpmn:definitions>
 
   time:timestamp: '2025-12-11T13:44:20.121775+01:00'

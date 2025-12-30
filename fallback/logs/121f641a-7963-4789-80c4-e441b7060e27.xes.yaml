@@ -65,14 +65,14 @@ event:
   cpee:change_uuid: c873d7bc1430ff4300c85421664baf2352b1364e
   cpee:exposition: |-
     # User Input:
-    Pool: Lothar – Accident and Treatment Journey
+    Pool: Lothar â€“ Accident and Treatment Journey
     Lane: Lothar
 
 
     Start Event:
 
 
-    Bicycle accident in city center → fall onto right wrist
+    Bicycle accident in city center â†’ fall onto right wrist
 
 
     Activities:
@@ -84,7 +84,7 @@ event:
     Decides to visit family doctor
 
 
-    Travels to family doctor’s office
+    Travels to family doctorâ€™s office
 
 
     Lane: Family Doctor Practice
@@ -106,10 +106,10 @@ event:
     Exclusive Gateway: Suspected fracture?
 
 
-    If NO → Diagnose bruise only → End process
+    If NO â†’ Diagnose bruise only â†’ End process
 
 
-    If YES → Continue
+    If YES â†’ Continue
 
 
     Activities:
@@ -119,10 +119,10 @@ event:
     Exclusive Gateway: Tetanus status known?
 
 
-    If YES → Continue
+    If YES â†’ Continue
 
 
-    If NO →
+    If NO â†’
 
 
     Administer tetanus booster
@@ -197,10 +197,10 @@ event:
     Exclusive Gateway: Abnormal finding?
 
 
-    If NO → End subprocess
+    If NO â†’ End subprocess
 
 
-    If YES →
+    If YES â†’
 
 
     Radiologist calls patient
@@ -237,7 +237,7 @@ event:
     Patient waits
 
 
-    Patient uses smartphone (parallel activity – optional)
+    Patient uses smartphone (parallel activity â€“ optional)
 
 
     Trauma surgeon repeats:
@@ -258,19 +258,19 @@ event:
     Exclusive Gateway: Medication list available?
 
 
-    If YES → Proceed
+    If YES â†’ Proceed
 
 
-    If NO → Try calling family doctor
+    If NO â†’ Try calling family doctor
 
 
     Exclusive Gateway: Family doctor reached?
 
 
-    If NO → Continue without medication list
+    If NO â†’ Continue without medication list
 
 
-    If YES → Collect info
+    If YES â†’ Collect info
 
 
     Activities:
@@ -280,19 +280,19 @@ event:
     Exclusive Gateway: CD readable?
 
 
-    If YES → Review images
+    If YES â†’ Review images
 
 
-    If NO → Use smartphone photos
+    If NO â†’ Use smartphone photos
 
 
     Exclusive Gateway: Clear surgical indication?
 
 
-    If YES → Prepare for surgery
+    If YES â†’ Prepare for surgery
 
 
-    If NO →
+    If NO â†’
 
 
     Apply cast
@@ -351,10 +351,10 @@ event:
     Exclusive Gateway: SL gap enlarged?
 
 
-    If NO → Proceed to surgery
+    If NO â†’ Proceed to surgery
 
 
-    If YES → Suspect ligament injury
+    If YES â†’ Suspect ligament injury
 
 
     Activities:
@@ -364,10 +364,10 @@ event:
     Exclusive Gateway: Previous imaging available?
 
 
-    If YES → Compare
+    If YES â†’ Compare
 
 
-    If NO → Order MRI
+    If NO â†’ Order MRI
 
 
     Lane: Radiology Practice (MRI)
@@ -392,10 +392,10 @@ event:
     Exclusive Gateway: Acute ligament injury?
 
 
-    If YES → Modify surgery plan
+    If YES â†’ Modify surgery plan
 
 
-    If NO → Confirm old injury
+    If NO â†’ Confirm old injury
 
 
     Activities:
@@ -461,19 +461,19 @@ event:
     Exclusive Gateway: Consent found?
 
 
-    If YES → Continue
+    If YES â†’ Continue
 
 
-    If NO → Cancel surgery
+    If NO â†’ Cancel surgery
 
 
     Exclusive Gateway: Patient has own copy?
 
 
-    If YES → Continue
+    If YES â†’ Continue
 
 
-    If NO → End process (surgery delayed)
+    If NO â†’ End process (surgery delayed)
 
 
     Subprocess: Anesthesia Complication
@@ -488,10 +488,10 @@ event:
     Exclusive Gateway: Allergic reaction occurs?
 
 
-    If NO → Continue surgery normally
+    If NO â†’ Continue surgery normally
 
 
-    If YES →
+    If YES â†’
 
 
     Anaphylactic shock
@@ -534,10 +534,10 @@ event:
     Exclusive Gateway: Discharge letter ready?
 
 
-    If YES → Hand out
+    If YES â†’ Hand out
 
 
-    If NO → Send to family doctor by mail
+    If NO â†’ Send to family doctor by mail
 
 
     Lane: Family Doctor (Aftercare)
@@ -569,10 +569,10 @@ event:
     Exclusive Gateway: Prescription available?
 
 
-    If YES → Visit pharmacy
+    If YES â†’ Visit pharmacy
 
 
-    If NO → Buy OTC medication
+    If NO â†’ Buy OTC medication
 
 
     Lane: Physiotherapy
@@ -591,10 +591,10 @@ event:
     Exclusive Gateway: Appointment found?
 
 
-    If NO → Continue searching
+    If NO â†’ Continue searching
 
 
-    If YES → Schedule appointment (4 weeks later)
+    If YES â†’ Schedule appointment (4 weeks later)
 
 
     Subprocess: First Physiotherapy Session
@@ -609,10 +609,10 @@ event:
     Exclusive Gateway: Plan available?
 
 
-    If YES → Start therapy normally
+    If YES â†’ Start therapy normally
 
 
-    If NO → Therapy starts without plan
+    If NO â†’ Therapy starts without plan
 
 
     End Event
@@ -1985,8 +1985,8 @@ event:
     graph LR
         0:startevent:((startevent)) --> 1:task:(Experiences pain and immobility in right wrist)
         1:task:(Experiences pain and immobility in right wrist) --> 2:task:(Decides to visit family doctor)
-        2:task:(Decides to visit family doctor) --> 3:task:(Travels to family doctor’s office)
-        3:task:(Travels to family doctor’s office) --> 4:subprocess:(Initial Medical Consultation)
+        2:task:(Decides to visit family doctor) --> 3:task:(Travels to family doctorâ€™s office)
+        3:task:(Travels to family doctorâ€™s office) --> 4:subprocess:(Initial Medical Consultation)
         4:subprocess:(Initial Medical Consultation) --> 5:task:(Perform medical history (anamnesis))
         5:task:(Perform medical history (anamnesis)) --> 6:task:(Perform physical examination)
         6:task:(Perform physical examination) --> 7:task:(Document findings in paper patient record)
@@ -3490,7 +3490,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Travels to family doctor’s office</label>
+          <label>Travels to family doctorâ€™s office</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -6238,7 +6238,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Travels to family doctor’s office</label>
+          <label>Travels to family doctorâ€™s office</label>
           <method/>
           <type>:task</type>
           <arguments/>

@@ -550,7 +550,7 @@ event:
   cpee:change_uuid: ea4a7de3da5b4beb166566ce502ce0a3a8b7ff5e
   cpee:exposition: |+
     # User Input:
-    Task A: Mitarbeiter stellt Urlaubsantrag und schickt diesen an den Vorgesetzten 
+    Task A: Mitarbeiter stellt Urlaubsantrag und schickt diesen an den VorgesetztenÂ 
 
 
   time:timestamp: '2025-12-01T10:59:52.092570+01:00'
@@ -705,7 +705,7 @@ event:
   cpee:change_uuid: '09d2cf3109da967aab2c185225ff3af747786d92'
   cpee:exposition: |-
     # User Input:
-    Task B: Vorgesetzter entscheidet 
+    Task B: Vorgesetzter entscheidetÂ 
   time:timestamp: '2025-12-01T11:00:20.578768+01:00'
 ---
 event:
@@ -1048,8 +1048,8 @@ event:
   cpee:change_uuid: ba4cd04d63d63b87a1b5defaf63b2e22db65b13b
   cpee:exposition: |-
     # User Input:
-    Task B: Vorgesetzter entscheidet 
-    After Task B add an decision with two branches 
+    Task B: Vorgesetzter entscheidetÂ 
+    After Task B add an decision with two branchesÂ 
   time:timestamp: '2025-12-01T11:01:54.984079+01:00'
 ---
 event:
@@ -1482,7 +1482,7 @@ event:
   cpee:change_uuid: 3c370680842e36abc290d9879d08d9af5652c145
   cpee:exposition: |-
     # User Input:
-    Task c: Urlaub genehmigt 
+    Task c: Urlaub genehmigtÂ 
   time:timestamp: '2025-12-01T11:02:49.073511+01:00'
 ---
 event:
@@ -1710,7 +1710,7 @@ event:
   cpee:change_uuid: 87549e4562e0f2acaf34b3c187caa5f47e99b159
   cpee:exposition: |-
     # User Input:
-    Task D: Urlaub abgelehnt 
+    Task D: Urlaub abgelehntÂ 
   time:timestamp: '2025-12-01T11:03:38.218518+01:00'
 ---
 event:
@@ -2030,7 +2030,7 @@ event:
   cpee:change_uuid: c67eba40aec83618be2cbb2910b0bef02c9e7124
   cpee:exposition: |-
     # User Input:
-    After task D add an decision with two branches and one decision each 
+    After task D add an decision with two branches and one decision eachÂ 
   time:timestamp: '2025-12-01T11:04:50.246683+01:00'
 ---
 event:
@@ -2317,7 +2317,7 @@ event:
   cpee:change_uuid: 87549e4562e0f2acaf34b3c187caa5f47e99b159
   cpee:exposition: |+
     # User Input:
-    After task c add a decision with two branches 
+    After task c add a decision with two branchesÂ 
 
   time:timestamp: '2025-12-01T11:05:39.716101+01:00'
 ...
@@ -2547,7 +2547,7 @@ event:
   cpee:change_uuid: ad62611e22bd44ae248e666f459e49d4573aab4e
   cpee:exposition: |-
     # User Input:
-    After Task C add an decision with two branches and one task each 
+    After Task C add an decision with two branches and one task eachÂ 
   time:timestamp: '2025-12-01T11:06:25.837981+01:00'
 ---
 event:
@@ -2953,7 +2953,7 @@ event:
   cpee:change_uuid: 6993edceeab6170548a5556d13816bdebbc7620a
   cpee:exposition: |-
     # User Input:
-    After a11 add decision with two branches and one task each 
+    After a11 add decision with two branches and one task eachÂ 
   time:timestamp: '2025-12-01T11:07:28.636475+01:00'
 ---
 event:
@@ -3252,7 +3252,7 @@ event:
   cpee:change_uuid: e967e5dc61eb58a4e9d31a1a087665b66bbe472f
   cpee:exposition: |-
     # User Input:
-    A15 is mitarbeiter erhält keinen Urlaub 
+    A15 is mitarbeiter erhÃ¤lt keinen UrlaubÂ 
   time:timestamp: '2025-12-01T11:08:06.118610+01:00'
 ---
 event:
@@ -3313,8 +3313,8 @@ event:
         a7:task:(Urlaub genehmigt)-->gw1e:exclusivegateway:{x}
         gw1s:exclusivegateway:{x}-->a11:task:(Urlaub abgelehnt)
         a11:task:(Urlaub abgelehnt)-->gw2s:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|""|a15:task:(Mitarbeiter erhält keinen Urlaub)
-        a15:task:(Mitarbeiter erhält keinen Urlaub)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|""|a15:task:(Mitarbeiter erhÃ¤lt keinen Urlaub)
+        a15:task:(Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw2e:exclusivegateway:{x}
         gw2s:exclusivegateway:{x}-->|""|a19:task:(Personalabteilung informieren)
         a19:task:(Personalabteilung informieren)-->gw2e:exclusivegateway:{x}
         gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
@@ -3613,7 +3613,7 @@ event:
             <alternative condition="" language="text/javascript">
               <call id="a15" endpoint="" a:alt_id="a15">
                 <parameters>
-                  <label>Mitarbeiter erhält keinen Urlaub</label>
+                  <label>Mitarbeiter erhÃ¤lt keinen Urlaub</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -3683,8 +3683,8 @@ event:
     a7:task:(Urlaub genehmigt)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->a11:task:(Urlaub abgelehnt)
     a11:task:(Urlaub abgelehnt)-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|""|a15:task:(Mitarbeiter erhält keinen Urlaub)
-    a15:task:(Mitarbeiter erhält keinen Urlaub)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a15:task:(Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a15:task:(Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|""|a19:task:(Personalabteilung informieren)
     a19:task:(Personalabteilung informieren)-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
@@ -3710,8 +3710,8 @@ event:
         a7:task:(Urlaub genehmigt)-->gw1e:exclusivegateway:{x}
         gw1s:exclusivegateway:{x}-->a11:task:(Urlaub abgelehnt)
         a11:task:(Urlaub abgelehnt)-->gw2s:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|""|a15:task:(Mitarbeiter erhält keinen Urlaub)
-        a15:task:(Mitarbeiter erhält keinen Urlaub)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|""|a15:task:(Mitarbeiter erhÃ¤lt keinen Urlaub)
+        a15:task:(Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw2e:exclusivegateway:{x}
         gw2s:exclusivegateway:{x}-->|""|a19:task:(Personalabteilung informieren)
         a19:task:(Personalabteilung informieren)-->a1:task:
         gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
@@ -4010,7 +4010,7 @@ event:
             <alternative condition="" language="text/javascript">
               <call id="a15" endpoint="" a:alt_id="a15">
                 <parameters>
-                  <label>Mitarbeiter erhält keinen Urlaub</label>
+                  <label>Mitarbeiter erhÃ¤lt keinen Urlaub</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -4044,7 +4044,7 @@ event:
   cpee:change_uuid: 8725a6e24772bfa93786d3588ee9b4ae035e5180
   cpee:exposition: |-
     # User Input:
-    A19 is Mitarbeiter stellt neuen Urlaubsantrag 
+    A19 is Mitarbeiter stellt neuen UrlaubsantragÂ 
   time:timestamp: '2025-12-01T11:09:32.285067+01:00'
 ---
 event:
@@ -4078,8 +4078,8 @@ event:
     a7:task:(Urlaub genehmigt)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->a11:task:(Urlaub abgelehnt)
     a11:task:(Urlaub abgelehnt)-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|""|a15:task:(Mitarbeiter erhält keinen Urlaub)
-    a15:task:(Mitarbeiter erhält keinen Urlaub)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a15:task:(Mitarbeiter erhÃ¤lt keinen Urlaub)
+    a15:task:(Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|""|a19:task:(Personalabteilung informieren)
     a19:task:(Personalabteilung informieren)-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
@@ -4105,8 +4105,8 @@ event:
         a7:task:(Urlaub genehmigt)-->gw1e:exclusivegateway:{x}
         gw1s:exclusivegateway:{x}-->a11:task:(Urlaub abgelehnt)
         a11:task:(Urlaub abgelehnt)-->gw2s:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|""|a15:task:(Mitarbeiter erhält keinen Urlaub)
-        a15:task:(Mitarbeiter erhält keinen Urlaub)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|""|a15:task:(Mitarbeiter erhÃ¤lt keinen Urlaub)
+        a15:task:(Mitarbeiter erhÃ¤lt keinen Urlaub)-->gw2e:exclusivegateway:{x}
         gw2s:exclusivegateway:{x}-->|""|a19:task:(Mitarbeiter stellt neuen Urlaubsantrag)
         a19:task:(Mitarbeiter stellt neuen Urlaubsantrag)-->gw2e:exclusivegateway:{x}
         gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}

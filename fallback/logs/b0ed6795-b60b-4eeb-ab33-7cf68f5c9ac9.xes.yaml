@@ -1,0 +1,1217 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 83270
+    cpee:name: drittmittel3
+    cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+---
+event:
+  concept:instance: 83270
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-11T16:31:33.458853+01:00'
+---
+event:
+  concept:instance: 83270
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-12-11T16:31:49.309225+01:00'
+---
+event:
+  concept:instance: 83270
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-11T16:31:49.684389+01:00'
+---
+event:
+  concept:instance: 83270
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Erarbeitung einer Forschungsprojektidee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Identifikation passender F&#xF6;rderprogramme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Ausarbeitung und Einreichung des F&#xF6;rderantrags</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>F&#xF6;rderzusage erhalten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>&#xDC;bermittlung der Projektinformationen an das Drittmittelmanagement</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Fachliche Abstimmung zu Mittelherk&#xFC;nften und Strukturierung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Pr&#xFC;fung der F&#xF6;rderzusage und Vertragsunterlagen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Kl&#xE4;rung der F&#xF6;rderbedingungen und Nebenbestimmungen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="10">
+            <alternative condition="1 Vertrag" language="text/javascript">
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>1 Projektdefinition</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Mehrere Vertr&#xE4;ge" language="text/javascript">
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>je Vertrag 1 Projektdefinition</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Festlegung der Stammdatenstruktur (PS / FM / GM)</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Abstimmung mit PS/PSM-FM/PSM-GM</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Anlage der Projektdefinition(en)</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a35" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Anlage der PSP-Elemente gem&#xE4;&#xDF; Struktur</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="17">
+            <alternative condition="Nur F&#xF6;rdermittel" language="text/javascript">
+              <call id="a39" endpoint="" a:alt_id="18">
+                <parameters>
+                  <label>1 PSP-Element</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="F&#xF6;rdermittel + Eigenmittel" language="text/javascript">
+              <call id="a41" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>mind. 2 PSP-Elemente</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <parallel wait="-1" cancel="last" a:alt_id="20">
+            <parallel_branch>
+              <call id="a49" endpoint="" a:alt_id="21">
+                <parameters>
+                  <label>Automatische Anlage Haushaltsprogramme</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="24">
+                <alternative condition="">
+                  <call id="a63" endpoint="" a:alt_id="27">
+                    <parameters>
+                      <label>Validierung FM-Stammdaten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition=""/>
+              </choose>
+              <call id="a65" endpoint="" a:alt_id="28">
+                <parameters>
+                  <label>Manuelle Pflege notwendig</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a51" endpoint="" a:alt_id="22">
+                <parameters>
+                  <label>Automatische Anlage F&#xF6;rderung &amp; Vorhaben</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="25">
+                <alternative condition="Ja" language="text/javascript">
+                  <call id="a67" endpoint="" a:alt_id="29">
+                    <parameters>
+                      <label>Pr&#xFC;fung GM-relevanter Attribute</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Nein" language="text/javascript"/>
+              </choose>
+              <call id="a69" endpoint="" a:alt_id="30">
+                <parameters>
+                  <label>Manuelle GM-Pflege</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a53" endpoint="" a:alt_id="23">
+                <parameters>
+                  <label>Einnahmen-/Ausgabearten pflegen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a61" endpoint="" a:alt_id="26">
+                <parameters>
+                  <label>EA-Ableitungen PSP-/Geber-/Default-spezifisch pflegen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a55" endpoint="" a:alt_id="45">
+                <parameters>
+                  <label>Pr&#xFC;fung Zusatzattribute durch DM</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a83" endpoint="" a:alt_id="32">
+            <parameters>
+              <label>Budget erfassen (externe F&#xF6;rdermittel)</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a85" endpoint="" a:alt_id="33">
+            <parameters>
+              <label>Budget f&#xFC;r interne Mittel (Eigenmittel)</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a89" endpoint="" a:alt_id="35">
+            <parameters>
+              <label>Budgetverteilung und Anpassung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a91" endpoint="" a:alt_id="36">
+            <parameters>
+              <label>Budgetpr&#xFC;fung via AVK</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="37">
+            <parallel_branch>
+              <call id="a95" endpoint="" a:alt_id="38">
+                <parameters>
+                  <label>Personalkosten projektfinanzierte MA</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a97" endpoint="" a:alt_id="39">
+                <parameters>
+                  <label>Personalkosten haushaltsfinanzierte MA</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a99" endpoint="" a:alt_id="40">
+                <parameters>
+                  <label>Material-/Dienstleistungsbeschaffung</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a101" endpoint="" a:alt_id="41">
+                <parameters>
+                  <label>Reisekostenabrechnung</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a103" endpoint="" a:alt_id="42">
+                <parameters>
+                  <label>Manuelle Obligos anlegen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a105" endpoint="" a:alt_id="43">
+            <parameters>
+              <label>Ansprechpartner pflegen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a115" endpoint="" a:alt_id="46">
+            <parameters>
+              <label>Ausgangsrechnungsvorgang erfassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a117" endpoint="" a:alt_id="47">
+            <parameters>
+              <label>Genehmigungsworkflow durchlaufen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a119" endpoint="" a:alt_id="48">
+            <parameters>
+              <label>Rechnung verbuchen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a121" endpoint="" a:alt_id="49">
+            <parameters>
+              <label>Rechnung drucken &amp; bereitstellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a123" endpoint="" a:alt_id="50">
+            <parameters>
+              <label>Versand Rechnung an F&#xF6;rdermittelgeber</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a125" endpoint="" a:alt_id="51">
+            <parameters>
+              <label>Overheadparameter pflegen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a127" endpoint="" a:alt_id="52">
+            <parameters>
+              <label>Overheadumbuchung durchf&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a129" endpoint="" a:alt_id="53">
+            <parameters>
+              <label>Projektdefinition &amp; PSP-Elemente auf &#x201E;Abgeschlossen&#x201C; setzen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a131" endpoint="" a:alt_id="54">
+            <parameters>
+              <label>Projekt auswerten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a133" endpoint="" a:alt_id="55">
+            <parameters>
+              <label>Verwendungsnachweis-Einzelpostenliste erzeugen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a135" endpoint="" a:alt_id="56">
+            <parameters>
+              <label>Verwendungsnachweis erstellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Nein" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: d9273339499ad9ef1e086b1cf69e15851787f268
+  time:timestamp: '2025-12-11T16:32:50.674118+01:00'
+---
+event:
+  concept:instance: 83270
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d9273339499ad9ef1e086b1cf69e15851787f268
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-11T16:32:50.674684+01:00'
+---
+event:
+  concept:instance: 83270
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d9273339499ad9ef1e086b1cf69e15851787f268
+  cpee:exposition: |
+    # User Input:
+    POOL: Drittmittelmanagement â€“ GefÃ¶rderte Projekte
+    LANE: Forschende / Projektleitung
+    Start-Ereignis
+    â†’
+    Erarbeitung einer Forschungsprojektidee
+    â†’
+    Identifikation passender FÃ¶rderprogramme
+    â†’
+    Ausarbeitung und Einreichung des FÃ¶rderantrags
+    â†’
+    XOR-Gateway: FÃ¶rderzusage?
+    Ja â†’ Prozess lÃ¤uft weiter
+    Nein â†’ Prozessende
+    â†’
+    4. FÃ¶rderzusage erhalten (Ereignis)
+    â†’
+    5. Ãœbermittlung der Projektinformationen an das Drittmittelmanagement
+    â†’
+    6. Fachliche Abstimmung zu MittelherkÃ¼nften und Strukturierung
+    â†’ Weiter zu Drittmittelmanagement
+    LANE: Drittmittelmanagement (DM)
+    PrÃ¼fung der FÃ¶rderzusage und Vertragsunterlagen
+    â†’
+    KlÃ¤rung der FÃ¶rderbedingungen und Nebenbestimmungen
+    â†’
+    XOR-Gateway: Anzahl der FÃ¶rdervertrÃ¤ge?
+    1 Vertrag â†’ 1 Projektdefinition
+    Mehrere VertrÃ¤ge â†’ je Vertrag 1 Projektdefinition
+    â†’
+    Festlegung der Stammdatenstruktur (PS / FM / GM)
+    MittelherkÃ¼nfte
+    PSP-Struktur
+    Fonds & Fondsarten
+    â†’
+    Abstimmung mit PS/PSM-FM/PSM-GM
+    â†’ Weiter an PS/Projektadministration
+    LANE: PS / Projektadministration (PS)
+    Anlage der Projektdefinition(en)
+    [CJ20N / PS]
+    â†’
+    Anlage der PSP-Elemente gemÃ¤ÃŸ Struktur
+    â€“ inkl. Verantwortlicher, Kostenstelle, Zusatzfelder
+    [CJ20N / /GISA/MEZUSATZFELDER]
+    XOR-Gateway: Mittelherkunft pro Projektdefinition
+    Nur FÃ¶rdermittel â†’ 1 PSP-Element
+    FÃ¶rdermittel + Eigenmittel â†’ mind. 2 PSP-Elemente
+    Optional: mehrere PSP-Elemente zur Steuerung
+    â†’
+    AND-Gateway: Parallele Weiterverarbeitung in FM & GM & DM
+    A â†’ Haushaltsprogramme anlegen
+    B â†’ FÃ¶rderungen & Vorhaben anlegen
+    C â†’ EA-Arten & Ableitungen pflegen
+    D â†’ PrÃ¼fung Zusatzattribute durch DM
+    LANE: PSM-FM (Haushaltsmanagement)
+    A) Haushaltsprogramme
+    14A. Automatische Anlage Haushaltsprogramme
+    [FMMDAUTO]
+    â†’
+    XOR-Gateway:
+    Automatisch erfolgreich
+    Manuelle Pflege notwendig â†’ FMMEASURE
+    â†’
+    15A. Validierung FM-Stammdaten
+    â†’
+    16A. Ableitungstabellen prÃ¼fen
+    [FMDERIVE]
+    LANE: PSM-GM (FÃ¶rdermittelmanagement)
+    B) FÃ¶rderung & Vorhaben
+    14B. Automatische Anlage FÃ¶rderung & Vorhaben
+    [/GISA/GMGENERATE]
+    â†’
+    XOR-Gateway: Automatisch erfolgreich?
+    Ja â†’ Weiter
+    Nein â†’ Manuelle GM-Pflege (GMGRANT, GMPROGRAM)
+    â†’
+    15B. PrÃ¼fung GM-relevanter Attribute
+    â†’
+    16B. Aktualisierung FÃ¶rdergeberdaten & Zuordnungen
+    C) EA-Arten
+    14C. Einnahmen-/Ausgabearten pflegen
+    [GMCLASS]
+    â†’
+    15C. EA-Ableitungen PSP-/Geber-/Default-spezifisch pflegen
+    [/GISA/PSM_EAART_*]
+    Synchronisationspunkt (AND-Join)
+    â†’ Alle Stammdaten FM/GM/PS vollstÃ¤ndig
+    LANE: PSM-FM & PSM-GM (Budgetierung)
+    Budget erfassen (externe FÃ¶rdermittel)
+    [GM_CREATE_BUDGET]
+    â†’
+    Budget fÃ¼r interne Mittel (Eigenmittel)
+    [GM_CREATE_BUDGET]
+    XOR-Gateway: Budgetierungsstrategie
+    Externe Mittel
+    Interne Mittel
+    Beide parallel
+    â†’
+    19. Budgetverteilung und Anpassung
+    [GM_MODIFY_BUDGET]
+    â†’
+    20. BudgetprÃ¼fung via AVK
+    (PSM-FM â†’ Ledger 9H, PSM-GM â†’ Ledger 9K/ZK)
+    LANE: Einkauf / Reisekosten / HR / FI / PSP-Verantwortliche
+    AND-Gateway â€“ Parallele BuchungsstrÃ¶me
+    Laufender Betrieb:
+    21A. Personalkosten projektfinanzierte MA
+    (HR-Schnittstelle)
+    â†’ FI â†’ AVK-PrÃ¼fung
+    21B. Personalkosten haushaltsfinanzierte MA
+    (Umbuchung FB50 oder HR)
+    21C. Material-/Dienstleistungsbeschaffung
+    (MM â†’ Bestellung â†’ Rechnung)
+    â†’ GM/PM-Kontierung
+    21D. Reisekostenabrechnung
+    (Reisekosten-System â†’ FI)
+    21E. Manuelle Obligos anlegen
+    [FMX1â€“3, FMX6]
+    LANE: FI â€“ Mittelabruf & Rechnungsstellung
+    Ansprechpartner pflegen
+    (Rechnung)
+    â†’
+    Ausgangsrechnungsvorgang erfassen
+    [Prozess anstoÃŸen Ausgangsrechnungen]
+    â†’
+    Genehmigungsworkflow durchlaufen
+    [Aufgaben & Entscheidungen]
+    â†’
+    Rechnung verbuchen
+    [/BPCDEV/GSST]
+    â†’
+    Rechnung drucken & bereitstellen
+    [ZAR_PRINT]
+    â†’
+    Versand Rechnung an FÃ¶rdermittelgeber
+    LANE: Drittmittelmanagement / PSM-FM / PSM-GM
+    Overheadparameter pflegen
+    [/GISA/ME_OVH_PARAM]
+    â†’
+    Overheadumbuchung durchfÃ¼hren
+    [/GISA/ME_OVERHEAD]
+    LANE: PS / Projektadministration
+    Projektdefinition & PSP-Elemente auf â€žAbgeschlossenâ€œ setzen
+    [CJ20N]
+    LANE: Drittmittelmanagement / Fachbereich / PSM-GM
+    Projekt auswerten
+    Budget vs. Obligo/Ist
+    [GM_E_4GBA]
+    Jahreszahlen
+    [S_ALN_01000003]
+    â†’
+    Verwendungsnachweis-Einzelpostenliste erzeugen
+    [/GISA/GM_VERWENDUNG]
+    â†’
+    Verwendungsnachweis erstellen (auÃŸerhalb SAP)
+    â†’
+    Ende-Ereignis
+  time:timestamp: '2025-12-11T16:32:50.675308+01:00'
+---
+event:
+  concept:instance: 83270
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d9273339499ad9ef1e086b1cf69e15851787f268
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-11T16:32:50.675897+01:00'
+---
+event:
+  concept:instance: 83270
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d9273339499ad9ef1e086b1cf69e15851787f268
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-11T16:32:50.676058+01:00'
+---
+event:
+  concept:instance: 83270
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d9273339499ad9ef1e086b1cf69e15851787f268
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Erarbeitung einer Forschungsprojektidee)
+        1:task:(Erarbeitung einer Forschungsprojektidee) --> 2:task:(Identifikation passender FÃ¶rderprogramme)
+        2:task:(Identifikation passender FÃ¶rderprogramme) --> 3:task:(Ausarbeitung und Einreichung des FÃ¶rderantrags)
+        3:task:(Ausarbeitung und Einreichung des FÃ¶rderantrags) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Ja| 5:task:(FÃ¶rderzusage erhalten)
+        4:exclusivegateway:{x} --> |Nein| 44:endevent:(((endevent)))
+        5:task:(FÃ¶rderzusage erhalten) --> 6:task:(Ãœbermittlung der Projektinformationen an das Drittmittelmanagement)
+        6:task:(Ãœbermittlung der Projektinformationen an das Drittmittelmanagement) --> 7:task:(Fachliche Abstimmung zu MittelherkÃ¼nften und Strukturierung)
+        7:task:(Fachliche Abstimmung zu MittelherkÃ¼nften und Strukturierung) --> 8:task:(PrÃ¼fung der FÃ¶rderzusage und Vertragsunterlagen)
+        8:task:(PrÃ¼fung der FÃ¶rderzusage und Vertragsunterlagen) --> 9:task:(KlÃ¤rung der FÃ¶rderbedingungen und Nebenbestimmungen)
+        9:task:(KlÃ¤rung der FÃ¶rderbedingungen und Nebenbestimmungen) --> 10:exclusivegateway:{x}
+        10:exclusivegateway:{x} --> |1 Vertrag| 11:task:(1 Projektdefinition)
+        10:exclusivegateway:{x} --> |Mehrere VertrÃ¤ge| 12:task:(je Vertrag 1 Projektdefinition)
+        11:task:(1 Projektdefinition) --> 13:task:(Festlegung der Stammdatenstruktur (PS / FM / GM))
+        12:task:(je Vertrag 1 Projektdefinition) --> 13:task:(Festlegung der Stammdatenstruktur (PS / FM / GM))
+        13:task:(Festlegung der Stammdatenstruktur (PS / FM / GM)) --> 14:task:(Abstimmung mit PS/PSM-FM/PSM-GM)
+        14:task:(Abstimmung mit PS/PSM-FM/PSM-GM) --> 15:task:(Anlage der Projektdefinition(en))
+        15:task:(Anlage der Projektdefinition(en)) --> 16:task:(Anlage der PSP-Elemente gemÃ¤ÃŸ Struktur)
+        16:task:(Anlage der PSP-Elemente gemÃ¤ÃŸ Struktur) --> 17:exclusivegateway:{x}
+        17:exclusivegateway:{x} --> |Nur FÃ¶rdermittel| 18:task:(1 PSP-Element)
+        17:exclusivegateway:{x} --> |FÃ¶rdermittel + Eigenmittel| 19:task:(mind. 2 PSP-Elemente)
+        17:exclusivegateway:{x} --> |Optional: mehrere PSP-Elemente zur Steuerung| 19:task:(mind. 2 PSP-Elemente)
+        18:task:(1 PSP-Element) --> 20:parallelgateway:{AND}
+        19:task:(mind. 2 PSP-Elemente) --> 20:parallelgateway:{AND}
+        20:parallelgateway:{AND} --> 21:task:(Automatische Anlage Haushaltsprogramme)
+        20:parallelgateway:{AND} --> 22:task:(Automatische Anlage FÃ¶rderung & Vorhaben)
+        20:parallelgateway:{AND} --> 23:task:(Einnahmen-/Ausgabearten pflegen)
+        20:parallelgateway:{AND} --> 45:task:(PrÃ¼fung Zusatzattribute durch DM)
+        21:task:(Automatische Anlage Haushaltsprogramme) --> 24:exclusivegateway:{x}
+        22:task:(Automatische Anlage FÃ¶rderung & Vorhaben) --> 25:exclusivegateway:{x}
+        23:task:(Einnahmen-/Ausgabearten pflegen) --> 26:task:(EA-Ableitungen PSP-/Geber-/Default-spezifisch pflegen)
+        24:exclusivegateway:{x} --> 27:task:(Validierung FM-Stammdaten)
+        24:exclusivegateway:{x} --> 28:task:(Manuelle Pflege notwendig)
+        25:exclusivegateway:{x} --> |Ja| 29:task:(PrÃ¼fung GM-relevanter Attribute)
+        25:exclusivegateway:{x} --> |Nein| 30:task:(Manuelle GM-Pflege)
+        26:task:(EA-Ableitungen PSP-/Geber-/Default-spezifisch pflegen) --> 31:parallelgateway:{AND}
+        27:task:(Validierung FM-Stammdaten) --> 28:task:(Ableitungstabellen prÃ¼fen)
+        28:task:(Ableitungstabellen prÃ¼fen) --> 31:parallelgateway:{AND}
+        29:task:(PrÃ¼fung GM-relevanter Attribute) --> 30:task:(Aktualisierung FÃ¶rdergeberdaten & Zuordnungen)
+        30:task:(Aktualisierung FÃ¶rdergeberdaten & Zuordnungen) --> 31:parallelgateway:{AND}
+        45:task:(PrÃ¼fung Zusatzattribute durch DM) --> 31:parallelgateway:{AND}
+        31:parallelgateway:{AND} --> 32:task:(Budget erfassen (externe FÃ¶rdermittel))
+        32:task:(Budget erfassen (externe FÃ¶rdermittel)) --> 33:task:(Budget fÃ¼r interne Mittel (Eigenmittel))
+        33:task:(Budget fÃ¼r interne Mittel (Eigenmittel)) --> 34:exclusivegateway:{x}
+        34:exclusivegateway:{x} --> 35:task:(Budgetverteilung und Anpassung)
+        35:task:(Budgetverteilung und Anpassung) --> 36:task:(BudgetprÃ¼fung via AVK)
+        36:task:(BudgetprÃ¼fung via AVK) --> 37:parallelgateway:{AND}
+        37:parallelgateway:{AND} --> 38:task:(Personalkosten projektfinanzierte MA)
+        37:parallelgateway:{AND} --> 39:task:(Personalkosten haushaltsfinanzierte MA)
+        37:parallelgateway:{AND} --> 40:task:(Material-/Dienstleistungsbeschaffung)
+        37:parallelgateway:{AND} --> 41:task:(Reisekostenabrechnung)
+        37:parallelgateway:{AND} --> 42:task:(Manuelle Obligos anlegen)
+        38:task:(Personalkosten projektfinanzierte MA) --> 43:task:(Ansprechpartner pflegen)
+        39:task:(Personalkosten haushaltsfinanzierte MA) --> 43:task:(Ansprechpartner pflegen)
+        40:task:(Material-/Dienstleistungsbeschaffung) --> 43:task:(Ansprechpartner pflegen)
+        41:task:(Reisekostenabrechnung) --> 43:task:(Ansprechpartner pflegen)
+        42:task:(Manuelle Obligos anlegen) --> 43:task:(Ansprechpartner pflegen)
+        43:task:(Ansprechpartner pflegen) --> 46:task:(Ausgangsrechnungsvorgang erfassen)
+        46:task:(Ausgangsrechnungsvorgang erfassen) --> 47:task:(Genehmigungsworkflow durchlaufen)
+        47:task:(Genehmigungsworkflow durchlaufen) --> 48:task:(Rechnung verbuchen)
+        48:task:(Rechnung verbuchen) --> 49:task:(Rechnung drucken & bereitstellen)
+        49:task:(Rechnung drucken & bereitstellen) --> 50:task:(Versand Rechnung an FÃ¶rdermittelgeber)
+        50:task:(Versand Rechnung an FÃ¶rdermittelgeber) --> 51:task:(Overheadparameter pflegen)
+        51:task:(Overheadparameter pflegen) --> 52:task:(Overheadumbuchung durchfÃ¼hren)
+        52:task:(Overheadumbuchung durchfÃ¼hren) --> 53:task:(Projektdefinition & PSP-Elemente auf â€žAbgeschlossenâ€œ setzen)
+        53:task:(Projektdefinition & PSP-Elemente auf â€žAbgeschlossenâ€œ setzen) --> 54:task:(Projekt auswerten)
+        54:task:(Projekt auswerten) --> 55:task:(Verwendungsnachweis-Einzelpostenliste erzeugen)
+        55:task:(Verwendungsnachweis-Einzelpostenliste erzeugen) --> 56:task:(Verwendungsnachweis erstellen)
+        56:task:(Verwendungsnachweis erstellen) --> 44:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-11T16:32:50.676194+01:00'
+---
+event:
+  concept:instance: 83270
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b0ed6795-b60b-4eeb-ab33-7cf68f5c9ac9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d9273339499ad9ef1e086b1cf69e15851787f268
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Erarbeitung einer Forschungsprojektidee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Identifikation passender F&#xF6;rderprogramme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Ausarbeitung und Einreichung des F&#xF6;rderantrags</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>F&#xF6;rderzusage erhalten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>&#xDC;bermittlung der Projektinformationen an das Drittmittelmanagement</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Fachliche Abstimmung zu Mittelherk&#xFC;nften und Strukturierung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Pr&#xFC;fung der F&#xF6;rderzusage und Vertragsunterlagen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Kl&#xE4;rung der F&#xF6;rderbedingungen und Nebenbestimmungen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="10">
+            <alternative condition="1 Vertrag" language="text/javascript">
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>1 Projektdefinition</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Mehrere Vertr&#xE4;ge" language="text/javascript">
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>je Vertrag 1 Projektdefinition</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Festlegung der Stammdatenstruktur (PS / FM / GM)</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Abstimmung mit PS/PSM-FM/PSM-GM</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Anlage der Projektdefinition(en)</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a35" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Anlage der PSP-Elemente gem&#xE4;&#xDF; Struktur</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="17">
+            <alternative condition="Nur F&#xF6;rdermittel" language="text/javascript">
+              <call id="a39" endpoint="" a:alt_id="18">
+                <parameters>
+                  <label>1 PSP-Element</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="F&#xF6;rdermittel + Eigenmittel" language="text/javascript">
+              <call id="a41" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>mind. 2 PSP-Elemente</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <parallel wait="-1" cancel="last" a:alt_id="20">
+            <parallel_branch>
+              <call id="a49" endpoint="" a:alt_id="21">
+                <parameters>
+                  <label>Automatische Anlage Haushaltsprogramme</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="24">
+                <alternative condition="">
+                  <call id="a63" endpoint="" a:alt_id="27">
+                    <parameters>
+                      <label>Validierung FM-Stammdaten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition=""/>
+              </choose>
+              <call id="a65" endpoint="" a:alt_id="28">
+                <parameters>
+                  <label>Manuelle Pflege notwendig</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a51" endpoint="" a:alt_id="22">
+                <parameters>
+                  <label>Automatische Anlage F&#xF6;rderung &amp; Vorhaben</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="25">
+                <alternative condition="Ja" language="text/javascript">
+                  <call id="a67" endpoint="" a:alt_id="29">
+                    <parameters>
+                      <label>Pr&#xFC;fung GM-relevanter Attribute</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Nein" language="text/javascript"/>
+              </choose>
+              <call id="a69" endpoint="" a:alt_id="30">
+                <parameters>
+                  <label>Manuelle GM-Pflege</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a53" endpoint="" a:alt_id="23">
+                <parameters>
+                  <label>Einnahmen-/Ausgabearten pflegen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a61" endpoint="" a:alt_id="26">
+                <parameters>
+                  <label>EA-Ableitungen PSP-/Geber-/Default-spezifisch pflegen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a55" endpoint="" a:alt_id="45">
+                <parameters>
+                  <label>Pr&#xFC;fung Zusatzattribute durch DM</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a83" endpoint="" a:alt_id="32">
+            <parameters>
+              <label>Budget erfassen (externe F&#xF6;rdermittel)</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a85" endpoint="" a:alt_id="33">
+            <parameters>
+              <label>Budget f&#xFC;r interne Mittel (Eigenmittel)</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a89" endpoint="" a:alt_id="35">
+            <parameters>
+              <label>Budgetverteilung und Anpassung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a91" endpoint="" a:alt_id="36">
+            <parameters>
+              <label>Budgetpr&#xFC;fung via AVK</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="37">
+            <parallel_branch>
+              <call id="a95" endpoint="" a:alt_id="38">
+                <parameters>
+                  <label>Personalkosten projektfinanzierte MA</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a97" endpoint="" a:alt_id="39">
+                <parameters>
+                  <label>Personalkosten haushaltsfinanzierte MA</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a99" endpoint="" a:alt_id="40">
+                <parameters>
+                  <label>Material-/Dienstleistungsbeschaffung</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a101" endpoint="" a:alt_id="41">
+                <parameters>
+                  <label>Reisekostenabrechnung</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a103" endpoint="" a:alt_id="42">
+                <parameters>
+                  <label>Manuelle Obligos anlegen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a105" endpoint="" a:alt_id="43">
+            <parameters>
+              <label>Ansprechpartner pflegen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a115" endpoint="" a:alt_id="46">
+            <parameters>
+              <label>Ausgangsrechnungsvorgang erfassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a117" endpoint="" a:alt_id="47">
+            <parameters>
+              <label>Genehmigungsworkflow durchlaufen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a119" endpoint="" a:alt_id="48">
+            <parameters>
+              <label>Rechnung verbuchen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a121" endpoint="" a:alt_id="49">
+            <parameters>
+              <label>Rechnung drucken &amp; bereitstellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a123" endpoint="" a:alt_id="50">
+            <parameters>
+              <label>Versand Rechnung an F&#xF6;rdermittelgeber</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a125" endpoint="" a:alt_id="51">
+            <parameters>
+              <label>Overheadparameter pflegen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a127" endpoint="" a:alt_id="52">
+            <parameters>
+              <label>Overheadumbuchung durchf&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a129" endpoint="" a:alt_id="53">
+            <parameters>
+              <label>Projektdefinition &amp; PSP-Elemente auf &#x201E;Abgeschlossen&#x201C; setzen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a131" endpoint="" a:alt_id="54">
+            <parameters>
+              <label>Projekt auswerten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a133" endpoint="" a:alt_id="55">
+            <parameters>
+              <label>Verwendungsnachweis-Einzelpostenliste erzeugen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a135" endpoint="" a:alt_id="56">
+            <parameters>
+              <label>Verwendungsnachweis erstellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Nein" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-11T16:32:50.676396+01:00'
