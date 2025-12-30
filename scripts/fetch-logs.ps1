@@ -122,7 +122,7 @@ $uuidMapping = @{
 }
 
 # Create output directory
-$outputDir = "public\fallback\logs"
+$outputDir = "fallback\logs"
 if (-not (Test-Path $outputDir)) {
     New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
 }

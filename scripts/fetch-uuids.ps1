@@ -30,7 +30,7 @@ $processNumbers = @(
 )
 
 # Output file
-$outputFile = "public\fallback\uuid-mapping.json"
+$outputFile = "fallback\uuid-mapping.json"
 
 # Create fallback directory if needed
 $outputDir = Split-Path $outputFile -Parent
