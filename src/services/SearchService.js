@@ -1,21 +1,17 @@
 /**
  * Search Service
  * Unified search functionality combining state management and highlighting
- * Responsibilities:
- * - Search state management per section
- * - Search term matching in content
- * - Applying highlighting to DOM elements
- * - Clearing highlighting from DOM elements
- * - Scrolling to search matches
- * - Search navigation coordination
+ * 
+ * Approach:
+ * - Uses plain text search with proper regex escaping
+ * - Wraps matches in spans using DOM manipulation (preserves syntax highlighting)
+ * - Unwraps spans to clear highlighting
  */
 
 export class SearchService {
     constructor() {
         // Search state per section: { currentSearchTerm, matches, currentMatchIndex, caseSensitive, wholeWord }
         this.searchStates = new Map();
-        // Store original content for each section to restore highlighting
-        this.originalContent = new Map();
     }
 
     /**
@@ -116,33 +112,63 @@ export class SearchService {
     }
 
     /**
-     * Store original content for a section
-     * @param {HTMLElement} container - Container element
-     * @param {string} sectionId - Section identifier
+     * Escape special regex characters in a search term
+     * @param {string} str - String to escape
+     * @returns {string} Escaped string safe for use in RegExp
      */
-    storeOriginalContent(container, sectionId) {
-        const codeElement = container.querySelector('code');
-        if (codeElement && !this.originalContent.has(sectionId)) {
-            this.originalContent.set(sectionId, codeElement.textContent);
-        }
+    escapeRegex(str) {
+        // Escape all special regex characters: \ ^ $ . * + ? ( ) [ ] { } |
+        return str.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&');
     }
 
-    // Build regex from search term and options
+    /**
+     * Escape HTML special characters
+     * @param {string} text - Text to escape
+     * @returns {string} HTML-escaped text
+     */
+    escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, char => map[char]);
+    }
+
+    /**
+     * Build regex from search term with proper escaping
+     * @param {string} searchTerm - Search term
+     * @param {Object} options - Search options
+     * @returns {RegExp|null} Compiled regex or null if invalid
+     */
     buildSearchRegex(searchTerm, options = {}) {
         if (!searchTerm) {
             return null;
         }
+        
         const { caseSensitive = false, wholeWord = false } = options;
         const flags = caseSensitive ? 'g' : 'gi';
-        let pattern = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        
+        // Escape all special regex characters
+        let pattern = this.escapeRegex(searchTerm);
+        
         if (wholeWord) {
             pattern = `\\b${pattern}\\b`;
         }
-        return new RegExp(pattern, flags);
+        
+        try {
+            return new RegExp(pattern, flags);
+        } catch (e) {
+            console.warn('SearchService: Invalid regex pattern:', e);
+            return null;
+        }
     }
 
     /**
-     * Apply search highlighting to a container
+     * Apply search highlighting to a container while preserving syntax highlighting
+     * Uses text node manipulation to wrap matches without destroying existing HTML structure
      * @param {HTMLElement} container - Container with rendered content
      * @param {string} searchTerm - Search term
      * @param {Object} options - Search options
@@ -155,109 +181,242 @@ export class SearchService {
             return [];
         }
 
-        // Ensure original text is stored for restoration if needed (not used for DOM replacement anymore)
-        if (!codeElement.dataset.originalText) {
-            codeElement.dataset.originalText = codeElement.textContent;
-        }
-
-        // Clear previous matches while preserving Prism markup
+        // Clear any existing search highlights first
         this.clearSearchHighlighting(container);
 
+        // Build regex for finding matches
         const regex = this.buildSearchRegex(searchTerm, options);
         if (!regex) {
             return [];
         }
 
-        // Find all match ranges in the original plain text
-        const originalText = codeElement.textContent;
-        const ranges = [];
-        let m;
-        while ((m = regex.exec(originalText)) !== null) {
-            ranges.push({ start: m.index, end: m.index + m[0].length, text: m[0] });
+        // Get plain text content for finding match positions
+        const plainText = codeElement.textContent;
+        
+        // Find all match ranges in plain text
+        const matchRanges = [];
+        let match;
+        while ((match = regex.exec(plainText)) !== null) {
+            matchRanges.push({
+                start: match.index,
+                end: match.index + match[0].length,
+                text: match[0]
+            });
         }
 
-        if (ranges.length === 0) {
+        if (matchRanges.length === 0) {
             return [];
         }
 
-        // Helpers to map global positions to DOM nodes using a fresh index each time
-        const buildIndex = () => {
-            const nodes = [];
-            const cum = [];
-            let total = 0;
-            const w = document.createTreeWalker(codeElement, NodeFilter.SHOW_TEXT, null);
-            let n;
-            while ((n = w.nextNode())) {
-                if (n.nodeValue && n.nodeValue.length > 0) {
-                    nodes.push(n);
-                    total += n.nodeValue.length;
-                    cum.push(total);
-                }
+        // Build index of text nodes with their global positions
+        const textNodes = [];
+        let globalPos = 0;
+        const walker = document.createTreeWalker(codeElement, NodeFilter.SHOW_TEXT, null);
+        let node;
+        while ((node = walker.nextNode())) {
+            if (node.nodeValue && node.nodeValue.length > 0) {
+                textNodes.push({
+                    node: node,
+                    start: globalPos,
+                    end: globalPos + node.nodeValue.length
+                });
+                globalPos += node.nodeValue.length;
             }
-            return { nodes, cum };
-        };
-
-        const resolve = (indexObj, pos) => {
-            const { nodes, cum } = indexObj;
-            let l = 0, h = cum.length - 1, idx = -1;
-            while (l <= h) {
-                const mid = (l + h) >> 1;
-                if (cum[mid] > pos) {
-                    idx = mid;
-                    h = mid - 1;
-                } else {
-                    l = mid + 1;
-                }
-            }
-            if (idx === -1) {
-                return null;
-            }
-            const prev = idx === 0 ? 0 : cum[idx - 1];
-            return { node: nodes[idx], offset: pos - prev };
-        };
-
-        // Process ranges from last to first using DOM Range API
-        for (let i = ranges.length - 1; i >= 0; i--) {
-            const idxObj = buildIndex();
-            const startPos = resolve(idxObj, ranges[i].start);
-            const endPos = resolve(idxObj, ranges[i].end - 1); // exclusive end
-            if (!startPos || !endPos) {
-                continue;
-            }
-            const range = document.createRange();
-            range.setStart(startPos.node, startPos.offset);
-            range.setEnd(endPos.node, endPos.offset + 1);
-            const span = document.createElement('span');
-            span.className = 'search-match';
-            range.surroundContents(span);
         }
 
-        return ranges.map((r, idx) => ({ index: idx, length: r.end - r.start, text: r.text }));
+        // Process matches from last to first to preserve positions
+        for (let i = matchRanges.length - 1; i >= 0; i--) {
+            const range = matchRanges[i];
+            // Use i as the match index (matchRanges[0] is match 0, matchRanges[1] is match 1, etc.)
+            this.highlightRange(textNodes, range.start, range.end, i);
+            
+            // Rebuild text node index after each modification
+            textNodes.length = 0;
+            globalPos = 0;
+            const newWalker = document.createTreeWalker(codeElement, NodeFilter.SHOW_TEXT, null);
+            while ((node = newWalker.nextNode())) {
+                if (node.nodeValue && node.nodeValue.length > 0) {
+                    textNodes.push({
+                        node: node,
+                        start: globalPos,
+                        end: globalPos + node.nodeValue.length
+                    });
+                    globalPos += node.nodeValue.length;
+                }
+            }
+        }
+
+        return matchRanges.map((r, idx) => ({
+            index: idx,
+            start: r.start,
+            end: r.end,
+            text: r.text
+        }));
+    }
+
+    /**
+     * Find the DOM position (node + offset) for a global text position
+     * @param {Array} textNodes - Array of text node info objects
+     * @param {number} globalPos - Global position in plain text
+     * @returns {Object|null} {node, offset} or null if not found
+     */
+    findDOMPosition(textNodes, globalPos) {
+        for (const nodeInfo of textNodes) {
+            if (globalPos >= nodeInfo.start && globalPos < nodeInfo.end) {
+                return {
+                    node: nodeInfo.node,
+                    offset: globalPos - nodeInfo.start
+                };
+            }
+        }
+        // Handle position at the very end
+        if (textNodes.length > 0) {
+            const lastNode = textNodes[textNodes.length - 1];
+            if (globalPos === lastNode.end) {
+                return {
+                    node: lastNode.node,
+                    offset: lastNode.node.nodeValue.length
+                };
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Highlight a specific range in the text by wrapping it in a single span
+     * Uses Range API to extract and wrap content, preserving syntax highlighting inside
+     * @param {Array} textNodes - Array of text node info objects
+     * @param {number} start - Start position in plain text
+     * @param {number} end - End position in plain text
+     * @param {number} matchIndex - Index of the logical match
+     */
+    highlightRange(textNodes, start, end, matchIndex) {
+        const startPos = this.findDOMPosition(textNodes, start);
+        const endPos = this.findDOMPosition(textNodes, end);
+        
+        if (!startPos || !endPos) {
+            return;
+        }
+
+        try {
+            // Create a range spanning the entire match
+            const range = document.createRange();
+            range.setStart(startPos.node, startPos.offset);
+            range.setEnd(endPos.node, endPos.offset);
+            
+            // Extract all contents in the range (includes any nested syntax spans)
+            const contents = range.extractContents();
+            
+            // Create a single wrapper span for the entire match
+            const wrapper = document.createElement('span');
+            wrapper.className = 'search-match';
+            wrapper.dataset.matchIndex = matchIndex;
+            wrapper.appendChild(contents);
+            
+            // Flatten to plain text for uniform styling (removes nested syntax spans)
+            const plainText = wrapper.textContent;
+            wrapper.textContent = plainText;
+            
+            // Insert the wrapper at the range position
+            range.insertNode(wrapper);
+        } catch (e) {
+            // Fallback: if Range API fails, use the split approach
+            console.warn('SearchService: Range extraction failed, using fallback:', e.message);
+            this.highlightRangeFallback(textNodes, start, end, matchIndex);
+        }
+    }
+
+    /**
+     * Fallback method for highlighting when Range API fails
+     * Wraps each text node portion separately (used when extractContents fails)
+     * @param {Array} textNodes - Array of text node info objects
+     * @param {number} start - Start position in plain text
+     * @param {number} end - End position in plain text
+     * @param {number} matchIndex - Index of the logical match
+     */
+    highlightRangeFallback(textNodes, start, end, matchIndex) {
+        // Find which text nodes contain this range
+        const affectedNodes = [];
+        for (const nodeInfo of textNodes) {
+            if (nodeInfo.end > start && nodeInfo.start < end) {
+                affectedNodes.push(nodeInfo);
+            }
+        }
+
+        if (affectedNodes.length === 0) {
+            return;
+        }
+
+        // Process from last to first to preserve positions
+        for (let i = affectedNodes.length - 1; i >= 0; i--) {
+            const nodeInfo = affectedNodes[i];
+            const node = nodeInfo.node;
+            
+            let localStart = 0;
+            let localEnd = node.nodeValue.length;
+            
+            if (i === 0) {
+                localStart = start - nodeInfo.start;
+            }
+            if (i === affectedNodes.length - 1) {
+                localEnd = end - nodeInfo.start;
+            }
+            
+            const beforeText = node.nodeValue.substring(0, localStart);
+            const matchText = node.nodeValue.substring(localStart, localEnd);
+            const afterText = node.nodeValue.substring(localEnd);
+            
+            if (!matchText) {
+                continue;
+            }
+            
+            const span = document.createElement('span');
+            span.className = 'search-match';
+            span.dataset.matchIndex = matchIndex;
+            span.textContent = matchText;
+            
+            const parent = node.parentNode;
+            if (afterText) {
+                parent.insertBefore(document.createTextNode(afterText), node.nextSibling);
+            }
+            parent.insertBefore(span, node.nextSibling);
+            if (beforeText) {
+                node.nodeValue = beforeText;
+            } else {
+                parent.removeChild(node);
+            }
+        }
     }
 
     /**
      * Clear search highlighting from a container
+     * Unwraps search-match spans while preserving syntax highlighting
      * @param {HTMLElement} container - Container with highlighted content
      */
     clearSearchHighlighting(container) {
         const codeElement = container.querySelector('code');
         if (!codeElement) {
-            console.warn('SearchService: No code element found');
             return;
         }
 
-        // Unwrap existing search-match spans to restore original DOM (Prism markup preserved)
-        const matches = codeElement.querySelectorAll('span.search-match');
-        matches.forEach((el) => {
-            const textNode = document.createTextNode(el.textContent);
-            el.parentNode.replaceChild(textNode, el);
+        // Find and unwrap all search-match spans
+        const searchSpans = codeElement.querySelectorAll('span.search-match');
+        searchSpans.forEach(span => {
+            const parent = span.parentNode;
+            // Replace the span with its text content
+            const textNode = document.createTextNode(span.textContent);
+            parent.replaceChild(textNode, span);
         });
+
+        // Normalize the element to merge adjacent text nodes
+        codeElement.normalize();
     }
 
     /**
      * Scroll to a specific match in the content
+     * Uses data-match-index to handle matches that span multiple spans
      * @param {HTMLElement} container - Container with rendered content
-     * @param {number} matchIndex - Index of match to scroll to
+     * @param {number} matchIndex - Index of logical match to scroll to
      * @returns {boolean} True if scrolled successfully
      */
     scrollToMatch(container, matchIndex) {
@@ -265,20 +424,20 @@ export class SearchService {
             return false;
         }
 
-        const matches = container.querySelectorAll('.search-match');
-        if (!matches || matches.length === 0) {
-            console.warn('SearchService: No matches found in container');
+        const allSpans = container.querySelectorAll('.search-match');
+        if (!allSpans || allSpans.length === 0) {
             return false;
         }
 
-        const targetMatch = matches[matchIndex];
-        if (targetMatch) {
+        // Find the first span with the target match index
+        const targetSpan = container.querySelector(`.search-match[data-match-index="${matchIndex}"]`);
+        if (targetSpan) {
             // Find the scrollable raw container (parent with [data-content-type="raw"])
             const rawContainer = container.closest('[data-content-type="raw"]');
             if (rawContainer) {
                 // Calculate position to scroll to within the raw container
                 const containerRect = rawContainer.getBoundingClientRect();
-                const matchRect = targetMatch.getBoundingClientRect();
+                const matchRect = targetSpan.getBoundingClientRect();
                 
                 // Calculate the scroll position needed to center the match
                 const scrollTop = rawContainer.scrollTop + (matchRect.top - containerRect.top) - (containerRect.height / 2) + (matchRect.height / 2);
@@ -290,28 +449,18 @@ export class SearchService {
                 });
             } else {
                 // Fallback to scrollIntoView if raw container not found
-                targetMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
             
-            // Add active class to highlight the current match
-            matches.forEach((match, idx) => {
-                match.classList.toggle('search-match-active', idx === matchIndex);
+            // Add active class to all spans of the current match, remove from others
+            allSpans.forEach(span => {
+                const spanMatchIndex = parseInt(span.dataset.matchIndex, 10);
+                span.classList.toggle('search-match-active', spanMatchIndex === matchIndex);
             });
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Escape HTML characters in text
-     * @param {string} text - Text to escape
-     * @returns {string} Escaped text
-     */
-    escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
     }
 
     /**
@@ -325,9 +474,6 @@ export class SearchService {
     performSearch(sectionId, container, searchTerm, options = {}) {
         // Initialize search state if needed
         this.initializeSearchState(sectionId);
-        
-        // Store original content
-        this.storeOriginalContent(container, sectionId);
         
         // Apply highlighting and get matches
         const matches = this.applySearchHighlighting(container, searchTerm, options);
@@ -380,14 +526,28 @@ export class SearchService {
     }
 
     /**
+     * Clear stored original text for a section (no-op, kept for API compatibility)
+     * @param {string} _sectionId - Section identifier (unused)
+     */
+    clearOriginalText(_sectionId) {
+        // No-op: DOM-based highlighting doesn't need stored original text
+    }
+
+    /**
+     * Clear all stored original text (no-op, kept for API compatibility)
+     */
+    clearAllOriginalText() {
+        // No-op: DOM-based highlighting doesn't need stored original text
+    }
+
+    /**
      * Get service statistics
      * @returns {Object} Service statistics
      */
     getStats() {
         return {
             searchStatesCount: this.searchStates.size,
-            originalContentCount: this.originalContent.size,
-            totalSections: Math.max(this.searchStates.size, this.originalContent.size)
+            totalSections: this.searchStates.size
         };
     }
 
@@ -396,7 +556,6 @@ export class SearchService {
      */
     destroy() {
         this.searchStates.clear();
-        this.originalContent.clear();
     }
 }
 

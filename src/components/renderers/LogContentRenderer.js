@@ -92,7 +92,38 @@ export class LogContentRenderer {
         }
 
         if (!rawContent || !renderer) {
-            container.innerHTML = '<pre><code class="no-content">No log content available</code></pre>';
+            // Don't destroy visual content - create proper container and show message
+            // This preserves visual content so it can be restored when switching back
+            let logContainer = container.querySelector('[data-content-type="raw"]');
+            if (!logContainer) {
+                logContainer = document.createElement('div');
+                logContainer.setAttribute('data-content-type', 'raw');
+                container.style.position = 'relative';
+                container.appendChild(logContainer);
+            }
+            
+            // Hide the original visual content (don't destroy it)
+            const visualElements = container.querySelectorAll('[data-content-type="visual"]');
+            visualElements.forEach(el => {
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.style.pointerEvents = 'none';
+            });
+            
+            // Hide traces content as well
+            const tracesElements = container.querySelectorAll('[data-content-type="traces"]');
+            tracesElements.forEach(el => {
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.style.pointerEvents = 'none';
+            });
+            
+            // Show the "no content" message in the log container
+            logContainer.innerHTML = '<pre><code class="no-content">No log content available</code></pre>';
+            logContainer.style.display = 'block';
+            logContainer.style.visibility = 'visible';
+            logContainer.style.pointerEvents = 'auto';
+            
             return;
         }
 
@@ -235,7 +266,29 @@ export class LogContentRenderer {
             }
         } catch (error) {
             console.error(`Error rendering log content for ${sectionId}:`, error);
-            container.innerHTML = '<pre><code class="error">Error rendering log content</code></pre>';
+            
+            // Don't destroy visual content on error - show error in log container
+            let logContainer = container.querySelector('[data-content-type="raw"]');
+            if (!logContainer) {
+                logContainer = document.createElement('div');
+                logContainer.setAttribute('data-content-type', 'raw');
+                container.style.position = 'relative';
+                container.appendChild(logContainer);
+            }
+            
+            // Hide the original visual content (don't destroy it)
+            const visualElements = container.querySelectorAll('[data-content-type="visual"]');
+            visualElements.forEach(el => {
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.style.pointerEvents = 'none';
+            });
+            
+            // Show the error message in the log container
+            logContainer.innerHTML = '<pre><code class="error">Error rendering log content</code></pre>';
+            logContainer.style.display = 'block';
+            logContainer.style.visibility = 'visible';
+            logContainer.style.pointerEvents = 'auto';
         }
     }
 
@@ -710,6 +763,9 @@ export class LogContentRenderer {
     clearAllSearchStates() {
         // Clear all search states using SearchService
         this.searchService.clearAllSearchStates();
+        
+        // Clear stored original text (important when switching steps - content changes)
+        this.searchService.clearAllOriginalText();
         
         // Clear highlighting from all containers using SearchService combined method
         const sectionIds = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];

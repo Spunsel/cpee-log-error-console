@@ -191,7 +191,30 @@ export class RawContentRenderer {
         }
 
         if (!rawContent || !renderer) {
-            container.innerHTML = '<pre><code class="no-content">No raw content available</code></pre>';
+            // Don't destroy visual content - create proper container and show message
+            // This preserves visual content so it can be restored when switching back
+            let rawContainer = container.querySelector('[data-content-type="raw"]');
+            if (!rawContainer) {
+                rawContainer = document.createElement('div');
+                rawContainer.setAttribute('data-content-type', 'raw');
+                container.style.position = 'relative';
+                container.appendChild(rawContainer);
+            }
+            
+            // Hide the original visual content (don't destroy it)
+            const visualElements = container.querySelectorAll('[data-content-type="visual"]');
+            visualElements.forEach(el => {
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.style.pointerEvents = 'none';
+            });
+            
+            // Show the "no content" message in the raw container
+            rawContainer.innerHTML = '<pre><code class="no-content">No raw content available</code></pre>';
+            rawContainer.style.display = 'block';
+            rawContainer.style.visibility = 'visible';
+            rawContainer.style.pointerEvents = 'auto';
+            
             return;
         }
 
@@ -335,7 +358,29 @@ export class RawContentRenderer {
             }
         } catch (error) {
             console.error(`Error rendering raw content for ${sectionId}:`, error);
-            container.innerHTML = '<pre><code class="error">Error rendering raw content</code></pre>';
+            
+            // Don't destroy visual content on error - show error in raw container
+            let rawContainer = container.querySelector('[data-content-type="raw"]');
+            if (!rawContainer) {
+                rawContainer = document.createElement('div');
+                rawContainer.setAttribute('data-content-type', 'raw');
+                container.style.position = 'relative';
+                container.appendChild(rawContainer);
+            }
+            
+            // Hide the original visual content (don't destroy it)
+            const visualElements = container.querySelectorAll('[data-content-type="visual"]');
+            visualElements.forEach(el => {
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.style.pointerEvents = 'none';
+            });
+            
+            // Show the error message in the raw container
+            rawContainer.innerHTML = '<pre><code class="error">Error rendering raw content</code></pre>';
+            rawContainer.style.display = 'block';
+            rawContainer.style.visibility = 'visible';
+            rawContainer.style.pointerEvents = 'auto';
         }
     }
 
@@ -599,6 +644,9 @@ export class RawContentRenderer {
     clearAllSearchStates() {
         // Clear all search states using SearchService
         this.searchService.clearAllSearchStates();
+        
+        // Clear stored original text (important when switching steps - content changes)
+        this.searchService.clearAllOriginalText();
         
         // Clear highlighting from all containers using SearchService combined method
         const sectionIds = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
