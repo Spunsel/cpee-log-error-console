@@ -1,0 +1,456 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 98621
+    cpee:name: Plain Instance
+    cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-29T10:46:31.398217+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="1">
+        <alternative condition="Activate Display" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Customer activates consumption time series display</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify network operator about activation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Deactivate Display" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Customer deactivates consumption time series display</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify network operator about deactivation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Meter reports status as ALARM or EVENT and logs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 92fd64bdddb428812beeae6f2cc916f88c053ec2
+  time:timestamp: '2025-12-29T10:47:24.592608+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92fd64bdddb428812beeae6f2cc916f88c053ec2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-29T10:47:24.592929+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92fd64bdddb428812beeae6f2cc916f88c053ec2
+  cpee:exposition: |-
+    # User Input:
+    The customer wishes to activate the consumption time series display on the meter display and notify the network operator or the customer wishes to deactivate the consumption time series display on the meter display and inform the network operator about this. For reasons of data protection law, the display of consumption time series, for example: load profile on the display via the call button, is only permitted in special cases. It must be possible to activate or deactivate the display of the consumption time series via the meter's WAN interface. The status is to be transmitted to the central system as ALARM or EVENT and entered in the logbook. In the basic setting of the meter, the display of the consumption time series must always be deactivated. Whether the display of the consumption time series, for example: load profile is active or inactive, is decided by the customer. He informs the network operator (via web portal, via the call center, letter, ...). A synchronization of the device setting with respect to the consumption time series display is usefully 1 - 2 times a day (Customer should not be able to change the setting for load profile display every minute). When the consumption time series display is activated, the customer has the option to view the load profile for the last 60 days directly on the meter display. Unless it is in the course of a customer change to a new customer based on the plant. Then a 60-day deactivation of the consumption time series display for data protection reasons is necessary. When activated, the consumption time series is available on the meter display for customers. When deactivated, the consumption time series is no longer visible on the meter display for customers. In both cases, the meter reports its status to the central system as ALARM or EVENT ("LP Display OFF" or "LP Display ON") and entry in the logbook of the meter.
+  time:timestamp: '2025-12-29T10:47:24.593438+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92fd64bdddb428812beeae6f2cc916f88c053ec2
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2025-12-29T10:47:24.593755+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92fd64bdddb428812beeae6f2cc916f88c053ec2
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-29T10:47:24.593861+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92fd64bdddb428812beeae6f2cc916f88c053ec2
+  cpee:exposition: |-
+    %% Output Intermediate
+    Due to the complexity of the description, the model has been simplified to meet all requirements. The model represents the main process of a customer deciding to activate or deactivate the consumption time series display, notifying the network operator, and the meter reporting its status to the central system.
+
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:exclusivegateway:{x}
+    1:exclusivegateway:{x} --> |Activate Display| 2:task:(Customer activates consumption time series display)
+    1:exclusivegateway:{x} --> |Deactivate Display| 3:task:(Customer deactivates consumption time series display)
+    2:task:(Customer activates consumption time series display) --> 4:task:(Notify network operator about activation)
+    3:task:(Customer deactivates consumption time series display) --> 5:task:(Notify network operator about deactivation)
+    4:task:(Notify network operator about activation) --> 6:task:(Meter reports status as ALARM or EVENT and logs)
+    5:task:(Notify network operator about deactivation) --> 6:task:(Meter reports status as ALARM or EVENT and logs)
+    6:task:(Meter reports status as ALARM or EVENT and logs) --> 7:endevent:(((endevent)))
+    ```
+
+    This model represents the described process. The customer decides to activate or deactivate the consumption time series display. The network operator is notified about the customer's decision. The meter then reports its status as ALARM or EVENT and logs the event. The process ends after the meter reports its status.
+  time:timestamp: '2025-12-29T10:47:24.593987+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92fd64bdddb428812beeae6f2cc916f88c053ec2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="1">
+        <alternative condition="Activate Display" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Customer activates consumption time series display</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify network operator about activation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Deactivate Display" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Customer deactivates consumption time series display</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify network operator about deactivation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Meter reports status as ALARM or EVENT and logs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-29T10:47:24.594099+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="1">
+        <alternative condition="Activate display" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Customer activates display</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify network operator about activation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Deactivate display" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Customer deactivates display</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify network operator about deactivation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Transmit status to central system as ALARM or EVENT</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Enter status in logbook</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d0449a28cc6c0580365782f4f98eab522a2d1d11
+  time:timestamp: '2025-12-29T10:47:49.576734+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0449a28cc6c0580365782f4f98eab522a2d1d11
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-29T10:47:49.576943+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0449a28cc6c0580365782f4f98eab522a2d1d11
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2025-12-29T10:47:49.577158+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0449a28cc6c0580365782f4f98eab522a2d1d11
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-29T10:47:49.577244+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0449a28cc6c0580365782f4f98eab522a2d1d11
+  cpee:exposition: |-
+    %% Output Intermediate
+    Due to the complexity of the description, the model has been simplified to meet all requirements. The model represents the main steps of the process: the customer's decision to activate or deactivate the consumption time series display, the notification to the network operator, the transmission of the status to the central system, and the entry in the logbook.
+
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:exclusivegateway:{x}
+    1:exclusivegateway:{x} --> |Activate display| 2:task:(Customer activates display)
+    1:exclusivegateway:{x} --> |Deactivate display| 3:task:(Customer deactivates display)
+    2:task:(Customer activates display) --> 4:task:(Notify network operator about activation)
+    3:task:(Customer deactivates display) --> 5:task:(Notify network operator about deactivation)
+    4:task:(Notify network operator about activation) --> 6:task:(Transmit status to central system as ALARM or EVENT)
+    5:task:(Notify network operator about deactivation) --> 6:task:(Transmit status to central system as ALARM or EVENT)
+    6:task:(Transmit status to central system as ALARM or EVENT) --> 7:task:(Enter status in logbook)
+    7:task:(Enter status in logbook) --> 8:endevent:(((endevent)))
+    ```
+
+    This model starts with the customer's decision to activate or deactivate the consumption time series display. Depending on the decision, the network operator is notified about the activation or deactivation. The status is then transmitted to the central system as ALARM or EVENT and entered in the logbook. The process ends after the status is entered in the logbook.
+  time:timestamp: '2025-12-29T10:47:49.577333+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0449a28cc6c0580365782f4f98eab522a2d1d11
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="1">
+        <alternative condition="Activate display" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Customer activates display</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify network operator about activation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Deactivate display" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Customer deactivates display</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify network operator about deactivation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Transmit status to central system as ALARM or EVENT</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Enter status in logbook</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-29T10:47:49.577426+01:00'
+---
+event:
+  concept:instance: 98621
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90989ee1-9ae9-4aec-92ad-58cc81b6c60a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0449a28cc6c0580365782f4f98eab522a2d1d11
+  cpee:exposition: |-
+    # User Input:
+    The customer wishes to activate the consumption time series display on the meter display and notify the network operator or the customer wishes to deactivate the consumption time series display on the meter display and inform the network operator about this. For reasons of data protection law, the display of consumption time series, for example: load profile on the display via the call button, is only permitted in special cases. It must be possible to activate or deactivate the display of the consumption time series via the meter's WAN interface. The status is to be transmitted to the central system as ALARM or EVENT and entered in the logbook. In the basic setting of the meter, the display of the consumption time series must always be deactivated. Whether the display of the consumption time series, for example: load profile is active or inactive, is decided by the customer. He informs the network operator (via web portal, via the call center, letter, ...). A synchronization of the device setting with respect to the consumption time series display is usefully 1 - 2 times a day (Customer should not be able to change the setting for load profile display every minute). When the consumption time series display is activated, the customer has the option to view the load profile for the last 60 days directly on the meter display. Unless it is in the course of a customer change to a new customer based on the plant. Then a 60-day deactivation of the consumption time series display for data protection reasons is necessary. When activated, the consumption time series is available on the meter display for customers. When deactivated, the consumption time series is no longer visible on the meter display for customers. In both cases, the meter reports its status to the central system as ALARM or EVENT ("LP Display OFF" or "LP Display ON") and entry in the logbook of the meter.
+  time:timestamp: '2025-12-29T10:47:49.577057+01:00'

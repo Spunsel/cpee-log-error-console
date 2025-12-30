@@ -159,7 +159,7 @@ export class SearchService {
         }
         
         try {
-            return new RegExp(pattern, flags);
+        return new RegExp(pattern, flags);
         } catch (e) {
             console.warn('SearchService: Invalid regex pattern:', e);
             return null;
@@ -221,8 +221,8 @@ export class SearchService {
                     end: globalPos + node.nodeValue.length
                 });
                 globalPos += node.nodeValue.length;
+                }
             }
-        }
 
         // Process matches from last to first to preserve positions
         for (let i = matchRanges.length - 1; i >= 0; i--) {
@@ -294,9 +294,9 @@ export class SearchService {
         const startPos = this.findDOMPosition(textNodes, start);
         const endPos = this.findDOMPosition(textNodes, end);
         
-        if (!startPos || !endPos) {
+            if (!startPos || !endPos) {
             return;
-        }
+            }
 
         try {
             // Create a range spanning the entire match
