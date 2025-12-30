@@ -10,7 +10,7 @@ export class InstanceFallbackService {
         this.uuidToProcess = null;  // { uuid: processNumber } - built dynamically
         this.mappingLoaded = false;
         this.debugMode = false;
-        this.basePath = '/fallback';
+        this.basePath = './fallback';
     }
 
     /**

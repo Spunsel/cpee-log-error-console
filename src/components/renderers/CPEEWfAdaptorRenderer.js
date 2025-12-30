@@ -385,7 +385,7 @@ export class CPEEWfAdaptorRenderer {
         }
         
         const corsProxy = configManager.get('api.cors.proxy');
-        const fallbackBasePath = '/fallback/cpee-themes';
+        const fallbackBasePath = './fallback/cpee-themes';
         
         // Consolidated message tracking
         const fallbackTracker = {
