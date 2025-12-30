@@ -1,0 +1,3409 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 98615
+    cpee:name: test
+    cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-29T01:39:35.488306+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Make the Sauce</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Cook the Pasta</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Assemble Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Bake Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 3c3be6fcf57ef77454125748181f2a79e2e1bcf1
+  time:timestamp: '2025-12-29T01:39:51.750013+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3c3be6fcf57ef77454125748181f2a79e2e1bcf1
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-29T01:39:51.750318+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3c3be6fcf57ef77454125748181f2a79e2e1bcf1
+  cpee:exposition: |-
+    # User Input:
+    create a process model of making a lasagne
+  time:timestamp: '2025-12-29T01:39:51.751113+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3c3be6fcf57ef77454125748181f2a79e2e1bcf1
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-29T01:39:51.751269+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3c3be6fcf57ef77454125748181f2a79e2e1bcf1
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-29T01:39:51.751391+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3c3be6fcf57ef77454125748181f2a79e2e1bcf1
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Prepare Ingredients)
+    1:task:(Prepare Ingredients) --> 2:task:(Make the Sauce)
+    2:task:(Make the Sauce) --> 3:task:(Cook the Pasta)
+    3:task:(Cook the Pasta) --> 4:task:(Assemble Lasagne)
+    4:task:(Assemble Lasagne) --> 5:task:(Bake Lasagne)
+    5:task:(Bake Lasagne) --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-29T01:39:51.751520+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3c3be6fcf57ef77454125748181f2a79e2e1bcf1
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Make the Sauce</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Cook the Pasta</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Assemble Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Bake Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-29T01:39:51.751646+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Make the Sauce</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Cook the Pasta</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Assemble Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Bake Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="eg1">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a10">
+            <parameters>
+              <label>Cool Lasagne</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 26aa5ad0554f4e3f6be5e40922af1da4e8950918
+  time:timestamp: '2025-12-29T01:40:00.592834+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26aa5ad0554f4e3f6be5e40922af1da4e8950918
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Make the Sauce</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Cook the Pasta</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Assemble Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Bake Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-29T01:40:00.593060+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26aa5ad0554f4e3f6be5e40922af1da4e8950918
+  cpee:exposition: |-
+    # User Input:
+    more complex 
+  time:timestamp: '2025-12-29T01:40:00.593426+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26aa5ad0554f4e3f6be5e40922af1da4e8950918
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-29T01:40:00.594025+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26aa5ad0554f4e3f6be5e40922af1da4e8950918
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->a3:task:(Make the Sauce)
+    a3:task:(Make the Sauce)-->a5:task:(Cook the Pasta)
+    a5:task:(Cook the Pasta)-->a7:task:(Assemble Lasagne)
+    a7:task:(Assemble Lasagne)-->a9:task:(Bake Lasagne)
+    a9:task:(Bake Lasagne)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-29T01:40:00.594936+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26aa5ad0554f4e3f6be5e40922af1da4e8950918
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> a1:task:(Prepare Ingredients)
+        a1:task:(Prepare Ingredients) --> a3:task:(Make the Sauce)
+        a3:task:(Make the Sauce) --> a5:task:(Cook the Pasta)
+        a5:task:(Cook the Pasta) --> a7:task:(Assemble Lasagne)
+        a7:task:(Assemble Lasagne) --> a9:task:(Bake Lasagne)
+        a9:task:(Bake Lasagne) --> eg1:exclusivegateway:{x}
+        eg1:exclusivegateway:{x} --> |Yes| a10:task:(Cool Lasagne)
+        eg1:exclusivegateway:{x} --> |No| ee:endevent:(((endevent)))
+        a10:task:(Cool Lasagne) --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-29T01:40:00.595088+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26aa5ad0554f4e3f6be5e40922af1da4e8950918
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Make the Sauce</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Cook the Pasta</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Assemble Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Bake Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="eg1">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a10">
+            <parameters>
+              <label>Cool Lasagne</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-29T01:40:00.596965+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Make the Sauce</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="a4">
+          <parameters>
+            <label>Make Bechamel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Grate Cheese</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a9" endpoint="" a:alt_id="a6">
+          <parameters>
+            <label>Slice Mozzarella</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a11" endpoint="" a:alt_id="a7">
+          <parameters>
+            <label>Assemble Lasagne Layer</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="More Layers" a:alt_id="gw1s" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Make the Sauce</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Make Bechamel</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Grate Cheese</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a6">
+            <parameters>
+              <label>Slice Mozzarella</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Assemble Lasagne Layer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a17" endpoint="" a:alt_id="a9">
+          <parameters>
+            <label>Bake Lasagne</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="gw2s">
+          <alternative condition="Yes" language="text/javascript">
+            <call id="a21" endpoint="" a:alt_id="a13">
+              <parameters>
+                <label>Cool Lasagne</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="No" language="text/javascript"/>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: 89cc19e1186471652f09db7f7db626b761d2d674
+  time:timestamp: '2025-12-29T01:40:33.097609+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89cc19e1186471652f09db7f7db626b761d2d674
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Make the Sauce</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Cook the Pasta</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Assemble Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Bake Lasagne</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="eg1">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a10">
+            <parameters>
+              <label>Cool Lasagne</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-29T01:40:33.097863+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89cc19e1186471652f09db7f7db626b761d2d674
+  cpee:exposition: |-
+    # User Input:
+    making lasagne is iterative (layers) and each layer needs tomato sauce, bechamelle, cheese, and mozzarella
+  time:timestamp: '2025-12-29T01:40:33.098052+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89cc19e1186471652f09db7f7db626b761d2d674
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-29T01:40:33.098151+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89cc19e1186471652f09db7f7db626b761d2d674
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->a3:task:(Make the Sauce)
+    a3:task:(Make the Sauce)-->a5:task:(Cook the Pasta)
+    a5:task:(Cook the Pasta)-->a7:task:(Assemble Lasagne)
+    a7:task:(Assemble Lasagne)-->a9:task:(Bake Lasagne)
+    a9:task:(Bake Lasagne)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Yes"|a13:task:(Cool Lasagne)
+    a13:task:(Cool Lasagne)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-29T01:40:33.098235+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89cc19e1186471652f09db7f7db626b761d2d674
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+        a1:task:(Prepare Ingredients)-->a3:task:(Make the Sauce)
+        a3:task:(Make the Sauce)-->a4:task:(Make Bechamel)
+        a4:task:(Make Bechamel)-->a5:task:(Grate Cheese)
+        a5:task:(Grate Cheese)-->a6:task:(Slice Mozzarella)
+        a6:task:(Slice Mozzarella)-->a7:task:(Assemble Lasagne Layer)
+        a7:task:(Assemble Lasagne Layer)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"More Layers"|a3:task:
+        gw1s:exclusivegateway:{x}-->|"No More Layers"|a9:task:(Bake Lasagne)
+        a9:task:(Bake Lasagne)-->gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"Yes"|a13:task:(Cool Lasagne)
+        a13:task:(Cool Lasagne)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"No"|gw2e:exclusivegateway:{x}
+        gw2e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-29T01:40:33.098393+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89cc19e1186471652f09db7f7db626b761d2d674
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Make the Sauce</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="a4">
+          <parameters>
+            <label>Make Bechamel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Grate Cheese</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a9" endpoint="" a:alt_id="a6">
+          <parameters>
+            <label>Slice Mozzarella</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a11" endpoint="" a:alt_id="a7">
+          <parameters>
+            <label>Assemble Lasagne Layer</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="More Layers" a:alt_id="gw1s" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Make the Sauce</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Make Bechamel</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Grate Cheese</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a6">
+            <parameters>
+              <label>Slice Mozzarella</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Assemble Lasagne Layer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a17" endpoint="" a:alt_id="a9">
+          <parameters>
+            <label>Bake Lasagne</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="gw2s">
+          <alternative condition="Yes" language="text/javascript">
+            <call id="a21" endpoint="" a:alt_id="a13">
+              <parameters>
+                <label>Cool Lasagne</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="No" language="text/javascript"/>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-29T01:40:33.098561+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Make the Sauce</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Make Bechamel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a15" endpoint="" a:alt_id="a7">
+          <parameters>
+            <label>Grate Cheese</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a17" endpoint="" a:alt_id="a9">
+          <parameters>
+            <label>Slice Mozzarella</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a19" endpoint="" a:alt_id="a11">
+          <parameters>
+            <label>Assemble Lasagne Layer</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="More Layers" a:alt_id="gw2s" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Make the Sauce</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Make Bechamel</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Grate Cheese</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Slice Mozzarella</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Assemble Lasagne Layer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a23" endpoint="" a:alt_id="a17">
+          <parameters>
+            <label>Bake Lasagne</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="gw3s">
+          <alternative condition="Yes" language="text/javascript">
+            <call id="a27" endpoint="" a:alt_id="a21">
+              <parameters>
+                <label>Cool Lasagne</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="No" language="text/javascript"/>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: adedddd0dea3b8f3940fce0d75da7947f728e357
+  time:timestamp: '2025-12-29T01:41:17.500285+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adedddd0dea3b8f3940fce0d75da7947f728e357
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Make the Sauce</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="a4">
+          <parameters>
+            <label>Make Bechamel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Grate Cheese</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a9" endpoint="" a:alt_id="a6">
+          <parameters>
+            <label>Slice Mozzarella</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a11" endpoint="" a:alt_id="a7">
+          <parameters>
+            <label>Assemble Lasagne Layer</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="More Layers" a:alt_id="gw1s" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Make the Sauce</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Make Bechamel</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Grate Cheese</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a6">
+            <parameters>
+              <label>Slice Mozzarella</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Assemble Lasagne Layer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a17" endpoint="" a:alt_id="a9">
+          <parameters>
+            <label>Bake Lasagne</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="gw2s">
+          <alternative condition="Yes" language="text/javascript">
+            <call id="a21" endpoint="" a:alt_id="a13">
+              <parameters>
+                <label>Cool Lasagne</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="No" language="text/javascript"/>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-29T01:41:17.500535+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adedddd0dea3b8f3940fce0d75da7947f728e357
+  cpee:exposition: |-
+    # User Input:
+    at what degrees to bake for how long ? give 3 options.
+  time:timestamp: '2025-12-29T01:41:17.501171+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adedddd0dea3b8f3940fce0d75da7947f728e357
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-29T01:41:17.501396+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adedddd0dea3b8f3940fce0d75da7947f728e357
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Make the Sauce)
+    a3:task:(Make the Sauce)-->a5:task:(Make Bechamel)
+    a5:task:(Make Bechamel)-->a7:task:(Grate Cheese)
+    a7:task:(Grate Cheese)-->a9:task:(Slice Mozzarella)
+    a9:task:(Slice Mozzarella)-->a11:task:(Assemble Lasagne Layer)
+    a11:task:(Assemble Lasagne Layer)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a17:task:(Bake Lasagne)
+    a17:task:(Bake Lasagne)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Yes"|a21:task:(Cool Lasagne)
+    a21:task:(Cool Lasagne)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"No"|gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"More Layers"|a3:task:(Make the Sauce)
+    a3:task:(Make the Sauce)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-29T01:41:17.501604+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adedddd0dea3b8f3940fce0d75da7947f728e357
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+        a1:task:(Prepare Ingredients)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Option 1: 375°F for 25 min"|a3:task:(Make the Sauce)
+        gw1s:exclusivegateway:{x}-->|"Option 2: 400°F for 20 min"|a3:task:
+        gw1s:exclusivegateway:{x}-->|"Option 3: 350°F for 30 min"|a3:task:
+        gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+        a3:task:(Make the Sauce)-->a5:task:(Make Bechamel)
+        a5:task:(Make Bechamel)-->a7:task:(Grate Cheese)
+        a7:task:(Grate Cheese)-->a9:task:(Slice Mozzarella)
+        a9:task:(Slice Mozzarella)-->a11:task:(Assemble Lasagne Layer)
+        a11:task:(Assemble Lasagne Layer)-->gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->a17:task:(Bake Lasagne)
+        a17:task:(Bake Lasagne)-->gw3s:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"Yes"|a21:task:(Cool Lasagne)
+        a21:task:(Cool Lasagne)-->gw3e:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"No"|gw3e:exclusivegateway:{x}
+        gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"More Layers"|a3:task:
+        a3:task:(Make the Sauce)-->-1:escalate:((^))
+        -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+        gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    ```
+  time:timestamp: '2025-12-29T01:41:17.501709+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adedddd0dea3b8f3940fce0d75da7947f728e357
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Make the Sauce</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Make Bechamel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a15" endpoint="" a:alt_id="a7">
+          <parameters>
+            <label>Grate Cheese</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a17" endpoint="" a:alt_id="a9">
+          <parameters>
+            <label>Slice Mozzarella</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a19" endpoint="" a:alt_id="a11">
+          <parameters>
+            <label>Assemble Lasagne Layer</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="More Layers" a:alt_id="gw2s" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Make the Sauce</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Make Bechamel</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Grate Cheese</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Slice Mozzarella</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Assemble Lasagne Layer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a23" endpoint="" a:alt_id="a17">
+          <parameters>
+            <label>Bake Lasagne</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="gw3s">
+          <alternative condition="Yes" language="text/javascript">
+            <call id="a27" endpoint="" a:alt_id="a21">
+              <parameters>
+                <label>Cool Lasagne</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="No" language="text/javascript"/>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-29T01:41:17.501814+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <loop mode="pre_test" condition="true">
+            <call id="a5" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Make the Sauce</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a7" endpoint="" a:alt_id="a13">
+              <parameters>
+                <label>Make Bechamel</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a9" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Grate Cheese</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a11" endpoint="" a:alt_id="a17">
+              <parameters>
+                <label>Slice Mozzarella</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a19">
+              <parameters>
+                <label>Assemble Lasagne Layer</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="More Layers" a:alt_id="gw2s" language="text/javascript">
+              <call id="a5" endpoint="" a:alt_id="a5">
+                <parameters>
+                  <label>Make the Sauce</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Make Bechamel</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Grate Cheese</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Slice Mozzarella</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Assemble Lasagne Layer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a17" endpoint="" a:alt_id="a23">
+              <parameters>
+                <label>Bake Lasagne</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw3s">
+              <alternative condition="Yes" language="text/javascript">
+                <call id="a21" endpoint="" a:alt_id="a27">
+                  <parameters>
+                    <label>Cool Lasagne</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="No" language="text/javascript"/>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a37" endpoint="" a:alt_id="t1">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a39" endpoint="" a:alt_id="t2">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a41" endpoint="" a:alt_id="t3">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: e9b0dbe95a30c0c11285343b1c8389e881bdb1a2
+  time:timestamp: '2025-12-29T01:42:03.289257+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e9b0dbe95a30c0c11285343b1c8389e881bdb1a2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Make the Sauce</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Make Bechamel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a15" endpoint="" a:alt_id="a7">
+          <parameters>
+            <label>Grate Cheese</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a17" endpoint="" a:alt_id="a9">
+          <parameters>
+            <label>Slice Mozzarella</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a19" endpoint="" a:alt_id="a11">
+          <parameters>
+            <label>Assemble Lasagne Layer</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="More Layers" a:alt_id="gw2s" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Make the Sauce</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Make Bechamel</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Grate Cheese</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Slice Mozzarella</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Assemble Lasagne Layer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a23" endpoint="" a:alt_id="a17">
+          <parameters>
+            <label>Bake Lasagne</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="gw3s">
+          <alternative condition="Yes" language="text/javascript">
+            <call id="a27" endpoint="" a:alt_id="a21">
+              <parameters>
+                <label>Cool Lasagne</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="No" language="text/javascript"/>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-29T01:42:03.289521+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e9b0dbe95a30c0c11285343b1c8389e881bdb1a2
+  cpee:exposition: |-
+    # User Input:
+    you can cook it in the oven at different tempertures. if the temperature is hotter, it takes less. give 3 options (combinations of cooking time and temperature)
+  time:timestamp: '2025-12-29T01:42:03.289813+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e9b0dbe95a30c0c11285343b1c8389e881bdb1a2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-29T01:42:03.290099+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e9b0dbe95a30c0c11285343b1c8389e881bdb1a2
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a5:task:(Make the Sauce)
+    a5:task:(Make the Sauce)-->a13:task:(Make Bechamel)
+    a13:task:(Make Bechamel)-->a15:task:(Grate Cheese)
+    a15:task:(Grate Cheese)-->a17:task:(Slice Mozzarella)
+    a17:task:(Slice Mozzarella)-->a19:task:(Assemble Lasagne Layer)
+    a19:task:(Assemble Lasagne Layer)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a23:task:(Bake Lasagne)
+    a23:task:(Bake Lasagne)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Yes"|a27:task:(Cool Lasagne)
+    a27:task:(Cool Lasagne)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"No"|gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"More Layers"|a5:task:(Make the Sauce)
+    a5:task:(Make the Sauce)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-29T01:42:03.290212+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e9b0dbe95a30c0c11285343b1c8389e881bdb1a2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+        a1:task:(Prepare Ingredients)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->a5:task:(Make the Sauce)
+        a5:task:(Make the Sauce)-->a13:task:(Make Bechamel)
+        a13:task:(Make Bechamel)-->a15:task:(Grate Cheese)
+        a15:task:(Grate Cheese)-->a17:task:(Slice Mozzarella)
+        a17:task:(Slice Mozzarella)-->a19:task:(Assemble Lasagne Layer)
+        a19:task:(Assemble Lasagne Layer)-->gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->a23:task:(Bake Lasagne)
+        a23:task:(Bake Lasagne)-->gw3s:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"Yes"|a27:task:(Cool Lasagne)
+        a27:task:(Cool Lasagne)-->gw3e:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"No"|gw3e:exclusivegateway:{x}
+        gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"More Layers"|a5:task:
+        a5:task:-->-1:escalate:((^))
+        -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+        gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Option 1"|t1:task:(High Temp)
+        gw1s:exclusivegateway:{x}-->|"Option 2"|t2:task:(Medium Temp)
+        gw1s:exclusivegateway:{x}-->|"Option 3"|t3:task:(Low Temp)
+        t1:task:(High Temp)-->gw1e:exclusivegateway:{x}
+        t2:task:(Medium Temp)-->gw1e:exclusivegateway:{x}
+        t3:task:(Low Temp)-->gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-12-29T01:42:03.290325+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e9b0dbe95a30c0c11285343b1c8389e881bdb1a2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <loop mode="pre_test" condition="true">
+            <call id="a5" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Make the Sauce</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a7" endpoint="" a:alt_id="a13">
+              <parameters>
+                <label>Make Bechamel</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a9" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Grate Cheese</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a11" endpoint="" a:alt_id="a17">
+              <parameters>
+                <label>Slice Mozzarella</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a19">
+              <parameters>
+                <label>Assemble Lasagne Layer</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="More Layers" a:alt_id="gw2s" language="text/javascript">
+              <call id="a5" endpoint="" a:alt_id="a5">
+                <parameters>
+                  <label>Make the Sauce</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Make Bechamel</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Grate Cheese</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Slice Mozzarella</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Assemble Lasagne Layer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a17" endpoint="" a:alt_id="a23">
+              <parameters>
+                <label>Bake Lasagne</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw3s">
+              <alternative condition="Yes" language="text/javascript">
+                <call id="a21" endpoint="" a:alt_id="a27">
+                  <parameters>
+                    <label>Cool Lasagne</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="No" language="text/javascript"/>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a37" endpoint="" a:alt_id="t1">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a39" endpoint="" a:alt_id="t2">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a41" endpoint="" a:alt_id="t3">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-29T01:42:03.291036+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive" a:alt_id="gw2e">
+              <alternative condition="true" language="text/javascript">
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Make the Sauce</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="0">
+                  <alternative condition="">
+                    <call id="a11" endpoint="" a:alt_id="a7">
+                      <parameters>
+                        <label>Make Bechamel</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a13" endpoint="" a:alt_id="a9">
+                      <parameters>
+                        <label>Grate Cheese</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a15" endpoint="" a:alt_id="a11">
+                      <parameters>
+                        <label>Slice Mozzarella</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a17" endpoint="" a:alt_id="a13">
+                      <parameters>
+                        <label>Assemble Lasagne Layer</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="gw3s">
+                      <alternative condition="">
+                        <call id="a21" endpoint="" a:alt_id="a17">
+                          <parameters>
+                            <label>Bake Lasagne</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="gw4s">
+                          <alternative condition="Yes" language="text/javascript">
+                            <call id="a25" endpoint="" a:alt_id="a21">
+                              <parameters>
+                                <label>Cool Lasagne</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="No" language="text/javascript"/>
+                        </choose>
+                      </alternative>
+                      <alternative condition="More Layers" language="text/javascript">
+                        <call id="a9" endpoint="" a:alt_id="a5">
+                          <parameters>
+                            <label>Make the Sauce</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <escape a:alt_id="-1"/>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition=""/>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a43" endpoint="" a:alt_id="a37">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a47" endpoint="" a:alt_id="a39">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a51" endpoint="" a:alt_id="a41">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: a15adaebcb2b5c4a47b2789eaaa52a03cc6bbfb7
+  time:timestamp: '2025-12-29T01:42:30.410173+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15adaebcb2b5c4a47b2789eaaa52a03cc6bbfb7
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <loop mode="pre_test" condition="true">
+            <call id="a5" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Make the Sauce</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a7" endpoint="" a:alt_id="a13">
+              <parameters>
+                <label>Make Bechamel</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a9" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Grate Cheese</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a11" endpoint="" a:alt_id="a17">
+              <parameters>
+                <label>Slice Mozzarella</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a19">
+              <parameters>
+                <label>Assemble Lasagne Layer</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="More Layers" a:alt_id="gw2s" language="text/javascript">
+              <call id="a5" endpoint="" a:alt_id="a5">
+                <parameters>
+                  <label>Make the Sauce</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Make Bechamel</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Grate Cheese</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Slice Mozzarella</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Assemble Lasagne Layer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a17" endpoint="" a:alt_id="a23">
+              <parameters>
+                <label>Bake Lasagne</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw3s">
+              <alternative condition="Yes" language="text/javascript">
+                <call id="a21" endpoint="" a:alt_id="a27">
+                  <parameters>
+                    <label>Cool Lasagne</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="No" language="text/javascript"/>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a37" endpoint="" a:alt_id="t1">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a39" endpoint="" a:alt_id="t2">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a41" endpoint="" a:alt_id="t3">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-29T01:42:30.410407+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15adaebcb2b5c4a47b2789eaaa52a03cc6bbfb7
+  cpee:exposition: |-
+    # User Input:
+    this shuold be integrated (the cooking time) in the main process model.
+  time:timestamp: '2025-12-29T01:42:30.410539+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15adaebcb2b5c4a47b2789eaaa52a03cc6bbfb7
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-29T01:42:30.410633+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15adaebcb2b5c4a47b2789eaaa52a03cc6bbfb7
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a5:task:(Make the Sauce)
+    a5:task:(Make the Sauce)-->a7:task:(Make Bechamel)
+    a7:task:(Make Bechamel)-->a9:task:(Grate Cheese)
+    a9:task:(Grate Cheese)-->a11:task:(Slice Mozzarella)
+    a11:task:(Slice Mozzarella)-->a13:task:(Assemble Lasagne Layer)
+    a13:task:(Assemble Lasagne Layer)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a17:task:(Bake Lasagne)
+    a17:task:(Bake Lasagne)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Yes"|a21:task:(Cool Lasagne)
+    a21:task:(Cool Lasagne)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"No"|gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"More Layers"|a5:task:(Make the Sauce)
+    a5:task:(Make the Sauce)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 1"|a37:task:(High Temp)
+    a37:task:(High Temp)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 2"|a39:task:(Medium Temp)
+    a39:task:(Medium Temp)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 3"|a41:task:(Low Temp)
+    a41:task:(Low Temp)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-29T01:42:30.410712+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15adaebcb2b5c4a47b2789eaaa52a03cc6bbfb7
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+        a1:task:(Prepare Ingredients)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+        gw2e:exclusivegateway:{x}-->|"true"|a5:task:(Make the Sauce)
+        a5:task:(Make the Sauce)-->a7:task:(Make Bechamel)
+        a7:task:(Make Bechamel)-->a9:task:(Grate Cheese)
+        a9:task:(Grate Cheese)-->a11:task:(Slice Mozzarella)
+        a11:task:(Slice Mozzarella)-->a13:task:(Assemble Lasagne Layer)
+        a13:task:(Assemble Lasagne Layer)-->gw3s:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->a17:task:(Bake Lasagne)
+        a17:task:(Bake Lasagne)-->gw4s:exclusivegateway:{x}
+        gw4s:exclusivegateway:{x}-->|"Yes"|a21:task:(Cool Lasagne)
+        a21:task:(Cool Lasagne)-->gw4e:exclusivegateway:{x}
+        gw4s:exclusivegateway:{x}-->|"No"|gw4e:exclusivegateway:{x}
+        gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"More Layers"|a5:task:
+        a5:task:-->-1:escalate:((^))
+        -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+        gw3e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+        gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Option 1"|a37:task:(High Temp)
+        a37:task:(High Temp)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Option 2"|a39:task:(Medium Temp)
+        a39:task:(Medium Temp)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Option 3"|a41:task:(Low Temp)
+        a41:task:(Low Temp)-->gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-12-29T01:42:30.410811+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15adaebcb2b5c4a47b2789eaaa52a03cc6bbfb7
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive" a:alt_id="gw2e">
+              <alternative condition="true" language="text/javascript">
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Make the Sauce</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="0">
+                  <alternative condition="">
+                    <call id="a11" endpoint="" a:alt_id="a7">
+                      <parameters>
+                        <label>Make Bechamel</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a13" endpoint="" a:alt_id="a9">
+                      <parameters>
+                        <label>Grate Cheese</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a15" endpoint="" a:alt_id="a11">
+                      <parameters>
+                        <label>Slice Mozzarella</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a17" endpoint="" a:alt_id="a13">
+                      <parameters>
+                        <label>Assemble Lasagne Layer</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="gw3s">
+                      <alternative condition="">
+                        <call id="a21" endpoint="" a:alt_id="a17">
+                          <parameters>
+                            <label>Bake Lasagne</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="gw4s">
+                          <alternative condition="Yes" language="text/javascript">
+                            <call id="a25" endpoint="" a:alt_id="a21">
+                              <parameters>
+                                <label>Cool Lasagne</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="No" language="text/javascript"/>
+                        </choose>
+                      </alternative>
+                      <alternative condition="More Layers" language="text/javascript">
+                        <call id="a9" endpoint="" a:alt_id="a5">
+                          <parameters>
+                            <label>Make the Sauce</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <escape a:alt_id="-1"/>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition=""/>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a43" endpoint="" a:alt_id="a37">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a47" endpoint="" a:alt_id="a39">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a51" endpoint="" a:alt_id="a41">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-29T01:42:30.410909+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a43">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a47">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a51">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: d43acb7d2d16f7a064634a722a209312eb13f396
+  time:timestamp: '2025-12-29T01:42:42.080013+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d43acb7d2d16f7a064634a722a209312eb13f396
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive" a:alt_id="gw2e">
+              <alternative condition="true" language="text/javascript">
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Make the Sauce</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="0">
+                  <alternative condition="">
+                    <call id="a11" endpoint="" a:alt_id="a7">
+                      <parameters>
+                        <label>Make Bechamel</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a13" endpoint="" a:alt_id="a9">
+                      <parameters>
+                        <label>Grate Cheese</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a15" endpoint="" a:alt_id="a11">
+                      <parameters>
+                        <label>Slice Mozzarella</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a17" endpoint="" a:alt_id="a13">
+                      <parameters>
+                        <label>Assemble Lasagne Layer</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="gw3s">
+                      <alternative condition="">
+                        <call id="a21" endpoint="" a:alt_id="a17">
+                          <parameters>
+                            <label>Bake Lasagne</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="gw4s">
+                          <alternative condition="Yes" language="text/javascript">
+                            <call id="a25" endpoint="" a:alt_id="a21">
+                              <parameters>
+                                <label>Cool Lasagne</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="No" language="text/javascript"/>
+                        </choose>
+                      </alternative>
+                      <alternative condition="More Layers" language="text/javascript">
+                        <call id="a9" endpoint="" a:alt_id="a5">
+                          <parameters>
+                            <label>Make the Sauce</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <escape a:alt_id="-1"/>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition=""/>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a43" endpoint="" a:alt_id="a37">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a47" endpoint="" a:alt_id="a39">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a51" endpoint="" a:alt_id="a41">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-29T01:42:42.080279+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d43acb7d2d16f7a064634a722a209312eb13f396
+  cpee:exposition: |-
+    # User Input:
+    simplify
+  time:timestamp: '2025-12-29T01:42:42.080933+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d43acb7d2d16f7a064634a722a209312eb13f396
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-29T01:42:42.081108+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d43acb7d2d16f7a064634a722a209312eb13f396
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"true"|a9:task:(Make the Sauce)
+    a9:task:(Make the Sauce)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->a11:task:(Make Bechamel)
+    a11:task:(Make Bechamel)-->a13:task:(Grate Cheese)
+    a13:task:(Grate Cheese)-->a15:task:(Slice Mozzarella)
+    a15:task:(Slice Mozzarella)-->a17:task:(Assemble Lasagne Layer)
+    a17:task:(Assemble Lasagne Layer)-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->a21:task:(Bake Lasagne)
+    a21:task:(Bake Lasagne)-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"Yes"|a25:task:(Cool Lasagne)
+    a25:task:(Cool Lasagne)-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"No"|gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"More Layers"|a9:task:(Make the Sauce)
+    a9:task:(Make the Sauce)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 1"|a43:task:(High Temp)
+    a43:task:(High Temp)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 2"|a47:task:(Medium Temp)
+    a47:task:(Medium Temp)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 3"|a51:task:(Low Temp)
+    a51:task:(Low Temp)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-29T01:42:42.081237+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d43acb7d2d16f7a064634a722a209312eb13f396
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 1"|a43:task:(High Temp)
+    a43:task:(High Temp)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 2"|a47:task:(Medium Temp)
+    a47:task:(Medium Temp)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 3"|a51:task:(Low Temp)
+    a51:task:(Low Temp)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-12-29T01:42:42.081375+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d43acb7d2d16f7a064634a722a209312eb13f396
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a43">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a47">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a51">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-29T01:42:42.081620+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 5af9bb7016c3aeda3091f9c86b782ba4ba8aec12
+  time:timestamp: '2025-12-29T01:42:50.528577+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5af9bb7016c3aeda3091f9c86b782ba4ba8aec12
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a43">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a47">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a51">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-29T01:42:50.528798+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5af9bb7016c3aeda3091f9c86b782ba4ba8aec12
+  cpee:exposition: |+
+    # User Input:
+    clear all
+
+  time:timestamp: '2025-12-29T01:42:50.529134+01:00'
+...
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5af9bb7016c3aeda3091f9c86b782ba4ba8aec12
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-29T01:42:50.529330+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5af9bb7016c3aeda3091f9c86b782ba4ba8aec12
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 1"|a5:task:(High Temp)
+    a5:task:(High Temp)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 2"|a9:task:(Medium Temp)
+    a9:task:(Medium Temp)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 3"|a13:task:(Low Temp)
+    a13:task:(Low Temp)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-29T01:42:50.529907+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5af9bb7016c3aeda3091f9c86b782ba4ba8aec12
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> a1:task:(Prepare Ingredients)
+        a1:task:(Prepare Ingredients) --> gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x} --> |"Option 1"| a5:task:(High Temp)
+        a5:task:(High Temp) --> gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x} --> |"Option 2"| a9:task:(Medium Temp)
+        a9:task:(Medium Temp) --> gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x} --> |"Option 3"| a13:task:(Low Temp)
+        a13:task:(Low Temp) --> gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x} --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-29T01:42:50.530330+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5af9bb7016c3aeda3091f9c86b782ba4ba8aec12
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-29T01:42:50.530494+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-12-29T01:42:57.402318+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Option 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a43">
+            <parameters>
+              <label>High Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a47">
+            <parameters>
+              <label>Medium Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Option 3" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a51">
+            <parameters>
+              <label>Low Temp</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-29T01:42:57.402464+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete all.
+  time:timestamp: '2025-12-29T01:42:57.402790+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-29T01:42:57.403253+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 1"|a5:task:(High Temp)
+    a5:task:(High Temp)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 2"|a9:task:(Medium Temp)
+    a9:task:(Medium Temp)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Option 3"|a13:task:(Low Temp)
+    a13:task:(Low Temp)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-29T01:42:57.403583+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-12-29T01:42:57.403876+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-29T01:42:57.404100+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ef30b509a84ae5db05f4ea1f4c85c8003b034eb9
+  time:timestamp: '2025-12-30T13:39:14.853858+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef30b509a84ae5db05f4ea1f4c85c8003b034eb9
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-30T13:39:14.854103+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef30b509a84ae5db05f4ea1f4c85c8003b034eb9
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-30T13:39:14.854224+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef30b509a84ae5db05f4ea1f4c85c8003b034eb9
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-30T13:39:14.854329+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef30b509a84ae5db05f4ea1f4c85c8003b034eb9
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-30T13:39:14.854430+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef30b509a84ae5db05f4ea1f4c85c8003b034eb9
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Receive Order)
+    1:task:(Receive Order) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Order under $100| 3:task:(Process Small Order)
+    2:exclusivegateway:{x} --> |Order over $100| 4:task:(Process Large Order)
+    3:task:(Process Small Order) --> 5:exclusivegateway:{x}
+    4:task:(Process Large Order) --> 5:exclusivegateway:{x}
+    5:exclusivegateway:{x} --> 6:task:(Pack Order)
+    6:task:(Pack Order) --> 7:task:(Ship Order)
+    7:task:(Ship Order) --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-30T13:39:14.854529+01:00'
+---
+event:
+  concept:instance: 98615
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cb8751fa-bac0-44ad-9b57-7db46d62a9cd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef30b509a84ae5db05f4ea1f4c85c8003b034eb9
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-30T13:39:14.854636+01:00'

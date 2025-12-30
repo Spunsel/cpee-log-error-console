@@ -4,10 +4,12 @@
  */
 
 import { configManager } from '../config/ConfigManager.js';
+import { instanceFallbackService } from './InstanceFallbackService.js';
 
 export class CPEEService {
     constructor() {
         this.configManager = configManager;
+        this.fallbackService = instanceFallbackService;
         this.debugMode = false;
     }
 
@@ -32,8 +34,8 @@ export class CPEEService {
     /**
      * Fetch UUID for a given process instance number
      * @param {number} processNumber - CPEE process instance number
-     * @returns {Promise<string>} UUID of the process instance
-     * @throws {Error} If process number is invalid or fetch fails
+     * @returns {Promise<{uuid: string, fromFallback: boolean}>} UUID and source info
+     * @throws {Error} If process number is invalid or fetch fails and no fallback available
      */
     async fetchUUIDFromProcessNumber(processNumber) {
         if (!processNumber || isNaN(processNumber)) {
@@ -47,9 +49,11 @@ export class CPEEService {
             this.logDebug(`URL: ${uuidUrl}`);
             
             // Use proxy for CORS handling
-            const proxy = this.configManager.get('api.cors.proxy');
-            const proxyUrl = proxy + encodeURIComponent(uuidUrl);
-            const response = await fetch(proxyUrl, {
+            // const proxy = this.configManager.get('api.cors.proxy');
+            // const proxyUrl = proxy + encodeURIComponent(uuidUrl);
+            //const response = await fetch(proxyUrl, {
+            // Direct fetch without proxy
+            const response = await fetch(uuidUrl, {
                 method: 'GET',
                 headers: {
                     'Accept': this.configManager.get('api.headers.jsonAccept')
@@ -73,10 +77,20 @@ export class CPEEService {
             }
             
             this.logDebug(`Successfully fetched UUID: ${cleanUuid}`);
-            return cleanUuid;
+            return { uuid: cleanUuid, fromFallback: false };
             
         } catch (error) {
-            throw new Error(`CPEEService: Failed to fetch UUID for process ${processNumber} - ${error.message}`);
+            this.logDebug(`Remote fetch failed: ${error.message}, trying fallback...`);
+            
+            // Try fallback service
+            const fallbackResult = await this.fallbackService.getUUIDForProcess(processNumber);
+            
+            if (fallbackResult) {
+                return fallbackResult;
+            }
+            
+            // No fallback available, throw original error
+            throw new Error(`CPEEService: Failed to fetch UUID for process ${processNumber} - ${error.message} (no fallback available)`);
         }
     }
     

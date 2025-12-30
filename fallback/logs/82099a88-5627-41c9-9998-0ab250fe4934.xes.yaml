@@ -1,0 +1,438 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 82060
+    cpee:name: Plain Instance
+    cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-04T08:44:59.485273+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Start Migration Project</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Export User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Change user</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Import User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 24ecb3c597ed8f64b1a275795d1fdcf341eb7598
+  time:timestamp: '2025-12-04T08:46:13.598735+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 24ecb3c597ed8f64b1a275795d1fdcf341eb7598
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-04T08:46:13.598950+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 24ecb3c597ed8f64b1a275795d1fdcf341eb7598
+  cpee:exposition: |-
+    # User Input:
+    Start Migration Project
+    On Business day before Migration
+    Export User
+    Change user
+    Import User
+  time:timestamp: '2025-12-04T08:46:13.599065+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 24ecb3c597ed8f64b1a275795d1fdcf341eb7598
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-04T08:46:13.599163+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 24ecb3c597ed8f64b1a275795d1fdcf341eb7598
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-04T08:46:13.600137+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 24ecb3c597ed8f64b1a275795d1fdcf341eb7598
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Start Migration Project)
+    1:task:(Start Migration Project) --> 2:task:(Export User)
+    2:task:(Export User) --> 3:task:(Change user)
+    3:task:(Change user) --> 4:task:(Import User)
+    4:task:(Import User) --> 5:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-04T08:46:13.600241+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 24ecb3c597ed8f64b1a275795d1fdcf341eb7598
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Start Migration Project</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Export User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Change user</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Import User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-04T08:46:13.600339+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-12-04T08:47:17.142681+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-04T08:47:17.360266+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Start Migration Project</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Export User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Change user</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Import User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 16b776167b7965f2749885d20f2828fd7924556a
+  time:timestamp: '2025-12-04T08:47:25.708571+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 16b776167b7965f2749885d20f2828fd7924556a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Start Migration Project</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Export User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Change user</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Import User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-04T08:47:25.708811+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 16b776167b7965f2749885d20f2828fd7924556a
+  cpee:exposition: |+
+    # User Input:
+    Start Migration ProjectOn Business day before MigrationExport UserChange userImport User
+
+  time:timestamp: '2025-12-04T08:47:25.709230+01:00'
+...
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 16b776167b7965f2749885d20f2828fd7924556a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-04T08:47:25.709368+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 16b776167b7965f2749885d20f2828fd7924556a
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Start Migration Project)
+    a1:task:(Start Migration Project)-->a3:task:(Export User)
+    a3:task:(Export User)-->a5:task:(Change user)
+    a5:task:(Change user)-->a7:task:(Import User)
+    a7:task:(Import User)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-04T08:47:25.709487+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 16b776167b7965f2749885d20f2828fd7924556a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> a1:task:(Start Migration Project)
+        a1:task:(Start Migration Project) --> |On Business day before Migration| a3:task:(Export User)
+        a3:task:(Export User) --> a5:task:(Change user)
+        a5:task:(Change user) --> a7:task:(Import User)
+        a7:task:(Import User) --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-04T08:47:25.709624+01:00'
+---
+event:
+  concept:instance: 82060
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 82099a88-5627-41c9-9998-0ab250fe4934
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 16b776167b7965f2749885d20f2828fd7924556a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Start Migration Project</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Export User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Change user</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Import User</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-04T08:47:25.709757+01:00'

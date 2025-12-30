@@ -1,0 +1,745 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 82264
+    cpee:name: Plain Instance
+    cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T09:29:27.929404+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-12-08T09:29:28.259660+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T09:29:28.265853+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T09:29:28.697669+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T09:29:28.702878+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 225ea6600d78ea6f7f598398be6e265118fffbc0
+  time:timestamp: '2025-12-08T09:29:32.181217+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 225ea6600d78ea6f7f598398be6e265118fffbc0
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-08T09:29:32.181446+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 225ea6600d78ea6f7f598398be6e265118fffbc0
+  cpee:exposition: |-
+    # User Input:
+    add task A
+  time:timestamp: '2025-12-08T09:29:32.181582+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 225ea6600d78ea6f7f598398be6e265118fffbc0
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-08T09:29:32.181706+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 225ea6600d78ea6f7f598398be6e265118fffbc0
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-08T09:29:32.181823+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 225ea6600d78ea6f7f598398be6e265118fffbc0
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Task A)
+      1:task:(Task A) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-08T09:29:32.181971+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 225ea6600d78ea6f7f598398be6e265118fffbc0
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-08T09:29:32.182740+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="b1">
+        <parameters>
+          <label>Task B</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: e44299455583c14529583e4b9396e357b92a22e1
+  time:timestamp: '2025-12-08T09:29:36.468760+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e44299455583c14529583e4b9396e357b92a22e1
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-08T09:29:36.468946+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e44299455583c14529583e4b9396e357b92a22e1
+  cpee:exposition: |-
+    # User Input:
+    add task B
+  time:timestamp: '2025-12-08T09:29:36.469058+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e44299455583c14529583e4b9396e357b92a22e1
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-08T09:29:36.469167+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e44299455583c14529583e4b9396e357b92a22e1
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-08T09:29:36.469266+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e44299455583c14529583e4b9396e357b92a22e1
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->b1:task:(Task B)
+    b1:task:(Task B)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-08T09:29:36.469438+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e44299455583c14529583e4b9396e357b92a22e1
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="b1">
+        <parameters>
+          <label>Task B</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-08T09:29:36.469539+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="ex1">
+        <alternative condition="Task D" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="d">
+            <parameters>
+              <label>Task D</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Task C" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="c">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 6ed0d0b7f0d6507c0fae26116ed0522503d5e8ad
+  time:timestamp: '2025-12-08T09:29:45.376318+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ed0d0b7f0d6507c0fae26116ed0522503d5e8ad
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="b1">
+        <parameters>
+          <label>Task B</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-08T09:29:45.376525+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ed0d0b7f0d6507c0fae26116ed0522503d5e8ad
+  cpee:exposition: |-
+    # User Input:
+    add a decision with task D or C
+  time:timestamp: '2025-12-08T09:29:45.376638+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ed0d0b7f0d6507c0fae26116ed0522503d5e8ad
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-08T09:29:45.376723+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ed0d0b7f0d6507c0fae26116ed0522503d5e8ad
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->a3:task:(Task B)
+    a3:task:(Task B)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-08T09:29:45.376802+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ed0d0b7f0d6507c0fae26116ed0522503d5e8ad
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->ex1:exclusivegateway:{x}
+    ex1:exclusivegateway:{x}-->|Task D|d:task:(Task D)
+    ex1:exclusivegateway:{x}-->|Task C|c:task:(Task C)
+    d:task:(Task D)-->ex2:exclusivegateway:{x}
+    c:task:(Task C)-->ex2:exclusivegateway:{x}
+    ex2:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-12-08T09:29:45.376974+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ed0d0b7f0d6507c0fae26116ed0522503d5e8ad
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="ex1">
+        <alternative condition="Task D" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="d">
+            <parameters>
+              <label>Task D</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Task C" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="c">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-08T09:29:45.377128+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Task D" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task D</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Task C" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="x">
+        <parameters>
+          <label>Task X</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 9eb9ce410ed83f09dd9f39e018a5a8a156d4bd52
+  time:timestamp: '2025-12-08T09:31:20.444262+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eb9ce410ed83f09dd9f39e018a5a8a156d4bd52
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="ex1">
+        <alternative condition="Task D" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="d">
+            <parameters>
+              <label>Task D</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Task C" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="c">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-08T09:31:20.444472+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eb9ce410ed83f09dd9f39e018a5a8a156d4bd52
+  cpee:exposition: |-
+    # User Input:
+    add a loop with task X in the end
+  time:timestamp: '2025-12-08T09:31:20.444848+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eb9ce410ed83f09dd9f39e018a5a8a156d4bd52
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-08T09:31:20.445130+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eb9ce410ed83f09dd9f39e018a5a8a156d4bd52
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Task D"|a5:task:(Task D)
+    a5:task:(Task D)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Task C"|a7:task:(Task C)
+    a7:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-08T09:31:20.445430+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eb9ce410ed83f09dd9f39e018a5a8a156d4bd52
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Task D"|a5:task:(Task D)
+    a5:task:(Task D)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Task C"|a7:task:(Task C)
+    a7:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->x:task:(Task X)
+    x:task:(Task X)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-08T09:31:20.445623+01:00'
+---
+event:
+  concept:instance: 82264
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 05a93f45-20ca-4b5a-81dd-34dc34b0d03c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eb9ce410ed83f09dd9f39e018a5a8a156d4bd52
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Task D" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task D</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Task C" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="x">
+        <parameters>
+          <label>Task X</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-08T09:31:20.445890+01:00'

@@ -1,0 +1,1217 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 82151
+    cpee:name: Plain Instance
+    cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-05T17:56:27.971647+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Customer submits a complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Complaint is valid" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Replace product</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Notify customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Complaint is not valid" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify customer about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 189acb851f22caf130b6f35ca0669e5cb63ed6fd
+  time:timestamp: '2025-12-05T17:57:51.641225+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 189acb851f22caf130b6f35ca0669e5cb63ed6fd
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-05T17:57:51.641478+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 189acb851f22caf130b6f35ca0669e5cb63ed6fd
+  cpee:exposition: |+
+    # User Input:
+    przygotuj prosty model procesu reklamacji
+
+  time:timestamp: '2025-12-05T17:57:51.642174+01:00'
+...
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 189acb851f22caf130b6f35ca0669e5cb63ed6fd
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2025-12-05T17:57:51.642322+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 189acb851f22caf130b6f35ca0669e5cb63ed6fd
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-05T17:57:51.642439+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 189acb851f22caf130b6f35ca0669e5cb63ed6fd
+  cpee:exposition: |-
+    %% Output Intermediate
+    Textual Description (translated from Polish):
+    Prepare a simple complaint process model.
+
+    A customer submits a complaint. The complaint is then reviewed. If the complaint is valid, the product is replaced and the customer is notified. If the complaint is not valid, the customer is notified about the rejection. The process ends when the customer receives the notification.
+
+    Mermaid.js BPMN Model:
+
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Customer submits a complaint)
+    1:task:(Customer submits a complaint) --> 2:task:(Review complaint)
+    2:task:(Review complaint) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Complaint is valid| 4:task:(Replace product)
+    3:exclusivegateway:{x} --> |Complaint is not valid| 5:task:(Notify customer about rejection)
+    4:task:(Replace product) --> 6:task:(Notify customer)
+    5:task:(Notify customer about rejection) --> 7:endevent:(((endevent)))
+    6:task:(Notify customer) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-05T17:57:51.642561+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 189acb851f22caf130b6f35ca0669e5cb63ed6fd
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Customer submits a complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Complaint is valid" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Replace product</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Notify customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Complaint is not valid" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify customer about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-05T17:57:51.642734+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Customer submits a complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Review complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Financial department reviews complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Technical department reviews complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Complaint is valid" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Replace product</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Notify customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Complaint is not valid" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Notify customer about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 6fcb3bfa57933193d903ed1b52093bdeb39376b7
+  time:timestamp: '2025-12-05T17:59:07.881108+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6fcb3bfa57933193d903ed1b52093bdeb39376b7
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Customer submits a complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Complaint is valid" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Replace product</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Notify customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Complaint is not valid" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify customer about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-05T17:59:07.881318+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6fcb3bfa57933193d903ed1b52093bdeb39376b7
+  cpee:exposition: |-
+    # User Input:
+    uwzględnij rozpatrzenie reklamacji zarówno przez dział finansowy jak i techniczny
+  time:timestamp: '2025-12-05T17:59:07.881672+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6fcb3bfa57933193d903ed1b52093bdeb39376b7
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2025-12-05T17:59:07.881903+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6fcb3bfa57933193d903ed1b52093bdeb39376b7
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Customer submits a complaint)
+    a1:task:(Customer submits a complaint)-->a3:task:(Review complaint)
+    a3:task:(Review complaint)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Complaint is valid"|a7:task:(Replace product)
+    a7:task:(Replace product)-->a11:task:(Notify customer)
+    a11:task:(Notify customer)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Complaint is not valid"|a9:task:(Notify customer about rejection)
+    a9:task:(Notify customer about rejection)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-05T17:59:07.882274+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6fcb3bfa57933193d903ed1b52093bdeb39376b7
+  cpee:exposition: |-
+    %% Output Intermediate
+    Based on your request, I understand that the complaint review process should now involve both the financial and technical departments. This can be represented by a parallel gateway in the BPMN model. Here is the updated Mermaid.js code:
+
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Customer submits a complaint)
+    a1:task:(Customer submits a complaint)-->a3:task:(Review complaint)
+    a3:task:(Review complaint)-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a4:task:(Financial department reviews complaint)
+    gw1s:parallelgateway:{AND}-->a5:task:(Technical department reviews complaint)
+    a4:task:(Financial department reviews complaint)-->gw1e:parallelgateway:{AND}
+    a5:task:(Technical department reviews complaint)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Complaint is valid"|a7:task:(Replace product)
+    a7:task:(Replace product)-->a11:task:(Notify customer)
+    a11:task:(Notify customer)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Complaint is not valid"|a9:task:(Notify customer about rejection)
+    a9:task:(Notify customer about rejection)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+
+    This model now includes the review of the complaint by both the financial and technical departments, represented by tasks a4 and a5 respectively. These tasks are initiated and merged by a parallel gateway (gw1s and gw1e). The rest of the process remains the same.
+  time:timestamp: '2025-12-05T17:59:07.882558+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6fcb3bfa57933193d903ed1b52093bdeb39376b7
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Customer submits a complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Review complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Financial department reviews complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Technical department reviews complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Complaint is valid" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Replace product</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Notify customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Complaint is not valid" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Notify customer about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-05T17:59:07.882767+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Klient sk&#x142;ada reklamacj&#x119;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Przegl&#x105;d reklamacji</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 50470b1621cc378c6c04d8ad84d14ac777526b2a
+  time:timestamp: '2025-12-05T17:59:48.344184+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 50470b1621cc378c6c04d8ad84d14ac777526b2a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Customer submits a complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Review complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Financial department reviews complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Technical department reviews complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Complaint is valid" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Replace product</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Notify customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Complaint is not valid" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Notify customer about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-05T17:59:48.344437+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 50470b1621cc378c6c04d8ad84d14ac777526b2a
+  cpee:exposition: |-
+    # User Input:
+    zamień nazwy zadań na język polski
+  time:timestamp: '2025-12-05T17:59:48.345247+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 50470b1621cc378c6c04d8ad84d14ac777526b2a
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2025-12-05T17:59:48.345430+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 50470b1621cc378c6c04d8ad84d14ac777526b2a
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Customer submits a complaint)
+    a1:task:(Customer submits a complaint)-->a3:task:(Review complaint)
+    a3:task:(Review complaint)-->gw1s:parallelgateway:{AND}
+    -->a7:task:(Financial department reviews complaint)
+    a7:task:(Financial department reviews complaint)-->gw1e:parallelgateway:{AND}
+    -->a9:task:(Technical department reviews complaint)
+    a9:task:(Technical department reviews complaint)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Complaint is valid"|a17:task:(Replace product)
+    a17:task:(Replace product)-->a19:task:(Notify customer)
+    a19:task:(Notify customer)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Complaint is not valid"|a23:task:(Notify customer about rejection)
+    a23:task:(Notify customer about rejection)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-05T17:59:48.345561+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 50470b1621cc378c6c04d8ad84d14ac777526b2a
+  cpee:exposition: |-
+    %% Output Intermediate
+    Sure, here is the updated process model with task names translated into Polish:
+
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Klient składa reklamację)
+    a1:task:(Klient składa reklamację)-->a3:task:(Przegląd reklamacji)
+    a3:task:(Przegląd reklamacji)-->gw1s:parallelgateway:{AND}
+    -->a7:task:(Dział finansowy przegląda reklamację)
+    a7:task:(Dział finansowy przegląda reklamację)-->gw1e:parallelgateway:{AND}
+    -->a9:task:(Dział techniczny przegląda reklamację)
+    a9:task:(Dział techniczny przegląda reklamację)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Reklamacja jest ważna"|a17:task:(Zamień produkt)
+    a17:task:(Zamień produkt)-->a19:task:(Powiadom klienta)
+    a19:task:(Powiadom klienta)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Reklamacja nie jest ważna"|a23:task:(Powiadom klienta o odrzuceniu)
+    a23:task:(Powiadom klienta o odrzuceniu)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+
+    Please note that the task names are now in Polish.
+  time:timestamp: '2025-12-05T17:59:48.345690+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 50470b1621cc378c6c04d8ad84d14ac777526b2a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Klient sk&#x142;ada reklamacj&#x119;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Przegl&#x105;d reklamacji</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-05T17:59:48.345853+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-12-08T21:34:04.197261+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:34:04.204411+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:34:06.279914+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:34:06.282257+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: uuid
+    value: 58353131-f648-483e-8cfa-604e2dfd823e
+  - name: info
+    value: Plain Instance
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: presetaltid
+  time:timestamp: '2025-12-08T21:35:17.396817+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:35:23.859102+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:35:24.096248+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:37:14.063448+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:37:14.300134+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:40:21.414732+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:40:21.664211+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="test" a:alt_id="a1">
+        <parameters>
+          <label>Klient sk&#x142;ada reklamacj&#x119;</label>
+          <color/>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_logging_behavior>
+            <_exclude/>
+            <_include/>
+          </_logging_behavior>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Przegl&#x105;d reklamacji</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: c0d424ab77c335b9e76ca414e8ecd4a63fba2336
+  time:timestamp: '2025-12-08T21:41:18.559065+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:41:23.358499+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:41:23.600603+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:42:25.091909+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:42:25.377365+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:44:19.229984+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:44:19.501532+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:44:30.466415+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:44:30.706365+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:44:53.150642+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:44:53.388807+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:45:11.335404+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:45:11.613247+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:48:19.163627+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:48:19.419650+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="test" a:alt_id="a1">
+        <parameters>
+          <label>Klient sk&#x142;ada reklamacj&#x119;</label>
+          <color/>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_logging_behavior>
+            <_exclude/>
+            <_include/>
+          </_logging_behavior>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <code>
+          <prepare/>
+          <finalize output="result"/>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Przegl&#x105;d reklamacji</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 3151aa15cde1d6a67f4f8e05bea69b6e66fea6b7
+  time:timestamp: '2025-12-08T21:49:41.887308+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T22:16:08.792154+01:00'
+---
+event:
+  concept:instance: 82151
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 58353131-f648-483e-8cfa-604e2dfd823e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T22:16:09.027217+01:00'

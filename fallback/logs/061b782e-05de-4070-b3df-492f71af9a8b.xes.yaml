@@ -1,0 +1,285 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 82118
+    cpee:name: Plain Instance
+    cpee:instance: 061b782e-05de-4070-b3df-492f71af9a8b
+---
+event:
+  concept:instance: 82118
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 061b782e-05de-4070-b3df-492f71af9a8b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-05T09:38:55.845315+01:00'
+---
+event:
+  concept:instance: 82118
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 061b782e-05de-4070-b3df-492f71af9a8b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Establish Business Relationship/Carry Out Transaction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Verification before" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Verify Identity of Customer and Beneficial Owner</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Verification during" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Verify Identity of Customer and Beneficial Owner during Establishment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Open Account with Safeguards" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Open Account with Safeguards</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <choose mode="exclusive" a:alt_id="9">
+        <alternative condition="Unable to comply with CDD" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Terminate Relationship/Report Suspicious Transaction</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Comply with CDD" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Apply CDD Measures to New and Existing Customers</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 0d5d5194b56516c3fdda32422694e2ebc1105b30
+  time:timestamp: '2025-12-05T09:39:03.188628+01:00'
+---
+event:
+  concept:instance: 82118
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 061b782e-05de-4070-b3df-492f71af9a8b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5d5194b56516c3fdda32422694e2ebc1105b30
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-05T09:39:03.188909+01:00'
+---
+event:
+  concept:instance: 82118
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 061b782e-05de-4070-b3df-492f71af9a8b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5d5194b56516c3fdda32422694e2ebc1105b30
+  cpee:exposition: |+
+    # User Input:
+        1. Member States shall require that verification of the identity of the customer and the beneficial owner take place
+    before the establishment of a business relationship or the carrying out of the transaction.
+    2. By way of derogation from paragraph 1, Member States may allow verification of the identity of the customer and the beneficial owner to be completed during the establishment of a business relationship if necessary so as not to interrupt the normal conduct of business and where there is little risk of money laundering or terrorist financing. In such situations, those procedures shall be completed as soon as practicable after initial contact.
+    3. By way of derogation from paragraph 1, Member States may allow the opening of an account with a credit
+    institution or financial institution, including accounts that permit transactions in transferable securities, provided that there are adequate safeguards in place to ensure that transactions are not carried out by the customer or on its behalf until full compliance with the customer due diligence requirements laid down in points (a) and (b) of the first subparagraph of Article 13(1) is obtained.
+    4. Member States shall require that, where an obliged entity is unable to comply with the customer due diligence
+    requirements laid down in point (a), (b) or (c) of the first subparagraph of Article 13(1), it shall not carry out a
+    transaction through a bank account, establish a business relationship or carry out the transaction, and shall terminate the business relationship and consider making a suspicious transaction report to the FIU in relation to the customer in accordance with Article 33. Member States shall not apply the first subparagraph to notaries, other independent legal professionals, auditors, external accountants and tax advisors only to the strict extent that those persons ascertain the legal position of their client, or perform the task of defending or representing that client in, or concerning, judicial proceedings, including providing advice on instituting or avoiding such proceedings.
+    5. Member States shall require that obliged entities apply the customer due diligence measures not only to all new
+    customers but also at appropriate times to existing customers on a risk-sensitive basis, including at times when the
+    relevant circumstances of a customer change.
+
+  time:timestamp: '2025-12-05T09:39:03.189065+01:00'
+...
+---
+event:
+  concept:instance: 82118
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 061b782e-05de-4070-b3df-492f71af9a8b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5d5194b56516c3fdda32422694e2ebc1105b30
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-05T09:39:03.189248+01:00'
+---
+event:
+  concept:instance: 82118
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 061b782e-05de-4070-b3df-492f71af9a8b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5d5194b56516c3fdda32422694e2ebc1105b30
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-05T09:39:03.189418+01:00'
+---
+event:
+  concept:instance: 82118
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 061b782e-05de-4070-b3df-492f71af9a8b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5d5194b56516c3fdda32422694e2ebc1105b30
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Establish Business Relationship/Carry Out Transaction)
+      1:task:(Establish Business Relationship/Carry Out Transaction) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Verification before| 3:task:(Verify Identity of Customer and Beneficial Owner)
+      2:exclusivegateway:{x} --> |Verification during| 4:task:(Verify Identity of Customer and Beneficial Owner during Establishment)
+      2:exclusivegateway:{x} --> |Open Account with Safeguards| 5:task:(Open Account with Safeguards)
+      3:task:(Verify Identity of Customer and Beneficial Owner) --> 9:exclusivegateway:{x}
+      4:task:(Verify Identity of Customer and Beneficial Owner during Establishment) --> 9:exclusivegateway:{x}
+      5:task:(Open Account with Safeguards) --> 9:exclusivegateway:{x}
+      9:exclusivegateway:{x} --> |Unable to comply with CDD| 6:task:(Terminate Relationship/Report Suspicious Transaction)
+      9:exclusivegateway:{x} --> |Comply with CDD| 7:task:(Apply CDD Measures to New and Existing Customers)
+      6:task:(Terminate Relationship/Report Suspicious Transaction) --> 8:endevent:(((endevent)))
+      7:task:(Apply CDD Measures to New and Existing Customers) --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-05T09:39:03.189525+01:00'
+---
+event:
+  concept:instance: 82118
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 061b782e-05de-4070-b3df-492f71af9a8b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5d5194b56516c3fdda32422694e2ebc1105b30
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Establish Business Relationship/Carry Out Transaction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Verification before" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Verify Identity of Customer and Beneficial Owner</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Verification during" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Verify Identity of Customer and Beneficial Owner during Establishment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Open Account with Safeguards" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Open Account with Safeguards</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <choose mode="exclusive" a:alt_id="9">
+        <alternative condition="Unable to comply with CDD" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Terminate Relationship/Report Suspicious Transaction</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Comply with CDD" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Apply CDD Measures to New and Existing Customers</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-05T09:39:03.189672+01:00'

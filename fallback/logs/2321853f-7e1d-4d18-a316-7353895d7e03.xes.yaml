@@ -1,0 +1,686 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 73373
+    cpee:name: Plain Instance
+    cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-26T17:45:21.033440+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f0bf32259e8543e71ace739c71c2d4b2cc6e71
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-26T17:46:00.695899+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Budgetantrag erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Budgetantrag an Krankenkasse senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Krankenkasse pr&#xFC;ft Budgetantrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Genehmigt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Budget genehmigen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Abgelehnt" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Nachverhandlungen f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Einigung erzielt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Budget genehmigen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Keine Einigung" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Schiedsverfahren einleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Budget freigeben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 11f0bf32259e8543e71ace739c71c2d4b2cc6e71
+  time:timestamp: '2025-11-26T17:46:00.695656+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f0bf32259e8543e71ace739c71c2d4b2cc6e71
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-26T17:46:00.696402+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f0bf32259e8543e71ace739c71c2d4b2cc6e71
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-26T17:46:00.696751+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f0bf32259e8543e71ace739c71c2d4b2cc6e71
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Budgetantrag erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Budgetantrag an Krankenkasse senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Krankenkasse pr&#xFC;ft Budgetantrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Genehmigt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Budget genehmigen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Abgelehnt" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Nachverhandlungen f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Einigung erzielt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Budget genehmigen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Keine Einigung" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Schiedsverfahren einleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Budget freigeben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-26T17:46:00.697626+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f0bf32259e8543e71ace739c71c2d4b2cc6e71
+  cpee:exposition: |+
+    # User Input:
+    Prozess Budgetverhandlungen zwischen Krankenkassen und Krankenhäusern
+
+  time:timestamp: '2025-11-26T17:46:00.696056+01:00'
+...
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f0bf32259e8543e71ace739c71c2d4b2cc6e71
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Budgetantrag erstellen)
+        1:task:(Budgetantrag erstellen) --> 2:task:(Budgetantrag an Krankenkasse senden)
+        2:task:(Budgetantrag an Krankenkasse senden) --> 3:task:(Krankenkasse prüft Budgetantrag)
+        3:task:(Krankenkasse prüft Budgetantrag) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Genehmigt| 7:task:(Budget genehmigen)
+        4:exclusivegateway:{x} --> |Abgelehnt| 5:task:(Nachverhandlungen führen)
+        5:task:(Nachverhandlungen führen) --> 6:exclusivegateway:{x}
+        6:exclusivegateway:{x} --> |Einigung erzielt| 7:task:(Budget genehmigen)
+        6:exclusivegateway:{x} --> |Keine Einigung| 8:task:(Schiedsverfahren einleiten)
+        7:task:(Budget genehmigen) --> 9:exclusivegateway:{x}
+        8:task:(Schiedsverfahren einleiten) --> 9:exclusivegateway:{x}
+        9:exclusivegateway:{x} --> 10:task:(Budget freigeben)
+        10:task:(Budget freigeben) --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-26T17:46:00.697118+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-26T17:46:14.945311+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-26T17:46:16.945794+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bae4a7c53412fbb9f8bb998036018a8946afdabc
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Budgetantrag erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Budgetantrag an Krankenkasse senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Krankenkasse prüft Budgetantrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Genehmigt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Budget genehmigen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Abgelehnt" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Nachverhandlungen führen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Einigung erzielt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Budget genehmigen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Keine Einigung" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Schiedsverfahren einleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Budget freigeben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-26T17:46:19.106623+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Budgetantrag erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Budgetantrag an Krankenkasse senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Krankenkasse pr&#xFC;ft Budgetantrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Genehmigt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Budget genehmigen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Abgelehnt" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Nachverhandlungen f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Einigung erzielt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="a9">
+                <parameters>
+                  <label>Budget genehmigen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Keine Einigung" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Schiedsverfahren einleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="a23">
+        <parameters>
+          <label>Budget freigeben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: bae4a7c53412fbb9f8bb998036018a8946afdabc
+  time:timestamp: '2025-11-26T17:46:19.106431+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bae4a7c53412fbb9f8bb998036018a8946afdabc
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Budgetantrag erstellen)
+    a1:task:(Budgetantrag erstellen)-->a3:task:(Budgetantrag an Krankenkasse senden)
+    a3:task:(Budgetantrag an Krankenkasse senden)-->a5:task:(Krankenkasse prüft Budgetantrag)
+    a5:task:(Krankenkasse prüft Budgetantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Budget genehmigen)
+    a9:task:(Budget genehmigen)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(Nachverhandlungen führen)
+    a11:task:(Nachverhandlungen führen)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Einigung erzielt"|a9:task:(Budget genehmigen)
+    a9:task:(Budget genehmigen)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Keine Einigung"|a17:task:(Schiedsverfahren einleiten)
+    a17:task:(Schiedsverfahren einleiten)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a23:task:(Budget freigeben)
+    a23:task:(Budget freigeben)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-26T17:46:19.107339+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bae4a7c53412fbb9f8bb998036018a8946afdabc
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-11-26T17:46:19.106955+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bae4a7c53412fbb9f8bb998036018a8946afdabc
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-26T17:46:19.107132+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bae4a7c53412fbb9f8bb998036018a8946afdabc
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Budgetantrag erstellen)
+    a1:task:(Budgetantrag erstellen)-->a3:task:(Budgetantrag an Krankenkasse senden)
+    a3:task:(Budgetantrag an Krankenkasse senden)-->a5:task:(Krankenkasse prüft Budgetantrag)
+    a5:task:(Krankenkasse prüft Budgetantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Budget genehmigen)
+    a9:task:(Budget genehmigen)-->gw2e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(Nachverhandlungen führen)
+    a11:task:(Nachverhandlungen führen)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Einigung erzielt"|a9:task:
+    gw3s:exclusivegateway:{x}-->|"Keine Einigung"|a17:task:(Schiedsverfahren einleiten)
+    a17:task:(Schiedsverfahren einleiten)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a23:task:(Budget freigeben)
+    a23:task:(Budget freigeben)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-11-26T17:46:19.107711+01:00'
+---
+event:
+  concept:instance: 73373
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2321853f-7e1d-4d18-a316-7353895d7e03
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bae4a7c53412fbb9f8bb998036018a8946afdabc
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Budgetantrag erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Budgetantrag an Krankenkasse senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Krankenkasse pr&#xFC;ft Budgetantrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Genehmigt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Budget genehmigen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Abgelehnt" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Nachverhandlungen f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Einigung erzielt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="a9">
+                <parameters>
+                  <label>Budget genehmigen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Keine Einigung" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Schiedsverfahren einleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="a23">
+        <parameters>
+          <label>Budget freigeben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-26T17:46:19.107891+01:00'

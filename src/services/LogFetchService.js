@@ -6,6 +6,7 @@
 
 import { LogParser } from '../utils/content/LogParser.js';
 import { configManager } from '../config/ConfigManager.js';
+import { instanceFallbackService } from './InstanceFallbackService.js';
 
 export class LogFetchService {
     /**
@@ -16,6 +17,7 @@ export class LogFetchService {
     constructor(logParser = null, configManagerInstance = null) {
         this.logParser = logParser || LogParser;
         this.configManager = configManagerInstance || configManager;
+        this.fallbackService = instanceFallbackService;
         this.debugMode = false;
     }
 
@@ -50,8 +52,8 @@ export class LogFetchService {
     /**
      * Fetch and parse log for given UUID using proxy
      * @param {string} uuid - CPEE instance UUID
-     * @returns {Promise<Array>} Parsed log events
-     * @throws {Error} If UUID is invalid or fetch fails
+     * @returns {Promise<{events: Array, fromFallback: boolean}>} Parsed log events and source info
+     * @throws {Error} If UUID is invalid or fetch fails and no fallback available
      */
     async fetchAndParseLog(uuid) {
         if (!this.isValidUUID(uuid)) {
@@ -105,17 +107,39 @@ export class LogFetchService {
                     console.log(`[LogFetchService] Parsed ${events.length} events from log`);
                 }
                 
-                return events;
+                return { events, fromFallback: false };
             } finally {
                 // Ensure timeout is always cleared, even if an error occurs
                 clearTimeout(timeoutId);
             }
             
         } catch (error) {
-            if (error.name === 'AbortError') {
-                throw new Error('LogFetchService: Request timed out - log file may be large or server is slow');
+            if (this.debugMode) {
+                console.log(`[LogFetchService] Remote fetch failed: ${error.message}, trying fallback...`);
             }
-            throw new Error(`LogFetchService: Failed to fetch log - ${error.message}`);
+            
+            // Try fallback service
+            const fallbackResult = await this.fallbackService.getLogContent(uuid);
+            
+            if (fallbackResult) {
+                try {
+                    const events = this.logParser.parseYAMLMultiDocument(fallbackResult.content);
+                    
+                    if (this.debugMode) {
+                        console.log(`[LogFetchService] Parsed ${events.length} events from FALLBACK log`);
+                    }
+                    
+                    return { events, fromFallback: true };
+                } catch (parseError) {
+                    throw new Error(`LogFetchService: Failed to parse fallback log - ${parseError.message}`);
+                }
+            }
+            
+            // No fallback available
+            if (error.name === 'AbortError') {
+                throw new Error('LogFetchService: Request timed out - log file may be large or server is slow (no fallback available)');
+            }
+            throw new Error(`LogFetchService: Failed to fetch log - ${error.message} (no fallback available)`);
         }
     }
 }

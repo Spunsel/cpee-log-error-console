@@ -1,0 +1,3853 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 82141
+    cpee:name: Plain Instance
+    cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-05T14:38:11.182103+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Urlaubsantrag ausf&#xFC;llen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Antrag beim Vorgesetzten einreichen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Abgelehnt" a:alt_id="4" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Begr&#xFC;ndung senden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Urlaubsantrag ausf&#xFC;llen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Antrag beim Vorgesetzten einreichen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Antrag an Personalabteilung weiterleiten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Urlaub im System erfassen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a15" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Best&#xE4;tigung senden</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: 4d525cc67abb5977d035373b6161bb8143dfe4aa
+  time:timestamp: '2025-12-05T14:39:15.571341+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4d525cc67abb5977d035373b6161bb8143dfe4aa
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-05T14:39:15.571538+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4d525cc67abb5977d035373b6161bb8143dfe4aa
+  cpee:exposition: |-
+    # User Input:
+    Der Mitarbeiter füllt das Urlaubsantragsformular mit gewünschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prüft die Verfügbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine Bestätigung sendet. Bei Ablehnung erhält der Mitarbeiter eine Begründung und kann einen neuen Antrag mit geändertem Zeitraum stellen.
+  time:timestamp: '2025-12-05T14:39:15.572020+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4d525cc67abb5977d035373b6161bb8143dfe4aa
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-05T14:39:15.572137+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4d525cc67abb5977d035373b6161bb8143dfe4aa
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-05T14:39:15.572234+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4d525cc67abb5977d035373b6161bb8143dfe4aa
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Urlaubsantrag ausfüllen)
+        1:task:(Urlaubsantrag ausfüllen) --> 2:task:(Antrag beim Vorgesetzten einreichen)
+        2:task:(Antrag beim Vorgesetzten einreichen) --> 3:task:(Verfügbarkeit prüfen)
+        3:task:(Verfügbarkeit prüfen) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Genehmigt| 5:task:(Antrag an Personalabteilung weiterleiten)
+        4:exclusivegateway:{x} --> |Abgelehnt| 6:task:(Begründung senden)
+        5:task:(Antrag an Personalabteilung weiterleiten) --> 7:task:(Urlaub im System erfassen)
+        7:task:(Urlaub im System erfassen) --> 8:task:(Bestätigung senden)
+        8:task:(Bestätigung senden) --> 9:endevent:(((endevent)))
+        6:task:(Begründung senden) --> 1:task:(Urlaubsantrag ausfüllen)
+    ```
+  time:timestamp: '2025-12-05T14:39:15.572326+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4d525cc67abb5977d035373b6161bb8143dfe4aa
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Urlaubsantrag ausf&#xFC;llen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Antrag beim Vorgesetzten einreichen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Abgelehnt" a:alt_id="4" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Begr&#xFC;ndung senden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Urlaubsantrag ausf&#xFC;llen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Antrag beim Vorgesetzten einreichen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Antrag an Personalabteilung weiterleiten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Urlaub im System erfassen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a15" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Best&#xE4;tigung senden</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-05T14:39:15.572431+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <loop mode="pre_test" condition="true">
+            <call id="a3" endpoint="" a:alt_id="a1">
+              <parameters>
+                <label>Urlaubsantrag ausf&#xFC;llen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a5" endpoint="" a:alt_id="a3">
+              <parameters>
+                <label>Antrag beim Vorgesetzten einreichen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a7" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Abgelehnt" a:alt_id="gw2s" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Begr&#xFC;ndung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="a1">
+                <parameters>
+                  <label>Urlaubsantrag ausf&#xFC;llen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="a3">
+                <parameters>
+                  <label>Antrag beim Vorgesetzten einreichen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="a5">
+                <parameters>
+                  <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a11" endpoint="" a:alt_id="a9">
+              <parameters>
+                <label>Antrag an Personalabteilung weiterleiten</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a13">
+              <parameters>
+                <label>Urlaub im System erfassen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a15" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Best&#xE4;tigung senden</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw2e">
+              <alternative condition=""/>
+              <alternative condition=""/>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="true" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: b80b168639fb9ff97a11b6b23b30fa629494c499
+  time:timestamp: '2025-12-05T14:39:55.797196+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b80b168639fb9ff97a11b6b23b30fa629494c499
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Urlaubsantrag ausfüllen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Antrag beim Vorgesetzten einreichen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Verfügbarkeit prüfen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Abgelehnt" a:alt_id="4" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Begründung senden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Urlaubsantrag ausfüllen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Antrag beim Vorgesetzten einreichen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Verfügbarkeit prüfen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Antrag an Personalabteilung weiterleiten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Urlaub im System erfassen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a15" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Bestätigung senden</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-05T14:39:55.797525+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b80b168639fb9ff97a11b6b23b30fa629494c499
+  cpee:exposition: |-
+    # User Input:
+    Der Mitarbeiter füllt das Urlaubsantragsformular mit gewünschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prüft die Verfügbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine Bestätigung sendet. Bei Ablehnung erhält der Mitarbeiter eine Begründung und kann einen neuen Antrag mit geändertem Zeitraum stellen.
+  time:timestamp: '2025-12-05T14:39:55.797690+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b80b168639fb9ff97a11b6b23b30fa629494c499
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-05T14:39:55.797822+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b80b168639fb9ff97a11b6b23b30fa629494c499
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfüllen)
+    a1:task:(Urlaubsantrag ausfüllen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
+    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(Verfügbarkeit prüfen)
+    a5:task:(Verfügbarkeit prüfen)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a9:task:(Antrag an Personalabteilung weiterleiten)
+    a9:task:(Antrag an Personalabteilung weiterleiten)-->a13:task:(Urlaub im System erfassen)
+    a13:task:(Urlaub im System erfassen)-->a15:task:(Bestätigung senden)
+    a15:task:(Bestätigung senden)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(Begründung senden)
+    a11:task:(Begründung senden)-->a1:task:(Urlaubsantrag ausfüllen)
+    a1:task:(Urlaubsantrag ausfüllen)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-05T14:39:55.797950+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b80b168639fb9ff97a11b6b23b30fa629494c499
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->a1:task:(Urlaubsantrag ausfüllen)
+        a1:task:(Urlaubsantrag ausfüllen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
+        a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(Verfügbarkeit prüfen)
+        a5:task:(Verfügbarkeit prüfen)-->gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Antrag an Personalabteilung weiterleiten)
+        a9:task:(Antrag an Personalabteilung weiterleiten)-->a13:task:(Urlaub im System erfassen)
+        a13:task:(Urlaub im System erfassen)-->a15:task:(Bestätigung senden)
+        a15:task:(Bestätigung senden)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(Begründung senden)
+        a11:task:(Begründung senden)-->a1:task:
+        gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"true"|gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+        gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-12-05T14:39:55.798607+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b80b168639fb9ff97a11b6b23b30fa629494c499
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <loop mode="pre_test" condition="true">
+            <call id="a3" endpoint="" a:alt_id="a1">
+              <parameters>
+                <label>Urlaubsantrag ausf&#xFC;llen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a5" endpoint="" a:alt_id="a3">
+              <parameters>
+                <label>Antrag beim Vorgesetzten einreichen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a7" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Abgelehnt" a:alt_id="gw2s" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Begr&#xFC;ndung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="a1">
+                <parameters>
+                  <label>Urlaubsantrag ausf&#xFC;llen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="a3">
+                <parameters>
+                  <label>Antrag beim Vorgesetzten einreichen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="a5">
+                <parameters>
+                  <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a11" endpoint="" a:alt_id="a9">
+              <parameters>
+                <label>Antrag an Personalabteilung weiterleiten</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a13">
+              <parameters>
+                <label>Urlaub im System erfassen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a15" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Best&#xE4;tigung senden</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw2e">
+              <alternative condition=""/>
+              <alternative condition=""/>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="true" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-05T14:39:55.798753+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Urlaubsantrag ausf&#xFC;llen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Antrag beim Vorgesetzten einreichen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="a7">
+          <parameters>
+            <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Abgelehnt">
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Abgelehnt" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Begr&#xFC;ndung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a1" endpoint="" a:alt_id="a3">
+                <parameters>
+                  <label>Urlaubsantrag ausf&#xFC;llen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="a5">
+                <parameters>
+                  <label>Antrag beim Vorgesetzten einreichen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="a7">
+                <parameters>
+                  <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Genehmigt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Antrag an Personalabteilung weiterleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Urlaub im System erfassen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Best&#xE4;tigung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Genehmigt innerhalb von drei Werktagen" language="text/javascript"/>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 46260842a22b972907e9c7a863921db67d663713
+  time:timestamp: '2025-12-05T14:41:34.896798+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 46260842a22b972907e9c7a863921db67d663713
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <loop mode="pre_test" condition="true">
+            <call id="a3" endpoint="" a:alt_id="a1">
+              <parameters>
+                <label>Urlaubsantrag ausfüllen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a5" endpoint="" a:alt_id="a3">
+              <parameters>
+                <label>Antrag beim Vorgesetzten einreichen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a7" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Verfügbarkeit prüfen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Abgelehnt" a:alt_id="gw2s" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Begründung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="a1">
+                <parameters>
+                  <label>Urlaubsantrag ausfüllen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="a3">
+                <parameters>
+                  <label>Antrag beim Vorgesetzten einreichen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="a5">
+                <parameters>
+                  <label>Verfügbarkeit prüfen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a11" endpoint="" a:alt_id="a9">
+              <parameters>
+                <label>Antrag an Personalabteilung weiterleiten</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a13">
+              <parameters>
+                <label>Urlaub im System erfassen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a15" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Bestätigung senden</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw2e">
+              <alternative condition=""/>
+              <alternative condition=""/>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="true" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-05T14:41:34.897107+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 46260842a22b972907e9c7a863921db67d663713
+  cpee:exposition: |-
+    # User Input:
+    Der Mitarbeiter füllt das Urlaubsantragsformular mit gewünschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prüft die Verfügbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine Bestätigung sendet. Bei Ablehnung erhält der Mitarbeiter eine Begründung und kann einen neuen Antrag mit geändertem Zeitraum stellen.
+  time:timestamp: '2025-12-05T14:41:34.898041+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 46260842a22b972907e9c7a863921db67d663713
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-05T14:41:34.898225+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 46260842a22b972907e9c7a863921db67d663713
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a3:task:(Urlaubsantrag ausfüllen)
+    a3:task:(Urlaubsantrag ausfüllen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
+    a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(Verfügbarkeit prüfen)
+    a7:task:(Verfügbarkeit prüfen)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a11:task:(Antrag an Personalabteilung weiterleiten)
+    a11:task:(Antrag an Personalabteilung weiterleiten)-->a13:task:(Urlaub im System erfassen)
+    a13:task:(Urlaub im System erfassen)-->a15:task:(Bestätigung senden)
+    a15:task:(Bestätigung senden)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Abgelehnt"|a19:task:(Begründung senden)
+    a19:task:(Begründung senden)-->a3:task:(Urlaubsantrag ausfüllen)
+    a3:task:(Urlaubsantrag ausfüllen)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"true"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-05T14:41:34.898359+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 46260842a22b972907e9c7a863921db67d663713
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a3:task:(Urlaubsantrag ausfüllen)
+        a3:task:(Urlaubsantrag ausfüllen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
+        a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(Verfügbarkeit prüfen)
+        a7:task:(Verfügbarkeit prüfen)-->gw3s:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"Genehmigt"|a11:task:(Antrag an Personalabteilung weiterleiten)
+        a11:task:(Antrag an Personalabteilung weiterleiten)-->a13:task:(Urlaub im System erfassen)
+        a13:task:(Urlaub im System erfassen)-->a15:task:(Bestätigung senden)
+        a15:task:(Bestätigung senden)-->gw3e:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"Abgelehnt"|a19:task:(Begründung senden)
+        a19:task:(Begründung senden)-->a3:task:
+        gw3e:exclusivegateway:{x}-->ee:endevent:((endevent))
+        gw3s:exclusivegateway:{x}-->|"Genehmigt innerhalb von drei Werktagen"|gw3e:exclusivegateway:{x}
+    ```
+  time:timestamp: '2025-12-05T14:41:34.898542+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 46260842a22b972907e9c7a863921db67d663713
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Urlaubsantrag ausf&#xFC;llen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Antrag beim Vorgesetzten einreichen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="a7">
+          <parameters>
+            <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Abgelehnt">
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Abgelehnt" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Begr&#xFC;ndung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a1" endpoint="" a:alt_id="a3">
+                <parameters>
+                  <label>Urlaubsantrag ausf&#xFC;llen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="a5">
+                <parameters>
+                  <label>Antrag beim Vorgesetzten einreichen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="a7">
+                <parameters>
+                  <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Genehmigt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Antrag an Personalabteilung weiterleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Urlaub im System erfassen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Best&#xE4;tigung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Genehmigt innerhalb von drei Werktagen" language="text/javascript"/>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-05T14:41:34.898679+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-12-05T14:42:27.022528+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-05T14:42:27.030607+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-05T14:42:27.473692+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-05T14:42:27.475469+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2025-12-05T14:45:09.985053+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-05T14:45:10.304594+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2025-12-05T14:45:10.383648+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-05T14:45:12.422539+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="1">
+          <alternative condition="true" language="text/javascript">
+            <call id="a3" endpoint="" a:alt_id="2">
+              <parameters>
+                <label>Urlaubsantrag ausf&#xFC;llen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="0">
+              <alternative condition="">
+                <call id="a5" endpoint="" a:alt_id="3">
+                  <parameters>
+                    <label>Antrag beim Vorgesetzten einreichen</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a7" endpoint="" a:alt_id="4">
+                  <parameters>
+                    <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="6">
+                  <alternative condition="">
+                    <choose mode="exclusive" a:alt_id="7">
+                      <alternative condition=""/>
+                      <alternative condition="Abgelehnt" language="text/javascript">
+                        <choose mode="exclusive" a:alt_id="8">
+                          <alternative condition="Abgelehnt" language="text/javascript">
+                            <call id="a17" endpoint="" a:alt_id="9">
+                              <parameters>
+                                <label>Begr&#xFC;ndung senden</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <call id="a3" endpoint="" a:alt_id="2">
+                              <parameters>
+                                <label>Urlaubsantrag ausf&#xFC;llen</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="" language="text/javascript"/>
+                          <alternative condition="">
+                            <call id="a29" endpoint="" a:alt_id="13">
+                              <parameters>
+                                <label>Antrag an Personalabteilung weiterleiten</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <call id="a31" endpoint="" a:alt_id="14">
+                              <parameters>
+                                <label>Urlaub im System erfassen</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <call id="a33" endpoint="" a:alt_id="15">
+                              <parameters>
+                                <label>Best&#xE4;tigung senden</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <choose mode="exclusive" a:alt_id="16">
+                              <alternative condition=""/>
+                              <alternative condition=""/>
+                            </choose>
+                          </alternative>
+                        </choose>
+                        <escape a:alt_id="-1"/>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition="">
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="7">
+                  <alternative condition=""/>
+                  <alternative condition="Abgelehnt" language="text/javascript">
+                    <choose mode="exclusive" a:alt_id="8">
+                      <alternative condition="Abgelehnt" language="text/javascript">
+                        <call id="a17" endpoint="" a:alt_id="9">
+                          <parameters>
+                            <label>Begr&#xFC;ndung senden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a3" endpoint="" a:alt_id="2">
+                          <parameters>
+                            <label>Urlaubsantrag ausf&#xFC;llen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="" language="text/javascript"/>
+                      <alternative condition="">
+                        <call id="a29" endpoint="" a:alt_id="13">
+                          <parameters>
+                            <label>Antrag an Personalabteilung weiterleiten</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a31" endpoint="" a:alt_id="14">
+                          <parameters>
+                            <label>Urlaub im System erfassen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a33" endpoint="" a:alt_id="15">
+                          <parameters>
+                            <label>Best&#xE4;tigung senden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="16">
+                          <alternative condition=""/>
+                          <alternative condition=""/>
+                        </choose>
+                      </alternative>
+                    </choose>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition="false" language="text/javascript">
+            <choose mode="exclusive" a:alt_id="6">
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="7">
+                  <alternative condition=""/>
+                  <alternative condition="Abgelehnt" language="text/javascript">
+                    <choose mode="exclusive" a:alt_id="8">
+                      <alternative condition="Abgelehnt" language="text/javascript">
+                        <call id="a17" endpoint="" a:alt_id="9">
+                          <parameters>
+                            <label>Begr&#xFC;ndung senden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a3" endpoint="" a:alt_id="2">
+                          <parameters>
+                            <label>Urlaubsantrag ausf&#xFC;llen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="0">
+                          <alternative condition="">
+                            <call id="a5" endpoint="" a:alt_id="3">
+                              <parameters>
+                                <label>Antrag beim Vorgesetzten einreichen</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <call id="a7" endpoint="" a:alt_id="4">
+                              <parameters>
+                                <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition=""/>
+                        </choose>
+                      </alternative>
+                      <alternative condition="" language="text/javascript"/>
+                      <alternative condition="">
+                        <call id="a29" endpoint="" a:alt_id="13">
+                          <parameters>
+                            <label>Antrag an Personalabteilung weiterleiten</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a31" endpoint="" a:alt_id="14">
+                          <parameters>
+                            <label>Urlaub im System erfassen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a33" endpoint="" a:alt_id="15">
+                          <parameters>
+                            <label>Best&#xE4;tigung senden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="16">
+                          <alternative condition=""/>
+                          <alternative condition=""/>
+                        </choose>
+                      </alternative>
+                    </choose>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: 92d34b146278c43a31533a819fd036dbd783e124
+  time:timestamp: '2025-12-05T14:45:20.915373+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92d34b146278c43a31533a819fd036dbd783e124
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Urlaubsantrag ausfüllen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Antrag beim Vorgesetzten einreichen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="a7">
+          <parameters>
+            <label>Verfügbarkeit prüfen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Abgelehnt">
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Abgelehnt" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Begründung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a1" endpoint="" a:alt_id="a3">
+                <parameters>
+                  <label>Urlaubsantrag ausfüllen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="a5">
+                <parameters>
+                  <label>Antrag beim Vorgesetzten einreichen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="a7">
+                <parameters>
+                  <label>Verfügbarkeit prüfen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Genehmigt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Antrag an Personalabteilung weiterleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Urlaub im System erfassen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Bestätigung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Genehmigt innerhalb von drei Werktagen" language="text/javascript"/>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-05T14:45:20.915794+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92d34b146278c43a31533a819fd036dbd783e124
+  cpee:exposition: |+
+    # User Input:
+    The process starts, and then proceeds to a decision point.
+    If the condition is true, the process continues to the "Urlaubsantrag ausfüllen" task, followed by the "Antrag beim Vorgesetzten einreichen" task, and then the "Verfügbarkeit prüfen" task.
+    After that, the process reaches another decision point, which immediately merges into a gateway.
+    The process then proceeds to another decision point.
+    If the "Abgelehnt" branch is taken, the process continues to another decision point.
+    If the "Abgelehnt" branch is taken, the process continues to the "Begründung senden" task, which then loops back to the "Urlaubsantrag ausfüllen" task.
+    From there, the process continues to a decision point.
+    If the empty branch is taken, the process continues to another decision point, which immediately merges into a gateway, and then proceeds to the decision point.
+    If the "Genehmigt" branch is taken, the process continues to the "Antrag an Personalabteilung weiterleiten" task, followed by the "Urlaub im System erfassen" task, and then the "Bestätigung senden" task.
+    After that, the process reaches another decision point, which immediately merges into a gateway, and then proceeds to the decision point.
+    After the decision point, the process escalates and merges into a gateway.
+    The process then loops back to the initial decision point.
+    If the condition is false, the process merges into a gateway, and then the process ends.
+
+  time:timestamp: '2025-12-05T14:45:20.916371+01:00'
+...
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92d34b146278c43a31533a819fd036dbd783e124
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-05T14:45:20.916499+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92d34b146278c43a31533a819fd036dbd783e124
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfüllen)
+    a1:task:(Urlaubsantrag ausfüllen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
+    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(Verfügbarkeit prüfen)
+    a5:task:(Verfügbarkeit prüfen)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Abgelehnt"|gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Abgelehnt"|a17:task:(Begründung senden)
+    a17:task:(Begründung senden)-->a1:task:(Urlaubsantrag ausfüllen)
+    a1:task:(Urlaubsantrag ausfüllen)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|""|gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Antrag an Personalabteilung weiterleiten)
+    a9:task:(Antrag an Personalabteilung weiterleiten)-->a11:task:(Urlaub im System erfassen)
+    a11:task:(Urlaub im System erfassen)-->a13:task:(Bestätigung senden)
+    a13:task:(Bestätigung senden)-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-05T14:45:20.916626+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92d34b146278c43a31533a819fd036dbd783e124
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    0:startevent:((startevent))-->1:exclusivegateway:{x}
+    1:exclusivegateway:{x}-->|true|2:task:(Urlaubsantrag ausfüllen)
+    2:task:(Urlaubsantrag ausfüllen)-->3:task:(Antrag beim Vorgesetzten einreichen)
+    3:task:(Antrag beim Vorgesetzten einreichen)-->4:task:(Verfügbarkeit prüfen)
+    4:task:(Verfügbarkeit prüfen)-->5:exclusivegateway:{x}
+    5:exclusivegateway:{x}-->6:exclusivegateway:{x}
+    6:exclusivegateway:{x}-->7:exclusivegateway:{x}
+    7:exclusivegateway:{x}-->|Abgelehnt|8:exclusivegateway:{x}
+    8:exclusivegateway:{x}-->|Abgelehnt|9:task:(Begründung senden)
+    9:task:(Begründung senden)-->2:task:
+    2:task:-->10:exclusivegateway:{x}
+    8:exclusivegateway:{x}-->|""|11:exclusivegateway:{x}
+    11:exclusivegateway:{x}-->12:exclusivegateway:{x}
+    12:exclusivegateway:{x}-->10:exclusivegateway:{x}
+    8:exclusivegateway:{x}-->|Genehmigt|13:task:(Antrag an Personalabteilung weiterleiten)
+    13:task:(Antrag an Personalabteilung weiterleiten)-->14:task:(Urlaub im System erfassen)
+    14:task:(Urlaub im System erfassen)-->15:task:(Bestätigung senden)
+    15:task:(Bestätigung senden)-->16:exclusivegateway:{x}
+    16:exclusivegateway:{x}-->12:exclusivegateway:
+    16:exclusivegateway:{x}-->10:exclusivegateway:
+    10:exclusivegateway:{x}-->17:escalate:((^))
+    17:escalate:((^))-->7:exclusivegateway:
+    7:exclusivegateway:{x}-->1:exclusivegateway:
+    1:exclusivegateway:{x}-->|false|6:exclusivegateway:
+    6:exclusivegateway:{x}-->18:endevent:((endevent))
+    ```
+  time:timestamp: '2025-12-05T14:45:20.916754+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 92d34b146278c43a31533a819fd036dbd783e124
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="1">
+          <alternative condition="true" language="text/javascript">
+            <call id="a3" endpoint="" a:alt_id="2">
+              <parameters>
+                <label>Urlaubsantrag ausf&#xFC;llen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="0">
+              <alternative condition="">
+                <call id="a5" endpoint="" a:alt_id="3">
+                  <parameters>
+                    <label>Antrag beim Vorgesetzten einreichen</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a7" endpoint="" a:alt_id="4">
+                  <parameters>
+                    <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="6">
+                  <alternative condition="">
+                    <choose mode="exclusive" a:alt_id="7">
+                      <alternative condition=""/>
+                      <alternative condition="Abgelehnt" language="text/javascript">
+                        <choose mode="exclusive" a:alt_id="8">
+                          <alternative condition="Abgelehnt" language="text/javascript">
+                            <call id="a17" endpoint="" a:alt_id="9">
+                              <parameters>
+                                <label>Begr&#xFC;ndung senden</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <call id="a3" endpoint="" a:alt_id="2">
+                              <parameters>
+                                <label>Urlaubsantrag ausf&#xFC;llen</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="" language="text/javascript"/>
+                          <alternative condition="">
+                            <call id="a29" endpoint="" a:alt_id="13">
+                              <parameters>
+                                <label>Antrag an Personalabteilung weiterleiten</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <call id="a31" endpoint="" a:alt_id="14">
+                              <parameters>
+                                <label>Urlaub im System erfassen</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <call id="a33" endpoint="" a:alt_id="15">
+                              <parameters>
+                                <label>Best&#xE4;tigung senden</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <choose mode="exclusive" a:alt_id="16">
+                              <alternative condition=""/>
+                              <alternative condition=""/>
+                            </choose>
+                          </alternative>
+                        </choose>
+                        <escape a:alt_id="-1"/>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition="">
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="7">
+                  <alternative condition=""/>
+                  <alternative condition="Abgelehnt" language="text/javascript">
+                    <choose mode="exclusive" a:alt_id="8">
+                      <alternative condition="Abgelehnt" language="text/javascript">
+                        <call id="a17" endpoint="" a:alt_id="9">
+                          <parameters>
+                            <label>Begr&#xFC;ndung senden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a3" endpoint="" a:alt_id="2">
+                          <parameters>
+                            <label>Urlaubsantrag ausf&#xFC;llen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="" language="text/javascript"/>
+                      <alternative condition="">
+                        <call id="a29" endpoint="" a:alt_id="13">
+                          <parameters>
+                            <label>Antrag an Personalabteilung weiterleiten</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a31" endpoint="" a:alt_id="14">
+                          <parameters>
+                            <label>Urlaub im System erfassen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a33" endpoint="" a:alt_id="15">
+                          <parameters>
+                            <label>Best&#xE4;tigung senden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="16">
+                          <alternative condition=""/>
+                          <alternative condition=""/>
+                        </choose>
+                      </alternative>
+                    </choose>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition="false" language="text/javascript">
+            <choose mode="exclusive" a:alt_id="6">
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="7">
+                  <alternative condition=""/>
+                  <alternative condition="Abgelehnt" language="text/javascript">
+                    <choose mode="exclusive" a:alt_id="8">
+                      <alternative condition="Abgelehnt" language="text/javascript">
+                        <call id="a17" endpoint="" a:alt_id="9">
+                          <parameters>
+                            <label>Begr&#xFC;ndung senden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a3" endpoint="" a:alt_id="2">
+                          <parameters>
+                            <label>Urlaubsantrag ausf&#xFC;llen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="0">
+                          <alternative condition="">
+                            <call id="a5" endpoint="" a:alt_id="3">
+                              <parameters>
+                                <label>Antrag beim Vorgesetzten einreichen</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <call id="a7" endpoint="" a:alt_id="4">
+                              <parameters>
+                                <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition=""/>
+                        </choose>
+                      </alternative>
+                      <alternative condition="" language="text/javascript"/>
+                      <alternative condition="">
+                        <call id="a29" endpoint="" a:alt_id="13">
+                          <parameters>
+                            <label>Antrag an Personalabteilung weiterleiten</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a31" endpoint="" a:alt_id="14">
+                          <parameters>
+                            <label>Urlaub im System erfassen</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a33" endpoint="" a:alt_id="15">
+                          <parameters>
+                            <label>Best&#xE4;tigung senden</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="16">
+                          <alternative condition=""/>
+                          <alternative condition=""/>
+                        </choose>
+                      </alternative>
+                    </choose>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-05T14:45:20.916866+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="true" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a3" endpoint="" a:alt_id="a1">
+              <parameters>
+                <label>Urlaubsantrag ausf&#xFC;llen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a5" endpoint="" a:alt_id="a3">
+              <parameters>
+                <label>Antrag beim Vorgesetzten einreichen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a7" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Abgelehnt">
+              <choose mode="exclusive" a:alt_id="gw2s">
+                <alternative condition="Abgelehnt" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="gw4s">
+                    <alternative condition="">
+                      <call id="a13" endpoint="" a:alt_id="a17">
+                        <parameters>
+                          <label>Begr&#xFC;ndung senden</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a3" endpoint="" a:alt_id="a1">
+                        <parameters>
+                          <label>Urlaubsantrag ausf&#xFC;llen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a5" endpoint="" a:alt_id="a3">
+                        <parameters>
+                          <label>Antrag beim Vorgesetzten einreichen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a7" endpoint="" a:alt_id="a5">
+                        <parameters>
+                          <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a17" endpoint="" a:alt_id="a9">
+                        <parameters>
+                          <label>Antrag an Personalabteilung weiterleiten</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a19" endpoint="" a:alt_id="a11">
+                        <parameters>
+                          <label>Urlaub im System erfassen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a21" endpoint="" a:alt_id="a13">
+                        <parameters>
+                          <label>Best&#xE4;tigung senden</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="gw4e">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Verf&#xFC;gbar" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="">
+                      <choose mode="exclusive" a:alt_id="gw4s">
+                        <alternative condition="">
+                          <call id="a13" endpoint="" a:alt_id="a17">
+                            <parameters>
+                              <label>Begr&#xFC;ndung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a3" endpoint="" a:alt_id="a1">
+                            <parameters>
+                              <label>Urlaubsantrag ausf&#xFC;llen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a5" endpoint="" a:alt_id="a3">
+                            <parameters>
+                              <label>Antrag beim Vorgesetzten einreichen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a7" endpoint="" a:alt_id="a5">
+                            <parameters>
+                              <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="">
+                          <call id="a17" endpoint="" a:alt_id="a9">
+                            <parameters>
+                              <label>Antrag an Personalabteilung weiterleiten</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a19" endpoint="" a:alt_id="a11">
+                            <parameters>
+                              <label>Urlaub im System erfassen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a21" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Best&#xE4;tigung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <choose mode="exclusive" a:alt_id="gw4e">
+                            <alternative condition=""/>
+                            <alternative condition=""/>
+                          </choose>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Verf&#xFC;gbar" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="">
+                      <choose mode="exclusive" a:alt_id="gw4s">
+                        <alternative condition="">
+                          <call id="a13" endpoint="" a:alt_id="a17">
+                            <parameters>
+                              <label>Begr&#xFC;ndung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a3" endpoint="" a:alt_id="a1">
+                            <parameters>
+                              <label>Urlaubsantrag ausf&#xFC;llen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a5" endpoint="" a:alt_id="a3">
+                            <parameters>
+                              <label>Antrag beim Vorgesetzten einreichen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a7" endpoint="" a:alt_id="a5">
+                            <parameters>
+                              <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="">
+                          <call id="a17" endpoint="" a:alt_id="a9">
+                            <parameters>
+                              <label>Antrag an Personalabteilung weiterleiten</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a19" endpoint="" a:alt_id="a11">
+                            <parameters>
+                              <label>Urlaub im System erfassen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a21" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Best&#xE4;tigung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <choose mode="exclusive" a:alt_id="gw4e">
+                            <alternative condition=""/>
+                            <alternative condition=""/>
+                          </choose>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </loop>
+          </loop>
+        </alternative>
+        <alternative condition="false" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: f3482f3b69cb3e3546f2f097f51d90441bb1d991
+  time:timestamp: '2025-12-05T14:45:25.369806+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3482f3b69cb3e3546f2f097f51d90441bb1d991
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a3">
+          <parameters>
+            <label>Urlaubsantrag ausfüllen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Antrag beim Vorgesetzten einreichen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="a7">
+          <parameters>
+            <label>Verfügbarkeit prüfen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Abgelehnt">
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Abgelehnt" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Begründung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a1" endpoint="" a:alt_id="a3">
+                <parameters>
+                  <label>Urlaubsantrag ausfüllen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="a5">
+                <parameters>
+                  <label>Antrag beim Vorgesetzten einreichen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="a7">
+                <parameters>
+                  <label>Verfügbarkeit prüfen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Genehmigt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Antrag an Personalabteilung weiterleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Urlaub im System erfassen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Bestätigung senden</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Genehmigt innerhalb von drei Werktagen" language="text/javascript"/>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-05T14:45:25.370288+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3482f3b69cb3e3546f2f097f51d90441bb1d991
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-05T14:45:25.370869+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3482f3b69cb3e3546f2f097f51d90441bb1d991
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-05T14:45:25.371150+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3482f3b69cb3e3546f2f097f51d90441bb1d991
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfüllen)
+    a1:task:(Urlaubsantrag ausfüllen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
+    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(Verfügbarkeit prüfen)
+    a5:task:(Verfügbarkeit prüfen)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Abgelehnt"|gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Abgelehnt"|a17:task:(Begründung senden)
+    a17:task:(Begründung senden)-->a1:task:(Urlaubsantrag ausfüllen)
+    a1:task:(Urlaubsantrag ausfüllen)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|""|gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Antrag an Personalabteilung weiterleiten)
+    a9:task:(Antrag an Personalabteilung weiterleiten)-->a11:task:(Urlaub im System erfassen)
+    a11:task:(Urlaub im System erfassen)-->a13:task:(Bestätigung senden)
+    a13:task:(Bestätigung senden)-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-05T14:45:25.371296+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3482f3b69cb3e3546f2f097f51d90441bb1d991
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"true"|a1:task:(Urlaubsantrag ausfüllen)
+    a1:task:(Urlaubsantrag ausfüllen)-->a3:task:(Antrag beim Vorgesetzten einreichen)
+    a3:task:(Antrag beim Vorgesetzten einreichen)-->a5:task:(Verfügbarkeit prüfen)
+    a5:task:(Verfügbarkeit prüfen)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Abgelehnt"|gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->a17:task:(Begründung senden)
+    a17:task:(Begründung senden)-->a1:task:(Urlaubsantrag ausfüllen)
+    gw4s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Antrag an Personalabteilung weiterleiten)
+    a9:task:(Antrag an Personalabteilung weiterleiten)-->a11:task:(Urlaub im System erfassen)
+    a11:task:(Urlaub im System erfassen)-->a13:task:(Bestätigung senden)
+    a13:task:(Bestätigung senden)-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Verfügbar"|gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw4s:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"false"|ee:endevent:((endevent))
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    ```
+  time:timestamp: '2025-12-05T14:45:25.371444+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3482f3b69cb3e3546f2f097f51d90441bb1d991
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="true" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a3" endpoint="" a:alt_id="a1">
+              <parameters>
+                <label>Urlaubsantrag ausf&#xFC;llen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a5" endpoint="" a:alt_id="a3">
+              <parameters>
+                <label>Antrag beim Vorgesetzten einreichen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a7" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Abgelehnt">
+              <choose mode="exclusive" a:alt_id="gw2s">
+                <alternative condition="Abgelehnt" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="gw4s">
+                    <alternative condition="">
+                      <call id="a13" endpoint="" a:alt_id="a17">
+                        <parameters>
+                          <label>Begr&#xFC;ndung senden</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a3" endpoint="" a:alt_id="a1">
+                        <parameters>
+                          <label>Urlaubsantrag ausf&#xFC;llen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a5" endpoint="" a:alt_id="a3">
+                        <parameters>
+                          <label>Antrag beim Vorgesetzten einreichen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a7" endpoint="" a:alt_id="a5">
+                        <parameters>
+                          <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a17" endpoint="" a:alt_id="a9">
+                        <parameters>
+                          <label>Antrag an Personalabteilung weiterleiten</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a19" endpoint="" a:alt_id="a11">
+                        <parameters>
+                          <label>Urlaub im System erfassen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a21" endpoint="" a:alt_id="a13">
+                        <parameters>
+                          <label>Best&#xE4;tigung senden</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="gw4e">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Verf&#xFC;gbar" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="">
+                      <choose mode="exclusive" a:alt_id="gw4s">
+                        <alternative condition="">
+                          <call id="a13" endpoint="" a:alt_id="a17">
+                            <parameters>
+                              <label>Begr&#xFC;ndung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a3" endpoint="" a:alt_id="a1">
+                            <parameters>
+                              <label>Urlaubsantrag ausf&#xFC;llen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a5" endpoint="" a:alt_id="a3">
+                            <parameters>
+                              <label>Antrag beim Vorgesetzten einreichen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a7" endpoint="" a:alt_id="a5">
+                            <parameters>
+                              <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="">
+                          <call id="a17" endpoint="" a:alt_id="a9">
+                            <parameters>
+                              <label>Antrag an Personalabteilung weiterleiten</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a19" endpoint="" a:alt_id="a11">
+                            <parameters>
+                              <label>Urlaub im System erfassen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a21" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Best&#xE4;tigung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <choose mode="exclusive" a:alt_id="gw4e">
+                            <alternative condition=""/>
+                            <alternative condition=""/>
+                          </choose>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Verf&#xFC;gbar" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="">
+                      <choose mode="exclusive" a:alt_id="gw4s">
+                        <alternative condition="">
+                          <call id="a13" endpoint="" a:alt_id="a17">
+                            <parameters>
+                              <label>Begr&#xFC;ndung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a3" endpoint="" a:alt_id="a1">
+                            <parameters>
+                              <label>Urlaubsantrag ausf&#xFC;llen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a5" endpoint="" a:alt_id="a3">
+                            <parameters>
+                              <label>Antrag beim Vorgesetzten einreichen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a7" endpoint="" a:alt_id="a5">
+                            <parameters>
+                              <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="">
+                          <call id="a17" endpoint="" a:alt_id="a9">
+                            <parameters>
+                              <label>Antrag an Personalabteilung weiterleiten</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a19" endpoint="" a:alt_id="a11">
+                            <parameters>
+                              <label>Urlaub im System erfassen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a21" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Best&#xE4;tigung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <choose mode="exclusive" a:alt_id="gw4e">
+                            <alternative condition=""/>
+                            <alternative condition=""/>
+                          </choose>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </loop>
+          </loop>
+        </alternative>
+        <alternative condition="false" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-05T14:45:25.371614+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="true" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="gw2e">
+            <alternative condition="true" language="text/javascript">
+              <loop mode="pre_test" condition="true">
+                <call id="a7" endpoint="" a:alt_id="a3">
+                  <parameters>
+                    <label>Urlaubsantrag ausf&#xFC;llen</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Antrag beim Vorgesetzten einreichen</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a11" endpoint="" a:alt_id="a7">
+                  <parameters>
+                    <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <loop mode="pre_test" condition="Abgelehnt">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="Abgelehnt" language="text/javascript">
+                      <choose mode="exclusive" a:alt_id="gw5s">
+                        <alternative condition="">
+                          <call id="a17" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Begr&#xFC;ndung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a7" endpoint="" a:alt_id="a3">
+                            <parameters>
+                              <label>Urlaubsantrag ausf&#xFC;llen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a9" endpoint="" a:alt_id="a5">
+                            <parameters>
+                              <label>Antrag beim Vorgesetzten einreichen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a11" endpoint="" a:alt_id="a7">
+                            <parameters>
+                              <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Verf&#xFC;gbar" language="text/javascript">
+                          <call id="a21" endpoint="" a:alt_id="a17">
+                            <parameters>
+                              <label>Antrag an Personalabteilung weiterleiten</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a23" endpoint="" a:alt_id="a19">
+                            <parameters>
+                              <label>Urlaub im System erfassen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a25" endpoint="" a:alt_id="a21">
+                            <parameters>
+                              <label>Best&#xE4;tigung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Genehmigt" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a17">
+                        <parameters>
+                          <label>Antrag an Personalabteilung weiterleiten</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a23" endpoint="" a:alt_id="a19">
+                        <parameters>
+                          <label>Urlaub im System erfassen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a25" endpoint="" a:alt_id="a21">
+                        <parameters>
+                          <label>Best&#xE4;tigung senden</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <choose mode="exclusive" a:alt_id="gw3e">
+                        <alternative condition="">
+                          <call id="a21" endpoint="" a:alt_id="a17">
+                            <parameters>
+                              <label>Antrag an Personalabteilung weiterleiten</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a23" endpoint="" a:alt_id="a19">
+                            <parameters>
+                              <label>Urlaub im System erfassen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a25" endpoint="" a:alt_id="a21">
+                            <parameters>
+                              <label>Best&#xE4;tigung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </loop>
+              </loop>
+            </alternative>
+            <alternative condition=""/>
+          </choose>
+        </alternative>
+        <alternative condition="false" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 45011018c6920b08abe5ce6671a614db8a955d43
+  time:timestamp: '2025-12-05T14:45:36.987945+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45011018c6920b08abe5ce6671a614db8a955d43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="true" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a3" endpoint="" a:alt_id="a1">
+              <parameters>
+                <label>Urlaubsantrag ausfüllen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a5" endpoint="" a:alt_id="a3">
+              <parameters>
+                <label>Antrag beim Vorgesetzten einreichen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a7" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Verfügbarkeit prüfen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Abgelehnt">
+              <choose mode="exclusive" a:alt_id="gw2s">
+                <alternative condition="Abgelehnt" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="gw4s">
+                    <alternative condition="">
+                      <call id="a13" endpoint="" a:alt_id="a17">
+                        <parameters>
+                          <label>Begründung senden</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a3" endpoint="" a:alt_id="a1">
+                        <parameters>
+                          <label>Urlaubsantrag ausfüllen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a5" endpoint="" a:alt_id="a3">
+                        <parameters>
+                          <label>Antrag beim Vorgesetzten einreichen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a7" endpoint="" a:alt_id="a5">
+                        <parameters>
+                          <label>Verfügbarkeit prüfen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a17" endpoint="" a:alt_id="a9">
+                        <parameters>
+                          <label>Antrag an Personalabteilung weiterleiten</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a19" endpoint="" a:alt_id="a11">
+                        <parameters>
+                          <label>Urlaub im System erfassen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a21" endpoint="" a:alt_id="a13">
+                        <parameters>
+                          <label>Bestätigung senden</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="gw4e">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Verfügbar" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="">
+                      <choose mode="exclusive" a:alt_id="gw4s">
+                        <alternative condition="">
+                          <call id="a13" endpoint="" a:alt_id="a17">
+                            <parameters>
+                              <label>Begründung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a3" endpoint="" a:alt_id="a1">
+                            <parameters>
+                              <label>Urlaubsantrag ausfüllen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a5" endpoint="" a:alt_id="a3">
+                            <parameters>
+                              <label>Antrag beim Vorgesetzten einreichen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a7" endpoint="" a:alt_id="a5">
+                            <parameters>
+                              <label>Verfügbarkeit prüfen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="">
+                          <call id="a17" endpoint="" a:alt_id="a9">
+                            <parameters>
+                              <label>Antrag an Personalabteilung weiterleiten</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a19" endpoint="" a:alt_id="a11">
+                            <parameters>
+                              <label>Urlaub im System erfassen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a21" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Bestätigung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <choose mode="exclusive" a:alt_id="gw4e">
+                            <alternative condition=""/>
+                            <alternative condition=""/>
+                          </choose>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Verfügbar" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="">
+                      <choose mode="exclusive" a:alt_id="gw4s">
+                        <alternative condition="">
+                          <call id="a13" endpoint="" a:alt_id="a17">
+                            <parameters>
+                              <label>Begründung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a3" endpoint="" a:alt_id="a1">
+                            <parameters>
+                              <label>Urlaubsantrag ausfüllen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a5" endpoint="" a:alt_id="a3">
+                            <parameters>
+                              <label>Antrag beim Vorgesetzten einreichen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a7" endpoint="" a:alt_id="a5">
+                            <parameters>
+                              <label>Verfügbarkeit prüfen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="">
+                          <call id="a17" endpoint="" a:alt_id="a9">
+                            <parameters>
+                              <label>Antrag an Personalabteilung weiterleiten</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a19" endpoint="" a:alt_id="a11">
+                            <parameters>
+                              <label>Urlaub im System erfassen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a21" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Bestätigung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <choose mode="exclusive" a:alt_id="gw4e">
+                            <alternative condition=""/>
+                            <alternative condition=""/>
+                          </choose>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </loop>
+          </loop>
+        </alternative>
+        <alternative condition="false" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-05T14:45:36.988192+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45011018c6920b08abe5ce6671a614db8a955d43
+  cpee:exposition: |-
+    # User Input:
+    Der Mitarbeiter füllt das Urlaubsantragsformular mit gewünschtem Zeitraum und Vertretungsregelung aus und reicht es beim Vorgesetzten ein. Der Vorgesetzte prüft die Verfügbarkeit im Team und genehmigt oder lehnt den Antrag innerhalb von drei Werktagen ab. Bei Genehmigung wird der Antrag an die Personalabteilung weitergeleitet, die den Urlaub im System erfasst und dem Mitarbeiter eine Bestätigung sendet. Bei Ablehnung erhält der Mitarbeiter eine Begründung und kann einen neuen Antrag mit geändertem Zeitraum stellen.
+  time:timestamp: '2025-12-05T14:45:36.988362+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45011018c6920b08abe5ce6671a614db8a955d43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-05T14:45:36.988472+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45011018c6920b08abe5ce6671a614db8a955d43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"true"|gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a3:task:(Urlaubsantrag ausfüllen)
+    a3:task:(Urlaubsantrag ausfüllen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
+    a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(Verfügbarkeit prüfen)
+    a7:task:(Verfügbarkeit prüfen)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Abgelehnt"|gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"Abgelehnt"|gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|""|a13:task:(Begründung senden)
+    a13:task:(Begründung senden)-->a3:task:(Urlaubsantrag ausfüllen)
+    a3:task:(Urlaubsantrag ausfüllen)-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|""|a17:task:(Antrag an Personalabteilung weiterleiten)
+    a17:task:(Antrag an Personalabteilung weiterleiten)-->a19:task:(Urlaub im System erfassen)
+    a19:task:(Urlaub im System erfassen)-->a21:task:(Bestätigung senden)
+    a21:task:(Bestätigung senden)-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw9s:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9e:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw10s:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->gw11s:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+    gw11e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw12s:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->gw13s:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+    gw13e:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
+    gw12e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"Verfügbar"|gw14s:exclusivegateway:{x}
+    gw14s:exclusivegateway:{x}-->|""|gw15s:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->|""|a13:task:(Begründung senden)
+    a13:task:(Begründung senden)-->a3:task:(Urlaubsantrag ausfüllen)
+    a3:task:(Urlaubsantrag ausfüllen)-->gw15e:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->|""|a17:task:(Antrag an Personalabteilung weiterleiten)
+    a17:task:(Antrag an Personalabteilung weiterleiten)-->a19:task:(Urlaub im System erfassen)
+    a19:task:(Urlaub im System erfassen)-->a21:task:(Bestätigung senden)
+    a21:task:(Bestätigung senden)-->gw16s:exclusivegateway:{x}
+    gw16s:exclusivegateway:{x}-->gw17s:exclusivegateway:{x}
+    gw17s:exclusivegateway:{x}-->gw18s:exclusivegateway:{x}
+    gw18s:exclusivegateway:{x}-->gw18e:exclusivegateway:{x}
+    gw18s:exclusivegateway:{x}-->gw18e:exclusivegateway:{x}
+    gw18e:exclusivegateway:{x}-->gw17e:exclusivegateway:{x}
+    gw17s:exclusivegateway:{x}-->gw17e:exclusivegateway:{x}
+    gw17e:exclusivegateway:{x}-->gw16e:exclusivegateway:{x}
+    gw16s:exclusivegateway:{x}-->gw19s:exclusivegateway:{x}
+    gw19s:exclusivegateway:{x}-->gw20s:exclusivegateway:{x}
+    gw20s:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+    gw20s:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+    gw20e:exclusivegateway:{x}-->gw19e:exclusivegateway:{x}
+    gw19s:exclusivegateway:{x}-->gw19e:exclusivegateway:{x}
+    gw19e:exclusivegateway:{x}-->gw16e:exclusivegateway:{x}
+    gw16s:exclusivegateway:{x}-->gw21s:exclusivegateway:{x}
+    gw21s:exclusivegateway:{x}-->gw22s:exclusivegateway:{x}
+    gw22s:exclusivegateway:{x}-->gw22e:exclusivegateway:{x}
+    gw22s:exclusivegateway:{x}-->gw22e:exclusivegateway:{x}
+    gw22e:exclusivegateway:{x}-->gw21e:exclusivegateway:{x}
+    gw21s:exclusivegateway:{x}-->gw21e:exclusivegateway:{x}
+    gw21e:exclusivegateway:{x}-->gw16e:exclusivegateway:{x}
+    gw16e:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+    gw15e:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
+    gw14s:exclusivegateway:{x}-->|""|gw23s:exclusivegateway:{x}
+    gw23s:exclusivegateway:{x}-->gw24s:exclusivegateway:{x}
+    gw24s:exclusivegateway:{x}-->gw24e:exclusivegateway:{x}
+    gw24s:exclusivegateway:{x}-->gw24e:exclusivegateway:{x}
+    gw24e:exclusivegateway:{x}-->gw23e:exclusivegateway:{x}
+    gw23s:exclusivegateway:{x}-->gw23e:exclusivegateway:{x}
+    gw23e:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
+    gw14e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"Verfügbar"|gw25s:exclusivegateway:{x}
+    gw25s:exclusivegateway:{x}-->|""|gw26s:exclusivegateway:{x}
+    gw26s:exclusivegateway:{x}-->|""|a13:task:(Begründung senden)
+    a13:task:(Begründung senden)-->a3:task:(Urlaubsantrag ausfüllen)
+    a3:task:(Urlaubsantrag ausfüllen)-->gw26e:exclusivegateway:{x}
+    gw26s:exclusivegateway:{x}-->|""|a17:task:(Antrag an Personalabteilung weiterleiten)
+    a17:task:(Antrag an Personalabteilung weiterleiten)-->a19:task:(Urlaub im System erfassen)
+    a19:task:(Urlaub im System erfassen)-->a21:task:(Bestätigung senden)
+    a21:task:(Bestätigung senden)-->gw27s:exclusivegateway:{x}
+    gw27s:exclusivegateway:{x}-->gw28s:exclusivegateway:{x}
+    gw28s:exclusivegateway:{x}-->gw29s:exclusivegateway:{x}
+    gw29s:exclusivegateway:{x}-->gw29e:exclusivegateway:{x}
+    gw29s:exclusivegateway:{x}-->gw29e:exclusivegateway:{x}
+    gw29e:exclusivegateway:{x}-->gw28e:exclusivegateway:{x}
+    gw28s:exclusivegateway:{x}-->gw28e:exclusivegateway:{x}
+    gw28e:exclusivegateway:{x}-->gw27e:exclusivegateway:{x}
+    gw27s:exclusivegateway:{x}-->gw30s:exclusivegateway:{x}
+    gw30s:exclusivegateway:{x}-->gw31s:exclusivegateway:{x}
+    gw31s:exclusivegateway:{x}-->gw31e:exclusivegateway:{x}
+    gw31s:exclusivegateway:{x}-->gw31e:exclusivegateway:{x}
+    gw31e:exclusivegateway:{x}-->gw30e:exclusivegateway:{x}
+    gw30s:exclusivegateway:{x}-->gw30e:exclusivegateway:{x}
+    gw30e:exclusivegateway:{x}-->gw27e:exclusivegateway:{x}
+    gw27s:exclusivegateway:{x}-->gw32s:exclusivegateway:{x}
+    gw32s:exclusivegateway:{x}-->gw33s:exclusivegateway:{x}
+    gw33s:exclusivegateway:{x}-->gw33e:exclusivegateway:{x}
+    gw33s:exclusivegateway:{x}-->gw33e:exclusivegateway:{x}
+    gw33e:exclusivegateway:{x}-->gw32e:exclusivegateway:{x}
+    gw32s:exclusivegateway:{x}-->gw32e:exclusivegateway:{x}
+    gw32e:exclusivegateway:{x}-->gw27e:exclusivegateway:{x}
+    gw27e:exclusivegateway:{x}-->gw26e:exclusivegateway:{x}
+    gw26e:exclusivegateway:{x}-->gw25e:exclusivegateway:{x}
+    gw25s:exclusivegateway:{x}-->|""|gw34s:exclusivegateway:{x}
+    gw34s:exclusivegateway:{x}-->gw35s:exclusivegateway:{x}
+    gw35s:exclusivegateway:{x}-->gw35e:exclusivegateway:{x}
+    gw35s:exclusivegateway:{x}-->gw35e:exclusivegateway:{x}
+    gw35e:exclusivegateway:{x}-->gw34e:exclusivegateway:{x}
+    gw34s:exclusivegateway:{x}-->gw34e:exclusivegateway:{x}
+    gw34e:exclusivegateway:{x}-->gw25e:exclusivegateway:{x}
+    gw25e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"false"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-05T14:45:36.988569+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45011018c6920b08abe5ce6671a614db8a955d43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"true"|gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a3:task:(Urlaubsantrag ausfüllen)
+    a3:task:(Urlaubsantrag ausfüllen)-->a5:task:(Antrag beim Vorgesetzten einreichen)
+    a5:task:(Antrag beim Vorgesetzten einreichen)-->a7:task:(Verfügbarkeit prüfen)
+    a7:task:(Verfügbarkeit prüfen)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Abgelehnt"|gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->a13:task:(Begründung senden)
+    a13:task:(Begründung senden)-->a3:task:
+    gw5s:exclusivegateway:{x}-->|"Verfügbar"|a17:task:(Antrag an Personalabteilung weiterleiten)
+    a17:task:(Antrag an Personalabteilung weiterleiten)-->a19:task:(Urlaub im System erfassen)
+    a19:task:(Urlaub im System erfassen)-->a21:task:(Bestätigung senden)
+    a21:task:(Bestätigung senden)-->ee:endevent:(((endevent)))
+    gw3s:exclusivegateway:{x}-->|"Genehmigt"|a17:task:(Antrag an Personalabteilung weiterleiten)
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->a17:task:(Antrag an Personalabteilung weiterleiten)
+    gw5e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    gw1s:exclusivegateway:{x}-->|"false"|ee:endevent:(((endevent)))
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-05T14:45:36.988704+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45011018c6920b08abe5ce6671a614db8a955d43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="true" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="gw2e">
+            <alternative condition="true" language="text/javascript">
+              <loop mode="pre_test" condition="true">
+                <call id="a7" endpoint="" a:alt_id="a3">
+                  <parameters>
+                    <label>Urlaubsantrag ausf&#xFC;llen</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Antrag beim Vorgesetzten einreichen</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a11" endpoint="" a:alt_id="a7">
+                  <parameters>
+                    <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <loop mode="pre_test" condition="Abgelehnt">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="Abgelehnt" language="text/javascript">
+                      <choose mode="exclusive" a:alt_id="gw5s">
+                        <alternative condition="">
+                          <call id="a17" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Begr&#xFC;ndung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a7" endpoint="" a:alt_id="a3">
+                            <parameters>
+                              <label>Urlaubsantrag ausf&#xFC;llen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a9" endpoint="" a:alt_id="a5">
+                            <parameters>
+                              <label>Antrag beim Vorgesetzten einreichen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a11" endpoint="" a:alt_id="a7">
+                            <parameters>
+                              <label>Verf&#xFC;gbarkeit pr&#xFC;fen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Verf&#xFC;gbar" language="text/javascript">
+                          <call id="a21" endpoint="" a:alt_id="a17">
+                            <parameters>
+                              <label>Antrag an Personalabteilung weiterleiten</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a23" endpoint="" a:alt_id="a19">
+                            <parameters>
+                              <label>Urlaub im System erfassen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a25" endpoint="" a:alt_id="a21">
+                            <parameters>
+                              <label>Best&#xE4;tigung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Genehmigt" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a17">
+                        <parameters>
+                          <label>Antrag an Personalabteilung weiterleiten</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a23" endpoint="" a:alt_id="a19">
+                        <parameters>
+                          <label>Urlaub im System erfassen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a25" endpoint="" a:alt_id="a21">
+                        <parameters>
+                          <label>Best&#xE4;tigung senden</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <choose mode="exclusive" a:alt_id="gw3e">
+                        <alternative condition="">
+                          <call id="a21" endpoint="" a:alt_id="a17">
+                            <parameters>
+                              <label>Antrag an Personalabteilung weiterleiten</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a23" endpoint="" a:alt_id="a19">
+                            <parameters>
+                              <label>Urlaub im System erfassen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a25" endpoint="" a:alt_id="a21">
+                            <parameters>
+                              <label>Best&#xE4;tigung senden</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </loop>
+              </loop>
+            </alternative>
+            <alternative condition=""/>
+          </choose>
+        </alternative>
+        <alternative condition="false" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-05T14:45:36.988807+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-05T14:45:44.217950+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-05T14:45:44.458250+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-05T14:45:44.632278+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-05T14:45:45.781341+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-12-08T21:52:54.910724+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:52:54.915232+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:52:55.138278+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:52:55.374953+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: uuid
+    value: d5d44cb6-c236-4851-b136-f0c1f417604a
+  - name: info
+    value: Plain Instance
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: elementaltid
+  time:timestamp: '2025-12-08T21:53:07.622255+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: uuid
+    value: d5d44cb6-c236-4851-b136-f0c1f417604a
+  - name: info
+    value: Plain Instance
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: presetaltid
+  time:timestamp: '2025-12-08T21:53:15.649495+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:53:31.292752+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:53:31.574759+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T21:54:18.002828+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T21:54:18.272955+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T22:06:02.474672+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T22:06:02.768104+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T22:06:16.473443+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T22:06:16.716424+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T22:07:34.564042+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T22:07:36.645896+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T22:07:40.745835+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T22:07:40.977223+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T22:10:22.404338+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T22:10:22.684717+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-08T22:11:02.781131+01:00'
+---
+event:
+  concept:instance: 82141
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d5d44cb6-c236-4851-b136-f0c1f417604a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-08T22:11:03.022594+01:00'

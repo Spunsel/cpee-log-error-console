@@ -1,0 +1,1825 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 83265
+    cpee:name: Plain Instance
+    cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-11T15:55:04.224419+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-12-11T15:57:39.816596+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-11T15:57:40.336726+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Project Inquiry or Develop Idea</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Preliminary Assessment by PI</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Consultation and Support by F&amp;E</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Calculate Offer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Legal/Tax Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Contract Negotiation with Client</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Contract Conclusion</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Create Project in SAP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Define Project in SAP PS</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Create WBS Elements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Create Budget Programs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Set Budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Communicate Project Info to PI/PM</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Conduct Project Work</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Personnel Measures</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Book Personnel Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Procurement of Goods/Services</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Use Internal Resources</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Book Travel and Other Expenses</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Overhead Rebooking</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="21">
+        <parameters>
+          <label>Ongoing Monitoring of Budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="22">
+        <parameters>
+          <label>Prepare Invoicing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Record Outgoing Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Approve and Book Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Record Payment Receipt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Conduct Final Project Work</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Perform Post-Calculation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Final Invoice if Necessary</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Financially Close Project</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Close Project in ERP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Conduct Lessons Learned</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ccedb70869b41a2ac187795c49c9f97a0c7a8c91
+  time:timestamp: '2025-12-11T15:58:32.268188+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ccedb70869b41a2ac187795c49c9f97a0c7a8c91
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-11T15:58:32.268563+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ccedb70869b41a2ac187795c49c9f97a0c7a8c91
+  cpee:exposition: "# User Input:\n✔️ Bei wirtschaftlichen Drittmitteln gibt es keine
+    Fördergeber wie DFG oder Projektträger Jülich.\r\nStattdessen gibt es:\r\n• Projektinitiator
+    (PI)\r\n• Projektmitarbeiter (PM)\r\n• F&E / Drittmittelverwaltung\r\n• Wirtschaftlicher
+    Auftraggeber / Kunde = Mittelgeber\r\nGenau so bildet es auch das -Dokument ab:\r\nWirtschaftliche
+    Drittmittel = Verträge mit Unternehmen, Institutionen, externen Auftraggebern
+    (also Kunden), nicht Förderinstitutionen.\r\nIch definiere die Rollen also wie
+    folgt:\r\n PI – Projektinitiator\r\n PM – Projektmitarbeiter\r\nF&E – interne
+    Drittmittelverwaltung / Verwaltung wirtschaftlicher Projekte\r\nMittelgeber –
+    Externer Auftraggeber (Unternehmen, Behörde, sonstiger Kunde)\r\n \r\nProzess
+    der wirtschaftlichen Drittmittelförderung (wirtschaftliche Projekte)\r\n(Struktur
+    identisch zu deinem nicht-wirtschaftlichen Prozess)\r\n \r\nPhase 1 – Projektanbahnung
+    & Vorbereitung\r\nDiese Phase entspricht im Abschnitt 3.2.1 – Vorbereitende Arbeiten.\r\n \r\n1.
+    Projektanfrage / Projektidee\r\n• Externer Auftraggeber (Kunde) stellt Anfrage
+    oder PI entwickelt Projektidee mit wirtschaftlichem Nutzen.\r\n• Verantwortlich:
+    PI\r\n• Rolle Mittelgeber: Anfrage / Bedarf formulieren.\r\n \r\n2. Vorprüfung
+    durch PI\r\n• Erste Einschätzung:\r\no Ist das Thema durchführbar?\r\no Ist die
+    wirtschaftliche Tätigkeit zulässig (Trennungsrechnung, Vollkosten)?\r\n• Verantwortlich:
+    PI\r\n• Unterstützung: F&E (bei Bedarf)\r\n \r\n3. Beratung und Unterstützung
+    durch F&E\r\n• Prüfung:\r\no Ist es wirklich „wirtschaftlich“? ( 3.2.1: „wirtschaftliche
+    Tätigkeit“ prüfen)\r\no Muss Vollkostenkalkulation angewendet werden?\r\no Anforderungen
+    an Preisuntergrenze und Overhead beachten.\r\n• Verantwortlich: F&E\r\n• Unterstützt:
+    PI\r\n \r\n4. Angebot kalkulieren (Vorkalkulation / Vollkostenrechnung)\r\n• Kalkulation
+    gemäß Vollkostenregelungen ( Abschnitt wirtschaftliche Einnahmen).\r\n• Enthält:\r\no
+    Personalkosten\r\no Sachmittel\r\no Nutzung zentraler Infrastruktur\r\no Overhead
+    / Gemeinkosten\r\no Gewinn\r\n• Verantwortlich: F&E (kalkulatorisch)\r\n• Fachliche
+    Angaben: PI / PM\r\n• Mittelgeber: erhält Angebot\r\n \r\n5. Juristische / steuerliche
+    Prüfung (falls nötig)\r\n• Prüfung:\r\no Vertragsbedingungen\r\no Steuerpflicht
+    (Gewerbesteuer / Körperschaftssteuer)\r\no Trennungsrechnung sicherstellen\r\n•
+    Verantwortlich: F&E\r\n• Mittelgeber: liefert Vertragsunterlagen\r\n \r\n6. Vertragsverhandlung
+    mit Mittelgeber\r\n• Lieferumfang, Termine, Budget, IP-Regelungen, Preis, Zahlungsmodalitäten.\r\n•
+    Verantwortlich: PI (fachlich)\r\n• F&E: kaufmännisch / rechtlich\r\n• Mittelgeber:
+    Vertragspartner\r\n \r\n7. Vertragsschluss\r\n• Kunde und Hochschule schließen
+    Vertrag rechtsgültig ab.\r\n• Verantwortlich: F&E (offizieller Unterzeichnungsprozess)\r\n•
+    PI: wissenschaftlicher Verantwortlicher\r\n \r\nPhase 2 – Stammdatenanlage im
+    ERP (SAP)\r\n Dokument Abschnitt 3.2.2 – Stammdatenstruktur definieren und WP001–WP002.\r\n \r\n8.
+    Wirtschaftliches Projekt im SAP anlegen beauftragen\r\n• PI meldet: Projekt ist
+    vertraglich abgeschlossen.\r\n• Verantwortlich: PI → F&E\r\n \r\n9. Projektdefinition
+    in SAP PS anlegen\r\n• Struktur „2.nnnnnnn“ (wirtschaftliches Projekt).\r\n• Inhalte:\r\no
+    Kurzbeschreibung\r\no Verantwortlichkeiten\r\no Termine\r\n• Verantwortlich: F&E\r\n•
+    Funktion: WP001 – Projektdefinitionen & PSP pflegen\r\n \r\n10. PSP-Elemente anlegen\r\n•
+    Struktur: „2.nnnnnnn.nn“\r\n• Mindestens ein PSP-Element, oft mehrere bei Projektphasen.\r\n•
+    Verantwortlich: F&E\r\n• Funktion: WP001\r\n \r\n11. Haushaltsprogramme (PSM-FM)
+    anlegen\r\n• Je PSP wird ein Haushaltsprogramm erzeugt.\r\n• Verantwortlich: F&E\r\n•
+    Funktion: WP002 – Haushaltsprogramme pflegen\r\n \r\n12. Budget einstellen (Erlösseite)\r\n•
+    Externe Mittel werden budgetiert.\r\n• Verantwortlich: F&E\r\n• Funktion: WP003
+    – Budgetierung\r\n \r\n13. Projektinformationen an PI / PM kommunizieren\r\n•
+    PSP-Nummern, Buchungsvorgaben, Kontierungsregeln.\r\n• Verantwortlich: F&E\r\n \r\n Phase
+    3 – Durchführung des wirtschaftlichen Projekts\r\nHier entspricht alles Kapitel
+    3.2.7 – Buchung laufender Kosten im -Dokument.\r\n \r\n14. Fachliche Projektarbeit
+    durchführen\r\n• Operative Durchführung der beauftragten Leistungen.\r\n• Verantwortlich:
+    PM / PI\r\n• Mittelgeber: erhält Bericht / Ergebnisse\r\n \r\n15. Personalmaßnahmen
+    (falls notwendig)\r\n• Mitarbeitende rekrutieren\r\n• Anteilige Personalzeit zuordnen\r\n•
+    Verantwortlich: PI / PM\r\n• F&E: prüft Zuordnung / Vollkostenrelevanz\r\n \r\n16.
+    Personalkosten buchen\r\n• Durch HR-Schnittstelle oder Umbuchung.\r\n• Verantwortlich:
+    F&E\r\n• Funktion: WP006 – Buchung laufender Kosten\r\n \r\n17. Beschaffung von
+    Waren, Dienstleistungen, Geräten\r\n• Bedarfsmeldung durch PM\r\n• Prüfung durch
+    F&E (wirtschaftliche Kosten müssen voll erfasst werden)\r\n• Bestellung in SAP
+    MM\r\n• Verantwortlich: PM (Anforderung), F&E (Prüfung), Einkauf (Ausführung)\r\n•
+    Funktion: WP006 – Einkaufsbuchungen\r\n \r\n18. Nutzung interner Ressourcen /
+    Gemeinkosten\r\n• Interne Infrastruktur wird belastet (Räume, Labore, Geräte).\r\n•
+    Vollkostenprinzip verlangt vollständige Verrechnung.\r\n• Verantwortlich: F&E
+    (Umbuchungen)\r\n \r\n19. Reisekosten & sonstige Ausgaben buchen\r\n• Dienstreiseabrechnung,
+    Zuordnung zum Projekt.\r\n• Verantwortlich: PM (Antrag), F&E (Buchung)\r\n• Funktion:
+    WP006 – Reisekosten\r\n \r\n20. Overhead-Umbuchung\r\n• Wirtschaftliche Projekte
+    enthalten Overhead-Kosten (Gemeinkosten).\r\n• SAP führt automatische Umbuchung
+    durch.\r\n• Verantwortlich: F&E\r\n• Funktion: WP008 – Overheadumbuchung\r\n \r\n21.
+    Laufendes Monitoring von Budget / Erlösen / Aufwand\r\n• Prüfung von Deckung,
+    Gewinn, Restmitteln.\r\n• Verantwortlich: F&E\r\n• PI: fachlicher Überblick\r\n•
+    Berichte: FM/RW_BUDCON & weitere\r\n \r\n Phase 4 – Fakturierung / Abrechnung
+    an Mittelgeber\r\nEntspricht Kapitel WP007 – Projekt fakturieren.\r\n \r\n22.
+    Fakturierungsvorbereitung\r\n• Projektfortschritt → Fakturierbare Leistung bestimmen\r\n•
+    Verantwortlich: PI / PM\r\n• F&E: kaufmännische Vorbereitung\r\n \r\n23. Ausgangsrechnung
+    erfassen\r\n• Rechnung über vertraglich vereinbarte Leistungen\r\n• In SAP FI
+    ohne SD-Modul\r\n• Verantwortlich: F&E\r\n• Funktion: WP007 – Ausgangsrechnung\r\n \r\n24.
+    Freigabe & Buchung der Rechnung\r\n• Prüfung → Genehmigung → Verbuchung\r\n• Verantwortlich:
+    F&E\r\n• Funktion: WP007\r\n \r\n25. Zahlungseingang Verbuchen\r\n• Geldeingang
+    auf Projekt zuordnen\r\n• Verantwortlich: F&E\r\n• Funktion: FI-Buchung\r\n \r\n Phase
+    5 – Abschluss wirtschaftliches Projekt\r\n Kapitel WP009–WP012.\r\n \r\n26. Fachliche
+    Abschlussarbeit\r\n• Erbringung der letzten Leistungen\r\n• Abschlussdokumentation\r\n•
+    Verantwortlich: PI / PM\r\n \r\n27. Nachkalkulation durchführen\r\n• Gewinn vor
+    / nach Steuern ermitteln\r\n• Vollkosten überprüfen\r\n• Verantwortlich: F&E\r\n•
+    Funktion: WP009 – Umbuchung Kosten, Gewinn und Steuern\r\n \r\n28. Abschlussrechnung
+    (falls vertraglich notwendig)\r\n• Restleistungen abrechnen\r\n• Verantwortlich:
+    F&E (Fakturierung)\r\n \r\n29. Projekt finanziell abschließen\r\n• Restbuchungen\r\n•
+    Gewinnverteilung / Rückbuchungen\r\n• Verantwortlich: F&E\r\n \r\n30. Projekt
+    im ERP schließen\r\n• PSP auf „abgeschlossen“ setzen\r\n• Keine Buchungen mehr
+    möglich\r\n• Verantwortlich: F&E\r\n• Funktion: WP010 – Projektdefinition/PSP-Elemente
+    pflegen\r\n \r\n31. Lessons Learned\r\n• Beurteilung wirtschaftlicher Effektivität
+    des Auftrags\r\n• Verantwortlich: PI\r\n \r\nZusammenfassung der Rollen (wirtschaftlich)\r\nRolle
+    Bedeutung\r\nPI Wissenschaftliche Leitung, Angebot, Durchführung\r\nPM Operative
+    Projektarbeit\r\nF&E Finanzielle Abwicklung, SAP-Stammdaten, Budget, Faktura\r\nMittelgeber
+    Externer Auftraggeber / Kunde\r\n \r\n\r\n\n"
+  time:timestamp: '2025-12-11T15:58:32.269489+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ccedb70869b41a2ac187795c49c9f97a0c7a8c91
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2025-12-11T15:58:32.269744+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ccedb70869b41a2ac187795c49c9f97a0c7a8c91
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-11T15:58:32.269872+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ccedb70869b41a2ac187795c49c9f97a0c7a8c91
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((Start))
+      1:task:(Receive Project Inquiry or Develop Idea)
+      2:task:(Preliminary Assessment by PI)
+      3:task:(Consultation and Support by F&E)
+      4:task:(Calculate Offer)
+      5:task:(Legal/Tax Review)
+      6:task:(Contract Negotiation with Client)
+      7:task:(Contract Conclusion)
+      8:task:(Create Project in SAP)
+      9:task:(Define Project in SAP PS)
+      10:task:(Create WBS Elements)
+      11:task:(Create Budget Programs)
+      12:task:(Set Budget)
+      13:task:(Communicate Project Info to PI/PM)
+      14:task:(Conduct Project Work)
+      15:task:(Personnel Measures)
+      16:task:(Book Personnel Costs)
+      17:task:(Procurement of Goods/Services)
+      18:task:(Use Internal Resources)
+      19:task:(Book Travel and Other Expenses)
+      20:task:(Overhead Rebooking)
+      21:task:(Ongoing Monitoring of Budget)
+      22:task:(Prepare Invoicing)
+      23:task:(Record Outgoing Invoice)
+      24:task:(Approve and Book Invoice)
+      25:task:(Record Payment Receipt)
+      26:task:(Conduct Final Project Work)
+      27:task:(Perform Post-Calculation)
+      28:task:(Final Invoice if Necessary)
+      29:task:(Financially Close Project)
+      30:task:(Close Project in ERP)
+      31:task:(Conduct Lessons Learned)
+      32:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Receive Project Inquiry or Develop Idea)
+      1:task:(Receive Project Inquiry or Develop Idea) --> 2:task:(Preliminary Assessment by PI)
+      2:task:(Preliminary Assessment by PI) --> 3:task:(Consultation and Support by F&E)
+      3:task:(Consultation and Support by F&E) --> 4:task:(Calculate Offer)
+      4:task:(Calculate Offer) --> 5:task:(Legal/Tax Review)
+      5:task:(Legal/Tax Review) --> 6:task:(Contract Negotiation with Client)
+      6:task:(Contract Negotiation with Client) --> 7:task:(Contract Conclusion)
+      7:task:(Contract Conclusion) --> 8:task:(Create Project in SAP)
+      8:task:(Create Project in SAP) --> 9:task:(Define Project in SAP PS)
+      9:task:(Define Project in SAP PS) --> 10:task:(Create WBS Elements)
+      10:task:(Create WBS Elements) --> 11:task:(Create Budget Programs)
+      11:task:(Create Budget Programs) --> 12:task:(Set Budget)
+      12:task:(Set Budget) --> 13:task:(Communicate Project Info to PI/PM)
+      13:task:(Communicate Project Info to PI/PM) --> 14:task:(Conduct Project Work)
+      14:task:(Conduct Project Work) --> 15:task:(Personnel Measures)
+      15:task:(Personnel Measures) --> 16:task:(Book Personnel Costs)
+      16:task:(Book Personnel Costs) --> 17:task:(Procurement of Goods/Services)
+      17:task:(Procurement of Goods/Services) --> 18:task:(Use Internal Resources)
+      18:task:(Use Internal Resources) --> 19:task:(Book Travel and Other Expenses)
+      19:task:(Book Travel and Other Expenses) --> 20:task:(Overhead Rebooking)
+      20:task:(Overhead Rebooking) --> 21:task:(Ongoing Monitoring of Budget)
+      21:task:(Ongoing Monitoring of Budget) --> 22:task:(Prepare Invoicing)
+      22:task:(Prepare Invoicing) --> 23:task:(Record Outgoing Invoice)
+      23:task:(Record Outgoing Invoice) --> 24:task:(Approve and Book Invoice)
+      24:task:(Approve and Book Invoice) --> 25:task:(Record Payment Receipt)
+      25:task:(Record Payment Receipt) --> 26:task:(Conduct Final Project Work)
+      26:task:(Conduct Final Project Work) --> 27:task:(Perform Post-Calculation)
+      27:task:(Perform Post-Calculation) --> 28:task:(Final Invoice if Necessary)
+      28:task:(Final Invoice if Necessary) --> 29:task:(Financially Close Project)
+      29:task:(Financially Close Project) --> 30:task:(Close Project in ERP)
+      30:task:(Close Project in ERP) --> 31:task:(Conduct Lessons Learned)
+      31:task:(Conduct Lessons Learned) --> 32:endevent:(((End)))
+  time:timestamp: '2025-12-11T15:58:32.270033+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ccedb70869b41a2ac187795c49c9f97a0c7a8c91
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Project Inquiry or Develop Idea</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Preliminary Assessment by PI</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Consultation and Support by F&amp;E</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Calculate Offer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Legal/Tax Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Contract Negotiation with Client</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Contract Conclusion</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Create Project in SAP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Define Project in SAP PS</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Create WBS Elements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Create Budget Programs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Set Budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Communicate Project Info to PI/PM</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Conduct Project Work</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Personnel Measures</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Book Personnel Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Procurement of Goods/Services</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Use Internal Resources</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Book Travel and Other Expenses</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Overhead Rebooking</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="21">
+        <parameters>
+          <label>Ongoing Monitoring of Budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="22">
+        <parameters>
+          <label>Prepare Invoicing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Record Outgoing Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Approve and Book Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Record Payment Receipt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Conduct Final Project Work</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Perform Post-Calculation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Final Invoice if Necessary</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Financially Close Project</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Close Project in ERP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Conduct Lessons Learned</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-11T15:58:32.270198+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-12-11T15:58:47.747705+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-11T15:58:47.988515+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Project Inquiry or Develop Idea</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Preliminary Assessment by PI</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Consultation and Support by F&amp;E</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Calculate Offer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Legal/Tax Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Contract Negotiation with Client</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Contract Conclusion</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="a15">
+        <parameters>
+          <label>Create Project in SAP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="a17">
+        <parameters>
+          <label>Define Project in SAP PS</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="a19">
+        <parameters>
+          <label>Create WBS Elements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="a21">
+        <parameters>
+          <label>Create Budget Programs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="a23">
+        <parameters>
+          <label>Set Budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="a25">
+        <parameters>
+          <label>Communicate Project Info to PI/PM</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="a27">
+        <parameters>
+          <label>Conduct Project Work</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="a29">
+        <parameters>
+          <label>Personnel Measures</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="a31">
+        <parameters>
+          <label>Book Personnel Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Procurement of Goods/Services</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="a35">
+        <parameters>
+          <label>Use Internal Resources</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="a37">
+        <parameters>
+          <label>Book Travel and Other Expenses</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Overhead Rebooking</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="a41">
+        <parameters>
+          <label>Ongoing Monitoring of Budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="a43">
+        <parameters>
+          <label>Prepare Invoicing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="a45">
+        <parameters>
+          <label>Record Outgoing Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="a47">
+        <parameters>
+          <label>Approve and Book Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="a49">
+        <parameters>
+          <label>Record Payment Receipt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="a51">
+        <parameters>
+          <label>Conduct Final Project Work</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="a53">
+        <parameters>
+          <label>Perform Post-Calculation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="a55">
+        <parameters>
+          <label>Final Invoice if Necessary</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="a57">
+        <parameters>
+          <label>Financially Close Project</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="a59">
+        <parameters>
+          <label>Close Project in ERP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="a61">
+        <parameters>
+          <label>Conduct Lessons Learned</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 53e7be05f1d567e400ebb5b52f2b6e23f8a27fce
+  time:timestamp: '2025-12-11T15:58:59.743579+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53e7be05f1d567e400ebb5b52f2b6e23f8a27fce
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Project Inquiry or Develop Idea</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Preliminary Assessment by PI</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Consultation and Support by F&amp;E</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Calculate Offer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Legal/Tax Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Contract Negotiation with Client</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Contract Conclusion</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Create Project in SAP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Define Project in SAP PS</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Create WBS Elements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Create Budget Programs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Set Budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Communicate Project Info to PI/PM</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Conduct Project Work</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Personnel Measures</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Book Personnel Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Procurement of Goods/Services</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Use Internal Resources</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Book Travel and Other Expenses</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Overhead Rebooking</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="21">
+        <parameters>
+          <label>Ongoing Monitoring of Budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="22">
+        <parameters>
+          <label>Prepare Invoicing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Record Outgoing Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Approve and Book Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Record Payment Receipt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Conduct Final Project Work</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Perform Post-Calculation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Final Invoice if Necessary</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Financially Close Project</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Close Project in ERP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Conduct Lessons Learned</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-11T15:58:59.743893+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53e7be05f1d567e400ebb5b52f2b6e23f8a27fce
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Project Inquiry or Develop Idea)
+    a1:task:(Receive Project Inquiry or Develop Idea)-->a3:task:(Preliminary Assessment by PI)
+    a3:task:(Preliminary Assessment by PI)-->a5:task:(Consultation and Support by F&E)
+    a5:task:(Consultation and Support by F&E)-->a7:task:(Calculate Offer)
+    a7:task:(Calculate Offer)-->a9:task:(Legal/Tax Review)
+    a9:task:(Legal/Tax Review)-->a11:task:(Contract Negotiation with Client)
+    a11:task:(Contract Negotiation with Client)-->a13:task:(Contract Conclusion)
+    a13:task:(Contract Conclusion)-->a15:task:(Create Project in SAP)
+    a15:task:(Create Project in SAP)-->a17:task:(Define Project in SAP PS)
+    a17:task:(Define Project in SAP PS)-->a19:task:(Create WBS Elements)
+    a19:task:(Create WBS Elements)-->a21:task:(Create Budget Programs)
+    a21:task:(Create Budget Programs)-->a23:task:(Set Budget)
+    a23:task:(Set Budget)-->a25:task:(Communicate Project Info to PI/PM)
+    a25:task:(Communicate Project Info to PI/PM)-->a27:task:(Conduct Project Work)
+    a27:task:(Conduct Project Work)-->a29:task:(Personnel Measures)
+    a29:task:(Personnel Measures)-->a31:task:(Book Personnel Costs)
+    a31:task:(Book Personnel Costs)-->a33:task:(Procurement of Goods/Services)
+    a33:task:(Procurement of Goods/Services)-->a35:task:(Use Internal Resources)
+    a35:task:(Use Internal Resources)-->a37:task:(Book Travel and Other Expenses)
+    a37:task:(Book Travel and Other Expenses)-->a39:task:(Overhead Rebooking)
+    a39:task:(Overhead Rebooking)-->a41:task:(Ongoing Monitoring of Budget)
+    a41:task:(Ongoing Monitoring of Budget)-->a43:task:(Prepare Invoicing)
+    a43:task:(Prepare Invoicing)-->a45:task:(Record Outgoing Invoice)
+    a45:task:(Record Outgoing Invoice)-->a47:task:(Approve and Book Invoice)
+    a47:task:(Approve and Book Invoice)-->a49:task:(Record Payment Receipt)
+    a49:task:(Record Payment Receipt)-->a51:task:(Conduct Final Project Work)
+    a51:task:(Conduct Final Project Work)-->a53:task:(Perform Post-Calculation)
+    a53:task:(Perform Post-Calculation)-->a55:task:(Final Invoice if Necessary)
+    a55:task:(Final Invoice if Necessary)-->a57:task:(Financially Close Project)
+    a57:task:(Financially Close Project)-->a59:task:(Close Project in ERP)
+    a59:task:(Close Project in ERP)-->a61:task:(Conduct Lessons Learned)
+    a61:task:(Conduct Lessons Learned)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-11T15:58:59.745024+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53e7be05f1d567e400ebb5b52f2b6e23f8a27fce
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-11T15:58:59.744799+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53e7be05f1d567e400ebb5b52f2b6e23f8a27fce
+  cpee:exposition: "# User Input:\nBei wirtschaftlichen Drittmitteln gibt es keine
+    Fördergeber wie DFG oder Projektträger Jülich.\r\nStattdessen gibt es:\r\n• Projektinitiator
+    (PI)\r\n• Projektmitarbeiter (PM)\r\n• F&E / Drittmittelverwaltung\r\n• Wirtschaftlicher
+    Auftraggeber / Kunde = Mittelgeber\r\nGenau so bildet es auch das -Dokument ab:\r\nWirtschaftliche
+    Drittmittel = Verträge mit Unternehmen, Institutionen, externen Auftraggebern
+    (also Kunden), nicht Förderinstitutionen.\r\nIch definiere die Rollen also wie
+    folgt:\r\n PI – Projektinitiator\r\n PM – Projektmitarbeiter\r\nF&E – interne
+    Drittmittelverwaltung / Verwaltung wirtschaftlicher Projekte\r\nMittelgeber –
+    Externer Auftraggeber (Unternehmen, Behörde, sonstiger Kunde)\r\n \r\nProzess
+    der wirtschaftlichen Drittmittelförderung (wirtschaftliche Projekte)\r\n(Struktur
+    identisch zu deinem nicht-wirtschaftlichen Prozess)\r\n \r\nPhase 1 – Projektanbahnung
+    & Vorbereitung\r\nDiese Phase entspricht im Abschnitt 3.2.1 – Vorbereitende Arbeiten.\r\n \r\n1.
+    Projektanfrage / Projektidee\r\n• Externer Auftraggeber (Kunde) stellt Anfrage
+    oder PI entwickelt Projektidee mit wirtschaftlichem Nutzen.\r\n• Verantwortlich:
+    PI\r\n• Rolle Mittelgeber: Anfrage / Bedarf formulieren.\r\n \r\n2. Vorprüfung
+    durch PI\r\n• Erste Einschätzung:\r\no Ist das Thema durchführbar?\r\no Ist die
+    wirtschaftliche Tätigkeit zulässig (Trennungsrechnung, Vollkosten)?\r\n• Verantwortlich:
+    PI\r\n• Unterstützung: F&E (bei Bedarf)\r\n \r\n3. Beratung und Unterstützung
+    durch F&E\r\n• Prüfung:\r\no Ist es wirklich „wirtschaftlich“? ( 3.2.1: „wirtschaftliche
+    Tätigkeit“ prüfen)\r\no Muss Vollkostenkalkulation angewendet werden?\r\no Anforderungen
+    an Preisuntergrenze und Overhead beachten.\r\n• Verantwortlich: F&E\r\n• Unterstützt:
+    PI\r\n \r\n4. Angebot kalkulieren (Vorkalkulation / Vollkostenrechnung)\r\n• Kalkulation
+    gemäß Vollkostenregelungen ( Abschnitt wirtschaftliche Einnahmen).\r\n• Enthält:\r\no
+    Personalkosten\r\no Sachmittel\r\no Nutzung zentraler Infrastruktur\r\no Overhead
+    / Gemeinkosten\r\no Gewinn\r\n• Verantwortlich: F&E (kalkulatorisch)\r\n• Fachliche
+    Angaben: PI / PM\r\n• Mittelgeber: erhält Angebot\r\n \r\n5. Juristische / steuerliche
+    Prüfung (falls nötig)\r\n• Prüfung:\r\no Vertragsbedingungen\r\no Steuerpflicht
+    (Gewerbesteuer / Körperschaftssteuer)\r\no Trennungsrechnung sicherstellen\r\n•
+    Verantwortlich: F&E\r\n• Mittelgeber: liefert Vertragsunterlagen\r\n \r\n6. Vertragsverhandlung
+    mit Mittelgeber\r\n• Lieferumfang, Termine, Budget, IP-Regelungen, Preis, Zahlungsmodalitäten.\r\n•
+    Verantwortlich: PI (fachlich)\r\n• F&E: kaufmännisch / rechtlich\r\n• Mittelgeber:
+    Vertragspartner\r\n \r\n7. Vertragsschluss\r\n• Kunde und Hochschule schließen
+    Vertrag rechtsgültig ab.\r\n• Verantwortlich: F&E (offizieller Unterzeichnungsprozess)\r\n•
+    PI: wissenschaftlicher Verantwortlicher\r\n \r\nPhase 2 – Stammdatenanlage im
+    ERP (SAP)\r\n Dokument Abschnitt 3.2.2 – Stammdatenstruktur definieren und WP001–WP002.\r\n \r\n8.
+    Wirtschaftliches Projekt im SAP anlegen beauftragen\r\n• PI meldet: Projekt ist
+    vertraglich abgeschlossen.\r\n• Verantwortlich: PI → F&E\r\n \r\n9. Projektdefinition
+    in SAP PS anlegen\r\n• Struktur „2.nnnnnnn“ (wirtschaftliches Projekt).\r\n• Inhalte:\r\no
+    Kurzbeschreibung\r\no Verantwortlichkeiten\r\no Termine\r\n• Verantwortlich: F&E\r\n•
+    Funktion: WP001 – Projektdefinitionen & PSP pflegen\r\n \r\n10. PSP-Elemente anlegen\r\n•
+    Struktur: „2.nnnnnnn.nn“\r\n• Mindestens ein PSP-Element, oft mehrere bei Projektphasen.\r\n•
+    Verantwortlich: F&E\r\n• Funktion: WP001\r\n \r\n11. Haushaltsprogramme (PSM-FM)
+    anlegen\r\n• Je PSP wird ein Haushaltsprogramm erzeugt.\r\n• Verantwortlich: F&E\r\n•
+    Funktion: WP002 – Haushaltsprogramme pflegen\r\n \r\n12. Budget einstellen (Erlösseite)\r\n•
+    Externe Mittel werden budgetiert.\r\n• Verantwortlich: F&E\r\n• Funktion: WP003
+    – Budgetierung\r\n \r\n13. Projektinformationen an PI / PM kommunizieren\r\n•
+    PSP-Nummern, Buchungsvorgaben, Kontierungsregeln.\r\n• Verantwortlich: F&E\r\n \r\n Phase
+    3 – Durchführung des wirtschaftlichen Projekts\r\nHier entspricht alles Kapitel
+    3.2.7 – Buchung laufender Kosten im -Dokument.\r\n \r\n14. Fachliche Projektarbeit
+    durchführen\r\n• Operative Durchführung der beauftragten Leistungen.\r\n• Verantwortlich:
+    PM / PI\r\n• Mittelgeber: erhält Bericht / Ergebnisse\r\n \r\n15. Personalmaßnahmen
+    (falls notwendig)\r\n• Mitarbeitende rekrutieren\r\n• Anteilige Personalzeit zuordnen\r\n•
+    Verantwortlich: PI / PM\r\n• F&E: prüft Zuordnung / Vollkostenrelevanz\r\n \r\n16.
+    Personalkosten buchen\r\n• Durch HR-Schnittstelle oder Umbuchung.\r\n• Verantwortlich:
+    F&E\r\n• Funktion: WP006 – Buchung laufender Kosten\r\n \r\n17. Beschaffung von
+    Waren, Dienstleistungen, Geräten\r\n• Bedarfsmeldung durch PM\r\n• Prüfung durch
+    F&E (wirtschaftliche Kosten müssen voll erfasst werden)\r\n• Bestellung in SAP
+    MM\r\n• Verantwortlich: PM (Anforderung), F&E (Prüfung), Einkauf (Ausführung)\r\n•
+    Funktion: WP006 – Einkaufsbuchungen\r\n \r\n18. Nutzung interner Ressourcen /
+    Gemeinkosten\r\n• Interne Infrastruktur wird belastet (Räume, Labore, Geräte).\r\n•
+    Vollkostenprinzip verlangt vollständige Verrechnung.\r\n• Verantwortlich: F&E
+    (Umbuchungen)\r\n \r\n19. Reisekosten & sonstige Ausgaben buchen\r\n• Dienstreiseabrechnung,
+    Zuordnung zum Projekt.\r\n• Verantwortlich: PM (Antrag), F&E (Buchung)\r\n• Funktion:
+    WP006 – Reisekosten\r\n \r\n20. Overhead-Umbuchung\r\n• Wirtschaftliche Projekte
+    enthalten Overhead-Kosten (Gemeinkosten).\r\n• SAP führt automatische Umbuchung
+    durch.\r\n• Verantwortlich: F&E\r\n• Funktion: WP008 – Overheadumbuchung\r\n \r\n21.
+    Laufendes Monitoring von Budget / Erlösen / Aufwand\r\n• Prüfung von Deckung,
+    Gewinn, Restmitteln.\r\n• Verantwortlich: F&E\r\n• PI: fachlicher Überblick\r\n•
+    Berichte: FM/RW_BUDCON & weitere\r\n \r\n Phase 4 – Fakturierung / Abrechnung
+    an Mittelgeber\r\nEntspricht Kapitel WP007 – Projekt fakturieren.\r\n \r\n22.
+    Fakturierungsvorbereitung\r\n• Projektfortschritt → Fakturierbare Leistung bestimmen\r\n•
+    Verantwortlich: PI / PM\r\n• F&E: kaufmännische Vorbereitung\r\n \r\n23. Ausgangsrechnung
+    erfassen\r\n• Rechnung über vertraglich vereinbarte Leistungen\r\n• In SAP FI
+    ohne SD-Modul\r\n• Verantwortlich: F&E\r\n• Funktion: WP007 – Ausgangsrechnung\r\n \r\n24.
+    Freigabe & Buchung der Rechnung\r\n• Prüfung → Genehmigung → Verbuchung\r\n• Verantwortlich:
+    F&E\r\n• Funktion: WP007\r\n \r\n25. Zahlungseingang Verbuchen\r\n• Geldeingang
+    auf Projekt zuordnen\r\n• Verantwortlich: F&E\r\n• Funktion: FI-Buchung\r\n \r\n Phase
+    5 – Abschluss wirtschaftliches Projekt\r\n Kapitel WP009–WP012.\r\n \r\n26. Fachliche
+    Abschlussarbeit\r\n• Erbringung der letzten Leistungen\r\n• Abschlussdokumentation\r\n•
+    Verantwortlich: PI / PM\r\n \r\n27. Nachkalkulation durchführen\r\n• Gewinn vor
+    / nach Steuern ermitteln\r\n• Vollkosten überprüfen\r\n• Verantwortlich: F&E\r\n•
+    Funktion: WP009 – Umbuchung Kosten, Gewinn und Steuern\r\n \r\n28. Abschlussrechnung
+    (falls vertraglich notwendig)\r\n• Restleistungen abrechnen\r\n• Verantwortlich:
+    F&E (Fakturierung)\r\n \r\n29. Projekt finanziell abschließen\r\n• Restbuchungen\r\n•
+    Gewinnverteilung / Rückbuchungen\r\n• Verantwortlich: F&E\r\n \r\n30. Projekt
+    im ERP schließen\r\n• PSP auf „abgeschlossen“ setzen\r\n• Keine Buchungen mehr
+    möglich\r\n• Verantwortlich: F&E\r\n• Funktion: WP010 – Projektdefinition/PSP-Elemente
+    pflegen\r\n \r\n31. Lessons Learned\r\n• Beurteilung wirtschaftlicher Effektivität
+    des Auftrags\r\n• Verantwortlich: PI\r\n \r\nZusammenfassung der Rollen (wirtschaftlich)\r\nRolle
+    Bedeutung\r\nPI Wissenschaftliche Leitung, Angebot, Durchführung\r\nPM Operative
+    Projektarbeit\r\nF&E Finanzielle Abwicklung, SAP-Stammdaten, Budget, Faktura\r\nMittelgeber
+    Externer Auftraggeber / Kunde\r\n \r\n\r\n\n"
+  time:timestamp: '2025-12-11T15:58:59.744208+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53e7be05f1d567e400ebb5b52f2b6e23f8a27fce
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Project Inquiry or Develop Idea)
+    a1:task:(Receive Project Inquiry or Develop Idea)-->a3:task:(Preliminary Assessment by PI)
+    a3:task:(Preliminary Assessment by PI)-->a5:task:(Consultation and Support by F&E)
+    a5:task:(Consultation and Support by F&E)-->a7:task:(Calculate Offer)
+    a7:task:(Calculate Offer)-->a9:task:(Legal/Tax Review)
+    a9:task:(Legal/Tax Review)-->a11:task:(Contract Negotiation with Client)
+    a11:task:(Contract Negotiation with Client)-->a13:task:(Contract Conclusion)
+    a13:task:(Contract Conclusion)-->a15:task:(Create Project in SAP)
+    a15:task:(Create Project in SAP)-->a17:task:(Define Project in SAP PS)
+    a17:task:(Define Project in SAP PS)-->a19:task:(Create WBS Elements)
+    a19:task:(Create WBS Elements)-->a21:task:(Create Budget Programs)
+    a21:task:(Create Budget Programs)-->a23:task:(Set Budget)
+    a23:task:(Set Budget)-->a25:task:(Communicate Project Info to PI/PM)
+    a25:task:(Communicate Project Info to PI/PM)-->a27:task:(Conduct Project Work)
+    a27:task:(Conduct Project Work)-->a29:task:(Personnel Measures)
+    a29:task:(Personnel Measures)-->a31:task:(Book Personnel Costs)
+    a31:task:(Book Personnel Costs)-->a33:task:(Procurement of Goods/Services)
+    a33:task:(Procurement of Goods/Services)-->a35:task:(Use Internal Resources)
+    a35:task:(Use Internal Resources)-->a37:task:(Book Travel and Other Expenses)
+    a37:task:(Book Travel and Other Expenses)-->a39:task:(Overhead Rebooking)
+    a39:task:(Overhead Rebooking)-->a41:task:(Ongoing Monitoring of Budget)
+    a41:task:(Ongoing Monitoring of Budget)-->a43:task:(Prepare Invoicing)
+    a43:task:(Prepare Invoicing)-->a45:task:(Record Outgoing Invoice)
+    a45:task:(Record Outgoing Invoice)-->a47:task:(Approve and Book Invoice)
+    a47:task:(Approve and Book Invoice)-->a49:task:(Record Payment Receipt)
+    a49:task:(Record Payment Receipt)-->a51:task:(Conduct Final Project Work)
+    a51:task:(Conduct Final Project Work)-->a53:task:(Perform Post-Calculation)
+    a53:task:(Perform Post-Calculation)-->a55:task:(Final Invoice if Necessary)
+    a55:task:(Final Invoice if Necessary)-->a57:task:(Financially Close Project)
+    a57:task:(Financially Close Project)-->a59:task:(Close Project in ERP)
+    a59:task:(Close Project in ERP)-->a61:task:(Conduct Lessons Learned)
+    a61:task:(Conduct Lessons Learned)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-11T15:58:59.745161+01:00'
+---
+event:
+  concept:instance: 83265
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 997c82cf-adb5-40bb-ad59-1bc0207768bd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53e7be05f1d567e400ebb5b52f2b6e23f8a27fce
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Project Inquiry or Develop Idea</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Preliminary Assessment by PI</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Consultation and Support by F&amp;E</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Calculate Offer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Legal/Tax Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Contract Negotiation with Client</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Contract Conclusion</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="a15">
+        <parameters>
+          <label>Create Project in SAP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="a17">
+        <parameters>
+          <label>Define Project in SAP PS</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="a19">
+        <parameters>
+          <label>Create WBS Elements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="a21">
+        <parameters>
+          <label>Create Budget Programs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="a23">
+        <parameters>
+          <label>Set Budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="a25">
+        <parameters>
+          <label>Communicate Project Info to PI/PM</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="a27">
+        <parameters>
+          <label>Conduct Project Work</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="a29">
+        <parameters>
+          <label>Personnel Measures</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="a31">
+        <parameters>
+          <label>Book Personnel Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Procurement of Goods/Services</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="a35">
+        <parameters>
+          <label>Use Internal Resources</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="a37">
+        <parameters>
+          <label>Book Travel and Other Expenses</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Overhead Rebooking</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="a41">
+        <parameters>
+          <label>Ongoing Monitoring of Budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="a43">
+        <parameters>
+          <label>Prepare Invoicing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="a45">
+        <parameters>
+          <label>Record Outgoing Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="a47">
+        <parameters>
+          <label>Approve and Book Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="a49">
+        <parameters>
+          <label>Record Payment Receipt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="a51">
+        <parameters>
+          <label>Conduct Final Project Work</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="a53">
+        <parameters>
+          <label>Perform Post-Calculation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="a55">
+        <parameters>
+          <label>Final Invoice if Necessary</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="a57">
+        <parameters>
+          <label>Financially Close Project</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="a59">
+        <parameters>
+          <label>Close Project in ERP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="a61">
+        <parameters>
+          <label>Conduct Lessons Learned</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-11T15:58:59.745292+01:00'

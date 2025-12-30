@@ -374,6 +374,7 @@ export class CPEEWfAdaptorRenderer {
     
     /**
      * Install jQuery AJAX interceptor to route cpee.org theme requests through CORS proxy
+     * with local fallback when proxy fails.
      * This is needed because WfAdaptor internally uses jQuery.ajax() to fetch rngs/*.rng and symbols/*.svg
      * and cpee.org doesn't have CORS headers enabled for those files
      */
@@ -384,12 +385,91 @@ export class CPEEWfAdaptorRenderer {
         }
         
         const corsProxy = configManager.get('api.cors.proxy');
-        if (!corsProxy) {
-            console.warn('[CPEEWfAdaptorRenderer] No CORS proxy configured, remote theme URLs may fail');
-            return;
-        }
+        const fallbackBasePath = '/fallback/cpee-themes';
         
-        // Override jQuery.ajax to intercept cpee.org requests
+        // Consolidated message tracking
+        const fallbackTracker = {
+            successFiles: [],
+            failedFiles: [],
+            reportTimeout: null,
+            
+            addSuccess(file) {
+                this.successFiles.push(file);
+                this.scheduleReport();
+            },
+            
+            addFailure(file) {
+                this.failedFiles.push(file);
+                this.scheduleReport();
+            },
+            
+            scheduleReport() {
+                // Debounce: wait for requests to settle before reporting
+                if (this.reportTimeout) {
+                    clearTimeout(this.reportTimeout);
+                }
+                this.reportTimeout = setTimeout(() => this.report(), 500);
+            },
+            
+            report() {
+                if (this.successFiles.length > 0) {
+                    console.warn(
+                        `[CPEEWfAdaptorRenderer] Using FALLBACK for ${this.successFiles.length} theme file(s): ` +
+                        this.successFiles.join(', ')
+                    );
+                    this.successFiles = [];
+                }
+                if (this.failedFiles.length > 0) {
+                    console.error(
+                        `[CPEEWfAdaptorRenderer] Failed to load ${this.failedFiles.length} theme file(s) (proxy and fallback both failed): ` +
+                        this.failedFiles.join(', ')
+                    );
+                    this.failedFiles = [];
+                }
+                this.reportTimeout = null;
+            }
+        };
+        
+        /**
+         * Convert cpee.org theme URL to local fallback path
+         * @param {string} url - Original cpee.org URL
+         * @returns {string} Local fallback path
+         */
+        const getLocalFallbackUrl = (url) => {
+            // Extract path after /flow/themes/
+            const themePathMatch = url.match(/\/flow\/themes\/(.+)$/);
+            if (themePathMatch) {
+                return `${fallbackBasePath}/${themePathMatch[1]}`;
+            }
+            return null;
+        };
+        
+        /**
+         * Extract filename from URL for consolidated reporting
+         * @param {string} url - URL to extract from
+         * @returns {string} Filename
+         */
+        const getFilename = (url) => {
+            const match = url.match(/\/([^/]+)$/);
+            return match ? match[1] : url;
+        };
+        
+        /**
+         * Check if URL is a cpee.org theme resource (not a proxy URL)
+         * @param {string} url - URL to check
+         * @returns {boolean} True if it's a direct cpee.org theme resource
+         */
+        const isCpeeThemeResource = (url) => {
+            if (!url) {
+                return false;
+            }
+            // Must be a direct cpee.org URL, not a proxy URL that contains cpee.org in query string
+            const isCpeeUrl = url.startsWith('https://cpee.org/') || url.startsWith('http://cpee.org/');
+            const isThemeFile = url.endsWith('.rng') || url.endsWith('.svg') || url.endsWith('.js');
+            return isCpeeUrl && isThemeFile;
+        };
+        
+        // Override jQuery.ajax to intercept cpee.org requests with fallback
         const originalAjax = window.$.ajax;
         window.$.ajax = function(url, options) {
             // Handle both $.ajax(url, options) and $.ajax(options) signatures
@@ -402,23 +482,83 @@ export class CPEEWfAdaptorRenderer {
                 options.url = url;
             }
             
-            // Check if this is a cpee.org request that needs proxying
             const requestUrl = options.url || '';
-            if (requestUrl.includes('cpee.org') && 
-                (requestUrl.endsWith('.rng') || requestUrl.endsWith('.svg'))) {
-                // Route through CORS proxy
-                options.url = corsProxy + encodeURIComponent(requestUrl);
+            
+            // Check if this is a cpee.org theme request
+            if (isCpeeThemeResource(requestUrl)) {
+                const localFallbackUrl = getLocalFallbackUrl(requestUrl);
+                const filename = getFilename(requestUrl);
+                
+                // First try CORS proxy
+                const proxyUrl = corsProxy ? corsProxy + encodeURIComponent(requestUrl) : requestUrl;
+                const proxyOptions = { ...options, url: proxyUrl };
+                
+                // Return a new deferred that handles fallback
+                const deferred = window.$.Deferred();
+                
+                const self = this;
+                originalAjax.call(self, proxyOptions)
+                    .done((data, textStatus, jqXHR) => {
+                        deferred.resolve(data, textStatus, jqXHR);
+                    })
+                    .fail(() => {
+                        // Proxy failed, try local fallback
+                        if (localFallbackUrl) {
+                            const fallbackOptions = { ...options, url: localFallbackUrl };
+                            originalAjax.call(self, fallbackOptions)
+                                .done((data2, textStatus2, jqXHR2) => {
+                                    fallbackTracker.addSuccess(filename);
+                                    deferred.resolve(data2, textStatus2, jqXHR2);
+                                })
+                                .fail((jqXHR3, textStatus3, errorThrown3) => {
+                                    fallbackTracker.addFailure(filename);
+                                    deferred.reject(jqXHR3, textStatus3, errorThrown3);
+                                });
+                        } else {
+                            fallbackTracker.addFailure(filename);
+                            deferred.reject();
+                        }
+                    });
+                
+                return deferred.promise();
             }
             
             return originalAjax.call(this, options);
         };
         
-        // Also intercept $.get and $.getScript for completeness
+        // Also intercept $.get with fallback support
         const originalGet = window.$.get;
         window.$.get = function(url, ...args) {
-            if (typeof url === 'string' && url.includes('cpee.org') && 
-                (url.endsWith('.rng') || url.endsWith('.svg'))) {
-                url = corsProxy + encodeURIComponent(url);
+            if (typeof url === 'string' && isCpeeThemeResource(url)) {
+                const localFallbackUrl = getLocalFallbackUrl(url);
+                const filename = getFilename(url);
+                const proxyUrl = corsProxy ? corsProxy + encodeURIComponent(url) : url;
+                
+                const deferred = window.$.Deferred();
+                
+                const self = this;
+                originalGet.call(self, proxyUrl, ...args)
+                    .done((data, textStatus, jqXHR) => {
+                        deferred.resolve(data, textStatus, jqXHR);
+                    })
+                    .fail(() => {
+                        if (localFallbackUrl) {
+                            originalGet.call(self, localFallbackUrl, ...args)
+                                .done((data2, textStatus2, jqXHR2) => {
+                                    fallbackTracker.addSuccess(filename);
+                                    deferred.resolve(data2, textStatus2, jqXHR2);
+                                })
+                                .fail((jqXHR3, textStatus3, errorThrown3) => {
+                                    fallbackTracker.addFailure(filename);
+                                    deferred.reject(jqXHR3, textStatus3, errorThrown3);
+                                });
+                        } else {
+                            fallbackTracker.addFailure(filename);
+                            deferred.reject();
+                        }
+                    });
+                
+                return deferred.promise();
             }
             return originalGet.call(this, url, ...args);
         };

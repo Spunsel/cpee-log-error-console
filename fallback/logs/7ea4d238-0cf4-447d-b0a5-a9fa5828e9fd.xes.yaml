@@ -1,0 +1,2310 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 76397
+    cpee:name: Plain Instance
+    cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-30T16:20:10.906309+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eded65a3a050c8d1602d7b46e8bbc31fc374850e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-30T16:21:36.457495+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Unfall auf Fahrrad</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Fahrt zur Haus&#xE4;rztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Anamnese und Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Dokumentation in Patientenakte</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="Prellung vermutet" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Tetanusstatus erfragen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="7">
+            <alternative condition="Impfung notwendig" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Auffrischimpfung und Impfpass</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Keine Impfung notwendig" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Fraktur vermutet" language="text/javascript"/>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>&#xDC;berweisung zum R&#xF6;ntgen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Termin Radiologie vereinbaren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Informationen Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>R&#xF6;ntgenaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>R&#xF6;ntgenbilder auf CD</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Anruf Radiologe</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Vorstellung in Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Warten in Notaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Anamnese Unfallchirurg</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="19">
+        <alternative condition="OP unklar" language="text/javascript">
+          <call id="a43" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Arm eingipsen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a47" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Folgetermin zur OP-Abkl&#xE4;rung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="OP Indikation" language="text/javascript"/>
+      </choose>
+      <call id="a45" endpoint="" a:alt_id="22">
+        <parameters>
+          <label>OP Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Neue CD Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Erneute Vorstellung Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Warten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Anamnese &#xC4;rztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>CD einlesen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Medikationsplan Fax</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Indikation zur OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>MRT Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a67" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>MRT Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a69" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>Befundbesprechung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a71" endpoint="" a:alt_id="33">
+        <parameters>
+          <label>OP Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a73" endpoint="" a:alt_id="34">
+        <parameters>
+          <label>An&#xE4;sthesiegespr&#xE4;ch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a75" endpoint="" a:alt_id="35">
+        <parameters>
+          <label>Vorstellung Station</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a77" endpoint="" a:alt_id="36">
+        <parameters>
+          <label>OP Vorbereitung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a79" endpoint="" a:alt_id="37">
+        <parameters>
+          <label>Anaphylaktischer Schock</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a81" endpoint="" a:alt_id="38">
+        <parameters>
+          <label>Vollnarkose und OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a83" endpoint="" a:alt_id="39">
+        <parameters>
+          <label>Intensivstation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a85" endpoint="" a:alt_id="40">
+        <parameters>
+          <label>Normalstation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a87" endpoint="" a:alt_id="41">
+        <parameters>
+          <label>Entlassung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a89" endpoint="" a:alt_id="42">
+        <parameters>
+          <label>Wundkontrolle Hausarzt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a91" endpoint="" a:alt_id="43">
+        <parameters>
+          <label>Rezept Schmerzmittel</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a93" endpoint="" a:alt_id="44">
+        <parameters>
+          <label>Physiotherapie suchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a95" endpoint="" a:alt_id="45">
+        <parameters>
+          <label>Physiotherapie Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a97" endpoint="" a:alt_id="46">
+        <parameters>
+          <label>Nachbehandlungsplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: eded65a3a050c8d1602d7b46e8bbc31fc374850e
+  time:timestamp: '2025-11-30T16:21:36.457064+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eded65a3a050c8d1602d7b46e8bbc31fc374850e
+  cpee:exposition: |+
+    # User Input:
+    An einem schönen Herbsttag radelt Lothar zum Sport. In der Würzburger Innenstadt gerät er wegen einer kurzen Unaufmerksamkeit mit dem Vorderrad in die Straßenbahnschienen und stürzt auf sein rechtes Handgelenk. Er kann es kaum mehr bewegen und merkt, dass etwas nicht stimmt. Deshalb entscheidet er sich dazu, zu seiner Hausärztin zu fahren.
+    Seine Hausärztin führt eine kurze Anamnese und körperliche Untersuchung durch. Die Ergebnisse dokumentiert Sie auf der Papier-Patientenakte von Lothar. Das Handgelenk ist nur leicht geschwollen und die Hausärztin vermutet lediglich eine Prellung. Da Lothar außerdem eine Schürfwunde am Kniegelenk hat, fragt die Hausärztin den Tetanusstatus ab. Lothar muss gestehen, dass er seinen Impfpass verloren und sich nicht erinnern kann, wann die letzte Impfung stattgefunden hat. Es erfolgt daher eine Auffrischimpfung und die Ausstellung eines neuen Impfasses in Papierform. Zum Ausschluss einer Fraktur des rechten Handgelenks stellt sie Lothar eine Überweisung zum Röntgen aus.
+    Lothar telefoniert den gesamten Nachmittag herum und findet schließlich eine radiologische Praxis, die ihn für einen Termin am kommenden Tag einschieben kann. Dort angekommen werden Informationen, wie Vorerkrankungen, vorherige radiologische Untersuchungen, Medikation und Allergien abgefragt. Das Röntgenbild des Handgelenks wird in zwei Ebenen durchgeführt. Da in der Praxis viel los ist, werden Lothar die Röntgenbilder auf CD mitgegeben und ihm mitgeteilt, dass der Radiologe sich beim ihm telefonisch melden werde, wenn etwas auffällig sei. Die Hausärztin werde den Befund in den kommenden Tagen per Post erhalten. Am selben Nachmittag erhält Lothar einen Anruf vom Radiologen, dass er einen nicht verschobenen Bruch der Speiche habe. Der Radiologe empfiehlt ihm sich am selben Tag in einer unfallchirurgischen Klinik vorzustellen.
+    Lothar entscheidet sich direkt in einer Klinik vorzustellen. Dort angekommen wartet Lothar mehrere Stunden in der Notaufnahme. Während der Wartezeit beantwortet Lothar seine Arbeitsemails und schaut einen Film auf dem Handy. Als er aufgerufen wird erhebt der Unfallchirurg erneut die Anamnese mit Abfrage von Vorerkrankungen, Medikation und Allergien. Er fragt auch den Tetanusschutz ab und Lothar kann stolz seinen neuen Impfausweis präsentierten. Lothar nimmt Medikamente ein, weiß aber nicht welche. Der junge Unfallchirurg ruft in der Praxis der Hausärztin an, aber diese ist bereits geschlossen.
+    Die Röntgenbilder auf der CD können nicht geöffnet werden, aber Lothar hat die Bilder zum Glück mit seinem Handy abfotografiert. Der junge Arzt ist sich nicht sicher, ob eine OP erforderlich ist. Da es schon spät ist und die einzige Oberärztin im Haus am OP feststeht wird der Arm eingegipst und der Unfallchirurg empfiehlt Lothar sich am Folgetag wieder vorzustellen, um abzuklären, ob eine Indikation zur OP besteht. Lothar wird gebeten eine neue CD mit den Röntgenbildern mitzubringen. Lothar erhält ein Rezept für Schmerzmittel und eine Arbeitsunfähigkeitsbescheinigung für vier Wochen.
+    Am Folgetag geht Lothar um 08:00 Uhr zur radiologischen Praxis und lässt sich eine neue CD ausstellen. Anschließend begibt er sich wieder in die Klinik. Hier wartet Lothar wieder mehrere Stunden, bis er aufgerufen wird. In dieser Zeit bestellt Lothar online ein Geschenk für sein Patenkind und storniert in einer App sein Hotel für den eigentlich geplanten Kletterurlaub.
+    Als er endlich aufgerufen wird, ist eine andere Ärztin da und sie erhebt erneut eine Anamnese. Die CD ist diesmal zum Glück einlesbar. Der Medikationsplan kann per Fax von der Hausärztin angefordert werden. Die Oberärztin der Unfallchirurgie stellt die Indikation zur OP. Sie stellt jedoch fest, dass der Abstand zwischen dem Mond- und Kahnbein vergrößert ist. Sie fragt Lothar, ob das bekannt sei, da es ein Hinweis für eine SL-Bandverletzung sei. Wenn er ältere Röntgenbilder habe, könne man das ebenfalls beurteilen. Lothar gibt an, dass er vor vielen Jahren mal eine Verletzung am rechten Handgelenk hatte, aber nicht mehr wisse, was genau war. Röntgenbilder wurden zwar gemacht, aber die hab er nicht. Es wird beschlossen ein MRT zu machen, um eine Verletzung des SL-Bandes vor einer OP auszuschließen. Es ist mittlerweile sehr spät und Lothar kann seine AU nicht mehr bei seinem Arbeitgeber abgegeben. Zum Glück ist der nächste Termin für ein MRT erst zwei Tage später und Lothar hat genug Zeit seine AU abzugeben.
+    Am Tag des MRTs kommt Lothar in die Radiologie. Da er einen Termin hat muss er nicht lange warten. Erneut werden Vorerkrankungen, Voraufnahmen und Allergien abgefragt. Die Radiologin weiß, dass eine OP ansteht und ruft nach Durchsicht der Bilder die unfallchirurgische Oberärztin an, um ihr zu sagen, dass es sich um eine alte Verletzung handele. Lothar kommt noch am selben Tag in die unfallchirurgische Sprechstunde und der OP-Termin wird für den kommenden Montag vereinbart.
+    Lothar muss sich nun in der Anästhesie zum Aufklärungsgespräch begeben. Hier muss er, gefühlt zum tausendsten Mal, Fragen zu Vorerkrankungen, Medikation und Allergien beantworten. Auch bei Vorstellung auf der Station muss er dieselben Informationen bei der Pflege angeben.
+    Am OP-Tag stellt sich Lothar um 06:30 auf der Station vor. Der Stationsarzt wartet schon ganz aufgeregt, da er festgestellt hat, dass die ausgedruckte OP-Aufklärung verloren gegangen ist. Er teilt Lothar mit, dass ohne Aufklärung keine OP stattfinden kann, da eine tagesgleiche Aufklärung rechtlich nicht zulässig ist. Lothar ist jedoch vorbereitet und kann seine Kopie von der Aufklärung vorzeigen und der Stationsarzt ist erleichtert.
+    Der weitere Ablauf bis zur OP verläuft ohne Besonderheiten. In der Einleitung im OP wird es jedoch hektisch, nachdem das Lokalanästhetikum für die Plexus Anästhesie gegeben wurde. Lothar erleidet einen anaphylaktischen Schock und das Team der Anästhesie benötigt einige Minuten, um ihn zu stabilisieren. Letztlich wird eine Vollnarkose durchgeführt und die weitere Operation verläuft komplikationslos.
+    Nach jeweils einer Nacht auf Intensiv- und Normalstation kann Lothar entlassen werden. Ihm wird ein ausgedruckter Allergiepass für das Anästhetikum mitgegeben. Im Entlassgespräch wird die Nachbehandlung besprochen. Aufgrund von Personalmangel ist der Entlassbrief noch nicht fertig und muss postalisch an die Hausärztin geschickt werden.
+    Die weiteren Wundkontrollen und der Fadenzug erfolgen bei der Hausärztin. Sie stellt außerdem Rezepte für Schmerzmittel und Physiotherapie aus. Auf dem Weg zur Apotheke muss Lothar feststellen, dass er das Rezept für Medikamente verloren hat. Die Hausarztpraxis hat mittlerweile wieder geschlossen, also kauft er sich frei verkäufliche Schmerzmittel.
+    Lothar sucht im Internet nach Physiotherapiepraxen. Erst die zwölfte Praxis kann ihm überhaupt einen Termin anbieten- in vier Wochen. Lothar schaut sich bis dahin YouTube Videos zu Übungen nach distalen Radiusfrakturen an und übt selbstständig.
+    Vier Wochen später stellt sich Lothar in der Physiotherapeutischen Praxis vor. Die erfahrene Physiotherapeutin fragt Lothar, ob er den Nachbehandlungsplan mitgebracht habe. Den hat er natürlich noch nicht bei der Hausärztin abgeholt…
+
+  time:timestamp: '2025-11-30T16:21:36.458110+01:00'
+...
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eded65a3a050c8d1602d7b46e8bbc31fc374850e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-30T16:21:36.458266+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eded65a3a050c8d1602d7b46e8bbc31fc374850e
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-30T16:21:36.458378+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eded65a3a050c8d1602d7b46e8bbc31fc374850e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Unfall auf Fahrrad</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Fahrt zur Haus&#xE4;rztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Anamnese und Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Dokumentation in Patientenakte</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="Prellung vermutet" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Tetanusstatus erfragen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="7">
+            <alternative condition="Impfung notwendig" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Auffrischimpfung und Impfpass</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Keine Impfung notwendig" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Fraktur vermutet" language="text/javascript"/>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>&#xDC;berweisung zum R&#xF6;ntgen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Termin Radiologie vereinbaren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Informationen Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>R&#xF6;ntgenaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>R&#xF6;ntgenbilder auf CD</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Anruf Radiologe</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Vorstellung in Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Warten in Notaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Anamnese Unfallchirurg</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="19">
+        <alternative condition="OP unklar" language="text/javascript">
+          <call id="a43" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Arm eingipsen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a47" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Folgetermin zur OP-Abkl&#xE4;rung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="OP Indikation" language="text/javascript"/>
+      </choose>
+      <call id="a45" endpoint="" a:alt_id="22">
+        <parameters>
+          <label>OP Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Neue CD Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Erneute Vorstellung Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Warten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Anamnese &#xC4;rztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>CD einlesen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Medikationsplan Fax</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Indikation zur OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>MRT Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a67" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>MRT Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a69" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>Befundbesprechung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a71" endpoint="" a:alt_id="33">
+        <parameters>
+          <label>OP Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a73" endpoint="" a:alt_id="34">
+        <parameters>
+          <label>An&#xE4;sthesiegespr&#xE4;ch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a75" endpoint="" a:alt_id="35">
+        <parameters>
+          <label>Vorstellung Station</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a77" endpoint="" a:alt_id="36">
+        <parameters>
+          <label>OP Vorbereitung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a79" endpoint="" a:alt_id="37">
+        <parameters>
+          <label>Anaphylaktischer Schock</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a81" endpoint="" a:alt_id="38">
+        <parameters>
+          <label>Vollnarkose und OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a83" endpoint="" a:alt_id="39">
+        <parameters>
+          <label>Intensivstation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a85" endpoint="" a:alt_id="40">
+        <parameters>
+          <label>Normalstation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a87" endpoint="" a:alt_id="41">
+        <parameters>
+          <label>Entlassung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a89" endpoint="" a:alt_id="42">
+        <parameters>
+          <label>Wundkontrolle Hausarzt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a91" endpoint="" a:alt_id="43">
+        <parameters>
+          <label>Rezept Schmerzmittel</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a93" endpoint="" a:alt_id="44">
+        <parameters>
+          <label>Physiotherapie suchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a95" endpoint="" a:alt_id="45">
+        <parameters>
+          <label>Physiotherapie Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a97" endpoint="" a:alt_id="46">
+        <parameters>
+          <label>Nachbehandlungsplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-30T16:21:36.458601+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eded65a3a050c8d1602d7b46e8bbc31fc374850e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Unfall auf Fahrrad)
+        1:task:(Unfall auf Fahrrad) --> 2:task:(Fahrt zur Hausärztin)
+        2:task:(Fahrt zur Hausärztin) --> 3:task:(Anamnese und Untersuchung)
+        3:task:(Anamnese und Untersuchung) --> 4:task:(Dokumentation in Patientenakte)
+        4:task:(Dokumentation in Patientenakte) --> 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> |Prellung vermutet| 6:task:(Tetanusstatus erfragen)
+        5:exclusivegateway:{x} --> |Fraktur vermutet| 9:task:(Überweisung zum Röntgen)
+        6:task:(Tetanusstatus erfragen) --> 7:exclusivegateway:{x}
+        7:exclusivegateway:{x} --> |Impfung notwendig| 8:task:(Auffrischimpfung und Impfpass)
+        7:exclusivegateway:{x} --> |Keine Impfung notwendig| 9:task:(Überweisung zum Röntgen)
+        8:task:(Auffrischimpfung und Impfpass) --> 9:task:(Überweisung zum Röntgen)
+        9:task:(Überweisung zum Röntgen) --> 10:task:(Termin Radiologie vereinbaren)
+        10:task:(Termin Radiologie vereinbaren) --> 11:task:(Informationen Radiologie)
+        11:task:(Informationen Radiologie) --> 12:task:(Röntgenaufnahme)
+        12:task:(Röntgenaufnahme) --> 13:task:(Röntgenbilder auf CD)
+        13:task:(Röntgenbilder auf CD) --> 14:task:(Anruf Radiologe)
+        14:task:(Anruf Radiologe) --> 15:task:(Vorstellung in Klinik)
+        15:task:(Vorstellung in Klinik) --> 16:task:(Warten in Notaufnahme)
+        16:task:(Warten in Notaufnahme) --> 17:task:(Anamnese Unfallchirurg)
+        17:task:(Anamnese Unfallchirurg) --> 18:task:(Untersuchung)
+        18:task:(Untersuchung) --> 19:exclusivegateway:{x}
+        19:exclusivegateway:{x} --> |OP unklar| 20:task:(Arm eingipsen)
+        19:exclusivegateway:{x} --> |OP Indikation| 22:task:(OP Termin)
+        20:task:(Arm eingipsen) --> 21:task:(Folgetermin zur OP-Abklärung)
+        21:task:(Folgetermin zur OP-Abklärung) --> 22:task:(OP Termin)
+        22:task:(OP Termin) --> 23:task:(Neue CD Radiologie)
+        23:task:(Neue CD Radiologie) --> 24:task:(Erneute Vorstellung Klinik)
+        24:task:(Erneute Vorstellung Klinik) --> 25:task:(Warten)
+        25:task:(Warten) --> 26:task:(Anamnese Ärztin)
+        26:task:(Anamnese Ärztin) --> 27:task:(CD einlesen)
+        27:task:(CD einlesen) --> 28:task:(Medikationsplan Fax)
+        28:task:(Medikationsplan Fax) --> 29:task:(Indikation zur OP)
+        29:task:(Indikation zur OP) --> 30:task:(MRT Termin)
+        30:task:(MRT Termin) --> 31:task:(MRT Radiologie)
+        31:task:(MRT Radiologie) --> 32:task:(Befundbesprechung)
+        32:task:(Befundbesprechung) --> 33:task:(OP Termin)
+        33:task:(OP Termin) --> 34:task:(Anästhesiegespräch)
+        34:task:(Anästhesiegespräch) --> 35:task:(Vorstellung Station)
+        35:task:(Vorstellung Station) --> 36:task:(OP Vorbereitung)
+        36:task:(OP Vorbereitung) --> 37:task:(Anaphylaktischer Schock)
+        37:task:(Anaphylaktischer Schock) --> 38:task:(Vollnarkose und OP)
+        38:task:(Vollnarkose und OP) --> 39:task:(Intensivstation)
+        39:task:(Intensivstation) --> 40:task:(Normalstation)
+        40:task:(Normalstation) --> 41:task:(Entlassung)
+        41:task:(Entlassung) --> 42:task:(Wundkontrolle Hausarzt)
+        42:task:(Wundkontrolle Hausarzt) --> 43:task:(Rezept Schmerzmittel)
+        43:task:(Rezept Schmerzmittel) --> 44:task:(Physiotherapie suchen)
+        44:task:(Physiotherapie suchen) --> 45:task:(Physiotherapie Termin)
+        45:task:(Physiotherapie Termin) --> 46:task:(Nachbehandlungsplan)
+        46:task:(Nachbehandlungsplan) --> 47:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-30T16:21:36.458478+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Unfall auf Fahrrad</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Fahrt zur Haus&#xE4;rztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Anamnese und Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Dokumentation in Patientenakte</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Tetanusstatus erfragen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="7">
+            <alternative condition="Impfung notwendig" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Auffrischimpfung und Impfpass</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Keine Impfung notwendig" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Fraktur vermutet" language="text/javascript"/>
+      </choose>
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>&#xDC;berweisung zum R&#xF6;ntgen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Termin Radiologie vereinbaren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Informationen Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>R&#xF6;ntgenaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>R&#xF6;ntgenbilder auf CD</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Anruf Radiologe</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Vorstellung in Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Warten in Notaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Anamnese Unfallchirurg</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="21">
+        <alternative condition="OP unklar" language="text/javascript">
+          <call id="a47" endpoint="" a:alt_id="22">
+            <parameters>
+              <label>Arm eingipsen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a49" endpoint="" a:alt_id="23">
+            <parameters>
+              <label>Folgetermin zur OP-Abkl&#xE4;rung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="OP Indikation" language="text/javascript"/>
+      </choose>
+      <call id="a55" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>OP Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Neue CD Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Erneute Vorstellung Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Warten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Anamnese &#xC4;rztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>CD einlesen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a67" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Medikationsplan Fax</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a69" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>Indikation zur OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a71" endpoint="" a:alt_id="33">
+        <parameters>
+          <label>MRT Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a73" endpoint="" a:alt_id="34">
+        <parameters>
+          <label>MRT Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a75" endpoint="" a:alt_id="35">
+        <parameters>
+          <label>Befundbesprechung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a77" endpoint="" a:alt_id="36">
+        <parameters>
+          <label>OP Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a79" endpoint="" a:alt_id="37">
+        <parameters>
+          <label>An&#xE4;sthesiegespr&#xE4;ch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a81" endpoint="" a:alt_id="38">
+        <parameters>
+          <label>Vorstellung Station</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a83" endpoint="" a:alt_id="39">
+        <parameters>
+          <label>OP Vorbereitung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a85" endpoint="" a:alt_id="40">
+        <parameters>
+          <label>Anaphylaktischer Schock</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a87" endpoint="" a:alt_id="41">
+        <parameters>
+          <label>Vollnarkose und OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a89" endpoint="" a:alt_id="42">
+        <parameters>
+          <label>Intensivstation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a91" endpoint="" a:alt_id="43">
+        <parameters>
+          <label>Normalstation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a93" endpoint="" a:alt_id="44">
+        <parameters>
+          <label>Entlassung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a95" endpoint="" a:alt_id="45">
+        <parameters>
+          <label>Wundkontrolle Hausarzt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a97" endpoint="" a:alt_id="46">
+        <parameters>
+          <label>Rezept Schmerzmittel</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a99" endpoint="" a:alt_id="47">
+        <parameters>
+          <label>Physiotherapie suchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a101" endpoint="" a:alt_id="48">
+        <parameters>
+          <label>Physiotherapie Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a103" endpoint="" a:alt_id="49">
+        <parameters>
+          <label>Nachbehandlungsplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a96738865a46d7f02b3ff7a6ecca347e2a51c64c
+  time:timestamp: '2025-11-30T16:23:00.705568+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a96738865a46d7f02b3ff7a6ecca347e2a51c64c
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Unfall auf Fahrrad</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Fahrt zur Hausärztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Anamnese und Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Dokumentation in Patientenakte</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="Prellung vermutet" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Tetanusstatus erfragen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="7">
+            <alternative condition="Impfung notwendig" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Auffrischimpfung und Impfpass</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Keine Impfung notwendig" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Fraktur vermutet" language="text/javascript"/>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Überweisung zum Röntgen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Termin Radiologie vereinbaren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Informationen Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Röntgenaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Röntgenbilder auf CD</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Anruf Radiologe</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Vorstellung in Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Warten in Notaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Anamnese Unfallchirurg</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="19">
+        <alternative condition="OP unklar" language="text/javascript">
+          <call id="a43" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Arm eingipsen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a47" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Folgetermin zur OP-Abklärung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="OP Indikation" language="text/javascript"/>
+      </choose>
+      <call id="a45" endpoint="" a:alt_id="22">
+        <parameters>
+          <label>OP Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Neue CD Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Erneute Vorstellung Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Warten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Anamnese Ärztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>CD einlesen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Medikationsplan Fax</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Indikation zur OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>MRT Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a67" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>MRT Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a69" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>Befundbesprechung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a71" endpoint="" a:alt_id="33">
+        <parameters>
+          <label>OP Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a73" endpoint="" a:alt_id="34">
+        <parameters>
+          <label>Anästhesiegespräch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a75" endpoint="" a:alt_id="35">
+        <parameters>
+          <label>Vorstellung Station</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a77" endpoint="" a:alt_id="36">
+        <parameters>
+          <label>OP Vorbereitung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a79" endpoint="" a:alt_id="37">
+        <parameters>
+          <label>Anaphylaktischer Schock</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a81" endpoint="" a:alt_id="38">
+        <parameters>
+          <label>Vollnarkose und OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a83" endpoint="" a:alt_id="39">
+        <parameters>
+          <label>Intensivstation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a85" endpoint="" a:alt_id="40">
+        <parameters>
+          <label>Normalstation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a87" endpoint="" a:alt_id="41">
+        <parameters>
+          <label>Entlassung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a89" endpoint="" a:alt_id="42">
+        <parameters>
+          <label>Wundkontrolle Hausarzt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a91" endpoint="" a:alt_id="43">
+        <parameters>
+          <label>Rezept Schmerzmittel</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a93" endpoint="" a:alt_id="44">
+        <parameters>
+          <label>Physiotherapie suchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a95" endpoint="" a:alt_id="45">
+        <parameters>
+          <label>Physiotherapie Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a97" endpoint="" a:alt_id="46">
+        <parameters>
+          <label>Nachbehandlungsplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-30T16:23:00.706084+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a96738865a46d7f02b3ff7a6ecca347e2a51c64c
+  cpee:exposition: |-
+    # User Input:
+    On a beautiful autumn day, Lothar cycles to sports practice. In downtown Würzburg, due to a brief lapse in attention, his front wheel gets caught in the tram rails and he falls onto his right wrist. He can barely move it anymore and realizes that something is wrong. Therefore, he decides to go to his family doctor.
+
+
+    His family doctor conducts a brief medical history and physical examination. She documents the results in Lothar’s paper medical record. The wrist is only slightly swollen and the doctor suspects merely a bruise. Since Lothar also has an abrasion on his knee, she asks about his tetanus vaccination status. Lothar has to admit that he has lost his vaccination booklet and cannot remember when his last vaccination was. He therefore receives a booster shot and is issued a new paper vaccination record. To rule out a fracture of the right wrist, she gives Lothar a referral for an X-ray.
+
+
+    Lothar spends the entire afternoon making phone calls and finally finds a radiology practice that can squeeze him in for an appointment the following day. When he arrives, information such as previous illnesses, prior imaging, medications, and allergies is collected. The X-ray of the wrist is taken in two views. Since the practice is very busy, Lothar is given the X-ray images on a CD and is told that the radiologist will call him if anything abnormal is found. His family doctor will receive the report by mail in the coming days. That same afternoon, Lothar receives a call from the radiologist informing him that he has a non-displaced fracture of the radius. The radiologist recommends that he present to a trauma surgery clinic the same day.
+
+
+    Lothar decides to go straight to a hospital. After arriving, he waits several hours in the emergency department. During the waiting time, Lothar answers work emails and watches a movie on his phone. When he is finally called in, the trauma surgeon takes his medical history again, asking about previous illnesses, medication, and allergies. He also asks about tetanus protection, and Lothar proudly presents his new vaccination booklet. Lothar takes medication but does not know which ones. The young trauma surgeon calls the family doctor’s office, but it is already closed.
+
+
+    The X-ray images on the CD cannot be opened, but fortunately Lothar has taken photos of the images with his phone. The young doctor is unsure whether surgery is required. Since it is already late and the only senior physician in the hospital is tied up in the operating room, the arm is put in a cast and Lothar is advised to return the next day to clarify whether surgery is necessary. He is asked to bring a new CD with the X-ray images. Lothar receives a prescription for painkillers and a certificate of incapacity for work for four weeks.
+
+
+    The next day at 8:00 a.m., Lothar goes to the radiology practice to have a new CD made. Afterwards, he returns to the hospital. There he waits several more hours before being called in again. During this time, Lothar orders a gift for his godchild online and cancels his hotel booking for the climbing holiday he had planned.
+
+
+    When he is finally called in, a different doctor sees him and once again takes his medical history. This time, the CD can thankfully be read. His medication plan is requested by fax from his family doctor. The senior trauma consultant determines that surgery is indicated. However, she notices that the distance between the lunate and scaphoid bones is increased. She asks Lothar if this is known to him, as it is a sign of a scapholunate ligament injury. If he had older X-rays, this could also be assessed. Lothar states that he injured his right wrist many years ago but no longer remembers exactly what happened. X-rays were taken, but he does not have them. It is decided to perform an MRI to rule out injury to the scapholunate ligament before surgery. It is already very late and Lothar can no longer submit his sick note to his employer. Fortunately, the next MRI appointment is not until two days later, giving him enough time to submit it.
+
+
+    On the day of the MRI, Lothar comes to the radiology department. Since he has an appointment, he does not have to wait long. Once again, previous illnesses, prior imaging, and allergies are asked about. The radiologist knows that surgery is planned and, after reviewing the images, calls the senior trauma surgeon to inform her that it is an old injury. Lothar is seen in the trauma surgery outpatient clinic the same day, and the surgery date is scheduled for the upcoming Monday.
+
+
+    Lothar now goes to the anesthesia department for the preoperative consultation. Here, he has to answer questions about previous illnesses, medications, and allergies once again—what feels like the thousandth time. When he is admitted to the ward, he has to provide the same information to the nursing staff.
+
+
+    On the day of surgery, Lothar reports to the ward at 6:30 a.m. The ward doctor is already quite agitated, having discovered that the printed consent form has been lost. He tells Lothar that surgery cannot take place without documentation of consent, as same-day consent is not legally permitted. However, Lothar is prepared and is able to present his own copy of the consent form, much to the doctor’s relief.
+
+
+    The rest of the process before surgery is uneventful. During induction in the operating room, however, things become hectic after the local anesthetic for the brachial plexus block is administered. Lothar suffers an anaphylactic shock, and the anesthesia team needs several minutes to stabilize him. Ultimately, general anesthesia is performed and the rest of the operation proceeds without complications.
+
+
+    After spending one night each in the intensive care unit and on a general ward, Lothar is discharged. He is given a printed allergy card for the anesthetic. The follow-up treatment is discussed during the discharge conversation. Due to staff shortages, the discharge letter is not yet ready and must be sent by mail to his family doctor.
+
+
+    Subsequent wound checks and suture removal are performed by his family doctor, who also issues prescriptions for pain medication and physical therapy. On the way to the pharmacy, Lothar realizes that he has lost the prescription for the medication. The doctor’s office is already closed, so he buys over-the-counter painkillers instead.
+
+
+    Lothar searches the internet for physical therapy practices. Only the twelfth practice he contacts is able to offer him an appointment—in four weeks. Until then, Lothar watches YouTube videos with exercises for distal radius fractures and practices on his own.
+
+
+    Four weeks later, Lothar attends his appointment at the physical therapy practice. The experienced physiotherapist asks whether he has brought the aftercare plan with him. Of course, he still has not picked it up from his family doctor…
+  time:timestamp: '2025-11-30T16:23:00.707076+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a96738865a46d7f02b3ff7a6ecca347e2a51c64c
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-30T16:23:00.707365+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a96738865a46d7f02b3ff7a6ecca347e2a51c64c
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Unfall auf Fahrrad)
+    a1:task:(Unfall auf Fahrrad)-->a3:task:(Fahrt zur Hausärztin)
+    a3:task:(Fahrt zur Hausärztin)-->a5:task:(Anamnese und Untersuchung)
+    a5:task:(Anamnese und Untersuchung)-->a7:task:(Dokumentation in Patientenakte)
+    a7:task:(Dokumentation in Patientenakte)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a11:task:(Tetanusstatus erfragen)
+    a11:task:(Tetanusstatus erfragen)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Impfung notwendig"|a17:task:(Auffrischimpfung und Impfpass)
+    a17:task:(Auffrischimpfung und Impfpass)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Keine Impfung notwendig"|gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Fraktur vermutet"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a13:task:(Überweisung zum Röntgen)
+    a13:task:(Überweisung zum Röntgen)-->a23:task:(Termin Radiologie vereinbaren)
+    a23:task:(Termin Radiologie vereinbaren)-->a25:task:(Informationen Radiologie)
+    a25:task:(Informationen Radiologie)-->a27:task:(Röntgenaufnahme)
+    a27:task:(Röntgenaufnahme)-->a29:task:(Röntgenbilder auf CD)
+    a29:task:(Röntgenbilder auf CD)-->a31:task:(Anruf Radiologe)
+    a31:task:(Anruf Radiologe)-->a33:task:(Vorstellung in Klinik)
+    a33:task:(Vorstellung in Klinik)-->a35:task:(Warten in Notaufnahme)
+    a35:task:(Warten in Notaufnahme)-->a37:task:(Anamnese Unfallchirurg)
+    a37:task:(Anamnese Unfallchirurg)-->a39:task:(Untersuchung)
+    a39:task:(Untersuchung)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"OP unklar"|a43:task:(Arm eingipsen)
+    a43:task:(Arm eingipsen)-->a47:task:(Folgetermin zur OP-Abklärung)
+    a47:task:(Folgetermin zur OP-Abklärung)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"OP Indikation"|gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->a45:task:(OP Termin)
+    a45:task:(OP Termin)-->a51:task:(Neue CD Radiologie)
+    a51:task:(Neue CD Radiologie)-->a53:task:(Erneute Vorstellung Klinik)
+    a53:task:(Erneute Vorstellung Klinik)-->a55:task:(Warten)
+    a55:task:(Warten)-->a57:task:(Anamnese Ärztin)
+    a57:task:(Anamnese Ärztin)-->a59:task:(CD einlesen)
+    a59:task:(CD einlesen)-->a61:task:(Medikationsplan Fax)
+    a61:task:(Medikationsplan Fax)-->a63:task:(Indikation zur OP)
+    a63:task:(Indikation zur OP)-->a65:task:(MRT Termin)
+    a65:task:(MRT Termin)-->a67:task:(MRT Radiologie)
+    a67:task:(MRT Radiologie)-->a69:task:(Befundbesprechung)
+    a69:task:(Befundbesprechung)-->a71:task:(OP Termin)
+    a71:task:(OP Termin)-->a73:task:(Anästhesiegespräch)
+    a73:task:(Anästhesiegespräch)-->a75:task:(Vorstellung Station)
+    a75:task:(Vorstellung Station)-->a77:task:(OP Vorbereitung)
+    a77:task:(OP Vorbereitung)-->a79:task:(Anaphylaktischer Schock)
+    a79:task:(Anaphylaktischer Schock)-->a81:task:(Vollnarkose und OP)
+    a81:task:(Vollnarkose und OP)-->a83:task:(Intensivstation)
+    a83:task:(Intensivstation)-->a85:task:(Normalstation)
+    a85:task:(Normalstation)-->a87:task:(Entlassung)
+    a87:task:(Entlassung)-->a89:task:(Wundkontrolle Hausarzt)
+    a89:task:(Wundkontrolle Hausarzt)-->a91:task:(Rezept Schmerzmittel)
+    a91:task:(Rezept Schmerzmittel)-->a93:task:(Physiotherapie suchen)
+    a93:task:(Physiotherapie suchen)-->a95:task:(Physiotherapie Termin)
+    a95:task:(Physiotherapie Termin)-->a97:task:(Nachbehandlungsplan)
+    a97:task:(Nachbehandlungsplan)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-30T16:23:00.707483+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a96738865a46d7f02b3ff7a6ecca347e2a51c64c
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        0:startevent:((startevent)) --> 1:task:(Unfall auf Fahrrad)
+        1:task:(Unfall auf Fahrrad) --> 2:task:(Fahrt zur Hausärztin)
+        2:task:(Fahrt zur Hausärztin) --> 3:task:(Anamnese und Untersuchung)
+        3:task:(Anamnese und Untersuchung) --> 4:task:(Dokumentation in Patientenakte)
+        4:task:(Dokumentation in Patientenakte) --> 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> 6:task:(Tetanusstatus erfragen)
+        6:task:(Tetanusstatus erfragen) --> 7:exclusivegateway:{x}
+        7:exclusivegateway:{x} --> |"Impfung notwendig"| 8:task:(Auffrischimpfung und Impfpass)
+        8:task:(Auffrischimpfung und Impfpass) --> 9:exclusivegateway:{x}
+        7:exclusivegateway:{x} --> |"Keine Impfung notwendig"| 9:exclusivegateway:{x}
+        9:exclusivegateway:{x} --> 10:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> |"Fraktur vermutet"| 10:exclusivegateway:{x}
+        10:exclusivegateway:{x} --> 11:task:(Überweisung zum Röntgen)
+        11:task:(Überweisung zum Röntgen) --> 12:task:(Termin Radiologie vereinbaren)
+        12:task:(Termin Radiologie vereinbaren) --> 13:task:(Informationen Radiologie)
+        13:task:(Informationen Radiologie) --> 14:task:(Röntgenaufnahme)
+        14:task:(Röntgenaufnahme) --> 15:task:(Röntgenbilder auf CD)
+        15:task:(Röntgenbilder auf CD) --> 16:task:(Anruf Radiologe)
+        16:task:(Anruf Radiologe) --> 17:task:(Vorstellung in Klinik)
+        17:task:(Vorstellung in Klinik) --> 18:task:(Warten in Notaufnahme)
+        18:task:(Warten in Notaufnahme) --> 19:task:(Anamnese Unfallchirurg)
+        19:task:(Anamnese Unfallchirurg) --> 20:task:(Untersuchung)
+        20:task:(Untersuchung) --> 21:exclusivegateway:{x}
+        21:exclusivegateway:{x} --> |"OP unklar"| 22:task:(Arm eingipsen)
+        22:task:(Arm eingipsen) --> 23:task:(Folgetermin zur OP-Abklärung)
+        23:task:(Folgetermin zur OP-Abklärung) --> 24:exclusivegateway:{x}
+        21:exclusivegateway:{x} --> |"OP Indikation"| 24:exclusivegateway:{x}
+        24:exclusivegateway:{x} --> 25:task:(OP Termin)
+        25:task:(OP Termin) --> 26:task:(Neue CD Radiologie)
+        26:task:(Neue CD Radiologie) --> 27:task:(Erneute Vorstellung Klinik)
+        27:task:(Erneute Vorstellung Klinik) --> 28:task:(Warten)
+        28:task:(Warten) --> 29:task:(Anamnese Ärztin)
+        29:task:(Anamnese Ärztin) --> 30:task:(CD einlesen)
+        30:task:(CD einlesen) --> 31:task:(Medikationsplan Fax)
+        31:task:(Medikationsplan Fax) --> 32:task:(Indikation zur OP)
+        32:task:(Indikation zur OP) --> 33:task:(MRT Termin)
+        33:task:(MRT Termin) --> 34:task:(MRT Radiologie)
+        34:task:(MRT Radiologie) --> 35:task:(Befundbesprechung)
+        35:task:(Befundbesprechung) --> 36:task:(OP Termin)
+        36:task:(OP Termin) --> 37:task:(Anästhesiegespräch)
+        37:task:(Anästhesiegespräch) --> 38:task:(Vorstellung Station)
+        38:task:(Vorstellung Station) --> 39:task:(OP Vorbereitung)
+        39:task:(OP Vorbereitung) --> 40:task:(Anaphylaktischer Schock)
+        40:task:(Anaphylaktischer Schock) --> 41:task:(Vollnarkose und OP)
+        41:task:(Vollnarkose und OP) --> 42:task:(Intensivstation)
+        42:task:(Intensivstation) --> 43:task:(Normalstation)
+        43:task:(Normalstation) --> 44:task:(Entlassung)
+        44:task:(Entlassung) --> 45:task:(Wundkontrolle Hausarzt)
+        45:task:(Wundkontrolle Hausarzt) --> 46:task:(Rezept Schmerzmittel)
+        46:task:(Rezept Schmerzmittel) --> 47:task:(Physiotherapie suchen)
+        47:task:(Physiotherapie suchen) --> 48:task:(Physiotherapie Termin)
+        48:task:(Physiotherapie Termin) --> 49:task:(Nachbehandlungsplan)
+        49:task:(Nachbehandlungsplan) --> 50:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-30T16:23:00.707644+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a96738865a46d7f02b3ff7a6ecca347e2a51c64c
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Unfall auf Fahrrad</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Fahrt zur Haus&#xE4;rztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Anamnese und Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Dokumentation in Patientenakte</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Tetanusstatus erfragen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="7">
+            <alternative condition="Impfung notwendig" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Auffrischimpfung und Impfpass</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Keine Impfung notwendig" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Fraktur vermutet" language="text/javascript"/>
+      </choose>
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>&#xDC;berweisung zum R&#xF6;ntgen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Termin Radiologie vereinbaren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Informationen Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>R&#xF6;ntgenaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>R&#xF6;ntgenbilder auf CD</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Anruf Radiologe</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Vorstellung in Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Warten in Notaufnahme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Anamnese Unfallchirurg</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="21">
+        <alternative condition="OP unklar" language="text/javascript">
+          <call id="a47" endpoint="" a:alt_id="22">
+            <parameters>
+              <label>Arm eingipsen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a49" endpoint="" a:alt_id="23">
+            <parameters>
+              <label>Folgetermin zur OP-Abkl&#xE4;rung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="OP Indikation" language="text/javascript"/>
+      </choose>
+      <call id="a55" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>OP Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Neue CD Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Erneute Vorstellung Klinik</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Warten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Anamnese &#xC4;rztin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>CD einlesen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a67" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Medikationsplan Fax</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a69" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>Indikation zur OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a71" endpoint="" a:alt_id="33">
+        <parameters>
+          <label>MRT Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a73" endpoint="" a:alt_id="34">
+        <parameters>
+          <label>MRT Radiologie</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a75" endpoint="" a:alt_id="35">
+        <parameters>
+          <label>Befundbesprechung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a77" endpoint="" a:alt_id="36">
+        <parameters>
+          <label>OP Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a79" endpoint="" a:alt_id="37">
+        <parameters>
+          <label>An&#xE4;sthesiegespr&#xE4;ch</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a81" endpoint="" a:alt_id="38">
+        <parameters>
+          <label>Vorstellung Station</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a83" endpoint="" a:alt_id="39">
+        <parameters>
+          <label>OP Vorbereitung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a85" endpoint="" a:alt_id="40">
+        <parameters>
+          <label>Anaphylaktischer Schock</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a87" endpoint="" a:alt_id="41">
+        <parameters>
+          <label>Vollnarkose und OP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a89" endpoint="" a:alt_id="42">
+        <parameters>
+          <label>Intensivstation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a91" endpoint="" a:alt_id="43">
+        <parameters>
+          <label>Normalstation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a93" endpoint="" a:alt_id="44">
+        <parameters>
+          <label>Entlassung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a95" endpoint="" a:alt_id="45">
+        <parameters>
+          <label>Wundkontrolle Hausarzt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a97" endpoint="" a:alt_id="46">
+        <parameters>
+          <label>Rezept Schmerzmittel</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a99" endpoint="" a:alt_id="47">
+        <parameters>
+          <label>Physiotherapie suchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a101" endpoint="" a:alt_id="48">
+        <parameters>
+          <label>Physiotherapie Termin</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a103" endpoint="" a:alt_id="49">
+        <parameters>
+          <label>Nachbehandlungsplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-30T16:23:00.707789+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-30T16:24:18.531636+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-30T16:24:18.653575+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-30T16:24:28.132735+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-30T16:24:28.203259+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-30T16:24:28.550112+01:00'
+---
+event:
+  concept:instance: 76397
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7ea4d238-0cf4-447d-b0a5-a9fa5828e9fd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-30T16:24:28.576782+01:00'

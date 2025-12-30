@@ -1,0 +1,1896 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 82019
+    cpee:name: Plain Instance
+    cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T08:58:51.050621+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 8fef12f10f10ad7dcacf937264a2c94248fa6caa
+  time:timestamp: '2025-12-03T09:00:15.584097+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fef12f10f10ad7dcacf937264a2c94248fa6caa
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-03T09:00:15.584306+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fef12f10f10ad7dcacf937264a2c94248fa6caa
+  cpee:exposition: |-
+    # User Input:
+    Die Abschlussarbeit wird eingereicht. Danach durch das Prüfungsamt an den Erst- und Zweitprüfer weitergeleitet. Haben beide ihre Gutachten erstellt, werden diese zurück an das Prüfungsamt geschickt. Das Prüfungsamt kontrolliert die formale Richtigkeit und trägt nach Abschluss die Note ein. Der Prüfling wird per Post informiert. 
+  time:timestamp: '2025-12-03T09:00:15.584414+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fef12f10f10ad7dcacf937264a2c94248fa6caa
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T09:00:15.584880+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fef12f10f10ad7dcacf937264a2c94248fa6caa
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-03T09:00:15.585048+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fef12f10f10ad7dcacf937264a2c94248fa6caa
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Einreichen der Abschlussarbeit)
+      1:task:(Einreichen der Abschlussarbeit) --> 2:task:(Weiterleitung an Prüfer)
+      2:task:(Weiterleitung an Prüfer) --> 3:task:(Gutachten erstellen)
+      3:task:(Gutachten erstellen) --> 4:task:(Rücksendung der Gutachten)
+      4:task:(Rücksendung der Gutachten) --> 5:task:(Formale Prüfung und Noteneintrag)
+      5:task:(Formale Prüfung und Noteneintrag) --> 6:task:(Information des Prüflings)
+      6:task:(Information des Prüflings) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T09:00:15.585231+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fef12f10f10ad7dcacf937264a2c94248fa6caa
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:00:15.585381+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-12-03T09:00:40.927238+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T09:00:41.205934+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  time:timestamp: '2025-12-03T09:00:47.266280+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Weiterleitung an Prüfer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Rücksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Formale Prüfung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Information des Prüflings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:00:47.266480+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-03T09:00:47.266618+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T09:00:47.266797+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T09:00:47.266937+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T09:00:47.267084+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:00:47.267185+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2025-12-03T09:01:03.479853+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T09:01:03.748139+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  time:timestamp: '2025-12-03T09:01:05.876212+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Prüfer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Rücksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Prüfung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Prüflings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:01:05.876376+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-03T09:01:05.876506+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T09:01:05.876600+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T09:01:05.876694+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T09:01:05.876798+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:01:05.876901+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-12-03T09:01:10.613065+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T09:01:10.919155+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  time:timestamp: '2025-12-03T09:01:12.875817+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Prüfer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Rücksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Prüfung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Prüflings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:01:12.876109+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-03T09:01:12.876756+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T09:01:12.876892+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T09:01:12.877159+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T09:01:12.877313+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:01:12.877437+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: packed
+  time:timestamp: '2025-12-03T09:01:16.122198+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T09:01:16.427692+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  time:timestamp: '2025-12-03T09:01:18.471672+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Prüfer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Rücksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Prüfung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Prüflings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:01:18.471866+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-03T09:01:18.472008+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T09:01:18.472101+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T09:01:18.472183+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T09:01:18.472278+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:01:18.472366+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-12-03T09:01:20.379354+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T09:01:20.639458+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  time:timestamp: '2025-12-03T09:01:22.792019+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Prüfer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Rücksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Prüfung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Prüflings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:01:22.792235+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-03T09:01:22.792974+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T09:01:22.793151+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T09:01:22.793288+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T09:01:22.793427+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:01:22.793933+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2025-12-03T09:01:31.249415+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T09:01:31.560207+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  time:timestamp: '2025-12-03T09:01:33.791814+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Prüfer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Rücksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Prüfung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Prüflings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:01:33.792083+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-03T09:01:33.792818+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T09:01:33.793115+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T09:01:33.793242+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Einreichen der Abschlussarbeit)
+    a1:task:(Einreichen der Abschlussarbeit)-->a3:task:(Weiterleitung an Prüfer)
+    a3:task:(Weiterleitung an Prüfer)-->a5:task:(Gutachten erstellen)
+    a5:task:(Gutachten erstellen)-->a7:task:(Rücksendung der Gutachten)
+    a7:task:(Rücksendung der Gutachten)-->a9:task:(Formale Prüfung und Noteneintrag)
+    a9:task:(Formale Prüfung und Noteneintrag)-->a11:task:(Information des Prüflings)
+    a11:task:(Information des Prüflings)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T09:01:33.793398+01:00'
+---
+event:
+  concept:instance: 82019
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7ea46e1-37cd-4560-a40a-374c30553d0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a02cb469b05a831af1344f313f2a9e95fef95a4
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Einreichen der Abschlussarbeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Weiterleitung an Pr&#xFC;fer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Gutachten erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>R&#xFC;cksendung der Gutachten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Formale Pr&#xFC;fung und Noteneintrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Information des Pr&#xFC;flings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-03T09:01:33.793797+01:00'

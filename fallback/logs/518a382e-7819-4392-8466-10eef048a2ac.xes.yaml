@@ -1,0 +1,259 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 84954
+    cpee:name: Plain Instance
+    cpee:instance: 518a382e-7819-4392-8466-10eef048a2ac
+---
+event:
+  concept:instance: 84954
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 518a382e-7819-4392-8466-10eef048a2ac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-16T14:40:26.691946+01:00'
+---
+event:
+  concept:instance: 84954
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 518a382e-7819-4392-8466-10eef048a2ac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Bestellung aufgeben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Artikel auf Lager" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Bestellung verpacken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Artikel nicht auf Lager" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Kunde benachrichtigen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Bestellung zur&#xFC;ckstellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Artikel versenden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Versandbest&#xE4;tigung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: c5756fd9957dac2996030310952c4fdfe0401049
+  time:timestamp: '2025-12-16T14:40:39.049536+01:00'
+---
+event:
+  concept:instance: 84954
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 518a382e-7819-4392-8466-10eef048a2ac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c5756fd9957dac2996030310952c4fdfe0401049
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-16T14:40:39.049797+01:00'
+---
+event:
+  concept:instance: 84954
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 518a382e-7819-4392-8466-10eef048a2ac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c5756fd9957dac2996030310952c4fdfe0401049
+  cpee:exposition: |-
+    # User Input:
+    1. Der Kunde gibt eine Bestellung auf.
+    2. Der Bestellprozess prüft, ob der Artikel auf Lager ist.
+    3. Wenn der Artikel auf Lager ist, wird die Bestellung verpackt.
+    4. Wenn der Artikel nicht auf Lager ist, wird der Kunde benachrichtigt und die Bestellung wird zurückgestellt.
+    5. Der Artikel wird versendet, sobald er verfügbar ist.
+    6. Der Kunde erhält eine Versandbestätigung. 
+  time:timestamp: '2025-12-16T14:40:39.049950+01:00'
+---
+event:
+  concept:instance: 84954
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 518a382e-7819-4392-8466-10eef048a2ac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c5756fd9957dac2996030310952c4fdfe0401049
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-16T14:40:39.050112+01:00'
+---
+event:
+  concept:instance: 84954
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 518a382e-7819-4392-8466-10eef048a2ac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c5756fd9957dac2996030310952c4fdfe0401049
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-16T14:40:39.050218+01:00'
+---
+event:
+  concept:instance: 84954
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 518a382e-7819-4392-8466-10eef048a2ac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c5756fd9957dac2996030310952c4fdfe0401049
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Bestellung aufgeben)
+      1:task:(Bestellung aufgeben) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Artikel auf Lager| 3:task:(Bestellung verpacken)
+      2:exclusivegateway:{x} --> |Artikel nicht auf Lager| 4:task:(Kunde benachrichtigen)
+      4:task:(Kunde benachrichtigen) --> 5:task:(Bestellung zurückstellen)
+      3:task:(Bestellung verpacken) --> 6:task:(Artikel versenden)
+      5:task:(Bestellung zurückstellen) --> 6:task:(Artikel versenden)
+      6:task:(Artikel versenden) --> 7:task:(Versandbestätigung)
+      7:task:(Versandbestätigung) --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-16T14:40:39.051700+01:00'
+---
+event:
+  concept:instance: 84954
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 518a382e-7819-4392-8466-10eef048a2ac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c5756fd9957dac2996030310952c4fdfe0401049
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Bestellung aufgeben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Artikel auf Lager" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Bestellung verpacken</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Artikel nicht auf Lager" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Kunde benachrichtigen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Bestellung zur&#xFC;ckstellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Artikel versenden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Versandbest&#xE4;tigung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-16T14:40:39.052063+01:00'

@@ -1,0 +1,536 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 76762
+    cpee:name: Plain Instance
+    cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-01T09:25:29.976989+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Email</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: b8469a5d33a2e3eb404ca566e29a92a6f0cb924a
+  time:timestamp: '2025-12-01T09:26:09.921454+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8469a5d33a2e3eb404ca566e29a92a6f0cb924a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-01T09:26:09.921651+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8469a5d33a2e3eb404ca566e29a92a6f0cb924a
+  cpee:exposition: |+
+    # User Input:
+    ADMINISTRATIVE RECEIVES EMAIL
+
+  time:timestamp: '2025-12-01T09:26:09.921782+01:00'
+...
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8469a5d33a2e3eb404ca566e29a92a6f0cb924a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-01T09:26:09.921899+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8469a5d33a2e3eb404ca566e29a92a6f0cb924a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-01T09:26:09.922110+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8469a5d33a2e3eb404ca566e29a92a6f0cb924a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Receive Email)
+      1:task:(Receive Email) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-01T09:26:09.922551+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8469a5d33a2e3eb404ca566e29a92a6f0cb924a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Email</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-01T09:26:09.922674+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Email</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="ex1">
+        <alternative condition="Is about price" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="t1">
+            <parameters>
+              <label>Check Tables for Prices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Not about price" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="t2">
+            <parameters>
+              <label>Forward to Someone Else</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 4a4454a43fefd32f7ab437498236f98b458af58e
+  time:timestamp: '2025-12-01T09:27:00.777509+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4a4454a43fefd32f7ab437498236f98b458af58e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Email</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-01T09:27:00.777746+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4a4454a43fefd32f7ab437498236f98b458af58e
+  cpee:exposition: |-
+    # User Input:
+    IF THAT IS ABOUT PRICE, STARTS CHECKING TABLES FOR PRICES, IF NOT, HE FORWARD TO SOMEONE ELSE
+  time:timestamp: '2025-12-01T09:27:00.778369+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4a4454a43fefd32f7ab437498236f98b458af58e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-01T09:27:00.778501+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4a4454a43fefd32f7ab437498236f98b458af58e
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Email)
+    a1:task:(Receive Email)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-01T09:27:00.778640+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4a4454a43fefd32f7ab437498236f98b458af58e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent)) --> a1:task:(Receive Email)
+    a1:task:(Receive Email) --> ex1:exclusivegateway:{x}
+    ex1:exclusivegateway:{x} --> |Is about price| t1:task:(Check Tables for Prices)
+    ex1:exclusivegateway:{x} --> |Not about price| t2:task:(Forward to Someone Else)
+    t1:task:(Check Tables for Prices) --> ex2:exclusivegateway:{x}
+    t2:task:(Forward to Someone Else) --> ex2:exclusivegateway: {x}
+    ex2:exclusivegateway:{x} --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-01T09:27:00.778762+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4a4454a43fefd32f7ab437498236f98b458af58e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Email</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="ex1">
+        <alternative condition="Is about price" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="t1">
+            <parameters>
+              <label>Check Tables for Prices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Not about price" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="t2">
+            <parameters>
+              <label>Forward to Someone Else</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-01T09:27:00.778883+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Email</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Is about price" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Check Tables for Prices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Not about price" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Forward to Someone Else</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 0debe043933f2d5e2b886ae261396ac109cd7388
+  time:timestamp: '2025-12-01T09:27:50.949590+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0debe043933f2d5e2b886ae261396ac109cd7388
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Email</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="ex1">
+        <alternative condition="Is about price" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="t1">
+            <parameters>
+              <label>Check Tables for Prices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Not about price" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="t2">
+            <parameters>
+              <label>Forward to Someone Else</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-01T09:27:50.949825+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0debe043933f2d5e2b886ae261396ac109cd7388
+  cpee:exposition: |+
+    # User Input:
+    HE MOVES TO FOLDER "DONE"
+
+  time:timestamp: '2025-12-01T09:27:50.950538+01:00'
+...
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0debe043933f2d5e2b886ae261396ac109cd7388
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-01T09:27:50.950676+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0debe043933f2d5e2b886ae261396ac109cd7388
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Email)
+    a1:task:(Receive Email)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Is about price"|a5:task:(Check Tables for Prices)
+    a5:task:(Check Tables for Prices)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Not about price"|a7:task:(Forward to Someone Else)
+    a7:task:(Forward to Someone Else)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-01T09:27:50.950808+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0debe043933f2d5e2b886ae261396ac109cd7388
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Email)
+    a1:task:(Receive Email)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Is about price"|a5:task:(Check Tables for Prices)
+    a5:task:(Check Tables for Prices)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Not about price"|a7:task:(Forward to Someone Else)
+    a7:task:(Forward to Someone Else)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-01T09:27:50.950964+01:00'
+---
+event:
+  concept:instance: 76762
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5784fada-4110-495f-bf45-fa7df459f331
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0debe043933f2d5e2b886ae261396ac109cd7388
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Email</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Is about price" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Check Tables for Prices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Not about price" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Forward to Someone Else</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-01T09:27:50.951095+01:00'

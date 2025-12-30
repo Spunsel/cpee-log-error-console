@@ -1,0 +1,357 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 88740
+    cpee:name: Plain Instance
+    cpee:instance: 66688969-5874-4866-aa33-58cf810140a2
+---
+event:
+  concept:instance: 88740
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 66688969-5874-4866-aa33-58cf810140a2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-21T11:21:27.578277+01:00'
+---
+event:
+  concept:instance: 88740
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 66688969-5874-4866-aa33-58cf810140a2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Site Information</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Architectural Assessment</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Project not feasible">
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="New location proposals" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>New Location Proposals</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Architectural Assessment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Withdraw order" language="text/javascript">
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Develop Construction Proposal</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a17" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Create Cost Plan</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a19" endpoint="" a:alt_id="9">
+          <parameters>
+            <label>Present Proposal</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="10">
+          <alternative condition="Proposal accepted" language="text/javascript">
+            <call id="a23" endpoint="" a:alt_id="11">
+              <parameters>
+                <label>Create Tender</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a27" endpoint="" a:alt_id="12">
+              <parameters>
+                <label>Build Hall</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a29" endpoint="" a:alt_id="13">
+              <parameters>
+                <label>Send Invoice</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Proposal rejected" language="text/javascript"/>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: e77023a5b994609f86aeb412fa12b3710ba83128
+  time:timestamp: '2025-12-21T11:22:23.568487+01:00'
+---
+event:
+  concept:instance: 88740
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 66688969-5874-4866-aa33-58cf810140a2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e77023a5b994609f86aeb412fa12b3710ba83128
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-21T11:22:23.568713+01:00'
+---
+event:
+  concept:instance: 88740
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 66688969-5874-4866-aa33-58cf810140a2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e77023a5b994609f86aeb412fa12b3710ba83128
+  cpee:exposition: "# User Input:\nDie Firma Superduperproduction nimmt Auftr¨age
+    fur die Planung und den Bau von Produktionshallen ¨ entgegen. Der Prozess beginnt,
+    sobald die beauftragende Firma Informationen zur Gr¨oße und zum Verwen\x02dungszweck
+    des geplanten Standorts ubermittelt. Ein Architekt begutachtet die Gegebenheiten
+    vor Ort und ¨ erstellt ein Gutachten ob das Projekt dort realisierbar ist oder
+    nicht. Kann das Projekt nicht realisiert wer\x02den kann die beauftragende Firma
+    entweder den Auftrag zuruckziehen, wodurch der Prozess endet oder ¨ solange neue
+    Standortvorschl¨age einbringen bis das Gutachten positiv ausf¨allt. Danach erarbeitet
+    die Pla\x02nungsabteilung einen konkreten Konstruktionsvorschlag fur den gew ¨
+    ¨ahlten Standort. W¨ahrenddessen erstellt die Finanzabteilung der Baufirma auch
+    einen Kostenplan fur den Auftrag. Die beauftragende Firma kann den ¨ Gesamtvorschlag
+    dann annehmen oder ablehnen. Lehnt sie ihn ab, endet der Prozess. Nimmt die Firma
+    den Vorschlag an erstellt Superduperproduction eine Ausschreibung um eine externe
+    Baufirma zu finden. Nach dem erfolgreichen Bau der Halle durch die externe Firma
+    wird eine Rechnung an die beauftragende Firma geschickt. Der Prozess endet hiermit."
+  time:timestamp: '2025-12-21T11:22:23.568815+01:00'
+---
+event:
+  concept:instance: 88740
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 66688969-5874-4866-aa33-58cf810140a2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e77023a5b994609f86aeb412fa12b3710ba83128
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-21T11:22:23.569147+01:00'
+---
+event:
+  concept:instance: 88740
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 66688969-5874-4866-aa33-58cf810140a2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e77023a5b994609f86aeb412fa12b3710ba83128
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-21T11:22:23.569239+01:00'
+---
+event:
+  concept:instance: 88740
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 66688969-5874-4866-aa33-58cf810140a2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e77023a5b994609f86aeb412fa12b3710ba83128
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Receive Site Information)
+    1:task:(Receive Site Information) --> 2:task:(Architectural Assessment)
+    2:task:(Architectural Assessment) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Project not feasible| 4:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Project feasible| 7:task:(Develop Construction Proposal)
+    4:exclusivegateway:{x} --> |Withdraw order| 5:endevent:(((endevent)))
+    4:exclusivegateway:{x} --> |New location proposals| 6:task:(New Location Proposals)
+    6:task:(New Location Proposals) --> 2:task:(Architectural Assessment)
+    7:task:(Develop Construction Proposal) --> 8:task:(Create Cost Plan)
+    8:task:(Create Cost Plan) --> 9:task:(Present Proposal)
+    9:task:(Present Proposal) --> 10:exclusivegateway:{x}
+    10:exclusivegateway:{x} --> |Proposal accepted| 11:task:(Create Tender)
+    10:exclusivegateway:{x} --> |Proposal rejected| 15:endevent:(((endevent)))
+    11:task:(Create Tender) --> 12:task:(Build Hall)
+    12:task:(Build Hall) --> 13:task:(Send Invoice)
+    13:task:(Send Invoice) --> 14:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-21T11:22:23.569344+01:00'
+---
+event:
+  concept:instance: 88740
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 66688969-5874-4866-aa33-58cf810140a2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e77023a5b994609f86aeb412fa12b3710ba83128
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Site Information</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Architectural Assessment</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Project not feasible">
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="New location proposals" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>New Location Proposals</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Architectural Assessment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Withdraw order" language="text/javascript">
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Develop Construction Proposal</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a17" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Create Cost Plan</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a19" endpoint="" a:alt_id="9">
+          <parameters>
+            <label>Present Proposal</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="10">
+          <alternative condition="Proposal accepted" language="text/javascript">
+            <call id="a23" endpoint="" a:alt_id="11">
+              <parameters>
+                <label>Create Tender</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a27" endpoint="" a:alt_id="12">
+              <parameters>
+                <label>Build Hall</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a29" endpoint="" a:alt_id="13">
+              <parameters>
+                <label>Send Invoice</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Proposal rejected" language="text/javascript"/>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-12-21T11:22:23.569450+01:00'

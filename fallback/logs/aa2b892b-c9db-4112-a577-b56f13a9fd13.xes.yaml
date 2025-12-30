@@ -1,0 +1,229 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 83199
+    cpee:name: Plain Instance
+    cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+---
+event:
+  concept:instance: 83199
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-11T11:56:53.119716+01:00'
+---
+event:
+  concept:instance: 83199
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-12-11T11:57:09.210797+01:00'
+---
+event:
+  concept:instance: 83199
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-11T11:57:09.457308+01:00'
+---
+event:
+  concept:instance: 83199
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Start process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Gather cost data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Gather revenue data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Generate cost and revenue report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: c318245c83303166f67e5e0bc52c15aa4f694f31
+  time:timestamp: '2025-12-11T11:58:09.542166+01:00'
+---
+event:
+  concept:instance: 83199
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c318245c83303166f67e5e0bc52c15aa4f694f31
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-11T11:58:09.542342+01:00'
+---
+event:
+  concept:instance: 83199
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c318245c83303166f67e5e0bc52c15aa4f694f31
+  cpee:exposition: |-
+    # User Input:
+    Erstelle eine Prozess zur Generierung eine Kosten- und Erlösberichts
+  time:timestamp: '2025-12-11T11:58:09.542670+01:00'
+---
+event:
+  concept:instance: 83199
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c318245c83303166f67e5e0bc52c15aa4f694f31
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2025-12-11T11:58:09.542905+01:00'
+---
+event:
+  concept:instance: 83199
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c318245c83303166f67e5e0bc52c15aa4f694f31
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-11T11:58:09.543096+01:00'
+---
+event:
+  concept:instance: 83199
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c318245c83303166f67e5e0bc52c15aa4f694f31
+  cpee:exposition: "%% Output Intermediate\nTextual description of a business process
+    (translated to English):\n\nCreate a process for generating a cost and revenue
+    report. \n\nMermaid.js BPMN model:\n\n```mermaid\ngraph LR\n0:startevent:((startevent))
+    --> 1:task:(Start process)\n1:task:(Start process) --> 2:task:(Gather cost data)\n2:task:(Gather
+    cost data) --> 3:task:(Gather revenue data)\n3:task:(Gather revenue data) -->
+    4:task:(Generate cost and revenue report)\n4:task:(Generate cost and revenue report)
+    --> 5:endevent:(((endevent)))\n```\n\nThis model represents the described business
+    process, where each task is represented by a node and the flow of the process
+    is represented by edges. The tasks include starting the process, gathering cost
+    data, gathering revenue data, and generating the cost and revenue report. The
+    process starts with the start event and ends with the end event."
+  time:timestamp: '2025-12-11T11:58:09.543400+01:00'
+---
+event:
+  concept:instance: 83199
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aa2b892b-c9db-4112-a577-b56f13a9fd13
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c318245c83303166f67e5e0bc52c15aa4f694f31
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Start process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Gather cost data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Gather revenue data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Generate cost and revenue report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-11T11:58:09.543506+01:00'

@@ -1,0 +1,1140 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 82050
+    cpee:name: Plain Instance
+    cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T19:29:28.590193+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Fill Application Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Review Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Pay Tuition Fee</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Attend Orientation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Receive Student ID</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Enroll in Courses</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Does Not Meet Requirements" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Reject Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 9143ae6f16342c47528c59e2fbf61d36aaaabe79
+  time:timestamp: '2025-12-03T19:33:13.456190+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9143ae6f16342c47528c59e2fbf61d36aaaabe79
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-03T19:33:13.456425+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9143ae6f16342c47528c59e2fbf61d36aaaabe79
+  cpee:exposition: |-
+    # User Input:
+    a model of enrollment of a university.
+  time:timestamp: '2025-12-03T19:33:13.456526+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9143ae6f16342c47528c59e2fbf61d36aaaabe79
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T19:33:13.456624+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9143ae6f16342c47528c59e2fbf61d36aaaabe79
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-03T19:33:13.456703+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9143ae6f16342c47528c59e2fbf61d36aaaabe79
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Fill Application Form)
+      1:task:(Fill Application Form) --> 2:task:(Submit Application)
+      2:task:(Submit Application) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Meets Requirements| 4:task:(Review Application)
+      3:exclusivegateway:{x} --> |Does Not Meet Requirements| 12:task:(Reject Application)
+      4:task:(Review Application) --> 5:task:(Pay Tuition Fee)
+      5:task:(Pay Tuition Fee) --> 6:parallelgateway:{AND}
+      6:parallelgateway:{AND} --> 7:task:(Attend Orientation)
+      6:parallelgateway:{AND} --> 8:task:(Receive Student ID)
+      7:task:(Attend Orientation) --> 9:parallelgateway:{AND}
+      8:task:(Receive Student ID) --> 9:parallelgateway:{AND}
+      9:parallelgateway:{AND} --> 10:task:(Enroll in Courses)
+      10:task:(Enroll in Courses) --> 11:endevent:(((endevent)))
+      12:task:(Reject Application) --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T19:33:13.456788+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9143ae6f16342c47528c59e2fbf61d36aaaabe79
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Fill Application Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Review Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Pay Tuition Fee</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Attend Orientation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Receive Student ID</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Enroll in Courses</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Does Not Meet Requirements" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Reject Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-03T19:33:13.456885+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2025-12-03T19:35:03.023953+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T19:35:03.426803+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-12-03T19:35:10.604337+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T19:35:11.009685+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: packed
+  time:timestamp: '2025-12-03T19:35:15.274246+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T19:35:17.684299+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-12-03T19:35:25.195994+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T19:35:25.605244+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2025-12-03T19:35:33.558123+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-03T19:35:33.956916+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Fill Application Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Review Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Pay Tuition Fee</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Attend Orientation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Receive Student ID</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Enroll in Courses</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Does Not Meet Requirements" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Reject Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 0a073f07a2e1e51c6260a8bc8b3d443954715a1a
+  time:timestamp: '2025-12-03T19:36:11.441302+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0a073f07a2e1e51c6260a8bc8b3d443954715a1a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Fill Application Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Review Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Pay Tuition Fee</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Attend Orientation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Receive Student ID</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Enroll in Courses</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Does Not Meet Requirements" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Reject Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-03T19:36:11.441496+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0a073f07a2e1e51c6260a8bc8b3d443954715a1a
+  cpee:exposition: |+
+    # User Input:
+    The process starts when an application form is filled out. The filled-out application is then submitted. Depending on whether the application meets the requirements, it is either rejected or sent for review. If the application is rejected, the process ends. If the application is accepted, the tuition fee is paid. After the fee is paid, two activities occur in parallel: attending orientation and receiving a student ID. Once both activities are completed, the courses are enrolled in, and the process ends.
+
+
+  time:timestamp: '2025-12-03T19:36:11.441912+01:00'
+...
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0a073f07a2e1e51c6260a8bc8b3d443954715a1a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-03T19:36:11.442050+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0a073f07a2e1e51c6260a8bc8b3d443954715a1a
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Fill Application Form)
+    a1:task:(Fill Application Form)-->a3:task:(Submit Application)
+    a3:task:(Submit Application)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a7:task:(Review Application)
+    a7:task:(Review Application)-->a11:task:(Pay Tuition Fee)
+    a11:task:(Pay Tuition Fee)-->gw2s:parallelgateway:{AND}
+    -->a15:task:(Attend Orientation)
+    a15:task:(Attend Orientation)-->gw2e:parallelgateway:{AND}
+    -->a17:task:(Receive Student ID)
+    a17:task:(Receive Student ID)-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->a23:task:(Enroll in Courses)
+    a23:task:(Enroll in Courses)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Does Not Meet Requirements"|a9:task:(Reject Application)
+    a9:task:(Reject Application)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T19:36:11.442138+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0a073f07a2e1e51c6260a8bc8b3d443954715a1a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        0:startevent:((startevent)) --> 1:task:(Fill Application Form)
+        1:task:(Fill Application Form) --> 2:task:(Submit Application)
+        2:task:(Submit Application) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> 4:task:(Review Application)
+        4:task:(Review Application) --> 5:task:(Pay Tuition Fee)
+        5:task:(Pay Tuition Fee) --> 6:parallelgateway:{AND}
+        6:parallelgateway:{AND} --> 7:task:(Attend Orientation)
+        7:task:(Attend Orientation) --> 8:parallelgateway:{AND}
+        6:parallelgateway:{AND} --> 9:task:(Receive Student ID)
+        9:task:(Receive Student ID) --> 8:parallelgateway:{AND}
+        8:parallelgateway:{AND} --> 10:task:(Enroll in Courses)
+        10:task:(Enroll in Courses) --> 11:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |"Does Not Meet Requirements"| 12:task:(Reject Application)
+        12:task:(Reject Application) --> 11:exclusivegateway:{x}
+        11:exclusivegateway:{x} --> 13:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-03T19:36:11.442277+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0a073f07a2e1e51c6260a8bc8b3d443954715a1a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Fill Application Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Review Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Pay Tuition Fee</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Attend Orientation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Receive Student ID</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Enroll in Courses</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Does Not Meet Requirements" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Reject Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-03T19:36:11.442711+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-12-03T19:37:01.673885+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Fill Application Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Review Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Pay Tuition Fee</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Attend Orientation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Receive Student ID</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Enroll in Courses</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Does Not Meet Requirements" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Reject Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-03T19:37:01.674082+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-03T19:37:01.674220+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2025-12-03T19:37:01.674308+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Fill Application Form)
+    a1:task:(Fill Application Form)-->a3:task:(Submit Application)
+    a3:task:(Submit Application)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a7:task:(Review Application)
+    a7:task:(Review Application)-->a9:task:(Pay Tuition Fee)
+    a9:task:(Pay Tuition Fee)-->gw2s:parallelgateway:{AND}
+    -->a13:task:(Attend Orientation)
+    a13:task:(Attend Orientation)-->gw2e:parallelgateway:{AND}
+    -->a17:task:(Receive Student ID)
+    a17:task:(Receive Student ID)-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->a21:task:(Enroll in Courses)
+    a21:task:(Enroll in Courses)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Does Not Meet Requirements"|a25:task:(Reject Application)
+    a25:task:(Reject Application)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-03T19:37:01.674392+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    Sure, I can help with that. However, I need the user-provided modifications to proceed. Could you please provide them?
+  time:timestamp: '2025-12-03T19:37:01.674482+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-03T19:37:01.674565+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Student applies for enrollment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Meets requirements" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Enroll student</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify student</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Does not meet requirements" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify student about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: a6266dfca766e0b4cadd99527f34ec6f3a5d07c2
+  time:timestamp: '2025-12-03T19:37:46.781530+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6266dfca766e0b4cadd99527f34ec6f3a5d07c2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-03T19:37:46.781728+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6266dfca766e0b4cadd99527f34ec6f3a5d07c2
+  cpee:exposition: |-
+    # User Input:
+    A process model of a enrollment process of a public university. 
+  time:timestamp: '2025-12-03T19:37:46.781993+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6266dfca766e0b4cadd99527f34ec6f3a5d07c2
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2025-12-03T19:37:46.782318+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6266dfca766e0b4cadd99527f34ec6f3a5d07c2
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-03T19:37:46.782477+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6266dfca766e0b4cadd99527f34ec6f3a5d07c2
+  cpee:exposition: |-
+    %% Output Intermediate
+    Textual Description:
+    A student applies for enrollment. The university checks if the student meets the admission requirements. If the student meets the requirements, the student is enrolled and notified. If the student does not meet the requirements, the student is notified about the rejection. After the student is notified, the process ends.
+
+    Mermaid.js BPMN Model:
+
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Student applies for enrollment)
+    1:task:(Student applies for enrollment) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Meets requirements| 3:task:(Enroll student)
+    2:exclusivegateway:{x} --> |Does not meet requirements| 4:task:(Notify student about rejection)
+    3:task:(Enroll student) --> 5:task:(Notify student)
+    4:task:(Notify student about rejection) --> 6:exclusivegateway:{x}
+    5:task:(Notify student) --> 6:exclusivegateway:{x}
+    6:exclusivegateway:{x} --> 7:endevent:(((endevent)))
+    ```
+    This model represents the described process. The student applies for enrollment, which is then checked for admission requirements. Depending on the requirements status, the student is either enrolled or notified about the rejection. After the student is notified, the process ends.
+  time:timestamp: '2025-12-03T19:37:46.782761+01:00'
+---
+event:
+  concept:instance: 82050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2466ac47-8dcc-4b8d-9f6b-bc8addf7a287
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6266dfca766e0b4cadd99527f34ec6f3a5d07c2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Student applies for enrollment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Meets requirements" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Enroll student</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify student</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Does not meet requirements" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify student about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-03T19:37:46.782898+01:00'

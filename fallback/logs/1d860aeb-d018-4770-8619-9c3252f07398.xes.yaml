@@ -1,0 +1,417 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 74992
+    cpee:name: Plain Instance
+    cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T17:35:00.078272+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Patient Arrives</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Triage</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Critical" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Immediate Treatment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Non-Critical" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Wait for Doctor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Treatment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Admit" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Admit Patient</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Discharge" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Discharge Patient</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 2d920397566dbcffe2a5d6fc1d255f3424c88a58
+  time:timestamp: '2025-11-28T17:35:51.379662+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2d920397566dbcffe2a5d6fc1d255f3424c88a58
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-28T17:35:51.379875+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2d920397566dbcffe2a5d6fc1d255f3424c88a58
+  cpee:exposition: |-
+    # User Input:
+    a process about an emergency department
+  time:timestamp: '2025-11-28T17:35:51.380317+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2d920397566dbcffe2a5d6fc1d255f3424c88a58
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-28T17:35:51.380430+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2d920397566dbcffe2a5d6fc1d255f3424c88a58
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-28T17:35:51.380522+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2d920397566dbcffe2a5d6fc1d255f3424c88a58
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Patient Arrives)
+      1:task:(Patient Arrives) --> 2:task:(Triage)
+      2:task:(Triage) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Critical| 4:task:(Immediate Treatment)
+      3:exclusivegateway:{x} --> |Non-Critical| 5:task:(Wait for Doctor)
+      4:task:(Immediate Treatment) --> 6:task:(Treatment)
+      5:task:(Wait for Doctor) --> 6:task:(Treatment)
+      6:task:(Treatment) --> 7:exclusivegateway:{x}
+      7:exclusivegateway:{x} --> |Admit| 8:task:(Admit Patient)
+      7:exclusivegateway:{x} --> |Discharge| 9:task:(Discharge Patient)
+      8:task:(Admit Patient) --> 10:endevent:(((endevent)))
+      9:task:(Discharge Patient) --> 10:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-28T17:35:51.380665+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2d920397566dbcffe2a5d6fc1d255f3424c88a58
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Patient Arrives</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Triage</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Critical" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Immediate Treatment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Non-Critical" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Wait for Doctor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Treatment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Admit" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Admit Patient</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Discharge" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Discharge Patient</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-28T17:35:51.380862+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2025-11-28T17:36:16.563052+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T17:36:16.657725+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-11-28T17:36:24.716093+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T17:36:24.820821+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: packed
+  time:timestamp: '2025-11-28T17:36:27.482554+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T17:36:27.578688+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-28T17:36:33.013905+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T17:36:33.109173+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: packed
+  time:timestamp: '2025-11-28T17:36:36.376748+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T17:36:36.478760+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-28T17:36:42.128496+01:00'
+---
+event:
+  concept:instance: 74992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 1d860aeb-d018-4770-8619-9c3252f07398
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T17:36:42.220394+01:00'

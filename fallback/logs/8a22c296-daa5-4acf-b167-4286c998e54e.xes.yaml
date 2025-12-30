@@ -1,0 +1,2134 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 84747
+    cpee:name: Enter info here
+    cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-15T14:29:21.057847+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-12-15T14:29:27.466404+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-12-15T14:29:27.756742+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-15T14:29:28.238630+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-15T14:29:28.304115+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Study Basic Chess Principles</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Choose Opening" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Practice Opening Moves</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Review Opening Theory" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Analyze Master Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="8">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: fdccf043bce454c5f2c128644377ae53331dc420
+  time:timestamp: '2025-12-15T14:30:19.075452+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fdccf043bce454c5f2c128644377ae53331dc420
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-15T14:30:19.075734+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fdccf043bce454c5f2c128644377ae53331dc420
+  cpee:exposition: |+
+    # User Input:
+    make a process model of chess openings and tactics
+
+  time:timestamp: '2025-12-15T14:30:19.076061+01:00'
+...
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fdccf043bce454c5f2c128644377ae53331dc420
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-15T14:30:19.076190+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fdccf043bce454c5f2c128644377ae53331dc420
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-15T14:30:19.076324+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fdccf043bce454c5f2c128644377ae53331dc420
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Study Basic Chess Principles)
+      1:task:(Study Basic Chess Principles) --> 2:task:(Learn Common Chess Openings)
+      2:task:(Learn Common Chess Openings) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Choose Opening|4:task:(Practice Opening Moves)
+      3:exclusivegateway:{x} --> |Review Opening Theory|5:task:(Analyze Master Games)
+      4:task:(Practice Opening Moves) --> 6:exclusivegateway:{x}
+      5:task:(Analyze Master Games) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> 7:task:(Identify Tactical Patterns)
+      7:task:(Identify Tactical Patterns) --> 8:exclusivegateway:{x}
+      8:exclusivegateway:{x} --> |Tactical Puzzle Solving|9:task:(Solve Chess Puzzles)
+      8:exclusivegateway:{x} --> |Apply Tactics in Games|10:task:(Play Practice Games)
+      9:task:(Solve Chess Puzzles) --> 11:exclusivegateway:{x}
+      10:task:(Play Practice Games) --> 11:exclusivegateway:{x}
+      11:exclusivegateway:{x} --> 12:task:(Review and Improve)
+      12:task:(Review and Improve) --> 13:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-15T14:30:19.076693+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fdccf043bce454c5f2c128644377ae53331dc420
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Study Basic Chess Principles</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Choose Opening" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Practice Opening Moves</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Review Opening Theory" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Analyze Master Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="8">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-15T14:30:19.076859+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Understand Piece Movement</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Learn Basic Checkmates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Study Basic Tactical Motifs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a4">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Choose Opening" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Practice Opening Moves</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Review Opening Theory" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Analyze Master Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a19" endpoint="" a:alt_id="a15">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a27" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="a27">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: eced599345fba38cab89ba2cac643d27275dce50
+  time:timestamp: '2025-12-15T14:31:01.554025+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eced599345fba38cab89ba2cac643d27275dce50
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Study Basic Chess Principles</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Choose Opening" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Practice Opening Moves</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Review Opening Theory" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Analyze Master Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="8">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-15T14:31:01.554316+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eced599345fba38cab89ba2cac643d27275dce50
+  cpee:exposition: |+
+    # User Input:
+    concretize learning the basics, so all the steps neccessary to learn chess
+
+  time:timestamp: '2025-12-15T14:31:01.555201+01:00'
+...
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eced599345fba38cab89ba2cac643d27275dce50
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Study Basic Chess Principles)
+    a1:task:(Study Basic Chess Principles)-->a3:task:(Learn Common Chess Openings)
+    a3:task:(Learn Common Chess Openings)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Choose Opening"|a7:task:(Practice Opening Moves)
+    a7:task:(Practice Opening Moves)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Review Opening Theory"|a9:task:(Analyze Master Games)
+    a9:task:(Analyze Master Games)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a15:task:(Identify Tactical Patterns)
+    a15:task:(Identify Tactical Patterns)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Tactical Puzzle Solving"|a19:task:(Solve Chess Puzzles)
+    a19:task:(Solve Chess Puzzles)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Apply Tactics in Games"|a21:task:(Play Practice Games)
+    a21:task:(Play Practice Games)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a27:task:(Review and Improve)
+    a27:task:(Review and Improve)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-15T14:31:01.555596+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eced599345fba38cab89ba2cac643d27275dce50
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Understand Piece Movement)
+    a1:task:(Understand Piece Movement)-->a2:task:(Learn Basic Checkmates)
+    a2:task:(Learn Basic Checkmates)-->a3:task:(Study Basic Tactical Motifs)
+    a3:task:(Study Basic Tactical Motifs)-->a4:task:(Learn Common Chess Openings)
+    a4:task:(Learn Common Chess Openings)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Choose Opening"|a7:task:(Practice Opening Moves)
+    a7:task:(Practice Opening Moves)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Review Opening Theory"|a9:task:(Analyze Master Games)
+    a9:task:(Analyze Master Games)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a15:task:(Identify Tactical Patterns)
+    a15:task:(Identify Tactical Patterns)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Tactical Puzzle Solving"|a19:task:(Solve Chess Puzzles)
+    a19:task:(Solve Chess Puzzles)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Apply Tactics in Games"|a21:task:(Play Practice Games)
+    a21:task:(Play Practice Games)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a27:task:(Review and Improve)
+    a27:task:(Review and Improve)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-12-15T14:31:01.555765+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eced599345fba38cab89ba2cac643d27275dce50
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Understand Piece Movement</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Learn Basic Checkmates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Study Basic Tactical Motifs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a4">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Choose Opening" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Practice Opening Moves</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Review Opening Theory" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Analyze Master Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a19" endpoint="" a:alt_id="a15">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a27" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="a27">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-15T14:31:01.555911+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: eced599345fba38cab89ba2cac643d27275dce50
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-15T14:31:01.555464+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c10a517bf77d63ccc3f4612eae38fa63401b2a8
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Understand Piece Movement</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Learn Basic Checkmates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Study Basic Tactical Motifs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a4">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Choose Opening" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Practice Opening Moves</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Review Opening Theory" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Analyze Master Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a19" endpoint="" a:alt_id="a15">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a27" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="a27">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-15T14:31:31.066295+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Understand Piece Movement</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Learn Basic Checkmates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Study Basic Tactical Motifs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="post_test" condition="Choose Opening">
+        <choose mode="exclusive" a:alt_id="gw1s">
+          <alternative condition="Choose Opening" language="text/javascript">
+            <call id="a11" endpoint="" a:alt_id="a11">
+              <parameters>
+                <label>Practice Opening Moves</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Review Opening Theory" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Analyze Master Games</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <call id="a19" endpoint="" a:alt_id="a19">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a27" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="a31">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 2c10a517bf77d63ccc3f4612eae38fa63401b2a8
+  time:timestamp: '2025-12-15T14:31:31.066030+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c10a517bf77d63ccc3f4612eae38fa63401b2a8
+  cpee:exposition: |-
+    # User Input:
+    review and improve should be  a loop . learning should be a iterative process.
+  time:timestamp: '2025-12-15T14:31:31.066965+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c10a517bf77d63ccc3f4612eae38fa63401b2a8
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-15T14:31:31.067109+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c10a517bf77d63ccc3f4612eae38fa63401b2a8
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Understand Piece Movement)
+    a1:task:(Understand Piece Movement)-->a3:task:(Learn Basic Checkmates)
+    a3:task:(Learn Basic Checkmates)-->a5:task:(Study Basic Tactical Motifs)
+    a5:task:(Study Basic Tactical Motifs)-->a7:task:(Learn Common Chess Openings)
+    a7:task:(Learn Common Chess Openings)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Choose Opening"|a11:task:(Practice Opening Moves)
+    a11:task:(Practice Opening Moves)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Review Opening Theory"|a15:task:(Analyze Master Games)
+    a15:task:(Analyze Master Games)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a19:task:(Identify Tactical Patterns)
+    a19:task:(Identify Tactical Patterns)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Tactical Puzzle Solving"|a23:task:(Solve Chess Puzzles)
+    a23:task:(Solve Chess Puzzles)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Apply Tactics in Games"|a27:task:(Play Practice Games)
+    a27:task:(Play Practice Games)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a31:task:(Review and Improve)
+    a31:task:(Review and Improve)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-15T14:31:31.067335+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c10a517bf77d63ccc3f4612eae38fa63401b2a8
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Understand Piece Movement)
+        a1:task:(Understand Piece Movement)-->a3:task:(Learn Basic Checkmates)
+        a3:task:(Learn Basic Checkmates)-->a5:task:(Study Basic Tactical Motifs)
+        a5:task:(Study Basic Tactical Motifs)-->a7:task:(Learn Common Chess Openings)
+        a7:task:(Learn Common Chess Openings)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Choose Opening"|a11:task:(Practice Opening Moves)
+        a11:task:(Practice Opening Moves)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Review Opening Theory"|a15:task:(Analyze Master Games)
+        a15:task:(Analyze Master Games)-->gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->a19:task:(Identify Tactical Patterns)
+        a19:task:(Identify Tactical Patterns)-->gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"Tactical Puzzle Solving"|a23:task:(Solve Chess Puzzles)
+        a23:task:(Solve Chess Puzzles)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"Apply Tactics in Games"|a27:task:(Play Practice Games)
+        a27:task:(Play Practice Games)-->gw2e:exclusivegateway:{x}
+        gw2e:exclusivegateway:{x}-->a31:task:(Review and Improve)
+        a31:task:(Review and Improve)-->gw1s:exclusivegateway:
+    ```
+  time:timestamp: '2025-12-15T14:31:31.067508+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c10a517bf77d63ccc3f4612eae38fa63401b2a8
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Understand Piece Movement</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Learn Basic Checkmates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Study Basic Tactical Motifs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="post_test" condition="Choose Opening">
+        <choose mode="exclusive" a:alt_id="gw1s">
+          <alternative condition="Choose Opening" language="text/javascript">
+            <call id="a11" endpoint="" a:alt_id="a11">
+              <parameters>
+                <label>Practice Opening Moves</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Review Opening Theory" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Analyze Master Games</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <call id="a19" endpoint="" a:alt_id="a19">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a27" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="a31">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-15T14:31:31.067895+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Understand Piece Movement</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Learn Basic Checkmates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Study Basic Tactical Motifs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="post_test" condition="Choose Opening">
+        <choose mode="exclusive" a:alt_id="gw2s">
+          <alternative condition="Choose Opening" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="a11">
+              <parameters>
+                <label>Practice Opening Moves</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Review Opening Theory" language="text/javascript">
+            <call id="a19" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Analyze Master Games</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <call id="a25" endpoint="" a:alt_id="a19">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw3s">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a33" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a37" endpoint="" a:alt_id="a31">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: b6d2136b8bffb1da6b7b9765fa021cd4f4693b70
+  time:timestamp: '2025-12-15T14:33:28.425125+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b6d2136b8bffb1da6b7b9765fa021cd4f4693b70
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Understand Piece Movement</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Learn Basic Checkmates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Study Basic Tactical Motifs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="post_test" condition="Choose Opening">
+        <choose mode="exclusive" a:alt_id="gw1s">
+          <alternative condition="Choose Opening" language="text/javascript">
+            <call id="a11" endpoint="" a:alt_id="a11">
+              <parameters>
+                <label>Practice Opening Moves</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Review Opening Theory" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Analyze Master Games</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <call id="a19" endpoint="" a:alt_id="a19">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a27" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="a31">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-15T14:33:28.425511+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b6d2136b8bffb1da6b7b9765fa021cd4f4693b70
+  cpee:exposition: |-
+    # User Input:
+    banana
+  time:timestamp: '2025-12-15T14:33:28.425634+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b6d2136b8bffb1da6b7b9765fa021cd4f4693b70
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-15T14:33:28.426117+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b6d2136b8bffb1da6b7b9765fa021cd4f4693b70
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Understand Piece Movement)
+    a1:task:(Understand Piece Movement)-->a3:task:(Learn Basic Checkmates)
+    a3:task:(Learn Basic Checkmates)-->a5:task:(Study Basic Tactical Motifs)
+    a5:task:(Study Basic Tactical Motifs)-->a7:task:(Learn Common Chess Openings)
+    a7:task:(Learn Common Chess Openings)-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"Choose Opening"|gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Choose Opening"|a11:task:(Practice Opening Moves)
+    a11:task:(Practice Opening Moves)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Review Opening Theory"|a15:task:(Analyze Master Games)
+    a15:task:(Analyze Master Games)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a19:task:(Identify Tactical Patterns)
+    a19:task:(Identify Tactical Patterns)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Tactical Puzzle Solving"|a23:task:(Solve Chess Puzzles)
+    a23:task:(Solve Chess Puzzles)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Apply Tactics in Games"|a27:task:(Play Practice Games)
+    a27:task:(Play Practice Games)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->a31:task:(Review and Improve)
+    a31:task:(Review and Improve)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-15T14:33:28.426212+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b6d2136b8bffb1da6b7b9765fa021cd4f4693b70
+  cpee:exposition: |-
+    %% Output Intermediate
+    There are no changes provided. I will return the original process model.
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Understand Piece Movement)
+    a1:task:(Understand Piece Movement)-->a3:task:(Learn Basic Checkmates)
+    a3:task:(Learn Basic Checkmates)-->a5:task:(Study Basic Tactical Motifs)
+    a5:task:(Study Basic Tactical Motifs)-->a7:task:(Learn Common Chess Openings)
+    a7:task:(Learn Common Chess Openings)-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"Choose Opening"|gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Choose Opening"|a11:task:(Practice Opening Moves)
+    a11:task:(Practice Opening Moves)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Review Opening Theory"|a15:task:(Analyze Master Games)
+    a15:task:(Analyze Master Games)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a19:task:(Identify Tactical Patterns)
+    a19:task:(Identify Tactical Patterns)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Tactical Puzzle Solving"|a23:task:(Solve Chess Puzzles)
+    a23:task:(Solve Chess Puzzles)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Apply Tactics in Games"|a27:task:(Play Practice Games)
+    a27:task:(Play Practice Games)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->a31:task:(Review and Improve)
+    a31:task:(Review and Improve)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-12-15T14:33:28.426309+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b6d2136b8bffb1da6b7b9765fa021cd4f4693b70
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Understand Piece Movement</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Learn Basic Checkmates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Study Basic Tactical Motifs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="post_test" condition="Choose Opening">
+        <choose mode="exclusive" a:alt_id="gw2s">
+          <alternative condition="Choose Opening" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="a11">
+              <parameters>
+                <label>Practice Opening Moves</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Review Opening Theory" language="text/javascript">
+            <call id="a19" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Analyze Master Games</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <call id="a25" endpoint="" a:alt_id="a19">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw3s">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a33" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a37" endpoint="" a:alt_id="a31">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-15T14:33:28.426406+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-12-15T14:38:52.733251+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Understand Piece Movement</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Learn Basic Checkmates</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Study Basic Tactical Motifs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Learn Common Chess Openings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="post_test" condition="Choose Opening">
+        <choose mode="exclusive" a:alt_id="gw2s">
+          <alternative condition="Choose Opening" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="a11">
+              <parameters>
+                <label>Practice Opening Moves</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Review Opening Theory" language="text/javascript">
+            <call id="a19" endpoint="" a:alt_id="a15">
+              <parameters>
+                <label>Analyze Master Games</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <call id="a25" endpoint="" a:alt_id="a19">
+        <parameters>
+          <label>Identify Tactical Patterns</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw3s">
+        <alternative condition="Tactical Puzzle Solving" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Solve Chess Puzzles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Apply Tactics in Games" language="text/javascript">
+          <call id="a33" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Play Practice Games</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a37" endpoint="" a:alt_id="a31">
+        <parameters>
+          <label>Review and Improve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-15T14:38:52.733546+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-15T14:38:52.734300+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Understand Piece Movement)
+    a1:task:(Understand Piece Movement)-->a3:task:(Learn Basic Checkmates)
+    a3:task:(Learn Basic Checkmates)-->a5:task:(Study Basic Tactical Motifs)
+    a5:task:(Study Basic Tactical Motifs)-->a7:task:(Learn Common Chess Openings)
+    a7:task:(Learn Common Chess Openings)-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"Choose Opening"|gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Choose Opening"|a15:task:(Practice Opening Moves)
+    a15:task:(Practice Opening Moves)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Review Opening Theory"|a19:task:(Analyze Master Games)
+    a19:task:(Analyze Master Games)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a25:task:(Identify Tactical Patterns)
+    a25:task:(Identify Tactical Patterns)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Tactical Puzzle Solving"|a29:task:(Solve Chess Puzzles)
+    a29:task:(Solve Chess Puzzles)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Apply Tactics in Games"|a33:task:(Play Practice Games)
+    a33:task:(Play Practice Games)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->a37:task:(Review and Improve)
+    a37:task:(Review and Improve)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-15T14:38:52.734503+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    %% Output Intermediate
+    I am sorry, but I cannot fulfill this request. The provided process model does not require any modifications.
+  time:timestamp: '2025-12-15T14:38:52.734704+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-15T14:38:52.734886+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    big mama's hungry
+  time:timestamp: '2025-12-15T14:38:52.733948+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  time:timestamp: '2025-12-15T14:42:31.744194+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-15T14:42:31.744389+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: |-
+    # User Input:
+    create a process model of your choosing.
+  time:timestamp: '2025-12-15T14:42:31.744728+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-15T14:42:31.744966+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-15T14:42:31.745170+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Receive Order)
+        1:task:(Receive Order) --> 2:exclusivegateway:{x}
+        2:exclusivegateway:{x} --> |Order under $100| 3:task:(Process Small Order)
+        2:exclusivegateway:{x} --> |Order over $100| 4:task:(Process Large Order)
+        3:task:(Process Small Order) --> 5:exclusivegateway:{x}
+        4:task:(Process Large Order) --> 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> 6:task:(Ship Order)
+        6:task:(Ship Order) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-15T14:42:31.745543+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-15T14:42:31.745778+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Book Flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Book Rental Car</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript"/>
+      </choose>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Book Hotel</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 6e288a92c89dae2ef3b351721177e382780a6adc
+  time:timestamp: '2025-12-15T14:42:59.856712+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e288a92c89dae2ef3b351721177e382780a6adc
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-12-15T14:42:59.856940+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e288a92c89dae2ef3b351721177e382780a6adc
+  cpee:exposition: |-
+    # User Input:
+    certeat a process model of booking a flight, rental car and hotel on a airline website
+  time:timestamp: '2025-12-15T14:42:59.857364+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e288a92c89dae2ef3b351721177e382780a6adc
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-15T14:42:59.857450+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e288a92c89dae2ef3b351721177e382780a6adc
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-15T14:42:59.857547+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e288a92c89dae2ef3b351721177e382780a6adc
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Book Flight)
+    1:task:(Book Flight) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Yes| 3:task:(Book Rental Car)
+    2:exclusivegateway:{x} --> |No| 4:exclusivegateway:{x}
+    3:task:(Book Rental Car) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Yes| 5:task:(Book Hotel)
+    4:exclusivegateway:{x} --> |No| 6:exclusivegateway:{x}
+    5:task:(Book Hotel) --> 6:exclusivegateway:{x}
+    6:exclusivegateway:{x} --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-15T14:42:59.857638+01:00'
+---
+event:
+  concept:instance: 84747
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a22c296-daa5-4acf-b167-4286c998e54e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e288a92c89dae2ef3b351721177e382780a6adc
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Book Flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Book Rental Car</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript"/>
+      </choose>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Book Hotel</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-15T14:42:59.857721+01:00'

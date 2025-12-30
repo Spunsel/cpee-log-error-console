@@ -1,0 +1,712 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 76934
+    cpee:name: Plain Instance
+    cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-01T09:53:34.242758+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Select Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Select Milk</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 7fe4aee414f2b3273d39e31a8a9f4639ce3817f2
+  time:timestamp: '2025-12-01T09:54:05.414571+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7fe4aee414f2b3273d39e31a8a9f4639ce3817f2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-01T09:54:05.414836+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7fe4aee414f2b3273d39e31a8a9f4639ce3817f2
+  cpee:exposition: |-
+    # User Input:
+    start system, then select coffee, then select milk and then system end. 
+  time:timestamp: '2025-12-01T09:54:05.415681+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7fe4aee414f2b3273d39e31a8a9f4639ce3817f2
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-01T09:54:05.416019+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7fe4aee414f2b3273d39e31a8a9f4639ce3817f2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Select Coffee)
+    1:task:(Select Coffee) --> 2:task:(Select Milk)
+    2:task:(Select Milk) --> 3:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-01T09:54:05.416740+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7fe4aee414f2b3273d39e31a8a9f4639ce3817f2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Select Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Select Milk</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-01T09:54:05.417042+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7fe4aee414f2b3273d39e31a8a9f4639ce3817f2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-01T09:54:05.415850+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 958df9c4390d468404c264930e8d89288c5ebfc8
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Select Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Select Milk</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-01T09:54:57.155992+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Select Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Select Milk</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a4">
+        <parameters>
+          <label>System ready</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="a5">
+        <alternative condition="Receive package" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a6">
+            <parameters>
+              <label>Receive package</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Do quality check" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Do quality check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a8">
+        <parameters>
+          <label>Pack and ship</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 958df9c4390d468404c264930e8d89288c5ebfc8
+  time:timestamp: '2025-12-01T09:54:57.155758+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 958df9c4390d468404c264930e8d89288c5ebfc8
+  cpee:exposition: |-
+    # User Input:
+    system ready, receive package or do quality check, then pack and ship. 
+  time:timestamp: '2025-12-01T09:54:57.156129+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 958df9c4390d468404c264930e8d89288c5ebfc8
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-01T09:54:57.156241+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 958df9c4390d468404c264930e8d89288c5ebfc8
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Select Coffee)
+    a1:task:(Select Coffee)-->a3:task:(Select Milk)
+    a3:task:(Select Milk)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-01T09:54:57.156324+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 958df9c4390d468404c264930e8d89288c5ebfc8
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Select Coffee)
+    a1:task:(Select Coffee)-->a3:task:(Select Milk)
+    a3:task:(Select Milk)-->a4:task:(System ready)
+    a4:task:(System ready)-->a5:exclusivegateway:{x}
+    a5:exclusivegateway:{x}-->|Receive package| a6:task:(Receive package)
+    a5:exclusivegateway:{x}-->|Do quality check| a7:task:(Do quality check)
+    a6:task:(Receive package)-->a8:task:(Pack and ship)
+    a7:task:(Do quality check)-->a8:task: (Pack and ship)
+    a8:task:(Pack and ship)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-01T09:54:57.156518+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 958df9c4390d468404c264930e8d89288c5ebfc8
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Select Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Select Milk</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a4">
+        <parameters>
+          <label>System ready</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="a5">
+        <alternative condition="Receive package" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a6">
+            <parameters>
+              <label>Receive package</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Do quality check" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Do quality check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a8">
+        <parameters>
+          <label>Pack and ship</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-01T09:54:57.156617+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Select Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Select Milk</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>System ready</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Receive package" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Receive package</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Do quality check" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Do quality check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a17" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Pack and ship</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 99cb672366600132c1d4e387d6611fde928e46a3
+  time:timestamp: '2025-12-01T09:56:36.342107+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 99cb672366600132c1d4e387d6611fde928e46a3
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Select Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Select Milk</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a4">
+        <parameters>
+          <label>System ready</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="a5">
+        <alternative condition="Receive package" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a6">
+            <parameters>
+              <label>Receive package</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Do quality check" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Do quality check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a8">
+        <parameters>
+          <label>Pack and ship</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-01T09:56:36.342411+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 99cb672366600132c1d4e387d6611fde928e46a3
+  cpee:exposition: |-
+    # User Input:
+    ## Procedural Constraints ##
+    [start_system -> unlock_gate]
+    [start_system -> go_around]
+    [go_around -> open_gate]
+    [unlock_gate -> lock_gate]
+    [unlock_gate -> open_gate]
+    [lock_gate -> system_end]
+    [open_gate -> system_end]
+
+
+    ## LTLf Constraints ##
+    G(start_system -> F system_end)
+    start_system
+    F system_end && G(system_end -> !(X True))
+
+
+    !(F unlock_gate && F open_gate)
+  time:timestamp: '2025-12-01T09:56:36.342569+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 99cb672366600132c1d4e387d6611fde928e46a3
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-01T09:56:36.342724+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 99cb672366600132c1d4e387d6611fde928e46a3
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Select Coffee)
+    a1:task:(Select Coffee)-->a3:task:(Select Milk)
+    a3:task:(Select Milk)-->a5:task:(System ready)
+    a5:task:(System ready)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Receive package"|a9:task:(Receive package)
+    a9:task:(Receive package)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Do quality check"|a11:task:(Do quality check)
+    a11:task:(Do quality check)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a13:task:(Pack and ship)
+    a13:task:(Pack and ship)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-01T09:56:36.343666+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 99cb672366600132c1d4e387d6611fde928e46a3
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Select Coffee)
+        a1:task:(Select Coffee)-->a3:task:(Select Milk)
+        a3:task:(Select Milk)-->a5:task:(System ready)
+        a5:task:(System ready)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Receive package"|a9:task:(Receive package)
+        a9:task:(Receive package)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Do quality check"|a11:task:(Do quality check)
+        a11:task:(Do quality check)-->gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->a13:task:(Pack and ship)
+        a13:task:(Pack and ship)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-01T09:56:36.343795+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 99cb672366600132c1d4e387d6611fde928e46a3
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Select Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Select Milk</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>System ready</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Receive package" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Receive package</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Do quality check" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Do quality check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a17" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Pack and ship</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-01T09:56:36.343917+01:00'
+---
+event:
+  concept:instance: 76934
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c608e67c-5334-4981-aca1-f835925292f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-12-01T10:21:06.469651+01:00'

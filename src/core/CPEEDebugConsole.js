@@ -270,7 +270,13 @@ export class CPEEDebugConsole {
             }
             
             // Fetch and parse log data
-            const logData = await this.logFetchService.fetchAndParseLog(uuid);
+            const logResult = await this.logFetchService.fetchAndParseLog(uuid);
+            const logData = logResult.events;
+            
+            if (logResult.fromFallback) {
+                console.warn(`Using FALLBACK log for UUID ${uuid}`);
+            }
+            
             const steps = await this.stepAssemblyService.parseStepsFromLog(logData);
             
             console.log(`Found ${steps.length} steps`);

@@ -268,7 +268,12 @@ export class InstanceLoaderViewer {
                 
                 // Fetch UUID from process number
                 const cpeeService = serviceFactory.get('CPEEService');
-                finalUuid = await cpeeService.fetchUUIDFromProcessNumber(processNum);
+                const result = await cpeeService.fetchUUIDFromProcessNumber(processNum);
+                finalUuid = result.uuid;
+                
+                if (result.fromFallback) {
+                    console.warn(`Using FALLBACK UUID for process ${processNum}`);
+                }
                 
                 // Update UUID input with fetched value
                 if (uuidInput) {
@@ -358,7 +363,12 @@ export class InstanceLoaderViewer {
                 }
                 
                 const cpeeService = serviceFactory.get('CPEEService');
-                finalUuid = await cpeeService.fetchUUIDFromProcessNumber(processNum);
+                const result = await cpeeService.fetchUUIDFromProcessNumber(processNum);
+                finalUuid = result.uuid;
+                
+                if (result.fromFallback) {
+                    console.warn(`Using FALLBACK UUID for process ${processNum}`);
+                }
                 
                 // Update UUID input
                 if (uuidInput) {
@@ -412,7 +422,12 @@ export class InstanceLoaderViewer {
 
             // Fetch UUID from CPEE service
             const cpeeService = serviceFactory.get('CPEEService');
-            const uuid = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+            const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+            const uuid = result.uuid;
+            
+            if (result.fromFallback) {
+                console.warn(`Using FALLBACK UUID for process ${processNumber}`);
+            }
 
             // Update UUID input field and store the process number for later use
             if (uuidInput) {
@@ -498,11 +513,17 @@ export class InstanceLoaderViewer {
         
         try {
             // Fetch UUID from process number
-            const uuid = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+            const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+            const uuid = result.uuid;
             
             try {
                 // Fetch and parse log
-                const logData = await this.logFetchService.fetchAndParseLog(uuid);
+                const logResult = await this.logFetchService.fetchAndParseLog(uuid);
+                const logData = logResult.events;
+                
+                if (logResult.fromFallback) {
+                    console.warn(`Using FALLBACK log for UUID ${uuid}`);
+                }
                 
                 // Use lightweight check instead of full parsing
                 const { hasSteps, stepCount } = this.eventProcessingService.hasStepsInLog(logData);
@@ -876,7 +897,8 @@ export class InstanceLoaderViewer {
                 
                 // Fetch UUID for this process number
                 const cpeeService = serviceFactory.get('CPEEService');
-                const uuid = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+                const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+                const uuid = result.uuid;
                 
                 if (uuid) {
                     // Wait for instance to load using a promise that resolves on load completion

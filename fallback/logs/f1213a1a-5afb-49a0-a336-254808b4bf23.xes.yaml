@@ -1,0 +1,473 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 88719
+    cpee:name: Plain Instance
+    cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-20T02:35:13.813395+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Mix Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Bake Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Cool Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d364c2cf5f27d6cffc889ca484c506e4ccf119d2
+  time:timestamp: '2025-12-20T02:35:42.587505+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d364c2cf5f27d6cffc889ca484c506e4ccf119d2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-20T02:35:42.587841+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d364c2cf5f27d6cffc889ca484c506e4ccf119d2
+  cpee:exposition: |-
+    # User Input:
+    bake a ckae
+  time:timestamp: '2025-12-20T02:35:42.588415+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d364c2cf5f27d6cffc889ca484c506e4ccf119d2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-20T02:35:42.588771+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d364c2cf5f27d6cffc889ca484c506e4ccf119d2
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-20T02:35:42.589237+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d364c2cf5f27d6cffc889ca484c506e4ccf119d2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Prepare Ingredients)
+    1:task:(Prepare Ingredients) --> 2:task:(Mix Ingredients)
+    2:task:(Mix Ingredients) --> 3:task:(Bake Cake)
+    3:task:(Bake Cake) --> 4:task:(Cool Cake)
+    4:task:(Cool Cake) --> 5:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-20T02:35:42.589674+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d364c2cf5f27d6cffc889ca484c506e4ccf119d2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Mix Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Bake Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Cool Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-20T02:35:42.590164+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Buy Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Mix Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Bake Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Cool Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 74604c090376db29f0f2bae2d9c5ce67587ab77a
+  time:timestamp: '2025-12-20T02:36:08.820840+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74604c090376db29f0f2bae2d9c5ce67587ab77a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Mix Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Bake Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Cool Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-20T02:36:08.821068+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74604c090376db29f0f2bae2d9c5ce67587ab77a
+  cpee:exposition: |-
+    # User Input:
+    add buying 
+  time:timestamp: '2025-12-20T02:36:08.821182+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74604c090376db29f0f2bae2d9c5ce67587ab77a
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->a3:task:(Mix Ingredients)
+    a3:task:(Mix Ingredients)-->a5:task:(Bake Cake)
+    a5:task:(Bake Cake)-->a7:task:(Cool Cake)
+    a7:task:(Cool Cake)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-20T02:36:08.821467+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74604c090376db29f0f2bae2d9c5ce67587ab77a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
+    a1:task:(Prepare Ingredients)-->a2:task:(Buy Ingredients)
+    a2:task:(Buy Ingredients)-->a3:task:(Mix Ingredients)
+    a3:task:(Mix Ingredients)-->a5:task:(Bake Cake)
+    a5:task:(Bake Cake)-->a7:task:(Cool Cake)
+    a7:task:(Cool Cake)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-20T02:36:08.821574+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74604c090376db29f0f2bae2d9c5ce67587ab77a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-20T02:36:08.821337+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74604c090376db29f0f2bae2d9c5ce67587ab77a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Buy Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Mix Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Bake Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Cool Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-20T02:36:08.821687+01:00'
+---
+event:
+  concept:instance: 88719
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f1213a1a-5afb-49a0-a336-254808b4bf23
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Mix Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Bake Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Cool Cake</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d364c2cf5f27d6cffc889ca484c506e4ccf119d2
+  time:timestamp: '2025-12-20T02:36:21.318941+01:00'

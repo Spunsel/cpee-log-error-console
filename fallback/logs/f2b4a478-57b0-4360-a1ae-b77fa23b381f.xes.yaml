@@ -1,0 +1,637 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 77050
+    cpee:name: Plain Instance
+    cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+---
+event:
+  concept:instance: 77050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-01T10:12:27.115687+01:00'
+---
+event:
+  concept:instance: 77050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5ec9d3ab265a3990c41a17634f550570a2240a7d
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-01T10:12:44.399950+01:00'
+---
+event:
+  concept:instance: 77050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5ec9d3ab265a3990c41a17634f550570a2240a7d
+  cpee:exposition: |-
+    # User Input:
+    a) The purchasing department has to determine the procurement requirements. For doing this, the procurement requirement determination method has to be decided on by the Procurement Manager using Enterprise Resource Planning-Systems (ERP).
+    b) There are basically three methods for this determination: Program-oriented procurement requirements method, consumption-oriented procurement requirement method and estimates & heuristic method.
+    c) The Procurement Manager can select the program-oriented procurement requirements method (depending on a user database), if one of the following events is occurring: high material value, product program planning is possible or the bill of material (BOM) is available. In this method the sales volume & the components of the respective product are to be defined (based on the available BOM and/or the production program) and also the requirements has to be derived from the production program (based on the business requirements & needs) by the Procurement specialist.
+    d) The consumption-oriented procurement requirements method, on the other hand, can be selected, if one of the following events is occurring: the product program planning is not possible, the bill of material (BOM) is not available or in case of low material value. In this method, the consumption values from the past are to be determined by the Procurement specialist and also the demand forecasts (based on a stochastic method) & the forecast values (based on a Requirements Performance Measurements) are to be defined. In defining the forecast values, errors in predicting future consumptions & future consumptions adequate mathematical modelling errors can appear in this stage as procurement risks.
+    e) The estimates & heuristic method can be selected if both following events are occurring: Prerequisites for program-oriented & consumption-oriented methods are missing. In this method, the procurement specialist has to decide on an estimate method. There are basically 2 methods in estimates which are, analogous estimate (based on analogous estimate and using consumption of related goods) & intuitively estimate (based on intuitively estimate and using Heuristics - Rules of thumb) methods.
+    f) After selecting the possible method and doing all the following steps for it, the Procurement Assistant has to determine qualitative & quantitative aspects for the chosen method (using the BOM, Procurement requirements & business needs and requirements).
+    g) For the qualitative aspect, the requirement range has to be determined (based on the product complexity). In determining this point again, materials (BOM) & the quality (Business requirements & needs) has to be defined at the same time. Concerning quality, either best quality, average quality or minimum quality can be determined in this step.
+    h) For the quantitative aspect, the requirement amount & the consumption period has to be defined by the Procurement Assistant.
+    i) In the next step, the requirement types, which are primary requirements, secondary requirements, tertiary requirements, gross requirements & net requirements (ordering requirement) are to be defined by the Procurement Assistant.
+    j) To define the primary requirements, the market requirements & needs have to be defined.
+    k) In defining the secondary requirements, the primary requirements/needs have to be derived and also the quantity of raw materials required per product (BOM) has to be defined. Both ratios have then to be multiplied, resulting in determining the secondary requirements.
+    l) To determine the tertiary requirements, the same function in determining the primary requirements/needs has to be performed and also the quantity of operational materials required per product has to be further defined in this step. Multiplying both ratios again, results in determining the tertiary requirements.
+    m) For the gross requirements, the additional requirements (for rejects) are to be defined. Calculating the sum of secondary, tertiary & additional requirements, results then in defining the gross requirements.
+    n) For the net requirements (ordering requirement), the inventory stock & open orders have to be defined. Correcting the gross amount to the inventory stock & open orders, results then in determining the net requirements.
+    o) After determining all requirement types, all options (results) are combined again to one point and finally the procurement requirements are successfully determined.
+  time:timestamp: '2025-12-01T10:12:44.400250+01:00'
+---
+event:
+  concept:instance: 77050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5ec9d3ab265a3990c41a17634f550570a2240a7d
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-01T10:12:44.400368+01:00'
+---
+event:
+  concept:instance: 77050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Determine Procurement Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Decide on Procurement Requirement Determination Method using ERP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Program-oriented procurement requirements method" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Define Sales Volume &amp; Components</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Derive Requirements from Production Program</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Consumption-oriented procurement requirement method" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Determine Consumption Values from the Past</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Define Demand Forecasts</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Define Forecast Values</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Estimates &amp; Heuristic Method" language="text/javascript">
+          <call id="a27" endpoint="" a:alt_id="17">
+            <parameters>
+              <label>Decide on Estimate Method</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Determine Qualitative &amp; Quantitative Aspects</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="24">
+        <parallel_branch>
+          <call id="a35" endpoint="" a:alt_id="25">
+            <parameters>
+              <label>Determine Requirement Range</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a39" endpoint="" a:alt_id="26">
+            <parameters>
+              <label>Define Materials &amp; Quality</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a37" endpoint="" a:alt_id="28">
+            <parameters>
+              <label>Define Requirement Amount &amp; Consumption Period</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a45" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Define Requirement Types</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a57" endpoint="" a:alt_id="31">
+            <parameters>
+              <label>Define Market Requirements &amp; Needs</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a61" endpoint="" a:alt_id="34">
+            <parameters>
+              <label>Derive Primary Requirements &amp; Define Quantity of Raw Materials</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a63" endpoint="" a:alt_id="35">
+            <parameters>
+              <label>Multiply Ratios to Determine Secondary Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a67" endpoint="" a:alt_id="37">
+            <parameters>
+              <label>Define Quantity of Operational Materials</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a69" endpoint="" a:alt_id="38">
+            <parameters>
+              <label>Multiply Ratios to Determine Tertiary Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a73" endpoint="" a:alt_id="40">
+            <parameters>
+              <label>Define Additional Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a75" endpoint="" a:alt_id="41">
+            <parameters>
+              <label>Calculate Sum of Requirements to Define Gross Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a79" endpoint="" a:alt_id="43">
+            <parameters>
+              <label>Define Inventory Stock &amp; Open Orders</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a81" endpoint="" a:alt_id="44">
+            <parameters>
+              <label>Correct Gross Amount to Determine Net Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a85" endpoint="" a:alt_id="46">
+        <parameters>
+          <label>Combine Options</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 5ec9d3ab265a3990c41a17634f550570a2240a7d
+  time:timestamp: '2025-12-01T10:12:44.399690+01:00'
+---
+event:
+  concept:instance: 77050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5ec9d3ab265a3990c41a17634f550570a2240a7d
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-01T10:12:44.400505+01:00'
+---
+event:
+  concept:instance: 77050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5ec9d3ab265a3990c41a17634f550570a2240a7d
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Determine Procurement Requirements)
+        1:task:(Determine Procurement Requirements) --> 2:task:(Decide on Procurement Requirement Determination Method using ERP)
+        2:task:(Decide on Procurement Requirement Determination Method using ERP) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |Program-oriented procurement requirements method| 4:subprocess:(Program-oriented Procurement Requirements Method)
+        3:exclusivegateway:{x} --> |Consumption-oriented procurement requirement method| 10:subprocess:(Consumption-oriented Procurement Requirements Method)
+        3:exclusivegateway:{x} --> |Estimates & Heuristic Method| 16:subprocess:(Estimates & Heuristic Method)
+        4:subprocess:(Program-oriented Procurement Requirements Method) --> 5:task:(Define Sales Volume & Components)
+        5:task:(Define Sales Volume & Components) --> 6:task:(Derive Requirements from Production Program)
+        6:task:(Derive Requirements from Production Program) --> 22:exclusivegateway:{x}
+        10:subprocess:(Consumption-oriented Procurement Requirements Method) --> 11:task:(Determine Consumption Values from the Past)
+        11:task:(Determine Consumption Values from the Past) --> 12:task:(Define Demand Forecasts)
+        12:task:(Define Demand Forecasts) --> 13:task:(Define Forecast Values)
+        13:task:(Define Forecast Values) --> 22:exclusivegateway:{x}
+        16:subprocess:(Estimates & Heuristic Method) --> 17:task:(Decide on Estimate Method)
+        17:task:(Decide on Estimate Method) --> 22:exclusivegateway:{x}
+        22:exclusivegateway:{x} --> 23:task:(Determine Qualitative & Quantitative Aspects)
+        23:task:(Determine Qualitative & Quantitative Aspects) --> 24:parallelgateway:{AND}
+        24:parallelgateway:{AND} --> 25:task:(Determine Requirement Range)
+        24:parallelgateway:{AND} --> 28:task:(Define Requirement Amount & Consumption Period)
+        25:task:(Determine Requirement Range) --> 26:task:(Define Materials & Quality)
+        26:task:(Define Materials & Quality) --> 27:parallelgateway:{AND}
+        28:task:(Define Requirement Amount & Consumption Period) --> 27:parallelgateway:{AND}
+        27:parallelgateway:{AND} --> 29:task:(Define Requirement Types)
+        29:task:(Define Requirement Types) --> 30:subprocess:(Define Primary Requirements)
+        29:task:(Define Requirement Types) --> 33:subprocess:(Define Secondary Requirements)
+        29:task:(Define Requirement Types) --> 36:subprocess:(Define Tertiary Requirements)
+        29:task:(Define Requirement Types) --> 39:subprocess:(Define Gross Requirements)
+        29:task:(Define Requirement Types) --> 42:subprocess:(Define Net Requirements)
+        30:subprocess:(Define Primary Requirements) --> 31:task:(Define Market Requirements & Needs)
+        31:task:(Define Market Requirements & Needs) --> 45:parallelgateway:{AND}
+        33:subprocess:(Define Secondary Requirements) --> 34:task:(Derive Primary Requirements & Define Quantity of Raw Materials)
+        34:task:(Derive Primary Requirements & Define Quantity of Raw Materials) --> 35:task:(Multiply Ratios to Determine Secondary Requirements)
+        35:task:(Multiply Ratios to Determine Secondary Requirements) --> 45:parallelgateway:{AND}
+        36:subprocess:(Define Tertiary Requirements) --> 37:task:(Define Quantity of Operational Materials)
+        37:task:(Define Quantity of Operational Materials) --> 38:task:(Multiply Ratios to Determine Tertiary Requirements)
+        38:task:(Multiply Ratios to Determine Tertiary Requirements) --> 45:parallelgateway:{AND}
+        39:subprocess:(Define Gross Requirements) --> 40:task:(Define Additional Requirements)
+        40:task:(Define Additional Requirements) --> 41:task:(Calculate Sum of Requirements to Define Gross Requirements)
+        41:task:(Calculate Sum of Requirements to Define Gross Requirements) --> 45:parallelgateway:{AND}
+        42:subprocess:(Define Net Requirements) --> 43:task:(Define Inventory Stock & Open Orders)
+        43:task:(Define Inventory Stock & Open Orders) --> 44:task:(Correct Gross Amount to Determine Net Requirements)
+        44:task:(Correct Gross Amount to Determine Net Requirements) --> 45:parallelgateway:{AND}
+        45:parallelgateway:{AND} --> 46:task:(Combine Options)
+        46:task:(Combine Options) --> 47:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-01T10:12:44.400592+01:00'
+---
+event:
+  concept:instance: 77050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5ec9d3ab265a3990c41a17634f550570a2240a7d
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Determine Procurement Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Decide on Procurement Requirement Determination Method using ERP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Program-oriented procurement requirements method" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Define Sales Volume &amp; Components</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Derive Requirements from Production Program</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Consumption-oriented procurement requirement method" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Determine Consumption Values from the Past</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Define Demand Forecasts</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Define Forecast Values</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Estimates &amp; Heuristic Method" language="text/javascript">
+          <call id="a27" endpoint="" a:alt_id="17">
+            <parameters>
+              <label>Decide on Estimate Method</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Determine Qualitative &amp; Quantitative Aspects</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="24">
+        <parallel_branch>
+          <call id="a35" endpoint="" a:alt_id="25">
+            <parameters>
+              <label>Determine Requirement Range</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a39" endpoint="" a:alt_id="26">
+            <parameters>
+              <label>Define Materials &amp; Quality</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a37" endpoint="" a:alt_id="28">
+            <parameters>
+              <label>Define Requirement Amount &amp; Consumption Period</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a45" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Define Requirement Types</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a57" endpoint="" a:alt_id="31">
+            <parameters>
+              <label>Define Market Requirements &amp; Needs</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a61" endpoint="" a:alt_id="34">
+            <parameters>
+              <label>Derive Primary Requirements &amp; Define Quantity of Raw Materials</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a63" endpoint="" a:alt_id="35">
+            <parameters>
+              <label>Multiply Ratios to Determine Secondary Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a67" endpoint="" a:alt_id="37">
+            <parameters>
+              <label>Define Quantity of Operational Materials</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a69" endpoint="" a:alt_id="38">
+            <parameters>
+              <label>Multiply Ratios to Determine Tertiary Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a73" endpoint="" a:alt_id="40">
+            <parameters>
+              <label>Define Additional Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a75" endpoint="" a:alt_id="41">
+            <parameters>
+              <label>Calculate Sum of Requirements to Define Gross Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a79" endpoint="" a:alt_id="43">
+            <parameters>
+              <label>Define Inventory Stock &amp; Open Orders</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a81" endpoint="" a:alt_id="44">
+            <parameters>
+              <label>Correct Gross Amount to Determine Net Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a85" endpoint="" a:alt_id="46">
+        <parameters>
+          <label>Combine Options</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-01T10:12:44.400711+01:00'
+---
+event:
+  concept:instance: 77050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-12-01T10:17:29.866847+01:00'
+---
+event:
+  concept:instance: 77050
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2b4a478-57b0-4360-a1ae-b77fa23b381f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-01T10:17:30.002103+01:00'

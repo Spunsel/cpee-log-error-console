@@ -1,0 +1,1340 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 83313
+    cpee:name: Plain Instance
+    cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-12T07:50:13.061086+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-12T11:03:24.058901+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: b
+    value: 4
+  - name: end
+    value: 1741703309.6717181
+  - name: start
+    value: 1741703308.456953
+  time:timestamp: '2025-12-12T11:03:24.060327+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: timeout
+    value: https://cpee.org/services/timeout.php
+  - name: subprocess
+    value: https://cpee.org/flow/start/url/
+  - name: orgmodel
+    value: http://localhost/data/ideas_phase1/zt.xml
+  time:timestamp: '2025-12-12T11:03:24.062172+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: extended
+  - name: guarded_id
+    value: ''
+  - name: info
+    value: Wait
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: model_uuid
+    value: c92d0c0b-8bbd-40dd-baad-01c5616dfceb
+  - name: model_version
+    value: ''
+  - name: design_dir
+    value: Templates.dir
+  - name: design_stage
+    value: development
+  time:timestamp: '2025-12-12T11:03:24.063834+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <manipulate id="a2" label="Measure Start">data.start = Time.now.to_f</manipulate>
+      <call id="a1" endpoint="timeout">
+        <parameters>
+          <label>Wait</label>
+          <method>:post</method>
+          <arguments>
+            <timeout>1</timeout>
+          </arguments>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.end = Time.now.to_f</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <call id="a3" endpoint="orgmodel">
+        <parameters>
+          <label>Names</label>
+          <method>:get</method>
+          <arguments/>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">result.register_namespace 'o', 'http://cpee.org/ns/organisation/1.0'
+    data.teams = result.find("/o:organisation/o:subjects/o:subject[o:relation/@role='Product Manager']/@id").to_a</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+    </description>
+  cpee:change_uuid: 8651e49708f410554285ecb8d4becb698f7da106
+  time:timestamp: '2025-12-12T11:03:24.071937+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-12T11:03:24.421941+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  time:timestamp: '2025-12-12T12:05:53.643721+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <manipulate id="a2" label="Measure Start">data.start = Time.now.to_f</manipulate>
+      <call id="a1" endpoint="timeout">
+        <parameters>
+          <label>Wait</label>
+          <method>:post</method>
+          <arguments>
+            <timeout>1</timeout>
+          </arguments>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.end = Time.now.to_f</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <call id="a3" endpoint="orgmodel">
+        <parameters>
+          <label>Names</label>
+          <method>:get</method>
+          <arguments/>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">result.register_namespace 'o', 'http://cpee.org/ns/organisation/1.0'
+    data.teams = result.find("/o:organisation/o:subjects/o:subject[o:relation/@role='Product Manager']/@id").to_a</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+    </description>
+  time:timestamp: '2025-12-12T12:05:53.644092+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-12T12:05:53.645358+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:scripttask:(Measure Start)
+    a2:scripttask:(Measure Start)-->a1:task:(Wait)
+    a1:task:(Wait)-->a3:task:(Names)
+    a3:task:(Names)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-12T12:05:53.645632+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-12T12:05:53.645497+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Measure Start)
+    a2:task:(Measure Start)-->a1:task:(Wait)
+    a1:task:(Wait)-->a3:task:(Names)
+    a3:task:(Names)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-12T12:05:53.645777+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-12T12:05:53.645902+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  time:timestamp: '2025-12-12T12:06:38.759105+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-12T12:06:38.759420+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    # User Input:
+    Vertrag unterschreiben
+  time:timestamp: '2025-12-12T12:06:38.760278+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-12T12:06:38.760401+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Measure Start)
+    a1:task:(Measure Start)-->a3:task:(Wait)
+    a3:task:(Wait)-->a5:task:(Names)
+    a5:task:(Names)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-12T12:06:38.760490+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Measure Start)
+    a1:task:(Measure Start)-->a3:task:(Wait)
+    a3:task:(Wait)-->a5:task:(Names)
+    a5:task:(Names)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-12T12:06:38.760580+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-12T12:06:38.760662+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  time:timestamp: '2025-12-12T12:07:23.680890+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-12T12:07:23.681069+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    # User Input:
+    Vertrag unterschrieben
+  time:timestamp: '2025-12-12T12:07:23.681178+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-12T12:07:23.681279+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Measure Start)
+    a1:task:(Measure Start)-->a3:task:(Wait)
+    a3:task:(Wait)-->a5:task:(Names)
+    a5:task:(Names)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-12T12:07:23.681369+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Measure Start)
+    a1:task:(Measure Start)-->a3:task:(Wait)
+    a3:task:(Wait)-->a5:task:(Names)
+    a5:task:(Names)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-12T12:07:23.681463+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-12T12:07:23.681553+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  time:timestamp: '2025-12-12T12:07:56.607053+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  time:timestamp: '2025-12-12T12:07:57.448600+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  time:timestamp: '2025-12-12T12:07:58.216328+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a3edff2965c39ce92218fa130f3798d5a3e740cb
+  time:timestamp: '2025-12-12T12:07:58.765865+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  time:timestamp: '2025-12-12T12:08:04.906525+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-12T12:08:04.906686+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |+
+    # User Input:
+    The process starts. First, a measurement start task is performed. Then, the process waits. After waiting, names are processed. Finally, the process ends.
+
+  time:timestamp: '2025-12-12T12:08:04.906804+01:00'
+...
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-12T12:08:04.906895+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Measure Start)
+    a1:task:(Measure Start)-->a3:task:(Wait)
+    a3:task:(Wait)-->a5:task:(Names)
+    a5:task:(Names)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-12T12:08:04.906998+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Measure Start)
+    a1:task:(Measure Start)-->a3:task:(Wait)
+    a3:task:(Wait)-->a5:task:(Names)
+    a5:task:(Names)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-12T12:08:04.907154+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-12T12:08:04.907243+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  time:timestamp: '2025-12-12T12:08:06.237172+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-12T12:08:06.237419+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-12-12T12:08:06.237558+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-12T12:08:06.237683+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Measure Start)
+    a1:task:(Measure Start)-->a3:task:(Wait)
+    a3:task:(Wait)-->a5:task:(Names)
+    a5:task:(Names)-->ee:endevent:((endevent))
+  time:timestamp: '2025-12-12T12:08:06.237878+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Measure Start)
+    a1:task:(Measure Start)-->a3:task:(Wait)
+    a3:task:(Wait)-->a5:task:(Names)
+    a5:task:(Names)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-12T12:08:06.237960+01:00'
+---
+event:
+  concept:instance: 83313
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5d2fd2a8-ef2d-4562-bec3-84febf87bf22
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: af68f01a8e5f9bf47589f2ab0bba3341015c811e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Measure Start</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Wait</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Names</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-12T12:08:06.238032+01:00'

@@ -1,0 +1,2165 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 82226
+    cpee:name: Plain Instance
+    cpee:instance: d0d346be-e6ee-41b7-aa10-5af33752df9f
+---
+event:
+  concept:instance: 82226
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d0d346be-e6ee-41b7-aa10-5af33752df9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-07T21:01:09.725420+01:00'
+---
+event:
+  concept:instance: 82226
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d0d346be-e6ee-41b7-aa10-5af33752df9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Start Interview</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Explain Interview Rules</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Get Consent</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Start Recording</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Introduce Interviewee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Explain Current Position and Tasks</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Focus on Baufinanzierung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Explain Baufinanzierung Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Focus on Classic Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Explain Aufsichtsrechtlichen Beschluss</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Check Bewilligung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Check Vereinbarungen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Zweitvotierung if needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="14">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Get Second Vote</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript"/>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Check Documents Stichproben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Check Plausibility</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Check Kapitaldienstrechnung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Vertragsproduktion</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Send Contracts</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="21">
+        <alternative condition="Digital" language="text/javascript">
+          <call id="a45" endpoint="" a:alt_id="22">
+            <parameters>
+              <label>Digital Signature</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Paper" language="text/javascript">
+          <call id="a47" endpoint="" a:alt_id="23">
+            <parameters>
+              <label>Paper Transport</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a49" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Legitimationsprozess</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Vereinnahmen Unterlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Restarchiv</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Valutierungsprozess</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Kaufpreiszahlung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Eigenabruf Renovierung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Manuelle Pr&#xFC;fungen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Valutierung Abgeschlossen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a67" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>&#xDC;berpr&#xFC;fung Mittel</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a69" endpoint="" a:alt_id="33">
+        <parameters>
+          <label>Wertermittlung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a71" endpoint="" a:alt_id="34">
+        <parameters>
+          <label>&#xDC;berpr&#xFC;fung Wertermittlung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a73" endpoint="" a:alt_id="35">
+        <parameters>
+          <label>Ansprache Berater</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a75" endpoint="" a:alt_id="36">
+        <parameters>
+          <label>Folgeprozesse</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a77" endpoint="" a:alt_id="37">
+        <parameters>
+          <label>Markt &#xDC;berpr&#xFC;ft</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a79" endpoint="" a:alt_id="38">
+        <parameters>
+          <label>Marktfolge &#xDC;berpr&#xFC;ft</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a81" endpoint="" a:alt_id="39">
+        <parameters>
+          <label>Nutzen Systeme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a83" endpoint="" a:alt_id="40">
+        <parameters>
+          <label>Abgreifen T&#xE4;tigkeiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a85" endpoint="" a:alt_id="41">
+        <parameters>
+          <label>Excel Tabelle</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a87" endpoint="" a:alt_id="42">
+        <parameters>
+          <label>Checkliste</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a89" endpoint="" a:alt_id="43">
+        <parameters>
+          <label>Manuelle Pr&#xFC;fung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a91" endpoint="" a:alt_id="44">
+        <parameters>
+          <label>Gefahr Unterlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a93" endpoint="" a:alt_id="45">
+        <parameters>
+          <label>Systemische Checklisten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a95" endpoint="" a:alt_id="46">
+        <parameters>
+          <label>KI Erkennungsquote</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a97" endpoint="" a:alt_id="47">
+        <parameters>
+          <label>Keine Verprobung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a99" endpoint="" a:alt_id="48">
+        <parameters>
+          <label>Fl&#xFC;chtigkeitsfehler</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a101" endpoint="" a:alt_id="49">
+        <parameters>
+          <label>Schnittstellen Vermittlern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a103" endpoint="" a:alt_id="50">
+        <parameters>
+          <label>Plausibilit&#xE4;tsprotokoll</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a105" endpoint="" a:alt_id="51">
+        <parameters>
+          <label>Betrugsanf&#xE4;llig</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a107" endpoint="" a:alt_id="52">
+        <parameters>
+          <label>Gehaltsabrechnungen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a109" endpoint="" a:alt_id="53">
+        <parameters>
+          <label>Keine M&#xF6;glichkeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a111" endpoint="" a:alt_id="54">
+        <parameters>
+          <label>Kontoausz&#xFC;ge</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a113" endpoint="" a:alt_id="55">
+        <parameters>
+          <label>Sicheres E-Mail</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a115" endpoint="" a:alt_id="56">
+        <parameters>
+          <label>Verbesserungen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a117" endpoint="" a:alt_id="57">
+        <parameters>
+          <label>Datenabgleich</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a119" endpoint="" a:alt_id="58">
+        <parameters>
+          <label>Gehaltsabrechnung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a121" endpoint="" a:alt_id="59">
+        <parameters>
+          <label>Kundenzufriedenheit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a123" endpoint="" a:alt_id="60">
+        <parameters>
+          <label>Einfach Einreichen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a125" endpoint="" a:alt_id="61">
+        <parameters>
+          <label>Kein K.O.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a127" endpoint="" a:alt_id="62">
+        <parameters>
+          <label>Echtheitszertifikat</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a129" endpoint="" a:alt_id="63">
+        <parameters>
+          <label>Dateiform</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a131" endpoint="" a:alt_id="64">
+        <parameters>
+          <label>Kundenerlebnis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a133" endpoint="" a:alt_id="65">
+        <parameters>
+          <label>Festen Weg</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a135" endpoint="" a:alt_id="66">
+        <parameters>
+          <label>Rolle Versetzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a137" endpoint="" a:alt_id="67">
+        <parameters>
+          <label>Vertr&#xE4;ge Handwerkern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a139" endpoint="" a:alt_id="68">
+        <parameters>
+          <label>Zwei Unterschriften</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a141" endpoint="" a:alt_id="69">
+        <parameters>
+          <label>Nachhaltigkeitsgedanken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a143" endpoint="" a:alt_id="70">
+        <parameters>
+          <label>Digitale Weg</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a145" endpoint="" a:alt_id="71">
+        <parameters>
+          <label>Einzelsignatur</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a147" endpoint="" a:alt_id="72">
+        <parameters>
+          <label>Sparkassen Trust</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a149" endpoint="" a:alt_id="73">
+        <parameters>
+          <label>Kreditantragsprozess</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a151" endpoint="" a:alt_id="74">
+        <parameters>
+          <label>Kunde Bearbeiter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a153" endpoint="" a:alt_id="75">
+        <parameters>
+          <label>Employee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a155" endpoint="" a:alt_id="76">
+        <parameters>
+          <label>Geldw&#xE4;sche</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a157" endpoint="" a:alt_id="77">
+        <parameters>
+          <label>Unlogische T&#xE4;tigkeiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a159" endpoint="" a:alt_id="78">
+        <parameters>
+          <label>Gutschriftskonto</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a161" endpoint="" a:alt_id="79">
+        <parameters>
+          <label>System Erkennt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a163" endpoint="" a:alt_id="80">
+        <parameters>
+          <label>Compliance Stelle</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a165" endpoint="" a:alt_id="81">
+        <parameters>
+          <label>Technische Pr&#xFC;fung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a167" endpoint="" a:alt_id="82">
+        <parameters>
+          <label>&#xDC;berwachungssysteme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a169" endpoint="" a:alt_id="83">
+        <parameters>
+          <label>Vertr&#xE4;ge Marktfolge</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 3b9eb150f695981f0448b8f0d3b271471ee4433f
+  time:timestamp: '2025-12-07T21:02:50.980142+01:00'
+---
+event:
+  concept:instance: 82226
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d0d346be-e6ee-41b7-aa10-5af33752df9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3b9eb150f695981f0448b8f0d3b271471ee4433f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-07T21:02:50.981036+01:00'
+---
+event:
+  concept:instance: 82226
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d0d346be-e6ee-41b7-aa10-5af33752df9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3b9eb150f695981f0448b8f0d3b271471ee4433f
+  cpee:exposition: |
+    # User Input:
+    Interview P1_MP4
+    E1: [00:00:00] Kein Problem. Solange ich nicht irgendwo im Internet
+    auftauche, ist das okay. Das ist nicht der Plan.
+    Nicolas Düro: Nee, das wird nicht passieren. Das ist nicht
+    E1: der Plan, das ist erschreckend. Das wird nicht passieren, nehme ich viel mit.
+    Nico hast
+    Moritz Walgern: du die Aufzeichnung schon gestartet? Ja, die habe ich jetzt
+    gestartet. Sehr gut, danke.
+    Gut, dann können wir anfangen. Außer Sie haben noch irgendwelche Fragen.
+    Passt Super. Genau, vielleicht einmal noch für die Aufzeichnung. Könnten Sie
+    kurz über Ihre derzeitige Position und auch Ihre Aufgaben bei der Sparkasse
+    erzählen nur als Einleitung
+    E1: Ja, also ich leite seit 2018 die Kreditbearbeitung, das ist eine
+    Marktfolgeeinheit, die von Privatkunden bis zum Unternehmenskunden
+    sämtliche Kreditanträge die nicht fallabschließend bei den Kollegen, die am
+    Markt arbeiten, vollzogen werden, vervollständigen auf aufsichtsrechtliche
+    Themen, regulatorische Themen und eben auch auf Auffälligkeiten überprüft, in
+    Teilen [00:01:00] zweitvotiert und im Kreditantragsprozess Decken wir alles ab,
+    was der Markt alleine nicht machen darf.
+    Das gibt die CRR und die Emma Rusk entsprechend vor. Das heißt, wir sind
+    hauptsächlich im risikorelevanten Kreditbereich unterwegs und bei der
+    Vertragsproduktion, sofern die Technik es nicht alleine kann. In unserem Haus
+    ist das im privaten Baufinanzierungsprozess Etwa 60 Prozent der privaten
+    Baufinanzierung, die bei uns in der Abteilung vertragstechnisch und
+    aufsichtsrechtlich entsprechend abgewickelt wird.
+    Moritz Walgern: Verstehe ich das richtig, dass es dann vor allem um
+    Baufinanzierung geht oder sind da noch andere bestimmte Kreditsanträge, die
+    vor allem in Ihre Prüfung fallen?
+    E1: Da ich die Info bekommen hatte, dass Sie sich hauptsächlich um das Thema
+    Baufinanzierung bekommen, habe ich mich darauf fokussiert. Es ist alles mit
+    dabei, von der privaten Baufinanzierung bis hin zum Unternehmensverkauf,
+    zum Unternehmen zur strukturierten Finanzierung.
+    Sie [00:02:00] finden hier alles bei uns.
+    Moritz Walgern: Ja, dann machen wir aber mit der Baufinanzierung weiter.
+    Können Sie uns vielleicht etwas ein bisschen über diesen konkreten
+    Baufinanzierungskreditantragsprozess erzählen? Das heißt, die
+    Hauptaufgaben... Oder die Hauptprozessschritte, die es da gibt?
+    E1: Ich würde mich konzentrieren auf den, wir nennen es Klassik-Vorgang,
+    also der nicht digital am Markt läuft.
+    Warum? Das wird der Kollege, der vom Markt kommt, viel besser sagen
+    können. Also es ist so, dass wir All das, was das System technisch an
+    unterschiedlichen Parametern ausgerichtet noch nicht abdecken kann, das sind
+    aber einfach Entwicklungsstände Das ist jetzt keine Raketenwissenschaft,
+    sondern schlichtweg, wenn Sie an einer Stelle...
+    Beispielsweise mit unserem Bausparanbieter keine Schnittstelle haben, dann
+    sind das Parameter warum die Prozesse noch nicht vollkommen strukturiert am
+    Markt eingesetzt werden können. Immer dann kommt die Marktfolge mit ins
+    [00:03:00] Boot und zwar um Den aufsichtsrechtlichen Beschluss, das ist das
+    Medium, was Sie führen müssen, um Ihre Kreditvergabe zu dokumentieren.
+    Also ich spreche um, welchen Kunden handelt es sich, wie wird die
+    Kreditfähigkeit, die Vermögenslage und die Investition bewertet. Das muss
+    dokumentiert werden. Muss in den aufsichtsrechtlichen Rahmen gegossen
+    werden. Also sprich werden so Themen wie § 18 Offenlegung der
+    wirtschaftlichen Verhältnisse, Großkreditregeln, Organregeln, also wenn es um
+    spezielle Kreditnehmereigenschaften geht, werden diese Sachen eingehalten.
+    Das wird dort dokumentiert und das ist die Beschlussgrundlage die
+    Bewilligungsgrundlage für unser Haus. Wir kümmern uns dann in Ergänzung
+    darum, dass die Bewilligung Überprüft wird und in Teilen auch eingeholt wird
+    nochmal, wenn das vom Markt noch nicht direkt richtig eingesteuert wurde. Wir
+    schauen uns ergänzend an, welche besonderen Vereinbarungen mit den Kunden
+    getroffen wurden.
+    Wir [00:04:00] überprüfen daraufhin dann, ob die Vereinbarungen rechtlich
+    haltbar sind, ob sie so getroffen werden können. Und ob die rechtlichen
+    Rahmenparameter wie beispielsweise eine ordentliche Kreditvergabe bei
+    ausreichenden Unterlagen zu den wirtschaftlichen Verhältnissen wirklich auch
+    vertretbar ist. Das nennt man auch Zweitvotierung, das heißt, es gibt gewisse
+    Größenordnungen das ist im privaten Baufinanzierungsgeschäft eher seltener
+    der Fall bei uns.
+    Es gibt aber gewisse Größenordnungen da bedarf es eines zweiten Votums. Das
+    darf der Markt also nicht alleine machen. Da müssen wir unser Votum mit
+    abgeben und nur dann, wenn wir zwei übereinstimmende Voten haben, dass wir
+    es machen wollen, dann wird die Finanzierung auch mit begleitet. Das ist alles
+    das, was sich um das Thema Beschluss dreht.
+    Wenn wir uns darum mal drehen wollen, was überprüfen wir für Unterlagen,
+    dann gehen wir Stand heute hin, dass wir nur gewisse Stichproben ziehen. Je
+    größer das Geschäft wird, desto detaillierter gehen wir mit rein. Wenn wir in
+    einem [00:05:00] Zweitvotierungsfall sind, schauen wir uns natürlich immer
+    alles zu 100 Prozent an.
+    Mal gelinde gesagt, wenn ich eine Eigentumswohnung von 120.000 Euro habe,
+    eine Vollprozesskontrolle zu machen, ist einfach nicht effizient. Das heißt, das
+    sind meistens nachgelagerte Stichprobenkontrollen und dort überprüfen Sie
+    neben den Punkten, die ich eben gesagt habe, auch nochmal inwiefern die
+    Unterlagen die der Kunde einreicht aus unserer Sicht richtig, korrekt nicht
+    gefälscht und plausibel sind.
+    Wir gehen dabei nicht hin und schauen regelmäßig, ob, wenn jetzt ein Kunde
+    sagt, ich arbeite bei Mercedes-Benz, ob der wirklich irgendwo über ein
+    LinkedIn-Portal oder Ähnliches bei Mercedes-Benz wirklich angestellt ist,
+    sondern die Unterlagen, die uns vorliegen, Kontoauszüge,
+    Eigenkapitalnachweise, Selbstauskünfte, Einkommensteuerbescheid
+    Einkommensteuererklärung, prüfen wir auf Plausibilität Wir gehen aber jetzt
+    nicht hin und prüfen beispielsweise die Steuernummer, ob die angegeben ist.
+    [00:06:00] Es gibt ja immer eine gewisse Logik wie die aufgebaut sind, ob die
+    passt oder ähnliches. Also das heißt, das sind Erfahrungsprüfwerte, aber keine
+    100% detaillierte Prüfungen. Was wir darauf hindern machen, sind, dass wir die
+    Angaben die der Markt, Vorgenommen hat, wirklich auseinandernehmen,
+    beispielsweise bei der Kapitaldienstrechnung dann haben Sie seit 15 Jahren mit
+    der Wohnimmobilienkreditrichtlinie eine relativ harte Regelung wie die
+    Kapitaldienstberechnung des privaten Kunden vorgenommen werden muss,
+    nämlich über die gesamte Laufzeit des Darlehens.
+    Das heißt, wir betrachten hat er die richtigen Ansätze für die Einkommen, die er
+    hat, also das Gehalt nicht mal 14 genommen, sondern nur mal 12, sind
+    Tantieme-Zahlungen rausgerechnet und so weiter, da gibt es hausinterne
+    Vorgaben. Ist das korrekt gemacht worden? Sind die Ausgaben entsprechend
+    angesetzt?
+    Auch da gibt Es Regelungen, dass es gewisse Mindestsätze gibt. Also wenn
+    [00:07:00] Sie beispielsweise ein Fahrzeug haben, was Sie im Haushalt halten,
+    müssen Sie mindestens 150 Euro dafür im Monat ansetzen. Es kann aber auch,
+    also bei uns im Haus es gibt Häuser, die haben auch andere Beträge da. Es ist
+    aber dann abzugleichen, ob der Kunde letztendlich mehr angibt, sodass dann die
+    Haushaltsrechnung wirklich mit dem übereinstimmt, was der Kunde auch mit
+    angibt.
+    Das ist Überprüfungsaufgabe und so ist es mit Einnahmen mit Ausgaben mit
+    dem Vermögen mit der Verschuldung Also sprich alles, was der Kunde
+    reinreicht, wird dann in diesen Stichproben nochmal querverprobt. So, und da
+    stellt, wir machen überall einen grünen Haken mit dran, dann erfolgt bei uns die
+    Vertragsproduktion.
+    Das heißt, es wird quasi Papier schwarz gemacht, angefangen vom
+    Kreditvertrag, über Sicherungsverträge oder ähnliches Da bedienen wir uns
+    entsprechender Musterverträge vom Verband. Die werden dann an den Kunden
+    geschickt. Wir sind da intern. Wir teilen digital unterwegs. In den meisten
+    Fällen haben wir per heute wirklich noch Papiertransport.
+    Das heißt auch [00:08:00] Papiertransport zum Kunden als auch zurück.
+    Ansonsten gibt es die Möglichkeit, beispielsweise bei einzelnen Kreditnehmern,
+    also wenn sie keine Eheleute haben oder Ähnliches, das per heute schon in das
+    sogenannte elektronische Postfach im Online-Banking einzustellen. Dort kann
+    der Kunde es abrufen und wir sind gerade in der Verprobung und in der
+    Einführung der qualifizierten Eheleute Einzelsignatur, das heißt, dass ein
+    einzelner Kreditnehmer seine private Baufinanzierung wirklich auch digital
+    gegenzeichnen kann.
+    Das heißt, er bekommt den Vertrag über das elektronische Postfach in seinem
+    Online-Banking. Dort muss er sich ja legitimieren über seine PIN, über seine
+    Face-ID oder ähnliches wenn er dann mit mobilen Endgeräten unterwegs ist,
+    kann dort das Dokument abrufen und hat dann, ähnlich wie bei einer
+    Überweisung, die Möglichkeit mit einer entsprechend generierten TAN, also
+    Transaktionsnummer, Diesem Vertrag entgegenzunehmen.
+    Das heißt, so wie Sie eine Überweisung raushauen, so können Sie sagen, ja, ich
+    möchte diese Darlehensfinanzierung in Anspruch [00:09:00] nehmen. Das wird
+    digital zurückgespielt. Da entfällt dann auch der sogenannte
+    Legitimationsprozess, dadurch, dass die Technik das in diesem Fall
+    hundertprozentig sicherstellt, weil Kennung sollte nur der Kontoinhaber haben,
+    entfällt da zu überprüfen ist die Unterschrift Die die der Kunde irgendwann
+    auch mal geliefert hat.
+    Die Abgabenordnung, ich glaube, Paragraph 154 gibt ja vor, dass sie einen
+    Legitimationsnachweis vornehmen. Das heißt, es wird in dem Fall wirklich
+    geguckt, im Idealfall ist der Kunde vor Ort. Das passiert dann bei den Kollegen
+    am Markt. Ansonsten nehme ich einen Unterschriftenvergleich mit
+    Unterschriftenproben, die wir hier im Haus vorliegen haben, die der Kunde hat
+    abgeben müssen, inklusive Vergleich zum Personalausweis vorliegen Wir
+    erhalten die Unterlagen zurück, wir vereinnahmen die Unterlagen, also sprich
+    die gehen bei uns dann in ein elektronisches Archiv.
+    Stand heute sind wir da noch wirklich papiergebunden auch was den
+    Rücktransport angeht bis in die Abteilung. [00:10:00] Zukünftig ich wage zu
+    behaupten irgendwo Ende nächsten Jahres, werden wir an dem Punkt sein, dass
+    es eine zentrale Scan-Stelle gibt. Die in Abhängigkeit von dem Vertrag dann die
+    entsprechenden Abteilungen anroutet und wir dann letztendlich noch eine
+    digitale Sichtung vornehmen.
+    Per heute haben wir gewisse Dokumente, Die wir in ein sogenanntes Restarchiv
+    geben. Das ist Aufgabe unserer Leute hier, nämlich zu sagen, welches
+    Dokument ist das? Das wäre beispielsweise ein Darlehensvertrag ab einer
+    gewissen Größenordnung, eine Zweckerklärung, ein Grundschuldbrief. Also die
+    Dokumente wo wir glauben, dass wenn man mal in einem Urkundenstreit
+    unterwegs ist, dass man dann diese Dokumente braucht.
+    Gibt es aber auch Größenordnungen wo wir sagen, hey. 50.000 Euro oder
+    ähnliches. Da gibt es im Normalfall keine Diskussionen darüber. Ja, und dann
+    haben Sie in der Folge den gesamten Valutierungsprozess also sprich der Kunde
+    hat die Kaufpreisfälligkeit seiner Immobilie, er hat seine Renovierung, muss die
+    Handwerker bezahlen, muss selbst Sachen kaufen oder ähnliches Dieser
+    Valutierungsprozess wird, sofern wir am [00:11:00] Anfang mit der
+    Kaufpreiszahlung unterwegs sind, von uns mit abgewickelt, dass wir
+    sicherstellen der Kunde hat dieses Objekt auch wirklich gekauft, damit es im
+    Grundbuch eingetragen wird, also sprich dass diese rechtliche Übergabe im
+    Grundbuch von uns direkt nachvollzogen werden kann.
+    Und wenn wir dann, also unterstellen wir da hat ein Haus, keine Ahnung, von
+    200.000 Euro gekauft, dann überweisen wir diese 200.000 Euro, stellen damit
+    sicher, dass der Notar alle Unterlagen hat, dass er die Eigentumsumschreibung
+    sicherstellen kann, Das überwachen wir auch und die beispielsweise beantragten
+    weiteren 400.000 für eine Renovierung, die stellen wir Dem Kunden zum
+    Eigenabruf zur Verfügung.
+    Das heißt, wenn der Kunde entsprechende Unterlagen usw. mit dabei hat, kann
+    er in seinem Online-Banking dieses Darlehen aufrufen, kann entsprechend die
+    Rechnungen anhängen und kann sich von seinem Darlehen direkt das Geld
+    auszahlen und kann es entsprechend dann zum Begleichen der Rechnungen
+    verwenden.
+    Was wir dabei aktuell noch nicht haben, ist, dass wir eine systemische
+    Verprobung haben. Wir gehen ab [00:12:00] gewissen Größenordnungen gehen
+    wir hin und nehmen manuelle Prüfungen vor. Das ist ja etwas, wo wir jetzt
+    gerade noch schauen, weil wir diesen Valutierungsprozess vor kurzem erst
+    umgestellt haben, wie wir es sauber hinbekommen, sagen aber auch da aus den
+    Erfahrungswerten, ja, sie haben Kunden mit dabei, die im Zweifelsfall auch
+    vielleicht die Küche noch mitkaufen, obwohl sie nicht vorgesehen war.
+    In der Regel werden die Gelder die dort vorgesehen sind, aber auch in das
+    entsprechende Objekt investiert. Und irgendwann kommt man dann zu dem
+    Punkt, dass die Valutierung abgeschlossen ist. Und dann erfolgt von uns auch
+    diese entsprechende Überprüfung. Das kommt ein bisschen darauf an, welche
+    Programme Sie haben.
+    Wenn Sie öffentliche Mitteldarlehen haben, also sprich von KfW von den
+    regionalen Strukturbanken in Rheinland-Pfalz ist das die ISB, die
+    Sonderprogramme zur Verfügung stellen, müssen Sie besondere
+    Verwendungsnachweise führen oder beispielsweise eine Bestätigung vom
+    Energieberater oder Ähnliches einholen.
+    Das fordern wir beim Kunden an. [00:13:00] Das leiten wir an die
+    entsprechenden Förderinstitute weiter. Wir machen auch unseren Vermärgtern
+    mit dabei, dass die Gelder zeitgemäß und ordnungsgemäß eingesetzt wurden.
+    Sind es eigene Darlehen oder die von Verbundpartnern erfolgt die Überprüfung
+    ob die Mittel richtig eingesetzt wurden.
+    In der Regel, es geht in gewissen Größenordnungen in der Regel über die
+    endgültige Wertermittlung. Das heißt, wir stoßen beim Berater dann quasi den
+    letzten Impuls an und sagen hier, das Darlehen oder alle Darlehen sind
+    vollvalutiert. Hiernach müsste der Kunde grundsätzlich fertig sein, denn
+    Eigenmittel sind immer zuerst einzusetzen.
+    Hör bitte beim Kunden nach, wann wir die endgültige Wertermittlung
+    beauftragen können. Das stoßen wir hier noch an, läuft dann in einem separaten
+    Part, dass dann die Wertermittlung an sich auch erstellt wird. Diese
+    Wertermittlung kommt dann zu uns zurück. Und wir gehen hin und schauen,
+    inwiefern das, was wir mal ursprünglich an Finanzierung herausgelegt haben,
+    Mit dem Wert, der nachher da auch steht, auch irgendwie plausibel ist.
+    [00:14:00] Sollte das unplausibel sein, werden natürlich Überprüfungen
+    übernommen in Form von Ansprache über den Berater beim Kunden. Hey, wo
+    sind denn die 50.000 Euro sonst irgendwo hingegangen Und wenn er dann mit
+    einem neuen Porsche vor der Tür steht, dann weiß man das meistens Kommt
+    aber in der Regel nicht vor, gerade in der jetzigen Phase, weil halt eben
+    Baukosten und so weiter deutlich nach oben gehen.
+    Ja, und ansonsten haben Sie... Alles, was Sie sich im Anschluss an eine
+    Baufinanzierung vorstellen können, also in Form von das Objekt wird verkauft,
+    es gibt eine Scheidung, es gibt einen Todesfall, es muss vielleicht mal ein
+    Darlehen ausgesetzt werden, weil nicht genug liquide Mittel da sind. Es gibt
+    eine Eigentümer-Auseinandersetzung, es werden Teileigentümer neu gegründet
+    es werden Teilverkäufe oder Ähnliches vorgenommen.
+    Das sind alles Parameter, die vom Markt zwar entgegengenommen werden, aber
+    fachlich bei uns umgesetzt werden. Im Prozessualen funktioniert es immer
+    gleich, wie wenn Sie [00:15:00] einen Neuantrag, also eine Neufinanzierung
+    haben, den Markt überprüft oder stellt erstmal die technische Basis zur
+    Verfügung, fordert alle Unterlagen an und bewertet Ob er diesen Vorgang so
+    begleiten kann.
+    Und die Marktfolge geht in Stichproben hin und überprüft ob das, was der
+    Markt gesagt hat, halt auch wirklich richtig ist. Ob die Unterlagen dafür
+    vorliegen und so weiter.
+    Moritz Walgern: Wenn wir jetzt auf diese Stichproben Überprüfung gehen.
+    Gibt es da bestimmte Systeme oder Tools, die Sie schon verwenden, um eben
+    das durchzuführen?
+    E1: Ja, also wir arbeiten mit One System Plus. Das ist ja die zentrale
+    Anwendung der Sparkassen. Dort gibt es gewisse Tätigkeiten, die das System
+    ausführt und diese Tätigkeiten können technisch abgegriffen werden. Also
+    beispielsweise, wenn Sie ein Darlehen anlegen, dann haben Sie das erstmal
+    quasi wie so eine Art Cloud und das muss aber aus der Cloud rein in den, wir
+    nennen es juristischen Bestand, also [00:16:00] so, dass der Kunde es in seinem
+    Online-Banking und so weiter sieht.
+    Moritz Walgern: Dieser
+    E1: Übertragungsprozess von der Cloud in den juristischen Bestand ist eine
+    Tätigkeit, die in unserem System abgegriffen werden kann und darauf basierend
+    also Das ist jetzt vereinfacht dargestellt. Es gibt natürlich noch ganz viele
+    Parameter mehr, die da mit reingehen müssen. Welcher Berater ist es?
+    Aus welchem Zeitraum stammt es? Wie hoch ist eine Darlehensschuld und so
+    weiter? Und diese Parameter werden technisch abgegriffen werden Stand jetzt,
+    weil wir gerade in der Umstellung unseres Workflow-Trackers sind. Das ist also
+    so ein Prozessbegleiter Aktuell noch über eine Excel-Tabelle zur Verfügung
+    gestellt, sind aber in einer zentralen Anwendung die die FI über ein
+    Partnerunternehmen zur Verfügung stellt, nennt sich Credo bzw.
+    Service Cockpit, auch technisch einsteuerbar, sodass dann wirklich das System
+    sagt, okay, ich habe die fünf Schnittstellen abgegriffen Das ist jetzt ein Vorgang
+    den wir für Sie detailliert mit anschauen. Die Prüfung dieser
+    Stichprobenkontrolle erfolgt auf Basis einer Checkliste die individuell gebaut ist
+    von uns.
+    Das ist eine Excel-Tabelle [00:17:00] als geschlossenes Makro. Das heißt, also
+    wird als Vorlage abgerufen, die Kollegen gehen das mit durch. Operationelle
+    Risiken, das heißt wenn jemand eben nicht sieht, dass der Kontoauszug
+    beispielsweise gefälscht ist, dann ist das ein Thema dringend Das können wir
+    Stand heute technisch nicht abgreifen, aber dass er beispielsweise nicht an alle
+    Punkte der Prüfung denkt oder Ähnliches, das wird über die Checkliste
+    sichergestellt und die Checkliste wird dann wieder in ein gesammeltes System
+    zurückgegeben, sodass ich dann sagen kann, keine Ahnung bei 500 Stichproben
+    habe ich eine Fehlerhäufung bei, was weiß ich, beim Punkt Sondertilgung oder
+    bei falschem Kontoauszug oder Ähnliches.
+    Mhm. Aber die faktische Prüfung was in der Stichprobenkontrolle geprüft wird
+    und die Besonderheit das ist das, was wirklich noch manuell passiert. Also das
+    beste Beispiel ist immer, liegt eine Selbstauskunft oder der letzte
+    Einkommenssteuerbescheid vor. Das ist etwas, wenn wir Zeiten haben, wo
+    Autos alleine fahren, müsste man [00:18:00] sowas aus einer digitalen Akte
+    auch grundsätzlich erkennen können.
+    Das passiert aber heute nicht.
+    Moritz Walgern: Das heißt, dort guckt jemand noch manuell drauf und sagt,
+    okay, das sieht valider aus und das sieht jetzt nicht so aus, als hätte irgendwer
+    ein Dokument gefälscht oder sich generieren lassen mit KI oder so etwas
+    Ähnliches.
+    E1: Ganz genau, ja. Da muss ich auch mit dabei sagen, darüber haben wir
+    gesprochen, da sehe ich die größte Gefahr, dass Unterlagen gar nicht eingereicht
+    werden.
+    Da sind die Kollegen mittlerweile relativ... Relativ schnell am Markt auch mit
+    unterwegs, zumal der, und das wird der Kollege Ihnen aber sagen, der
+    Zulieferungsprozess vom Kunden gewisse Unterlagen an gewissen Punkten
+    grundsätzlich vorsieht und bevor der Vorgang wirklich dann in den
+    Bewilligungsprozess und an den Kunden dann in der Vertragsaushändigung
+    geht, Gibt es systemische Checklisten, wo der Berater dann wirklich auch
+    nochmal angibt, okay, habe ich meine Selbstauskunft bekommen?
+    Ja, zack grüne Augen mit dran. In Teilen ist da [00:19:00] auch schon eine
+    künstliche Intelligenz für die Software, die wir jetzt im nächsten Jahr einführen,
+    mit dahinter geschaltet. Das heißt, was passiert? Der Kunde hat die Möglichkeit,
+    ich greife jetzt dem Kollegen so ein bisschen vor, hat die Möglichkeit, über ein
+    Dokumenten-Upload, rein theoretisch sogar nur ein PDF mit allen Themen
+    hintendran, ins System bei uns zu bringen.
+    Die KI läuft bei uns mit drüber, hat wohl eine Erkennungsquote von 95 Prozent,
+    trennt das PDF nach den jeweiligen Dokumententypen, also
+    Einkommensteuererklärung, Gehaltsabrechnung, Selbstauskunft und bereitet die
+    auch entsprechend direkt für die Archivierung vor. Es fehlt aber jetzt noch der
+    letzte Step, dann zu sagen, okay, er hakt es quasi auf der letzten Checkliste noch
+    mit aus, dass die Sachen vorliegen, Und es findet halt auch keine Verprobung
+    innerhalb dieser Dokumente statt, ob beispielsweise eine Fälschung erfolgt ist.
+    Also der flippt drüber und liest dann, keine Ahnung, Einkommensteuerbescheid
+    und prüft vielleicht noch fünf, sechs andere Parameter sagt, jo sieht nach dem
+    Einkommensteuerbescheid aus und dann [00:20:00] schiebe ich es in diesen
+    Ordner. Das sind Einkommensteuerbescheide, aber wirklich drüber zu gucken,
+    stimmt das Gehalt, was da drin steht, mit dem Gehalt was der Berater
+    angegeben hat in dem Prozess überein das erfolgt nicht.
+    Und das ist a relativ hoher manueller Arbeitsaufwand, b natürlich auch ein
+    Risiko dass Im Zweifelsfall auch absichtliche Falscheingaben erfolgen. Da sind
+    wir zum Glück mit sehr, sehr guten Beratern mit guten Kollegen unterwegs,
+    dass sowas bisher noch nie passiert ist. Das fällt auch in den
+    Stichprobenkontrollen nicht mit auf.
+    Was natürlich der Fall ist, je mehr Sie zu tun haben, es passieren halt
+    Flüchtigkeitsfehler. Und das ist etwas, was man sicherlich mit anderer Technik
+    abdecken könnte. Da gibt es ja Schnittstellen zu Vermittlern und so weiter die in
+    die Richtung auch schon gehen, die Gehälter automatisiert aus dem Konto
+    auslesen und das ist etwas, da arbeiten die Kollegen im Markt auch mit, wenn
+    Vermittler...
+    Diese [00:21:00] speziellen Plattformen und so weiter mit Nutzen und auch die
+    Konten in Anführungsstrichen anzapfen mit Erlaubnis des Kunden. Das ist
+    notwendig nach europäischer Gesetzgebung. Dann gibt es die Möglichkeit,
+    wirklich das automatisiert aus dem Konto die Umsätze abgerufen werden
+    können und dann kann das System auch erkennen, okay, haben wir einen
+    Umsatz haben wir eine Umbuchung, haben wir...
+    Eine Mietzahlung oder Ähnliches. Dann wird das auch entsprechend
+    mitverarbeitet und es gibt dann ein Plausibilitätsprotokoll. Das heißt, es geht hin
+    und sagt, ich habe in meinem Vorgang beispielsweise 4000 Euro Nettoeinkünfte
+    Und dann prüft das System, ob diese 4.000 auch im Schnitt jeden Monat als
+    Gehaltseingang reinkommen.
+    Grün-Gelb-Rot-Ampel, wenn halt Abweichungen erheblich sind, dann meldet
+    sich das System und sagt, hey, irgendwas stimmt da nicht. Kommt man an den
+    Punkt, hat er zwei Konten keine Ahnung läuft das über ein Eheleutekonto oder
+    ähnliches dann wird es natürlich schwieriger.
+    Moritz Walgern: Ja. Okay verstehe. Gibt es da in diesem, also bei diesen
+    verschiedenen [00:22:00] Dokumenten die eingereicht werden müssen, gibt es
+    da Dokumente, wo Sie sagen, okay, da wäre das besonders betrugsanfällig oder
+    gibt es da auch Angaben, wo Sie sich vorstellen können, okay, wenn ich da
+    jetzt...
+    Irgendwas Falsches angeben wollen würde mit Absicht. Gibt da was wo Sie
+    sagen, dass es, ja.
+    E1: Alle. Also simpel gesagt alle. Welche Unterlagen brauchen Sie? Wenn wir
+    da nochmal einen Step zurück gehen. Also die wichtigste Unterlage sind die
+    Gehaltsabrechnungen. Gehaltsabrechnungen in Deutschland sind nicht normiert
+    oder ähnliches.
+    Rein theoretisch kann er mir halt eben sagen, okay, ich bin, was weiß ich, bei
+    Mercedes-Benz angestellt. Wir haben keine Möglichkeit zu verproben, dass die
+    Abrechnung wirklich von Mercedes-Benz kommt. Dann sind wir an dem Punkt
+    oben, an Mercedes-Benz reinzupacken. Ich nehme einfach Mercedes-Benz,
+    haben wir nicht im Koblenz, aber bietet sich einfach an.
+    Was man schon erkennt ist, wenn Sie beispielsweise eine öffentliche Hand
+    haben als Auftraggeber oder als Arbeitgeber Da kriegt man schon mal ein
+    Gefühl dafür, stimmen die Gehaltserbrechnungen überein. Oder wenn Sie einen
+    gewerblichen Kunden haben, wie sieht eine BWA [00:23:00] nach einer Dativ
+    aus? Aber ob die Angaben, die da draufstehen im Zweifelsfall durch eine KI
+    irgendwie gefälscht wurden, also mal simpel gesagt, der kann ja wirklich bei
+    Mercedes-Benz angestellt sein, scannt das Teil ab, haut es in die KI rein und
+    sagt, gib mir das Ganze als, was weiß ich, Manager wieder oder ähnliches.
+    Keine Chance. Erkennt er nicht. Haben wir auch, wie gesagt, über das... Konto
+    wenn ich diese schnittstelle habe und der kunde dem zustimmt gäbe es die
+    möglichkeit ist zu verproben gut realistisch bewertet wie war das wenn ich die
+    kriminelle energie habe zu bescheißen dann werde ich diese schnittstelle nicht
+    akzeptieren also insofern besteht die möglichkeit und das haben sie bei einem
+    einkommen steuerbescheid bei einer selbstauskunft haben sie das problem
+    immer wieder wir haben zwar feste vordrucke aber Wir können aber nicht
+    sehen, ist der Vordruck wirklich von unserer Seite runtergenommen worden, ist
+    er händisch befüllt worden, ist er KI generiert, ist es wirklich eine echte
+    Unterschrift, ist sie mit draufgezogen worden.
+    Also die Systeme heute sind ja wirklich sehr, ja, [00:24:00] sehr flexibel in der
+    Handhabung. Ja. Ja, verstehe. Und so ist es auch mit Kontoauszügen
+    beispielsweise. Also es ist so, wenn der Kunde sagt, hey, ich möchte ein Haus
+    kaufen für 500.000, ich brauche 300.000 Finanzierung, ich habe 200.000
+    Eigenkapital. Das ist natürlich immer das Ideale, dann verlangen wir 200.000
+    Euro Eigenkapitalnachweis.
+    Das heißt einen Kontoauszug, einen Depotauszug oder ähnliches. So, ob dieser
+    Kontoauszug Depotauszug echt ist. Keine Chance zu verproben. Natürlich hat
+    man ein Gefühl dafür, die Sparkasse hat im Normalfall einen roten Bogen unten
+    oder einen roten Streifen oben, einen Streifen unten. Die Volksbank ist blau So,
+    wenn das Ding aber, keine Ahnung, eingescannt ist auf schwarz-weiß dann Ist
+    das nicht so, dass wir dann hingehen und sagen, nee, wir wollen es aber in bunt
+    haben, damit wir es irgendwie verproben können.
+    Moritz Walgern: Und
+    E1: wir sind halt auch nicht mehr an dem Part, dass wir, wenn wir den
+    Zutransport zu uns sichergestellt haben über ein digitales Verfahren, was für uns
+    nachvollziehbar ist, nennt sich sicheres E-Mail-Verfahren, dazu sind die
+    [00:25:00] Berater angehalten. Also es gibt einen Zugang wo ich wirklich sage,
+    okay, es kommt von Ihnen.
+    Verständigen wir uns darauf, es gibt eine Vereinbarung dass wir nur über diesen
+    Kanal kommunizieren. Wenn da drüber Unterlagen kommen, brauchen Sie
+    natürlich auch keine Originalunterschrift mehr, weil wir eben sagen, wir haben
+    uns ja auf diesem Weg verständigt. Ist aber auch kein Garant dafür, dass es
+    Originalunterlagen sind oder ähnliches.
+    Moritz Walgern: Ja, okay. Jetzt sind wir schon bei dem Punkt eigentlich. Sie
+    haben da Schwierigkeiten oder da gibt es. Klar, es ist einfach schwer zu
+    erkennen, ob jetzt so ein Lohnnachweis gefälscht wurde. Genau. Gibt es da
+    etwas Ihrer Meinung nach, was genau in diesem Prozess verbessert werden
+    kann, um sowas besser aufzudecken?
+    Oder haben Sie da schon Ideen oder Wünsche?
+    E1: Ideen oder Wünsche? Also ich bin mal ganz provokant. Wir fahren immer
+    wieder manuelle Prüfungen. Wir haben es jetzt [00:26:00] umlängst erst
+    gemacht, auch weil wir in dieses Interhyp-Geschäft, also in das Plattform-
+    Geschäft eingestiegen sind, was wir hingegangen sind und haben,
+    Verprobungen vorgenommen?
+    Also ist der Kunde wirklich über LinkedIn, über Facebook, übers Netz
+    irgendwie erkennbar, dass er mit diesem Unternehmen verknüpft ist? Keine
+    Ahnung Wenn man ihn dann da nicht findet, dann sind das erste Indikatoren So
+    was kann man meines Erachtens digitalisieren dass man irgendwie so eine
+    Verprobung vornimmt.
+    Wo uns die Hände gebunden sind, sind wirklich zu sagen, sind die Unterlagen
+    die wir bekommen, plausibel. Es gibt Meines Erachtens nur die Möglichkeit,
+    indem man einen harten Weg eines Datenabgleichs vornimmt. Dann kommen
+    wir aber wahrscheinlich in datenschutzrechtliche Problematiken, dass wir sagen,
+    okay, eine Selbstauskunft, die im Baufinanzierungsprozess benötigt wird,
+    bedarf immer einer Abstimmung eines Kontos vorher.
+    Das heißt, das sind unrealistische Parameter. Was man sicherlich machen kann,
+    ist, dass man über das eigene Konto drüber fährt oder [00:27:00] dass man, und
+    das ist das Einzige was mir jetzt so, aber ist ja im Idealfall dann auch Ihre
+    Aufgabe, was mir einfallen würde, wenn Sie eine Gehaltsabrechnung haben.
+    Dass man aus einem Datenbestand rausholt und sagt, okay, ist für das
+    Unternehmen, was weiß ich, Mercedes-Benz, die Gehaltsabrechnung in dieser
+    Konstellation, ist die optisch richtig, ist die Anordnung richtig, ist sowas wie
+    eine Steuernummer normal und richtig, gibt es dazu vielleicht irgendwo
+    Nachweise von oder Abgleiche zu Steuernberatern oder Personalberatern
+    Personalbetreuung, dass auch regelmäßig dazu Gehaltsabhechnungen
+    rausgegeben wurden, ist die Gehaltsgrößenordnung für die Bezeichnung, die da
+    drin steht, in dem Unternehmen, in der Branche, in der Region wirklich
+    realistisch oder unrealistisch?
+    Also diese Verprobungen, ja, alles, was darüber hinausgeht, Über eine reine
+    Plausibilisierung, glaube ich ist an rechtlichen Parametern gebunden und
+    [00:28:00] insofern halt immer nur eine Nährungslösung. Das wäre jetzt das,
+    was mir einfallen würde. Simpel gesagt, wenn Sie eine Lösung dafür bauen, es
+    zu überprüfen können Sie im gleichen Augenblick eine Lösung dafür bauen, es
+    zu fälschen.
+    Moritz Walgern: Kann man so sagen, ja das stimmt schon. Es ist
+    E1: bei allem so. Und die Gefahr steht natürlich immer mit dahinter.
+    Deswegen... Bin ich gespannt, was dabei rauskommt.
+    Moritz Walgern: Okay, also ich wäre jetzt mit den Hauptfragen durch. Ich
+    weiß nicht, Nikolas, hast du noch Fragen, die dir auf der Zunge liegen?
+    Nicolas Düro: Ich wollte einfach noch generell wissen, inwiefern, also jetzt
+    zum Beispiel bei der Dokumentenabgabe, wenn Sie jetzt als Bank den Kunden
+    zum Beispiel dazu zwingen würden, das digital abzugeben und auch in einem
+    Format was Ihrem Standard entspricht, also zum Beispiel dass er nicht den Scan
+    hochlädt, sondern dann wirklich den digitalen Auszug aus der, aus dem Online-
+    Band [00:29:00] beispielsweise.
+    Gibt es da dann zum Beispiel das Risiko auch für Sie, dass der Kunde dann
+    irgendwann, also dass dann die Kundenzufriedenheit sinkt weil der Aufwand
+    steigt? Ist das was, ist das auch etwas, was die
+    E1: Also wir unterstellen, dass der Kunde mal grundsätzlich nichts Böses will.
+    Das heißt, wir versuchen es ihm immer so einfach wie möglich zu machen.
+    Das heißt, ob es der Scan ist, den er hat, ob er gerade einen Bildschirmscreen
+    hat oder ob er es als Papier auf dem Tisch liegen hat. Er darf es uns so
+    einreichen, wie er will. Weil wir sagen, der Weg soll einfach Multikanal soll
+    einfach sein und wir unterstellen halt eben nicht diese Betrugsszenarien. Und
+    deswegen wage ich zu behaupten wenn wir es wirklich hart machen würden, so
+    nach dem Motto, okay, du musst einen Eigenkapitalnachweis bringen.
+    Ich akzeptiere aber nur, es gäbe irgendwie eine Möglichkeit aus dem Online-
+    Banking, das verifiziert von der Bank direkt übermitteln zu lassen. Und nur
+    diesen Weg [00:30:00] akzeptieren wir nicht Das ist, glaube ich, ein K.O.-
+    Kriterium Sie haben aber auch gar nicht die Basis dafür, weil wenn Sie mal in
+    Ihr Online-Banking schauen, Sie haben im Regelfall sowieso nur normale
+    PDFs, die Sie bekommen.
+    Die haben kein Verifizierungszeichen, die haben kein Wasserzeichen, die haben
+    keinen begleitenden Stempel und dafür wären die Systeme heute auch gar nicht
+    ausgelegt. So ein begleitendes Echtheitszertifikat, das gibt es ja, also hausintern
+    Für den Weitergabeprozess das wirklich der Bereichsleiter, der Vorstand oder
+    wer auch immer unterzeichnet hat, das nutzen wir, aber es ist quasi Ende bei
+    dem Transport an den Kunden.
+    Und ich glaube, das ist etwas, das müssten Sie in der gesamten Kreditwirtschaft
+    machen Zur Verfügung stellen, damit die Bank, die sich da sicherstellen will,
+    keine Nachteile hat, weil für den Kunden ist es immer ein Mehraufwand. Für
+    den Kunden ist es immer einfacher, wenn er gerade irgendwie ein Screen von
+    seiner App macht oder irgendwie den letzten Kontoauszug gerade abfotografiert
+    und hochlädt.
+    Und was das Thema Dateiform beispielsweise mit [00:31:00] angeht in diesen
+    Dokumenten-Uploads, die wir haben, der Kunde kann alles reinhauen. Der kann
+    eine Excel-Tabelle ein Word-Dokument, alles mögliche mit reinhauen. Es wird
+    automatisiert auf dem PDF umgewandelt weil wir halt auch hausintern nur mit
+    PDFs in der Weitergabe arbeiten.
+    Also wirklich Kundenerlebnis in der Stelle, möglichst simpel möglichst einfach.
+    Weil Sie kommen schon an den Punkt, dass viele sagen, ich will den Kram gar
+    nicht digital eingeben. Ich packe das gerade in den Briefumschlag, also das ist
+    gerade bei einer privaten Baufinanzierung, man muss man ja immer im
+    Hinterkopf behalten, das ist für den Normal-Durchschnittsbürger die größte
+    Investition in seinem Leben.
+    So, und wenn das läuft wie, keine Ahnung, der Versicherungswechsel bei einer
+    Haftpflichtversicherung oder bei einem Auto, wo ich gerade im Internet drei
+    Klicks mache, das fühlt sich nicht gut an. Und deswegen gibt es doch eine nicht
+    unerhebliche Anzahl von Kunden, die einfach sagen, okay, ich möchte vor Ort
+    sein, ich möchte die Unterlagen mitbringen, ich kriege auch einen schönen
+    Ordner, wo alles mit drin ist, auch wenn ich den Kram nachher keine Ahnung,
+    vielleicht sogar wieder verscanne, das ist einfach so ein Feelingsprozess mit
+    dahinter [00:32:00] Und an dem Punkt sind wir Stand heute noch, dass wir da
+    doch, glaube ich erheblichen Einfluss auf die Markteinteile hätten, wenn wir nur
+    einen festen Weg, nur mit, keine Ahnung, spezieller Legitimation Verifizierung
+    von Dokumenten oder Ähnliches hätten.
+    Ich glaube, dann können Sie abschließen. Frage beantwortet?
+    Nicolas Düro: Ja, das bestätigt auch meine Erwartungen. Ja.
+    E1: Ja, also ich glaube, das ist immer wichtig, sich selber auch mal in die Rolle
+    zu versetzen. Also ich sage mal jetzt gerade für Sie, wenn Sie hören, keine
+    Ahnung da werden irgendwie und im Koblenzer Raum haben Sie, wenn Sie ein
+    Haus bauen...
+    Und dann sind Sie nicht mitten in der Stadt, sondern irgendwo in dem Stadtteil
+    und Koblenz ist jetzt nicht Köln München oder Frankfurt, sind Sie trotzdem
+    irgendwo bei 750.000 bis 800.000, 900.000 Euro unterwegs. Wenn Sie als
+    Durchschnittsbürger diese Summen in die Hand nehmen, dann wollen Sie halt
+    auch wissen, okay, hier läuft alles safe, weil im Umkehrschluss Sie schließen ja
+    [00:33:00] beispielsweise auch Verträge mit Handwerkern und Ähnlichem.
+    Wo sie sich verpflichten das Geld zu bezahlen. Und wenn die Bank nachher den
+    Rückzieher macht, dann sind wir die Kehrseite. Der Kunde will ja auch diese
+    Sicherheit haben. Wir haben früher Verträge mit zwei Unterschriften verschickt,
+    haben das dann vor, ich glaube, zwei Jahren, war kurz nach der Corona-Phase,
+    haben wir das eingesammelt und haben gesagt, hey, im deutschen Rechtssystem
+    gibt es keine Verpflichtung auf zwei Unterschriften.
+    Und der hausinterne Prozess ist super kompliziert mit zwei Unterschriften, weil
+    sie Papier weitergeben müssen. Wir haben es auf eine Unterschrift umgestellt.
+    Sie glauben gar nicht, welche Rückmeldungen das gegeben hat. Also nach dem
+    Motto, ist der Vertrag überhaupt wirklich echt? Wir haben dann auch auf dem
+    Nachhaltigkeitsgedanken teilweise, wenn Sie so eine Zinsvereinbarung haben,
+    also Sie haben eine Finanzierung abgeschlossen und jetzt muss ein neuer Zins
+    vereinbart werden.
+    Das ist eine relativ einfache simple Sache, das ist wie die Verlängerung von
+    einem Handyvertrag, der kommt nicht mehr mit einem roten Sparkassen-S an.
+    Sondern mit einem Sparkassen-S, was einfach schwarz ausgedruckt wird, weil
+    es halt der digitale Prozessor hergibt und wir sagen, naja, im Sinne der
+    Nachhaltigkeit ist es schon [00:34:00] schlimm genug, wenn wir Papier
+    schicken dann brauchen wir nicht noch Farbe mit draufdrucken.
+    Empfinden beim Kunden, ist das echt? Kann ich das mit unterschreiben? Und in
+    dieser Transformation befinden wir uns. Es gibt viele Kunden, die mittlerweile
+    aber auch auf diesem vollen digitalen Weg stehen und auch gehen. Und wir
+    haben schon die Möglichkeit, ich hatte das eben ja kurz gesagt, mit dieser
+    qualifizierten Einzelsignatur, dass Sie, währenddessen Sie im Gespräch sitzen,
+    kriegen Sie den Vertrag in Ihr Online-Banking mit rein, Sie können es mit einer
+    App bestätigen, das ist insofern natürlich immer das Einfachste, wenn der
+    Kunde direkt nebendran sitzt und man alle Parameter mit durchgeht, nur das
+    Zeitfenster haben Sie gar nicht.
+    Ob der Kunde im Zweifelsfall zu Hause noch eine Gehaltsabrechnung gefälscht
+    hat, die er dann an den richtigen Ort gelegt hat, Ja, wir bieten den Sparkassen
+    Trust an. Das ist quasi eine, ja, das ist auch eine Cloud-Dienstleistung wo der
+    Kunde Dokumente automatisiert einstellen kann. Da wir das aber nicht alleine
+    haben, Und da ist da auch, also [00:35:00] das ist letztendlich nichts anderes
+    wie ein Ordner und der Kunde kann alles da drin selber angeben.
+    Mal weiter gesponnen, wir haben, ja, keine Ahnung, fünftes Element lässt
+    grüßen oder ähnliches Wir haben eine feste Kategorisierung, jeder Kunde kriegt
+    seine Gehaltsabrechnung in ein solches Dokument mit rein. Dann können Sie
+    natürlich auch einen Abgleich daraus fahren. Dann können Sie auch sagen,
+    okay, Kommen die Gehaltsabrechnungen wirklich da rein, aber selbst da besteht
+    per heute halt eben die Möglichkeit, naja, ich mache eine Einzelfirma auf,
+    schiebe dann, benenne sie gleich und schiebe dann automatisch irgendwie was
+    mit rein.
+    Oder ich habe ein KI-generiertes PDF, was ich da reinlege, weil ich es halt
+    selber steuern kann.
+    Moritz Walgern: Ja, okay. Ja Nico, wenn du sonst nichts hast, hätte ich jetzt
+    noch eine letzte Frage. Sehr gerne. Genau, gibt es noch irgendwas zum
+    Kreditantragsprozess oder zur Betrugsprävention, zur Prüfung, was Sie für
+    wichtig halten und was wir jetzt noch nicht besprochen haben?
+    E1: Also, wir haben ja bisher immer nur in Richtung der Kunden gedacht.
+    [00:36:00] Ja. Ein generelles Thema könnte ja auch sein, dass Kunde und
+    Bearbeiter in der Bank zusammenarbeiten. Ja, ist ja auch etwas. Neue Employee
+    heißt es bei uns im Haus. Es gibt ja da entsprechend Geldwäsche,
+    Betrugsthemen und so weiter. Und in diese gesamte Kategorie kann und muss
+    man auch mitdenken indem man einfach sagt, okay, all das, was der Berater hier
+    tut, was der Sachbearbeiter hier tut, wird halt, Nur in Teilen überprüft und da
+    kann natürlich meines Erachtens auch KI oder Ähnliches ansetzen und sagen,
+    wenn da komplett unlogische Tätigkeiten erfolgen, wenn Konten verändert
+    werden, also die Möglichkeit haben Sie, dass Sie beispielsweise ein
+    Gutschriftskonto, wenn sich Berater und Marktfolge einig sind, dass Sie das von
+    einem ganz anderen Kunden nehmen.
+    Sowas würde nicht überprüft werden. Also angenommen, Sie machen jetzt eine
+    Darlehens oder Sie nehmen eine Darlehen von uns in Anspruch So, ja. Und der
+    Herr [00:37:00] Dürow und ich, wir sind uns einig der Herr Dürow als
+    Marktvertreter und meiner einer in der Marktfolge, naja, das Geld von dem
+    Herrn Wallgern, das ist ja schön, wenn das auf unserem Konto ist und das
+    machen wir jetzt parallel noch bei 50 anderen Kunden und zwacken uns dann
+    jeweils die Hälfte einmal auf das Konto von Herrn Dürow und von mir ab, naja
+    dann kommen sie an den Punkt das System erkennt das erstmal nicht.
+    Das erkennt es, wenn wir zwei schnell genug sind und das Flugzeug parat steht,
+    kommt dann noch auf das Ziel drauf an, dann merkt das System das
+    irgendwann. Normalerweise spätestens nach einem Vierteljahr, weil dann
+    entsprechend Konten und so weiter systemisch abgegriffen werden. Vorher aber
+    nicht. Das ist dann nur die Frage, haben wir genug Kunden, sind wir uns einig
+    genug und sind wir schnell genug.
+    Gibt es zum Glück deutlich weniger, weil die Systeme dahingehend schon
+    weiter ausgeprägt sind. Aber die Gefahr besteht grundsätzlich auch bei allem,
+    was hausintern passiert und wo sich zwei einig sind, Da könnte man
+    beispielsweise einfach sagen, wenn da jetzt das Konto von Herrn Büro
+    eingestellt ist, obwohl Darlehen und [00:38:00] Leistungseinzugskonto und so
+    weiter von Ihnen sind, naja da müsste das System beispielsweise irgendwie an
+    der Compliance-Stelle oder sowas aufklingeln und sagen, hey, guck mal, da ist
+    irgendwas unlogisch.
+    Aber das ist meines Erachtens auch kein KI-Thema, sondern das ist halt eine
+    Excel-Wenn-Dann-Formel. Ja,
+    Moritz Walgern: das
+    E1: ist wirklich einfach eine technische Prüfung. Genau eben. Und deswegen
+    das Thema KI... Jetzt sind Sie die passenden Menschen dafür, zu sagen, was ist
+    da alles realistisch möglich? Dafür fehlt mir vielleicht die Fantasie.
+    Ich glaube, man kann es an vielen Stellen gewinnbringend einsetzen. Für mich
+    dann aber eher an dem Punkt, dass die Tätigkeiten die heute per Hand
+    abgewickelt werden, durch die KI abgewickelt werden. Und da ist meines
+    Erachtens die sinnvollere Investition rein, wie Überwachungssysteme weil
+    Überwachungssysteme zu schaffen für etwas, was über eine KI abgedeckt
+    werden kann, ist einfach Ist halt sinnfrei eigentlich.
+    Ohne das jetzt in ihre Studien oder Ähnliches mit reinzugeben. [00:39:00] Aber
+    das Ziel muss es ja eigentlich sein, dass Verträge gar nicht mehr in die
+    Marktfolge gehen, sondern dass das System, wenn der Kunde da steht und auf
+    den Knopf drückt, gesagt hat, okay, ja, die Punkte, die wir eben besprochen
+    haben, sind alle plausibel.
+    Hier ist der Vertrag. Und nicht, ich gebe es noch an fünf Leute weiter.
+    Moritz Walgern: Ja. Das wäre die ideale Vorstellung.
+    E1: Genau. Wer weiß, wenn ich in Rente gehe, sind wir das vielleicht. Also das
+    ist wirklich, was man sieht in den letzten fünf Jahren im Sparkassenbereich,
+    haben sie eine immense Dynamik mit drin. Da kämpfen die Sparkassen auch
+    mit, dass die technischen Entwicklungen funktionieren Weil wie gesagt, wir
+    haben einen zentralen Anbieter dafür, der hat auch den IT-Markt wirklich
+    abgegrast hat sehr, sehr viele gute neue Menschen eingestellt und die
+    Entwicklungen, die die an die Kante stellen, die müssen in jedem Haus einzeln
+    verprobt verarbeitet und etabliert werden.
+    Dazu sind die Häuser gar nicht mehr in Lage, alles in allen Metiers alles
+    mitzunehmen. Ja [00:40:00] ansonsten Wird mir momentan an der Stelle nichts
+    einfallen.
+  time:timestamp: '2025-12-07T21:02:50.981665+01:00'
+---
+event:
+  concept:instance: 82226
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d0d346be-e6ee-41b7-aa10-5af33752df9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3b9eb150f695981f0448b8f0d3b271471ee4433f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-07T21:02:50.982099+01:00'
+---
+event:
+  concept:instance: 82226
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d0d346be-e6ee-41b7-aa10-5af33752df9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3b9eb150f695981f0448b8f0d3b271471ee4433f
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-07T21:02:50.982253+01:00'
+---
+event:
+  concept:instance: 82226
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d0d346be-e6ee-41b7-aa10-5af33752df9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3b9eb150f695981f0448b8f0d3b271471ee4433f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Start Interview)
+        1:task:(Start Interview) --> 2:task:(Explain Interview Rules)
+        2:task:(Explain Interview Rules) --> 3:task:(Get Consent)
+        3:task:(Get Consent) --> 4:task:(Start Recording)
+        4:task:(Start Recording) --> 5:task:(Introduce Interviewee)
+        5:task:(Introduce Interviewee) --> 6:task:(Explain Current Position and Tasks)
+        6:task:(Explain Current Position and Tasks) --> 7:task:(Focus on Baufinanzierung)
+        7:task:(Focus on Baufinanzierung) --> 8:task:(Explain Baufinanzierung Process)
+        8:task:(Explain Baufinanzierung Process) --> 9:task:(Focus on Classic Process)
+        9:task:(Focus on Classic Process) --> 10:task:(Explain Aufsichtsrechtlichen Beschluss)
+        10:task:(Explain Aufsichtsrechtlichen Beschluss) --> 11:task:(Check Bewilligung)
+        11:task:(Check Bewilligung) --> 12:task:(Check Vereinbarungen)
+        12:task:(Check Vereinbarungen) --> 13:task:(Zweitvotierung if needed)
+        13:task:(Zweitvotierung if needed) --> 14:exclusivegateway:{x}
+        14:exclusivegateway:{x} --> |Yes| 15:task:(Get Second Vote)
+        14:exclusivegateway:{x} --> |No| 16:task:(Check Documents Stichproben)
+        15:task:(Get Second Vote) --> 16:task:(Check Documents Stichproben)
+        16:task:(Check Documents Stichproben) --> 17:task:(Check Plausibility)
+        17:task:(Check Plausibility) --> 18:task:(Check Kapitaldienstrechnung)
+        18:task:(Check Kapitaldienstrechnung) --> 19:task:(Vertragsproduktion)
+        19:task:(Vertragsproduktion) --> 20:task:(Send Contracts)
+        20:task:(Send Contracts) --> 21:exclusivegateway:{x}
+        21:exclusivegateway:{x} --> |Digital| 22:task:(Digital Signature)
+        21:exclusivegateway:{x} --> |Paper| 23:task:(Paper Transport)
+        22:task:(Digital Signature) --> 24:task:(Legitimationsprozess)
+        23:task:(Paper Transport) --> 24:task:(Legitimationsprozess)
+        24:task:(Legitimationsprozess) --> 25:task:(Vereinnahmen Unterlagen)
+        25:task:(Vereinnahmen Unterlagen) --> 26:task:(Restarchiv)
+        26:task:(Restarchiv) --> 27:task:(Valutierungsprozess)
+        27:task:(Valutierungsprozess) --> 28:task:(Kaufpreiszahlung)
+        28:task:(Kaufpreiszahlung) --> 29:task:(Eigenabruf Renovierung)
+        29:task:(Eigenabruf Renovierung) --> 30:task:(Manuelle Prüfungen)
+        30:task:(Manuelle Prüfungen) --> 31:task:(Valutierung Abgeschlossen)
+        31:task:(Valutierung Abgeschlossen) --> 32:task:(Überprüfung Mittel)
+        32:task:(Überprüfung Mittel) --> 33:task:(Wertermittlung)
+        33:task:(Wertermittlung) --> 34:task:(Überprüfung Wertermittlung)
+        34:task:(Überprüfung Wertermittlung) --> 35:task:(Ansprache Berater)
+        35:task:(Ansprache Berater) --> 36:task:(Folgeprozesse)
+        36:task:(Folgeprozesse) --> 37:task:(Markt Überprüft)
+        37:task:(Markt Überprüft) --> 38:task:(Marktfolge Überprüft)
+        38:task:(Marktfolge Überprüft) --> 39:task:(Nutzen Systeme)
+        39:task:(Nutzen Systeme) --> 40:task:(Abgreifen Tätigkeiten)
+        40:task:(Abgreifen Tätigkeiten) --> 41:task:(Excel Tabelle)
+        41:task:(Excel Tabelle) --> 42:task:(Checkliste)
+        42:task:(Checkliste) --> 43:task:(Manuelle Prüfung)
+        43:task:(Manuelle Prüfung) --> 44:task:(Gefahr Unterlagen)
+        44:task:(Gefahr Unterlagen) --> 45:task:(Systemische Checklisten)
+        45:task:(Systemische Checklisten) --> 46:task:(KI Erkennungsquote)
+        46:task:(KI Erkennungsquote) --> 47:task:(Keine Verprobung)
+        47:task:(Keine Verprobung) --> 48:task:(Flüchtigkeitsfehler)
+        48:task:(Flüchtigkeitsfehler) --> 49:task:(Schnittstellen Vermittlern)
+        49:task:(Schnittstellen Vermittlern) --> 50:task:(Plausibilitätsprotokoll)
+        50:task:(Plausibilitätsprotokoll) --> 51:task:(Betrugsanfällig)
+        51:task:(Betrugsanfällig) --> 52:task:(Gehaltsabrechnungen)
+        52:task:(Gehaltsabrechnungen) --> 53:task:(Keine Möglichkeit)
+        53:task:(Keine Möglichkeit) --> 54:task:(Kontoauszüge)
+        54:task:(Kontoauszüge) --> 55:task:(Sicheres E-Mail)
+        55:task:(Sicheres E-Mail) --> 56:task:(Verbesserungen)
+        56:task:(Verbesserungen) --> 57:task:(Datenabgleich)
+        57:task:(Datenabgleich) --> 58:task:(Gehaltsabrechnung)
+        58:task:(Gehaltsabrechnung) --> 59:task:(Kundenzufriedenheit)
+        59:task:(Kundenzufriedenheit) --> 60:task:(Einfach Einreichen)
+        60:task:(Einfach Einreichen) --> 61:task:(Kein K.O.)
+        61:task:(Kein K.O.) --> 62:task:(Echtheitszertifikat)
+        62:task:(Echtheitszertifikat) --> 63:task:(Dateiform)
+        63:task:(Dateiform) --> 64:task:(Kundenerlebnis)
+        64:task:(Kundenerlebnis) --> 65:task:(Festen Weg)
+        65:task:(Festen Weg) --> 66:task:(Rolle Versetzen)
+        66:task:(Rolle Versetzen) --> 67:task:(Verträge Handwerkern)
+        67:task:(Verträge Handwerkern) --> 68:task:(Zwei Unterschriften)
+        68:task:(Zwei Unterschriften) --> 69:task:(Nachhaltigkeitsgedanken)
+        69:task:(Nachhaltigkeitsgedanken) --> 70:task:(Digitale Weg)
+        70:task:(Digitale Weg) --> 71:task:(Einzelsignatur)
+        71:task:(Einzelsignatur) --> 72:task:(Sparkassen Trust)
+        72:task:(Sparkassen Trust) --> 73:task:(Kreditantragsprozess)
+        73:task:(Kreditantragsprozess) --> 74:task:(Kunde Bearbeiter)
+        74:task:(Kunde Bearbeiter) --> 75:task:(Employee)
+        75:task:(Employee) --> 76:task:(Geldwäsche)
+        76:task:(Geldwäsche) --> 77:task:(Unlogische Tätigkeiten)
+        77:task:(Unlogische Tätigkeiten) --> 78:task:(Gutschriftskonto)
+        78:task:(Gutschriftskonto) --> 79:task:(System Erkennt)
+        79:task:(System Erkennt) --> 80:task:(Compliance Stelle)
+        80:task:(Compliance Stelle) --> 81:task:(Technische Prüfung)
+        81:task:(Technische Prüfung) --> 82:task:(Überwachungssysteme)
+        82:task:(Überwachungssysteme) --> 83:task:(Verträge Marktfolge)
+        83:task:(Verträge Marktfolge) --> 84:endevent:(((endevent)))
+        84:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-07T21:02:50.982395+01:00'
+---
+event:
+  concept:instance: 82226
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d0d346be-e6ee-41b7-aa10-5af33752df9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3b9eb150f695981f0448b8f0d3b271471ee4433f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Start Interview</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Explain Interview Rules</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Get Consent</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Start Recording</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Introduce Interviewee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Explain Current Position and Tasks</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Focus on Baufinanzierung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Explain Baufinanzierung Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Focus on Classic Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Explain Aufsichtsrechtlichen Beschluss</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Check Bewilligung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Check Vereinbarungen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Zweitvotierung if needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="14">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Get Second Vote</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript"/>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Check Documents Stichproben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Check Plausibility</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Check Kapitaldienstrechnung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Vertragsproduktion</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="20">
+        <parameters>
+          <label>Send Contracts</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="21">
+        <alternative condition="Digital" language="text/javascript">
+          <call id="a45" endpoint="" a:alt_id="22">
+            <parameters>
+              <label>Digital Signature</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Paper" language="text/javascript">
+          <call id="a47" endpoint="" a:alt_id="23">
+            <parameters>
+              <label>Paper Transport</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a49" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Legitimationsprozess</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Vereinnahmen Unterlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Restarchiv</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Valutierungsprozess</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Kaufpreiszahlung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Eigenabruf Renovierung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Manuelle Pr&#xFC;fungen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Valutierung Abgeschlossen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a67" endpoint="" a:alt_id="32">
+        <parameters>
+          <label>&#xDC;berpr&#xFC;fung Mittel</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a69" endpoint="" a:alt_id="33">
+        <parameters>
+          <label>Wertermittlung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a71" endpoint="" a:alt_id="34">
+        <parameters>
+          <label>&#xDC;berpr&#xFC;fung Wertermittlung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a73" endpoint="" a:alt_id="35">
+        <parameters>
+          <label>Ansprache Berater</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a75" endpoint="" a:alt_id="36">
+        <parameters>
+          <label>Folgeprozesse</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a77" endpoint="" a:alt_id="37">
+        <parameters>
+          <label>Markt &#xDC;berpr&#xFC;ft</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a79" endpoint="" a:alt_id="38">
+        <parameters>
+          <label>Marktfolge &#xDC;berpr&#xFC;ft</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a81" endpoint="" a:alt_id="39">
+        <parameters>
+          <label>Nutzen Systeme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a83" endpoint="" a:alt_id="40">
+        <parameters>
+          <label>Abgreifen T&#xE4;tigkeiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a85" endpoint="" a:alt_id="41">
+        <parameters>
+          <label>Excel Tabelle</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a87" endpoint="" a:alt_id="42">
+        <parameters>
+          <label>Checkliste</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a89" endpoint="" a:alt_id="43">
+        <parameters>
+          <label>Manuelle Pr&#xFC;fung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a91" endpoint="" a:alt_id="44">
+        <parameters>
+          <label>Gefahr Unterlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a93" endpoint="" a:alt_id="45">
+        <parameters>
+          <label>Systemische Checklisten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a95" endpoint="" a:alt_id="46">
+        <parameters>
+          <label>KI Erkennungsquote</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a97" endpoint="" a:alt_id="47">
+        <parameters>
+          <label>Keine Verprobung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a99" endpoint="" a:alt_id="48">
+        <parameters>
+          <label>Fl&#xFC;chtigkeitsfehler</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a101" endpoint="" a:alt_id="49">
+        <parameters>
+          <label>Schnittstellen Vermittlern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a103" endpoint="" a:alt_id="50">
+        <parameters>
+          <label>Plausibilit&#xE4;tsprotokoll</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a105" endpoint="" a:alt_id="51">
+        <parameters>
+          <label>Betrugsanf&#xE4;llig</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a107" endpoint="" a:alt_id="52">
+        <parameters>
+          <label>Gehaltsabrechnungen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a109" endpoint="" a:alt_id="53">
+        <parameters>
+          <label>Keine M&#xF6;glichkeit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a111" endpoint="" a:alt_id="54">
+        <parameters>
+          <label>Kontoausz&#xFC;ge</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a113" endpoint="" a:alt_id="55">
+        <parameters>
+          <label>Sicheres E-Mail</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a115" endpoint="" a:alt_id="56">
+        <parameters>
+          <label>Verbesserungen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a117" endpoint="" a:alt_id="57">
+        <parameters>
+          <label>Datenabgleich</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a119" endpoint="" a:alt_id="58">
+        <parameters>
+          <label>Gehaltsabrechnung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a121" endpoint="" a:alt_id="59">
+        <parameters>
+          <label>Kundenzufriedenheit</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a123" endpoint="" a:alt_id="60">
+        <parameters>
+          <label>Einfach Einreichen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a125" endpoint="" a:alt_id="61">
+        <parameters>
+          <label>Kein K.O.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a127" endpoint="" a:alt_id="62">
+        <parameters>
+          <label>Echtheitszertifikat</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a129" endpoint="" a:alt_id="63">
+        <parameters>
+          <label>Dateiform</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a131" endpoint="" a:alt_id="64">
+        <parameters>
+          <label>Kundenerlebnis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a133" endpoint="" a:alt_id="65">
+        <parameters>
+          <label>Festen Weg</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a135" endpoint="" a:alt_id="66">
+        <parameters>
+          <label>Rolle Versetzen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a137" endpoint="" a:alt_id="67">
+        <parameters>
+          <label>Vertr&#xE4;ge Handwerkern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a139" endpoint="" a:alt_id="68">
+        <parameters>
+          <label>Zwei Unterschriften</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a141" endpoint="" a:alt_id="69">
+        <parameters>
+          <label>Nachhaltigkeitsgedanken</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a143" endpoint="" a:alt_id="70">
+        <parameters>
+          <label>Digitale Weg</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a145" endpoint="" a:alt_id="71">
+        <parameters>
+          <label>Einzelsignatur</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a147" endpoint="" a:alt_id="72">
+        <parameters>
+          <label>Sparkassen Trust</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a149" endpoint="" a:alt_id="73">
+        <parameters>
+          <label>Kreditantragsprozess</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a151" endpoint="" a:alt_id="74">
+        <parameters>
+          <label>Kunde Bearbeiter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a153" endpoint="" a:alt_id="75">
+        <parameters>
+          <label>Employee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a155" endpoint="" a:alt_id="76">
+        <parameters>
+          <label>Geldw&#xE4;sche</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a157" endpoint="" a:alt_id="77">
+        <parameters>
+          <label>Unlogische T&#xE4;tigkeiten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a159" endpoint="" a:alt_id="78">
+        <parameters>
+          <label>Gutschriftskonto</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a161" endpoint="" a:alt_id="79">
+        <parameters>
+          <label>System Erkennt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a163" endpoint="" a:alt_id="80">
+        <parameters>
+          <label>Compliance Stelle</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a165" endpoint="" a:alt_id="81">
+        <parameters>
+          <label>Technische Pr&#xFC;fung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a167" endpoint="" a:alt_id="82">
+        <parameters>
+          <label>&#xDC;berwachungssysteme</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a169" endpoint="" a:alt_id="83">
+        <parameters>
+          <label>Vertr&#xE4;ge Marktfolge</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-12-07T21:02:50.982591+01:00'

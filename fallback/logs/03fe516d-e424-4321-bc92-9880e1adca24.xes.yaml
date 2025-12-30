@@ -1,0 +1,2050 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 75015
+    cpee:name: Plain Instance
+    cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:16:28.335128+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: bddda84ccb574dfbc1dd4d3dea90cbcaf1d94179
+  time:timestamp: '2025-11-28T21:17:21.044010+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bddda84ccb574dfbc1dd4d3dea90cbcaf1d94179
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-28T21:17:21.044298+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bddda84ccb574dfbc1dd4d3dea90cbcaf1d94179
+  cpee:exposition: |+
+    # User Input:
+    purchase to cash process model
+
+  time:timestamp: '2025-11-28T21:17:21.044682+01:00'
+...
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bddda84ccb574dfbc1dd4d3dea90cbcaf1d94179
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-28T21:17:21.044858+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bddda84ccb574dfbc1dd4d3dea90cbcaf1d94179
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-28T21:17:21.045044+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bddda84ccb574dfbc1dd4d3dea90cbcaf1d94179
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Create Purchase Order)
+    1:task:(Create Purchase Order) --> 2:task:(Receive Goods)
+    2:task:(Receive Goods) --> 3:task:(Receive Invoice)
+    3:task:(Receive Invoice) --> 4:task:(Make Payment)
+    4:task:(Make Payment) --> 5:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-28T21:17:21.045164+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bddda84ccb574dfbc1dd4d3dea90cbcaf1d94179
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:17:21.045285+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2025-11-28T21:17:38.985680+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:17:39.200643+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-11-28T21:17:41.810592+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:17:42.000765+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: packed
+  time:timestamp: '2025-11-28T21:17:45.235036+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:17:45.439696+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: rex
+  - name: guarded_id
+    value: ''
+  time:timestamp: '2025-11-28T21:17:49.291233+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:17:49.570430+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: highlander
+  - name: guarded_id
+    value: ''
+  time:timestamp: '2025-11-28T21:17:51.748639+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:17:52.008535+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-11-28T21:17:54.033196+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:17:54.246419+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-28T21:17:56.455325+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:17:56.671523+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2025-11-28T21:18:03.116195+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:18:03.384097+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  time:timestamp: '2025-11-28T21:18:06.977192+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:18:06.977446+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |+
+    # User Input:
+    The process starts. First, a purchase order is created. Next, the goods are received. Then, the invoice is received. Finally, the payment is made, and the process ends.
+
+  time:timestamp: '2025-11-28T21:18:06.977656+01:00'
+...
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-28T21:18:06.977766+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-28T21:18:06.977953+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> a1:task:(Create Purchase Order)
+        a1:task:(Create Purchase Order) --> a3:task:(Receive Goods)
+        a3:task:(Receive Goods) --> a5:task:(Receive Invoice)
+        a5:task:(Receive Invoice) --> a7:task:(Make Payment)
+        a7:task:(Make Payment) --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-28T21:18:06.978104+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:18:06.978224+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-28T21:18:19.190117+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:18:19.391111+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  time:timestamp: '2025-11-28T21:18:21.743456+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:18:21.743679+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-11-28T21:18:21.743819+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-28T21:18:21.743957+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-28T21:18:21.744079+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-28T21:18:21.744908+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:18:21.745065+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  time:timestamp: '2025-11-28T21:18:38.582845+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:18:38.583069+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # User Input:
+    purchase to pay process model
+  time:timestamp: '2025-11-28T21:18:38.583776+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-28T21:18:38.584018+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-28T21:18:38.584149+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-28T21:18:38.584276+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:18:38.584395+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  time:timestamp: '2025-11-28T21:19:06.564769+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:19:06.564951+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # User Input:
+    purchase to pay process 
+  time:timestamp: '2025-11-28T21:19:06.565064+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-28T21:19:06.565179+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-28T21:19:06.565272+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> a1:task:(Create Purchase Order)
+        a1:task:(Create Purchase Order) --> a3:task:(Receive Goods)
+        a3:task:(Receive Goods) --> a5:task:(Receive Invoice)
+        a5:task:(Receive Invoice) --> a7:task:(Make Payment)
+        a7:task:(Make Payment) --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-28T21:19:06.565374+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:19:06.565464+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  time:timestamp: '2025-11-28T21:19:31.158213+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:19:31.158451+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # User Input:
+    account payable process
+  time:timestamp: '2025-11-28T21:19:31.158618+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-28T21:19:31.158785+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-28T21:19:31.158992+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-28T21:19:31.159123+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:19:31.159270+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-28T21:19:39.351837+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:19:39.667779+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2025-11-28T21:19:41.047325+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:19:41.300422+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  time:timestamp: '2025-11-28T21:19:59.480880+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:19:59.481119+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # User Input:
+    account payable process
+  time:timestamp: '2025-11-28T21:19:59.481266+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-28T21:19:59.481429+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-28T21:19:59.482384+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-28T21:19:59.483135+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:19:59.483389+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  time:timestamp: '2025-11-28T21:20:00.629022+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:20:00.629265+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2025-11-28T21:20:00.629744+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-28T21:20:00.630471+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-28T21:20:00.630778+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create Purchase Order)
+    a1:task:(Create Purchase Order)-->a3:task:(Receive Goods)
+    a3:task:(Receive Goods)-->a5:task:(Receive Invoice)
+    a5:task:(Receive Invoice)-->a7:task:(Make Payment)
+    a7:task:(Make Payment)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-28T21:20:00.631279+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ef0dd233955851ff5e0afda6d7e8fdf643d43c1f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:20:00.631572+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Create Purchase Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Receive Goods</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Make Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-28T21:20:11.301458+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  time:timestamp: '2025-11-28T21:20:11.304003+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: worklist
+    value: https-post://cpee.org/worklist/server/
+  time:timestamp: '2025-11-28T21:20:11.306139+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: info
+    value: Worklist
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: extended
+  - name: organisation1
+    value: http://cpee.org/~demo/orgviz/organisation_informatik.xml
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: design_stage
+    value: development
+  - name: design_dir
+    value: Templates.dir
+  time:timestamp: '2025-11-28T21:20:11.308257+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="worklist">
+        <parameters>
+          <label>OK OR NOT OK</label>
+          <arguments>
+            <orgmodel>https://cpee.org/~demo/orgviz/organisation_informatik.xml</orgmodel>
+            <form>https://cpee.org/~demo/form/form-f.html</form>
+            <role>Assistant</role>
+            <priority>42</priority>
+            <handling>single</handling>
+            <restrictions/>
+            <data>
+              <schaden>10000</schaden>
+              <text>destroyed</text>
+            </data>
+          </arguments>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.bla = result</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+    </description>
+  cpee:change_uuid: 3b0ceb83d6b680d8ce6e7fc74c414e02afa2906f
+  time:timestamp: '2025-11-28T21:20:11.313814+01:00'
+---
+event:
+  concept:instance: 75015
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 03fe516d-e424-4321-bc92-9880e1adca24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-28T21:20:11.703867+01:00'

@@ -1,0 +1,532 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 84945
+    cpee:name: Plain Instance
+    cpee:instance: '079f0182-6fba-43d5-9857-dd8f0a479c67'
+---
+event:
+  concept:instance: 84945
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '079f0182-6fba-43d5-9857-dd8f0a479c67'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-12-16T13:06:35.527181+01:00'
+---
+event:
+  concept:instance: 84945
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '079f0182-6fba-43d5-9857-dd8f0a479c67'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Establish general direction and ensure compliance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Adopt draft single programming document</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Adopt single programming document</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Supervise implementation of programming</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Adopt annual budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Assess and adopt consolidated annual report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Adopt financial rules</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Adopt anti-fraud strategy</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Adopt rules for conflict of interest</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Ensure follow-up to OLAF findings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Adopt rules of procedure</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Exercise powers regarding staff</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Adopt rules implementing Staff Regulations</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Appoint/extend/remove Executive Director</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Appoint accounting officer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Take decisions on internal structures</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Authorize working arrangements Article 7</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Authorize working arrangements Article 42</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Delegate appointing authority powers</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="20">
+        <alternative condition="Exceptional circumstances" language="text/javascript">
+          <call id="a41" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Suspend delegation of appointing authority powers</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Otherwise" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 70d60de4ea5b8df707f56c572f4b4df35531f4d3
+  time:timestamp: '2025-12-16T13:07:00.224419+01:00'
+---
+event:
+  concept:instance: 84945
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '079f0182-6fba-43d5-9857-dd8f0a479c67'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 70d60de4ea5b8df707f56c572f4b4df35531f4d3
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-12-16T13:07:00.224693+01:00'
+---
+event:
+  concept:instance: 84945
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '079f0182-6fba-43d5-9857-dd8f0a479c67'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 70d60de4ea5b8df707f56c572f4b4df35531f4d3
+  cpee:exposition: |
+    # User Input:
+    Article 15
+
+    Functions of the Management Board
+
+    1.   The Management Board shall:
+    (a)
+    establish the general direction of the operation of ENISA and ensure that ENISA operates in accordance with the rules and principles laid down in this Regulation; it shall also ensure the consistency of ENISA’s work with activities conducted by the Member States as well as at Union level;
+    (b)
+    adopt ENISA’s draft single programming document referred to in Article 24, before its submission to the Commission for an opinion;
+    (c)
+    adopt ENISA’s single programming document, taking into account the Commission opinion;
+    (d)
+    supervise the implementation of the multiannual and annual programming included in the single programming document;
+    (e)
+    adopt the annual budget of ENISA and exercise other functions in respect of ENISA’s budget in accordance with Chapter IV;
+    (f)
+    assess and adopt the consolidated annual report on ENISA’s activities, including the accounts and a description of how ENISA has met its performance indicators, submit both the annual report and the assessment thereof by 1 July of the following year, to the European Parliament, to the Council, to the Commission and to the Court of Auditors, and make the annual report public;
+    (g)
+    adopt the financial rules applicable to ENISA in accordance with Article 32;
+    (h)
+    adopt an anti-fraud strategy that is proportionate to the fraud risks, having regard to a cost-benefit analysis of the measures to be implemented;
+    (i)
+    adopt rules for the prevention and management of conflicts of interest in respect of its members;
+    (j)
+    ensure adequate follow-up to the findings and recommendations resulting from investigations of the European Anti-Fraud Office (OLAF) and the various internal or external audit reports and evaluations;
+    (k)
+    adopt its rules of procedure, including rules for provisional decisions on the delegation of specific tasks, pursuant to Article 19(7);
+    (l)
+    with respect to the staff of ENISA, exercise the powers conferred by the Staff Regulations of Officials (the ‘Staff Regulations of Officials’) and the Conditions of Employment of Other Servants of the European Union (the ‘Conditions of Employment of Other Servants’), laid down in Council Regulation (EEC, Euratom, ECSC) No 259/68 (24) on the appointing authority and on the Authority Empowered to Conclude a Contract of Employment (‘appointing authority powers’) in accordance with paragraph 2 of this Article;
+    (m)
+    adopt rules implementing the Staff Regulations of Officials and the Conditions of Employment of Other Servants in accordance with the procedure provided for in Article 110 of the Staff Regulations of Officials;
+    (n)
+    appoint the Executive Director and where relevant extend his or her term of office or remove him or her from office in accordance with Article 36;
+    (o)
+    appoint an accounting officer, who may be the Commission’s accounting officer, who shall be wholly independent in the performance of his or her duties;
+    (p)
+    take all decisions concerning the establishment of ENISA’s internal structures and, where necessary, the modification of those internal structures, taking into consideration ENISA’s activity needs and having regard to sound budgetary management;
+    (q)
+    authorise the establishment of working arrangements with regard to Article 7;
+    (r)
+    authorise the establishment or conclusion of working arrangements in accordance with Article 42.
+    2.   In accordance with Article 110 of the Staff Regulations of Officials, the Management Board shall adopt a decision based on Article 2(1) of the Staff Regulations of Officials and Article 6 of the Conditions of Employment of Other Servants, delegating the relevant appointing authority powers to the Executive Director and determining the conditions under which that delegation of powers can be suspended. The Executive Director may sub-delegate those powers.
+    3.   Where exceptional circumstances so require, the Management Board may adopt a decision to temporarily suspend the delegation of appointing authority powers to the Executive Director and any appointing authority powers sub-delegated by the Executive Director and instead exercise them itself or delegate them to one of its members or to a staff member other than the Executive Director.
+  time:timestamp: '2025-12-16T13:07:00.224797+01:00'
+---
+event:
+  concept:instance: 84945
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '079f0182-6fba-43d5-9857-dd8f0a479c67'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 70d60de4ea5b8df707f56c572f4b4df35531f4d3
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-12-16T13:07:00.225048+01:00'
+---
+event:
+  concept:instance: 84945
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '079f0182-6fba-43d5-9857-dd8f0a479c67'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 70d60de4ea5b8df707f56c572f4b4df35531f4d3
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Establish general direction and ensure compliance)
+        1:task:(Establish general direction and ensure compliance) --> 2:task:(Adopt draft single programming document)
+        2:task:(Adopt draft single programming document) --> 3:task:(Adopt single programming document)
+        3:task:(Adopt single programming document) --> 4:task:(Supervise implementation of programming)
+        4:task:(Supervise implementation of programming) --> 5:task:(Adopt annual budget)
+        5:task:(Adopt annual budget) --> 6:task:(Assess and adopt consolidated annual report)
+        6:task:(Assess and adopt consolidated annual report) --> 7:task:(Adopt financial rules)
+        7:task:(Adopt financial rules) --> 8:task:(Adopt anti-fraud strategy)
+        8:task:(Adopt anti-fraud strategy) --> 9:task:(Adopt rules for conflict of interest)
+        9:task:(Adopt rules for conflict of interest) --> 10:task:(Ensure follow-up to OLAF findings)
+        10:task:(Ensure follow-up to OLAF findings) --> 11:task:(Adopt rules of procedure)
+        11:task:(Adopt rules of procedure) --> 12:task:(Exercise powers regarding staff)
+        12:task:(Exercise powers regarding staff) --> 13:task:(Adopt rules implementing Staff Regulations)
+        13:task:(Adopt rules implementing Staff Regulations) --> 14:task:(Appoint/extend/remove Executive Director)
+        14:task:(Appoint/extend/remove Executive Director) --> 15:task:(Appoint accounting officer)
+        15:task:(Appoint accounting officer) --> 16:task:(Take decisions on internal structures)
+        16:task:(Take decisions on internal structures) --> 17:task:(Authorize working arrangements Article 7)
+        17:task:(Authorize working arrangements Article 7) --> 18:task:(Authorize working arrangements Article 42)
+        18:task:(Authorize working arrangements Article 42) --> 19:task:(Delegate appointing authority powers)
+        19:task:(Delegate appointing authority powers) --> 20:exclusivegateway:{x}
+        20:exclusivegateway:{x} --> |Exceptional circumstances| 21:task:(Suspend delegation of appointing authority powers)
+        20:exclusivegateway:{x} --> |Otherwise| 22:endevent:(((endevent)))
+        21:task:(Suspend delegation of appointing authority powers) --> 22:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-12-16T13:07:00.225165+01:00'
+---
+event:
+  concept:instance: 84945
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '079f0182-6fba-43d5-9857-dd8f0a479c67'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 70d60de4ea5b8df707f56c572f4b4df35531f4d3
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Establish general direction and ensure compliance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Adopt draft single programming document</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Adopt single programming document</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Supervise implementation of programming</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Adopt annual budget</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Assess and adopt consolidated annual report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Adopt financial rules</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Adopt anti-fraud strategy</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Adopt rules for conflict of interest</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Ensure follow-up to OLAF findings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Adopt rules of procedure</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Exercise powers regarding staff</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Adopt rules implementing Staff Regulations</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Appoint/extend/remove Executive Director</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Appoint accounting officer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Take decisions on internal structures</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Authorize working arrangements Article 7</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Authorize working arrangements Article 42</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Delegate appointing authority powers</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="20">
+        <alternative condition="Exceptional circumstances" language="text/javascript">
+          <call id="a41" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Suspend delegation of appointing authority powers</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Otherwise" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-12-16T13:07:00.225282+01:00'
+---
+event:
+  concept:instance: 84945
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '079f0182-6fba-43d5-9857-dd8f0a479c67'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 70d60de4ea5b8df707f56c572f4b4df35531f4d3
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-12-16T13:07:00.224958+01:00'
