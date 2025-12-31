@@ -163,49 +163,64 @@ export class LogContentRenderer {
 
             // ALWAYS add/ensure action bar exists BEFORE clearing content
             if (rawContent.getLength && rawContent.getLength() > 0) {
+                // First, clear any existing action bars from the row (from other renderers)
+                const sectionElement = document.getElementById(sectionId);
+                let actionBarRow = sectionElement?.querySelector('.action-bar-row');
+                if (actionBarRow) {
+                    actionBarRow.innerHTML = '';
+                }
+                
                 if (!this.actionBars.has(sectionId)) {
-                    // Create new action bar and attach to container
+                    // Create new action bar and attach to action bar row
                     this.addActionBar(logContainer, sectionId, rawContent);
                 } else {
-                    // Action bar instance exists - check if it's in the DOM
+                    // Action bar instance exists - re-attach it
                     const actionBar = this.actionBars.get(sectionId);
-                    const parentContainer = container.closest('.content-box') || container.parentElement;
-                    const existingActionBarInDOM = parentContainer?.querySelector('.raw-content-actions-bar');
                     
-                    if (actionBar && !existingActionBarInDOM) {
-                        // Action bar instance exists but not in DOM - re-attach it
+                    if (actionBar) {
+                        // Remove from old parent if attached elsewhere
                         if (actionBar.element && actionBar.element.parentNode) {
                             actionBar.element.parentNode.removeChild(actionBar.element);
                         }
-                        // Attach to parent container (non-scrolling) instead of log container
-                        if (parentContainer) {
-                            parentContainer.appendChild(actionBar.element);
+                        // Find or create the action bar row
+                        if (!actionBarRow && sectionElement) {
+                            const sectionHeader = sectionElement.querySelector('h3');
+                            if (sectionHeader) {
+                                actionBarRow = document.createElement('div');
+                                actionBarRow.className = 'action-bar-row';
+                                sectionHeader.insertAdjacentElement('afterend', actionBarRow);
+                            }
+                        }
+                        if (actionBarRow) {
+                            actionBarRow.appendChild(actionBar.element);
+                            // Make sure action bar row is visible
+                            actionBarRow.style.display = 'flex';
                         } else {
                             // Fallback to log container
                             logContainer.appendChild(actionBar.element);
                         }
-                    }
-                    
-                    // Show the action bar
-                    if (actionBar) {
-                        actionBar.show();
-                        }
-                        }
-                        }
-                        try {
-                        const instanceService = serviceFactory.get('InstanceService');
-                        const currentInstance = instanceService.getCurrentInstance();
-                        if (currentInstance && currentInstance.processNumber && step) {
-                        const actionBar = this.actionBars.get(sectionId);
-                        if (actionBar) {
-                        actionBar.setDownloadMetadata(currentInstance.processNumber, step.stepNumber);
-                        }
-                        }
-                        } catch (error) {
-                        console.warn('LogContentRenderer: Could not get instance number for download filename', error);
-                        }
                         
-                        // Now clear ONLY the content area (preserve action bar)
+                        // Show the action bar
+                        actionBar.show();
+                    }
+                }
+            }
+            
+            // Set download metadata for action bar
+            try {
+                const instanceService = serviceFactory.get('InstanceService');
+                const currentInstance = instanceService.getCurrentInstance();
+                if (currentInstance && currentInstance.processNumber && step) {
+                    const actionBar = this.actionBars.get(sectionId);
+                    if (actionBar) {
+                        actionBar.setDownloadMetadata(currentInstance.processNumber, step.stepNumber);
+                    }
+                }
+            } catch (error) {
+                console.warn('LogContentRenderer: Could not get instance number for download filename', error);
+            }
+            
+            // Now clear ONLY the content area (preserve action bar)
             logContainer.innerHTML = '';
             
             // Render new content and add it
@@ -543,6 +558,12 @@ export class LogContentRenderer {
                 actionBar.clearSearch();
                 actionBar.hide();
             }
+            // Also hide action bar row if it exists
+            const sectionElement = document.getElementById(sectionId);
+            const actionBarRow = sectionElement?.querySelector('.action-bar-row');
+            if (actionBarRow) {
+                actionBarRow.style.display = 'none';
+            }
         }
     }
 
@@ -575,11 +596,21 @@ export class LogContentRenderer {
 
         // Create action bar with SearchService, always visible for log sections
         const actionBar = new ActionBar(this.domRegistry, this.searchService, sectionId, {
-            collapsedByDefault: false
+            collapsedByDefault: false,
+            showViewLog: true
         });
         
         // Store action bar for this section
         this.actionBars.set(sectionId, actionBar);
+        
+        // Get instance info (view log URL set after attachToContainer)
+        let currentInstance = null;
+        try {
+            const instanceService = serviceFactory.get('InstanceService');
+            currentInstance = instanceService.getCurrentInstance();
+        } catch (error) {
+            console.warn('LogContentRenderer: Could not get instance info', error);
+        }
         
         // Set up copy functionality
         actionBar.setOnCopy((content) => {
@@ -604,19 +635,45 @@ export class LogContentRenderer {
             this.navigateToMatch(sectionId, direction);
         });
 
-        // Attach to the parent content-box container (non-scrolling) instead of the scrollable log container
-        const parentContainer = container.closest('.content-box') || container.parentElement;
-        if (parentContainer) {
-            actionBar.attachToContainer(parentContainer);
+        // Attach to a separate action bar row below the section header
+        const sectionElement = document.getElementById(sectionId);
+        const sectionHeader = sectionElement?.querySelector('h3');
+        
+        if (sectionHeader) {
+            // Create or find the action bar row container
+            let actionBarRow = sectionElement.querySelector('.action-bar-row');
+            if (!actionBarRow) {
+                actionBarRow = document.createElement('div');
+                actionBarRow.className = 'action-bar-row';
+                // Insert after the h3 header, before the content-box
+                sectionHeader.insertAdjacentElement('afterend', actionBarRow);
+            } else {
+                // Clear existing action bars from other renderers
+                actionBarRow.innerHTML = '';
+            }
+            // Ensure action bar row is visible
+            actionBarRow.style.display = 'flex';
+            actionBar.attachToContainer(actionBarRow);
         } else {
-            // Fallback to log container if parent not found
-            actionBar.attachToContainer(container);
+            // Fallback: attach to content-box if section header structure not found
+            const parentContainer = container.closest('.content-box') || container.parentElement;
+            if (parentContainer) {
+                actionBar.attachToContainer(parentContainer);
+            } else {
+                actionBar.attachToContainer(container);
+            }
         }
         
         // Set copy content after attaching
         if (contentToCopy) {
             actionBar.setCopyContent(contentToCopy);
             actionBar.setDownloadContent(contentToCopy);
+        }
+        
+        // Set view log URL after attaching (requires viewLogButtonContainer to exist)
+        if (currentInstance && currentInstance.uuid) {
+            const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${currentInstance.uuid}.xes.yaml`;
+            actionBar.setViewLogUrl(logUrl);
         }
         
         // Show the action bar

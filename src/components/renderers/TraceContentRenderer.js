@@ -12,6 +12,7 @@
  */
 
 import { CopyButton } from '../ui/CopyButton.js';
+import { ActionBar } from '../ui/ActionBar.js';
 import { Trace } from '../../models/Trace.js';
 import { TraceDisplay } from '../ui/TraceDisplay.js';
 import { CPEETraceCalculator } from '../../utils/trace/CPEETraceCalculator.js';
@@ -32,7 +33,10 @@ export class TraceContentRenderer {
         // Cache calculated traces per section (to avoid recalculation)
         this.traceCache = new Map();
         
-        // Copy buttons for traces per section
+        // Action bars for traces per section (copy-only, no search)
+        this.traceActionBars = new Map();
+        
+        // Copy buttons for traces per section (legacy, for backwards compatibility)
         this.traceCopyButtons = new Map();
         
         // Store comparison results per section pair for trace coloring
@@ -100,13 +104,15 @@ export class TraceContentRenderer {
         // Render traces content
         this.renderTracesContent(sectionId, tracesContainer, step);
         
-        // Show trace copy button if it exists
-        if (this.traceCopyButtons.has(sectionId)) {
-            const copyButton = this.traceCopyButtons.get(sectionId);
-            if (copyButton && copyButton.element) {
-                const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
-                if (buttonContainer) {
-                    buttonContainer.style.display = 'block';
+        // Show action bar if it exists
+        if (this.traceActionBars.has(sectionId)) {
+            const actionBar = this.traceActionBars.get(sectionId);
+            if (actionBar) {
+                actionBar.show();
+                const sectionElement = document.getElementById(sectionId);
+                const actionBarRow = sectionElement?.querySelector('.action-bar-row');
+                if (actionBarRow) {
+                    actionBarRow.style.display = 'flex';
                 }
             }
         }
@@ -735,20 +741,26 @@ export class TraceContentRenderer {
     }
 
     /**
-     * Add copy button for traces to a container
+     * Add action bar for traces to a container (copy-only, no search)
      * @param {string} sectionId - Section identifier
      * @param {HTMLElement} container - Container element (traces container)
      * @param {Array} traces - Traces to copy
      */
     addTraceCopyButton(sectionId, container, traces) {
         if (!traces || traces.length === 0) {
-            // Remove copy button if no traces
-            if (this.traceCopyButtons.has(sectionId)) {
-                const copyButton = this.traceCopyButtons.get(sectionId);
-                if (copyButton && copyButton.element && copyButton.element.parentNode) {
-                    copyButton.element.parentNode.removeChild(copyButton.element);
+            // Remove action bar if no traces
+            if (this.traceActionBars.has(sectionId)) {
+                const actionBar = this.traceActionBars.get(sectionId);
+                if (actionBar && actionBar.element && actionBar.element.parentNode) {
+                    actionBar.element.parentNode.removeChild(actionBar.element);
                 }
-                this.traceCopyButtons.delete(sectionId);
+                this.traceActionBars.delete(sectionId);
+            }
+            // Also hide action bar row if it exists
+            const sectionElement = document.getElementById(sectionId);
+            const actionBarRow = sectionElement?.querySelector('.action-bar-row');
+            if (actionBarRow) {
+                actionBarRow.style.display = 'none';
             }
             return;
         }
@@ -756,55 +768,48 @@ export class TraceContentRenderer {
         // Format traces for copying
         const contentToCopy = this.formatTracesForCopy(traces);
 
-        // Get or create copy button
-        let copyButton = this.traceCopyButtons.get(sectionId);
+        // Get or create action bar (copy-only, no search)
+        let actionBar = this.traceActionBars.get(sectionId);
         
-        if (!copyButton) {
-            // Create new copy button
-            copyButton = new CopyButton(this.domRegistry, { showText: false });
-            this.traceCopyButtons.set(sectionId, copyButton);
+        // Get section element and header
+        const sectionElement = document.getElementById(sectionId);
+        const sectionHeader = sectionElement?.querySelector('h3');
+        
+        if (!actionBar) {
+            // Create new action bar with showSearch: false
+            actionBar = new ActionBar(this.domRegistry, null, sectionId, { showSearch: false });
+            this.traceActionBars.set(sectionId, actionBar);
         }
-
-        // Update content
-        copyButton.setContent(contentToCopy);
-
-        // Create button element if it doesn't exist
-        if (!copyButton.element) {
-            const button = copyButton.createButton(contentToCopy, '');
-            
-            // Attach to parent container (non-scrolling) similar to action bar
-            const parentContainer = container.closest('.content-box') || container.parentElement;
-            if (parentContainer) {
-                // Check if button already exists in DOM
-                const existingButton = parentContainer.querySelector('.trace-copy-button-container');
-                if (existingButton) {
-                    existingButton.remove();
-                }
-                
-                // Create wrapper container for the copy button
-                const buttonContainer = this.domRegistry.createElement('div', {
-                    className: 'trace-copy-button-container'
-                });
-                buttonContainer.appendChild(button);
-                parentContainer.appendChild(buttonContainer);
+        
+        // Always ensure action bar is attached to the DOM
+        if (sectionHeader) {
+            // Create or find the action bar row container
+            let actionBarRow = sectionElement.querySelector('.action-bar-row');
+            if (!actionBarRow) {
+                actionBarRow = document.createElement('div');
+                actionBarRow.className = 'action-bar-row';
+                // Insert after the h3 header, before the content-box
+                sectionHeader.insertAdjacentElement('afterend', actionBarRow);
             } else {
-                // Fallback to traces container
-                const buttonContainer = this.domRegistry.createElement('div', {
-                    className: 'trace-copy-button-container'
-                });
-                buttonContainer.appendChild(button);
-                container.appendChild(buttonContainer);
+                // Clear existing action bars from other renderers
+                actionBarRow.innerHTML = '';
             }
-        } else {
-            // Update existing button content
-            copyButton.setContent(contentToCopy);
             
-            // Ensure button container is visible
-            const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
-            if (buttonContainer) {
-                buttonContainer.style.display = 'block';
+            // Remove action bar from old parent if attached elsewhere
+            if (actionBar.element && actionBar.element.parentNode) {
+                actionBar.element.parentNode.removeChild(actionBar.element);
             }
+            
+            actionBar.attachToContainer(actionBarRow);
+            // Ensure action bar row is visible
+            actionBarRow.style.display = 'flex';
         }
+        
+        // Set copy content
+        actionBar.setCopyContent(contentToCopy);
+        
+        // Show the action bar
+        actionBar.show();
     }
 
     /**
@@ -1079,15 +1084,12 @@ export class TraceContentRenderer {
             el.style.pointerEvents = 'none';
         });
         
-        // Hide trace copy button for this section
+        // Hide action bar for this section
         const sectionId = container.closest('[id]')?.id;
-        if (sectionId && this.traceCopyButtons.has(sectionId)) {
-            const copyButton = this.traceCopyButtons.get(sectionId);
-            if (copyButton && copyButton.element) {
-                const buttonContainer = copyButton.element.closest('.trace-copy-button-container');
-                if (buttonContainer) {
-                    buttonContainer.style.display = 'none';
-                }
+        if (sectionId && this.traceActionBars.has(sectionId)) {
+            const actionBar = this.traceActionBars.get(sectionId);
+            if (actionBar) {
+                actionBar.hide();
             }
         }
     }
@@ -1097,6 +1099,7 @@ export class TraceContentRenderer {
      */
     destroy() {
         this.clearTraceCache();
+        this.traceActionBars.clear();
         this.traceCopyButtons.clear();
     }
 }

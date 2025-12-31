@@ -85,6 +85,22 @@
    z-index: 1;
 }
 
+/* Action bar row - separate container below section header */
+.action-bar-row {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 6px 12px;
+   background: var(--surface-color);
+   border-bottom: 1px solid var(--border-color);
+}
+
+/* Action bar inside the row */
+.action-bar-row .raw-content-actions-bar {
+   display: flex;
+   width: 100%;
+}
+
 .section-title {
    margin: 0;
    color: var(--text-primary);

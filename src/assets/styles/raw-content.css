@@ -72,6 +72,13 @@
    min-width: 100%;
 }
 
+/* Remove top/bottom padding for XML and Mermaid code blocks */
+.raw-code-block.language-xml,
+.raw-code-block.language-mermaid {
+   padding-top: 0;
+   padding-bottom: 0;
+}
+
 .raw-code-block code {
    background: transparent;
    border: none;

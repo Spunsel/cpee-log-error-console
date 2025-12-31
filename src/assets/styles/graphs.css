@@ -280,6 +280,64 @@
    opacity: 0.9;
 }
 
+/* Exclude action bar buttons from CPEE graph color inversion - use higher specificity */
+[data-theme="dark"] .cpee-section .action-bar-row .copy-btn svg,
+[data-theme="dark"] .cpee-section .action-bar-row .download-btn svg,
+[data-theme="dark"] .cpee-section .action-bar-row .viewlog-btn svg,
+[data-theme="dark"] .cpee-section .action-bar-row .search-icon svg,
+[data-theme="dark"] .cpee-section .action-bar-row .search-clear-btn svg,
+[data-theme="dark"] .cpee-section .action-bar-row .action-bar-nav-btn svg,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .copy-btn svg,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .download-btn svg,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .viewlog-btn svg,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .search-icon svg,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .search-clear-btn svg,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .action-bar-nav-btn svg {
+   filter: none !important;
+   opacity: 1 !important;
+   background-color: transparent !important;
+}
+
+/* Reset fill/stroke for action bar button SVG elements to use text color */
+[data-theme="dark"] .cpee-section .action-bar-row .copy-btn svg *,
+[data-theme="dark"] .cpee-section .action-bar-row .download-btn svg *,
+[data-theme="dark"] .cpee-section .action-bar-row .viewlog-btn svg *,
+[data-theme="dark"] .cpee-section .action-bar-row .search-icon svg *,
+[data-theme="dark"] .cpee-section .action-bar-row .search-clear-btn svg *,
+[data-theme="dark"] .cpee-section .action-bar-row .action-bar-nav-btn svg *,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .copy-btn svg *,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .download-btn svg *,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .viewlog-btn svg *,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .search-icon svg *,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .search-clear-btn svg *,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .action-bar-nav-btn svg * {
+   fill: var(--text-primary) !important;
+   stroke: var(--text-primary) !important;
+   filter: none !important;
+}
+
+/* For stroke-only icons (like search, copy, download), set fill to none */
+[data-theme="dark"] .cpee-section .action-bar-row .copy-btn svg path,
+[data-theme="dark"] .cpee-section .action-bar-row .download-btn svg path,
+[data-theme="dark"] .cpee-section .action-bar-row .search-icon svg path,
+[data-theme="dark"] .cpee-section .action-bar-row .search-clear-btn svg path,
+[data-theme="dark"] .cpee-section .action-bar-row .action-bar-nav-btn svg path,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .copy-btn svg path,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .download-btn svg path,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .search-icon svg path,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .search-clear-btn svg path,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .action-bar-nav-btn svg path {
+   fill: none !important;
+   stroke: var(--text-primary) !important;
+}
+
+/* View log icon uses fill, not stroke */
+[data-theme="dark"] .cpee-section .action-bar-row .viewlog-btn svg path,
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .viewlog-btn svg path {
+   fill: var(--text-primary) !important;
+   stroke: none !important;
+}
+
 /* CPEE Graph - Graphics symbols in paths (icon paths, symbol paths) */
 [data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="symbol"] path,
 [data-theme="dark"] .cpee-section [id*="-graph-container"] svg g[class*="icon"] path,

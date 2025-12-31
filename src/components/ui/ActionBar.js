@@ -10,7 +10,7 @@ import { SearchBar } from './SearchBar.js';
 import { ICONS } from '../../assets/icons.js';
 
 export class ActionBar {
-    constructor(domRegistry = null, searchService = null, sectionId = null, _options = {}) {
+    constructor(domRegistry = null, searchService = null, sectionId = null, options = {}) {
         this.domRegistry = domRegistry;
         this.copyButton = new CopyButton(domRegistry);
         this.downloadButton = new DownloadButton(domRegistry, { showText: false });
@@ -24,9 +24,17 @@ export class ActionBar {
         this.onNavigate = null;
         this.element = null; // Store reference to the action bar DOM element
         
+        // Options
+        this.showSearch = options.showSearch !== false; // Default to true
+        this.showViewLog = options.showViewLog === true; // Default to false
+        
         // Download metadata
         this.instanceNumber = null;
         this.stepNumber = null;
+        
+        // View log URL
+        this.viewLogUrl = null;
+        this.viewLogButtonContainer = null;
     }
 
     /**
@@ -88,159 +96,148 @@ export class ActionBar {
 
     /**
      * Create action bar HTML structure
+     * Horizontal layout for section header:
+     * LEFT: search input | search count with nav (if showSearch is true)
+     * RIGHT: download button | copy button
+     * @param {Object} options - Options for action bar creation
+     * @param {boolean} options.showSearch - Whether to show search (default: true)
      * @returns {HTMLElement} Action bar container
      */
-    createActionBar() {
+    createActionBar(options = {}) {
+        const { showSearch = true } = options;
+        
         const actionBar = document.createElement('div');
         actionBar.className = 'raw-content-actions-bar';
+        if (!showSearch) {
+            actionBar.classList.add('no-search');
+        }
         actionBar.style.display = 'none'; // Hidden by default
         
         // Store reference to this element
         this.element = actionBar;
         
-        // Create top row container
-        const topRow = document.createElement('div');
-        topRow.className = 'action-bar-top-row';
+        // === LEFT SIDE: Search (input, then counter + nav) ===
+        const leftSide = document.createElement('div');
+        leftSide.className = 'action-bar-left';
         
-        // Create counter container (top left) - will be populated after search bar is created
-        const counterContainer = document.createElement('div');
-        counterContainer.className = 'action-bar-counter-container';
-        // Counter will be moved here from search bar after it's created
+        if (showSearch) {
+            // Create search input container
+            const searchContainer = document.createElement('div');
+            searchContainer.className = 'action-bar-search-container';
+            
+            // Append search bar to search container
+            this.searchBar.attachToContainer(searchContainer);
+            
+            // Create navigation container (prev | counter | next)
+            const navContainer = document.createElement('div');
+            navContainer.className = 'action-bar-nav-container';
+            
+            // Create previous button (<)
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'action-bar-nav-btn action-bar-nav-prev';
+            prevBtn.setAttribute('aria-label', 'Previous match');
+            prevBtn.setAttribute('title', 'Previous match');
+            prevBtn.innerHTML = ICONS.LT;
+            prevBtn.style.display = 'none'; // Hidden until matches found
+            
+            // Create counter container
+            const counterContainer = document.createElement('div');
+            counterContainer.className = 'action-bar-counter-container';
+            
+            // Create next button (>)
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'action-bar-nav-btn action-bar-nav-next';
+            nextBtn.setAttribute('aria-label', 'Next match');
+            nextBtn.setAttribute('title', 'Next match');
+            nextBtn.innerHTML = ICONS.GT;
+            nextBtn.style.display = 'none'; // Hidden until matches found
+            
+            // Store references
+            this.prevBtn = prevBtn;
+            this.nextBtn = nextBtn;
+            this.counterContainer = counterContainer;
+            
+            // Add click handlers for navigation
+            prevBtn.addEventListener('click', () => {
+                if (this.onNavigate) {
+                    this.onNavigate('prev');
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (this.onNavigate) {
+                    this.onNavigate('next');
+                }
+            });
+            
+            // Assemble navigation: prev | counter | next
+            navContainer.appendChild(prevBtn);
+            navContainer.appendChild(counterContainer);
+            navContainer.appendChild(nextBtn);
+            
+            // After search bar is attached, extract the counter
+            requestAnimationFrame(() => {
+                this.extractCounterToNavContainer();
+            });
+            
+            // Assemble left side: search input | nav container
+            leftSide.appendChild(searchContainer);
+            leftSide.appendChild(navContainer);
+        }
         
-        // Create navigation buttons container
-        const navButtonsContainer = document.createElement('div');
-        navButtonsContainer.className = 'action-bar-nav-buttons';
+        // === RIGHT SIDE: Buttons (download, copy, view log) ===
+        const rightSide = document.createElement('div');
+        rightSide.className = 'action-bar-right';
         
-        // Create previous button (<)
-        const prevBtn = document.createElement('button');
-        prevBtn.className = 'action-bar-nav-btn action-bar-nav-prev';
-        prevBtn.setAttribute('aria-label', 'Previous match');
-        prevBtn.setAttribute('title', 'Previous match');
-        prevBtn.innerHTML = ICONS.LT;
-        prevBtn.style.display = 'none'; // Hidden until matches found
-        
-        // Create next button (>)
-        const nextBtn = document.createElement('button');
-        nextBtn.className = 'action-bar-nav-btn action-bar-nav-next';
-        nextBtn.setAttribute('aria-label', 'Next match');
-        nextBtn.setAttribute('title', 'Next match');
-        nextBtn.innerHTML = ICONS.GT;
-        nextBtn.style.display = 'none'; // Hidden until matches found
-        
-        // Store references to navigation buttons
-        this.prevBtn = prevBtn;
-        this.nextBtn = nextBtn;
-        
-        // Add click handlers for navigation
-        prevBtn.addEventListener('click', () => {
-            if (this.onNavigate) {
-                this.onNavigate('prev');
-            }
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            if (this.onNavigate) {
-                this.onNavigate('next');
-            }
-        });
-        
-        // Store references to navigation buttons and counter container
-        this.prevBtn = prevBtn;
-        this.nextBtn = nextBtn;
-        this.counterContainer = counterContainer;
-        this.navButtonsContainer = navButtonsContainer;
-        
-        // Don't add counter to top row - it will go under search bar
-        
-        // Create bottom row for search bar
-        const bottomRow = document.createElement('div');
-        bottomRow.className = 'action-bar-bottom-row';
-        
-        // Append search bar to bottom row
-        this.searchBar.attachToContainer(bottomRow);
-        
-        // Create counter row below search bar
-        const counterRow = document.createElement('div');
-        counterRow.className = 'action-bar-counter-row';
-        
-        // Assemble navigation buttons and counter container
-        navButtonsContainer.appendChild(prevBtn);
-        navButtonsContainer.appendChild(nextBtn);
-        counterContainer.appendChild(navButtonsContainer);
-        counterRow.appendChild(counterContainer);
-        
-        // After search bar is attached, extract the counter to counter row
-        // Use requestAnimationFrame to ensure DOM is fully ready
-        requestAnimationFrame(() => {
-            this.extractCounterBelowSearchBar();
-        });
-        
-        // Add counter row after bottom row
-        bottomRow.appendChild(counterRow);
-        
-        // Create content wrapper
-        const contentWrapper = document.createElement('div');
-        contentWrapper.className = 'action-bar-content';
-        contentWrapper.appendChild(topRow);
-        contentWrapper.appendChild(bottomRow);
-        
-        // Create buttons container (for download and copy buttons side by side)
-        const buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'action-bar-buttons-container';
-        
-        // Create download button container (left of copy button)
+        // Create download button container
         const downloadButtonContainer = document.createElement('div');
         downloadButtonContainer.className = 'action-bar-download-container';
         
-        // Create copy button container (outside action-bar-content, underneath it)
+        // Create copy button container
         const copyButtonContainer = document.createElement('div');
         copyButtonContainer.className = 'action-bar-copy-container';
+        
+        // Create view log button container (only if showViewLog is true)
+        const viewLogButtonContainer = document.createElement('div');
+        viewLogButtonContainer.className = 'action-bar-viewlog-container';
+        if (!this.showViewLog) {
+            viewLogButtonContainer.style.display = 'none';
+        }
         
         // Store references to button containers
         this.downloadButtonContainer = downloadButtonContainer;
         this.copyButtonContainer = copyButtonContainer;
+        this.viewLogButtonContainer = viewLogButtonContainer;
         
-        // Assemble buttons container (download on left, copy on right)
-        buttonsContainer.appendChild(downloadButtonContainer);
-        buttonsContainer.appendChild(copyButtonContainer);
+        // Assemble right side (download, copy, then view log)
+        rightSide.appendChild(downloadButtonContainer);
+        rightSide.appendChild(copyButtonContainer);
+        rightSide.appendChild(viewLogButtonContainer);
         
-        // Create wrapper to stack content and buttons vertically
-        const wrapper = document.createElement('div');
-        wrapper.className = 'action-bar-wrapper';
-        wrapper.appendChild(contentWrapper);
-        wrapper.appendChild(buttonsContainer);
-        
-        // Assemble action bar (no collapser - always visible)
-        actionBar.appendChild(wrapper);
+        // === Assemble action bar ===
+        actionBar.appendChild(leftSide);
+        actionBar.appendChild(rightSide);
         
         return actionBar;
     }
 
 
     /**
-     * Extract counter from search bar and move it below search bar
+     * Extract counter from search bar and move it to the navigation container
      */
-    extractCounterBelowSearchBar() {
+    extractCounterToNavContainer() {
         if (!this.searchBar.element || !this.counterContainer) {
             return;
         }
         
         // Find the navigation element which contains the counter
         const navigation = this.searchBar.element.querySelector('.search-navigation');
-        if (navigation && this.counterContainer && this.navButtonsContainer) {
+        if (navigation && this.counterContainer) {
             // Find the counter element
             const counter = navigation.querySelector('.search-counter');
             if (counter) {
-                // The SearchBar's counter reference already points to this element
-                // So updates will continue to work
-                
-                // Insert counter between prev and next buttons
-                const nextBtn = this.navButtonsContainer.querySelector('.action-bar-nav-next');
-                if (nextBtn) {
-                    this.navButtonsContainer.insertBefore(counter, nextBtn);
-                } else {
-                    this.navButtonsContainer.appendChild(counter);
-                }
+                // Move counter to our counter container
+                this.counterContainer.appendChild(counter);
                 
                 // Hook into SearchBar's updateNavigationDisplay to sync visibility
                 const originalUpdateNavigationDisplay = this.searchBar.updateNavigationDisplay.bind(this.searchBar);
@@ -362,18 +359,58 @@ export class ActionBar {
     }
 
     /**
+     * Set view log URL and create the view log button
+     * Opens the CPEE log page in a new tab when clicked
+     * @param {string} url - URL to the CPEE log page
+     */
+    setViewLogUrl(url) {
+        if (!url || !this.viewLogButtonContainer) {
+            return;
+        }
+        
+        this.viewLogUrl = url;
+        
+        // Clear existing button
+        this.viewLogButtonContainer.innerHTML = '';
+        
+        // Create view log button
+        const button = document.createElement('button');
+        button.className = 'viewlog-btn';
+        button.setAttribute('aria-label', 'View log on CPEE');
+        button.setAttribute('title', 'View log on CPEE');
+        button.innerHTML = ICONS.VIEW_LOG;
+        
+        // Open URL in new tab on click
+        button.addEventListener('click', () => {
+            window.open(url, '_blank', 'noopener,noreferrer');
+        });
+        
+        this.viewLogButtonContainer.appendChild(button);
+        
+        // Make sure container is visible
+        this.viewLogButtonContainer.style.display = 'flex';
+    }
+
+    /**
      * Attach action bar to a container
      * @param {HTMLElement} container - Container to attach action bar to
+     * @param {string} position - 'prepend' to insert at start, 'append' to insert at end (default: 'prepend')
      */
-    attachToContainer(container) {
+    attachToContainer(container, position = 'prepend') {
         if (!container) {
             console.warn('ActionBar: No container provided for attachment');
             return;
         }
 
-        const actionBar = this.createActionBar();
-        // Prepend to ensure it appears first and anchors correctly during scrolling
-        container.insertBefore(actionBar, container.firstChild);
+        const actionBar = this.createActionBar({ showSearch: this.showSearch });
+        
+        if (position === 'prepend') {
+            // Insert at the beginning of the container
+            container.insertBefore(actionBar, container.firstChild);
+        } else {
+            // Append to the end of the container
+            container.appendChild(actionBar);
+        }
     }
 
     /**
