@@ -179,9 +179,7 @@ export class LogContentRenderer {
                     
                     if (actionBar) {
                         // Remove from old parent if attached elsewhere
-                        if (actionBar.element && actionBar.element.parentNode) {
-                            actionBar.element.parentNode.removeChild(actionBar.element);
-                        }
+                        actionBar.removeFromDOM();
                         // Find or create the action bar row
                         if (!actionBarRow && sectionElement) {
                             const sectionHeader = sectionElement.querySelector('h3');
@@ -192,12 +190,12 @@ export class LogContentRenderer {
                             }
                         }
                         if (actionBarRow) {
-                            actionBarRow.appendChild(actionBar.element);
+                            actionBar.appendToContainer(actionBarRow);
                             // Make sure action bar row is visible
                             actionBarRow.style.display = 'flex';
                         } else {
                             // Fallback to log container
-                            logContainer.appendChild(actionBar.element);
+                            actionBar.appendToContainer(logContainer);
                         }
                         
                         // Show the action bar

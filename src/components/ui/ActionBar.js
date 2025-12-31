@@ -1,11 +1,13 @@
 /**
  * Action Bar Component
- * Combines copy button, download button and search bar in a sticky container
+ * Combines copy button, download button, export SVG button and search bar in a sticky container
  * Provides unified interface for raw content actions
+ * Supports different modes via options (e.g., graph mode with export SVG)
  */
 
 import { CopyButton } from './CopyButton.js';
 import { DownloadButton } from './DownloadButton.js';
+import { ExportSVGButton } from './ExportSVGButton.js';
 import { SearchBar } from './SearchBar.js';
 import { ICONS } from '../../assets/icons.js';
 
@@ -27,6 +29,9 @@ export class ActionBar {
         // Options
         this.showSearch = options.showSearch !== false; // Default to true
         this.showViewLog = options.showViewLog === true; // Default to false
+        this.showCopy = options.showCopy !== false; // Default to true
+        this.showDownload = options.showDownload !== false; // Default to true
+        this.showExportSVG = options.showExportSVG === true; // Default to false
         
         // Download metadata
         this.instanceNumber = null;
@@ -35,6 +40,11 @@ export class ActionBar {
         // View log URL
         this.viewLogUrl = null;
         this.viewLogButtonContainer = null;
+        
+        // Export SVG (for graph sections)
+        this.exportSVGButton = null;
+        this.exportSVGButtonContainer = null;
+        this.graphContainer = null;
     }
 
     /**
@@ -106,21 +116,20 @@ export class ActionBar {
     createActionBar(options = {}) {
         const { showSearch = true } = options;
         
-        const actionBar = document.createElement('div');
-        actionBar.className = 'raw-content-actions-bar';
-        if (!showSearch) {
-            actionBar.classList.add('no-search');
-        }
-        actionBar.style.display = 'none'; // Hidden by default
+        // Create a document fragment to hold all elements
+        const fragment = document.createDocumentFragment();
         
-        // Store reference to this element
-        this.element = actionBar;
-        
-        // === LEFT SIDE: Search (input, then counter + nav) ===
-        const leftSide = document.createElement('div');
-        leftSide.className = 'action-bar-left';
+        // Store references to elements for show/hide
+        this.leftElement = null;
+        this.rightElement = null;
         
         if (showSearch) {
+            // === LEFT SIDE: Search (input, then counter + nav) ===
+            const leftSide = document.createElement('div');
+            leftSide.className = 'action-bar-left';
+            leftSide.style.display = 'none'; // Hidden by default
+            this.leftElement = leftSide;
+            
             // Create search input container
             const searchContainer = document.createElement('div');
             searchContainer.className = 'action-bar-search-container';
@@ -183,42 +192,55 @@ export class ActionBar {
             // Assemble left side: search input | nav container
             leftSide.appendChild(searchContainer);
             leftSide.appendChild(navContainer);
+            
+            fragment.appendChild(leftSide);
         }
         
-        // === RIGHT SIDE: Buttons (download, copy, view log) ===
+        // === RIGHT SIDE: Buttons (export SVG, download, copy, view log) ===
         const rightSide = document.createElement('div');
         rightSide.className = 'action-bar-right';
+        rightSide.style.display = 'none'; // Hidden by default
+        this.rightElement = rightSide;
         
-        // Create download button container
-        const downloadButtonContainer = document.createElement('div');
-        downloadButtonContainer.className = 'action-bar-download-container';
-        
-        // Create copy button container
-        const copyButtonContainer = document.createElement('div');
-        copyButtonContainer.className = 'action-bar-copy-container';
-        
-        // Create view log button container (only if showViewLog is true)
-        const viewLogButtonContainer = document.createElement('div');
-        viewLogButtonContainer.className = 'action-bar-viewlog-container';
-        if (!this.showViewLog) {
-            viewLogButtonContainer.style.display = 'none';
+        // Create export SVG button container (for graph sections)
+        if (this.showExportSVG) {
+            const exportSVGButtonContainer = document.createElement('div');
+            exportSVGButtonContainer.className = 'action-bar-export-svg-container';
+            this.exportSVGButtonContainer = exportSVGButtonContainer;
+            rightSide.appendChild(exportSVGButtonContainer);
         }
         
-        // Store references to button containers
-        this.downloadButtonContainer = downloadButtonContainer;
-        this.copyButtonContainer = copyButtonContainer;
-        this.viewLogButtonContainer = viewLogButtonContainer;
+        // Create download button container (if enabled)
+        if (this.showDownload) {
+            const downloadButtonContainer = document.createElement('div');
+            downloadButtonContainer.className = 'action-bar-download-container';
+            this.downloadButtonContainer = downloadButtonContainer;
+            rightSide.appendChild(downloadButtonContainer);
+        }
         
-        // Assemble right side (download, copy, then view log)
-        rightSide.appendChild(downloadButtonContainer);
-        rightSide.appendChild(copyButtonContainer);
-        rightSide.appendChild(viewLogButtonContainer);
+        // Create copy button container (if enabled)
+        if (this.showCopy) {
+            const copyButtonContainer = document.createElement('div');
+            copyButtonContainer.className = 'action-bar-copy-container';
+            this.copyButtonContainer = copyButtonContainer;
+            rightSide.appendChild(copyButtonContainer);
+        }
         
-        // === Assemble action bar ===
-        actionBar.appendChild(leftSide);
-        actionBar.appendChild(rightSide);
+        // Create view log button container (only if showViewLog is true)
+        if (this.showViewLog) {
+            const viewLogButtonContainer = document.createElement('div');
+            viewLogButtonContainer.className = 'action-bar-viewlog-container';
+            this.viewLogButtonContainer = viewLogButtonContainer;
+            rightSide.appendChild(viewLogButtonContainer);
+        }
         
-        return actionBar;
+        fragment.appendChild(rightSide);
+        
+        // For backwards compatibility, set this.element to rightElement
+        // (used by code that expects a single element reference)
+        this.element = rightSide;
+        
+        return fragment;
     }
 
 
@@ -402,14 +424,14 @@ export class ActionBar {
             return;
         }
 
-        const actionBar = this.createActionBar({ showSearch: this.showSearch });
+        const fragment = this.createActionBar({ showSearch: this.showSearch });
         
         if (position === 'prepend') {
             // Insert at the beginning of the container
-            container.insertBefore(actionBar, container.firstChild);
+            container.insertBefore(fragment, container.firstChild);
         } else {
             // Append to the end of the container
-            container.appendChild(actionBar);
+            container.appendChild(fragment);
         }
     }
 
@@ -417,24 +439,26 @@ export class ActionBar {
      * Show action bar
      */
     show() {
-        if (this.element) {
-            this.element.style.display = 'flex';
-            this.isVisible = true;
-        } else {
-            console.warn('ActionBar: No element reference found');
+        if (this.leftElement) {
+            this.leftElement.style.display = 'flex';
         }
+        if (this.rightElement) {
+            this.rightElement.style.display = 'flex';
+        }
+        this.isVisible = true;
     }
 
     /**
      * Hide action bar
      */
     hide() {
-        if (this.element) {
-            this.element.style.display = 'none';
-            this.isVisible = false;
-        } else {
-            console.warn('ActionBar: No element reference found');
+        if (this.leftElement) {
+            this.leftElement.style.display = 'none';
         }
+        if (this.rightElement) {
+            this.rightElement.style.display = 'none';
+        }
+        this.isVisible = false;
     }
 
     /**
@@ -495,5 +519,116 @@ export class ActionBar {
      */
     isActionBarVisible() {
         return this.isVisible;
+    }
+
+    // === Export SVG Methods (for graph sections) ===
+
+    /**
+     * Set the graph container for SVG export
+     * @param {HTMLElement} container - Graph container element
+     */
+    setGraphContainer(container) {
+        this.graphContainer = container;
+        this.updateExportSVGButton();
+    }
+
+    /**
+     * Update or create the export SVG button with current settings
+     */
+    updateExportSVGButton() {
+        if (!this.showExportSVG || !this.exportSVGButtonContainer || !this.graphContainer) {
+            return;
+        }
+        
+        if (!this.instanceNumber || !this.stepNumber || !this.sectionId) {
+            return;
+        }
+        
+        // Clear existing button
+        this.exportSVGButtonContainer.innerHTML = '';
+        
+        // Generate filename
+        const filename = ExportSVGButton.generateFilename(
+            this.instanceNumber,
+            this.stepNumber,
+            this.sectionId
+        );
+        
+        // Create export button with icon only (no text label)
+        const exportButtonInstance = new ExportSVGButton(this.domRegistry, { showText: false });
+        const button = exportButtonInstance.createButton(this.graphContainer, filename, '');
+        this.exportSVGButtonContainer.appendChild(button);
+        
+        // Update the exportSVGButton reference
+        this.exportSVGButton = exportButtonInstance;
+    }
+
+    /**
+     * Set metadata for export SVG filename generation (uses same metadata as download)
+     * @param {number} instanceNumber - CPEE instance/process number  
+     * @param {number} stepNumber - Step number
+     */
+    setExportMetadata(instanceNumber, stepNumber) {
+        this.instanceNumber = instanceNumber;
+        this.stepNumber = stepNumber;
+        this.updateExportSVGButton();
+    }
+
+    // === Element Management Methods ===
+
+    /**
+     * Get all action bar elements (left and right)
+     * @returns {Array<HTMLElement>} Array of elements
+     */
+    getAllElements() {
+        const elements = [];
+        if (this.leftElement) {
+            elements.push(this.leftElement);
+        }
+        if (this.rightElement) {
+            elements.push(this.rightElement);
+        }
+        return elements;
+    }
+
+    /**
+     * Remove all action bar elements from DOM
+     */
+    removeFromDOM() {
+        if (this.leftElement && this.leftElement.parentNode) {
+            this.leftElement.parentNode.removeChild(this.leftElement);
+        }
+        if (this.rightElement && this.rightElement.parentNode) {
+            this.rightElement.parentNode.removeChild(this.rightElement);
+        }
+    }
+
+    /**
+     * Append all action bar elements to a container
+     * @param {HTMLElement} container - Container to append to
+     */
+    appendToContainer(container) {
+        if (!container) return;
+        
+        if (this.leftElement) {
+            container.appendChild(this.leftElement);
+        }
+        if (this.rightElement) {
+            container.appendChild(this.rightElement);
+        }
+    }
+
+    /**
+     * Check if action bar elements are attached to a specific container
+     * @param {HTMLElement} container - Container to check
+     * @returns {boolean} True if attached to the container
+     */
+    isAttachedTo(container) {
+        if (!container) return false;
+        
+        const rightAttached = this.rightElement && this.rightElement.parentNode === container;
+        const leftAttached = !this.leftElement || this.leftElement.parentNode === container;
+        
+        return rightAttached && leftAttached;
     }
 }

@@ -32,10 +32,6 @@
    box-sizing: border-box;
 }
 
-/* When no search, just align buttons to the right */
-.raw-content-actions-bar.no-search {
-   justify-content: flex-end;
-}
 
 /* ========================================
    LEFT SIDE - SEARCH (Input, Counter + Nav)
@@ -67,10 +63,17 @@
    align-items: center;
 }
 
+/* Export SVG button container */
+.action-bar-export-svg-container {
+   display: flex;
+   align-items: center;
+}
+
 /* Button styling - compact icon-only buttons */
 .action-bar-download-container .download-btn,
 .action-bar-copy-container .copy-btn,
-.action-bar-viewlog-container .viewlog-btn {
+.action-bar-viewlog-container .viewlog-btn,
+.action-bar-export-svg-container .export-svg-btn {
    background: var(--surface-color);
    border: 1px solid var(--border-color);
    color: var(--text-primary);
@@ -89,22 +92,32 @@
 
 .action-bar-download-container .download-btn:hover,
 .action-bar-copy-container .copy-btn:hover,
-.action-bar-viewlog-container .viewlog-btn:hover {
+.action-bar-viewlog-container .viewlog-btn:hover,
+.action-bar-export-svg-container .export-svg-btn:hover {
    background: var(--hover-bg);
    border-color: var(--primary-color);
 }
 
 /* Success state */
 .action-bar-download-container .download-btn.download-success,
-.action-bar-copy-container .copy-btn.copy-success {
+.action-bar-copy-container .copy-btn.copy-success,
+.action-bar-export-svg-container .export-svg-btn.export-svg-success {
    background: var(--copy-success-color);
    border-color: var(--copy-success-color);
    color: var(--text-white);
 }
 
+/* Error state */
+.action-bar-export-svg-container .export-svg-btn.export-svg-error {
+   background: var(--alert-danger-bg);
+   border-color: var(--alert-danger-border);
+   color: var(--alert-danger-text);
+}
+
 .action-bar-download-container .download-btn svg,
 .action-bar-copy-container .copy-btn svg,
-.action-bar-viewlog-container .viewlog-btn svg {
+.action-bar-viewlog-container .viewlog-btn svg,
+.action-bar-export-svg-container .export-svg-btn svg {
    width: var(--icon-size-sm);
    height: var(--icon-size-sm);
 }
@@ -248,6 +261,12 @@
    align-items: center;
    gap: 4px;
    flex-shrink: 0;
+}
+
+/* When action-bar-right is the only child (graph view), right-align contents */
+.action-bar-row > .action-bar-right:only-child {
+   width: 100%;
+   justify-content: flex-end;
 }
 
 /* ========================================

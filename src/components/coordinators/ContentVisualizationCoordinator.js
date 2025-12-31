@@ -18,6 +18,8 @@ import { SVGScaleUtility } from '../../utils/dom/SVGScaleUtility.js';
 import { StepSection } from '../ui/StepSection.js';
 import { SectionExpandCollapse } from '../ui/SectionExpandCollapse.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
+import { ActionBar } from '../ui/ActionBar.js';
+import { serviceFactory } from '../../core/ServiceFactory.js';
 
 export class ContentVisualizationCoordinator {
     constructor(domRegistry = null, highlightCoordinator = null, eventBus = null, stateManager = null, eventProcessingService = null, contentProcessingService = null) {
@@ -61,6 +63,12 @@ export class ContentVisualizationCoordinator {
         
         // Section expand/collapse management
         this.sectionExpandCollapse = new SectionExpandCollapse(domRegistry);
+        
+        // Graph action bars per section (for SVG export)
+        this.graphActionBars = new Map();
+        
+        // Current step reference for metadata
+        this.currentStep = null;
     }
     
     /**
@@ -213,6 +221,9 @@ export class ContentVisualizationCoordinator {
             await this.inputGraphRenderer.initialize(graphContainer.id, null, null);
             await this.inputGraphRenderer.renderGraph(cpeeXml);
             
+            // Setup graph action bar for SVG export
+            this.setupGraphActionBar('input-cpee', graphContainer);
+            
             // Restore normal height behavior
             cleanup();
                         
@@ -272,6 +283,9 @@ export class ContentVisualizationCoordinator {
             // For embedded graphs, we don't need status or input elements
             await this.outputGraphRenderer.initialize(graphContainer.id, null, null);
             await this.outputGraphRenderer.renderGraph(cpeeXml);
+            
+            // Setup graph action bar for SVG export
+            this.setupGraphActionBar('output-cpee', graphContainer);
             
             // Restore normal height behavior
             cleanup();
@@ -338,6 +352,9 @@ export class ContentVisualizationCoordinator {
             await this.inputMermaidRenderer.initialize(graphContainer.id);
             await this.inputMermaidRenderer.renderGraph(content);
             
+            // Setup graph action bar for SVG export
+            this.setupGraphActionBar('input-intermediate', graphContainer);
+            
             // Restore normal height behavior
             cleanup();
                         
@@ -403,6 +420,9 @@ export class ContentVisualizationCoordinator {
             
             await this.outputMermaidRenderer.initialize(graphContainer.id);
             await this.outputMermaidRenderer.renderGraph(content);
+            
+            // Setup graph action bar for SVG export
+            this.setupGraphActionBar('output-intermediate', graphContainer);
             
             // Restore normal height behavior
             cleanup();
@@ -551,6 +571,108 @@ export class ContentVisualizationCoordinator {
     }
 
     /**
+     * Set current step for metadata
+     * @param {Object} step - Current step object
+     */
+    setCurrentStep(step) {
+        this.currentStep = step;
+    }
+
+    /**
+     * Setup graph action bar for a section
+     * Creates action bar with export SVG button and attaches to section header
+     * Uses the standard ActionBar class with graph-specific options
+     * @param {string} sectionId - Section identifier
+     * @param {HTMLElement} graphContainer - Graph container element
+     */
+    setupGraphActionBar(sectionId, graphContainer) {
+        if (!graphContainer) {
+            return;
+        }
+
+        // Get the section element
+        const sectionElement = this.domRegistry?.getElementSafe(sectionId) || document.getElementById(sectionId);
+        if (!sectionElement) {
+            return;
+        }
+
+        // Find the section header
+        const sectionHeader = sectionElement.querySelector('h3');
+        if (!sectionHeader) {
+            return;
+        }
+
+        // Get or create action bar row
+        let actionBarRow = sectionElement.querySelector('.action-bar-row');
+        if (!actionBarRow) {
+            actionBarRow = document.createElement('div');
+            actionBarRow.className = 'action-bar-row';
+            sectionHeader.insertAdjacentElement('afterend', actionBarRow);
+        }
+
+        // Check if we already have an action bar for this section
+        let actionBar = this.graphActionBars.get(sectionId);
+        
+        if (!actionBar) {
+            // Create new action bar with graph-specific options
+            // No search, no copy, no download - only export SVG
+            actionBar = new ActionBar(this.domRegistry, null, sectionId, {
+                showSearch: false,
+                showCopy: false,
+                showDownload: false,
+                showExportSVG: true
+            });
+            this.graphActionBars.set(sectionId, actionBar);
+            actionBar.attachToContainer(actionBarRow);
+        } else {
+            // Re-attach existing action bar if needed
+            if (!actionBar.isAttachedTo(actionBarRow)) {
+                actionBar.removeFromDOM();
+                actionBar.appendToContainer(actionBarRow);
+            }
+        }
+
+        // Update action bar with current graph container and metadata
+        actionBar.setGraphContainer(graphContainer);
+
+        // Get instance info for filename
+        try {
+            const instanceService = serviceFactory.get('InstanceService');
+            const currentInstance = instanceService.getCurrentInstance();
+            if (currentInstance && currentInstance.processNumber && this.currentStep) {
+                actionBar.setExportMetadata(currentInstance.processNumber, this.currentStep.stepNumber);
+            }
+        } catch (error) {
+            console.warn('ContentVisualizationCoordinator: Could not get instance info for export filename', error);
+        }
+
+        // Show action bar row and action bar
+        actionBarRow.style.display = 'flex';
+        actionBar.show();
+    }
+
+    /**
+     * Hide graph action bar for a section
+     * @param {string} sectionId - Section identifier
+     */
+    hideGraphActionBar(sectionId) {
+        const actionBar = this.graphActionBars.get(sectionId);
+        if (actionBar) {
+            actionBar.hide();
+        }
+    }
+
+    /**
+     * Clear all graph action bars
+     */
+    clearAllGraphActionBars() {
+        this.graphActionBars.forEach((actionBar) => {
+            actionBar.destroy();
+        });
+        this.graphActionBars.clear();
+    }
+
+    /**
      * Clear all sections
      */
     clearAllSections() {
@@ -612,6 +734,35 @@ export class ContentVisualizationCoordinator {
             el.style.pointerEvents = 'auto';
             el.style.zIndex = '1';
         });
+
+        // Restore graph action bar if it exists for this section
+        const actionBar = this.graphActionBars.get(sectionId);
+        if (actionBar) {
+            // Find the section header
+            const sectionHeader = sectionElement.querySelector('h3');
+            if (sectionHeader) {
+                // Get or create action bar row
+                let actionBarRow = sectionElement.querySelector('.action-bar-row');
+                if (!actionBarRow) {
+                    actionBarRow = document.createElement('div');
+                    actionBarRow.className = 'action-bar-row';
+                    sectionHeader.insertAdjacentElement('afterend', actionBarRow);
+                } else {
+                    // Clear the action bar row (removes elements from other renderers)
+                    actionBarRow.innerHTML = '';
+                }
+                
+                // Attach graph action bar elements to the row
+                actionBar.removeFromDOM();
+                actionBar.appendToContainer(actionBarRow);
+                
+                // Ensure action bar row is visible
+                actionBarRow.style.display = 'flex';
+                
+                // Show the action bar
+                actionBar.show();
+            }
+        }
     }
 
     /**

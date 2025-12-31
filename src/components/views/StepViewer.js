@@ -129,6 +129,8 @@ export class StepViewer {
             outputCpeeTree: step.getContent('outputCpeeTree')
         };
         
+        // Set current step for ContentVisualizationCoordinator (needed for SVG export filename)
+        this.contentCoordinator.setCurrentStep(step);
 
         // Wait for all content sections to be rendered (graphs, Mermaid diagrams, etc.)
         await this.contentCoordinator.updateAllSections(stepContent);

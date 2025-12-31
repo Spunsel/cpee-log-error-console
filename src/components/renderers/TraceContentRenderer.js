@@ -751,8 +751,8 @@ export class TraceContentRenderer {
             // Remove action bar if no traces
             if (this.traceActionBars.has(sectionId)) {
                 const actionBar = this.traceActionBars.get(sectionId);
-                if (actionBar && actionBar.element && actionBar.element.parentNode) {
-                    actionBar.element.parentNode.removeChild(actionBar.element);
+                if (actionBar) {
+                    actionBar.removeFromDOM();
                 }
                 this.traceActionBars.delete(sectionId);
             }
@@ -796,9 +796,7 @@ export class TraceContentRenderer {
             }
             
             // Remove action bar from old parent if attached elsewhere
-            if (actionBar.element && actionBar.element.parentNode) {
-                actionBar.element.parentNode.removeChild(actionBar.element);
-            }
+            actionBar.removeFromDOM();
             
             actionBar.attachToContainer(actionBarRow);
             // Ensure action bar row is visible
