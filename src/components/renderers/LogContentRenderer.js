@@ -189,11 +189,23 @@ export class LogContentRenderer {
                     // Show the action bar
                     if (actionBar) {
                         actionBar.show();
-                    }
-                }
-            }
-            
-            // Now clear ONLY the content area (preserve action bar)
+                        }
+                        }
+                        }
+                        try {
+                        const instanceService = serviceFactory.get('InstanceService');
+                        const currentInstance = instanceService.getCurrentInstance();
+                        if (currentInstance && currentInstance.processNumber && step) {
+                        const actionBar = this.actionBars.get(sectionId);
+                        if (actionBar) {
+                        actionBar.setDownloadMetadata(currentInstance.processNumber, step.stepNumber);
+                        }
+                        }
+                        } catch (error) {
+                        console.warn('LogContentRenderer: Could not get instance number for download filename', error);
+                        }
+                        
+                        // Now clear ONLY the content area (preserve action bar)
             logContainer.innerHTML = '';
             
             // Render new content and add it
@@ -228,8 +240,8 @@ export class LogContentRenderer {
                 }
             }
             
-            // Update copy content based on currently displayed content
-            // Extract text from the rendered DOM to ensure we copy exactly what's shown
+            // Update copy and download content based on currently displayed content
+            // Extract text from the rendered DOM to ensure we copy/download exactly what's shown
             if (this.actionBars.has(sectionId)) {
                 const actionBar = this.actionBars.get(sectionId);
                 if (actionBar) {
@@ -240,9 +252,10 @@ export class LogContentRenderer {
                         const displayedText = codeElement.textContent || codeElement.innerText || '';
                         if (displayedText) {
                             actionBar.setCopyContent(displayedText);
+                            actionBar.setDownloadContent(displayedText);
                         }
                     } else {
-                        // Fallback: determine content to copy based on content type
+                        // Fallback: determine content to copy/download based on content type
                         if (rawContent) {
                             let contentToCopy = null;
                             if (rawContent.getRawExposition) {
@@ -256,9 +269,10 @@ export class LogContentRenderer {
                                 contentToCopy = rawContent.getText();
                             }
                             
-                            // Update the copy button with the current content
+                            // Update the copy and download buttons with the current content
                             if (contentToCopy) {
                                 actionBar.setCopyContent(contentToCopy);
+                                actionBar.setDownloadContent(contentToCopy);
                             }
                         }
                     }
@@ -602,6 +616,7 @@ export class LogContentRenderer {
         // Set copy content after attaching
         if (contentToCopy) {
             actionBar.setCopyContent(contentToCopy);
+            actionBar.setDownloadContent(contentToCopy);
         }
         
         // Show the action bar
