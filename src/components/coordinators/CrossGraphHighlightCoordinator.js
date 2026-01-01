@@ -360,8 +360,9 @@ export class CrossGraphHighlightCoordinator {
             
             if (taskObject && taskObject.metadata && taskObject.metadata.fullId) {
                 highlightTaskId = taskObject.metadata.fullId;
-            } else if (mappedFormat.includes('cpee') && taskObject) {
-                highlightTaskId = taskObject.altId || taskObject.id || mappedTaskId;
+            } else if (taskObject) {
+                // Use task.id for DOM element lookup (altId is only for cross-format matching)
+                highlightTaskId = taskObject.id || mappedTaskId;
             }
             
             console.log('[CrossGraphHighlight] mapping -> highlightInSection', { mappedSectionId, highlightTaskId, isActive, type: taskObject?.type });
