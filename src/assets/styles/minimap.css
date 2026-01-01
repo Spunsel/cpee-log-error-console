@@ -1,0 +1,264 @@
+/* ========================================
+   _minimap.css
+   
+   VS Code-style code minimap for code views.
+   
+   Contains:
+   - Minimap container: fixed overlay on right side of code view
+   - Minimap code: ultra-small font rendering of actual code
+   - Viewport indicator: draggable blue box showing visible area
+   - Markers: colored bars for preprocessing and search highlights
+   - Toggle button: action bar button to show/hide minimap
+   
+   Concerns:
+   - Visual representation of code structure at miniature scale
+   - Navigation aid for large code files
+   - Preprocessing visualization (Raw View only)
+   - Search result location indicators
+   ======================================== */
+
+/* ========================================
+   MINIMAP CONTAINER
+   ======================================== */
+
+.code-minimap {
+    position: absolute;
+    top: 0;
+    /* Position to the left of the vertical scrollbar */
+    right: var(--scrollbar-width, 10px);
+    /* Leave space for horizontal scrollbar at bottom */
+    height: calc(100% - var(--scrollbar-width, 10px));
+    background: var(--surface-color);
+    border-left: 1px solid var(--border-color);
+    overflow: hidden;
+    z-index: 15;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    user-select: none;
+    cursor: pointer;
+    /* Width adapts to content */
+    width: auto;
+    min-width: 100px;
+    max-width: 220px;
+}
+
+.code-minimap.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========================================
+   MINIMAP CONTENT
+   ======================================== */
+
+.minimap-content {
+    position: relative;
+    width: fit-content;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Hide scrollbar but keep scroll functionality */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.minimap-content::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Opera */
+}
+
+.minimap-code {
+    margin: 0;
+    padding: 4px;
+    background: transparent;
+    overflow: visible;
+    white-space: pre;
+    word-wrap: normal;
+    width: fit-content;
+}
+
+/* Ultra-small code rendering */
+.minimap-code-content {
+    font-family: var(--font-mono);
+    font-size: 2.5px !important;
+    line-height: 3.7px !important;
+    letter-spacing: 0;
+    transform-origin: top left;
+    display: block;
+    color: var(--text-primary);
+    opacity: 0.8;
+}
+
+/* Preserve syntax highlighting colors but make them subtle */
+.minimap-code-content .token {
+    font-size: inherit !important;
+    line-height: inherit !important;
+}
+
+/* ========================================
+   VIEWPORT INDICATOR
+   ======================================== */
+
+.minimap-viewport {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--primary-color);
+    opacity: 0.2;
+    border-radius: 2px;
+    cursor: grab;
+    transition: opacity 0.15s ease, top 0.05s ease-out, height 0.05s ease-out;
+    z-index: 2;
+}
+
+.minimap-viewport:hover {
+    opacity: 0.3;
+}
+
+.minimap-viewport.dragging {
+    opacity: 0.4;
+    cursor: grabbing;
+    /* Disable transition during drag for immediate response */
+    transition: opacity 0.15s ease;
+}
+
+/* ========================================
+   MARKERS CONTAINER
+   ======================================== */
+
+.minimap-markers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Base marker style */
+.minimap-marker {
+    position: absolute;
+    left: 0;
+    right: 0;
+    min-height: 2px;
+    pointer-events: none;
+}
+
+/* Preprocessing markers - use existing preprocessing color */
+.minimap-marker-preprocessing {
+    background: var(--preprocessing-bg);
+    opacity: 0.7;
+}
+
+/* Search markers - same color as search highlights in code */
+.minimap-marker-search {
+    background: var(--search-match-bg);
+    opacity: 0.9;
+}
+
+/* ========================================
+   TOGGLE BUTTON
+   Styled to match copy/download/export buttons in action bar
+   ======================================== */
+
+.minimap-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--border-radius-sm);
+    width: 28px;
+    height: 28px;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.minimap-toggle-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+}
+
+.minimap-toggle-btn.active {
+    background: var(--background-color);
+    border-color: var(--primary-color);
+    color: var(--text-primary);
+}
+
+.minimap-toggle-btn.active:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-dark);
+}
+
+.minimap-toggle-btn svg {
+    width: var(--icon-size-sm, 16px);
+    height: var(--icon-size-sm, 16px);
+}
+
+/* ========================================
+   CONTAINER ADJUSTMENTS
+   ======================================== */
+
+/* When minimap is visible, adjust the raw content container */
+/* Note: With flexible minimap width, we use a general padding */
+[data-content-type="raw"].has-minimap,
+[data-content-type="raw"].has-minimap-mermaid {
+    padding-right: 230px; /* Space for minimap (max-width 220px + some buffer) */
+}
+
+/* Ensure parent has relative positioning for absolute minimap */
+.content-box {
+    position: relative;
+}
+
+/* When minimap is visible, only raw content should scroll (prevents double scrollbars) */
+.content-box:has(.code-minimap.visible) {
+    overflow: hidden !important;
+}
+
+/* The raw content container handles scrolling when minimap is visible */
+.content-box:has(.code-minimap.visible) [data-content-type="raw"] {
+    overflow: auto;
+    height: 100%;
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .code-minimap {
+        display: none;
+    }
+    
+    .minimap-toggle-btn {
+        display: none;
+    }
+}
+
+/* ========================================
+   DARK MODE ADJUSTMENTS
+   ======================================== */
+
+[data-theme="dark"] .code-minimap {
+    background: var(--surface-color);
+}
+
+[data-theme="dark"] .minimap-viewport {
+    background: var(--primary-color);
+}
+
+[data-theme="dark"] .minimap-code-content {
+    opacity: 0.7;
+}
+
+/* Toggle button dark mode - ensure icon is visible */
+[data-theme="dark"] .minimap-toggle-btn svg path {
+    fill: none;
+    stroke: var(--text-primary);
+}
+

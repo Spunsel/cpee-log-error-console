@@ -9,6 +9,7 @@ import { CopyButton } from './CopyButton.js';
 import { DownloadButton } from './DownloadButton.js';
 import { ExportSVGButton } from './ExportSVGButton.js';
 import { SearchBar } from './SearchBar.js';
+import { CodeMinimap } from './CodeMinimap.js';
 import { ICONS } from '../../assets/icons.js';
 
 export class ActionBar {
@@ -32,6 +33,9 @@ export class ActionBar {
         this.showCopy = options.showCopy !== false; // Default to true
         this.showDownload = options.showDownload !== false; // Default to true
         this.showExportSVG = options.showExportSVG === true; // Default to false
+        this.showMinimap = options.showMinimap === true; // Default to false
+        this.minimapContentType = options.minimapContentType || 'mermaid'; // 'cpee' or 'mermaid'
+        this.showPreprocessingInMinimap = options.showPreprocessingInMinimap === true; // Default to false
         
         // Download metadata
         this.instanceNumber = null;
@@ -45,6 +49,11 @@ export class ActionBar {
         this.exportSVGButton = null;
         this.exportSVGButtonContainer = null;
         this.graphContainer = null;
+        
+        // Minimap
+        this.minimap = null;
+        this.minimapToggleContainer = null;
+        this.codeContainer = null;
     }
 
     /**
@@ -232,6 +241,17 @@ export class ActionBar {
             viewLogButtonContainer.className = 'action-bar-viewlog-container';
             this.viewLogButtonContainer = viewLogButtonContainer;
             rightSide.appendChild(viewLogButtonContainer);
+        }
+        
+        // Create minimap toggle button container (only if showMinimap is true)
+        if (this.showMinimap) {
+            const minimapToggleContainer = document.createElement('div');
+            minimapToggleContainer.className = 'action-bar-minimap-container';
+            this.minimapToggleContainer = minimapToggleContainer;
+            rightSide.appendChild(minimapToggleContainer);
+            
+            // Create minimap instance
+            this._createMinimap();
         }
         
         fragment.appendChild(rightSide);
@@ -630,5 +650,117 @@ export class ActionBar {
         const leftAttached = !this.leftElement || this.leftElement.parentNode === container;
         
         return rightAttached && leftAttached;
+    }
+
+    // === Minimap Methods ===
+
+    /**
+     * Create minimap instance and toggle button
+     * @private
+     */
+    _createMinimap() {
+        if (!this.showMinimap || !this.minimapToggleContainer) {
+            return;
+        }
+        
+        // Create minimap instance
+        this.minimap = new CodeMinimap({
+            sectionId: this.sectionId,
+            contentType: this.minimapContentType,
+            showPreprocessing: this.showPreprocessingInMinimap
+        });
+        
+        // Create and attach toggle button
+        const toggleButton = this.minimap.createToggleButton();
+        this.minimapToggleContainer.appendChild(toggleButton);
+    }
+
+    /**
+     * Set the code container for minimap to attach to
+     * @param {HTMLElement} codeContainer - The scrollable code container ([data-content-type="raw"])
+     * @param {HTMLElement} parentContainer - The parent container (content-box) to append minimap to
+     */
+    setMinimapCodeContainer(codeContainer, parentContainer) {
+        if (!this.minimap) {
+            return;
+        }
+        
+        this.codeContainer = codeContainer;
+        
+        if (codeContainer && parentContainer) {
+            this.minimap.attach(codeContainer, parentContainer);
+        }
+    }
+
+    /**
+     * Show minimap
+     */
+    showMinimap() {
+        if (this.minimap) {
+            this.minimap.show();
+        }
+    }
+
+    /**
+     * Hide minimap
+     */
+    hideMinimap() {
+        if (this.minimap) {
+            this.minimap.hide();
+        }
+    }
+
+    /**
+     * Toggle minimap visibility
+     */
+    toggleMinimap() {
+        if (this.minimap) {
+            this.minimap.toggle();
+        }
+    }
+
+    /**
+     * Refresh minimap content (call after code content changes)
+     */
+    refreshMinimap() {
+        if (this.minimap) {
+            this.minimap.refresh();
+        }
+    }
+
+    /**
+     * Update search markers in minimap
+     * @param {Array} matches - Array of match objects with lineNumber property
+     */
+    updateMinimapSearchMarkers(matches = []) {
+        if (this.minimap) {
+            this.minimap.updateSearchMarkers(matches);
+        }
+    }
+
+    /**
+     * Get minimap instance
+     * @returns {CodeMinimap|null} Minimap instance or null
+     */
+    getMinimap() {
+        return this.minimap;
+    }
+
+    /**
+     * Check if minimap is visible
+     * @returns {boolean} True if minimap is visible
+     */
+    isMinimapVisible() {
+        return this.minimap ? this.minimap.isVisible : false;
+    }
+
+    /**
+     * Destroy minimap
+     */
+    destroyMinimap() {
+        if (this.minimap) {
+            this.minimap.destroy();
+            this.minimap = null;
+        }
     }
 }

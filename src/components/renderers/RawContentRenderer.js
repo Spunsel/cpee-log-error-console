@@ -320,6 +320,20 @@ export class RawContentRenderer {
                 }
             }
             
+            // Set up minimap after syntax highlighting
+            if (this.actionBars.has(sectionId)) {
+                const actionBar = this.actionBars.get(sectionId);
+                if (actionBar) {
+                    // Get the content-box parent for minimap attachment
+                    const contentBox = container.closest('.content-box') || container;
+                    // Delay minimap setup to ensure syntax highlighting is complete
+                    requestAnimationFrame(() => {
+                        actionBar.setMinimapCodeContainer(rawContainer, contentBox);
+                        actionBar.refreshMinimap();
+                    });
+                }
+            }
+            
             // Update copy and download content based on currently displayed content
             // Extract text from the rendered DOM to ensure we copy/download exactly what's shown
             if (this.actionBars.has(sectionId)) {
@@ -421,6 +435,8 @@ export class RawContentRenderer {
                 // Clear search before hiding
                 actionBar.clearSearch();
                 actionBar.hide();
+                // Hide minimap as well
+                actionBar.hideMinimap();
             }
             // Also hide action bar row if it exists
             const sectionElement = document.getElementById(sectionId);
@@ -448,10 +464,17 @@ export class RawContentRenderer {
         // Initialize search state for this section using SearchService
         this.searchService.initializeSearchState(sectionId);
 
+        // Determine content type for minimap (cpee sections use XML, intermediate uses mermaid)
+        const isCPEE = sectionId.includes('cpee');
+        const minimapContentType = isCPEE ? 'cpee' : 'mermaid';
+        
         // Create action bar with SearchService, always visible for raw/log sections
         const actionBar = new ActionBar(this.domRegistry, this.searchService, sectionId, {
             collapsedByDefault: false,
-            showViewLog: true
+            showViewLog: true,
+            showMinimap: true,
+            minimapContentType: minimapContentType,
+            showPreprocessingInMinimap: false // Cleaned View doesn't show preprocessing markers
         });
         
         // Store action bar for this section
@@ -589,6 +612,12 @@ export class RawContentRenderer {
         if (matches.length > 0) {
             this.searchService.scrollToMatch(container, 0);
         }
+        
+        // Update minimap search markers
+        const actionBar = this.actionBars.get(sectionId);
+        if (actionBar) {
+            actionBar.updateMinimapSearchMarkers(matches);
+        }
     }
 
     /**
@@ -608,6 +637,12 @@ export class RawContentRenderer {
 
         // Update UI after clear
         this.updateSearchUI(sectionId);
+        
+        // Clear minimap search markers
+        const actionBar = this.actionBars.get(sectionId);
+        if (actionBar) {
+            actionBar.updateMinimapSearchMarkers([]);
+        }
     }
 
     /**

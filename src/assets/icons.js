@@ -686,6 +686,26 @@ export const ICON_DOWNLOAD = `
 `;
 
 /**
+ * Minimap icon - Code overview/minimap toggle
+ * Represents minimap visibility toggle - 20x20px for action bar buttons
+ * Design: Simplified code view with scroll indicator
+ */
+export const ICON_MINIMAP = `
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+            <line x1="17" y1="7" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="7" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="7" y1="10" x2="11" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="7" y1="13" x2="13" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="7" y1="16" x2="10" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+    </svg>
+`;
+
+/**
  * View Log icon - Document with "LOG" text for viewing original log on CPEE
  * Represents link to view the original log file on cpee.org - 20x20px for action bar buttons
  * Design: Document with LOG text
@@ -783,7 +803,9 @@ export const ICONS = {
     // Download icon
     DOWNLOAD: ICON_DOWNLOAD,
     // View log icon
-    VIEW_LOG: ICON_VIEW_LOG
+    VIEW_LOG: ICON_VIEW_LOG,
+    // Minimap icon
+    MINIMAP: ICON_MINIMAP
 };
 
 /**
@@ -841,7 +863,9 @@ export function getIcon(iconName) {
         // Download icon
         'download': ICON_DOWNLOAD,
         // View log icon
-        'view-log': ICON_VIEW_LOG
+        'view-log': ICON_VIEW_LOG,
+        // Minimap icon
+        'minimap': ICON_MINIMAP
     };
 
     return iconMap[iconName.toLowerCase()] || '';

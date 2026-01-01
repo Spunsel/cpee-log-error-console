@@ -54,8 +54,8 @@
 
 /* Webkit (Chrome, Safari, Edge) */
 *::-webkit-scrollbar {
-   width: 10px;
-   height: 10px;
+   width: var(--scrollbar-width, 10px);
+   height: var(--scrollbar-width, 10px);
 }
 
 *::-webkit-scrollbar-track {
