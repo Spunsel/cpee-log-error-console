@@ -223,8 +223,8 @@ export class LogParser {
             
             // Handle flow scalars (double-quoted strings spanning multiple lines)
             if (multiLineState?.inProgress && multiLineState.type === 'flow') {
-                // Check if this line contains the closing quote
-                const closingQuoteIndex = trimmed.indexOf('"');
+                // Check if this line contains an unescaped closing quote
+                const closingQuoteIndex = this.findUnescapedQuote(trimmed);
                 if (closingQuoteIndex !== -1) {
                     // Found closing quote - add content up to the quote and finalize
                     multiLineState.content += ' ' + trimmed.substring(0, closingQuoteIndex);
@@ -260,8 +260,8 @@ export class LogParser {
             }
             
             // Handle flow scalars (double-quoted strings that might span multiple lines)
-            if (value.startsWith('"') && !value.endsWith('"')) {
-                // Opening quote without closing quote - this is a multi-line flow scalar
+            if (value.startsWith('"') && !this.hasUnescapedClosingQuote(value)) {
+                // Opening quote without unescaped closing quote - this is a multi-line flow scalar
                 multiLineState = { 
                     key, 
                     content: value.substring(1), // Remove opening quote
@@ -330,6 +330,48 @@ export class LogParser {
     // ============================================
     // YAML HELPER METHODS
     // ============================================
+
+    /**
+     * Find the index of an unescaped double quote in a string
+     * Escaped quotes (preceded by odd number of backslashes) are ignored
+     * @param {string} str - String to search
+     * @returns {number} Index of unescaped quote, or -1 if not found
+     */
+    static findUnescapedQuote(str) {
+        let i = 0;
+        while (i < str.length) {
+            if (str[i] === '"') {
+                // Count preceding backslashes
+                let backslashCount = 0;
+                let j = i - 1;
+                while (j >= 0 && str[j] === '\\') {
+                    backslashCount++;
+                    j--;
+                }
+                // Quote is escaped if preceded by odd number of backslashes
+                // e.g., \" is escaped, \\" is not (backslash is escaped, quote is not)
+                if (backslashCount % 2 === 0) {
+                    return i;
+                }
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    /**
+     * Check if a string starting with " has an unescaped closing quote
+     * @param {string} value - String value that starts with "
+     * @returns {boolean} True if there's an unescaped closing quote after position 0
+     */
+    static hasUnescapedClosingQuote(value) {
+        if (!value || value.length < 2 || !value.startsWith('"')) {
+            return false;
+        }
+        // Search for closing quote starting after the opening quote
+        const closingIndex = this.findUnescapedQuote(value.substring(1));
+        return closingIndex !== -1;
+    }
 
     /**
      * Check if line represents a new key (not part of multi-line content)
