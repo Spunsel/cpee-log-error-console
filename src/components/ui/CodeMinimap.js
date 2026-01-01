@@ -380,7 +380,7 @@ export class CodeMinimap {
         // Create markers at the minimap's line positions
         preprocessingLines.forEach(lineNum => {
             // Calculate position in minimap: padding + (lineNumber - 1) * lineHeight + offset
-            const markerTop = minimapCodePadding + (lineNum - 1) * lineHeight + 5;
+            const markerTop = minimapCodePadding + (lineNum - 1) * lineHeight + 7;
             
             const marker = document.createElement('div');
             marker.className = 'minimap-marker minimap-marker-preprocessing';
