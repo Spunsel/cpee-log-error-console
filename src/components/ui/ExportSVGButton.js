@@ -98,10 +98,11 @@ export class ExportSVGButton {
         this.isExporting = true;
         
         try {
-            // Find the SVG element in the container
-            const svgElement = this.graphContainer.querySelector('svg');
+            // Find the actual graph SVG element in the container
+            // Must exclude small icon SVGs (buttons, indicators) and find the real graph
+            const svgElement = this.findGraphSVG();
             if (!svgElement) {
-                throw new Error('No SVG element found in container');
+                throw new Error('No graph SVG element found in container');
             }
             
             // Clone the SVG
@@ -403,6 +404,62 @@ export class ExportSVGButton {
         styleElement.setAttribute('type', 'text/css');
         styleElement.textContent = mermaidStyles;
         defs.appendChild(styleElement);
+    }
+
+    /**
+     * Find the actual graph SVG element in the container
+     * Excludes small icon SVGs (buttons, indicators) and finds the real graph
+     * @returns {SVGElement|null} The graph SVG element or null if not found
+     */
+    findGraphSVG() {
+        if (!this.graphContainer) {
+            return null;
+        }
+
+        // Strategy 1: Find SVG with Mermaid-specific classes
+        const mermaidSvg = this.graphContainer.querySelector('svg:has(.node), svg:has(.edgePath), svg:has(.flowchart-link)');
+        if (mermaidSvg) {
+            return mermaidSvg;
+        }
+
+        // Strategy 2: Find SVG with CPEE-specific classes
+        const cpeeSvg = this.graphContainer.querySelector('svg:has(.colorstyle), svg:has(.stand), svg:has(.execstyle)');
+        if (cpeeSvg) {
+            return cpeeSvg;
+        }
+
+        // Strategy 3: Find the largest SVG (actual graphs are much larger than icons)
+        const allSvgs = this.graphContainer.querySelectorAll('svg');
+        let largestSvg = null;
+        let largestArea = 0;
+
+        for (const svg of allSvgs) {
+            // Get dimensions from various sources
+            const width = svg.width?.baseVal?.value || 
+                         parseFloat(svg.getAttribute('width')) || 
+                         svg.viewBox?.baseVal?.width ||
+                         svg.getBoundingClientRect().width || 0;
+            const height = svg.height?.baseVal?.value || 
+                          parseFloat(svg.getAttribute('height')) || 
+                          svg.viewBox?.baseVal?.height ||
+                          svg.getBoundingClientRect().height || 0;
+            
+            const area = width * height;
+            
+            // Skip small icons (typically 16x16, 20x20, 24x24)
+            // Graph SVGs are typically much larger (100+ width)
+            if (width > 50 && height > 50 && area > largestArea) {
+                largestArea = area;
+                largestSvg = svg;
+            }
+        }
+
+        if (largestSvg) {
+            return largestSvg;
+        }
+
+        // Fallback: return the first SVG (original behavior)
+        return this.graphContainer.querySelector('svg');
     }
 
     /**
