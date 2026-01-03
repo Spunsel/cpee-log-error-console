@@ -45,8 +45,27 @@ export class TraceContentRenderer {
             output: null
         };
         
+        // Track currently highlighted task for cross-graph highlighting
+        this.highlightedTaskKey = null; // Format: "sectionId:alt_id" to uniquely identify highlighted row
+        this.highlightedRows = new Set(); // Track all highlighted row elements
+        
+        // Auto-play trace state
+        this.autoPlayState = {
+            isPlaying: false,
+            currentTraceKey: null, // Format: "sectionId:traceNumber"
+            currentTaskIndex: 0,
+            intervalId: null,
+            trace: null,
+            sectionId: null,
+            playButton: null,
+            traceElement: null // Reference to the trace item element for finding specific rows
+        };
+        
         // Listen for comparison events to update trace colors
         this.setupComparisonListeners();
+        
+        // Listen for highlight clear events
+        this.setupHighlightListeners();
     }
 
     /**
@@ -374,12 +393,17 @@ export class TraceContentRenderer {
         // Note: sectionId is not directly available here, so we'll apply colors after rendering
         // via updateTraceColorsForSectionPair when comparison results are available
 
+        // Find sectionId from container for trace highlighting
+        const sectionElement = containerElement.closest('[id^="input-"], [id^="output-"]');
+        const sectionId = sectionElement ? sectionElement.id : null;
+
         // Render each trace
         traceObjects.forEach((trace, index) => {
             const traceItem = this.createTraceItem(trace, index + 1, {
                 showLabels,
                 expandable,
-                highlightStartEnd
+                highlightStartEnd,
+                sectionId
             });
             traceList.appendChild(traceItem);
         });
@@ -387,10 +411,7 @@ export class TraceContentRenderer {
         containerElement.appendChild(traceList);
         
         // Try to apply trace colors if comparison results are available
-        // We need to find the sectionId from the container's parent
-        const sectionElement = containerElement.closest('[id^="input-"], [id^="output-"]');
         if (sectionElement) {
-            const sectionId = sectionElement.id;
             const sectionPair = this.getSectionPair(sectionId);
             if (sectionPair) {
                 // Small delay to ensure DOM is ready
@@ -412,7 +433,8 @@ export class TraceContentRenderer {
         const {
             showLabels: _showLabels = true,
             expandable = true,
-            highlightStartEnd: _highlightStartEnd = true
+            highlightStartEnd: _highlightStartEnd = true,
+            sectionId = null
         } = options;
 
         const traceItem = this.domRegistry.createElement('div', {
@@ -453,6 +475,19 @@ export class TraceContentRenderer {
         }
 
         traceHeader.appendChild(traceNumberEl);
+
+        // Auto-play button
+        const playBtn = this.domRegistry.createElement('button', {
+            className: 'trace-play-btn',
+            'aria-label': 'Auto-play trace',
+            title: 'Auto-play trace (1 second per task)'
+        });
+        playBtn.innerHTML = ICONS.PLAY_TRACE;
+        playBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggleAutoPlay(sectionId, traceNumber, trace, playBtn, traceItem);
+        });
+        traceHeader.appendChild(playBtn);
 
         // Trace path preview (always visible) - show alt_ids sequence
         const pathPreview = this.domRegistry.createElement('div', {
@@ -503,12 +538,23 @@ export class TraceContentRenderer {
         // Create table body
         const tbody = this.domRegistry.createElement('tbody');
         trace.path.forEach(task => {
-            const row = this.domRegistry.createElement('tr');
+            const row = this.domRegistry.createElement('tr', {
+                className: 'trace-row-clickable',
+                title: 'Click to highlight this task across all graphs'
+            });
             
-            // ID column
+            // Store task alt_id on row for matching highlights
+            row.setAttribute('data-task-alt-id', task.alt_id || task.id || '');
+            
+            // Add click handler to entire row for highlighting
+            row.addEventListener('click', () => {
+                this.handleTraceHighlightClick(sectionId, task, row);
+            });
+            
+            // ID column - show id if available, otherwise fall back to alt_id
             const idCell = this.domRegistry.createElement('td', {
                 className: 'traces-table-id',
-                textContent: task.id || ''
+                textContent: task.id || task.alt_id || ''
             });
             row.appendChild(idCell);
             
@@ -918,6 +964,298 @@ export class TraceContentRenderer {
                 this.updateTraceColorsForSectionPair(sectionPair);
             }
         });
+    }
+
+    /**
+     * Setup event listeners for highlight coordination
+     * Listens for external highlight clear events
+     */
+    setupHighlightListeners() {
+        // Listen for highlight clear events from CrossGraphHighlightCoordinator
+        this.eventBus.on('crossGraph:highlightsCleared', () => {
+            this.clearAllTraceHighlights();
+        });
+        
+        // Listen for step changes to clear highlights
+        this.eventBus.on('step:changed', () => {
+            this.clearAllTraceHighlights();
+        });
+    }
+
+    /**
+     * Clear all trace row highlights
+     */
+    clearAllTraceHighlights() {
+        this.highlightedTaskKey = null;
+        this.highlightedRows.forEach(row => {
+            row.classList.remove('trace-row-highlighted');
+        });
+        this.highlightedRows.clear();
+    }
+
+    /**
+     * Handle click on trace row for highlighting
+     * Uses the pre-existing task mapping for cross-graph highlighting
+     * @param {string} sectionId - Section identifier
+     * @param {Object} task - Task object with id, alt_id, task properties
+     * @param {HTMLElement} row - The table row element
+     */
+    handleTraceHighlightClick(sectionId, task, row) {
+        // Use alt_id for visual row matching, id for task mapping lookup
+        const visualKey = task.alt_id || task.id;
+        const taskKey = `${sectionId}:${visualKey}`;
+        
+        // If clicking the same task, toggle off
+        if (this.highlightedTaskKey === taskKey) {
+            // Clear highlight
+            this.clearAllTraceHighlights();
+            // Emit event to clear cross-graph highlights
+            this.eventBus.emit('trace:highlight:clear');
+            return;
+        }
+        
+        // Clear previous highlights
+        this.clearAllTraceHighlights();
+        
+        // Set new highlight
+        this.highlightedTaskKey = taskKey;
+        row.classList.add('trace-row-highlighted');
+        this.highlightedRows.add(row);
+        
+        // Find and highlight all matching rows (same task in other traces)
+        this.highlightMatchingRows(sectionId, visualKey, row);
+        
+        // Emit event for cross-graph highlighting
+        // Use task.id for task mapping lookup (mapping uses id as primary key)
+        // For CPEE sections, the task mapping keys are the CPEE internal IDs (a1, a3, etc.)
+        const sourceFormat = this.getSectionFormat(sectionId);
+        this.eventBus.emit('trace:highlight:task', {
+            taskId: task.id,  // Use task.id for mapping lookup
+            altId: task.alt_id,  // Also pass altId for fallback matching
+            taskLabel: task.task,
+            sourceFormat: sourceFormat,
+            sectionId: sectionId
+        });
+    }
+
+    /**
+     * Highlight all matching rows with the same alt_id across all traces in a section
+     * @param {string} sectionId - Section identifier
+     * @param {string} altId - The alt_id to match
+     * @param {HTMLElement} clickedRow - The originally clicked row (already highlighted)
+     */
+    highlightMatchingRows(sectionId, altId, clickedRow) {
+        // Find the section container
+        const sectionContainer = document.getElementById(sectionId);
+        if (!sectionContainer) {
+            return;
+        }
+        
+        // Find all trace table rows with matching alt_id
+        const allRows = sectionContainer.querySelectorAll('.traces-table tbody tr');
+        allRows.forEach(row => {
+            if (row === clickedRow) {
+                return; // Skip the clicked row, already highlighted
+            }
+            
+            // Check if this row has the same alt_id
+            const rowAltId = row.getAttribute('data-task-alt-id');
+            if (rowAltId === altId) {
+                row.classList.add('trace-row-highlighted');
+                this.highlightedRows.add(row);
+            }
+        });
+    }
+
+    /**
+     * Get the format identifier for a section
+     * @param {string} sectionId - Section identifier
+     * @returns {string} Format identifier for cross-graph highlighting
+     */
+    getSectionFormat(sectionId) {
+        // Map section IDs to format identifiers used by CrossGraphHighlightCoordinator
+        const formatMap = {
+            'input-cpee': 'input-cpee',
+            'input-intermediate': 'input-intermediate',
+            'output-cpee': 'output-cpee',
+            'output-intermediate': 'output-intermediate'
+        };
+        return formatMap[sectionId] || sectionId;
+    }
+
+    /**
+     * Toggle auto-play for a trace
+     * @param {string} sectionId - Section identifier
+     * @param {number} traceNumber - Trace number (1-based)
+     * @param {Object} trace - Trace object with path array
+     * @param {HTMLElement} playBtn - Play button element
+     * @param {HTMLElement} traceElement - The trace item element containing the table
+     */
+    toggleAutoPlay(sectionId, traceNumber, trace, playBtn, traceElement) {
+        const traceKey = `${sectionId}:${traceNumber}`;
+        
+        // If this trace is already playing, stop it
+        if (this.autoPlayState.isPlaying && this.autoPlayState.currentTraceKey === traceKey) {
+            this.stopAutoPlay();
+            return;
+        }
+        
+        // If a different trace is playing, stop it first
+        if (this.autoPlayState.isPlaying) {
+            this.stopAutoPlay();
+        }
+        
+        // Start auto-play for this trace
+        this.startAutoPlay(sectionId, traceNumber, trace, playBtn, traceElement);
+    }
+
+    /**
+     * Start auto-play for a trace
+     * @param {string} sectionId - Section identifier
+     * @param {number} traceNumber - Trace number (1-based)
+     * @param {Object} trace - Trace object with path array
+     * @param {HTMLElement} playBtn - Play button element
+     * @param {HTMLElement} traceElement - The trace item element containing the table
+     */
+    startAutoPlay(sectionId, traceNumber, trace, playBtn, traceElement) {
+        if (!trace.path || trace.path.length === 0) {
+            return;
+        }
+        
+        const traceKey = `${sectionId}:${traceNumber}`;
+        
+        // Update state
+        this.autoPlayState = {
+            isPlaying: true,
+            currentTraceKey: traceKey,
+            currentTaskIndex: 0,
+            intervalId: null,
+            trace: trace,
+            sectionId: sectionId,
+            playButton: playBtn,
+            traceElement: traceElement
+        };
+        
+        // Update button to show pause icon
+        playBtn.innerHTML = ICONS.PAUSE_TRACE;
+        playBtn.setAttribute('aria-label', 'Pause auto-play');
+        playBtn.title = 'Pause auto-play';
+        playBtn.classList.add('playing');
+        
+        // Highlight the first task immediately
+        this.playCurrentTask();
+        
+        // Start interval for subsequent tasks (1 second)
+        this.autoPlayState.intervalId = setInterval(() => {
+            this.playNextTask();
+        }, 1000);
+    }
+
+    /**
+     * Stop auto-play
+     */
+    stopAutoPlay() {
+        if (this.autoPlayState.intervalId) {
+            clearInterval(this.autoPlayState.intervalId);
+        }
+        
+        // Reset button to play icon
+        if (this.autoPlayState.playButton) {
+            this.autoPlayState.playButton.innerHTML = ICONS.PLAY_TRACE;
+            this.autoPlayState.playButton.setAttribute('aria-label', 'Auto-play trace');
+            this.autoPlayState.playButton.title = 'Auto-play trace (1 second per task)';
+            this.autoPlayState.playButton.classList.remove('playing');
+        }
+        
+        // Reset state
+        this.autoPlayState = {
+            isPlaying: false,
+            currentTraceKey: null,
+            currentTaskIndex: 0,
+            intervalId: null,
+            trace: null,
+            sectionId: null,
+            playButton: null,
+            traceElement: null
+        };
+    }
+
+    /**
+     * Highlight the current task in auto-play
+     */
+    playCurrentTask() {
+        const { trace, sectionId, currentTaskIndex, traceElement } = this.autoPlayState;
+        
+        if (!trace || !trace.path || currentTaskIndex >= trace.path.length) {
+            return;
+        }
+        
+        const task = trace.path[currentTaskIndex];
+        
+        // Clear previous highlights first
+        this.clearAllTraceHighlights();
+        this.eventBus.emit('trace:highlight:clear');
+        
+        // Emit highlight event for cross-graph highlighting
+        const sourceFormat = this.getSectionFormat(sectionId);
+        this.eventBus.emit('trace:highlight:task', {
+            taskId: task.id,
+            altId: task.alt_id,
+            taskLabel: task.task,
+            sourceFormat: sourceFormat,
+            sectionId: sectionId
+        });
+        
+        // Highlight only the specific row at the current index in this trace's table
+        this.highlightAutoPlayRow(traceElement, currentTaskIndex);
+    }
+
+    /**
+     * Move to the next task in auto-play
+     */
+    playNextTask() {
+        const { trace } = this.autoPlayState;
+        
+        if (!trace || !trace.path) {
+            this.stopAutoPlay();
+            return;
+        }
+        
+        // Increment task index
+        this.autoPlayState.currentTaskIndex++;
+        
+        // Check if we've reached the end
+        if (this.autoPlayState.currentTaskIndex >= trace.path.length) {
+            this.stopAutoPlay();
+            return;
+        }
+        
+        // Highlight the current task
+        this.playCurrentTask();
+    }
+
+    /**
+     * Highlight only the specific row at the given index in the trace's table
+     * @param {HTMLElement} traceElement - The trace item element containing the table
+     * @param {number} rowIndex - The index of the row to highlight (0-based)
+     */
+    highlightAutoPlayRow(traceElement, rowIndex) {
+        if (!traceElement) {
+            return;
+        }
+        
+        // Find all rows in this specific trace's table
+        const rows = traceElement.querySelectorAll('.traces-table tbody tr');
+        
+        if (rowIndex >= 0 && rowIndex < rows.length) {
+            const row = rows[rowIndex];
+            row.classList.add('trace-row-highlighted');
+            this.highlightedRows.add(row);
+            
+            // Update highlightedTaskKey for consistency
+            const altId = row.getAttribute('data-task-alt-id');
+            this.highlightedTaskKey = `autoplay:${rowIndex}:${altId}`;
+        }
     }
 
     /**

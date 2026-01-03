@@ -187,6 +187,95 @@
    stroke: none !important;
 }
 
+/* ========================================
+   TRACE AUTO-PLAY BUTTON
+   ======================================== */
+
+/* Trace Play Button - styled like action bar buttons */
+.trace-play-btn {
+   background: var(--background-color);
+   border: 1px solid var(--border-color);
+   color: var(--text-primary);
+   cursor: pointer;
+   padding: 4px;
+   border-radius: var(--border-radius-sm);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 28px;
+   height: 28px;
+   transition: background-color 0.2s ease, border-color 0.2s ease;
+   flex-shrink: 0;
+   margin-left: 6px;
+}
+
+.trace-play-btn:hover {
+   background: var(--hover-bg);
+   border-color: var(--primary-color);
+}
+
+.trace-play-btn.playing {
+   background: var(--primary-color);
+   border-color: var(--primary-color);
+   color: var(--text-white, #ffffff);
+}
+
+.trace-play-btn.playing:hover {
+   background: var(--primary-color-hover, #1d4ed8);
+   border-color: var(--primary-color-hover, #1d4ed8);
+}
+
+.trace-play-btn svg {
+   width: var(--icon-size-sm, 16px);
+   height: var(--icon-size-sm, 16px);
+}
+
+/* Ensure play button SVG uses fill */
+.trace-play-btn svg,
+.trace-play-btn svg path {
+   fill: currentColor;
+}
+
+/* Playing state - ensure white icon on blue background */
+.trace-play-btn.playing svg,
+.trace-play-btn.playing svg path {
+   fill: currentColor !important;
+}
+
+/* Exclude play button from CPEE graph color inversion */
+.cpee-section .trace-play-btn svg path,
+.cpee-section .trace-play-btn svg g,
+.cpee-section .trace-play-btn svg *,
+#input-cpee .trace-play-btn svg path,
+#input-cpee .trace-play-btn svg g,
+#input-cpee .trace-play-btn svg *,
+#output-cpee .trace-play-btn svg path,
+#output-cpee .trace-play-btn svg g,
+#output-cpee .trace-play-btn svg * {
+   fill: currentColor !important;
+   filter: none !important;
+}
+
+[data-theme="dark"] .cpee-section .trace-play-btn svg,
+[data-theme="dark"] #input-cpee .trace-play-btn svg,
+[data-theme="dark"] #output-cpee .trace-play-btn svg {
+   fill: currentColor !important;
+   filter: none !important;
+}
+
+[data-theme="dark"] .cpee-section .trace-play-btn svg path,
+[data-theme="dark"] .cpee-section .trace-play-btn svg g,
+[data-theme="dark"] .cpee-section .trace-play-btn svg *,
+[data-theme="dark"] #input-cpee .trace-play-btn svg path,
+[data-theme="dark"] #input-cpee .trace-play-btn svg g,
+[data-theme="dark"] #input-cpee .trace-play-btn svg *,
+[data-theme="dark"] #output-cpee .trace-play-btn svg path,
+[data-theme="dark"] #output-cpee .trace-play-btn svg g,
+[data-theme="dark"] #output-cpee .trace-play-btn svg * {
+   fill: currentColor !important;
+   filter: none !important;
+}
+
 /* Trace Number */
 .trace-number {
    font-weight: 600;
@@ -334,6 +423,43 @@
 
 [data-theme="dark"] .traces-table-label {
    color: #86efac !important;
+}
+
+/* ========================================
+   TRACE TABLE CLICKABLE ROWS
+   ======================================== */
+
+/* Clickable rows for task highlighting */
+.traces-table tbody tr.trace-row-clickable {
+   cursor: pointer;
+   transition: background-color 0.15s ease;
+}
+
+/* Row hover state - faint background change */
+.traces-table tbody tr.trace-row-clickable:hover {
+   background-color: var(--hover-bg, rgba(0, 0, 0, 0.04));
+}
+
+/* Row highlighted/selected state - more significant background (darker than hover) */
+.traces-table tbody tr.trace-row-highlighted {
+   background-color: var(--highlight-row-bg, rgba(59, 130, 246, 0.25));
+}
+
+.traces-table tbody tr.trace-row-highlighted:hover {
+   background-color: var(--highlight-row-bg-hover, rgba(59, 130, 246, 0.32));
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .traces-table tbody tr.trace-row-clickable:hover {
+   background-color: var(--hover-bg, rgba(255, 255, 255, 0.06));
+}
+
+[data-theme="dark"] .traces-table tbody tr.trace-row-highlighted {
+   background-color: var(--highlight-row-bg, rgba(59, 130, 246, 0.35));
+}
+
+[data-theme="dark"] .traces-table tbody tr.trace-row-highlighted:hover {
+   background-color: var(--highlight-row-bg-hover, rgba(59, 130, 246, 0.45));
 }
 
 /* Trace Path Container */

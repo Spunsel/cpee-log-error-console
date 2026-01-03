@@ -294,7 +294,8 @@
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .minimap-toggle-btn svg,
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .search-icon svg,
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .search-clear-btn svg,
-[data-theme="dark"] .cpee-section .raw-content-actions-bar .action-bar-nav-btn svg {
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .action-bar-nav-btn svg,
+[data-theme="dark"] .cpee-section .trace-play-btn svg {
    filter: none !important;
    opacity: 1 !important;
    background-color: transparent !important;
@@ -312,7 +313,8 @@
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .viewlog-btn svg *,
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .search-icon svg *,
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .search-clear-btn svg *,
-[data-theme="dark"] .cpee-section .raw-content-actions-bar .action-bar-nav-btn svg * {
+[data-theme="dark"] .cpee-section .raw-content-actions-bar .action-bar-nav-btn svg *,
+[data-theme="dark"] .cpee-section .trace-play-btn svg * {
    fill: var(--text-primary) !important;
    stroke: var(--text-primary) !important;
    filter: none !important;
@@ -338,6 +340,18 @@
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .viewlog-btn svg path {
    fill: var(--text-primary) !important;
    stroke: none !important;
+}
+
+/* Trace play/pause button uses fill, not stroke */
+[data-theme="dark"] .cpee-section .trace-play-btn svg path {
+   fill: currentColor !important;
+   stroke: none !important;
+   filter: none !important;
+}
+
+/* When playing, the button has blue background so icon should be white */
+[data-theme="dark"] .cpee-section .trace-play-btn.playing svg path {
+   fill: currentColor !important;
 }
 
 /* CPEE Graph - Graphics symbols in paths (icon paths, symbol paths) */

@@ -738,6 +738,36 @@ export const ICON_ANALYSIS = `
     </svg>
 `;
 
+/**
+ * Play Trace icon - Circle with play triangle
+ * Used for auto-play trace functionality - 16x16px
+ * Design: Circle outline with play triangle inside
+ */
+export const ICON_PLAY_TRACE = `
+    <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path fill-rule="evenodd" d="M12,2 C17.5228475,2 22,6.4771525 22,12 C22,17.5228475 17.5228475,22 12,22 C6.4771525,22 2,17.5228475 2,12 C2,6.4771525 6.4771525,2 12,2 Z M12,4 C7.581722,4 4,7.581722 4,12 C4,16.418278 7.581722,20 12,20 C16.418278,20 20,16.418278 20,12 C20,7.581722 16.418278,4 12,4 Z M10.503871,7.1362211 L16.503871,11.1362211 C17.1264642,11.4994005 17.1630874,12.3674256 16.6137404,12.7899986 L10.503871,16.8637789 C9.83721439,17.2526619 9,16.7717908 9,16 L9,8 C9,7.22820917 9.83721439,6.74733806 10.503871,7.1362211 Z"></path>
+        </g>
+    </svg>
+`;
+
+/**
+ * Pause Trace icon - Circle with pause bars
+ * Used for auto-play trace functionality - 16x16px
+ * Design: Circle outline with two pause bars inside
+ */
+export const ICON_PAUSE_TRACE = `
+    <svg fill="currentColor" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165ZM120,60a10,10,0,0,0-10,10v60a10,10,0,0,0,20,0V70A10,10,0,0,0,120,60ZM80,60A10,10,0,0,0,70,70v60a10,10,0,0,0,20,0V70A10,10,0,0,0,80,60Z"></path>
+        </g>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -775,37 +805,28 @@ export const ICONS = {
     LT: ICON_LT,
     GT: ICON_GT,
     APP_FAVICON: ICON_APP_FAVICON,
-    // Error and warning icons
     ERROR: ICON_ERROR,
     WARNING: ICON_WARNING,
     // Dark mode icons
     MOON: ICON_MOON,
     SUN: ICON_SUN,
     INFO: ICON_INFO,
-    // Section toggle icons
     SECTION_COLLAPSE: ICON_SECTION_COLLAPSE,
     SECTION_EXPAND: ICON_SECTION_EXPAND,
-    // Trace toggle icons
     EXPAND_TRACE: ICON_EXPAND_TRACE,
     COLLAPSE_TRACE: ICON_COLLAPSE_TRACE,
-    // Section expand/collapse icons
     EXPAND_SECTION: ICON_EXPAND_SECTION,
     COLLAPSE_SECTION: ICON_COLLAPSE_SECTION,
-    // Title collapse icon
     COLLAPSE_TITLE: ICON_COLLAPSE_TITLE,
-    // Issue status icons
     ISSUE_CLOSED: ICON_ISSUE_CLOSED,
     ISSUE_OPEN: ICON_ISSUE_OPEN,
-    // Comparison info icon
     COMPARISON_INFO: ICON_COMPARISON_INFO,
-    // Analysis mode icon
     ANALYSIS: ICON_ANALYSIS,
-    // Download icon
     DOWNLOAD: ICON_DOWNLOAD,
-    // View log icon
     VIEW_LOG: ICON_VIEW_LOG,
-    // Minimap icon
-    MINIMAP: ICON_MINIMAP
+    MINIMAP: ICON_MINIMAP,
+    PLAY_TRACE: ICON_PLAY_TRACE,
+    PAUSE_TRACE: ICON_PAUSE_TRACE
 };
 
 /**
@@ -835,37 +856,27 @@ export function getIcon(iconName) {
         'clear-search': ICON_CLEAR_SEARCH,
         'search-next': ICON_SEARCH_NEXT,
         'search-prev': ICON_SEARCH_PREV,
-        // Error and warning icons
         'error': ICON_ERROR,
         'warning': ICON_WARNING,
-        // Theme icon
         'theme': ICON_THEME,
-        // Dark mode icons
         'moon': ICON_MOON,
         'sun': ICON_SUN,
         'info': ICON_INFO,
-        // Section toggle icons
         'section-collapse': ICON_SECTION_COLLAPSE,
         'section-expand': ICON_SECTION_EXPAND,
-        // Trace toggle icons
         'expand-trace': ICON_EXPAND_TRACE,
         'collapse-trace': ICON_COLLAPSE_TRACE,
-        // Section expand/collapse icons
         'expand-section': ICON_EXPAND_SECTION,
         'collapse-section': ICON_COLLAPSE_SECTION,
-        // Issue status icons
         'issue-closed': ICON_ISSUE_CLOSED,
         'issue-open': ICON_ISSUE_OPEN,
-        // Comparison info icon
         'comparison-info': ICON_COMPARISON_INFO,
-        // Analysis mode icon
         'analysis': ICON_ANALYSIS,
-        // Download icon
         'download': ICON_DOWNLOAD,
-        // View log icon
         'view-log': ICON_VIEW_LOG,
-        // Minimap icon
-        'minimap': ICON_MINIMAP
+        'minimap': ICON_MINIMAP,
+        'play-trace': ICON_PLAY_TRACE,
+        'pause-trace': ICON_PAUSE_TRACE
     };
 
     return iconMap[iconName.toLowerCase()] || '';

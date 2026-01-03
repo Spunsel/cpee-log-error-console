@@ -13,6 +13,7 @@ import { SVGClickDetector } from '../../utils/interaction/SVGClickDetector.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { MermaidNodeExtractor } from '../../utils/extraction/MermaidNodeExtractor.js';
 import { CPEENodeExtractor } from '../../utils/extraction/CPEETNodeExtractor.js';
+import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class CrossGraphHighlightCoordinator {
     constructor(domRegistry = null, highlightingService = null, stateManager = null) {
@@ -46,8 +47,69 @@ export class CrossGraphHighlightCoordinator {
         // Click outside handler
         this.clickOutsideHandler = null;
         
+        // Event bus for trace highlight events
+        this.eventBus = defaultEventBus;
+        
         // Initialize click outside handler
         this.initializeClickOutsideHandler();
+        
+        // Setup trace highlight event listeners
+        this.setupTraceHighlightListeners();
+    }
+
+    /**
+     * Setup event listeners for trace highlighting
+     * Listens for trace:highlight:task events from TraceContentRenderer
+     * Uses the pre-existing task mapping for cross-graph highlighting
+     */
+    setupTraceHighlightListeners() {
+        // Listen for trace task highlight requests
+        this.eventBus.on('trace:highlight:task', (data) => {
+            const { taskId, altId, sourceFormat, sectionId } = data;
+            if (!sourceFormat || !sectionId) {
+                return;
+            }
+            
+            console.log('[CrossGraphHighlight] Received trace highlight request:', data);
+            
+            // Try to find the task in the pre-existing mapping using task.id first
+            if (taskId && this.currentStepMapping) {
+                const task = this.currentStepMapping.getTask(taskId, sourceFormat);
+                if (task) {
+                    console.log('[CrossGraphHighlight] Found task in mapping by id:', taskId);
+                    this.onTaskClicked(taskId, sourceFormat, sectionId);
+                    return;
+                }
+            }
+            
+            // Fallback: try with altId if primary lookup failed
+            if (altId && this.currentStepMapping) {
+                // Search for task by altId in the mapping
+                const taskIds = this.currentStepMapping.getTasksInFormat(sourceFormat);
+                for (const id of taskIds) {
+                    const task = this.currentStepMapping.getTask(id, sourceFormat);
+                    if (task && task.altId === altId) {
+                        console.log('[CrossGraphHighlight] Found task in mapping by altId:', altId, '-> id:', id);
+                        this.onTaskClicked(id, sourceFormat, sectionId);
+                        return;
+                    }
+                }
+            }
+            
+            // Last resort: use whatever ID we have
+            const fallbackId = taskId || altId;
+            if (fallbackId) {
+                console.log('[CrossGraphHighlight] Using fallback highlight with:', fallbackId);
+                this.onTaskClicked(fallbackId, sourceFormat, sectionId);
+            }
+        });
+        
+        // Listen for trace highlight clear requests
+        this.eventBus.on('trace:highlight:clear', () => {
+            console.log('[CrossGraphHighlight] Received trace highlight clear request');
+            // Don't emit event since TraceContentRenderer initiated the clear
+            this.clearAllHighlights(false);
+        });
     }
 
     /**
@@ -803,10 +865,16 @@ export class CrossGraphHighlightCoordinator {
 
     /**
      * Clear all highlights
+     * @param {boolean} emitEvent - Whether to emit event to notify TraceContentRenderer (default: true)
      */
-    clearAllHighlights() {
+    clearAllHighlights(emitEvent = true) {
         this.highlightingService.clearAllHighlights();
         this.highlightedTasks.clear();
+        
+        // Emit event to notify TraceContentRenderer to clear trace row highlights
+        if (emitEvent && this.eventBus) {
+            this.eventBus.emit('crossGraph:highlightsCleared');
+        }
     }
 
     /**
