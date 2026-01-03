@@ -1,0 +1,29 @@
+graph LR
+0:startevent:((Start))
+1:task:(Customer Decision)
+2:exclusivegateway:{x}
+3:task:(Activate Display)
+4:task:(Deactivate Display)
+5:task:(Notify Network Operator)
+6:task:(Transmit Status to Central System)
+7:task:(Log Entry)
+8:endevent:(((End)))
+9:exclusivegateway:{x}
+10:task:(Check Customer Change)
+11:exclusivegateway:{x}
+12:task:(Deactivate for 60 Days)
+0:startevent:((Start)) --> 1:task:(Customer Decision)
+1:task:(Customer Decision) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Activate| 3:task:(Activate Display)
+2:exclusivegateway:{x} --> |Deactivate| 4:task:(Deactivate Display)
+3:task:(Activate Display) --> 9:exclusivegateway:{x}
+4:task:(Deactivate Display) --> 5:task:(Notify Network Operator)
+9:exclusivegateway:{x} --> |No Customer Change| 5:task:(Notify Network Operator)
+9:exclusivegateway:{x} --> |Customer Change| 10:task:(Check Customer Change)
+10:task:(Check Customer Change) --> 11:exclusivegateway:{x}
+11:exclusivegateway:{x} --> |Deactivate for 60 Days| 12:task:(Deactivate for 60 Days)
+11:exclusivegateway:{x} --> |No Action| 5:task:(Notify Network Operator)
+12:task:(Deactivate for 60 Days) --> 5:task:(Notify Network Operator)
+5:task:(Notify Network Operator) --> 6:task:(Transmit Status to Central System)
+6:task:(Transmit Status to Central System) --> 7:task:(Log Entry)
+7:task:(Log Entry) --> 8:endevent:(((End)))

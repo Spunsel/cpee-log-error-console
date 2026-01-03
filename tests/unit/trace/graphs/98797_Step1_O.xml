@@ -1,0 +1,107 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Receive Customer Request</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="2">
+    <alternative condition="Activate Display" language="text/javascript">
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Activate Consumption Time Series Display</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Deactivate Display" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Deactivate Consumption Time Series Display</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+  <call id="a9" endpoint="" a:alt_id="5">
+    <parameters>
+      <label>Report Status to Central System as ALARM or EVENT "LP Display ON"</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a13" endpoint="" a:alt_id="6">
+    <parameters>
+      <label>Log Entry</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="7">
+    <alternative condition="Customer Change to New Customer" language="text/javascript">
+      <call id="a17" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>60-Day Deactivation of Consumption Time Series Display</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="No Customer Change" language="text/javascript"/>
+  </choose>
+  <call id="a19" endpoint="" a:alt_id="9">
+    <parameters>
+      <label>Synchronize Device Setting</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="10">
+    <alternative condition="Display Activated" language="text/javascript">
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Consumption Time Series Available</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Display Deactivated" language="text/javascript">
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Consumption Time Series Not Visible</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+  <call id="a29" endpoint="" a:alt_id="13">
+    <parameters>
+      <label>Report Status to Central System as ALARM or EVENT "LP Display ON"</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a33" endpoint="" a:alt_id="14">
+    <parameters>
+      <label>Log Entry</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>

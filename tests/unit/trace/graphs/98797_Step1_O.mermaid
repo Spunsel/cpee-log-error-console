@@ -1,0 +1,19 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Receive Customer Request)
+1:task:(Receive Customer Request) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Activate Display| 3:task:(Activate Consumption Time Series Display)
+2:exclusivegateway:{x} --> |Deactivate Display| 4:task:(Deactivate Consumption Time Series Display)
+3:task:(Activate Consumption Time Series Display) --> 5:task:(Report Status to Central System as ALARM or EVENT 'LP Display ON')
+4:task:(Deactivate Consumption Time Series Display) --> 5:task:(Report Status to Central System as ALARM or EVENT 'LP Display ON')
+5:task:(Report Status to Central System as ALARM or EVENT 'LP Display ON') --> 6:task:(Log Entry)
+6:task:(Log Entry) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Customer Change to New Customer| 8:task:(60-Day Deactivation of Consumption Time Series Display)
+7:exclusivegateway:{x} --> |No Customer Change| 9:task:(Synchronize Device Setting)
+8:task:(60-Day Deactivation of Consumption Time Series Display) --> 9:task:(Synchronize Device Setting)
+9:task:(Synchronize Device Setting) --> 10:exclusivegateway:{x}
+10:exclusivegateway:{x} --> |Display Activated| 11:task:(Consumption Time Series Available)
+10:exclusivegateway:{x} --> |Display Deactivated| 12:task:(Consumption Time Series Not Visible)
+11:task:(Consumption Time Series Available) --> 13:task:(Report Status to Central System as ALARM or EVENT 'LP Display ON')
+12:task:(Consumption Time Series Not Visible) --> 13:task:(Report Status to Central System as ALARM or EVENT 'LP Display ON')
+13:task:(Report Status to Central System as ALARM or EVENT 'LP Display ON') --> 14:task:(Log Entry)
+14:task:(Log Entry) --> 15:endevent:(((endevent)))

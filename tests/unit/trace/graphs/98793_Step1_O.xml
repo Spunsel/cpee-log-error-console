@@ -1,0 +1,98 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Customer Decision</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="2">
+    <alternative condition="Activate" language="text/javascript">
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Activate Display</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Notify Network Operator</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Transmit Status as EVENT</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Deactivate" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Deactivate Display</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Transmit Status as ALARM</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+  <call id="a13" endpoint="" a:alt_id="8">
+    <parameters>
+      <label>Enter in Logbook</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="9">
+    <alternative condition="Synchronize" language="text/javascript"/>
+    <alternative condition="Check Change" language="text/javascript">
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Check Customer Change</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="11">
+        <alternative condition="New Customer" language="text/javascript">
+          <call id="a27" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Deactivate for 60 Days</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Change" language="text/javascript"/>
+      </choose>
+    </alternative>
+  </choose>
+  <call id="a21" endpoint="" a:alt_id="13">
+    <parameters>
+      <label>Synchronize Device Setting</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>

@@ -1,0 +1,82 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Customer Decision</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="2">
+    <alternative condition="Activate" language="text/javascript">
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Activate Display</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="9">
+        <alternative condition="No Customer Change" language="text/javascript"/>
+        <alternative condition="Customer Change" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Check Customer Change</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="11">
+            <alternative condition="Deactivate for 60 Days" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Deactivate for 60 Days</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="No Action" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+    </alternative>
+    <alternative condition="Deactivate" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Deactivate Display</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+  <call id="a11" endpoint="" a:alt_id="5">
+    <parameters>
+      <label>Notify Network Operator</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a25" endpoint="" a:alt_id="6">
+    <parameters>
+      <label>Transmit Status to Central System</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a27" endpoint="" a:alt_id="7">
+    <parameters>
+      <label>Log Entry</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>

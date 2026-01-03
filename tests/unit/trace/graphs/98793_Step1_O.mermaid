@@ -1,0 +1,33 @@
+graph LR
+0:startevent:((Start))
+1:task:(Customer Decision)
+2:exclusivegateway:{x}
+3:task:(Activate Display)
+4:task:(Notify Network Operator)
+5:task:(Transmit Status as EVENT)
+6:task:(Deactivate Display)
+7:task:(Transmit Status as ALARM)
+8:task:(Enter in Logbook)
+9:exclusivegateway:{x}
+10:task:(Check Customer Change)
+11:exclusivegateway:{x}
+12:task:(Deactivate for 60 Days)
+13:task:(Synchronize Device Setting)
+14:endevent:(((End)))
+0:startevent:((Start)) --> 1:task:(Customer Decision)
+1:task:(Customer Decision) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Activate| 3:task:(Activate Display)
+2:exclusivegateway:{x} --> |Deactivate| 6:task:(Deactivate Display)
+3:task:(Activate Display) --> 4:task:(Notify Network Operator)
+4:task:(Notify Network Operator) --> 5:task:(Transmit Status as EVENT)
+5:task:(Transmit Status as EVENT) --> 8:task:(Enter in Logbook)
+6:task:(Deactivate Display) --> 7:task:(Transmit Status as ALARM)
+7:task:(Transmit Status as ALARM) --> 8:task:(Enter in Logbook)
+8:task:(Enter in Logbook) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> |Synchronize| 13:task:(Synchronize Device Setting)
+9:exclusivegateway:{x} --> |Check Change| 10:task:(Check Customer Change)
+10:task:(Check Customer Change) --> 11:exclusivegateway:{x}
+11:exclusivegateway:{x} --> |New Customer| 12:task:(Deactivate for 60 Days)
+11:exclusivegateway:{x} --> |No Change| 13:task:(Synchronize Device Setting)
+12:task:(Deactivate for 60 Days) --> 13:task:(Synchronize Device Setting)
+13:task:(Synchronize Device Setting) --> 14:endevent:(((End)))

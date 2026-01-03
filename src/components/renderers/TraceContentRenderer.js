@@ -522,18 +522,30 @@ export class TraceContentRenderer {
 
         // Create table body
         const tbody = this.domRegistry.createElement('tbody');
-        trace.path.forEach(task => {
+        
+        // Track occurrence count per alt_id within this trace
+        const occurrenceCount = new Map();
+        
+        trace.path.forEach((task, taskIndex) => {
+            const altId = task.alt_id || task.id || '';
+            
+            // Calculate occurrence index for this alt_id (1-based)
+            const currentOccurrence = (occurrenceCount.get(altId) || 0) + 1;
+            occurrenceCount.set(altId, currentOccurrence);
+            
             const row = this.domRegistry.createElement('tr', {
                 className: 'trace-row-clickable',
                 title: 'Click to highlight this task across all graphs'
             });
             
-            // Store task alt_id on row for matching highlights
-            row.setAttribute('data-task-alt-id', task.alt_id || task.id || '');
+            // Store task alt_id and occurrence index on row for matching highlights
+            row.setAttribute('data-task-alt-id', altId);
+            row.setAttribute('data-task-index', taskIndex);
+            row.setAttribute('data-occurrence-index', currentOccurrence);
             
             // Add click handler to entire row for highlighting (delegated to coordinator)
             row.addEventListener('click', () => {
-                this.playbackCoordinator.handleRowClick(sectionId, task, row);
+                this.playbackCoordinator.handleRowClick(sectionId, task, row, currentOccurrence);
             });
             
             // ID column - show id if available, otherwise fall back to alt_id
@@ -822,9 +834,12 @@ export class TraceContentRenderer {
         
         if (!actionBar) {
             // Create new action bar with showSearch: false and showSpeedControl: true
+            // Get initial speed from playback coordinator (global setting)
+            const initialSpeed = this.playbackCoordinator.getPlaybackSpeed();
             actionBar = new ActionBar(this.domRegistry, null, sectionId, { 
                 showSearch: false,
                 showSpeedControl: true,
+                initialSpeed: initialSpeed,
                 onSpeedChange: (speedMs) => {
                     this.playbackCoordinator.setPlaybackSpeed(speedMs);
                 }

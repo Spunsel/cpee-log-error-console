@@ -11,6 +11,7 @@ import { ExportSVGButton } from './ExportSVGButton.js';
 import { SearchBar } from './SearchBar.js';
 import { CodeMinimap } from './CodeMinimap.js';
 import { ICONS } from '../../assets/icons.js';
+import { eventBus } from '../../core/EventBus.js';
 
 export class ActionBar {
     constructor(domRegistry = null, searchService = null, sectionId = null, options = {}) {
@@ -40,8 +41,13 @@ export class ActionBar {
         
         // Speed control (for trace auto-play)
         this.speedControlContainer = null;
-        this.currentSpeed = 1000; // Default 1 second (in ms)
+        this.currentSpeed = options.initialSpeed || 1000; // Default 1 second (in ms)
         this.onSpeedChange = options.onSpeedChange || null; // Callback when speed changes
+        
+        // Listen for global speed changes from other action bars
+        if (this.showSpeedControl) {
+            this._setupSpeedChangeListener();
+        }
         
         // Download metadata
         this.instanceNumber = null;
@@ -878,6 +884,55 @@ export class ActionBar {
         this.speedLabel = labelSpan;
 
         this.speedControlContainer.appendChild(wrapper);
+
+        // Initialize with current speed (update label and selected state)
+        this._updateSpeedDisplay(this.currentSpeed);
+    }
+
+    /**
+     * Set up listener for global speed changes
+     * @private
+     */
+    _setupSpeedChangeListener() {
+        this._speedChangeHandler = ({ speedMs }) => {
+            this._updateSpeedDisplay(speedMs);
+        };
+        eventBus.on('trace:playback:speedChanged', this._speedChangeHandler);
+    }
+
+    /**
+     * Update speed control display without triggering callback
+     * @private
+     */
+    _updateSpeedDisplay(speedMs) {
+        const speedLabels = {
+            250: '0.25s',
+            500: '0.5s',
+            1000: '1s',
+            2000: '2s'
+        };
+
+        const label = speedLabels[speedMs] || '1s';
+        this.currentSpeed = speedMs;
+
+        // Update label
+        if (this.speedLabel) {
+            this.speedLabel.textContent = label;
+        }
+
+        // Update selected state in dropdown
+        if (this.speedDropdown) {
+            const options = this.speedDropdown.querySelectorAll('.speed-control-option');
+            options.forEach(opt => {
+                if (parseInt(opt.getAttribute('data-value')) === speedMs) {
+                    opt.classList.add('selected');
+                    opt.setAttribute('aria-selected', 'true');
+                } else {
+                    opt.classList.remove('selected');
+                    opt.setAttribute('aria-selected', 'false');
+                }
+            });
+        }
     }
 
     /**

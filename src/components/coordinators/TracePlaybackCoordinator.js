@@ -222,6 +222,17 @@ export class TracePlaybackCoordinator {
         }
 
         const task = trace.path[currentTaskIndex];
+        
+        // Calculate occurrence index for this task within the trace
+        // (how many times this alt_id has appeared up to and including current index)
+        const altId = task.alt_id || task.id || '';
+        let occurrenceIndex = 0;
+        for (let i = 0; i <= currentTaskIndex; i++) {
+            const t = trace.path[i];
+            if ((t.alt_id || t.id || '') === altId) {
+                occurrenceIndex++;
+            }
+        }
 
         // Clear previous highlights first
         this.clearAllHighlights();
@@ -234,7 +245,8 @@ export class TracePlaybackCoordinator {
             altId: task.alt_id,
             taskLabel: task.task,
             sourceFormat: sourceFormat,
-            sectionId: sectionId
+            sectionId: sectionId,
+            occurrenceIndex: occurrenceIndex
         });
 
         // Highlight only the specific row at the current index in this trace's table
@@ -286,6 +298,17 @@ export class TracePlaybackCoordinator {
                 this.playNextTask();
             }, speedMs);
         }
+
+        // Emit event so all action bars can update their display
+        this.eventBus.emit('trace:playback:speedChanged', { speedMs });
+    }
+
+    /**
+     * Get current playback speed
+     * @returns {number} Current speed in milliseconds
+     */
+    getPlaybackSpeed() {
+        return this.autoPlayState.playbackSpeed;
     }
 
     /**
@@ -322,13 +345,15 @@ export class TracePlaybackCoordinator {
      * @param {string} sectionId - Section identifier
      * @param {Object} task - Task object with id, alt_id, task properties
      * @param {HTMLElement} row - The table row element
+     * @param {number} occurrenceIndex - Which occurrence of this alt_id in the trace (1-based)
      */
-    handleRowClick(sectionId, task, row) {
+    handleRowClick(sectionId, task, row, occurrenceIndex = 1) {
         // Use alt_id for visual row matching, id for task mapping lookup
         const visualKey = task.alt_id || task.id;
-        const taskKey = `${sectionId}:${visualKey}`;
+        // Include occurrence index in the task key for toggle functionality
+        const taskKey = `${sectionId}:${visualKey}:${occurrenceIndex}`;
 
-        // If clicking the same task, toggle off
+        // If clicking the same task occurrence, toggle off
         if (this.highlightedTaskKey === taskKey) {
             this.clearAllHighlights();
             this.eventBus.emit('trace:highlight:clear');
@@ -344,6 +369,7 @@ export class TracePlaybackCoordinator {
         this.highlightedRows.add(row);
 
         // Find and highlight all matching rows (same task in other traces)
+        // Note: We still highlight all matching rows in other traces for consistency
         this.highlightMatchingRows(sectionId, visualKey, row);
 
         // Emit event for cross-graph highlighting
@@ -353,7 +379,8 @@ export class TracePlaybackCoordinator {
             altId: task.alt_id,
             taskLabel: task.task,
             sourceFormat: sourceFormat,
-            sectionId: sectionId
+            sectionId: sectionId,
+            occurrenceIndex: occurrenceIndex
         });
     }
 

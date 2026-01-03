@@ -1,0 +1,21 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Prepare for mushroom picking)
+1:task:(Prepare for mushroom picking) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Go to forest| 3:task:(Travel to forest)
+2:exclusivegateway:{x} --> |Go to market| 14:task:(Go to market)
+3:task:(Travel to forest) --> 4:task:(Search for mushrooms)
+4:task:(Search for mushrooms) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> |Mushrooms found| 6:task:(Pick mushrooms)
+5:exclusivegateway:{x} --> |No mushrooms found| 7:exclusivegateway:{x}
+6:task:(Pick mushrooms) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Enough mushrooms?| 8:task:(Continue searching)
+7:exclusivegateway:{x} --> |Enough mushrooms?| 9:task:(Clean mushrooms)
+8:task:(Continue searching) --> 4:task:(Search for mushrooms)
+9:task:(Clean mushrooms) --> 10:parallelgateway:{AND}
+10:parallelgateway:{AND} --> 11:task:(Cook mushrooms)
+10:parallelgateway:{AND} --> 12:task:(Preserve mushrooms)
+11:task:(Cook mushrooms) --> 13:parallelgateway:{AND}
+12:task:(Preserve mushrooms) --> 13:parallelgateway:{AND}
+13:parallelgateway:{AND} --> 15:endevent:(((endevent)))
+14:task:(Go to market) --> 13:parallelgateway:{AND}
+15:endevent:(((endevent)))

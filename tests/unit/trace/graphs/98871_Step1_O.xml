@@ -1,0 +1,116 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Prepare for mushroom picking</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="2">
+    <alternative condition="Go to forest" language="text/javascript">
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Travel to forest</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Search for mushrooms</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="5">
+          <alternative condition="Mushrooms found" language="text/javascript">
+            <call id="a13" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Pick mushrooms</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="No mushrooms found" language="text/javascript"/>
+        </choose>
+        <loop mode="pre_test" condition="Enough mushrooms?" a:alt_id="7" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Continue searching</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Search for mushrooms</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Mushrooms found" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Pick mushrooms</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="No mushrooms found" language="text/javascript"/>
+          </choose>
+        </loop>
+        <call id="a21" endpoint="" a:alt_id="9">
+          <parameters>
+            <label>Clean mushrooms</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <parallel wait="-1" cancel="last" a:alt_id="10">
+          <parallel_branch>
+            <call id="a27" endpoint="" a:alt_id="11">
+              <parameters>
+                <label>Cook mushrooms</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a29" endpoint="" a:alt_id="12">
+              <parameters>
+                <label>Preserve mushrooms</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+      </loop>
+    </alternative>
+    <alternative condition="Go to market" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Go to market</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+</description>
