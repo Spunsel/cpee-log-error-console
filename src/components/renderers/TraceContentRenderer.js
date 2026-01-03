@@ -448,12 +448,6 @@ export class TraceContentRenderer {
                 expandBtn.setAttribute('aria-expanded', !isExpanded);
                 expandBtn.innerHTML = isExpanded ? ICONS.EXPAND_TRACE : ICONS.COLLAPSE_TRACE;
                 traceDetails.classList.toggle('expanded', !isExpanded);
-                
-                // When expanding, ensure task tokens are marked (fixes issue where tokens aren't marked on first load)
-                if (!isExpanded) {
-                    // Trace is being expanded, mark task tokens with retry to ensure they're marked
-                    this.markTaskStringTokensWithRetry(traceDetailsCode, 3, 50);
-                }
             });
             traceHeader.appendChild(expandBtn);
         }
@@ -496,7 +490,7 @@ export class TraceContentRenderer {
         const thead = this.domRegistry.createElement('thead');
         const headerRow = this.domRegistry.createElement('tr');
         
-        const headers = ['ID', 'Alt ID', 'Label'];
+        const headers = ['ID', 'Alt ID', 'Task'];
         headers.forEach(headerText => {
             const th = this.domRegistry.createElement('th', {
                 textContent: headerText

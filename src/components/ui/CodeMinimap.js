@@ -47,10 +47,15 @@ export class CodeMinimap {
         
         // Bound methods for event listeners
         this._onCodeScroll = this._onCodeScroll.bind(this);
+        this._onMinimapScroll = this._onMinimapScroll.bind(this);
         this._onMinimapClick = this._onMinimapClick.bind(this);
         this._onViewportDragStart = this._onViewportDragStart.bind(this);
         this._onViewportDrag = this._onViewportDrag.bind(this);
         this._onViewportDragEnd = this._onViewportDragEnd.bind(this);
+        
+        // Flag to prevent scroll loops
+        this._isScrollingFromMinimap = false;
+        this._isScrollingFromCode = false;
     }
 
     /**
@@ -204,6 +209,9 @@ export class CodeMinimap {
         // Add scroll listener to code container
         codeContainer.addEventListener('scroll', this._onCodeScroll);
         
+        // Add scroll listener to minimap content for bidirectional sync
+        this.minimapContent.addEventListener('scroll', this._onMinimapScroll);
+        
         // Initial update
         this.updateContent();
         this.updateViewport();
@@ -237,6 +245,10 @@ export class CodeMinimap {
         if (this.codeContainer) {
             this.codeContainer.removeEventListener('scroll', this._onCodeScroll);
             this.codeContainer = null;
+        }
+        
+        if (this.minimapContent) {
+            this.minimapContent.removeEventListener('scroll', this._onMinimapScroll);
         }
         
         if (this.element && this.element.parentNode) {
@@ -610,6 +622,11 @@ export class CodeMinimap {
      * @private
      */
     _onCodeScroll() {
+        // Skip if this scroll was triggered by minimap scroll (prevent loops)
+        if (this._isScrollingFromMinimap) {
+            return;
+        }
+        
         if (!this.isDragging) {
             // Use requestAnimationFrame for smoother updates
             if (this._scrollRAF) {
@@ -620,6 +637,66 @@ export class CodeMinimap {
                 this._syncMinimapScroll();
             });
         }
+    }
+
+    /**
+     * Handle minimap scroll (user scrolling the minimap)
+     * Syncs main code scroll position with minimap
+     * @private
+     */
+    _onMinimapScroll() {
+        // Skip if this scroll was triggered by code scroll (prevent loops)
+        if (this._isScrollingFromCode) {
+            return;
+        }
+        
+        if (!this.codeContainer || !this.minimapContent) {
+            return;
+        }
+        
+        // Use requestAnimationFrame for smoother updates
+        if (this._minimapScrollRAF) {
+            cancelAnimationFrame(this._minimapScrollRAF);
+        }
+        
+        this._minimapScrollRAF = requestAnimationFrame(() => {
+            this._syncCodeScroll();
+            this.updateViewport();
+        });
+    }
+
+    /**
+     * Sync main code scroll position with minimap scroll
+     * When minimap scrolls, main code should follow
+     * @private
+     */
+    _syncCodeScroll() {
+        if (!this.codeContainer || !this.minimapContent) {
+            return;
+        }
+        
+        const minimapScrollTop = this.minimapContent.scrollTop;
+        const minimapScrollHeight = this.minimapContent.scrollHeight;
+        const minimapClientHeight = this.minimapContent.clientHeight;
+        const minimapMaxScroll = minimapScrollHeight - minimapClientHeight;
+        
+        const codeScrollHeight = this.codeContainer.scrollHeight;
+        const codeClientHeight = this.codeContainer.clientHeight;
+        const codeMaxScroll = codeScrollHeight - codeClientHeight;
+        
+        // Calculate scroll progress (0 to 1)
+        const scrollProgress = minimapMaxScroll > 0 ? minimapScrollTop / minimapMaxScroll : 0;
+        
+        // Set flag to prevent scroll loops
+        this._isScrollingFromMinimap = true;
+        
+        // Apply same progress to code container
+        this.codeContainer.scrollTop = scrollProgress * codeMaxScroll;
+        
+        // Clear flag after a short delay
+        requestAnimationFrame(() => {
+            this._isScrollingFromMinimap = false;
+        });
     }
 
     /**
@@ -644,8 +721,16 @@ export class CodeMinimap {
         // Calculate scroll progress (0 to 1)
         const scrollProgress = codeMaxScroll > 0 ? codeScrollTop / codeMaxScroll : 0;
         
+        // Set flag to prevent scroll loops
+        this._isScrollingFromCode = true;
+        
         // Apply same progress to minimap
         this.minimapContent.scrollTop = scrollProgress * minimapMaxScroll;
+        
+        // Clear flag after a short delay
+        requestAnimationFrame(() => {
+            this._isScrollingFromCode = false;
+        });
     }
 
     /**
