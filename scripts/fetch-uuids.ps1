@@ -22,7 +22,8 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 
 # Process numbers to fetch UUIDs for (from ConfigManager.js)
 # previous: 8618..99344
-$processNumbers = @(73190..99428) # | Where-Object { $_ -ne 98647 }
+# previous: 73190..99428
+$processNumbers = @(99428..101454) # | Where-Object { $_ -ne 98647 }
 
 # Output file
 $outputFile = "scripts\temp\uuids\uuid-mapping.json"
