@@ -477,47 +477,67 @@ export class TraceContentRenderer {
 
         traceItem.appendChild(traceHeader);
 
-        // Trace details (expandable) - show full trace as JSON-like format
+        // Trace details (expandable) - show full trace as table
         const traceDetails = this.domRegistry.createElement('div', {
             className: 'trace-details'
         });
 
-        // Full trace details as JSON-like format
-        const traceDetailsContent = this.domRegistry.createElement('pre', {
-            className: 'trace-details-json'
+        // Create table container
+        const tableContainer = this.domRegistry.createElement('div', {
+            className: 'traces-table-container'
         });
-        const traceDetailsCode = this.domRegistry.createElement('code', {
-            className: 'language-json',
-            textContent: this.formatTraceAsJSON(trace)
-        });
-        traceDetailsContent.appendChild(traceDetailsCode);
-        traceDetails.appendChild(traceDetailsContent);
 
-        // Apply syntax highlighting to trace JSON using SyntaxHighlightingService for consistency
-        try {
-            const syntaxService = serviceFactory.get('SyntaxHighlightingService');
-            if (syntaxService && typeof syntaxService.highlightCodeBlocks === 'function') {
-                syntaxService.highlightCodeBlocks(traceDetailsContent);
-                // Use a longer timeout and retry mechanism to ensure tokens are marked
-                this.markTaskStringTokensWithRetry(traceDetailsCode);
-            } else if (window.Prism && typeof window.Prism.highlightElement === 'function') {
-                window.Prism.highlightElement(traceDetailsCode);
-                // Use a longer timeout and retry mechanism to ensure tokens are marked
-                this.markTaskStringTokensWithRetry(traceDetailsCode);
-            }
-        } catch (error) {
-            if (window.Prism && typeof window.Prism.highlightElement === 'function') {
-                try {
-                    window.Prism.highlightElement(traceDetailsCode);
-                    // Use a longer timeout and retry mechanism to ensure tokens are marked
-                    this.markTaskStringTokensWithRetry(traceDetailsCode);
-                } catch (prismError) {
-                    console.warn('[TraceContentRenderer] Failed to highlight trace JSON:', prismError);
-                }
-            } else {
-                console.warn('[TraceContentRenderer] Syntax highlighting not available:', error);
-            }
-        }
+        // Create table
+        const table = this.domRegistry.createElement('table', {
+            className: 'traces-table'
+        });
+
+        // Create table header
+        const thead = this.domRegistry.createElement('thead');
+        const headerRow = this.domRegistry.createElement('tr');
+        
+        const headers = ['ID', 'Alt ID', 'Label'];
+        headers.forEach(headerText => {
+            const th = this.domRegistry.createElement('th', {
+                textContent: headerText
+            });
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Create table body
+        const tbody = this.domRegistry.createElement('tbody');
+        trace.path.forEach(task => {
+            const row = this.domRegistry.createElement('tr');
+            
+            // ID column
+            const idCell = this.domRegistry.createElement('td', {
+                className: 'traces-table-id',
+                textContent: task.id || ''
+            });
+            row.appendChild(idCell);
+            
+            // Alt ID column
+            const altIdCell = this.domRegistry.createElement('td', {
+                className: 'traces-table-alt-id',
+                textContent: task.alt_id || ''
+            });
+            row.appendChild(altIdCell);
+            
+            // Label column
+            const labelCell = this.domRegistry.createElement('td', {
+                className: 'traces-table-label',
+                textContent: task.task || ''
+            });
+            row.appendChild(labelCell);
+            
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+
+        tableContainer.appendChild(table);
+        traceDetails.appendChild(tableContainer);
 
         // Trace metadata (if available)
         if (trace.metadata && Object.keys(trace.metadata).length > 0) {

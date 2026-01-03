@@ -268,79 +268,59 @@
    max-height: 2000px;
 }
 
-/* Trace Details JSON Format */
-.trace-details-json {
+/* Traces Table Container */
+.traces-table-container {
    margin: 0;
-   padding: var(--spacing-md);
-   background: var(--background-color);
+   padding: 0.5em;
+   background: var(--surface-color);
    border-top: 1px solid var(--border-color);
+   overflow: auto;
+}
+
+/* Traces Table */
+.traces-table {
+   width: 100%;
+   border-collapse: collapse;
    font-family: var(--font-mono);
    font-size: var(--font-size-sm);
-   line-height: 1.6;
-   overflow-x: auto;
 }
 
-.trace-details-json code {
-   background: transparent;
-   border: none;
-   padding: 0;
+.traces-table th,
+.traces-table td {
+   padding: 0.25em 0.5em;
+   text-align: left;
+   border: 1px solid var(--border-color);
+}
+
+.traces-table th {
+   background: var(--section-header-bg);
+   font-weight: 600;
    color: var(--text-primary);
-   font-size: inherit;
-   font-family: var(--font-mono);
 }
 
-/* Trace JSON Syntax Highlighting Colors - Light Mode */
-/* Punctuation: {, }, , */
-.trace-details-json code.language-json .token.punctuation {
-   color: #9ca3af !important; /* colors.trace.punctuation */
+.traces-table td {
+   color: var(--text-primary);
 }
 
-/* Operators: : (colon) */
-.trace-details-json code.language-json .token.operator {
-   color: #9ca3af !important; /* colors.trace.operator - same as punctuation */
+/* ID columns - red color */
+.traces-table-id,
+.traces-table-alt-id {
+   color: #b91c1c !important;
 }
 
-/* Keys: JSON property names (id, alt_id, task) */
-.trace-details-json code.language-json .token.property {
-   color: #000000 !important; /* colors.trace.keys - black */
+/* Label column - green color */
+.traces-table-label {
+   color: #008000 !important;
 }
 
-/* IDs: string values after "id" and "alt_id" properties */
-/* Default all string values to ID color (covers id and alt_id) */
-.trace-details-json code.language-json .token.string {
-   color: #b91c1c !important; /* colors.trace.ids */
+/* Dark Mode Traces Table */
+[data-theme="dark"] .traces-table-id,
+[data-theme="dark"] .traces-table-alt-id {
+   color: #f5a5a5 !important;
 }
 
-/* Tasks: string values after "task" property */
-/* Each object structure: {"id":"...","alt_id":"...","task":"..."} */
-/* Target string tokens marked with token-task-string class (added by JavaScript) */
-.trace-details-json code.language-json .token.string.token-task-string {
-   color: #008000 !important; /* colors.trace.tasks - task string values */
-}
-
-/* Dark Mode Trace JSON Syntax Highlighting */
-[data-theme="dark"] .trace-details-json code.language-json .token.punctuation {
-   color: #94a3b8 !important; /* colors.trace.dark.punctuation */
-}
-
-/* Operators: : (colon) - Dark Mode */
-[data-theme="dark"] .trace-details-json code.language-json .token.operator {
-   color: #94a3b8 !important; /* colors.trace.dark.operator - same as punctuation */
-}
-
-/* Keys: JSON property names (id, alt_id, task) - Dark Mode */
-[data-theme="dark"] .trace-details-json code.language-json .token.property {
-   color: #b8c5d8 !important; /* colors.trace.dark.keys - lighter than punctuation */
-}
-
-[data-theme="dark"] .trace-details-json code.language-json .token.string {
-   color: #f5a5a5 !important; /* colors.trace.dark.ids - default for all strings */
-}
-
-/* Tasks: string values after "task" property - Dark Mode */
-/* Target string tokens marked with token-task-string class (added by JavaScript) */
-[data-theme="dark"] .trace-details-json code.language-json .token.string.token-task-string {
-   color: #86efac !important; /* colors.trace.dark.tasks - task string values (green) */
+[data-theme="dark"] .traces-table-label {
+   color: #86efac !important;
 }
 
 /* Trace Path Container */

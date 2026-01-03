@@ -373,14 +373,15 @@ export class CodeMinimap {
         // Fallback if line-height is not a number (e.g., "normal")
         const lineHeight = !isNaN(minimapLineHeight) ? minimapLineHeight : 3.5;
         
-        // Get padding from minimap-code (parent pre element)
-        const minimapCodePadding = this.minimapCode ? 
-            parseFloat(window.getComputedStyle(this.minimapCode).paddingTop) || 0 : 4;
+        // Get padding and margin from minimap-code (parent pre element)
+        const minimapCodeStyle = this.minimapCode ? window.getComputedStyle(this.minimapCode) : null;
+        const minimapCodePadding = minimapCodeStyle ? parseFloat(minimapCodeStyle.paddingTop) || 0 : 4;
+        const minimapCodeMargin = minimapCodeStyle ? parseFloat(minimapCodeStyle.marginTop) || 0 : 7;
         
         // Create markers at the minimap's line positions
         preprocessingLines.forEach(lineNum => {
-            // Calculate position in minimap: padding + (lineNumber - 1) * lineHeight + offset
-            const markerTop = minimapCodePadding + (lineNum - 1) * lineHeight + 7;
+            // Calculate position in minimap: padding + (lineNumber - 1) * lineHeight + margin offset
+            const markerTop = minimapCodePadding + (lineNum - 1) * lineHeight + minimapCodeMargin;
             
             const marker = document.createElement('div');
             marker.className = 'minimap-marker minimap-marker-preprocessing';
@@ -436,9 +437,10 @@ export class CodeMinimap {
         const minimapLineHeight = parseFloat(computedStyle.lineHeight);
         const lineHeight = !isNaN(minimapLineHeight) ? minimapLineHeight : 3.5;
         
-        // Get padding from minimap-code (parent pre element)
-        const minimapCodePadding = this.minimapCode ? 
-            parseFloat(window.getComputedStyle(this.minimapCode).paddingTop) || 0 : 4;
+        // Get padding and margin from minimap-code (parent pre element)
+        const minimapCodeStyle = this.minimapCode ? window.getComputedStyle(this.minimapCode) : null;
+        const minimapCodePadding = minimapCodeStyle ? parseFloat(minimapCodeStyle.paddingTop) || 0 : 4;
+        const minimapCodeMargin = minimapCodeStyle ? parseFloat(minimapCodeStyle.marginTop) || 0 : 7;
         
         // Track unique lines to avoid duplicate markers
         const markedLines = new Set();
@@ -458,8 +460,8 @@ export class CodeMinimap {
             }
             markedLines.add(lineNum);
             
-            // Calculate position in minimap using minimap's line height + offset
-            const markerTop = minimapCodePadding + (lineNum - 1) * lineHeight + 7;
+            // Calculate position in minimap using minimap's line height + margin offset
+            const markerTop = minimapCodePadding + (lineNum - 1) * lineHeight + minimapCodeMargin;
             
             const marker = document.createElement('div');
             marker.className = 'minimap-marker minimap-marker-search';
