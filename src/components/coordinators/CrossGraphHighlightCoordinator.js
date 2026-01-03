@@ -76,6 +76,7 @@ export class CrossGraphHighlightCoordinator {
             // This is used when there are duplicate alt_ids in the CPEE graph
             this.traceOccurrenceIndex = occurrenceIndex || 1;
             this.traceAltId = altId;
+            this.isTraceHighlight = true; // Flag to indicate this is a trace highlight
             
             // Try to find the task in the pre-existing mapping using task.id first
             if (taskId && this.currentStepMapping) {
@@ -251,6 +252,10 @@ export class CrossGraphHighlightCoordinator {
         // Clear previous highlights and apply new highlights
         this.clearAllHighlights();
         this.applyHighlightsWithGatewayObject(baseTaskId, sourceFormat, sectionId, taskId, resolvedGatewayObject);
+        
+        // Clear trace highlight flag after highlighting is complete
+        // This ensures normal clicks don't accidentally use stale trace occurrence data
+        this.isTraceHighlight = false;
     }
     
     /**
@@ -793,8 +798,9 @@ export class CrossGraphHighlightCoordinator {
         
         // For CPEE sections with occurrence index, find the Nth matching element
         // This handles cases where the same alt_id appears multiple times (e.g., loops)
-        if (sectionId.includes('cpee') && this.traceOccurrenceIndex && this.traceAltId) {
-            console.log('[CrossGraphHighlight] Trying occurrence-based lookup:', {
+        // ONLY use this for trace highlights (not normal task clicks)
+        if (this.isTraceHighlight && sectionId.includes('cpee') && this.traceOccurrenceIndex && this.traceAltId) {
+            console.log('[CrossGraphHighlight] Trying occurrence-based lookup (trace):', {
                 sectionId,
                 altId: this.traceAltId,
                 occurrenceIndex: this.traceOccurrenceIndex
@@ -967,6 +973,7 @@ export class CrossGraphHighlightCoordinator {
         if (clearTraceOccurrence) {
             this.traceOccurrenceIndex = null;
             this.traceAltId = null;
+            this.isTraceHighlight = false;
         }
         
         // Emit event to notify TraceContentRenderer to clear trace row highlights
