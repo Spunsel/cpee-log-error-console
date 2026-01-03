@@ -271,7 +271,7 @@
 /* Traces Table Container */
 .traces-table-container {
    margin: 0;
-   padding: 0.5em;
+   padding: 0;
    background: var(--surface-color);
    border-top: 1px solid var(--border-color);
    overflow: auto;
@@ -280,9 +280,22 @@
 /* Traces Table */
 .traces-table {
    width: 100%;
-   border-collapse: collapse;
+   border-collapse: separate;
+   border-spacing: 0;
    font-family: var(--font-mono);
    font-size: var(--font-size-sm);
+   border-bottom-left-radius: var(--border-radius);
+   border-bottom-right-radius: var(--border-radius);
+   overflow: hidden;
+}
+
+/* Bottom corner radius for last row */
+.traces-table tbody tr:last-child td:first-child {
+   border-bottom-left-radius: var(--border-radius);
+}
+
+.traces-table tbody tr:last-child td:last-child {
+   border-bottom-right-radius: var(--border-radius);
 }
 
 .traces-table th,
