@@ -253,6 +253,12 @@ export class CrossGraphHighlightCoordinator {
         this.clearAllHighlights();
         this.applyHighlightsWithGatewayObject(baseTaskId, sourceFormat, sectionId, taskId, resolvedGatewayObject);
         
+        // Save the trace occurrence index for comparison on next click
+        // This allows detecting when a different occurrence of the same task is clicked
+        if (this.isTraceHighlight && this.traceOccurrenceIndex) {
+            this.lastTraceOccurrenceIndex = this.traceOccurrenceIndex;
+        }
+        
         // Clear trace highlight flag after highlighting is complete
         // This ensures normal clicks don't accidentally use stale trace occurrence data
         this.isTraceHighlight = false;
@@ -309,12 +315,24 @@ export class CrossGraphHighlightCoordinator {
 
     /**
      * Check if the same task is clicked again
+     * For trace highlights, also considers the occurrence index
      * @param {string} taskId - Task identifier
      * @param {string} sectionId - Section identifier
      * @returns {boolean} True if same task clicked
      */
     isSameTaskClicked(taskId, sectionId) {
-        return this.activeTaskId === taskId && this.activeSourceSection === sectionId;
+        const sameTask = this.activeTaskId === taskId && this.activeSourceSection === sectionId;
+        
+        // For trace highlights, also check if occurrence index is different
+        // If same taskId but different occurrence, it's NOT the same element
+        if (sameTask && this.isTraceHighlight && this.traceOccurrenceIndex) {
+            // Compare with the previous occurrence index
+            if (this.lastTraceOccurrenceIndex !== this.traceOccurrenceIndex) {
+                return false; // Different occurrence, not the same element
+            }
+        }
+        
+        return sameTask;
     }
 
     /**
@@ -842,6 +860,54 @@ export class CrossGraphHighlightCoordinator {
         
         // Track this highlight
         this.trackHighlight(sectionId, taskId);
+        
+        // For CPEE sections (normal clicks, NOT trace highlights):
+        // Also highlight all other elements with the same alt_id (e.g., duplicates in loops)
+        if (!this.isTraceHighlight && sectionId.includes('cpee')) {
+            this.highlightAllDuplicateCPEEElements(container, taskElement, isActive);
+        }
+    }
+
+    /**
+     * Highlight all CPEE elements that have the same element-alt_id as the given element
+     * Used for normal clicks to highlight duplicate tasks (e.g., same task appearing in loops)
+     * @param {HTMLElement} container - SVG container
+     * @param {HTMLElement} primaryElement - The primary element that was already highlighted
+     * @param {boolean} isActive - Whether this is the active (clicked) highlight
+     */
+    highlightAllDuplicateCPEEElements(container, primaryElement, isActive) {
+        if (!container || !primaryElement) {
+            return;
+        }
+        
+        // Get the alt_id from the primary element
+        const altId = primaryElement.getAttribute('element-alt_id');
+        if (!altId) {
+            return;
+        }
+        
+        // Find all elements with the same element-alt_id
+        const allElements = container.querySelectorAll(`[element-alt_id="${CSS.escape(altId)}"]`);
+        
+        if (allElements.length <= 1) {
+            return; // No duplicates to highlight
+        }
+        
+        console.log('[CrossGraphHighlight] Highlighting duplicate CPEE elements:', {
+            altId,
+            totalCount: allElements.length
+        });
+        
+        // Highlight all elements except the primary one (which is already highlighted)
+        allElements.forEach(el => {
+            if (el !== primaryElement) {
+                // Find the parent g.element if this is a nested element
+                const elementGroup = el.closest('g.element') || el;
+                if (elementGroup !== primaryElement) {
+                    this.applySectionHighlight(container.id, elementGroup, isActive);
+                }
+            }
+        });
     }
 
     /**
@@ -974,6 +1040,7 @@ export class CrossGraphHighlightCoordinator {
             this.traceOccurrenceIndex = null;
             this.traceAltId = null;
             this.isTraceHighlight = false;
+            this.lastTraceOccurrenceIndex = null;
         }
         
         // Emit event to notify TraceContentRenderer to clear trace row highlights
