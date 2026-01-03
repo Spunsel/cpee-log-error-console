@@ -295,7 +295,8 @@
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .search-icon svg,
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .search-clear-btn svg,
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .action-bar-nav-btn svg,
-[data-theme="dark"] .cpee-section .trace-play-btn svg {
+[data-theme="dark"] .cpee-section .trace-play-btn svg,
+[data-theme="dark"] .cpee-section .speed-control-btn svg {
    filter: none !important;
    opacity: 1 !important;
    background-color: transparent !important;
@@ -314,7 +315,8 @@
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .search-icon svg *,
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .search-clear-btn svg *,
 [data-theme="dark"] .cpee-section .raw-content-actions-bar .action-bar-nav-btn svg *,
-[data-theme="dark"] .cpee-section .trace-play-btn svg * {
+[data-theme="dark"] .cpee-section .trace-play-btn svg *,
+[data-theme="dark"] .cpee-section .speed-control-btn svg * {
    fill: var(--text-primary) !important;
    stroke: var(--text-primary) !important;
    filter: none !important;
@@ -352,6 +354,13 @@
 /* When playing, the button has blue background so icon should be white */
 [data-theme="dark"] .cpee-section .trace-play-btn.playing svg path {
    fill: currentColor !important;
+}
+
+/* Speed control icon uses stroke only */
+[data-theme="dark"] .cpee-section .speed-control-btn svg path {
+   fill: none !important;
+   stroke: currentColor !important;
+   filter: none !important;
 }
 
 /* CPEE Graph - Graphics symbols in paths (icon paths, symbol paths) */

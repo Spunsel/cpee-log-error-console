@@ -285,6 +285,111 @@
 }
 
 /* ========================================
+   SPEED CONTROL DROPDOWN
+   ======================================== */
+
+/* Speed control container */
+.action-bar-speed-container {
+   display: flex;
+   align-items: center;
+   position: relative;
+}
+
+/* Speed control wrapper for positioning dropdown */
+.speed-control-wrapper {
+   position: relative;
+   display: inline-flex;
+}
+
+/* Speed control button - matches other action bar buttons */
+.speed-control-btn {
+   background: var(--background-color);
+   border: 1px solid var(--border-color);
+   color: var(--text-primary);
+   cursor: pointer;
+   padding: 4px 6px;
+   border-radius: var(--border-radius-sm);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 4px;
+   height: 28px;
+   box-sizing: border-box;
+   transition: var(--button-transition);
+   font-size: 11px;
+   font-family: inherit;
+}
+
+.speed-control-btn:hover {
+   background: var(--hover-bg);
+   border-color: var(--primary-color);
+}
+
+.speed-control-btn.active {
+   background: var(--hover-bg);
+   border-color: var(--primary-color);
+}
+
+/* Speed control icon */
+.speed-control-icon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.speed-control-icon svg {
+   width: var(--icon-size-sm);
+   height: var(--icon-size-sm);
+}
+
+/* Speed control label */
+.speed-control-label {
+   font-size: 11px;
+   font-weight: 500;
+   color: var(--text-primary);
+   min-width: 28px;
+   text-align: center;
+}
+
+/* Speed control dropdown */
+.speed-control-dropdown {
+   position: absolute;
+   top: 100%;
+   left: 0;
+   margin-top: 4px;
+   background: var(--background-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius-sm);
+   box-shadow: var(--shadow-md);
+   z-index: 1000;
+   min-width: 70px;
+   overflow: hidden;
+}
+
+/* Speed control option */
+.speed-control-option {
+   padding: 6px 10px;
+   font-size: 12px;
+   color: var(--text-primary);
+   cursor: pointer;
+   transition: background-color 0.15s ease;
+   text-align: center;
+}
+
+.speed-control-option:hover {
+   background: var(--hover-bg);
+}
+
+.speed-control-option.selected {
+   background: var(--primary-color);
+   color: var(--text-white);
+}
+
+.speed-control-option.selected:hover {
+   background: var(--primary-color-dark);
+}
+
+/* ========================================
    RESPONSIVE ADJUSTMENTS
    ======================================== */
 

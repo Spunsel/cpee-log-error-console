@@ -36,6 +36,12 @@ export class ActionBar {
         this.showMinimap = options.showMinimap === true; // Default to false
         this.minimapContentType = options.minimapContentType || 'mermaid'; // 'cpee' or 'mermaid'
         this.showPreprocessingInMinimap = options.showPreprocessingInMinimap === true; // Default to false
+        this.showSpeedControl = options.showSpeedControl === true; // Default to false
+        
+        // Speed control (for trace auto-play)
+        this.speedControlContainer = null;
+        this.currentSpeed = 1000; // Default 1 second (in ms)
+        this.onSpeedChange = options.onSpeedChange || null; // Callback when speed changes
         
         // Download metadata
         this.instanceNumber = null;
@@ -233,6 +239,17 @@ export class ActionBar {
             copyButtonContainer.className = 'action-bar-copy-container';
             this.copyButtonContainer = copyButtonContainer;
             rightSide.appendChild(copyButtonContainer);
+        }
+        
+        // Create speed control container (for trace auto-play)
+        if (this.showSpeedControl) {
+            const speedControlContainer = document.createElement('div');
+            speedControlContainer.className = 'action-bar-speed-container';
+            this.speedControlContainer = speedControlContainer;
+            rightSide.appendChild(speedControlContainer);
+            
+            // Create speed control UI
+            this._createSpeedControl();
         }
         
         // Create view log button container (only if showViewLog is true)
@@ -761,6 +778,188 @@ export class ActionBar {
         if (this.minimap) {
             this.minimap.destroy();
             this.minimap = null;
+        }
+    }
+
+    /**
+     * Create speed control dropdown for trace auto-play
+     * @private
+     */
+    _createSpeedControl() {
+        if (!this.speedControlContainer) {
+            return;
+        }
+
+        // Speed options in milliseconds
+        const speedOptions = [
+            { label: '0.25s', value: 250 },
+            { label: '0.5s', value: 500 },
+            { label: '1s', value: 1000 },
+            { label: '2s', value: 2000 }
+        ];
+
+        // Create wrapper for button and dropdown
+        const wrapper = document.createElement('div');
+        wrapper.className = 'speed-control-wrapper';
+
+        // Create the button with icon and label
+        const button = document.createElement('button');
+        button.className = 'speed-control-btn';
+        button.title = 'Trace autoplay speed';
+        button.setAttribute('aria-label', 'Trace autoplay speed');
+        button.setAttribute('aria-haspopup', 'listbox');
+        button.setAttribute('aria-expanded', 'false');
+
+        // Icon
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'speed-control-icon';
+        iconSpan.innerHTML = ICONS.SPEED_CONTROL;
+        button.appendChild(iconSpan);
+
+        // Label showing current speed
+        const labelSpan = document.createElement('span');
+        labelSpan.className = 'speed-control-label';
+        labelSpan.textContent = '1s';
+        button.appendChild(labelSpan);
+
+        wrapper.appendChild(button);
+
+        // Create dropdown
+        const dropdown = document.createElement('div');
+        dropdown.className = 'speed-control-dropdown';
+        dropdown.setAttribute('role', 'listbox');
+        dropdown.style.display = 'none';
+
+        speedOptions.forEach(option => {
+            const item = document.createElement('div');
+            item.className = 'speed-control-option';
+            item.setAttribute('role', 'option');
+            item.setAttribute('data-value', option.value);
+            item.textContent = option.label;
+            
+            // Mark default as selected
+            if (option.value === this.currentSpeed) {
+                item.classList.add('selected');
+                item.setAttribute('aria-selected', 'true');
+            }
+
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this._selectSpeed(option.value, option.label, dropdown);
+                this._hideSpeedDropdown(button, dropdown);
+            });
+
+            dropdown.appendChild(item);
+        });
+
+        wrapper.appendChild(dropdown);
+
+        // Toggle dropdown on button click
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isExpanded = dropdown.style.display !== 'none';
+            if (isExpanded) {
+                this._hideSpeedDropdown(button, dropdown);
+            } else {
+                this._showSpeedDropdown(button, dropdown);
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!wrapper.contains(e.target)) {
+                this._hideSpeedDropdown(button, dropdown);
+            }
+        });
+
+        // Store references
+        this.speedButton = button;
+        this.speedDropdown = dropdown;
+        this.speedLabel = labelSpan;
+
+        this.speedControlContainer.appendChild(wrapper);
+    }
+
+    /**
+     * Show speed dropdown
+     * @private
+     */
+    _showSpeedDropdown(button, dropdown) {
+        dropdown.style.display = 'block';
+        button.setAttribute('aria-expanded', 'true');
+        button.classList.add('active');
+    }
+
+    /**
+     * Hide speed dropdown
+     * @private
+     */
+    _hideSpeedDropdown(button, dropdown) {
+        dropdown.style.display = 'none';
+        button.setAttribute('aria-expanded', 'false');
+        button.classList.remove('active');
+    }
+
+    /**
+     * Select a speed option
+     * @private
+     */
+    _selectSpeed(value, label, dropdown) {
+        this.currentSpeed = value;
+        
+        // Update label
+        if (this.speedLabel) {
+            this.speedLabel.textContent = label;
+        }
+
+        // Update selected state in dropdown
+        const options = dropdown.querySelectorAll('.speed-control-option');
+        options.forEach(opt => {
+            if (parseInt(opt.getAttribute('data-value')) === value) {
+                opt.classList.add('selected');
+                opt.setAttribute('aria-selected', 'true');
+            } else {
+                opt.classList.remove('selected');
+                opt.setAttribute('aria-selected', 'false');
+            }
+        });
+
+        // Trigger callback
+        if (this.onSpeedChange) {
+            this.onSpeedChange(value);
+        }
+    }
+
+    /**
+     * Set speed control callback
+     * @param {Function} callback - Function to call when speed changes
+     */
+    setSpeedChangeCallback(callback) {
+        this.onSpeedChange = callback;
+    }
+
+    /**
+     * Get current playback speed in milliseconds
+     * @returns {number} Current speed in milliseconds
+     */
+    getCurrentSpeed() {
+        return this.currentSpeed;
+    }
+
+    /**
+     * Set current playback speed
+     * @param {number} speedMs - Speed in milliseconds
+     */
+    setCurrentSpeed(speedMs) {
+        const speedLabels = {
+            250: '0.25s',
+            500: '0.5s',
+            1000: '1s',
+            2000: '2s'
+        };
+        
+        if (speedLabels[speedMs]) {
+            this._selectSpeed(speedMs, speedLabels[speedMs], this.speedDropdown);
         }
     }
 }

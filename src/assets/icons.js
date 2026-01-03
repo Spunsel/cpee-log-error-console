@@ -19,9 +19,9 @@
  * ChatGPT style - 20x20px for copy buttons
  */
 export const ICON_COPY = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="9" y="9" width="13" height="13" rx="2.5"></rect>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    <svg viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" aria-hidden="true">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.676 14.248C17.676 15.8651 16.3651 17.176 14.748 17.176H7.428C5.81091 17.176 4.5 15.8651 4.5 14.248V6.928C4.5 5.31091 5.81091 4 7.428 4H14.748C16.3651 4 17.676 5.31091 17.676 6.928V14.248Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M10.252 20H17.572C19.1891 20 20.5 18.689 20.5 17.072V9.75195" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
 `;
 
@@ -768,6 +768,17 @@ export const ICON_PAUSE_TRACE = `
     </svg>
 `;
 
+/**
+ * Speed Control icon - Clock/timer with pointer
+ * Used for controlling auto-play speed in trace view - 16x16px
+ * Design: Circular clock with pointer and partial arc
+ */
+export const ICON_SPEED_CONTROL = `
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+        <path d="M4.51555 7C3.55827 8.4301 3 10.1499 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3V6M12 12L8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -826,7 +837,8 @@ export const ICONS = {
     VIEW_LOG: ICON_VIEW_LOG,
     MINIMAP: ICON_MINIMAP,
     PLAY_TRACE: ICON_PLAY_TRACE,
-    PAUSE_TRACE: ICON_PAUSE_TRACE
+    PAUSE_TRACE: ICON_PAUSE_TRACE,
+    SPEED_CONTROL: ICON_SPEED_CONTROL
 };
 
 /**
@@ -876,7 +888,8 @@ export function getIcon(iconName) {
         'view-log': ICON_VIEW_LOG,
         'minimap': ICON_MINIMAP,
         'play-trace': ICON_PLAY_TRACE,
-        'pause-trace': ICON_PAUSE_TRACE
+        'pause-trace': ICON_PAUSE_TRACE,
+        'speed-control': ICON_SPEED_CONTROL
     };
 
     return iconMap[iconName.toLowerCase()] || '';
