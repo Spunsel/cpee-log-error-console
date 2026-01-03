@@ -976,8 +976,15 @@ export class TraceContentRenderer {
             this.clearAllTraceHighlights();
         });
         
-        // Listen for step changes to clear highlights
-        this.eventBus.on('step:changed', () => {
+        // Listen for step changes to clear highlights and stop auto-play
+        this.eventBus.on('stepViewer:stepChanged', () => {
+            this.stopAutoPlay();
+            this.clearAllTraceHighlights();
+        });
+        
+        // Also listen for step navigation from dropdown
+        this.eventBus.on('stepNavigator:stepChanged', () => {
+            this.stopAutoPlay();
             this.clearAllTraceHighlights();
         });
     }
