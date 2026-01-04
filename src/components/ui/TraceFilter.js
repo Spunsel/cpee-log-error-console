@@ -43,18 +43,6 @@ export class TraceFilter {
             'id': null,
             'task-label': null
         };
-        
-        // Navigation state
-        this.matchingTraceIndices = [];
-        this.currentMatchIndex = -1;
-        this.onNavigate = null;
-        this.isNavigationMode = false; // Track if we're in navigation mode (after filter applied)
-        
-        // Navigation elements
-        this.navContainer = null;
-        this.prevBtn = null;
-        this.nextBtn = null;
-        this.counter = null;
     }
 
     /**
@@ -63,14 +51,6 @@ export class TraceFilter {
      */
     setOnFilterChange(callback) {
         this.onFilterChange = callback;
-    }
-
-    /**
-     * Set callback for when navigation occurs
-     * @param {Function} callback - Callback function to call with trace index
-     */
-    setOnNavigate(callback) {
-        this.onNavigate = callback;
     }
 
     /**
@@ -127,60 +107,6 @@ export class TraceFilter {
         this.taskLabelInput = taskLabelGroup.input;
         this.taskLabelDropdown = taskLabelGroup.dropdown;
         this.taskLabelClearBtn = taskLabelGroup.clearBtn;
-        
-        // Create navigation container (prev | counter | next)
-        const navContainer = document.createElement('div');
-        navContainer.className = 'action-bar-nav-container';
-        
-        // Create previous button
-        const prevBtn = document.createElement('button');
-        prevBtn.className = 'action-bar-nav-btn action-bar-nav-prev';
-        prevBtn.setAttribute('aria-label', 'Previous matching trace');
-        prevBtn.setAttribute('title', 'Previous matching trace');
-        prevBtn.innerHTML = ICONS.LT;
-        prevBtn.style.display = 'inline-flex';
-        prevBtn.disabled = true;
-        prevBtn.addEventListener('click', () => {
-            this.navigateToMatch('prev');
-        });
-        
-        // Create counter container
-        const counterContainer = document.createElement('div');
-        counterContainer.className = 'action-bar-counter-container';
-        const counter = document.createElement('span');
-        counter.className = 'search-counter';
-        counter.setAttribute('role', 'status');
-        counter.setAttribute('aria-live', 'polite');
-        counter.textContent = '0 of 0';
-        counterContainer.appendChild(counter);
-        
-        // Create next button
-        const nextBtn = document.createElement('button');
-        nextBtn.className = 'action-bar-nav-btn action-bar-nav-next';
-        nextBtn.setAttribute('aria-label', 'Next matching trace');
-        nextBtn.setAttribute('title', 'Next matching trace');
-        nextBtn.innerHTML = ICONS.GT;
-        nextBtn.style.display = 'inline-flex';
-        nextBtn.disabled = true;
-        nextBtn.addEventListener('click', () => {
-            this.navigateToMatch('next');
-        });
-        
-        // Assemble navigation: prev | counter | next
-        navContainer.appendChild(prevBtn);
-        navContainer.appendChild(counterContainer);
-        navContainer.appendChild(nextBtn);
-        
-        // Store references
-        this.navContainer = navContainer;
-        this.prevBtn = prevBtn;
-        this.nextBtn = nextBtn;
-        this.counter = counter;
-        
-        // Initially hide navigation (will be shown when filters match)
-        navContainer.style.display = 'none';
-        
-        filterContainer.appendChild(navContainer);
         
         this.element = filterContainer;
         this.setupEventListeners();
@@ -339,9 +265,6 @@ export class TraceFilter {
                             firstItem.click();
                         }
                     }
-                } else if (this.isNavigationMode && this.matchingTraceIndices.length > 0) {
-                    // If in navigation mode and no dropdown visible, navigate to next result
-                    this.navigateToMatch('next');
                 }
             }
         });
@@ -558,20 +481,7 @@ export class TraceFilter {
                 taskLabel: this.currentFilters['task-label'] || ''
             };
             console.log('[TraceFilter] Applying filters:', filterValues);
-            
-            // Check if all filters are empty
-            const allFiltersEmpty = !filterValues.altId && !filterValues.id && !filterValues.taskLabel;
-            
-            // If all filters are empty, hide navigation and disable navigation mode
-            if (allFiltersEmpty) {
-                this.isNavigationMode = false;
-                if (this.navContainer) {
-                    this.navContainer.style.display = 'none';
-                }
-            }
-            
             this.onFilterChange(filterValues);
-            // Note: isNavigationMode will be set when updateMatchingTraces is called
         }
     }
 
@@ -605,121 +515,7 @@ export class TraceFilter {
         }
         
         this.hideAllAutocompletes();
-        this.isNavigationMode = false; // Disable navigation mode when filters cleared
         this.applyFilters();
-    }
-
-    /**
-     * Update matching trace indices and navigation state
-     * @param {Array} matchingIndices - Array of trace indices that match the filters
-     */
-    updateMatchingTraces(matchingIndices) {
-        this.matchingTraceIndices = matchingIndices || [];
-        this.currentMatchIndex = -1;
-        // Enable navigation mode if there are matching traces
-        this.isNavigationMode = this.matchingTraceIndices.length > 0;
-        this.updateNavigation();
-    }
-
-    /**
-     * Update navigation UI based on matching traces
-     */
-    updateNavigation() {
-        // Check if all filters are empty
-        const allFiltersEmpty = !this.currentFilters['alt-id'] && 
-                                !this.currentFilters['id'] && 
-                                !this.currentFilters['task-label'];
-        
-        // If all filters are empty, hide navigation
-        if (allFiltersEmpty) {
-            if (this.navContainer) {
-                this.navContainer.style.display = 'none';
-            }
-            if (this.counter) {
-                this.counter.textContent = '0 of 0';
-            }
-            // Disable buttons
-            if (this.prevBtn) {
-                this.prevBtn.disabled = true;
-            }
-            if (this.nextBtn) {
-                this.nextBtn.disabled = true;
-            }
-            return;
-        }
-        
-        const matchCount = this.matchingTraceIndices.length;
-        
-        if (matchCount === 0) {
-            // Hide navigation if no matches
-            if (this.navContainer) {
-                this.navContainer.style.display = 'none';
-            }
-            if (this.counter) {
-                this.counter.textContent = '0 of 0';
-            }
-            // Disable buttons
-            if (this.prevBtn) {
-                this.prevBtn.disabled = true;
-            }
-            if (this.nextBtn) {
-                this.nextBtn.disabled = true;
-            }
-            return;
-        }
-        
-        // Show navigation
-        if (this.navContainer) {
-            this.navContainer.style.display = 'flex';
-        }
-        
-        // Update counter - show current position (1-based)
-        // If not yet navigated (currentMatchIndex = -1), show 0
-        if (this.counter) {
-            const current = this.currentMatchIndex >= 0 ? this.currentMatchIndex + 1 : 0;
-            this.counter.textContent = `${current} of ${matchCount}`;
-        }
-        
-        // Update button states - always visible, never disabled (wrap-around enabled)
-        // Buttons are always enabled since we wrap around
-        if (this.prevBtn) {
-            this.prevBtn.disabled = false;
-        }
-        if (this.nextBtn) {
-            this.nextBtn.disabled = false;
-        }
-    }
-
-    /**
-     * Navigate to next or previous matching trace
-     * @param {string} direction - 'next' or 'prev'
-     */
-    navigateToMatch(direction) {
-        if (this.matchingTraceIndices.length === 0) {
-            return;
-        }
-        
-        const matchCount = this.matchingTraceIndices.length;
-        
-        // If not yet navigated, start at first match
-        if (this.currentMatchIndex < 0) {
-            this.currentMatchIndex = 0;
-        } else if (direction === 'next') {
-            // Wrap around: if at last match, go to first
-            this.currentMatchIndex = (this.currentMatchIndex + 1) % matchCount;
-        } else if (direction === 'prev') {
-            // Wrap around: if at first match, go to last
-            this.currentMatchIndex = (this.currentMatchIndex - 1 + matchCount) % matchCount;
-        }
-        
-        // Update navigation UI
-        this.updateNavigation();
-        
-        // Notify callback to scroll to trace
-        if (this.onNavigate && this.currentMatchIndex >= 0) {
-            const traceIndex = this.matchingTraceIndices[this.currentMatchIndex];
-            this.onNavigate(traceIndex);
-        }
     }
 
     /**

@@ -880,9 +880,6 @@ export class TraceContentRenderer {
                 traceFilter.setOnFilterChange((filters) => {
                     this.applyTraceFilters(sectionId, filters);
                 });
-                traceFilter.setOnNavigate((traceIndex) => {
-                    this.navigateToTrace(sectionId, traceIndex);
-                });
                 this.traceFilters.set(sectionId, traceFilter);
             } else {
                 // Update autocomplete data with current traces
@@ -1254,55 +1251,6 @@ export class TraceContentRenderer {
                 item.style.borderStyle = '';
             }
         });
-        
-        // Update filter navigation with matching indices
-        const traceFilter = this.traceFilters.get(sectionId);
-        if (traceFilter) {
-            traceFilter.updateMatchingTraces(matchingIndices);
-        }
-    }
-
-    /**
-     * Navigate to a specific trace by scrolling it into view
-     * @param {string} sectionId - Section identifier
-     * @param {number} traceIndex - Index of the trace to navigate to (0-based)
-     */
-    navigateToTrace(sectionId, traceIndex) {
-        const sectionElement = document.getElementById(sectionId);
-        if (!sectionElement) {
-            return;
-        }
-        
-        // Find traces container
-        const tracesContainer = sectionElement.querySelector('[data-content-type="traces"]');
-        if (!tracesContainer) {
-            return;
-        }
-        
-        // Find trace list
-        const traceList = tracesContainer.querySelector('.trace-list');
-        if (!traceList) {
-            return;
-        }
-        
-        // Find the trace item at the specified index
-        const traceItems = traceList.querySelectorAll('.trace-item');
-        if (traceIndex >= 0 && traceIndex < traceItems.length) {
-            const traceItem = traceItems[traceIndex];
-            
-            // Scroll the trace item into view
-            traceItem.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-            
-            // Optionally add a temporary highlight to show which trace was navigated to
-            traceItem.style.transition = 'box-shadow 0.2s ease';
-            traceItem.style.boxShadow = '0 0 0 1px var(--highlight-stroke)';
-            setTimeout(() => {
-                traceItem.style.boxShadow = '';
-            }, 500);
-        }
     }
 
     /**
