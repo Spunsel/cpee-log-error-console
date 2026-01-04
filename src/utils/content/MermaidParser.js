@@ -524,6 +524,55 @@ export class MermaidParser {
             });
         }
         
+        // Fix 15: Wrap conditions with nested parentheses in quotation marks
+        // Example: |No high risk or conditions in Art. 34(3) are met| -> |"No high risk or conditions in Art. 34(3) are met"|
+        const beforeFix15 = processedCode;
+        const fix15LineNumbers = [];
+        const lines15 = processedCode.split('\n');
+        const updatedLines15 = lines15.map((line, index) => {
+            let updatedLine = line;
+            let hasChanges = false;
+            
+            // Pattern to match edge labels: |condition text|
+            // We need to match conditions that contain nested parentheses like (3) or 34(3)
+            const edgeLabelPattern = /\|([^|]*)\|/g;
+            
+            updatedLine = updatedLine.replace(edgeLabelPattern, (fullMatch, conditionText) => {
+                // Check if condition is already wrapped in quotes
+                const trimmedCondition = conditionText.trim();
+                if (trimmedCondition.startsWith('"') && trimmedCondition.endsWith('"')) {
+                    return fullMatch; // Already quoted, no change needed
+                }
+                
+                // Check if condition contains nested parentheses
+                // Pattern: text followed by opening paren, some content, closing paren
+                // Examples: "34(3)", "(3)", "Art. 34(3)"
+                const hasNestedParentheses = /\([^)]+\)/.test(conditionText);
+                
+                if (hasNestedParentheses) {
+                    hasChanges = true;
+                    // Wrap the condition in quotes
+                    return `|"${conditionText}"|`;
+                }
+                
+                return fullMatch; // No nested parentheses, no change needed
+            });
+            
+            if (hasChanges) {
+                fix15LineNumbers.push(index + 1); // 1-based line numbers
+            }
+            
+            return updatedLine;
+        });
+        
+        if (beforeFix15 !== updatedLines15.join('\n')) {
+            processedCode = updatedLines15.join('\n');
+            appliedSteps.push({
+                description: `Wrapped ${fix15LineNumbers.length} condition${fix15LineNumbers.length > 1 ? 's' : ''} with nested parentheses in quotation marks`,
+                lineNumbers: Array.from(new Set(fix15LineNumbers)).sort((a, b) => a - b)
+            });
+        }
+        
         if (originalCode !== processedCode && appliedSteps.length > 0) {
             console.log('🔧 Mermaid preprocessing applied:', appliedSteps.map(s => s.description));
         }
