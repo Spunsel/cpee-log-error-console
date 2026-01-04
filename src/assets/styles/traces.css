@@ -647,7 +647,6 @@
    align-items: center;
    gap: 8px;
    flex-wrap: wrap;
-   padding: 4px 0;
 }
 
 .trace-filter-label {
@@ -777,6 +776,18 @@
 /* Search input font size within trace filter container */
 .trace-filter-container .search-input {
    font-size: 12px;
+}
+
+/* Ensure filter icon is vertically centered in trace filter inputs */
+.trace-filter-container .search-icon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: absolute;
+   left: 8px;
+   top: 50%;
+   transform: translateY(-50%);
+   height: 100%;
 }
 
 /* Dark mode adjustments */

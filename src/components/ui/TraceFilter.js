@@ -133,7 +133,7 @@ export class TraceFilter {
         
         const searchIcon = document.createElement('div');
         searchIcon.className = 'search-icon';
-        searchIcon.innerHTML = ICONS.SEARCH;
+        searchIcon.innerHTML = ICONS.FILTER;
         inputGroup.appendChild(searchIcon);
         
         const input = document.createElement('input');
