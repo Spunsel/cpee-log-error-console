@@ -17,6 +17,7 @@ export class TraceFilter {
         this.altIdInput = null;
         this.idInput = null;
         this.taskLabelInput = null;
+        this.statusInput = null;
         
         // Autocomplete data
         this.autocompleteData = {
@@ -29,19 +30,22 @@ export class TraceFilter {
         this.currentFilters = {
             altId: '',
             id: '',
-            taskLabel: ''
+            taskLabel: '',
+            status: ''
         };
         
         // Autocomplete dropdowns
         this.altIdDropdown = null;
         this.idDropdown = null;
         this.taskLabelDropdown = null;
+        this.statusDropdown = null;
         
         // Track highlighted item per filter type
         this.highlightedItems = {
             'alt-id': null,
             'id': null,
-            'task-label': null
+            'task-label': null,
+            'status': null
         };
     }
 
@@ -108,6 +112,13 @@ export class TraceFilter {
         this.taskLabelDropdown = taskLabelGroup.dropdown;
         this.taskLabelClearBtn = taskLabelGroup.clearBtn;
         
+        // Status filter
+        const statusGroup = this.createFilterInput('status', 'Filter by status');
+        filterContainer.appendChild(statusGroup.container);
+        this.statusInput = statusGroup.input;
+        this.statusDropdown = statusGroup.dropdown;
+        this.statusClearBtn = statusGroup.clearBtn;
+        
         this.element = filterContainer;
         this.setupEventListeners();
         
@@ -116,7 +127,7 @@ export class TraceFilter {
 
     /**
      * Create a filter input with autocomplete
-     * @param {string} type - Input type ('alt-id', 'id', 'task-label')
+     * @param {string} type - Input type ('alt-id', 'id', 'task-label', 'status')
      * @param {string} placeholder - Placeholder text
      * @returns {Object} Object with container, input, and dropdown elements
      */
@@ -188,6 +199,11 @@ export class TraceFilter {
         // Task Label input
         if (this.taskLabelInput) {
             this.setupInputListeners(this.taskLabelInput, 'task-label', this.taskLabelDropdown);
+        }
+        
+        // Status input
+        if (this.statusInput) {
+            this.setupInputListeners(this.statusInput, 'status', this.statusDropdown);
         }
         
         // Close dropdowns when clicking outside
@@ -343,6 +359,11 @@ export class TraceFilter {
                 sourceSet = this.autocompleteData.taskLabels;
                 isPartialMatch = true; // Partial match
                 break;
+            case 'status':
+                // Status options are fixed
+                return ['UNIQUE', 'MATCHING', 'RECONCILED'].filter(option => 
+                    !query || option.toLowerCase().includes(query.toLowerCase())
+                );
             default:
                 return [];
         }
@@ -478,7 +499,8 @@ export class TraceFilter {
             const filterValues = {
                 altId: this.currentFilters['alt-id'] || '',
                 id: this.currentFilters['id'] || '',
-                taskLabel: this.currentFilters['task-label'] || ''
+                taskLabel: this.currentFilters['task-label'] || '',
+                status: this.currentFilters['status'] || ''
             };
             console.log('[TraceFilter] Applying filters:', filterValues);
             this.onFilterChange(filterValues);
@@ -492,7 +514,8 @@ export class TraceFilter {
         this.currentFilters = {
             'alt-id': '',
             'id': '',
-            'task-label': ''
+            'task-label': '',
+            'status': ''
         };
         
         if (this.altIdInput) {
@@ -511,6 +534,12 @@ export class TraceFilter {
             this.taskLabelInput.value = '';
             if (this.taskLabelClearBtn) {
                 this.taskLabelClearBtn.style.display = 'none';
+            }
+        }
+        if (this.statusInput) {
+            this.statusInput.value = '';
+            if (this.statusClearBtn) {
+                this.statusClearBtn.style.display = 'none';
             }
         }
         

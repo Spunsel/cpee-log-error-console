@@ -1160,9 +1160,9 @@ export class TraceContentRenderer {
     }
 
     /**
-     * Apply trace filters and update trace styling
+     * Apply trace filters and show/hide traces based on filter criteria
      * @param {string} sectionId - Section identifier
-     * @param {Object} filters - Filter object with altId, id, taskLabel
+     * @param {Object} filters - Filter object with altId, id, taskLabel, status
      */
     applyTraceFilters(sectionId, filters) {
         const sectionElement = document.getElementById(sectionId);
@@ -1196,17 +1196,8 @@ export class TraceContentRenderer {
         const altIdFilter = filters.altId?.trim() || '';
         const idFilter = filters.id?.trim() || '';
         const taskLabelFilter = filters.taskLabel?.trim() || '';
-        const hasFilters = altIdFilter || idFilter || taskLabelFilter;
-        
-        if (!hasFilters) {
-            // No filters - remove all border styling
-            traceItems.forEach(item => {
-                item.style.borderColor = '';
-                item.style.borderWidth = '';
-                item.style.borderStyle = '';
-            });
-            return;
-        }
+        const statusFilter = filters.status?.trim() || '';
+        const hasFilters = altIdFilter || idFilter || taskLabelFilter || statusFilter;
         
         // Get traces from cache - cache key is `${sectionId}-${stepNumber}`
         // Find the cache key that starts with this sectionId
@@ -1218,49 +1209,118 @@ export class TraceContentRenderer {
         
         if (!traces || traces.length === 0) {
             console.warn('[TraceContentRenderer] No traces in cache for section:', sectionId, 'cacheKey:', cacheKey, 'available keys:', Array.from(this.traceCache.keys()));
+            // If no traces in cache, show all items
+            traceItems.forEach(item => {
+                item.style.display = '';
+            });
             return;
         }
         
         console.log('[TraceContentRenderer] Applying filters:', { filters, traceCount: traces.length, itemCount: traceItems.length });
         
-        // Track matching trace indices for navigation
-        const matchingIndices = [];
+        if (!hasFilters) {
+            // No filters - show all traces
+            traceItems.forEach(item => {
+                item.style.display = '';
+            });
+            return;
+        }
         
         traceItems.forEach((item, index) => {
             if (index >= traces.length) {
-                // Remove border styling for items without corresponding trace
-                item.style.borderColor = '';
-                item.style.borderWidth = '';
-                item.style.borderStyle = '';
+                // Items without corresponding trace - hide them
+                item.style.display = 'none';
                 return;
             }
             
             const trace = traces[index];
-            const matches = this.traceMatchesFilters(trace, filters);
+            const matches = this.traceMatchesFilters(trace, filters, sectionId, index);
             
             if (matches) {
-                // Apply highlight border
-                item.style.borderColor = 'var(--highlight-stroke)';
-                item.style.borderWidth = '2px';
-                item.style.borderStyle = 'solid';
-                matchingIndices.push(index);
+                // Show matching traces
+                item.style.display = '';
             } else {
-                // Remove border styling
-                item.style.borderColor = '';
-                item.style.borderWidth = '';
-                item.style.borderStyle = '';
+                // Hide non-matching traces
+                item.style.display = 'none';
             }
         });
+    }
+
+    /**
+     * Get trace status based on comparison result
+     * @param {string} sectionId - Section identifier
+     * @param {number} traceIndex - Trace index
+     * @param {Object} trace - Trace object (optional, for reconciled check)
+     * @returns {string|null} Trace status: 'MATCHING', 'UNIQUE', 'RECONCILED', or null
+     */
+    getTraceStatus(sectionId, traceIndex, trace = null) {
+        // Determine section pair from sectionId
+        let sectionPair = null;
+        if (sectionId.includes('input')) {
+            sectionPair = 'input';
+        } else if (sectionId.includes('output')) {
+            sectionPair = 'output';
+        }
+        
+        if (!sectionPair) {
+            return null;
+        }
+        
+        const comparisonResult = this.comparisonResults[sectionPair];
+        if (!comparisonResult) {
+            return null;
+        }
+        
+        // Check if trace is reconciled
+        if (trace?.isReconciled === true) {
+            return 'RECONCILED';
+        }
+        
+        // Determine if this is a CPEE or Mermaid section
+        const isCPEE = sectionId.includes('cpee');
+        const isMermaid = sectionId.includes('intermediate');
+        
+        if (isCPEE) {
+            // For CPEE traces, check details array
+            const detail = comparisonResult.details?.[traceIndex];
+            if (detail) {
+                if (detail.match === true) {
+                    return 'MATCHING';
+                } else if (detail.match === false) {
+                    return 'UNIQUE';
+                }
+            }
+        } else if (isMermaid) {
+            // For Mermaid traces, check if it's in uniqueMermaidTraces
+            const isUnique = comparisonResult.uniqueMermaidTraces?.some(
+                uniqueTrace => uniqueTrace.traceIndex === traceIndex
+            );
+            if (isUnique) {
+                return 'UNIQUE';
+            } else {
+                // Mermaid trace is matching if it was matched by a CPEE trace
+                const isMatching = comparisonResult.details?.some(
+                    detail => detail.mermaidTraceIndex === traceIndex && detail.match === true
+                );
+                if (isMatching) {
+                    return 'MATCHING';
+                }
+            }
+        }
+        
+        return null;
     }
 
     /**
      * Check if a trace matches the filters (AND logic)
      * Empty filters are ignored (treated as always true)
      * @param {Object} trace - Trace object
-     * @param {Object} filters - Filter object with altId, id, taskLabel
+     * @param {Object} filters - Filter object with altId, id, taskLabel, status
+     * @param {string} sectionId - Section identifier (for status check)
+     * @param {number} traceIndex - Trace index (for status check)
      * @returns {boolean} True if trace matches all non-empty filters
      */
-    traceMatchesFilters(trace, filters) {
+    traceMatchesFilters(trace, filters, sectionId = null, traceIndex = -1) {
         if (!trace.path || trace.path.length === 0) {
             return false;
         }
@@ -1268,9 +1328,10 @@ export class TraceContentRenderer {
         const altIdFilter = filters.altId?.trim();
         const idFilter = filters.id?.trim();
         const taskLabelFilter = filters.taskLabel?.trim();
+        const statusFilter = filters.status?.trim();
         
         // If no filters, return false (shouldn't happen, but safety check)
-        if (!altIdFilter && !idFilter && !taskLabelFilter) {
+        if (!altIdFilter && !idFilter && !taskLabelFilter && !statusFilter) {
             return false;
         }
         
@@ -1280,6 +1341,7 @@ export class TraceContentRenderer {
         let altIdMatches = true; // Default to true (ignored if filter is empty)
         let idMatches = true; // Default to true (ignored if filter is empty)
         let taskLabelMatches = true; // Default to true (ignored if filter is empty)
+        let statusMatches = true; // Default to true (ignored if filter is empty)
         
         // Check Alt ID filter (exact match)
         if (altIdFilter) {
@@ -1318,8 +1380,14 @@ export class TraceContentRenderer {
             }
         }
         
+        // Check Status filter
+        if (statusFilter && sectionId !== null && traceIndex >= 0) {
+            const traceStatus = this.getTraceStatus(sectionId, traceIndex, trace);
+            statusMatches = traceStatus === statusFilter;
+        }
+        
         // Trace matches if ALL non-empty filters matched
-        return altIdMatches && idMatches && taskLabelMatches;
+        return altIdMatches && idMatches && taskLabelMatches && statusMatches;
     }
 
     /**
