@@ -21,6 +21,7 @@ import { MermaidTraceCalculator } from '../../utils/trace/MermaidTraceCalculator
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { ICONS } from '../../assets/icons.js';
 import { TracePlaybackCoordinator } from '../coordinators/TracePlaybackCoordinator.js';
+import { TraceFilter } from '../ui/TraceFilter.js';
 
 export class TraceContentRenderer {
     constructor(domRegistry = null, eventBus = null, contentProcessingService = null) {
@@ -36,6 +37,9 @@ export class TraceContentRenderer {
         
         // Action bars for traces per section (copy-only, no search)
         this.traceActionBars = new Map();
+        
+        // Trace filters per section
+        this.traceFilters = new Map();
         
         // Copy buttons for traces per section (legacy, for backwards compatibility)
         this.traceCopyButtons = new Map();
@@ -867,6 +871,48 @@ export class TraceContentRenderer {
             actionBar.attachToContainer(actionBarRow);
             // Ensure action bar row is visible
             actionBarRow.style.display = 'flex';
+            
+            // Create or get trace filter
+            let traceFilter = this.traceFilters.get(sectionId);
+            if (!traceFilter) {
+                traceFilter = new TraceFilter(this.domRegistry, sectionId);
+                traceFilter.updateAutocompleteData(traces);
+                traceFilter.setOnFilterChange((filters) => {
+                    this.applyTraceFilters(sectionId, filters);
+                });
+                traceFilter.setOnNavigate((traceIndex) => {
+                    this.navigateToTrace(sectionId, traceIndex);
+                });
+                this.traceFilters.set(sectionId, traceFilter);
+            } else {
+                // Update autocomplete data with current traces
+                traceFilter.updateAutocompleteData(traces);
+            }
+            
+            // Add filter to action-bar-left in action-bar-row (left of action-bar-right)
+            let actionBarLeft = actionBarRow.querySelector('.action-bar-left');
+            if (!actionBarLeft) {
+                // Create action-bar-left if it doesn't exist
+                actionBarLeft = document.createElement('div');
+                actionBarLeft.className = 'action-bar-left';
+                // Insert before action-bar-right
+                const actionBarRight = actionBarRow.querySelector('.action-bar-right');
+                if (actionBarRight) {
+                    actionBarRow.insertBefore(actionBarLeft, actionBarRight);
+                } else {
+                    actionBarRow.appendChild(actionBarLeft);
+                }
+            }
+            
+            // Show action-bar-left
+            actionBarLeft.style.display = 'flex';
+            
+            // Remove existing filter if present
+            const existingFilter = actionBarLeft.querySelector('.trace-filter-container');
+            if (existingFilter) {
+                existingFilter.remove();
+            }
+            traceFilter.attachToContainer(actionBarLeft);
         }
         
         // Set copy content
@@ -1117,6 +1163,218 @@ export class TraceContentRenderer {
     }
 
     /**
+     * Apply trace filters and update trace styling
+     * @param {string} sectionId - Section identifier
+     * @param {Object} filters - Filter object with altId, id, taskLabel
+     */
+    applyTraceFilters(sectionId, filters) {
+        const sectionElement = document.getElementById(sectionId);
+        if (!sectionElement) {
+            console.warn('[TraceContentRenderer] Section element not found:', sectionId);
+            return;
+        }
+        
+        // Find traces container (data-content-type="traces")
+        const tracesContainer = sectionElement.querySelector('[data-content-type="traces"]');
+        if (!tracesContainer) {
+            console.warn('[TraceContentRenderer] Traces container not found in section:', sectionId);
+            return;
+        }
+        
+        // Find trace items - they are in a trace-list container
+        const traceList = tracesContainer.querySelector('.trace-list');
+        if (!traceList) {
+            console.warn('[TraceContentRenderer] Trace list not found in section:', sectionId);
+            return;
+        }
+        
+        const traceItems = traceList.querySelectorAll('.trace-item');
+        
+        if (traceItems.length === 0) {
+            console.warn('[TraceContentRenderer] No trace items found in section:', sectionId);
+            return;
+        }
+        
+        // Check if any filters are non-empty (after trimming)
+        const altIdFilter = filters.altId?.trim() || '';
+        const idFilter = filters.id?.trim() || '';
+        const taskLabelFilter = filters.taskLabel?.trim() || '';
+        const hasFilters = altIdFilter || idFilter || taskLabelFilter;
+        
+        if (!hasFilters) {
+            // No filters - remove all border styling
+            traceItems.forEach(item => {
+                item.style.borderColor = '';
+                item.style.borderWidth = '';
+                item.style.borderStyle = '';
+            });
+            return;
+        }
+        
+        // Get traces from cache - cache key is `${sectionId}-${stepNumber}`
+        // Find the cache key that starts with this sectionId
+        let traces = null;
+        const cacheKey = Array.from(this.traceCache.keys()).find(key => key.startsWith(`${sectionId}-`));
+        if (cacheKey) {
+            traces = this.traceCache.get(cacheKey);
+        }
+        
+        if (!traces || traces.length === 0) {
+            console.warn('[TraceContentRenderer] No traces in cache for section:', sectionId, 'cacheKey:', cacheKey, 'available keys:', Array.from(this.traceCache.keys()));
+            return;
+        }
+        
+        console.log('[TraceContentRenderer] Applying filters:', { filters, traceCount: traces.length, itemCount: traceItems.length });
+        
+        // Track matching trace indices for navigation
+        const matchingIndices = [];
+        
+        traceItems.forEach((item, index) => {
+            if (index >= traces.length) {
+                // Remove border styling for items without corresponding trace
+                item.style.borderColor = '';
+                item.style.borderWidth = '';
+                item.style.borderStyle = '';
+                return;
+            }
+            
+            const trace = traces[index];
+            const matches = this.traceMatchesFilters(trace, filters);
+            
+            if (matches) {
+                // Apply highlight border
+                item.style.borderColor = 'var(--highlight-stroke)';
+                item.style.borderWidth = '2px';
+                item.style.borderStyle = 'solid';
+                matchingIndices.push(index);
+            } else {
+                // Remove border styling
+                item.style.borderColor = '';
+                item.style.borderWidth = '';
+                item.style.borderStyle = '';
+            }
+        });
+        
+        // Update filter navigation with matching indices
+        const traceFilter = this.traceFilters.get(sectionId);
+        if (traceFilter) {
+            traceFilter.updateMatchingTraces(matchingIndices);
+        }
+    }
+
+    /**
+     * Navigate to a specific trace by scrolling it into view
+     * @param {string} sectionId - Section identifier
+     * @param {number} traceIndex - Index of the trace to navigate to (0-based)
+     */
+    navigateToTrace(sectionId, traceIndex) {
+        const sectionElement = document.getElementById(sectionId);
+        if (!sectionElement) {
+            return;
+        }
+        
+        // Find traces container
+        const tracesContainer = sectionElement.querySelector('[data-content-type="traces"]');
+        if (!tracesContainer) {
+            return;
+        }
+        
+        // Find trace list
+        const traceList = tracesContainer.querySelector('.trace-list');
+        if (!traceList) {
+            return;
+        }
+        
+        // Find the trace item at the specified index
+        const traceItems = traceList.querySelectorAll('.trace-item');
+        if (traceIndex >= 0 && traceIndex < traceItems.length) {
+            const traceItem = traceItems[traceIndex];
+            
+            // Scroll the trace item into view
+            traceItem.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+            
+            // Optionally add a temporary highlight to show which trace was navigated to
+            traceItem.style.transition = 'box-shadow 0.2s ease';
+            traceItem.style.boxShadow = '0 0 0 1px var(--highlight-stroke)';
+            setTimeout(() => {
+                traceItem.style.boxShadow = '';
+            }, 500);
+        }
+    }
+
+    /**
+     * Check if a trace matches the filters (AND logic)
+     * Empty filters are ignored (treated as always true)
+     * @param {Object} trace - Trace object
+     * @param {Object} filters - Filter object with altId, id, taskLabel
+     * @returns {boolean} True if trace matches all non-empty filters
+     */
+    traceMatchesFilters(trace, filters) {
+        if (!trace.path || trace.path.length === 0) {
+            return false;
+        }
+        
+        const altIdFilter = filters.altId?.trim();
+        const idFilter = filters.id?.trim();
+        const taskLabelFilter = filters.taskLabel?.trim();
+        
+        // If no filters, return false (shouldn't happen, but safety check)
+        if (!altIdFilter && !idFilter && !taskLabelFilter) {
+            return false;
+        }
+        
+        // AND logic: trace matches if ALL non-empty filters match at least one task in the trace
+        // Empty filters are ignored (treated as always true)
+        
+        let altIdMatches = true; // Default to true (ignored if filter is empty)
+        let idMatches = true; // Default to true (ignored if filter is empty)
+        let taskLabelMatches = true; // Default to true (ignored if filter is empty)
+        
+        // Check Alt ID filter (exact match)
+        if (altIdFilter) {
+            altIdMatches = false; // Must find a match
+            for (const task of trace.path) {
+                if (task.alt_id && task.alt_id === altIdFilter) {
+                    altIdMatches = true;
+                    break;
+                }
+            }
+        }
+        
+        // Check ID filter (exact match)
+        if (idFilter) {
+            idMatches = false; // Must find a match
+            for (const task of trace.path) {
+                if (task.id && task.id === idFilter) {
+                    idMatches = true;
+                    break;
+                }
+            }
+        }
+        
+        // Check Task Label filter (partial match, case-insensitive)
+        if (taskLabelFilter) {
+            taskLabelMatches = false; // Must find a match
+            const filterLower = taskLabelFilter.toLowerCase();
+            for (const task of trace.path) {
+                if (task.task) {
+                    const taskLabelLower = task.task.toLowerCase();
+                    if (taskLabelLower.includes(filterLower)) {
+                        taskLabelMatches = true;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // Trace matches if ALL non-empty filters matched
+        return altIdMatches && idMatches && taskLabelMatches;
+    }
+
+    /**
      * Get section pair identifier for a section
      * @param {string} sectionId - Section identifier
      * @returns {string|null} Section pair identifier ('input' or 'output') or null
@@ -1164,6 +1422,7 @@ export class TraceContentRenderer {
     destroy() {
         this.clearTraceCache();
         this.traceActionBars.clear();
+        this.traceFilters.clear();
         this.traceCopyButtons.clear();
     }
 }

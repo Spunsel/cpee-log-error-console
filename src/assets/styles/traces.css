@@ -637,3 +637,149 @@
    font-size: var(--font-size-sm);
    color: var(--text-secondary);
 }
+
+/* ========================================
+   TRACE FILTER
+   ======================================== */
+
+.trace-filter-container {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   flex-wrap: wrap;
+   padding: 4px 0;
+}
+
+.trace-filter-label {
+   font-size: 12px;
+   color: var(--text-secondary);
+   white-space: nowrap;
+}
+
+.trace-filter-input-group {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+}
+
+.trace-filter-input-label {
+   font-size: 12px;
+   color: var(--text-secondary);
+   white-space: nowrap;
+}
+
+.trace-filter-input-wrapper {
+   position: relative;
+   display: inline-block;
+}
+
+.trace-filter-input-group-inner {
+   position: relative;
+   display: flex;
+   align-items: center;
+   background: var(--background-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius-sm);
+   padding: 2px 4px;
+   min-width: 120px;
+}
+
+.trace-filter-search-icon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: var(--text-secondary);
+   padding: 0 4px;
+   pointer-events: none;
+}
+
+.trace-filter-search-icon svg {
+   width: 14px;
+   height: 14px;
+}
+
+.trace-filter-input {
+   border: none;
+   background: transparent;
+   color: var(--text-primary);
+   font-size: 12px;
+   padding: 2px 4px;
+   flex: 1;
+   min-width: 0;
+   outline: none;
+}
+
+.trace-filter-input::placeholder {
+   color: var(--text-secondary);
+   opacity: 0.6;
+}
+
+.trace-filter-clear-btn {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: transparent;
+   border: none;
+   color: var(--text-secondary);
+   cursor: pointer;
+   padding: 2px;
+   border-radius: var(--border-radius-sm);
+   transition: color 0.15s ease;
+}
+
+.trace-filter-clear-btn:hover {
+   color: var(--text-primary);
+}
+
+.trace-filter-clear-btn svg {
+   width: 12px;
+   height: 12px;
+}
+
+.trace-filter-autocomplete {
+   position: absolute;
+   top: 100%;
+   left: 0;
+   right: 0;
+   margin-top: 2px;
+   background: var(--background-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius-sm);
+   box-shadow: var(--shadow-md);
+   z-index: 1000;
+   max-height: 200px;
+   overflow-y: auto;
+}
+
+.trace-filter-autocomplete-item {
+   padding: 6px 10px;
+   font-size: 12px;
+   color: var(--text-primary);
+   cursor: pointer;
+   transition: background-color 0.15s ease;
+}
+
+.trace-filter-autocomplete-item:hover,
+.trace-filter-autocomplete-item.highlighted {
+   background: var(--hover-bg);
+}
+
+.trace-filter-autocomplete-item:first-child {
+   border-top-left-radius: var(--border-radius-sm);
+   border-top-right-radius: var(--border-radius-sm);
+}
+
+.trace-filter-autocomplete-item:last-child {
+   border-bottom-left-radius: var(--border-radius-sm);
+   border-bottom-right-radius: var(--border-radius-sm);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .trace-filter-input-group-inner {
+   background: var(--surface-color);
+}
+
+[data-theme="dark"] .trace-filter-autocomplete {
+   background: var(--surface-color);
+   border-color: var(--border-color);
+}
