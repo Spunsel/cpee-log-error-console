@@ -25,11 +25,11 @@ export class TraceFilter {
             taskLabels: new Set()
         };
         
-        // Current filter values
+        // Current filter values (using consistent key names)
         this.currentFilters = {
-            altId: '',
-            id: '',
-            taskLabel: ''
+            'alt-id': '',
+            'id': '',
+            'task-label': ''
         };
         
         // Autocomplete dropdowns
@@ -49,6 +49,7 @@ export class TraceFilter {
         this.currentMatchIndex = -1;
         this.onNavigate = null;
         this.isNavigationMode = false; // Track if we're in navigation mode (after filter applied)
+        this.shouldNavigateToFirst = false; // Flag to navigate to first match after filter is applied
         
         // Navigation elements
         this.navContainer = null;
@@ -320,27 +321,27 @@ export class TraceFilter {
         
         // Keyboard events - Enter to select highlighted item or navigate results
         input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                
-                // Check if dropdown is visible and has items
-                const isDropdownVisible = dropdown.style.display !== 'none';
-                const hasDropdownItems = dropdown.querySelectorAll('.trace-filter-autocomplete-item').length > 0;
-                
-                // If dropdown is visible with items, select the highlighted/first item
-                if (isDropdownVisible && hasDropdownItems) {
-                    const highlightedItem = this.highlightedItems[type];
-                    if (highlightedItem) {
-                        highlightedItem.click();
-                    } else {
-                        // If no item highlighted, select first item
-                        const firstItem = dropdown.querySelector('.trace-filter-autocomplete-item');
-                        if (firstItem) {
-                            firstItem.click();
-                        }
-                    }
-                } else if (this.isNavigationMode && this.matchingTraceIndices.length > 0) {
-                    // If in navigation mode and no dropdown visible, navigate to next result
+            if (e.key !== 'Enter') {
+                return;
+            }
+            e.preventDefault();
+            
+            const isDropdownVisible = dropdown.style.display !== 'none';
+            const hasDropdownItems = dropdown.querySelectorAll('.trace-filter-autocomplete-item').length > 0;
+            
+            // If dropdown is visible with items, select the highlighted/first item
+            if (isDropdownVisible && hasDropdownItems) {
+                const highlightedItem = this.highlightedItems[type] || 
+                                       dropdown.querySelector('.trace-filter-autocomplete-item');
+                if (highlightedItem) {
+                    this.shouldNavigateToFirst = true;
+                    highlightedItem.click();
+                }
+            } else if (this.isNavigationMode && this.matchingTraceIndices.length > 0) {
+                // Navigate to next result (or first if not yet navigated)
+                if (this.currentMatchIndex < 0) {
+                    this.navigateToFirstMatch();
+                } else {
                     this.navigateToMatch('next');
                 }
             }
@@ -523,6 +524,10 @@ export class TraceFilter {
             this.hideAutocomplete(type);
             this.applyFilters();
             input.focus();
+            
+            // After filter is applied, we'll navigate to first match in updateMatchingTraces
+            // Set flag to navigate to first match after filters are applied
+            this.shouldNavigateToFirst = true;
         }
     }
 
@@ -550,6 +555,19 @@ export class TraceFilter {
     /**
      * Apply filters and notify callback
      */
+    /**
+     * Check if all filters are empty
+     * @returns {boolean}
+     */
+    areAllFiltersEmpty() {
+        return !this.currentFilters['alt-id'] && 
+               !this.currentFilters['id'] && 
+               !this.currentFilters['task-label'];
+    }
+
+    /**
+     * Apply filters and notify callback
+     */
     applyFilters() {
         if (this.onFilterChange) {
             const filterValues = {
@@ -558,7 +576,30 @@ export class TraceFilter {
                 taskLabel: this.currentFilters['task-label'] || ''
             };
             console.log('[TraceFilter] Applying filters:', filterValues);
+            
+            // If all filters are empty, hide navigation and disable navigation mode
+            if (this.areAllFiltersEmpty()) {
+                this.isNavigationMode = false;
+                this.hideNavigation();
+            }
+            
             this.onFilterChange(filterValues);
+        }
+    }
+
+    /**
+     * Clear a single filter input
+     * @param {HTMLElement} input - Input element
+     * @param {HTMLElement} clearBtn - Clear button element
+     * @param {string} filterKey - Filter key in currentFilters
+     */
+    clearFilterInput(input, clearBtn, filterKey) {
+        if (input) {
+            input.value = '';
+            this.currentFilters[filterKey] = '';
+            if (clearBtn) {
+                clearBtn.style.display = 'none';
+            }
         }
     }
 
@@ -566,34 +607,33 @@ export class TraceFilter {
      * Clear all filters
      */
     clearAllFilters() {
-        this.currentFilters = {
-            'alt-id': '',
-            'id': '',
-            'task-label': ''
-        };
+        // Reset filter values
+        Object.keys(this.currentFilters).forEach(key => {
+            this.currentFilters[key] = '';
+        });
         
-        if (this.altIdInput) {
-            this.altIdInput.value = '';
-            if (this.altIdClearBtn) {
-                this.altIdClearBtn.style.display = 'none';
-            }
-        }
-        if (this.idInput) {
-            this.idInput.value = '';
-            if (this.idClearBtn) {
-                this.idClearBtn.style.display = 'none';
-            }
-        }
-        if (this.taskLabelInput) {
-            this.taskLabelInput.value = '';
-            if (this.taskLabelClearBtn) {
-                this.taskLabelClearBtn.style.display = 'none';
-            }
-        }
+        // Clear all inputs
+        this.clearFilterInput(this.altIdInput, this.altIdClearBtn, 'alt-id');
+        this.clearFilterInput(this.idInput, this.idClearBtn, 'id');
+        this.clearFilterInput(this.taskLabelInput, this.taskLabelClearBtn, 'task-label');
         
         this.hideAllAutocompletes();
-        this.isNavigationMode = false; // Disable navigation mode when filters cleared
+        this.isNavigationMode = false;
         this.applyFilters();
+    }
+
+    /**
+     * Navigate to first match and trigger callback
+     */
+    navigateToFirstMatch() {
+        if (this.matchingTraceIndices.length === 0) {
+            return;
+        }
+        this.currentMatchIndex = 0;
+        this.updateNavigation();
+        if (this.onNavigate) {
+            this.onNavigate(this.matchingTraceIndices[0]);
+        }
     }
 
     /**
@@ -602,33 +642,60 @@ export class TraceFilter {
      */
     updateMatchingTraces(matchingIndices) {
         this.matchingTraceIndices = matchingIndices || [];
-        this.currentMatchIndex = -1;
-        // Enable navigation mode if there are matching traces
         this.isNavigationMode = this.matchingTraceIndices.length > 0;
-        this.updateNavigation();
+        
+        // If we should navigate to first match (after selecting autocomplete item), do it now
+        if (this.shouldNavigateToFirst && this.matchingTraceIndices.length > 0) {
+            this.shouldNavigateToFirst = false;
+            this.navigateToFirstMatch();
+        } else {
+            // Otherwise, reset to -1 (will show "1 of X" in counter until navigation starts)
+            this.currentMatchIndex = -1;
+            this.updateNavigation();
+        }
+    }
+
+    /**
+     * Hide navigation UI
+     */
+    hideNavigation() {
+        if (this.navContainer) {
+            this.navContainer.style.display = 'none';
+        }
+        if (this.counter) {
+            this.counter.textContent = '0 of 0';
+        }
+        this.setButtonStates(true); // Disable buttons
+    }
+
+    /**
+     * Update button states
+     * @param {boolean} disabled - Whether buttons should be disabled
+     */
+    setButtonStates(disabled) {
+        if (this.prevBtn) {
+            this.prevBtn.disabled = disabled;
+        }
+        if (this.nextBtn) {
+            this.nextBtn.disabled = disabled;
+        }
     }
 
     /**
      * Update navigation UI based on matching traces
      */
     updateNavigation() {
+        // If all filters are empty, hide navigation
+        if (this.areAllFiltersEmpty()) {
+            this.hideNavigation();
+            return;
+        }
+        
         const matchCount = this.matchingTraceIndices.length;
         
+        // Hide navigation if no matches
         if (matchCount === 0) {
-            // Hide navigation if no matches
-            if (this.navContainer) {
-                this.navContainer.style.display = 'none';
-            }
-            if (this.counter) {
-                this.counter.textContent = '0 of 0';
-            }
-            // Disable buttons
-            if (this.prevBtn) {
-                this.prevBtn.disabled = true;
-            }
-            if (this.nextBtn) {
-                this.nextBtn.disabled = true;
-            }
+            this.hideNavigation();
             return;
         }
         
@@ -637,21 +704,14 @@ export class TraceFilter {
             this.navContainer.style.display = 'flex';
         }
         
-        // Update counter - show current position (1-based)
-        // If not yet navigated (currentMatchIndex = -1), show 0
+        // Update counter - always show at least "1 of X" when there are matches (never "0 of X")
         if (this.counter) {
-            const current = this.currentMatchIndex >= 0 ? this.currentMatchIndex + 1 : 0;
+            const current = this.currentMatchIndex >= 0 ? this.currentMatchIndex + 1 : 1;
             this.counter.textContent = `${current} of ${matchCount}`;
         }
         
-        // Update button states - always visible, never disabled (wrap-around enabled)
-        // Buttons are always enabled since we wrap around
-        if (this.prevBtn) {
-            this.prevBtn.disabled = false;
-        }
-        if (this.nextBtn) {
-            this.nextBtn.disabled = false;
-        }
+        // Buttons are always enabled (wrap-around enabled)
+        this.setButtonStates(false);
     }
 
     /**
