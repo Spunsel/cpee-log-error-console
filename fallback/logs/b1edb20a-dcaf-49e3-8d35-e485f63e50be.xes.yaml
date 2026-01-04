@@ -1,0 +1,289 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 101457
+    cpee:name: Plain Instance
+    cpee:instance: b1edb20a-dcaf-49e3-8d35-e485f63e50be
+---
+event:
+  concept:instance: 101457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b1edb20a-dcaf-49e3-8d35-e485f63e50be
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-03T15:22:11.036622+01:00'
+---
+event:
+  concept:instance: 101457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b1edb20a-dcaf-49e3-8d35-e485f63e50be
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Detect personal data breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Processor notifies controller</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Within 72 hours" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Controller notifies supervisory authority</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="After 72 hours" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Controller notifies supervisory authority with reasons for delay</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Provide detailed information about the breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="High risk to rights and freedoms" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Communicate breach to data subject</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No high risk or conditions in Art. 34(3) are met" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>No communication to data subject required</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c9d0d87fece5ef4f7ec343afc4b079b0b8fd3d4b
+  time:timestamp: '2026-01-03T15:22:39.062666+01:00'
+---
+event:
+  concept:instance: 101457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b1edb20a-dcaf-49e3-8d35-e485f63e50be
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9d0d87fece5ef4f7ec343afc4b079b0b8fd3d4b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-03T15:22:39.062983+01:00'
+---
+event:
+  concept:instance: 101457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b1edb20a-dcaf-49e3-8d35-e485f63e50be
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9d0d87fece5ef4f7ec343afc4b079b0b8fd3d4b
+  cpee:exposition: |-
+    # User Input:
+    Art. 33 GDPR Notification of a personal data breach to the supervisory authority 1.In the case of a personal data breach, the controller shall without undue delay and, where feasible, not later than 72 hours after having become aware of it, notify the personal data breach to the supervisory authority competent in accordance with Article 55, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons. 2Where the notification to the supervisory authority is not made within 72 hours, it shall be accompanied by reasons for the delay. 2.The processor shall notify the controller without undue delay after becoming aware of a personal data breach. 3.The notification referred to in paragraph 1 shall at least: a)describe the nature of the personal data breach including where possible, the categories and approximate number of data subjects concerned and the categories and approximate number of personal data records concerned; b)communicate the name and contact details of the data protection officer or other contact point where more information can be obtained; c)describe the likely consequences of the personal data breach; d)describe the measures taken or proposed to be taken by the controller to address the personal data breach, including, where appropriate, measures to mitigate its possible adverse effects. 4.Where, and in so far as, it is not possible to provide the information at the same time, the information may be provided in phases without undue further delay. 5.1The controller shall document any personal data breaches, comprising the facts relating to the personal data breach, its effects and the remedial action taken. 2That documentation shall enable the supervisory authority to verify compliance with this Article. Art. 34 GDPR Communication of a personal data breach to the data subject 1.When the personal data breach is likely to result in a high risk to the rights and freedoms of natural persons, the controller shall communicate the personal data breach to the data subject without undue delay. 2.The communication to the data subject referred to in paragraph 1 of this Article shall describe in clear and plain language the nature of the personal data breach and contain at least the information and measures referred to in points (b), (c) and (d) of Article 33(3). 3.The communication to the data subject referred to in paragraph 1 shall not be required if any of the following conditions are met: a)the controller has implemented appropriate technical and organisational protection measures, and those measures were applied to the personal data affected by the personal data breach, in particular those that render the personal data unintelligible to any person who is not authorised to access it, such as encryption; b)the controller has taken subsequent measures which ensure that the high risk to the rights and freedoms of data subjects referred to in paragraph 1 is no longer likely to materialise; c)it would involve disproportionate effort. In such a case, there shall instead be a public communication or similar measure whereby the data subjects are informed in an equally effective manner. 4.If the controller has not already communicated the personal data breach to the data subject, the supervisory authority, having considered the likelihood of the personal data breach resulting in a high risk, may require it to do so or may decide that any of the conditions referred to in paragraph 3 are met.
+  time:timestamp: '2026-01-03T15:22:39.064138+01:00'
+---
+event:
+  concept:instance: 101457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b1edb20a-dcaf-49e3-8d35-e485f63e50be
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9d0d87fece5ef4f7ec343afc4b079b0b8fd3d4b
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-01-03T15:22:39.064371+01:00'
+---
+event:
+  concept:instance: 101457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b1edb20a-dcaf-49e3-8d35-e485f63e50be
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9d0d87fece5ef4f7ec343afc4b079b0b8fd3d4b
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-03T15:22:39.064502+01:00'
+---
+event:
+  concept:instance: 101457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b1edb20a-dcaf-49e3-8d35-e485f63e50be
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9d0d87fece5ef4f7ec343afc4b079b0b8fd3d4b
+  cpee:exposition: |-
+    %% Output Intermediate
+    Due to the complexity of the process description, the model will be simplified to meet all requirements. The model will focus on the main steps of the process: detecting a data breach, notifying the supervisory authority, providing detailed information about the breach, and communicating the breach to the data subject if necessary.
+
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Detect personal data breach)
+    1:task:(Detect personal data breach) --> 2:task:(Processor notifies controller)
+    2:task:(Processor notifies controller) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Within 72 hours| 4:task:(Controller notifies supervisory authority)
+    3:exclusivegateway:{x} --> |After 72 hours| 5:task:(Controller notifies supervisory authority with reasons for delay)
+    4:task:(Controller notifies supervisory authority) --> 6:task:(Provide detailed information about the breach)
+    5:task:(Controller notifies supervisory authority with reasons for delay) --> 6:task:(Provide detailed information about the breach)
+    6:task:(Provide detailed information about the breach) --> 7:exclusivegateway:{x}
+    7:exclusivegateway:{x} --> |High risk to rights and freedoms| 8:task:(Communicate breach to data subject)
+    7:exclusivegateway:{x} --> |No high risk or conditions in Art. 34(3) are met| 9:task:(No communication to data subject required)
+    8:task:(Communicate breach to data subject) --> 10:endevent:(((endevent)))
+    9:task:(No communication to data subject required) --> 10:endevent:(((endevent)))
+    ```
+
+    This model represents the described process, where a personal data breach is detected, the processor notifies the controller, the controller notifies the supervisory authority (either within 72 hours or after 72 hours with reasons for delay), detailed information about the breach is provided, and depending on the risk to rights and freedoms, the breach is either communicated to the data subject or no communication is required. The process ends after the communication step.
+  time:timestamp: '2026-01-03T15:22:39.064611+01:00'
+---
+event:
+  concept:instance: 101457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: b1edb20a-dcaf-49e3-8d35-e485f63e50be
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9d0d87fece5ef4f7ec343afc4b079b0b8fd3d4b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Detect personal data breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Processor notifies controller</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Within 72 hours" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Controller notifies supervisory authority</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="After 72 hours" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Controller notifies supervisory authority with reasons for delay</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Provide detailed information about the breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="High risk to rights and freedoms" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Communicate breach to data subject</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No high risk or conditions in Art. 34(3) are met" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>No communication to data subject required</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-03T15:22:39.064767+01:00'

@@ -1,0 +1,498 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 101460
+    cpee:name: Plain Instance
+    cpee:instance: f4d9eb3a-0647-4bf7-9494-ddffaccca80c
+---
+event:
+  concept:instance: 101460
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f4d9eb3a-0647-4bf7-9494-ddffaccca80c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-03T15:26:03.375057+01:00'
+---
+event:
+  concept:instance: 101460
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f4d9eb3a-0647-4bf7-9494-ddffaccca80c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Become Aware of Data Breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="2">
+            <alternative condition="Risk Unlikely" language="text/javascript"/>
+            <alternative condition="Risk Likely" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>Notify Supervisory Authority</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="4">
+                <alternative condition="Within 72 Hours" language="text/javascript"/>
+                <alternative condition="After 72 Hours" language="text/javascript">
+                  <call id="a13" endpoint="" a:alt_id="5">
+                    <parameters>
+                      <label>Provide Reasons for Delay</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a11" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Describe Breach Details</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="14">
+                <alternative condition="All Info Available" language="text/javascript"/>
+                <alternative condition="Info in Phases" language="text/javascript">
+                  <call id="a21" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Provide Information in Phases</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+          <call id="a5" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Document Data Breach</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="15">
+            <alternative condition="High Risk" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Communicate to Data Subject</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="9">
+                <alternative condition="Protection Measures" language="text/javascript">
+                  <call id="a35" endpoint="" a:alt_id="16">
+                    <parameters>
+                      <label>Implement Protection Measures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="19">
+                    <alternative condition="Risk Mitigated" language="text/javascript"/>
+                    <alternative condition="Risk Persists" language="text/javascript">
+                      <call id="a51" endpoint="" a:alt_id="20">
+                        <parameters>
+                          <label>Supervisory Authority Decision</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Subsequent Measures" language="text/javascript">
+                  <call id="a37" endpoint="" a:alt_id="17">
+                    <parameters>
+                      <label>Take Subsequent Measures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="19">
+                    <alternative condition="Risk Mitigated" language="text/javascript"/>
+                    <alternative condition="Risk Persists" language="text/javascript">
+                      <call id="a51" endpoint="" a:alt_id="20">
+                        <parameters>
+                          <label>Supervisory Authority Decision</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Disproportionate Effort" language="text/javascript">
+                  <call id="a39" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>Assess Disproportionate Effort</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a45" endpoint="" a:alt_id="10">
+                    <parameters>
+                      <label>Public Communication</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="No High Risk" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="">
+          <call id="a25" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Notify Controller</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: f1d0c6b34c735ca60676f3225176407b6a0b25cb
+  time:timestamp: '2026-01-03T15:26:23.023850+01:00'
+---
+event:
+  concept:instance: 101460
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f4d9eb3a-0647-4bf7-9494-ddffaccca80c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1d0c6b34c735ca60676f3225176407b6a0b25cb
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-03T15:26:23.024185+01:00'
+---
+event:
+  concept:instance: 101460
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f4d9eb3a-0647-4bf7-9494-ddffaccca80c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1d0c6b34c735ca60676f3225176407b6a0b25cb
+  cpee:exposition: |-
+    # User Input:
+    Art. 33 GDPR Notification of a personal data breach to the supervisory authority 1.In the case of a personal data breach, the controller shall without undue delay and, where feasible, not later than 72 hours after having become aware of it, notify the personal data breach to the supervisory authority competent in accordance with Article 55, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons. 2Where the notification to the supervisory authority is not made within 72 hours, it shall be accompanied by reasons for the delay. 2.The processor shall notify the controller without undue delay after becoming aware of a personal data breach. 3.The notification referred to in paragraph 1 shall at least: a)describe the nature of the personal data breach including where possible, the categories and approximate number of data subjects concerned and the categories and approximate number of personal data records concerned; b)communicate the name and contact details of the data protection officer or other contact point where more information can be obtained; c)describe the likely consequences of the personal data breach; d)describe the measures taken or proposed to be taken by the controller to address the personal data breach, including, where appropriate, measures to mitigate its possible adverse effects. 4.Where, and in so far as, it is not possible to provide the information at the same time, the information may be provided in phases without undue further delay. 5.1The controller shall document any personal data breaches, comprising the facts relating to the personal data breach, its effects and the remedial action taken. 2That documentation shall enable the supervisory authority to verify compliance with this Article. Art. 34 GDPR Communication of a personal data breach to the data subject 1.When the personal data breach is likely to result in a high risk to the rights and freedoms of natural persons, the controller shall communicate the personal data breach to the data subject without undue delay. 2.The communication to the data subject referred to in paragraph 1 of this Article shall describe in clear and plain language the nature of the personal data breach and contain at least the information and measures referred to in points (b), (c) and (d) of Article 33(3). 3.The communication to the data subject referred to in paragraph 1 shall not be required if any of the following conditions are met: a)the controller has implemented appropriate technical and organisational protection measures, and those measures were applied to the personal data affected by the personal data breach, in particular those that render the personal data unintelligible to any person who is not authorised to access it, such as encryption; b)the controller has taken subsequent measures which ensure that the high risk to the rights and freedoms of data subjects referred to in paragraph 1 is no longer likely to materialise; c)it would involve disproportionate effort. In such a case, there shall instead be a public communication or similar measure whereby the data subjects are informed in an equally effective manner. 4.If the controller has not already communicated the personal data breach to the data subject, the supervisory authority, having considered the likelihood of the personal data breach resulting in a high risk, may require it to do so or may decide that any of the conditions referred to in paragraph 3 are met.
+  time:timestamp: '2026-01-03T15:26:23.024314+01:00'
+---
+event:
+  concept:instance: 101460
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f4d9eb3a-0647-4bf7-9494-ddffaccca80c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1d0c6b34c735ca60676f3225176407b6a0b25cb
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-01-03T15:26:23.024424+01:00'
+---
+event:
+  concept:instance: 101460
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f4d9eb3a-0647-4bf7-9494-ddffaccca80c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1d0c6b34c735ca60676f3225176407b6a0b25cb
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-03T15:26:23.024509+01:00'
+---
+event:
+  concept:instance: 101460
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f4d9eb3a-0647-4bf7-9494-ddffaccca80c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1d0c6b34c735ca60676f3225176407b6a0b25cb
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Start))
+      1:task:(Become Aware of Data Breach)
+      2:exclusivegateway:{x}
+      3:task:(Notify Supervisory Authority)
+      4:exclusivegateway:{x}
+      5:task:(Provide Reasons for Delay)
+      6:task:(Notify Controller)
+      7:task:(Document Data Breach)
+      8:task:(Communicate to Data Subject)
+      9:exclusivegateway:{x}
+      10:task:(Public Communication)
+      11:endevent:(((End)))
+      12:task:(Describe Breach Details)
+      13:task:(Provide Information in Phases)
+      14:exclusivegateway:{x}
+      15:exclusivegateway:{x}
+      16:task:(Implement Protection Measures)
+      17:task:(Take Subsequent Measures)
+      18:task:(Assess Disproportionate Effort)
+      19:exclusivegateway:{x}
+      20:task:(Supervisory Authority Decision)
+
+      0:startevent:((Start)) --> 1:task:(Become Aware of Data Breach)
+      1:task:(Become Aware of Data Breach) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Risk Unlikely| 7:task:(Document Data Breach)
+      2:exclusivegateway:{x} --> |Risk Likely| 3:task:(Notify Supervisory Authority)
+      3:task:(Notify Supervisory Authority) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} --> |Within 72 Hours| 12:task:(Describe Breach Details)
+      4:exclusivegateway:{x} --> |After 72 Hours| 5:task:(Provide Reasons for Delay)
+      5:task:(Provide Reasons for Delay) --> 12:task:(Describe Breach Details)
+      12:task:(Describe Breach Details) --> 14:exclusivegateway:{x}
+      14:exclusivegateway:{x} --> |All Info Available| 7:task:(Document Data Breach)
+      14:exclusivegateway:{x} --> |Info in Phases| 13:task:(Provide Information in Phases)
+      13:task:(Provide Information in Phases) --> 7:task:(Document Data Breach)
+      1:task:(Become Aware of Data Breach) --> 6:task:(Notify Controller)
+      7:task:(Document Data Breach) --> 15:exclusivegateway:{x}
+      15:exclusivegateway:{x} --> |High Risk| 8:task:(Communicate to Data Subject)
+      15:exclusivegateway:{x} --> |No High Risk| 11:endevent:(((End)))
+      8:task:(Communicate to Data Subject) --> 9:exclusivegateway:{x}
+      9:exclusivegateway:{x} --> |Protection Measures| 16:task:(Implement Protection Measures)
+      9:exclusivegateway:{x} --> |Subsequent Measures| 17:task:(Take Subsequent Measures)
+      9:exclusivegateway:{x} --> |Disproportionate Effort| 18:task:(Assess Disproportionate Effort)
+      16:task:(Implement Protection Measures) --> 19:exclusivegateway:{x}
+      17:task:(Take Subsequent Measures) --> 19:exclusivegateway:{x}
+      18:task:(Assess Disproportionate Effort) --> 10:task:(Public Communication)
+      10:task:(Public Communication) --> 11:endevent:(((End)))
+      19:exclusivegateway:{x} --> |Risk Mitigated| 11:endevent:(((End)))
+      19:exclusivegateway:{x} --> |Risk Persists| 20:task:(Supervisory Authority Decision)
+      20:task:(Supervisory Authority Decision) --> 11:endevent:(((End)))
+    ```
+  time:timestamp: '2026-01-03T15:26:23.024630+01:00'
+---
+event:
+  concept:instance: 101460
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f4d9eb3a-0647-4bf7-9494-ddffaccca80c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1d0c6b34c735ca60676f3225176407b6a0b25cb
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Become Aware of Data Breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="2">
+            <alternative condition="Risk Unlikely" language="text/javascript"/>
+            <alternative condition="Risk Likely" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>Notify Supervisory Authority</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="4">
+                <alternative condition="Within 72 Hours" language="text/javascript"/>
+                <alternative condition="After 72 Hours" language="text/javascript">
+                  <call id="a13" endpoint="" a:alt_id="5">
+                    <parameters>
+                      <label>Provide Reasons for Delay</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a11" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Describe Breach Details</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="14">
+                <alternative condition="All Info Available" language="text/javascript"/>
+                <alternative condition="Info in Phases" language="text/javascript">
+                  <call id="a21" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Provide Information in Phases</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+          <call id="a5" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Document Data Breach</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="15">
+            <alternative condition="High Risk" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Communicate to Data Subject</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="9">
+                <alternative condition="Protection Measures" language="text/javascript">
+                  <call id="a35" endpoint="" a:alt_id="16">
+                    <parameters>
+                      <label>Implement Protection Measures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="19">
+                    <alternative condition="Risk Mitigated" language="text/javascript"/>
+                    <alternative condition="Risk Persists" language="text/javascript">
+                      <call id="a51" endpoint="" a:alt_id="20">
+                        <parameters>
+                          <label>Supervisory Authority Decision</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Subsequent Measures" language="text/javascript">
+                  <call id="a37" endpoint="" a:alt_id="17">
+                    <parameters>
+                      <label>Take Subsequent Measures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="19">
+                    <alternative condition="Risk Mitigated" language="text/javascript"/>
+                    <alternative condition="Risk Persists" language="text/javascript">
+                      <call id="a51" endpoint="" a:alt_id="20">
+                        <parameters>
+                          <label>Supervisory Authority Decision</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Disproportionate Effort" language="text/javascript">
+                  <call id="a39" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>Assess Disproportionate Effort</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a45" endpoint="" a:alt_id="10">
+                    <parameters>
+                      <label>Public Communication</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="No High Risk" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="">
+          <call id="a25" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Notify Controller</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-03T15:26:23.024774+01:00'
