@@ -49,7 +49,6 @@ export class TraceFilter {
         this.currentMatchIndex = -1;
         this.onNavigate = null;
         this.isNavigationMode = false; // Track if we're in navigation mode (after filter applied)
-        this.shouldNavigateToFirst = false; // Flag to navigate to first match after autocomplete selection
         
         // Navigation elements
         this.navContainer = null;
@@ -340,10 +339,8 @@ export class TraceFilter {
                             firstItem.click();
                         }
                     }
-                    // After selecting, the flag will be set and navigation will happen in updateMatchingTraces
                 } else if (this.isNavigationMode && this.matchingTraceIndices.length > 0) {
                     // If in navigation mode and no dropdown visible, navigate to next result
-                    // This will go from first (1 of 4) to second (2 of 4), etc.
                     this.navigateToMatch('next');
                 }
             }
@@ -524,8 +521,6 @@ export class TraceFilter {
                 clearBtn.style.display = 'block';
             }
             this.hideAutocomplete(type);
-            // Set flag to navigate to first match after filter is applied
-            this.shouldNavigateToFirst = true;
             this.applyFilters();
             input.focus();
         }
@@ -620,20 +615,7 @@ export class TraceFilter {
      */
     updateMatchingTraces(matchingIndices) {
         this.matchingTraceIndices = matchingIndices || [];
-        
-        // If we should navigate to first match (after selecting autocomplete item), do it now
-        if (this.shouldNavigateToFirst && this.matchingTraceIndices.length > 0) {
-            this.shouldNavigateToFirst = false;
-            this.currentMatchIndex = 0; // Set to first match (0-based, will display as "1 of X")
-            // Navigate to first match
-            if (this.onNavigate) {
-                this.onNavigate(this.matchingTraceIndices[0]);
-            }
-        } else {
-            // Otherwise, reset to -1 (will show "1 of X" in counter until navigation starts)
-            this.currentMatchIndex = -1;
-        }
-        
+        this.currentMatchIndex = -1;
         // Enable navigation mode if there are matching traces
         this.isNavigationMode = this.matchingTraceIndices.length > 0;
         this.updateNavigation();
@@ -692,10 +674,9 @@ export class TraceFilter {
         }
         
         // Update counter - show current position (1-based)
-        // Always show at least "1 of X" when there are matches (never "0 of X")
-        // If currentMatchIndex is -1, show "1 of X" (first match is highlighted)
+        // If not yet navigated (currentMatchIndex = -1), show 0
         if (this.counter) {
-            const current = this.currentMatchIndex >= 0 ? this.currentMatchIndex + 1 : 1;
+            const current = this.currentMatchIndex >= 0 ? this.currentMatchIndex + 1 : 0;
             this.counter.textContent = `${current} of ${matchCount}`;
         }
         
