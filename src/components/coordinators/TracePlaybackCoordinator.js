@@ -482,4 +482,3 @@ export class TracePlaybackCoordinator {
 
 // Export singleton getter as default
 export default TracePlaybackCoordinator;
-
