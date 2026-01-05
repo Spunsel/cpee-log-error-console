@@ -129,6 +129,8 @@ export class CrossGraphHighlightCoordinator {
             // Don't emit event since TraceContentRenderer initiated the clear
             // Clear trace highlight tracking when explicitly clearing
             this.clearAllHighlights(false, true);
+            // Also clear active state so consecutive duplicates can be highlighted again
+            this.clearActiveState();
         });
     }
 
@@ -229,8 +231,7 @@ export class CrossGraphHighlightCoordinator {
         console.log('[CrossGraphHighlight] onTaskClicked', { taskId, sourceFormat, sectionId });
 
         // Check if clicking the same task again
-        // Skip this check for trace auto-play to allow re-highlighting consecutive identical tasks
-        if (!this.isTraceHighlight && this.isSameTaskClicked(taskId, sectionId)) {
+        if (this.isSameTaskClicked(taskId, sectionId)) {
             console.log('[CrossGraphHighlight] same element clicked, clearing state');
             this.clearActiveState();
             return;

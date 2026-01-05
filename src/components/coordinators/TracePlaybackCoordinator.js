@@ -56,12 +56,12 @@ export class TracePlaybackCoordinator {
             currentTraceKey: null, // Format: "sectionId:traceNumber"
             currentTaskIndex: 0,
             intervalId: null,
+            timeoutId: null, // For handling consecutive duplicate tasks
             trace: null,
             sectionId: null,
             playButton: null,
             traceElement: null,
-            playbackSpeed: 1000, // milliseconds between tasks
-            previousTaskAltId: null // Track previous task for consecutive duplicate detection
+            playbackSpeed: 1000 // milliseconds between tasks
         };
 
         // Highlight state
@@ -147,11 +147,11 @@ export class TracePlaybackCoordinator {
             currentTraceKey: traceKey,
             currentTaskIndex: 0,
             intervalId: null,
+            timeoutId: null,
             trace: trace,
             sectionId: sectionId,
             playButton: playBtn,
-            traceElement: traceElement,
-            previousTaskAltId: null // Reset previous task when starting new playback
+            traceElement: traceElement
         };
 
         // Update button to show pause icon
@@ -183,6 +183,9 @@ export class TracePlaybackCoordinator {
         if (this.autoPlayState.intervalId) {
             clearInterval(this.autoPlayState.intervalId);
         }
+        if (this.autoPlayState.timeoutId) {
+            clearTimeout(this.autoPlayState.timeoutId);
+        }
 
         // Reset button to play icon
         if (this.autoPlayState.playButton) {
@@ -200,17 +203,17 @@ export class TracePlaybackCoordinator {
             currentTraceKey: null,
             currentTaskIndex: 0,
             intervalId: null,
+            timeoutId: null,
             trace: null,
             sectionId: null,
             playButton: null,
             traceElement: null,
-            playbackSpeed: this.autoPlayState.playbackSpeed, // Preserve speed setting
-            previousTaskAltId: null // Reset previous task tracking
+            playbackSpeed: this.autoPlayState.playbackSpeed // Preserve speed setting
         };
 
         // Emit playback stopped event
         if (wasPlaying) {
-            this.eventBus.emit('trace:playback:stopped');
+            this.eventBus.emit('trace:playback:stopped', null, { silent: true });
         }
     }
 
@@ -218,7 +221,7 @@ export class TracePlaybackCoordinator {
      * Highlight the current task in auto-play
      */
     playCurrentTask() {
-        const { trace, sectionId, currentTaskIndex, traceElement, previousTaskAltId, playbackSpeed } = this.autoPlayState;
+        const { trace, sectionId, currentTaskIndex, traceElement } = this.autoPlayState;
 
         if (!trace || !trace.path || currentTaskIndex >= trace.path.length) {
             return;
@@ -237,89 +240,48 @@ export class TracePlaybackCoordinator {
             }
         }
 
-        // Check if this is the same task as the previous one (consecutive duplicate)
-        const isConsecutiveDuplicate = previousTaskAltId !== null && previousTaskAltId === altId;
-
         // Clear previous highlights first
         this.clearAllHighlights();
         this.eventBus.emit('trace:highlight:clear');
 
-        // If this is a consecutive duplicate, pause the interval and handle timing manually
-        // This creates a visible unmarking period between identical tasks
-        if (isConsecutiveDuplicate) {
-            // Clear the interval to pause auto-play
-            if (this.autoPlayState.intervalId) {
-                clearInterval(this.autoPlayState.intervalId);
-                this.autoPlayState.intervalId = null;
-            }
+        // Emit highlight event for cross-graph highlighting
+        const sourceFormat = this.getSectionFormat(sectionId);
+        this.eventBus.emit('trace:highlight:task', {
+            taskId: task.id,
+            altId: task.alt_id,
+            taskLabel: task.task,
+            sourceFormat: sourceFormat,
+            sectionId: sectionId,
+            occurrenceIndex: occurrenceIndex
+        });
 
-            // Wait for playback speed duration (unmarking period)
-            setTimeout(() => {
-                // Emit highlight event for cross-graph highlighting
-                const sourceFormat = this.getSectionFormat(sectionId);
-                this.eventBus.emit('trace:highlight:task', {
-                    taskId: task.id,
-                    altId: task.alt_id,
-                    taskLabel: task.task,
-                    sourceFormat: sourceFormat,
-                    sectionId: sectionId,
-                    occurrenceIndex: occurrenceIndex
-                });
+        // Highlight only the specific row at the current index in this trace's table
+        this.highlightAutoPlayRow(traceElement, currentTaskIndex);
 
-                // Highlight only the specific row at the current index in this trace's table
-                this.highlightAutoPlayRow(traceElement, currentTaskIndex);
+        // Emit progress event
+        this.eventBus.emit('trace:playback:progress', {
+            currentIndex: currentTaskIndex,
+            totalTasks: trace.path.length,
+            task: task
+        }, { silent: true });
+    }
 
-                // Emit progress event
-                this.eventBus.emit('trace:playback:progress', {
-                    currentIndex: currentTaskIndex,
-                    totalTasks: trace.path.length,
-                    task: task
-                });
-
-                // Update previous task after highlighting
-                this.autoPlayState.previousTaskAltId = altId;
-
-                // Wait another playback speed duration before moving to next task
-                setTimeout(() => {
-                    // Check if playback is still active before advancing
-                    if (this.autoPlayState.isPlaying) {
-                        this.playNextTask();
-                        // Restart the interval (clear any existing one first as a safety measure)
-                        if (this.autoPlayState.intervalId) {
-                            clearInterval(this.autoPlayState.intervalId);
-                        }
-                        this.autoPlayState.intervalId = setInterval(() => {
-                            this.playNextTask();
-                        }, this.autoPlayState.playbackSpeed);
-                    }
-                }, playbackSpeed);
-            }, playbackSpeed);
-        } else {
-            // Normal flow: highlight immediately
-            // Emit highlight event for cross-graph highlighting
-            const sourceFormat = this.getSectionFormat(sectionId);
-            this.eventBus.emit('trace:highlight:task', {
-                taskId: task.id,
-                altId: task.alt_id,
-                taskLabel: task.task,
-                sourceFormat: sourceFormat,
-                sectionId: sectionId,
-                occurrenceIndex: occurrenceIndex
-            });
-
-            // Highlight only the specific row at the current index in this trace's table
-            this.highlightAutoPlayRow(traceElement, currentTaskIndex);
-
-            // Emit progress event
-            this.eventBus.emit('trace:playback:progress', {
-                currentIndex: currentTaskIndex,
-                totalTasks: trace.path.length,
-                task: task
-            });
-
-            // Update previous task after highlighting
-            this.autoPlayState.previousTaskAltId = altId;
+    /**
+     * Check if two tasks are the same (consecutive duplicates)
+     * @param {Object} task1 - First task
+     * @param {Object} task2 - Second task
+     * @returns {boolean}
+     */
+    areTasksSame(task1, task2) {
+        if (!task1 || !task2) {
+            return false;
         }
+        // Compare by both id and alt_id to be safe
+        const id1 = task1.id || '';
+        const id2 = task2.id || '';
+        const altId1 = task1.alt_id || '';
+        const altId2 = task2.alt_id || '';
+        return id1 === id2 && altId1 === altId2;
     }
 
     /**
@@ -333,6 +295,8 @@ export class TracePlaybackCoordinator {
             return;
         }
 
+        const previousTaskIndex = this.autoPlayState.currentTaskIndex;
+        
         // Increment task index
         this.autoPlayState.currentTaskIndex++;
 
@@ -342,8 +306,48 @@ export class TracePlaybackCoordinator {
             return;
         }
 
-        // Highlight the current task
-        this.playCurrentTask();
+        const previousTask = trace.path[previousTaskIndex];
+        const currentTask = trace.path[this.autoPlayState.currentTaskIndex];
+
+        // Check if this is a consecutive duplicate task
+        if (this.areTasksSame(previousTask, currentTask)) {
+            // Handle consecutive duplicate: unhighlight, wait, then highlight again
+            this.handleConsecutiveDuplicate();
+        } else {
+            // Normal case: just highlight the current task
+            this.playCurrentTask();
+        }
+    }
+
+    /**
+     * Handle consecutive duplicate task: unhighlight, wait, then highlight again
+     */
+    handleConsecutiveDuplicate() {
+        const { playbackSpeed } = this.autoPlayState;
+
+        // Clear the interval temporarily
+        if (this.autoPlayState.intervalId) {
+            clearInterval(this.autoPlayState.intervalId);
+            this.autoPlayState.intervalId = null;
+        }
+
+        // Step 1: Unhighlight (clear highlights)
+        this.clearAllHighlights();
+        this.eventBus.emit('trace:highlight:clear');
+
+        // Step 2: Wait for playback speed duration, then highlight the task again
+        this.autoPlayState.timeoutId = setTimeout(() => {
+            // Highlight the current task
+            this.playCurrentTask();
+
+            // Step 3: Wait another playback speed duration, then resume normal interval
+            this.autoPlayState.timeoutId = setTimeout(() => {
+                // Resume normal interval
+                this.autoPlayState.intervalId = setInterval(() => {
+                    this.playNextTask();
+                }, playbackSpeed);
+            }, playbackSpeed);
+        }, playbackSpeed);
     }
 
     /**
@@ -354,8 +358,14 @@ export class TracePlaybackCoordinator {
         this.autoPlayState.playbackSpeed = speedMs;
 
         // If currently playing, restart interval with new speed
-        if (this.autoPlayState.isPlaying && this.autoPlayState.intervalId) {
-            clearInterval(this.autoPlayState.intervalId);
+        if (this.autoPlayState.isPlaying) {
+            if (this.autoPlayState.intervalId) {
+                clearInterval(this.autoPlayState.intervalId);
+            }
+            if (this.autoPlayState.timeoutId) {
+                clearTimeout(this.autoPlayState.timeoutId);
+                this.autoPlayState.timeoutId = null;
+            }
             this.autoPlayState.intervalId = setInterval(() => {
                 this.playNextTask();
             }, speedMs);
