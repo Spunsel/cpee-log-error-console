@@ -65,18 +65,15 @@ export class CrossGraphHighlightCoordinator {
     setupTraceHighlightListeners() {
         // Listen for trace task highlight requests
         this.eventBus.on('trace:highlight:task', (data) => {
-            const { taskId, altId, sourceFormat, sectionId, occurrenceIndex } = data;
+            const { taskId, altId, sourceFormat, sectionId } = data;
             if (!sourceFormat || !sectionId) {
                 return;
             }
             
             console.log('[CrossGraphHighlight] Received trace highlight request:', data);
             
-            // Store occurrence index for CPEE element selection
-            // This is used when there are duplicate alt_ids in the CPEE graph
-            this.traceOccurrenceIndex = occurrenceIndex || 1;
-            this.traceAltId = altId;
-            this.isTraceHighlight = true; // Flag to indicate this is a trace highlight
+            // Set flag to indicate this is a trace highlight
+            this.isTraceHighlight = true;
             
             // Try to find the task in the pre-existing mapping using task.id first
             if (taskId && this.currentStepMapping) {
@@ -88,7 +85,23 @@ export class CrossGraphHighlightCoordinator {
                 }
             }
             
-            // Fallback: try with altId if primary lookup failed
+            // Special handling for input-intermediate (Mermaid) traces:
+            // Match trace alt_id to CPEE task id (not alt_id) for input-cpee sections
+            if (altId && this.currentStepMapping && sourceFormat === 'input-intermediate') {
+                // Search for CPEE task in input-cpee where task.id matches the trace alt_id
+                const cpeeTaskIds = this.currentStepMapping.getTasksInFormat('input-cpee');
+                for (const cpeeId of cpeeTaskIds) {
+                    const cpeeTask = this.currentStepMapping.getTask(cpeeId, 'input-cpee');
+                    if (cpeeTask && cpeeTask.id === altId) {
+                        console.log('[CrossGraphHighlight] Found input-cpee task by id (from trace alt_id):', altId, '-> CPEE id:', cpeeId);
+                        // Use the CPEE task id for highlighting, but keep original source format for mapping
+                        this.onTaskClicked(cpeeId, sourceFormat, sectionId);
+                        return;
+                    }
+                }
+            }
+            
+            // Fallback: try with altId if primary lookup failed (for non-input-intermediate sources)
             if (altId && this.currentStepMapping) {
                 // Search for task by altId in the mapping
                 const taskIds = this.currentStepMapping.getTasksInFormat(sourceFormat);
@@ -114,7 +127,7 @@ export class CrossGraphHighlightCoordinator {
         this.eventBus.on('trace:highlight:clear', () => {
             console.log('[CrossGraphHighlight] Received trace highlight clear request');
             // Don't emit event since TraceContentRenderer initiated the clear
-            // Clear trace occurrence tracking when explicitly clearing
+            // Clear trace highlight tracking when explicitly clearing
             this.clearAllHighlights(false, true);
         });
     }
@@ -253,14 +266,8 @@ export class CrossGraphHighlightCoordinator {
         this.clearAllHighlights();
         this.applyHighlightsWithGatewayObject(baseTaskId, sourceFormat, sectionId, taskId, resolvedGatewayObject);
         
-        // Save the trace occurrence index for comparison on next click
-        // This allows detecting when a different occurrence of the same task is clicked
-        if (this.isTraceHighlight && this.traceOccurrenceIndex) {
-            this.lastTraceOccurrenceIndex = this.traceOccurrenceIndex;
-        }
-        
         // Clear trace highlight flag after highlighting is complete
-        // This ensures normal clicks don't accidentally use stale trace occurrence data
+        // This ensures normal clicks don't accidentally use stale trace highlight data
         this.isTraceHighlight = false;
     }
     
@@ -315,24 +322,12 @@ export class CrossGraphHighlightCoordinator {
 
     /**
      * Check if the same task is clicked again
-     * For trace highlights, also considers the occurrence index
      * @param {string} taskId - Task identifier
      * @param {string} sectionId - Section identifier
      * @returns {boolean} True if same task clicked
      */
     isSameTaskClicked(taskId, sectionId) {
-        const sameTask = this.activeTaskId === taskId && this.activeSourceSection === sectionId;
-        
-        // For trace highlights, also check if occurrence index is different
-        // If same taskId but different occurrence, it's NOT the same element
-        if (sameTask && this.isTraceHighlight && this.traceOccurrenceIndex) {
-            // Compare with the previous occurrence index
-            if (this.lastTraceOccurrenceIndex !== this.traceOccurrenceIndex) {
-                return false; // Different occurrence, not the same element
-            }
-        }
-        
-        return sameTask;
+        return this.activeTaskId === taskId && this.activeSourceSection === sectionId;
     }
 
     /**
@@ -812,33 +807,8 @@ export class CrossGraphHighlightCoordinator {
             getPairedGatewayId: MermaidNodeExtractor.getPairedGatewayId
         };
         
-        let taskElement = null;
-        
-        // For CPEE sections with occurrence index, find the Nth matching element
-        // This handles cases where the same alt_id appears multiple times (e.g., loops)
-        // ONLY use this for trace highlights (not normal task clicks)
-        if (this.isTraceHighlight && sectionId.includes('cpee') && this.traceOccurrenceIndex && this.traceAltId) {
-            console.log('[CrossGraphHighlight] Trying occurrence-based lookup (trace):', {
-                sectionId,
-                altId: this.traceAltId,
-                occurrenceIndex: this.traceOccurrenceIndex
-            });
-            taskElement = this.findNthCPEEElementByAltId(container, this.traceAltId, this.traceOccurrenceIndex);
-            if (taskElement) {
-                console.log('[CrossGraphHighlight] Found CPEE element by occurrence index:', {
-                    altId: this.traceAltId,
-                    occurrenceIndex: this.traceOccurrenceIndex,
-                    element: taskElement.getAttribute('element-id')
-                });
-            } else {
-                console.log('[CrossGraphHighlight] Occurrence-based lookup found no element, falling back');
-            }
-        }
-        
-        // Fallback to standard element finding if occurrence-based lookup failed or not applicable
-        if (!taskElement) {
-            taskElement = this.highlightingService.findTaskInSVG(container, taskId, findOptions);
-        }
+        // Find the task element using standard finding logic
+        let taskElement = this.highlightingService.findTaskInSVG(container, taskId, findOptions);
         
         // Fallback: try altId if we have a task object
         if (!taskElement && taskObject && taskObject.altId && sectionId.includes('cpee')) {
@@ -861,9 +831,9 @@ export class CrossGraphHighlightCoordinator {
         // Track this highlight
         this.trackHighlight(sectionId, taskId);
         
-        // For CPEE sections (normal clicks, NOT trace highlights):
-        // Also highlight all other elements with the same alt_id (e.g., duplicates in loops)
-        if (!this.isTraceHighlight && sectionId.includes('cpee')) {
+        // For CPEE sections: highlight all other elements with the same alt_id (e.g., duplicates in loops)
+        // This applies to both normal clicks and trace highlights
+        if (sectionId.includes('cpee')) {
             this.highlightAllDuplicateCPEEElements(container, taskElement, isActive);
         }
     }
@@ -910,65 +880,7 @@ export class CrossGraphHighlightCoordinator {
         });
     }
 
-    /**
-     * Find the Nth CPEE element with a given alt_id
-     * Used for trace highlighting when the same task appears multiple times (e.g., in loops)
-     * @param {HTMLElement} container - SVG container
-     * @param {string} altId - The alt_id to search for
-     * @param {number} occurrenceIndex - Which occurrence to find (1-based)
-     * @returns {HTMLElement|null} The matching element or null
-     */
-    findNthCPEEElementByAltId(container, altId, occurrenceIndex) {
-        if (!container || !altId || !occurrenceIndex) {
-            return null;
-        }
-        
-        // Find all elements with element-alt_id attribute matching the altId
-        const matchingElements = [];
-        
-        // Query for elements with element-alt_id attribute
-        const allElements = container.querySelectorAll('[element-alt_id]');
-        for (const el of allElements) {
-            const elAltId = el.getAttribute('element-alt_id');
-            if (elAltId === altId) {
-                matchingElements.push(el);
-            }
-        }
-        
-        // Also check for g.element with element-alt_id in child elements (CPEE structure)
-        const groupElements = container.querySelectorAll('g.element');
-        for (const el of groupElements) {
-            // Check the element itself
-            const directAltId = el.getAttribute('element-alt_id');
-            if (directAltId === altId && !matchingElements.includes(el)) {
-                matchingElements.push(el);
-                continue;
-            }
-            
-            // Check child elements for alt_id (CPEE often nests this)
-            const childWithAltId = el.querySelector('[element-alt_id]');
-            if (childWithAltId) {
-                const childAltId = childWithAltId.getAttribute('element-alt_id');
-                if (childAltId === altId && !matchingElements.includes(el)) {
-                    matchingElements.push(el);
-                }
-            }
-        }
-        
-        console.log('[CrossGraphHighlight] findNthCPEEElementByAltId:', {
-            altId,
-            occurrenceIndex,
-            totalFound: matchingElements.length
-        });
-        
-        // Return the Nth element (1-based index)
-        if (occurrenceIndex > 0 && occurrenceIndex <= matchingElements.length) {
-            return matchingElements[occurrenceIndex - 1];
-        }
-        
-        // If occurrence index is out of bounds, return the first match as fallback
-        return matchingElements.length > 0 ? matchingElements[0] : null;
-    }
+
 
     /**
      * Apply highlighting based on section type
@@ -1034,13 +946,10 @@ export class CrossGraphHighlightCoordinator {
         this.highlightingService.clearAllHighlights();
         this.highlightedTasks.clear();
         
-        // Only clear trace occurrence tracking when explicitly requested
+        // Only clear trace highlight tracking when explicitly requested
         // (e.g., when trace highlight is cleared, not when switching between tasks)
         if (clearTraceOccurrence) {
-            this.traceOccurrenceIndex = null;
-            this.traceAltId = null;
             this.isTraceHighlight = false;
-            this.lastTraceOccurrenceIndex = null;
         }
         
         // Emit event to notify TraceContentRenderer to clear trace row highlights
@@ -1185,3 +1094,4 @@ export class CrossGraphHighlightCoordinator {
         this.reset();
     }
 }
+
