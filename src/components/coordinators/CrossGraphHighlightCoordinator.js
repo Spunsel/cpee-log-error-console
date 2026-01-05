@@ -229,7 +229,8 @@ export class CrossGraphHighlightCoordinator {
         console.log('[CrossGraphHighlight] onTaskClicked', { taskId, sourceFormat, sectionId });
 
         // Check if clicking the same task again
-        if (this.isSameTaskClicked(taskId, sectionId)) {
+        // Skip this check for trace auto-play to allow re-highlighting consecutive identical tasks
+        if (!this.isTraceHighlight && this.isSameTaskClicked(taskId, sectionId)) {
             console.log('[CrossGraphHighlight] same element clicked, clearing state');
             this.clearActiveState();
             return;

@@ -60,7 +60,8 @@ export class TracePlaybackCoordinator {
             sectionId: null,
             playButton: null,
             traceElement: null,
-            playbackSpeed: 1000 // milliseconds between tasks
+            playbackSpeed: 1000, // milliseconds between tasks
+            previousTaskAltId: null // Track previous task for consecutive duplicate detection
         };
 
         // Highlight state
@@ -149,7 +150,8 @@ export class TracePlaybackCoordinator {
             trace: trace,
             sectionId: sectionId,
             playButton: playBtn,
-            traceElement: traceElement
+            traceElement: traceElement,
+            previousTaskAltId: null // Reset previous task when starting new playback
         };
 
         // Update button to show pause icon
@@ -202,7 +204,8 @@ export class TracePlaybackCoordinator {
             sectionId: null,
             playButton: null,
             traceElement: null,
-            playbackSpeed: this.autoPlayState.playbackSpeed // Preserve speed setting
+            playbackSpeed: this.autoPlayState.playbackSpeed, // Preserve speed setting
+            previousTaskAltId: null // Reset previous task tracking
         };
 
         // Emit playback stopped event
@@ -215,7 +218,7 @@ export class TracePlaybackCoordinator {
      * Highlight the current task in auto-play
      */
     playCurrentTask() {
-        const { trace, sectionId, currentTaskIndex, traceElement } = this.autoPlayState;
+        const { trace, sectionId, currentTaskIndex, traceElement, previousTaskAltId, playbackSpeed } = this.autoPlayState;
 
         if (!trace || !trace.path || currentTaskIndex >= trace.path.length) {
             return;
@@ -234,30 +237,89 @@ export class TracePlaybackCoordinator {
             }
         }
 
+        // Check if this is the same task as the previous one (consecutive duplicate)
+        const isConsecutiveDuplicate = previousTaskAltId !== null && previousTaskAltId === altId;
+
         // Clear previous highlights first
         this.clearAllHighlights();
         this.eventBus.emit('trace:highlight:clear');
 
-        // Emit highlight event for cross-graph highlighting
-        const sourceFormat = this.getSectionFormat(sectionId);
-        this.eventBus.emit('trace:highlight:task', {
-            taskId: task.id,
-            altId: task.alt_id,
-            taskLabel: task.task,
-            sourceFormat: sourceFormat,
-            sectionId: sectionId,
-            occurrenceIndex: occurrenceIndex
-        });
+        // If this is a consecutive duplicate, pause the interval and handle timing manually
+        // This creates a visible unmarking period between identical tasks
+        if (isConsecutiveDuplicate) {
+            // Clear the interval to pause auto-play
+            if (this.autoPlayState.intervalId) {
+                clearInterval(this.autoPlayState.intervalId);
+                this.autoPlayState.intervalId = null;
+            }
 
-        // Highlight only the specific row at the current index in this trace's table
-        this.highlightAutoPlayRow(traceElement, currentTaskIndex);
+            // Wait for playback speed duration (unmarking period)
+            setTimeout(() => {
+                // Emit highlight event for cross-graph highlighting
+                const sourceFormat = this.getSectionFormat(sectionId);
+                this.eventBus.emit('trace:highlight:task', {
+                    taskId: task.id,
+                    altId: task.alt_id,
+                    taskLabel: task.task,
+                    sourceFormat: sourceFormat,
+                    sectionId: sectionId,
+                    occurrenceIndex: occurrenceIndex
+                });
 
-        // Emit progress event
-        this.eventBus.emit('trace:playback:progress', {
-            currentIndex: currentTaskIndex,
-            totalTasks: trace.path.length,
-            task: task
-        });
+                // Highlight only the specific row at the current index in this trace's table
+                this.highlightAutoPlayRow(traceElement, currentTaskIndex);
+
+                // Emit progress event
+                this.eventBus.emit('trace:playback:progress', {
+                    currentIndex: currentTaskIndex,
+                    totalTasks: trace.path.length,
+                    task: task
+                });
+
+                // Update previous task after highlighting
+                this.autoPlayState.previousTaskAltId = altId;
+
+                // Wait another playback speed duration before moving to next task
+                setTimeout(() => {
+                    // Check if playback is still active before advancing
+                    if (this.autoPlayState.isPlaying) {
+                        this.playNextTask();
+                        // Restart the interval (clear any existing one first as a safety measure)
+                        if (this.autoPlayState.intervalId) {
+                            clearInterval(this.autoPlayState.intervalId);
+                        }
+                        this.autoPlayState.intervalId = setInterval(() => {
+                            this.playNextTask();
+                        }, this.autoPlayState.playbackSpeed);
+                    }
+                }, playbackSpeed);
+            }, playbackSpeed);
+        } else {
+            // Normal flow: highlight immediately
+            // Emit highlight event for cross-graph highlighting
+            const sourceFormat = this.getSectionFormat(sectionId);
+            this.eventBus.emit('trace:highlight:task', {
+                taskId: task.id,
+                altId: task.alt_id,
+                taskLabel: task.task,
+                sourceFormat: sourceFormat,
+                sectionId: sectionId,
+                occurrenceIndex: occurrenceIndex
+            });
+
+            // Highlight only the specific row at the current index in this trace's table
+            this.highlightAutoPlayRow(traceElement, currentTaskIndex);
+
+            // Emit progress event
+            this.eventBus.emit('trace:playback:progress', {
+                currentIndex: currentTaskIndex,
+                totalTasks: trace.path.length,
+                task: task
+            });
+
+            // Update previous task after highlighting
+            this.autoPlayState.previousTaskAltId = altId;
+        }
     }
 
     /**
