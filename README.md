@@ -23,8 +23,11 @@ The fundamental goal of this project is to address the \"black box\" problem inh
 - **Dark Mode**: Theme support with dark/light mode toggle
 - **Bug Reporting**: Integrated bug reporting system
 - **Search & Filter**: Content search and filtering functionality
+- **Trace Playback**: Auto-play functionality for trace visualization with highlighting
 - **Fallback Support**: Local caching for offline access to logs and UUID mappings
 - **Trace Reconciliation**: Validation of traces across graph formats with reconciliation
+- **Code Minimap**: Visual navigation aid for large code sections
+- **SVG Export**: Export graph visualizations as SVG files
 
 ## Architecture
 
@@ -66,7 +69,8 @@ The fundamental goal of this project is to address the \"black box\" problem inh
 │   │   │   ├── ContentViewCoordinator.js
 │   │   │   ├── ContentVisualizationCoordinator.js
 │   │   │   ├── CrossGraphHighlightCoordinator.js
-│   │   │   └── TraceComparisonCoordinator.js
+│   │   │   ├── TraceComparisonCoordinator.js
+|   |   |   └── TracePlaybackCoordinator.js 
 │   │   ├── renderers/
 │   │   │   ├── AnalysisContentRenderer.js
 │   │   │   ├── CPEEWfAdaptorRenderer.js
@@ -78,6 +82,7 @@ The fundamental goal of this project is to address the \"black box\" problem inh
 │   │   │   ├── ActionBar.js
 │   │   │   ├── BoundednessDisplay.js
 │   │   │   ├── BugReportModal.js
+│   │   │   ├── CodeMinimap.js
 │   │   │   ├── ComparisonInfoBox.js
 │   │   │   ├── CopyButton.js
 │   │   │   ├── DarkModeToggle.js
@@ -87,7 +92,7 @@ The fundamental goal of this project is to address the \"black box\" problem inh
 │   │   │   ├── NodeClassificationList.js
 │   │   │   ├── PropertyStatusIndicator.js
 │   │   │   ├── ReachabilityDisplay.js
-│   │   ��   ├── ReachabilityMetrics.js
+│   │   │   ├── ReachabilityMetrics.js
 │   │   │   ├── RecentAdditionsAndFixes.js
 │   │   │   ├── ScaleDisplay.js
 │   │   │   ├── SCCDisplay.js
@@ -100,6 +105,7 @@ The fundamental goal of this project is to address the \"black box\" problem inh
 │   │   │   ├── StepSection.js
 │   │   │   ├── ThemeSelector.js
 │   │   │   ├── TraceDisplay.js
+│   │   │   ├── TraceFilter.js
 │   │   │   ├── VerificationStatusCard.js
 │   │   │   └── ViewModeToggle.js
 │   │   └── views/
@@ -121,7 +127,7 @@ The fundamental goal of this project is to address the \"black box\" problem inh
 │   │   ├── MermaidRaw.js
 │   │   ├── NodeIdentifier.js
 │   │   ├── Trace.js
-��   │   └── UserInputRaw.js
+│   │   └── UserInputRaw.js
 │   ├── services/
 │   │   ├── ContentProcessingService.js
 │   │   ├── CPEEService.js
@@ -153,7 +159,7 @@ The fundamental goal of this project is to address the \"black box\" problem inh
 │       │   ├── CPEENodeExtractor.js
 │       │   ├── MermaidNodeExtractor.js
 │       │   └── SVGNodeExtractor.js
-│       ��── interaction/
+│       ├── interaction/
 │       │   ├── CPEESVGClickHandler.js
 │       │   ├── MermaidSVGClickHandler.js
 │       │   └── SVGClickDetector.js
@@ -243,6 +249,7 @@ The fundamental goal of this project is to address the \"black box\" problem inh
   - **ContentViewCoordinator**: View mode coordination
   - **CrossGraphHighlightCoordinator**: Cross-graph highlighting synchronization
   - **TraceComparisonCoordinator**: Trace comparison coordination
+  - **TracePlaybackCoordinator**: Trace auto-play and highlighting coordination
 
 #### Utility Layer
 - **Content Processing**: CPEE, log, and Mermaid parsing utilities with error/warning handling
@@ -294,13 +301,15 @@ python -m http.server 8000
 ```
 
 ### Usage
-1. **Load Process**: Enter CPEE process number, fetch UUID, and load process
+1. **Load Process**: Enter CPEE process number or UUID to load an instance
 2. **Navigate Steps**: Use next/previous buttons or step dropdown to explore user LLM modifications
 3. **View Graphs**: Automatic rendering of CPEE trees and Mermaid diagrams
 4. **Analyze Traces**: View execution traces and compare them across different graph formats
-5. **Debug Issues**: Examine intermediate states, error messages, and property verifications
-6. **Cross-Graph Highlighting**: Click nodes in one view to see them highlighted in other views
-7. **Search & Filter**: Use the search bar to find specific content across all sections
+5. **Trace Playback**: Use auto-play controls to automatically step through trace execution
+6. **Debug Issues**: Examine intermediate states, error messages, and property verifications
+7. **Cross-Graph Highlighting**: Click nodes in one view to see them highlighted in other views
+8. **Search & Filter**: Use the search bar to find specific content across all sections
+9. **Export Visualizations**: Export graph SVGs for documentation or analysis
 
 ### Development Commands
 ```bash
