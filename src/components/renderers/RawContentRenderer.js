@@ -282,6 +282,18 @@ export class RawContentRenderer {
                             actionBar.appendToContainer(rawContainer);
                         }
                         
+                        // Update view log URL for current instance (fixes stale URL bug)
+                        try {
+                            const instanceService = serviceFactory.get('InstanceService');
+                            const currentInstance = instanceService.getCurrentInstance();
+                            if (currentInstance && currentInstance.uuid) {
+                                const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${currentInstance.uuid}.xes.yaml`;
+                                actionBar.setViewLogUrl(logUrl);
+                            }
+                        } catch (error) {
+                            console.warn('RawContentRenderer: Could not update view log URL', error);
+                        }
+                        
                         // Show the action bar
                         actionBar.show();
                     }
