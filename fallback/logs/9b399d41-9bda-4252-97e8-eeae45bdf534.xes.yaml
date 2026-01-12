@@ -1,0 +1,1193 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 104290
+    cpee:name: Plain Instance
+    cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-12T08:20:45.402118+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="1">
+        <alternative condition="">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Kunde wird zum Tisch begleitet</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Bestellung aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Bestellung an K&#xFC;che weiterleiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Pizza zubereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="9">
+            <alternative condition="Zutaten bereit" language="text/javascript"/>
+            <alternative condition="Zutaten fehlen" language="text/javascript">
+              <call id="a27" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Zutaten vorbereiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Pizza backen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Pizza servieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Bezahlen und verlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Keine Reservierung" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="3">
+            <alternative condition="">
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Kunde wird zum Tisch begleitet</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Bestellung aufnehmen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Bestellung an K&#xFC;che weiterleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Pizza zubereiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="9">
+                <alternative condition="Zutaten bereit" language="text/javascript"/>
+                <alternative condition="Zutaten fehlen" language="text/javascript">
+                  <call id="a27" endpoint="" a:alt_id="10">
+                    <parameters>
+                      <label>Zutaten vorbereiten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a25" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Pizza backen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a31" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Pizza servieren</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a33" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Bezahlen und verlassen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Kein Tisch frei" language="text/javascript">
+              <choose mode="exclusive" a:alt_id="5">
+                <alternative condition="">
+                  <call id="a13" endpoint="" a:alt_id="6">
+                    <parameters>
+                      <label>Warten bis Tisch frei</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a3" endpoint="" a:alt_id="2">
+                    <parameters>
+                      <label>Kunde wird zum Tisch begleitet</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a7" endpoint="" a:alt_id="4">
+                    <parameters>
+                      <label>Bestellung aufnehmen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a19" endpoint="" a:alt_id="7">
+                    <parameters>
+                      <label>Bestellung an K&#xFC;che weiterleiten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a21" endpoint="" a:alt_id="8">
+                    <parameters>
+                      <label>Pizza zubereiten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="9">
+                    <alternative condition="Zutaten bereit" language="text/javascript"/>
+                    <alternative condition="Zutaten fehlen" language="text/javascript">
+                      <call id="a27" endpoint="" a:alt_id="10">
+                        <parameters>
+                          <label>Zutaten vorbereiten</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                  <call id="a25" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>Pizza backen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a31" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>Pizza servieren</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a33" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Bezahlen und verlassen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Gehen" language="text/javascript"/>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 6130b453f3878a2a17c01a645ebfe79508b5a593
+  time:timestamp: '2026-01-12T08:29:35.504756+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6130b453f3878a2a17c01a645ebfe79508b5a593
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-12T08:29:35.505219+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6130b453f3878a2a17c01a645ebfe79508b5a593
+  cpee:exposition: |-
+    # User Input:
+    Der Prozess beginnt, sobald ein Kunde das italienische Restaurant betritt. Hat er eine Reservierung, wird er von einem Kellner direkt zu seinem Tisch begleitet und kann anschlieÃŸend seine Bestellung aufgeben. Liegt keine Reservierung vor, wird zunÃ¤chst geprÃ¼ft, ob ein Tisch frei ist. Ist kein Tisch verfÃ¼gbar, kann der Kunde entweder warten oder das Restaurant wieder verlassen. Entscheidet er sich zu gehen, endet der Prozess an dieser Stelle. Wartet er, wird nach einer gewissen Zeit ein Tisch frei, und der Kellner fÃ¼hrt ihn dann an seinen Platz, sodass er ebenfalls bestellen kann.
+
+    Sobald die Bestellung aufgenommen ist, leitet der Kellner sie an die KÃ¼che weiter. Dort bereitet der PizzabÃ¤cker die Pizza zu. Falls nicht alle benÃ¶tigten Zutaten sofort bereitstehen, werden sie zuerst vorbereitet. AnschlieÃŸend wird die Pizza gebacken. Nach der Fertigstellung bringt der Kellner die Pizza an den Tisch. Der Kunde isst, bezahlt beim Kellner und verlÃ¤sst danach das Restaurant. Damit ist der Prozess abgeschlossen.
+  time:timestamp: '2026-01-12T08:29:35.505390+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6130b453f3878a2a17c01a645ebfe79508b5a593
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-12T08:29:35.505514+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6130b453f3878a2a17c01a645ebfe79508b5a593
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-12T08:29:35.505597+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6130b453f3878a2a17c01a645ebfe79508b5a593
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:exclusivegateway:{x}
+        1:exclusivegateway:{x} --> |Reservierung| 2:task:(Kunde wird zum Tisch begleitet)
+        1:exclusivegateway:{x} --> |Keine Reservierung| 3:exclusivegateway:{x}
+        2:task:(Kunde wird zum Tisch begleitet) --> 4:task:(Bestellung aufnehmen)
+        3:exclusivegateway:{x} --> |Tisch frei| 2:task:(Kunde wird zum Tisch begleitet)
+        3:exclusivegateway:{x} --> |Kein Tisch frei| 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> |Warten| 6:task:(Warten bis Tisch frei)
+        5:exclusivegateway:{x} --> |Gehen| 14:endevent:(((endevent)))
+        6:task:(Warten bis Tisch frei) --> 2:task:(Kunde wird zum Tisch begleitet)
+        4:task:(Bestellung aufnehmen) --> 7:task:(Bestellung an KÃ¼che weiterleiten)
+        7:task:(Bestellung an KÃ¼che weiterleiten) --> 8:task:(Pizza zubereiten)
+        8:task:(Pizza zubereiten) --> 9:exclusivegateway:{x}
+        9:exclusivegateway:{x} --> |Zutaten bereit| 11:task:(Pizza backen)
+        9:exclusivegateway:{x} --> |Zutaten fehlen| 10:task:(Zutaten vorbereiten)
+        10:task:(Zutaten vorbereiten) --> 11:task:(Pizza backen)
+        11:task:(Pizza backen) --> 12:task:(Pizza servieren)
+        12:task:(Pizza servieren) --> 13:task:(Bezahlen und verlassen)
+        13:task:(Bezahlen und verlassen) --> 14:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-12T08:29:35.505829+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6130b453f3878a2a17c01a645ebfe79508b5a593
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="1">
+        <alternative condition="">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Kunde wird zum Tisch begleitet</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Bestellung aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Bestellung an K&#xFC;che weiterleiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Pizza zubereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="9">
+            <alternative condition="Zutaten bereit" language="text/javascript"/>
+            <alternative condition="Zutaten fehlen" language="text/javascript">
+              <call id="a27" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Zutaten vorbereiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Pizza backen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Pizza servieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Bezahlen und verlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Keine Reservierung" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="3">
+            <alternative condition="">
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Kunde wird zum Tisch begleitet</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Bestellung aufnehmen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Bestellung an K&#xFC;che weiterleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Pizza zubereiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="9">
+                <alternative condition="Zutaten bereit" language="text/javascript"/>
+                <alternative condition="Zutaten fehlen" language="text/javascript">
+                  <call id="a27" endpoint="" a:alt_id="10">
+                    <parameters>
+                      <label>Zutaten vorbereiten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a25" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Pizza backen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a31" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Pizza servieren</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a33" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Bezahlen und verlassen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Kein Tisch frei" language="text/javascript">
+              <choose mode="exclusive" a:alt_id="5">
+                <alternative condition="">
+                  <call id="a13" endpoint="" a:alt_id="6">
+                    <parameters>
+                      <label>Warten bis Tisch frei</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a3" endpoint="" a:alt_id="2">
+                    <parameters>
+                      <label>Kunde wird zum Tisch begleitet</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a7" endpoint="" a:alt_id="4">
+                    <parameters>
+                      <label>Bestellung aufnehmen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a19" endpoint="" a:alt_id="7">
+                    <parameters>
+                      <label>Bestellung an K&#xFC;che weiterleiten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a21" endpoint="" a:alt_id="8">
+                    <parameters>
+                      <label>Pizza zubereiten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="9">
+                    <alternative condition="Zutaten bereit" language="text/javascript"/>
+                    <alternative condition="Zutaten fehlen" language="text/javascript">
+                      <call id="a27" endpoint="" a:alt_id="10">
+                        <parameters>
+                          <label>Zutaten vorbereiten</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                  <call id="a25" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>Pizza backen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a31" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>Pizza servieren</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a33" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Bezahlen und verlassen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Gehen" language="text/javascript"/>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-12T08:29:35.506040+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-01-12T09:30:29.704079+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="1">
+        <alternative condition="">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Kunde wird zum Tisch begleitet</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Bestellung aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Bestellung an KÃ¼che weiterleiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Pizza zubereiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="9">
+            <alternative condition="Zutaten bereit" language="text/javascript"/>
+            <alternative condition="Zutaten fehlen" language="text/javascript">
+              <call id="a27" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Zutaten vorbereiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Pizza backen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Pizza servieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Bezahlen und verlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Keine Reservierung" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="3">
+            <alternative condition="">
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Kunde wird zum Tisch begleitet</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Bestellung aufnehmen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Bestellung an KÃ¼che weiterleiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Pizza zubereiten</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="9">
+                <alternative condition="Zutaten bereit" language="text/javascript"/>
+                <alternative condition="Zutaten fehlen" language="text/javascript">
+                  <call id="a27" endpoint="" a:alt_id="10">
+                    <parameters>
+                      <label>Zutaten vorbereiten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a25" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Pizza backen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a31" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Pizza servieren</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a33" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Bezahlen und verlassen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Kein Tisch frei" language="text/javascript">
+              <choose mode="exclusive" a:alt_id="5">
+                <alternative condition="">
+                  <call id="a13" endpoint="" a:alt_id="6">
+                    <parameters>
+                      <label>Warten bis Tisch frei</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a3" endpoint="" a:alt_id="2">
+                    <parameters>
+                      <label>Kunde wird zum Tisch begleitet</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a7" endpoint="" a:alt_id="4">
+                    <parameters>
+                      <label>Bestellung aufnehmen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a19" endpoint="" a:alt_id="7">
+                    <parameters>
+                      <label>Bestellung an KÃ¼che weiterleiten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a21" endpoint="" a:alt_id="8">
+                    <parameters>
+                      <label>Pizza zubereiten</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="9">
+                    <alternative condition="Zutaten bereit" language="text/javascript"/>
+                    <alternative condition="Zutaten fehlen" language="text/javascript">
+                      <call id="a27" endpoint="" a:alt_id="10">
+                        <parameters>
+                          <label>Zutaten vorbereiten</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                  <call id="a25" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>Pizza backen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a31" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>Pizza servieren</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a33" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Bezahlen und verlassen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Gehen" language="text/javascript"/>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-12T09:30:29.704415+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    Wenn der Kunde kein Tisch bekommt und deshalb geht, so bekommt er bevor er das Lokal verlÃ¤sst, ein Gutschein von 10% fÃ¼r den nÃ¶chsten Besuch.
+  time:timestamp: '2026-01-12T09:30:29.704691+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-12T09:30:29.704793+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a3:task:(Kunde wird zum Tisch begleitet)
+    a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
+    a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
+    a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+    a21:task:(Pizza zubereiten)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Zutaten bereit"|gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+    a27:task:(Zutaten vorbereiten)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"Zutaten bereit"|gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+    a27:task:(Zutaten vorbereiten)-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"Zutaten bereit"|gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+    a27:task:(Zutaten vorbereiten)-->gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a25:task:(Pizza backen)
+    a25:task:(Pizza backen)-->a31:task:(Pizza servieren)
+    a31:task:(Pizza servieren)-->a33:task:(Bezahlen und verlassen)
+    a33:task:(Bezahlen und verlassen)-->gw9s:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Keine Reservierung"|gw10s:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->a3:task:(Kunde wird zum Tisch begleitet)
+    a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
+    a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
+    a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+    a21:task:(Pizza zubereiten)-->gw11s:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->gw12s:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->|"Zutaten bereit"|gw12e:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+    a27:task:(Zutaten vorbereiten)-->gw13s:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+    gw13e:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
+    gw12e:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->gw14s:exclusivegateway:{x}
+    gw14s:exclusivegateway:{x}-->|"Zutaten bereit"|gw14e:exclusivegateway:{x}
+    gw14s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+    a27:task:(Zutaten vorbereiten)-->gw15s:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+    gw15e:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
+    gw14e:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->gw16s:exclusivegateway:{x}
+    gw16s:exclusivegateway:{x}-->|"Zutaten bereit"|gw16e:exclusivegateway:{x}
+    gw16s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+    a27:task:(Zutaten vorbereiten)-->gw17s:exclusivegateway:{x}
+    gw17s:exclusivegateway:{x}-->gw17e:exclusivegateway:{x}
+    gw17s:exclusivegateway:{x}-->gw17e:exclusivegateway:{x}
+    gw17s:exclusivegateway:{x}-->gw17e:exclusivegateway:{x}
+    gw17e:exclusivegateway:{x}-->gw16e:exclusivegateway:{x}
+    gw16e:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+    gw11e:exclusivegateway:{x}-->a25:task:(Pizza backen)
+    a25:task:(Pizza backen)-->a31:task:(Pizza servieren)
+    a31:task:(Pizza servieren)-->a33:task:(Bezahlen und verlassen)
+    a33:task:(Bezahlen und verlassen)-->gw18s:exclusivegateway:{x}
+    gw18s:exclusivegateway:{x}-->gw18e:exclusivegateway:{x}
+    gw18s:exclusivegateway:{x}-->gw18e:exclusivegateway:{x}
+    gw18s:exclusivegateway:{x}-->gw18e:exclusivegateway:{x}
+    gw18e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->|"Kein Tisch frei"|gw19s:exclusivegateway:{x}
+    gw19s:exclusivegateway:{x}-->a13:task:(Warten bis Tisch frei)
+    a13:task:(Warten bis Tisch frei)-->a3:task:(Kunde wird zum Tisch begleitet)
+    a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
+    a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
+    a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+    a21:task:(Pizza zubereiten)-->gw20s:exclusivegateway:{x}
+    gw20s:exclusivegateway:{x}-->gw21s:exclusivegateway:{x}
+    gw21s:exclusivegateway:{x}-->|"Zutaten bereit"|gw21e:exclusivegateway:{x}
+    gw21s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+    a27:task:(Zutaten vorbereiten)-->gw22s:exclusivegateway:{x}
+    gw22s:exclusivegateway:{x}-->gw22e:exclusivegateway:{x}
+    gw22s:exclusivegateway:{x}-->gw22e:exclusivegateway:{x}
+    gw22s:exclusivegateway:{x}-->gw22e:exclusivegateway:{x}
+    gw22e:exclusivegateway:{x}-->gw21e:exclusivegateway:{x}
+    gw21e:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+    gw20s:exclusivegateway:{x}-->gw23s:exclusivegateway:{x}
+    gw23s:exclusivegateway:{x}-->|"Zutaten bereit"|gw23e:exclusivegateway:{x}
+    gw23s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+    a27:task:(Zutaten vorbereiten)-->gw24s:exclusivegateway:{x}
+    gw24s:exclusivegateway:{x}-->gw24e:exclusivegateway:{x}
+    gw24s:exclusivegateway:{x}-->gw24e:exclusivegateway:{x}
+    gw24s:exclusivegateway:{x}-->gw24e:exclusivegateway:{x}
+    gw24e:exclusivegateway:{x}-->gw23e:exclusivegateway:{x}
+    gw23e:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+    gw20s:exclusivegateway:{x}-->gw25s:exclusivegateway:{x}
+    gw25s:exclusivegateway:{x}-->|"Zutaten bereit"|gw25e:exclusivegateway:{x}
+    gw25s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+    a27:task:(Zutaten vorbereiten)-->gw26s:exclusivegateway:{x}
+    gw26s:exclusivegateway:{x}-->gw26e:exclusivegateway:{x}
+    gw26s:exclusivegateway:{x}-->gw26e:exclusivegateway:{x}
+    gw26s:exclusivegateway:{x}-->gw26e:exclusivegateway:{x}
+    gw26e:exclusivegateway:{x}-->gw25e:exclusivegateway:{x}
+    gw25e:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+    gw20e:exclusivegateway:{x}-->a25:task:(Pizza backen)
+    a25:task:(Pizza backen)-->a31:task:(Pizza servieren)
+    a31:task:(Pizza servieren)-->a33:task:(Bezahlen und verlassen)
+    a33:task:(Bezahlen und verlassen)-->gw27s:exclusivegateway:{x}
+    gw27s:exclusivegateway:{x}-->gw27e:exclusivegateway:{x}
+    gw27s:exclusivegateway:{x}-->gw27e:exclusivegateway:{x}
+    gw27s:exclusivegateway:{x}-->gw27e:exclusivegateway:{x}
+    gw27e:exclusivegateway:{x}-->gw19e:exclusivegateway:{x}
+    gw19s:exclusivegateway:{x}-->|"Gehen"|gw19e:exclusivegateway:{x}
+    gw19e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-12T09:30:29.704894+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->a3:task:(Kunde wird zum Tisch begleitet)
+        a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
+        a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
+        a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+        a21:task:(Pizza zubereiten)-->gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"Zutaten bereit"|gw3e:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+        a27:task:(Zutaten vorbereiten)-->gw4s:exclusivegateway:{x}
+        gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+        gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+        gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+        gw5s:exclusivegateway:{x}-->|"Zutaten bereit"|gw5e:exclusivegateway:{x}
+        gw5s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+        a27:task:(Zutaten vorbereiten)-->gw6s:exclusivegateway:{x}
+        gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+        gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+        gw5e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
+        gw7s:exclusivegateway:{x}-->|"Zutaten bereit"|gw7e:exclusivegateway:{x}
+        gw7s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+        a27:task:(Zutaten vorbereiten)-->gw8s:exclusivegateway:{x}
+        gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+        gw8e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+        gw7e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+        gw2e:exclusivegateway:{x}-->a25:task:(Pizza backen)
+        a25:task:(Pizza backen)-->a31:task:(Pizza servieren)
+        a31:task:(Pizza servieren)-->a33:task:(Bezahlen und verlassen)
+        a33:task:(Bezahlen und verlassen)-->gw9s:exclusivegateway:{x}
+        gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+        gw9e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Keine Reservierung"|gw10s:exclusivegateway:{x}
+        gw10s:exclusivegateway:{x}-->a3:task:(Kunde wird zum Tisch begleitet)
+        a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
+        a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
+        a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+        a21:task:(Pizza zubereiten)-->gw11s:exclusivegateway:{x}
+        gw11s:exclusivegateway:{x}-->gw12s:exclusivegateway:{x}
+        gw12s:exclusivegateway:{x}-->|"Zutaten bereit"|gw12e:exclusivegateway:{x}
+        gw12s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+        a27:task:(Zutaten vorbereiten)-->gw13s:exclusivegateway:{x}
+        gw13s:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+        gw13e:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
+        gw12e:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+        gw11s:exclusivegateway:{x}-->gw14s:exclusivegateway:{x}
+        gw14s:exclusivegateway:{x}-->|"Zutaten bereit"|gw14e:exclusivegateway:{x}
+        gw14s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+        a27:task:(Zutaten vorbereiten)-->gw15s:exclusivegateway:{x}
+        gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+        gw15e:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
+        gw14e:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+        gw11s:exclusivegateway:{x}-->gw16s:exclusivegateway:{x}
+        gw16s:exclusivegateway:{x}-->|"Zutaten bereit"|gw16e:exclusivegateway:{x}
+        gw16s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+        a27:task:(Zutaten vorbereiten)-->gw17s:exclusivegateway:{x}
+        gw17s:exclusivegateway:{x}-->gw17e:exclusivegateway:{x}
+        gw17e:exclusivegateway:{x}-->gw16e:exclusivegateway:{x}
+        gw16e:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+        gw11e:exclusivegateway:{x}-->a25:task:(Pizza backen)
+        a25:task:(Pizza backen)-->a31:task:(Pizza servieren)
+        a31:task:(Pizza servieren)-->a33:task:(Bezahlen und verlassen)
+        a33:task:(Bezahlen und verlassen)-->gw18s:exclusivegateway:{x}
+        gw18s:exclusivegateway:{x}-->gw18e:exclusivegateway:{x}
+        gw18e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+        gw10s:exclusivegateway:{x}-->|"Kein Tisch frei"|gw19s:exclusivegateway:{x}
+        gw19s:exclusivegateway:{x}-->a13:task:(Warten bis Tisch frei)
+        a13:task:(Warten bis Tisch frei)-->a3:task:(Kunde wird zum Tisch begleitet)
+        a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
+        a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
+        a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+        a21:task:(Pizza zubereiten)-->gw20s:exclusivegateway:{x}
+        gw20s:exclusivegateway:{x}-->gw21s:exclusivegateway:{x}
+        gw21s:exclusivegateway:{x}-->|"Zutaten bereit"|gw21e:exclusivegateway:{x}
+        gw21s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+        a27:task:(Zutaten vorbereiten)-->gw22s:exclusivegateway:{x}
+        gw22s:exclusivegateway:{x}-->gw22e:exclusivegateway:{x}
+        gw22e:exclusivegateway:{x}-->gw21e:exclusivegateway:{x}
+        gw21e:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+        gw20s:exclusivegateway:{x}-->gw23s:exclusivegateway:{x}
+        gw23s:exclusivegateway:{x}-->|"Zutaten bereit"|gw23e:exclusivegateway:{x}
+        gw23s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+        a27:task:(Zutaten vorbereiten)-->gw24s:exclusivegateway:{x}
+        gw24s:exclusivegateway:{x}-->gw24e:exclusivegateway:{x}
+        gw24e:exclusivegateway:{x}-->gw23e:exclusivegateway:{x}
+        gw23e:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+        gw20s:exclusivegateway:{x}-->gw25s:exclusivegateway:{x}
+        gw25s:exclusivegateway:{x}-->|"Zutaten bereit"|gw25e:exclusivegateway:{x}
+        gw25s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+        a27:task:(Zutaten vorbereiten)-->gw26s:exclusivegateway:{x}
+        gw26s:exclusivegateway:{x}-->gw26e:exclusivegateway:{x}
+        gw26e:exclusivegateway:{x}-->gw25e:exclusivegateway:{x}
+        gw25e:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+        gw20e:exclusivegateway:{x}-->a25:task:(Pizza backen)
+        a25:task:(Pizza backen)-->a31:task:(Pizza servieren)
+        a31:task:(Pizza servieren)-->a33:task:(Bezahlen und verlassen)
+        a33:task:(Bezahlen und verlassen)-->gw27s:exclusivegateway:{x}
+        gw27s:exclusivegateway:{x}-->gw27e:exclusivegateway:{x}
+        gw27e:exclusivegateway:{x}-->gw19e:exclusivegateway:{x}
+        gw19s:exclusivegateway:{x}-->|"Gehen"|a35:task:(Gutschein geben)
+        a35:task:(Gutschein geben)-->gw19e:exclusivegateway:{x}
+        gw19e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+        gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+        gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+        gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+        gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+        gw13s:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+        gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+        gw17s:exclusivegateway:{x}-->gw17e:exclusivegateway:{x}
+        gw18s:exclusivegateway:{x}-->gw18e:exclusivegateway:{x}
+        gw22s:exclusivegateway:{x}-->gw22e:exclusivegateway:{x}
+        gw24s:exclusivegateway:{x}-->gw24e:exclusivegateway:{x}
+        gw26s:exclusivegateway:{x}-->gw26e:exclusivegateway:{x}
+        gw27s:exclusivegateway:{x}-->gw27e:exclusivegateway:{x}
+    ```
+  time:timestamp: '2026-01-12T09:30:29.705042+01:00'
+---
+event:
+  concept:instance: 104290
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9b399d41-9bda-4252-97e8-eeae45bdf534
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-01-12T09:30:29.705164+01:00'

@@ -1,0 +1,1726 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 104296
+    cpee:name: Plain Instance
+    cpee:instance: 90efd97b-1ea3-4845-aa0e-43f36bc9d16e
+---
+event:
+  concept:instance: 104296
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90efd97b-1ea3-4845-aa0e-43f36bc9d16e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-12T09:24:36.771477+01:00'
+---
+event:
+  concept:instance: 104296
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90efd97b-1ea3-4845-aa0e-43f36bc9d16e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a0" endpoint="" a:alt_id="0">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a11" endpoint="" a:alt_id="8">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="10">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: '088c5f273497f0eb13d24337da566665cd23f107'
+  time:timestamp: '2026-01-12T09:25:18.930139+01:00'
+---
+event:
+  concept:instance: 104296
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90efd97b-1ea3-4845-aa0e-43f36bc9d16e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '088c5f273497f0eb13d24337da566665cd23f107'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-12T09:25:18.930433+01:00'
+---
+event:
+  concept:instance: 104296
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90efd97b-1ea3-4845-aa0e-43f36bc9d16e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '088c5f273497f0eb13d24337da566665cd23f107'
+  cpee:exposition: |+
+    # User Input:
+    126Chapter 2Â 
+    Donor selection
+    2.0. Overview
+    Donor selection is a critical process in the chain from a safe bloodÂ 
+    donation to a safe blood product with high quality. This chapterÂ 
+    considers the principles for the selection of donors of whole blood andÂ 
+    also donors of components obtained by different apheresis procedures.
+    2.1. Responsibilities of blood establishments in theÂ 
+    selection process
+    2.1.1. Principle of voluntary non-remunerated donation
+    Standard
+    2.1.1.1.Â  Measures must be taken to promote the collection of blood andÂ 
+    blood components from voluntary nonâ€‘remunerated donationsÂ 
+    according to the principles set out in the Convention for theÂ 
+    Protection of Human Rights and Dignity of the Human Being withÂ 
+    Regard to the Application of Biology and Medicine (Convention onÂ 
+    Human Rights and Biomedicine, ETS No. 164). Further guided by theÂ 
+    Council of Europe Committee on Bioethics (CD â€‘BIO) Guide for theÂ 
+    implementation of the principle of prohibition of financial gain withÂ 
+    Blood21.indbÂ  Â 126Blood21.indbÂ  Â 126 04/04/2023Â  Â 09:25:5604/04/2023Â  Â 09:25:56
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    127respect to the human body and its parts from living or deceasedÂ 
+    donors.*
+    Council of Europe Recommendation No. R (95) 14, Article 2 states thatÂ 
+    â€˜Donation is considered voluntary and non-remunerated if the personÂ 
+    gives blood, plasma or cellular components of his or her own free willÂ 
+    and receives no payment for it, either in the form of cash or in kindÂ 
+    which could be considered a substitute for money. This would includeÂ 
+    time off work other than that reasonably needed for the donation andÂ 
+    travel. Small tokens, refreshments and reimbursements of direct travelÂ 
+    costs are compatible with voluntary, non-remunerated donation.â€™
+    2.1.2. Sex and genderÂ 
+    Standard
+    2.1.2.1.Â  Blood establishments should have systems in place thatÂ 
+    accommodate both the gender and sex of the donor to allowÂ 
+    donors to be appropriately addressed, to enable determination ofÂ 
+    appropriate sex â€‘related biological parameters to ensure donor andÂ 
+    recipient safety and to assess donor eligibility. Safety considerationsÂ 
+    include, for example, donor haemoglobin values, total bloodÂ 
+    volume estimation and pregnancy â€‘related risks, including risks forÂ 
+    HLA/HNAâ€‘ antibodies (Evidence level C, E) .
+    The term sex is generally used to refer to physical or genetic attributesÂ 
+    that comprise biological sex, including male, female or intersex, andÂ 
+    is generally assigned at birth. Gender, on the other hand, refers toÂ 
+    how a person identifies with the various socially constructed roles,Â 
+    behaviours, expressions and identities of girls, women, boys, men andÂ 
+    gender-diverse people, including those outside of gender spectrums.
+    In blood donation and transfusion practice the sex/gender of donorsÂ 
+    and recipients has traditionally been defined as a binary variableÂ 
+    based on the biological and physiological differences between maleÂ 
+    and female individuals.
+    * Available at: https://rm.coe.int/guide-financial-gain/16807bfc9a .
+    Blood21.indbÂ  Â 127Blood21.indbÂ  Â 127 04/04/2023Â  Â 09:25:5604/04/2023Â  Â 09:25:56
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components128Accurate use of donor gender by blood establishments in both writtenÂ 
+    records and verbal communications is necessary to allow donorsÂ 
+    to be appropriately addressed. Accurate knowledge of donor sex isÂ 
+    necessary to determine appropriate sex-related biological parametersÂ 
+    to ensure donor and recipient safety and to assess donor eligibility.
+    2.1.3. General requirements
+    Standards
+    2.1.3.1.Â  Procedures for safe donor identification, suitability interview andÂ 
+    eligibility assessment must be implemented and maintained.Â 
+    They must take place before each donation and comply with theÂ 
+    requirements set out in Annex II and Annex III to Directive 2004/33/
+    EC (Directive 2005/62/EC, Annex 6.1.1) .
+    2.1.3.2.Â  Blood establishments are ultimately responsible for the quality andÂ 
+    safety of the blood and blood components collected, and must beÂ 
+    entitled to decide on the final acceptance or deferral of a donor orÂ 
+    a prospective donor, taking into account Resolution CM/Res (2008) 5Â 
+    on donor responsibility and on the limitations to donation of bloodÂ 
+    and blood components.
+    2.1.4.Â  Information to be provided to donors of blood orÂ 
+    blood components
+    Standards
+    2.1.4.1.Â  Information must be provided to prospective donors of blood orÂ 
+    blood components. This information provides the basis for informedÂ 
+    consent that must be obtained from the donor before proceedingÂ 
+    to donation (Directive 2004/33/EC, Annex II) .
+    2.1.4.2.Â  Accurate educational materials, which are understandable forÂ 
+    members of the general public, about the essential nature of blood,Â 
+    the blood donation procedure, the components derived fromÂ 
+    whole blood and apheresis donations and the important benefitsÂ 
+    to patients must be provided (Directive 2004/33/EC, Annex II) .
+    Blood21.indbÂ  Â 128Blood21.indbÂ  Â 128 04/04/2023Â  Â 09:25:5604/04/2023Â  Â 09:25:56
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    1292.1.4.3.Â  The following information must be provided:
+    â€¢ For both allogeneic and autologous donations: the reasons forÂ 
+    requiring a medical assessment, health and medical history, theÂ 
+    testing of donations and the significance of â€˜informed consentâ€™.Â 
+    â€¢ For allogeneic donations: selfâ€‘deferral, temporary and permanentÂ 
+    deferral and the reasons why individuals must not donate blood orÂ 
+    blood components if there could be a risk for the recipient or theÂ 
+    donor.Â 
+    â€¢ For autologous donations: the possibility of deferral and the reasonsÂ 
+    why the donation procedure cannot take place in the presence ofÂ 
+    a health risk to the individual, whether as a donor or recipient ofÂ 
+    the autologous blood or blood components. (Directive 2004/33/ECÂ 
+    Annex II) .
+    2.1.4.4.Â  Information on the protection of personal data: no unauthorisedÂ 
+    disclosure of the identity of the donor, of information concerningÂ 
+    the donorâ€™s health or of the results of the tests performed must beÂ 
+    provided (Directive 2004/33/EC, Annex II) .
+    2.1.4.5.Â  The reasons why individuals must not make donations that may beÂ 
+    detrimental to their health must be provided (Directive 2004/33/EC,Â 
+    Annex II) .
+    2.1.4.6.Â  Specific information on the nature of the procedures involved inÂ 
+    the allogeneic or autologous donation process and their respectiveÂ 
+    associated risks must be provided. For autologous donations,Â 
+    information on the possibility that the autologous blood andÂ 
+    blood components may not suffice for the intended transfusionÂ 
+    requirements must be provided (Directive 2004/33/EC, Annex II) .
+    2.1.4.7.Â  Information on the option for donors to change their mind aboutÂ 
+    donating before proceeding further, or the option to withdraw orÂ 
+    selfâ€‘defer at any time during the donation process without undueÂ 
+    embarrassment or discomfort must be provided (Directive 2004/33/
+    EC, Annex II) .
+    Blood21.indbÂ  Â 129Blood21.indbÂ  Â 129 04/04/2023Â  Â 09:25:5604/04/2023Â  Â 09:25:56
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components1302.1.4.8.Â  The reasons why it is important that donors inform the bloodÂ 
+    establishment of any subsequent event that may render any priorÂ 
+    donation unsuitable for transfusion must be provided (DirectiveÂ 
+    2004/33/EC Annex II) .
+    2.1.4.9.Â  Information on the responsibility of the blood establishment toÂ 
+    inform the donor, through an appropriate mechanism, if test resultsÂ 
+    show any abnormality of significance to the donorâ€™s health must beÂ 
+    provided (Directive 2004/33/EC, Annex II) .
+    2.1.4.10.Â  Information why unused autologous blood and blood componentsÂ 
+    are discarded and not transfused to other patients must be providedÂ 
+    (Directive 2004/33/EC, Annex II) .
+    2.1.4.11.Â  Information that test results detecting markers for viruses, such asÂ 
+    HIV, HBV, HCV or other relevant bloodâ€‘transmissible microbiologicÂ 
+    agents, will result in donor deferral and destruction of the collectedÂ 
+    unit (Directive 2004/33/EC, Annex II)Â  and, when required by law, thatÂ 
+    the results should be reported to the relevant health authoritiesÂ 
+    must be provided.
+    2.1.4.12.Â  Information on the opportunity for donors to ask questions at anyÂ 
+    time must be provided (Directive 2004/33/EC, Annex II) .
+    2.1.4.13.Â  All blood donors should be provided with information aboutÂ 
+    behaviours associated with an increased risk of blood â€‘borneÂ 
+    infectious agents, such as HIV/AIDS and hepatitis transmission, andÂ 
+    be given the opportunity for selfâ€‘exclusion so that those personsÂ 
+    refrain from donating.
+    Blood21.indbÂ  Â 130Blood21.indbÂ  Â 130 04/04/2023Â  Â 09:25:5604/04/2023Â  Â 09:25:56
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    1312.2. Medical assessment of donors
+    2.2.1. Donor eligibility
+    Standards
+    2.2.1.1.Â  Upon arrival at the blood establishment, donors should provideÂ 
+    evidence of their identity. All donors must undergo a systematicÂ 
+    screening process to assess their suitability (GPG 6.1.3.) .
+    2.2.1.2.Â  There must be an area for confidential personal interviews with andÂ 
+    assessment of individuals to assess their eligibility to donate. ThisÂ 
+    area must be separated from all processing areas (Directive 2005/62/
+    EC, Annex 3.2) .
+    2.2.1.3.Â  There should be secure and unique identification, as well asÂ 
+    recording of the contact details, of donors (GPG 6.1.2.) .
+    2.2.1.4.Â  Only healthy persons with an acceptable medical history can beÂ 
+    accepted as donors of blood or blood components (GPG 6.1.4.) .
+    2.2.1.5.Â  Relevant acceptance/deferral criteria should be in place at the bloodÂ 
+    establishment to control acceptance and deferral of donors (GPGÂ 
+    6.1.7.) .
+    2.2.1.6.Â  The selection process should include assessment of each donorÂ 
+    carried out by a suitably qualified individual who has been trained toÂ 
+    use accepted guidelines and who works under the responsibility ofÂ 
+    a physician. This assessment involves an interview, a questionnaireÂ 
+    andÂ  further direct questions, if necessary (GPG 6.1.5.) .
+    2.2.1.7.Â  Procedures should be in place to ensure that any abnormal findingsÂ 
+    arising from the donor selection process are properly reviewed byÂ 
+    a qualified healthcare professional and that appropriate action isÂ 
+    taken (GPG 6.1.13.) .Â 
+    In practice, a complete medical and physical examination of theÂ 
+    donor is not possible. It is necessary to rely on the donorâ€™s appearance,Â 
+    their answers to questions concerning their medical history, generalÂ 
+    Blood21.indbÂ  Â 131Blood21.indbÂ  Â 131 04/04/2023Â  Â 09:25:5704/04/2023Â  Â 09:25:57
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components132health and relevant risk factors (e.g. risk behaviour, travel history,Â 
+    epidemiological factors), and on laboratory tests.
+    Based on this information, a decision on the eligibility of the donorÂ 
+    will be made using accepted guidelines. Conditions that are notÂ 
+    covered by guidelines should be referred to the physician in chargeÂ 
+    with responsibility for making the final decision.
+    2.2.2.Â  Donor age
+    Standards
+    2.2.2.1.Â  The age limits for donation are a minimum of 18 years and maximumÂ 
+    of 65 years (Directive 2004/33/EC, Annex III) .
+    2.2.2.2.Â  Where allowed by national legislation, blood donation may beÂ 
+    considered from donors aged 17.
+    2.2.2.3.Â  Donation by firstâ€‘time donors above the age of 60 years is at theÂ 
+    discretion of the physician in the blood establishment (DirectiveÂ 
+    2004/33/EC, Annex III) .
+    2.2.2.4.Â  Donation by donors over 65 years is with permission of the physicianÂ 
+    in the blood establishment, given annually (Directive 2004/33/EC,Â 
+    Annex III) . This can be given either individually to each donor, orÂ 
+    based on a medical risk assessment for a given donor population.
+    2.2.3.Â  Donor haemoglobin
+    Standards
+    2.2.3.1.Â  Haemoglobin concentration must be determined each time theÂ 
+    donor donates whole blood or cellular components (DirectiveÂ 
+    2004/33/EC, Annex III) .
+    2.2.3.2.Â  Haemoglobin values at donation must not be lower than the valuesÂ 
+    shown in the table below (Directive 2004/33/EC, Annex III) :
+    Blood21.indbÂ  Â 132Blood21.indbÂ  Â 132 04/04/2023Â  Â 09:25:5704/04/2023Â  Â 09:25:57
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    133Table 2 â€‘1. Haemoglobin values
+    Female Male
+    Whole blood andÂ 
+    cellular components125 g/L or 7.8 mmol/L 135 g/L or 8.4 mmol/L
+    Individual donations may be accepted below these levels afterÂ 
+    consultation with the responsible physician or as established by aÂ 
+    competent authority based on norms for their specific populations.
+    Haemoglobin should be measured preferably before the donation, butÂ 
+    always before donation when donors were deferred from donation atÂ 
+    the last visit because of its low level.
+    Abnormally high and low haemoglobin values should be confirmedÂ 
+    by full blood count and subsequently investigated, as should a fall inÂ 
+    haemoglobin concentration of more than 20 g per L (1.24 mmol/L)Â 
+    between two successive donations.
+    2.2.4.Â  Iron stores
+    There is increasing awareness of the risk of iron deficiency followingÂ 
+    regular whole blood donation. This is particularly apparent in femaleÂ 
+    donors of childbearing years, frequent whole blood donors and inÂ 
+    donors with inadequate dietary iron intake who may present as aÂ 
+    first-time donor with low or borderline iron stores. Each whole bloodÂ 
+    donation results in the loss of 200 to 250 mg of iron. Replenishment ofÂ 
+    this may take up to 6 months based on a normal healthy diet.
+    Iron deficiency may occur despite a normal pre-donationÂ 
+    haemoglobin measurement.
+    Standard
+    2.2.4.1.Â  Blood establishments should have measures in place to minimiseÂ 
+    iron depletion in frequent blood donors.Â 
+    Blood21.indbÂ  Â 133Blood21.indbÂ  Â 133 04/04/2023Â  Â 09:25:5704/04/2023Â  Â 09:25:57
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components134Measures to prevent iron depletion and to protect donor health mayÂ 
+    include:
+    â€¢ Provision of materials for donor education, particularly inÂ 
+    regard to the impact of blood donation on iron stores;
+    â€¢ Individual tailoring of donation frequency or the intervalÂ 
+    between donations and/or of the type of blood componentÂ 
+    donation based on sex, age, Hb values and iron statusÂ 
+    (Evidence level C, E) ;
+    â€¢ Use of tests to assess iron status, such as ferritin, solubleÂ 
+    transferrin receptor and red blood cell (RBC) indices;
+    â€¢ Iron supplementation taking into account the risk of delayingÂ 
+    the diagnosis of unapparent underlying diseases and adverseÂ 
+    effects of the iron preparations;
+    â€¢ In plasmapheresis donations destined for plasma forÂ 
+    fractionation: the use of samples taken from the plasmaÂ 
+    collection container (instead of whole blood samples from theÂ 
+    donor) for mandatory laboratory screening tests in order toÂ 
+    avoid a loss of iron from testing samples (see also Chapter 3 ,Â 
+    Standard 3.6.2.2 ) (Evidence level C) ;
+    â€¢ Saline wash-back of residual red cells in the apheresis harness.
+    2.2.5.Â  Questionnaire and interview
+    Standards
+    2.2.5.1.Â  The questionnaire should be designed to elicit information relevantÂ 
+    to the medical history, general health and other known or probableÂ 
+    risk factors related to the donor. It should be designed to beÂ 
+    understandable by the donor and given to all donors each time theyÂ 
+    attend. On completion, it should be signed by the donor (GPG 6.1.6.) .
+    2.2.5.2.Â  The donor interview must be conducted in such a way as to ensureÂ 
+    confidentiality (Directive 2005/62/EC, Annex 6.1.2.) .
+    2.2.5.3.Â  The confidential interview should be conducted by specificallyÂ 
+    trained staff who may also ask further direct questions to supplementÂ 
+    the information in the questionnaire. The person who carries outÂ 
+    Blood21.indbÂ  Â 134Blood21.indbÂ  Â 134 04/04/2023Â  Â 09:25:5704/04/2023Â  Â 09:25:57
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    135the assessment should certify that the relevant questions have beenÂ 
+    asked (GPG 6.1.9.) .Â 
+    2.2.5.4.Â  During the interview the donor should be evaluated for physicalÂ 
+    attributes, such as cyanosis, dyspnoea, undernutrition andÂ 
+    intoxication from alcohol or drugs, that may suggest an underlyingÂ 
+    condition where donation is not safe.Â 
+    2.2.5.5.Â  Records of suitability and final assessment of donors must be signedÂ 
+    by a qualified healthcare professional (Directive 2005/62/EC, AnnexÂ 
+    6.1.3.) .
+    The key topics for donor eligibility to be covered by the questionnaireÂ 
+    or by direct questions, the intentions of the interview questions, andÂ 
+    examples of sample questions are included in Appendix 1.
+    2.3. Donor deferral
+    2.3.1. General remarks
+    Donors with hazardous occupations or hobbies should be advised toÂ 
+    wait for an interval of not less than 12 hours between donation andÂ 
+    returning to the occupation or hobby. Examples of such hazardousÂ 
+    occupations or hobbies include piloting, bus or train driving, craneÂ 
+    operation, climbing of ladders or scaffolding, gliding, climbing andÂ 
+    diving.
+    Donors presenting with a medical condition or under medicalÂ 
+    treatment should be assessed to determine their eligibility. ReasonsÂ 
+    for donor deferral may include non-infectious medical conditions,Â 
+    infectious diseases and medical or surgical treatments.
+    Standard
+    2.3.1.1.Â  Deferred individuals should be given a clear explanation of theÂ 
+    reasons for deferral.
+    Blood21.indbÂ  Â 135Blood21.indbÂ  Â 135 04/04/2023Â  Â 09:25:5704/04/2023Â  Â 09:25:57
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components1362.3.2.Â  Non-infectious medical conditions
+    Standard
+    2.3.2.1.Â  Prospective donors with serious active, chronic or relapsing diseaseÂ 
+    must be permanently deferred (Directive 2004/33/EC, Annex III)
+    Allergy and anaphylaxis
+    Standard
+    2.3.2.2.Â  Donors with local/non â€‘generalised allergic symptoms which areÂ 
+    controlled with medication (except for oral corticosteroids or otherÂ 
+    immunosuppressive medical treatment) or without medication areÂ 
+    accepted as donors (Evidence level C, E) .
+    2.3.2.3.Â  Donors who have had a recent episode of anaphylaxis or severeÂ 
+    allergic reaction should be deferred for 2 weeks after recoveryÂ 
+    (Evidence level C, E) .
+    Donors with severe, widespread atopic eczema should be temporarilyÂ 
+    deferred until cessation of the symptoms (Evidence level C, E) .
+    Donors requiring oral corticosteroids, or other immunosuppressiveÂ 
+    medical treatment should be deferred temporarily until suchÂ 
+    treatment has stopped. Some treatments will also require a period ofÂ 
+    deferral post-cessation (Evidence level C, E) .
+    Donors with any known allergy to agents used in blood collectionÂ 
+    (skin disinfection agents, other material used in the collection process)Â 
+    should be deferred unless there is alternative material availableÂ 
+    (Evidence level E) .Â 
+    Based on current evidence, the major cause of anaphylaxis in aÂ 
+    recipient is their own atopic condition and not transfusion-associatedÂ 
+    issues. Therefore, excluding donors based on their history of severeÂ 
+    allergic/anaphylactic reactions is not an effective risk reductionÂ 
+    strategy and may cause an unacceptable loss of donors.Â 
+    However, some case studies suggest that blood components with aÂ 
+    higher volume of plasma from donors with recurrent severe allergic/
+    Blood21.indbÂ  Â 136Blood21.indbÂ  Â 136 04/04/2023Â  Â 09:25:5704/04/2023Â  Â 09:25:57
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    137anaphylactic reactions may carry a higher risk of anaphylaxis forÂ 
+    the recipient. Therefore, consideration may be given to permanentlyÂ 
+    deferring such donors from donating blood components with a highÂ 
+    plasma volume, such as fresh frozen plasma (FFP) for clinical use andÂ 
+    platelets in plasma (Evidence level E) .Â 
+    Autoimmune disease
+    A person requiring systemic immune-modulatory therapy shouldÂ 
+    be deferred until such treatment has stopped. Asymptomatic donorsÂ 
+    without severe complications can be accepted.
+    Blood pressure
+    A person with a systolic blood pressure of 180 mm Hg or higher,Â 
+    or a diastolic blood pressure of 100 mm Hg or higher should beÂ 
+    temporarily deferred.Â 
+    Cancer/malignant diseases
+    Standard
+    2.3.2.4.Â  Individuals with a malignant disease are permanently deferred,Â 
+    except donors with in situ carcinoma with complete recoveryÂ 
+    (Directive 2004/33/EC, Annex III) .
+    There is evidence to support the acceptance of donors with a historyÂ 
+    of cancer. Large observational studies have provided convincingÂ 
+    evidence that the risk of transmitting cancer via blood transfusions isÂ 
+    undetectable or not significant (Evidence level C) .
+    Therefore, the responsible physician may make exceptions other thanÂ 
+    in situ carcinoma if the donor has fully recovered with no expectationÂ 
+    of recurrence (i.e. cured).Â 
+    The following conditions apply:Â 
+    â€¢ For cancers with negligible metastatic potential (e.g. basal cellÂ 
+    carcinoma), the donor may be accepted following completeÂ 
+    recovery.Â 
+    â€¢ For other cancers, at least 5 years should have elapsed sinceÂ 
+    completion of treatment (Evidence level C, D, E) .
+    Blood21.indbÂ  Â 137Blood21.indbÂ  Â 137 04/04/2023Â  Â 09:25:5704/04/2023Â  Â 09:25:57
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components138â€¢ No deferral is required for premalignant conditions.
+    Cardiovascular disease
+    Standard
+    2.3.2.5.Â  Donors with active or past serious cardiovascular disease, exceptÂ 
+    congenital abnormalities with complete cure, must be permanentlyÂ 
+    deferred (Directive 2004/33/EC, Annex III) .
+    2.3.2.6.Â  Persons with a history of coronary disease, angina pectoris, severeÂ 
+    cardiac arrhythmia, a history of cerebrovascular diseases, arterialÂ 
+    thrombosis or recurrent venous thrombosis should be classifiedÂ 
+    as having â€˜serious cardiovascular diseaseâ€™ and therefore beÂ 
+    permanently deferred (Evidence level E) .
+    Diabetes
+    Standard
+    2.3.2.7.Â  Donors with diabetes must be deferred if insulin therapy is requiredÂ 
+    (Directive 2004/33/EC, Annex III) .
+    Epilepsy
+    Standard
+    2.3.2.8.Â  Donors with repeated episodes of syncope or a history ofÂ 
+    convulsions must be deferred until 3 years off treatment and free ofÂ 
+    attacks (Directive 2004/33/EC, Annex III) .
+    Kidney disease
+    Standard
+    2.3.2.9.Â  Following acute glomerulonephritis donors should be deferredÂ 
+    for 12 months after full recovery (feeling well, no treatment andÂ 
+    discharged from specialist care).
+    Blood21.indbÂ  Â 138Blood21.indbÂ  Â 138 04/04/2023Â  Â 09:25:5804/04/2023Â  Â 09:25:58
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    139Pregnancy
+    Standard
+    2.3.2.10.Â  Pregnant donors must be deferred 6 months after delivery orÂ 
+    termination. The responsible physician may make exceptions underÂ 
+    exceptional circumstances (Directive 2004/33/EC, Annex III) .
+    Pulse
+    A person with a pulse under 50 beats per minute (bpm), or aboveÂ 
+    100 bpm or presenting with an irregular pulse should be deferred.Â 
+    Exceptions may be made to accept donors with a lower pulse rateÂ 
+    following individual medical review, e.g. athletes.
+    Respiratory disease
+    Standard
+    2.3.2.11.Â  Prospective donors with serious active, chronic or relapsingÂ 
+    respiratory system diseases must be permanently deferred (DirectiveÂ 
+    2004/33/EC, Annex III) .
+    Rheumatic fever
+    Standard
+    2.3.2.12.Â  Donors suffering from rheumatic fever must be deferred for 2 yearsÂ 
+    following the last attack or permanently if any evidence of chronicÂ 
+    heart disease (Directive 2004/33/EC, Annex III) .
+    Thalassaemia
+    Donors with thalassaemia should be deferred permanently if they areÂ 
+    not in good health or if the haemoglobin levels are below acceptableÂ 
+    values. Individuals with thalassaemia trait may give whole bloodÂ 
+    provided they are in good health and have a haemoglobin level withinÂ 
+    acceptable values. Platelet or plasma collection by apheresis is notÂ 
+    recommended as the process may cause mechanical haemolysis.Â 
+    Blood21.indbÂ  Â 139Blood21.indbÂ  Â 139 04/04/2023Â  Â 09:25:5804/04/2023Â  Â 09:25:58
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components1402.3.3.Â  Infectious diseases
+    Transmission of infectious agents by transfusion can be minimisedÂ 
+    by careful and appropriate use of donor questionnaires, laboratoryÂ 
+    testing and pathogen inactivation technologies (PIT).
+    Other measures are needed for infections where there is a possibilityÂ 
+    of asymptomatic infection or existence of a carrier state. QuestioningÂ 
+    donors about symptoms in these circumstances does not alwaysÂ 
+    prevent transmission.
+    Donors should be questioned on their risk of exposure to infectiousÂ 
+    agents, which includes taking a travel history:
+    â€¢ For infections in which the agent has been fully cleared fromÂ 
+    the donorâ€™s blood on recovery, the donor should be deferredÂ 
+    from donation until they are no longer infectious (usually 2Â 
+    weeks from cessation of symptoms);
+    â€¢ In cases of known contact with an infectious agent, the donorÂ 
+    should be deferred for approximately twice the length of theÂ 
+    incubation period. In case of a geographical risk of exposure toÂ 
+    multiple infectious agents, the longest deferral period applies;
+    â€¢ Many infections that can be transmitted by transfusionÂ 
+    have defined geographical limits, and the risk of transfusionÂ 
+    transmission can be minimised by temporary deferral orÂ 
+    testing donors travelling from affected areas. Testing becomesÂ 
+    especially relevant when deferral policies may potentially affectÂ 
+    supply.
+    Blood services should maintain a watching brief on changes to risksÂ 
+    of infectious diseases worldwide. Risk-benefit analyses should beÂ 
+    carried out to determine appropriate measures to decrease the risksÂ 
+    of transfusion transmission. The risk of importation of an infectiousÂ 
+    agent through donors visiting an affected area should be balancedÂ 
+    by considering the likelihood of this occurring, and the impact ofÂ 
+    introducing a new donor deferral ruling on blood supply. This riskÂ 
+    will vary between countries.
+    Blood21.indbÂ  Â 140Blood21.indbÂ  Â 140 04/04/2023Â  Â 09:25:5804/04/2023Â  Â 09:25:58
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    141New and emerging infectious agents or those that have moved toÂ 
+    infect a new geographical area can also pose a significant challenge toÂ 
+    donor availability or blood component safety. In this situation, donorÂ 
+    deferral may not be an option in the newly affected area. DonationÂ 
+    testing is an important tool to reduce the risk of transmission. ForÂ 
+    plasma and platelets, PIT may also be considered.
+    Information about new and emerging infections should beÂ 
+    communicated between countries without delay to allow bloodÂ 
+    establishments to consider their own risks and appropriate actions.
+    Babesiosis
+    Standard
+    2.3.3.1.Â  Donors with babesiosis must be deferred permanently (DirectiveÂ 
+    2004/33/EC, Annex III) .
+    Deferral requirements may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    Brucellosis
+    Standard
+    2.3.3.2.Â  Donors with brucellosis must be deferred for at least 2 yearsÂ 
+    following full recovery (Directive 2004/33/EC, Annex III)
+    Deferral requirements may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    Chikungunya virus
+    Standards
+    2.3.3.3.Â  Donors visiting regions endemic for chikungunya virus infectionsÂ 
+    should be deferred for 28 days after leaving the risk area.
+    Deferral requirements may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    2.3.3.4.Â  Donors suffering from chikungunya virus infections should beÂ 
+    deferred for 120 days after resolution of the symptoms.
+    Blood21.indbÂ  Â 141Blood21.indbÂ  Â 141 04/04/2023Â  Â 09:25:5804/04/2023Â  Â 09:25:58
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components142Common cold
+    Donors presenting with the common cold should be deferred untilÂ 
+    cessation of symptoms.
+    Creutzfeldtâ€“Jakob disease
+    Standards
+    2.3.3.5.Â  Individuals who have been treated with extracts derived fromÂ 
+    human pituitary glands and recipients of dura materÂ  or cornealÂ 
+    grafts must be deferred permanently (Directive 2004/33/EC, Annex III) .
+    2.3.3.6.Â  Individuals with a family risk of Creutzfeldtâ€“Jakob disease (CJD)Â 
+    or any other transmissible spongiform encephalopathy must beÂ 
+    deferred permanently (Directive 2004/33/EC, Annex III) .
+    A family history of CJD carries a presumption of family risk unless itÂ 
+    is determined that:
+    â€¢ The affected family member had vCJD, not CJD; or
+    â€¢ The affected family member did not have a genetic relationshipÂ 
+    to the donor; or
+    â€¢ The cause of CJD in the affected family member was iatrogenic;Â 
+    or
+    â€¢ The donor was tested and is known to have a normal geneticÂ 
+    polymorphism for PrPc.
+    Standard
+    2.3.3.7.Â  Deferral of donors as a preventative measure for vCJD should beÂ 
+    based on appropriate risk assessment.
+    Variant CJD (vCJD) was first described in the UK in 1996. EstimatingÂ 
+    the potential size of the vCJD epidemic has been very difficult.Â 
+    Transfusion transmission of vCJD has been documented in animalÂ 
+    studies and in humans. Endogenous risk of vCJD differs betweenÂ 
+    countries. Therefore, the need for different measures to reduce riskÂ 
+    will depend on each countryâ€™s own risk assessment, balancing riskÂ 
+    with sufficiency of supply.
+    Blood21.indbÂ  Â 142Blood21.indbÂ  Â 142 04/04/2023Â  Â 09:25:5804/04/2023Â  Â 09:25:58
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    143Many countries outside the UK defer donors who have lived in the UKÂ 
+    for a minimum defined period between 1980 and 1996; the EuropeanÂ 
+    Medicines Agency (EMA) mandates 1 year of UK residence for donorsÂ 
+    of plasma for fractionation. In some instances, the deferrals have beenÂ 
+    extended to include donors from other countries with a significantÂ 
+    number of cases.
+    Dengue fever
+    Standards
+    2.3.3.8.Â  Donors visiting regions endemic for dengue fever should beÂ 
+    deferred for 28 days after leaving the risk area.
+    2.3.3.9.Â  Donors suffering from dengue fever should be deferred for 120 daysÂ 
+    after resolution of the symptoms.
+    Deferral requirements may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    Fever above + 38 Â°C, flu-like illness
+    Standard
+    2.3.3.10.Â  Donors presenting with fever above + 38 Â°C or fluâ€‘like illness mustÂ 
+    be deferred for 2 weeks following cessation of symptoms (DirectiveÂ 
+    2004/33/EC, Annex III) .
+    Hepatitis B (HBV)
+    Standards
+    2.3.3.11.Â  Individuals infected with HBV must be deferred permanently unlessÂ 
+    HBsAg negative and demonstrated to be immune (Directive 2004/33/
+    EC, Annex III) .
+    2.3.3.12.Â  Persons who have been in close household contact with anÂ 
+    individual infected by HBV (acute or chronic) must be deferred for 6Â 
+    months (4 months if appropriate testing has been performed) fromÂ 
+    the time of contact unless demonstrated to be immune (DirectiveÂ 
+    2004/33/EC, Annex III) .
+    Blood21.indbÂ  Â 143Blood21.indbÂ  Â 143 04/04/2023Â  Â 09:25:5804/04/2023Â  Â 09:25:58
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components1442.3.3.13.Â  Current sexual partners of people with HBV should be deferred,Â 
+    unless demonstrated to be immune.
+    2.3.3.14.Â  Previous sexual partners of people with HBV are acceptable afterÂ 
+    6 months since the last sexual contact. This can be reduced to 4Â 
+    months if HBV nucleic acid amplification technique (NAT) andÂ 
+    antiâ€‘HBc tests are performed and both test results are negative.
+    Hepatitis C (HCV)
+    Standard
+    2.3.3.15.Â  Individuals infected with HCV or history thereof must be deferredÂ 
+    permanently (Directive 2004/33/EC, Annex III) .
+    HIV 1/2
+    Standard
+    2.3.3.16.Â  Individuals infected with HIV 1/2 must be deferred permanentlyÂ 
+    (Directive 2004/33/EC, Annex III) .
+    HTLV 1/2
+    Standard
+    2.3.3.17.Â  Individuals infected with HTLV 1/2 must be deferred permanentlyÂ 
+    (Directive 2004/33/EC, Annex III)
+    Jaundice and hepatitis
+    Standard
+    2.3.3.18.Â  Individuals with a history of jaundice or hepatitis may be acceptedÂ 
+    as blood donors at the discretion of the appropriate competentÂ 
+    authority, provided a CEâ€‘marked test for HBsAg and antiâ€‘HCV isÂ 
+    negative.
+    Hospital staff coming into direct contact with patients with hepatitisÂ 
+    may be accepted provided they have not suffered an inoculation injuryÂ 
+    or mucous membrane exposure, in which case they must be deferred.
+    Blood21.indbÂ  Â 144Blood21.indbÂ  Â 144 04/04/2023Â  Â 09:25:5804/04/2023Â  Â 09:25:58
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    145Leishmaniasis (kala-azar), visceral leishmaniasis
+    Standard
+    2.3.3.19.Â  Individuals with a history of visceral leishmaniasis (kalaâ€‘azar) mustÂ 
+    be deferred permanently (Directive 2004/33/EC, Annex III) .
+    Deferral requirements may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    Malaria
+    Standard
+    2.3.3.20.Â  A donor should be questioned to identify the country(s) they wereÂ 
+    born in, have lived in or have visited.
+    This is essential for effective detection of donors at increased risk ofÂ 
+    malaria who may need to be deferred. These deferral requirementsÂ 
+    may be waived if the donation is used exclusively for plasma forÂ 
+    fractionation.
+    Standards
+    2.3.3.21.Â  Blood establishments should have access to a current map or listÂ 
+    of endemic areas and seasonal risk periods at the site of bloodÂ 
+    collection.
+    2.3.3.22.Â  The following rules should apply for individuals who give a historyÂ 
+    of malaria:
+    â€¢ They should be deferred for a period of at least 4 months followingÂ 
+    departure from a malarial area and 4 months following cessation ofÂ 
+    treatment/last symptoms. They may then be accepted if the resultÂ 
+    of a validated immunological test for antibodies to the malariaÂ 
+    parasite is negative.
+    â€¢ If the test is repeatedly reactive, the donor should be deferred andÂ 
+    may be reâ€‘evaluated after a suitable period when the antibody testÂ 
+    may have reverted to negative (a period of 3 years is suggested).
+    â€¢ If the test is not performed, the donor should be deferred until theÂ 
+    test is performed and negative.
+    Blood21.indbÂ  Â 145Blood21.indbÂ  Â 145 04/04/2023Â  Â 09:25:5904/04/2023Â  Â 09:25:59
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components1462.3.3.23.Â  The following rules should apply for individuals who report anÂ 
+    undiagnosed febrile illness consistent with malaria during a visit toÂ 
+    or within 6 months following departure from a malarial area:
+    â€¢ They should be deferred for a period of at least 4 months followingÂ 
+    departure from a malarial area and 4 months following cessation ofÂ 
+    treatment/last symptoms. They may then be accepted if the resultÂ 
+    of a validated immunological test for antibodies to the malariaÂ 
+    parasite is negative.
+    â€¢ If the test is repeatedly reactive, the donor should be deferred andÂ 
+    may be reâ€‘evaluated after a suitable period when the antibody testÂ 
+    may have reverted to negative (a period of 3 years is suggested).
+    â€¢ If the test is not performed, the donor should be deferred until theÂ 
+    test is performed and negative.
+    2.3.3.24.Â  The following rules should apply for individuals who have lived in aÂ 
+    malariaâ€‘endemic area for a continuous period of 6 months or moreÂ 
+    at any time in their life at the time of their first donation and afterÂ 
+    each return from a malarial area:
+    â€¢ They may be accepted as blood donors if the result of a validatedÂ 
+    immunological test for antibodies to the malaria parasite, performedÂ 
+    at least 4 months after leaving the malarial area, is negative.
+    â€¢ If the test is repeatedly reactive, the donor should be deferred andÂ 
+    may be reâ€‘evaluated after a suitable period when the antibody testÂ 
+    may have reverted to negative (a period of 3 years is suggested).
+    â€¢ If the test is not performed, the donor should be deferred until theÂ 
+    test is performed and negative.
+    2.3.3.25.Â  The following rules should apply for all other individuals who haveÂ 
+    visited a malarial area without reporting any clinical symptomsÂ 
+    consistent with malaria:
+    â€¢ They should be deferred for a period of 4 months following departureÂ 
+    from the malarial area and may then be accepted as blood donorsÂ 
+    if the result of a validated immunological test for antibodies to theÂ 
+    malaria parasite is negative.
+    Blood21.indbÂ  Â 146Blood21.indbÂ  Â 146 04/04/2023Â  Â 09:25:5904/04/2023Â  Â 09:25:59
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    147â€¢ If the test is not performed, the donor may be accepted once a periodÂ 
+    of 12 months has elapsed following departure from the malarial area.
+    â€¢ If the test is repeatedly reactive, the donor should be deferred andÂ 
+    may be reâ€‘evaluated after a suitable period when the antibody testÂ 
+    may have reverted to negative (a period of 3 years is suggested).
+    Osteomyelitis
+    Standard
+    2.3.3.26.Â  Donors suffering from osteomyelitis must be deferred until 2 yearsÂ 
+    after having been declared cured (Directive 2004/33/EC, Annex III) .
+    Q fever
+    Standard
+    2.3.3.27.Â  Donors suffering from Q fever must be deferred until 2 years afterÂ 
+    having been declared cured (Directive 2004/33/EC, Annex III) .
+    Deferral requirements may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    Syphilis
+    Standard
+    2.3.3.28.Â  Donors suffering from syphilis must be deferred until 1 year afterÂ 
+    having been declared cured (Directive 2004/33/EC, Annex III) .
+    Tests and deferral periods may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    Toxoplasmosis
+    Standard
+    2.3.3.29.Â  Donors suffering from toxoplasmosis must be deferred until 6Â 
+    months following clinical recovery (Directive 2004/33/EC, Annex III) .
+    Deferral requirements may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    Blood21.indbÂ  Â 147Blood21.indbÂ  Â 147 04/04/2023Â  Â 09:25:5904/04/2023Â  Â 09:25:59
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components148Trypanosomiasis cruziÂ  (Chagas disease)
+    Standard
+    2.3.3.30.Â  Individuals with Chagas disease or who have had Chagas diseaseÂ 
+    must be deferred permanently (Directive 2004/33/EC, Annex III) .
+    In some countries, individuals who were born or have been transfusedÂ 
+    in areas where the disease is endemic are also deferred unless aÂ 
+    validated test for infection with T. cruzi is negative.
+    Test and deferral requirements may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    Sexual risk behaviour
+    Standards
+    2.3.3.31.Â  Individuals whose sexual behaviour puts them at a high risk ofÂ 
+    acquiring severe infectious diseases that can be transmitted byÂ 
+    blood must be deferred permanently (Directive 2004/33/EC, Annex III) .
+    2.3.3.32.Â  Sexual partners of people in 2.3.3.31. should be deferred for a periodÂ 
+    determined by national risk assessment for the infectious disease inÂ 
+    question, and by the availability of appropriate tests.
+    Tuberculosis
+    Standard
+    2.3.3.33.Â  Donors suffering from tuberculosis must be deferred until 2 yearsÂ 
+    after having been confirmed cured (Directive 2004/33/EC, Annex III) .
+    West Nile virus (WNV)
+    Standards
+    2.3.3.34.Â  Individuals visiting regions with ongoing transmission of WNV toÂ 
+    humans must be deferred for 28 days after leaving the risk areaÂ 
+    unless an individual NAT is negative (Directive 2014/110/EU) .
+    2.3.3.35.Â  Individuals with a diagnosis of WNV should be deferred until 120Â 
+    days after recovery.
+    Blood21.indbÂ  Â 148Blood21.indbÂ  Â 148 04/04/2023Â  Â 09:25:5904/04/2023Â  Â 09:25:59
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    149Tests and deferral periods may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    Zika virus
+    Standards
+    2.3.3.36.Â  Individuals visiting regions with ongoing transmission of Zika virusÂ 
+    infections to humans should be deferred for 28 days after leavingÂ 
+    the risk area unless a validated NAT is performed.
+    2.3.3.37.Â  Individuals with a diagnosis of Zika virus infection should beÂ 
+    deferred until 120 days after recovery.
+    Tests and deferral periods may be waived if the donation is usedÂ 
+    exclusively for plasma for fractionation.
+    2.3.4.Â  Interventions and treatments
+    Acupuncture, tattooing, body piercing and aesthetic medicalÂ 
+    procedures
+    Standard
+    2.3.4.1.Â  Individuals having acupuncture (unless performed by a qualifiedÂ 
+    practitioner and with sterile single use needles), tattooing or bodyÂ 
+    piercing must be deferred for 6 months (or 4 months, provided aÂ 
+    NAT test for hepatitis C is negative) (Directive 2004/33/EC, Annex III) .
+    There is evidence that using a risk-based approach based on nationalÂ 
+    transfusion-transmissible infection (TTI) disease prevalence andÂ 
+    incidence, modifications to standard 2.3.4.1. can be accepted forÂ 
+    acupuncture, tattooing, body piercing or skin/mucosa-penetratingÂ 
+    aesthetic medical procedures. These may be implemented nationallyÂ 
+    or by decision of the responsible physician (Evidence level C, E) .
+    Where modified standards are implemented, the following should beÂ 
+    considered when assessing eligibility of such donors:Â 
+    â€¢ The reason for acupuncture and complications of acupuncture,Â 
+    tattooing, body piercing and other aesthetic procedures;
+    Blood21.indbÂ  Â 149Blood21.indbÂ  Â 149 04/04/2023Â  Â 09:25:5904/04/2023Â  Â 09:25:59
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components150â€¢ Secondary infection: inspect or ask about local complications,Â 
+    such as redness, swelling or skin lesions.Â 
+    Tissue or cell transplant of human origin
+    Standard
+    2.3.4.2.Â  Individuals having a tissue or cell transplant of human origin mustÂ 
+    be deferred for 6 months (or 4 months, provided a NAT test forÂ 
+    hepatitis C is negative) (Directive 2004/33/EC, Annex III) .
+    Exceptions may be made according to national risk assessments.
+    Drugs
+    Standard
+    2.3.4.3.Â  Individuals with any history of intravenous or intramuscular nonâ€‘Â 
+    prescribed drug use, including bodybuilding steroids or hormones,Â 
+    must be deferred permanently (Directive 2004/33/EC, Annex III) .
+    Endoscopy with biopsy using flexible instruments
+    Standard
+    2.3.4.4.Â  Donors having an endoscopy with biopsy using flexible instrumentsÂ 
+    must be deferred for 6 months (or 4 months, provided a NAT test forÂ 
+    hepatitis C is negative) (Directive 2004/33/EC, Annex III) .
+    Exceptions may be made according to national risk assessments.
+    Inoculation injury or mucosal splash with blood
+    Standard
+    2.3.4.5.Â  Individuals having an inoculation injury or mucosal splash withÂ 
+    blood must be deferred for 6 months (or 4 months, provided a NATÂ 
+    test for hepatitis C is negative) (Directive 2004/33/EC, Annex III) .
+    Exceptions may be made according to national risk assessments.
+    Blood21.indbÂ  Â 150Blood21.indbÂ  Â 150 04/04/2023Â  Â 09:25:5904/04/2023Â  Â 09:25:59
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    151Medication
+    Standard
+    2.3.4.6.Â  Donors treated with drugs with proven teratogenic effect must beÂ 
+    deferred for a period at least consistent with the pharmacokineticÂ 
+    properties of the drug.
+    The taking of a medication may indicate an underlying disease whichÂ 
+    may disqualify the donor. It is recommended that a list of commonlyÂ 
+    used drugs, with rules for acceptability of donors, approved by theÂ 
+    medical staff of the blood establishment, be made available.
+    Surgery
+    Standard
+    2.3.4.7.Â  After major surgery, donors must be deferred for 6 months (or 4Â 
+    months provided a NAT test for hepatitis C is negative) (DirectiveÂ 
+    2004/33/EC, Annex III) .
+    2.3.4.8.Â  After minor surgery, donors must be deferred for 1 week (DirectiveÂ 
+    2004/33/EC, Annex III) .
+    There is no clear evidence to specifically support the deferral periodsÂ 
+    of 4 to 6 months after major surgery and 1 week after minor surgeryÂ 
+    (Evidence level C, E) . By using a risk-based approach, modificationsÂ 
+    to standards 2.3.4.7. and 2.3.4.8. can be accepted and implementedÂ 
+    nationally or by decision of the responsible physician.Â 
+    Where modified standards are implemented, the following should beÂ 
+    considered when assessing eligibility of such donors:Â 
+    â€¢ For major surgery: persons should not donate until they haveÂ 
+    fully recovered (which may be up to 6 months or longer). AÂ 
+    shorter deferral period is possible after clinical evaluation, ifÂ 
+    the donor has totally recovered from the surgery (i.e. woundÂ 
+    healed, no signs of postoperative infection and in a healthyÂ 
+    condition) (Evidence level C, E) .
+    Blood21.indbÂ  Â 151Blood21.indbÂ  Â 151 04/04/2023Â  Â 09:25:5904/04/2023Â  Â 09:25:59
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components152â€¢ For planned major surgery: allogeneic whole blood donationÂ 
+    should be avoided for an appropriate time interval before majorÂ 
+    surgery (Evidence level, E) .
+    â€¢ For minor surgery: deferral until wound healed (stitchesÂ 
+    removed, no signs of infection) (Evidence level C, E) .
+    When considering revised donor eligibility following surgery, theÂ 
+    responsible physician should take into consideration the following:
+    â€¢ The indication for the surgery;
+    â€¢ Whether the donor received a transfusion of labile bloodÂ 
+    products; if so, refer to specific rules;
+    â€¢ The need to measure the haemoglobin level pre-donation afterÂ 
+    major surgery.
+    Dental care/Oral health care
+    Standard
+    2.3.4.9.Â  Individuals must be deferred for 1 week after tooth extraction, rootÂ 
+    filling and similar treatments (Directive 2004/33/EC, Annex III) .
+    2.3.4.10.Â  Donors undergoing minor treatment by a dentist or dental hygienistÂ 
+    must be deferred until the next day (Directive 2004/33/EC, Annex III) .
+    The available evidence indicates that bacteraemia immediatelyÂ 
+    following minor dental treatments is transient, lasting only up to 30Â 
+    minutes. Poor oral health, such as acute or chronic gingivitis, is aÂ 
+    risk factor for bacteraemia (Evidence level C) . By using a risk-basedÂ 
+    approach, modifications to standard 2.3.4.10. can be accepted andÂ 
+    implemented nationally or by decision of the responsible physician.
+    Modifications to the standard can be made by the responsibleÂ 
+    physician as follows:Â 
+    â€¢ Minor dental treatment by the dentist or dental hygienist: 60Â 
+    minutesâ€™ deferral (Evidence level C, E) ;
+    â€¢ Acute oral infection (e.g. gingivitis requiring treatment): deferÂ 
+    until cessation and/or 2 weeks after completion of oral courseÂ 
+    of antibiotics (Evidence level C, E) .Â 
+    Blood21.indbÂ  Â 152Blood21.indbÂ  Â 152 04/04/2023Â  Â 09:25:5904/04/2023Â  Â 09:25:59
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    153Transfusion of blood components
+    Standard
+    2.3.4.11.Â  Individuals having a transfusion of blood components must beÂ 
+    deferred for 6 months (or 4 months, provided a NAT test for hepatitisÂ 
+    C is negative) (Directive 2004/33/EC, Annex III) .
+    Injection of red cells as part of an approved immunisation programmeÂ 
+    will need clinical assessment.
+    Blood or blood components used for treatment other than transfusion
+    Donors who have received treatment with allogeneic blood or bloodÂ 
+    components for topical use or injections should be treated as thoughÂ 
+    they had received blood components for transfusion (Evidence level C,Â 
+    E).
+    Vaccines
+    Standards
+    2.3.4.12.Â  After vaccination with attenuated bacteria and viruses, e.g. BCG,Â 
+    yellow fever, rubella, measles, poliomyelitis (oral), mumps, liveÂ 
+    attenuated typhoid fever, vaccinia, live attenuated cholera vaccine,Â 
+    individuals must be deferred for 4 weeks (Directive 2004/33/EC,Â 
+    Annex III) ;
+    2.3.4.13.Â  After vaccination for smallpox and monkeypox individuals must beÂ 
+    deferred for 8 weeks.Â 
+    2.3.4.14.Â  Individuals may, if well, be accepted as donors after vaccination withÂ 
+    (Directive 2004/33/EC, Annex III) :
+    â€¢ Inactivated viruses, e.g. poliomyelitis (injection), influenza;
+    â€¢ Killed bacteria, e.g. cholera, typhoid, capsular polysaccharideÂ 
+    typhoid fever vaccine;
+    â€¢ Polysaccharides, e.g. from pneumococcal polysaccharide;Â 
+    â€¢ Toxoids, e.g. diphtheria, tetanus;
+    â€¢ Hepatitis A or tick -borne encephalitis vaccines, if no exposureÂ 
+    is reported;
+    Blood21.indbÂ  Â 153Blood21.indbÂ  Â 153 04/04/2023Â  Â 09:26:0004/04/2023Â  Â 09:26:00
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components154â€¢ mRNA vaccines, non-replicating/replication-deficient virusÂ 
+    vector-based vaccines and protein subunit vaccines.
+    2.3.4.15.Â  Individuals receiving rabies vaccines are (Directive 2004/33/EC, AnnexÂ 
+    III):
+    â€¢ Accepted without deferral if well and no exposure;
+    â€¢ Deferred for 12 months following exposure to rabies.
+    2.3.4.16.Â  Individuals should be deferred for 2 weeks following administrationÂ 
+    of hepatitis B or a combined hepatitis A and hepatitis B vaccine inÂ 
+    order to prevent vaccineâ€‘related positivity in the HBsAg test.
+    Xenotransplantation
+    Standard
+    2.3.4.17.Â  After xenotransplantation individuals must be deferred permanentlyÂ 
+    (Directive 2004/33/EC, Annex III) .
+    2.4. Specific standards for donors of different types ofÂ 
+    components
+    Below are specific standards for donors of blood and bloodÂ 
+    components for both whole blood and apheresis collection. TheÂ 
+    intervals between donations are provided in TableÂ  2-3 at the end of theÂ 
+    chapter.Â 
+    2.4.1.Â  Whole blood donation
+    Volume of whole blood donation
+    Standards
+    2.4.1.1.Â  A standard donation of whole blood must not be collected fromÂ 
+    persons weighing less than 50 kg (Directive 2004/33/EC, Annex III) .
+    2.4.1.2.Â  The volume of a standard donation of whole blood (excludingÂ 
+    anticoagulants) should not exceed 500 mL and usually consists ofÂ 
+    a donation of 450 mL Â± 10 %. This does not include any allowanceÂ 
+    Blood21.indbÂ  Â 154Blood21.indbÂ  Â 154 04/04/2023Â  Â 09:26:0004/04/2023Â  Â 09:26:00
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    155for samples taken for laboratory tests and for retention of a donorÂ 
+    sample.
+    2.4.1.3.Â  The volume of a standard donation of whole blood (includingÂ 
+    samples) should not exceed 15 % of the calculated blood volume ofÂ 
+    the donor.
+    The total blood volume (TBV) of the donor can be estimatedÂ 
+    from their weight, height and sex using a validated formula. TheÂ 
+    estimates developed by the International Council for StandardizationÂ 
+    in Haematology (ICSH) are recommended and are available inÂ 
+    Appendix 2 .
+    It is generally accepted that all males weighing â‰¥ 50 kg have aÂ 
+    sufficiently large blood volume to donate a total 535 mL of bloodÂ 
+    (500 mL plus 35 mL for testing and retention of a donation sample),Â 
+    while all females weighing â‰¥ 50 kg have a sufficiently large bloodÂ 
+    volume to donate a total 485 mL of blood (450 mL plus 35 mL forÂ 
+    testing and retention of a donation sample).
+    In the case of females weighing < 65 kg and donating a total ofÂ 
+    >485 mL, the blood volume should be estimated. This volume shouldÂ 
+    exceed the minimum acceptable blood volume for the volume ofÂ 
+    blood to be collected (see Table 2-2).
+    Table 2 â€‘2. Predicted minimum blood volume of aÂ 
+    female donor donating 485 mL, 510 mL or 535 mL
+    Volume of bloodÂ 
+    to be collectedMaximum percentage ofÂ 
+    blood volume collectedMinimum acceptableÂ 
+    blood volume
+    450 mL + 35 mL 15 % 3 233 mL
+    475 mL + 35 mL 15 % 3 400 mL
+    500 mL + 35 mL 15 % 3 567 mL
+    Blood21.indbÂ  Â 155Blood21.indbÂ  Â 155 04/04/2023Â  Â 09:26:0004/04/2023Â  Â 09:26:00
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components156Frequency of whole blood donation
+    Standards
+    2.4.1.4.Â  A maximum of 6 standard donations of whole blood per year canÂ 
+    be taken from male and up to 4 per year from female donors with aÂ 
+    minimum interval between standard donations of 8 weeks.
+    2.4.1.5.Â  These maximum limits of donation frequency should never beÂ 
+    exceeded and should only be adopted after careful consideration ofÂ 
+    the dietary habits of the population concerned and in the knowledgeÂ 
+    that extra care may be necessary, beyond routine haemoglobinÂ 
+    or haematocrit estimation, in the monitoring of donors for ironÂ 
+    deficiency.
+    It is therefore recommended that an active donor panel of sufficientÂ 
+    size be maintained to allow donors to be bled less often than theÂ 
+    maximum annual rates.
+    2.4.2.Â  Apheresis donation
+    Donors should be informed of the risks associated with the apheresisÂ 
+    procedure and consent should be obtained before each donation.Â 
+    Standards
+    2.4.2.1.Â  The medical supervision and care of apheresis donors should be theÂ 
+    responsibility of a physician specially trained in these techniques.
+    2.4.2.2.Â  Other than in exceptional circumstances (to be decided by theÂ 
+    responsible physician), donors for apheresis procedures shouldÂ 
+    meet the criteria for whole blood donations unless otherwiseÂ 
+    identified in this Guide.
+    The impact of prematurely terminated apheresis procedures, includingÂ 
+    consideration of a failed return of red cells resulting in a red cellÂ 
+    loss and the amount of primary component already collected, needsÂ 
+    to be taken into account when determining compliance with theseÂ 
+    requirements.
+    Blood21.indbÂ  Â 156Blood21.indbÂ  Â 156 04/04/2023Â  Â 09:26:0004/04/2023Â  Â 09:26:00
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    157There are concerns about long-term effects in donors in intensiveÂ 
+    apheresis programmes. These include risks associated with citrateÂ 
+    exposure in regular platelet apheresis donors, which might lead toÂ 
+    problems with bone mineral density and reduced IgG levels. RegularÂ 
+    monitoring of IgG in plasmapheresis donors for adjusting of donationÂ 
+    frequency has been shown to improve donor safety.
+    Special attention should be given to the following conditions:
+    â€¢ Abnormal bleeding episodes;
+    â€¢ Adverse reactions to previous donations;
+    â€¢ Frequency of donation and maximal amounts of plasma andÂ 
+    red cells to be collected.
+    Standards
+    2.4.2.3.Â  The interval between one plasmapheresis or plateletpheresisÂ 
+    procedure and a donation of whole blood or apheresis procedureÂ 
+    incorporating collection of a single or double unit of red cellsÂ 
+    (whereby one unit is equivalent to a red cell component obtainedÂ 
+    from one whole blood donation) should be at least 48 hours.
+    2.4.2.4.Â  The interval between a whole blood donation, an apheresis red cellÂ 
+    collection or a failed return of red cells during apheresis, and theÂ 
+    next apheresis procedure without red cell collection should be atÂ 
+    least 4 weeks.
+    2.4.2.5.Â  The interval between two singleâ€‘unit red cell collections should beÂ 
+    the same as for collections of whole blood.
+    Additional requirements for donors undergoing plasmapheresis
+    Sampling and residual blood remaining in the plasmapheresis devicesÂ 
+    can result in a non-negligible loss of red cells, with a consequentÂ 
+    reduction in serum iron and ferritin. This is especially important forÂ 
+    female donors.
+    Where frequent plasmapheresis is undertaken, consideration shouldÂ 
+    be given to the implementation of measures to reduce residual bloodÂ 
+    loss in the equipment, e.g. post-procedure saline infusion. Loss of ironÂ 
+    Blood21.indbÂ  Â 157Blood21.indbÂ  Â 157 04/04/2023Â  Â 09:26:0004/04/2023Â  Â 09:26:00
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components158in donors can also be mitigated by using samples from the plasmaÂ 
+    collection container (instead of whole blood samples) for mandatoryÂ 
+    laboratory screening tests (see also Chapter 3 , Standard 3.6.2.2 ,Â 
+    Evidence level C).
+    The following standards identify requirements for donors undergoingÂ 
+    plasmapheresis.
+    Standards
+    2.4.2.6.Â  The maximum number of plasma donations allowed is 33 per yearÂ 
+    (Evidence level C) .
+    2.4.2.7.Â  The collection volume for each plasmapheresis should be based onÂ 
+    estimation of an allowed/permitted volume for an individual donor.Â 
+    The limits for allowed volumes should be based on estimated TBVÂ 
+    and/or body mass index (BMI) and can be set either by national/
+    regional regulations or based on TBV estimation in Appendix 2aÂ  orÂ 
+    BMI in Appendix 2b .
+    2.4.2.8.Â  The collection volume for each plasmapheresis (includingÂ 
+    anticoagulant) should never exceed 880 mL.
+    2.4.2.9.Â  When the collection volume (including anticoagulant) is determinedÂ 
+    by the estimation of TBV (Appendix 2a) the donated volumeÂ 
+    (excluding anticoagulant) should not exceed 16 % of the estimatedÂ 
+    TBV and in any type of apheresis procedure the total volume of allÂ 
+    components donated (plasma, platelets and red cells) should notÂ 
+    exceed 16 % of the estimated TBV.
+    2.4.2.10.Â  The donation interval should be at least 1 week (see the IgG algorithmÂ 
+    provided below).
+    2.4.2.11.Â  Haemoglobin values at plasmapheresis donation should not be lessÂ 
+    than 120 g/L or 7.5 mmol/L for female and not less than 130 g/L orÂ 
+    8.1 mmol/L for male donors.
+    Blood21.indbÂ  Â 158Blood21.indbÂ  Â 158 04/04/2023Â  Â 09:26:0004/04/2023Â  Â 09:26:00
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    159Individual donations may be accepted below these levels afterÂ 
+    consultation with the responsible physician or as established by aÂ 
+    competent authority based on norms for their specific populations.
+    2.4.2.12.Â  Total proteins must be measured at least annually and must not beÂ 
+    less than 60 g/L (Directive 2004/33/EC, Annex III) .
+    2.4.2.13.Â  IgG levels should be within local population reference ranges andÂ 
+    should not fall below 6.0 g/L.
+    2.4.2.14.Â  IgG should be measured at least annually and at every 26th donation,Â 
+    whichever comes first (Evidence level C, E) .
+    The maximum donation frequency for an individual donor should beÂ 
+    guided by the results of the testing. An approach for the calculation ofÂ 
+    the maximum donation frequency for an individual donor based onÂ 
+    their IgG levels could be as follows:
+    â€¢ IgG < 6.0 g/L results in a deferral from plasmapheresis of atÂ 
+    least 3 weeks. Repeated measurements of < 6.0 g/L should leadÂ 
+    to either a significant increase in the inter-donation interval orÂ 
+    permanent deferral from plasmapheresis;
+    â€¢ IgG 6.0â€“8.0 g/L supports donations with a minimum intervalÂ 
+    of 2 weeks;
+    â€¢ IgG > 8.0g/L supports donations with a minimum interval ofÂ 
+    1 week.
+    Additional requirements for donors undergoing platelet apheresis
+    Standards
+    2.4.2.15.Â  Platelet apheresis must not be carried out on individuals whoseÂ 
+    platelet count is less than 150 Ã— 109/L (Directive 2004/33/EC, Annex III) .
+    2.4.2.16.Â  Haemoglobin values at plateletpheresis donation must not be lessÂ 
+    than 125 g/L or 7.8 mmol/L for female and not less than 135 g/L orÂ 
+    8.4 mmol/L for male donors (Directive 2004/33/EC, Annex III) .
+    Blood21.indbÂ  Â 159Blood21.indbÂ  Â 159 04/04/2023Â  Â 09:26:0004/04/2023Â  Â 09:26:00
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components160Individual donations may be accepted below these levels afterÂ 
+    consultation with the responsible physician or as established by aÂ 
+    competent authority based on norms for their specific populations.
+    2.4.2.17.Â  Donors should not be subjected to a plateletpheresis procedureÂ 
+    more often than once every 2 weeks.
+    An exception to the donation interval and platelet count may be madeÂ 
+    in the case of HLA-/HPA-matched donations and for IgA-negativeÂ 
+    donors at the discretion of the physician.
+    Additional requirements for donors undergoing double unit red cellÂ 
+    apheresis
+    Standards
+    2.4.2.18.Â  Minimum limits for haemoglobin values at double unit red cellÂ 
+    apheresis donation should not be less than 140 g/L or 8.7 mmol/L forÂ 
+    both female and male donors.
+    2.4.2.19.Â  The total amount of red cells collected should not exceed theÂ 
+    theoretical amount of red cells that would reduce the donorÂ 
+    haemoglobin level, in an isovolemic situation, to below 110 g/L (6.8Â 
+    mmol/L).
+    2.4.2.20.Â  The donor should have an estimated blood volume of > 4.5 L whichÂ 
+    must be calculated on the basis of sex, height and weight (seeÂ 
+    Appendix 2a , Tables 1 and 2).
+    2.4.2.21.Â  The interval following a whole blood donation and the subsequentÂ 
+    donation of a double unit of red cells should be at least 12 weeks. TheÂ 
+    interval following a double unit red cell apheresis and a subsequentÂ 
+    whole blood donation or double unit red cell apheresis should be atÂ 
+    least 24 weeks for femaleÂ  and 16 weeks for male donors.
+    2.4.2.22.Â  The maximum volume of red cells collected should not exceedÂ 
+    400 mL (without resuspension solution) per collection procedure.
+    2.4.2.23.Â  Total red cell volume collected per year should not exceed thatÂ 
+    acceptable for whole blood donors.
+    Blood21.indbÂ  Â 160Blood21.indbÂ  Â 160 04/04/2023Â  Â 09:26:0004/04/2023Â  Â 09:26:00
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    161Additional recommendations for granulocytapheresis
+    Clinical efficacy, indications and dosage of granulocyte transfusionÂ 
+    have not been established. In view of this, provision of informedÂ 
+    consent prior to collection of granulocytes is particularly important.Â 
+    Effective granulocyte collection involves administration of medicationÂ 
+    (corticosteroids and/or granulocyte colony-stimulating factor) toÂ 
+    increase circulating granulocyte levels and the use of sedimentingÂ 
+    agents (hydroxyethyl starch; HES) during the procedure itself. Both ofÂ 
+    these have potentially severe side-effects, identified below, that need toÂ 
+    be communicated to the donor.
+    HES acts as a volume expander. Donors who have received HES mayÂ 
+    experience headaches or peripheral oedema because of expandedÂ 
+    circulatory volume. HES may accumulate, which can result inÂ 
+    pruritus, and allergic reactions are possible.
+    Corticosteroids may cause, for example, hypertension, diabetesÂ 
+    mellitus, cataracts, peptic ulcer and psychiatric problems.
+    Granulocyte colony-stimulating factor (G-CSF): the most commonÂ 
+    short-term complication following G-CSF administration inÂ 
+    peripheral blood stem cell (PBSC) donors is bone pain; although,Â 
+    on very rare occasions, splenic rupture or lung injury may occur.Â 
+    Concerns have also been raised relating to the development of acuteÂ 
+    myeloid leukaemia (AML)/myelodysplasia (MDS) after G-CSFÂ 
+    administration. To date, however, registry data from Europe andÂ 
+    the USA have not identified any increased risk of AML/MDS inÂ 
+    healthy individuals who donated PBSCs and received G-CSF as aÂ 
+    pretreatment. The median follow-up of these studies is, however, lessÂ 
+    than 5 years. Therefore, if G-CSF is given to a donor, a protocol forÂ 
+    long-term follow-up should be in place.
+    Additional recommendations for donors of red cells for anti-RhDÂ 
+    immunisation
+    Specific protocols for donors of red cells for anti-RhD immunisationÂ 
+    should be in place and should at least include the following:
+    Blood21.indbÂ  Â 161Blood21.indbÂ  Â 161 04/04/2023Â  Â 09:26:0104/04/2023Â  Â 09:26:01
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components162â€¢ Additional testing for markers of infectious disease, suchÂ 
+    as anti-Â  HTLV-1/2, anti-HBc and NAT tests for pro-viralÂ 
+    HIV-DNA and HIV-RNA, antibodies against HCV-RNA,Â 
+    HBV-DNA, parvovirus B19 DNA or parvovirus B19 antibodies,Â 
+    H AV-R NA;
+    â€¢ Extensive red cell phenotyping should be performed at leastÂ 
+    twice, and may be supplemented by genotyping;
+    â€¢ The red cells for immunisation should be stored for at leastÂ 
+    6 months. After 6 months, all the infectious markers statedÂ 
+    above should have been found to be negative (or indicateÂ 
+    absence of infection) on a new donor sample before release ofÂ 
+    the stored red cells for immunisation.
+    In order to manage the impact of changes in donor selection criteriaÂ 
+    and infectious marker testing that may occur over time, protocolsÂ 
+    should require:
+    â€¢ Maintenance of retention samples from each donation suitableÂ 
+    for future testing;
+    â€¢ Requalification of past donations by assessing conformanceÂ 
+    with additional donor acceptance requirements, including,Â 
+    where appropriate, testing of the donor and/or the retentionÂ 
+    sample.Â 
+    Exemption of past donations from current standards is notÂ 
+    recommended and should only be considered in exceptionalÂ 
+    circumstances after careful consideration of the risks to theÂ 
+    immunised donors and ultimate plasma product recipients.
+    2.4.3.Â  Designated donations
+    Although blood donation is voluntary, non-remunerated andÂ 
+    anonymous, in some special circumstances it may be necessary toÂ 
+    make use of designated donations. This should happen only for clearÂ 
+    medical indications. Designated donors should be screened and testedÂ 
+    like volunteer allogeneic donors.
+    Blood21.indbÂ  Â 162Blood21.indbÂ  Â 162 04/04/2023Â  Â 09:26:0104/04/2023Â  Â 09:26:01
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    163Designated donations are those intended for named patients based onÂ 
+    medical indications. Circumstances where designated donations mayÂ 
+    be indicated include:
+    â€¢ Patients with rare blood types, where no compatibleÂ 
+    anonymous donations are available;
+    â€¢ Where donor-specific transfusions are indicated forÂ 
+    immune modulation or immunotherapy; for instance, inÂ 
+    the preparation procedure for kidney transplants or forÂ 
+    lymphocyte transfusions aimed at a graft-versus-leukaemiaÂ 
+    effect;
+    â€¢ In certain cases of alloimmune neonatal thrombocytopaenia;Â 
+    for instance, if HPA-typed platelets are not available andÂ 
+    intravenous immunoglobulin therapy is not sufficient.
+    These donations may involve family members, in which case theÂ 
+    responsible physician should weigh up the risks and benefits for theÂ 
+    patient.
+    The practice of transfusing parental blood to infants is not withoutÂ 
+    risk. Mothers may have antibodies to antigens that are present onÂ 
+    the infantâ€™s red blood cells, platelets or white blood cells. Therefore,Â 
+    maternal plasma should not be transfused. Fathers should not serveÂ 
+    as cell donors to neonates because maternal antibodies to antigensÂ 
+    inherited from the father may have been transmitted through theÂ 
+    placenta to the foetus. In addition, due to partial histocompatibility,Â 
+    transfusions of cells from parental or family donors carry anÂ 
+    increased risk of transfusion-associated graft-versus-host diseaseÂ 
+    (TA-GVHD), even in the immunocompetent recipient, and so suchÂ 
+    components should be irradiated. In the case of platelets, PIT forÂ 
+    components may be used as an alternative to irradiation.
+    2.4.4.Â  Directed donations
+    Directed donations are those intended for named patients, whereÂ 
+    the request for the donation has been made by patients, relatives orÂ 
+    friends. The public often believes that directed donations are saferÂ 
+    than anonymous, voluntary, non-remunerated donations. However,Â 
+    Blood21.indbÂ  Â 163Blood21.indbÂ  Â 163 04/04/2023Â  Â 09:26:0104/04/2023Â  Â 09:26:01
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components164this is not the case, even if directed donations are screened and testedÂ 
+    in the same manner as voluntary non-remunerated donations.
+    Directed donations are not considered good practice and should beÂ 
+    discouraged.
+    2.5. Post-donation information
+    2.5.1. Overview
+    Blood establishments often receive information from blood donorsÂ 
+    after donation that should have resulted in their deferral and mayÂ 
+    attempt to retrieve distributed blood components that did not meet allÂ 
+    quality standards and regulations.
+    Post-donation information (PDI) is largely a reflection of the inherentÂ 
+    limitations of the current donor screening process, which uses broad,Â 
+    precautionary questions to guard against theoretical or extremelyÂ 
+    remote risks. Consequently, PDI is an important measure of theÂ 
+    accuracy of donor suitability assessment and compliance with goodÂ 
+    practice.
+    2.5.2.Â  Donor instruction
+    Standard
+    2.5.2.1.Â  Donors should be instructed to inform the blood establishmentÂ 
+    about any relevant information that was not previously disclosed orÂ 
+    if signs or symptoms occur after a donation. This scenario indicatesÂ 
+    that the donation may have been infectious or that any otherÂ 
+    information not disclosed during the health screening may renderÂ 
+    prior donations unsuitable for transfusion (GPG 6.1.12) .
+    PDI includes information provided by the donor or other source andÂ 
+    received by telephone or other means of communication following aÂ 
+    donation. Blood establishments should evaluate PDI that is revealedÂ 
+    by a third party without the donorâ€™s knowledge, weighing theÂ 
+    reliability of the source of the information against the direct responsesÂ 
+    from the donor.
+    Blood21.indbÂ  Â 164Blood21.indbÂ  Â 164 04/04/2023Â  Â 09:26:0104/04/2023Â  Â 09:26:01
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    1652.5.3.Â  Control procedures
+    Systems should be in place to define the actions to be taken if a donorÂ 
+    informs the blood establishment that he/she previously donated bloodÂ 
+    but should not have done so in the light of donor selection criteria.
+    Blood establishments should have control procedures that provideÂ 
+    for the receipt and documentation of PDI reports that identify theÂ 
+    source of the information (e.g. from a donor or qualified healthcareÂ 
+    professional).
+    Blood establishments should have control procedures that provideÂ 
+    for the prompt medical evaluation by a qualified physician, followingÂ 
+    established criteria, to ensure that potential risks are consistentlyÂ 
+    assessed and investigated for all donations potentially affected.
+    Blood establishments should have control procedures that provideÂ 
+    for appropriate consignee notification and determination of theÂ 
+    disposition of all affected products (in-date and expired), includingÂ 
+    those intended for transfusion and those intended for furtherÂ 
+    manufacturing use where the quality of the final manufacturedÂ 
+    product may be compromised.
+    Blood establishments should have control procedures that provide forÂ 
+    assessment of the donorâ€™s suitability to serve as a donor in the future.
+    Blood21.indbÂ  Â 165Blood21.indbÂ  Â 165 04/04/2023Â  Â 09:26:0104/04/2023Â  Â 09:26:01
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components166Table 2 â€‘3. Intervals between donations
+    CurrentÂ 
+    donationPreviousÂ 
+    donationWhole bloodÂ 
+    or 1 unit of RBCÂ 
+    apheresis or 1Â 
+    unit RBC andÂ 
+    plasmapheresisÂ 
+    or 1 unit RBCÂ 
+    and 1 unitÂ 
+    plateletpheresisÂ 
+    or 1 unit RBC andÂ 
+    platelet andÂ 
+    plasmapheresisÂ 
+    or failed return ofÂ 
+    red cells duringÂ 
+    apheresisPlasmapheresis PlateletpheresisPlateletpheresisÂ 
+    combined withÂ 
+    plasmapheresis2 units of RBCÂ 
+    apheresisGranulocyta -
+    pheresis
+    Whole blood 8 weeks 48 hours 48 hours 48 hours 24 weeks female,
+    16 weeks male8 weeks
+    Plasmapheresis 4 weeks 2 weeks (IgGÂ 
+    6.0â€“8.0 g/L)
+    1 week (IgGÂ 
+    > 8.0 g/L)48 hours 2 weeks (IgGÂ 
+    6.0â€“8.0 g/L)
+    1 week (IgGÂ 
+    > 8.0 g/L)4 weeks 4 weeks
+    Plateletpheresis 4 weeks 48 hours 2 weeks 2 weeks 4 weeks 4 weeks
+    Blood21.indbÂ  Â 166Blood21.indbÂ  Â 166 04/04/2023Â  Â 09:26:0104/04/2023Â  Â 09:26:01
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    167CurrentÂ 
+    donationPreviousÂ 
+    donationWhole bloodÂ 
+    or 1 unit of RBCÂ 
+    apheresis or 1Â 
+    unit RBC andÂ 
+    plasmapheresisÂ 
+    or 1 unit RBCÂ 
+    and 1 unitÂ 
+    plateletpheresisÂ 
+    or 1 unit RBC andÂ 
+    platelet andÂ 
+    plasmapheresisÂ 
+    or failed return ofÂ 
+    red cells duringÂ 
+    apheresisPlasmapheresis PlateletpheresisPlateletpheresisÂ 
+    combined withÂ 
+    plasmapheresis2 units of RBCÂ 
+    apheresisGranulocyta -
+    pheresis
+    PlateletpheresisÂ 
+    combined withÂ 
+    plasmapheresis4 weeks 2 weeks (IgGÂ 
+    6.0-8.0 g/L)
+    1 week (IgGÂ 
+    >8.0 g/L)2 weeks 2 weeks 4 weeks 4 weeks
+    1 unit of RBCÂ 
+    apheresisÂ 
+    or failed return ofÂ 
+    red cells duringÂ 
+    apheresis8 weeks 48 hours 48 hours 48 hours 24 weeks female,
+    16 weeks male8 weeks
+    Blood21.indbÂ  Â 167Blood21.indbÂ  Â 167 04/04/2023Â  Â 09:26:0104/04/2023Â  Â 09:26:01
+    --- PAGE BREAK ---
+    Guide to the preparation, use and quality assurance of blood components168
+    CurrentÂ 
+    donationPreviousÂ 
+    donationWhole bloodÂ 
+    or 1 unit of RBCÂ 
+    apheresis or 1Â 
+    unit RBC andÂ 
+    plasmapheresisÂ 
+    or 1 unit RBCÂ 
+    and 1 unitÂ 
+    plateletpheresisÂ 
+    or 1 unit RBC andÂ 
+    platelet andÂ 
+    plasmapheresisÂ 
+    or failed return ofÂ 
+    red cells duringÂ 
+    apheresisPlasmapheresis PlateletpheresisPlateletpheresisÂ 
+    combined withÂ 
+    plasmapheresis2 units of RBCÂ 
+    apheresisGranulocyta -
+    pheresis
+    1 unit RBCÂ 
+    and 1 unitÂ 
+    plateletpheresis
+    or 1 unit RBCÂ 
+    and platelet andÂ 
+    plasmapheresis8 weeks 48 hours 2 weeks 2 weeks 24 weeks female,
+    16 weeks male8 weeks
+    1 unit RBC andÂ 
+    plasmapheresis8 weeks 1 week 48 hours 1 week 24 weeks female,
+    16 weeks male8 weeks
+    2 units of RBCÂ 
+    apheresis12 weeks 48 hours 48 hours 48 hours 24 weeks female,
+    16 weeks male12 weeks
+    Blood21.indbÂ  Â 168Blood21.indbÂ  Â 168 04/04/2023Â  Â 09:26:0104/04/2023Â  Â 09:26:01
+    --- PAGE BREAK ---
+    Chapter 2 Donor selection
+    169CurrentÂ 
+    donationPreviousÂ 
+    donationWhole bloodÂ 
+    or 1 unit of RBCÂ 
+    apheresis or 1Â 
+    unit RBC andÂ 
+    plasmapheresisÂ 
+    or 1 unit RBCÂ 
+    and 1 unitÂ 
+    plateletpheresisÂ 
+    or 1 unit RBC andÂ 
+    platelet andÂ 
+    plasmapheresisÂ 
+    or failed return ofÂ 
+    red cells duringÂ 
+    apheresisPlasmapheresis PlateletpheresisPlateletpheresisÂ 
+    combined withÂ 
+    plasmapheresis2 units of RBCÂ 
+    apheresisGranulocyta -
+    pheresis
+    Granulocyta -
+    pheresis4 weeks 48 hours 2 weeks 2 weeks 24 weeks female,
+    16 weeks male8 weeks*
+    * The interval should be individually set by a physician, depending on the health status of the donor and the details of the previous leukapheresis (particularly the stimulation ofÂ 
+    the donor).
+    Blood21.indbÂ  Â 169Blood21.indbÂ  Â 169 04/04/2023Â  Â 09:26:0104/04/2023Â  Â 09:26:01
+    --- PAGE BREAK ---
+
+  time:timestamp: '2026-01-12T09:25:18.931204+01:00'
+...
+---
+event:
+  concept:instance: 104296
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90efd97b-1ea3-4845-aa0e-43f36bc9d16e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '088c5f273497f0eb13d24337da566665cd23f107'
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-pro
+  time:timestamp: '2026-01-12T09:25:18.931944+01:00'
+---
+event:
+  concept:instance: 104296
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90efd97b-1ea3-4845-aa0e-43f36bc9d16e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '088c5f273497f0eb13d24337da566665cd23f107'
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-12T09:25:18.932091+01:00'
+---
+event:
+  concept:instance: 104296
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90efd97b-1ea3-4845-aa0e-43f36bc9d16e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '088c5f273497f0eb13d24337da566665cd23f107'
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent))
+      1:task:(Provide Information to Donor)
+      2:task:(Identify Donor and Initiate Screening)
+      3:subprocess:(Assess Donor Suitability)
+      4:exclusivegateway:{Is Donor Eligible?}
+      5:task:(Obtain Informed Consent)
+      6:task:(Instruct on Post-Donation Information)
+      7:task:(Proceed to Donation)
+      8:task:(Explain Reason for Deferral)
+      9:exclusivegateway:{x}
+      10:endevent:(((endevent)))
+
+      0 --> 1
+      1 --> 2
+      2 --> 3
+      3 --> 4
+      4 --> |Yes| 5
+      4 --> |No| 8
+      5 --> 6
+      6 --> 7
+      7 --> 9
+      8 --> 9
+      9 --> 10
+    ```
+  time:timestamp: '2026-01-12T09:25:18.932183+01:00'
+---
+event:
+  concept:instance: 104296
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 90efd97b-1ea3-4845-aa0e-43f36bc9d16e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '088c5f273497f0eb13d24337da566665cd23f107'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a0" endpoint="" a:alt_id="0">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a11" endpoint="" a:alt_id="8">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="10">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-12T09:25:18.932279+01:00'

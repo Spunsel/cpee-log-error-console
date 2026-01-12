@@ -24,7 +24,8 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 # previous: 8618..99344
 # previous: 73190..99428
 # previous: 99328..101454
-$processNumbers = @(101454..101464) # | Where-Object { $_ -ne 98647 }
+# previous: 101454..101464
+$processNumbers = @(104256..104298) # | Where-Object { $_ -ne 98647 }
 
 # Output file
 $outputFile = "scripts\temp\uuids\uuid-mapping.json"
