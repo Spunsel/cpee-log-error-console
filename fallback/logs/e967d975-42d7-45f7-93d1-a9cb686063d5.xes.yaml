@@ -1,0 +1,501 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 104608
+    cpee:name: Plain Instance
+    cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T08:40:13.971909+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Assist Member States to improve prevention, detection and response to cyber threats</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 52aaa71d6605c100f63146f68a1ad8bb1f689033
+  time:timestamp: '2026-01-13T08:40:20.357700+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 52aaa71d6605c100f63146f68a1ad8bb1f689033
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-13T08:40:20.357870+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 52aaa71d6605c100f63146f68a1ad8bb1f689033
+  cpee:exposition: |-
+    # User Input:
+    Art19(2)(a): [OBLIGATION] ENISA shall assist Member States to improve prevention, detection and response to cyber threats (parallel obligation, list item a).
+  time:timestamp: '2026-01-13T08:40:20.358006+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 52aaa71d6605c100f63146f68a1ad8bb1f689033
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-13T08:40:20.358096+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 52aaa71d6605c100f63146f68a1ad8bb1f689033
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-13T08:40:20.358179+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 52aaa71d6605c100f63146f68a1ad8bb1f689033
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Assist Member States to improve prevention, detection and response to cyber threats)
+      1:task:(Assist Member States to improve prevention, detection and response to cyber threats) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-13T08:40:20.358265+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 52aaa71d6605c100f63146f68a1ad8bb1f689033
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Assist Member States to improve prevention, detection and response to cyber threats</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-13T08:40:20.358357+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-01-13T09:55:57.595434+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-01-13T09:55:58.411254+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T09:55:59.314287+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T09:55:59.403379+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Assist Member States to improve prevention, detection and response to cyber threats</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-13T09:59:58.158332+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  time:timestamp: '2026-01-13T09:59:58.160399+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: worklist
+    value: https-post://cpee.org/worklist/server/
+  time:timestamp: '2026-01-13T09:59:58.161773+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: info
+    value: Worklist
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: extended
+  - name: organisation1
+    value: http://cpee.org/~demo/orgviz/organisation_informatik.xml
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: design_stage
+    value: development
+  - name: design_dir
+    value: Templates.dir
+  time:timestamp: '2026-01-13T09:59:58.163158+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="worklist">
+        <parameters>
+          <label>OK OR NOT OK</label>
+          <arguments>
+            <orgmodel>https://cpee.org/~demo/orgviz/organisation_informatik.xml</orgmodel>
+            <form>https://cpee.org/~demo/form/form-f.html</form>
+            <role>Assistant</role>
+            <priority>42</priority>
+            <handling>single</handling>
+            <restrictions/>
+            <data>
+              <schaden>10000</schaden>
+              <text>destroyed</text>
+            </data>
+          </arguments>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.bla = result</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+    </description>
+  cpee:change_uuid: 3b0ceb83d6b680d8ce6e7fc74c414e02afa2906f
+  time:timestamp: '2026-01-13T09:59:58.171093+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T09:59:59.019199+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2026-01-13T10:00:04.385826+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-01-13T10:00:05.208972+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T10:00:06.166128+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T10:00:06.256376+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2026-01-13T10:05:07.379512+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-01-13T10:05:08.230807+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2026-01-13T10:05:14.006689+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-01-13T10:05:14.829117+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T10:05:15.727526+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T10:05:15.819597+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2026-01-13T10:07:13.916267+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-01-13T10:07:15.927394+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T10:07:18.125709+01:00'
+---
+event:
+  concept:instance: 104608
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e967d975-42d7-45f7-93d1-a9cb686063d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T10:07:18.227648+01:00'

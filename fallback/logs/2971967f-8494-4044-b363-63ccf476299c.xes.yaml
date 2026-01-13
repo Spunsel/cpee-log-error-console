@@ -1,0 +1,998 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 104588
+    cpee:name: Plain Instance
+    cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-13T00:57:27.199714+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Plan Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Procure Raw Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Manufacturing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Quality Assurance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Packaging</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 87245aecd68abe4259a33a0e0aa88c4fff42992a
+  time:timestamp: '2026-01-13T00:58:11.486916+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 87245aecd68abe4259a33a0e0aa88c4fff42992a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-13T00:58:11.487486+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 87245aecd68abe4259a33a0e0aa88c4fff42992a
+  cpee:exposition: |-
+    # User Input:
+    Create a production process.
+  time:timestamp: '2026-01-13T00:58:11.487614+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 87245aecd68abe4259a33a0e0aa88c4fff42992a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-13T00:58:11.487698+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 87245aecd68abe4259a33a0e0aa88c4fff42992a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-13T00:58:11.487779+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 87245aecd68abe4259a33a0e0aa88c4fff42992a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Plan Production)
+        1:task:(Plan Production) --> 2:task:(Procure Raw Materials)
+        2:task:(Procure Raw Materials) --> 3:task:(Manufacturing)
+        3:task:(Manufacturing) --> 4:task:(Quality Assurance)
+        4:task:(Quality Assurance) --> 5:task:(Packaging)
+        5:task:(Packaging) --> 6:task:(Distribution)
+        6:task:(Distribution) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-13T00:58:11.487856+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 87245aecd68abe4259a33a0e0aa88c4fff42992a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Plan Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Procure Raw Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Manufacturing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Quality Assurance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Packaging</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-13T00:58:11.488024+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Plan Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Procure Raw Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Manufacturing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Quality Assurance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Packaging</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: '039224445d40be8113a3aa85e99cb4dea1072bcc'
+  time:timestamp: '2026-01-13T00:58:26.732493+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '039224445d40be8113a3aa85e99cb4dea1072bcc'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Plan Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Procure Raw Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Manufacturing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Quality Assurance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Packaging</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-13T00:58:26.732715+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '039224445d40be8113a3aa85e99cb4dea1072bcc'
+  cpee:exposition: |-
+    # User Input:
+    Create a biological production process.
+  time:timestamp: '2026-01-13T00:58:26.733148+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '039224445d40be8113a3aa85e99cb4dea1072bcc'
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-13T00:58:26.734493+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '039224445d40be8113a3aa85e99cb4dea1072bcc'
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Plan Production)
+        a1:task:(Plan Production)-->a3:task:(Procure Raw Materials)
+        a3:task:(Procure Raw Materials)-->a5:task:(Manufacturing)
+        a5:task:(Manufacturing)-->a7:task:(Quality Assurance)
+        a7:task:(Quality Assurance)-->a9:task:(Packaging)
+        a9:task:(Packaging)-->a11:task:(Distribution)
+        a11:task:(Distribution)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-13T00:58:26.734702+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '039224445d40be8113a3aa85e99cb4dea1072bcc'
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Plan Production)
+    a1:task:(Plan Production)-->a3:task:(Procure Raw Materials)
+    a3:task:(Procure Raw Materials)-->a5:task:(Manufacturing)
+    a5:task:(Manufacturing)-->a7:task:(Quality Assurance)
+    a7:task:(Quality Assurance)-->a9:task:(Packaging)
+    a9:task:(Packaging)-->a11:task:(Distribution)
+    a11:task:(Distribution)-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-13T00:58:26.734608+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '039224445d40be8113a3aa85e99cb4dea1072bcc'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Plan Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Procure Raw Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Manufacturing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Quality Assurance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Packaging</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-13T00:58:26.734783+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-01-13T00:58:42.805740+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Plan Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Procure Raw Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Manufacturing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Quality Assurance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Packaging</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-13T00:58:42.806393+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete everything
+  time:timestamp: '2026-01-13T00:58:42.806660+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-13T00:58:42.807230+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Plan Production)
+    a1:task:(Plan Production)-->a3:task:(Procure Raw Materials)
+    a3:task:(Procure Raw Materials)-->a5:task:(Manufacturing)
+    a5:task:(Manufacturing)-->a7:task:(Quality Assurance)
+    a7:task:(Quality Assurance)-->a9:task:(Packaging)
+    a9:task:(Packaging)-->a11:task:(Distribution)
+    a11:task:(Distribution)-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-13T00:58:42.807325+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2026-01-13T00:58:42.807409+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-01-13T00:58:42.807489+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Define Production Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Design Biological Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Develop Production Protocol</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Conduct Pilot Production</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Analyze Pilot Data</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Data Inacceptable" a:alt_id="6" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Revise Production Protocol</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Conduct Pilot Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Analyze Pilot Data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a13" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Scale-Up Production</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a19" endpoint="" a:alt_id="9">
+          <parameters>
+            <label>Implement Production Run</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Quality Control</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="Fails Standards" a:alt_id="11" language="text/javascript">
+            <call id="a27" endpoint="" a:alt_id="13">
+              <parameters>
+                <label>Investigate Deviation</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a21" endpoint="" a:alt_id="10">
+              <parameters>
+                <label>Quality Control</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Package Product</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 476132baee83f6fae43d73bc1a22486175a057f9
+  time:timestamp: '2026-01-13T00:58:53.906894+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 476132baee83f6fae43d73bc1a22486175a057f9
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-01-13T00:58:53.907154+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 476132baee83f6fae43d73bc1a22486175a057f9
+  cpee:exposition: |-
+    # User Input:
+    create a biological production process
+  time:timestamp: '2026-01-13T00:58:53.907560+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 476132baee83f6fae43d73bc1a22486175a057f9
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-13T00:58:53.908153+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 476132baee83f6fae43d73bc1a22486175a057f9
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-13T00:58:53.908417+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 476132baee83f6fae43d73bc1a22486175a057f9
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Define Production Requirements)
+    1:task:(Define Production Requirements) --> 2:task:(Design Biological Process)
+    2:task:(Design Biological Process) --> 3:task:(Develop Production Protocol)
+    3:task:(Develop Production Protocol) --> 4:task:(Conduct Pilot Production)
+    4:task:(Conduct Pilot Production) --> 5:task:(Analyze Pilot Data)
+    5:task:(Analyze Pilot Data) --> 6:exclusivegateway:{x}
+    6:exclusivegateway:{x} --> |Data Acceptable| 7:task:(Scale-Up Production)
+    6:exclusivegateway:{x} --> |Data Inacceptable| 8:task:(Revise Production Protocol)
+    8:task:(Revise Production Protocol) --> 4:task:(Conduct Pilot Production)
+    7:task:(Scale-Up Production) --> 9:task:(Implement Production Run)
+    9:task:(Implement Production Run) --> 10:task:(Quality Control)
+    10:task:(Quality Control) --> 11:exclusivegateway:{x}
+    11:exclusivegateway:{x} --> |Meets Standards| 12:task:(Package Product)
+    11:exclusivegateway:{x} --> |Fails Standards| 13:task:(Investigate Deviation)
+    13:task:(Investigate Deviation) --> 10:task:(Quality Control)
+    12:task:(Package Product) --> 14:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-13T00:58:53.908848+01:00'
+---
+event:
+  concept:instance: 104588
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2971967f-8494-4044-b363-63ccf476299c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 476132baee83f6fae43d73bc1a22486175a057f9
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Define Production Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Design Biological Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Develop Production Protocol</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Conduct Pilot Production</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Analyze Pilot Data</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Data Inacceptable" a:alt_id="6" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Revise Production Protocol</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Conduct Pilot Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Analyze Pilot Data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a13" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Scale-Up Production</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a19" endpoint="" a:alt_id="9">
+          <parameters>
+            <label>Implement Production Run</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Quality Control</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="Fails Standards" a:alt_id="11" language="text/javascript">
+            <call id="a27" endpoint="" a:alt_id="13">
+              <parameters>
+                <label>Investigate Deviation</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a21" endpoint="" a:alt_id="10">
+              <parameters>
+                <label>Quality Control</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Package Product</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-01-13T00:58:53.909138+01:00'

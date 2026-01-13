@@ -1,0 +1,240 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 104434
+    cpee:name: Plain Instance
+    cpee:instance: a9bbb7b7-22cb-4cc5-84bd-5ed6185f8afd
+---
+event:
+  concept:instance: 104434
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a9bbb7b7-22cb-4cc5-84bd-5ed6185f8afd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-12T15:19:04.856635+01:00'
+---
+event:
+  concept:instance: 104434
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a9bbb7b7-22cb-4cc5-84bd-5ed6185f8afd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Bestellung aufnehmen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Bestellung pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Bestellung g&#xFC;ltig" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Bestellung bearbeiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Bestellung versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Bestellung ung&#xFC;ltig" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Bestellung ablehnen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 816f8e8534f7d01bae4584f969d04a93ff317d69
+  time:timestamp: '2026-01-12T15:19:17.927794+01:00'
+---
+event:
+  concept:instance: 104434
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a9bbb7b7-22cb-4cc5-84bd-5ed6185f8afd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 816f8e8534f7d01bae4584f969d04a93ff317d69
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-12T15:19:17.928005+01:00'
+---
+event:
+  concept:instance: 104434
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a9bbb7b7-22cb-4cc5-84bd-5ed6185f8afd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 816f8e8534f7d01bae4584f969d04a93ff317d69
+  cpee:exposition: |+
+    # User Input:
+    Erstelle mir einen Bestellprozess
+
+  time:timestamp: '2026-01-12T15:19:17.928363+01:00'
+...
+---
+event:
+  concept:instance: 104434
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a9bbb7b7-22cb-4cc5-84bd-5ed6185f8afd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 816f8e8534f7d01bae4584f969d04a93ff317d69
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-12T15:19:17.928643+01:00'
+---
+event:
+  concept:instance: 104434
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a9bbb7b7-22cb-4cc5-84bd-5ed6185f8afd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 816f8e8534f7d01bae4584f969d04a93ff317d69
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-12T15:19:17.928824+01:00'
+---
+event:
+  concept:instance: 104434
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a9bbb7b7-22cb-4cc5-84bd-5ed6185f8afd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 816f8e8534f7d01bae4584f969d04a93ff317d69
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Bestellung aufnehmen)
+        1:task:(Bestellung aufnehmen) --> 2:task:(Bestellung prÃ¼fen)
+        2:task:(Bestellung prÃ¼fen) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |Bestellung gÃ¼ltig| 4:task:(Bestellung bearbeiten)
+        3:exclusivegateway:{x} --> |Bestellung ungÃ¼ltig| 5:task:(Bestellung ablehnen)
+        4:task:(Bestellung bearbeiten) --> 6:task:(Bestellung versenden)
+        5:task:(Bestellung ablehnen) --> 7:exclusivegateway:{x}
+        6:task:(Bestellung versenden) --> 7:exclusivegateway:{x}
+        7:exclusivegateway:{x} --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-12T15:19:17.929182+01:00'
+---
+event:
+  concept:instance: 104434
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a9bbb7b7-22cb-4cc5-84bd-5ed6185f8afd
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 816f8e8534f7d01bae4584f969d04a93ff317d69
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Bestellung aufnehmen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Bestellung pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Bestellung g&#xFC;ltig" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Bestellung bearbeiten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Bestellung versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Bestellung ung&#xFC;ltig" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Bestellung ablehnen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-12T15:19:17.929404+01:00'
