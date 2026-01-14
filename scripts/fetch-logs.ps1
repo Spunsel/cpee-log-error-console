@@ -46,9 +46,11 @@ $uuidMapping.PSObject.Properties | ForEach-Object {
     $mappingHashtable[$_.Name] = $_.Value
 }
 
-# Create output directory
+# Create output directory and clear existing contents
 $outputDir = "scripts\temp\logs"
-if (-not (Test-Path $outputDir)) {
+if (Test-Path $outputDir) {
+    Remove-Item -Path "$outputDir\*" -Force -Recurse
+} else {
     New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
 }
 
