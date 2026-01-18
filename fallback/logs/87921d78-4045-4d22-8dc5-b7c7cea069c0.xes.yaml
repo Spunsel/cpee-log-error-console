@@ -1,0 +1,155 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 107610
+    cpee:name: Plain Instance
+    cpee:instance: 87921d78-4045-4d22-8dc5-b7c7cea069c0
+---
+event:
+  concept:instance: 107610
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87921d78-4045-4d22-8dc5-b7c7cea069c0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-17T15:08:06.686832+01:00'
+---
+event:
+  concept:instance: 107610
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87921d78-4045-4d22-8dc5-b7c7cea069c0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Say Hello</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 25eeb2bbd7b6b5179bc0503de7fc4792df2c7a52
+  time:timestamp: '2026-01-17T15:08:15.125383+01:00'
+---
+event:
+  concept:instance: 107610
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87921d78-4045-4d22-8dc5-b7c7cea069c0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25eeb2bbd7b6b5179bc0503de7fc4792df2c7a52
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-17T15:08:15.125551+01:00'
+---
+event:
+  concept:instance: 107610
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87921d78-4045-4d22-8dc5-b7c7cea069c0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25eeb2bbd7b6b5179bc0503de7fc4792df2c7a52
+  cpee:exposition: |-
+    # User Input:
+    hello
+  time:timestamp: '2026-01-17T15:08:15.125799+01:00'
+---
+event:
+  concept:instance: 107610
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87921d78-4045-4d22-8dc5-b7c7cea069c0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25eeb2bbd7b6b5179bc0503de7fc4792df2c7a52
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-17T15:08:15.125885+01:00'
+---
+event:
+  concept:instance: 107610
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87921d78-4045-4d22-8dc5-b7c7cea069c0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25eeb2bbd7b6b5179bc0503de7fc4792df2c7a52
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-17T15:08:15.125985+01:00'
+---
+event:
+  concept:instance: 107610
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87921d78-4045-4d22-8dc5-b7c7cea069c0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25eeb2bbd7b6b5179bc0503de7fc4792df2c7a52
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Say Hello)
+        1:task:(Say Hello) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-17T15:08:15.126075+01:00'
+---
+event:
+  concept:instance: 107610
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87921d78-4045-4d22-8dc5-b7c7cea069c0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25eeb2bbd7b6b5179bc0503de7fc4792df2c7a52
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Say Hello</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-17T15:08:15.126164+01:00'

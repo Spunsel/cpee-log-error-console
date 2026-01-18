@@ -21,7 +21,7 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 [System.Net.ServicePointManager]::DefaultConnectionLimit = 50
 
 # Process numbers to fetch UUIDs for (from ConfigManager.js)
-$processNumbers = @(104629..104853) # | Where-Object { $_ -ne 98647 }
+$processNumbers = @(105056..107641) # | Where-Object { $_ -ne 98647 }
 
 # Output file
 $outputFile = "scripts\temp\uuids\uuid-mapping.json"

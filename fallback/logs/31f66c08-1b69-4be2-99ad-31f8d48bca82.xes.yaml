@@ -1,0 +1,241 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 105437
+    cpee:name: Enter info here
+    cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-15T13:19:48.516426+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2026-01-15T13:20:32.869090+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-15T13:20:33.352682+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-15T13:20:46.447396+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  time:timestamp: '2026-01-15T13:20:46.448532+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  time:timestamp: '2026-01-15T13:20:46.449615+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: extended
+  - name: guarded_id
+    value: ''
+  - name: info
+    value: Subprocess
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: model_uuid
+    value: 1fc43528-3e4a-40ee-8503-c0ed7e5d883c
+  - name: model_version
+    value: ''
+  - name: design_stage
+    value: development
+  - name: design_dir
+    value: Templates.dir
+  time:timestamp: '2026-01-15T13:20:46.450904+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-01-15T13:23:15.179811+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-15T13:23:15.179955+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-pro
+  time:timestamp: '2026-01-15T13:23:15.181008+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-15T13:23:15.181191+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |+
+    # User Input:
+    1. Cooperativa abre solicitaÃ§Ã£o de contrataÃ§Ã£o. 2. Cooperativa envia dados da vaga para a Central Ailos: - Tipo de contrataÃ§Ã£o - Jornada - Data prevista de inÃ­cio - Unidade - Gestor responsÃ¡vel - InformaÃ§Ãµes complementares exigidas 3. Central Ailos recebe a solicitaÃ§Ã£o e valida se as informaÃ§Ãµes estÃ£o completas. 4. Se houver pendÃªncias, Central Ailos devolve Ã  cooperativa para correÃ§Ã£o. 5. Com informaÃ§Ãµes completas, Central Ailos inicia contato com o candidato. 6. Central Ailos envia mensagem inicial ao candidato com: - Boas-vindas - Lista de documentos necessÃ¡rios - Link ou canal para envio digital - Prazo para entrega 7. Candidato envia documentos via plataforma digital. 8. Central Ailos realiza conferÃªncia documental. 9. Se houver inconsistÃªncias ou ausÃªncia de documentos: - Central Ailos solicita complementaÃ§Ã£o ao candidato - Retorna Ã  etapa 7 10. Central Ailos agenda exame admissional (quando aplicÃ¡vel). 11. Candidato realiza o exame admissional. 12. Central Ailos recebe e valida o ASO. 13. Central Ailos gera contrato digital no sistema. 14. Central Ailos envia contrato para assinatura digital do candidato. 15. Candidato assina digitalmente o contrato. 16. Central Ailos arquiva o contrato digital aprovado. 17. Central Ailos registra os dados no sistema de folha. 18. Central Ailos integra documentaÃ§Ã£o e ficha cadastral. 19. Central Ailos aciona Ã¡reas responsÃ¡veis para provisionamento: - E-mail corporativo - Sistemas internos - Acessos e perfis - Equipamentos (quando necessÃ¡rio) 20. Ãreas tÃ©cnicas confirmam ativaÃ§Ã£o de acessos. 21. Central Ailos consolida o status final da admissÃ£o. 22. Central Ailos envia confirmaÃ§Ã£o de admissÃ£o para a cooperativa: - Data oficial de admissÃ£o - InformaÃ§Ãµes cadastrais - Acessos liberados 23. Cooperativa realiza onboarding local do novo colaborador. 24. Processo encerrado.
+
+  time:timestamp: '2026-01-15T13:23:15.180288+01:00'
+...
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    bpmn
+      direction LR
+        0:startevent:((startevent))
+        1:task:(Abrir solicitaÃ§Ã£o de contrataÃ§Ã£o)
+        2:task:(Enviar dados da vaga)
+        3:task:(Validar informaÃ§Ãµes da solicitaÃ§Ã£o)
+        4:exclusivegateway:{x}
+        5:task:(Devolver para correÃ§Ã£o)
+        6:task:(Iniciar contato com candidato)
+        7:task:(Enviar mensagem inicial ao candidato)
+        8:task:(Candidato envia documentos)
+        9:task:(Realizar conferÃªncia documental)
+        10:exclusivegateway:{x}
+        11:task:(Solicitar complementaÃ§Ã£o ao candidato)
+        12:exclusivegateway:{x}
+        13:task:(Agendar exame admissional)
+        14:task:(Candidato realiza exame admissional)
+        15:task:(Receber e validar ASO)
+        16:exclusivegateway:{x}
+        17:task:(Gerar contrato digital)
+        18:task:(Enviar contrato para assinatura)
+        19:task:(Candidato assina contrato)
+        20:task:(Arquivar contrato aprovado)
+        21:task:(Registrar dados no sistema de
+  time:timestamp: '2026-01-15T13:23:15.181581+01:00'
+---
+event:
+  concept:instance: 105437
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 31f66c08-1b69-4be2-99ad-31f8d48bca82
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-01-15T13:23:15.181708+01:00'
