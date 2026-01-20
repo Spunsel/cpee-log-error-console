@@ -1,0 +1,1637 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 115794
+    cpee:name: Enter info here
+    cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-20T12:15:56.850777+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Conduct Feasibility Study</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Perform Site Survey</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Feasible" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Develop Initial Design</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Obtain Environmental Permits</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Permits Approved" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Finalize Bridge Design</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Procure Materials</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Construct Bridge Foundations</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Erect Bridge Towers</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Suspend Main Cables</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <loop mode="pre_test" condition="true">
+                <call id="a27" endpoint="" a:alt_id="12">
+                  <parameters>
+                    <label>Install Decking</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a29" endpoint="" a:alt_id="13">
+                  <parameters>
+                    <label>Install Suspension System</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a31" endpoint="" a:alt_id="14">
+                  <parameters>
+                    <label>Install Safety Features</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a33" endpoint="" a:alt_id="15">
+                  <parameters>
+                    <label>Conduct Load Testing</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <loop mode="pre_test" condition="Passes Tests">
+                  <choose mode="exclusive" a:alt_id="16">
+                    <alternative condition="Passes Tests" language="text/javascript">
+                      <call id="a37" endpoint="" a:alt_id="17">
+                        <parameters>
+                          <label>Final Inspection</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="18">
+                        <alternative condition="Rejected" language="text/javascript">
+                          <call id="a27" endpoint="" a:alt_id="12">
+                            <parameters>
+                              <label>Install Decking</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a29" endpoint="" a:alt_id="13">
+                            <parameters>
+                              <label>Install Suspension System</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a31" endpoint="" a:alt_id="14">
+                            <parameters>
+                              <label>Install Safety Features</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a33" endpoint="" a:alt_id="15">
+                            <parameters>
+                              <label>Conduct Load Testing</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Approved" language="text/javascript">
+                          <call id="a43" endpoint="" a:alt_id="19">
+                            <parameters>
+                              <label>Open Bridge to Traffic</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Fails Tests" language="text/javascript">
+                      <call id="a27" endpoint="" a:alt_id="12">
+                        <parameters>
+                          <label>Install Decking</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a29" endpoint="" a:alt_id="13">
+                        <parameters>
+                          <label>Install Suspension System</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a31" endpoint="" a:alt_id="14">
+                        <parameters>
+                          <label>Install Safety Features</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="15">
+                        <parameters>
+                          <label>Conduct Load Testing</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </loop>
+              </loop>
+            </alternative>
+            <alternative condition="Permits Rejected" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Not Feasible" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: bf01d0527aef255f7ddb8c9f1126499dd3a3c0ec
+  time:timestamp: '2026-01-20T12:26:00.890595+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf01d0527aef255f7ddb8c9f1126499dd3a3c0ec
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-20T12:26:00.891045+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf01d0527aef255f7ddb8c9f1126499dd3a3c0ec
+  cpee:exposition: |-
+    # User Input:
+    create an instricate and detailed model for designing a suspension bridge that spans from one island to another. 
+  time:timestamp: '2026-01-20T12:26:00.891166+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf01d0527aef255f7ddb8c9f1126499dd3a3c0ec
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-20T12:26:00.891369+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf01d0527aef255f7ddb8c9f1126499dd3a3c0ec
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-20T12:26:00.891607+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf01d0527aef255f7ddb8c9f1126499dd3a3c0ec
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Conduct Feasibility Study)
+      1:task:(Conduct Feasibility Study) --> 2:task:(Perform Site Survey)
+      2:task:(Perform Site Survey) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Feasible| 4:task:(Develop Initial Design)
+      3:exclusivegateway:{x} --> |Not Feasible| 20:endevent:(((endevent)))
+      4:task:(Develop Initial Design) --> 5:task:(Obtain Environmental Permits)
+      5:task:(Obtain Environmental Permits) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> |Permits Approved| 7:task:(Finalize Bridge Design)
+      6:exclusivegateway:{x} --> |Permits Rejected| 20:endevent:(((endevent)))
+      7:task:(Finalize Bridge Design) --> 8:task:(Procure Materials)
+      8:task:(Procure Materials) --> 9:task:(Construct Bridge Foundations)
+      9:task:(Construct Bridge Foundations) --> 10:task:(Erect Bridge Towers)
+      10:task:(Erect Bridge Towers) --> 11:task:(Suspend Main Cables)
+      11:task:(Suspend Main Cables) --> 12:task:(Install Decking)
+      12:task:(Install Decking) --> 13:task:(Install Suspension System)
+      13:task:(Install Suspension System) --> 14:task:(Install Safety Features)
+      14:task:(Install Safety Features) --> 15:task:(Conduct Load Testing)
+      15:task:(Conduct Load Testing) --> 16:exclusivegateway:{x}
+      16:exclusivegateway:{x} --> |Passes Tests| 17:task:(Final Inspection)
+      16:exclusivegateway:{x} --> |Fails Tests| 12:task:(Install Decking)
+      17:task:(Final Inspection) --> 18:exclusivegateway:{x}
+      18:exclusivegateway:{x} --> |Approved| 19:task:(Open Bridge to Traffic)
+      18:exclusivegateway:{x} --> |Rejected| 12:task:(Install Decking)
+      19:task:(Open Bridge to Traffic) --> 20:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-20T12:26:00.891753+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf01d0527aef255f7ddb8c9f1126499dd3a3c0ec
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Conduct Feasibility Study</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Perform Site Survey</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Feasible" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Develop Initial Design</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Obtain Environmental Permits</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Permits Approved" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Finalize Bridge Design</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Procure Materials</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Construct Bridge Foundations</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Erect Bridge Towers</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Suspend Main Cables</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <loop mode="pre_test" condition="true">
+                <call id="a27" endpoint="" a:alt_id="12">
+                  <parameters>
+                    <label>Install Decking</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a29" endpoint="" a:alt_id="13">
+                  <parameters>
+                    <label>Install Suspension System</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a31" endpoint="" a:alt_id="14">
+                  <parameters>
+                    <label>Install Safety Features</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a33" endpoint="" a:alt_id="15">
+                  <parameters>
+                    <label>Conduct Load Testing</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <loop mode="pre_test" condition="Passes Tests">
+                  <choose mode="exclusive" a:alt_id="16">
+                    <alternative condition="Passes Tests" language="text/javascript">
+                      <call id="a37" endpoint="" a:alt_id="17">
+                        <parameters>
+                          <label>Final Inspection</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="18">
+                        <alternative condition="Rejected" language="text/javascript">
+                          <call id="a27" endpoint="" a:alt_id="12">
+                            <parameters>
+                              <label>Install Decking</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a29" endpoint="" a:alt_id="13">
+                            <parameters>
+                              <label>Install Suspension System</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a31" endpoint="" a:alt_id="14">
+                            <parameters>
+                              <label>Install Safety Features</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a33" endpoint="" a:alt_id="15">
+                            <parameters>
+                              <label>Conduct Load Testing</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Approved" language="text/javascript">
+                          <call id="a43" endpoint="" a:alt_id="19">
+                            <parameters>
+                              <label>Open Bridge to Traffic</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Fails Tests" language="text/javascript">
+                      <call id="a27" endpoint="" a:alt_id="12">
+                        <parameters>
+                          <label>Install Decking</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a29" endpoint="" a:alt_id="13">
+                        <parameters>
+                          <label>Install Suspension System</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a31" endpoint="" a:alt_id="14">
+                        <parameters>
+                          <label>Install Safety Features</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="15">
+                        <parameters>
+                          <label>Conduct Load Testing</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </loop>
+              </loop>
+            </alternative>
+            <alternative condition="Permits Rejected" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Not Feasible" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-20T12:26:00.891871+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-01-20T12:26:31.293365+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Conduct Feasibility Study</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Perform Site Survey</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Feasible" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Develop Initial Design</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Obtain Environmental Permits</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Permits Approved" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Finalize Bridge Design</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Procure Materials</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Construct Bridge Foundations</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Erect Bridge Towers</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Suspend Main Cables</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <loop mode="pre_test" condition="true">
+                <call id="a27" endpoint="" a:alt_id="12">
+                  <parameters>
+                    <label>Install Decking</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a29" endpoint="" a:alt_id="13">
+                  <parameters>
+                    <label>Install Suspension System</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a31" endpoint="" a:alt_id="14">
+                  <parameters>
+                    <label>Install Safety Features</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a33" endpoint="" a:alt_id="15">
+                  <parameters>
+                    <label>Conduct Load Testing</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <loop mode="pre_test" condition="Passes Tests">
+                  <choose mode="exclusive" a:alt_id="16">
+                    <alternative condition="Passes Tests" language="text/javascript">
+                      <call id="a37" endpoint="" a:alt_id="17">
+                        <parameters>
+                          <label>Final Inspection</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="18">
+                        <alternative condition="Rejected" language="text/javascript">
+                          <call id="a27" endpoint="" a:alt_id="12">
+                            <parameters>
+                              <label>Install Decking</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a29" endpoint="" a:alt_id="13">
+                            <parameters>
+                              <label>Install Suspension System</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a31" endpoint="" a:alt_id="14">
+                            <parameters>
+                              <label>Install Safety Features</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a33" endpoint="" a:alt_id="15">
+                            <parameters>
+                              <label>Conduct Load Testing</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Approved" language="text/javascript">
+                          <call id="a43" endpoint="" a:alt_id="19">
+                            <parameters>
+                              <label>Open Bridge to Traffic</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <escape a:alt_id="-1"/>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Fails Tests" language="text/javascript">
+                      <call id="a27" endpoint="" a:alt_id="12">
+                        <parameters>
+                          <label>Install Decking</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a29" endpoint="" a:alt_id="13">
+                        <parameters>
+                          <label>Install Suspension System</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a31" endpoint="" a:alt_id="14">
+                        <parameters>
+                          <label>Install Safety Features</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="15">
+                        <parameters>
+                          <label>Conduct Load Testing</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </loop>
+              </loop>
+            </alternative>
+            <alternative condition="Permits Rejected" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Not Feasible" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-20T12:26:31.293573+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete all.
+  time:timestamp: '2026-01-20T12:26:31.294364+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-20T12:26:31.294522+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Conduct Feasibility Study)
+    a1:task:(Conduct Feasibility Study)-->a3:task:(Perform Site Survey)
+    a3:task:(Perform Site Survey)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Feasible"|a7:task:(Develop Initial Design)
+    a7:task:(Develop Initial Design)-->a11:task:(Obtain Environmental Permits)
+    a11:task:(Obtain Environmental Permits)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Permits Approved"|a15:task:(Finalize Bridge Design)
+    a15:task:(Finalize Bridge Design)-->a19:task:(Procure Materials)
+    a19:task:(Procure Materials)-->a21:task:(Construct Bridge Foundations)
+    a21:task:(Construct Bridge Foundations)-->a23:task:(Erect Bridge Towers)
+    a23:task:(Erect Bridge Towers)-->a25:task:(Suspend Main Cables)
+    a25:task:(Suspend Main Cables)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->|"true"|a27:task:(Install Decking)
+    a27:task:(Install Decking)-->a29:task:(Install Suspension System)
+    a29:task:(Install Suspension System)-->a31:task:(Install Safety Features)
+    a31:task:(Install Safety Features)-->a33:task:(Conduct Load Testing)
+    a33:task:(Conduct Load Testing)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"Passes Tests"|gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Passes Tests"|a37:task:(Final Inspection)
+    a37:task:(Final Inspection)-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"Rejected"|a27:task:(Install Decking)
+    a27:task:(Install Decking)-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"Approved"|a43:task:(Open Bridge to Traffic)
+    a43:task:(Open Bridge to Traffic)-->gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw9s:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9e:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Fails Tests"|a27:task:(Install Decking)
+    a27:task:(Install Decking)-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Permits Rejected"|gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Not Feasible"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-20T12:26:31.294613+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2026-01-20T12:26:31.294760+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-01-20T12:26:31.294856+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Analyze Bridge Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Calculate Load Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Determine Friction Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Select Materials with Adequate Friction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Design Bridge Structure</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a11" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Simulate Bridge Performance</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Performance Not Acceptable" a:alt_id="7" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Revise Design and Material Selection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Design Bridge Structure</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Simulate Bridge Performance</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a15" endpoint="" a:alt_id="9">
+          <parameters>
+            <label>Implement Bridge Design</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a21" endpoint="" a:alt_id="10">
+          <parameters>
+            <label>Monitor Bridge Performance</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: 5c8e330260ea3668818004abd221777c223d1aa9
+  time:timestamp: '2026-01-20T12:27:47.253848+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c8e330260ea3668818004abd221777c223d1aa9
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-01-20T12:27:47.254092+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c8e330260ea3668818004abd221777c223d1aa9
+  cpee:exposition: |-
+    # User Input:
+    create a detailed process model that showcases how to bridge, which pillars are held up by friction. also use mathematical formulas.
+  time:timestamp: '2026-01-20T12:27:47.254508+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c8e330260ea3668818004abd221777c223d1aa9
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-20T12:27:47.254863+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c8e330260ea3668818004abd221777c223d1aa9
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-20T12:27:47.255101+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c8e330260ea3668818004abd221777c223d1aa9
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Analyze Bridge Requirements)
+      1:task:(Analyze Bridge Requirements) --> 2:task:(Calculate Load Distribution)
+      2:task:(Calculate Load Distribution) --> 3:task:(Determine Friction Requirements)
+      3:task:(Determine Friction Requirements) --> 4:task:(Select Materials with Adequate Friction)
+      4:task:(Select Materials with Adequate Friction) --> 5:task:(Design Bridge Structure)
+      5:task:(Design Bridge Structure) --> 6:task:(Simulate Bridge Performance)
+      6:task:(Simulate Bridge Performance) --> 7:exclusivegateway:{x}
+      7:exclusivegateway:{x} --> |Performance Acceptable| 9:task:(Implement Bridge Design)
+      7:exclusivegateway:{x} --> |Performance Not Acceptable| 8:task:(Revise Design and Material Selection)
+      8:task:(Revise Design and Material Selection) --> 5:task:(Design Bridge Structure)
+      9:task:(Implement Bridge Design) --> 10:task:(Monitor Bridge Performance)
+      10:task:(Monitor Bridge Performance) --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-20T12:27:47.255212+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c8e330260ea3668818004abd221777c223d1aa9
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Analyze Bridge Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Calculate Load Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Determine Friction Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Select Materials with Adequate Friction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Design Bridge Structure</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a11" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Simulate Bridge Performance</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Performance Not Acceptable" a:alt_id="7" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Revise Design and Material Selection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Design Bridge Structure</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Simulate Bridge Performance</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a15" endpoint="" a:alt_id="9">
+          <parameters>
+            <label>Implement Bridge Design</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a21" endpoint="" a:alt_id="10">
+          <parameters>
+            <label>Monitor Bridge Performance</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-01-20T12:27:47.255309+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Analyze Bridge Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Calculate Load Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Determine Friction Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Select Materials with Adequate Friction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a11" endpoint="" a:alt_id="a9">
+          <parameters>
+            <label>Design Bridge Structure</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="a11">
+          <parameters>
+            <label>Simulate Bridge Performance</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Performance Not Acceptable" a:alt_id="gw2s" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Revise Design and Material Selection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Design Bridge Structure</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Simulate Bridge Performance</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a17" endpoint="" a:alt_id="a15">
+          <parameters>
+            <label>Implement Bridge Design</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a19" endpoint="" a:alt_id="a21">
+          <parameters>
+            <label>Monitor Bridge Performance</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: 1f60d8da33b0495225ff53318ad1e9ad3c75f855
+  time:timestamp: '2026-01-20T12:28:12.672010+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f60d8da33b0495225ff53318ad1e9ad3c75f855
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Analyze Bridge Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Calculate Load Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Determine Friction Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Select Materials with Adequate Friction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Design Bridge Structure</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a11" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Simulate Bridge Performance</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Performance Not Acceptable" a:alt_id="7" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Revise Design and Material Selection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Design Bridge Structure</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Simulate Bridge Performance</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a15" endpoint="" a:alt_id="9">
+          <parameters>
+            <label>Implement Bridge Design</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a21" endpoint="" a:alt_id="10">
+          <parameters>
+            <label>Monitor Bridge Performance</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-01-20T12:28:12.672194+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f60d8da33b0495225ff53318ad1e9ad3c75f855
+  cpee:exposition: |-
+    # User Input:
+    can you use mathematical formulas using latex for the decision nodes?
+  time:timestamp: '2026-01-20T12:28:12.672552+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f60d8da33b0495225ff53318ad1e9ad3c75f855
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-20T12:28:12.672812+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f60d8da33b0495225ff53318ad1e9ad3c75f855
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Analyze Bridge Requirements)
+    a1:task:(Analyze Bridge Requirements)-->a3:task:(Calculate Load Distribution)
+    a3:task:(Calculate Load Distribution)-->a5:task:(Determine Friction Requirements)
+    a5:task:(Determine Friction Requirements)-->a7:task:(Select Materials with Adequate Friction)
+    a7:task:(Select Materials with Adequate Friction)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a9:task:(Design Bridge Structure)
+    a9:task:(Design Bridge Structure)-->a11:task:(Simulate Bridge Performance)
+    a11:task:(Simulate Bridge Performance)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a15:task:(Implement Bridge Design)
+    a15:task:(Implement Bridge Design)-->a21:task:(Monitor Bridge Performance)
+    a21:task:(Monitor Bridge Performance)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Performance Not Acceptable"|a17:task:(Revise Design and Material Selection)
+    a17:task:(Revise Design and Material Selection)-->a9:task:(Design Bridge Structure)
+    a9:task:(Design Bridge Structure)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-20T12:28:12.673016+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f60d8da33b0495225ff53318ad1e9ad3c75f855
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Analyze Bridge Requirements)
+    a1:task:(Analyze Bridge Requirements)-->a3:task:(Calculate Load Distribution)
+    a3:task:(Calculate Load Distribution)-->a5:task:(Determine Friction Requirements)
+    a5:task:(Determine Friction Requirements)-->a7:task:(Select Materials with Adequate Friction)
+    a7:task:(Select Materials with Adequate Friction)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Friction > μ"|a9:task:(Design Bridge Structure)
+    a9:task:(Design Bridge Structure)-->a11:task:(Simulate Bridge Performance)
+    a11:task:(Simulate Bridge Performance)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a15:task:(Implement Bridge Design)
+    a15:task:(Implement Bridge Design)-->a21:task:(Monitor Bridge Performance)
+    a21:task:(Monitor Bridge Performance)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Performance Not Acceptable"|a17:task:(Revise Design and Material Selection)
+    a17:task:(Revise Design and Material Selection)-->a9:task:(Design Bridge Structure)
+    a9:task:(Design Bridge Structure)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2026-01-20T12:28:12.673192+01:00'
+---
+event:
+  concept:instance: 115794
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d10ab87f-5b5d-47b5-a874-23293751563e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f60d8da33b0495225ff53318ad1e9ad3c75f855
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Analyze Bridge Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Calculate Load Distribution</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Determine Friction Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Select Materials with Adequate Friction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a11" endpoint="" a:alt_id="a9">
+          <parameters>
+            <label>Design Bridge Structure</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="a11">
+          <parameters>
+            <label>Simulate Bridge Performance</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Performance Not Acceptable" a:alt_id="gw2s" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Revise Design and Material Selection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Design Bridge Structure</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Simulate Bridge Performance</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a17" endpoint="" a:alt_id="a15">
+          <parameters>
+            <label>Implement Bridge Design</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a19" endpoint="" a:alt_id="a21">
+          <parameters>
+            <label>Monitor Bridge Performance</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-01-20T12:28:12.673450+01:00'

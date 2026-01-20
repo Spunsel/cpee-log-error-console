@@ -204,8 +204,8 @@ export class ConfigManager {
                 backoffMultiplier: 1.5,
                 initialDelay: 1000
             },
-            interRequestDelay: 1000,  // Delay between consecutive log fetch requests (in milliseconds) - 200ms = 5 requests/second
-            scanConcurrency: 5  // Number of concurrent instance checks during scanning - set to 1 for rate limiting
+            interRequestDelay: 200,
+            scanConcurrency: 50
         };
     }
 
