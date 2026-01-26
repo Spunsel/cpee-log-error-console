@@ -1,0 +1,292 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 138083
+    cpee:name: '12'
+    cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-26T11:24:07.311289+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Compose Executive Board</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Set Term of Office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Schedule Executive Board Meetings</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Lay Down Rules of Procedure</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: cc64e4e32c0231759abf2837536a6db7e4e3aa16
+  time:timestamp: '2026-01-26T11:25:05.309242+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cc64e4e32c0231759abf2837536a6db7e4e3aa16
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T11:25:05.309539+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cc64e4e32c0231759abf2837536a6db7e4e3aa16
+  cpee:exposition: |-
+    # User Input:
+    The following events occur in parallel:
+
+
+    3.Â Â  The Executive Board shall be composed of five members. The members of the Executive Board shall be appointed from among the members of the Management Board. One of the members shall be the Chairperson of the Management Board, who may also chair the Executive Board, and another shall be one of the representatives of the Commission. The appointments of the members of the Executive Board shall aim to ensure gender balance on the Executive Board. The Executive Director shall take part in the meetings of the Executive Board but shall not have the right to vote.
+
+    4.Â Â  The term of office of the members of the Executive Board shall be four years. That term shall be renewable.
+
+    5.Â Â  The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.
+
+    6.Â Â  The Management Board shall lay down the rules of procedure of the Executive Board.
+  time:timestamp: '2026-01-26T11:25:05.310220+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cc64e4e32c0231759abf2837536a6db7e4e3aa16
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T11:25:05.310386+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cc64e4e32c0231759abf2837536a6db7e4e3aa16
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T11:25:05.310509+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cc64e4e32c0231759abf2837536a6db7e4e3aa16
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:parallelgateway:{AND}
+      1:parallelgateway:{AND} --> 2:task:(Compose Executive Board)
+      1:parallelgateway:{AND} --> 3:task:(Set Term of Office)
+      1:parallelgateway:{AND} --> 4:task:(Schedule Executive Board Meetings)
+      1:parallelgateway:{AND} --> 5:task:(Lay Down Rules of Procedure)
+      2:task:(Compose Executive Board) --> 6:parallelgateway:{AND}
+      3:task:(Set Term of Office) --> 6:parallelgateway:{AND}
+      4:task:(Schedule Executive Board Meetings) --> 6:parallelgateway:{AND}
+      5:task:(Lay Down Rules of Procedure) --> 6:parallelgateway:{AND}
+      6:parallelgateway:{AND} --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T11:25:05.310624+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cc64e4e32c0231759abf2837536a6db7e4e3aa16
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Compose Executive Board</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Set Term of Office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Schedule Executive Board Meetings</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Lay Down Rules of Procedure</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-01-26T11:25:05.310748+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T16:38:27.980308+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T16:38:29.320694+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T16:38:29.786707+01:00'
+---
+event:
+  concept:instance: 138083
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 63d65dc0-978e-4e31-9279-5986d28ef224
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T16:38:30.202885+01:00'

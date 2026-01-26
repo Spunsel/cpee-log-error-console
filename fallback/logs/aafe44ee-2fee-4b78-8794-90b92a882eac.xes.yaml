@@ -1,0 +1,625 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 138054
+    cpee:name: Plain Instance
+    cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-26T09:34:12.342338+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Assist Member States</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="2">
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Improve Prevention</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Improve Detection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Improve Response</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: 5bfd21a99e0975b1575d71b4b477a3dfa3d3004e
+  time:timestamp: '2026-01-26T09:34:17.450242+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5bfd21a99e0975b1575d71b4b477a3dfa3d3004e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T09:34:17.450570+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5bfd21a99e0975b1575d71b4b477a3dfa3d3004e
+  cpee:exposition: |-
+    # User Input:
+    Member States shall be assisted by ENISA to improve prevention AND detection AND response to cyber threats
+  time:timestamp: '2026-01-26T09:34:17.450955+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5bfd21a99e0975b1575d71b4b477a3dfa3d3004e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T09:34:17.451581+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5bfd21a99e0975b1575d71b4b477a3dfa3d3004e
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T09:34:17.451689+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5bfd21a99e0975b1575d71b4b477a3dfa3d3004e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Assist Member States)
+        1:task:(Assist Member States) --> 2:parallelgateway:{AND}
+        2:parallelgateway:{AND} --> 3:task:(Improve Prevention)
+        2:parallelgateway:{AND} --> 4:task:(Improve Detection)
+        2:parallelgateway:{AND} --> 5:task:(Improve Response)
+        3:task:(Improve Prevention) --> 6:parallelgateway:{AND}
+        4:task:(Improve Detection) --> 6:parallelgateway:{AND}
+        5:task:(Improve Response) --> 6:parallelgateway:{AND}
+        6:parallelgateway:{AND} --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T09:34:17.451770+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5bfd21a99e0975b1575d71b4b477a3dfa3d3004e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Assist Member States</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="2">
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Improve Prevention</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Improve Detection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Improve Response</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-01-26T09:34:17.451855+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T09:42:52.588743+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decision</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Management Board approves decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board rejects decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  time:timestamp: '2026-01-26T09:43:46.473285+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T09:43:46.473565+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  cpee:exposition: |-
+    # User Input:
+    When necessary because of urgency, the Executive Board may take certain provisional decisions on behalf of the Management Board, in particular on administrative management matters, including the suspension of the delegation of the appointing authority powers and budgetary matters. Any such provisional decisions shall be notified to the Management Board without undue delay. The Management Board shall then decide whether to approve or reject the provisional decision no later than three months after the decision was taken. The Executive Board shall not take decisions on behalf of the Management Board that require the approval of a majority of two-thirds of the members of the Management Board.Â 
+  time:timestamp: '2026-01-26T09:43:46.473725+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T09:43:46.473868+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T09:43:46.474467+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Executive Board takes provisional decision)
+      1:task:(Executive Board takes provisional decision) --> 2:task:(Notify Management Board)
+      2:task:(Notify Management Board) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Approve| 4:task:(Management Board approves decision)
+      3:exclusivegateway:{x} --> |Reject| 5:task:(Management Board rejects decision)
+      4:task:(Management Board approves decision) --> 6:exclusivegateway:{x}
+      5:task:(Management Board rejects decision) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T09:43:46.474590+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decision</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Management Board approves decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board rejects decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-26T09:43:46.474717+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decision</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Management Board approves decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board rejects decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  time:timestamp: '2026-01-26T09:50:01.021828+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decision</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Management Board approves decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board rejects decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  time:timestamp: '2026-01-26T09:50:02.070597+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decision</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Management Board approves decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board rejects decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  time:timestamp: '2026-01-26T09:50:02.310160+01:00'
+---
+event:
+  concept:instance: 138054
+  id:id: external
+  cpee:activity: external
+  cpee:instance: aafe44ee-2fee-4b78-8794-90b92a882eac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decision</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Management Board approves decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board rejects decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 1ae735d3b64c8a0bb253cd88a6407a16b6f1b641
+  time:timestamp: '2026-01-26T09:50:15.045593+01:00'

@@ -1,0 +1,4874 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 138058
+    cpee:name: '1'
+    cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-26T09:50:23.193766+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decisions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Management Board approves decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board rejects decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  time:timestamp: '2026-01-26T09:52:00.136211+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T09:52:00.136398+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: |-
+    # User Input:
+    [PERMISSION] WhenÂ urgent, the Executive Board may take certain provisional decisions on behalf of the Management Board, in particular on administrative management matters, including the suspension of the delegation of the appointing authority powers and budgetary matters. [OBLIGATION] Any such provisional decisions shall be notified to the Management Board without undue delay.Â [OBLIGATION]Â The Management Board shall then decide whether to approve or reject the provisional decision no later than three months after the decision was taken.Â [OBLIGATION]Â The Executive Board shall not take decisions on behalf of the Management Board that require the approval of a majority of two-thirds of the members of the Management Board.Â 
+  time:timestamp: '2026-01-26T09:52:00.136795+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T09:52:00.136941+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T09:52:00.137107+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Executive Board takes provisional decisions)
+      1:task:(Executive Board takes provisional decisions) --> 2:task:(Notify Management Board)
+      2:task:(Notify Management Board) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Approve| 4:task:(Management Board approves decision)
+      3:exclusivegateway:{x} --> |Reject| 5:task:(Management Board rejects decision)
+      4:task:(Management Board approves decision) --> 6:exclusivegateway:{x}
+      5:task:(Management Board rejects decision) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T09:52:00.137200+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decisions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Management Board approves decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board rejects decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-26T09:52:00.137602+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T09:53:27.937974+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decisions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Provisional Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Reject Provisional Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 5c274a89ccb3c95592a847ce59a35afe886b3749
+  time:timestamp: '2026-01-26T09:55:10.401531+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c274a89ccb3c95592a847ce59a35afe886b3749
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T09:55:10.401714+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c274a89ccb3c95592a847ce59a35afe886b3749
+  cpee:exposition: |-
+    # User Input:
+    When necessary because of urgency, the Executive Board may take certain provisional decisions on behalf of the Management Board, in particular on administrative management matters, including the suspension of the delegation of the appointing authority powers and budgetary matters.Â The Executive Board shall not take decisions on behalf of the Management Board that require the approval ofÂ a majority ofÂ two-thirds of the members of the Management Board.Â Any such provisional decisions shall be notified to the Management Board without undue delay. The Management Board shall then decide whether to approve or reject the provisional decision no later than three months after the decision was taken.Â 
+  time:timestamp: '2026-01-26T09:55:10.402091+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c274a89ccb3c95592a847ce59a35afe886b3749
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T09:55:10.402293+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c274a89ccb3c95592a847ce59a35afe886b3749
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T09:55:10.402513+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c274a89ccb3c95592a847ce59a35afe886b3749
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Executive Board takes provisional decisions)
+        1:task:(Executive Board takes provisional decisions) --> 2:task:(Notify Management Board)
+        2:task:(Notify Management Board) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |Approve| 4:task:(Approve Provisional Decision)
+        3:exclusivegateway:{x} --> |Reject| 5:task:(Reject Provisional Decision)
+        4:task:(Approve Provisional Decision) --> 6:exclusivegateway:{x}
+        5:task:(Reject Provisional Decision) --> 6:exclusivegateway:{x}
+        6:exclusivegateway:{x} --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T09:55:10.402738+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5c274a89ccb3c95592a847ce59a35afe886b3749
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decisions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Provisional Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Reject Provisional Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-26T09:55:10.402863+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T10:00:02.604021+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board Takes Provisional Decisions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Management Board Decides on Provisional Decision</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Implement Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Discard Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 2ab2503259545864033b16c0bf3ac07201a0aff5
+  time:timestamp: '2026-01-26T10:01:11.269662+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2ab2503259545864033b16c0bf3ac07201a0aff5
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T10:01:11.269964+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2ab2503259545864033b16c0bf3ac07201a0aff5
+  cpee:exposition: |-
+    # User Input:
+    When necessary because of urgency, the Executive Board may take certain provisional decisions on behalf of the Management Board, in particular on administrative management matters, including the suspension of the delegation of the appointing authority powers and budgetary matters butÂ shall not take decisions that require the approval ofÂ a majority ofÂ two-thirds of the members of the Management Board. Any such provisional decisions shall be notified to the Management Board without undue delay. The Management Board shall then decide whether to approve or reject the provisional decision no later than three months after the decision was taken.Â 
+  time:timestamp: '2026-01-26T10:01:11.271129+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2ab2503259545864033b16c0bf3ac07201a0aff5
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T10:01:11.271454+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2ab2503259545864033b16c0bf3ac07201a0aff5
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T10:01:11.271676+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2ab2503259545864033b16c0bf3ac07201a0aff5
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Executive Board Takes Provisional Decisions)
+      1:task:(Executive Board Takes Provisional Decisions) --> 2:task:(Notify Management Board)
+      2:task:(Notify Management Board) --> 3:task:(Management Board Decides on Provisional Decision)
+      3:task:(Management Board Decides on Provisional Decision) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} -->|Approve| 5:task:(Implement Decision)
+      4:exclusivegateway:{x} -->|Reject| 6:task:(Discard Decision)
+      5:task:(Implement Decision) --> 7:endevent:(((endevent)))
+      6:task:(Discard Decision) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T10:01:11.271846+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2ab2503259545864033b16c0bf3ac07201a0aff5
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board Takes Provisional Decisions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Management Board Decides on Provisional Decision</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Implement Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Discard Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-26T10:01:11.272024+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T10:48:02.145289+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decisions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Management Board approves decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board rejects decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  time:timestamp: '2026-01-26T10:48:52.868901+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T10:48:52.869154+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: |-
+    # User Input:
+    WHEN urgent, the Executive Board may take certain provisional decisions on behalf of the Management Board, in particular on administrative management matters, including the suspension of the delegation of the appointing authority powers and budgetary matters. Any such provisional decisions shall be notified to the Management Board without undue delay. The Management Board shall then decide WHETHER to approve or reject the provisional decision no later than three months after the decision was taken. The Executive Board shall not take decisions on behalf of the Management Board that require the approval of a majority of two-thirds of the members of the Management Board.
+  time:timestamp: '2026-01-26T10:48:52.869268+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T10:48:52.869363+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T10:48:52.869444+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Executive Board takes provisional decisions)
+        1:task:(Executive Board takes provisional decisions) --> 2:task:(Notify Management Board)
+        2:task:(Notify Management Board) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |Approve| 4:task:(Management Board approves decision)
+        3:exclusivegateway:{x} --> |Reject| 5:task:(Management Board rejects decision)
+        4:task:(Management Board approves decision) --> 6:exclusivegateway:{x}
+        5:task:(Management Board rejects decision) --> 6:exclusivegateway:{x}
+        6:exclusivegateway:{x} --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T10:48:52.869691+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2715d61dfabab217b75e038d6054cd80afcc357e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Executive Board takes provisional decisions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Management Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Management Board approves decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board rejects decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-26T10:48:52.869803+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T10:48:58.407972+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Check Urgency</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Executive Board Takes Provisional Decisions</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify Management Board</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board Decides</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Approve" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Implement Decision</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Reject" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Reverse Provisional Decision</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Not Urgent" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 340d1e8291134e3055db5f9894cc545d52b95ea1
+  time:timestamp: '2026-01-26T10:49:22.674298+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 340d1e8291134e3055db5f9894cc545d52b95ea1
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T10:49:22.674499+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 340d1e8291134e3055db5f9894cc545d52b95ea1
+  cpee:exposition: |-
+    # User Input:
+    IF urgent, the Executive Board may take certain provisional decisions on behalf of the Management Board,Â in particular onÂ administrative management matters, including the suspension of the delegation of the appointing authority powers and budgetary matters. Any such provisional decisions shall be notified to the Management Board without undue delay. The Management Board shall then decide IF to approve or reject the provisional decision no later than three months after the decision was taken.Â The Executive Board shall not take decisions on behalf of the Management Board that require the approval ofÂ a majority ofÂ two-thirds of the members of the Management Board.
+  time:timestamp: '2026-01-26T10:49:22.674879+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 340d1e8291134e3055db5f9894cc545d52b95ea1
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T10:49:22.675163+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 340d1e8291134e3055db5f9894cc545d52b95ea1
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T10:49:22.675350+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 340d1e8291134e3055db5f9894cc545d52b95ea1
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Check Urgency)
+      1:task:(Check Urgency) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Urgent| 3:task:(Executive Board Takes Provisional Decisions)
+      2:exclusivegateway:{x} --> |Not Urgent| 10:endevent:(((endevent)))
+      3:task:(Executive Board Takes Provisional Decisions) --> 4:task:(Notify Management Board)
+      4:task:(Notify Management Board) --> 5:task:(Management Board Decides)
+      5:task:(Management Board Decides) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> |Approve| 7:task:(Implement Decision)
+      6:exclusivegateway:{x} --> |Reject| 8:task:(Reverse Provisional Decision)
+      7:task:(Implement Decision) --> 9:endevent:(((endevent)))
+      8:task:(Reverse Provisional Decision) --> 9:endevent:(((endevent)))
+      9:endevent:(((endevent))) --> 10:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T10:49:22.675687+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 340d1e8291134e3055db5f9894cc545d52b95ea1
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Check Urgency</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Executive Board Takes Provisional Decisions</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify Management Board</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Management Board Decides</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Approve" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Implement Decision</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Reject" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Reverse Provisional Decision</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Not Urgent" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-01-26T10:49:22.676311+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T10:55:31.127425+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Schedule Board Meeting</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Send Meeting Invitation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Hold Board Meeting</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Meeting Not Held Every Three Months" a:alt_id="4" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Reschedule Board Meeting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Schedule Board Meeting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Send Meeting Invitation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Hold Board Meeting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: fe5a945418a57dbe9822f182098f6d72b6818d16
+  time:timestamp: '2026-01-26T10:55:34.974461+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fe5a945418a57dbe9822f182098f6d72b6818d16
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T10:55:34.974673+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fe5a945418a57dbe9822f182098f6d72b6818d16
+  cpee:exposition: |-
+    # User Input:
+    The Executive Board shall meet at least once every three months.
+  time:timestamp: '2026-01-26T10:55:34.974776+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fe5a945418a57dbe9822f182098f6d72b6818d16
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T10:55:34.974863+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fe5a945418a57dbe9822f182098f6d72b6818d16
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T10:55:34.974982+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fe5a945418a57dbe9822f182098f6d72b6818d16
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Schedule Board Meeting)
+      1:task:(Schedule Board Meeting) --> 2:task:(Send Meeting Invitation)
+      2:task:(Send Meeting Invitation) --> 3:task:(Hold Board Meeting)
+      3:task:(Hold Board Meeting) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} -->|Meeting Held Every Three Months| 5:endevent:(((endevent)))
+      4:exclusivegateway:{x} -->|Meeting Not Held Every Three Months| 6:task:(Reschedule Board Meeting)
+      6:task:(Reschedule Board Meeting) --> 1:task:(Schedule Board Meeting)
+    ```
+  time:timestamp: '2026-01-26T10:55:34.975080+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fe5a945418a57dbe9822f182098f6d72b6818d16
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Schedule Board Meeting</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Send Meeting Invitation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Hold Board Meeting</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Meeting Not Held Every Three Months" a:alt_id="4" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Reschedule Board Meeting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Schedule Board Meeting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Send Meeting Invitation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Hold Board Meeting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-01-26T10:55:34.975178+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T10:57:01.807486+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Check Meeting Frequency</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="More than 3 months" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Schedule Meeting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Less than 3 months" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Request for meeting received" language="text/javascript">
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>Schedule Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="No request received" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Hold Meeting</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: f1e9087ef1bd79804785adcfad80e48d6effb35a
+  time:timestamp: '2026-01-26T10:57:06.440942+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1e9087ef1bd79804785adcfad80e48d6effb35a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T10:57:06.441157+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1e9087ef1bd79804785adcfad80e48d6effb35a
+  cpee:exposition: |-
+    # User Input:
+    The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.
+  time:timestamp: '2026-01-26T10:57:06.441258+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1e9087ef1bd79804785adcfad80e48d6effb35a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T10:57:06.441351+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1e9087ef1bd79804785adcfad80e48d6effb35a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T10:57:06.441451+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1e9087ef1bd79804785adcfad80e48d6effb35a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Check Meeting Frequency)
+        1:task:(Check Meeting Frequency) --> 2:exclusivegateway:{x}
+        2:exclusivegateway:{x} --> |More than 3 months| 3:task:(Schedule Meeting)
+        2:exclusivegateway:{x} --> |Less than 3 months| 4:exclusivegateway:{x}
+        3:task:(Schedule Meeting) --> 5:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Request for meeting received| 3:task:(Schedule Meeting)
+        4:exclusivegateway:{x} --> |No request received| 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> 6:task:(Hold Meeting)
+        6:task:(Hold Meeting) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T10:57:06.441535+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1e9087ef1bd79804785adcfad80e48d6effb35a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Check Meeting Frequency</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="More than 3 months" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Schedule Meeting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Less than 3 months" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Request for meeting received" language="text/javascript">
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>Schedule Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="No request received" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Hold Meeting</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T10:57:06.441632+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T10:58:18.913952+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Set Term of Office</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Schedule Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Lay Down Rules of Procedure</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  time:timestamp: '2026-01-26T10:58:23.551981+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T10:58:23.552184+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: |-
+    # User Input:
+    3.Â Â  The Executive Board shall be composed of five members. The members of the Executive Board shall be appointed from among the members of the Management Board. One of the members shall be the Chairperson of the Management Board, who may also chair the Executive Board, and another shall be one of the representatives of the Commission. The appointments of the members of the Executive Board shall aim to ensure gender balance on the Executive Board. The Executive Director shall take part in the meetings of the Executive Board but shall not have the right to vote.
+
+    4.Â Â  The term of office of the members of the Executive Board shall be four years. That term shall be renewable.
+
+    5.Â Â  The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.
+
+    6.Â Â  The Management Board shall lay down the rules of procedure of the Executive Board.
+  time:timestamp: '2026-01-26T10:58:23.552709+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T10:58:23.552988+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T10:58:23.553147+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Appoint Executive Board Members)
+      1:task:(Appoint Executive Board Members) --> 2:task:(Ensure Gender Balance)
+      2:task:(Ensure Gender Balance) --> 3:task:(Set Term of Office)
+      3:task:(Set Term of Office) --> 4:task:(Schedule Meetings)
+      4:task:(Schedule Meetings) --> 5:task:(Lay Down Rules of Procedure)
+      5:task:(Lay Down Rules of Procedure) --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T10:58:23.553246+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Set Term of Office</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Schedule Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Lay Down Rules of Procedure</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T10:58:23.553328+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T11:02:59.334300+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Set Term of Office</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Schedule Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Lay Down Rules of Procedure</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  time:timestamp: '2026-01-26T11:04:45.516541+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T11:04:45.516751+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: |-
+    # User Input:
+    3.Â  Â The Executive Board shall be composed of five members.Â [IMPORTANT]Â The members of the Executive Board shall be appointed from among the members of the Management Board. One of the members shall be the Chairperson of the Management Board, who may also chair the Executive Board, and another shall be one of the representatives of the Commission.Â [IMPORTANT]Â The appointments of the members of the Executive Board shall aim to ensure gender balance on the Executive Board.Â [IMPORTANT]Â The Executive Director shall take part in the meetings of the Executive Board but shall not have the right to vote.
+
+    4.Â  Â [IMPORTANT]Â The term of office of the members of the Executive Board shall be four years. That term shall be renewable.
+
+    5.Â  Â [IMPORTANT]Â The Executive Board shall meet at least once every three months.Â [IMPORTANT]Â The Chairperson of the Executive Board shall convene additional meetings at the request of its members.
+
+    6.Â  Â [IMPORTANT]Â The Management Board shall lay down the rules of procedure of the Executive Board.
+  time:timestamp: '2026-01-26T11:04:45.517099+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T11:04:45.517423+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T11:04:45.517754+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Appoint Executive Board Members)
+      1:task:(Appoint Executive Board Members) --> 2:task:(Ensure Gender Balance)
+      2:task:(Ensure Gender Balance) --> 3:task:(Set Term of Office)
+      3:task:(Set Term of Office) --> 4:task:(Schedule Meetings)
+      4:task:(Schedule Meetings) --> 5:task:(Lay Down Rules of Procedure)
+      5:task:(Lay Down Rules of Procedure) --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T11:04:45.517871+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a02720e8db759a6fbeee8a8bcd99609784b376ec
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Set Term of Office</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Schedule Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Lay Down Rules of Procedure</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T11:04:45.517992+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T11:04:53.922070+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Ensure Gender Balance" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Adjust Appointments</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Gender Balance Achieved" language="text/javascript"/>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Set Term of Office</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Define Meeting Frequency</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Convene Additional Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Lay Down Rules of Procedure</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d66bef3081eaf826ccfc81ff5731a173714cb0ec
+  time:timestamp: '2026-01-26T11:05:42.649568+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d66bef3081eaf826ccfc81ff5731a173714cb0ec
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T11:05:42.649773+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d66bef3081eaf826ccfc81ff5731a173714cb0ec
+  cpee:exposition: |-
+    # User Input:
+    For all sentences marked with IMPORTANT, model all mentioned activities and gateways.Â 
+
+    3.Â  Â The Executive Board shall be composed of five members.Â [IMPORTANT]Â The members of the Executive Board shall be appointed from among the members of the Management Board. One of the members shall be the Chairperson of the Management Board, who may also chair the Executive Board, and another shall be one of the representatives of the Commission.Â [IMPORTANT]Â The appointments of the members of the Executive Board shall aim to ensure gender balance on the Executive Board.Â [IMPORTANT]Â The Executive Director shall take part in the meetings of the Executive Board but shall not have the right toÂ vote.
+
+    4.Â  Â [IMPORTANT]Â The term of office of the members of the Executive Board shall be four years. That term shall be renewable.
+
+    5.Â  Â [IMPORTANT]Â The Executive Board shall meet at least once every three months.Â [IMPORTANT]Â The Chairperson of the Executive Board shall convene additional meetings at the request of its members.
+
+    6.Â  Â [IMPORTANT]Â The Management Board shall lay down the rules of procedure of theÂ Executive Board.
+  time:timestamp: '2026-01-26T11:05:42.650227+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d66bef3081eaf826ccfc81ff5731a173714cb0ec
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T11:05:42.650373+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d66bef3081eaf826ccfc81ff5731a173714cb0ec
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T11:05:42.650453+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d66bef3081eaf826ccfc81ff5731a173714cb0ec
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Appoint Executive Board Members)
+      1:task:(Appoint Executive Board Members) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Ensure Gender Balance| 3:task:(Adjust Appointments)
+      3:task:(Adjust Appointments) --> 4:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Gender Balance Achieved| 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} --> 5:task:(Set Term of Office)
+      5:task:(Set Term of Office) --> 6:task:(Define Meeting Frequency)
+      6:task:(Define Meeting Frequency) --> 7:task:(Convene Additional Meetings)
+      7:task:(Convene Additional Meetings) --> 8:task:(Lay Down Rules of Procedure)
+      8:task:(Lay Down Rules of Procedure) --> 9:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T11:05:42.650670+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d66bef3081eaf826ccfc81ff5731a173714cb0ec
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Ensure Gender Balance" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Adjust Appointments</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Gender Balance Achieved" language="text/javascript"/>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Set Term of Office</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Define Meeting Frequency</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Convene Additional Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Lay Down Rules of Procedure</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T11:05:42.650776+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2026-01-26T11:14:43.793492+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 5829a04ff76105d899ec6772b9b256e58081417a
+  time:timestamp: '2026-01-26T11:15:14.152061+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5829a04ff76105d899ec6772b9b256e58081417a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-26T11:15:14.152231+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5829a04ff76105d899ec6772b9b256e58081417a
+  cpee:exposition: |-
+    # User Input:
+    The Executive Board shall be composed of five members. The members of the Executive Board shall be appointed from among the members of the Management Board. One of the members shall be the Chairperson of the Management Board, who may also chair the Executive Board, and another shall be one of the representatives of the Commission. The appointments of the members of the Executive Board shall aim to ensure gender balance on the Executive Board. The Executive Director shall take part in the meetings of the Executive Board but shall not have the right to vote.
+  time:timestamp: '2026-01-26T11:15:14.152330+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5829a04ff76105d899ec6772b9b256e58081417a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T11:15:14.152422+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5829a04ff76105d899ec6772b9b256e58081417a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-26T11:15:14.152509+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5829a04ff76105d899ec6772b9b256e58081417a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Appoint Executive Board Members)
+      1:task:(Appoint Executive Board Members) --> 2:task:(Ensure Gender Balance)
+      2:task:(Ensure Gender Balance) --> 3:task:(Chairperson of Management Board Chairs Executive Board)
+      3:task:(Chairperson of Management Board Chairs Executive Board) --> 4:task:(Commission Representative Appointed)
+      4:task:(Commission Representative Appointed) --> 5:task:(Executive Director Attends Meetings)
+      5:task:(Executive Director Attends Meetings) --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T11:15:14.152593+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5829a04ff76105d899ec6772b9b256e58081417a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T11:15:14.152701+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a10">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 29a9438d25f3d66adedbc013b17074ad80b1df78
+  time:timestamp: '2026-01-26T11:16:25.217313+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 29a9438d25f3d66adedbc013b17074ad80b1df78
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T11:16:25.217494+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 29a9438d25f3d66adedbc013b17074ad80b1df78
+  cpee:exposition: |-
+    # User Input:
+    The term of office of the members of the Executive Board shall be four years. That term shall be renewable.
+  time:timestamp: '2026-01-26T11:16:25.217882+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 29a9438d25f3d66adedbc013b17074ad80b1df78
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T11:16:25.218013+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 29a9438d25f3d66adedbc013b17074ad80b1df78
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Appoint Executive Board Members)
+    a1:task:(Appoint Executive Board Members)-->a3:task:(Ensure Gender Balance)
+    a3:task:(Ensure Gender Balance)-->a5:task:(Chairperson of Management Board Chairs Executive Board)
+    a5:task:(Chairperson of Management Board Chairs Executive Board)-->a7:task:(Commission Representative Appointed)
+    a7:task:(Commission Representative Appointed)-->a9:task:(Executive Director Attends Meetings)
+    a9:task:(Executive Director Attends Meetings)-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-26T11:16:25.218104+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 29a9438d25f3d66adedbc013b17074ad80b1df78
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Appoint Executive Board Members)
+    a1:task:(Appoint Executive Board Members)-->a3:task:(Ensure Gender Balance)
+    a3:task:(Ensure Gender Balance)-->a5:task:(Chairperson of Management Board Chairs Executive Board)
+    a5:task:(Chairperson of Management Board Chairs Executive Board)-->a7:task:(Commission Representative Appointed)
+    a7:task:(Commission Representative Appointed)-->a9:task:(Executive Director Attends Meetings)
+    a9:task:(Executive Director Attends Meetings)-->a10:task:(Term of Office - Four Years)
+    a10:task:(Term of Office - Four Years)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2026-01-26T11:16:25.218227+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 29a9438d25f3d66adedbc013b17074ad80b1df78
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a10">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T11:16:25.218510+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:16:57.371806+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a10">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T11:16:57.372036+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  cpee:exposition: |-
+    # User Input:
+    The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.
+  time:timestamp: '2026-01-26T11:16:57.372145+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T11:16:57.372226+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Appoint Executive Board Members)
+    a1:task:(Appoint Executive Board Members)-->a3:task:(Ensure Gender Balance)
+    a3:task:(Ensure Gender Balance)-->a5:task:(Chairperson of Management Board Chairs Executive Board)
+    a5:task:(Chairperson of Management Board Chairs Executive Board)-->a7:task:(Commission Representative Appointed)
+    a7:task:(Commission Representative Appointed)-->a9:task:(Executive Director Attends Meetings)
+    a9:task:(Executive Director Attends Meetings)-->a11:task:(Term of Office - Four Years)
+    a11:task:(Term of Office - Four Years)-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-26T11:16:57.372367+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Appoint Executive Board Members)
+        a1:task:(Appoint Executive Board Members)-->a3:task:(Ensure Gender Balance)
+        a3:task:(Ensure Gender Balance)-->a5:task:(Chairperson of Management Board Chairs Executive Board)
+        a5:task:(Chairperson of Management Board Chairs Executive Board)-->a7:task:(Commission Representative Appointed)
+        a7:task:(Commission Representative Appointed)-->a9:task:(Executive Director Attends Meetings)
+        a9:task:(Executive Director Attends Meetings)-->a11:task:(Term of Office - Four Years)
+        a11:task:(Term of Office - Four Years)-->a12:task:(The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.)
+        a12:task:(The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-26T11:16:57.372829+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T11:16:57.372981+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="a14">
+        <parameters>
+          <label>The Management Board shall lay down the rules of procedure of the Executive Board.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d0224aa240acbb304c81bd74b745005e620a02ed
+  time:timestamp: '2026-01-26T11:17:30.341936+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0224aa240acbb304c81bd74b745005e620a02ed
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T11:17:30.342242+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0224aa240acbb304c81bd74b745005e620a02ed
+  cpee:exposition: |-
+    # User Input:
+    The Management Board shall lay down the rules of procedure of the Executive Board.
+  time:timestamp: '2026-01-26T11:17:30.343026+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0224aa240acbb304c81bd74b745005e620a02ed
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-26T11:17:30.343216+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0224aa240acbb304c81bd74b745005e620a02ed
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Appoint Executive Board Members)
+    a1:task:(Appoint Executive Board Members)-->a3:task:(Ensure Gender Balance)
+    a3:task:(Ensure Gender Balance)-->a5:task:(Chairperson of Management Board Chairs Executive Board)
+    a5:task:(Chairperson of Management Board Chairs Executive Board)-->a7:task:(Commission Representative Appointed)
+    a7:task:(Commission Representative Appointed)-->a9:task:(Executive Director Attends Meetings)
+    a9:task:(Executive Director Attends Meetings)-->a11:task:(Term of Office - Four Years)
+    a11:task:(Term of Office - Four Years)-->a13:task:(The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.)
+    a13:task:(The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.)-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-26T11:17:30.343378+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0224aa240acbb304c81bd74b745005e620a02ed
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Appoint Executive Board Members)
+    a1:task:(Appoint Executive Board Members)-->a3:task:(Ensure Gender Balance)
+    a3:task:(Ensure Gender Balance)-->a5:task:(Chairperson of Management Board Chairs Executive Board)
+    a5:task:(Chairperson of Management Board Chairs Executive Board)-->a7:task:(Commission Representative Appointed)
+    a7:task:(Commission Representative Appointed)-->a9:task:(Executive Director Attends Meetings)
+    a9:task:(Executive Director Attends Meetings)-->a11:task:(Term of Office - Four Years)
+    a11:task:(Term of Office - Four Years)-->a13:task:(The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.)
+    a13:task:(The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.)-->a14:task:(The Management Board shall lay down the rules of procedure of the Executive Board.)
+    a14:task:(The Management Board shall lay down the rules of procedure of the Executive Board.)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2026-01-26T11:17:30.343518+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d0224aa240acbb304c81bd74b745005e620a02ed
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="a14">
+        <parameters>
+          <label>The Management Board shall lay down the rules of procedure of the Executive Board.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-26T11:17:30.343659+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:32.462137+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:32.642829+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:32.807841+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:33.591830+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:33.825799+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:34.012503+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:34.193745+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:36.974381+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:38.054126+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:39.478081+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:42.854715+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:43.481993+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:43.716896+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:43.925577+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:44.295776+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:44.476803+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:44.802155+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:44.999998+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:45.162405+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:51.320630+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:53.712698+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:54.616888+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:54.822983+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:55.014158+01:00'
+---
+event:
+  concept:instance: 138058
+  id:id: external
+  cpee:activity: external
+  cpee:instance: ed3398ab-1151-4e75-8d3b-6eb9224719df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Appoint Executive Board Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Ensure Gender Balance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Chairperson of Management Board Chairs Executive Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Commission Representative Appointed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Executive Director Attends Meetings</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Term of Office - Four Years</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a12">
+        <parameters>
+          <label>The Executive Board shall meet at least once every three months. The Chairperson of the Executive Board shall convene additional meetings at the request of its members.</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d2eba09e96187dadd4d224a91403ba2095e0f91f
+  time:timestamp: '2026-01-26T11:23:55.206120+01:00'
