@@ -1,0 +1,384 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 138388
+    cpee:name: Plain Instance
+    cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-28T15:56:28.514899+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Define Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Model Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Validate Model</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 3bf3f3d20bd1baedf7d593b0655f836b0c67bb27
+  time:timestamp: '2026-01-28T15:56:38.956984+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3bf3f3d20bd1baedf7d593b0655f836b0c67bb27
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-28T15:56:38.957161+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3bf3f3d20bd1baedf7d593b0655f836b0c67bb27
+  cpee:exposition: |-
+    # User Input:
+    create example of some small proces smdoelsÂ 
+  time:timestamp: '2026-01-28T15:56:38.957287+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3bf3f3d20bd1baedf7d593b0655f836b0c67bb27
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-28T15:56:38.957389+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3bf3f3d20bd1baedf7d593b0655f836b0c67bb27
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-28T15:56:38.957520+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3bf3f3d20bd1baedf7d593b0655f836b0c67bb27
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Define Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Model Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Validate Model</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-28T15:56:38.957701+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3bf3f3d20bd1baedf7d593b0655f836b0c67bb27
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Define Process)
+        1:task:(Define Process) --> 2:task:(Model Process)
+        2:task:(Model Process) --> 3:task:(Validate Model)
+        3:task:(Validate Model) --> 4:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-28T15:56:38.957606+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Define Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Model Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Validate Model</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a6">
+        <parameters>
+          <label>Implement Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 11f7d7ea82198eec5bb20f88c1ea728616dbddd4
+  time:timestamp: '2026-01-28T16:08:03.488303+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f7d7ea82198eec5bb20f88c1ea728616dbddd4
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Define Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Model Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Validate Model</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-28T16:08:03.488498+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f7d7ea82198eec5bb20f88c1ea728616dbddd4
+  cpee:exposition: |-
+    # User Input:
+    add one more task
+  time:timestamp: '2026-01-28T16:08:03.488713+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f7d7ea82198eec5bb20f88c1ea728616dbddd4
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-28T16:08:03.488836+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f7d7ea82198eec5bb20f88c1ea728616dbddd4
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Define Process)
+    a1:task:(Define Process)-->a3:task:(Model Process)
+    a3:task:(Model Process)-->a5:task:(Validate Model)
+    a5:task:(Validate Model)-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-28T16:08:03.488967+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f7d7ea82198eec5bb20f88c1ea728616dbddd4
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Define Process)
+    a1:task:(Define Process)-->a3:task:(Model Process)
+    a3:task:(Model Process)-->a5:task:(Validate Model)
+    a5:task:(Validate Model)-->a6:task:(Implement Process)
+    a6:task:(Implement Process)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-28T16:08:03.489134+01:00'
+---
+event:
+  concept:instance: 138388
+  id:id: external
+  cpee:activity: external
+  cpee:instance: da5ef302-5cee-4591-8286-908c1a38e6b5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 11f7d7ea82198eec5bb20f88c1ea728616dbddd4
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Define Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Model Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Validate Model</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a6">
+        <parameters>
+          <label>Implement Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-28T16:08:03.489272+01:00'

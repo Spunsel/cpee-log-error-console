@@ -1,0 +1,382 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 138470
+    cpee:name: Plain Instance
+    cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+---
+event:
+  concept:instance: 138470
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-29T12:17:58.592958+01:00'
+---
+event:
+  concept:instance: 138470
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Leave Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review by Supervisor</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Leave</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Reject Leave</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Notify Employee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 9bc729f5710dd9d32b6a0fe11020495de8cc8020
+  time:timestamp: '2026-01-29T12:18:44.209370+01:00'
+---
+event:
+  concept:instance: 138470
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9bc729f5710dd9d32b6a0fe11020495de8cc8020
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-29T12:18:44.209582+01:00'
+---
+event:
+  concept:instance: 138470
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9bc729f5710dd9d32b6a0fe11020495de8cc8020
+  cpee:exposition: |-
+    # User Input:
+    Ich brauch einen typischen Urlaubsprozess mit Freigabe vom Vorgesetzten.
+  time:timestamp: '2026-01-29T12:18:44.209838+01:00'
+---
+event:
+  concept:instance: 138470
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9bc729f5710dd9d32b6a0fe11020495de8cc8020
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-01-29T12:18:44.209935+01:00'
+---
+event:
+  concept:instance: 138470
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9bc729f5710dd9d32b6a0fe11020495de8cc8020
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-29T12:18:44.210032+01:00'
+---
+event:
+  concept:instance: 138470
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9bc729f5710dd9d32b6a0fe11020495de8cc8020
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Start))
+      1:task:(Submit Leave Request)
+      2:task:(Review by Supervisor)
+      3:exclusivegateway:{x}
+      4:task:(Approve Leave)
+      5:task:(Reject Leave)
+      6:task:(Notify Employee)
+      7:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Submit Leave Request)
+      1:task:(Submit Leave Request) --> 2:task:(Review by Supervisor)
+      2:task:(Review by Supervisor) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Approved| 4:task:(Approve Leave)
+      3:exclusivegateway:{x} --> |Rejected| 5:task:(Reject Leave)
+      4:task:(Approve Leave) --> 6:task:(Notify Employee)
+      5:task:(Reject Leave) --> 6:task:(Notify Employee)
+      6:task:(Notify Employee) --> 7:endevent:(((End)))
+    ```
+  time:timestamp: '2026-01-29T12:18:44.210115+01:00'
+---
+event:
+  concept:instance: 138470
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9bc729f5710dd9d32b6a0fe11020495de8cc8020
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Leave Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review by Supervisor</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Leave</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Reject Leave</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Notify Employee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-29T12:18:44.210215+01:00'
+---
+event:
+  concept:instance: 138470
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Leave Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review by Supervisor</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Leave</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Reject Leave</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+            <code>
+              <prepare/>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Notify Employee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a2da750a548754a5704f414e66fdb3c70bf6ea9a
+  time:timestamp: '2026-01-29T12:22:06.871554+01:00'
+---
+event:
+  concept:instance: 138470
+  id:id: external
+  cpee:activity: external
+  cpee:instance: a94b30e0-0075-4455-bc28-bff0037b9a43
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Leave Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review by Supervisor</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Leave</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Reject Leave</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+            <code>
+              <prepare/>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+          </call>
+          <parallel wait="-1" cancel="last">
+            <parallel_branch/>
+            <parallel_branch/>
+          </parallel>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Notify Employee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 84ad8eb65f86a4434233f8c53bb76406d8480d74
+  time:timestamp: '2026-01-29T12:22:13.259656+01:00'
