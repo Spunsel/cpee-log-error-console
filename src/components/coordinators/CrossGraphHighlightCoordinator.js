@@ -228,11 +228,11 @@ export class CrossGraphHighlightCoordinator {
      */
     onTaskClicked(taskId, sourceFormat, sectionId) {
         // Debug: log click
-        console.log('[CrossGraphHighlight] onTaskClicked', { taskId, sourceFormat, sectionId });
+        // console.log('[CrossGraphHighlight] onTaskClicked', { taskId, sourceFormat, sectionId });
 
         // Check if clicking the same task again
         if (this.isSameTaskClicked(taskId, sectionId)) {
-            console.log('[CrossGraphHighlight] same element clicked, clearing state');
+            // console.log('[CrossGraphHighlight] same element clicked, clearing state');
             this.clearActiveState();
             return;
         }
@@ -242,15 +242,15 @@ export class CrossGraphHighlightCoordinator {
         let resolvedGatewayObject = null;
         if (sectionId.includes('cpee') && this.currentStepMapping) {
             if (CPEENodeExtractor.isCPEEGatewayElementId(taskId)) {
-                console.log('[CrossGraphHighlight] CPEE gateway clicked, resolving element-id to mapping ID');
+                // console.log('[CrossGraphHighlight] CPEE gateway clicked, resolving element-id to mapping ID');
                 const resolved = this.resolveCPEEGatewayElementId(taskId, sectionId);
                 if (resolved) {
-                    console.log('[CrossGraphHighlight] Resolved CPEE gateway:', {
-                        elementId: taskId,
-                        resolvedId: resolved.id,
-                        resolvedAltId: resolved.altId,
-                        sectionId: sectionId
-                    });
+                    // console.log('[CrossGraphHighlight] Resolved CPEE gateway:', {
+                    //     elementId: taskId,
+                    //     resolvedId: resolved.id,
+                    //     resolvedAltId: resolved.altId,
+                    //     sectionId: sectionId
+                    // });
                     resolvedTaskId = resolved.altId || resolved.id;
                     resolvedGatewayObject = resolved;
                 }
@@ -259,7 +259,7 @@ export class CrossGraphHighlightCoordinator {
         
         // Extract base task ID for mapping
         const baseTaskId = this.extractBaseTaskId(resolvedTaskId);
-        console.log('[CrossGraphHighlight] extracted baseTaskId', { input: resolvedTaskId, baseTaskId });
+        // console.log('[CrossGraphHighlight] extracted baseTaskId', { input: resolvedTaskId, baseTaskId });
         
         // Update active state
         this.setActiveState(taskId, baseTaskId, sourceFormat, sectionId);
@@ -294,18 +294,18 @@ export class CrossGraphHighlightCoordinator {
         // Direct element-alt_id lookup from clicked SVG element
         const clickedElement = container.querySelector(`g[element-id="${CSS.escape(elementId)}"]`);
         if (!clickedElement) {
-            console.log('[CrossGraphHighlight] ✗ Element not found:', elementId);
+            // console.log('[CrossGraphHighlight] ✗ Element not found:', elementId);
             return null;
         }
         
         // Extract element-alt_id from the element or its parent group ("Übergruppe")
         const altId = CPEENodeExtractor.extractAltIdFromSvgElement(clickedElement);
         if (!altId) {
-            console.log('[CrossGraphHighlight] ✗ No element-alt_id found on gateway:', elementId);
+            // console.log('[CrossGraphHighlight] ✗ No element-alt_id found on gateway:', elementId);
             return null;
         }
         
-        console.log('[CrossGraphHighlight] ✓ Direct element-alt_id found:', { elementId, altId });
+        // console.log('[CrossGraphHighlight] ✓ Direct element-alt_id found:', { elementId, altId });
         
         // Find gateway in mapping by this altId (using NodeMapping's method)
         const gateway = this.currentStepMapping.findGatewayByAltId(altId, sectionId, CPEENodeExtractor.isGatewayType);
@@ -396,7 +396,7 @@ export class CrossGraphHighlightCoordinator {
      * @param {Object|null} sourceGatewayObject - Resolved gateway object for CPEE gateways
      */
     highlightWithTaskMapper(baseTaskId, sourceFormat, sectionId, originalTaskId, sourceGatewayObject = null) {
-        console.log('[CrossGraphHighlight] highlightWithTaskMapper', { baseTaskId, sourceFormat, sectionId, originalTaskId, hasSourceGatewayObject: !!sourceGatewayObject });
+        // console.log('[CrossGraphHighlight] highlightWithTaskMapper', { baseTaskId, sourceFormat, sectionId, originalTaskId, hasSourceGatewayObject: !!sourceGatewayObject });
         
         // Check if this is a gateway click (using extractors for detection)
         // Check both baseTaskId and originalTaskId since originalTaskId may contain gateway markers like :exclusivegateway:
@@ -406,14 +406,14 @@ export class CrossGraphHighlightCoordinator {
         
         // For gateway clicks, use dedicated gateway highlighting (bypasses broken mapping)
         if (isGatewayClick && this.currentStepMapping) {
-            console.log('[CrossGraphHighlight] Gateway click detected, using dedicated gateway highlighting');
+            // console.log('[CrossGraphHighlight] Gateway click detected, using dedicated gateway highlighting');
             this.highlightGatewaysAcrossAllSections(baseTaskId, sourceFormat, sectionId, originalTaskId, sourceGatewayObject);
             return;
         }
         
         // For regular task clicks, use the standard mapping-based highlighting
         const equivalentTasks = this.findEquivalentTasks(baseTaskId, sourceFormat);
-        console.log('[CrossGraphHighlight] equivalents (raw)', equivalentTasks.map(e => ({ format: e.format, id: e.taskId, altId: e.task?.altId, type: e.task?.type })));
+        // console.log('[CrossGraphHighlight] equivalents (raw)', equivalentTasks.map(e => ({ format: e.format, id: e.taskId, altId: e.task?.altId, type: e.task?.type })));
         
         // Filter out gateways - tasks should only map to tasks, not gateways
         const taskOnlyEquivalents = equivalentTasks.filter(({ task }) => {
@@ -422,15 +422,15 @@ export class CrossGraphHighlightCoordinator {
             const isGateway = CPEENodeExtractor.isGatewayType(task.type) ||
                              (task.metadata && task.metadata.tagName && 
                               ['choose', 'parallel', 'loop'].includes(task.metadata.tagName));
-            if (isGateway) {
-                console.log('[CrossGraphHighlight] Filtering out gateway from task equivalents:', { id: task.id, altId: task.altId, type: task.type });
-            }
+            // if (isGateway) {
+            //     console.log('[CrossGraphHighlight] Filtering out gateway from task equivalents:', { id: task.id, altId: task.altId, type: task.type });
+            // }
             return !isGateway;
         });
-        console.log('[CrossGraphHighlight] equivalents (tasks only)', taskOnlyEquivalents.map(e => ({ format: e.format, id: e.taskId, altId: e.task?.altId, type: e.task?.type })));
+        // console.log('[CrossGraphHighlight] equivalents (tasks only)', taskOnlyEquivalents.map(e => ({ format: e.format, id: e.taskId, altId: e.task?.altId, type: e.task?.type })));
         
         if (taskOnlyEquivalents.length === 0) {
-            console.log('[CrossGraphHighlight] no task equivalents from mapping, trying direct ID lookup');
+            // console.log('[CrossGraphHighlight] no task equivalents from mapping, trying direct ID lookup');
             // Fallback: try to find tasks by baseTaskId directly in all sections
             this.highlightTaskByIdFallback(baseTaskId, sourceFormat, sectionId, originalTaskId);
             return;
@@ -453,7 +453,7 @@ export class CrossGraphHighlightCoordinator {
                 highlightTaskId = taskObject.id || mappedTaskId;
             }
             
-            console.log('[CrossGraphHighlight] mapping -> highlightInSection', { mappedSectionId, highlightTaskId, isActive, type: taskObject?.type });
+            // console.log('[CrossGraphHighlight] mapping -> highlightInSection', { mappedSectionId, highlightTaskId, isActive, type: taskObject?.type });
             this.highlightInSection(mappedSectionId, highlightTaskId, isActive, taskObject);
             highlightedSections.add(mappedSectionId);
         });
@@ -489,13 +489,13 @@ export class CrossGraphHighlightCoordinator {
      * @param {string} originalTaskId - Original task identifier
      */
     highlightTaskByIdFallback(baseTaskId, sourceFormat, sectionId, originalTaskId) {
-        console.log('[CrossGraphHighlight] highlightTaskByIdFallback', { baseTaskId, sourceFormat, sectionId });
+        // console.log('[CrossGraphHighlight] highlightTaskByIdFallback', { baseTaskId, sourceFormat, sectionId });
         
         // Always highlight the source
         this.highlightInSection(sectionId, originalTaskId, true);
         
         if (!this.currentStepMapping) {
-            console.log('[CrossGraphHighlight] No mapping available for fallback');
+            // console.log('[CrossGraphHighlight] No mapping available for fallback');
             return;
         }
         
@@ -549,13 +549,13 @@ export class CrossGraphHighlightCoordinator {
                     const highlightId = format.includes('cpee') ? task.id : 
                                        (task.metadata?.fullId || task.id);
                     
-                    console.log('[CrossGraphHighlight] Fallback found matching task:', {
-                        format,
-                        taskId: task.id,
-                        altId: task.altId,
-                        highlightId,
-                        type: task.type
-                    });
+                    // console.log('[CrossGraphHighlight] Fallback found matching task:', {
+                    //     format,
+                    //     taskId: task.id,
+                    //     altId: task.altId,
+                    //     highlightId,
+                    //     type: task.type
+                    // });
                     
                     this.highlightInSection(targetSectionId, highlightId, false, task);
                 }
@@ -573,11 +573,11 @@ export class CrossGraphHighlightCoordinator {
      * @param {Object|null} sourceGatewayObject - Resolved gateway object for CPEE gateways
      */
     highlightGatewaysAcrossAllSections(baseTaskId, sourceFormat, sectionId, originalTaskId, sourceGatewayObject) {
-        console.log('[CrossGraphHighlight] highlightGatewaysAcrossAllSections', { baseTaskId, sourceFormat, sectionId, originalTaskId });
+        // console.log('[CrossGraphHighlight] highlightGatewaysAcrossAllSections', { baseTaskId, sourceFormat, sectionId, originalTaskId });
         
         // Step 1: Determine the alt_id of the clicked gateway
         const altId = this.resolveGatewayAltId(baseTaskId, sourceFormat, sectionId, sourceGatewayObject);
-        console.log('[CrossGraphHighlight] Resolved gateway alt_id:', altId);
+        // console.log('[CrossGraphHighlight] Resolved gateway alt_id:', altId);
         
         if (!altId) {
             console.warn('[CrossGraphHighlight] Could not determine gateway alt_id, falling back to source only');
@@ -610,43 +610,44 @@ export class CrossGraphHighlightCoordinator {
                     const pairedId = MermaidNodeExtractor.getPairedGatewayId(altId);
                     if (pairedId && pairedId !== altId) {
                         targetGateway = this.currentStepMapping.findGatewayByAltId(pairedId, targetSection, CPEENodeExtractor.isGatewayType);
-                        if (targetGateway) {
-                            console.log('[CrossGraphHighlight] Found paired gateway in CPEE (gw pattern):', {
-                                originalAltId: altId,
-                                pairedAltId: pairedId,
-                                foundGateway: targetGateway.id
-                            });
-                        }
+                        // if (targetGateway) {
+                        //     console.log('[CrossGraphHighlight] Found paired gateway in CPEE (gw pattern):', {
+                        //         originalAltId: altId,
+                        //         pairedAltId: pairedId,
+                        //         foundGateway: targetGateway.id
+                        //     });
+                        // }
                     }
                 }
                 
                 if (!targetGateway) {
                     // Gateway not found - highlight source if this is source section
                     if (isSource && isMermaidSection) {
-                        console.log('[CrossGraphHighlight] Gateway not in mapping, highlighting source directly:', originalTaskId);
+                        // console.log('[CrossGraphHighlight] Gateway not in mapping, highlighting source directly:', originalTaskId);
                         this.highlightInSection(targetSection, originalTaskId, true, null);
                         
                         // For gw naming convention, also highlight the paired gateway (start/end)
                         if (MermaidNodeExtractor.usesGwNamingConvention(altId)) {
                             const pairedGatewayId = MermaidNodeExtractor.getPairedGatewayId(altId);
                             if (pairedGatewayId && pairedGatewayId !== altId) {
-                                console.log('[CrossGraphHighlight] Also highlighting paired Mermaid gateway:', pairedGatewayId);
+                                // console.log('[CrossGraphHighlight] Also highlighting paired Mermaid gateway:', pairedGatewayId);
                                 this.highlightInSection(targetSection, pairedGatewayId, true, null);
                             }
                         }
-                    } else {
-                        console.log('[CrossGraphHighlight] No gateway with alt_id', altId, 'found in section:', targetSection);
                     }
+                    // } else {
+                    //     console.log('[CrossGraphHighlight] No gateway with alt_id', altId, 'found in section:', targetSection);
+                    // }
                     continue;
                 }
             }
             
-            console.log('[CrossGraphHighlight] Highlighting gateway in', targetSection, ':', {
-                altId: altId,
-                id: targetGateway.id,
-                gatewayAltId: targetGateway.altId,
-                isSource: isSource
-            });
+            // console.log('[CrossGraphHighlight] Highlighting gateway in', targetSection, ':', {
+            //     altId: altId,
+            //     id: targetGateway.id,
+            //     gatewayAltId: targetGateway.altId,
+            //     isSource: isSource
+            // });
             
             // For CPEE sections, use direct element-alt_id lookup (presetaltid theme)
             if (isCPEESection) {
@@ -659,7 +660,7 @@ export class CrossGraphHighlightCoordinator {
                     if (startId) {
                         gatewayElement = CPEENodeExtractor.findSvgElementByAltId(container, startId);
                         if (gatewayElement) {
-                            console.log('[CrossGraphHighlight] Found CPEE gateway via paired start ID:', startId);
+                            // console.log('[CrossGraphHighlight] Found CPEE gateway via paired start ID:', startId);
                         }
                     }
                 }
@@ -671,11 +672,11 @@ export class CrossGraphHighlightCoordinator {
                 
                 if (gatewayElement) {
                     const elementId = gatewayElement.getAttribute('element-id');
-                    console.log('[CrossGraphHighlight] ✓ Direct element-alt_id lookup successful:', {
-                        altId,
-                        elementId,
-                        gatewayId: targetGateway.id
-                    });
+                    // console.log('[CrossGraphHighlight] ✓ Direct element-alt_id lookup successful:', {
+                    //     altId,
+                    //     elementId,
+                    //     gatewayId: targetGateway.id
+                    // });
                     this.highlightInSection(targetSection, elementId || altId, isSource, targetGateway);
                 } else {
                     console.warn('[CrossGraphHighlight] ✗ Gateway not found in CPEE SVG:', altId);
@@ -693,7 +694,7 @@ export class CrossGraphHighlightCoordinator {
                 if (isMermaidSection && targetGateway.id && MermaidNodeExtractor.usesGwNamingConvention(targetGateway.id)) {
                     const pairedGatewayId = MermaidNodeExtractor.getPairedGatewayId(targetGateway.id);
                     if (pairedGatewayId && pairedGatewayId !== targetGateway.id) {
-                        console.log('[CrossGraphHighlight] Also highlighting paired Mermaid gateway (gw pattern):', pairedGatewayId);
+                        // console.log('[CrossGraphHighlight] Also highlighting paired Mermaid gateway (gw pattern):', pairedGatewayId);
                         this.highlightInSection(targetSection, pairedGatewayId, isSource, null);
                     }
                 }
@@ -791,13 +792,13 @@ export class CrossGraphHighlightCoordinator {
     highlightInSection(sectionId, taskId, isActive = false, taskObject = null) {
         const container = this.sections[sectionId];
         if (!container) {
-            console.log('[CrossGraphHighlight] no container for section', sectionId);
+            // console.log('[CrossGraphHighlight] no container for section', sectionId);
             return;
         }
         
         // Check if section is in visual mode
         if (!this.isSectionInVisualMode(sectionId)) {
-            console.log('[CrossGraphHighlight] section not in visual mode', sectionId);
+            // console.log('[CrossGraphHighlight] section not in visual mode', sectionId);
             return;
         }
         
@@ -865,10 +866,10 @@ export class CrossGraphHighlightCoordinator {
             return; // No duplicates to highlight
         }
         
-        console.log('[CrossGraphHighlight] Highlighting duplicate CPEE elements:', {
-            altId,
-            totalCount: allElements.length
-        });
+        // console.log('[CrossGraphHighlight] Highlighting duplicate CPEE elements:', {
+        //     altId,
+        //     totalCount: allElements.length
+        // });
         
         // Highlight all elements except the primary one (which is already highlighted)
         allElements.forEach(el => {

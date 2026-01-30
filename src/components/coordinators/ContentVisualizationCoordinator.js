@@ -154,20 +154,20 @@ export class ContentVisualizationCoordinator {
      */
     async updateAllSections(stepContent) {
         try {
-            // Update sections in parallel where possible
-            await Promise.all([
+            // Kick off all async section updates immediately to minimize perceived latency.
+            // (User input is synchronous, so we can update it while async renders are running.)
+            const pendingUpdates = [
                 this.updateInputCpeeSection(stepContent.inputCpeeTree),
-                this.updateInputIntermediateSection(stepContent.inputIntermediate)
-            ]);
-            
-            // Update user input (synchronous)
-            this.updateUserInputSection(stepContent.userInput);
-            
-            // Update output intermediate and output graph in parallel
-            await Promise.all([
+                this.updateInputIntermediateSection(stepContent.inputIntermediate),
                 this.updateOutputIntermediateSection(stepContent.outputIntermediate),
                 this.updateOutputCpeeSection(stepContent.outputCpeeTree)
-            ]);
+            ];
+            
+            // Update user input without waiting for graph renders
+            this.updateUserInputSection(stepContent.userInput);
+            
+            // Wait for all async updates to finish
+            await Promise.all(pendingUpdates);
             
         } catch (error) {
             console.error('❌ Error updating content sections:', error);
