@@ -297,7 +297,11 @@ export class ConfigManager {
                 minHeight: '100px',
                 defaultHeight: '400px',
                 padding: '20px',
-                backgroundColor: '#ffffff'
+                backgroundColor: '#ffffff',
+                // Switch to control proxy vs fallback behavior
+                // When true: directly use fallback (skip proxy)
+                // When false: try proxy first, then fallback
+                useFallbackDirectly: true
             },
             validation: {
                 requireDescription: true,

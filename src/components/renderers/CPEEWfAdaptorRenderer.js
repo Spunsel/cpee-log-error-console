@@ -386,6 +386,7 @@ export class CPEEWfAdaptorRenderer {
         
         const corsProxy = configManager.get('api.cors.proxy');
         const fallbackBasePath = './fallback/cpee-themes';
+        const useFallbackDirectly = configManager.get('cpee.rendering.useFallbackDirectly', false);
         
         // Consolidated message tracking
         const fallbackTracker = {
@@ -413,10 +414,7 @@ export class CPEEWfAdaptorRenderer {
             
             report() {
                 if (this.successFiles.length > 0) {
-                    console.warn(
-                        `[CPEEWfAdaptorRenderer] Using FALLBACK for ${this.successFiles.length} theme file(s): ` +
-                        this.successFiles.join(', ')
-                    );
+                    console.warn(`[CPEEWfAdaptorRenderer] Using FALLBACK theme`);
                     this.successFiles = [];
                 }
                 if (this.failedFiles.length > 0) {
@@ -489,36 +487,56 @@ export class CPEEWfAdaptorRenderer {
                 const localFallbackUrl = getLocalFallbackUrl(requestUrl);
                 const filename = getFilename(requestUrl);
                 
-                // First try CORS proxy
-                const proxyUrl = corsProxy ? corsProxy + encodeURIComponent(requestUrl) : requestUrl;
-                const proxyOptions = { ...options, url: proxyUrl };
-                
                 // Return a new deferred that handles fallback
                 const deferred = window.$.Deferred();
-                
                 const self = this;
-                originalAjax.call(self, proxyOptions)
-                    .done((data, textStatus, jqXHR) => {
-                        deferred.resolve(data, textStatus, jqXHR);
-                    })
-                    .fail(() => {
-                        // Proxy failed, try local fallback
-                        if (localFallbackUrl) {
-                            const fallbackOptions = { ...options, url: localFallbackUrl };
-                            originalAjax.call(self, fallbackOptions)
-                                .done((data2, textStatus2, jqXHR2) => {
-                                    fallbackTracker.addSuccess(filename);
-                                    deferred.resolve(data2, textStatus2, jqXHR2);
-                                })
-                                .fail((jqXHR3, textStatus3, errorThrown3) => {
-                                    fallbackTracker.addFailure(filename);
-                                    deferred.reject(jqXHR3, textStatus3, errorThrown3);
-                                });
-                        } else {
-                            fallbackTracker.addFailure(filename);
-                            deferred.reject();
-                        }
-                    });
+                
+                // If switch is ON, use fallback directly; otherwise try proxy first
+                if (useFallbackDirectly) {
+                    // Switch ON: Use fallback directly
+                    if (localFallbackUrl) {
+                        const fallbackOptions = { ...options, url: localFallbackUrl };
+                        originalAjax.call(self, fallbackOptions)
+                            .done((data2, textStatus2, jqXHR2) => {
+                                fallbackTracker.addSuccess(filename);
+                                deferred.resolve(data2, textStatus2, jqXHR2);
+                            })
+                            .fail((jqXHR3, textStatus3, errorThrown3) => {
+                                fallbackTracker.addFailure(filename);
+                                deferred.reject(jqXHR3, textStatus3, errorThrown3);
+                            });
+                    } else {
+                        fallbackTracker.addFailure(filename);
+                        deferred.reject();
+                    }
+                } else {
+                    // Switch OFF: First try CORS proxy, then fallback
+                    const proxyUrl = corsProxy ? corsProxy + encodeURIComponent(requestUrl) : requestUrl;
+                    const proxyOptions = { ...options, url: proxyUrl };
+                    
+                    originalAjax.call(self, proxyOptions)
+                        .done((data, textStatus, jqXHR) => {
+                            deferred.resolve(data, textStatus, jqXHR);
+                        })
+                        .fail(() => {
+                            // Proxy failed, try local fallback
+                            if (localFallbackUrl) {
+                                const fallbackOptions = { ...options, url: localFallbackUrl };
+                                originalAjax.call(self, fallbackOptions)
+                                    .done((data2, textStatus2, jqXHR2) => {
+                                        fallbackTracker.addSuccess(filename);
+                                        deferred.resolve(data2, textStatus2, jqXHR2);
+                                    })
+                                    .fail((jqXHR3, textStatus3, errorThrown3) => {
+                                        fallbackTracker.addFailure(filename);
+                                        deferred.reject(jqXHR3, textStatus3, errorThrown3);
+                                    });
+                            } else {
+                                fallbackTracker.addFailure(filename);
+                                deferred.reject();
+                            }
+                        });
+                }
                 
                 return deferred.promise();
             }
@@ -532,31 +550,52 @@ export class CPEEWfAdaptorRenderer {
             if (typeof url === 'string' && isCpeeThemeResource(url)) {
                 const localFallbackUrl = getLocalFallbackUrl(url);
                 const filename = getFilename(url);
-                const proxyUrl = corsProxy ? corsProxy + encodeURIComponent(url) : url;
                 
                 const deferred = window.$.Deferred();
-                
                 const self = this;
-                originalGet.call(self, proxyUrl, ...args)
-                    .done((data, textStatus, jqXHR) => {
-                        deferred.resolve(data, textStatus, jqXHR);
-                    })
-                    .fail(() => {
-                        if (localFallbackUrl) {
-                            originalGet.call(self, localFallbackUrl, ...args)
-                                .done((data2, textStatus2, jqXHR2) => {
-                                    fallbackTracker.addSuccess(filename);
-                                    deferred.resolve(data2, textStatus2, jqXHR2);
-                                })
-                                .fail((jqXHR3, textStatus3, errorThrown3) => {
-                                    fallbackTracker.addFailure(filename);
-                                    deferred.reject(jqXHR3, textStatus3, errorThrown3);
-                                });
-                        } else {
-                            fallbackTracker.addFailure(filename);
-                            deferred.reject();
-                        }
-                    });
+                
+                // If switch is ON, use fallback directly; otherwise try proxy first
+                if (useFallbackDirectly) {
+                    // Switch ON: Use fallback directly
+                    if (localFallbackUrl) {
+                        originalGet.call(self, localFallbackUrl, ...args)
+                            .done((data2, textStatus2, jqXHR2) => {
+                                fallbackTracker.addSuccess(filename);
+                                deferred.resolve(data2, textStatus2, jqXHR2);
+                            })
+                            .fail((jqXHR3, textStatus3, errorThrown3) => {
+                                fallbackTracker.addFailure(filename);
+                                deferred.reject(jqXHR3, textStatus3, errorThrown3);
+                            });
+                    } else {
+                        fallbackTracker.addFailure(filename);
+                        deferred.reject();
+                    }
+                } else {
+                    // Switch OFF: First try CORS proxy, then fallback
+                    const proxyUrl = corsProxy ? corsProxy + encodeURIComponent(url) : url;
+                    
+                    originalGet.call(self, proxyUrl, ...args)
+                        .done((data, textStatus, jqXHR) => {
+                            deferred.resolve(data, textStatus, jqXHR);
+                        })
+                        .fail(() => {
+                            if (localFallbackUrl) {
+                                originalGet.call(self, localFallbackUrl, ...args)
+                                    .done((data2, textStatus2, jqXHR2) => {
+                                        fallbackTracker.addSuccess(filename);
+                                        deferred.resolve(data2, textStatus2, jqXHR2);
+                                    })
+                                    .fail((jqXHR3, textStatus3, errorThrown3) => {
+                                        fallbackTracker.addFailure(filename);
+                                        deferred.reject(jqXHR3, textStatus3, errorThrown3);
+                                    });
+                            } else {
+                                fallbackTracker.addFailure(filename);
+                                deferred.reject();
+                            }
+                        });
+                }
                 
                 return deferred.promise();
             }
