@@ -206,7 +206,7 @@ export class ConfigManager {
                 initialDelay: 1000
             },
             interRequestDelay: 200,
-            scanConcurrency: 5
+            scanConcurrency: 50
         };
     }
 
