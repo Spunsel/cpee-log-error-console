@@ -1,0 +1,903 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 138663
+    cpee:name: Plain Instance
+    cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-31T10:33:33.208029+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  time:timestamp: '2026-01-31T10:33:39.124169+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-31T10:33:39.124355+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: |-
+    # User Input:
+    ....
+  time:timestamp: '2026-01-31T10:33:39.124738+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-31T10:33:39.125084+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-31T10:33:39.125279+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Receive Order)
+      1:task:(Receive Order) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Order under $100| 3:task:(Process Small Order)
+      2:exclusivegateway:{x} --> |Order over $100| 4:task:(Process Large Order)
+      3:task:(Process Small Order) --> 5:exclusivegateway:{x}
+      4:task:(Process Large Order) --> 5:exclusivegateway:{x}
+      5:exclusivegateway:{x} --> 6:task:(Ship Order)
+      6:task:(Ship Order) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-31T10:33:39.125597+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ea0f7c5ed1d050537fca163a575deacc57cee87c
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-31T10:33:39.125796+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: f0e2990dde3443338c35ecf2aeffb52c8f816e78
+  time:timestamp: '2026-01-31T10:34:05.972571+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0e2990dde3443338c35ecf2aeffb52c8f816e78
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-31T10:34:05.972761+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0e2990dde3443338c35ecf2aeffb52c8f816e78
+  cpee:exposition: |-
+    # User Input:
+    .......
+  time:timestamp: '2026-01-31T10:34:05.973180+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0e2990dde3443338c35ecf2aeffb52c8f816e78
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-31T10:34:05.973642+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0e2990dde3443338c35ecf2aeffb52c8f816e78
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Order)
+    a1:task:(Receive Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order under $100"|a5:task:(Process Small Order)
+    a5:task:(Process Small Order)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order over $100"|a7:task:(Process Large Order)
+    a7:task:(Process Large Order)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a13:task:(Ship Order)
+    a13:task:(Ship Order)-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-31T10:34:05.973956+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0e2990dde3443338c35ecf2aeffb52c8f816e78
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Order)
+    a1:task:(Receive Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order under $100"|a5:task:(Process Small Order)
+    a5:task:(Process Small Order)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order over $100"|a7:task:(Process Large Order)
+    a7:task:(Process Large Order)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a13:task:(Ship Order)
+    a13:task:(Ship Order)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-31T10:34:05.974438+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0e2990dde3443338c35ecf2aeffb52c8f816e78
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-31T10:34:05.974646+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  time:timestamp: '2026-01-31T10:36:38.088864+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-31T10:36:38.089082+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: "# User Input:\n\n"
+  time:timestamp: '2026-01-31T10:36:38.089493+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-31T10:36:38.089587+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Order)
+    a1:task:(Receive Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order under $100"|a5:task:(Process Small Order)
+    a5:task:(Process Small Order)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order over $100"|a9:task:(Process Large Order)
+    a9:task:(Process Large Order)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a13:task:(Ship Order)
+    a13:task:(Ship Order)-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-31T10:36:38.089687+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Order)
+    a1:task:(Receive Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order under $100"|a5:task:(Process Small Order)
+    a5:task:(Process Small Order)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order over $100"|a9:task:(Process Large Order)
+    a9:task:(Process Large Order)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a13:task:(Ship Order)
+    a13:task:(Ship Order)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-31T10:36:38.089784+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-31T10:36:38.089881+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  time:timestamp: '2026-01-31T10:59:59.221455+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-31T10:59:59.221671+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-31T10:59:59.221930+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Order)
+    a1:task:(Receive Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order under $100"|a5:task:(Process Small Order)
+    a5:task:(Process Small Order)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order over $100"|a9:task:(Process Large Order)
+    a9:task:(Process Large Order)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a13:task:(Ship Order)
+    a13:task:(Ship Order)-->ee:endevent:((endevent))
+  time:timestamp: '2026-01-31T10:59:59.222081+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Order)
+    a1:task:(Receive Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order under $100"|a5:task:(Process Small Order)
+    a5:task:(Process Small Order)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Order over $100"|a9:task:(Process Large Order)
+    a9:task:(Process Large Order)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a13:task:(Ship Order)
+    a13:task:(Ship Order)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-31T10:59:59.222233+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Order under $100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Process Small Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Order over $100" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Process Large Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-31T10:59:59.222328+01:00'
+---
+event:
+  concept:instance: 138663
+  id:id: external
+  cpee:activity: external
+  cpee:instance: fe65b51a-102e-47fa-b33f-46e5e0bc813a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: adc73c968ffd79030378832ab6046192fff4c957
+  cpee:exposition: |-
+    # User Input:
+    aaaaaaaa
+  time:timestamp: '2026-01-31T10:59:59.221825+01:00'

@@ -1,0 +1,155 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 138668
+    cpee:name: Plain Instance
+    cpee:instance: 8a132ba6-3993-423f-a326-1d7119612777
+---
+event:
+  concept:instance: 138668
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a132ba6-3993-423f-a326-1d7119612777
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-01-31T11:05:01.704739+01:00'
+---
+event:
+  concept:instance: 138668
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a132ba6-3993-423f-a326-1d7119612777
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Modell erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  time:timestamp: '2026-01-31T11:05:15.186434+01:00'
+---
+event:
+  concept:instance: 138668
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a132ba6-3993-423f-a326-1d7119612777
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-01-31T11:05:15.186623+01:00'
+---
+event:
+  concept:instance: 138668
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a132ba6-3993-423f-a326-1d7119612777
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: |-
+    # User Input:
+    einkaufzentren modell erstellen
+  time:timestamp: '2026-01-31T11:05:15.186775+01:00'
+---
+event:
+  concept:instance: 138668
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a132ba6-3993-423f-a326-1d7119612777
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-01-31T11:05:15.186995+01:00'
+---
+event:
+  concept:instance: 138668
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a132ba6-3993-423f-a326-1d7119612777
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-01-31T11:05:15.187113+01:00'
+---
+event:
+  concept:instance: 138668
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a132ba6-3993-423f-a326-1d7119612777
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Modell erstellen)
+    1:task:(Modell erstellen) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-01-31T11:05:15.187231+01:00'
+---
+event:
+  concept:instance: 138668
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8a132ba6-3993-423f-a326-1d7119612777
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Modell erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-01-31T11:05:15.187325+01:00'
