@@ -1,0 +1,11 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Create concept)
+1:task:(Create concept) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Concept ok| 3:task:(Find location)
+2:exclusivegateway:{x} --> |Concept not ok| 4:task:(Concept revision)
+4:task:(Concept revision) --> 2:exclusivegateway:{x}
+3:task:(Find location) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> |Location ok| 6:task:(Send invitations)
+5:exclusivegateway:{x} --> |Location not ok| 3:task:(Find location)
+6:task:(Send invitations) --> 7:task:(Wedding)
+7:task:(Wedding) --> 8:endevent:(((endevent)))

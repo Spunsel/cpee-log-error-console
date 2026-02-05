@@ -1,0 +1,14 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Plan Introduction)
+1:task:(Plan Introduction) --> 2:task:(Inform Girlfriend)
+2:task:(Inform Girlfriend) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Yes| 4:task:(Prepare Introduction)
+3:exclusivegateway:{x} --> |No| 10:endevent:(((endevent)))
+4:task:(Prepare Introduction) --> 5:task:(Introduce to Immediate Family)
+5:task:(Introduce to Immediate Family) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Positive| 7:task:(Introduce to Close Friends)
+6:exclusivegateway:{x} --> |Negative| 10:endevent:(((endevent)))
+7:task:(Introduce to Close Friends) --> 8:exclusivegateway:{x}
+8:exclusivegateway:{x} --> |Positive| 9:task:(Introduce to Extended Family)
+8:exclusivegateway:{x} --> |Negative| 10:endevent:(((endevent)))
+9:task:(Introduce to Extended Family) --> 10:endevent:(((endevent)))

@@ -1,0 +1,51 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Go to shopping center</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="2">
+    <alternative condition="Yes" language="text/javascript">
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Find a shop</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Buy item</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Yes" a:alt_id="6" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Find a shop</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Buy item</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </alternative>
+    <alternative condition="No" language="text/javascript"/>
+  </choose>
+</description>

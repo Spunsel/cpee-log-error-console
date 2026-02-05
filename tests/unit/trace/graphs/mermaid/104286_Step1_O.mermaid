@@ -1,0 +1,21 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Customer Enters)
+1:task:(Customer Enters) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Free Table or Reservation| 3:task:(Seat Customer)
+2:exclusivegateway:{x} --> |No Free Table and No Reservation| 4:task:(Notify Customer)
+4:task:(Notify Customer) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> |Wait| 6:task:(Order)
+5:exclusivegateway:{x} --> |Leave| 17:endevent:(((endevent)))
+3:task:(Seat Customer) --> 6:task:(Order)
+6:task:(Order) --> 7:task:(Take Order)
+7:task:(Take Order) --> 8:task:(Send Order to Cook)
+8:task:(Send Order to Cook) --> 9:task:(Check Ingredients)
+9:task:(Check Ingredients) --> 10:exclusivegateway:{x}
+10:exclusivegateway:{x} --> |Ingredients Ready| 11:task:(Bake Pizza)
+10:exclusivegateway:{x} --> |Ingredients Missing| 12:task:(Notify Customer)
+12:task:(Notify Customer) --> 13:task:(Prepare Ingredients)
+13:task:(Prepare Ingredients) --> 11:task:(Bake Pizza)
+11:task:(Bake Pizza) --> 14:task:(Deliver Food)
+14:task:(Deliver Food) --> 15:task:(Customer Eats)
+15:task:(Customer Eats) --> 16:task:(Pay and Leave)
+16:task:(Pay and Leave) --> 17:endevent:(((endevent)))

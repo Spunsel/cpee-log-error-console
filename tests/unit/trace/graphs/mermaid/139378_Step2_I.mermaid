@@ -1,0 +1,23 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Design separation process)
+a1:task:(Design separation process)-->a3:task:(Select separation technique)
+a3:task:(Select separation technique)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->|"true"|a9:task:(Model the separation process)
+a9:task:(Model the separation process)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->a11:task:(Simulate the process)
+a11:task:(Simulate the process)-->a13:task:(Analyze simulation results)
+a13:task:(Analyze simulation results)-->gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->a17:task:(Implement the model)
+a17:task:(Implement the model)-->gw4e:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->|"Does not meet requirements"|a21:task:(Refine the model)
+a21:task:(Refine the model)-->a9:task:(Model the separation process)
+a9:task:(Model the separation process)-->-1:escalate:((^))
+-1:escalate:((^))-->gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

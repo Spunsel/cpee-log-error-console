@@ -1,0 +1,100 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a0" endpoint="" a:alt_id="847ef624-b48b-45ea-a96e-bf2f47fb23cb">
+    <parameters>
+      <label>register request</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="5018574c-0e62-4773-8cb1-90d51eb8ac5e">
+    <alternative condition="">
+      <parallel wait="-1" cancel="last" a:alt_id="245cf4d1-e58d-43e3-8bf0-a0f0ae56fcc6">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="820750f8-b423-4186-ad91-66116e1ef540">
+            <parameters>
+              <label>check ticket</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive" a:alt_id="8f418af7-2d7e-4149-b715-fcdc37a606c3">
+            <alternative condition="">
+              <call id="a5" endpoint="" a:alt_id="3655745b-f40a-4a7a-8e10-826b40c0f14a">
+                <parameters>
+                  <label>examine casually</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a6" endpoint="" a:alt_id="f5f9adfc-faaa-4bcc-b7a7-43aba480f279">
+                <parameters>
+                  <label>examine thoroughly</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a9" endpoint="" a:alt_id="b6e55f5a-e910-4795-84ca-c6e7d4464305">
+        <parameters>
+          <label>decide</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="">
+      <call id="a10" endpoint="" a:alt_id="c6cb9bb7-820f-4a6d-9301-394e38651649">
+        <parameters>
+          <label>reinitiate request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="">
+      <call id="a11" endpoint="" a:alt_id="3696a902-3f79-42ac-86cc-d70a3b90b573">
+        <parameters>
+          <label>tau</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+  <choose mode="exclusive" a:alt_id="3ad530f5-6aaa-4280-bb7b-45aaa4d11aff">
+    <alternative condition="">
+      <call id="a14" endpoint="" a:alt_id="fef0c71e-6655-4fa8-95ee-2c5fbe1cfd53">
+        <parameters>
+          <label>pay compensation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="">
+      <call id="a15" endpoint="" a:alt_id="3a12be6f-40ee-4c9c-8926-d4ba5ee7da9c">
+        <parameters>
+          <label>reject request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+</description>

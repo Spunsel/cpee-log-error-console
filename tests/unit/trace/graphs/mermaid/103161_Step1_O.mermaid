@@ -1,0 +1,19 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Customer Decides to Activate/Deactivate Consumption Time Series Display)
+1:task:(Customer Decides to Activate/Deactivate Consumption Time Series Display) --> 2:task:(Inform Network Operator)
+2:task:(Inform Network Operator) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Activate| 4:task:(Activate Consumption Time Series Display via WAN)
+3:exclusivegateway:{x} --> |Deactivate| 10:task:(Deactivate Consumption Time Series Display via WAN)
+4:task:(Activate Consumption Time Series Display via WAN) --> 5:task:(Consumption Time Series Available on Meter Display)
+5:task:(Consumption Time Series Available on Meter Display) --> 6:task:(Report Status to Central System as 'LP Display ON')
+6:task:(Report Status to Central System as 'LP Display ON') --> 7:parallelgateway:{AND}
+7:parallelgateway:{AND} --> 8:task:(Enter in Logbook)
+7:parallelgateway:{AND} --> 9:task:(Allow Customer to View Load Profile for Last 60 Days)
+8:task:(Enter in Logbook) --> 15:parallelgateway:{AND}
+9:task:(Allow Customer to View Load Profile for Last 60 Days) --> 15:parallelgateway:{AND}
+10:task:(Deactivate Consumption Time Series Display via WAN) --> 11:task:(Consumption Time Series Not Visible on Meter Display)
+11:task:(Consumption Time Series Not Visible on Meter Display) --> 12:task:(Report Status to Central System as 'LP Display OFF')
+12:task:(Report Status to Central System as 'LP Display OFF') --> 13:parallelgateway:{AND}
+13:parallelgateway:{AND} --> 14:task:(Enter in Logbook)
+14:task:(Enter in Logbook) --> 15:parallelgateway:{AND}
+15:parallelgateway:{AND} --> 16:endevent:(((endevent)))

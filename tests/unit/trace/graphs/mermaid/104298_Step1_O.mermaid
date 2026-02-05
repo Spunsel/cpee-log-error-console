@@ -1,0 +1,22 @@
+graph LR
+0:startevent:((startevent)) --> 1:exclusivegateway:{x}
+1:exclusivegateway:{x} --> |Reservierung| 2:task:(Zum Tisch begleiten)
+1:exclusivegateway:{x} --> |Keine Reservierung| 3:exclusivegateway:{x}
+2:task:(Zum Tisch begleiten) --> 7:task:(Bestellung aufnehmen)
+3:exclusivegateway:{x} --> |Tisch frei| 2:task:(Zum Tisch begleiten)
+3:exclusivegateway:{x} --> |Kein Tisch frei| 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Warten| 5:task:(Warten bis Tisch frei)
+4:exclusivegateway:{x} --> |Gehen| 6:task:(Gutschein aushändigen)
+5:task:(Warten bis Tisch frei) --> 2:task:(Zum Tisch begleiten)
+6:task:(Gutschein aushändigen) --> 17:endevent:(((endevent)))
+7:task:(Bestellung aufnehmen) --> 8:task:(Bestellung an Küche weiterleiten)
+8:task:(Bestellung an Küche weiterleiten) --> 9:task:(Pizza zubereiten)
+9:task:(Pizza zubereiten) --> 10:exclusivegateway:{x}
+10:exclusivegateway:{x} --> |Zutaten bereit| 12:task:(Pizza backen)
+10:exclusivegateway:{x} --> |Zutaten fehlen| 11:task:(Zutaten vorbereiten)
+11:task:(Zutaten vorbereiten) --> 12:task:(Pizza backen)
+12:task:(Pizza backen) --> 13:task:(Pizza servieren)
+13:task:(Pizza servieren) --> 14:task:(Kunde isst)
+14:task:(Kunde isst) --> 15:task:(Bezahlen)
+15:task:(Bezahlen) --> 16:task:(Restaurant verlassen)
+16:task:(Restaurant verlassen) --> 17:endevent:(((endevent)))

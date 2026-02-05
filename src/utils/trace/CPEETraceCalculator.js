@@ -403,19 +403,7 @@ class TraceSets {
             timeoutChecker
         );
         
-        // Check if loop node is a cotree edge (creates a cycle)
-        const loopNodeId = loopNode.getAttribute('id');
-        const isCotreeEdge = loopNodeId ? 
-            TopologyIterators.cotreeIterator(loopNode, currentFT) : false;
-        
-        // Determine iteration limit based on cotree detection
-        // If loop detected in forward trace (cotree edge), limit iterations
-        const iterationLimit = isCotreeEdge ? 1 : maxLoopIterations;
-        const maxIter = Math.min(iterationLimit, 2);
-        
-        const result = [];
-        
-        // Get the loop condition
+        // Get the loop condition first to determine iteration behavior
         const condition = this.getLoopCondition(loopNode);
         
         // Determine if we should skip 0 iterations:
@@ -424,6 +412,35 @@ class TraceSets {
         const isConditionTrue = condition === 'true';
         const hasBodyTaskAlreadyInTrace = this.hasBodyTaskInTrace(bodyTraces, currentFT);
         const shouldSkipZeroIterations = isConditionTrue && !hasBodyTaskAlreadyInTrace;
+        
+        // Check if any body trace ends with escape - if so, we may need at least 2 iterations
+        // to capture the "iterate normally then escape" pattern
+        const hasEscapePath = bodyTraces.some(trace => trace._terminatedByEscape === true);
+        
+        // Check if loop node is a cotree edge (creates a cycle)
+        const loopNodeId = loopNode.getAttribute('id');
+        const isCotreeEdge = loopNodeId ? 
+            TopologyIterators.cotreeIterator(loopNode, currentFT) : false;
+        
+        // Determine iteration limit based on cotree detection
+        // If loop detected in forward trace (cotree edge), limit iterations
+        const iterationLimit = isCotreeEdge ? 1 : maxLoopIterations;
+        
+        // Only increase iterations for escape paths if the loop CAN be skipped (0 iterations allowed)
+        // For mandatory loops (condition="true", no body tasks in trace), don't inflate iterations
+        // as it would cause exponential trace explosion
+        const minIterForEscape = (hasEscapePath && !shouldSkipZeroIterations) ? 2 : 1;
+        const maxIter = Math.max(Math.min(iterationLimit, 2), minIterForEscape);
+        
+        // Check if we increased to 2 iterations ONLY for escape pattern (not natural iteration limit)
+        // If so, the 2nd iteration should ONLY use escape-terminated body traces
+        // EXCEPTION: If there are multiple distinct non-escape paths in XOR, allow all combinations
+        // (e.g., XOR with "Abgelehnt" + "Genehmigt" + "escape" should allow "Abgelehnt + Genehmigt")
+        const nonEscapeTraces = bodyTraces.filter(t => !t._terminatedByEscape);
+        const hasMultipleNonEscapePaths = nonEscapeTraces.length > 1;
+        const secondIterationIsForEscapeOnly = iterationLimit < 2 && minIterForEscape >= 2 && !hasMultipleNonEscapePaths;
+        
+        const result = [];
         
         // 0 iterations (condition false from start, or loop can be skipped)
         if (!shouldSkipZeroIterations) {
@@ -456,6 +473,15 @@ class TraceSets {
                     continue;
                 }
                 for (const bodyTrace2 of bodyTraces) {
+                    // Skip if 2nd iteration is same branch as 1st (don't repeat same XOR branch)
+                    if (bodyTrace1 === bodyTrace2) {
+                        continue;
+                    }
+                    // If we increased iterations ONLY for escape, skip non-escape 2nd iterations
+                    // (the point was to capture "iterate then escape", not "iterate then iterate")
+                    if (secondIterationIsForEscapeOnly && !bodyTrace2._terminatedByEscape) {
+                        continue;
+                    }
                     // Combine traces
                     const combinedTrace = [...currentFT, ...bodyTrace1, ...bodyTrace2];
                     // Preserve termination flag from second iteration
@@ -760,13 +786,19 @@ class TraceSetsValidation {
             timeoutChecker
         );
         
+        // Check if any body trace ends with escape - if so, we need at least 2 iterations
+        // to capture the "iterate normally then escape" pattern
+        const hasEscapePath = bodyTraces.some(trace => trace._terminatedByEscape === true);
+        const minIterForEscape = hasEscapePath ? 2 : 1;
+        const effectiveMaxIter = Math.max(maxLoopIterations, minIterForEscape);
+        
         const result = [];
         
         // Always allow 0 iterations (no semantic restriction)
         result.push([...currentFT]);
         
-        // Generate traces for 1 to maxLoopIterations iterations
-        for (let iter = 1; iter <= maxLoopIterations; iter++) {
+        // Generate traces for 1 to effectiveMaxIter iterations
+        for (let iter = 1; iter <= effectiveMaxIter; iter++) {
             // Generate all combinations of body traces for this iteration count
             const iterationCombinations = this.generateIterationCombinations(
                 bodyTraces, 

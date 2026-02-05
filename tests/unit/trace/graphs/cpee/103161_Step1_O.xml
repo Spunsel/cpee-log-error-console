@@ -1,0 +1,102 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Customer Decides to Activate/Deactivate Consumption Time Series Display</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Inform Network Operator</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="3">
+    <alternative condition="Activate" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Activate Consumption Time Series Display via WAN</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Consumption Time Series Available on Meter Display</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Report Status to Central System as "LP Display ON"</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="7">
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Enter in Logbook</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Allow Customer to View Load Profile for Last 60 Days</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </alternative>
+    <alternative condition="Deactivate" language="text/javascript">
+      <call id="a9" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Deactivate Consumption Time Series Display via WAN</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Consumption Time Series Not Visible on Meter Display</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Report Status to Central System as "LP Display OFF"</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Enter in Logbook</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+</description>

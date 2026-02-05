@@ -1,0 +1,8 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Schedule Board Meeting)
+1:task:(Schedule Board Meeting) --> 2:task:(Send Meeting Invitation)
+2:task:(Send Meeting Invitation) --> 3:task:(Hold Board Meeting)
+3:task:(Hold Board Meeting) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} -->|Meeting Held Every Three Months| 5:endevent:(((endevent)))
+4:exclusivegateway:{x} -->|Meeting Not Held Every Three Months| 6:task:(Reschedule Board Meeting)
+6:task:(Reschedule Board Meeting) --> 1:task:(Schedule Board Meeting)

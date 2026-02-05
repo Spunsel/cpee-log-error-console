@@ -1,0 +1,49 @@
+graph LR
+0:startevent:((Start))
+1:task:(Become Aware of Data Breach)
+2:exclusivegateway:{x}
+3:task:(Notify Supervisory Authority)
+4:exclusivegateway:{x}
+5:task:(Provide Reasons for Delay)
+6:task:(Notify Controller)
+7:task:(Document Data Breach)
+8:task:(Communicate to Data Subject)
+9:exclusivegateway:{x}
+10:task:(Public Communication)
+11:endevent:(((End)))
+12:task:(Describe Breach Details)
+13:task:(Provide Information in Phases)
+14:exclusivegateway:{x}
+15:exclusivegateway:{x}
+16:task:(Implement Protection Measures)
+17:task:(Take Subsequent Measures)
+18:task:(Assess Disproportionate Effort)
+19:exclusivegateway:{x}
+20:task:(Supervisory Authority Decision)
+0:startevent:((Start)) --> 1:task:(Become Aware of Data Breach)
+1:task:(Become Aware of Data Breach) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Risk Unlikely| 7:task:(Document Data Breach)
+2:exclusivegateway:{x} --> |Risk Likely| 3:task:(Notify Supervisory Authority)
+3:task:(Notify Supervisory Authority) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Within 72 Hours| 12:task:(Describe Breach Details)
+4:exclusivegateway:{x} --> |After 72 Hours| 5:task:(Provide Reasons for Delay)
+5:task:(Provide Reasons for Delay) --> 12:task:(Describe Breach Details)
+12:task:(Describe Breach Details) --> 14:exclusivegateway:{x}
+14:exclusivegateway:{x} --> |All Info Available| 7:task:(Document Data Breach)
+14:exclusivegateway:{x} --> |Info in Phases| 13:task:(Provide Information in Phases)
+13:task:(Provide Information in Phases) --> 7:task:(Document Data Breach)
+1:task:(Become Aware of Data Breach) --> 6:task:(Notify Controller)
+7:task:(Document Data Breach) --> 15:exclusivegateway:{x}
+15:exclusivegateway:{x} --> |High Risk| 8:task:(Communicate to Data Subject)
+15:exclusivegateway:{x} --> |No High Risk| 11:endevent:(((End)))
+8:task:(Communicate to Data Subject) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> |Protection Measures| 16:task:(Implement Protection Measures)
+9:exclusivegateway:{x} --> |Subsequent Measures| 17:task:(Take Subsequent Measures)
+9:exclusivegateway:{x} --> |Disproportionate Effort| 18:task:(Assess Disproportionate Effort)
+16:task:(Implement Protection Measures) --> 19:exclusivegateway:{x}
+17:task:(Take Subsequent Measures) --> 19:exclusivegateway:{x}
+18:task:(Assess Disproportionate Effort) --> 10:task:(Public Communication)
+10:task:(Public Communication) --> 11:endevent:(((End)))
+19:exclusivegateway:{x} --> |Risk Mitigated| 11:endevent:(((End)))
+19:exclusivegateway:{x} --> |Risk Persists| 20:task:(Supervisory Authority Decision)
+20:task:(Supervisory Authority Decision) --> 11:endevent:(((End)))

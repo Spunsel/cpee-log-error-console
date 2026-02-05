@@ -1,0 +1,24 @@
+flowchart LR
+se:startevent:((startevent))-->a0:task:(register request)
+a0:task:(register request)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->gw2s:parallelgateway:{AND}
+gw2s:parallelgateway:{AND}-->a3:task:(check ticket)
+a3:task:(check ticket)-->gw2e:parallelgateway:{AND}
+gw2s:parallelgateway:{AND}-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->a5:task:(examine casually)
+a5:task:(examine casually)-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->a6:task:(examine thoroughly)
+a6:task:(examine thoroughly)-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw2e:parallelgateway:{AND}
+gw2e:parallelgateway:{AND}-->a9:task:(decide)
+a9:task:(decide)-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a10:task:(reinitiate request)
+a10:task:(reinitiate request)-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a11:task:(tau)
+a11:task:(tau)-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->a14:task:(pay compensation)
+a14:task:(pay compensation)-->gw4e:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->a15:task:(reject request)
+a15:task:(reject request)-->gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x}-->ee:endevent:((endevent))

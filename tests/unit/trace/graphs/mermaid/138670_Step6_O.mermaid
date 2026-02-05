@@ -1,0 +1,10 @@
+flowchart LR
+0:startevent:((startevent)) --> 1:task:(Go to shopping center)
+1:task:(Go to shopping center) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Yes| 3:task:(Find a shop)
+2:exclusivegateway:{x} --> |No| 4:endevent:(((endevent)))
+3:task:(Find a shop) --> 5:task:(Buy item)
+5:task:(Buy item) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Yes| 3:task:(Find a shop)
+3:task:(Find a shop) --> 5:task:(Buy item)
+6:exclusivegateway:{x} --> |No| 4:endevent:(((endevent)))

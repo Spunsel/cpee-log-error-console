@@ -1,0 +1,13 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Check Urgency)
+1:task:(Check Urgency) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Urgent| 3:task:(Executive Board Takes Provisional Decisions)
+2:exclusivegateway:{x} --> |Not Urgent| 10:endevent:(((endevent)))
+3:task:(Executive Board Takes Provisional Decisions) --> 4:task:(Notify Management Board)
+4:task:(Notify Management Board) --> 5:task:(Management Board Decides)
+5:task:(Management Board Decides) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Approve| 7:task:(Implement Decision)
+6:exclusivegateway:{x} --> |Reject| 8:task:(Reverse Provisional Decision)
+7:task:(Implement Decision) --> 9:endevent:(((endevent)))
+8:task:(Reverse Provisional Decision) --> 9:endevent:(((endevent)))
+9:endevent:(((endevent))) --> 10:endevent:(((endevent)))

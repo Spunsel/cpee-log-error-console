@@ -1,0 +1,171 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <choose mode="exclusive" a:alt_id="a0">
+    <alternative condition="">
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Seat Customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Get Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Pizza on Menu" language="text/javascript"/>
+        <alternative condition="Pizza not on Menu" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Inform Cook</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a17" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Make Pizza</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="a15">
+        <parameters>
+          <label>Bake Pizza</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Ingredients Available" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Serve Pizza</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Ingredients Unavailable" language="text/javascript">
+          <call id="a27" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Inform Customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </alternative>
+    <alternative condition="No seats available" language="text/javascript">
+      <call id="a33" endpoint="" a:alt_id="a23">
+        <parameters>
+          <label>Inform Customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="a24">
+        <alternative condition="">
+          <call id="a3" endpoint="" a:alt_id="a1">
+            <parameters>
+              <label>Seat Customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Get Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw1s">
+            <alternative condition="Pizza on Menu" language="text/javascript"/>
+            <alternative condition="Pizza not on Menu" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Inform Cook</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a17" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Make Pizza</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Bake Pizza</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Ingredients Available" language="text/javascript">
+              <call id="a23" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Serve Pizza</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Ingredients Unavailable" language="text/javascript">
+              <call id="a27" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Inform Customer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Customer leaves" language="text/javascript"/>
+      </choose>
+    </alternative>
+  </choose>
+</description>

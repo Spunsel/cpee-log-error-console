@@ -1,0 +1,13 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Start Self Driving Labs)
+1:task:(Start Self Driving Labs) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Condition A| 3:task:(Conduct Research)
+2:exclusivegateway:{x} --> |Condition B| 4:task:(Develop Prototype)
+3:task:(Conduct Research) --> 5:exclusivegateway:{x}
+4:task:(Develop Prototype) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> 6:task:(Test System)
+6:task:(Test System) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Pass| 8:task:(Deploy System)
+7:exclusivegateway:{x} --> |Fail| 9:task:(Refine System)
+8:task:(Deploy System) --> 10:endevent:(((endevent)))
+9:task:(Refine System) --> 2:exclusivegateway:{x}

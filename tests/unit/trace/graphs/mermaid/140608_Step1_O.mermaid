@@ -1,0 +1,14 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Create Purchase Request)
+1:task:(Create Purchase Request) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Approved| 3:task:(Create Purchase Order)
+2:exclusivegateway:{x} --> |Rejected| 4:task:(Notify Rejection)
+3:task:(Create Purchase Order) --> 5:task:(Send Purchase Order)
+4:task:(Notify Rejection) --> 6:endevent:(((endevent)))
+5:task:(Send Purchase Order) --> 7:task:(Receive Goods)
+7:task:(Receive Goods) --> 8:task:(Verify Goods)
+8:task:(Verify Goods) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> |Goods OK| 10:task:(Pay Invoice)
+9:exclusivegateway:{x} --> |Goods Issue| 11:task:(Return Goods)
+10:task:(Pay Invoice) --> 12:endevent:(((endevent)))
+11:task:(Return Goods) --> 12:endevent:(((endevent)))

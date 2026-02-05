@@ -1,0 +1,65 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Start Self Driving Labs</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <loop mode="pre_test" condition="Condition A">
+    <choose mode="exclusive" a:alt_id="2">
+      <alternative condition="Condition A" language="text/javascript">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Conduct Research</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </alternative>
+      <alternative condition="Condition B" language="text/javascript">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Develop Prototype</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </alternative>
+    </choose>
+  </loop>
+  <call id="a13" endpoint="" a:alt_id="6">
+    <parameters>
+      <label>Test System</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="7">
+    <alternative condition="Fail" language="text/javascript">
+      <call id="a19" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Refine System</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Pass" language="text/javascript">
+      <call id="a17" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Deploy System</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <escape a:alt_id="-1"/>
+    </alternative>
+  </choose>
+</description>

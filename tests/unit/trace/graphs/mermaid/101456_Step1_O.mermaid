@@ -1,0 +1,14 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Identify personal data breach)
+1:task:(Identify personal data breach) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Breach likely to result in risk| 3:task:(Notify supervisory authority within 72 hours)
+2:exclusivegateway:{x} --> |Breach unlikely to result in risk| 4:endevent:(((endevent)))
+3:task:(Notify supervisory authority within 72 hours) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> |Notification made within 72 hours| 6:task:(Provide details of the breach)
+5:exclusivegateway:{x} --> |Notification not made within 72 hours| 7:task:(Provide reasons for delay and details of the breach)
+6:task:(Provide details of the breach) --> 8:task:(Document the breach and remedial action)
+7:task:(Provide reasons for delay and details of the breach) --> 8:task:(Document the breach and remedial action)
+8:task:(Document the breach and remedial action) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> |Breach likely to result in high risk| 10:task:(Communicate the breach to the data subject)
+9:exclusivegateway:{x} --> |Breach unlikely to result in high risk| 11:endevent:(((endevent)))
+10:task:(Communicate the breach to the data subject) --> 12:endevent:(((endevent)))

@@ -1,0 +1,86 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Fill Loan Application</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="a">
+    <parameters>
+      <label>A</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a5" endpoint="" a:alt_id="a3">
+    <parameters>
+      <label>Submit Application</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="gw1s">
+    <alternative condition="Application Valid" language="text/javascript">
+      <call id="a9" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Verify Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Check Credit Score</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Credit Score OK" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Approve Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Credit Score Not OK" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Reject Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition=""/>
+            <alternative condition=""/>
+          </choose>
+        </alternative>
+      </choose>
+    </alternative>
+    <alternative condition="Application Invalid" language="text/javascript">
+      <call id="a19" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Reject Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition=""/>
+        <alternative condition=""/>
+      </choose>
+    </alternative>
+  </choose>
+</description>

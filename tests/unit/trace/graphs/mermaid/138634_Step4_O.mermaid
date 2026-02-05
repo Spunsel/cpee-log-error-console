@@ -1,0 +1,6 @@
+flowchart LR
+se:startevent:((startevent)) --> gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x} --> |"true"| task1:task:(Perform Task)
+task1:task:(Perform Task) --> gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x} --> |"false"| ee:endevent:((endevent))
+gw1e:exclusivegateway:{x} --> se:startevent:((startevent))

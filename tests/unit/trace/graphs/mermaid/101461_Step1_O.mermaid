@@ -1,0 +1,32 @@
+graph LR
+0:startevent:((Start))
+1:task:(Controller Becomes Aware of Breach)
+2:exclusivegateway:{x}
+3:task:(Notify Supervisory Authority)
+4:exclusivegateway:{x}
+5:task:(Provide Reasons for Delay)
+6:task:(Processor Notifies Controller)
+7:task:(Document Breach)
+8:task:(Assess Risk to Data Subjects)
+9:exclusivegateway:{x}
+10:task:(Communicate Breach to Data Subject)
+11:exclusivegateway:{x}
+12:task:(Public Communication)
+13:endevent:(((End)))
+0:startevent:((Start)) --> 1:task:(Controller Becomes Aware of Breach)
+1:task:(Controller Becomes Aware of Breach) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Breach Unlikely to Result in Risk| 7:task:(Document Breach)
+2:exclusivegateway:{x} --> |Breach Likely to Result in Risk| 3:task:(Notify Supervisory Authority)
+3:task:(Notify Supervisory Authority) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Within 72 Hours| 7:task:(Document Breach)
+4:exclusivegateway:{x} --> |Not Within 72 Hours| 5:task:(Provide Reasons for Delay)
+5:task:(Provide Reasons for Delay) --> 7:task:(Document Breach)
+6:task:(Processor Notifies Controller) --> 7:task:(Document Breach)
+7:task:(Document Breach) --> 8:task:(Assess Risk to Data Subjects)
+8:task:(Assess Risk to Data Subjects) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> |High Risk| 10:task:(Communicate Breach to Data Subject)
+9:exclusivegateway:{x} --> |No High Risk| 13:endevent:(((End)))
+10:task:(Communicate Breach to Data Subject) --> 11:exclusivegateway:{x}
+11:exclusivegateway:{x} --> |Conditions Met| 12:task:(Public Communication)
+11:exclusivegateway:{x} --> |Conditions Not Met| 13:endevent:(((End)))
+12:task:(Public Communication) --> 13:endevent:(((End)))

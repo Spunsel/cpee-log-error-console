@@ -1,0 +1,31 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Plan Introduction)
+a1:task:(Plan Introduction)-->a3:task:(Inform Girlfriend)
+a3:task:(Inform Girlfriend)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a7:task:(Introduce to Close Friends)
+a7:task:(Introduce to Close Friends)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Positive"|a11:task:(Introduce to Extended Family)
+a11:task:(Introduce to Extended Family)-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Negative"|gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->a17:task:(Introduce to Immediate Family)
+a17:task:(Introduce to Immediate Family)-->gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a21:task:(Prepare Introduction)
+a21:task:(Prepare Introduction)-->gw5s:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->gw6s:exclusivegateway:{x}
+gw6s:exclusivegateway:{x}-->|"Positive"|a11:task:(Introduce to Extended Family)
+a11:task:(Introduce to Extended Family)-->gw7s:exclusivegateway:{x}
+gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+gw6s:exclusivegateway:{x}-->|"Negative"|gw6e:exclusivegateway:{x}
+gw6e:exclusivegateway:{x}-->a17:task:(Introduce to Immediate Family)
+a17:task:(Introduce to Immediate Family)-->gw8s:exclusivegateway:{x}
+gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+gw8e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->|"Negative"|gw5e:exclusivegateway:{x}
+gw5e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"No"|gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

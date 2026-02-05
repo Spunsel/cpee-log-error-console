@@ -1,0 +1,8 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Browse Products)
+a1:task:(Browse Products)-->a3:task:(Add to Cart)
+a3:task:(Add to Cart)-->a5:task:(Review Cart)
+a5:task:(Review Cart)-->g1:exclusivegateway:{x}
+g1:exclusivegateway:{x}-->|Yes|a7:task:(Checkout)
+g1:exclusivegateway:{x}-->|No|a3:task:(Add to Cart)
+a7:task:(Checkout)-->ee:endevent:((endevent))

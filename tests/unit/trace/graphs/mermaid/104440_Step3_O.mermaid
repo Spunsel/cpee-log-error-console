@@ -1,0 +1,8 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Infrastrukturkosten ermitteln)
+a1:task:(Infrastrukturkosten ermitteln)-->a3:task:(Verteilungsschlüssel festlegen)
+a3:task:(Verteilungsschlüssel festlegen)-->a5:task:(Kosten auf Kostenstellen verteilen)
+a5:task:(Kosten auf Kostenstellen verteilen)-->a7:task:(Verrechnung durchführen)
+a7:task:(Verrechnung durchführen)-->eg1:exclusivegateway:{x}
+eg1:exclusivegateway:{x}-->|Ja|se:startevent:
+eg1:exclusivegateway:{x}-->|Nein|ee:endevent:(((endevent)))

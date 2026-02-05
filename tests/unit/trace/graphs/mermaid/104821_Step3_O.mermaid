@@ -1,0 +1,18 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Successful Service)
+a1:task:(Successful Service)-->a3:task:(Service Necessary)
+a3:task:(Service Necessary)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Yes"|a7:task:(Car Registered)
+a7:task:(Car Registered)-->a9:task:(Notify User)
+a9:task:(Notify User)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Service Done"|gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"No Service"|a15:task:(Fine After 30 Days)
+a15:task:(Fine After 30 Days)-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->a19:task:(Mechanic Enters Problems)
+a19:task:(Mechanic Enters Problems)-->a21:task:(Status Updates)
+a21:task:(Status Updates)-->a23:task:(Pay Through App)
+a23:task:(Pay Through App)-->a25:task:(Repair Successful)
+a25:task:(Repair Successful)-->a27:task:(Enter Next Service Time)
+a27:task:(Enter Next Service Time)-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"No"|gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

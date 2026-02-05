@@ -1,0 +1,10 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Check Meeting Frequency)
+1:task:(Check Meeting Frequency) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |More than 3 months| 3:task:(Schedule Meeting)
+2:exclusivegateway:{x} --> |Less than 3 months| 4:exclusivegateway:{x}
+3:task:(Schedule Meeting) --> 5:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Request for meeting received| 3:task:(Schedule Meeting)
+4:exclusivegateway:{x} --> |No request received| 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> 6:task:(Hold Meeting)
+6:task:(Hold Meeting) --> 7:endevent:(((endevent)))

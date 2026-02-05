@@ -1,0 +1,28 @@
+flowchart LR
+se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Nutzer möchte sich einloggen)
+a3:task:(Nutzer möchte sich einloggen)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->gw4s:parallelgateway:{AND}
+gw4s:parallelgateway:{AND}-->a11:task:(Anmeldung mit E-Mail und Passwort)
+a11:task:(Anmeldung mit E-Mail und Passwort)-->a13:task:(Eingeloggt)
+a13:task:(Eingeloggt)-->gw4e:parallelgateway:{AND}
+gw4s:parallelgateway:{AND}-->a17:task:(Registrierung mit Key, E-Mail, Passwort)
+a17:task:(Registrierung mit Key, E-Mail, Passwort)-->gw5s:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->|"Daten korrekt?"|a27:task:(Bestätigungsmail versenden)
+a27:task:(Bestätigungsmail versenden)-->a29:task:(Nutzer öffnet Link)
+a29:task:(Nutzer öffnet Link)-->a31:task:(Letzter Login)
+a31:task:(Letzter Login)-->a33:task:(Eingeloggt)
+a33:task:(Eingeloggt)-->gw5e:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->|"Daten inkorrekt"|a21:task:(Fehlermeldung anzeigen)
+a21:task:(Fehlermeldung anzeigen)-->a3:task:(Nutzer möchte sich einloggen)
+a3:task:(Nutzer möchte sich einloggen)-->-1:escalate:((^))
+-1:escalate:((^))-->gw5e:exclusivegateway:{x}
+gw5e:exclusivegateway:{x}-->gw4e:parallelgateway:{AND}
+gw4e:parallelgateway:{AND}-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

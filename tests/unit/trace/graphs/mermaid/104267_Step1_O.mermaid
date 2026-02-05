@@ -1,0 +1,16 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Nutzer möchte sich einloggen)
+1:task:(Nutzer möchte sich einloggen) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Spiel gekauft?| 3:task:(Registrierung mit Key, E-Mail, Passwort)
+2:exclusivegateway:{x} --> |Spiel nicht gekauft| 14:task:(Anmeldung mit E-Mail und Passwort)
+3:task:(Registrierung mit Key, E-Mail, Passwort) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Daten korrekt?| 5:task:(Bestätigungsmail versenden)
+4:exclusivegateway:{x} --> |Daten inkorrekt| 6:task:(Fehlermeldung anzeigen)
+5:task:(Bestätigungsmail versenden) --> 7:task:(Nutzer öffnet Link)
+6:task:(Fehlermeldung anzeigen) --> 16:exclusivegateway:{x}
+7:task:(Nutzer öffnet Link) --> 8:task:(Letzter Login)
+8:task:(Letzter Login) --> 9:task:(Eingeloggt)
+9:task:(Eingeloggt) --> 10:endevent:(((endevent)))
+14:task:(Anmeldung mit E-Mail und Passwort) --> 15:task:(Eingeloggt)
+15:task:(Eingeloggt) --> 10:endevent:(((endevent)))
+16:exclusivegateway:{x} --> 1:task:(Nutzer möchte sich einloggen)

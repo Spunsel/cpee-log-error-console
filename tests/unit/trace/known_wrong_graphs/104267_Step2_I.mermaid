@@ -1,0 +1,26 @@
+flowchart LR
+se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Nutzer möchte sich einloggen)
+a1:task:(Nutzer möchte sich einloggen)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->a7:task:(Anmeldung mit E-Mail und Passwort)
+a7:task:(Anmeldung mit E-Mail und Passwort)-->a25:task:(Eingeloggt)
+a25:task:(Eingeloggt)-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Spiel gekauft?"|a5:task:(Registrierung mit Key, E-Mail, Passwort)
+a5:task:(Registrierung mit Key, E-Mail, Passwort)-->gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->|"Daten inkorrekt"|a13:task:(Fehlermeldung anzeigen)
+a13:task:(Fehlermeldung anzeigen)-->a1:task:(Nutzer möchte sich einloggen)
+a1:task:(Nutzer möchte sich einloggen)-->gw4e:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->|"Daten korrekt?"|a11:task:(Bestätigungsmail versenden)
+a11:task:(Bestätigungsmail versenden)-->a15:task:(Nutzer öffnet Link)
+a15:task:(Nutzer öffnet Link)-->a19:task:(Letzter Login)
+a19:task:(Letzter Login)-->a21:task:(Eingeloggt)
+a21:task:(Eingeloggt)-->gw5s:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+-1:escalate:((^))-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

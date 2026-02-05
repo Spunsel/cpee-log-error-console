@@ -1,0 +1,16 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Go to shopping center)
+a1:task:(Go to shopping center)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Yes"|gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->|"true"|a5:task:(Find a shop)
+a5:task:(Find a shop)-->a9:task:(Buy item)
+a9:task:(Buy item)-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Yes"|a5:task:(Find a shop)
+a5:task:(Find a shop)-->-1:escalate:((^))
+-1:escalate:((^))-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"No"|gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

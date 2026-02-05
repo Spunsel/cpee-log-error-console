@@ -1,0 +1,11 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Register Claim)
+1:task:(Register Claim) --> 2:task:(Examine Claim)
+2:task:(Examine Claim) --> 3:task:(Write Settlement Recommendation)
+3:task:(Write Settlement Recommendation) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |OK| 5:task:(Proceed Claim Handling)
+4:exclusivegateway:{x} --> |Not OK| 6:task:(Repeat Recommendation)
+6:task:(Repeat Recommendation) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Condition| 3:task:(Write Settlement Recommendation)
+5:task:(Proceed Claim Handling) --> 8:endevent:(((endevent)))
+7:exclusivegateway:{x} --> |Condition| 8:endevent:(((endevent)))

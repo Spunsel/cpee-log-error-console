@@ -1,0 +1,13 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Analyze Bridge Requirements)
+1:task:(Analyze Bridge Requirements) --> 2:task:(Calculate Load Distribution)
+2:task:(Calculate Load Distribution) --> 3:task:(Determine Friction Requirements)
+3:task:(Determine Friction Requirements) --> 4:task:(Select Materials with Adequate Friction)
+4:task:(Select Materials with Adequate Friction) --> 5:task:(Design Bridge Structure)
+5:task:(Design Bridge Structure) --> 6:task:(Simulate Bridge Performance)
+6:task:(Simulate Bridge Performance) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Performance Acceptable| 9:task:(Implement Bridge Design)
+7:exclusivegateway:{x} --> |Performance Not Acceptable| 8:task:(Revise Design and Material Selection)
+8:task:(Revise Design and Material Selection) --> 5:task:(Design Bridge Structure)
+9:task:(Implement Bridge Design) --> 10:task:(Monitor Bridge Performance)
+10:task:(Monitor Bridge Performance) --> 11:endevent:(((endevent)))

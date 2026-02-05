@@ -1,0 +1,23 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Receive Order)
+a1:task:(Receive Order)-->a3:task:(Define Properties)
+a3:task:(Define Properties)-->gw1s:parallelgateway:{AND}
+gw1s:parallelgateway:{AND}-->a7:task:(Order Guide Bar)
+a7:task:(Order Guide Bar)-->gw1e:parallelgateway:{AND}
+gw1s:parallelgateway:{AND}-->a11:task:(Order Chain)
+a11:task:(Order Chain)-->gw1e:parallelgateway:{AND}
+gw1s:parallelgateway:{AND}-->a15:task:(Order Motor/Electric Components)
+a15:task:(Order Motor/Electric Components)-->gw1e:parallelgateway:{AND}
+gw1e:parallelgateway:{AND}-->a19:task:(Inspect Parts)
+a19:task:(Inspect Parts)-->bad:exclusivegateway:{x}
+bad:exclusivegateway:{x}-->|"Parts OK"|a21:task:(Assemble Chainsaw)
+bad:exclusivegateway:{x}-->|"Parts Bad"|a15:task:(Order Motor/Electric Components)
+a21:task:(Assemble Chainsaw)-->a23:task:(Send Updates to Customer)
+a23:task:(Send Updates to Customer)-->a25:task:(Produce First Saw)
+a25:task:(Produce First Saw)-->a27:task:(Send First Saw to Customer)
+a27:task:(Send First Saw to Customer)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Customer Likes It"|a31:task:(Produce Rest of Order)
+a31:task:(Produce Rest of Order)-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Customer Doesn't Like It"|a35:task:(Adjust Production)
+a35:task:(Adjust Production)-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))

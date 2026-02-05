@@ -1,0 +1,10 @@
+flowchart LR
+se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+gw1s:parallelgateway:{AND}-->a3:task:(Task A)
+a3:task:(Task A)-->gw1e:parallelgateway:{AND}
+gw1s:parallelgateway:{AND}-->a7:task:(Task B)
+a7:task:(Task B)-->gw1e:parallelgateway:{AND}
+gw1e:parallelgateway:{AND}-->a11:task:(New Task)
+a11:task:(New Task)-->gw2:exclusivegateway:{x}
+gw2:exclusivegateway:{x}-->|Yes|se:startevent:((startevent))
+gw2:exclusivegateway:{x}-->|No|ee:endevent:(((endevent)))

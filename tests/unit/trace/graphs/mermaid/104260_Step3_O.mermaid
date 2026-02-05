@@ -1,0 +1,18 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Plan Introduction)
+a1:task:(Plan Introduction)-->a3:task:(Inform Girlfriend)
+a3:task:(Inform Girlfriend)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a13:task:(Introduce to Close Friends)
+a13:task:(Introduce to Close Friends)-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Positive"|a17:task:(Introduce to Extended Family)
+a17:task:(Introduce to Extended Family)-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Negative"|gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->a9:task:(Introduce to Immediate Family)
+a9:task:(Introduce to Immediate Family)-->gw2e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a7:task:(Prepare Introduction)
+a7:task:(Prepare Introduction)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Negative"|gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"No"|gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

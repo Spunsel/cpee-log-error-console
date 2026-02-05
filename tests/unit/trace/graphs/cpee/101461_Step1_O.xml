@@ -1,0 +1,78 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Controller Becomes Aware of Breach</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="2">
+    <alternative condition="Breach Unlikely to Result in Risk" language="text/javascript"/>
+    <alternative condition="Breach Likely to Result in Risk" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Notify Supervisory Authority</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Within 72 Hours" language="text/javascript"/>
+        <alternative condition="Not Within 72 Hours" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Provide Reasons for Delay</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </alternative>
+  </choose>
+  <call id="a5" endpoint="" a:alt_id="7">
+    <parameters>
+      <label>Document Breach</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a19" endpoint="" a:alt_id="8">
+    <parameters>
+      <label>Assess Risk to Data Subjects</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="9">
+    <alternative condition="High Risk" language="text/javascript">
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Communicate Breach to Data Subject</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="11">
+        <alternative condition="Conditions Met" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Public Communication</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Conditions Not Met" language="text/javascript"/>
+      </choose>
+    </alternative>
+    <alternative condition="No High Risk" language="text/javascript"/>
+  </choose>
+</description>

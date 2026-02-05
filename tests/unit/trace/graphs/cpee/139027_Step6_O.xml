@@ -1,0 +1,84 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Register Claim</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="a3">
+    <parameters>
+      <label>Examine Claim</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <loop mode="pre_test" condition="true">
+    <choose mode="exclusive" a:alt_id="gw1e">
+      <alternative condition="true" language="text/javascript">
+        <call id="a9" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Write Settlement Recommendation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="0">
+          <alternative condition="">
+            <choose mode="exclusive" a:alt_id="gw3s">
+              <alternative condition="">
+                <call id="a19" endpoint="" a:alt_id="a9">
+                  <parameters>
+                    <label>Proceed Claim Handling</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="Not OK" language="text/javascript">
+                <call id="a23" endpoint="" a:alt_id="a11">
+                  <parameters>
+                    <label>Repeat Recommendation</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="gw4s">
+                  <alternative condition="Condition" language="text/javascript"/>
+                  <alternative condition="Condition" language="text/javascript">
+                    <call id="a9" endpoint="" a:alt_id="a5">
+                      <parameters>
+                        <label>Write Settlement Recommendation</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </alternative>
+      <alternative condition="">
+        <call id="a45" endpoint="" a:alt_id="sendmail">
+          <parameters>
+            <label>Send Report via Email</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <escape a:alt_id="-1"/>
+      </alternative>
+    </choose>
+  </loop>
+</description>

@@ -1,0 +1,17 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Define Production Requirements)
+1:task:(Define Production Requirements) --> 2:task:(Design Biological Process)
+2:task:(Design Biological Process) --> 3:task:(Develop Production Protocol)
+3:task:(Develop Production Protocol) --> 4:task:(Conduct Pilot Production)
+4:task:(Conduct Pilot Production) --> 5:task:(Analyze Pilot Data)
+5:task:(Analyze Pilot Data) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Data Acceptable| 7:task:(Scale-Up Production)
+6:exclusivegateway:{x} --> |Data Inacceptable| 8:task:(Revise Production Protocol)
+8:task:(Revise Production Protocol) --> 4:task:(Conduct Pilot Production)
+7:task:(Scale-Up Production) --> 9:task:(Implement Production Run)
+9:task:(Implement Production Run) --> 10:task:(Quality Control)
+10:task:(Quality Control) --> 11:exclusivegateway:{x}
+11:exclusivegateway:{x} --> |Meets Standards| 12:task:(Package Product)
+11:exclusivegateway:{x} --> |Fails Standards| 13:task:(Investigate Deviation)
+13:task:(Investigate Deviation) --> 10:task:(Quality Control)
+12:task:(Package Product) --> 14:endevent:(((endevent)))

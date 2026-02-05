@@ -1,0 +1,20 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Fill Loan Application)
+a1:task:(Fill Loan Application)-->a:task:(A)
+a:task:(A)-->a3:task:(Submit Application)
+a3:task:(Submit Application)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Application Valid"|a7:task:(Verify Application)
+a7:task:(Verify Application)-->a11:task:(Check Credit Score)
+a11:task:(Check Credit Score)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Credit Score OK"|a17:task:(Approve Loan)
+a17:task:(Approve Loan)-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Credit Score Not OK"|a9:task:(Reject Application)
+a9:task:(Reject Application)-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Application Invalid"|a9:task:(Reject Application)
+a9:task:(Reject Application)-->gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

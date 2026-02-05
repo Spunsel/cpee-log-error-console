@@ -1,0 +1,11 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Design Product)
+1:task:(Design Product) --> 2:task:(Procure Raw Materials)
+2:task:(Procure Raw Materials) --> 3:task:(Manufacture Product)
+3:task:(Manufacture Product) --> 4:task:(Test Product)
+4:task:(Test Product) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> |Pass| 6:task:(Package Product)
+5:exclusivegateway:{x} --> |Fail| 7:task:(Redesign Product)
+7:task:(Redesign Product) --> 3:task:(Manufacture Product)
+6:task:(Package Product) --> 8:exclusivegateway:{x}
+8:exclusivegateway:{x} --> 9:endevent:(((endevent)))

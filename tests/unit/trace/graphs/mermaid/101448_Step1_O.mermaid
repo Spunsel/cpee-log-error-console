@@ -1,0 +1,24 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Personal Data Breach Occurs)
+1:task:(Personal Data Breach Occurs) --> 2:task:(Processor Notifies Controller)
+2:task:(Processor Notifies Controller) --> 3:task:(Controller Assesses Breach)
+3:task:(Controller Assesses Breach) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Breach results in a risk|5:task:(Notify Supervisory Authority within 72 hours)
+4:exclusivegateway:{x} --> |Breach is unlikely to result in a risk|17:task:(Document the personal data breach)
+5:task:(Notify Supervisory Authority within 72 hours) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Notification within 72 hours|7:task:(Provide Breach Details to Authority)
+6:exclusivegateway:{x} --> |Notification not within 72 hours|8:task:(Provide Reasons for Delay)
+7:task:(Provide Breach Details to Authority) --> 17:task:(Document the personal data breach)
+8:task:(Provide Reasons for Delay) --> 7:task:(Provide Breach Details to Authority)
+17:task:(Document the personal data breach) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> |High risk to data subject|10:task:(Communicate Breach to Data Subject)
+9:exclusivegateway:{x} --> |Not high risk to data subject|16:exclusivegateway:{x}
+10:task:(Communicate Breach to Data Subject) --> 16:exclusivegateway:{x}
+16:exclusivegateway:{x} --> |Conditions for communication are met|11:task:(Implement Protection Measures)
+16:exclusivegateway:{x} --> |High risk is no longer likely|12:task:(Take Subsequent Measures)
+16:exclusivegateway:{x} --> |Disproportionate effort|13:task:(Public Communication)
+11:task:(Implement Protection Measures) --> 15:exclusivegateway:{x}
+12:task:(Take Subsequent Measures) --> 15:exclusivegateway:{x}
+13:task:(Public Communication) --> 15:exclusivegateway:{x}
+15:exclusivegateway:{x} --> 14:task:(Supervisory Authority May Require Communication)
+14:task:(Supervisory Authority May Require Communication) --> 18:endevent:(((endevent)))

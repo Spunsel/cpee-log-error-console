@@ -1,0 +1,11 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Design separation process)
+1:task:(Design separation process) --> 2:task:(Select separation technique)
+2:task:(Select separation technique) --> 3:task:(Model the separation process)
+3:task:(Model the separation process) --> 4:task:(Simulate the process)
+4:task:(Simulate the process) --> 5:task:(Analyze simulation results)
+5:task:(Analyze simulation results) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Meets requirements| 8:task:(Implement the model)
+6:exclusivegateway:{x} --> |Does not meet requirements| 7:task:(Refine the model)
+7:task:(Refine the model) --> 3:task:(Model the separation process)
+8:task:(Implement the model) --> 9:endevent:(((endevent)))

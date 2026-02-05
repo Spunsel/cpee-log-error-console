@@ -1,0 +1,95 @@
+flowchart LR
+se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a3:task:(Kunde wird zum Tisch begleitet)
+a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
+a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an Küche weiterleiten)
+a19:task:(Bestellung an Küche weiterleiten)-->a21:task:(Pizza zubereiten)
+a21:task:(Pizza zubereiten)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Zutaten bereit"|gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+a27:task:(Zutaten vorbereiten)-->gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->|"Zutaten bereit"|gw5e:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+a27:task:(Zutaten vorbereiten)-->gw6s:exclusivegateway:{x}
+gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+gw5e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
+gw7s:exclusivegateway:{x}-->|"Zutaten bereit"|gw7e:exclusivegateway:{x}
+gw7s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+a27:task:(Zutaten vorbereiten)-->gw8s:exclusivegateway:{x}
+gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+gw8e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+gw7e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->a25:task:(Pizza backen)
+a25:task:(Pizza backen)-->a31:task:(Pizza servieren)
+a31:task:(Pizza servieren)-->a33:task:(Bezahlen und verlassen)
+a33:task:(Bezahlen und verlassen)-->gw9s:exclusivegateway:{x}
+gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+gw9e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Keine Reservierung"|gw10s:exclusivegateway:{x}
+gw10s:exclusivegateway:{x}-->a3:task:(Kunde wird zum Tisch begleitet)
+a21:task:(Pizza zubereiten)-->gw11s:exclusivegateway:{x}
+gw11s:exclusivegateway:{x}-->gw12s:exclusivegateway:{x}
+gw12s:exclusivegateway:{x}-->|"Zutaten bereit"|gw12e:exclusivegateway:{x}
+gw12s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+a27:task:(Zutaten vorbereiten)-->gw13s:exclusivegateway:{x}
+gw13s:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+gw13e:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
+gw12e:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+gw11s:exclusivegateway:{x}-->gw14s:exclusivegateway:{x}
+gw14s:exclusivegateway:{x}-->|"Zutaten bereit"|gw14e:exclusivegateway:{x}
+gw14s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+a27:task:(Zutaten vorbereiten)-->gw15s:exclusivegateway:{x}
+gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+gw15e:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
+gw14e:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+gw11s:exclusivegateway:{x}-->gw16s:exclusivegateway:{x}
+gw16s:exclusivegateway:{x}-->|"Zutaten bereit"|gw16e:exclusivegateway:{x}
+gw16s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+a27:task:(Zutaten vorbereiten)-->gw17s:exclusivegateway:{x}
+gw17s:exclusivegateway:{x}-->gw17e:exclusivegateway:{x}
+gw17e:exclusivegateway:{x}-->gw16e:exclusivegateway:{x}
+gw16e:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+gw11e:exclusivegateway:{x}-->a25:task:(Pizza backen)
+a33:task:(Bezahlen und verlassen)-->gw18s:exclusivegateway:{x}
+gw18s:exclusivegateway:{x}-->gw18e:exclusivegateway:{x}
+gw18e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+gw10s:exclusivegateway:{x}-->|"Kein Tisch frei"|gw19s:exclusivegateway:{x}
+gw19s:exclusivegateway:{x}-->a13:task:(Warten bis Tisch frei)
+a13:task:(Warten bis Tisch frei)-->a3:task:(Kunde wird zum Tisch begleitet)
+a21:task:(Pizza zubereiten)-->gw20s:exclusivegateway:{x}
+gw20s:exclusivegateway:{x}-->gw21s:exclusivegateway:{x}
+gw21s:exclusivegateway:{x}-->|"Zutaten bereit"|gw21e:exclusivegateway:{x}
+gw21s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+a27:task:(Zutaten vorbereiten)-->gw22s:exclusivegateway:{x}
+gw22s:exclusivegateway:{x}-->gw22e:exclusivegateway:{x}
+gw22e:exclusivegateway:{x}-->gw21e:exclusivegateway:{x}
+gw21e:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+gw20s:exclusivegateway:{x}-->gw23s:exclusivegateway:{x}
+gw23s:exclusivegateway:{x}-->|"Zutaten bereit"|gw23e:exclusivegateway:{x}
+gw23s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+a27:task:(Zutaten vorbereiten)-->gw24s:exclusivegateway:{x}
+gw24s:exclusivegateway:{x}-->gw24e:exclusivegateway:{x}
+gw24e:exclusivegateway:{x}-->gw23e:exclusivegateway:{x}
+gw23e:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+gw20s:exclusivegateway:{x}-->gw25s:exclusivegateway:{x}
+gw25s:exclusivegateway:{x}-->|"Zutaten bereit"|gw25e:exclusivegateway:{x}
+gw25s:exclusivegateway:{x}-->|"Zutaten fehlen"|a27:task:(Zutaten vorbereiten)
+a27:task:(Zutaten vorbereiten)-->gw26s:exclusivegateway:{x}
+gw26s:exclusivegateway:{x}-->gw26e:exclusivegateway:{x}
+gw26e:exclusivegateway:{x}-->gw25e:exclusivegateway:{x}
+gw25e:exclusivegateway:{x}-->gw20e:exclusivegateway:{x}
+gw20e:exclusivegateway:{x}-->a25:task:(Pizza backen)
+a33:task:(Bezahlen und verlassen)-->gw27s:exclusivegateway:{x}
+gw27s:exclusivegateway:{x}-->gw27e:exclusivegateway:{x}
+gw27e:exclusivegateway:{x}-->gw19e:exclusivegateway:{x}
+gw19s:exclusivegateway:{x}-->|"Gehen"|gw19e:exclusivegateway:{x}
+gw19e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+gw10e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

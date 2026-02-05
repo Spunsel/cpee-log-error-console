@@ -1,0 +1,25 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Conduct Feasibility Study)
+1:task:(Conduct Feasibility Study) --> 2:task:(Perform Site Survey)
+2:task:(Perform Site Survey) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Feasible| 4:task:(Develop Initial Design)
+3:exclusivegateway:{x} --> |Not Feasible| 20:endevent:(((endevent)))
+4:task:(Develop Initial Design) --> 5:task:(Obtain Environmental Permits)
+5:task:(Obtain Environmental Permits) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Permits Approved| 7:task:(Finalize Bridge Design)
+6:exclusivegateway:{x} --> |Permits Rejected| 20:endevent:(((endevent)))
+7:task:(Finalize Bridge Design) --> 8:task:(Procure Materials)
+8:task:(Procure Materials) --> 9:task:(Construct Bridge Foundations)
+9:task:(Construct Bridge Foundations) --> 10:task:(Erect Bridge Towers)
+10:task:(Erect Bridge Towers) --> 11:task:(Suspend Main Cables)
+11:task:(Suspend Main Cables) --> 12:task:(Install Decking)
+12:task:(Install Decking) --> 13:task:(Install Suspension System)
+13:task:(Install Suspension System) --> 14:task:(Install Safety Features)
+14:task:(Install Safety Features) --> 15:task:(Conduct Load Testing)
+15:task:(Conduct Load Testing) --> 16:exclusivegateway:{x}
+16:exclusivegateway:{x} --> |Passes Tests| 17:task:(Final Inspection)
+16:exclusivegateway:{x} --> |Fails Tests| 12:task:(Install Decking)
+17:task:(Final Inspection) --> 18:exclusivegateway:{x}
+18:exclusivegateway:{x} --> |Approved| 19:task:(Open Bridge to Traffic)
+18:exclusivegateway:{x} --> |Rejected| 12:task:(Install Decking)
+19:task:(Open Bridge to Traffic) --> 20:endevent:(((endevent)))

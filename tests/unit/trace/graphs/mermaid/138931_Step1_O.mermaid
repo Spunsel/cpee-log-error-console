@@ -1,0 +1,15 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Receive Application)
+1:task:(Receive Application) --> 2:task:(Review Application)
+2:task:(Review Application) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Approved| 4:task:(Background Check)
+3:exclusivegateway:{x} --> |Rejected| 12:task:(Notify Rejection)
+4:task:(Background Check) --> 5:task:(Schedule Interview)
+5:task:(Schedule Interview) --> 6:task:(Conduct Interview)
+6:task:(Conduct Interview) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Hire| 8:task:(Prepare Offer Letter)
+7:exclusivegateway:{x} --> |Reject| 12:task:(Notify Rejection)
+8:task:(Prepare Offer Letter) --> 9:task:(Send Offer Letter)
+9:task:(Send Offer Letter) --> 10:task:(Onboarding Tasks)
+10:task:(Onboarding Tasks) --> 11:endevent:(((endevent)))
+12:task:(Notify Rejection) --> 11:endevent:(((endevent)))

@@ -1,0 +1,121 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Personal Data Breach Occurs</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Processor Notifies Controller</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a5" endpoint="" a:alt_id="3">
+    <parameters>
+      <label>Controller Assesses Breach</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="4">
+    <alternative condition="">
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Notify Supervisory Authority within 72 hours</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="Notification within 72 hours" language="text/javascript"/>
+        <alternative condition="Notification not within 72 hours" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Provide Reasons for Delay</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Provide Breach Details to Authority</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Breach is unlikely to result in a risk" language="text/javascript"/>
+  </choose>
+  <call id="a11" endpoint="" a:alt_id="17">
+    <parameters>
+      <label>Document the personal data breach</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="9">
+    <alternative condition="High risk to data subject" language="text/javascript">
+      <call id="a25" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Communicate Breach to Data Subject</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Not high risk to data subject" language="text/javascript"/>
+  </choose>
+  <choose mode="exclusive" a:alt_id="16">
+    <alternative condition="Conditions for communication are met" language="text/javascript">
+      <call id="a31" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Implement Protection Measures</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="High risk is no longer likely" language="text/javascript">
+      <call id="a33" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Take Subsequent Measures</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="Disproportionate effort" language="text/javascript">
+      <call id="a35" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Public Communication</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+  <call id="a43" endpoint="" a:alt_id="14">
+    <parameters>
+      <label>Supervisory Authority May Require Communication</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>

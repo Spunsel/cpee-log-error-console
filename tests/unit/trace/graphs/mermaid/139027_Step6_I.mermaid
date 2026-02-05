@@ -1,0 +1,22 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Register Claim)
+a1:task:(Register Claim)-->a3:task:(Examine Claim)
+a3:task:(Examine Claim)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->|"true"|a5:task:(Write Settlement Recommendation)
+a5:task:(Write Settlement Recommendation)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->a9:task:(Proceed Claim Handling)
+a9:task:(Proceed Claim Handling)-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"Not OK"|a11:task:(Repeat Recommendation)
+a11:task:(Repeat Recommendation)-->gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->|"Condition"|a5:task:(Write Settlement Recommendation)
+a5:task:(Write Settlement Recommendation)-->gw4e:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->|"Condition"|gw5s:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+-1:escalate:((^))-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

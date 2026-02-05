@@ -121,16 +121,10 @@ describe('Trace Calculation Instance Cases', () => {
                 
                 if (comparisonResult.uniqueCPEETraces.length > 0) {
                     errorDetails.push(`  Unmatched CPEE traces: ${comparisonResult.uniqueCPEETraces.length}`);
-                    comparisonResult.uniqueCPEETraces.forEach((trace, idx) => {
-                        errorDetails.push(`    [${idx}] Sequence: ${trace.sequence.join(' -> ')}`);
-                    });
                 }
                 
                 if (comparisonResult.uniqueMermaidTraces.length > 0) {
                     errorDetails.push(`  Unmatched Mermaid traces: ${comparisonResult.uniqueMermaidTraces.length}`);
-                    comparisonResult.uniqueMermaidTraces.forEach((trace, idx) => {
-                        errorDetails.push(`    [${idx}] Sequence: ${trace.sequence.join(' -> ')}`);
-                    });
                 }
 
                 assert.fail(errorDetails.join('\n'));

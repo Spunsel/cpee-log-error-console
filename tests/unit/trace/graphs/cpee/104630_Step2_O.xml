@@ -1,0 +1,116 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <loop mode="pre_test" condition="true">
+    <call id="a1" endpoint="" a:alt_id="a1">
+      <parameters>
+        <label>Collect requirements</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a3" endpoint="" a:alt_id="a3">
+      <parameters>
+        <label>Send requirements to architect</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a5" endpoint="" a:alt_id="a5">
+      <parameters>
+        <label>Receive draft from architect</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="Refine draft" a:alt_id="gw1s" language="text/javascript">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Collect requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send requirements to architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive draft from architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </loop>
+    <call id="a11" endpoint="" a:alt_id="a9">
+      <parameters>
+        <label>Create materials list</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+      <parallel_branch>
+        <call id="a15" endpoint="" a:alt_id="a13">
+          <parameters>
+            <label>Order materials from online stores</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </parallel_branch>
+      <parallel_branch>
+        <call id="a19" endpoint="" a:alt_id="a15">
+          <parameters>
+            <label>Send messages to friends</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </parallel_branch>
+    </parallel>
+    <call id="a23" endpoint="" a:alt_id="a21">
+      <parameters>
+        <label>Build tree house</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a25" endpoint="" a:alt_id="a23">
+      <parameters>
+        <label>Send party invitations</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a27" endpoint="" a:alt_id="a25">
+      <parameters>
+        <label>Create attendee list</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a29" endpoint="" a:alt_id="a27">
+      <parameters>
+        <label>Buy snacks for party</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+  </loop>
+</description>

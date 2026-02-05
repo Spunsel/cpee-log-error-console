@@ -1,0 +1,17 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Collect requirements)
+a1:task:(Collect requirements)-->a3:task:(Send requirements to architect)
+a3:task:(Send requirements to architect)-->a5:task:(Receive draft from architect)
+a5:task:(Receive draft from architect)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|Refine draft| a1:task:(Collect requirements)
+gw1s:exclusivegateway:{x}-->|Draft accepted| a9:task:(Create materials list)
+a9:task:(Create materials list)-->gw2s:parallelgateway:{AND}
+gw2s:parallelgateway:{AND}-->a13:task:(Order materials from online stores)
+a13:task:(Order materials from online stores)-->gw2e:parallelgateway:{AND}
+gw2s:parallelgateway:{AND}-->a15:task:(Send messages to friends)
+a15:task:(Send messages to friends)-->gw2e:parallelgateway:{AND}
+gw2e:parallelgateway:{AND}-->a21:task:(Build tree house)
+a21:task:(Build tree house)-->a23:task:(Send party invitations)
+a23:task:(Send party invitations)-->a25:task:(Create attendee list)
+a25:task:(Create attendee list)-->a27:task:(Buy snacks for party)
+a27:task:(Buy snacks for party)-->ee:endevent:((endevent))

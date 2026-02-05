@@ -1,0 +1,14 @@
+flowchart LR
+se:startevent:((startevent)) --> a1:task:(需求部门经办人发起)
+a1:task:(需求部门经办人发起) --> ex1:exclusivegateway:{x}
+ex1:exclusivegateway:{x} --> |是| a2:task:(需求部门资产管理员审批)
+ex1:exclusivegateway:{x} --> |否| a3:task:(归口管理部门经办人审批)
+a2:task:(需求部门资产管理员审批) --> ex2:exclusivegateway:{x}
+ex2:exclusivegateway:{x} --> |是| a3:task:(归口管理部门经办人审批)
+ex2:exclusivegateway:{x} --> |否| a4:task:(归口管理部门负责人审批)
+a3:task:(归口管理部门经办人审批) --> a4:task:(归口管理部门负责人审批)
+a4:task:(归口管理部门负责人审批) --> ee:endevent:(((endevent)))
+a1:task:(需求部门经办人发起) --> |驳回| ee:endevent:(((endevent)))
+a2:task:(需求部门资产管理员审批) --> |驳回| ee:endevent:(((endevent)))
+a3:task:(归口管理部门经办人审批) --> |驳回| ee:endevent:(((endevent)))
+a4:task:(归口管理部门负责人审批) --> |驳回| ee:endevent:(((endevent)))

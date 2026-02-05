@@ -1,0 +1,139 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Receive Order</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="a3">
+    <parameters>
+      <label>Define Properties</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+    <parallel_branch>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Order Guide Bar</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Order Chain</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="a15" endpoint="" a:alt_id="a15">
+        <parameters>
+          <label>Order Motor/Electric Components</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+  </parallel>
+  <loop mode="pre_test" condition="true">
+    <call id="a19" endpoint="" a:alt_id="a19">
+      <parameters>
+        <label>Inspect Parts</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="Parts Bad">
+      <call id="a15" endpoint="" a:alt_id="a15">
+        <parameters>
+          <label>Order Motor/Electric Components</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a19" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Inspect Parts</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <escape a:alt_id="-1"/>
+        </alternative>
+      </choose>
+    </loop>
+    <call id="a23" endpoint="" a:alt_id="a21">
+      <parameters>
+        <label>Assemble Chainsaw</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a27" endpoint="" a:alt_id="a23">
+      <parameters>
+        <label>Send Updates to Customer</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a29" endpoint="" a:alt_id="a25">
+      <parameters>
+        <label>Produce First Saw</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a31" endpoint="" a:alt_id="a27">
+      <parameters>
+        <label>Send First Saw to Customer</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <choose mode="exclusive" a:alt_id="gw2s">
+      <alternative condition="Customer Likes It" language="text/javascript">
+        <call id="a35" endpoint="" a:alt_id="a31">
+          <parameters>
+            <label>Produce Rest of Order</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </alternative>
+      <alternative condition="Customer Doesn't Like It" language="text/javascript">
+        <call id="a39" endpoint="" a:alt_id="a35">
+          <parameters>
+            <label>Adjust Production</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </alternative>
+    </choose>
+  </loop>
+</description>

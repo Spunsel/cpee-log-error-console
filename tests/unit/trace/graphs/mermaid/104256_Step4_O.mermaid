@@ -1,0 +1,88 @@
+graph LR
+se:startevent:((startevent)) --> gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x} --> a3:task:(Seat Customer)
+a3:task:(Seat Customer) --> a5:task:(Get Order)
+a5:task:(Get Order) --> a7:task:(Receive Payment)
+a7:task:(Receive Payment) --> gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x} --> gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x} --> |"Pizza on Menu"| gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x} --> |"Pizza not on Menu"| a13:task:(Inform Cook)
+a13:task:(Inform Cook) --> gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x} --> gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x} --> gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x} --> gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x} --> gw5s:exclusivegateway:{x}
+gw5s:exclusivegateway:{x} --> |"Pizza on Menu"| gw5e:exclusivegateway:{x}
+gw5s:exclusivegateway:{x} --> |"Pizza not on Menu"| a13:task:(Inform Cook)
+a13:task:(Inform Cook) --> gw6s:exclusivegateway:{x}
+gw6s:exclusivegateway:{x} --> gw6e:exclusivegateway:{x}
+gw6e:exclusivegateway:{x} --> gw5e:exclusivegateway:{x}
+gw5e:exclusivegateway:{x} --> gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x} --> a17:task:(Make Pizza)
+a17:task:(Make Pizza) --> a19:task:(Bake Pizza)
+a19:task:(Bake Pizza) --> gw7s:exclusivegateway:{x}
+gw7s:exclusivegateway:{x} --> gw8s:exclusivegateway:{x}
+gw8s:exclusivegateway:{x} --> |"Ingredients Available"| a23:task:(Serve Pizza)
+a23:task:(Serve Pizza) --> gw9s:exclusivegateway:{x}
+gw9s:exclusivegateway:{x} --> gw9e:exclusivegateway:{x}
+gw9e:exclusivegateway:{x} --> gw8e:exclusivegateway:{x}
+gw8s:exclusivegateway:{x} --> |"Ingredients Unavailable"| a27:task:(Inform Customer)
+a27:task:(Inform Customer) --> gw10s:exclusivegateway:{x}
+gw10s:exclusivegateway:{x} --> gw10e:exclusivegateway:{x}
+gw10e:exclusivegateway:{x} --> gw8e:exclusivegateway:{x}
+gw8e:exclusivegateway:{x} --> gw7e:exclusivegateway:{x}
+gw7s:exclusivegateway:{x} --> gw11s:exclusivegateway:{x}
+gw11s:exclusivegateway:{x} --> |"Ingredients Available"| a23:task:(Serve Pizza)
+a23:task:(Serve Pizza) --> gw12s:exclusivegateway:{x}
+gw12s:exclusivegateway:{x} --> gw12e:exclusivegateway:{x}
+gw12e:exclusivegateway:{x} --> gw11e:exclusivegateway:{x}
+gw11s:exclusivegateway:{x} --> |"Ingredients Unavailable"| a27:task:(Inform Customer)
+a27:task:(Inform Customer) --> gw13s:exclusivegateway:{x}
+gw13s:exclusivegateway:{x} --> gw13e:exclusivegateway:{x}
+gw13e:exclusivegateway:{x} --> gw11e:exclusivegateway:{x}
+gw11e:exclusivegateway:{x} --> gw7e:exclusivegateway:{x}
+gw7e:exclusivegateway:{x} --> gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x} --> |"No seats available"| a33:task:(Inform Customer)
+a33:task:(Inform Customer) --> gw14s:exclusivegateway:{x}
+gw14s:exclusivegateway:{x} --> |"Customer waits"| a3:task:(Seat Customer)
+a7:task:(Receive Payment) --> gw15s:exclusivegateway:{x}
+gw15s:exclusivegateway:{x} --> gw16s:exclusivegateway:{x}
+gw16s:exclusivegateway:{x} --> |"Pizza on Menu"| gw16e:exclusivegateway:{x}
+gw16s:exclusivegateway:{x} --> |"Pizza not on Menu"| a13:task:(Inform Cook)
+a13:task:(Inform Cook) --> gw17s:exclusivegateway:{x}
+gw17s:exclusivegateway:{x} --> gw17e:exclusivegateway:{x}
+gw17e:exclusivegateway:{x} --> gw16e:exclusivegateway:{x}
+gw16e:exclusivegateway:{x} --> gw15e:exclusivegateway:{x}
+gw15s:exclusivegateway:{x} --> gw18s:exclusivegateway:{x}
+gw18s:exclusivegateway:{x} --> |"Pizza on Menu"| gw18e:exclusivegateway:{x}
+gw18s:exclusivegateway:{x} --> |"Pizza not on Menu"| a13:task:(Inform Cook)
+a13:task:(Inform Cook) --> gw19s:exclusivegateway:{x}
+gw19s:exclusivegateway:{x} --> gw19e:exclusivegateway:{x}
+gw19e:exclusivegateway:{x} --> gw18e:exclusivegateway:{x}
+gw18e:exclusivegateway:{x} --> gw15e:exclusivegateway:{x}
+gw15e:exclusivegateway:{x} --> a17:task:(Make Pizza)
+a19:task:(Bake Pizza) --> gw20s:exclusivegateway:{x}
+gw20s:exclusivegateway:{x} --> gw21s:exclusivegateway:{x}
+gw21s:exclusivegateway:{x} --> |"Ingredients Available"| a23:task:(Serve Pizza)
+a23:task:(Serve Pizza) --> gw22s:exclusivegateway:{x}
+gw22s:exclusivegateway:{x} --> gw22e:exclusivegateway:{x}
+gw22e:exclusivegateway:{x} --> gw21e:exclusivegateway:{x}
+gw21s:exclusivegateway:{x} --> |"Ingredients Unavailable"| a27:task:(Inform Customer)
+a27:task:(Inform Customer) --> gw23s:exclusivegateway:{x}
+gw23s:exclusivegateway:{x} --> gw23e:exclusivegateway:{x}
+gw23e:exclusivegateway:{x} --> gw21e:exclusivegateway:{x}
+gw21e:exclusivegateway:{x} --> gw20e:exclusivegateway:{x}
+gw20s:exclusivegateway:{x} --> gw24s:exclusivegateway:{x}
+gw24s:exclusivegateway:{x} --> |"Ingredients Available"| a23:task:(Serve Pizza)
+a23:task:(Serve Pizza) --> gw25s:exclusivegateway:{x}
+gw25s:exclusivegateway:{x} --> gw25e:exclusivegateway:{x}
+gw25e:exclusivegateway:{x} --> gw24e:exclusivegateway:{x}
+gw24s:exclusivegateway:{x} --> |"Ingredients Unavailable"| a27:task:(Inform Customer)
+a27:task:(Inform Customer) --> gw26s:exclusivegateway:{x}
+gw26s:exclusivegateway:{x} --> gw26e:exclusivegateway:{x}
+gw26e:exclusivegateway:{x} --> gw24e:exclusivegateway:{x}
+gw24e:exclusivegateway:{x} --> gw20e:exclusivegateway:{x}
+gw20e:exclusivegateway:{x} --> gw14e:exclusivegateway:{x}
+gw14s:exclusivegateway:{x} --> |"Customer leaves"| gw14e:exclusivegateway:{x}
+gw14e:exclusivegateway:{x} --> gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x} --> ee:endevent:(((endevent)))

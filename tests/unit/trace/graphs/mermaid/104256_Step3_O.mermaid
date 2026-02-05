@@ -1,0 +1,21 @@
+flowchart LR
+se:startevent:((startevent))-->a0:exclusivegateway:{x}
+a0:exclusivegateway:{x}-->|"Seats available"|a1:task:(Seat Customer)
+a1:task:(Seat Customer)-->a3:task:(Get Order)
+a3:task:(Get Order)-->a5:task:(Receive Payment)
+a5:task:(Receive Payment)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Pizza on Menu"|a7:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Pizza not on Menu"|a11:task:(Inform Cook)
+a11:task:(Inform Cook)-->a7:exclusivegateway:{x}
+a7:exclusivegateway:{x}-->a9:task:(Make Pizza)
+a9:task:(Make Pizza)-->a15:task:(Bake Pizza)
+a15:task:(Bake Pizza)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Ingredients Available"|a19:task:(Serve Pizza)
+a19:task:(Serve Pizza)-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Ingredients Unavailable"|a21:task:(Inform Customer)
+a21:task:(Inform Customer)-->gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+a0:exclusivegateway:{x}-->|"No seats available"|a23:task:(Inform Customer)
+a23:task:(Inform Customer)-->a24:exclusivegateway:{x}
+a24:exclusivegateway:{x}-->|"Customer waits"|a1:task:(Seat Customer)
+a24:exclusivegateway:{x}-->|"Customer leaves"|ee:endevent:

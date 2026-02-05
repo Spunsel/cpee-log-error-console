@@ -1,0 +1,61 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Register Claim</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Examine Claim</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <loop mode="pre_test" condition="true">
+    <call id="a5" endpoint="" a:alt_id="3">
+      <parameters>
+        <label>Write Settlement Recommendation</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="Not OK">
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Repeat Recommendation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Condition" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Write Settlement Recommendation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Condition" language="text/javascript">
+          <escape a:alt_id="-1"/>
+        </alternative>
+      </choose>
+    </loop>
+    <call id="a9" endpoint="" a:alt_id="5">
+      <parameters>
+        <label>Proceed Claim Handling</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+  </loop>
+</description>
