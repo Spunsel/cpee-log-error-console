@@ -1,0 +1,605 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 140613
+    cpee:name: Plain Instance
+    cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-02-04T15:07:27.397243+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Bioethanol Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prepare Raw Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Pretreatment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Hydrolysis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Fermentation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Separation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Dehydration</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Purification</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Waste Treatment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Quality Control</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: f4db1b6a57e96e1ef117f933bea2ddcaa06871bf
+  time:timestamp: '2026-02-04T15:08:07.846167+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f4db1b6a57e96e1ef117f933bea2ddcaa06871bf
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-02-04T15:08:07.846362+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f4db1b6a57e96e1ef117f933bea2ddcaa06871bf
+  cpee:exposition: |+
+    # User Input:
+    Create a bioethanol process
+
+  time:timestamp: '2026-02-04T15:08:07.846763+01:00'
+...
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f4db1b6a57e96e1ef117f933bea2ddcaa06871bf
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-04T15:08:07.846869+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f4db1b6a57e96e1ef117f933bea2ddcaa06871bf
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-04T15:08:07.846975+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f4db1b6a57e96e1ef117f933bea2ddcaa06871bf
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Initiate Bioethanol Process)
+        1:task:(Initiate Bioethanol Process) --> 2:task:(Prepare Raw Materials)
+        2:task:(Prepare Raw Materials) --> 3:task:(Pretreatment)
+        3:task:(Pretreatment) --> 4:task:(Hydrolysis)
+        4:task:(Hydrolysis) --> 5:task:(Fermentation)
+        5:task:(Fermentation) --> 6:task:(Separation)
+        6:task:(Separation) --> 7:task:(Dehydration)
+        7:task:(Dehydration) --> 8:task:(Purification)
+        8:task:(Purification) --> 9:task:(Waste Treatment)
+        9:task:(Waste Treatment) --> 10:task:(Quality Control)
+        10:task:(Quality Control) --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-04T15:08:07.847125+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f4db1b6a57e96e1ef117f933bea2ddcaa06871bf
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Bioethanol Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prepare Raw Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Pretreatment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Hydrolysis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Fermentation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Separation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Dehydration</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Purification</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Waste Treatment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Quality Control</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-04T15:08:07.847299+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Bioethanol Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prepare Raw Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Pretreatment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <manipulate id="a2" label="">
+        <code/>
+        <annotations>
+          <_logging_behavior>
+            <_exclude/>
+          </_logging_behavior>
+          <_context_data_analysis>
+            <probes/>
+          </_context_data_analysis>
+        </annotations>
+      </manipulate>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Hydrolysis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Fermentation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Separation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Dehydration</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Purification</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Waste Treatment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Quality Control</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: b52efbcfe106971f29dc27f668dab03f00f99e39
+  time:timestamp: '2026-02-04T15:08:29.805707+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: running
+  time:timestamp: '2026-02-04T15:09:33.862061+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopping
+  time:timestamp: '2026-02-04T15:09:33.886376+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopped
+  time:timestamp: '2026-02-04T15:09:33.917562+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Bioethanol Process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prepare Raw Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Pretreatment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Hydrolysis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Fermentation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Separation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Dehydration</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Purification</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Waste Treatment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Quality Control</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: f4db1b6a57e96e1ef117f933bea2ddcaa06871bf
+  time:timestamp: '2026-02-04T15:10:32.991826+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2026-02-04T15:10:56.523783+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopped
+  time:timestamp: '2026-02-04T15:10:57.508942+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2026-02-04T15:11:06.794987+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopped
+  time:timestamp: '2026-02-04T15:11:07.787405+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-02-04T15:11:13.812348+01:00'
+---
+event:
+  concept:instance: 140613
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4de09d68-2972-4be5-b5cc-dde5a7010c85
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopped
+  time:timestamp: '2026-02-04T15:11:13.867909+01:00'

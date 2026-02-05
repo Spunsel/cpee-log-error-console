@@ -1,0 +1,1302 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 140644
+    cpee:name: Plain Instance
+    cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-02-04T23:12:35.401745+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Approve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: fb01e0edbb3e0c7baa80ff945b86d3a55e4d68a7
+  time:timestamp: '2026-02-05T00:09:42.046680+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb01e0edbb3e0c7baa80ff945b86d3a55e4d68a7
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-02-05T00:09:42.046855+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb01e0edbb3e0c7baa80ff945b86d3a55e4d68a7
+  cpee:exposition: |-
+    # User Input:
+    Create a simple process with two tasks: Review and Approve
+  time:timestamp: '2026-02-05T00:09:42.046963+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb01e0edbb3e0c7baa80ff945b86d3a55e4d68a7
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-05T00:09:42.047053+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb01e0edbb3e0c7baa80ff945b86d3a55e4d68a7
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-05T00:09:42.047140+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb01e0edbb3e0c7baa80ff945b86d3a55e4d68a7
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Review)
+      1:task:(Review) --> 2:task:(Approve)
+      2:task:(Approve) --> 3:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-05T00:09:42.047291+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb01e0edbb3e0c7baa80ff945b86d3a55e4d68a7
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Approve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-05T00:09:42.047379+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Approve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="c">
+        <parameters>
+          <label>Complete</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: f0be347f42a44e8abea5753ab11ed93ae13c8fa4
+  time:timestamp: '2026-02-05T00:10:50.638168+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0be347f42a44e8abea5753ab11ed93ae13c8fa4
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Approve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-05T00:10:50.638349+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0be347f42a44e8abea5753ab11ed93ae13c8fa4
+  cpee:exposition: |-
+    # User Input:
+    Add a third task called "Complete"
+  time:timestamp: '2026-02-05T00:10:50.638776+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0be347f42a44e8abea5753ab11ed93ae13c8fa4
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-05T00:10:50.638942+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0be347f42a44e8abea5753ab11ed93ae13c8fa4
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Review)
+    a1:task:(Review)-->a3:task:(Approve)
+    a3:task:(Approve)-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-05T00:10:50.639064+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0be347f42a44e8abea5753ab11ed93ae13c8fa4
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Review)
+    a1:task:(Review)-->a3:task:(Approve)
+    a3:task:(Approve)-->c:task:(Complete)
+    c:task:(Complete)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-05T00:10:50.639172+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0be347f42a44e8abea5753ab11ed93ae13c8fa4
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Approve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="c">
+        <parameters>
+          <label>Complete</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-05T00:10:50.639455+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="eh">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 850282eb48b6f308e3150e82c48f450c664f0fcd
+  time:timestamp: '2026-02-05T00:12:13.504365+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 850282eb48b6f308e3150e82c48f450c664f0fcd
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Approve</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="c">
+        <parameters>
+          <label>Complete</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-05T00:12:13.504548+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 850282eb48b6f308e3150e82c48f450c664f0fcd
+  cpee:exposition: |-
+    # User Input:
+    Add error handling
+  time:timestamp: '2026-02-05T00:12:13.504652+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 850282eb48b6f308e3150e82c48f450c664f0fcd
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-05T00:12:13.504742+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 850282eb48b6f308e3150e82c48f450c664f0fcd
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Review)
+    a1:task:(Review)-->a3:task:(Approve)
+    a3:task:(Approve)-->a5:task:(Complete)
+    a5:task:(Complete)-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-05T00:12:13.504830+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 850282eb48b6f308e3150e82c48f450c664f0fcd
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Review)
+    a1:task:(Review)-->a3:task:(Approve)
+    a3:task:(Approve)-->a5:task:(Complete)
+    a5:task:(Complete)-->ee:endevent:(((endevent)))
+    a1:task: (Review) -->|Error| eh:task:(Handle Error)
+    eh:task:(Handle Error) --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-05T00:12:13.505013+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 850282eb48b6f308e3150e82c48f450c664f0fcd
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="eh">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-05T00:12:13.505111+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c8629cf0b7f252f9f28066c98c848676ad285e1a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="eh">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-05T00:12:44.757014+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Notify</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c8629cf0b7f252f9f28066c98c848676ad285e1a
+  time:timestamp: '2026-02-05T00:12:44.756553+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c8629cf0b7f252f9f28066c98c848676ad285e1a
+  cpee:exposition: |-
+    # User Input:
+    Add a notification step
+  time:timestamp: '2026-02-05T00:12:44.757135+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c8629cf0b7f252f9f28066c98c848676ad285e1a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-05T00:12:44.757222+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c8629cf0b7f252f9f28066c98c848676ad285e1a
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Review)
+    a1:task:(Review)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a3:task:(Approve)
+    a3:task:(Approve)-->a5:task:(Complete)
+    a5:task:(Complete)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a9:task:(Handle Error)
+    a9:task:(Handle Error)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-05T00:12:44.757393+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c8629cf0b7f252f9f28066c98c848676ad285e1a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Review)
+    a1:task:(Review)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a3:task:(Approve)
+    a3:task:(Approve)-->a4:task:(Notify)
+    a4:task:(Notify)-->a5:task:(Complete)
+    a5:task:(Complete)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a9:task:(Handle Error)
+    a9:task:(Handle Error)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-05T00:12:44.757488+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c8629cf0b7f252f9f28066c98c848676ad285e1a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Notify</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-05T00:12:44.757592+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Start Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Notify</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 830ca982e1eb8f9a44a1447bd4bba4511a408b19
+  time:timestamp: '2026-02-05T00:13:15.110202+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830ca982e1eb8f9a44a1447bd4bba4511a408b19
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Notify</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-05T00:13:15.110399+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830ca982e1eb8f9a44a1447bd4bba4511a408b19
+  cpee:exposition: |-
+    # User Input:
+    rename first task to Start Review
+  time:timestamp: '2026-02-05T00:13:15.110508+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830ca982e1eb8f9a44a1447bd4bba4511a408b19
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-05T00:13:15.110631+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830ca982e1eb8f9a44a1447bd4bba4511a408b19
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Review)
+    a1:task:(Review)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a5:task:(Approve)
+    a5:task:(Approve)-->a7:task:(Notify)
+    a7:task:(Notify)-->a9:task:(Complete)
+    a9:task:(Complete)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a13:task:(Handle Error)
+    a13:task:(Handle Error)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-05T00:13:15.110841+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830ca982e1eb8f9a44a1447bd4bba4511a408b19
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Start Review)
+    a1:task:(Start Review)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a5:task:(Approve)
+    a5:task:(Approve)-->a7:task:(Notify)
+    a7:task:(Notify)-->a9:task:(Complete)
+    a9:task:(Complete)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a13:task:(Handle Error)
+    a13:task:(Handle Error)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2026-02-05T00:13:15.111005+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830ca982e1eb8f9a44a1447bd4bba4511a408b19
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Start Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Notify</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-05T00:13:15.111136+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Notify</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 0b5ab28f6148b64bed1f391360bd6751ea607d84
+  time:timestamp: '2026-02-05T00:13:41.910009+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0b5ab28f6148b64bed1f391360bd6751ea607d84
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Notify</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-05T00:13:41.910227+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0b5ab28f6148b64bed1f391360bd6751ea607d84
+  cpee:exposition: |-
+    # User Input:
+    test
+  time:timestamp: '2026-02-05T00:13:41.910345+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0b5ab28f6148b64bed1f391360bd6751ea607d84
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-05T00:13:41.910516+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0b5ab28f6148b64bed1f391360bd6751ea607d84
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Review)
+    a1:task:(Review)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a5:task:(Approve)
+    a5:task:(Approve)-->a7:task:(Notify)
+    a7:task:(Notify)-->a9:task:(Complete)
+    a9:task:(Complete)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a13:task:(Handle Error)
+    a13:task:(Handle Error)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-05T00:13:41.910667+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0b5ab28f6148b64bed1f391360bd6751ea607d84
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Review)
+        a1:task:(Review)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|Approve|a5:task:(Approve)
+        a5:task:(Approve)-->a7:task:(Notify)
+        a7:task:(Notify)-->a9:task:(Complete)
+        a9:task:(Complete)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|Reject|a13:task:(Handle Error)
+        a13:task:(Handle Error)-->gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-05T00:13:41.910770+01:00'
+---
+event:
+  concept:instance: 140644
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f9b630c3-94be-4b07-9fca-4f61d823b3d6
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0b5ab28f6148b64bed1f391360bd6751ea607d84
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Review</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Approve</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Notify</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Complete</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Handle Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-05T00:13:41.910870+01:00'

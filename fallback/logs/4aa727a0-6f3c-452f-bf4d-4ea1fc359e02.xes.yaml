@@ -1,0 +1,2111 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 139378
+    cpee:name: Plain Instance
+    cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-02-03T15:25:50.601349+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Modell erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  time:timestamp: '2026-02-03T15:26:22.504674+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-02-03T15:26:22.504825+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: |-
+    # User Input:
+    erstelle ein modell fÃ¼r einen bioprozess
+  time:timestamp: '2026-02-03T15:26:22.504941+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-03T15:26:22.505057+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-03T15:26:22.505139+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Modell erstellen)
+    1:task:(Modell erstellen) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-03T15:26:22.505245+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85e86ced6a9f55deb7f5b782269fcd125a5acb4f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Modell erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-03T15:26:22.505338+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-02-03T15:26:34.101201+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Modell erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-03T15:26:34.102386+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete model
+  time:timestamp: '2026-02-03T15:26:34.102772+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-03T15:26:34.103035+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Modell erstellen)
+    a1:task:(Modell erstellen)-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-03T15:26:34.103141+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-03T15:26:34.103222+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-03T15:26:34.103296+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Start Self Driving Labs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="Condition A">
+        <choose mode="exclusive" a:alt_id="2">
+          <alternative condition="Condition A" language="text/javascript">
+            <call id="a5" endpoint="" a:alt_id="3">
+              <parameters>
+                <label>Conduct Research</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Condition B" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Develop Prototype</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Test System</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Fail" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Refine System</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Pass" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Deploy System</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <escape a:alt_id="-1"/>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: ac26fb954d2e27c19734cfdb68afcd28183e990f
+  time:timestamp: '2026-02-03T15:27:05.406495+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac26fb954d2e27c19734cfdb68afcd28183e990f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-03T15:27:05.406692+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac26fb954d2e27c19734cfdb68afcd28183e990f
+  cpee:exposition: |-
+    # User Input:
+    erstelle ein prozessmodell fÃ¼r self driving labs
+  time:timestamp: '2026-02-03T15:27:05.406798+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac26fb954d2e27c19734cfdb68afcd28183e990f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-03T15:27:05.406946+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac26fb954d2e27c19734cfdb68afcd28183e990f
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-03T15:27:05.407084+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac26fb954d2e27c19734cfdb68afcd28183e990f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Start Self Driving Labs)
+        1:task:(Start Self Driving Labs) --> 2:exclusivegateway:{x}
+        2:exclusivegateway:{x} --> |Condition A| 3:task:(Conduct Research)
+        2:exclusivegateway:{x} --> |Condition B| 4:task:(Develop Prototype)
+        3:task:(Conduct Research) --> 5:exclusivegateway:{x}
+        4:task:(Develop Prototype) --> 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> 6:task:(Test System)
+        6:task:(Test System) --> 7:exclusivegateway:{x}
+        7:exclusivegateway:{x} --> |Pass| 8:task:(Deploy System)
+        7:exclusivegateway:{x} --> |Fail| 9:task:(Refine System)
+        8:task:(Deploy System) --> 10:endevent:(((endevent)))
+        9:task:(Refine System) --> 2:exclusivegateway:{x}
+    ```
+  time:timestamp: '2026-02-03T15:27:05.407193+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac26fb954d2e27c19734cfdb68afcd28183e990f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Start Self Driving Labs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="Condition A">
+        <choose mode="exclusive" a:alt_id="2">
+          <alternative condition="Condition A" language="text/javascript">
+            <call id="a5" endpoint="" a:alt_id="3">
+              <parameters>
+                <label>Conduct Research</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Condition B" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Develop Prototype</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Test System</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Fail" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Refine System</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Pass" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Deploy System</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <escape a:alt_id="-1"/>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-03T15:27:05.407281+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-02-03T15:27:34.500893+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Start Self Driving Labs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="Condition A">
+        <choose mode="exclusive" a:alt_id="2">
+          <alternative condition="Condition A" language="text/javascript">
+            <call id="a5" endpoint="" a:alt_id="3">
+              <parameters>
+                <label>Conduct Research</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Condition B" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Develop Prototype</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Test System</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Fail" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Refine System</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Pass" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Deploy System</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <escape a:alt_id="-1"/>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-03T15:27:34.501059+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |+
+    # User Input:
+    delete model
+
+  time:timestamp: '2026-02-03T15:27:34.501173+01:00'
+...
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-03T15:27:34.501284+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Start Self Driving Labs)
+    a1:task:(Start Self Driving Labs)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Condition A"|a5:task:(Conduct Research)
+    a5:task:(Conduct Research)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Condition B"|a7:task:(Develop Prototype)
+    a7:task:(Develop Prototype)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a13:task:(Test System)
+    a13:task:(Test System)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Fail"|a19:task:(Refine System)
+    a19:task:(Refine System)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Pass"|a17:task:(Deploy System)
+    a17:task:(Deploy System)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-03T15:27:34.501382+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2026-02-03T15:27:34.501494+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-03T15:27:34.501574+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Cell Harvest</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 9e248649a38fd4f0501fb825544f14c2b552b07f
+  time:timestamp: '2026-02-03T15:27:52.371802+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e248649a38fd4f0501fb825544f14c2b552b07f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-03T15:27:52.372021+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e248649a38fd4f0501fb825544f14c2b552b07f
+  cpee:exposition: |-
+    # User Input:
+    create model for cell harvest
+  time:timestamp: '2026-02-03T15:27:52.372350+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e248649a38fd4f0501fb825544f14c2b552b07f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-03T15:27:52.372467+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e248649a38fd4f0501fb825544f14c2b552b07f
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-03T15:27:52.372560+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e248649a38fd4f0501fb825544f14c2b552b07f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Cell Harvest)
+    1:task:(Cell Harvest) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-03T15:27:52.372649+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e248649a38fd4f0501fb825544f14c2b552b07f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Cell Harvest</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-03T15:27:52.372739+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-02-03T15:28:10.852500+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Cell Harvest</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-03T15:28:10.852641+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete model
+  time:timestamp: '2026-02-03T15:28:10.852975+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-03T15:28:10.853092+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Cell Harvest)
+    a1:task:(Cell Harvest)-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-03T15:28:10.854822+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2026-02-03T15:28:10.854986+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-03T15:28:10.855148+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Design separation process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Select separation technique</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Model the separation process</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Simulate the process</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Analyze simulation results</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Does not meet requirements" a:alt_id="6" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Refine the model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Model the separation process</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Simulate the process</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Analyze simulation results</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a13" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Implement the model</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: 12199bcc00022c2d1b8ae7c3d58b71475b654bb3
+  time:timestamp: '2026-02-03T15:28:21.627124+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12199bcc00022c2d1b8ae7c3d58b71475b654bb3
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-03T15:28:21.627491+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12199bcc00022c2d1b8ae7c3d58b71475b654bb3
+  cpee:exposition: |-
+    # User Input:
+    create model for solid-liquid separation
+  time:timestamp: '2026-02-03T15:28:21.627731+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12199bcc00022c2d1b8ae7c3d58b71475b654bb3
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-03T15:28:21.627991+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12199bcc00022c2d1b8ae7c3d58b71475b654bb3
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-03T15:28:21.628232+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12199bcc00022c2d1b8ae7c3d58b71475b654bb3
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Design separation process)
+    1:task:(Design separation process) --> 2:task:(Select separation technique)
+    2:task:(Select separation technique) --> 3:task:(Model the separation process)
+    3:task:(Model the separation process) --> 4:task:(Simulate the process)
+    4:task:(Simulate the process) --> 5:task:(Analyze simulation results)
+    5:task:(Analyze simulation results) --> 6:exclusivegateway:{x}
+    6:exclusivegateway:{x} --> |Meets requirements| 8:task:(Implement the model)
+    6:exclusivegateway:{x} --> |Does not meet requirements| 7:task:(Refine the model)
+    7:task:(Refine the model) --> 3:task:(Model the separation process)
+    8:task:(Implement the model) --> 9:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-03T15:28:21.628536+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12199bcc00022c2d1b8ae7c3d58b71475b654bb3
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Design separation process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Select separation technique</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Model the separation process</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Simulate the process</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Analyze simulation results</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Does not meet requirements" a:alt_id="6" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Refine the model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Model the separation process</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Simulate the process</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Analyze simulation results</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a13" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Implement the model</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-02-03T15:28:21.628989+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Design separation process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Select separation technique</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Model the separation process</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="0">
+          <alternative condition="">
+            <call id="a11" endpoint="" a:alt_id="a7">
+              <parameters>
+                <label>Simulate the process</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a9">
+              <parameters>
+                <label>Analyze simulation results</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw2s">
+              <alternative condition="">
+                <call id="a17" endpoint="" a:alt_id="a13">
+                  <parameters>
+                    <label>Implement the model</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="Does not meet requirements" language="text/javascript">
+                <call id="a21" endpoint="" a:alt_id="a15">
+                  <parameters>
+                    <label>Refine the model</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Model the separation process</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: 819fd496b92bc29287b3057cad53c47b6b74d87f
+  time:timestamp: '2026-02-03T15:30:03.110299+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 819fd496b92bc29287b3057cad53c47b6b74d87f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Design separation process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Select separation technique</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Model the separation process</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Simulate the process</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Analyze simulation results</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Does not meet requirements" a:alt_id="6" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Refine the model</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Model the separation process</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Simulate the process</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Analyze simulation results</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a13" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Implement the model</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-02-03T15:30:03.110487+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 819fd496b92bc29287b3057cad53c47b6b74d87f
+  cpee:exposition: |-
+    # User Input:
+    delete model
+  time:timestamp: '2026-02-03T15:30:03.110600+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 819fd496b92bc29287b3057cad53c47b6b74d87f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-03T15:30:03.110693+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 819fd496b92bc29287b3057cad53c47b6b74d87f
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Design separation process)
+    a1:task:(Design separation process)-->a3:task:(Select separation technique)
+    a3:task:(Select separation technique)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a5:task:(Model the separation process)
+    a5:task:(Model the separation process)-->a7:task:(Simulate the process)
+    a7:task:(Simulate the process)-->a9:task:(Analyze simulation results)
+    a9:task:(Analyze simulation results)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a13:task:(Implement the model)
+    a13:task:(Implement the model)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Does not meet requirements"|a15:task:(Refine the model)
+    a15:task:(Refine the model)-->a5:task:(Model the separation process)
+    a5:task:(Model the separation process)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-03T15:30:03.110781+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 819fd496b92bc29287b3057cad53c47b6b74d87f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Design separation process)
+    a1:task:(Design separation process)-->a3:task:(Select separation technique)
+    a3:task:(Select separation technique)-->gw1s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"true"|a5:task:(Model the separation process)
+    a5:task:(Model the separation process)-->a7:task:(Simulate the process)
+    a7:task:(Simulate the process)-->a9:task:(Analyze simulation results)
+    a9:task:(Analyze simulation results)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a13:task:(Implement the model)
+    a13:task:(Implement the model)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Does not meet requirements"|a15:task:(Refine the model)
+    a15:task:(Refine the model)-->a5:task:(Model the separation process)
+    a5:task:(Model the separation process)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    ```
+  time:timestamp: '2026-02-03T15:30:03.110880+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 819fd496b92bc29287b3057cad53c47b6b74d87f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Design separation process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Select separation technique</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Model the separation process</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="0">
+          <alternative condition="">
+            <call id="a11" endpoint="" a:alt_id="a7">
+              <parameters>
+                <label>Simulate the process</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a9">
+              <parameters>
+                <label>Analyze simulation results</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw2s">
+              <alternative condition="">
+                <call id="a17" endpoint="" a:alt_id="a13">
+                  <parameters>
+                    <label>Implement the model</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="Does not meet requirements" language="text/javascript">
+                <call id="a21" endpoint="" a:alt_id="a15">
+                  <parameters>
+                    <label>Refine the model</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Model the separation process</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-02-03T15:30:03.110992+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-02-03T15:30:37.997317+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Design separation process</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Select separation technique</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Model the separation process</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="0">
+          <alternative condition="">
+            <call id="a11" endpoint="" a:alt_id="a7">
+              <parameters>
+                <label>Simulate the process</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a9">
+              <parameters>
+                <label>Analyze simulation results</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw2s">
+              <alternative condition="">
+                <call id="a17" endpoint="" a:alt_id="a13">
+                  <parameters>
+                    <label>Implement the model</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="Does not meet requirements" language="text/javascript">
+                <call id="a21" endpoint="" a:alt_id="a15">
+                  <parameters>
+                    <label>Refine the model</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Model the separation process</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-02-03T15:30:37.997464+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete everything
+  time:timestamp: '2026-02-03T15:30:37.997940+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-03T15:30:37.998066+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Design separation process)
+    a1:task:(Design separation process)-->a3:task:(Select separation technique)
+    a3:task:(Select separation technique)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a9:task:(Model the separation process)
+    a9:task:(Model the separation process)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a11:task:(Simulate the process)
+    a11:task:(Simulate the process)-->a13:task:(Analyze simulation results)
+    a13:task:(Analyze simulation results)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->a17:task:(Implement the model)
+    a17:task:(Implement the model)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Does not meet requirements"|a21:task:(Refine the model)
+    a21:task:(Refine the model)-->a9:task:(Model the separation process)
+    a9:task:(Model the separation process)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-03T15:30:37.998357+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    %% Output Intermediate
+    flowchart LR
+  time:timestamp: '2026-02-03T15:30:37.998460+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-03T15:30:37.998542+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Cell Suspension</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Choose Disruption Method</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="3">
+          <alternative condition="Homogenization" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Perform Homogenization</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Sonication" language="text/javascript">
+            <call id="a9" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Perform Sonication</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Enzymatic Lysis" language="text/javascript">
+            <call id="a11" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Perform Enzymatic Lysis</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+        <call id="a19" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Verify Cell Disruption</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="9" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Choose Disruption Method</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="3">
+            <alternative condition="Homogenization" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Perform Homogenization</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Sonication" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Perform Sonication</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Enzymatic Lysis" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Perform Enzymatic Lysis</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a19" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Verify Cell Disruption</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a23" endpoint="" a:alt_id="10">
+          <parameters>
+            <label>Collect Cell Lysate</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: a15aea2347bc070014f35b603a3e6888d9db20eb
+  time:timestamp: '2026-02-03T15:30:53.154517+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15aea2347bc070014f35b603a3e6888d9db20eb
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-03T15:30:53.154762+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15aea2347bc070014f35b603a3e6888d9db20eb
+  cpee:exposition: |-
+    # User Input:
+    create a process model for cell disruption
+  time:timestamp: '2026-02-03T15:30:53.155165+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15aea2347bc070014f35b603a3e6888d9db20eb
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-03T15:30:53.155388+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15aea2347bc070014f35b603a3e6888d9db20eb
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-03T15:30:53.155623+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15aea2347bc070014f35b603a3e6888d9db20eb
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Prepare Cell Suspension)
+    1:task:(Prepare Cell Suspension) --> 2:task:(Choose Disruption Method)
+    2:task:(Choose Disruption Method) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Homogenization| 4:task:(Perform Homogenization)
+    3:exclusivegateway:{x} --> |Sonication| 5:task:(Perform Sonication)
+    3:exclusivegateway:{x} --> |Enzymatic Lysis| 6:task:(Perform Enzymatic Lysis)
+    4:task:(Perform Homogenization) --> 7:exclusivegateway:{x}
+    5:task:(Perform Sonication) --> 7:exclusivegateway:{x}
+    6:task:(Perform Enzymatic Lysis) --> 7:exclusivegateway:{x}
+    7:exclusivegateway:{x} --> 8:task:(Verify Cell Disruption)
+    8:task:(Verify Cell Disruption) --> 9:exclusivegateway:{x}
+    9:exclusivegateway:{x} --> |Disruption Successful| 10:task:(Collect Cell Lysate)
+    9:exclusivegateway:{x} --> |Disruption Not Successful| 2:task:(Choose Disruption Method)
+    10:task:(Collect Cell Lysate) --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-03T15:30:53.155886+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a15aea2347bc070014f35b603a3e6888d9db20eb
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Cell Suspension</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Choose Disruption Method</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="3">
+          <alternative condition="Homogenization" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Perform Homogenization</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Sonication" language="text/javascript">
+            <call id="a9" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Perform Sonication</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Enzymatic Lysis" language="text/javascript">
+            <call id="a11" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Perform Enzymatic Lysis</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+        <call id="a19" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Verify Cell Disruption</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="9" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Choose Disruption Method</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="3">
+            <alternative condition="Homogenization" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Perform Homogenization</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Sonication" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Perform Sonication</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Enzymatic Lysis" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Perform Enzymatic Lysis</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a19" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Verify Cell Disruption</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a23" endpoint="" a:alt_id="10">
+          <parameters>
+            <label>Collect Cell Lysate</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-02-03T15:30:53.156372+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-02-04T14:21:59.502553+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-02-04T14:21:59.507048+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-02-04T14:22:01.595103+01:00'
+---
+event:
+  concept:instance: 139378
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4aa727a0-6f3c-452f-bf4d-4ea1fc359e02
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-02-04T14:22:01.597527+01:00'
