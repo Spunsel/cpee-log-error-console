@@ -103,6 +103,46 @@ class TopologyIterators {
             return taskId === nodeId;
         });
     }
+
+    /**
+     * Check if a task is an "isolated loop task" - a task that:
+     * 1. Has exactly one incoming edge from an XOR gateway
+     * 2. Has exactly one outgoing edge back to the same XOR gateway
+     * 
+     * These tasks should not repeat consecutively (e.g., "Concept revision" in a loop)
+     * 
+     * @param {Object} graph - Graph object
+     * @param {string} taskNodeId - Task node ID to check
+     * @returns {boolean} True if the task is an isolated loop task
+     */
+    static isIsolatedLoopTask(graph, taskNodeId) {
+        // Get incoming edges (nodes that point to this task)
+        const incomingNodeIds = this.backwardIterator(graph, taskNodeId);
+        
+        // Get outgoing edges (nodes this task points to)
+        const outgoingNodeIds = this.forwardIterator(graph, taskNodeId);
+        
+        // Must have exactly one incoming and one outgoing connection
+        if (incomingNodeIds.length !== 1 || outgoingNodeIds.length !== 1) {
+            return false;
+        }
+        
+        const incomingNodeId = incomingNodeIds[0];
+        const outgoingNodeId = outgoingNodeIds[0];
+        
+        // Both must point to the same node (the XOR gateway)
+        if (incomingNodeId !== outgoingNodeId) {
+            return false;
+        }
+        
+        // The connected node must be an XOR gateway
+        const connectedNode = graph.nodes.find(n => n.id === incomingNodeId);
+        if (!connectedNode || connectedNode.type !== 'exclusivegateway') {
+            return false;
+        }
+        
+        return true;
+    }
 }
 
 /**
@@ -162,6 +202,21 @@ class TraceSets {
             // Block if visitCount exceeds maxLoopIterations (safety check)
             if (visitCount > maxLoopIterations) {
                 return []; // Loop limit reached - cannot repeat loop more than 1 time
+            }
+            
+            // Special case: Block consecutive repetition of "isolated loop tasks"
+            // An isolated loop task is one that ONLY connects to a single XOR gateway (loops back to same gateway)
+            // For these tasks, don't allow "A → A" (same task twice in a row)
+            if (isTaskType && TopologyIterators.isIsolatedLoopTask(graph, currentNodeId)) {
+                // Check if this task was the last task in the trace
+                if (currentFT.length > 0) {
+                    const lastTask = currentFT[currentFT.length - 1];
+                    const lastTaskId = lastTask.id || lastTask.alt_id;
+                    if (lastTaskId === currentNodeId) {
+                        // Block consecutive repetition of isolated loop task
+                        return [];
+                    }
+                }
             }
         }
         

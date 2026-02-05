@@ -42,7 +42,18 @@ function getInstanceCases() {
         .filter(file => file.endsWith('.mermaid'))
         .map(file => file.replace('.mermaid', ''));
     
-    return mermaidFiles.sort();
+    // Sort by process number (first part of filename) numerically
+    return mermaidFiles.sort((a, b) => {
+        const numA = parseInt(a.split('_')[0], 10);
+        const numB = parseInt(b.split('_')[0], 10);
+        if (numA !== numB) {
+            return numA - numB;
+        }
+        // If same process number, sort by step number
+        const stepA = parseInt(a.match(/Step(\d+)/)?.[1] || '0', 10);
+        const stepB = parseInt(b.match(/Step(\d+)/)?.[1] || '0', 10);
+        return stepA - stepB;
+    });
 }
 
 function loadMermaidGraph(instanceName) {
