@@ -396,8 +396,6 @@ export class CPEEDebugConsole {
      * Return to home page (default state)
      */
     returnToHome() {
-        console.log('Returning to home page...');
-        
         // Clear any active instance selection
         this.instanceService.setCurrentInstance(null);
         
@@ -433,8 +431,6 @@ export class CPEEDebugConsole {
         
         this.instanceLoaderViewer.clearInputs();
         this.instanceLoaderViewer.focusProcessNumberInput();
-        
-        console.log('Returned to home page');
     }
 
     /**

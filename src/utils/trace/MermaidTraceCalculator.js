@@ -541,9 +541,7 @@ export class MermaidTraceCalculator {
      * @returns {Trace[]} Array of Trace objects
      */
     static calculateAllTraces(mermaidString, options = {}) {
-        // Log input for debugging
         if (!mermaidString || typeof mermaidString !== 'string') {
-            console.warn('[MermaidTraceCalculator] Invalid input: mermaidString is', typeof mermaidString, mermaidString);
             return [];
         }
         
@@ -561,14 +559,13 @@ export class MermaidTraceCalculator {
                 const preprocessResult = MermaidParser.cleanAndValidate(mermaidString, true);
                 preprocessedCode = preprocessResult.code;
             } catch (error) {
-                console.warn('[MermaidTraceCalculator] Failed to preprocess Mermaid code, using original:', error);
+                // Continue with original if preprocessing fails
             }
             
             // Parse Mermaid syntax to build graph
             const graph = this.parseMermaid(preprocessedCode);
             
             if (!graph || graph.nodes.length === 0) {
-                console.warn('[MermaidTraceCalculator] No valid graph found');
                 return [];
             }
             
@@ -581,12 +578,10 @@ export class MermaidTraceCalculator {
             const endNodes = graph.nodes.filter(n => n.type === 'endevent');
             
             if (startNodes.length === 0) {
-                console.warn('[MermaidTraceCalculator] No start nodes found');
                 return [];
             }
             
             if (endNodes.length === 0) {
-                console.warn('[MermaidTraceCalculator] No end nodes found');
                 return [];
             }
             
@@ -874,7 +869,6 @@ export class MermaidTraceCalculator {
                 
         // Parse nodes and edges
         let lastNodeId = null;
-        let skippedLines = 0;
         for (const line of contentLines) {
             // Parse edge: node1 --> node2 or node1 -->|label| node2
             const arrowIndex = line.indexOf('-->');
@@ -899,10 +893,6 @@ export class MermaidTraceCalculator {
             } else if (lastNodeId) {
                 fromNodeIdFull = lastNodeId;
             } else {
-                skippedLines++;
-                if (skippedLines <= 5) {
-                    console.warn(`[MermaidTraceCalculator] Skipping edge with no source: ${line}`);
-                }
                 continue;
             }
             
@@ -951,10 +941,6 @@ export class MermaidTraceCalculator {
             });
         }
         
-        if (skippedLines > 5) {
-            console.warn(`[MermaidTraceCalculator] Skipped ${skippedLines} lines total (only first 5 logged)`);
-        }
-                
         return graph;
     }
 
@@ -1306,7 +1292,6 @@ export class MermaidTraceCalculator {
      */
     static calculateAllTracesForValidation(mermaidString, options = {}) {
         if (!mermaidString || typeof mermaidString !== 'string') {
-            console.warn('[MermaidTraceCalculator] Invalid input: mermaidString is', typeof mermaidString, mermaidString);
             return [];
         }
         
@@ -1325,14 +1310,13 @@ export class MermaidTraceCalculator {
                 const preprocessResult = MermaidParser.cleanAndValidate(mermaidString, true);
                 preprocessedCode = preprocessResult.code;
             } catch (error) {
-                console.warn('[MermaidTraceCalculator] Failed to preprocess Mermaid code, using original:', error);
+                // Continue with original if preprocessing fails
             }
             
             // Parse Mermaid syntax to build graph
             const graph = this.parseMermaid(preprocessedCode);
             
             if (!graph || graph.nodes.length === 0) {
-                console.warn('[MermaidTraceCalculator] No valid graph found');
                 return [];
             }
             
@@ -1345,7 +1329,6 @@ export class MermaidTraceCalculator {
             const endNodes = graph.nodes.filter(n => n.type === 'endevent');
             
             if (startNodes.length === 0 || endNodes.length === 0) {
-                console.warn('[MermaidTraceCalculator] No start or end nodes found');
                 return [];
             }
             

@@ -74,8 +74,6 @@ export class TraceDisplay {
         // Render traces using TraceContentRenderer (merged from TraceRenderer)
         if (this.traceContentRenderer && typeof this.traceContentRenderer.renderTracesIntoContainer === 'function') {
             this.traceContentRenderer.renderTracesIntoContainer(traces, traceListWrapper, options);
-        } else {
-            console.warn('[TraceDisplay] TraceContentRenderer not available, cannot render traces');
         }
     }
 

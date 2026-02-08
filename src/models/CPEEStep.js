@@ -486,7 +486,6 @@ export class CPEEStep {
         }
         
         this.traces[sectionId] = traceArray;
-        console.log(`[CPEEStep] Stored ${traceArray ? traceArray.length : 0} traces for ${sectionId} in Step ${this.stepNumber}`);
     }
 
     /**

@@ -162,7 +162,6 @@ export class TraceContentRenderer {
      */
     renderTracesContent(sectionId, container, step) {
         if (!step || !container) {
-            console.warn('[TraceContentRenderer] Missing step or container for traces rendering');
             return null;
         }
 
@@ -213,7 +212,6 @@ export class TraceContentRenderer {
             }
 
             if (!contentString || (!isCPEE && !isMermaid)) {
-                console.warn(`[TraceContentRenderer] No valid content found for ${sectionId}`);
                 return this.renderNoTracesMessage(container);
             }
 
@@ -223,7 +221,6 @@ export class TraceContentRenderer {
                     const preprocessedResult = this.contentProcessingService.processAndValidateCPEE(contentString, true);
                     contentString = preprocessedResult.xml;
                 } catch (error) {
-                    console.warn(`[TraceContentRenderer] Failed to preprocess CPEE XML for ${sectionId}, using original:`, error);
                     // Continue with original content if preprocessing fails
                 }
             } else if (isMermaid && this.contentProcessingService) {
@@ -231,7 +228,6 @@ export class TraceContentRenderer {
                     const preprocessedResult = this.contentProcessingService.processAndValidateMermaid(contentString, true);
                     contentString = preprocessedResult.code;
                 } catch (error) {
-                    console.warn(`[TraceContentRenderer] Failed to preprocess Mermaid code for ${sectionId}, using original:`, error);
                     // Continue with original content if preprocessing fails
                 }
             }
@@ -332,7 +328,6 @@ export class TraceContentRenderer {
         // Get trace list wrapper from TraceDisplay
         const traceListWrapper = traceDisplay.getContainer().querySelector('.trace-list-wrapper');
         if (!traceListWrapper) {
-            console.warn('[TraceContentRenderer] Trace list wrapper not found');
             return container;
         }
 
@@ -1199,28 +1194,24 @@ export class TraceContentRenderer {
     applyTraceFilters(sectionId, filters) {
         const sectionElement = document.getElementById(sectionId);
         if (!sectionElement) {
-            console.warn('[TraceContentRenderer] Section element not found:', sectionId);
             return;
         }
         
         // Find traces container (data-content-type="traces")
         const tracesContainer = sectionElement.querySelector('[data-content-type="traces"]');
         if (!tracesContainer) {
-            console.warn('[TraceContentRenderer] Traces container not found in section:', sectionId);
             return;
         }
         
         // Find trace items - they are in a trace-list container
         const traceList = tracesContainer.querySelector('.trace-list');
         if (!traceList) {
-            console.warn('[TraceContentRenderer] Trace list not found in section:', sectionId);
             return;
         }
         
         const traceItems = traceList.querySelectorAll('.trace-item');
         
         if (traceItems.length === 0) {
-            console.warn('[TraceContentRenderer] No trace items found in section:', sectionId);
             return;
         }
         
@@ -1240,15 +1231,12 @@ export class TraceContentRenderer {
         }
         
         if (!traces || traces.length === 0) {
-            console.warn('[TraceContentRenderer] No traces in cache for section:', sectionId, 'cacheKey:', cacheKey, 'available keys:', Array.from(this.traceCache.keys()));
             // If no traces in cache, show all items
             traceItems.forEach(item => {
                 item.style.display = '';
             });
             return;
         }
-        
-        console.log('[TraceContentRenderer] Applying filters:', { filters, traceCount: traces.length, itemCount: traceItems.length });
         
         if (!hasFilters) {
             // No filters - show all traces

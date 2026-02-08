@@ -518,7 +518,6 @@ export class TraceFilter {
                 taskLabel: this.currentFilters['task-label'] || '',
                 status: this.currentFilters['status'] || ''
             };
-            console.log('[TraceFilter] Applying filters:', filterValues);
             this.onFilterChange(filterValues);
         }
     }

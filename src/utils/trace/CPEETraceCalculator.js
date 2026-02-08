@@ -932,7 +932,6 @@ export class CPEETraceCalculator {
                 const preprocessResult = CPEEParser.cleanAndValidate(xmlString, true);
                 preprocessedXml = preprocessResult.xml;
             } catch (error) {
-                console.warn('[CPEETraceCalculator] Failed to preprocess CPEE XML, using original:', error);
                 // Fallback to original XML if preprocessing fails
             }
             
@@ -943,14 +942,12 @@ export class CPEETraceCalculator {
             // Check for parsing errors
             const parserError = xmlDoc.querySelector('parsererror');
             if (parserError) {
-                console.warn('[CPEETraceCalculator] XML parsing error:', parserError.textContent);
                 return [];
             }
             
             // Get root description element (reference source)
             const description = xmlDoc.querySelector('description') || xmlDoc.documentElement;
             if (!description) {
-                console.warn('[CPEETraceCalculator] No description element found');
                 return [];
             }
             
@@ -1302,7 +1299,7 @@ export class CPEETraceCalculator {
                 const preprocessResult = CPEEParser.cleanAndValidate(xmlString, true);
                 preprocessedXml = preprocessResult.xml;
             } catch (error) {
-                console.warn('[CPEETraceCalculator] Failed to preprocess CPEE XML, using original:', error);
+                // Fallback to original XML if preprocessing fails
             }
             
             // Parse XML
@@ -1312,14 +1309,12 @@ export class CPEETraceCalculator {
             // Check for parsing errors
             const parserError = xmlDoc.querySelector('parsererror');
             if (parserError) {
-                console.warn('[CPEETraceCalculator] XML parsing error:', parserError.textContent);
                 return [];
             }
             
             // Get root description element
             const description = xmlDoc.querySelector('description') || xmlDoc.documentElement;
             if (!description) {
-                console.warn('[CPEETraceCalculator] No description element found');
                 return [];
             }
             

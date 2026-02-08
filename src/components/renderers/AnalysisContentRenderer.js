@@ -111,10 +111,9 @@ export class AnalysisContentRenderer {
         
         // Listen for view mode changes (, 35.20)
         this.eventBus.on('viewModeToggle:modeChanged', (data) => {
-            const { mode, sectionId } = data;
+            const { mode } = data;
             if (mode === 'analysis') {
                 // Analysis mode activated - reachability view will be shown/hidden automatically
-                console.log(`[AnalysisContentRenderer] Analysis mode activated for ${sectionId || 'all sections'}`);
             }
         });
         

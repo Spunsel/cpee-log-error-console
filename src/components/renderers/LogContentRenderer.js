@@ -652,13 +652,11 @@ export class LogContentRenderer {
         
         // Set up search functionality
         actionBar.setOnSearch((searchTerm) => {
-            console.log(`Searching in ${sectionId} for:`, searchTerm);
             this.performSearch(sectionId, searchTerm, contentToCopy);
         });
-        
+
         // Set up search clear
         actionBar.setOnClear(() => {
-            console.log(`Cleared search in ${sectionId}`);
             this.clearSearch(sectionId);
         });
         

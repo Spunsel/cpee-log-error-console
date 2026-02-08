@@ -504,10 +504,6 @@ export class RawContentRenderer {
             console.warn('RawContentRenderer: Could not get instance info for action bar', error);
         }
         
-        // Set up copy functionality
-        actionBar.setOnCopy((content) => {
-            console.log(`✓ Copied ${sectionId}:`, content.substring(0, 50) + '...');
-        });
         
         // Set up search functionality
         actionBar.setOnSearch((searchTerm) => {

@@ -76,11 +76,8 @@ export class ContentVisualizationCoordinator {
      * Ensures scale coordination across all graph renderers
      */
     setupScaleListener() {
-        this.eventBus.on('scaleDisplay:scaleChanged', (data) => {
-            const scale = data.scale;
-            console.log(`[ContentVisualizationCoordinator] Scale changed to ${scale}x`);
+        this.eventBus.on('scaleDisplay:scaleChanged', () => {
             // Renderers handle scale updates automatically via their own listeners
-            // This listener is for coordination/logging purposes
         });
     }
     
@@ -89,10 +86,7 @@ export class ContentVisualizationCoordinator {
      * Re-renders CPEE graphs when theme changes
      */
     setupThemeListener() {
-        this.eventBus.on('themeSelector:themeChanged', async (data) => {
-            const theme = data.theme;
-            console.log(`[ContentVisualizationCoordinator] Theme changed to ${theme}, re-rendering CPEE graphs...`);
-            
+        this.eventBus.on('themeSelector:themeChanged', async () => {
             // Re-render input CPEE graph if we have stored XML
             if (this.currentInputCpeeXml) {
                 await this.updateInputCpeeSection(this.currentInputCpeeXml);
