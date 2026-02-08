@@ -412,6 +412,9 @@ export class TraceFilter {
             return;
         }
         
+        // Close all other dropdowns before showing this one
+        this.hideAllAutocompletesExcept(type);
+        
         dropdown.innerHTML = '';
         this.highlightedItems[type] = null;
         
@@ -492,6 +495,19 @@ export class TraceFilter {
     }
 
     /**
+     * Hide all autocomplete dropdowns except the specified type
+     * @param {string} exceptType - Filter type to keep open
+     */
+    hideAllAutocompletesExcept(exceptType) {
+        const dropdowns = this.element.querySelectorAll('.trace-filter-autocomplete');
+        dropdowns.forEach(dropdown => {
+            if (dropdown.getAttribute('data-filter-type') !== exceptType) {
+                dropdown.style.display = 'none';
+            }
+        });
+    }
+
+    /**
      * Apply filters and notify callback
      */
     applyFilters() {
@@ -505,6 +521,19 @@ export class TraceFilter {
             console.log('[TraceFilter] Applying filters:', filterValues);
             this.onFilterChange(filterValues);
         }
+    }
+
+    /**
+     * Check if any filters are currently active
+     * @returns {boolean} True if any filter has a value
+     */
+    hasActiveFilters() {
+        return !!(
+            this.currentFilters['alt-id'] ||
+            this.currentFilters['id'] ||
+            this.currentFilters['task-label'] ||
+            this.currentFilters['status']
+        );
     }
 
     /**

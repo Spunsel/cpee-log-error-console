@@ -55,6 +55,33 @@ export class TraceContentRenderer {
         
         // Listen for comparison events to update trace colors
         this.setupComparisonListeners();
+        
+        // Listen for step/instance changes to clear filters
+        this.setupFilterClearListeners();
+    }
+
+    /**
+     * Setup listeners to clear trace filters on step/instance change
+     */
+    setupFilterClearListeners() {
+        // Clear filters when step changes
+        this.eventBus.on('stepViewer:stepChanged', () => {
+            this.clearAllTraceFilters();
+        });
+        
+        // Clear filters when instance changes
+        this.eventBus.on('sidebar:instanceSelected', () => {
+            this.clearAllTraceFilters();
+        });
+    }
+
+    /**
+     * Clear all trace filters across all sections
+     */
+    clearAllTraceFilters() {
+        this.traceFilters.forEach((traceFilter) => {
+            traceFilter.clearAllFilters();
+        });
     }
 
     /**
@@ -910,6 +937,11 @@ export class TraceContentRenderer {
                 existingFilter.remove();
             }
             traceFilter.attachToContainer(actionBarLeft);
+            
+            // Reapply any existing filters (for when switching back to traces view)
+            if (traceFilter.hasActiveFilters()) {
+                traceFilter.applyFilters();
+            }
         }
         
         // Set copy content
