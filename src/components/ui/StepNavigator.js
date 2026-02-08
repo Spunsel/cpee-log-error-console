@@ -109,18 +109,18 @@ export class StepNavigator {
             className: 'step-navigation',
             innerHTML: `
                 <div class="step-navigation-left">
-                    <button id="go-to-start" class="nav-btn nav-btn-start" aria-label="Go to first step">${ICONS.NAV_START}</button>
+                    <button id="go-to-start" class="nav-btn nav-btn-start" aria-label="Go to first step" title="Start">${ICONS.NAV_START}</button>
                     <div class="nav-center-group">
-                        <button id="prev-step" class="nav-btn nav-btn-prev" aria-label="Previous step">${ICONS.NAV_BACKWARD}</button>
+                        <button id="prev-step" class="nav-btn nav-btn-prev" aria-label="Previous step" title="Previous (shortcut: ←)">${ICONS.NAV_BACKWARD}</button>
                         <span id="step-counter">Step 1 of 1</span>
-                        <button id="next-step" class="nav-btn nav-btn-next" aria-label="Next step">${ICONS.NAV_FORWARD}</button>
+                        <button id="next-step" class="nav-btn nav-btn-next" aria-label="Next step" title="Next (shortcut: →)">${ICONS.NAV_FORWARD}</button>
                     </div>
-                    <button id="go-to-end" class="nav-btn nav-btn-end" aria-label="Go to last step">${ICONS.NAV_END}</button>
+                    <button id="go-to-end" class="nav-btn nav-btn-end" aria-label="Go to last step" title="End">${ICONS.NAV_END}</button>
                 </div>
                 <div class="step-navigation-right">
                     <div class="nav-separator"></div>
                     <div class="step-dropdown-container">
-                        <button id="step-dropdown-trigger" class="step-dropdown-trigger" aria-label="Skip to step" aria-haspopup="listbox" aria-expanded="false">
+                        <button id="step-dropdown-trigger" class="step-dropdown-trigger" aria-label="Skip to step" aria-haspopup="listbox" aria-expanded="false" title="Jump To Step">
                             ${ICONS.NAV_SKIP}
                         </button>
                         <div id="step-dropdown-menu" class="step-dropdown-menu" role="listbox" aria-labelledby="step-dropdown-trigger" style="display: none;"></div>

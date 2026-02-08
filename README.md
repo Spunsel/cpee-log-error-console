@@ -87,7 +87,6 @@ The fundamental goal of this project is to address the \"black box\" problem inh
 │   │   │   ├── CopyButton.js
 │   │   │   ├── DarkModeToggle.js
 │   │   │   ├── DownloadButton.js
-│   │   │   ├── HideTitleButton.js
 │   │   │   ├── IssuesList.js
 │   │   │   ├── NodeClassificationList.js
 │   │   │   ├── PropertyStatusIndicator.js

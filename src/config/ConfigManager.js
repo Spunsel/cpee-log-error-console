@@ -368,7 +368,6 @@ export class ConfigManager {
                 
                 // UI elements
                 darkModeToggleContainer: 'dark-mode-toggle-container',
-                hideTitleButtonContainer: 'hide-title-button-container',
                 bugReportLink: 'bug-report-link',
                 
                 // Note: The following elements are dynamically created and registered by their components:

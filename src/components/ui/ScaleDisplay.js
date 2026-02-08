@@ -116,7 +116,7 @@ export class ScaleDisplay {
      * @returns {string} Tooltip text (e.g., "graph scale: 1x")
      */
     getTooltipText() {
-        return `graph scale: ${this.formatScale(this.currentScale)}`;
+        return 'Graph Scaling';
     }
     
     /**

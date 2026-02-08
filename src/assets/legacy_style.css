@@ -344,60 +344,6 @@ body {
 }
 
 
-/* Hide Title Button */
-.hide-title-button {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.hide-title-btn {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: var(--button-border-radius);
-    padding: var(--button-padding-lg);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    color: var(--text-primary);
-    height: 36px;
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-    white-space: nowrap;
-    transition: var(--button-transition);
-}
-
-.hide-title-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.hide-title-icon svg {
-    width: var(--icon-size-sm);
-    height: var(--icon-size-sm);
-    display: block;
-}
-
-.hide-title-btn:hover {
-    background: var(--hover-bg);
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-
-.hide-title-btn:active {
-    background: var(--hover-bg-dark);
-    transform: scale(0.95);
-}
-
-.hide-title-btn:focus {
-    outline: 2px solid var(--copy-btn-focus-outline);
-    outline-offset: 2px;
-}
-
 /* Theme Info Button - additional margin */
 .theme-info-btn {
     margin-right: 8px;

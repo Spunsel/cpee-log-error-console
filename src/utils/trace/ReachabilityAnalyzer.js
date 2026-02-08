@@ -237,7 +237,6 @@ export function analyzeReachability(graphContent, format, options = {}) {
 
         // Handle empty graphs 
         if (!graphStructure || graphStructure.nodes.length === 0) {
-            console.warn('[ReachabilityAnalyzer] Empty graph detected');
             return createErrorResult('No nodes found in graph. The graph appears to be empty.');
         }
 

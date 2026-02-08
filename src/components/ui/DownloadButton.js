@@ -40,7 +40,7 @@ export class DownloadButton {
         const button = this.domRegistry.createElement('button', {
             className: 'download-btn',
             type: 'button',
-            title: `Download as ${filename}`
+            title: 'Download Code'
         });
 
         // Store original content
@@ -223,9 +223,7 @@ export class DownloadButton {
      */
     setFilename(filename) {
         this.filename = filename;
-        if (this.element) {
-            this.element.title = `Download as ${filename}`;
-        }
+        // Title stays as "Download Code" regardless of filename
     }
 
     /**

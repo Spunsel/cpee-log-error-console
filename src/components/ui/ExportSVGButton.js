@@ -51,7 +51,7 @@ export class ExportSVGButton {
         const button = createElement('button', {
             className: 'export-svg-btn',
             type: 'button',
-            title: `Export as ${filename}.svg`
+            title: 'Export SVG'
         });
 
         // Store original content
@@ -559,9 +559,7 @@ export class ExportSVGButton {
      */
     setFilename(filename) {
         this.filename = filename;
-        if (this.element) {
-            this.element.title = `Export as ${filename}.svg`;
-        }
+        // Title stays as "Export SVG" regardless of filename
     }
 
     /**

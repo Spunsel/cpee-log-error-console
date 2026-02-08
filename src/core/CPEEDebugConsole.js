@@ -11,7 +11,6 @@ import { ContentViewCoordinator } from '../components/coordinators/ContentViewCo
 import { CrossGraphHighlightCoordinator } from '../components/coordinators/CrossGraphHighlightCoordinator.js';
 import { BugReportModal } from '../components/ui/BugReportModal.js';
 import { DarkModeToggle } from '../components/ui/DarkModeToggle.js';
-import { HideTitleButton } from '../components/ui/HideTitleButton.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 import { eventBus } from './EventBus.js';
 import { serviceFactory } from './ServiceFactory.js';
@@ -47,7 +46,6 @@ export class CPEEDebugConsole {
         this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager, this.logFetchService, eventProcessingService);
         this.bugReportModal = new BugReportModal(this.serviceFactory);
         this.darkModeToggle = new DarkModeToggle(this.domRegistry, this.eventBus, this.stateManager);
-        this.hideTitleButton = new HideTitleButton(this.domRegistry, this.eventBus);
         
         // Track if InstanceLoaderViewer has been shown for the first time
         this.hasShownInstanceLoaderFirstTime = false;
@@ -109,14 +107,6 @@ export class CPEEDebugConsole {
             this.darkModeToggle.initialize(darkModeContainer);
         }
         
-        // Initialize hide title button
-        const hideTitleContainer = this.domRegistry.getElement('hideTitleButtonContainer');
-        if (hideTitleContainer) {
-            this.hideTitleButton.initialize(hideTitleContainer);
-            // Start hidden - will be shown when stepviewer is displayed
-            this.hideTitleButton.hide();
-        }
-        
         this.setupEventListeners();
         this.setupBugReportModal();
         
@@ -170,8 +160,6 @@ export class CPEEDebugConsole {
         this.eventBus.on('instanceLoader:viewLog', async (data) => {
             // Hide theme toggle when viewing log (different view)
             this.darkModeToggle.hide();
-            // Hide hide title button when viewing log
-            this.hideTitleButton.hide();
             await this.logViewer.toggleRawLog(data.uuid);
         });
 
@@ -349,9 +337,6 @@ export class CPEEDebugConsole {
         // Hide theme toggle when navigating away from InstanceLoaderViewer
         this.darkModeToggle.hide();
         
-        // Show hide title button when displaying stepviewer
-        this.hideTitleButton.show();
-        
         if (!this.instanceService.setCurrentInstance(uuid, stepIndex)) {
             console.error(`Instance ${uuid} not found`);
             return;
@@ -443,9 +428,6 @@ export class CPEEDebugConsole {
         
         // Hide theme toggle when returning home (only show on first load)
         this.darkModeToggle.hide();
-        
-        // Hide hide title button when returning home
-        this.hideTitleButton.hide();
         
         URLManager.clearURLParameters();
         

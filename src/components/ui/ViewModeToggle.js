@@ -65,7 +65,7 @@ export class ViewModeToggle {
             className: 'toggle-btn toggle-btn-traces',
             'data-mode': 'traces',
             'aria-label': `Show ${sectionTitle} execution traces`,
-            title: 'Traces View (Execution Paths)'
+            title: 'Traces View'
         });
         tracesBtn.innerHTML = ICONS.TRACES;
 
@@ -74,7 +74,7 @@ export class ViewModeToggle {
             className: 'toggle-btn toggle-btn-analysis',
             'data-mode': 'analysis',
             'aria-label': `Show ${sectionTitle} soundness and boundedness analysis`,
-            title: 'Analysis View (Soundness & Boundedness)'
+            title: 'Analysis View'
         });
         analysisBtn.innerHTML = ICONS.ANALYSIS;
 
