@@ -1,48 +1,11 @@
 /**
  * AnalysisContentRenderer
- * Renders soundness and boundedness verification results for CPEE and Mermaid sections
- * Displays verification analysis from SoundnessBoundednessVerifier
  * 
- * Responsibilities:
- * - Retrieve verification results from step model using getVerificationResult(sectionId)
- * - Display soundness verification results with status indicators
- * - Display boundedness verification results with status indicators
- * - Show detailed issues and violations when verification fails
- * - Format verification results in readable, structured format
- * - Handle edge cases: missing verification data, errors, malformed results
- * - Cache analysis displays to avoid unnecessary re-rendering
- * - Update analysis view when verification results change
- * - Clear analysis content when navigating between steps
+ * Renders verification results (soundness, boundedness, reachability) for CPEE and Mermaid sections.
+ * Displays collapsible analysis panels with verification status indicators.
  * 
- * Analysis View Structure:
- * - Summary section: Overall sound/bounded status with statistics
- * - Soundness section: Option to Complete, Proper Completion, No Dead Transitions
- * - Boundedness section: Bounded Places, Bounded Loops, Bounded Parallelism
- * - Issues section: List of all identified problems and violations
- * 
- * Verification Results Display:
- * - Results are retrieved from CPEEStep model via getVerificationResult(sectionId)
- * - If no results available: Shows "No Verification Results Available" message
- * - If error occurred: Shows error message with details
- * - If results valid: Displays full analysis with collapsible sections
- * 
- * Edge Cases Handled:
- * - Null/undefined verification results
- * - Missing or incomplete verification data
- * - Malformed verification result structures
- * - Missing graph content
- * - Verification errors
- * 
- * Caching:
- * - Analysis displays are cached per section-step combination
- * - Cache is invalidated when traces are recalculated or verification completes
- * - Cache is cleared when navigating to a new step
- * 
- * Events:
- * - Listens to: traces:calculated, verification:complete, viewModeToggle:modeChanged, stepViewer:stepChanged
- * - Emits: analysis:updated
- * 
- * @class AnalysisContentRenderer
+ * Events listened: traces:calculated, verification:complete, reachability:analyzed
+ * Events emitted: analysis:updated
  */
 
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
@@ -65,10 +28,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Setup event listeners for verification result updates 
-     * Registers listeners for trace calculation, verification completion, and view mode changes
-     * Handles cache invalidation and event emission for analysis view
-     * @returns {void}
+     * Setup event listeners for cache invalidation on traces/verification changes
      */
     setupEventListeners() {
         // Listen for trace calculation events - verification happens after trace calculation
@@ -94,57 +54,24 @@ export class AnalysisContentRenderer {
             // The view will be updated when the user switches to analysis mode or when updateAnalysisView() is called
         });
         
-        // Listen for reachability analysis completion events (, 35.20)
+        // Listen for reachability analysis completion events
         this.eventBus.on('reachability:analyzed', (data) => {
-            const { sectionId, stepNumber, _reachabilityResult } = data;
-            
-            // Enhanced logging for reachability events 
-            // removed
-            
-            // Invalidate cache for this section
+            const { sectionId, stepNumber } = data;
             if (sectionId && stepNumber) {
                 this.invalidateCache(sectionId, stepNumber);
             }
-            
-            // Note: View will be updated when user switches to analysis mode or when updateAnalysisView() is called
-        });
-        
-        // Listen for view mode changes (, 35.20)
-        this.eventBus.on('viewModeToggle:modeChanged', (data) => {
-            const { mode } = data;
-            if (mode === 'analysis') {
-                // Analysis mode activated - reachability view will be shown/hidden automatically
-            }
-        });
-        
-        // Listen for graph content changes to trigger re-analysis 
-        // Note: This is a placeholder - actual content change detection would need to be implemented
-        // based on how graph content is updated in the application
-        this.eventBus.on('graph:contentChanged', (data) => {
-            const { sectionId, stepNumber } = data;
-            console.log(`[AnalysisContentRenderer] Graph content changed for ${sectionId} (Step ${stepNumber}) - reachability will be re-analyzed`);
-            // Cache will be invalidated when traces are recalculated, which triggers reachability re-analysis
         });
     }
 
     /**
-     * Get cache key for a section 
-     * Generates a unique cache key from section ID and step number
-     * @param {string} sectionId - Section identifier
-     * @param {number|string} stepNumber - Step number
-     * @returns {string} Cache key in format 'sectionId-stepNumber'
+     * Get cache key for a section
      */
     getCacheKey(sectionId, stepNumber) {
         return `${sectionId}-${stepNumber || 'unknown'}`;
     }
 
     /**
-     * Invalidate cache for a section 
-     * Removes cached analysis display for a specific section-step combination
-     * Called when verification results change or traces are recalculated
-     * @param {string} sectionId - Section identifier
-     * @param {number|string} stepNumber - Step number
-     * @returns {void}
+     * Invalidate cache for a section
      */
     invalidateCache(sectionId, stepNumber) {
         const cacheKey = this.getCacheKey(sectionId, stepNumber);
@@ -154,24 +81,14 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Clear all verification cache 
-     * Removes all cached analysis displays
-     * Called when navigating to a new step or clearing data
-     * @returns {void}
+     * Clear all verification cache
      */
     clearCache() {
         this.verificationCache.clear();
     }
 
     /**
-     * Display analysis content for a section 
-     * Main entry point for displaying analysis view
-     * Hides other content types and shows analysis container
-     * @param {string} sectionId - Section identifier ('input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee')
-     * @param {HTMLElement} container - Content container element
-     * @param {Object} step - Current step object (CPEEStep instance)
-     * @param {Object} options - Rendering options (currently unused)
-     * @returns {void}
+     * Display analysis content for a section (main entry point)
      */
     display(sectionId, container, step, _options = {}) {
         if (!step || !container) {
@@ -210,13 +127,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render analysis content for a section 
-     * Retrieves verification results and renders analysis display
-     * Handles caching, error states, and missing data gracefully
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} container - Content container
-     * @param {Object} step - Current step object
-     * @returns {HTMLElement|null} Analysis display container or null if rendering failed
+     * Render analysis content for a section with caching
      */
     renderAnalysisContent(sectionId, container, step) {
         if (!step || !container) {
@@ -335,12 +246,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Check if two verification results are the same 
-     * Compares key properties to determine if results are identical
-     * Used for cache validation to avoid unnecessary re-rendering
-     * @param {Object|null} result1 - First verification result
-     * @param {Object|null} result2 - Second verification result
-     * @returns {boolean} True if results have the same key properties
+     * Check if two verification results are the same (for cache validation)
      */
     isSameResult(result1, result2) {
         if (!result1 && !result2) {
@@ -360,12 +266,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Check if two reachability results are the same 
-     * Compares key properties to determine if results are identical
-     * Used for cache validation to avoid unnecessary re-rendering
-     * @param {Object|null} result1 - First reachability result
-     * @param {Object|null} result2 - Second reachability result
-     * @returns {boolean} True if results have the same key properties
+     * Check if two reachability results are the same (for cache validation)
      */
     isSameReachabilityResult(result1, result2) {
         if (!result1 && !result2) {
@@ -386,9 +287,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Validate verification result structure 
-     * @param {Object} verificationResult - Verification result to validate
-     * @returns {boolean} True if verification result has valid structure
+     * Validate verification result has required structure
      */
     isValidVerificationResult(verificationResult) {
         if (!verificationResult || typeof verificationResult !== 'object') {
@@ -429,92 +328,9 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render summary section with overall status 
-     * Displays verification summary with sound/bounded indicators and statistics
-     * @param {HTMLElement} container - Container element
-     * @param {Object} verificationResult - Verification result object
-     * @throws {Error} If verificationResult is invalid
+     * Create status indicator element without icon
      */
-    renderSummary(container, verificationResult) {
-        if (!verificationResult) {
-            console.error('[AnalysisContentRenderer] Cannot render summary: verificationResult is null');
-            return;
-        }
-        const summarySection = this.domRegistry.createElement('div');
-        summarySection.className = 'analysis-summary';
-        
-        const title = this.domRegistry.createElement('h3');
-        title.className = 'analysis-section-title';
-        title.textContent = 'Verification Summary';
-        summarySection.appendChild(title);
-        
-        const statusContainer = this.domRegistry.createElement('div');
-        statusContainer.className = 'verification-status-container';
-        
-        // Statistics
-        const stats = this.domRegistry.createElement('div');
-        stats.className = 'verification-stats';
-        stats.innerHTML = `
-            <div class="stat-item">
-                <span class="stat-label">Traces:</span>
-                <span class="stat-value">${verificationResult.traceCount || 0}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Tasks:</span>
-                <span class="stat-value">${verificationResult.taskCount || 0}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Format:</span>
-                <span class="stat-value">${verificationResult.format || 'unknown'}</span>
-            </div>
-        `;
-        statusContainer.appendChild(stats);
-        
-        summarySection.appendChild(statusContainer);
-        container.appendChild(summarySection);
-    }
-
-    /**
-     * Create status indicator element 
-     * Creates a visual status indicator with icon, label, and optional issue badge
-     * @param {string} label - Status label (e.g., 'Sound', 'Bounded')
-     * @param {boolean} status - Status value (true = pass, false = fail)
-     * @param {number} issueCount - Number of issues (displayed as badge if > 0)
-     * @returns {HTMLElement} Status indicator element with appropriate styling
-     */
-    createStatusIndicator(label, status, issueCount) {
-        const indicator = this.domRegistry.createElement('div');
-        indicator.className = `status-indicator ${status ? 'status-pass' : 'status-fail'}`;
-        
-        const icon = this.domRegistry.createElement('span');
-        icon.className = 'status-icon';
-        icon.innerHTML = status ? ICONS.ISSUE_CLOSED : ICONS.ISSUE_OPEN;
-        indicator.appendChild(icon);
-        
-        const labelSpan = this.domRegistry.createElement('span');
-        labelSpan.className = 'status-label';
-        labelSpan.textContent = label;
-        indicator.appendChild(labelSpan);
-        
-        if (issueCount > 0) {
-            const issueBadge = this.domRegistry.createElement('span');
-            issueBadge.className = 'issue-badge';
-            issueBadge.textContent = `${issueCount} issue${issueCount !== 1 ? 's' : ''}`;
-            indicator.appendChild(issueBadge);
-        }
-        
-        return indicator;
-    }
-
-    /**
-     * Create status indicator element without icon (for expandable sections)
-     * Creates a visual status indicator with label, but no checkmark icon or issue badge
-     * @param {string} label - Status label (e.g., 'Sound', 'Bounded')
-     * @param {boolean} status - Status value (true = pass, false = fail)
-     * @param {number} _issueCount - Number of issues (not displayed, kept for API compatibility)
-     * @returns {HTMLElement} Status indicator element with appropriate styling (no icon)
-     */
-    createStatusIndicatorWithoutIcon(label, status, _issueCount) {
+    createStatusIndicatorWithoutIcon(label, status) {
         const indicator = this.domRegistry.createElement('div');
         indicator.className = `status-indicator ${status ? 'status-pass' : 'status-fail'}`;
         
@@ -522,16 +338,12 @@ export class AnalysisContentRenderer {
         labelSpan.className = 'status-label';
         labelSpan.textContent = label;
         indicator.appendChild(labelSpan);
-        
-        // Issue badge removed - not displayed in status indicator
         
         return indicator;
     }
 
     /**
      * Render soundness section with collapsible functionality
-     * @param {HTMLElement} container - Container element
-     * @param {Object} soundnessResult - Soundness verification result
      */
     renderSoundnessSection(container, soundnessResult) {
         if (!soundnessResult) {
@@ -563,8 +375,7 @@ export class AnalysisContentRenderer {
         // Create clickable status indicator (the green box) without icon
         const statusIndicator = this.createStatusIndicatorWithoutIcon(
             soundnessResult.sound ? 'Sound' : 'Not Sound',
-            soundnessResult.sound,
-            soundnessResult.issues?.length || 0
+            soundnessResult.sound
         );
         // Make status indicator only as wide as its content (not flex: 1)
         statusIndicator.classList.add('analysis-status-indicator');
@@ -573,7 +384,6 @@ export class AnalysisContentRenderer {
         // Create collapsible content (initially hidden) - matching trace-details structure
         const content = this.domRegistry.createElement('div');
         content.className = 'trace-details analysis-section-content collapsed';
-        // Dynamic maxHeight will be set by toggleSection
         
         // Create enumeration list for soundness properties
         const soundnessList = this.domRegistry.createElement('ul');
@@ -704,12 +514,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render boundedness section with collapsible functionality 
-     * Displays three boundedness properties: Bounded Places, Bounded Loops, Bounded Parallelism
-     * Includes collapsible detail sections for unbounded places and max tokens
-     * @param {HTMLElement} container - Container element
-     * @param {Object} boundednessResult - Boundedness verification result
-     * @returns {void}
+     * Render boundedness section with collapsible functionality
      */
     renderBoundednessSection(container, boundednessResult) {
         if (!boundednessResult) {
@@ -742,19 +547,14 @@ export class AnalysisContentRenderer {
         // Create clickable status indicator (the green box) without icon - same format as Sound
         const statusIndicator = this.createStatusIndicatorWithoutIcon(
             boundednessResult.bounded ? 'Bounded' : 'Not Bounded',
-            boundednessResult.bounded,
-            boundednessResult.issues?.length || 0
+            boundednessResult.bounded
         );
-        // Make status indicator only as wide as its content (not flex: 1)
         statusIndicator.classList.add('analysis-status-indicator');
         traceHeader.appendChild(statusIndicator);
         
-        // Create collapsible content (initially hidden) - matching trace-details structure
         const content = this.domRegistry.createElement('div');
         content.className = 'trace-details analysis-section-content collapsed';
-        // Dynamic maxHeight will be set by toggleSection
         
-        // Create enumeration list for boundedness properties
         const boundednessList = this.domRegistry.createElement('ul');
         boundednessList.className = 'analysis-property-list';
         
@@ -850,11 +650,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render reachability section with collapsible functionality 
-     * Displays forward/backward reachability statistics, node classifications, and SCC information
-     * @param {HTMLElement} container - Container element
-     * @param {Object} reachabilityResult - Reachability analysis result
-     * @returns {void}
+     * Render reachability section with collapsible functionality
      */
     renderReachabilitySection(container, reachabilityResult) {
         if (!reachabilityResult) {
@@ -862,23 +658,19 @@ export class AnalysisContentRenderer {
             return;
         }
 
-        // Handle error in reachability result
         if (reachabilityResult.error) {
-            console.warn(`[AnalysisContentRenderer] Reachability error: ${reachabilityResult.error}`);
             return;
         }
 
         const reachabilitySection = this.domRegistry.createElement('div');
         reachabilitySection.className = 'reachability-section trace-item';
 
-        // Create trace-header structure (matching trace items)
         const traceHeader = this.domRegistry.createElement('div');
         traceHeader.className = 'trace-header';
         traceHeader.setAttribute('role', 'button');
         traceHeader.setAttribute('tabindex', '0');
         traceHeader.setAttribute('aria-expanded', 'false');
 
-        // Add expand button (matching trace-expand-btn)
         const expandBtn = this.domRegistry.createElement('button');
         expandBtn.className = 'trace-expand-btn';
         expandBtn.setAttribute('aria-label', 'Toggle reachability details');
@@ -893,14 +685,12 @@ export class AnalysisContentRenderer {
         // Determine overall status: "Reachable" if all nodes are useful, "Issues Found" otherwise
         const nodeClass = reachabilityResult.nodeClassification || {};
         const totalNodes = nodeClass.usefulCount + nodeClass.deadEndCount + nodeClass.unreachableCount;
-        const hasIssues = (nodeClass.deadEndCount > 0) || (nodeClass.unreachableCount > 0);
         const allReachable = totalNodes > 0 && nodeClass.unreachableCount === 0 && nodeClass.deadEndCount === 0;
 
         // Create clickable status indicator
         const statusIndicator = this.createStatusIndicatorWithoutIcon(
             allReachable ? 'All Tasks Reachable' : 'Reachability Issues Found',
-            allReachable,
-            hasIssues ? (nodeClass.deadEndCount + nodeClass.unreachableCount) : 0
+            allReachable
         );
         statusIndicator.classList.add('analysis-status-indicator');
         traceHeader.appendChild(statusIndicator);
@@ -917,7 +707,6 @@ export class AnalysisContentRenderer {
         const forwardReach = reachabilityResult.forwardReachability || {};
         const forwardReachableCount = forwardReach.count || 0;
         const forwardUnreachableCount = (forwardReach.unreachableNodes || []).length;
-        // Coverage is a decimal (0-1), multiply by 100 to get percentage
         const forwardCoverage = forwardReach.coverage !== undefined ? (forwardReach.coverage * 100).toFixed(1) : 'N/A';
 
         const forwardItem = this.domRegistry.createElement('li');
@@ -1105,167 +894,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Create property indicator element 
-     * Creates a property status indicator with icon, name, and description
-     * Used for individual soundness and boundedness properties
-     * @param {string} propertyName - Property name (e.g., 'Option to Complete')
-     * @param {boolean} status - Property status (true = pass, false = fail)
-     * @param {string} description - Property description explaining what it means
-     * @returns {HTMLElement} Property indicator element with pass/fail styling
-     */
-    createPropertyIndicator(propertyName, status, description) {
-        const indicator = this.domRegistry.createElement('div');
-        indicator.className = `property-indicator ${status ? 'property-pass' : 'property-fail'}`;
-        
-        const icon = this.domRegistry.createElement('span');
-        icon.className = 'property-icon';
-        icon.innerHTML = status ? ICONS.ISSUE_CLOSED : ICONS.ISSUE_OPEN;
-        indicator.appendChild(icon);
-        
-        const content = this.domRegistry.createElement('div');
-        content.className = 'property-content';
-        
-        const name = this.domRegistry.createElement('div');
-        name.className = 'property-name';
-        name.textContent = propertyName;
-        content.appendChild(name);
-        
-        const desc = this.domRegistry.createElement('div');
-        desc.className = 'property-description';
-        desc.textContent = description;
-        content.appendChild(desc);
-        
-        indicator.appendChild(content);
-        
-        return indicator;
-    }
-
-    /**
-     * Render issues section with collapsible functionality 
-     * Displays all issues and violations from soundness and boundedness checks
-     * Shows issue count in header and list of issues in collapsible content
-     * @param {HTMLElement} container - Container element
-     * @param {Object} verificationResult - Verification result object
-     * @returns {void}
-     */
-    renderIssuesSection(container, verificationResult) {
-        const issuesSection = this.domRegistry.createElement('div');
-        issuesSection.className = 'issues-section analysis-collapsible-section';
-        
-        // Collect all issues
-        const allIssues = [
-            ...(verificationResult.soundness?.issues || []),
-            ...(verificationResult.boundedness?.issues || [])
-        ];
-        
-        // Create collapsible header
-        const header = this.domRegistry.createElement('div');
-        header.className = 'analysis-section-header';
-        header.setAttribute('role', 'button');
-        header.setAttribute('tabindex', '0');
-        header.setAttribute('aria-expanded', allIssues.length > 0 ? 'true' : 'false');
-        
-        const title = this.domRegistry.createElement('h3');
-        title.className = 'analysis-section-title';
-        title.textContent = `Issues and Violations${allIssues.length > 0 ? ` (${allIssues.length})` : ''}`;
-        header.appendChild(title);
-        
-        const toggleIcon = this.domRegistry.createElement('span');
-        toggleIcon.className = 'section-toggle-icon';
-        toggleIcon.innerHTML = allIssues.length > 0 ? ICONS.COLLAPSE_TRACE : ICONS.EXPAND_TRACE;
-        header.appendChild(toggleIcon);
-        
-        // Create collapsible content
-        const content = this.domRegistry.createElement('div');
-        content.className = 'analysis-section-content';
-        content.style.display = allIssues.length > 0 ? 'block' : 'none';
-        
-        const issuesList = this.domRegistry.createElement('ul');
-        issuesList.className = 'issues-list';
-        
-        if (allIssues.length === 0) {
-            const noIssues = this.domRegistry.createElement('li');
-            noIssues.className = 'issue-item issue-none';
-            noIssues.textContent = 'No issues found';
-            issuesList.appendChild(noIssues);
-        } else {
-            allIssues.forEach(issue => {
-                const issueItem = this.domRegistry.createElement('li');
-                issueItem.className = 'issue-item';
-                issueItem.textContent = issue;
-                issuesList.appendChild(issueItem);
-            });
-        }
-        
-        content.appendChild(issuesList);
-        
-        // Add toggle functionality
-        header.addEventListener('click', () => this.toggleSection(issuesSection));
-        header.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.toggleSection(issuesSection);
-            }
-        });
-        
-        issuesSection.appendChild(header);
-        issuesSection.appendChild(content);
-        container.appendChild(issuesSection);
-    }
-
-    /**
-     * Create a collapsible details section for additional information 
-     * Creates a nested collapsible section for detailed information (e.g., dead tasks, unbounded places)
-     * Starts collapsed by default, can be expanded by clicking the header
-     * @param {string} title - Section title (e.g., 'Dead Tasks Details')
-     * @param {Function} contentFactory - Function that returns the content element to display
-     * @returns {HTMLElement} Collapsible details section with header and content
-     */
-    createCollapsibleDetailsSection(title, contentFactory) {
-        const detailsSection = this.domRegistry.createElement('div');
-        detailsSection.className = 'analysis-details-section';
-        
-        const header = this.domRegistry.createElement('div');
-        header.className = 'details-section-header';
-        header.setAttribute('role', 'button');
-        header.setAttribute('tabindex', '0');
-        header.setAttribute('aria-expanded', 'false');
-        
-        const headerTitle = this.domRegistry.createElement('h4');
-        headerTitle.className = 'details-section-title';
-        headerTitle.textContent = title;
-        header.appendChild(headerTitle);
-        
-        const toggleIcon = this.domRegistry.createElement('span');
-        toggleIcon.className = 'details-toggle-icon';
-        toggleIcon.innerHTML = ICONS.EXPAND_TRACE;
-        header.appendChild(toggleIcon);
-        
-        const content = this.domRegistry.createElement('div');
-        content.className = 'details-section-content';
-        content.style.display = 'none';
-        content.appendChild(contentFactory());
-        
-        // Add toggle functionality
-        header.addEventListener('click', () => this.toggleDetailsSection(detailsSection));
-        header.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.toggleDetailsSection(detailsSection);
-            }
-        });
-        
-        detailsSection.appendChild(header);
-        detailsSection.appendChild(content);
-        
-        return detailsSection;
-    }
-
-    /**
-     * Reattach event listeners to cloned content 
-     * Event listeners are lost when cloning DOM nodes, so we need to reattach them
-     * @param {HTMLElement} container - Container element with cloned content
-     * @returns {void}
+     * Reattach event listeners to cloned content (lost during cloneNode)
      */
     reattachEventListeners(container) {
         // Find all soundness, boundedness, and reachability sections
@@ -1362,11 +991,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Toggle section expand/collapse state 
-     * Toggles the visibility of main analysis sections (soundness, boundedness, issues)
-     * Updates ARIA attributes and icon state for accessibility
-     * @param {HTMLElement} section - Section element to toggle
-     * @returns {void}
+     * Toggle section expand/collapse state
      */
     toggleSection(section) {
         const traceHeader = section.querySelector('.trace-header');
@@ -1420,34 +1045,6 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Toggle details section expand/collapse state 
-     * Toggles the visibility of nested detail sections (dead tasks, unbounded places, etc.)
-     * Updates ARIA attributes and icon state for accessibility
-     * @param {HTMLElement} detailsSection - Details section element to toggle
-     * @returns {void}
-     */
-    toggleDetailsSection(detailsSection) {
-        const header = detailsSection.querySelector('.details-section-header');
-        const content = detailsSection.querySelector('.details-section-content');
-        const toggleIcon = header?.querySelector('.details-toggle-icon');
-        
-        if (!header || !content) {
-            return;
-        }
-        
-        const isExpanded = header.getAttribute('aria-expanded') === 'true';
-        const newState = !isExpanded;
-        
-        header.setAttribute('aria-expanded', newState.toString());
-        content.style.display = newState ? 'block' : 'none';
-        detailsSection.classList.toggle('collapsed', !newState);
-        
-        if (toggleIcon) {
-            toggleIcon.innerHTML = newState ? ICONS.COLLAPSE_TRACE : ICONS.EXPAND_TRACE;
-        }
-    }
-
-    /**
      * Hide analysis content in a container
      * @param {HTMLElement} container - Content container
      */
@@ -1464,12 +1061,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Update analysis view when verification results change 
-     * Invalidates cache and re-renders analysis content if currently displayed
-     * Called programmatically when verification completes or results change
-     * @param {string} sectionId - Section identifier
-     * @param {Object} step - Current step object
-     * @returns {void}
+     * Update analysis view when verification results change
      */
     updateAnalysisView(sectionId, step) {
         if (!step) {
@@ -1499,10 +1091,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Clear all analysis displays and cache 
-     * Removes all analysis displays and clears verification cache
-     * Called when navigating to a new step or clearing data
-     * @returns {void}
+     * Clear all analysis displays and cache
      */
     clearAll() {
         this.analysisDisplays.clear();
@@ -1510,11 +1099,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render message when no reachability results are available 
-     * Handles cases where reachability analysis hasn't been performed yet or step has missing reachability data
-     * @param {HTMLElement} container - Container element
-     * @param {string} sectionId - Section identifier
-     * @returns {HTMLElement} Message element
+     * Render message when no reachability results are available
      */
     renderNoReachabilityMessage(container, _sectionId) {
         const message = this.domRegistry.createElement('div');
@@ -1540,11 +1125,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render message when no verification results are available 
-     * Handles cases where verification hasn't been performed yet or step has missing verification data
-     * @param {HTMLElement} container - Container element
-     * @param {string} sectionId - Section identifier
-     * @returns {HTMLElement} Message element
+     * Render message when no verification results are available
      */
     renderNoVerificationMessage(container, _sectionId) {
         const message = this.domRegistry.createElement('div');
@@ -1571,12 +1152,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render error message 
-     * Displays appropriate message when verification failed or results are malformed
-     * Provides fallback UI for error states
-     * @param {HTMLElement} container - Container element
-     * @param {string} errorMessage - Error message
-     * @returns {HTMLElement} Error message element
+     * Render error message when verification failed
      */
     renderErrorMessage(container, errorMessage) {
         console.error(`[AnalysisContentRenderer] Verification error: ${errorMessage}`);
@@ -1605,9 +1181,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Sanitize error message to prevent XSS 
-     * @param {string} errorMessage - Error message to sanitize
-     * @returns {string} Sanitized error message
+     * Sanitize error message to prevent XSS
      */
     sanitizeErrorMessage(errorMessage) {
         if (typeof errorMessage !== 'string') {
