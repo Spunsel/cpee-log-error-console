@@ -830,12 +830,16 @@ export class InstanceLoaderViewer {
             instanceList.innerHTML = '';
         }
         
+        // Add filter input if not already present
+        this.createKnownInstancesFilter(instanceListContainer);
+        
         // Create buttons for each process number
         processNumbers.forEach((processNumber) => {
             const box = document.createElement('div');
             box.className = 'instance-number-box';
             box.textContent = processNumber.toString();
             box.title = `Click to load instance ${processNumber}`;
+            box.dataset.processNumber = processNumber.toString();
             
             // Add click handler to fetch UUID and load instance
             box.addEventListener('click', async () => {
@@ -861,6 +865,111 @@ export class InstanceLoaderViewer {
         });
         
         console.log(`Loaded ${processNumbers.length} CPEE instance buttons`);
+    }
+    
+    /**
+     * Create filter input for known instances list
+     * @param {HTMLElement} container - The instance list container
+     */
+    createKnownInstancesFilter(container) {
+        if (!container) {
+            return;
+        }
+        
+        // Check if filter already exists
+        if (container.querySelector('.known-instances-filter')) {
+            return;
+        }
+        
+        const filterWrapper = document.createElement('div');
+        filterWrapper.className = 'known-instances-filter';
+        
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'search-input-group';
+        
+        const searchIcon = document.createElement('div');
+        searchIcon.className = 'search-icon';
+        searchIcon.innerHTML = ICONS.FILTER;
+        inputGroup.appendChild(searchIcon);
+        
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'search-input';
+        input.placeholder = 'Filter by instance number';
+        input.setAttribute('inputmode', 'numeric');
+        inputGroup.appendChild(input);
+        
+        const clearBtn = document.createElement('button');
+        clearBtn.className = 'search-clear-btn';
+        clearBtn.innerHTML = ICONS.CLEAR_SEARCH;
+        clearBtn.setAttribute('aria-label', 'Clear filter');
+        clearBtn.style.display = 'none';
+        inputGroup.appendChild(clearBtn);
+        
+        filterWrapper.appendChild(inputGroup);
+        
+        // Insert filter after the h5 label
+        const h5Label = container.querySelector('h5');
+        if (h5Label) {
+            h5Label.insertAdjacentElement('afterend', filterWrapper);
+        } else {
+            container.insertBefore(filterWrapper, container.firstChild);
+        }
+        
+        // Setup event listeners
+        input.addEventListener('input', () => {
+            const filterValue = input.value.trim();
+            clearBtn.style.display = filterValue ? 'block' : 'none';
+            this.filterKnownInstances(filterValue);
+        });
+        
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            clearBtn.style.display = 'none';
+            this.filterKnownInstances('');
+            input.focus();
+        });
+        
+        // Store reference for later use
+        this.knownInstancesFilterInput = input;
+    }
+    
+    /**
+     * Filter known instances by partial match on instance number
+     * @param {string} filterValue - The filter string to match against instance numbers
+     */
+    filterKnownInstances(filterValue) {
+        const instanceList = this.getElement('loadAllInstancesList');
+        if (!instanceList) {
+            return;
+        }
+        
+        const instanceBoxes = instanceList.querySelectorAll('.instance-number-box');
+        
+        instanceBoxes.forEach((box) => {
+            const instanceNumber = box.dataset.processNumber || box.textContent;
+            
+            if (!filterValue) {
+                // No filter - show all and restore original text
+                box.style.display = '';
+                box.innerHTML = instanceNumber;
+            } else {
+                // Check if instance number contains the filter value (partial match)
+                const matchIndex = instanceNumber.indexOf(filterValue);
+                const matches = matchIndex !== -1;
+                box.style.display = matches ? '' : 'none';
+                
+                if (matches) {
+                    // Highlight the matching substring
+                    const before = instanceNumber.substring(0, matchIndex);
+                    const match = instanceNumber.substring(matchIndex, matchIndex + filterValue.length);
+                    const after = instanceNumber.substring(matchIndex + filterValue.length);
+                    box.innerHTML = `${before}<span class="instance-filter-match">${match}</span>${after}`;
+                } else {
+                    box.innerHTML = instanceNumber;
+                }
+            }
+        });
     }
     
     /**

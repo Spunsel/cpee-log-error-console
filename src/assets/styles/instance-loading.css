@@ -201,6 +201,30 @@
    margin-top: var(--spacing-md);
 }
 
+/* Known Instances Filter */
+.known-instances-filter {
+   margin-bottom: var(--spacing-sm);
+}
+
+.known-instances-filter .search-input-group {
+   max-width: 250px;
+}
+
+.known-instances-filter .search-input {
+   font-size: var(--font-size-sm);
+}
+
+/* Highlight matching substring in instance number boxes */
+.instance-filter-match {
+   background-color: var(--highlight-stroke);
+   border-radius: 2px;
+   padding: 0 1px;
+}
+
+[data-theme="dark"] .instance-filter-match {
+   color: black;
+}
+
 /* ========================================
    RESPONSIVE - INSTANCE LOADING
    ======================================== */
