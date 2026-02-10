@@ -1,0 +1,1741 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 141033
+    cpee:name: Plain Instance
+    cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-02-09T17:28:05.171249+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: b88c0ce1b4cb80b3b317f5d7de3eaab4b2745fd6
+  time:timestamp: '2026-02-09T17:38:07.282273+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b88c0ce1b4cb80b3b317f5d7de3eaab4b2745fd6
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-02-09T17:38:07.282424+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b88c0ce1b4cb80b3b317f5d7de3eaab4b2745fd6
+  cpee:exposition: |-
+    # User Input:
+    create an office process preparation coffee
+  time:timestamp: '2026-02-09T17:38:07.282525+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b88c0ce1b4cb80b3b317f5d7de3eaab4b2745fd6
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-09T17:38:07.282614+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b88c0ce1b4cb80b3b317f5d7de3eaab4b2745fd6
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-09T17:38:07.282701+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b88c0ce1b4cb80b3b317f5d7de3eaab4b2745fd6
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Prepare Coffee)
+    1:task:(Prepare Coffee) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-09T17:38:07.282895+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b88c0ce1b4cb80b3b317f5d7de3eaab4b2745fd6
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-09T17:38:07.283006+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-02-09T17:39:07.027647+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-09T17:39:07.027793+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete model
+  time:timestamp: '2026-02-09T17:39:07.027887+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-09T17:39:07.027993+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Coffee)
+    a1:task:(Prepare Coffee)-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-09T17:39:07.028077+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2026-02-09T17:39:07.028217+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-09T17:39:07.028343+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Get mug</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Water available" language="text/javascript"/>
+        <alternative condition="No water available" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Refill water</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Pour water</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Add coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="Sugar needed" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Add sugar</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No sugar needed" language="text/javascript"/>
+      </choose>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Stir</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: e0b5c718bdd6db339c17dd0120642b1314bec8d8
+  time:timestamp: '2026-02-09T17:39:21.488065+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e0b5c718bdd6db339c17dd0120642b1314bec8d8
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-09T17:39:21.488289+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e0b5c718bdd6db339c17dd0120642b1314bec8d8
+  cpee:exposition: |-
+    # User Input:
+    create a process model for coffee preparation in an office
+  time:timestamp: '2026-02-09T17:39:21.488776+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e0b5c718bdd6db339c17dd0120642b1314bec8d8
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-09T17:39:21.489083+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e0b5c718bdd6db339c17dd0120642b1314bec8d8
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-09T17:39:21.489276+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e0b5c718bdd6db339c17dd0120642b1314bec8d8
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Get mug)
+    1:task:(Get mug) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Water available| 3:task:(Pour water)
+    2:exclusivegateway:{x} --> |No water available| 4:task:(Refill water)
+    4:task:(Refill water) --> 3:task:(Pour water)
+    3:task:(Pour water) --> 5:task:(Add coffee)
+    5:task:(Add coffee) --> 6:exclusivegateway:{x}
+    6:exclusivegateway:{x} --> |Sugar needed| 7:task:(Add sugar)
+    6:exclusivegateway:{x} --> |No sugar needed| 8:exclusivegateway:{x}
+    7:task:(Add sugar) --> 8:exclusivegateway:{x}
+    8:exclusivegateway:{x} --> 9:task:(Stir)
+    9:task:(Stir) --> 10:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-09T17:39:21.489381+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e0b5c718bdd6db339c17dd0120642b1314bec8d8
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Get mug</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Water available" language="text/javascript"/>
+        <alternative condition="No water available" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Refill water</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Pour water</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Add coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="Sugar needed" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Add sugar</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No sugar needed" language="text/javascript"/>
+      </choose>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Stir</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-09T17:39:21.489472+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-02-09T17:43:54.030373+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Get mug</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Water available" language="text/javascript"/>
+        <alternative condition="No water available" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Refill water</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Pour water</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Add coffee</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="Sugar needed" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Add sugar</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No sugar needed" language="text/javascript"/>
+      </choose>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Stir</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-09T17:43:54.030521+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete model
+  time:timestamp: '2026-02-09T17:43:54.030636+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-09T17:43:54.030732+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Get mug)
+    a1:task:(Get mug)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Water available"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No water available"|a7:task:(Refill water)
+    a7:task:(Refill water)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a5:task:(Pour water)
+    a5:task:(Pour water)-->a11:task:(Add coffee)
+    a11:task:(Add coffee)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Sugar needed"|a15:task:(Add sugar)
+    a15:task:(Add sugar)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"No sugar needed"|gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a21:task:(Stir)
+    a21:task:(Stir)-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-09T17:43:54.030817+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2026-02-09T17:43:54.030907+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-09T17:43:54.031014+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="No" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 4e899029ff6a3209df15980c6edf1ba006d533c6
+  time:timestamp: '2026-02-09T17:44:10.267971+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e899029ff6a3209df15980c6edf1ba006d533c6
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-02-09T17:44:10.268212+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e899029ff6a3209df15980c6edf1ba006d533c6
+  cpee:exposition: |-
+    # User Input:
+    To keep everyone in the office fuelled and focused, an automatic coffee monitoring system ensures you're never left without your daily brew.
+    First, you are asked whether a refill should be ordered. If the response is negative, a follow-up email is sent to the office to inform everyone that no new coffee has been ordered this week. If refill is necessary, a simple ordering is initiated. It prompts the user to confirm preferences such as the type and amount of coffee (beans, pods), milk options (e.g., regular, oat, almond), and additional supplies needed like sugar or sweeteners.
+  time:timestamp: '2026-02-09T17:44:10.268319+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e899029ff6a3209df15980c6edf1ba006d533c6
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-09T17:44:10.268415+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e899029ff6a3209df15980c6edf1ba006d533c6
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-09T17:44:10.268506+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e899029ff6a3209df15980c6edf1ba006d533c6
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Check if refill is needed)
+      1:task:(Check if refill is needed) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |No| 3:task:(Send email: No coffee ordered)
+      3:task:(Send email: No coffee ordered) --> 6:endevent:(((endevent)))
+      2:exclusivegateway:{x} --> |Yes| 4:task:(Initiate ordering)
+      4:task:(Initiate ordering) --> 5:task:(Confirm preferences)
+      5:task:(Confirm preferences) --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-09T17:44:10.268630+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e899029ff6a3209df15980c6edf1ba006d533c6
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="No" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-09T17:44:10.268813+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="No" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a12">
+            <parameters>
+              <label>Send confirmation email to office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: b84c82665022a2548d49f0fb82b1b8515cdb3849
+  time:timestamp: '2026-02-09T17:44:27.422431+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b84c82665022a2548d49f0fb82b1b8515cdb3849
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="No" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-09T17:44:27.422622+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b84c82665022a2548d49f0fb82b1b8515cdb3849
+  cpee:exposition: |-
+    # User Input:
+    add:
+    Once the order details are confirmed, a confirmation email is sent to the entire office, letting everyone know that fresh coffee is on its way.
+  time:timestamp: '2026-02-09T17:44:27.422729+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b84c82665022a2548d49f0fb82b1b8515cdb3849
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-09T17:44:27.422823+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b84c82665022a2548d49f0fb82b1b8515cdb3849
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Check if refill is needed)
+    a1:task:(Check if refill is needed)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No"|a5:task:(Send email: No coffee ordered)
+    a5:task:(Send email: No coffee ordered)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Yes"|a9:task:(Initiate ordering)
+    a9:task:(Initiate ordering)-->a11:task:(Confirm preferences)
+    a11:task:(Confirm preferences)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-09T17:44:27.422938+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b84c82665022a2548d49f0fb82b1b8515cdb3849
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Check if refill is needed)
+    a1:task:(Check if refill is needed)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No"|a5:task:(Send email: No coffee ordered)
+    a5:task:(Send email: No coffee ordered)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Yes"|a9:task:(Initiate ordering)
+    a9:task:(Initiate ordering)-->a11:task:(Confirm preferences)
+    a11:task:(Confirm preferences)-->a12:task:(Send confirmation email to office)
+    a12:task:(Send confirmation email to office)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-09T17:44:27.423036+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b84c82665022a2548d49f0fb82b1b8515cdb3849
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="No" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a12">
+            <parameters>
+              <label>Send confirmation email to office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-09T17:44:27.423120+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="No" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a2">
+            <parameters>
+              <label>Collect email addresses</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Collect email addresses</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Send confirmation email to office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: df1df8cc92c91f641adf911de692d92f515590e7
+  time:timestamp: '2026-02-09T17:44:38.819721+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: df1df8cc92c91f641adf911de692d92f515590e7
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="No" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a12">
+            <parameters>
+              <label>Send confirmation email to office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-09T17:44:38.819911+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: df1df8cc92c91f641adf911de692d92f515590e7
+  cpee:exposition: |-
+    # User Input:
+    add:
+    After making refill decision, collect the email addresses of all relevant office members to ensure everyone will stay informed.
+  time:timestamp: '2026-02-09T17:44:38.820222+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: df1df8cc92c91f641adf911de692d92f515590e7
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-09T17:44:38.820375+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: df1df8cc92c91f641adf911de692d92f515590e7
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Check if refill is needed)
+    a1:task:(Check if refill is needed)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No"|a5:task:(Send email: No coffee ordered)
+    a5:task:(Send email: No coffee ordered)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Yes"|a9:task:(Initiate ordering)
+    a9:task:(Initiate ordering)-->a11:task:(Confirm preferences)
+    a11:task:(Confirm preferences)-->a13:task:(Send confirmation email to office)
+    a13:task:(Send confirmation email to office)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-09T17:44:38.820526+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: df1df8cc92c91f641adf911de692d92f515590e7
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Check if refill is needed)
+    a1:task:(Check if refill is needed)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No"|a2:task:(Collect email addresses)
+    a2:task:(Collect email addresses)-->a5:task:(Send email: No coffee ordered)
+    a5:task:(Send email: No coffee ordered)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Yes"|a3:task:(Collect email addresses)
+    a3:task:(Collect email addresses)-->a9:task:(Initiate ordering)
+    a9:task:(Initiate ordering)-->a11:task:(Confirm preferences)
+    a11:task:(Confirm preferences)-->a13:task:(Send confirmation email to office)
+    a13:task:(Send confirmation email to office)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2026-02-09T17:44:38.820815+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: df1df8cc92c91f641adf911de692d92f515590e7
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="No" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a2">
+            <parameters>
+              <label>Collect email addresses</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Collect email addresses</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Send confirmation email to office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-09T17:44:38.820941+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="No" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a12">
+            <parameters>
+              <label>Send confirmation email to office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: b84c82665022a2548d49f0fb82b1b8515cdb3849
+  time:timestamp: '2026-02-09T17:44:45.811093+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Collect email addresses</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="No" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Send confirmation email to office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: cb36e1f7168c7acc42202fd66dc890a3d1d00581
+  time:timestamp: '2026-02-09T17:44:55.313767+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cb36e1f7168c7acc42202fd66dc890a3d1d00581
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="No" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a12">
+            <parameters>
+              <label>Send confirmation email to office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-09T17:44:55.313961+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cb36e1f7168c7acc42202fd66dc890a3d1d00581
+  cpee:exposition: |-
+    # User Input:
+    add:
+    After first task, collect the email addresses of all relevant office members to ensure everyone will stay informed.
+  time:timestamp: '2026-02-09T17:44:55.316672+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cb36e1f7168c7acc42202fd66dc890a3d1d00581
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-09T17:44:55.316799+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cb36e1f7168c7acc42202fd66dc890a3d1d00581
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Check if refill is needed)
+    a1:task:(Check if refill is needed)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No"|a5:task:(Send email: No coffee ordered)
+    a5:task:(Send email: No coffee ordered)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Yes"|a9:task:(Initiate ordering)
+    a9:task:(Initiate ordering)-->a11:task:(Confirm preferences)
+    a11:task:(Confirm preferences)-->a13:task:(Send confirmation email to office)
+    a13:task:(Send confirmation email to office)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-09T17:44:55.316905+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cb36e1f7168c7acc42202fd66dc890a3d1d00581
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Check if refill is needed)
+    a1:task:(Check if refill is needed)-->a2:task:(Collect email addresses)
+    a2:task:(Collect email addresses)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No"|a5:task:(Send email: No coffee ordered)
+    a5:task:(Send email: No coffee ordered)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Yes"|a9:task:(Initiate ordering)
+    a9:task:(Initiate ordering)-->a11:task:(Confirm preferences)
+    a11:task:(Confirm preferences)-->a13:task:(Send confirmation email to office)
+    a13:task:(Send confirmation email to office)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2026-02-09T17:44:55.317011+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cb36e1f7168c7acc42202fd66dc890a3d1d00581
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Check if refill is needed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Collect email addresses</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="No" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Send email: No coffee ordered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Initiate ordering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Confirm preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Send confirmation email to office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-02-09T17:44:55.317112+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-02-09T17:45:38.337547+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-02-09T17:45:39.369119+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-02-09T17:45:40.405958+01:00'
+---
+event:
+  concept:instance: 141033
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 87eb077b-371a-480e-a97c-685ef7780fac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-02-09T17:45:40.425993+01:00'

@@ -1,0 +1,495 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 141032
+    cpee:name: Plain Instance
+    cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-02-09T16:58:16.930269+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Antigen Recognition</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>B-cell Activation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Differentiation into Plasma Cells" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Plasma Cell Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Differentiation into Memory Cells" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Memory Cell Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Antibody Synthesis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 82b5fb5f20b84ce6cfd925d701646c3ec8143b43
+  time:timestamp: '2026-02-09T16:58:55.261504+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b5fb5f20b84ce6cfd925d701646c3ec8143b43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-02-09T16:58:55.261693+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b5fb5f20b84ce6cfd925d701646c3ec8143b43
+  cpee:exposition: |+
+    # User Input:
+    How are antibodies produced in Industrie?
+
+  time:timestamp: '2026-02-09T16:58:55.261793+01:00'
+...
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b5fb5f20b84ce6cfd925d701646c3ec8143b43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-09T16:58:55.262232+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b5fb5f20b84ce6cfd925d701646c3ec8143b43
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-09T16:58:55.262384+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b5fb5f20b84ce6cfd925d701646c3ec8143b43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Antigen Recognition</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>B-cell Activation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Differentiation into Plasma Cells" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Plasma Cell Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Differentiation into Memory Cells" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Memory Cell Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Antibody Synthesis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-09T16:58:55.262590+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 82b5fb5f20b84ce6cfd925d701646c3ec8143b43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Antigen Recognition)
+    1:task:(Antigen Recognition) --> 2:task:(B-cell Activation)
+    2:task:(B-cell Activation) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Differentiation into Plasma Cells| 4:task:(Plasma Cell Production)
+    3:exclusivegateway:{x} --> |Differentiation into Memory Cells| 5:task:(Memory Cell Production)
+    4:task:(Plasma Cell Production) --> 6:task:(Antibody Synthesis)
+    5:task:(Memory Cell Production) --> 6:task:(Antibody Synthesis)
+    6:task:(Antibody Synthesis) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-09T16:58:55.262491+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Antigen Recognition</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>B-cell Activation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Differentiation into Plasma Cells" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Plasma Cell Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Differentiation into Memory Cells" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Memory Cell Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Antibody Synthesis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: f1144223d28397c824c6cb7683e4a646832f846a
+  time:timestamp: '2026-02-09T16:59:46.002819+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1144223d28397c824c6cb7683e4a646832f846a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Antigen Recognition</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>B-cell Activation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Differentiation into Plasma Cells" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Plasma Cell Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Differentiation into Memory Cells" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Memory Cell Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Antibody Synthesis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-09T16:59:46.003007+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1144223d28397c824c6cb7683e4a646832f846a
+  cpee:exposition: |+
+    # User Input:
+    How are antibodies produced from recombinant cell lines in an industrial scale?
+
+  time:timestamp: '2026-02-09T16:59:46.003136+01:00'
+...
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1144223d28397c824c6cb7683e4a646832f846a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-09T16:59:46.003305+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1144223d28397c824c6cb7683e4a646832f846a
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Antigen Recognition)
+    a1:task:(Antigen Recognition)-->a3:task:(B-cell Activation)
+    a3:task:(B-cell Activation)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Differentiation into Plasma Cells"|a7:task:(Plasma Cell Production)
+    a7:task:(Plasma Cell Production)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Differentiation into Memory Cells"|a9:task:(Memory Cell Production)
+    a9:task:(Memory Cell Production)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a11:task:(Antibody Synthesis)
+    a11:task:(Antibody Synthesis)-->ee:endevent:((endevent))
+  time:timestamp: '2026-02-09T16:59:46.003413+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1144223d28397c824c6cb7683e4a646832f846a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Antigen Recognition)
+    a1:task:(Antigen Recognition)-->a3:task:(B-cell Activation)
+    a3:task:(B-cell Activation)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Differentiation into Plasma Cells"|a7:task:(Plasma Cell Production)
+    a7:task:(Plasma Cell Production)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Differentiation into Memory Cells"|a9:task:(Memory Cell Production)
+    a9:task:(Memory Cell Production)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a11:task:(Antibody Synthesis)
+    a11:task:(Antibody Synthesis)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-09T16:59:46.003506+01:00'
+---
+event:
+  concept:instance: 141032
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7387118-a4a4-4822-880a-7bc06de987f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f1144223d28397c824c6cb7683e4a646832f846a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Antigen Recognition</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>B-cell Activation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Differentiation into Plasma Cells" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Plasma Cell Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Differentiation into Memory Cells" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Memory Cell Production</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Antibody Synthesis</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-02-09T16:59:46.003601+01:00'
