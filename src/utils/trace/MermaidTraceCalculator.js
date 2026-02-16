@@ -775,9 +775,10 @@ export class MermaidTraceCalculator {
      * @returns {string|null} Join gateway ID or null
      */
     static findJoinGateway(graph, splitGatewayId, branchStartIds) {
-        // First, look for a parallel gateway that all branches can reach
+        // First, look for a parallel or inclusive gateway that all branches can reach
         for (const node of graph.nodes) {
-            if (node.type === 'parallelgateway' && node.id !== splitGatewayId) {
+            if ((node.type === 'parallelgateway' || node.type === 'inclusivegateway') && 
+                node.id !== splitGatewayId) {
                 // Check if all branches can reach this gateway
                 let allBranchesReach = true;
                 for (const branchStartId of branchStartIds) {
@@ -793,11 +794,11 @@ export class MermaidTraceCalculator {
             }
         }
         
-        // If no parallel gateway found, look for any gateway (exclusive or parallel)
+        // If no parallel/inclusive gateway found, look for any gateway type
         // that all branches converge at - this handles cases where parallel branches
         // converge at an exclusive gateway before continuing
         for (const node of graph.nodes) {
-            if ((node.type === 'exclusivegateway' || node.type === 'parallelgateway') && 
+            if ((node.type === 'exclusivegateway' || node.type === 'parallelgateway' || node.type === 'inclusivegateway') && 
                 node.id !== splitGatewayId) {
                 // Check if all branches can reach this gateway
                 let allBranchesReach = true;
