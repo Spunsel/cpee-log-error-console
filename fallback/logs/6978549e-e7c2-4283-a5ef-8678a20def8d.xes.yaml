@@ -1,0 +1,383 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 141992
+    cpee:name: Plain Instance
+    cpee:instance: 6978549e-e7c2-4283-a5ef-8678a20def8d
+---
+event:
+  concept:instance: 141992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6978549e-e7c2-4283-a5ef-8678a20def8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-02-17T11:46:12.276800+01:00'
+---
+event:
+  concept:instance: 141992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6978549e-e7c2-4283-a5ef-8678a20def8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 574b2511ab3e07ab6f0d5db46be32b380e38a63a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-02-17T11:46:22.896061+01:00'
+---
+event:
+  concept:instance: 141992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6978549e-e7c2-4283-a5ef-8678a20def8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Cell Suspension</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Choose Disruption Method</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="3">
+          <alternative condition="Homogenization" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Perform Homogenization</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Sonication" language="text/javascript">
+            <call id="a9" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Perform Sonication</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Enzymatic Lysis" language="text/javascript">
+            <call id="a11" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Perform Enzymatic Lysis</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+        <call id="a19" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Verify Cell Disruption</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="9" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Choose Disruption Method</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="3">
+            <alternative condition="Homogenization" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Perform Homogenization</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Sonication" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Perform Sonication</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Enzymatic Lysis" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Perform Enzymatic Lysis</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a19" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Verify Cell Disruption</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a23" endpoint="" a:alt_id="10">
+          <parameters>
+            <label>Collect Lysate</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: 574b2511ab3e07ab6f0d5db46be32b380e38a63a
+  time:timestamp: '2026-02-17T11:46:22.895843+01:00'
+---
+event:
+  concept:instance: 141992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6978549e-e7c2-4283-a5ef-8678a20def8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 574b2511ab3e07ab6f0d5db46be32b380e38a63a
+  cpee:exposition: |-
+    # User Input:
+    create a cell disruption process
+  time:timestamp: '2026-02-17T11:46:22.896154+01:00'
+---
+event:
+  concept:instance: 141992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6978549e-e7c2-4283-a5ef-8678a20def8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 574b2511ab3e07ab6f0d5db46be32b380e38a63a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-02-17T11:46:22.896249+01:00'
+---
+event:
+  concept:instance: 141992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6978549e-e7c2-4283-a5ef-8678a20def8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 574b2511ab3e07ab6f0d5db46be32b380e38a63a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-02-17T11:46:22.896454+01:00'
+---
+event:
+  concept:instance: 141992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6978549e-e7c2-4283-a5ef-8678a20def8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 574b2511ab3e07ab6f0d5db46be32b380e38a63a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Prepare Cell Suspension)
+    1:task:(Prepare Cell Suspension) --> 2:task:(Choose Disruption Method)
+    2:task:(Choose Disruption Method) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} -->|Homogenization| 4:task:(Perform Homogenization)
+    3:exclusivegateway:{x} -->|Sonication| 5:task:(Perform Sonication)
+    3:exclusivegateway:{x} -->|Enzymatic Lysis| 6:task:(Perform Enzymatic Lysis)
+    4:task:(Perform Homogenization) --> 7:exclusivegateway:{x}
+    5:task:(Perform Sonication) --> 7:exclusivegateway:{x}
+    6:task:(Perform Enzymatic Lysis) --> 7:exclusivegateway:{x}
+    7:exclusivegateway:{x} --> 8:task:(Verify Cell Disruption)
+    8:task:(Verify Cell Disruption) --> 9:exclusivegateway:{x}
+    9:exclusivegateway:{x} -->|Yes| 10:task:(Collect Lysate)
+    9:exclusivegateway:{x} -->|No| 2:task:(Choose Disruption Method)
+    10:task:(Collect Lysate) --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-02-17T11:46:22.896527+01:00'
+---
+event:
+  concept:instance: 141992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 6978549e-e7c2-4283-a5ef-8678a20def8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 574b2511ab3e07ab6f0d5db46be32b380e38a63a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Cell Suspension</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Choose Disruption Method</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="3">
+          <alternative condition="Homogenization" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Perform Homogenization</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Sonication" language="text/javascript">
+            <call id="a9" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Perform Sonication</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Enzymatic Lysis" language="text/javascript">
+            <call id="a11" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Perform Enzymatic Lysis</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+        <call id="a19" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Verify Cell Disruption</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="9" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Choose Disruption Method</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="3">
+            <alternative condition="Homogenization" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Perform Homogenization</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Sonication" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Perform Sonication</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Enzymatic Lysis" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Perform Enzymatic Lysis</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a19" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Verify Cell Disruption</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a23" endpoint="" a:alt_id="10">
+          <parameters>
+            <label>Collect Lysate</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-02-17T11:46:22.896610+01:00'
