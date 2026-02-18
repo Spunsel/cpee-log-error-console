@@ -306,7 +306,7 @@ export class ConfigManager {
                 // Switch to control proxy vs fallback behavior
                 // When true: directly use fallback (skip proxy)
                 // When false: try proxy first, then fallback
-                useFallbackDirectly: true
+                useFallbackDirectly: false
             },
             validation: {
                 requireDescription: true,
