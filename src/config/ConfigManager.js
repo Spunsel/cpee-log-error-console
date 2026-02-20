@@ -97,7 +97,7 @@ export class ConfigManager {
                 // Predefined list of CPEE LLM instance process numbers for "Load All CPEE Instances" button
                 processNumbers: [
                     // active instances
-                    142526, 142525, 142524, 142522, 
+                    142586, 142585, 142583, 142576, 142573, 142572, 142526, 142525, 142524, 142522, 
                     142521, 141997, 141996, 141994, 141992, 141462, 141461, 141460, 141401, 141384, 141377, 141365, 
                     141342, 141331, 141329, 141255, 141034, 141033, 141032, 141031, 140984, 140971, 140969, 140967, 
                     140660, 140651, 140645, 140644, 140613, 140609, 140608, 139378, 139027, 139009, 138931, 138804, 
@@ -306,7 +306,7 @@ export class ConfigManager {
                 // Switch to control proxy vs fallback behavior
                 // When true: directly use fallback (skip proxy)
                 // When false: try proxy first, then fallback
-                useFallbackDirectly: false
+                useFallbackDirectly: true
             },
             validation: {
                 requireDescription: true,
