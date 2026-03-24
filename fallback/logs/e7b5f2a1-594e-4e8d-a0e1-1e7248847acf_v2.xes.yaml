@@ -1,0 +1,805 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 850
+    cpee:name: Plain Instance
+    cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T09:17:35.906613+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-28T09:17:36.264631+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-28T09:17:36.281989+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T09:17:36.336458+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T09:17:36.373280+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a576198a64556e55db104851dfff3bd593300233
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T09:17:57.643232+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Choose Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pay for Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Receive Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a576198a64556e55db104851dfff3bd593300233
+  time:timestamp: '2025-10-28T09:17:57.643025+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a576198a64556e55db104851dfff3bd593300233
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T09:17:57.643782+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a576198a64556e55db104851dfff3bd593300233
+  cpee:exposition: |-
+    # User Input:
+    create a process for buying a bicycly
+  time:timestamp: '2025-10-28T09:17:57.643647+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a576198a64556e55db104851dfff3bd593300233
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T09:17:57.645107+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a576198a64556e55db104851dfff3bd593300233
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Choose Bicycle)
+    1:task:(Choose Bicycle) --> 2:task:(Pay for Bicycle)
+    2:task:(Pay for Bicycle) --> 3:task:(Receive Bicycle)
+    3:task:(Receive Bicycle) --> 4:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T09:17:57.645212+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a576198a64556e55db104851dfff3bd593300233
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Choose Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pay for Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Receive Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T09:17:57.645301+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <choose mode="exclusive">
+        <alternative condition="Online" language="text/javascript">
+          <call id="a2_1" endpoint="">
+            <parameters>
+              <label>Choose Bicycle Online</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a2_1'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="In Store" language="text/javascript">
+          <call id="a2_2" endpoint="">
+            <parameters>
+              <label>Choose Bicycle In Store</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a2_2'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pay for Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Receive Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a2779a7105bbceadcc965652e9624c7efdf56288
+  time:timestamp: '2025-10-28T09:18:23.350704+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2779a7105bbceadcc965652e9624c7efdf56288
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Choose Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pay for Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Receive Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T09:18:23.350866+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2779a7105bbceadcc965652e9624c7efdf56288
+  cpee:exposition: |-
+    # User Input:
+    specify more on how a bicycle can be chosen
+  time:timestamp: '2025-10-28T09:18:23.351312+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2779a7105bbceadcc965652e9624c7efdf56288
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T09:18:23.351581+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2779a7105bbceadcc965652e9624c7efdf56288
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a2:exclusivegateway:{x}
+    a2:exclusivegateway:{x} -->|Online| a2_1:task:(Choose Bicycle Online)
+    a2:exclusivegateway:{x} -->|In Store| a2_2:task:(Choose Bicycle In Store)
+    a2_1:task:(Choose Bicycle Online)-->a2_3:exclusivegateway:{x}
+    a2_2:task:(Choose Bicycle In Store)-->a2_3:exclusivegateway: {x}
+    a2_3:exclusivegateway:{x}-->a3:task:(Pay for Bicycle)
+    a3:task:(Pay for Bicycle)-->a4:task:(Receive Bicycle)
+    a4:task:(Receive Bicycle)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-10-28T09:18:23.351825+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2779a7105bbceadcc965652e9624c7efdf56288
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Choose Bicycle)
+    a2:task:(Choose Bicycle)-->a3:task:(Pay for Bicycle)
+    a3:task:(Pay for Bicycle)-->a4:task:(Receive Bicycle)
+    a4:task:(Receive Bicycle)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T09:18:23.351679+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2779a7105bbceadcc965652e9624c7efdf56288
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <choose mode="exclusive">
+        <alternative condition="Online" language="text/javascript">
+          <call id="a2_1" endpoint="">
+            <parameters>
+              <label>Choose Bicycle Online</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a2_1'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="In Store" language="text/javascript">
+          <call id="a2_2" endpoint="">
+            <parameters>
+              <label>Choose Bicycle In Store</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a2_2'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pay for Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Receive Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T09:18:23.351978+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <choose mode="exclusive">
+        <alternative condition="Online" language="text/javascript">
+          <call id="a2_1" endpoint="">
+            <parameters>
+              <label>Choose Bicycle Online</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a2_1'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="In Store" language="text/javascript">
+          <call id="a2_2" endpoint="">
+            <parameters>
+              <label>Choose Bicycle In Store</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a2_2'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pay for Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Receive Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="Delivery" language="text/javascript">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Bicycle Delivery</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Pick Up" language="text/javascript">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Bicycle Pick Up</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: d4ae462690a8b56f56019850fbf4b163605166af
+  time:timestamp: '2025-10-28T09:18:45.740448+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d4ae462690a8b56f56019850fbf4b163605166af
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <choose mode="exclusive">
+        <alternative condition="Online" language="text/javascript">
+          <call id="a2_1" endpoint="">
+            <parameters>
+              <label>Choose Bicycle Online</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a2_1'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="In Store" language="text/javascript">
+          <call id="a2_2" endpoint="">
+            <parameters>
+              <label>Choose Bicycle In Store</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a2_2'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pay for Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Receive Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T09:18:45.740626+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d4ae462690a8b56f56019850fbf4b163605166af
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T09:18:45.741259+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d4ae462690a8b56f56019850fbf4b163605166af
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Online"|a2_1:task:(Choose Bicycle Online)
+    a2_1:task:(Choose Bicycle Online)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"In Store"|a2_2:task:(Choose Bicycle In Store)
+    a2_2:task:(Choose Bicycle In Store)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a3:task:(Pay for Bicycle)
+    a3:task:(Pay for Bicycle)-->a4:task:(Receive Bicycle)
+    a4:task:(Receive Bicycle)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Delivery"|a5:task:(Bicycle Delivery)
+    a5:task:(Bicycle Delivery)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Pick Up"|a6:task:(Bicycle Pick Up)
+    a6:task:(Bicycle Pick Up)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-10-28T09:18:45.741498+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d4ae462690a8b56f56019850fbf4b163605166af
+  cpee:exposition: |-
+    # User Input:
+    specify how the bicycle is received
+  time:timestamp: '2025-10-28T09:18:45.741158+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d4ae462690a8b56f56019850fbf4b163605166af
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Online"|a2_1:task:(Choose Bicycle Online)
+    a2_1:task:(Choose Bicycle Online)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"In Store"|a2_2:task:(Choose Bicycle In Store)
+    a2_2:task:(Choose Bicycle In Store)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a3:task:(Pay for Bicycle)
+    a3:task:(Pay for Bicycle)-->a4:task:(Receive Bicycle)
+    a4:task:(Receive Bicycle)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T09:18:45.741373+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d4ae462690a8b56f56019850fbf4b163605166af
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <choose mode="exclusive">
+        <alternative condition="Online" language="text/javascript">
+          <call id="a2_1" endpoint="">
+            <parameters>
+              <label>Choose Bicycle Online</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a2_1'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="In Store" language="text/javascript">
+          <call id="a2_2" endpoint="">
+            <parameters>
+              <label>Choose Bicycle In Store</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a2_2'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pay for Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Receive Bicycle</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="Delivery" language="text/javascript">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Bicycle Delivery</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Pick Up" language="text/javascript">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Bicycle Pick Up</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-10-28T09:18:45.741600+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-28T09:19:11.587627+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-28T09:19:11.606038+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T09:19:11.684215+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T09:19:11.686238+01:00'
+---
+event:
+  concept:instance: 850
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e7b5f2a1-594e-4e8d-a0e1-1e7248847acf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-10-28T09:19:13.836941+01:00'

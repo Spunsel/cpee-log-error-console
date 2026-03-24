@@ -1,0 +1,1481 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 214
+    cpee:name: get_selection
+    cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+    cpee:parent_instance: 211
+    cpee:parent_instance_uuid: 3ed4d4bd-9d0a-4b9f-93a0-15ad4d0ead63
+    cpee:parent_instance_model: player_turn
+    cpee:parent_instance_task_id: a12
+    cpee:parent_instance_task_label: Get Player Action Choice
+---
+event:
+  concept:instance: 214
+  id:id: ex-ante
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-17T13:14:34.611831+01:00'
+---
+event:
+  concept:instance: 214
+  id:id: ex-ante
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: title
+    value: "#, please choose an action or end your turn."
+  - name: message
+    value: Please keep in mind the mana and adrenaline costs...
+  - name: options
+    value: ''
+  - name: current_player
+    value:
+      type: player
+      id: wizard
+      title: Wizard
+      position:
+      - 9
+      - 6
+      initiative: 19
+      init_bonus: 2
+      ac: 15
+      hp: 21
+      max_hp: 28
+      mana: 8
+      max_mana: 15
+      adrenaline: 5
+      max_adrenaline: 15
+      insanity: 0
+      max_insanity: 10
+      max_movement: 3
+      current_movement: 3
+      abilities:
+      - id: str
+        title: Strength
+        value: 8
+        mod: -1
+        saving_throw: -1
+      - id: dex
+        title: Dexterity
+        value: 14
+        mod: 2
+        saving_throw: 2
+      - id: con
+        title: Constitution
+        value: 14
+        mod: 1
+        saving_throw: 2
+      - id: int
+        title: Intelligence
+        value: 20
+        mod: 5
+        saving_throw: 8
+      - id: wis
+        title: Wisdom
+        value: 14
+        mod: 2
+        saving_throw: 5
+      skills:
+      - id: 10
+        type: 0
+        title: Arcane Burst
+        no_of_dice: 2
+        die: d10
+        prerequisite:
+        condition:
+        m_cost: 1
+        a_cost: 1
+        range: 3
+      - id: 11
+        type: 2
+        title: Arcane Shield
+        no_of_dice: 0
+        die:
+        prerequisite:
+        condition: shielded
+        m_cost: 1
+        a_cost: 1
+        range: 0
+      - id: 12
+        type: 2
+        title: Stabilize
+        no_of_dice: 0
+        die:
+        prerequisite:
+        condition:
+        m_cost: 2
+        a_cost: 2
+        range: 3
+      valid_targets: []
+      target:
+      chosen_action:
+      attack_bonus: 8
+      attack_roll:
+      damage_roll:
+      conditions:
+      - grappled
+      equipment: []
+      action_available: true
+      b_action_available: true
+      first_turn: true
+  - name: type
+    value: 2
+  - name: selection
+    value: ''
+  time:timestamp: '2026-03-17T13:14:34.616728+01:00'
+---
+event:
+  concept:instance: 214
+  id:id: ex-ante
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: timeout
+    value: https://cpee.org/services/timeout.php
+  - name: subprocess
+    value: https://cpee.org/flow/start/url/
+  - name: sendOptions
+    value: https://lehre.bpm.in.tum.de/ports/5104/visualizeTargets
+  - name: frames_display
+    value: https-put://cpee.org/out/frames/
+  - name: sendActions
+    value: https://lehre.bpm.in.tum.de/ports/5104/visualizeAction
+  time:timestamp: '2026-03-17T13:14:34.621422+01:00'
+---
+event:
+  concept:instance: 214
+  id:id: ex-ante
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: dataflow
+  - name: guarded_id
+    value: ''
+  - name: info
+    value: get_selection
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: model_uuid
+    value: 81cdc7ad-70f1-41cc-83ef-cd0558be31f4
+  - name: model_version
+    value: ''
+  - name: design_dir
+    value: Teaching.dir/Prak.dir/TUM-Prak-24-WS.dir/Zeka_Dizdar.dir
+  - name: design_stage
+    value: development
+  - name: fid
+    value: gridsanddragons
+  - name: parent_instance
+    value: 211
+  - name: parent_instance_uuid
+    value: 3ed4d4bd-9d0a-4b9f-93a0-15ad4d0ead63
+  - name: parent_instance_model
+    value: player_turn
+  - name: parent_instance_task_id
+    value: a12
+  - name: parent_instance_task_label
+    value: Get Player Action Choice
+  time:timestamp: '2026-03-17T13:14:34.625507+01:00'
+---
+event:
+  concept:instance: 214
+  id:id: ex-ante
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <choose mode="exclusive" label="">
+        <alternative condition="data.type.to_i == 1">
+          <call id="a2" endpoint="frames_display">
+            <parameters>
+              <label>Clear Option Display Box</label>
+              <color/>
+              <arguments>
+                <type>set</type>
+                <lx>6</lx>
+                <ly>1</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls/>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <call id="a1" endpoint="sendOptions">
+            <parameters>
+              <label>Send Options to Server</label>
+              <color/>
+              <method>:post</method>
+              <arguments>
+                <title>!data.title</title>
+                <message>!data.message</message>
+                <options>!data.options</options>
+              </arguments>
+            </parameters>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+            </documentation>
+          </call>
+          <call id="a3" endpoint="frames_display">
+            <parameters>
+              <label>Visualize Options</label>
+              <color/>
+              <arguments>
+                <type>wait</type>
+                <lx>6</lx>
+                <ly>1</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls>
+                  <urls_item>
+                    <lang>de-at</lang>
+                    <url>https://lehre.bpm.in.tum.de/~ge87max/target/target.html</url>
+                  </urls_item>
+                </urls>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result">data.selection = result["target"]</finalize>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <call id="a4" endpoint="frames_display">
+            <parameters>
+              <label>Reset Options Box</label>
+              <color/>
+              <arguments>
+                <type>set</type>
+                <lx>6</lx>
+                <ly>1</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls/>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+        </alternative>
+        <alternative condition="data.type.to_i == 2">
+          <call id="a6" endpoint="frames_display">
+            <parameters>
+              <label>Clear Action Display Box</label>
+              <color/>
+              <arguments>
+                <type>set</type>
+                <lx>6</lx>
+                <ly>3</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls/>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <call id="a7" endpoint="sendActions">
+            <parameters>
+              <label>Send Actions to Server</label>
+              <color/>
+              <method>:post</method>
+              <arguments>
+                <title>!data.title</title>
+                <message>!data.message</message>
+                <player_id>!data.current_player["title"]</player_id>
+                <actions>!data.current_player["skills"]</actions>
+              </arguments>
+            </parameters>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+            </documentation>
+          </call>
+          <call id="a8" endpoint="frames_display">
+            <parameters>
+              <label>Visualize Actions</label>
+              <color/>
+              <arguments>
+                <type>wait</type>
+                <lx>6</lx>
+                <ly>3</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls>
+                  <urls_item>
+                    <lang>de-at</lang>
+                    <url>https://lehre.bpm.in.tum.de/~ge87max/action/action.html</url>
+                  </urls_item>
+                </urls>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result">data.selection = result["action_id"]</finalize>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <call id="a9" endpoint="frames_display">
+            <parameters>
+              <label>Reset Actions Box</label>
+              <color/>
+              <arguments>
+                <type>set</type>
+                <lx>6</lx>
+                <ly>3</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls/>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+        </alternative>
+        <alternative condition="data.type.to_i == 3">
+          <call id="a12" endpoint="frames_display">
+            <parameters>
+              <label>Clear Attack Target Display Box</label>
+              <color/>
+              <arguments>
+                <type>set</type>
+                <lx>6</lx>
+                <ly>3</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls/>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <call id="a11" endpoint="sendActions">
+            <parameters>
+              <label>Send Attack Targets to Server</label>
+              <color/>
+              <method>:post</method>
+              <arguments>
+                <title>!data.title</title>
+                <player_id>!data.current_player["title"]</player_id>
+                <options>!data.current_player["valid_targets"]</options>
+              </arguments>
+            </parameters>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+            </documentation>
+          </call>
+          <call id="a10" endpoint="frames_display">
+            <parameters>
+              <label>Visualize Attack Targets</label>
+              <color/>
+              <arguments>
+                <type>wait</type>
+                <lx>6</lx>
+                <ly>3</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls>
+                  <urls_item>
+                    <lang>de-at</lang>
+                    <url>https://lehre.bpm.in.tum.de/~ge87max/target/target.html</url>
+                  </urls_item>
+                </urls>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result">data.selection = result["target"]</finalize>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <call id="a5" endpoint="frames_display">
+            <parameters>
+              <label>Reset Attack Targets Box</label>
+              <color/>
+              <arguments>
+                <type>set</type>
+                <lx>6</lx>
+                <ly>3</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls/>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+        </alternative>
+        <alternative condition="data.type.to_i == 4">
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+          <call id="a16" endpoint="frames_display">
+            <parameters>
+              <label>Clear Miscellaneous Options Display Box</label>
+              <color/>
+              <arguments>
+                <type>set</type>
+                <lx>6</lx>
+                <ly>3</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls/>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <call id="a15" endpoint="sendOptions">
+            <parameters>
+              <label>Send Miscellaneous Options to Server</label>
+              <color/>
+              <method>:post</method>
+              <arguments>
+                <title>!data.title</title>
+                <message>!data.message</message>
+                <player_id>!data.current_player["title"]</player_id>
+                <options>!data.options</options>
+              </arguments>
+            </parameters>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+            </documentation>
+          </call>
+          <call id="a14" endpoint="frames_display">
+            <parameters>
+              <label>Visualize Miscellaneous Options</label>
+              <color/>
+              <arguments>
+                <type>wait</type>
+                <lx>6</lx>
+                <ly>3</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls>
+                  <urls_item>
+                    <lang>de-at</lang>
+                    <url>https://lehre.bpm.in.tum.de/~ge87max/target/target.html</url>
+                  </urls_item>
+                </urls>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result">data.selection = result["target"]</finalize>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <call id="a13" endpoint="frames_display">
+            <parameters>
+              <label>Reset Miscellaneous Options Box</label>
+              <color/>
+              <arguments>
+                <type>set</type>
+                <lx>6</lx>
+                <ly>3</ly>
+                <x_amount>3</x_amount>
+                <y_amount>2</y_amount>
+                <button/>
+                <style/>
+                <urls/>
+                <default/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal/>
+              <prepare>endpoints.frames_display += attributes.fid</prepare>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_logging_behavior>
+                <_exclude/>
+                <_include/>
+              </_logging_behavior>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+        </alternative>
+        <otherwise/>
+      </choose>
+    </description>
+  cpee:change_uuid: 9e813472c396364de45252f8e9af5902b8867a7d
+  time:timestamp: '2026-03-17T13:14:34.639443+01:00'
+---
+event:
+  concept:instance: 214
+  id:id: ex-ante
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: running
+  time:timestamp: '2026-03-17T13:14:35.938935+01:00'
+---
+event:
+  concept:instance: 214
+  id:id: e_1_1_1
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: gateway/decide
+  data:
+    condition: data.type.to_i == 1
+    result: false
+  time:timestamp: '2026-03-17T13:14:35.951430+01:00'
+---
+event:
+  concept:instance: 214
+  id:id: e_1_1_2
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: gateway/decide
+  data:
+    condition: data.type.to_i == 2
+    result: true
+  time:timestamp: '2026-03-17T13:14:35.959132+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Clear Action Display Box
+  concept:endpoint: https-put://cpee.org/out/frames/gridsanddragons
+  id:id: a6
+  cpee:activity: a6
+  cpee:activity_uuid: 981b5af1301e9f06818e959d6a833e74
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: type
+    value: set
+  - name: lx
+    value: '6'
+  - name: ly
+    value: '3'
+  - name: x_amount
+    value: '3'
+  - name: y_amount
+    value: '2'
+  - name: button
+    value:
+  - name: style
+    value:
+  - name: urls
+    value:
+  - name: default
+    value:
+  time:timestamp: '2026-03-17T13:14:35.995771+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Clear Action Display Box
+  concept:endpoint: https-put://cpee.org/out/frames/gridsanddragons
+  id:id: a6
+  cpee:activity: a6
+  cpee:activity_uuid: 981b5af1301e9f06818e959d6a833e74
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  time:timestamp: '2026-03-17T13:14:36.013594+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Clear Action Display Box
+  concept:endpoint: https-put://cpee.org/out/frames/gridsanddragons
+  id:id: a6
+  cpee:activity: a6
+  cpee:activity_uuid: 981b5af1301e9f06818e959d6a833e74
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-03-17T13:14:36.047157+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Send Actions to Server
+  concept:endpoint: https://lehre.bpm.in.tum.de/ports/5104/visualizeAction
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: fb620e368f21a78fb093e7cb3f2bb0a3
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: title
+    value: "#, please choose an action or end your turn."
+  - name: message
+    value: Please keep in mind the mana and adrenaline costs...
+  - name: player_id
+    value: Wizard
+  - name: actions
+    value:
+    - id: 10
+      type: 0
+      title: Arcane Burst
+      no_of_dice: 2
+      die: d10
+      prerequisite:
+      condition:
+      m_cost: 1
+      a_cost: 1
+      range: 3
+    - id: 11
+      type: 2
+      title: Arcane Shield
+      no_of_dice: 0
+      die:
+      prerequisite:
+      condition: shielded
+      m_cost: 1
+      a_cost: 1
+      range: 0
+    - id: 12
+      type: 2
+      title: Stabilize
+      no_of_dice: 0
+      die:
+      prerequisite:
+      condition:
+      m_cost: 2
+      a_cost: 2
+      range: 3
+  time:timestamp: '2026-03-17T13:14:36.123851+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Send Actions to Server
+  concept:endpoint: https://lehre.bpm.in.tum.de/ports/5104/visualizeAction
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: fb620e368f21a78fb093e7cb3f2bb0a3
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: application/json
+    data: '{"status": "ok"}'
+  time:timestamp: '2026-03-17T13:14:36.208181+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Send Actions to Server
+  concept:endpoint: https://lehre.bpm.in.tum.de/ports/5104/visualizeAction
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: fb620e368f21a78fb093e7cb3f2bb0a3
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-03-17T13:14:36.225828+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Visualize Actions
+  concept:endpoint: https-put://cpee.org/out/frames/gridsanddragons
+  id:id: a8
+  cpee:activity: a8
+  cpee:activity_uuid: ba22c2e7b40ba9f609b30d79f6376c47
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: type
+    value: wait
+  - name: lx
+    value: '6'
+  - name: ly
+    value: '3'
+  - name: x_amount
+    value: '3'
+  - name: y_amount
+    value: '2'
+  - name: button
+    value:
+  - name: style
+    value:
+  - name: urls
+    value:
+    - lang: de-at
+      url: https://lehre.bpm.in.tum.de/~ge87max/action/action.html
+  - name: default
+    value:
+  time:timestamp: '2026-03-17T13:14:36.261974+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Visualize Actions
+  concept:endpoint: https-put://cpee.org/out/frames/gridsanddragons
+  id:id: a8
+  cpee:activity: a8
+  cpee:activity_uuid: ba22c2e7b40ba9f609b30d79f6376c47
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: application/json
+    data: '{"action_id":10}'
+  time:timestamp: '2026-03-17T13:14:41.148191+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Visualize Actions
+  concept:endpoint: https-put://cpee.org/out/frames/gridsanddragons
+  id:id: a8
+  cpee:activity: a8
+  cpee:activity_uuid: ba22c2e7b40ba9f609b30d79f6376c47
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: selection
+    value: 10
+  time:timestamp: '2026-03-17T13:14:41.156731+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Visualize Actions
+  concept:endpoint: https-put://cpee.org/out/frames/gridsanddragons
+  id:id: a8
+  cpee:activity: a8
+  cpee:activity_uuid: ba22c2e7b40ba9f609b30d79f6376c47
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-03-17T13:14:41.156907+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Reset Actions Box
+  concept:endpoint: https-put://cpee.org/out/frames/gridsanddragons
+  id:id: a9
+  cpee:activity: a9
+  cpee:activity_uuid: d82405c7e9e0ecd780d03eab0d217020
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: type
+    value: set
+  - name: lx
+    value: '6'
+  - name: ly
+    value: '3'
+  - name: x_amount
+    value: '3'
+  - name: y_amount
+    value: '2'
+  - name: button
+    value:
+  - name: style
+    value:
+  - name: urls
+    value:
+  - name: default
+    value:
+  time:timestamp: '2026-03-17T13:14:41.199846+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Reset Actions Box
+  concept:endpoint: https-put://cpee.org/out/frames/gridsanddragons
+  id:id: a9
+  cpee:activity: a9
+  cpee:activity_uuid: d82405c7e9e0ecd780d03eab0d217020
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  time:timestamp: '2026-03-17T13:14:41.214592+01:00'
+---
+event:
+  concept:instance: 214
+  concept:name: Reset Actions Box
+  concept:endpoint: https-put://cpee.org/out/frames/gridsanddragons
+  id:id: a9
+  cpee:activity: a9
+  cpee:activity_uuid: d82405c7e9e0ecd780d03eab0d217020
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-03-17T13:14:41.229659+01:00'
+---
+event:
+  concept:instance: 214
+  id:id: e_1_1
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: gateway/join
+  time:timestamp: '2026-03-17T13:14:41.243021+01:00'
+---
+event:
+  concept:instance: 214
+  id:id: ex-ante
+  cpee:instance: 40fab1cf-e1da-4e7d-8e23-55426501f993
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: finished
+  time:timestamp: '2026-03-17T13:14:41.243306+01:00'

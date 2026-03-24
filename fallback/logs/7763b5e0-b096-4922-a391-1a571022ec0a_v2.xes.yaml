@@ -1,0 +1,424 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 694
+    cpee:name: Plain Instance
+    cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-27T11:05:08.215931+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-10-27T11:05:12.198649+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-27T11:05:12.261829+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Entgegennehmen Labormaterial</label>
+          <method/>
+          <type>:task</type>
+          <mid>'sid-B3A425DF-2674-4F7E-952E-BE871A0DF054'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Pr&#xFC;fen Labormaterial</label>
+          <method/>
+          <type>:task</type>
+          <mid>'sid-FA318C48-1B62-48A9-9DAA-E6080A5FF356'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Durchf&#xFC;hren Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <mid>'sid-4E05D72D-34CE-4D03-A7B1-AE6030057AAF'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Erstellen Befund</label>
+          <method/>
+          <type>:task</type>
+          <mid>'sid-F2A3994C-A1C8-4135-96C5-34A46D581FF3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 29bbadda4c2f985b0615f2ca10d26ab981a0930f
+  time:timestamp: '2025-10-27T11:05:16.238735+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Entgegennehmen Labormaterial</label>
+          <method/>
+          <type>:task</type>
+          <mid>'sid-B3A425DF-2674-4F7E-952E-BE871A0DF054'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>PrÃ¼fen Labormaterial</label>
+          <method/>
+          <type>:task</type>
+          <mid>'sid-FA318C48-1B62-48A9-9DAA-E6080A5FF356'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>DurchfÃ¼hren Untersuchung</label>
+          <method/>
+          <type>:task</type>
+          <mid>'sid-4E05D72D-34CE-4D03-A7B1-AE6030057AAF'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Erstellen Befund</label>
+          <method/>
+          <type>:task</type>
+          <mid>'sid-F2A3994C-A1C8-4135-96C5-34A46D581FF3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-27T11:06:45.896610+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2025-10-27T11:06:45.896411+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-27T11:06:45.897739+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    # User Input:
+    delete model
+  time:timestamp: '2025-10-27T11:06:45.897228+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-10-27T11:06:45.898176+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a5:task:(Entgegennehmen Labormaterial)
+    a5:task:(Entgegennehmen Labormaterial)-->a4:task:(PrÃ¼fen Labormaterial)
+    a4:task:(PrÃ¼fen Labormaterial)-->a3:task:(DurchfÃ¼hren Untersuchung)
+    a3:task:(DurchfÃ¼hren Untersuchung)-->a2:task:(Erstellen Befund)
+    a2:task:(Erstellen Befund)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-27T11:06:45.898015+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-27T11:06:45.898292+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Lab Material</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Check Lab Material</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Perform Examination</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Create Report</label>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 1a61ce1f71c4afe094ac207e553c9811e1c124ac
+  time:timestamp: '2025-10-27T11:07:01.379572+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1a61ce1f71c4afe094ac207e553c9811e1c124ac
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-27T11:07:01.379986+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1a61ce1f71c4afe094ac207e553c9811e1c124ac
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-27T11:07:01.380201+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1a61ce1f71c4afe094ac207e553c9811e1c124ac
+  cpee:exposition: |+
+    # User Input:
+    The process starts with receiving lab material. Then, the lab material is checked. Next, an examination is performed. After that, a report is created. The process ends.
+
+  time:timestamp: '2025-10-27T11:07:01.380106+01:00'
+...
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1a61ce1f71c4afe094ac207e553c9811e1c124ac
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-27T11:07:01.380289+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1a61ce1f71c4afe094ac207e553c9811e1c124ac
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Receive Lab Material)
+      1:task:(Receive Lab Material) --> 2:task:(Check Lab Material)
+      2:task:(Check Lab Material) --> 3:task:(Perform Examination)
+      3:task:(Perform Examination) --> 4:task:(Create Report)
+      4:task:(Create Report) --> 5:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-27T11:07:01.380368+01:00'
+---
+event:
+  concept:instance: 694
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 7763b5e0-b096-4922-a391-1a571022ec0a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1a61ce1f71c4afe094ac207e553c9811e1c124ac
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Lab Material</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Check Lab Material</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Perform Examination</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Create Report</label>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-27T11:07:01.380442+01:00'

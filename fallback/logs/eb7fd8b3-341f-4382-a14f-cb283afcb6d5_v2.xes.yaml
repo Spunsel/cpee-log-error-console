@@ -1,0 +1,372 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 4807
+    cpee:name: Plain Instance
+    cpee:instance: eb7fd8b3-341f-4382-a14f-cb283afcb6d5
+---
+event:
+  concept:instance: 4807
+  id:id: external
+  cpee:activity: external
+  cpee:instance: eb7fd8b3-341f-4382-a14f-cb283afcb6d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-03T14:49:09.956476+01:00'
+---
+event:
+  concept:instance: 4807
+  id:id: external
+  cpee:activity: external
+  cpee:instance: eb7fd8b3-341f-4382-a14f-cb283afcb6d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Expense Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Travel Admin Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Forward to Budget Owner</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Forward to Supervisor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Budget Owner and Supervisor are same" language="text/javascript"/>
+            <alternative condition="Budget Owner and Supervisor are different" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Director Approval</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <choose mode="exclusive" a:alt_id="8">
+            <alternative condition="Director Approval Needed" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Director Approval</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Director Approval Not Needed" language="text/javascript"/>
+          </choose>
+          <choose mode="exclusive" a:alt_id="11">
+            <alternative condition="Domestic Trip" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Reimbursement Claim</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="International Trip" language="text/javascript">
+              <call id="a31" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>File Travel Permit</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a33" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Supervisor Permission</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="15">
+                <alternative condition="Permission Granted" language="text/javascript">
+                  <call id="a37" endpoint="" a:alt_id="16">
+                    <parameters>
+                      <label>Reimbursement Claim</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Permission Denied" language="text/javascript"/>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: ca03d1ab7cb76ee0b52a37ec1f8497fb5ade0501
+  time:timestamp: '2025-11-03T14:49:22.180432+01:00'
+---
+event:
+  concept:instance: 4807
+  id:id: external
+  cpee:activity: external
+  cpee:instance: eb7fd8b3-341f-4382-a14f-cb283afcb6d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ca03d1ab7cb76ee0b52a37ec1f8497fb5ade0501
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-03T14:49:22.180878+01:00'
+---
+event:
+  concept:instance: 4807
+  id:id: external
+  cpee:activity: external
+  cpee:instance: eb7fd8b3-341f-4382-a14f-cb283afcb6d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ca03d1ab7cb76ee0b52a37ec1f8497fb5ade0501
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-03T14:49:22.182058+01:00'
+---
+event:
+  concept:instance: 4807
+  id:id: external
+  cpee:activity: external
+  cpee:instance: eb7fd8b3-341f-4382-a14f-cb283afcb6d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ca03d1ab7cb76ee0b52a37ec1f8497fb5ade0501
+  cpee:exposition: |-
+    # User Input:
+    The dataset contains events pertaining to two years of travel expense claims. In 2017, events were collected for two departments, in 2018 for the entire university. The various permits and declaration documents (domestic and international declarations, pre-paid travel costs and requests for payment) all follow a similar process flow. After submission by the employee, the request is sent for approval to the travel administration. If approved, the request is then forwarded to the budget owner and after that to the supervisor. If the budget owner and supervisor are the same person, then only one of these steps is taken. In some cases, the director also needs to approve the request.The process finished with either the trip taking place or a payment being requested and payed. On a high level, we distinguish two types of trips, namely domestic and international. For domestic trips, no prior permission is needed, i.e. an employee can undertake these trips and ask for reimbursement of the costs afterwards. For international trips, permission is needed from the supervisor. This permission is obtained by filing a travel-permit and this travel permit should be approved before making any arrangements. To get the costs for a travel reimbursed, a claim is filed. This can be done as soon as costs are actually payed (for example for flights or conference registration fees), or within two months after the trip (for example hotel and food costs which are usually payed on the spot).
+  time:timestamp: '2025-11-03T14:49:22.181529+01:00'
+---
+event:
+  concept:instance: 4807
+  id:id: external
+  cpee:activity: external
+  cpee:instance: eb7fd8b3-341f-4382-a14f-cb283afcb6d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ca03d1ab7cb76ee0b52a37ec1f8497fb5ade0501
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Submit Expense Claim)
+      1:task:(Submit Expense Claim) --> 2:task:(Travel Admin Approval)
+      2:task:(Travel Admin Approval) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Approved| 4:task:(Forward to Budget Owner)
+      3:exclusivegateway:{x} --> |Rejected| 17:endevent:(((endevent)))
+      4:task:(Forward to Budget Owner) --> 5:task:(Forward to Supervisor)
+      5:task:(Forward to Supervisor) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> |Budget Owner and Supervisor are same| 8:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> |Budget Owner and Supervisor are different| 7:task:(Director Approval)
+      7:task:(Director Approval) --> 8:exclusivegateway:{x}
+      8:exclusivegateway:{x} --> |Director Approval Needed| 9:task:(Director Approval)
+      8:exclusivegateway:{x} --> |Director Approval Not Needed| 10:exclusivegateway:{O}
+      9:task:(Director Approval) --> 10:exclusivegateway:{O}
+      10:exclusivegateway:{O} --> 11:exclusivegateway:{x}
+      11:exclusivegateway:{x} --> |Domestic Trip| 12:task:(Reimbursement Claim)
+      11:exclusivegateway:{x} --> |International Trip| 13:task:(File Travel Permit)
+      13:task:(File Travel Permit) --> 14:task:(Supervisor Permission)
+      14:task:(Supervisor Permission) --> 15:exclusivegateway:{x}
+      15:exclusivegateway:{x} --> |Permission Granted| 16:task:(Reimbursement Claim)
+      15:exclusivegateway:{x} --> |Permission Denied| 17:endevent:(((endevent)))
+      12:task:(Reimbursement Claim) --> 18:exclusivegateway:{O}
+      16:task:(Reimbursement Claim) --> 18:exclusivegateway:{O}
+      18:exclusivegateway:{O} --> 17:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-03T14:49:22.184224+01:00'
+---
+event:
+  concept:instance: 4807
+  id:id: external
+  cpee:activity: external
+  cpee:instance: eb7fd8b3-341f-4382-a14f-cb283afcb6d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ca03d1ab7cb76ee0b52a37ec1f8497fb5ade0501
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-03T14:49:22.184019+01:00'
+---
+event:
+  concept:instance: 4807
+  id:id: external
+  cpee:activity: external
+  cpee:instance: eb7fd8b3-341f-4382-a14f-cb283afcb6d5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ca03d1ab7cb76ee0b52a37ec1f8497fb5ade0501
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Expense Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Travel Admin Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Forward to Budget Owner</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Forward to Supervisor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Budget Owner and Supervisor are same" language="text/javascript"/>
+            <alternative condition="Budget Owner and Supervisor are different" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Director Approval</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <choose mode="exclusive" a:alt_id="8">
+            <alternative condition="Director Approval Needed" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Director Approval</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Director Approval Not Needed" language="text/javascript"/>
+          </choose>
+          <choose mode="exclusive" a:alt_id="11">
+            <alternative condition="Domestic Trip" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Reimbursement Claim</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="International Trip" language="text/javascript">
+              <call id="a31" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>File Travel Permit</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a33" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Supervisor Permission</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="15">
+                <alternative condition="Permission Granted" language="text/javascript">
+                  <call id="a37" endpoint="" a:alt_id="16">
+                    <parameters>
+                      <label>Reimbursement Claim</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Permission Denied" language="text/javascript"/>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-03T14:49:22.184332+01:00'

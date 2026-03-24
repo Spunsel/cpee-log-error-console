@@ -1,0 +1,1560 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 967
+    cpee:name: Plain Instance
+    cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T14:28:15.948461+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-28T14:28:16.491412+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-28T14:28:16.507340+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T14:28:16.615797+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T14:28:16.618716+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7adfb4484436724619aedf5542b263aaec4574a2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T14:48:57.915543+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7adfb4484436724619aedf5542b263aaec4574a2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T14:48:57.915755+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a2" endpoint="">
+          <parameters>
+            <label>Enroll in University</label>
+            <method/>
+            <type>:task</type>
+            <mid>'1'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a3" endpoint="">
+            <parameters>
+              <label>Attend Classes</label>
+              <method/>
+              <type>:task</type>
+              <mid>'2'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive">
+              <alternative condition="">
+                <call id="a5" endpoint="">
+                  <parameters>
+                    <label>Pass Exams) |Yes|</label>
+                    <method/>
+                    <type>:task</type>
+                    <mid>'4'</mid>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive">
+                  <alternative condition="">
+                    <call id="a9" endpoint="">
+                      <parameters>
+                        <label>Retake Failed Courses) |No|</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'8'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a2" endpoint="">
+                      <parameters>
+                        <label>Enroll in University</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'1'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a3" endpoint="">
+                      <parameters>
+                        <label>Attend Classes</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'2'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="">
+                    <call id="a8" endpoint="">
+                      <parameters>
+                        <label>Complete All Courses) |Yes|</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'7'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a10" endpoint="">
+                      <parameters>
+                        <label>Fulfill Graduation Requirements</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'9'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a11" endpoint="">
+                      <parameters>
+                        <label>Apply for Graduation</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'10'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a12" endpoint="">
+                      <parameters>
+                        <label>Receive Diploma</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'11'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <call id="a6" endpoint="">
+                  <parameters>
+                    <label>Study More) |No|</label>
+                    <method/>
+                    <type>:task</type>
+                    <mid>'5'</mid>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a3" endpoint="">
+                  <parameters>
+                    <label>Attend Classes</label>
+                    <method/>
+                    <type>:task</type>
+                    <mid>'2'</mid>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+            </choose>
+          </loop>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 7adfb4484436724619aedf5542b263aaec4574a2
+  time:timestamp: '2025-10-28T14:48:57.915283+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7adfb4484436724619aedf5542b263aaec4574a2
+  cpee:exposition: |-
+    # User Input:
+    hi, i have no idea about student life. can you suggest me a process how i can graduate succesfuly
+  time:timestamp: '2025-10-28T14:48:57.915668+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7adfb4484436724619aedf5542b263aaec4574a2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Enroll in University)
+        1:task:(Enroll in University) --> 2:task:(Attend Classes)
+        2:task:(Attend Classes) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> 4:task:(Pass Exams) |Yes|
+        3:exclusivegateway:{x} --> 5:task:(Study More) |No|
+        5:task:(Study More) --> 2:task:(Attend Classes)
+        4:task:(Pass Exams) --> 6:exclusivegateway:{x}
+        6:exclusivegateway:{x} --> 7:task:(Complete All Courses) |Yes|
+        6:exclusivegateway:{x} --> 8:task:(Retake Failed Courses) |No|
+        8:task:(Retake Failed Courses) --> 1:task:(Enroll in University)
+        7:task:(Complete All Courses) --> 9:task:(Fulfill Graduation Requirements)
+        9:task:(Fulfill Graduation Requirements) --> 10:task:(Apply for Graduation)
+        10:task:(Apply for Graduation) --> 11:task:(Receive Diploma)
+        11:task:(Receive Diploma) --> 12:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T14:48:57.915944+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7adfb4484436724619aedf5542b263aaec4574a2
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T14:48:57.915851+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7adfb4484436724619aedf5542b263aaec4574a2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a2" endpoint="">
+          <parameters>
+            <label>Enroll in University</label>
+            <method/>
+            <type>:task</type>
+            <mid>'1'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a3" endpoint="">
+            <parameters>
+              <label>Attend Classes</label>
+              <method/>
+              <type>:task</type>
+              <mid>'2'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive">
+              <alternative condition="">
+                <call id="a5" endpoint="">
+                  <parameters>
+                    <label>Pass Exams) |Yes|</label>
+                    <method/>
+                    <type>:task</type>
+                    <mid>'4'</mid>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive">
+                  <alternative condition="">
+                    <call id="a9" endpoint="">
+                      <parameters>
+                        <label>Retake Failed Courses) |No|</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'8'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a2" endpoint="">
+                      <parameters>
+                        <label>Enroll in University</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'1'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a3" endpoint="">
+                      <parameters>
+                        <label>Attend Classes</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'2'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="">
+                    <call id="a8" endpoint="">
+                      <parameters>
+                        <label>Complete All Courses) |Yes|</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'7'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a10" endpoint="">
+                      <parameters>
+                        <label>Fulfill Graduation Requirements</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'9'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a11" endpoint="">
+                      <parameters>
+                        <label>Apply for Graduation</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'10'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a12" endpoint="">
+                      <parameters>
+                        <label>Receive Diploma</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'11'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <call id="a6" endpoint="">
+                  <parameters>
+                    <label>Study More) |No|</label>
+                    <method/>
+                    <type>:task</type>
+                    <mid>'5'</mid>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a3" endpoint="">
+                  <parameters>
+                    <label>Attend Classes</label>
+                    <method/>
+                    <type>:task</type>
+                    <mid>'2'</mid>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+            </choose>
+          </loop>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2025-10-28T14:48:57.916111+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-28T14:49:22.130407+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-28T14:49:22.144944+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T14:49:22.265422+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T14:49:22.267569+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2025-10-28T14:49:45.333514+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a2" endpoint="">
+          <parameters>
+            <label>Enroll in University</label>
+            <method/>
+            <type>:task</type>
+            <mid>'1'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a3" endpoint="">
+            <parameters>
+              <label>Attend Classes</label>
+              <method/>
+              <type>:task</type>
+              <mid>'2'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive">
+              <alternative condition="">
+                <call id="a5" endpoint="">
+                  <parameters>
+                    <label>Pass Exams) |Yes|</label>
+                    <method/>
+                    <type>:task</type>
+                    <mid>'4'</mid>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive">
+                  <alternative condition="">
+                    <call id="a9" endpoint="">
+                      <parameters>
+                        <label>Retake Failed Courses) |No|</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'8'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a2" endpoint="">
+                      <parameters>
+                        <label>Enroll in University</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'1'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a3" endpoint="">
+                      <parameters>
+                        <label>Attend Classes</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'2'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="">
+                    <call id="a8" endpoint="">
+                      <parameters>
+                        <label>Complete All Courses) |Yes|</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'7'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a10" endpoint="">
+                      <parameters>
+                        <label>Fulfill Graduation Requirements</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'9'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a11" endpoint="">
+                      <parameters>
+                        <label>Apply for Graduation</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'10'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a12" endpoint="">
+                      <parameters>
+                        <label>Receive Diploma</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'11'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <call id="a6" endpoint="">
+                  <parameters>
+                    <label>Study More) |No|</label>
+                    <method/>
+                    <type>:task</type>
+                    <mid>'5'</mid>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a3" endpoint="">
+                  <parameters>
+                    <label>Attend Classes</label>
+                    <method/>
+                    <type>:task</type>
+                    <mid>'2'</mid>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+            </choose>
+          </loop>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2025-10-28T14:49:45.333667+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T14:49:45.334172+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    # User Input:
+    delete everzthing
+  time:timestamp: '2025-10-28T14:49:45.333971+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-10-28T14:49:45.334699+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a2:task:(Enroll in University)
+    a2:task:(Enroll in University)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"true"|a3:task:(Attend Classes)
+    a3:task:(Attend Classes)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"true"|gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|""|a5:task:(Pass Exams\) |Yes|)
+    a5:task:(Pass Exams\) |Yes|)-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|""|a9:task:(Retake Failed Courses\) |No|)
+    a9:task:(Retake Failed Courses\) |No|)-->a2:task:(Enroll in University)
+    a2:task:(Enroll in University)-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|""|a8:task:(Complete All Courses\) |Yes|)
+    a8:task:(Complete All Courses\) |Yes|)-->a10:task:(Fulfill Graduation Requirements)
+    a10:task:(Fulfill Graduation Requirements)-->a11:task:(Apply for Graduation)
+    a11:task:(Apply for Graduation)-->a12:task:(Receive Diploma)
+    a12:task:(Receive Diploma)-->gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw9s:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9e:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|""|a6:task:(Study More\) |No|)
+    a6:task:(Study More\) |No|)-->a3:task:(Attend Classes)
+    a3:task:(Attend Classes)-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a3:task:(Attend Classes)
+    a3:task:(Attend Classes)-->gw10s:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10e:exclusivegateway:{x}-->gw11s:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->gw12s:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->|"true"|a3:task:(Attend Classes)
+    a3:task:(Attend Classes)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw12e:exclusivegateway:{x}
+    gw12e:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->|"true"|gw13s:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->|""|a5:task:(Pass Exams\) |Yes|)
+    a5:task:(Pass Exams\) |Yes|)-->gw14s:exclusivegateway:{x}
+    gw14s:exclusivegateway:{x}-->|""|a9:task:(Retake Failed Courses\) |No|)
+    a9:task:(Retake Failed Courses\) |No|)-->a2:task:(Enroll in University)
+    a2:task:(Enroll in University)-->gw14e:exclusivegateway:{x}
+    gw14s:exclusivegateway:{x}-->|""|a8:task:(Complete All Courses\) |Yes|)
+    a8:task:(Complete All Courses\) |Yes|)-->a10:task:(Fulfill Graduation Requirements)
+    a10:task:(Fulfill Graduation Requirements)-->a11:task:(Apply for Graduation)
+    a11:task:(Apply for Graduation)-->a12:task:(Receive Diploma)
+    a12:task:(Receive Diploma)-->gw15s:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->gw16s:exclusivegateway:{x}
+    gw16s:exclusivegateway:{x}-->gw16e:exclusivegateway:{x}
+    gw16s:exclusivegateway:{x}-->gw16e:exclusivegateway:{x}
+    gw16e:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+    gw15e:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
+    gw14e:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->|""|a6:task:(Study More\) |No|)
+    a6:task:(Study More\) |No|)-->a3:task:(Attend Classes)
+    a3:task:(Attend Classes)-->gw13e:exclusivegateway:{x}
+    gw13e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw11e:exclusivegateway:{x}
+    gw11e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T14:49:45.334467+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T14:49:45.334799+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2d98a4bc60233eda3bb78d5bd786a65cbab8542
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T14:50:36.660686+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Coffee Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Check Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Brew Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Serve Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: b2d98a4bc60233eda3bb78d5bd786a65cbab8542
+  time:timestamp: '2025-10-28T14:50:36.660472+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2d98a4bc60233eda3bb78d5bd786a65cbab8542
+  cpee:exposition: |-
+    # User Input:
+    The process starts with receiving the coffee beans.
+    Then, the beans are checked. Next, the coffee is brewed.
+    After that, a cup of coffee is served. The process ends.
+  time:timestamp: '2025-10-28T14:50:36.661105+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2d98a4bc60233eda3bb78d5bd786a65cbab8542
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T14:50:36.661282+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2d98a4bc60233eda3bb78d5bd786a65cbab8542
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T14:50:36.661430+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2d98a4bc60233eda3bb78d5bd786a65cbab8542
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Receive Coffee Beans)
+      1:task:(Receive Coffee Beans) --> 2:task:(Check Beans)
+      2:task:(Check Beans) --> 3:task:(Brew Coffee)
+      3:task:(Brew Coffee) --> 4:task:(Serve Coffee)
+      4:task:(Serve Coffee) --> 5:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T14:50:36.661554+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2d98a4bc60233eda3bb78d5bd786a65cbab8542
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Coffee Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Check Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Brew Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Serve Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T14:50:36.661676+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Coffee Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Check Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Brew Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Make Latte Art</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a5'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a6" endpoint="">
+        <parameters>
+          <label>Serve Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a6'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ed12ac727f7da43840831004f75e923cde51c724
+  time:timestamp: '2025-10-28T14:51:13.396323+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed12ac727f7da43840831004f75e923cde51c724
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Coffee Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Check Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Brew Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Serve Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T14:51:13.396502+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed12ac727f7da43840831004f75e923cde51c724
+  cpee:exposition: |-
+    # User Input:
+    add a new step making latte art before serving coffee
+  time:timestamp: '2025-10-28T14:51:13.396611+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed12ac727f7da43840831004f75e923cde51c724
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T14:51:13.396736+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed12ac727f7da43840831004f75e923cde51c724
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Coffee Beans)
+    a2:task:(Receive Coffee Beans)-->a3:task:(Check Beans)
+    a3:task:(Check Beans)-->a4:task:(Brew Coffee)
+    a4:task:(Brew Coffee)-->a5:task:(Make Latte Art)
+    a5:task:(Make Latte Art)-->a6:task:(Serve Coffee)
+    a6:task:(Serve Coffee)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-10-28T14:51:13.397108+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed12ac727f7da43840831004f75e923cde51c724
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Coffee Beans)
+    a2:task:(Receive Coffee Beans)-->a3:task:(Check Beans)
+    a3:task:(Check Beans)-->a4:task:(Brew Coffee)
+    a4:task:(Brew Coffee)-->a5:task:(Serve Coffee)
+    a5:task:(Serve Coffee)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T14:51:13.396967+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed12ac727f7da43840831004f75e923cde51c724
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Coffee Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Check Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Brew Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Make Latte Art</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a5'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a6" endpoint="">
+        <parameters>
+          <label>Serve Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a6'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T14:51:13.397268+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Coffee Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last">
+        <parallel_branch>
+          <call id="a4" endpoint="">
+            <parameters>
+              <label>Check Beans</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Record Details in Inventory System</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a7" endpoint="">
+        <parameters>
+          <label>Brew Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a7'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Serve Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 414de49a4178d672ca25eb37ea69930a523fe73b
+  time:timestamp: '2025-10-28T14:51:39.703628+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 414de49a4178d672ca25eb37ea69930a523fe73b
+  cpee:exposition: |+
+    # User Input:
+    The process starts with receiving the coffee beans.
+    After they are received, the beans are checked for freshness and quality, while at the same time their details are recorded in the cafÃ©â€™s inventory system.
+    Once both the checking and the registration are completed, the brewing of the coffee is performed.
+    Finally, a cup of coffee is served to the customer, and the process ends.
+
+  time:timestamp: '2025-10-28T14:51:39.704403+01:00'
+...
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 414de49a4178d672ca25eb37ea69930a523fe73b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Coffee Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Check Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Brew Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Make Latte Art</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a5'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a6" endpoint="">
+        <parameters>
+          <label>Serve Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a6'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T14:51:39.703831+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 414de49a4178d672ca25eb37ea69930a523fe73b
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Coffee Beans)
+    a2:task:(Receive Coffee Beans)-->a3:task:(Check Beans)
+    a3:task:(Check Beans)-->a4:task:(Brew Coffee)
+    a4:task:(Brew Coffee)-->a5:task:(Make Latte Art)
+    a5:task:(Make Latte Art)-->a6:task:(Serve Coffee)
+    a6:task:(Serve Coffee)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T14:51:39.704621+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 414de49a4178d672ca25eb37ea69930a523fe73b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T14:51:39.704533+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 414de49a4178d672ca25eb37ea69930a523fe73b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Coffee Beans</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last">
+        <parallel_branch>
+          <call id="a4" endpoint="">
+            <parameters>
+              <label>Check Beans</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Record Details in Inventory System</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a7" endpoint="">
+        <parameters>
+          <label>Brew Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a7'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Serve Coffee</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T14:51:39.704970+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 414de49a4178d672ca25eb37ea69930a523fe73b
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> a2:task:(Receive Coffee Beans)
+        a2:task:(Receive Coffee Beans) --> a3:parallelgateway:{AND}
+        a3:parallelgateway:{AND} --> a4:task:(Check Beans)
+        a3:parallelgateway:{AND} --> a5:task:(Record Details in Inventory System)
+        a4:task:(Check Beans) --> a6:parallelgateway:{AND}
+        a5:task:(Record Details in Inventory System) --> a6:parallelgateway:{AND}
+        a6:parallelgateway:{AND} --> a7:task:(Brew Coffee)
+        a7:task:(Brew Coffee) --> a8:task:(Serve Coffee)
+        a8:task:(Serve Coffee) --> ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-10-28T14:51:39.704823+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-28T14:51:53.079066+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-28T14:51:53.083422+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T14:51:53.344853+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T14:51:53.501035+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2025-10-28T15:07:51.009144+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T15:07:51.080366+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2025-10-28T15:07:51.165365+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T15:07:51.243257+01:00'
+---
+event:
+  concept:instance: 967
+  id:id: external
+  cpee:activity: external
+  cpee:instance: de4282c7-1b9f-4a45-8748-c5b81631e150
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-10-28T15:32:01.842261+01:00'

@@ -1,0 +1,2987 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 849
+    cpee:name: Plain Instance
+    cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T09:13:27.661477+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-28T09:13:27.999690+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-28T09:13:30.008103+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T09:13:31.129834+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T09:13:31.134685+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e3840f849582da8859ecb0c89f40574648270d5
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T09:14:39.349052+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Calculate Shipping Costs) |Calculate Standard Shipping|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Calculate Expedited Shipping Costs) |Calculate Expedited Shipping|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Send Invoice</label>
+          <method/>
+          <type>:task</type>
+          <mid>'7'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 4e3840f849582da8859ecb0c89f40574648270d5
+  time:timestamp: '2025-10-28T09:14:39.348813+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e3840f849582da8859ecb0c89f40574648270d5
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T09:14:39.349281+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e3840f849582da8859ecb0c89f40574648270d5
+  cpee:exposition: |-
+    # User Input:
+    create a shipping process
+  time:timestamp: '2025-10-28T09:14:39.349161+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e3840f849582da8859ecb0c89f40574648270d5
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Receive Order)
+    1:task:(Receive Order) --> 2:task:(Pack Order)
+    2:task:(Pack Order) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> 4:task:(Calculate Shipping Costs) |Calculate Standard Shipping|
+    3:exclusivegateway:{x} --> 5:task:(Calculate Expedited Shipping Costs) |Calculate Expedited Shipping|
+    4:task:(Calculate Shipping Costs) --> 6:exclusivegateway:{x}
+    5:task:(Calculate Expedited Shipping Costs) --> 6:exclusivegateway:{x}
+    6:exclusivegateway:{x} --> 7:task:(Send Invoice)
+    7:task:(Send Invoice) --> 8:task:(Receive Payment)
+    8:task:(Receive Payment) --> 9:task:(Ship Order)
+    9:task:(Ship Order) --> 10:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T09:14:39.349493+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e3840f849582da8859ecb0c89f40574648270d5
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T09:14:39.349362+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e3840f849582da8859ecb0c89f40574648270d5
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Calculate Shipping Costs) |Calculate Standard Shipping|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Calculate Expedited Shipping Costs) |Calculate Expedited Shipping|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Send Invoice</label>
+          <method/>
+          <type>:task</type>
+          <mid>'7'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T09:14:39.349628+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aa9ee8832cdb5e686b47ad386e5cd974b300295e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Calculate Shipping Costs) |Calculate Standard Shipping|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Calculate Expedited Shipping Costs) |Calculate Expedited Shipping|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Send Invoice</label>
+          <method/>
+          <type>:task</type>
+          <mid>'7'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T09:15:13.174664+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="Calculate Standard Shipping" language="text/javascript">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Calculate Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Calculate Expedited Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Cancel Order" language="text/javascript">
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Cancel Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Send Invoice</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: aa9ee8832cdb5e686b47ad386e5cd974b300295e
+  time:timestamp: '2025-10-28T09:15:13.174468+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aa9ee8832cdb5e686b47ad386e5cd974b300295e
+  cpee:exposition: |-
+    # User Input:
+    add an option to cancel the order after calculating the shipping costs
+  time:timestamp: '2025-10-28T09:15:13.175058+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aa9ee8832cdb5e686b47ad386e5cd974b300295e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T09:15:13.175151+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aa9ee8832cdb5e686b47ad386e5cd974b300295e
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Order)
+    a2:task:(Receive Order)-->a3:task:(Pack Order)
+    a3:task:(Pack Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|a5:task:(Calculate Shipping Costs\) |Calculate Standard Shipping|)
+    a5:task:(Calculate Shipping Costs\) |Calculate Standard Shipping|)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|a6:task:(Calculate Expedited Shipping Costs\) |Calculate Expedited Shipping|)
+    a6:task:(Calculate Expedited Shipping Costs\) |Calculate Expedited Shipping|)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a8:task:(Send Invoice)
+    a8:task:(Send Invoice)-->a9:task:(Receive Payment)
+    a9:task:(Receive Payment)-->a10:task:(Ship Order)
+    a10:task:(Ship Order)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T09:15:13.175247+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aa9ee8832cdb5e686b47ad386e5cd974b300295e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Order)
+    a2:task:(Receive Order)-->a3:task:(Pack Order)
+    a3:task:(Pack Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|Calculate Standard Shipping|a5:task:(Calculate Shipping Costs)
+    a5:task:(Calculate Shipping Costs)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|Calculate Expedited Shipping|a6:task:(Calculate Expedited Shipping Costs)
+    a6:task:(Calculate Expedited Shipping Costs)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|Cancel Order|a7:task:(Cancel Order)
+    a7:task:(Cancel Order)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a8:task:(Send Invoice)
+    a8:task:(Send Invoice)-->a9:task:(Receive Payment)
+    a9:task:(Receive Payment)-->a10:task:(Ship Order)
+    a10:task:(Ship Order)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-10-28T09:15:13.175332+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aa9ee8832cdb5e686b47ad386e5cd974b300295e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="Calculate Standard Shipping" language="text/javascript">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Calculate Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Calculate Expedited Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Cancel Order" language="text/javascript">
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Cancel Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Send Invoice</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T09:15:13.175416+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="Calculate Standard Shipping" language="text/javascript">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Calculate Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Calculate Expedited Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a7" endpoint="">
+        <parameters>
+          <label>Cancel Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a7'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Send Invoice</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ec2e618b99c322669985fa2a8cf6bdaa6e4df802
+  time:timestamp: '2025-10-28T09:15:33.000076+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ec2e618b99c322669985fa2a8cf6bdaa6e4df802
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="Calculate Standard Shipping" language="text/javascript">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Calculate Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Calculate Expedited Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Cancel Order" language="text/javascript">
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Cancel Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Send Invoice</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T09:15:33.000277+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ec2e618b99c322669985fa2a8cf6bdaa6e4df802
+  cpee:exposition: |-
+    # User Input:
+    move the option to cancel the order after the decision
+  time:timestamp: '2025-10-28T09:15:33.004441+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ec2e618b99c322669985fa2a8cf6bdaa6e4df802
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T09:15:33.004571+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ec2e618b99c322669985fa2a8cf6bdaa6e4df802
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Order)
+    a2:task:(Receive Order)-->a3:task:(Pack Order)
+    a3:task:(Pack Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Calculate Standard Shipping"|a5:task:(Calculate Shipping Costs)
+    a5:task:(Calculate Shipping Costs)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Calculate Expedited Shipping"|a6:task:(Calculate Expedited Shipping Costs)
+    a6:task:(Calculate Expedited Shipping Costs)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Cancel Order"|a7:task:(Cancel Order)
+    a7:task:(Cancel Order)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a8:task:(Send Invoice)
+    a8:task:(Send Invoice)-->a9:task:(Receive Payment)
+    a9:task:(Receive Payment)-->a10:task:(Ship Order)
+    a10:task:(Ship Order)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T09:15:33.004661+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ec2e618b99c322669985fa2a8cf6bdaa6e4df802
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Order)
+    a2:task:(Receive Order)-->a3:task:(Pack Order)
+    a3:task:(Pack Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Calculate Standard Shipping"|a5:task:(Calculate Shipping Costs)
+    a5:task:(Calculate Shipping Costs)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Calculate Expedited Shipping"|a6:task:(Calculate Expedited Shipping Costs)
+    a6:task:(Calculate Expedited Shipping Costs)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a7:task:(Cancel Order)
+    a7:task:(Cancel Order)-->a8:task:(Send Invoice)
+    a8:task:(Send Invoice)-->a9:task:(Receive Payment)
+    a9:task:(Receive Payment)-->a10:task:(Ship Order)
+    a10:task:(Ship Order)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-10-28T09:15:33.004759+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ec2e618b99c322669985fa2a8cf6bdaa6e4df802
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="Calculate Standard Shipping" language="text/javascript">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Calculate Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Calculate Expedited Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a7" endpoint="">
+        <parameters>
+          <label>Cancel Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a7'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Send Invoice</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T09:15:33.004848+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="Calculate Standard Shipping" language="text/javascript">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Calculate Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Calculate Expedited Shipping Costs</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a7" endpoint="">
+        <parameters>
+          <label>Cancel Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a7'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Send Invoice</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Receive Payment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Ship Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T09:16:19.219708+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Calculate Standard Shipping" language="text/javascript">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Calculate Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Calculate Expedited Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Send Invoice</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Ship Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Cancel Order" language="text/javascript">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Cancel Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a10'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive">
+                <alternative condition="Calculate Standard Shipping" language="text/javascript">
+                  <call id="a5" endpoint="">
+                    <parameters>
+                      <label>Calculate Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a5'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+                  <call id="a6" endpoint="">
+                    <parameters>
+                      <label>Calculate Expedited Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a6'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Send Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Receive Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="">
+                <parameters>
+                  <label>Ship Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  time:timestamp: '2025-10-28T09:16:19.219488+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T09:16:19.220301+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  cpee:exposition: |-
+    # User Input:
+    move the cancellation option to a branch which is in an XOR. In the other branch the three tasks after the cancellation should be included
+  time:timestamp: '2025-10-28T09:16:19.220186+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Order)
+    a2:task:(Receive Order)-->a3:task:(Pack Order)
+    a3:task:(Pack Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Calculate Standard Shipping"|a5:task:(Calculate Shipping Costs)
+    a5:task:(Calculate Shipping Costs)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Calculate Expedited Shipping"|a6:task:(Calculate Expedited Shipping Costs)
+    a6:task:(Calculate Expedited Shipping Costs)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a7:task:(Cancel Order)
+    a7:task:(Cancel Order)-->a8:task:(Send Invoice)
+    a8:task:(Send Invoice)-->a9:task:(Receive Payment)
+    a9:task:(Receive Payment)-->a10:task:(Ship Order)
+    a10:task:(Ship Order)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T09:16:19.220454+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Order)
+    a2:task:(Receive Order)-->a3:task:(Pack Order)
+    a3:task:(Pack Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Calculate Standard Shipping"|a5:task:(Calculate Shipping Costs)
+    a5:task:(Calculate Shipping Costs)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Calculate Expedited Shipping"|a6:task:(Calculate Expedited Shipping Costs)
+    a6:task:(Calculate Expedited Shipping Costs)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a7:task:(Send Invoice)
+    a7:task:(Send Invoice)-->a8:task:(Receive Payment)
+    a8:task:(Receive Payment)-->a9:task:(Ship Order)
+    a9:task:(Ship Order)-->ee:endevent:((endevent))
+    a3:task: -->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Cancel Order"|a10:task:(Cancel Order)
+    a10:task:(Cancel Order)-->ee:endevent:
+    gw2s:exclusivegateway:{x}-->|"Continue Order"|gw1s:exclusivegateway:
+    ```
+  time:timestamp: '2025-10-28T09:16:19.220562+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Calculate Standard Shipping" language="text/javascript">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Calculate Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Calculate Expedited Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Send Invoice</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Ship Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Cancel Order" language="text/javascript">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Cancel Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a10'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive">
+                <alternative condition="Calculate Standard Shipping" language="text/javascript">
+                  <call id="a5" endpoint="">
+                    <parameters>
+                      <label>Calculate Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a5'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+                  <call id="a6" endpoint="">
+                    <parameters>
+                      <label>Calculate Expedited Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a6'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Send Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Receive Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="">
+                <parameters>
+                  <label>Ship Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-10-28T09:16:19.220652+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c091f21cb1a6ff88605211762e03a47f45d11388
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Calculate Standard Shipping" language="text/javascript">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Calculate Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Calculate Expedited Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Send Invoice</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Ship Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Cancel Order" language="text/javascript">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Cancel Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a10'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive">
+                <alternative condition="Calculate Standard Shipping" language="text/javascript">
+                  <call id="a5" endpoint="">
+                    <parameters>
+                      <label>Calculate Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a5'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+                  <call id="a6" endpoint="">
+                    <parameters>
+                      <label>Calculate Expedited Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a6'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Send Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Receive Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="">
+                <parameters>
+                  <label>Ship Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-10-28T09:16:41.497905+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="" language="text/javascript">
+          <choose mode="exclusive">
+            <alternative condition="Calculate Standard Shipping" language="text/javascript">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Calculate Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition=""/>
+                <alternative condition=""/>
+              </choose>
+            </alternative>
+            <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Calculate Expedited Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition=""/>
+                <alternative condition=""/>
+              </choose>
+            </alternative>
+          </choose>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Send Invoice</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Ship Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive">
+            <alternative condition=""/>
+            <alternative condition=""/>
+          </choose>
+        </alternative>
+        <alternative condition="" language="text/javascript">
+          <choose mode="exclusive">
+            <alternative condition="Cancel Order" language="text/javascript">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Cancel Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a10'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="" language="text/javascript">
+              <choose mode="exclusive">
+                <alternative condition="Calculate Standard Shipping" language="text/javascript">
+                  <call id="a5" endpoint="">
+                    <parameters>
+                      <label>Calculate Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a5'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive">
+                    <alternative condition=""/>
+                    <alternative condition=""/>
+                  </choose>
+                </alternative>
+                <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+                  <call id="a6" endpoint="">
+                    <parameters>
+                      <label>Calculate Expedited Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a6'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive">
+                    <alternative condition=""/>
+                    <alternative condition=""/>
+                  </choose>
+                </alternative>
+              </choose>
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Send Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Receive Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="">
+                <parameters>
+                  <label>Ship Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition=""/>
+                <alternative condition=""/>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c091f21cb1a6ff88605211762e03a47f45d11388
+  time:timestamp: '2025-10-28T09:16:41.497509+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c091f21cb1a6ff88605211762e03a47f45d11388
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T09:16:41.498758+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c091f21cb1a6ff88605211762e03a47f45d11388
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Order)
+    a2:task:(Receive Order)-->a3:task:(Pack Order)
+    a3:task:(Pack Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Calculate Standard Shipping"|a5:task:(Calculate Shipping Costs)
+    a5:task:(Calculate Shipping Costs)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Calculate Expedited Shipping"|a6:task:(Calculate Expedited Shipping Costs)
+    a6:task:(Calculate Expedited Shipping Costs)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a7:task:(Send Invoice)
+    a7:task:(Send Invoice)-->a8:task:(Receive Payment)
+    a8:task:(Receive Payment)-->a9:task:(Ship Order)
+    a9:task:(Ship Order)-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Cancel Order"|a10:task:(Cancel Order)
+    a10:task:(Cancel Order)-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|""|gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"Calculate Standard Shipping"|a5:task:(Calculate Shipping Costs)
+    a5:task:(Calculate Shipping Costs)-->gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"Calculate Expedited Shipping"|a6:task:(Calculate Expedited Shipping Costs)
+    a6:task:(Calculate Expedited Shipping Costs)-->gw9s:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->a7:task:(Send Invoice)
+    a7:task:(Send Invoice)-->a8:task:(Receive Payment)
+    a8:task:(Receive Payment)-->a9:task:(Ship Order)
+    a9:task:(Ship Order)-->gw10s:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-10-28T09:16:41.499535+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c091f21cb1a6ff88605211762e03a47f45d11388
+  cpee:exposition: |-
+    # User Input:
+    undo the last step
+  time:timestamp: '2025-10-28T09:16:41.498101+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c091f21cb1a6ff88605211762e03a47f45d11388
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Receive Order)
+    a2:task:(Receive Order)-->a3:task:(Pack Order)
+    a3:task:(Pack Order)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Calculate Standard Shipping"|a5:task:(Calculate Shipping Costs)
+    a5:task:(Calculate Shipping Costs)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Calculate Expedited Shipping"|a6:task:(Calculate Expedited Shipping Costs)
+    a6:task:(Calculate Expedited Shipping Costs)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a7:task:(Send Invoice)
+    a7:task:(Send Invoice)-->a8:task:(Receive Payment)
+    a8:task:(Receive Payment)-->a9:task:(Ship Order)
+    a9:task:(Ship Order)-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Cancel Order"|a10:task:(Cancel Order)
+    a10:task:(Cancel Order)-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|""|gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"Calculate Standard Shipping"|a5:task:(Calculate Shipping Costs)
+    a5:task:(Calculate Shipping Costs)-->gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"Calculate Expedited Shipping"|a6:task:(Calculate Expedited Shipping Costs)
+    a6:task:(Calculate Expedited Shipping Costs)-->gw9s:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->a7:task:(Send Invoice)
+    a7:task:(Send Invoice)-->a8:task:(Receive Payment)
+    a8:task:(Receive Payment)-->a9:task:(Ship Order)
+    a9:task:(Ship Order)-->gw10s:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T09:16:41.499095+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c091f21cb1a6ff88605211762e03a47f45d11388
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="" language="text/javascript">
+          <choose mode="exclusive">
+            <alternative condition="Calculate Standard Shipping" language="text/javascript">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Calculate Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition=""/>
+                <alternative condition=""/>
+              </choose>
+            </alternative>
+            <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Calculate Expedited Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition=""/>
+                <alternative condition=""/>
+              </choose>
+            </alternative>
+          </choose>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Send Invoice</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Ship Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive">
+            <alternative condition=""/>
+            <alternative condition=""/>
+          </choose>
+        </alternative>
+        <alternative condition="" language="text/javascript">
+          <choose mode="exclusive">
+            <alternative condition="Cancel Order" language="text/javascript">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Cancel Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a10'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="" language="text/javascript">
+              <choose mode="exclusive">
+                <alternative condition="Calculate Standard Shipping" language="text/javascript">
+                  <call id="a5" endpoint="">
+                    <parameters>
+                      <label>Calculate Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a5'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive">
+                    <alternative condition=""/>
+                    <alternative condition=""/>
+                  </choose>
+                </alternative>
+                <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+                  <call id="a6" endpoint="">
+                    <parameters>
+                      <label>Calculate Expedited Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a6'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive">
+                    <alternative condition=""/>
+                    <alternative condition=""/>
+                  </choose>
+                </alternative>
+              </choose>
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Send Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Receive Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="">
+                <parameters>
+                  <label>Ship Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition=""/>
+                <alternative condition=""/>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-10-28T09:16:41.499681+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Calculate Standard Shipping" language="text/javascript">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Calculate Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Calculate Expedited Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Send Invoice</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Ship Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Cancel Order" language="text/javascript">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Cancel Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a10'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive">
+                <alternative condition="Calculate Standard Shipping" language="text/javascript">
+                  <call id="a5" endpoint="">
+                    <parameters>
+                      <label>Calculate Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a5'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+                  <call id="a6" endpoint="">
+                    <parameters>
+                      <label>Calculate Expedited Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a6'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Send Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Receive Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="">
+                <parameters>
+                  <label>Ship Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  time:timestamp: '2025-10-28T09:16:42.867522+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Calculate Standard Shipping" language="text/javascript">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Calculate Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Calculate Expedited Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Send Invoice</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Ship Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Cancel Order" language="text/javascript">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Cancel Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a10'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive">
+                <alternative condition="Calculate Standard Shipping" language="text/javascript">
+                  <call id="a5" endpoint="">
+                    <parameters>
+                      <label>Calculate Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a5'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+                  <call id="a6" endpoint="">
+                    <parameters>
+                      <label>Calculate Expedited Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a6'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Send Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Receive Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="">
+                <parameters>
+                  <label>Ship Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  time:timestamp: '2025-10-28T09:16:44.293381+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Calculate Standard Shipping" language="text/javascript">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Calculate Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Calculate Expedited Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Send Invoice</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Ship Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Cancel Order" language="text/javascript">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Cancel Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a10'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive">
+                <alternative condition="Calculate Standard Shipping" language="text/javascript">
+                  <call id="a5" endpoint="">
+                    <parameters>
+                      <label>Calculate Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a5'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+                  <call id="a6" endpoint="">
+                    <parameters>
+                      <label>Calculate Expedited Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a6'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Send Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Receive Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="">
+                <parameters>
+                  <label>Ship Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  time:timestamp: '2025-10-28T09:16:44.756131+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Calculate Standard Shipping" language="text/javascript">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Calculate Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Calculate Expedited Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Send Invoice</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Ship Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Cancel Order" language="text/javascript">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Cancel Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a10'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive">
+                <alternative condition="Calculate Standard Shipping" language="text/javascript">
+                  <call id="a5" endpoint="">
+                    <parameters>
+                      <label>Calculate Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a5'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+                  <call id="a6" endpoint="">
+                    <parameters>
+                      <label>Calculate Expedited Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a6'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Send Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Receive Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="">
+                <parameters>
+                  <label>Ship Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  time:timestamp: '2025-10-28T09:16:44.974024+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Pack Order</label>
+          <method/>
+          <type>:task</type>
+          <mid>'a3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Calculate Standard Shipping" language="text/javascript">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Calculate Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Calculate Expedited Shipping Costs</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Send Invoice</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Receive Payment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Ship Order</label>
+              <method/>
+              <type>:task</type>
+              <mid>'a9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <choose mode="exclusive">
+            <alternative condition="Cancel Order" language="text/javascript">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Cancel Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a10'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive">
+                <alternative condition="Calculate Standard Shipping" language="text/javascript">
+                  <call id="a5" endpoint="">
+                    <parameters>
+                      <label>Calculate Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a5'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Calculate Expedited Shipping" language="text/javascript">
+                  <call id="a6" endpoint="">
+                    <parameters>
+                      <label>Calculate Expedited Shipping Costs</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a6'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Send Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Receive Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="">
+                <parameters>
+                  <label>Ship Order</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c937bd0c9d4140dfed0034a20b884d8cc40bffca
+  time:timestamp: '2025-10-28T09:16:45.154454+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-28T09:16:59.904818+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-28T09:16:59.920850+01:00'
+---
+event:
+  concept:instance: 849
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9402007c-03ae-49b5-a84a-6fa33844bdc9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-10-28T09:17:01.936066+01:00'

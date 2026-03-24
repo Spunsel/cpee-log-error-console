@@ -1,0 +1,475 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 664
+    cpee:name: Plain Instance
+    cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-27T09:20:06.169132+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 67331ea1d1bcae393b18c62d260fef5e29f76c04
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-27T09:20:37.559586+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 67331ea1d1bcae393b18c62d260fef5e29f76c04
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-27T09:20:37.560097+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Create Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 67331ea1d1bcae393b18c62d260fef5e29f76c04
+  time:timestamp: '2025-10-27T09:20:37.559400+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 67331ea1d1bcae393b18c62d260fef5e29f76c04
+  cpee:exposition: |-
+    # User Input:
+    create loan application process
+  time:timestamp: '2025-10-27T09:20:37.559860+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 67331ea1d1bcae393b18c62d260fef5e29f76c04
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-27T09:20:37.560483+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 67331ea1d1bcae393b18c62d260fef5e29f76c04
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Create Loan Application)
+    1:task:(Create Loan Application) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-27T09:20:37.560641+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 67331ea1d1bcae393b18c62d260fef5e29f76c04
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Create Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-27T09:20:37.560759+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Create Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-27T09:20:54.762596+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2025-10-27T09:20:54.762437+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    # User Input:
+    delete model
+  time:timestamp: '2025-10-27T09:20:54.763110+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-27T09:20:54.763249+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Create Loan Application)
+    a2:task:(Create Loan Application)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-27T09:20:54.763331+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-10-27T09:20:54.763442+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-27T09:20:54.763564+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12aefe9ccd98f636c7caca776823d570b3af2d00
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-27T09:21:18.937480+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12aefe9ccd98f636c7caca776823d570b3af2d00
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-preview-05-20
+  time:timestamp: '2025-10-27T09:21:18.938395+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12aefe9ccd98f636c7caca776823d570b3af2d00
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph TD
+    0:startevent:((Loan Application Initiated))
+    1:task:(Gather Applicant Information)
+    2:task:(Submit Application)
+    3:task:(Review Application)
+    4:exclusivegateway:{x}
+    5:task:(Prepare Loan Agreement)
+    6:task:(Disburse Funds)
+    7:task:(Notify Applicant of Rejection)
+    9:exclusivegateway:{x}
+    8:endevent:(((Loan Processed)))
+    0 --> 1
+    1 --> 2
+    2 --> 3
+    3 --> 4
+    4 --|Yes|--> 5
+    5 --> 6
+    6 --> 9
+    4 --|No|--> 7
+    7 --> 9
+    9 --> 8
+  time:timestamp: '2025-10-27T09:21:18.938674+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'0'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a2" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 12aefe9ccd98f636c7caca776823d570b3af2d00
+  time:timestamp: '2025-10-27T09:21:18.937231+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12aefe9ccd98f636c7caca776823d570b3af2d00
+  cpee:exposition: |-
+    # User Input:
+    create loan application process
+  time:timestamp: '2025-10-27T09:21:18.938228+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12aefe9ccd98f636c7caca776823d570b3af2d00
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-27T09:21:18.938522+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 12aefe9ccd98f636c7caca776823d570b3af2d00
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'0'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a2" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-27T09:21:18.939171+01:00'
+---
+event:
+  concept:instance: 664
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5f679b-8a8b-42c4-bdfc-590f0ef8f3bc
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-11-17T17:39:48.828396+01:00'

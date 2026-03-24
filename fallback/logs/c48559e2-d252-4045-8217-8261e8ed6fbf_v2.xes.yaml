@@ -1,0 +1,407 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 920
+    cpee:name: Plain Instance
+    cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T13:30:55.566589+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-28T13:30:56.169554+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-28T13:30:56.186559+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T13:30:56.285969+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T13:30:56.288297+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Credit Request</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Review Request Details</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last">
+        <parallel_branch>
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Evaluate Financial Risk</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive">
+            <alternative condition="">
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Calculate Standard Terms) |Standard Terms|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Prepare Custom Terms) |Special Consideration|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Prepare Contract</label>
+              <method/>
+              <type>:task</type>
+              <mid>'8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a11" endpoint="">
+        <parameters>
+          <label>Send Official Quote</label>
+          <method/>
+          <type>:task</type>
+          <mid>'10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 43a53d5e874c6ab0862c742ea375d8a6aab12c34
+  time:timestamp: '2025-10-28T13:31:24.469400+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 43a53d5e874c6ab0862c742ea375d8a6aab12c34
+  cpee:exposition: |-
+    # User Input:
+    A Customer reaches out to the Bank, submitting a Credit Request hoping to secure a loan. The request lands with a
+    Sales Representative, who begins reviewing the details to ensure everything is in order. Once the review is complete,
+    the request is handed off for further action in two important areas. On one side, a Risk Analyst begins evaluating the
+    financial risk of approving the credit, considering the customerâ€™s financial history and the overall risk involved in
+    granting the loan. At the same time, the Sales Representative looks at the terms of the credit. If the customer qualifies
+    for standard terms, the Sales Representative calculates those terms directly. However, if the situation requires special
+    consideration, a Sales Manager steps in to prepare custom terms according to the customerâ€™s needs. With the terms
+    settled, the Sales Representative prepares a contract. As both the Risk Analyst completes the risk assessment and the
+    Sales Representative finalizes the contract, the process moves forward, and the Sales Representative sends the official
+    quote back to the Customer. Once the customer receives the quote, the process reaches its end.
+  time:timestamp: '2025-10-28T13:31:24.470130+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 43a53d5e874c6ab0862c742ea375d8a6aab12c34
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T13:31:24.469678+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 43a53d5e874c6ab0862c742ea375d8a6aab12c34
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T13:31:24.470688+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 43a53d5e874c6ab0862c742ea375d8a6aab12c34
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Credit Request</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Review Request Details</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last">
+        <parallel_branch>
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Evaluate Financial Risk</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive">
+            <alternative condition="">
+              <call id="a7" endpoint="">
+                <parameters>
+                  <label>Calculate Standard Terms) |Standard Terms|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>Prepare Custom Terms) |Special Consideration|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'7'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Prepare Contract</label>
+              <method/>
+              <type>:task</type>
+              <mid>'8'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a11" endpoint="">
+        <parameters>
+          <label>Send Official Quote</label>
+          <method/>
+          <type>:task</type>
+          <mid>'10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T13:31:24.471017+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 43a53d5e874c6ab0862c742ea375d8a6aab12c34
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Receive Credit Request)
+      1:task:(Receive Credit Request) --> 2:task:(Review Request Details)
+      2:task:(Review Request Details) --> 3:parallelgateway:{AND}
+      3:parallelgateway:{AND} --> 4:task:(Evaluate Financial Risk)
+      3:parallelgateway:{AND} --> 5:exclusivegateway:{x}
+      5:exclusivegateway:{x} --> 6:task:(Calculate Standard Terms) |Standard Terms|
+      5:exclusivegateway:{x} --> 7:task:(Prepare Custom Terms) |Special Consideration|
+      6:task:(Calculate Standard Terms) --> 8:task:(Prepare Contract)
+      7:task:(Prepare Custom Terms) --> 8:task:(Prepare Contract)
+      8:task:(Prepare Contract) --> 9:parallelgateway:{AND}
+      4:task:(Evaluate Financial Risk) --> 9:parallelgateway:{AND}
+      9:parallelgateway:{AND} --> 10:task:(Send Official Quote)
+      10:task:(Send Official Quote) --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T13:31:24.470805+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 43a53d5e874c6ab0862c742ea375d8a6aab12c34
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T13:31:24.470546+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-28T14:05:13.352631+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-28T14:05:13.369891+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T14:05:13.501908+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T14:05:13.503888+01:00'
+---
+event:
+  concept:instance: 920
+  id:id: external
+  cpee:activity: external
+  cpee:instance: c48559e2-d252-4045-8217-8261e8ed6fbf
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-10-28T14:05:15.192664+01:00'
