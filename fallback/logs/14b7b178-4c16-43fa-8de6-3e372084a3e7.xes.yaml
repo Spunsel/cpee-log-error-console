@@ -1,0 +1,184 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 1134
+    cpee:name: Plain Instance
+    cpee:instance: 14b7b178-4c16-43fa-8de6-3e372084a3e7
+---
+event:
+  concept:instance: 1134
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 14b7b178-4c16-43fa-8de6-3e372084a3e7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-29T14:24:33.133025+01:00'
+---
+event:
+  concept:instance: 1134
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 14b7b178-4c16-43fa-8de6-3e372084a3e7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Cash</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Create Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 3f9e01f9cd025cab10b8fb43245fe552616c6ea2
+  time:timestamp: '2025-10-29T14:25:04.939521+01:00'
+---
+event:
+  concept:instance: 1134
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 14b7b178-4c16-43fa-8de6-3e372084a3e7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3f9e01f9cd025cab10b8fb43245fe552616c6ea2
+  cpee:exposition: |+
+    # User Input:
+    Create a cash-to-order process with two pools
+
+  time:timestamp: '2025-10-29T14:25:04.940556+01:00'
+...
+---
+event:
+  concept:instance: 1134
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 14b7b178-4c16-43fa-8de6-3e372084a3e7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3f9e01f9cd025cab10b8fb43245fe552616c6ea2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-29T14:25:04.939778+01:00'
+---
+event:
+  concept:instance: 1134
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 14b7b178-4c16-43fa-8de6-3e372084a3e7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3f9e01f9cd025cab10b8fb43245fe552616c6ea2
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-29T14:25:04.941024+01:00'
+---
+event:
+  concept:instance: 1134
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 14b7b178-4c16-43fa-8de6-3e372084a3e7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3f9e01f9cd025cab10b8fb43245fe552616c6ea2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-29T14:25:04.940798+01:00'
+---
+event:
+  concept:instance: 1134
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 14b7b178-4c16-43fa-8de6-3e372084a3e7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3f9e01f9cd025cab10b8fb43245fe552616c6ea2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Cash</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Create Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-29T14:25:04.941484+01:00'
+---
+event:
+  concept:instance: 1134
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 14b7b178-4c16-43fa-8de6-3e372084a3e7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3f9e01f9cd025cab10b8fb43245fe552616c6ea2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Receive Cash)
+        1:task:(Receive Cash) --> 2:task:(Create Order)
+        2:task:(Create Order) --> 3:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-29T14:25:04.941275+01:00'
+---
+event:
+  concept:instance: 1134
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 14b7b178-4c16-43fa-8de6-3e372084a3e7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-11-17T17:39:51.215560+01:00'

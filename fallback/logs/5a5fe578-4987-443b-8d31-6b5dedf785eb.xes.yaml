@@ -1,0 +1,432 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 64207
+    cpee:name: Plain Instance
+    cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-24T05:00:09.552175+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Paper</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prevalidate Paper</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Reject" language="text/javascript"/>
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Assign Associate Editor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  time:timestamp: '2025-11-24T05:00:23.552043+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |-
+    # User Input:
+    The process starts with the submission of a paper by a correponding author. Upon receipt, the editor in chief prevalidates it and either rejects it or sends it to an associate editor for review.
+  time:timestamp: '2025-11-24T05:00:23.552700+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-24T05:00:23.553130+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-24T05:00:23.552255+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-24T05:00:23.553593+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Submit Paper)
+    1:task:(Submit Paper) --> 2:task:(Prevalidate Paper)
+    2:task:(Prevalidate Paper) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Reject| 4:endevent:(((endevent)))
+    3:exclusivegateway:{x} --> |Approve| 5:task:(Assign Associate Editor)
+    5:task:(Assign Associate Editor) --> 4:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-24T05:00:23.553850+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Paper</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prevalidate Paper</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Reject" language="text/javascript"/>
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Assign Associate Editor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-24T05:00:23.554362+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-24T05:04:25.264837+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-24T05:04:28.197326+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Paper</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prevalidate Paper</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Reject" language="text/javascript"/>
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Assign Associate Editor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-24T05:04:47.843831+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |+
+    # User Input:
+    The process starts when a paper is submitted. The submitted paper is then prevalidated. Based on the prevalidation, the paper is either rejected or approved. If rejected, the process ends. If approved, an associate editor is assigned. After assigning the associate editor, the process ends.
+
+  time:timestamp: '2025-11-24T05:04:47.844314+01:00'
+...
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Submit Paper)
+    a1:task:(Submit Paper)-->a3:task:(Prevalidate Paper)
+    a3:task:(Prevalidate Paper)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Reject"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Approve"|a9:task:(Assign Associate Editor)
+    a9:task:(Assign Associate Editor)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-24T05:04:47.845321+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Paper</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prevalidate Paper</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Reject" language="text/javascript"/>
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Assign Associate Editor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  time:timestamp: '2025-11-24T05:04:47.843534+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2025-11-24T05:04:47.844529+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent))
+    0:startevent:((startevent)) --> 1:task:(Submit Paper)
+    1:task:(Submit Paper) --> 2:task:(Prevalidate Paper)
+    2:task:(Prevalidate Paper) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |"Reject"| 4:endevent:(((endevent)))
+    3:exclusivegateway:{x} --> |"Approve"| 5:task:(Assign Associate Editor)
+    5:task:(Assign Associate Editor) --> 6:endevent:(((endevent)))
+  time:timestamp: '2025-11-24T05:04:47.845527+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fefdcfbea0a37f32304a23c3a0f593f1dd2a238
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Paper</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prevalidate Paper</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Reject" language="text/javascript"/>
+        <alternative condition="Approve" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Assign Associate Editor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-24T05:04:47.846039+01:00'
+---
+event:
+  concept:instance: 64207
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 5a5fe578-4987-443b-8d31-6b5dedf785eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: purged
+  time:timestamp: '2025-11-26T22:52:12.469379+01:00'

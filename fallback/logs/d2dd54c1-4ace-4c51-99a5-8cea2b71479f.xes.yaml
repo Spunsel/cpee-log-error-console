@@ -1,0 +1,251 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 1069
+    cpee:name: Plain Instance
+    cpee:instance: d2dd54c1-4ace-4c51-99a5-8cea2b71479f
+---
+event:
+  concept:instance: 1069
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d2dd54c1-4ace-4c51-99a5-8cea2b71479f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T23:29:32.513561+01:00'
+---
+event:
+  concept:instance: 1069
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d2dd54c1-4ace-4c51-99a5-8cea2b71479f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8531f25afb0e94d0855cbb3ae3acc0ee44867df4
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T23:31:43.978152+01:00'
+---
+event:
+  concept:instance: 1069
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d2dd54c1-4ace-4c51-99a5-8cea2b71479f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Lab Material</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Check Sample</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Sample is unsuitable" a:alt_id="3" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Check Sample</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Perform Examination</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Create Report</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: 8531f25afb0e94d0855cbb3ae3acc0ee44867df4
+  time:timestamp: '2025-10-28T23:31:43.977801+01:00'
+---
+event:
+  concept:instance: 1069
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d2dd54c1-4ace-4c51-99a5-8cea2b71479f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8531f25afb0e94d0855cbb3ae3acc0ee44867df4
+  cpee:exposition: |-
+    # User Input:
+    model the loop using two gateways of the same type — one for the decision (split) and one for returning to the start of the repeated part (merge).
+
+    The merge gateway must appear before the first task of the loop segment.
+
+
+    The process starts when the lab material is received.
+    The material is then checked for correctness and quality. If the check reveals that the sample is unsuitable—for example, the labeling is unclear or the volume is insufficient—the sample is re-prepared or reprocessed, and the check is repeated.
+    Once the sample passes the check, the examination is performed. After the examination, a report is created to document the results.
+    The process ends when the report is completed.
+  time:timestamp: '2025-10-28T23:31:43.978352+01:00'
+---
+event:
+  concept:instance: 1069
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d2dd54c1-4ace-4c51-99a5-8cea2b71479f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8531f25afb0e94d0855cbb3ae3acc0ee44867df4
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T23:31:43.979165+01:00'
+---
+event:
+  concept:instance: 1069
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d2dd54c1-4ace-4c51-99a5-8cea2b71479f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8531f25afb0e94d0855cbb3ae3acc0ee44867df4
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T23:31:43.979303+01:00'
+---
+event:
+  concept:instance: 1069
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d2dd54c1-4ace-4c51-99a5-8cea2b71479f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8531f25afb0e94d0855cbb3ae3acc0ee44867df4
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Receive Lab Material)
+      1:task:(Receive Lab Material) --> 2:task:(Check Sample)
+      2:task:(Check Sample) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Sample is unsuitable| 4:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Sample is suitable| 5:task:(Perform Examination)
+      4:exclusivegateway:{x} --> 2:task:(Check Sample)
+      5:task:(Perform Examination) --> 6:task:(Create Report)
+      6:task:(Create Report) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T23:31:43.979473+01:00'
+---
+event:
+  concept:instance: 1069
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d2dd54c1-4ace-4c51-99a5-8cea2b71479f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8531f25afb0e94d0855cbb3ae3acc0ee44867df4
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Lab Material</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Check Sample</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Sample is unsuitable" a:alt_id="3" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Check Sample</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Perform Examination</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Create Report</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-10-28T23:31:43.980253+01:00'
+---
+event:
+  concept:instance: 1069
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d2dd54c1-4ace-4c51-99a5-8cea2b71479f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-11-17T17:39:50.888546+01:00'

@@ -1,0 +1,3313 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 6098
+    cpee:name: Plain Instance
+    cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T20:40:37.085202+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-04T20:40:37.526502+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-11-04T20:40:37.643466+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T20:40:37.807779+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T20:40:37.869934+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-04T20:41:00.603715+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-11-04T20:41:00.732518+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T20:41:00.886770+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T20:41:00.943791+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 365ef48cbe30b2b8248ef53263b71200b1383c8d
+  cpee:exposition: |+
+    # User Input:
+    You produce airplanes. While the base model is always the same, your customer likes to pimp their airplane with fancy interior.
+    You let them decide between a number of 5 different bars, the number of seats, their color, and the amount of water in the toilets of their plane (you can come up with additional stuff).
+    After you received the specifications you send the requirements to different teams to manufacture the parts.
+    E.g. manufacturing the vodka bar is done by the Russian team, the whiskey bar is manufactured by an Irish team.
+    After receiving the individual bits and pieces, the interior of the plane is assembled, and the plane is sent on a test flight.
+    During the flight you create a test protocol which is sent to you and the customer.
+    The plane is delivered to the customer, which has to confirm. Constrct the model as following: First, receive the order from the customer; Second, send the order to the manufacturing teams; 3. Task: Manufacture seats, 4. Task: set water amount. Tasks 3, 4, and the process of manufacturing bars should run in parallel, and the process has to wait until all of Tasks 3, 4, and the process of manufacturing bars are finished, then it is allowed to proceed. The process of manufacturing bars involves tasks 4 to 9, which include manufacturing vodka/whiskey/ wine/ gin/ juice bars. From tasks 4 to 9, a minimum of 0 and a maximum of 5 tasks can be done. After all of Tasks 3, 4, and the process of manufacturing bars are finished, comes Task 10: assemble interior. Then the test flight should be conducted, and then the task “collect flight data”, then the task “create test protocol”; After this, the protocol should be sent simultaneously to “me” and the “customer”. Then comes the task “deliver plane”, then the task “receive customer confirmation”.
+
+  time:timestamp: '2025-11-04T20:42:58.310828+01:00'
+...
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 365ef48cbe30b2b8248ef53263b71200b1383c8d
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-04T20:42:58.309961+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="3">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="13">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a19" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a23" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+      </parallel>
+      <call id="a41" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Collect flight data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Create test protocol</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="19">
+        <parallel_branch>
+          <call id="a51" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a53" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a59" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 365ef48cbe30b2b8248ef53263b71200b1383c8d
+  time:timestamp: '2025-11-04T20:42:58.309724+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 365ef48cbe30b2b8248ef53263b71200b1383c8d
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-04T20:42:58.311015+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 365ef48cbe30b2b8248ef53263b71200b1383c8d
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="3">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="13">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a19" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a23" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+      </parallel>
+      <call id="a41" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Collect flight data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Create test protocol</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="19">
+        <parallel_branch>
+          <call id="a51" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a53" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a59" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T20:42:58.311448+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 365ef48cbe30b2b8248ef53263b71200b1383c8d
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-04T20:42:58.311123+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 365ef48cbe30b2b8248ef53263b71200b1383c8d
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Receive order from customer)
+        1:task:(Receive order from customer) --> 2:task:(Send order to manufacturing teams)
+        2:task:(Send order to manufacturing teams) --> 3:parallelgateway:{AND}
+        3:parallelgateway:{AND} --> 11:task:(Manufacture seats)
+        3:parallelgateway:{AND} --> 12:task:(Set water amount)
+        3:parallelgateway:{AND} --> 4:subprocess:(Manufacture bars)
+        4:subprocess:(Manufacture bars) --> 13:parallelgateway:{AND}
+        13:parallelgateway:{AND} --> 5:task:(Manufacture vodka bar)
+        13:parallelgateway:{AND} --> 6:task:(Manufacture whiskey bar)
+        13:parallelgateway:{AND} --> 7:task:(Manufacture wine bar)
+        13:parallelgateway:{AND} --> 8:task:(Manufacture gin bar)
+        13:parallelgateway:{AND} --> 9:task:(Manufacture juice bar)
+        5:task:(Manufacture vodka bar) --> 14:parallelgateway:{AND}
+        6:task:(Manufacture whiskey bar) --> 14:parallelgateway:{AND}
+        7:task:(Manufacture wine bar) --> 14:parallelgateway:{AND}
+        8:task:(Manufacture gin bar) --> 14:parallelgateway:{AND}
+        9:task:(Manufacture juice bar) --> 14:parallelgateway:{AND}
+        11:task:(Manufacture seats) --> 10:parallelgateway:{AND}
+        12:task:(Set water amount) --> 10:parallelgateway:{AND}
+        14:parallelgateway:{AND} --> 10:parallelgateway:{AND}
+        10:parallelgateway:{AND} --> 15:task:(Assemble interior)
+        15:task:(Assemble interior) --> 16:task:(Conduct test flight)
+        16:task:(Conduct test flight) --> 17:task:(Collect flight data)
+        17:task:(Collect flight data) --> 18:task:(Create test protocol)
+        18:task:(Create test protocol) --> 19:parallelgateway:{AND}
+        19:parallelgateway:{AND} --> 20:task:(Send protocol to me)
+        19:parallelgateway:{AND} --> 21:task:(Send protocol to customer)
+        20:task:(Send protocol to me) --> 22:parallelgateway:{AND}
+        21:task:(Send protocol to customer) --> 22:parallelgateway:{AND}
+        22:parallelgateway:{AND} --> 23:task:(Deliver plane)
+        23:task:(Deliver plane) --> 24:task:(Receive customer confirmation)
+        24:task:(Receive customer confirmation) --> 25:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-04T20:42:58.311311+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 077d7cebd2618169ad3883f5e03bee152a978639
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="3">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="13">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a19" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a23" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+      </parallel>
+      <call id="a41" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Collect flight data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Create test protocol</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="19">
+        <parallel_branch>
+          <call id="a51" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a53" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a59" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T20:51:37.314437+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="4">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="10">
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="17">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a29" endpoint="" a:alt_id="21">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a33" endpoint="" a:alt_id="23">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+      </parallel>
+      <call id="a39" endpoint="" a:alt_id="41">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="43">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a43" endpoint="" a:alt_id="45">
+            <parameters>
+              <label>Collect flight data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a45" endpoint="" a:alt_id="47">
+            <parameters>
+              <label>Create test protocol</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <parallel wait="-1" cancel="last" a:alt_id="49">
+        <parallel_branch>
+          <call id="a51" endpoint="" a:alt_id="51">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a55" endpoint="" a:alt_id="53">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a59" endpoint="" a:alt_id="59">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="61">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 077d7cebd2618169ad3883f5e03bee152a978639
+  time:timestamp: '2025-11-04T20:51:37.314110+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 077d7cebd2618169ad3883f5e03bee152a978639
+  cpee:exposition: |-
+    # User Input:
+    After receiving the customer’s order, it is sent to the respective manufacturing teams.
+    The production process then splits into three parallel branches:
+
+
+    Manufacture the seats,
+
+
+    Set the water amount, and
+
+
+    Manufacture the selected bars.
+
+
+    The bar manufacturing process functions as an optional parallel subprocess. Depending on the customer’s customization, none, some, or all of the five available bar types (Vodka, Whiskey, Wine, Gin, and Juice Bar) may be produced simultaneously.
+    Once all parallel tasks — seat manufacturing, water adjustment, and the selected bar productions — are completed, the process flow continues with assembling the airplane interior.
+
+
+    After the interior has been assembled, the plane undergoes a test flight. During this flight, the system simultaneously collects flight data and creates a test protocol.
+    Once the protocol is complete, it is sent simultaneously to both the manufacturer (“me”) and the customer for review.
+    Finally, the airplane is delivered to the customer, who must confirm receipt and acceptance of the product, thereby completing the process.
+  time:timestamp: '2025-11-04T20:51:37.316021+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 077d7cebd2618169ad3883f5e03bee152a978639
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-04T20:51:37.316372+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 077d7cebd2618169ad3883f5e03bee152a978639
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive order from customer)
+    a1:task:(Receive order from customer)-->a3:task:(Send order to manufacturing teams)
+    a3:task:(Send order to manufacturing teams)-->gw1s:parallelgateway:{AND}
+    -->a7:task:(Manufacture seats)
+    a7:task:(Manufacture seats)-->gw1e:parallelgateway:{AND}
+    -->a9:task:(Set water amount)
+    a9:task:(Set water amount)-->gw1e:parallelgateway:{AND}
+    -->gw2s:parallelgateway:{AND}
+    -->a15:task:(Manufacture vodka bar)
+    a15:task:(Manufacture vodka bar)-->gw2e:parallelgateway:{AND}
+    -->a17:task:(Manufacture whiskey bar)
+    a17:task:(Manufacture whiskey bar)-->gw2e:parallelgateway:{AND}
+    -->a19:task:(Manufacture wine bar)
+    a19:task:(Manufacture wine bar)-->gw2e:parallelgateway:{AND}
+    -->a21:task:(Manufacture gin bar)
+    a21:task:(Manufacture gin bar)-->gw2e:parallelgateway:{AND}
+    -->a23:task:(Manufacture juice bar)
+    a23:task:(Manufacture juice bar)-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a41:task:(Assemble interior)
+    a41:task:(Assemble interior)-->a43:task:(Conduct test flight)
+    a43:task:(Conduct test flight)-->a45:task:(Collect flight data)
+    a45:task:(Collect flight data)-->a47:task:(Create test protocol)
+    a47:task:(Create test protocol)-->gw3s:parallelgateway:{AND}
+    -->a51:task:(Send protocol to me)
+    a51:task:(Send protocol to me)-->gw3e:parallelgateway:{AND}
+    -->a53:task:(Send protocol to customer)
+    a53:task:(Send protocol to customer)-->gw3e:parallelgateway:{AND}
+    gw3e:parallelgateway:{AND}-->a59:task:(Deliver plane)
+    a59:task:(Deliver plane)-->a61:task:(Receive customer confirmation)
+    a61:task:(Receive customer confirmation)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-04T20:51:37.316633+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 077d7cebd2618169ad3883f5e03bee152a978639
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    0:startevent:((startevent))-->1:task:(Receive order from customer)
+    1:task:(Receive order from customer)-->3:task:(Send order to manufacturing teams)
+    3:task:(Send order to manufacturing teams)-->4:parallelgateway:{AND}
+    4:parallelgateway:{AND}-->7:task:(Manufacture seats)
+    7:task:(Manufacture seats)-->13:parallelgateway:{AND}
+    4:parallelgateway:{AND}-->9:task:(Set water amount)
+    9:task:(Set water amount)-->13:parallelgateway:{AND}
+    4:parallelgateway:{AND}-->10:parallelgateway:{AND}
+    10:parallelgateway:{AND}-->15:task:(Manufacture vodka bar)
+    15:task:(Manufacture vodka bar)-->12:parallelgateway:{AND}
+    10:parallelgateway:{AND}-->17:task:(Manufacture whiskey bar)
+    17:task:(Manufacture whiskey bar)-->12:parallelgateway:{AND}
+    10:parallelgateway:{AND}-->19:task:(Manufacture wine bar)
+    19:task:(Manufacture wine bar)-->12:parallelgateway:{AND}
+    10:parallelgateway:{AND}-->21:task:(Manufacture gin bar)
+    21:task:(Manufacture gin bar)-->12:parallelgateway:{AND}
+    10:parallelgateway:{AND}-->23:task:(Manufacture juice bar)
+    23:task:(Manufacture juice bar)-->12:parallelgateway:{AND}
+    12:parallelgateway:{AND}-->13:parallelgateway:{AND}
+    13:parallelgateway:{AND}-->41:task:(Assemble interior)
+    41:task:(Assemble interior)-->43:task:(Conduct test flight)
+    43:task:(Conduct test flight)-->45:task:(Collect flight data)
+    45:task:(Collect flight data)-->47:task:(Create test protocol)
+    43:task:(Conduct test flight)-->49:parallelgateway:{AND}
+    47:task:(Create test protocol)-->49:parallelgateway:{AND}
+    49:parallelgateway:{AND}-->51:task:(Send protocol to me)
+    51:task:(Send protocol to me)-->57:parallelgateway:{AND}
+    49:parallelgateway:{AND}-->53:task:(Send protocol to customer)
+    53:task:(Send protocol to customer)-->57:parallelgateway:{AND}
+    57:parallelgateway:{AND}-->59:task:(Deliver plane)
+    59:task:(Deliver plane)-->61:task:(Receive customer confirmation)
+    61:task:(Receive customer confirmation)-->63:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-04T20:51:37.316964+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 077d7cebd2618169ad3883f5e03bee152a978639
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="4">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="10">
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="17">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a29" endpoint="" a:alt_id="21">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a33" endpoint="" a:alt_id="23">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+      </parallel>
+      <call id="a39" endpoint="" a:alt_id="41">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="43">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a43" endpoint="" a:alt_id="45">
+            <parameters>
+              <label>Collect flight data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a45" endpoint="" a:alt_id="47">
+            <parameters>
+              <label>Create test protocol</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <parallel wait="-1" cancel="last" a:alt_id="49">
+        <parallel_branch>
+          <call id="a51" endpoint="" a:alt_id="51">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a55" endpoint="" a:alt_id="53">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a59" endpoint="" a:alt_id="59">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="61">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T20:51:37.317092+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e5f61e1b875843709bc1ca6071d69e86a002e2b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="4">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="10">
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="17">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a29" endpoint="" a:alt_id="21">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a33" endpoint="" a:alt_id="23">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+      </parallel>
+      <call id="a39" endpoint="" a:alt_id="41">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="43">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a43" endpoint="" a:alt_id="45">
+            <parameters>
+              <label>Collect flight data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a45" endpoint="" a:alt_id="47">
+            <parameters>
+              <label>Create test protocol</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <parallel wait="-1" cancel="last" a:alt_id="49">
+        <parallel_branch>
+          <call id="a51" endpoint="" a:alt_id="51">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a55" endpoint="" a:alt_id="53">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a59" endpoint="" a:alt_id="59">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="61">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T21:00:41.282818+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="inclusive" a:alt_id="gw2s">
+            <alternative condition="">
+              <call id="a17" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a21" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a25" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a29" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a33" endpoint="" a:alt_id="a33">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="a41">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw4s">
+        <parallel_branch>
+          <call id="a45" endpoint="" a:alt_id="a43">
+            <parameters>
+              <label>Collect flight data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a47" endpoint="" a:alt_id="a45">
+            <parameters>
+              <label>Create test protocol</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+        <parallel_branch>
+          <call id="a55" endpoint="" a:alt_id="a51">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a59" endpoint="" a:alt_id="a55">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a63" endpoint="" a:alt_id="a59">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="a61">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 9e5f61e1b875843709bc1ca6071d69e86a002e2b
+  time:timestamp: '2025-11-04T21:00:41.282548+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e5f61e1b875843709bc1ca6071d69e86a002e2b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-04T21:00:41.283369+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e5f61e1b875843709bc1ca6071d69e86a002e2b
+  cpee:exposition: |-
+    # User Input:
+    After receiving the customer’s order, it is forwarded to the respective manufacturing teams.
+    The production process then splits into three parallel branches:
+    Manufacture the seats,
+    Set the water amount, and
+    Manufacture the selected bars.
+    The bar manufacturing process operates as an inclusive subprocess. Depending on the customer's customization, any combination of the five available bar types — Vodka, Whiskey, Wine, Gin, and Juice Bar — may be produced, including none, some, or all of them. The process continues once all selected bars have been manufactured. Once all parallel tasks — seat manufacturing, water adjustment, and the selected bar productions — are completed, the process flow continues with assembling the airplane interior.
+    After the interior has been assembled, the plane undergoes a test flight. During this flight, the system collects flight data and, after the flight, creates a test protocol.
+    Once the protocol is complete, it is sent simultaneously to both the manufacturer (“me”) and the customer for review.
+    Finally, the airplane is delivered to the customer, who must confirm receipt and acceptance of the product, thereby completing the process.
+
+
+
+
+    After the interior has been assembled, the plane undergoes a test flight. During this flight, the system simultaneously collects flight data and creates a test protocol.
+    Once the protocol is complete, it is sent simultaneously to both the manufacturer (“me”) and the customer for review.
+    Finally, the airplane is delivered to the customer, who must confirm receipt and acceptance of the product, thereby completing the process.
+  time:timestamp: '2025-11-04T21:00:41.283226+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e5f61e1b875843709bc1ca6071d69e86a002e2b
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive order from customer)
+    a1:task:(Receive order from customer)-->a3:task:(Send order to manufacturing teams)
+    a3:task:(Send order to manufacturing teams)-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a7:task:(Manufacture seats)
+    a7:task:(Manufacture seats)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a11:task:(Set water amount)
+    a11:task:(Set water amount)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->gw2s:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->a17:task:(Manufacture vodka bar)
+    a17:task:(Manufacture vodka bar)-->gw2e:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->a21:task:(Manufacture whiskey bar)
+    a21:task:(Manufacture whiskey bar)-->gw2e:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->a25:task:(Manufacture wine bar)
+    a25:task:(Manufacture wine bar)-->gw2e:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->a29:task:(Manufacture gin bar)
+    a29:task:(Manufacture gin bar)-->gw2e:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->a33:task:(Manufacture juice bar)
+    a33:task:(Manufacture juice bar)-->gw2e:inclusivegateway:{O}
+    gw2e:inclusivegateway:{O}-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a39:task:(Assemble interior)
+    a39:task:(Assemble interior)-->a41:task:(Conduct test flight)
+    a41:task:(Conduct test flight)-->gw4s:parallelgateway:{AND}
+    gw4s:parallelgateway:{AND}-->a43:task:(Collect flight data)
+    gw4s:parallelgateway:{AND}-->a45:task:(Create test protocol)
+    a43:task:(Collect flight data)-->gw4e:parallelgateway:{AND}
+    a45:task:(Create test protocol)-->gw4e:parallelgateway:{AND}
+    gw4e:parallelgateway:{AND}-->gw3s:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a51:task:(Send protocol to me)
+    a51:task:(Send protocol to me)-->gw3e:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a55:task:(Send protocol to customer)
+    a55:task:(Send protocol to customer)-->gw3e:parallelgateway:{AND}
+    gw3e:parallelgateway:{AND}-->a59:task:(Deliver plane)
+    a59:task:(Deliver plane)-->a61:task:(Receive customer confirmation)
+    a61:task:(Receive customer confirmation)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-11-04T21:00:41.283951+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e5f61e1b875843709bc1ca6071d69e86a002e2b
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive order from customer)
+    a1:task:(Receive order from customer)-->a3:task:(Send order to manufacturing teams)
+    a3:task:(Send order to manufacturing teams)-->gw1s:parallelgateway:{AND}
+    -->a7:task:(Manufacture seats)
+    a7:task:(Manufacture seats)-->gw1e:parallelgateway:{AND}
+    -->a11:task:(Set water amount)
+    a11:task:(Set water amount)-->gw1e:parallelgateway:{AND}
+    -->gw2s:parallelgateway:{AND}
+    -->a17:task:(Manufacture vodka bar)
+    a17:task:(Manufacture vodka bar)-->gw2e:parallelgateway:{AND}
+    -->a21:task:(Manufacture whiskey bar)
+    a21:task:(Manufacture whiskey bar)-->gw2e:parallelgateway:{AND}
+    -->a25:task:(Manufacture wine bar)
+    a25:task:(Manufacture wine bar)-->gw2e:parallelgateway:{AND}
+    -->a29:task:(Manufacture gin bar)
+    a29:task:(Manufacture gin bar)-->gw2e:parallelgateway:{AND}
+    -->a33:task:(Manufacture juice bar)
+    a33:task:(Manufacture juice bar)-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a39:task:(Assemble interior)
+    a39:task:(Assemble interior)-->a41:task:(Conduct test flight)
+    a41:task:(Conduct test flight)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|""|a43:task:(Collect flight data)
+    a43:task:(Collect flight data)-->a45:task:(Create test protocol)
+    a45:task:(Create test protocol)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|""|gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw4s:parallelgateway:{AND}
+    -->a51:task:(Send protocol to me)
+    a51:task:(Send protocol to me)-->gw4e:parallelgateway:{AND}
+    -->a55:task:(Send protocol to customer)
+    a55:task:(Send protocol to customer)-->gw4e:parallelgateway:{AND}
+    gw4e:parallelgateway:{AND}-->a59:task:(Deliver plane)
+    a59:task:(Deliver plane)-->a61:task:(Receive customer confirmation)
+    a61:task:(Receive customer confirmation)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-04T21:00:41.283720+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e5f61e1b875843709bc1ca6071d69e86a002e2b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="inclusive" a:alt_id="gw2s">
+            <alternative condition="">
+              <call id="a17" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a21" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a25" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a29" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a33" endpoint="" a:alt_id="a33">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="a41">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw4s">
+        <parallel_branch>
+          <call id="a45" endpoint="" a:alt_id="a43">
+            <parameters>
+              <label>Collect flight data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a47" endpoint="" a:alt_id="a45">
+            <parameters>
+              <label>Create test protocol</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+        <parallel_branch>
+          <call id="a55" endpoint="" a:alt_id="a51">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a59" endpoint="" a:alt_id="a55">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a63" endpoint="" a:alt_id="a59">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="a61">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T21:00:41.284210+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 86c572bed288874c688587f51d883d4657c5ae75
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="inclusive" a:alt_id="gw2s">
+            <alternative condition="">
+              <call id="a17" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a21" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a25" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a29" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a33" endpoint="" a:alt_id="a33">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a39" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="a41">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw4s">
+        <parallel_branch>
+          <call id="a45" endpoint="" a:alt_id="a43">
+            <parameters>
+              <label>Collect flight data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a47" endpoint="" a:alt_id="a45">
+            <parameters>
+              <label>Create test protocol</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+        <parallel_branch>
+          <call id="a55" endpoint="" a:alt_id="a51">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a59" endpoint="" a:alt_id="a55">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a63" endpoint="" a:alt_id="a59">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a65" endpoint="" a:alt_id="a61">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T21:02:45.886839+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="inclusive" a:alt_id="gw2s">
+            <alternative condition="">
+              <call id="a19" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a23" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a27" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a31" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a35" endpoint="" a:alt_id="a33">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a43" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="a41">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="a45">
+        <parameters>
+          <label>Collect flight data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="a47">
+        <parameters>
+          <label>Create test protocol</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+        <parallel_branch>
+          <call id="a53" endpoint="" a:alt_id="a55">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a57" endpoint="" a:alt_id="a59">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a61" endpoint="" a:alt_id="a63">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="a65">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 86c572bed288874c688587f51d883d4657c5ae75
+  time:timestamp: '2025-11-04T21:02:45.886492+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 86c572bed288874c688587f51d883d4657c5ae75
+  cpee:exposition: |+
+    # User Input:
+    After receiving the customer’s order, it is forwarded to the respective manufacturing teams.
+    The production process then splits into three parallel branches:
+    Manufacture the seats,
+    Set the water amount, and
+    Manufacture the selected bars.
+    The bar manufacturing process operates as an inclusive subprocess. Depending on the customer's customization, any combination of the five available bar types — Vodka, Whiskey, Wine, Gin, and Juice Bar — may be produced, including none, some, or all of them. The process continues once all selected bars have been manufactured. Once all parallel tasks — seat manufacturing, water adjustment, and the selected bar productions — are completed, the process flow continues with assembling the airplane interior.
+    After the interior has been assembled, the plane undergoes a test flight. During this flight, the system collects flight data. Then, after the flight, a test protocol should be created.
+    Once the protocol is complete, it is sent simultaneously to both the manufacturer (“me”) and the customer for review. Finally, the airplane is delivered to the customer, who must confirm receipt and acceptance of the product, thereby completing the process.
+
+  time:timestamp: '2025-11-04T21:02:45.887718+01:00'
+...
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 86c572bed288874c688587f51d883d4657c5ae75
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-04T21:02:45.887886+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 86c572bed288874c688587f51d883d4657c5ae75
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="inclusive" a:alt_id="gw2s">
+            <alternative condition="">
+              <call id="a19" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a23" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a27" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a31" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a35" endpoint="" a:alt_id="a33">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a43" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="a41">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="a45">
+        <parameters>
+          <label>Collect flight data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="a47">
+        <parameters>
+          <label>Create test protocol</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+        <parallel_branch>
+          <call id="a53" endpoint="" a:alt_id="a55">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a57" endpoint="" a:alt_id="a59">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a61" endpoint="" a:alt_id="a63">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="a65">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T21:02:45.888484+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 86c572bed288874c688587f51d883d4657c5ae75
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive order from customer)
+    a1:task:(Receive order from customer)-->a3:task:(Send order to manufacturing teams)
+    a3:task:(Send order to manufacturing teams)-->gw1s:parallelgateway:{AND}
+    -->a7:task:(Manufacture seats)
+    a7:task:(Manufacture seats)-->gw1e:parallelgateway:{AND}
+    -->a11:task:(Set water amount)
+    a11:task:(Set water amount)-->gw1e:parallelgateway:{AND}
+    -->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a17:task:(Manufacture vodka bar)
+    a17:task:(Manufacture vodka bar)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a21:task:(Manufacture whiskey bar)
+    a21:task:(Manufacture whiskey bar)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a25:task:(Manufacture wine bar)
+    a25:task:(Manufacture wine bar)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a29:task:(Manufacture gin bar)
+    a29:task:(Manufacture gin bar)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a33:task:(Manufacture juice bar)
+    a33:task:(Manufacture juice bar)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a39:task:(Assemble interior)
+    a39:task:(Assemble interior)-->a41:task:(Conduct test flight)
+    a41:task:(Conduct test flight)-->gw3s:parallelgateway:{AND}
+    -->a45:task:(Collect flight data)
+    a45:task:(Collect flight data)-->gw3e:parallelgateway:{AND}
+    -->a47:task:(Create test protocol)
+    a47:task:(Create test protocol)-->gw3e:parallelgateway:{AND}
+    gw3e:parallelgateway:{AND}-->gw4s:parallelgateway:{AND}
+    -->a55:task:(Send protocol to me)
+    a55:task:(Send protocol to me)-->gw4e:parallelgateway:{AND}
+    -->a59:task:(Send protocol to customer)
+    a59:task:(Send protocol to customer)-->gw4e:parallelgateway:{AND}
+    gw4e:parallelgateway:{AND}-->a63:task:(Deliver plane)
+    a63:task:(Deliver plane)-->a65:task:(Receive customer confirmation)
+    a65:task:(Receive customer confirmation)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-04T21:02:45.888077+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 86c572bed288874c688587f51d883d4657c5ae75
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive order from customer)
+    a1:task:(Receive order from customer)-->a3:task:(Send order to manufacturing teams)
+    a3:task:(Send order to manufacturing teams)-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a7:task:(Manufacture seats)
+    a7:task:(Manufacture seats)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a11:task:(Set water amount)
+    a11:task:(Set water amount)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->s1:subprocess:(Manufacture selected bars)
+    s1:subprocess:(Manufacture selected bars)-->gw2s:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->a17:task:(Manufacture vodka bar)
+    a17:task:(Manufacture vodka bar)-->gw2e:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->a21:task:(Manufacture whiskey bar)
+    a21:task:(Manufacture whiskey bar)-->gw2e:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->a25:task:(Manufacture wine bar)
+    a25:task:(Manufacture wine bar)-->gw2e:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->a29:task:(Manufacture gin bar)
+    a29:task:(Manufacture gin bar)-->gw2e:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->a33:task:(Manufacture juice bar)
+    a33:task:(Manufacture juice bar)-->gw2e:inclusivegateway:{O}
+    gw2e:inclusivegateway:{O}-->s2:subprocess:
+    s2:subprocess: -->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a39:task:(Assemble interior)
+    a39:task:(Assemble interior)-->a41:task:(Conduct test flight)
+    a41:task:(Conduct test flight)-->a45:task:(Collect flight data)
+    a45:task:(Collect flight data)-->a47:task:(Create test protocol)
+    a47:task:(Create test protocol)-->gw3s:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a55:task:(Send protocol to me)
+    a55:task:(Send protocol to me)-->gw3e:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a59:task:(Send protocol to customer)
+    a59:task:(Send protocol to customer)-->gw3e:parallelgateway:{AND}
+    gw3e:parallelgateway:{AND}-->a63:task:(Deliver plane)
+    a63:task:(Deliver plane)-->a65:task:(Receive customer confirmation)
+    a65:task:(Receive customer confirmation)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-11-04T21:02:45.888249+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 15c8d05cd56cbf68ebfba7b759da539689d35d9b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="inclusive" a:alt_id="gw2s">
+            <alternative condition="">
+              <call id="a19" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a23" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a27" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a31" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a35" endpoint="" a:alt_id="a33">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a43" endpoint="" a:alt_id="a39">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="a41">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a47" endpoint="" a:alt_id="a45">
+        <parameters>
+          <label>Collect flight data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="a47">
+        <parameters>
+          <label>Create test protocol</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+        <parallel_branch>
+          <call id="a53" endpoint="" a:alt_id="a55">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a57" endpoint="" a:alt_id="a59">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a61" endpoint="" a:alt_id="a63">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="a65">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T21:06:49.284526+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Vodka Bar" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Whiskey Bar" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Wine Bar" language="text/javascript">
+              <call id="a25" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Gin Bar" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="a31">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Juice Bar" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="a35">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a39" endpoint="" a:alt_id="a43">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="a45">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="a47">
+        <parameters>
+          <label>Collect flight data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="a49">
+        <parameters>
+          <label>Create test protocol</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+        <parallel_branch>
+          <call id="a49" endpoint="" a:alt_id="a53">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a53" endpoint="" a:alt_id="a57">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a57" endpoint="" a:alt_id="a61">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="a63">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 15c8d05cd56cbf68ebfba7b759da539689d35d9b
+  time:timestamp: '2025-11-04T21:06:49.284289+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 15c8d05cd56cbf68ebfba7b759da539689d35d9b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-04T21:06:49.284776+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 15c8d05cd56cbf68ebfba7b759da539689d35d9b
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Receive order from customer)
+        a1:task:(Receive order from customer)-->a3:task:(Send order to manufacturing teams)
+        a3:task:(Send order to manufacturing teams)-->gw1s:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND}-->a7:task:(Manufacture seats)
+        a7:task:(Manufacture seats)-->gw1e:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND}-->a11:task:(Set water amount)
+        a11:task:(Set water amount)-->gw1e:parallelgateway:{AND}
+        gw1s:parallelgateway:{AND}-->gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|Vodka Bar|a19:task:(Manufacture vodka bar)
+        a19:task:(Manufacture vodka bar)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|Whiskey Bar|a23:task:(Manufacture whiskey bar)
+        a23:task:(Manufacture whiskey bar)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|Wine Bar|a27:task:(Manufacture wine bar)
+        a27:task:(Manufacture wine bar)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|Gin Bar|a31:task:(Manufacture gin bar)
+        a31:task:(Manufacture gin bar)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|Juice Bar|a35:task:(Manufacture juice bar)
+        a35:task:(Manufacture juice bar)-->gw2e:exclusivegateway:{x}
+        gw2e:exclusivegateway:{x}-->gw1e:parallelgateway:{AND}
+        gw1e:parallelgateway:{AND}-->a43:task:(Assemble interior)
+        a43:task:(Assemble interior)-->a45:task:(Conduct test flight)
+        a45:task:(Conduct test flight)-->a47:task:(Collect flight data)
+        a47:task:(Collect flight data)-->a49:task:(Create test protocol)
+        a49:task:(Create test protocol)-->gw3s:parallelgateway:{AND}
+        gw3s:parallelgateway:{AND}-->a53:task:(Send protocol to me)
+        a53:task:(Send protocol to me)-->gw3e:parallelgateway:{AND}
+        gw3s:parallelgateway:{AND}-->a57:task:(Send protocol to customer)
+        a57:task:(Send protocol to customer)-->gw3e:parallelgateway:{AND}
+        gw3e:parallelgateway:{AND}-->a61:task:(Deliver plane)
+        a61:task:(Deliver plane)-->a63:task:(Receive customer confirmation)
+        a63:task:(Receive customer confirmation)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-04T21:06:49.284983+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 15c8d05cd56cbf68ebfba7b759da539689d35d9b
+  cpee:exposition: |+
+    # User Input:
+    You produce airplanes. While the base model is always the same, your customer likes to pimp their airplane with fancy interior.
+    You let them decide between a number of 5 different bars, the number of seats, their color, and the amount of water in the toilets of their plane (you can come up with additional stuff).
+    After you received the specifications you send the requirements to different teams to manufacture the parts.
+    E.g. manufacturing the vodka bar is done by the Russian team, the whiskey bar is manufactured by an Irish team.
+    After receiving the individual bits and pieces, the interior of the plane is assembled, and the plane is sent on a test flight.
+    During the flight you create a test protocol which is sent to you and the customer.
+    The plane is delivered to the customer, which has to confirm.
+
+  time:timestamp: '2025-11-04T21:06:49.284669+01:00'
+...
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 15c8d05cd56cbf68ebfba7b759da539689d35d9b
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive order from customer)
+    a1:task:(Receive order from customer)-->a3:task:(Send order to manufacturing teams)
+    a3:task:(Send order to manufacturing teams)-->gw1s:parallelgateway:{AND}
+    -->a7:task:(Manufacture seats)
+    a7:task:(Manufacture seats)-->gw1e:parallelgateway:{AND}
+    -->a11:task:(Set water amount)
+    a11:task:(Set water amount)-->gw1e:parallelgateway:{AND}
+    -->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a19:task:(Manufacture vodka bar)
+    a19:task:(Manufacture vodka bar)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a23:task:(Manufacture whiskey bar)
+    a23:task:(Manufacture whiskey bar)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a27:task:(Manufacture wine bar)
+    a27:task:(Manufacture wine bar)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a31:task:(Manufacture gin bar)
+    a31:task:(Manufacture gin bar)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a35:task:(Manufacture juice bar)
+    a35:task:(Manufacture juice bar)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a43:task:(Assemble interior)
+    a43:task:(Assemble interior)-->a45:task:(Conduct test flight)
+    a45:task:(Conduct test flight)-->a47:task:(Collect flight data)
+    a47:task:(Collect flight data)-->a49:task:(Create test protocol)
+    a49:task:(Create test protocol)-->gw3s:parallelgateway:{AND}
+    -->a53:task:(Send protocol to me)
+    a53:task:(Send protocol to me)-->gw3e:parallelgateway:{AND}
+    -->a57:task:(Send protocol to customer)
+    a57:task:(Send protocol to customer)-->gw3e:parallelgateway:{AND}
+    gw3e:parallelgateway:{AND}-->a61:task:(Deliver plane)
+    a61:task:(Deliver plane)-->a63:task:(Receive customer confirmation)
+    a63:task:(Receive customer confirmation)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-04T21:06:49.284864+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 15c8d05cd56cbf68ebfba7b759da539689d35d9b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive order from customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send order to manufacturing teams</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Manufacture seats</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Set water amount</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Vodka Bar" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Manufacture vodka bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Whiskey Bar" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>Manufacture whiskey bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Wine Bar" language="text/javascript">
+              <call id="a25" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Manufacture wine bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Gin Bar" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="a31">
+                <parameters>
+                  <label>Manufacture gin bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Juice Bar" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="a35">
+                <parameters>
+                  <label>Manufacture juice bar</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a39" endpoint="" a:alt_id="a43">
+        <parameters>
+          <label>Assemble interior</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="a45">
+        <parameters>
+          <label>Conduct test flight</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="a47">
+        <parameters>
+          <label>Collect flight data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a45" endpoint="" a:alt_id="a49">
+        <parameters>
+          <label>Create test protocol</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+        <parallel_branch>
+          <call id="a49" endpoint="" a:alt_id="a53">
+            <parameters>
+              <label>Send protocol to me</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a53" endpoint="" a:alt_id="a57">
+            <parameters>
+              <label>Send protocol to customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a57" endpoint="" a:alt_id="a61">
+        <parameters>
+          <label>Deliver plane</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="a63">
+        <parameters>
+          <label>Receive customer confirmation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T21:06:49.285075+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-04T21:07:35.505223+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-11-04T21:07:35.634697+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T21:07:35.833147+01:00'
+---
+event:
+  concept:instance: 6098
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 9af747b6-5dbe-448e-936a-386da4077fd5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T21:07:35.860307+01:00'

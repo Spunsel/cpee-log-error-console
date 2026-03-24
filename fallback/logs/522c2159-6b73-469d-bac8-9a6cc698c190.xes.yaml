@@ -1,0 +1,410 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 457
+    cpee:name: test1
+    cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-18T14:52:53.560886+01:00'
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: last_scanned
+    value: 1772902570
+  - name: state
+    value: menu
+  - name: selected_canteen
+    value: garching
+  - name: event
+    value: ''
+  - name: last_update_raw
+    value:
+      state: menu
+      action: show-menu
+      canteen: garching
+  - name: qid
+    value: simple
+  time:timestamp: '2026-03-18T14:52:53.563405+01:00'
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: timeout
+    value: https://cpee.org/services/timeout.php
+  - name: subprocess
+    value: https://cpee.org/flow/start/url/
+  - name: init
+    value: https-post://cpee.org/out/frames/
+  - name: display
+    value: https-put://cpee.org/out/frames/
+  - name: update
+    value: https-put://lehre.bpm.in.tum.de/ports/9002/update
+  time:timestamp: '2026-03-18T14:52:53.565463+01:00'
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: modeltype
+    value: CPEE
+  - name: theme
+    value: extended
+  - name: guarded_id
+    value: ''
+  - name: info
+    value: test1
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: model_uuid
+    value: 258091b2-0c5a-421e-9044-de48ebe781d6
+  - name: model_version
+    value: ''
+  - name: design_stage
+    value: development
+  - name: design_dir
+    value: Teaching.dir/Prak.dir/TUM-Prak-25-WS.dir/ShiDinghao.dir
+  - name: uidev
+    value: dinghao
+  time:timestamp: '2026-03-18T14:52:53.567946+01:00'
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: "<?xml version=\"1.0\"?>\n<description xmlns=\"http://cpee.org/ns/description/1.0\">\n
+    \ <call id=\"a1\" endpoint=\"init\">\n    <parameters>\n      <label>Init Frame</label>\n
+    \     <color/>\n      <arguments>\n        <style_url>https://cpee.org/form/frames.css</style_url>\n
+    \       <document_url/>\n        <x_amount>12</x_amount>\n        <y_amount>12</y_amount>\n
+    \       <lang>de-at</lang>\n        <document_name>My dev view</document_name>\n
+    \     </arguments>\n    </parameters>\n    <code>\n      <signal/>\n      <prepare>endpoints.init
+    += attributes.uidev</prepare>\n      <finalize output=\"result\"/>\n      <update
+    output=\"result\"/>\n      <rescue output=\"result\"/>\n    </code>\n    <annotations>\n
+    \     <_generic/>\n      <_timing>\n        <_timing_weight/>\n        <_timing_avg/>\n
+    \       <explanations/>\n      </_timing>\n      <_shifting>\n        <_shifting_type>Duration</_shifting_type>\n
+    \     </_shifting>\n      <_context_data_analysis>\n        <probes/>\n        <ips/>\n
+    \     </_context_data_analysis>\n      <report>\n        <url/>\n      </report>\n
+    \     <_notes>\n        <_notes_general/>\n      </_notes>\n    </annotations>\n
+    \   <documentation>\n      <input/>\n      <output/>\n      <implementation>\n
+    \       <description/>\n      </implementation>\n      <code>\n        <description/>\n
+    \     </code>\n    </documentation>\n  </call>\n  <call id=\"a2\" endpoint=\"display\">\n
+    \   <parameters>\n      <label>clear</label>\n      <color/>\n      <arguments>\n
+    \       <type>set</type>\n        <lx>0</lx>\n        <ly>0</ly>\n        <x_amount>12</x_amount>\n
+    \       <y_amount>12</y_amount>\n        <button/>\n        <style/>\n        <urls/>\n
+    \       <default/>\n      </arguments>\n    </parameters>\n    <code>\n      <signal/>\n
+    \     <prepare>endpoints.display += attributes.uidev</prepare>\n      <finalize
+    output=\"result\"/>\n      <update output=\"result\"/>\n      <rescue output=\"result\"/>\n
+    \   </code>\n    <annotations>\n      <_generic/>\n      <_timing>\n        <_timing_weight/>\n
+    \       <_timing_avg/>\n        <explanations/>\n      </_timing>\n      <_shifting>\n
+    \       <_shifting_type>Duration</_shifting_type>\n      </_shifting>\n      <_context_data_analysis>\n
+    \       <probes/>\n        <ips/>\n      </_context_data_analysis>\n      <report>\n
+    \       <url/>\n      </report>\n      <_notes>\n        <_notes_general/>\n      </_notes>\n
+    \   </annotations>\n    <documentation>\n      <input/>\n      <output/>\n      <implementation>\n
+    \       <description/>\n      </implementation>\n      <code>\n        <description/>\n
+    \     </code>\n    </documentation>\n  </call>\n  <loop mode=\"post_test\" condition=\"data.state
+    != 'abort'\">\n    <_probability>\n      <_probability_min/>\n      <_probability_max/>\n
+    \     <_probability_avg/>\n    </_probability>\n    <choose mode=\"exclusive\"
+    label=\"\">\n      <alternative condition=\"data.state == 'intro'\">\n        <_probability>\n
+    \         <_probability_min/>\n          <_probability_max/>\n          <_probability_avg/>\n
+    \       </_probability>\n        <call id=\"a6\" endpoint=\"display\">\n          <parameters>\n
+    \           <label>show main</label>\n            <color/>\n            <arguments>\n
+    \             <type>wait</type>\n              <lx>0</lx>\n              <ly>0</ly>\n
+    \             <x_amount>12</x_amount>\n              <y_amount>12</y_amount>\n
+    \             <button/>\n              <style/>\n              <urls>\n                <urls_item>\n
+    \                 <lang>de-at</lang>\n                  <url>!\"https://lehre.bpm.in.tum.de/~ge93fuw/qr/cpee-qr.html?view=\"
+    + data.state</url>\n                </urls_item>\n              </urls>\n              <default/>\n
+    \           </arguments>\n          </parameters>\n          <code>\n            <signal/>\n
+    \           <prepare>endpoints.display += attributes.uidev</prepare>\n            <finalize
+    output=\"result\">cmd = {}\n  begin\n    cmd = JSON.parse(result.to_s)\n  rescue\n
+    \   cmd = {}\n  end\n  data.event            = cmd['action']  || ''\n  data.selected_canteen
+    = cmd['canteen'] || data.selected_canteen\ndata.last_update_raw = result.to_s</finalize>\n
+    \           <update output=\"result\"/>\n            <rescue output=\"result\"/>\n
+    \         </code>\n          <annotations>\n            <_generic/>\n            <_timing>\n
+    \             <_timing_weight/>\n              <_timing_avg/>\n              <explanations/>\n
+    \           </_timing>\n            <_shifting>\n              <_shifting_type>Duration</_shifting_type>\n
+    \           </_shifting>\n            <_context_data_analysis>\n              <probes/>\n
+    \             <ips/>\n            </_context_data_analysis>\n            <report>\n
+    \             <url/>\n            </report>\n            <_notes>\n              <_notes_general/>\n
+    \           </_notes>\n          </annotations>\n          <documentation>\n            <input/>\n
+    \           <output/>\n            <implementation>\n              <description/>\n
+    \           </implementation>\n            <code>\n              <description/>\n
+    \           </code>\n          </documentation>\n        </call>\n        <call
+    id=\"a14\" endpoint=\"update\">\n          <parameters>\n            <label>update
+    main</label>\n            <color/>\n            <arguments>\n              <state>!data.state</state>\n
+    \             <event>!data.event</event>\n              <canteen>!data.selected_canteen</canteen>\n
+    \           </arguments>\n          </parameters>\n          <code>\n            <signal/>\n
+    \           <prepare/>\n            <finalize output=\"result\">data.state            =
+    result['state']   || data.state\ndata.selected_canteen = result['canteen'] ||
+    data.selected_canteen\ndata.event            = ''</finalize>\n            <update
+    output=\"result\"/>\n            <rescue output=\"result\"/>\n          </code>\n
+    \         <annotations>\n            <_generic/>\n            <_timing>\n              <_timing_weight/>\n
+    \             <_timing_avg/>\n              <explanations/>\n            </_timing>\n
+    \           <_shifting>\n              <_shifting_type>Duration</_shifting_type>\n
+    \           </_shifting>\n            <_context_data_analysis>\n              <probes/>\n
+    \             <ips/>\n            </_context_data_analysis>\n            <report>\n
+    \             <url/>\n            </report>\n            <_notes>\n              <_notes_general/>\n
+    \           </_notes>\n          </annotations>\n          <documentation>\n            <input/>\n
+    \           <output/>\n            <implementation>\n              <description/>\n
+    \           </implementation>\n            <code>\n              <description/>\n
+    \           </code>\n          </documentation>\n        </call>\n      </alternative>\n
+    \     <alternative condition=\"data.state == 'list'\">\n        <manipulate id=\"a7\"
+    label=\"\">\n          <code>data.last_scanned = Time.now.to_i\ndata.event = ''</code>\n
+    \         <annotations>\n            <_logging_behavior>\n              <_exclude/>\n
+    \           </_logging_behavior>\n            <_context_data_analysis>\n              <probes/>\n
+    \           </_context_data_analysis>\n          </annotations>\n        </manipulate>\n
+    \       <parallel eid=\"e1\" wait=\"1\" cancel=\"first\">\n          <parallel_branch>\n
+    \           <call id=\"a5\" endpoint=\"display\">\n              <parameters>\n
+    \               <label>show list</label>\n                <color/>\n                <arguments>\n
+    \                 <type>wait</type>\n                  <lx>0</lx>\n                  <ly>0</ly>\n
+    \                 <x_amount>12</x_amount>\n                  <y_amount>12</y_amount>\n
+    \                 <button/>\n                  <style/>\n                  <urls>\n
+    \                   <urls_item>\n                      <lang>de-at</lang>\n                      <url>!\"https://lehre.bpm.in.tum.de/~ge93fuw/qr/cpee-qr.html?view=\"
+    + data.state</url>\n                    </urls_item>\n                  </urls>\n
+    \                 <default/>\n                </arguments>\n              </parameters>\n
+    \             <code>\n                <signal/>\n                <prepare>endpoints.display
+    += attributes.uidev</prepare>\n                <finalize output=\"result\">cmd
+    = {}\n\n  begin\n    cmd = JSON.parse(result.to_s)\n  rescue\n    cmd = {}\n  end\n\n
+    \ data.event = cmd['action'] || ''\n  data.selected_canteen = cmd['canteen'] ||
+    ''\ndata.last_update_raw = result.to_s</finalize>\n                <update output=\"result\"/>\n
+    \               <rescue output=\"result\"/>\n              </code>\n              <annotations>\n
+    \               <_generic/>\n                <_logging_behavior>\n                  <_exclude/>\n
+    \                 <_include/>\n                </_logging_behavior>\n                <_timing>\n
+    \                 <_timing_weight/>\n                  <_timing_avg/>\n                  <explanations/>\n
+    \               </_timing>\n                <_shifting>\n                  <_shifting_type>Duration</_shifting_type>\n
+    \               </_shifting>\n                <_context_data_analysis>\n                  <probes/>\n
+    \                 <ips/>\n                </_context_data_analysis>\n                <report>\n
+    \                 <url/>\n                </report>\n                <_notes>\n
+    \                 <_notes_general/>\n                </_notes>\n              </annotations>\n
+    \             <documentation>\n                <input/>\n                <output/>\n
+    \               <implementation>\n                  <description/>\n                </implementation>\n
+    \               <code>\n                  <description/>\n                </code>\n
+    \             </documentation>\n            </call>\n          </parallel_branch>\n
+    \         <parallel_branch>\n            <loop eid=\"e2\" mode=\"pre_test\" condition=\"data.last_scanned
+    &gt; Time.now.to_i - 60 &amp;&amp; data.state == 'list'\">\n              <_probability>\n
+    \               <_probability_min/>\n                <_probability_max/>\n                <_probability_avg/>\n
+    \             </_probability>\n              <_annotations>\n                <_logging_behavior>\n
+    \                 <_iteration/>\n                </_logging_behavior>\n              </_annotations>\n
+    \             <call id=\"a3\" endpoint=\"timeout\">\n                <parameters>\n
+    \                 <label/>\n                  <color/>\n                  <method>:post</method>\n
+    \                 <arguments>\n                    <timeout>60</timeout>\n                    <data/>\n
+    \                 </arguments>\n                </parameters>\n                <code>\n
+    \                 <signal/>\n                  <prepare/>\n                  <finalize
+    output=\"result\"/>\n                  <update output=\"result\"/>\n                  <rescue
+    output=\"result\"/>\n                </code>\n                <annotations>\n
+    \                 <_generic/>\n                  <_logging_behavior>\n                    <_exclude/>\n
+    \                   <_include/>\n                  </_logging_behavior>\n                  <_timing>\n
+    \                   <_timing_weight/>\n                    <_timing_avg/>\n                    <explanations/>\n
+    \                 </_timing>\n                  <_shifting>\n                    <_shifting_type>Duration</_shifting_type>\n
+    \                 </_shifting>\n                  <_context_data_analysis>\n                    <probes/>\n
+    \                   <ips/>\n                  </_context_data_analysis>\n                  <report>\n
+    \                   <url/>\n                  </report>\n                  <_notes>\n
+    \                   <_notes_general/>\n                  </_notes>\n                </annotations>\n
+    \               <documentation>\n                  <input/>\n                  <output/>\n
+    \                 <implementation>\n                    <description/>\n                  </implementation>\n
+    \                 <code>\n                    <description/>\n                  </code>\n
+    \               </documentation>\n              </call>\n              <call id=\"a10\"
+    endpoint=\"update\">\n                <parameters>\n                  <label>update
+    list</label>\n                  <color/>\n                  <arguments>\n                    <state>!data.state</state>\n
+    \                   <event>!data.event</event>\n                    <canteen>!data.selected_canteen</canteen>\n
+    \                 </arguments>\n                </parameters>\n                <code>\n
+    \                 <signal/>\n                  <prepare/>\n                  <finalize
+    output=\"result\">data.state            = result['state']   || data.state\ndata.selected_canteen
+    = result['canteen'] || data.selected_canteen\ndata.event            = result['action']
+    \ || result['event'] || ''\n\nif \ndata.selected_canteen != nil &amp;&amp; data.selected_canteen
+    != ''\ndata.state = 'menu'\nend</finalize>\n                  <update output=\"result\"/>\n
+    \                 <rescue output=\"result\"/>\n                </code>\n                <annotations>\n
+    \                 <_generic/>\n                  <_logging_behavior>\n                    <_exclude/>\n
+    \                   <_include/>\n                  </_logging_behavior>\n                  <_timing>\n
+    \                   <_timing_weight/>\n                    <_timing_avg/>\n                    <explanations/>\n
+    \                 </_timing>\n                  <_shifting>\n                    <_shifting_type>Duration</_shifting_type>\n
+    \                 </_shifting>\n                  <_context_data_analysis>\n                    <probes/>\n
+    \                   <ips/>\n                  </_context_data_analysis>\n                  <report>\n
+    \                   <url/>\n                  </report>\n                  <_notes>\n
+    \                   <_notes_general/>\n                  </_notes>\n                </annotations>\n
+    \               <documentation>\n                  <input/>\n                  <output/>\n
+    \                 <implementation>\n                    <description/>\n                  </implementation>\n
+    \                 <code>\n                    <description/>\n                  </code>\n
+    \               </documentation>\n              </call>\n            </loop>\n
+    \         </parallel_branch>\n        </parallel>\n        <_probability>\n          <_probability_min/>\n
+    \         <_probability_max/>\n          <_probability_avg/>\n        </_probability>\n
+    \       <call id=\"a15\" endpoint=\"update\">\n          <parameters>\n            <label>update
+    list</label>\n            <color/>\n            <arguments>\n              <state>!data.state</state>\n
+    \             <event>!data.event</event>\n              <canteen>!data.selected_canteen</canteen>\n
+    \           </arguments>\n          </parameters>\n          <code>\n            <signal/>\n
+    \           <prepare/>\n            <finalize output=\"result\">data.state            =
+    result['state']   || data.state\ndata.selected_canteen = result['canteen'] ||
+    data.selected_canteen\ndata.event            = ''\nif data.state == 'list'\n\nend\n
+    \ data.selected_canteen = ''\n  data.event = 'back-main'\n  data.state = 'intro'</finalize>\n
+    \           <update output=\"result\"/>\n            <rescue output=\"result\"/>\n
+    \         </code>\n          <annotations>\n            <_generic/>\n            <_logging_behavior>\n
+    \             <_exclude/>\n              <_include/>\n            </_logging_behavior>\n
+    \           <_timing>\n              <_timing_weight/>\n              <_timing_avg/>\n
+    \             <explanations/>\n            </_timing>\n            <_shifting>\n
+    \             <_shifting_type>Duration</_shifting_type>\n            </_shifting>\n
+    \           <_context_data_analysis>\n              <probes/>\n              <ips/>\n
+    \           </_context_data_analysis>\n            <report>\n              <url/>\n
+    \           </report>\n            <_notes>\n              <_notes_general/>\n
+    \           </_notes>\n          </annotations>\n          <documentation>\n            <input/>\n
+    \           <output/>\n            <implementation>\n              <description/>\n
+    \           </implementation>\n            <code>\n              <description/>\n
+    \           </code>\n          </documentation>\n        </call>\n      </alternative>\n
+    \     <alternative condition=\"data.state == 'menu'\">\n        <_probability>\n
+    \         <_probability_min/>\n          <_probability_max/>\n          <_probability_avg/>\n
+    \       </_probability>\n        <call id=\"a9\" endpoint=\"display\">\n          <parameters>\n
+    \           <label>show menu</label>\n            <color/>\n            <arguments>\n
+    \             <type>wait</type>\n              <lx>0</lx>\n              <ly>0</ly>\n
+    \             <x_amount>12</x_amount>\n              <y_amount>12</y_amount>\n
+    \             <button/>\n              <style/>\n              <urls>\n                <urls_item>\n
+    \                 <lang>de-at</lang>\n                  <url>!\"https://lehre.bpm.in.tum.de/~ge93fuw/qr/cpee-qr.html?view=menu&amp;canteen=\"
+    + data.selected_canteen</url>\n                </urls_item>\n              </urls>\n
+    \             <default/>\n            </arguments>\n          </parameters>\n
+    \         <code>\n            <signal/>\n            <prepare>endpoints.display
+    += attributes.uidev</prepare>\n            <finalize output=\"result\">cmd = {}\n
+    \ begin\n    cmd = JSON.parse(result.to_s)\n  rescue\n    cmd = {}\n  end\n\n
+    \ data.event            = cmd['action']  || ''\n  data.selected_canteen = cmd['canteen']
+    || data.selected_canteen\ndata.last_update_raw = result.to_s</finalize>\n            <update
+    output=\"result\"/>\n            <rescue output=\"result\"/>\n          </code>\n
+    \         <annotations>\n            <_generic/>\n            <_timing>\n              <_timing_weight/>\n
+    \             <_timing_avg/>\n              <explanations/>\n            </_timing>\n
+    \           <_shifting>\n              <_shifting_type>Duration</_shifting_type>\n
+    \           </_shifting>\n            <_context_data_analysis>\n              <probes/>\n
+    \             <ips/>\n            </_context_data_analysis>\n            <report>\n
+    \             <url/>\n            </report>\n            <_notes>\n              <_notes_general/>\n
+    \           </_notes>\n          </annotations>\n          <documentation>\n            <input/>\n
+    \           <output/>\n            <implementation>\n              <description/>\n
+    \           </implementation>\n            <code>\n              <description/>\n
+    \           </code>\n          </documentation>\n        </call>\n        <call
+    id=\"a4\" endpoint=\"update\">\n          <parameters>\n            <label>update
+    menu</label>\n            <color/>\n            <arguments>\n              <state>!data.state</state>\n
+    \             <event>!data.event</event>\n              <canteen>!data.selected_canteen</canteen>\n
+    \           </arguments>\n          </parameters>\n          <code>\n            <signal/>\n
+    \           <prepare/>\n            <finalize output=\"result\">data.state            =
+    result['state']   || data.state\ndata.selected_canteen = result['canteen'] ||
+    data.selected_canteen\ndata.event            = ''</finalize>\n            <update
+    output=\"result\"/>\n            <rescue output=\"result\"/>\n          </code>\n
+    \         <annotations>\n            <_generic/>\n            <_timing>\n              <_timing_weight/>\n
+    \             <_timing_avg/>\n              <explanations/>\n            </_timing>\n
+    \           <_shifting>\n              <_shifting_type>Duration</_shifting_type>\n
+    \           </_shifting>\n            <_context_data_analysis>\n              <probes/>\n
+    \             <ips/>\n            </_context_data_analysis>\n            <report>\n
+    \             <url/>\n            </report>\n            <_notes>\n              <_notes_general/>\n
+    \           </_notes>\n          </annotations>\n          <documentation>\n            <input/>\n
+    \           <output/>\n            <implementation>\n              <description/>\n
+    \           </implementation>\n            <code>\n              <description/>\n
+    \           </code>\n          </documentation>\n        </call>\n      </alternative>\n
+    \     <otherwise/>\n    </choose>\n  </loop>\n</description>\n"
+  cpee:change_uuid: c4d355dd73b114642b5324a8bf32591fc998f344
+  time:timestamp: '2026-03-18T14:52:53.578133+01:00'
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2026-03-24T06:52:17.163891+01:00'
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-03-24T06:52:17.245336+01:00'
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: guarded_id
+    value: ''
+  time:timestamp: '2026-03-24T06:52:19.261103+01:00'
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-24T06:52:19.336620+01:00'
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-24T06:52:19.437858+01:00'
+---
+event:
+  concept:instance: 457
+  id:id: ex-ante
+  cpee:instance: 522c2159-6b73-469d-bac8-9a6cc698c190
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-24T06:52:19.488903+01:00'

@@ -1,0 +1,290 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 70783
+    cpee:name: Plain Instance
+    cpee:instance: 00bb0554-bbf5-45af-b906-5edfd29ef9ba
+---
+event:
+  concept:instance: 70783
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 00bb0554-bbf5-45af-b906-5edfd29ef9ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-26T09:49:07.323518+01:00'
+---
+event:
+  concept:instance: 70783
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 00bb0554-bbf5-45af-b906-5edfd29ef9ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Wake up</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Get out of bed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Make coffee</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="true">
+            <call id="a11" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Drink coffee</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Yes" a:alt_id="6" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Make another coffee</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Drink coffee</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+          </loop>
+        </alternative>
+        <alternative condition="No" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Go back to sleep</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 012b96b473fa61fff1c48987eb13d5cc8e6924b9
+  time:timestamp: '2025-11-26T09:49:43.606744+01:00'
+---
+event:
+  concept:instance: 70783
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 00bb0554-bbf5-45af-b906-5edfd29ef9ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 012b96b473fa61fff1c48987eb13d5cc8e6924b9
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-26T09:49:43.617873+01:00'
+---
+event:
+  concept:instance: 70783
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 00bb0554-bbf5-45af-b906-5edfd29ef9ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 012b96b473fa61fff1c48987eb13d5cc8e6924b9
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Wake up)
+      1:task:(Wake up) --> 2:task:(Get out of bed)
+      2:task:(Get out of bed) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Yes| 4:task:(Make coffee)
+      3:exclusivegateway:{x} --> |No| 9:task:(Go back to sleep)
+      4:task:(Make coffee) --> 5:task:(Drink coffee)
+      5:task:(Drink coffee) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> |Yes| 7:task:(Make another coffee)
+      7:task:(Make another coffee) --> 5:task:(Drink coffee)
+      6:exclusivegateway:{x} --> |No| 8:endevent:(((endevent)))
+      9:task:(Go back to sleep) --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-26T09:49:43.618021+01:00'
+---
+event:
+  concept:instance: 70783
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 00bb0554-bbf5-45af-b906-5edfd29ef9ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 012b96b473fa61fff1c48987eb13d5cc8e6924b9
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-26T09:49:43.617735+01:00'
+---
+event:
+  concept:instance: 70783
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 00bb0554-bbf5-45af-b906-5edfd29ef9ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 012b96b473fa61fff1c48987eb13d5cc8e6924b9
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-26T09:49:43.613763+01:00'
+---
+event:
+  concept:instance: 70783
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 00bb0554-bbf5-45af-b906-5edfd29ef9ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 012b96b473fa61fff1c48987eb13d5cc8e6924b9
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Wake up</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Get out of bed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Yes" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Make coffee</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="true">
+            <call id="a11" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Drink coffee</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Yes" a:alt_id="6" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Make another coffee</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Drink coffee</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+          </loop>
+        </alternative>
+        <alternative condition="No" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Go back to sleep</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-26T09:49:43.618130+01:00'
+---
+event:
+  concept:instance: 70783
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 00bb0554-bbf5-45af-b906-5edfd29ef9ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 012b96b473fa61fff1c48987eb13d5cc8e6924b9
+  cpee:exposition: |-
+    # User Input:
+    create a process of making coffee in the morning
+  time:timestamp: '2025-11-26T09:49:43.617517+01:00'
+---
+event:
+  concept:instance: 70783
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 00bb0554-bbf5-45af-b906-5edfd29ef9ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: purged
+  time:timestamp: '2025-11-26T22:59:58.545807+01:00'

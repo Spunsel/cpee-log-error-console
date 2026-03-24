@@ -1,0 +1,431 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 266
+    cpee:name: Plain Instance
+    cpee:instance: 563fd2c1-7004-4d72-bcbe-8fa61638765e
+---
+event:
+  concept:instance: 266
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 563fd2c1-7004-4d72-bcbe-8fa61638765e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-20T11:32:29.007508+02:00'
+---
+event:
+  concept:instance: 266
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 563fd2c1-7004-4d72-bcbe-8fa61638765e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 397345b4c7bda3097c6d583915006e8df0d0b29a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-20T11:32:48.833829+02:00'
+---
+event:
+  concept:instance: 266
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 563fd2c1-7004-4d72-bcbe-8fa61638765e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Define Thesis Topic</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Literature Review</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Develop Research Proposal</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Submit Proposal</label>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Revise Proposal) | Rejected |</label>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Resubmit Proposal</label>
+              <method/>
+              <type>:task</type>
+              <mid>'7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Conduct Research) | Approved |</label>
+          <method/>
+          <type>:task</type>
+          <mid>'8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Write Thesis</label>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="">
+        <parameters>
+          <label>Submit Thesis</label>
+          <method/>
+          <type>:task</type>
+          <mid>'10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a13" endpoint="">
+            <parameters>
+              <label>Revise Thesis) | Rejected |</label>
+              <method/>
+              <type>:task</type>
+              <mid>'12'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="">
+            <parameters>
+              <label>Resubmit Thesis</label>
+              <method/>
+              <type>:task</type>
+              <mid>'13'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a14" endpoint="">
+        <parameters>
+          <label>Thesis Defense) | Approved |</label>
+          <method/>
+          <type>:task</type>
+          <mid>'14'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a17" endpoint="">
+            <parameters>
+              <label>Final Revisions) | Revisions Required |</label>
+              <method/>
+              <type>:task</type>
+              <mid>'16'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+    </description>
+  cpee:change_uuid: 397345b4c7bda3097c6d583915006e8df0d0b29a
+  time:timestamp: '2025-10-20T11:32:48.833590+02:00'
+---
+event:
+  concept:instance: 266
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 563fd2c1-7004-4d72-bcbe-8fa61638765e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 397345b4c7bda3097c6d583915006e8df0d0b29a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-20T11:32:48.834473+02:00'
+---
+event:
+  concept:instance: 266
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 563fd2c1-7004-4d72-bcbe-8fa61638765e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 397345b4c7bda3097c6d583915006e8df0d0b29a
+  cpee:exposition: |-
+    # User Input:
+    Create me a master thesis process
+  time:timestamp: '2025-10-20T11:32:48.834363+02:00'
+---
+event:
+  concept:instance: 266
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 563fd2c1-7004-4d72-bcbe-8fa61638765e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 397345b4c7bda3097c6d583915006e8df0d0b29a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-20T11:32:48.834549+02:00'
+---
+event:
+  concept:instance: 266
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 563fd2c1-7004-4d72-bcbe-8fa61638765e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 397345b4c7bda3097c6d583915006e8df0d0b29a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Define Thesis Topic</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Literature Review</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Develop Research Proposal</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Submit Proposal</label>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Revise Proposal) | Rejected |</label>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="">
+            <parameters>
+              <label>Resubmit Proposal</label>
+              <method/>
+              <type>:task</type>
+              <mid>'7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>Conduct Research) | Approved |</label>
+          <method/>
+          <type>:task</type>
+          <mid>'8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Write Thesis</label>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="">
+        <parameters>
+          <label>Submit Thesis</label>
+          <method/>
+          <type>:task</type>
+          <mid>'10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a13" endpoint="">
+            <parameters>
+              <label>Revise Thesis) | Rejected |</label>
+              <method/>
+              <type>:task</type>
+              <mid>'12'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="">
+            <parameters>
+              <label>Resubmit Thesis</label>
+              <method/>
+              <type>:task</type>
+              <mid>'13'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a14" endpoint="">
+        <parameters>
+          <label>Thesis Defense) | Approved |</label>
+          <method/>
+          <type>:task</type>
+          <mid>'14'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a17" endpoint="">
+            <parameters>
+              <label>Final Revisions) | Revisions Required |</label>
+              <method/>
+              <type>:task</type>
+              <mid>'16'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+    </description>
+  time:timestamp: '2025-10-20T11:32:48.834760+02:00'
+---
+event:
+  concept:instance: 266
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 563fd2c1-7004-4d72-bcbe-8fa61638765e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 397345b4c7bda3097c6d583915006e8df0d0b29a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Define Thesis Topic)
+    1:task:(Define Thesis Topic) --> 2:task:(Literature Review)
+    2:task:(Literature Review) --> 3:task:(Develop Research Proposal)
+    3:task:(Develop Research Proposal) --> 4:task:(Submit Proposal)
+    4:task:(Submit Proposal) --> 5:exclusivegateway:{x}
+    5:exclusivegateway:{x} --> 6:task:(Revise Proposal) | Rejected |
+    5:exclusivegateway:{x} --> 8:task:(Conduct Research) | Approved |
+    6:task:(Revise Proposal) --> 7:task:(Resubmit Proposal)
+    7:task:(Resubmit Proposal) --> 8:task:(Conduct Research)
+    8:task:(Conduct Research) --> 9:task:(Write Thesis)
+    9:task:(Write Thesis) --> 10:task:(Submit Thesis)
+    10:task:(Submit Thesis) --> 11:exclusivegateway:{x}
+    11:exclusivegateway:{x} --> 12:task:(Revise Thesis) | Rejected |
+    11:exclusivegateway:{x} --> 14:task:(Thesis Defense) | Approved |
+    12:task:(Revise Thesis) --> 13:task:(Resubmit Thesis)
+    13:task:(Resubmit Thesis) --> 14:task:(Thesis Defense)
+    14:task:(Thesis Defense) --> 15:exclusivegateway:{x}
+    15:exclusivegateway:{x} --> 16:task:(Final Revisions) | Revisions Required |
+    15:exclusivegateway:{x} --> 17:endevent:(((endevent))) | Accepted |
+    16:task:(Final Revisions) --> 17:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-20T11:32:48.834624+02:00'
+---
+event:
+  concept:instance: 266
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 563fd2c1-7004-4d72-bcbe-8fa61638765e
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-11-17T17:39:46.389763+01:00'

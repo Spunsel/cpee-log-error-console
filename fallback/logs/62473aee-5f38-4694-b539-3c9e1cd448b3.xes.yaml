@@ -1,0 +1,556 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 7567
+    cpee:name: TestEdgeCase001
+    cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-09T00:06:34.886383+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-09T00:06:42.201221+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-11-09T00:06:42.368858+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-09T00:06:42.730475+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-09T00:06:43.056045+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db3c7016b08ad1ffa20efc6656161a86dab1f74e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-09T00:22:27.168178+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Record Customer Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prepare Blueprint and Bill of Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Customer Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Order Components</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="5">
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Order Frames</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Confirm Frame Delivery</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Order Wheels</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Confirm Wheel Delivery</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Order Brakes</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Confirm Brake Delivery</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Order Saddles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Confirm Saddle Delivery</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <loop mode="pre_test" condition="true">
+        <call id="a35" endpoint="" a:alt_id="15">
+          <parameters>
+            <label>Inspect Components</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Component Fails" a:alt_id="16" language="text/javascript">
+          <call id="a39" endpoint="" a:alt_id="17">
+            <parameters>
+              <label>Initiate Replacement Request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a41" endpoint="" a:alt_id="18">
+            <parameters>
+              <label>Reorder Component</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a35" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Inspect Components</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a45" endpoint="" a:alt_id="19">
+          <parameters>
+            <label>Assemble Bicycle</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a47" endpoint="" a:alt_id="20">
+          <parameters>
+            <label>Verify Ride Quality</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a49" endpoint="" a:alt_id="21">
+          <parameters>
+            <label>Clean and Photograph</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a51" endpoint="" a:alt_id="22">
+          <parameters>
+            <label>Ship to Customer</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: db3c7016b08ad1ffa20efc6656161a86dab1f74e
+  time:timestamp: '2025-11-09T00:22:27.167804+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db3c7016b08ad1ffa20efc6656161a86dab1f74e
+  cpee:exposition: |-
+    # User Input:
+    A customer contacts your workshop to order a custom bicycle, specifying frame size, material, color, and gear system preferences. The Sales Manager records these requirements and forwards them to the Design Engineer, who prepares the technical blueprint and bill of materials. Once approved by the customer, the Procurement Officer orders the necessary components—frames, wheels, brakes, and saddles—from multiple suppliers in parallel. Each supplier sends confirmation and estimated delivery dates, which are tracked in the procurement system. When all parts arrive, the Quality Inspector examines them for defects or mismatches. If a component fails inspection, a replacement request is initiated, delaying assembly. The Assembly Technician then constructs the bicycle according to the blueprint, performing multiple tests during the build. After assembly, a Test Rider verifies ride quality before the final product is cleaned, photographed, and shipped to the customer with an update report.
+  time:timestamp: '2025-11-09T00:22:27.168833+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db3c7016b08ad1ffa20efc6656161a86dab1f74e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-09T00:22:27.169160+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db3c7016b08ad1ffa20efc6656161a86dab1f74e
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-09T00:22:27.169301+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db3c7016b08ad1ffa20efc6656161a86dab1f74e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Record Customer Requirements)
+    1:task:(Record Customer Requirements) --> 2:task:(Prepare Blueprint and Bill of Materials)
+    2:task:(Prepare Blueprint and Bill of Materials) --> 3:task:(Customer Approval)
+    3:task:(Customer Approval) --> 4:task:(Order Components)
+    4:task:(Order Components) --> 5:parallelgateway:{AND}
+    5:parallelgateway:{AND} --> 6:task:(Order Frames)
+    5:parallelgateway:{AND} --> 7:task:(Order Wheels)
+    5:parallelgateway:{AND} --> 8:task:(Order Brakes)
+    5:parallelgateway:{AND} --> 9:task:(Order Saddles)
+    6:task:(Order Frames) --> 10:task:(Confirm Frame Delivery)
+    7:task:(Order Wheels) --> 11:task:(Confirm Wheel Delivery)
+    8:task:(Order Brakes) --> 12:task:(Confirm Brake Delivery)
+    9:task:(Order Saddles) --> 13:task:(Confirm Saddle Delivery)
+    10:task:(Confirm Frame Delivery) --> 14:parallelgateway:{AND}
+    11:task:(Confirm Wheel Delivery) --> 14:parallelgateway:{AND}
+    12:task:(Confirm Brake Delivery) --> 14:parallelgateway:{AND}
+    13:task:(Confirm Saddle Delivery) --> 14:parallelgateway:{AND}
+    14:parallelgateway:{AND} --> 15:task:(Inspect Components)
+    15:task:(Inspect Components) --> 16:exclusivegateway:{x}
+    16:exclusivegateway:{x} --> |Component Fails| 17:task:(Initiate Replacement Request)
+    17:task:(Initiate Replacement Request) --> 18:task:(Reorder Component)
+    18:task:(Reorder Component) --> 14:parallelgateway:{AND}
+    16:exclusivegateway:{x} --> |Component Passes| 19:task:(Assemble Bicycle)
+    19:task:(Assemble Bicycle) --> 20:task:(Verify Ride Quality)
+    20:task:(Verify Ride Quality) --> 21:task:(Clean and Photograph)
+    21:task:(Clean and Photograph) --> 22:task:(Ship to Customer)
+    22:task:(Ship to Customer) --> 23:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-09T00:22:27.169709+01:00'
+---
+event:
+  concept:instance: 7567
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 62473aee-5f38-4694-b539-3c9e1cd448b3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db3c7016b08ad1ffa20efc6656161a86dab1f74e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Record Customer Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prepare Blueprint and Bill of Materials</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Customer Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Order Components</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="5">
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Order Frames</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Confirm Frame Delivery</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Order Wheels</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Confirm Wheel Delivery</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Order Brakes</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Confirm Brake Delivery</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Order Saddles</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Confirm Saddle Delivery</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <loop mode="pre_test" condition="true">
+        <call id="a35" endpoint="" a:alt_id="15">
+          <parameters>
+            <label>Inspect Components</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Component Fails" a:alt_id="16" language="text/javascript">
+          <call id="a39" endpoint="" a:alt_id="17">
+            <parameters>
+              <label>Initiate Replacement Request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a41" endpoint="" a:alt_id="18">
+            <parameters>
+              <label>Reorder Component</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a35" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Inspect Components</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a45" endpoint="" a:alt_id="19">
+          <parameters>
+            <label>Assemble Bicycle</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a47" endpoint="" a:alt_id="20">
+          <parameters>
+            <label>Verify Ride Quality</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a49" endpoint="" a:alt_id="21">
+          <parameters>
+            <label>Clean and Photograph</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a51" endpoint="" a:alt_id="22">
+          <parameters>
+            <label>Ship to Customer</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-09T00:22:27.170229+01:00'

@@ -1,0 +1,444 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 972
+    cpee:name: Plain Instance
+    cpee:instance: 57bd7924-f189-4940-a0f3-624cd6a6d94d
+---
+event:
+  concept:instance: 972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 57bd7924-f189-4940-a0f3-624cd6a6d94d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T14:37:29.316368+01:00'
+---
+event:
+  concept:instance: 972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 57bd7924-f189-4940-a0f3-624cd6a6d94d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e42a556ac2dd5b5332df905f30a9829e013ec6f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T14:40:14.879392+01:00'
+---
+event:
+  concept:instance: 972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 57bd7924-f189-4940-a0f3-624cd6a6d94d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Enroll in University</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="">
+          <parameters>
+            <label>Attend Classes</label>
+            <method/>
+            <type>:task</type>
+            <mid>'2'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <choose mode="exclusive">
+            <alternative condition="">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Pass Exams) |Yes|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'4'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition="">
+                  <call id="a9" endpoint="">
+                    <parameters>
+                      <label>Take More Courses) |No|</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'8'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a3" endpoint="">
+                    <parameters>
+                      <label>Attend Classes</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'2'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="">
+                  <call id="a8" endpoint="">
+                    <parameters>
+                      <label>Complete Required Credits) |Yes|</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'7'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a10" endpoint="">
+                    <parameters>
+                      <label>Pay Tuition Fees</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'9'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive">
+                    <alternative condition="">
+                      <call id="a12" endpoint="">
+                        <parameters>
+                          <label>Settle Dues) |No|</label>
+                          <method/>
+                          <type>:task</type>
+                          <mid>'11'</mid>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a10" endpoint="">
+                        <parameters>
+                          <label>Pay Tuition Fees</label>
+                          <method/>
+                          <type>:task</type>
+                          <mid>'9'</mid>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a13" endpoint="">
+                        <parameters>
+                          <label>Apply for Graduation) |Yes|</label>
+                          <method/>
+                          <type>:task</type>
+                          <mid>'12'</mid>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a14" endpoint="">
+                        <parameters>
+                          <label>Attend Graduation Ceremony</label>
+                          <method/>
+                          <type>:task</type>
+                          <mid>'13'</mid>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                  <escape/>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Study More) |No|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="">
+                <parameters>
+                  <label>Attend Classes</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'2'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 4e42a556ac2dd5b5332df905f30a9829e013ec6f
+  time:timestamp: '2025-10-28T14:40:14.879044+01:00'
+---
+event:
+  concept:instance: 972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 57bd7924-f189-4940-a0f3-624cd6a6d94d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e42a556ac2dd5b5332df905f30a9829e013ec6f
+  cpee:exposition: |-
+    # User Input:
+    I don’t know much about university life. Can you show me a process that explains how I can successfully graduate?
+  time:timestamp: '2025-10-28T14:40:14.880023+01:00'
+---
+event:
+  concept:instance: 972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 57bd7924-f189-4940-a0f3-624cd6a6d94d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e42a556ac2dd5b5332df905f30a9829e013ec6f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T14:40:14.880307+01:00'
+---
+event:
+  concept:instance: 972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 57bd7924-f189-4940-a0f3-624cd6a6d94d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e42a556ac2dd5b5332df905f30a9829e013ec6f
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T14:40:14.880678+01:00'
+---
+event:
+  concept:instance: 972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 57bd7924-f189-4940-a0f3-624cd6a6d94d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e42a556ac2dd5b5332df905f30a9829e013ec6f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Enroll in University)
+        1:task:(Enroll in University) --> 2:task:(Attend Classes)
+        2:task:(Attend Classes) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> 4:task:(Pass Exams) |Yes|
+        3:exclusivegateway:{x} --> 5:task:(Study More) |No|
+        5:task:(Study More) --> 2:task:(Attend Classes)
+        4:task:(Pass Exams) --> 6:exclusivegateway:{x}
+        6:exclusivegateway:{x} --> 7:task:(Complete Required Credits) |Yes|
+        6:exclusivegateway:{x} --> 8:task:(Take More Courses) |No|
+        8:task:(Take More Courses) --> 2:task:(Attend Classes)
+        7:task:(Complete Required Credits) --> 9:task:(Pay Tuition Fees)
+        9:task:(Pay Tuition Fees) --> 10:exclusivegateway:{x}
+        10:exclusivegateway:{x} --> 11:task:(Settle Dues) |No|
+        10:exclusivegateway:{x} --> 12:task:(Apply for Graduation) |Yes|
+        11:task:(Settle Dues) --> 9:task:(Pay Tuition Fees)
+        12:task:(Apply for Graduation) --> 13:task:(Attend Graduation Ceremony)
+        13:task:(Attend Graduation Ceremony) --> 14:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T14:40:14.880820+01:00'
+---
+event:
+  concept:instance: 972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 57bd7924-f189-4940-a0f3-624cd6a6d94d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4e42a556ac2dd5b5332df905f30a9829e013ec6f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Enroll in University</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="">
+          <parameters>
+            <label>Attend Classes</label>
+            <method/>
+            <type>:task</type>
+            <mid>'2'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <choose mode="exclusive">
+            <alternative condition="">
+              <call id="a5" endpoint="">
+                <parameters>
+                  <label>Pass Exams) |Yes|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'4'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition="">
+                  <call id="a9" endpoint="">
+                    <parameters>
+                      <label>Take More Courses) |No|</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'8'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a3" endpoint="">
+                    <parameters>
+                      <label>Attend Classes</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'2'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="">
+                  <call id="a8" endpoint="">
+                    <parameters>
+                      <label>Complete Required Credits) |Yes|</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'7'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a10" endpoint="">
+                    <parameters>
+                      <label>Pay Tuition Fees</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'9'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive">
+                    <alternative condition="">
+                      <call id="a12" endpoint="">
+                        <parameters>
+                          <label>Settle Dues) |No|</label>
+                          <method/>
+                          <type>:task</type>
+                          <mid>'11'</mid>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a10" endpoint="">
+                        <parameters>
+                          <label>Pay Tuition Fees</label>
+                          <method/>
+                          <type>:task</type>
+                          <mid>'9'</mid>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a13" endpoint="">
+                        <parameters>
+                          <label>Apply for Graduation) |Yes|</label>
+                          <method/>
+                          <type>:task</type>
+                          <mid>'12'</mid>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a14" endpoint="">
+                        <parameters>
+                          <label>Attend Graduation Ceremony</label>
+                          <method/>
+                          <type>:task</type>
+                          <mid>'13'</mid>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                  <escape/>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="">
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Study More) |No|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'5'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="">
+                <parameters>
+                  <label>Attend Classes</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'2'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2025-10-28T14:40:14.880933+01:00'
+---
+event:
+  concept:instance: 972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 57bd7924-f189-4940-a0f3-624cd6a6d94d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-10-28T15:31:55.844471+01:00'

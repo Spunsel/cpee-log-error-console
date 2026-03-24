@@ -1,0 +1,276 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 65082
+    cpee:name: Plain Instance
+    cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T11:51:16.229507+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-25T11:51:52.417949+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2025-11-25T11:51:54.164559+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T11:51:55.973657+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T11:51:55.975670+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 49b0205f73b05911b6ee0e2084e7a15611108f28
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-25T11:52:44.310198+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 49b0205f73b05911b6ee0e2084e7a15611108f28
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-25T11:52:44.310370+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 49b0205f73b05911b6ee0e2084e7a15611108f28
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-25T11:52:44.309691+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive New Flights</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Sell Tickets</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Payment Accepted" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Issue Ticket</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Payment Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify Customer of Rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 49b0205f73b05911b6ee0e2084e7a15611108f28
+  time:timestamp: '2025-11-25T11:52:44.309379+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 49b0205f73b05911b6ee0e2084e7a15611108f28
+  cpee:exposition: |-
+    # User Input:
+
+
+    Create a bpmn for a flight reseller, it receive new flights from other companies and it sells the tickets from this companies. the payment can be rejected.
+  time:timestamp: '2025-11-25T11:52:44.310051+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 49b0205f73b05911b6ee0e2084e7a15611108f28
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive New Flights</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Sell Tickets</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Payment Accepted" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Issue Ticket</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Payment Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify Customer of Rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-25T11:52:44.311196+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 49b0205f73b05911b6ee0e2084e7a15611108f28
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Receive New Flights)
+        1:task:(Receive New Flights) --> 2:task:(Sell Tickets)
+        2:task:(Sell Tickets) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |Payment Accepted| 4:task:(Issue Ticket)
+        3:exclusivegateway:{x} --> |Payment Rejected| 5:task:(Notify Customer of Rejection)
+        4:task:(Issue Ticket) --> 6:endevent:(((endevent)))
+        5:task:(Notify Customer of Rejection) --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-25T11:52:44.310668+01:00'
+---
+event:
+  concept:instance: 65082
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 747e1a08-db01-47f8-8615-9e08d2a511b2
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: purged
+  time:timestamp: '2025-11-26T22:55:04.337202+01:00'

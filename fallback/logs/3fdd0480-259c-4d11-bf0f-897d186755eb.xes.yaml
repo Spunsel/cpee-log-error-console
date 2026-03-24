@@ -1,0 +1,248 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 64331
+    cpee:name: Plain Instance
+    cpee:instance: 3fdd0480-259c-4d11-bf0f-897d186755eb
+---
+event:
+  concept:instance: 64331
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3fdd0480-259c-4d11-bf0f-897d186755eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-24T13:27:28.055625+01:00'
+---
+event:
+  concept:instance: 64331
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3fdd0480-259c-4d11-bf0f-897d186755eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-24T13:27:43.738864+01:00'
+---
+event:
+  concept:instance: 64331
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3fdd0480-259c-4d11-bf0f-897d186755eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: |-
+    # User Input:
+    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag für einen Prozess zu Verrechnung von Infrastrukturkosten
+  time:timestamp: '2025-11-24T13:27:43.738729+01:00'
+---
+event:
+  concept:instance: 64331
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3fdd0480-259c-4d11-bf0f-897d186755eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-24T13:27:43.739049+01:00'
+---
+event:
+  concept:instance: 64331
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3fdd0480-259c-4d11-bf0f-897d186755eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-24T13:27:43.738408+01:00'
+---
+event:
+  concept:instance: 64331
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3fdd0480-259c-4d11-bf0f-897d186755eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Infrastructure Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Collect Cost Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Calculate Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Cost Allocation Approved" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Update Financial Records</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Cost Allocation Rejected" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Revise Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  time:timestamp: '2025-11-24T13:27:43.738195+01:00'
+---
+event:
+  concept:instance: 64331
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3fdd0480-259c-4d11-bf0f-897d186755eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Initiate Infrastructure Cost Allocation)
+      1:task:(Initiate Infrastructure Cost Allocation) --> 2:task:(Collect Cost Data)
+      2:task:(Collect Cost Data) --> 3:task:(Calculate Cost Allocation)
+      3:task:(Calculate Cost Allocation) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} --> |Cost Allocation Approved| 6:task:(Update Financial Records)
+      4:exclusivegateway:{x} --> |Cost Allocation Rejected| 5:task:(Revise Cost Allocation)
+      5:task:(Revise Cost Allocation) --> 7:exclusivegateway:{x}
+      6:task:(Update Financial Records) --> 7:exclusivegateway:{x}
+      7:exclusivegateway:{x} --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-24T13:27:43.739263+01:00'
+---
+event:
+  concept:instance: 64331
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3fdd0480-259c-4d11-bf0f-897d186755eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Infrastructure Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Collect Cost Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Calculate Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Cost Allocation Approved" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Update Financial Records</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Cost Allocation Rejected" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Revise Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-24T13:27:43.739511+01:00'
+---
+event:
+  concept:instance: 64331
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3fdd0480-259c-4d11-bf0f-897d186755eb
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: purged
+  time:timestamp: '2025-11-26T22:52:14.917219+01:00'

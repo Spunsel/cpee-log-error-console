@@ -1,0 +1,867 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 930
+    cpee:name: Plain Instance
+    cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T13:38:29.804357+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 477a6638a3db8e3f95914a88ce0363b4b560a4fe
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T13:39:08.719367+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'0'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a2" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a14" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'13'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'7'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a11" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'10'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a12" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'11'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a15" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'12'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'14'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 477a6638a3db8e3f95914a88ce0363b4b560a4fe
+  time:timestamp: '2025-10-28T13:39:08.719166+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 477a6638a3db8e3f95914a88ce0363b4b560a4fe
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T13:39:08.719770+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 477a6638a3db8e3f95914a88ce0363b4b560a4fe
+  cpee:exposition: |-
+    # User Input:
+    Desired Process / Solution
+    Workflow Overview
+    End User Interaction
+    User accesses the SHARP Service Portal (Walk-up Experience).
+    Selects “Schedule a Callback” as a service option.
+    Chooses preferred callback location, reason, and available time slot (system displays slots based on location, time zone, and holidays).
+    Receives confirmation and calendar invite/blocker (Outlook/MS Teams integration).
+    Can cancel or reschedule before the appointment.
+    Automation & Integration
+    System prevents double-booking and updates agent queue/dashboard with new callback details.
+    Sends reminders to both user and assigned agent before the scheduled callback.
+    Logs all scheduled callbacks for reporting and analytics.
+    Supports remote-only appointments if required by location.
+    Integrates with O365/MS Teams/Outlook for calendar management and notifications.
+    Optionally, triggers contextual KB suggestions for users based on reason for visit.
+    Agent Experience
+    Agent receives timely notification of upcoming callbacks, including user details and reason.
+    Views all scheduled callbacks in dashboard/queue.
+    Initiates callback at scheduled time (phone or MS Teams, as per user profile).
+    Documents outcome in SHARP/ServiceNow and marks callback as completed.
+    System updates reporting and triggers post-callback feedback survey.
+    Notifications & Communication
+    Users notified if agent cannot reach them, with instructions for rescheduling.
+    Agents notified if user cancels/reschedules.
+    Feedback options (e.g., survey) provided after callback.
+    Integration Points
+    ServiceNow Walk-up Experience: Extends current walk-up module to support scheduled callbacks, including remote and in-person options.
+    O365/MS Teams/Outlook: Calendar invites and updates, agent/user notifications.
+    Genesys Cloud (or Nice CXone): For telephony integration, queue management, and reporting.
+    Knowledge Base: Contextual KB articles linked to reasons for callback, supporting self-service and agent assist.
+  time:timestamp: '2025-10-28T13:39:08.719473+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 477a6638a3db8e3f95914a88ce0363b4b560a4fe
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T13:39:08.719871+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 477a6638a3db8e3f95914a88ce0363b4b560a4fe
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent))
+        1:task:(Access SHARP Service Portal)
+        2:task:(Select "Schedule a Callback")
+        3:task:(Choose Callback Details)
+        4:task:(Receive Confirmation and Calendar Invite)
+        5:task:(System Updates Agent Queue)
+        6:task:(Send Reminders)
+        7:task:(Agent Receives Notification)
+        8:task:(Agent Views Scheduled Callbacks)
+        9:task:(Initiate Callback)
+        10:task:(Document Outcome)
+        11:task:(Update Reporting and Trigger Survey)
+        12:task:(Notify User if Agent Misses)
+        13:task:(Notify Agents of Changes)
+        14:endevent:(((endevent)))
+
+        0 --> 1
+        1 --> 2
+        2 --> 3
+        3 --> 4
+        4 --> 5
+        5 --> 6
+        6 --> 7
+        7 --> 8
+        8 --> 9
+        9 --> 10
+        10 --> 11
+        11 --> 14
+        4 --> 13
+        13 --> 7
+        9 --> 12
+        12 --> 14
+    ```
+  time:timestamp: '2025-10-28T13:39:08.719971+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 477a6638a3db8e3f95914a88ce0363b4b560a4fe
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'0'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a2" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a14" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'13'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'7'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a11" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'10'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a12" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'11'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a15" endpoint="">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <mid>'12'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <mid>'14'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T13:39:08.720179+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9dbc1ccd28f664124380e8fa2bb3b6e7ab997b9
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T13:39:12.038729+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9dbc1ccd28f664124380e8fa2bb3b6e7ab997b9
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T13:39:12.039161+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9dbc1ccd28f664124380e8fa2bb3b6e7ab997b9
+  cpee:exposition: |-
+    # User Input:
+    Desired Process / Solution
+    Workflow Overview
+    End User Interaction
+    User accesses the SHARP Service Portal (Walk-up Experience).
+    Selects “Schedule a Callback” as a service option.
+    Chooses preferred callback location, reason, and available time slot (system displays slots based on location, time zone, and holidays).
+    Receives confirmation and calendar invite/blocker (Outlook/MS Teams integration).
+    Can cancel or reschedule before the appointment.
+    Automation & Integration
+    System prevents double-booking and updates agent queue/dashboard with new callback details.
+    Sends reminders to both user and assigned agent before the scheduled callback.
+    Logs all scheduled callbacks for reporting and analytics.
+    Supports remote-only appointments if required by location.
+    Integrates with O365/MS Teams/Outlook for calendar management and notifications.
+    Optionally, triggers contextual KB suggestions for users based on reason for visit.
+    Agent Experience
+    Agent receives timely notification of upcoming callbacks, including user details and reason.
+    Views all scheduled callbacks in dashboard/queue.
+    Initiates callback at scheduled time (phone or MS Teams, as per user profile).
+    Documents outcome in SHARP/ServiceNow and marks callback as completed.
+    System updates reporting and triggers post-callback feedback survey.
+    Notifications & Communication
+    Users notified if agent cannot reach them, with instructions for rescheduling.
+    Agents notified if user cancels/reschedules.
+    Feedback options (e.g., survey) provided after callback.
+    Integration Points
+    ServiceNow Walk-up Experience: Extends current walk-up module to support scheduled callbacks, including remote and in-person options.
+    O365/MS Teams/Outlook: Calendar invites and updates, agent/user notifications.
+    Genesys Cloud (or Nice CXone): For telephony integration, queue management, and reporting.
+    Knowledge Base: Contextual KB articles linked to reasons for callback, supporting self-service and agent assist.
+  time:timestamp: '2025-10-28T13:39:12.038833+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9dbc1ccd28f664124380e8fa2bb3b6e7ab997b9
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Access SHARP Service Portal)
+        1:task:(Access SHARP Service Portal) --> 2:task:(Select "Schedule a Callback")
+        2:task:(Select "Schedule a Callback") --> 3:task:(Choose Callback Details)
+        3:task:(Choose Callback Details) --> 4:task:(Receive Confirmation & Calendar Invite)
+        4:task:(Receive Confirmation & Calendar Invite) --> 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> 6:task:(Cancel/Reschedule) |Cancel/Reschedule|
+        5:exclusivegateway:{x} --> 8:exclusivegateway:{x} |Proceed|
+        6:task:(Cancel/Reschedule) --> 8:exclusivegateway:{x}
+        8:exclusivegateway:{x} --> 9:task:(System Updates Agent Queue)
+        9:task:(System Updates Agent Queue) --> 10:task:(Send Reminders)
+        10:task:(Send Reminders) --> 11:task:(Agent Receives Notification)
+        11:task:(Agent Receives Notification) --> 12:task:(Agent Views Scheduled Callbacks)
+        12:task:(Agent Views Scheduled Callbacks) --> 13:task:(Initiate Callback)
+        13:task:(Initiate Callback) --> 14:task:(Document Outcome)
+        14:task:(Document Outcome) --> 15:task:(System Updates Reporting)
+        15:task:(System Updates Reporting) --> 16:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T13:39:12.039408+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Access SHARP Service Portal</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Select "Schedule a Callback"</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Choose Callback Details</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Receive Confirmation &amp; Calendar Invite</label>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Cancel/Reschedule) |Cancel/Reschedule|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>System Updates Agent Queue</label>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Send Reminders</label>
+          <method/>
+          <type>:task</type>
+          <mid>'10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="">
+        <parameters>
+          <label>Agent Receives Notification</label>
+          <method/>
+          <type>:task</type>
+          <mid>'11'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a12" endpoint="">
+        <parameters>
+          <label>Agent Views Scheduled Callbacks</label>
+          <method/>
+          <type>:task</type>
+          <mid>'12'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="">
+        <parameters>
+          <label>Initiate Callback</label>
+          <method/>
+          <type>:task</type>
+          <mid>'13'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a14" endpoint="">
+        <parameters>
+          <label>Document Outcome</label>
+          <method/>
+          <type>:task</type>
+          <mid>'14'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="">
+        <parameters>
+          <label>System Updates Reporting</label>
+          <method/>
+          <type>:task</type>
+          <mid>'15'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: c9dbc1ccd28f664124380e8fa2bb3b6e7ab997b9
+  time:timestamp: '2025-10-28T13:39:12.038542+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9dbc1ccd28f664124380e8fa2bb3b6e7ab997b9
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T13:39:12.039261+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c9dbc1ccd28f664124380e8fa2bb3b6e7ab997b9
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Access SHARP Service Portal</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>Select "Schedule a Callback"</label>
+          <method/>
+          <type>:task</type>
+          <mid>'2'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>Choose Callback Details</label>
+          <method/>
+          <type>:task</type>
+          <mid>'3'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>Receive Confirmation &amp; Calendar Invite</label>
+          <method/>
+          <type>:task</type>
+          <mid>'4'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Cancel/Reschedule) |Cancel/Reschedule|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>System Updates Agent Queue</label>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Send Reminders</label>
+          <method/>
+          <type>:task</type>
+          <mid>'10'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="">
+        <parameters>
+          <label>Agent Receives Notification</label>
+          <method/>
+          <type>:task</type>
+          <mid>'11'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a12" endpoint="">
+        <parameters>
+          <label>Agent Views Scheduled Callbacks</label>
+          <method/>
+          <type>:task</type>
+          <mid>'12'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="">
+        <parameters>
+          <label>Initiate Callback</label>
+          <method/>
+          <type>:task</type>
+          <mid>'13'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a14" endpoint="">
+        <parameters>
+          <label>Document Outcome</label>
+          <method/>
+          <type>:task</type>
+          <mid>'14'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="">
+        <parameters>
+          <label>System Updates Reporting</label>
+          <method/>
+          <type>:task</type>
+          <mid>'15'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T13:39:12.039606+01:00'
+---
+event:
+  concept:instance: 930
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 10208187-7fb4-45c1-a448-75160364a551
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-10-28T15:32:28.836397+01:00'

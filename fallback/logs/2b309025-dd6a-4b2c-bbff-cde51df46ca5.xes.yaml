@@ -1,0 +1,2055 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 65138
+    cpee:name: Plain Instance
+    cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T13:13:29.762123+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0e7b1aa508c12d5697fda2f3cabd798d83102dc6
+  cpee:exposition: |-
+    # User Input:
+    Mitarbeiter meldet Urlaubsantrag, Vorgesetzter genegmigt oder lehnt ab. 
+  time:timestamp: '2025-11-25T13:47:06.698053+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0e7b1aa508c12d5697fda2f3cabd798d83102dc6
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-25T13:47:06.698216+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0e7b1aa508c12d5697fda2f3cabd798d83102dc6
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-25T13:47:06.699309+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Mitarbeiter meldet Urlaubsantrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="genehmigt" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Vorgesetzter genehmigt</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="abgelehnt" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Vorgesetzter lehnt ab</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 0e7b1aa508c12d5697fda2f3cabd798d83102dc6
+  time:timestamp: '2025-11-25T13:47:06.696962+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0e7b1aa508c12d5697fda2f3cabd798d83102dc6
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-25T13:47:06.697732+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0e7b1aa508c12d5697fda2f3cabd798d83102dc6
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Mitarbeiter meldet Urlaubsantrag)
+        1:task:(Mitarbeiter meldet Urlaubsantrag) --> 2:exclusivegateway:{x}
+        2:exclusivegateway:{x} --> |genehmigt| 3:task:(Vorgesetzter genehmigt)
+        2:exclusivegateway:{x} --> |abgelehnt| 4:task:(Vorgesetzter lehnt ab)
+        3:task:(Vorgesetzter genehmigt) --> 5:exclusivegateway:{x}
+        4:task:(Vorgesetzter lehnt ab) --> 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-25T13:47:06.699631+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0e7b1aa508c12d5697fda2f3cabd798d83102dc6
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Mitarbeiter meldet Urlaubsantrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="genehmigt" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Vorgesetzter genehmigt</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="abgelehnt" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Vorgesetzter lehnt ab</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-25T13:47:06.700547+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6b78834085e3b54f49b8a8ca98236875ca3fb9b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-25T13:48:28.835461+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter meldet Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="abgelehnt" a:alt_id="gw1s" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Vorgesetzter lehnt ab</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Mitarbeiter stellt neuen Antrag</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="a1">
+            <parameters>
+              <label>Mitarbeiter meldet Urlaubsantrag</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a5" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Vorgesetzter genehmigt</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="a8">
+          <parameters>
+            <label>Mitarbeiter erh&#xE4;lt Urlaub</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: a6b78834085e3b54f49b8a8ca98236875ca3fb9b
+  time:timestamp: '2025-11-25T13:48:28.835024+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6b78834085e3b54f49b8a8ca98236875ca3fb9b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Mitarbeiter meldet Urlaubsantrag</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="genehmigt" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Vorgesetzter genehmigt</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="abgelehnt" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Vorgesetzter lehnt ab</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-25T13:48:28.835232+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6b78834085e3b54f49b8a8ca98236875ca3fb9b
+  cpee:exposition: |+
+    # User Input:
+    bei ablehung ist kann der mitarbeiter einen neuen antrag stellen, wenn der antrag genehmigt wird, erhält der Mitarbeiter seinen Urlaub 
+
+  time:timestamp: '2025-11-25T13:48:28.835354+01:00'
+...
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6b78834085e3b54f49b8a8ca98236875ca3fb9b
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Mitarbeiter meldet Urlaubsantrag)
+    a1:task:(Mitarbeiter meldet Urlaubsantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"genehmigt"|a5:task:(Vorgesetzter genehmigt)
+    a5:task:(Vorgesetzter genehmigt)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"abgelehnt"|a7:task:(Vorgesetzter lehnt ab)
+    a7:task:(Vorgesetzter lehnt ab)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-25T13:48:28.835697+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6b78834085e3b54f49b8a8ca98236875ca3fb9b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter meldet Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="abgelehnt" a:alt_id="gw1s" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Vorgesetzter lehnt ab</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Mitarbeiter stellt neuen Antrag</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="a1">
+            <parameters>
+              <label>Mitarbeiter meldet Urlaubsantrag</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a5" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Vorgesetzter genehmigt</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="a8">
+          <parameters>
+            <label>Mitarbeiter erh&#xE4;lt Urlaub</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-25T13:48:28.836739+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6b78834085e3b54f49b8a8ca98236875ca3fb9b
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Mitarbeiter meldet Urlaubsantrag)
+    a1:task:(Mitarbeiter meldet Urlaubsantrag)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"genehmigt"|a5:task:(Vorgesetzter genehmigt)
+    a5:task:(Vorgesetzter genehmigt)-->a8:task:(Mitarbeiter erhält Urlaub)
+    a8:task:(Mitarbeiter erhält Urlaub)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"abgelehnt"|a7:task:(Vorgesetzter lehnt ab)
+    a7:task:(Vorgesetzter lehnt ab)-->a9:task:(Mitarbeiter stellt neuen Antrag)
+    a9:task:(Mitarbeiter stellt neuen Antrag)-->a1:task:
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-11-25T13:48:28.836183+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89026aa17547c39de0f78f9537253522b72869e8
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-25T13:50:00.118314+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter meldet Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="0">
+          <alternative condition="">
+            <choose mode="exclusive" a:alt_id="gw2s">
+              <alternative condition="">
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Vorgesetzter genehmigt</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a11" endpoint="" a:alt_id="a7">
+                  <parameters>
+                    <label>Mitarbeiter erh&#xE4;lt Urlaub</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="abgelehnt" language="text/javascript">
+                <call id="a15" endpoint="" a:alt_id="a11">
+                  <parameters>
+                    <label>Vorgesetzter lehnt ab</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a17" endpoint="" a:alt_id="a13">
+                  <parameters>
+                    <label>Mitarbeiter stellt neuen Antrag</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a5" endpoint="" a:alt_id="a1">
+                  <parameters>
+                    <label>Mitarbeiter meldet Urlaubsantrag</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: 89026aa17547c39de0f78f9537253522b72869e8
+  time:timestamp: '2025-11-25T13:50:00.114217+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89026aa17547c39de0f78f9537253522b72869e8
+  cpee:exposition: |+
+    # User Input:
+    The process starts.  an employee submits a vacation request. a decision is made. If the request is approved, the employee receives their vacation, and the process merges to a single flow. If the request is denied, the supervisor rejects the request, and the employee submits a new request, returning to the "employee submits vacation request" step. If an escalation occurs during the "employee submits vacation request" step, the process merges to a single flow. The process then returns to the initial decision point. If the initial condition is not true, the process ends.
+
+  time:timestamp: '2025-11-25T13:50:00.117650+01:00'
+...
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89026aa17547c39de0f78f9537253522b72869e8
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Mitarbeiter meldet Urlaubsantrag)
+    a1:task:(Mitarbeiter meldet Urlaubsantrag)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a5:task:(Vorgesetzter genehmigt)
+    a5:task:(Vorgesetzter genehmigt)-->a7:task:(Mitarbeiter erhält Urlaub)
+    a7:task:(Mitarbeiter erhält Urlaub)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"abgelehnt"|a11:task:(Vorgesetzter lehnt ab)
+    a11:task:(Vorgesetzter lehnt ab)-->a13:task:(Mitarbeiter stellt neuen Antrag)
+    a13:task:(Mitarbeiter stellt neuen Antrag)-->a1:task:(Mitarbeiter meldet Urlaubsantrag)
+    a1:task:(Mitarbeiter meldet Urlaubsantrag)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-25T13:50:00.118461+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89026aa17547c39de0f78f9537253522b72869e8
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter meldet Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="abgelehnt" a:alt_id="gw1s" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Vorgesetzter lehnt ab</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Mitarbeiter stellt neuen Antrag</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="a1">
+            <parameters>
+              <label>Mitarbeiter meldet Urlaubsantrag</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a5" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Vorgesetzter genehmigt</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="a8">
+          <parameters>
+            <label>Mitarbeiter erhält Urlaub</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-25T13:50:00.114558+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89026aa17547c39de0f78f9537253522b72869e8
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter meldet Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="0">
+          <alternative condition="">
+            <choose mode="exclusive" a:alt_id="gw2s">
+              <alternative condition="">
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Vorgesetzter genehmigt</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a11" endpoint="" a:alt_id="a7">
+                  <parameters>
+                    <label>Mitarbeiter erh&#xE4;lt Urlaub</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="abgelehnt" language="text/javascript">
+                <call id="a15" endpoint="" a:alt_id="a11">
+                  <parameters>
+                    <label>Vorgesetzter lehnt ab</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a17" endpoint="" a:alt_id="a13">
+                  <parameters>
+                    <label>Mitarbeiter stellt neuen Antrag</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a5" endpoint="" a:alt_id="a1">
+                  <parameters>
+                    <label>Mitarbeiter meldet Urlaubsantrag</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-25T13:50:00.118928+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 89026aa17547c39de0f78f9537253522b72869e8
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"false"|ee:endevent:(((endevent)))
+        gw1s:exclusivegateway:{x}-->|"true"|a1:task:(Mitarbeiter meldet Urlaubsantrag)
+        a1:task:(Mitarbeiter meldet Urlaubsantrag)-->gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->a5:task:(Vorgesetzter genehmigt)
+        a5:task:(Vorgesetzter genehmigt)-->a7:task:(Mitarbeiter erhält Urlaub)
+        a7:task:(Mitarbeiter erhält Urlaub)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"abgelehnt"|a11:task:(Vorgesetzter lehnt ab)
+        a11:task:(Vorgesetzter lehnt ab)-->a13:task:(Mitarbeiter stellt neuen Antrag)
+        a13:task:(Mitarbeiter stellt neuen Antrag)-->a1:task:
+        a1:task:-->-1:escalate:((^))
+        -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+        gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+        gw2e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}
+    ```
+  time:timestamp: '2025-11-25T13:50:00.118727+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter meldet Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="0">
+          <alternative condition="">
+            <choose mode="exclusive" a:alt_id="gw2s">
+              <alternative condition="">
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Vorgesetzter genehmigt</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a11" endpoint="" a:alt_id="a7">
+                  <parameters>
+                    <label>Mitarbeiter erh&#xE4;lt Urlaub</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="abgelehnt" language="text/javascript">
+                <call id="a15" endpoint="" a:alt_id="a11">
+                  <parameters>
+                    <label>Vorgesetzter lehnt ab</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a17" endpoint="" a:alt_id="a13">
+                  <parameters>
+                    <label>Mitarbeiter stellt neuen Antrag</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a5" endpoint="" a:alt_id="a1">
+                  <parameters>
+                    <label>Mitarbeiter meldet Urlaubsantrag</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: 89026aa17547c39de0f78f9537253522b72869e8
+  time:timestamp: '2025-11-25T13:50:23.180344+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf0e6045e3a970fe9a0ef77d5998db041683eacf
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter meldet Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="0">
+          <alternative condition="">
+            <choose mode="exclusive" a:alt_id="gw2s">
+              <alternative condition="">
+                <call id="a9" endpoint="" a:alt_id="a5">
+                  <parameters>
+                    <label>Vorgesetzter genehmigt</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a11" endpoint="" a:alt_id="a7">
+                  <parameters>
+                    <label>Mitarbeiter erhält Urlaub</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="abgelehnt" language="text/javascript">
+                <call id="a15" endpoint="" a:alt_id="a11">
+                  <parameters>
+                    <label>Vorgesetzter lehnt ab</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a17" endpoint="" a:alt_id="a13">
+                  <parameters>
+                    <label>Mitarbeiter stellt neuen Antrag</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a5" endpoint="" a:alt_id="a1">
+                  <parameters>
+                    <label>Mitarbeiter meldet Urlaubsantrag</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-25T13:52:52.086885+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter bringt Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="abgelehnt">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="neuer Antrag" language="text/javascript">
+              <call id="a1" endpoint="" a:alt_id="a1">
+                <parameters>
+                  <label>Mitarbeiter bringt Urlaubsantrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="kein Urlaub" language="text/javascript">
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a5" endpoint="" a:alt_id="a2">
+          <parameters>
+            <label>Mitarbeiter erh&#xE4;lt Urlaub</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: bf0e6045e3a970fe9a0ef77d5998db041683eacf
+  time:timestamp: '2025-11-25T13:52:52.086635+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf0e6045e3a970fe9a0ef77d5998db041683eacf
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a5:task:(Mitarbeiter meldet Urlaubsantrag)
+    a5:task:(Mitarbeiter meldet Urlaubsantrag)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|""|gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|""|a9:task:(Vorgesetzter genehmigt)
+    a9:task:(Vorgesetzter genehmigt)-->a11:task:(Mitarbeiter erhält Urlaub)
+    a11:task:(Mitarbeiter erhält Urlaub)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"abgelehnt"|a15:task:(Vorgesetzter lehnt ab)
+    a15:task:(Vorgesetzter lehnt ab)-->a17:task:(Mitarbeiter stellt neuen Antrag)
+    a17:task:(Mitarbeiter stellt neuen Antrag)-->a5:task:(Mitarbeiter meldet Urlaubsantrag)
+    a5:task:(Mitarbeiter meldet Urlaubsantrag)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|""|gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-25T13:52:52.088420+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf0e6045e3a970fe9a0ef77d5998db041683eacf
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter bringt Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="abgelehnt">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="neuer Antrag" language="text/javascript">
+              <call id="a1" endpoint="" a:alt_id="a1">
+                <parameters>
+                  <label>Mitarbeiter bringt Urlaubsantrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="kein Urlaub" language="text/javascript">
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a5" endpoint="" a:alt_id="a2">
+          <parameters>
+            <label>Mitarbeiter erh&#xE4;lt Urlaub</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-25T13:52:52.088792+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf0e6045e3a970fe9a0ef77d5998db041683eacf
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-25T13:52:52.088240+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf0e6045e3a970fe9a0ef77d5998db041683eacf
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> a1:task:(Mitarbeiter bringt Urlaubsantrag)
+        a1:task:(Mitarbeiter bringt Urlaubsantrag) --> gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x} --> |"genehmigt"| a2:task:(Mitarbeiter erhält Urlaub)
+        a2:task:(Mitarbeiter erhält Urlaub) --> ee:endevent:(((endevent)))
+        gw1s:exclusivegateway:{x} --> |"abgelehnt"| gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x} --> |"kein Urlaub"| ee
+        gw2s:exclusivegateway:{x} --> |"neuer Antrag"| a1
+    ```
+  time:timestamp: '2025-11-25T13:52:52.088633+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: bf0e6045e3a970fe9a0ef77d5998db041683eacf
+  cpee:exposition: |+
+    # User Input:
+    Der prozess begibbt, indem der Mitarbeiter dem Vorgesetzten ein Urlaubsantrag bringt. Der Vorgesetzte kann daraufhin den Antrag annehmen oder ablehnen. wenn der Antrag genehmigt wird, erhält der Mitarbeiter seinen Urlaub - der Prozess ist zuende. Wenn der Antrag abgelehnt wird, gibt es zwei Möglichkeiten: entweder der Mitarbeiter erhält keinen urlaub, oder der Mitarbeiter stellt einen neuen Antrag bei dem vorgesetzen. 
+
+  time:timestamp: '2025-11-25T13:52:52.088035+01:00'
+...
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2f3a9d69d97f15dac81495728b07acc50c9b6d5
+  cpee:exposition: |-
+    # User Input:
+    Der Prozess wird angestoßen, indem der Mitarbeiter einen Urlaubsantrag bei dem Vorgesetzten meldet. Der Vorgesetzte kann entscheiden, ob er den Urlaubsantrag ablehnt oder genehmigt. Wenn er den Antrag genehmigt, erhält der Mitarbeiter seinen Urlaub. Der Prozess ist positiv beendet. Wenn der Vorgesetzte den Urlaubsantrag ablehnt, gibt es zwei Möglichkeiten: entweder stellt der Mitarbeiter einen neuen Urlaubsantrag bei dem Vorgesetzten und der Prozess beginnt von vorne, oder der Mitarbeiter erhält keinen Urlaub. In diesem Fall ist der Prozess negativ beendet. 
+  time:timestamp: '2025-11-25T13:59:11.608293+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2f3a9d69d97f15dac81495728b07acc50c9b6d5
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter bringt Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="abgelehnt">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="neuer Antrag" language="text/javascript">
+              <call id="a1" endpoint="" a:alt_id="a1">
+                <parameters>
+                  <label>Mitarbeiter bringt Urlaubsantrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="kein Urlaub" language="text/javascript">
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a5" endpoint="" a:alt_id="a2">
+          <parameters>
+            <label>Mitarbeiter erhält Urlaub</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-25T13:59:11.607725+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2f3a9d69d97f15dac81495728b07acc50c9b6d5
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Mitarbeiter bringt Urlaubsantrag)
+    a1:task:(Mitarbeiter bringt Urlaubsantrag)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a5:task:(Mitarbeiter erhält Urlaub)
+    a5:task:(Mitarbeiter erhält Urlaub)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"abgelehnt"|gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"neuer Antrag"|a1:task:(Mitarbeiter bringt Urlaubsantrag)
+    a1:task:(Mitarbeiter bringt Urlaubsantrag)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"kein Urlaub"|gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-25T13:59:11.608756+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter bringt Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="abgelehnt">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="neuer Antrag" language="text/javascript">
+              <call id="a1" endpoint="" a:alt_id="a1">
+                <parameters>
+                  <label>Mitarbeiter bringt Urlaubsantrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="kein Urlaub" language="text/javascript">
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a5" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Mitarbeiter erh&#xE4;lt Urlaub</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: b2f3a9d69d97f15dac81495728b07acc50c9b6d5
+  time:timestamp: '2025-11-25T13:59:11.607568+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2f3a9d69d97f15dac81495728b07acc50c9b6d5
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-25T13:59:11.608417+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2f3a9d69d97f15dac81495728b07acc50c9b6d5
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="a1">
+          <parameters>
+            <label>Mitarbeiter bringt Urlaubsantrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="abgelehnt">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="neuer Antrag" language="text/javascript">
+              <call id="a1" endpoint="" a:alt_id="a1">
+                <parameters>
+                  <label>Mitarbeiter bringt Urlaubsantrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="kein Urlaub" language="text/javascript">
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a5" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Mitarbeiter erh&#xE4;lt Urlaub</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-25T13:59:11.609237+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2f3a9d69d97f15dac81495728b07acc50c9b6d5
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> a1:task:(Mitarbeiter bringt Urlaubsantrag)
+        a1:task:(Mitarbeiter bringt Urlaubsantrag) --> gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x} --> |"genehmigt"| a5:task:(Mitarbeiter erhält Urlaub)
+        a5:task:(Mitarbeiter erhält Urlaub) --> ee1:endevent:(((endevent)))
+        gw1s:exclusivegateway:{x} --> |"abgelehnt"| gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x} --> |"neuer Antrag"| a1:task:
+        gw2s:exclusivegateway:{x} --> |"kein Urlaub"| ee2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-25T13:59:11.608875+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Urlaubsantrag stellen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Pr&#xFC;fe Pflichtfelder</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Informationen fehlen" a:alt_id="3" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Antrag erg&#xE4;nzen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Urlaubsantrag stellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Pr&#xFC;fe Pflichtfelder</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Leite an Vorgesetzten weiter</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="6">
+          <alternative condition="Genehmigt" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Benachrichtigung &#xFC;ber Genehmigung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Abgelehnt" language="text/javascript">
+            <call id="a19" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Ablehnungsbenachrichtigung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: c551d03385b49f490d81a6c779e4f05a70f93046
+  time:timestamp: '2025-11-25T14:00:35.722590+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c551d03385b49f490d81a6c779e4f05a70f93046
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-25T14:00:35.723002+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c551d03385b49f490d81a6c779e4f05a70f93046
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-25T14:00:35.724110+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c551d03385b49f490d81a6c779e4f05a70f93046
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Urlaubsantrag stellen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Pr&#xFC;fe Pflichtfelder</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Informationen fehlen" a:alt_id="3" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Antrag erg&#xE4;nzen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Urlaubsantrag stellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Pr&#xFC;fe Pflichtfelder</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Leite an Vorgesetzten weiter</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="6">
+          <alternative condition="Genehmigt" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Benachrichtigung &#xFC;ber Genehmigung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Abgelehnt" language="text/javascript">
+            <call id="a19" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Ablehnungsbenachrichtigung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-25T14:00:35.724609+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c551d03385b49f490d81a6c779e4f05a70f93046
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-25T14:00:35.724245+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c551d03385b49f490d81a6c779e4f05a70f93046
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Urlaubsantrag stellen)
+      1:task:(Urlaubsantrag stellen) --> 2:task:(Prüfe Pflichtfelder)
+      2:task:(Prüfe Pflichtfelder) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Informationen fehlen| 4:task:(Antrag ergänzen)
+      4:task:(Antrag ergänzen) --> 1:task:(Urlaubsantrag stellen)
+      3:exclusivegateway:{x} --> |Antrag vollständig| 5:task:(Leite an Vorgesetzten weiter)
+      5:task:(Leite an Vorgesetzten weiter) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> |Genehmigt| 7:task:(Benachrichtigung über Genehmigung)
+      7:task:(Benachrichtigung über Genehmigung) --> 9:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> |Abgelehnt| 8:task:(Ablehnungsbenachrichtigung)
+      8:task:(Ablehnungsbenachrichtigung) --> 9:exclusivegateway:{x}
+      9:exclusivegateway:{x} --> 10:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-25T14:00:35.724505+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c551d03385b49f490d81a6c779e4f05a70f93046
+  cpee:exposition: |-
+    # User Input:
+    Der Prozess beginnt damit, dass ein Mitarbeiter einen Urlaubsantrag über das interne Portal stellt.
+    Das System prüft automatisch, ob alle Pflichtfelder ausgefüllt sind. Wenn Informationen fehlen, wird der Antrag an den Mitarbeiter zurückgesendet, der ihn ergänzt und erneut einreicht.
+
+
+    Wenn der Antrag vollständig ist, wird er an den direkten Vorgesetzten weitergeleitet.
+    Der Vorgesetzte entscheidet, ob der Urlaub genehmigt oder abgelehnt wird.
+
+
+    Wenn der Urlaub genehmigt wird, erhält der Mitarbeiter eine automatische Benachrichtigung über die Genehmigung. Außerdem wird der Urlaubskalender im HR-System aktualisiert.
+
+
+    Wenn der Antrag abgelehnt wird, erhält der Mitarbeiter eine Ablehnungsbenachrichtigung mit optionalem Kommentar.
+
+
+    Nach der Benachrichtigung wird der Prozess beendet.
+  time:timestamp: '2025-11-25T14:00:35.723688+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2025-11-25T14:18:07.523672+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:09.243308+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-25T14:18:09.701714+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:11.443429+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2025-11-25T14:18:12.324618+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:14.008914+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2025-11-25T14:18:23.514404+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:25.295426+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: packed
+  time:timestamp: '2025-11-25T14:18:30.136070+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:31.879197+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2025-11-25T14:18:36.352151+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:38.112584+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: highlander
+  - name: guarded_id
+    value: ''
+  time:timestamp: '2025-11-25T14:18:40.924179+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:42.740801+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: guarded_id
+    value: ''
+  time:timestamp: '2025-11-25T14:18:45.731716+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:47.497104+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-25T14:18:48.303570+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:50.039904+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-11-25T14:18:53.751148+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:55.508732+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Urlaubsantrag stellen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Pr&#xFC;fe Pflichtfelder</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Informationen fehlen" a:alt_id="3" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Antrag erg&#xE4;nzen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Urlaubsantrag stellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Pr&#xFC;fe Pflichtfelder</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Leite an Vorgesetzten weiter</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="6">
+          <alternative condition="Genehmigt" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Benachrichtigung &#xFC;ber Genehmigung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Abgelehnt" language="text/javascript">
+            <call id="a19" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Ablehnungsbenachrichtigung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-25T14:18:56.509941+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: executionhandler
+    value: eval
+  time:timestamp: '2025-11-25T14:18:56.512803+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:18:58.199430+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Urlaubsantrag stellen</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Pr&#xFC;fe Pflichtfelder</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Informationen fehlen" a:alt_id="3" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Antrag erg&#xE4;nzen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Urlaubsantrag stellen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Pr&#xFC;fe Pflichtfelder</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Leite an Vorgesetzten weiter</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="6">
+          <alternative condition="Genehmigt" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Benachrichtigung &#xFC;ber Genehmigung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Abgelehnt" language="text/javascript">
+            <call id="a19" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Ablehnungsbenachrichtigung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-25T14:18:59.781405+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: executionhandler
+    value: ruby
+  time:timestamp: '2025-11-25T14:18:59.784350+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-25T14:19:01.534511+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: purged
+  time:timestamp: '2025-11-26T22:55:13.642564+01:00'
+---
+event:
+  concept:instance: 65138
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2b309025-dd6a-4b2c-bbff-cde51df46ca5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: purged
+  time:timestamp: '2025-11-26T22:55:23.107073+01:00'

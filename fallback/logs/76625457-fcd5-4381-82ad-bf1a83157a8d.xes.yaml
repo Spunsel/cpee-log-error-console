@@ -1,0 +1,410 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 64992
+    cpee:name: Plain Instance
+    cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-24T21:42:04.593512+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-24T21:42:04.926551+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-11-24T21:42:06.940659+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-24T21:42:08.808729+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-24T21:42:08.806144+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1e5a04d176a35d30deef98a7d1ff6a6f7208bd40
+  cpee:exposition: |-
+    # User Input:
+    create a process model for cooking
+  time:timestamp: '2025-11-24T21:42:16.194085+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1e5a04d176a35d30deef98a7d1ff6a6f7208bd40
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-24T21:42:16.194684+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Gather Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Bake" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Bake Dish</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Fry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Fry Dish</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Boil" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Boil Dish</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Season Dish</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="9">
+        <alternative condition="Serve immediately" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Serve Dish</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Let it cool" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Cool Dish</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Eat Dish</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 1e5a04d176a35d30deef98a7d1ff6a6f7208bd40
+  time:timestamp: '2025-11-24T21:42:16.193461+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1e5a04d176a35d30deef98a7d1ff6a6f7208bd40
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Gather Ingredients)
+      1:task:(Gather Ingredients) --> 2:task:(Prepare Ingredients)
+      2:task:(Prepare Ingredients) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Bake| 4:task:(Bake Dish)
+      3:exclusivegateway:{x} --> |Fry| 5:task:(Fry Dish)
+      3:exclusivegateway:{x} --> |Boil| 6:task:(Boil Dish)
+      4:task:(Bake Dish) --> 7:inclusivegateway:{O}
+      5:task:(Fry Dish) --> 7:inclusivegateway:{O}
+      6:task:(Boil Dish) --> 7:inclusivegateway:{O}
+      7:inclusivegateway:{O} --> 8:task:(Season Dish)
+      8:task:(Season Dish) --> 9:exclusivegateway:{x}
+      9:exclusivegateway:{x} --> |Serve immediately| 10:task:(Serve Dish)
+      9:exclusivegateway:{x} --> |Let it cool| 11:task:(Cool Dish)
+      10:task:(Serve Dish) --> 12:inclusivegateway:{O}
+      11:task:(Cool Dish) --> 12:inclusivegateway:{O}
+      12:inclusivegateway:{O} --> 13:task:(Eat Dish)
+      13:task:(Eat Dish) --> 14:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-24T21:42:16.195100+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1e5a04d176a35d30deef98a7d1ff6a6f7208bd40
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-24T21:42:16.193679+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1e5a04d176a35d30deef98a7d1ff6a6f7208bd40
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-24T21:42:16.194382+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1e5a04d176a35d30deef98a7d1ff6a6f7208bd40
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Gather Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Prepare Ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Bake" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Bake Dish</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Fry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Fry Dish</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Boil" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Boil Dish</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Season Dish</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="9">
+        <alternative condition="Serve immediately" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Serve Dish</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Let it cool" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Cool Dish</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a31" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Eat Dish</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-24T21:42:16.195893+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: purged
+  time:timestamp: '2025-11-26T22:54:17.980995+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: purged
+  time:timestamp: '2025-11-26T22:54:27.120398+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: purged
+  time:timestamp: '2025-11-26T22:54:39.962945+01:00'
+---
+event:
+  concept:instance: 64992
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 76625457-fcd5-4381-82ad-bf1a83157a8d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: purged
+  time:timestamp: '2025-11-26T22:54:52.961838+01:00'

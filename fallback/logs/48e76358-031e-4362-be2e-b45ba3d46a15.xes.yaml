@@ -1,0 +1,1259 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 262
+    cpee:name: Plain Instance
+    cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-20T10:27:58.118379+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a2" endpoint="">
+          <parameters>
+            <label>Approach Ship</label>
+            <method/>
+            <type>:task</type>
+            <mid>'1'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a4" endpoint="">
+            <parameters>
+              <label>Favorable Conditions) |Yes|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'3'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Initiate Landing Sequence</label>
+              <method/>
+              <type>:task</type>
+              <mid>'5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>UAV Lands on Ship</label>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive">
+            <alternative condition="">
+              <call id="a11" endpoint="">
+                <parameters>
+                  <label>Go Around) |No|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a2" endpoint="">
+                <parameters>
+                  <label>Approach Ship</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'1'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Successful Landing) |Yes|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <escape/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a5" endpoint="">
+          <parameters>
+            <label>Abort Landing) |No|</label>
+            <method/>
+            <type>:task</type>
+            <mid>'4'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: 5f8ca22fe381d136434d2b63dec47f904d69264d
+  time:timestamp: '2025-10-20T10:29:14.908473+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5f8ca22fe381d136434d2b63dec47f904d69264d
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-20T10:29:14.908719+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5f8ca22fe381d136434d2b63dec47f904d69264d
+  cpee:exposition: |-
+    # User Input:
+    Can you create a process of a UAV landing on a ship.
+  time:timestamp: '2025-10-20T10:29:14.912972+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5f8ca22fe381d136434d2b63dec47f904d69264d
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-20T10:29:14.913836+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5f8ca22fe381d136434d2b63dec47f904d69264d
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-20T10:29:14.913990+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5f8ca22fe381d136434d2b63dec47f904d69264d
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Approach Ship)
+        1:task:(Approach Ship) --> 2:exclusivegateway:{x}
+        2:exclusivegateway:{x} --> 3:task:(Favorable Conditions) |Yes|
+        2:exclusivegateway:{x} --> 4:task:(Abort Landing) |No|
+        3:task:(Favorable Conditions) --> 5:task:(Initiate Landing Sequence)
+        4:task:(Abort Landing) --> 11:endevent:(((endevent)))
+        5:task:(Initiate Landing Sequence) --> 6:task:(UAV Lands on Ship)
+        6:task:(UAV Lands on Ship) --> 7:exclusivegateway:{x}
+        7:exclusivegateway:{x} --> 8:task:(Successful Landing) |Yes|
+        7:exclusivegateway:{x} --> 9:task:(Go Around) |No|
+        8:task:(Successful Landing) --> 10:exclusivegateway:{x}
+        9:task:(Go Around) --> 1:task:(Approach Ship)
+        10:exclusivegateway:{x} --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-20T10:29:14.914098+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5f8ca22fe381d136434d2b63dec47f904d69264d
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a2" endpoint="">
+          <parameters>
+            <label>Approach Ship</label>
+            <method/>
+            <type>:task</type>
+            <mid>'1'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a4" endpoint="">
+            <parameters>
+              <label>Favorable Conditions) |Yes|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'3'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Initiate Landing Sequence</label>
+              <method/>
+              <type>:task</type>
+              <mid>'5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>UAV Lands on Ship</label>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive">
+            <alternative condition="">
+              <call id="a11" endpoint="">
+                <parameters>
+                  <label>Go Around) |No|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a2" endpoint="">
+                <parameters>
+                  <label>Approach Ship</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'1'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Successful Landing) |Yes|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <escape/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a5" endpoint="">
+          <parameters>
+            <label>Abort Landing) |No|</label>
+            <method/>
+            <type>:task</type>
+            <mid>'4'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-10-20T10:29:14.914214+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6f32c63a0186dd778fa499cc4e157e92629e90b5
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a2" endpoint="">
+          <parameters>
+            <label>Approach Ship</label>
+            <method/>
+            <type>:task</type>
+            <mid>'1'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a4" endpoint="">
+            <parameters>
+              <label>Favorable Conditions) |Yes|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'3'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Initiate Landing Sequence</label>
+              <method/>
+              <type>:task</type>
+              <mid>'5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>UAV Lands on Ship</label>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive">
+            <alternative condition="">
+              <call id="a11" endpoint="">
+                <parameters>
+                  <label>Go Around) |No|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'9'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a2" endpoint="">
+                <parameters>
+                  <label>Approach Ship</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'1'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a10" endpoint="">
+                <parameters>
+                  <label>Successful Landing) |Yes|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <escape/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a5" endpoint="">
+          <parameters>
+            <label>Abort Landing) |No|</label>
+            <method/>
+            <type>:task</type>
+            <mid>'4'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-10-20T10:30:11.602719+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <choose mode="exclusive">
+        <alternative condition="true" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a2" endpoint="">
+              <parameters>
+                <label>Approach Ship</label>
+                <method/>
+                <type>:task</type>
+                <mid>'a2'</mid>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="true">
+              <call id="a4" endpoint="">
+                <parameters>
+                  <label>Favorable Conditions\) |Yes|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a4'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Initiate Landing Sequence</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>UAV Lands on Ship</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition="" language="text/javascript">
+                  <call id="a11" endpoint="">
+                    <parameters>
+                      <label>Go Around\) |No|</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a11'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a2" endpoint="">
+                    <parameters>
+                      <label>Approach Ship</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a2'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="" language="text/javascript">
+                  <call id="a10" endpoint="">
+                    <parameters>
+                      <label>Successful Landing\) |Yes|</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a10'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <escape/>
+                </alternative>
+              </choose>
+            </loop>
+            <call id="a5" endpoint="">
+              <parameters>
+                <label>Abort Landing\) |No|</label>
+                <method/>
+                <type>:task</type>
+                <mid>'a5'</mid>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+    </description>
+  cpee:change_uuid: 6f32c63a0186dd778fa499cc4e157e92629e90b5
+  time:timestamp: '2025-10-20T10:30:11.602442+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6f32c63a0186dd778fa499cc4e157e92629e90b5
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-20T10:30:11.602976+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6f32c63a0186dd778fa499cc4e157e92629e90b5
+  cpee:exposition: |-
+    # User Input:
+    Remove the loop
+  time:timestamp: '2025-10-20T10:30:11.602861+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6f32c63a0186dd778fa499cc4e157e92629e90b5
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a2:task:(Approach Ship)
+    a2:task:(Approach Ship)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a5:task:(Abort Landing\) |No|)
+    a5:task:(Abort Landing\) |No|)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"true"|a4:task:(Favorable Conditions\) |Yes|)
+    a4:task:(Favorable Conditions\) |Yes|)-->a6:task:(Initiate Landing Sequence)
+    a6:task:(Initiate Landing Sequence)-->a8:task:(UAV Lands on Ship)
+    a8:task:(UAV Lands on Ship)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|""|a11:task:(Go Around\) |No|)
+    a11:task:(Go Around\) |No|)-->a2:task:
+    a2:task: -->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|""|a10:task:(Successful Landing\) |Yes|)
+    a10:task:(Successful Landing\) |Yes|)-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-10-20T10:30:11.603239+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6f32c63a0186dd778fa499cc4e157e92629e90b5
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <choose mode="exclusive">
+        <alternative condition="true" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a2" endpoint="">
+              <parameters>
+                <label>Approach Ship</label>
+                <method/>
+                <type>:task</type>
+                <mid>'a2'</mid>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="true">
+              <call id="a4" endpoint="">
+                <parameters>
+                  <label>Favorable Conditions\) |Yes|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a4'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Initiate Landing Sequence</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>UAV Lands on Ship</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition="" language="text/javascript">
+                  <call id="a11" endpoint="">
+                    <parameters>
+                      <label>Go Around\) |No|</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a11'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a2" endpoint="">
+                    <parameters>
+                      <label>Approach Ship</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a2'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="" language="text/javascript">
+                  <call id="a10" endpoint="">
+                    <parameters>
+                      <label>Successful Landing\) |Yes|</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a10'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <escape/>
+                </alternative>
+              </choose>
+            </loop>
+            <call id="a5" endpoint="">
+              <parameters>
+                <label>Abort Landing\) |No|</label>
+                <method/>
+                <type>:task</type>
+                <mid>'a5'</mid>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+    </description>
+  time:timestamp: '2025-10-20T10:30:11.603350+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6f32c63a0186dd778fa499cc4e157e92629e90b5
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a2:task:(Approach Ship)
+    a2:task:(Approach Ship)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a5:task:(Abort Landing\) |No|)
+    a5:task:(Abort Landing\) |No|)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"true"|a4:task:(Favorable Conditions\) |Yes|)
+    a4:task:(Favorable Conditions\) |Yes|)-->a6:task:(Initiate Landing Sequence)
+    a6:task:(Initiate Landing Sequence)-->a8:task:(UAV Lands on Ship)
+    a8:task:(UAV Lands on Ship)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|""|a11:task:(Go Around\) |No|)
+    a11:task:(Go Around\) |No|)-->a2:task:(Approach Ship)
+    a2:task:(Approach Ship)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|""|a10:task:(Successful Landing\) |Yes|)
+    a10:task:(Successful Landing\) |Yes|)-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-20T10:30:11.603062+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive">
+          <alternative condition="true" language="text/javascript">
+            <call id="a2" endpoint="">
+              <parameters>
+                <label>Approach Ship</label>
+                <method/>
+                <type>:task</type>
+                <mid>'a2'</mid>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive">
+              <alternative condition="">
+                <choose mode="exclusive">
+                  <alternative condition="">
+                    <call id="a5" endpoint="">
+                      <parameters>
+                        <label>Abort Landing\\) |No|</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'a5'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="true" language="text/javascript">
+                    <call id="a4" endpoint="">
+                      <parameters>
+                        <label>Favorable Conditions\\) |Yes|</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'a4'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a6" endpoint="">
+                      <parameters>
+                        <label>Initiate Landing Sequence</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'a6'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a8" endpoint="">
+                      <parameters>
+                        <label>UAV Lands on Ship</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'a8'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive">
+                      <alternative condition="" language="text/javascript">
+                        <call id="a10" endpoint="">
+                          <parameters>
+                            <label>Successful Landing\\) |Yes|</label>
+                            <method/>
+                            <type>:task</type>
+                            <mid>'a10'</mid>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="" language="text/javascript">
+                        <call id="a11" endpoint="">
+                          <parameters>
+                            <label>Go Around\\) |No|</label>
+                            <method/>
+                            <type>:task</type>
+                            <mid>'a11'</mid>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a2" endpoint="">
+                          <parameters>
+                            <label>Approach Ship</label>
+                            <method/>
+                            <type>:task</type>
+                            <mid>'a2'</mid>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <escape/>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition=""/>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: f06fcdb79c13945e483bde2a6e72f5d01b272c3c
+  time:timestamp: '2025-10-20T10:31:21.713736+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f06fcdb79c13945e483bde2a6e72f5d01b272c3c
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <choose mode="exclusive">
+        <alternative condition="true" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a2" endpoint="">
+              <parameters>
+                <label>Approach Ship</label>
+                <method/>
+                <type>:task</type>
+                <mid>'a2'</mid>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="true">
+              <call id="a4" endpoint="">
+                <parameters>
+                  <label>Favorable Conditions\) |Yes|</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a4'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a6" endpoint="">
+                <parameters>
+                  <label>Initiate Landing Sequence</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a6'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a8" endpoint="">
+                <parameters>
+                  <label>UAV Lands on Ship</label>
+                  <method/>
+                  <type>:task</type>
+                  <mid>'a8'</mid>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive">
+                <alternative condition="" language="text/javascript">
+                  <call id="a11" endpoint="">
+                    <parameters>
+                      <label>Go Around\) |No|</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a11'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a2" endpoint="">
+                    <parameters>
+                      <label>Approach Ship</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a2'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="" language="text/javascript">
+                  <call id="a10" endpoint="">
+                    <parameters>
+                      <label>Successful Landing\) |Yes|</label>
+                      <method/>
+                      <type>:task</type>
+                      <mid>'a10'</mid>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <escape/>
+                </alternative>
+              </choose>
+            </loop>
+            <call id="a5" endpoint="">
+              <parameters>
+                <label>Abort Landing\) |No|</label>
+                <method/>
+                <type>:task</type>
+                <mid>'a5'</mid>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+    </description>
+  time:timestamp: '2025-10-20T10:31:21.714018+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f06fcdb79c13945e483bde2a6e72f5d01b272c3c
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o-mini
+  time:timestamp: '2025-10-20T10:31:21.714349+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f06fcdb79c13945e483bde2a6e72f5d01b272c3c
+  cpee:exposition: |-
+    # User Input:
+    Remove the initial exclusive choice
+  time:timestamp: '2025-10-20T10:31:21.714188+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f06fcdb79c13945e483bde2a6e72f5d01b272c3c
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"true"|gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a2:task:(Approach Ship)
+    a2:task:(Approach Ship)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->a5:task:(Abort Landing\\) |No|)
+    a5:task:(Abort Landing\\) |No|)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"true"|a4:task:(Favorable Conditions\\) |Yes|)
+    a4:task:(Favorable Conditions\\) |Yes|)-->a6:task:(Initiate Landing Sequence)
+    a6:task:(Initiate Landing Sequence)-->a8:task:(UAV Lands on Ship)
+    a8:task:(UAV Lands on Ship)-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|""|a11:task:(Go Around\\) |No|)
+    a11:task:(Go Around\\) |No|)-->a2:task:(Approach Ship)
+    a2:task:(Approach Ship)-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|""|a10:task:(Successful Landing\\) |Yes|)
+    a10:task:(Successful Landing\\) |Yes|)-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-20T10:31:21.714511+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f06fcdb79c13945e483bde2a6e72f5d01b272c3c
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:exclusivegateway:{x}
+    1:exclusivegateway:{x} --> gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x} --> gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x} --> |"true"|a2:task:(Approach Ship)
+    a2:task:(Approach Ship) --> gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x} --> gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x} --> gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x} --> gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x} --> a5:task:(Abort Landing\\) |No|)
+    a5:task:(Abort Landing\\) |No|) --> gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x} --> |"true"|a4:task:(Favorable Conditions\\) |Yes|)
+    a4:task:(Favorable Conditions\\) |Yes|) --> a6:task:(Initiate Landing Sequence)
+    a6:task:(Initiate Landing Sequence) --> a8:task:(UAV Lands on Ship)
+    a8:task:(UAV Lands on Ship) --> gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x} --> |""|a11:task:(Go Around\\) |No|)
+    a11:task:(Go Around\\) |No|) --> a2:task:(Approach Ship)
+    a2:task:(Approach Ship) --> gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x} --> |""|a10:task:(Successful Landing\\) |Yes|)
+    a10:task:(Successful Landing\\) |Yes|) --> gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x} --> gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x} --> gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x} --> gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x} --> -1:escalate:((^))
+    -1:escalate:((^)) --> gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x} --> gw2s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x} --> gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x} --> |""|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x} --> ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-10-20T10:31:21.714715+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f06fcdb79c13945e483bde2a6e72f5d01b272c3c
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive">
+          <alternative condition="true" language="text/javascript">
+            <call id="a2" endpoint="">
+              <parameters>
+                <label>Approach Ship</label>
+                <method/>
+                <type>:task</type>
+                <mid>'a2'</mid>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive">
+              <alternative condition="">
+                <choose mode="exclusive">
+                  <alternative condition="">
+                    <call id="a5" endpoint="">
+                      <parameters>
+                        <label>Abort Landing\\) |No|</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'a5'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="true" language="text/javascript">
+                    <call id="a4" endpoint="">
+                      <parameters>
+                        <label>Favorable Conditions\\) |Yes|</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'a4'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a6" endpoint="">
+                      <parameters>
+                        <label>Initiate Landing Sequence</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'a6'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a8" endpoint="">
+                      <parameters>
+                        <label>UAV Lands on Ship</label>
+                        <method/>
+                        <type>:task</type>
+                        <mid>'a8'</mid>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive">
+                      <alternative condition="" language="text/javascript">
+                        <call id="a10" endpoint="">
+                          <parameters>
+                            <label>Successful Landing\\) |Yes|</label>
+                            <method/>
+                            <type>:task</type>
+                            <mid>'a10'</mid>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="" language="text/javascript">
+                        <call id="a11" endpoint="">
+                          <parameters>
+                            <label>Go Around\\) |No|</label>
+                            <method/>
+                            <type>:task</type>
+                            <mid>'a11'</mid>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a2" endpoint="">
+                          <parameters>
+                            <label>Approach Ship</label>
+                            <method/>
+                            <type>:task</type>
+                            <mid>'a2'</mid>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <escape/>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition=""/>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2025-10-20T10:31:21.714912+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-10-20T10:31:36.058631+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-10-20T10:31:36.070773+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-20T10:31:36.280932+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-20T10:31:36.320406+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: packed
+  time:timestamp: '2025-10-20T10:32:02.093304+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-20T10:32:02.357521+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: packed
+  time:timestamp: '2025-10-20T10:32:03.126019+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-20T10:32:06.479381+02:00'
+---
+event:
+  concept:instance: 262
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 48e76358-031e-4362-be2e-b45ba3d46a15
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-11-17T17:39:46.349685+01:00'

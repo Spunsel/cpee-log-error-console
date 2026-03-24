@@ -1,0 +1,374 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 6561
+    cpee:name: Plain Instance
+    cpee:instance: 4362bce6-d7dd-488e-876a-be67e2766c9f
+---
+event:
+  concept:instance: 6561
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4362bce6-d7dd-488e-876a-be67e2766c9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-05T12:41:24.548881+01:00'
+---
+event:
+  concept:instance: 6561
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4362bce6-d7dd-488e-876a-be67e2766c9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Sammeln der Infrastrukturkosten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Nein" a:alt_id="3" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Korrektur der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Definition der Verteilungsschl&#xFC;ssel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Durchf&#xFC;hrung der Umlage</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a15" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Pr&#xFC;fung der Umlageergebnisse</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="Nein" a:alt_id="7" language="text/javascript">
+            <call id="a21" endpoint="" a:alt_id="11">
+              <parameters>
+                <label>Korrektur und Neuverteilung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a15" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Pr&#xFC;fung der Umlageergebnisse</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+          <call id="a19" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Reporting und Freigabe</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: e6682d68bc8a4122a1ce41031b4cf399223b1e4e
+  time:timestamp: '2025-11-05T12:41:42.675434+01:00'
+---
+event:
+  concept:instance: 6561
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4362bce6-d7dd-488e-876a-be67e2766c9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e6682d68bc8a4122a1ce41031b4cf399223b1e4e
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2025-11-05T12:41:42.676537+01:00'
+---
+event:
+  concept:instance: 6561
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4362bce6-d7dd-488e-876a-be67e2766c9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e6682d68bc8a4122a1ce41031b4cf399223b1e4e
+  cpee:exposition: "# User Input:\nHier ist ein Vorschlag für einen BPMN-Prozess (Business
+    Process Model and Notation) für die\v\U0001F449 „Verrechnung von Infrastrukturkosten“
+    im Universitätsklinikumskontext.\n\U0001F9E9 Prozessname: Verrechnung von Infrastrukturkosten\nProzessziel:\vZurechnung
+    und Umlage von zentralen Infrastrukturkosten (z. B. IT, Gebäude, Energie, Reinigung,
+    Verwaltung) auf nutzende Organisationseinheiten (Kliniken, Institute, Forschungsbereiche)
+    gemäß interner Kostenverteilungslogik und Trennungsrechnung.\n\U0001F3D7️ BPMN-Akteure
+    (Swimlanes)\nKostenstellenverantwortliche / Fachabteilungen\v(z. B. Technischer
+    Dienst, IT, Verwaltung)\nFinanzabteilung / Controlling\v(z. B. KLR-Team, Finanzcontrolling)\nDatenmanagement
+    / ERP-System\v(z. B. SAP, BI-System)\nKliniken & Institute (Kostenträger)\v(Empfänger
+    der Umlage)\nLeitung Finanzen / Vorstand Verwaltung\v(Freigabe und Reporting)\n\U0001F9ED
+    BPMN-Prozessbeschreibung (Textform)\n1. Start: Periodenbeginn (z. B. Quartal /
+    Jahr)\nEreignis: „Kostenverteilungsperiode beginnt“\nTrigger: Automatischer Prozessstart
+    im ERP-System oder durch Controlling-Kalender.\n2. Sammeln der Infrastrukturkosten
+    (Kostenstellenverantwortliche)\nAktivitäten:\nErfassung der angefallenen Infrastrukturkosten
+    (z. B. IT, Strom, Gebäudereinigung, Verwaltung)\nZuordnung zu Kostenstellen (Primärkosten)\nÜbermittlung
+    an Controlling\nDatenaustausch: Buchungsläufe, Kostenartenberichte\n3. Plausibilitätsprüfung
+    der Daten (Finanzabteilung)\nAktivitäten:\nPrüfung der Vollständigkeit und Korrektheit
+    der Kostenarten\nAbgleich mit Budget- und Vorperiodenwerten\nRückmeldung bei Auffälligkeiten
+    an Fachabteilungen\nEntscheidungspunkt: „Kosten plausibel?“\nNein: Rückgabe zur
+    Korrektur\nJa: Weiter\n4. Definition der Verteilungsschlüssel (Controlling)\nAktivitäten:\nFestlegung
+    oder Aktualisierung der Umlageschlüssel (z. B. m², Personalstellen, IT-Nutzer,
+    Laborstunden)\nGenehmigung durch Leitung Finanzen (falls notwendig)\nDatenbasis:
+    Stammdaten, Nutzungsstatistiken, HR-Daten\n5. Durchführung der Umlage (ERP-System
+    / Controlling)\nAktivitäten:\nBerechnung der Umlage auf Empfänger-Kostenstellen
+    gemäß Schlüssel\nBuchung der sekundären Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\nSystemereignis:
+    „Umlauf abgeschlossen“\n6. Prüfung der Umlageergebnisse (Controlling + Empfänger)\nAktivitäten:\nEmpfänger
+    erhalten Umlageberichte\nKontrolle auf sachliche und rechnerische Richtigkeit\nFeedback
+    an Controlling bei Auffälligkeiten\nEntscheidungspunkt: „Ergebnisse korrekt?“\nNein:
+    Korrektur und Neuverteilung\nJa: Weiter\n7. Reporting und Freigabe (Finanzleitung)\nAktivitäten:\nErstellung
+    des Verrechnungsberichts (z. B. je Klinik/Institut)\nVorlage an Leitung Finanzen
+    / Vorstand Verwaltung\nFreigabe und Kommunikation an alle Einheiten\nDokumentation
+    im ERP/BI-System\n8. Ende des Prozesses\nEreignis: „Umlage abgeschlossen und freigegeben“\nOutput:\nBuchungssätze
+    im ERP-System\nBericht an Ministerium/Universität (Trennungsrechnung)\nGrundlage
+    für Budgetplanung und Controlling\n\U0001F9EE Optional: Erweiterungen / Subprozesse\nAutomatisierte
+    Datenübernahme aus Gebäudemanagement oder Zeiterfassungssystemen\nTrennungsrechnung:
+    Separate Umlagen für Klinik, Forschung, Lehre\nAuditprozess: Nachgelagerte Prüfung
+    durch Revision oder Ministerium\nDashboards: Visualisierung der Kostenstruktur
+    und Umlageeffekte\n\n"
+  time:timestamp: '2025-11-05T12:41:42.675911+01:00'
+---
+event:
+  concept:instance: 6561
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4362bce6-d7dd-488e-876a-be67e2766c9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e6682d68bc8a4122a1ce41031b4cf399223b1e4e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Kostenverteilungsperiode beginnt))
+      1:task:(Sammeln der Infrastrukturkosten)
+      2:task:(Plausibilitätsprüfung der Daten)
+      3:exclusivegateway:{x}
+      4:task:(Definition der Verteilungsschlüssel)
+      5:task:(Durchführung der Umlage)
+      6:task:(Prüfung der Umlageergebnisse)
+      7:exclusivegateway:{x}
+      8:task:(Reporting und Freigabe)
+      9:endevent:(((Umlage abgeschlossen und freigegeben)))
+      10:task:(Korrektur der Daten)
+      11:task:(Korrektur und Neuverteilung)
+
+      0:startevent:((Kostenverteilungsperiode beginnt)) --> 1:task:(Sammeln der Infrastrukturkosten)
+      1:task:(Sammeln der Infrastrukturkosten) --> 2:task:(Plausibilitätsprüfung der Daten)
+      2:task:(Plausibilitätsprüfung der Daten) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Kosten plausibel?| 4:task:(Definition der Verteilungsschlüssel)
+      3:exclusivegateway:{x} --> |Nein| 10:task:(Korrektur der Daten)
+      10:task:(Korrektur der Daten) --> 2:task:(Plausibilitätsprüfung der Daten)
+      4:task:(Definition der Verteilungsschlüssel) --> 5:task:(Durchführung der Umlage)
+      5:task:(Durchführung der Umlage) --> 6:task:(Prüfung der Umlageergebnisse)
+      6:task:(Prüfung der Umlageergebnisse) --> 7:exclusivegateway:{x}
+      7:exclusivegateway:{x} --> |Ergebnisse korrekt?| 8:task:(Reporting und Freigabe)
+      7:exclusivegateway:{x} --> |Nein| 11:task:(Korrektur und Neuverteilung)
+      11:task:(Korrektur und Neuverteilung) --> 6:task:(Prüfung der Umlageergebnisse)
+      8:task:(Reporting und Freigabe) --> 9:endevent:(((Umlage abgeschlossen und freigegeben)))
+    ```
+  time:timestamp: '2025-11-05T12:41:42.676856+01:00'
+---
+event:
+  concept:instance: 6561
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4362bce6-d7dd-488e-876a-be67e2766c9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e6682d68bc8a4122a1ce41031b4cf399223b1e4e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-05T12:41:42.675704+01:00'
+---
+event:
+  concept:instance: 6561
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4362bce6-d7dd-488e-876a-be67e2766c9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e6682d68bc8a4122a1ce41031b4cf399223b1e4e
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-05T12:41:42.676714+01:00'
+---
+event:
+  concept:instance: 6561
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4362bce6-d7dd-488e-876a-be67e2766c9f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e6682d68bc8a4122a1ce41031b4cf399223b1e4e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Sammeln der Infrastrukturkosten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Nein" a:alt_id="3" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Korrektur der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Definition der Verteilungsschl&#xFC;ssel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Durchf&#xFC;hrung der Umlage</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a15" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Pr&#xFC;fung der Umlageergebnisse</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="Nein" a:alt_id="7" language="text/javascript">
+            <call id="a21" endpoint="" a:alt_id="11">
+              <parameters>
+                <label>Korrektur und Neuverteilung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a15" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Pr&#xFC;fung der Umlageergebnisse</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+          <call id="a19" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Reporting und Freigabe</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-05T12:41:42.677067+01:00'

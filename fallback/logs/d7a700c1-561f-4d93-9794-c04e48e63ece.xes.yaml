@@ -1,0 +1,2303 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 12376
+    cpee:name: Plain Instance
+    cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-12T12:57:39.598704+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="9">
+            <parallel_branch>
+              <call id="a19" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Aufgaben bearbeiten (Kreativ)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Aufgaben bearbeiten (IT)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 0d5f37b3b7bb49325e8a30cee2d5610c733e0c64
+  time:timestamp: '2025-11-12T12:58:00.604801+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5f37b3b7bb49325e8a30cee2d5610c733e0c64
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-12T12:58:00.605082+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5f37b3b7bb49325e8a30cee2d5610c733e0c64
+  cpee:exposition: |+
+    # User Input:
+    Eine Agentur die einen Service zum Design und zur Erstellung von modularen Webseiten anbietet möchte
+    ihre Produktpalette erweitern. Hierzu wird zunächst ein Projekt vom Management initiiert. Im ersten Schritt
+    wird die Marketingabteilung beauftragt eine Kampagne zu erstellen, um an die Wünsche der Kunden zu
+    gelangen. Nachdem die Kampagne an die Kunden verschickt wurden, werden die Antworten dieser gespeichert.
+    Anschließend werden die Antworten von der Analyseabteilung ausgewertet. Die Resultate der Auswertung
+    durch die Analyseabteilung werden gespeichert und dem Management präsentiert. Auf Basis der Resultate
+    entscheidet das Management ob das Projekt fortgesetzt oder beendet wird. Wird das Projekt beendet endet
+    auch der Prozess. Wird das Projekt fortgesetzt bearbeiten die Kreativ- und IT-Abteilung parallel die vom
+    Management festgelegten Aufgaben. Das Projekt ist abgeschlossen sobald alle Aufgaben erledigt sind.
+
+  time:timestamp: '2025-11-12T12:58:00.606143+01:00'
+...
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5f37b3b7bb49325e8a30cee2d5610c733e0c64
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-12T12:58:00.606309+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5f37b3b7bb49325e8a30cee2d5610c733e0c64
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-12T12:58:00.606424+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5f37b3b7bb49325e8a30cee2d5610c733e0c64
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Projekt initiieren)
+        1:task:(Projekt initiieren) --> 2:task:(Marketingkampagne erstellen)
+        2:task:(Marketingkampagne erstellen) --> 3:task:(Antworten speichern)
+        3:task:(Antworten speichern) --> 4:task:(Antworten auswerten)
+        4:task:(Antworten auswerten) --> 5:task:(Resultate speichern)
+        5:task:(Resultate speichern) --> 6:task:(Resultate präsentieren)
+        6:task:(Resultate präsentieren) --> 7:exclusivegateway:{x}
+        7:exclusivegateway:{x} --> |Projekt wird beendet| 8:endevent:(((endevent)))
+        7:exclusivegateway:{x} --> |Projekt wird fortgesetzt| 9:parallelgateway:{AND}
+        9:parallelgateway:{AND} --> 10:task:(Aufgaben bearbeiten (Kreativ))
+        9:parallelgateway:{AND} --> 11:task:(Aufgaben bearbeiten (IT))
+        10:task:(Aufgaben bearbeiten (Kreativ)) --> 12:parallelgateway:{AND}
+        11:task:(Aufgaben bearbeiten (IT)) --> 12:parallelgateway:{AND}
+        12:parallelgateway:{AND} --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-12T12:58:00.606523+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d5f37b3b7bb49325e8a30cee2d5610c733e0c64
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="9">
+            <parallel_branch>
+              <call id="a19" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Aufgaben bearbeiten (Kreativ)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Aufgaben bearbeiten (IT)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-12T12:58:00.606657+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Resultate präsentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="9">
+            <parallel_branch>
+              <call id="a19" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Aufgaben bearbeiten (Kreativ)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Aufgaben bearbeiten (IT)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-12T12:59:34.955163+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T12:59:34.954419+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  cpee:exposition: |-
+    # User Input:
+    Füge das Manegement einzeln noch hinzu und was von diesem ausgeht
+  time:timestamp: '2025-11-12T12:59:34.955296+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-12T12:59:34.955394+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Projekt initiieren)
+        a1:task:(Projekt initiieren)-->a3:task:(Marketingkampagne erstellen)
+        a3:task:(Marketingkampagne erstellen)-->a5:task:(Antworten speichern)
+        a5:task:(Antworten speichern)-->a7:task:(Antworten auswerten)
+        a7:task:(Antworten auswerten)-->a9:task:(Resultate speichern)
+        a9:task:(Resultate speichern)-->a11:task:(Resultate präsentieren)
+        a11:task:(Resultate präsentieren)-->mng:task:(Management)
+        mng:task:(Management)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Projekt wird beendet"|gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->gw2s:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a19:task:(Aufgaben bearbeiten \(Kreativ\))
+        a19:task:(Aufgaben bearbeiten \(Kreativ\))-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a21:task:(Aufgaben bearbeiten \(IT\))
+        a21:task:(Aufgaben bearbeiten \(IT\))-->gw2e:parallelgateway:{AND}
+        gw2e:parallelgateway:{AND}-->gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-11-12T12:59:34.955574+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Projekt initiieren)
+    a1:task:(Projekt initiieren)-->a3:task:(Marketingkampagne erstellen)
+    a3:task:(Marketingkampagne erstellen)-->a5:task:(Antworten speichern)
+    a5:task:(Antworten speichern)-->a7:task:(Antworten auswerten)
+    a7:task:(Antworten auswerten)-->a9:task:(Resultate speichern)
+    a9:task:(Resultate speichern)-->a11:task:(Resultate präsentieren)
+    a11:task:(Resultate präsentieren)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Projekt wird beendet"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:parallelgateway:{AND}
+    -->a19:task:(Aufgaben bearbeiten \(Kreativ\))
+    a19:task:(Aufgaben bearbeiten \(Kreativ\))-->gw2e:parallelgateway:{AND}
+    -->a21:task:(Aufgaben bearbeiten \(IT\))
+    a21:task:(Aufgaben bearbeiten \(IT\))-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-12T12:59:34.955480+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-12T12:59:34.955897+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-12T12:59:51.049086+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-12T12:59:51.378391+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9259dce5f06d9964dfe5bf21758b1c093e1b4c2b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate präsentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-12T13:00:06.355521+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \\(Kreativ\\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Aufgaben bearbeiten \\(IT\\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 9259dce5f06d9964dfe5bf21758b1c093e1b4c2b
+  time:timestamp: '2025-11-12T13:00:06.355315+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9259dce5f06d9964dfe5bf21758b1c093e1b4c2b
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Projekt initiieren)
+        a1:task:(Projekt initiieren)-->a3:task:(Marketingkampagne erstellen)
+        a3:task:(Marketingkampagne erstellen)-->a5:task:(Antworten speichern)
+        a5:task:(Antworten speichern)-->a7:task:(Antworten auswerten)
+        a7:task:(Antworten auswerten)-->a9:task:(Resultate speichern)
+        a9:task:(Resultate speichern)-->a11:task:(Resultate präsentieren)
+        a11:task:(Resultate präsentieren)-->a13:task:(Management)
+        a13:task:(Management)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Projekt wird beendet"|ee:endevent:(((endevent)))
+        gw1s:exclusivegateway:{x}-->|"Projekt wird fortgesetzt"|gw2s:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a21:task:(Aufgaben bearbeiten \\(Kreativ\\))
+        a21:task:(Aufgaben bearbeiten \\(Kreativ\\))-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a25:task:(Aufgaben bearbeiten \\(IT\\))
+        a25:task:(Aufgaben bearbeiten \\(IT\\))-->gw2e:parallelgateway:{AND}
+        gw2e:parallelgateway:{AND}-->gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-12T13:00:06.355977+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9259dce5f06d9964dfe5bf21758b1c093e1b4c2b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \\(Kreativ\\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Aufgaben bearbeiten \\(IT\\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-12T13:00:06.356074+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9259dce5f06d9964dfe5bf21758b1c093e1b4c2b
+  cpee:exposition: |-
+    # User Input:
+    Übungen zu Einführung in die Wirtschaftsinformatik
+    TUM, Lehrstuhl für Wirtschaftsinformatik und Geschäftsprozessmanagement
+    Prof. Dr. Stefanie Rinderle-Ma, Matthias Ehrendorfer
+    Wintersemester 2025/26
+    Thema: Webseite
+    Eine Agentur die einen Service zum Design und zur Erstellung von modularen Webseiten anbietet möchte
+    ihre Produktpalette erweitern. Hierzu wird zunächst ein Projekt vom Management initiiert. Im ersten Schritt
+    wird die Marketingabteilung beauftragt eine Kampagne zu erstellen, um an die Wünsche der Kunden zu
+    gelangen. Nachdem die Kampagne an die Kunden verschickt wurden, werden die Antworten dieser gespeichert.
+    Anschließend werden die Antworten von der Analyseabteilung ausgewertet. Die Resultate der Auswertung
+    durch die Analyseabteilung werden gespeichert und dem Management präsentiert. Auf Basis der Resultate
+    entscheidet das Management ob das Projekt fortgesetzt oder beendet wird. Wird das Projekt beendet endet
+    auch der Prozess. Wird das Projekt fortgesetzt bearbeiten die Kreativ- und IT-Abteilung parallel die vom
+    Management festgelegten Aufgaben. Das Projekt ist abgeschlossen sobald alle Aufgaben erledigt sind.
+  time:timestamp: '2025-11-12T13:00:06.355668+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9259dce5f06d9964dfe5bf21758b1c093e1b4c2b
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Projekt initiieren)
+    a1:task:(Projekt initiieren)-->a3:task:(Marketingkampagne erstellen)
+    a3:task:(Marketingkampagne erstellen)-->a5:task:(Antworten speichern)
+    a5:task:(Antworten speichern)-->a7:task:(Antworten auswerten)
+    a7:task:(Antworten auswerten)-->a9:task:(Resultate speichern)
+    a9:task:(Resultate speichern)-->a11:task:(Resultate präsentieren)
+    a11:task:(Resultate präsentieren)-->a13:task:(Management)
+    a13:task:(Management)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Projekt wird beendet"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:parallelgateway:{AND}
+    -->a21:task:(Aufgaben bearbeiten \\(Kreativ\\))
+    a21:task:(Aufgaben bearbeiten \\(Kreativ\\))-->gw2e:parallelgateway:{AND}
+    -->a25:task:(Aufgaben bearbeiten \\(IT\\))
+    a25:task:(Aufgaben bearbeiten \\(IT\\))-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-12T13:00:06.355866+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9259dce5f06d9964dfe5bf21758b1c093e1b4c2b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-12T13:00:06.355770+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:18.983855+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:19.669378+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:20.365781+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:21.057446+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:21.235549+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:22.756860+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:22.963543+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:23.167508+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:23.385429+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:24.305427+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:25.011667+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Projekt initiieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Marketingkampagne erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Antworten speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Antworten auswerten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Resultate speichern</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Resultate pr&#xE4;sentieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="mng">
+        <parameters>
+          <label>Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Projekt wird beendet" language="text/javascript"/>
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(Kreativ\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Aufgaben bearbeiten \(IT\)</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 785a7b6da1872214c9a68748407a564d8a2f3d8c
+  time:timestamp: '2025-11-12T13:00:25.207015+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-12T13:00:35.747856+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-12T13:00:36.090545+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2025-11-12T13:00:42.199546+01:00'
+---
+event:
+  concept:instance: 12376
+  id:id: external
+  cpee:activity: external
+  cpee:instance: d7a700c1-561f-4d93-9794-c04e48e63ece
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-12T13:00:42.518261+01:00'

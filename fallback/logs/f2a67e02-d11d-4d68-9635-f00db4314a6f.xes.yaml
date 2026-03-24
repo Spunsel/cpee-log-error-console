@@ -1,0 +1,753 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 25733
+    cpee:name: Plain Instance
+    cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-14T18:15:21.778745+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Rechnung pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: f67584fbce993ea28ac4b6e8f4585995969983a3
+  time:timestamp: '2025-11-14T18:15:50.660237+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f67584fbce993ea28ac4b6e8f4585995969983a3
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-14T18:15:50.660436+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f67584fbce993ea28ac4b6e8f4585995969983a3
+  cpee:exposition: |+
+    # User Input:
+    NAch dem Eingang der Rechnung prüfe ich diese
+
+  time:timestamp: '2025-11-14T18:15:50.660554+01:00'
+...
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f67584fbce993ea28ac4b6e8f4585995969983a3
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-14T18:15:50.660741+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f67584fbce993ea28ac4b6e8f4585995969983a3
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-14T18:15:50.660948+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f67584fbce993ea28ac4b6e8f4585995969983a3
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Rechnung prüfen)
+      1:task:(Rechnung prüfen) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-14T18:15:50.661087+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f67584fbce993ea28ac4b6e8f4585995969983a3
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Rechnung pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-14T18:15:50.661278+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Rechnung pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="ex1">
+        <alternative condition="Rechnung in Ordnung" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a2">
+            <parameters>
+              <label>Zahlung veranlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rechnung nicht in Ordnung" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: e7d1ea579b4ed0250698244a5a28256462bd4331
+  time:timestamp: '2025-11-14T18:16:15.916073+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e7d1ea579b4ed0250698244a5a28256462bd4331
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Rechnung prüfen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-14T18:16:15.916352+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e7d1ea579b4ed0250698244a5a28256462bd4331
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-14T18:16:15.916621+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e7d1ea579b4ed0250698244a5a28256462bd4331
+  cpee:exposition: |+
+    # User Input:
+    Wenn die Rechnung in Ordnung leite ich sie zur Zahlung weiter
+
+  time:timestamp: '2025-11-14T18:16:15.916502+01:00'
+...
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e7d1ea579b4ed0250698244a5a28256462bd4331
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Rechnung prüfen)
+    a1:task:(Rechnung prüfen)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-14T18:16:15.916719+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e7d1ea579b4ed0250698244a5a28256462bd4331
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Rechnung pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="ex1">
+        <alternative condition="Rechnung in Ordnung" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a2">
+            <parameters>
+              <label>Zahlung veranlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rechnung nicht in Ordnung" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-14T18:16:15.916932+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e7d1ea579b4ed0250698244a5a28256462bd4331
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Rechnung prüfen)
+    a1:task:(Rechnung prüfen)-->ex1:exclusivegateway:{x}
+    ex1:exclusivegateway:{x}-->|Rechnung in Ordnung|a2:task:(Zahlung veranlassen)
+    a2:task:(Zahlung veranlassen)-->ee:endevent:(((endevent)))
+    ex1:exclusivegateway:{x}-->|Rechnung nicht in Ordnung|ee2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-14T18:16:15.916820+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b7ed0c0a2a2ed8d4246c0aa921480806c0ebee12
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Rechnung prüfen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="ex1">
+        <alternative condition="Rechnung in Ordnung" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a2">
+            <parameters>
+              <label>Zahlung veranlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rechnung nicht in Ordnung" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-14T18:16:44.390513+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Rechnung pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rechnung in Ordnung" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Zahlung veranlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rechnung nicht in Ordnung" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a2">
+            <parameters>
+              <label>Rechnung zur&#xFC;cksenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: b7ed0c0a2a2ed8d4246c0aa921480806c0ebee12
+  time:timestamp: '2025-11-14T18:16:44.390310+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b7ed0c0a2a2ed8d4246c0aa921480806c0ebee12
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-14T18:16:44.391172+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b7ed0c0a2a2ed8d4246c0aa921480806c0ebee12
+  cpee:exposition: |+
+    # User Input:
+    Falls dennoch ein Fehler in der Rechnung war, sende ich sie zurück an den Ersteller
+
+  time:timestamp: '2025-11-14T18:16:44.390849+01:00'
+...
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b7ed0c0a2a2ed8d4246c0aa921480806c0ebee12
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Rechnung prüfen)
+        a1:task:(Rechnung prüfen)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Rechnung in Ordnung"|a5:task:(Zahlung veranlassen)
+        a5:task:(Zahlung veranlassen)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Rechnung nicht in Ordnung"|a2:task:(Rechnung zurücksenden)
+        a2:task:(Rechnung zurücksenden)-->gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-14T18:16:44.391665+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b7ed0c0a2a2ed8d4246c0aa921480806c0ebee12
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Rechnung prüfen)
+    a1:task:(Rechnung prüfen)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rechnung in Ordnung"|a5:task:(Zahlung veranlassen)
+    a5:task:(Zahlung veranlassen)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rechnung nicht in Ordnung"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-14T18:16:44.391508+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b7ed0c0a2a2ed8d4246c0aa921480806c0ebee12
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Rechnung pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rechnung in Ordnung" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Zahlung veranlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rechnung nicht in Ordnung" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a2">
+            <parameters>
+              <label>Rechnung zur&#xFC;cksenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-14T18:16:44.392095+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Rechnung pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rechnung in Ordnung" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Zahlung veranlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rechnung nicht in Ordnung" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Rechnung zur&#xFC;cksenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: fbc90311649b81faff8079ee7974f0d73cffc888
+  time:timestamp: '2025-11-14T18:17:15.697508+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fbc90311649b81faff8079ee7974f0d73cffc888
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Rechnung prüfen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rechnung in Ordnung" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Zahlung veranlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rechnung nicht in Ordnung" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a2">
+            <parameters>
+              <label>Rechnung zurücksenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-14T18:17:15.697672+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fbc90311649b81faff8079ee7974f0d73cffc888
+  cpee:exposition: |+
+    # User Input:
+    Manchmal zahlen wir aber auch Fehlerhafte Rechnungen
+
+  time:timestamp: '2025-11-14T18:17:15.697957+01:00'
+...
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fbc90311649b81faff8079ee7974f0d73cffc888
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-14T18:17:15.698056+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fbc90311649b81faff8079ee7974f0d73cffc888
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Rechnung prüfen)
+    a1:task:(Rechnung prüfen)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rechnung in Ordnung"|a5:task:(Zahlung veranlassen)
+    a5:task:(Zahlung veranlassen)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rechnung nicht in Ordnung"|a9:task:(Rechnung zurücksenden)
+    a9:task:(Rechnung zurücksenden)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-14T18:17:15.700885+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fbc90311649b81faff8079ee7974f0d73cffc888
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Rechnung pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rechnung in Ordnung" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Zahlung veranlassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rechnung nicht in Ordnung" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Rechnung zur&#xFC;cksenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-14T18:17:15.701155+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fbc90311649b81faff8079ee7974f0d73cffc888
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Rechnung prüfen)
+    a1:task:(Rechnung prüfen)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rechnung in Ordnung"|a5:task:(Zahlung veranlassen)
+    a5:task:(Zahlung veranlassen)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rechnung nicht in Ordnung"|a9:task:(Rechnung zurücksenden)
+    a9:task:(Rechnung zurücksenden)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Manchmal zahlen wir aber auch Fehlerhafte Rechnungen"|a5:task:
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-11-14T18:17:15.701042+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: running
+  time:timestamp: '2025-11-14T18:17:35.188887+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopping
+  time:timestamp: '2025-11-14T18:17:35.214895+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopped
+  time:timestamp: '2025-11-14T18:17:35.231719+01:00'
+---
+event:
+  concept:instance: 25733
+  id:id: external
+  cpee:activity: external
+  cpee:instance: f2a67e02-d11d-4d68-9635-f00db4314a6f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-11-14T18:17:46.754156+01:00'

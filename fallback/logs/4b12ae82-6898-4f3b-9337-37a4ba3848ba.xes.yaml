@@ -1,0 +1,267 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 7491
+    cpee:name: Plain Instance
+    cpee:instance: 4b12ae82-6898-4f3b-9337-37a4ba3848ba
+---
+event:
+  concept:instance: 7491
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4b12ae82-6898-4f3b-9337-37a4ba3848ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-07T08:59:59.083194+01:00'
+---
+event:
+  concept:instance: 7491
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4b12ae82-6898-4f3b-9337-37a4ba3848ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Reisekostenantrag erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Reisekostenantrag einreichen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Reisekostenantrag pr&#xFC;fen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Korrekt" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Auszahlung veranlassen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Korrekturbedarf" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Korrektur anfordern</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a21" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Mitarbeiter informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Abgelehnt" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: ee18ea7546181178a9613e2bc238afd7a78c5bb5
+  time:timestamp: '2025-11-07T09:00:25.269473+01:00'
+---
+event:
+  concept:instance: 7491
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4b12ae82-6898-4f3b-9337-37a4ba3848ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ee18ea7546181178a9613e2bc238afd7a78c5bb5
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-07T09:00:25.269735+01:00'
+---
+event:
+  concept:instance: 7491
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4b12ae82-6898-4f3b-9337-37a4ba3848ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ee18ea7546181178a9613e2bc238afd7a78c5bb5
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-07T09:00:25.270373+01:00'
+---
+event:
+  concept:instance: 7491
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4b12ae82-6898-4f3b-9337-37a4ba3848ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ee18ea7546181178a9613e2bc238afd7a78c5bb5
+  cpee:exposition: |-
+    # User Input:
+    mache einen bpmn vorschlag für einen reisekostenabrechnungsprozess
+  time:timestamp: '2025-11-07T09:00:25.270201+01:00'
+---
+event:
+  concept:instance: 7491
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4b12ae82-6898-4f3b-9337-37a4ba3848ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ee18ea7546181178a9613e2bc238afd7a78c5bb5
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Reisekostenantrag erstellen)
+        1:task:(Reisekostenantrag erstellen) --> 2:task:(Reisekostenantrag einreichen)
+        2:task:(Reisekostenantrag einreichen) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |Genehmigt| 4:task:(Reisekostenantrag prüfen)
+        3:exclusivegateway:{x} --> |Abgelehnt| 10:endevent:(((endevent)))
+        4:task:(Reisekostenantrag prüfen) --> 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> |Korrekt| 6:task:(Auszahlung veranlassen)
+        5:exclusivegateway:{x} --> |Korrekturbedarf| 7:task:(Korrektur anfordern)
+        6:task:(Auszahlung veranlassen) --> 8:parallelgateway:{AND}
+        7:task:(Korrektur anfordern) --> 8:parallelgateway:{AND}
+        8:parallelgateway:{AND} --> 9:task:(Mitarbeiter informieren)
+        9:task:(Mitarbeiter informieren) --> 10:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-07T09:00:25.270628+01:00'
+---
+event:
+  concept:instance: 7491
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4b12ae82-6898-4f3b-9337-37a4ba3848ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ee18ea7546181178a9613e2bc238afd7a78c5bb5
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-07T09:00:25.270505+01:00'
+---
+event:
+  concept:instance: 7491
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 4b12ae82-6898-4f3b-9337-37a4ba3848ba
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ee18ea7546181178a9613e2bc238afd7a78c5bb5
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Reisekostenantrag erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Reisekostenantrag einreichen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Reisekostenantrag pr&#xFC;fen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Korrekt" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Auszahlung veranlassen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Korrekturbedarf" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Korrektur anfordern</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a21" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Mitarbeiter informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Abgelehnt" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-07T09:00:25.270766+01:00'
