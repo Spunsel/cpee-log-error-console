@@ -77,8 +77,10 @@ export class InstanceFallbackService {
 
     /**
      * Get UUID for a process number from local fallback
+     * Note: If UUID has _v2 suffix (for fallback log files), it is stripped for server queries.
+     * Use getLogContent() which handles _v2 suffix for local fallback files.
      * @param {number|string} processNumber - CPEE process instance number
-     * @returns {Promise<{uuid: string, fromFallback: boolean}|null>} UUID and source, or null if not found
+     * @returns {Promise<{uuid: string, fromFallback: boolean}|null>} UUID (without _v2) and source, or null if not found
      */
     async getUUIDForProcess(processNumber) {
         await this.loadUUIDMapping();
@@ -88,10 +90,12 @@ export class InstanceFallbackService {
         }
 
         const processKey = String(processNumber);
-        const uuid = this.processToUuid[processKey];
+        const rawUuid = this.processToUuid[processKey];
         
-        if (uuid) {
-            this.logWarning(`Using FALLBACK UUID for process ${processNumber}: ${uuid}`);
+        if (rawUuid) {
+            // Strip _v2 suffix for server queries - _v2 is only for local fallback files
+            const uuid = rawUuid.replace(/_v2$/, '');
+            this.logWarning(`Using FALLBACK UUID for process ${processNumber}: ${uuid}${rawUuid.endsWith('_v2') ? ' (fallback log has _v2 suffix)' : ''}`);
             return { uuid, fromFallback: true };
         }
         
@@ -122,47 +126,69 @@ export class InstanceFallbackService {
 
     /**
      * Check if a local log file exists for a UUID
-     * @param {string} uuid - CPEE instance UUID
+     * Checks both _v2 suffixed and regular filenames
+     * @param {string} uuid - CPEE instance UUID (without _v2 suffix)
      * @returns {Promise<boolean>} True if local log exists
      */
     async hasLocalLog(uuid) {
-        try {
-            const response = await fetch(`${this.basePath}/logs/${uuid}.xes.yaml`, {
-                method: 'HEAD'
-            });
-            return response.ok;
-        } catch {
-            return false;
+        // Check _v2 version first, then regular
+        const filesToCheck = [
+            `${this.basePath}/logs/${uuid}_v2.xes.yaml`,
+            `${this.basePath}/logs/${uuid}.xes.yaml`
+        ];
+        
+        for (const filePath of filesToCheck) {
+            try {
+                const response = await fetch(filePath, { method: 'HEAD' });
+                if (response.ok) {
+                    return true;
+                }
+            } catch {
+                // Continue to next file
+            }
         }
+        
+        return false;
     }
 
     /**
      * Get log content from local fallback
-     * @param {string} uuid - CPEE instance UUID
+     * Tries _v2 suffixed file first (for 200xxx instances), then falls back to regular filename
+     * @param {string} uuid - CPEE instance UUID (without _v2 suffix)
      * @returns {Promise<{content: string, fromFallback: boolean}|null>} Log content and source, or null if not found
      */
     async getLogContent(uuid) {
-        try {
-            const response = await fetch(`${this.basePath}/logs/${uuid}.xes.yaml`);
-            
-            if (!response.ok) {
-                this.logDebug(`No local log found for UUID ${uuid}`);
-                return null;
+        // Try _v2 suffixed file first (for 200xxx prefixed instances)
+        const filesToTry = [
+            `${this.basePath}/logs/${uuid}_v2.xes.yaml`,
+            `${this.basePath}/logs/${uuid}.xes.yaml`
+        ];
+        
+        for (const filePath of filesToTry) {
+            try {
+                const response = await fetch(filePath);
+                
+                if (!response.ok) {
+                    continue;
+                }
+                
+                const content = await response.text();
+                
+                if (!content || content.length < 10) {
+                    this.logDebug(`Local log at ${filePath} is empty or invalid`);
+                    continue;
+                }
+                
+                const isV2 = filePath.includes('_v2');
+                this.logWarning(`Using FALLBACK log for UUID ${uuid}${isV2 ? ' (_v2 version)' : ''} (${content.length} bytes)`);
+                return { content, fromFallback: true };
+            } catch (error) {
+                this.logDebug(`Failed to fetch local log at ${filePath}:`, error.message);
             }
-            
-            const content = await response.text();
-            
-            if (!content || content.length < 10) {
-                this.logDebug(`Local log for UUID ${uuid} is empty or invalid`);
-                return null;
-            }
-            
-            this.logWarning(`Using FALLBACK log for UUID ${uuid} (${content.length} bytes)`);
-            return { content, fromFallback: true };
-        } catch (error) {
-            this.logDebug(`Failed to fetch local log for UUID ${uuid}:`, error.message);
-            return null;
         }
+        
+        this.logDebug(`No local log found for UUID ${uuid} (tried both regular and _v2 versions)`);
+        return null;
     }
 
     /**
