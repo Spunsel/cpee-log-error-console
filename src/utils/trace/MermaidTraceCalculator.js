@@ -327,6 +327,11 @@ class TraceSets {
                 );
             }
             
+            case 'escalate': {
+                // Return current forward trace as a complete trace (don't continue forward)
+                return [[...currentFT]];
+            }
+            
             default: {
                 // Unknown node type: treat as pass-through
                 return this.combineSequentialForwardTrace(
