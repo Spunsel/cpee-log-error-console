@@ -50,23 +50,77 @@ export class LogFetchService {
     }
 
     /**
-     * Fetch and parse log for given UUID using proxy
+     * Fetch and parse log for given UUID
      * @param {string} uuid - CPEE instance UUID
+     * @param {Object} options - Fetch options
+     * @param {string} options.source - Data source: 'fallback' (local only), 'server' (remote only), 'auto' (fallback first, then server)
      * @returns {Promise<{events: Array, fromFallback: boolean}>} Parsed log events and source info
-     * @throws {Error} If UUID is invalid or fetch fails and no fallback available
+     * @throws {Error} If UUID is invalid or fetch fails
      */
-    async fetchAndParseLog(uuid) {
+    async fetchAndParseLog(uuid, options = {}) {
+        const { source = 'auto' } = options;
+        
         if (!this.isValidUUID(uuid)) {
             throw new Error('LogFetchService: Invalid UUID provided - must be a non-empty string');
         }
         
+        if (this.debugMode) {
+            console.log(`[LogFetchService] Fetching log for UUID: ${uuid} (source: ${source})`);
+        }
+        
+        // Fallback only mode
+        if (source === 'fallback') {
+            const fallbackResult = await this.fallbackService.getLogContent(uuid);
+            if (fallbackResult) {
+                const events = this.logParser.parseYAMLMultiDocument(fallbackResult.content);
+                if (this.debugMode) {
+                    console.log(`[LogFetchService] Parsed ${events.length} events from local fallback log`);
+                }
+                return { events, fromFallback: true };
+            }
+            throw new Error(`LogFetchService: No fallback log found for UUID ${uuid}`);
+        }
+        
+        // Server only mode
+        if (source === 'server') {
+            return this._fetchFromServer(uuid);
+        }
+        
+        // Auto mode: try fallback first, then server
+        const fallbackResult = await this.fallbackService.getLogContent(uuid);
+        
+        if (fallbackResult) {
+            try {
+                const events = this.logParser.parseYAMLMultiDocument(fallbackResult.content);
+                if (this.debugMode) {
+                    console.log(`[LogFetchService] Parsed ${events.length} events from local fallback log`);
+                }
+                return { events, fromFallback: true };
+            } catch (parseError) {
+                if (this.debugMode) {
+                    console.log(`[LogFetchService] Failed to parse local fallback: ${parseError.message}, trying server...`);
+                }
+            }
+        } else if (this.debugMode) {
+            console.log(`[LogFetchService] No local fallback found, trying server...`);
+        }
+        
+        return this._fetchFromServer(uuid);
+    }
+    
+    /**
+     * Internal method to fetch log from server
+     * @param {string} uuid - CPEE instance UUID
+     * @returns {Promise<{events: Array, fromFallback: boolean}>} Parsed log events
+     * @private
+     */
+    async _fetchFromServer(uuid) {
         const logUrl = `${this.configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
         
         if (this.debugMode) {
-            console.log(`[LogFetchService] Fetching log from: ${logUrl}`);
+            console.log(`[LogFetchService] Fetching log from server: ${logUrl}`);
         }
         
-        // Use proxy for CORS handling
         try {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => {
@@ -90,7 +144,6 @@ export class LogFetchService {
                 
                 const yamlContent = await response.text();
                 
-                // Clear timeout after body is fully read
                 clearTimeout(timeoutId);
                 
                 if (!yamlContent || yamlContent.length < 10) {
@@ -104,43 +157,19 @@ export class LogFetchService {
                 const events = this.logParser.parseYAMLMultiDocument(yamlContent);
                 
                 if (this.debugMode) {
-                    console.log(`[LogFetchService] Parsed ${events.length} events from log`);
+                    console.log(`[LogFetchService] Parsed ${events.length} events from server`);
                 }
                 
                 return { events, fromFallback: false };
             } finally {
-                // Ensure timeout is always cleared, even if an error occurs
                 clearTimeout(timeoutId);
             }
             
         } catch (error) {
-            if (this.debugMode) {
-                console.log(`[LogFetchService] Remote fetch failed: ${error.message}, trying fallback...`);
-            }
-            
-            // Try fallback service
-            const fallbackResult = await this.fallbackService.getLogContent(uuid);
-            
-            if (fallbackResult) {
-                try {
-                    const events = this.logParser.parseYAMLMultiDocument(fallbackResult.content);
-                    
-                    if (this.debugMode) {
-                        console.log(`[LogFetchService] Parsed ${events.length} events from FALLBACK log`);
-                    }
-                    
-                    return { events, fromFallback: true };
-                } catch (parseError) {
-                    throw new Error(`LogFetchService: Failed to parse fallback log - ${parseError.message}`);
-                }
-            }
-            
-            // No fallback available
             if (error.name === 'AbortError') {
-                throw new Error('LogFetchService: Request timed out - log file may be large or server is slow (no fallback available)');
+                throw new Error('LogFetchService: Request timed out - log file may be large or server is slow');
             }
-            throw new Error(`LogFetchService: Failed to fetch log - ${error.message} (no fallback available)`);
+            throw new Error(`LogFetchService: Failed to fetch log - ${error.message}`);
         }
     }
 }
-

@@ -264,16 +264,12 @@ export class InstanceLoaderViewer {
                     return;
                 }
                 
-                console.log(`Fetching UUID for process number: ${processNum}`);
+                console.log(`Fetching UUID for process number: ${processNum} (server only)`);
                 
-                // Fetch UUID from process number
+                // Fetch UUID from server only (manual input uses server)
                 const cpeeService = serviceFactory.get('CPEEService');
-                const result = await cpeeService.fetchUUIDFromProcessNumber(processNum);
+                const result = await cpeeService.fetchUUIDFromProcessNumber(processNum, { source: 'server' });
                 finalUuid = result.uuid;
-                
-                if (result.fromFallback) {
-                    console.warn(`Using FALLBACK UUID for process ${processNum}`);
-                }
                 
                 // Update UUID input with fetched value
                 if (uuidInput) {
@@ -281,7 +277,7 @@ export class InstanceLoaderViewer {
                     uuidInput.dataset.processNumber = processNum.toString();
                 }
                 
-                console.log(`UUID fetched successfully: ${finalUuid}`);
+                console.log(`UUID fetched successfully from server: ${finalUuid}`);
             } 
             // If only UUID is provided (no process number), use it directly
             else if (uuid && this.isValidUUID(uuid)) {
@@ -298,9 +294,9 @@ export class InstanceLoaderViewer {
                 uuidInput.dataset.processNumber = processNumber;
             }
             
-            // Trigger load instance event
+            // Trigger load instance event (manual input uses server only)
             this.stateManager.setState('ui.loading', true);
-            this.eventBus.emit('instanceLoader:loadInstance', { uuid: finalUuid });
+            this.eventBus.emit('instanceLoader:loadInstance', { uuid: finalUuid, source: 'server' });
             
         } catch (error) {
             // Handle specific error types
@@ -362,13 +358,10 @@ export class InstanceLoaderViewer {
                     viewLogButton.textContent = 'Fetching...';
                 }
                 
+                // Fetch UUID from server only (manual input uses server)
                 const cpeeService = serviceFactory.get('CPEEService');
-                const result = await cpeeService.fetchUUIDFromProcessNumber(processNum);
+                const result = await cpeeService.fetchUUIDFromProcessNumber(processNum, { source: 'server' });
                 finalUuid = result.uuid;
-                
-                if (result.fromFallback) {
-                    console.warn(`Using FALLBACK UUID for process ${processNum}`);
-                }
                 
                 // Update UUID input
                 if (uuidInput) {
@@ -377,8 +370,8 @@ export class InstanceLoaderViewer {
                 }
             }
             
-            // Emit view log event
-            this.eventBus.emit('instanceLoader:viewLog', { uuid: finalUuid });
+            // Emit view log event (manual input uses server only)
+            this.eventBus.emit('instanceLoader:viewLog', { uuid: finalUuid, source: 'server' });
             
         } catch (error) {
             if (error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'))) {
@@ -409,7 +402,8 @@ export class InstanceLoaderViewer {
     }
 
     /**
-     * Fetch UUID from CPEE process number and update UI
+     * Fetch UUID from local fallback for known instances
+     * Used by known instances list - uses fallback only (no server query)
      * @param {number} processNumber - CPEE process instance number
      * @returns {Promise<string>} The fetched UUID
      */
@@ -418,22 +412,18 @@ export class InstanceLoaderViewer {
         const processNumberInput = this.getElement('processNumberInput');
         
         try {
-            console.log(`Fetching UUID for process number: ${processNumber}`);
+            console.log(`Fetching UUID for known instance ${processNumber} (fallback only)`);
 
-            // Fetch UUID from CPEE service
+            // Fetch UUID from fallback only (known instances use local data)
             const cpeeService = serviceFactory.get('CPEEService');
-            const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+            const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber, { source: 'fallback' });
             const uuid = result.uuid;
-            
-            if (result.fromFallback) {
-                console.warn(`Using FALLBACK UUID for process ${processNumber}`);
-            }
 
             // Update UUID input field and store the process number for later use
             if (uuidInput) {
                 uuidInput.value = uuid;
                 uuidInput.dataset.processNumber = processNumber;
-                console.log(`UUID fetched successfully: ${uuid}`);
+                console.log(`UUID fetched from fallback: ${uuid}`);
             }
             
             // Show success feedback
@@ -447,12 +437,7 @@ export class InstanceLoaderViewer {
             return uuid;
 
         } catch (error) {
-            // Check if it's a 404 (process number doesn't exist)
-            if (error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'))) {
-                console.log(`Process number ${processNumber} does not exist (404)`);
-            } else {
-                console.error('Error fetching UUID:', error);
-            }
+            console.error(`Error fetching UUID from fallback for instance ${processNumber}:`, error);
 
             // Show error state
             if (processNumberInput) {
@@ -462,7 +447,7 @@ export class InstanceLoaderViewer {
                 }, configManager.get('ui.notifications.errorDuration'));
             }
             
-            throw error; // Re-throw for caller to handle
+            throw error;
         }
     }
 
@@ -512,18 +497,14 @@ export class InstanceLoaderViewer {
         const cpeeService = serviceFactory.get('CPEEService');
         
         try {
-            // Fetch UUID from process number
-            const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+            // Fetch UUID from fallback only (known instances use local data)
+            const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber, { source: 'fallback' });
             const uuid = result.uuid;
             
             try {
-                // Fetch and parse log
-                const logResult = await this.logFetchService.fetchAndParseLog(uuid);
+                // Fetch and parse log from fallback only
+                const logResult = await this.logFetchService.fetchAndParseLog(uuid, { source: 'fallback' });
                 const logData = logResult.events;
-                
-                if (logResult.fromFallback) {
-                    console.warn(`Using FALLBACK log for UUID ${uuid}`);
-                }
                 
                 // Use lightweight check instead of full parsing
                 const { hasSteps, stepCount } = this.eventProcessingService.hasStepsInLog(logData);
@@ -535,7 +516,7 @@ export class InstanceLoaderViewer {
                 };
             } catch (error) {
                 // Log fetch/parse failed, but we have the UUID
-                console.warn(`Failed to fetch/parse log for instance ${processNumber}:`, error);
+                console.warn(`No fallback log for instance ${processNumber}:`, error.message);
                 return {
                     hasSteps: false,
                     processNumber,
@@ -544,24 +525,13 @@ export class InstanceLoaderViewer {
                 };
             }
         } catch (error) {
-            // Check if it's a 404 (process number doesn't exist) - this is expected, not an error
-            const isNotFound = error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'));
-            if (isNotFound) {
-                // Silently skip - process number doesn't exist, no need to log as error
-                return {
-                    hasSteps: false,
-                    processNumber,
-                    uuid: null,
-                    error: 'Process number does not exist',
-                    isNotFound: true
-                };
-            }
-            // Other errors (network issues, rate limits, etc.) - silently handle
+            // No fallback data for this process number
             return {
                 hasSteps: false,
                 processNumber,
                 uuid: null,
-                error: error.message
+                error: error.message,
+                isNotFound: true
             };
         }
     }
@@ -791,9 +761,9 @@ export class InstanceLoaderViewer {
             uuidInput.dataset.processNumber = processNumber.toString();
         }
         
-        // Trigger load instance event
+        // Trigger load instance event (known instances use fallback only)
         this.stateManager.setState('ui.loading', true);
-        this.eventBus.emit('instanceLoader:loadInstance', { uuid });
+        this.eventBus.emit('instanceLoader:loadInstance', { uuid, source: 'fallback' });
     }
 
     /**

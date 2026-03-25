@@ -3,7 +3,7 @@
 #   powershell -ExecutionPolicy Bypass -File scripts/fetch-and-update.ps1
 
 # Process numbers to fetch
-$processNumbers = @(851..4913)
+$processNumbers = @(1..6000)
 
 # Initialize SSL bypass
 Write-Host "Initializing..." -ForegroundColor Cyan
@@ -109,7 +109,7 @@ if ($needFetch.Count -gt 0) {
 Write-Host "Total UUIDs to process: $($uuidMapping.Count)" -ForegroundColor Green
 
 # ========== STEP 2: Fetch Logs ==========
-Write-Host "`nFetching logs (filtering for 'exposition' and steps)..." -ForegroundColor Cyan
+Write-Host "`nFetching logs (filtering for 'exposition')..." -ForegroundColor Cyan
 
 $selectedMapping = [System.Collections.Concurrent.ConcurrentDictionary[string, string]]::new()
 Remove-Item -Path "$tempLogDir\*" -Force -ErrorAction SilentlyContinue
@@ -118,11 +118,7 @@ $logScript = {
     param($processNumber, $uuid, $outputDir)
     try {
         $content = (New-Object System.Net.WebClient).DownloadString("https://cpee.org/logs/$uuid.xes.yaml")
-        $checkContent = $content.Substring(0, [Math]::Min($content.Length, 1000000))
-        # Must have 'exposition' AND at least one step (indicated by 'event: call/')
-        $hasExposition = $checkContent -match "exposition"
-        $hasSteps = $checkContent -match "event:\s*call/"
-        if ($hasExposition -and $hasSteps) {
+        if ($content.Substring(0, [Math]::Min($content.Length, 1000000)) -match "exposition") {
             [System.IO.File]::WriteAllText((Join-Path $outputDir "${uuid}_v2.xes.yaml"), $content)
             return @{ ProcessNumber = $processNumber; UUID = $uuid; Success = $true; Selected = $true }
         }
@@ -156,7 +152,7 @@ foreach ($job in $logJobs) {
 }
 $logRunspacePool.Close()
 $logRunspacePool.Dispose()
-Write-Host "`nSelected $($selectedMapping.Count) logs with exposition and steps" -ForegroundColor Green
+Write-Host "`nSelected $($selectedMapping.Count) logs with exposition" -ForegroundColor Green
 
 # ========== STEP 3: Save to Fallback ==========
 Write-Host "`nSaving to fallback..." -ForegroundColor Cyan

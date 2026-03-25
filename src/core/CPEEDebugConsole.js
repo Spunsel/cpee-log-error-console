@@ -153,7 +153,7 @@ export class CPEEDebugConsole {
 
         // Instance loading from instance loader
         this.eventBus.on('instanceLoader:loadInstance', async (data) => {
-            await this.loadInstance(data.uuid);
+            await this.loadInstance(data.uuid, { source: data.source || 'auto' });
         });
 
         // View log request from instance loader
@@ -247,9 +247,11 @@ export class CPEEDebugConsole {
      * Load CPEE instance data
      * @param {string} uuid - CPEE instance UUID
      */
-    async loadInstance(uuid) {
+    async loadInstance(uuid, options = {}) {
+        const { source = 'auto' } = options;
+        
         try {
-            console.log(`Loading instance: ${uuid}`);
+            console.log(`Loading instance: ${uuid} (source: ${source})`);
             
             // Check if already loaded
             if (this.instanceService.hasInstance(uuid)) {
@@ -257,12 +259,14 @@ export class CPEEDebugConsole {
                 return;
             }
             
-            // Fetch and parse log data
-            const logResult = await this.logFetchService.fetchAndParseLog(uuid);
+            // Fetch and parse log data using specified source
+            const logResult = await this.logFetchService.fetchAndParseLog(uuid, { source });
             const logData = logResult.events;
             
             if (logResult.fromFallback) {
-                console.warn(`Using FALLBACK log for UUID ${uuid}`);
+                console.log(`Loaded log from local fallback for UUID ${uuid}`);
+            } else {
+                console.log(`Loaded log from server for UUID ${uuid}`);
             }
             
             const steps = await this.stepAssemblyService.parseStepsFromLog(logData);
