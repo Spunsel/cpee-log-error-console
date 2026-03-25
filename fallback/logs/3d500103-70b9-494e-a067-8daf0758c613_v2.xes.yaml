@@ -1,0 +1,862 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 1046
+    cpee:name: Plain Instance
+    cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T16:46:50.133190+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74776730b06355d47fb639cebb22e4fb961fed94
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T16:46:56.475555+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Check Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Carry Out Examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Results Available</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="5">
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Prepare Report</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive" a:alt_id="7">
+            <alternative condition="">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Send for Confirmatory Testing) |Results Require|</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition=""/>
+          </choose>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive" a:alt_id="11">
+            <alternative condition="">
+              <call id="a23" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Notify Clinician) |Critical Results|</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition=""/>
+          </choose>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: 74776730b06355d47fb639cebb22e4fb961fed94
+  time:timestamp: '2025-10-28T16:46:56.475377+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74776730b06355d47fb639cebb22e4fb961fed94
+  cpee:exposition: |-
+    # User Input:
+    Once the lab receives a sample, it is first checked to ensure everything is in order, and then the examination is carried out.
+    After the results are available, a few things can happen. A report is always prepared to document the findings. At the same time, if the results require it, the sample might be sent for confirmatory testing, and the clinician can be notified immediately in case of critical results.
+    When all necessary follow-up steps are completed, the process comes to an end.
+  time:timestamp: '2025-10-28T16:46:56.475666+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74776730b06355d47fb639cebb22e4fb961fed94
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T16:46:56.475912+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74776730b06355d47fb639cebb22e4fb961fed94
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T16:46:56.476080+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74776730b06355d47fb639cebb22e4fb961fed94
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Receive Sample)
+    1:task:(Receive Sample) --> 2:task:(Check Sample)
+    2:task:(Check Sample) --> 3:task:(Carry Out Examination)
+    3:task:(Carry Out Examination) --> 4:task:(Results Available)
+    4:task:(Results Available) --> 5:parallelgateway:{AND}
+    5:parallelgateway:{AND} --> 6:task:(Prepare Report)
+    5:parallelgateway:{AND} --> 7:exclusivegateway:{x}
+    5:parallelgateway:{AND} --> 11:exclusivegateway:{x}
+    7:exclusivegateway:{x} --> 8:task:(Send for Confirmatory Testing) |Results Require|
+    7:exclusivegateway:{x} --> 9:parallelgateway:{AND} |Results Do Not Require|
+    8:task:(Send for Confirmatory Testing) --> 9:parallelgateway:{AND}
+    11:exclusivegateway:{x} --> 12:task:(Notify Clinician) |Critical Results|
+    11:exclusivegateway:{x} --> 9:parallelgateway:{AND} |Not Critical Results|
+    12:task:(Notify Clinician) --> 9:parallelgateway:{AND}
+    6:task:(Prepare Report) --> 9:parallelgateway:{AND}
+    9:parallelgateway:{AND} --> 10:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T16:46:56.476262+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74776730b06355d47fb639cebb22e4fb961fed94
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Check Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Carry Out Examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Results Available</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="5">
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Prepare Report</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive" a:alt_id="7">
+            <alternative condition="">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Send for Confirmatory Testing) |Results Require|</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition=""/>
+          </choose>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive" a:alt_id="11">
+            <alternative condition="">
+              <call id="a23" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Notify Clinician) |Critical Results|</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition=""/>
+          </choose>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-10-28T16:46:56.476429+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e162a5a325bebaaf987984a9dc76f0ecf7297816
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Check Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Carry Out Examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Results Available</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="5">
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Prepare Report</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive" a:alt_id="7">
+            <alternative condition="">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Send for Confirmatory Testing) |Results Require|</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition=""/>
+          </choose>
+        </parallel_branch>
+        <parallel_branch>
+          <choose mode="exclusive" a:alt_id="11">
+            <alternative condition="">
+              <call id="a23" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Notify Clinician) |Critical Results|</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition=""/>
+          </choose>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2025-10-28T16:47:14.779403+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e162a5a325bebaaf987984a9dc76f0ecf7297816
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T16:47:14.779735+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Check Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Carry Out Examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Results Available</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: e162a5a325bebaaf987984a9dc76f0ecf7297816
+  time:timestamp: '2025-10-28T16:47:14.779011+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e162a5a325bebaaf987984a9dc76f0ecf7297816
+  cpee:exposition: |-
+    # User Input:
+    use inclusive gateways
+  time:timestamp: '2025-10-28T16:47:14.779534+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e162a5a325bebaaf987984a9dc76f0ecf7297816
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Sample)
+    a1:task:(Receive Sample)-->a3:task:(Check Sample)
+    a3:task:(Check Sample)-->a5:task:(Carry Out Examination)
+    a5:task:(Carry Out Examination)-->a7:task:(Results Available)
+    a7:task:(Results Available)-->gw1s:parallelgateway:{AND}
+    -->a11:task:(Prepare Report)
+    a11:task:(Prepare Report)-->gw1e:parallelgateway:{AND}
+    -->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|a17:task:(Send for Confirmatory Testing\) |Results Require|)
+    a17:task:(Send for Confirmatory Testing\) |Results Require|)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|""|gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:parallelgateway:{AND}
+    -->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|""|a23:task:(Notify Clinician\) |Critical Results|)
+    a23:task:(Notify Clinician\) |Critical Results|)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|""|gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T16:47:14.780165+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e162a5a325bebaaf987984a9dc76f0ecf7297816
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Sample)
+    a1:task:(Receive Sample)-->a3:task:(Check Sample)
+    a3:task:(Check Sample)-->a5:task:(Carry Out Examination)
+    a5:task:(Carry Out Examination)-->a7:task:(Results Available)
+    a7:task:(Results Available)-->gw1s:parallelgateway:{AND}
+    -->a11:task:(Prepare Report)
+    a11:task:(Prepare Report)-->gw1e:parallelgateway:{AND}
+    -->gw2s:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->|""|a17:task:(Send for Confirmatory Testing\) |Results Require|)
+    a17:task:(Send for Confirmatory Testing\) |Results Require|)-->gw2e:inclusivegateway:{O}
+    gw2s:inclusivegateway:{O}-->|""|gw2e:inclusivegateway:{O}
+    gw2e:inclusivegateway:{O}-->gw1e:parallelgateway:{AND}
+    -->gw3s:inclusivegateway:{O}
+    gw3s:inclusivegateway:{O}-->|""|a23:task:(Notify Clinician\) |Critical Results|)
+    a23:task:(Notify Clinician\) |Critical Results|)-->gw3e:inclusivegateway:{O}
+    gw3s:inclusivegateway:{O}-->|""|gw3e:inclusivegateway:{O}
+    gw3e:inclusivegateway:{O}-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-10-28T16:47:14.780562+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e162a5a325bebaaf987984a9dc76f0ecf7297816
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Check Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Carry Out Examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Results Available</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T16:47:14.781043+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb0f371cd5b8f237d8efa2f1d13045428fc49324
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Check Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Carry Out Examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Results Available</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-28T16:47:31.239196+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Check Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Carry Out Examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Results Available</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="inclusive" a:alt_id="ig1">
+        <alternative condition="">
+          <call id="a11" endpoint="" a:alt_id="a8">
+            <parameters>
+              <label>Prepare Report</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Results require" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Confirmatory Testing</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Critical results" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="a10">
+            <parameters>
+              <label>Notify Clinician</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: fb0f371cd5b8f237d8efa2f1d13045428fc49324
+  time:timestamp: '2025-10-28T16:47:31.239006+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb0f371cd5b8f237d8efa2f1d13045428fc49324
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T16:47:31.239603+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb0f371cd5b8f237d8efa2f1d13045428fc49324
+  cpee:exposition: |-
+    # User Input:
+    use inclusive gateways. Once the lab receives a sample, it is first checked to ensure everything is in order, and then the examination is carried out.
+    After the results are available, a few things can happen. A report is always prepared to document the findings. At the same time, if the results require it, the sample might be sent for confirmatory testing, and the clinician can be notified immediately in case of critical results.
+    When all necessary follow-up steps are completed, the process comes to an end.
+  time:timestamp: '2025-10-28T16:47:31.239306+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb0f371cd5b8f237d8efa2f1d13045428fc49324
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> a1:task:(Receive Sample)
+        a1:task:(Receive Sample) --> a3:task:(Check Sample)
+        a3:task:(Check Sample) --> a5:task:(Carry Out Examination)
+        a5:task:(Carry Out Examination) --> a7:task:(Results Available)
+        a7:task:(Results Available) --> ig1:inclusivegateway:{O}
+        ig1:inclusivegateway:{O} --> a8:task:(Prepare Report)
+        ig1:inclusivegateway:{O} --> |Results require| a9:task:(Confirmatory Testing)
+        ig1:inclusivegateway:{O} --> |Critical results| a10:task:(Notify Clinician)
+        a8:task:(Prepare Report) --> ig2:inclusivegateway:{O}
+        a9:task:(Confirmatory Testing) --> ig2:inclusivegateway:{O}
+        a10:task:(Notify Clinician) --> ig2:inclusivegateway:{O}
+        ig2:inclusivegateway:{O} --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T16:47:31.239776+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb0f371cd5b8f237d8efa2f1d13045428fc49324
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Sample)
+    a1:task:(Receive Sample)-->a3:task:(Check Sample)
+    a3:task:(Check Sample)-->a5:task:(Carry Out Examination)
+    a5:task:(Carry Out Examination)-->a7:task:(Results Available)
+    a7:task:(Results Available)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-28T16:47:31.239694+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: fb0f371cd5b8f237d8efa2f1d13045428fc49324
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Receive Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Check Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Carry Out Examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Results Available</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="inclusive" a:alt_id="ig1">
+        <alternative condition="">
+          <call id="a11" endpoint="" a:alt_id="a8">
+            <parameters>
+              <label>Prepare Report</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Results require" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Confirmatory Testing</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Critical results" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="a10">
+            <parameters>
+              <label>Notify Clinician</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-10-28T16:47:31.239941+01:00'
+---
+event:
+  concept:instance: 1046
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 3d500103-70b9-494e-a067-8daf0758c613
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-11-17T17:39:50.758125+01:00'

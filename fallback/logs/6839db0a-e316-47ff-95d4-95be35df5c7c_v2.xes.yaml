@@ -1,0 +1,748 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 38
+    cpee:name: Project Approval
+    cpee:instance: 6839db0a-e316-47ff-95d4-95be35df5c7c
+---
+event:
+  concept:instance: 38
+  id:id: ex-ante
+  cpee:instance: 6839db0a-e316-47ff-95d4-95be35df5c7c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-17T08:58:41.158815+01:00'
+---
+event:
+  concept:instance: 38
+  id:id: ex-ante
+  cpee:instance: 6839db0a-e316-47ff-95d4-95be35df5c7c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01973adf4fd22ff18072ea7852baa2242a3131cf'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-17T08:58:54.679219+01:00'
+---
+event:
+  concept:instance: 38
+  id:id: ex-ante
+  cpee:instance: 6839db0a-e316-47ff-95d4-95be35df5c7c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>&#x586B;&#x5199;&#x9879;&#x76EE;&#x7533;&#x8BF7;&#x8868;</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>&#x81EA;&#x68C0;&#x4FE1;&#x606F;</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>&#x63D0;&#x4EA4;&#x81F3;&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x521D;&#x5BA1;</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x63A5;&#x6536;&#x7533;&#x8BF7;</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="&#x540C;&#x610F;">
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="&#x540C;&#x610F;" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>&#x9879;&#x76EE;&#x6D41;&#x8F6C;&#x81F3;&#x804C;&#x80FD;&#x90E8;&#x95E8;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <parallel wait="-1" cancel="last" a:alt_id="10">
+                <parallel_branch>
+                  <call id="a19" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>&#x8D22;&#x52A1;&#x5BA1;&#x6838;&#x9884;&#x7B97;&#x5408;&#x89C4;&#x6027;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a21" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>&#x6CD5;&#x52A1;&#x5BA1;&#x6838;&#x5408;&#x540C;&#x4E0E;&#x98CE;&#x9669;&#x6761;&#x6B3E;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a23" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>&#x98CE;&#x63A7;&#x5BA1;&#x6838;&#x9879;&#x76EE;&#x6574;&#x4F53;&#x98CE;&#x9669;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+              </parallel>
+              <call id="a31" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>&#x5168;&#x90E8;&#x901A;&#x8FC7;&#x540E;&#x8FDB;&#x5165;&#x9AD8;&#x5C42;&#x5BA1;&#x6279;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a33" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>&#x6839;&#x636E;&#x9879;&#x76EE;&#x91D1;&#x989D;&#x4E0E;&#x6743;&#x9650;&#x5206;&#x7EA7;&#x4E0A;&#x62A5;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="17">
+                <alternative condition="&#x4E0D;&#x901A;&#x8FC7;" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="18">
+                    <alternative condition="&#x9000;&#x56DE;&#x4FEE;&#x6539;" language="text/javascript">
+                      <call id="a1" endpoint="" a:alt_id="1">
+                        <parameters>
+                          <label>&#x586B;&#x5199;&#x9879;&#x76EE;&#x7533;&#x8BF7;&#x8868;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a3" endpoint="" a:alt_id="2">
+                        <parameters>
+                          <label>&#x81EA;&#x68C0;&#x4FE1;&#x606F;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a5" endpoint="" a:alt_id="3">
+                        <parameters>
+                          <label>&#x63D0;&#x4EA4;&#x81F3;&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x521D;&#x5BA1;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a7" endpoint="" a:alt_id="4">
+                        <parameters>
+                          <label>&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x63A5;&#x6536;&#x7533;&#x8BF7;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="&#x7EC8;&#x6B62;&#x6D41;&#x7A0B;" language="text/javascript">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="">
+                  <call id="a37" endpoint="" a:alt_id="21">
+                    <parameters>
+                      <label>&#x7CFB;&#x7EDF;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x6279;&#x590D;&#x6587;&#x4EF6;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a45" endpoint="" a:alt_id="22">
+                    <parameters>
+                      <label>&#x901A;&#x77E5;&#x7533;&#x8BF7;&#x4EBA;&#x4E0E;&#x76F8;&#x5173;&#x90E8;&#x95E8;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a47" endpoint="" a:alt_id="23">
+                    <parameters>
+                      <label>&#x9879;&#x76EE;&#x8FDB;&#x5165;&#x7ACB;&#x9879;&#x5B9E;&#x65BD;&#x9636;&#x6BB5;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a49" endpoint="" a:alt_id="24">
+                    <parameters>
+                      <label>&#x540C;&#x6B65;&#x5F52;&#x6863;&#x5BA1;&#x6279;&#x8BB0;&#x5F55;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a51" endpoint="" a:alt_id="25">
+                    <parameters>
+                      <label>&#x9879;&#x76EE;&#x6267;&#x884C;&#x4E2D;&#x5982;&#x9700;&#x8C03;&#x6574;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a53" endpoint="" a:alt_id="26">
+                    <parameters>
+                      <label>&#x63D0;&#x4EA4;&#x53D8;&#x66F4;&#x7533;&#x8BF7;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a55" endpoint="" a:alt_id="27">
+                    <parameters>
+                      <label>&#x6309;&#x539F;&#x5BA1;&#x6279;&#x8DEF;&#x5F84;&#x91CD;&#x65B0;&#x5BA1;&#x6838;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="28">
+                    <alternative condition="&#x5BA1;&#x6279;&#x901A;&#x8FC7;" language="text/javascript">
+                      <call id="a59" endpoint="" a:alt_id="29">
+                        <parameters>
+                          <label>&#x53EF;&#x6267;&#x884C;&#x53D8;&#x66F4;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a63" endpoint="" a:alt_id="30">
+                        <parameters>
+                          <label>&#x5168;&#x7A0B;&#x7559;&#x75D5;&#x5F52;&#x6863;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a65" endpoint="" a:alt_id="31">
+                        <parameters>
+                          <label>&#x6240;&#x6709;&#x5BA1;&#x6279;&#x5355;&#x636E;&#x7EDF;&#x4E00;&#x5F52;&#x6863;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a67" endpoint="" a:alt_id="32">
+                        <parameters>
+                          <label>&#x5B9A;&#x671F;&#x7EDF;&#x8BA1;&#x5BA1;&#x6279;&#x65F6;&#x6548;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a69" endpoint="" a:alt_id="33">
+                        <parameters>
+                          <label>&#x4F18;&#x5316;&#x6D41;&#x7A0B;&#x56FE;&#x8282;&#x70B9;&#x4E0E;&#x89C4;&#x5219;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="&#x4E0D;&#x901A;&#x8FC7;" language="text/javascript"/>
+                  </choose>
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="&#x4E0D;&#x540C;&#x610F;" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>&#x6CE8;&#x660E;&#x539F;&#x56E0;&#x9000;&#x56DE;&#x7533;&#x8BF7;&#x4EBA;&#x4FEE;&#x6539;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a1" endpoint="" a:alt_id="1">
+                <parameters>
+                  <label>&#x586B;&#x5199;&#x9879;&#x76EE;&#x7533;&#x8BF7;&#x8868;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>&#x81EA;&#x68C0;&#x4FE1;&#x606F;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>&#x63D0;&#x4EA4;&#x81F3;&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x521D;&#x5BA1;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x63A5;&#x6536;&#x7533;&#x8BF7;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: '01973adf4fd22ff18072ea7852baa2242a3131cf'
+  time:timestamp: '2026-03-17T08:58:54.678767+01:00'
+---
+event:
+  concept:instance: 38
+  id:id: ex-ante
+  cpee:instance: 6839db0a-e316-47ff-95d4-95be35df5c7c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01973adf4fd22ff18072ea7852baa2242a3131cf'
+  cpee:exposition: |-
+    # User Input:
+    é¡¹ç›®ç”³è¯·å‘èµ·æµç¨‹
+    ç”³è¯·äººä¾æ®å®žé™…éœ€æ±‚å¡«å†™é¡¹ç›®ç”³è¯·è¡¨â†’æ˜Žç¡®é¡¹ç›®èƒŒæ™¯ã€ç›®æ ‡ã€é¢„ç®—ã€å‘¨æœŸåŠé™„ä»¶ææ–™â†’è‡ªæ£€ä¿¡æ¯å®Œæ•´æ€§ä¸Žåˆè§„æ€§â†’æäº¤è‡³éƒ¨é—¨è´Ÿè´£äººåˆå®¡ã€‚æµç¨‹å›¾æ˜Žç¡®ç”³è¯·ææ–™æ ‡å‡†ï¼Œé¿å…å› èµ„æ–™ä¸å…¨åå¤é€€å›žã€‚
+    éƒ¨é—¨åˆå®¡æµç¨‹
+    éƒ¨é—¨è´Ÿè´£äººæŽ¥æ”¶ç”³è¯·â†’ä¾æ®ä¸šåŠ¡è§„åˆ’ä¸Žéƒ¨é—¨é¢„ç®—å®¡æ ¸åˆç†æ€§â†’ç¡®è®¤é¡¹ç›®å¿…è¦æ€§ä¸Žå†…å®¹çœŸå®žæ€§â†’åŒæ„åˆ™è¿›å…¥ä¸‹ä¸€çŽ¯èŠ‚ï¼›ä¸åŒæ„åˆ™æ³¨æ˜ŽåŽŸå› é€€å›žç”³è¯·äººä¿®æ”¹ã€‚æµç¨‹å›¾é™å®šå®¡æ‰¹æ—¶é™ï¼Œç¡®ä¿ä¸ç§¯åŽ‹ã€‚
+    èŒèƒ½éƒ¨é—¨å®¡æ ¸æµç¨‹
+    é¡¹ç›®æµè½¬è‡³è´¢åŠ¡ã€æ³•åŠ¡ã€é£ŽæŽ§ç­‰å²—ä½â†’è´¢åŠ¡å®¡æ ¸é¢„ç®—åˆè§„æ€§â†’æ³•åŠ¡å®¡æ ¸åˆåŒä¸Žé£Žé™©æ¡æ¬¾â†’é£ŽæŽ§å®¡æ ¸é¡¹ç›®æ•´ä½“é£Žé™©â†’å„å²—ä½ç‹¬ç«‹å®¡æ ¸ã€å¹¶è¡Œæˆ–ä¾æ¬¡æµè½¬â†’å…¨éƒ¨é€šè¿‡åŽæ–¹å¯è¿›å…¥é«˜å±‚å®¡æ‰¹ã€‚æµç¨‹å›¾å›ºå®šå®¡æ ¸è¦ç‚¹ï¼Œæœç»é—æ¼å…³é”®é£Žé™©æŽ§åˆ¶çŽ¯èŠ‚ã€‚
+    é«˜å±‚å®¡æ‰¹æµç¨‹
+    æ ¹æ®é¡¹ç›®é‡‘é¢ä¸Žæƒé™åˆ†çº§ä¸ŠæŠ¥â†’åˆ†ç®¡é¢†å¯¼å®¡æ ¸â†’æ€»ç»ç† / é¡¹ç›®æ€»å®¡æ‰¹â†’é‡å¤§é¡¹ç›®ä¸ŠæŠ¥è‘£äº‹ä¼šå®¡æ‰¹ã€‚å®¡æ‰¹é€šè¿‡åˆ™ä¸‹è¾¾ç«‹é¡¹æ‰¹å¤ï¼›ä¸é€šè¿‡åˆ™ç»ˆæ­¢æµç¨‹æˆ–é€€å›žä¿®æ”¹ã€‚æµç¨‹å›¾æ¸…æ™°åˆ’åˆ†å®¡æ‰¹æƒé™ï¼Œå®žçŽ°æƒè´£å¯¹ç­‰ã€‚
+    å®¡æ‰¹ç»“æžœä¸‹å‘ä¸Žæ‰§è¡Œæµç¨‹
+    å®¡æ‰¹å®Œæˆâ†’ç³»ç»Ÿè‡ªåŠ¨ç”Ÿæˆæ‰¹å¤æ–‡ä»¶â†’é€šçŸ¥ç”³è¯·äººä¸Žç›¸å…³éƒ¨é—¨â†’é¡¹ç›®è¿›å…¥ç«‹é¡¹å®žæ–½é˜¶æ®µâ†’åŒæ­¥å½’æ¡£å®¡æ‰¹è®°å½•ã€‚æµç¨‹å›¾ç¡®ä¿å®¡æ‰¹ç»“æžœåŠæ—¶ä¸‹è¾¾ï¼Œé¡¹ç›®å¯å¿«é€Ÿå¯åŠ¨ã€‚
+    å˜æ›´ä¸Žå¼‚å¸¸å¤„ç†æµç¨‹
+    é¡¹ç›®æ‰§è¡Œä¸­å¦‚éœ€è°ƒæ•´å†…å®¹ã€é¢„ç®—æˆ–å»¶æœŸâ†’æäº¤å˜æ›´ç”³è¯·â†’æŒ‰åŽŸå®¡æ‰¹è·¯å¾„é‡æ–°å®¡æ ¸â†’å®¡æ‰¹é€šè¿‡åŽæ–¹å¯æ‰§è¡Œå˜æ›´â†’å…¨ç¨‹ç•™ç—•å½’æ¡£ã€‚æµç¨‹å›¾å®žçŽ°å˜æ›´å¯æŽ§ï¼Œé˜²æ­¢éšæ„è°ƒæ•´ã€‚
+    èµ„æ–™å½’æ¡£ä¸Žæµç¨‹å¤ç›˜
+    æ‰€æœ‰å®¡æ‰¹å•æ®ã€æ„è§ã€é™„ä»¶ç»Ÿä¸€å½’æ¡£â†’å®šæœŸç»Ÿè®¡å®¡æ‰¹æ—¶æ•ˆã€é€€å›žçŽ‡ã€é—®é¢˜ç‚¹â†’ä¼˜åŒ–æµç¨‹å›¾èŠ‚ç‚¹ä¸Žè§„åˆ™ã€‚å½¢æˆç®¡ç†é—­çŽ¯ï¼ŒæŒç»­æå‡å®¡æ‰¹æ•ˆçŽ‡ã€‚
+  time:timestamp: '2026-03-17T08:58:54.680052+01:00'
+---
+event:
+  concept:instance: 38
+  id:id: ex-ante
+  cpee:instance: 6839db0a-e316-47ff-95d4-95be35df5c7c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01973adf4fd22ff18072ea7852baa2242a3131cf'
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-03-17T08:58:54.680251+01:00'
+---
+event:
+  concept:instance: 38
+  id:id: ex-ante
+  cpee:instance: 6839db0a-e316-47ff-95d4-95be35df5c7c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01973adf4fd22ff18072ea7852baa2242a3131cf'
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-17T08:58:54.680503+01:00'
+---
+event:
+  concept:instance: 38
+  id:id: ex-ante
+  cpee:instance: 6839db0a-e316-47ff-95d4-95be35df5c7c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01973adf4fd22ff18072ea7852baa2242a3131cf'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>&#x586B;&#x5199;&#x9879;&#x76EE;&#x7533;&#x8BF7;&#x8868;</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>&#x81EA;&#x68C0;&#x4FE1;&#x606F;</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>&#x63D0;&#x4EA4;&#x81F3;&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x521D;&#x5BA1;</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x63A5;&#x6536;&#x7533;&#x8BF7;</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="&#x540C;&#x610F;">
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="&#x540C;&#x610F;" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>&#x9879;&#x76EE;&#x6D41;&#x8F6C;&#x81F3;&#x804C;&#x80FD;&#x90E8;&#x95E8;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <parallel wait="-1" cancel="last" a:alt_id="10">
+                <parallel_branch>
+                  <call id="a19" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>&#x8D22;&#x52A1;&#x5BA1;&#x6838;&#x9884;&#x7B97;&#x5408;&#x89C4;&#x6027;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a21" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>&#x6CD5;&#x52A1;&#x5BA1;&#x6838;&#x5408;&#x540C;&#x4E0E;&#x98CE;&#x9669;&#x6761;&#x6B3E;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a23" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>&#x98CE;&#x63A7;&#x5BA1;&#x6838;&#x9879;&#x76EE;&#x6574;&#x4F53;&#x98CE;&#x9669;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+              </parallel>
+              <call id="a31" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>&#x5168;&#x90E8;&#x901A;&#x8FC7;&#x540E;&#x8FDB;&#x5165;&#x9AD8;&#x5C42;&#x5BA1;&#x6279;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a33" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>&#x6839;&#x636E;&#x9879;&#x76EE;&#x91D1;&#x989D;&#x4E0E;&#x6743;&#x9650;&#x5206;&#x7EA7;&#x4E0A;&#x62A5;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="17">
+                <alternative condition="&#x4E0D;&#x901A;&#x8FC7;" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="18">
+                    <alternative condition="&#x9000;&#x56DE;&#x4FEE;&#x6539;" language="text/javascript">
+                      <call id="a1" endpoint="" a:alt_id="1">
+                        <parameters>
+                          <label>&#x586B;&#x5199;&#x9879;&#x76EE;&#x7533;&#x8BF7;&#x8868;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a3" endpoint="" a:alt_id="2">
+                        <parameters>
+                          <label>&#x81EA;&#x68C0;&#x4FE1;&#x606F;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a5" endpoint="" a:alt_id="3">
+                        <parameters>
+                          <label>&#x63D0;&#x4EA4;&#x81F3;&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x521D;&#x5BA1;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a7" endpoint="" a:alt_id="4">
+                        <parameters>
+                          <label>&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x63A5;&#x6536;&#x7533;&#x8BF7;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="&#x7EC8;&#x6B62;&#x6D41;&#x7A0B;" language="text/javascript">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="">
+                  <call id="a37" endpoint="" a:alt_id="21">
+                    <parameters>
+                      <label>&#x7CFB;&#x7EDF;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x6279;&#x590D;&#x6587;&#x4EF6;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a45" endpoint="" a:alt_id="22">
+                    <parameters>
+                      <label>&#x901A;&#x77E5;&#x7533;&#x8BF7;&#x4EBA;&#x4E0E;&#x76F8;&#x5173;&#x90E8;&#x95E8;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a47" endpoint="" a:alt_id="23">
+                    <parameters>
+                      <label>&#x9879;&#x76EE;&#x8FDB;&#x5165;&#x7ACB;&#x9879;&#x5B9E;&#x65BD;&#x9636;&#x6BB5;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a49" endpoint="" a:alt_id="24">
+                    <parameters>
+                      <label>&#x540C;&#x6B65;&#x5F52;&#x6863;&#x5BA1;&#x6279;&#x8BB0;&#x5F55;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a51" endpoint="" a:alt_id="25">
+                    <parameters>
+                      <label>&#x9879;&#x76EE;&#x6267;&#x884C;&#x4E2D;&#x5982;&#x9700;&#x8C03;&#x6574;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a53" endpoint="" a:alt_id="26">
+                    <parameters>
+                      <label>&#x63D0;&#x4EA4;&#x53D8;&#x66F4;&#x7533;&#x8BF7;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a55" endpoint="" a:alt_id="27">
+                    <parameters>
+                      <label>&#x6309;&#x539F;&#x5BA1;&#x6279;&#x8DEF;&#x5F84;&#x91CD;&#x65B0;&#x5BA1;&#x6838;</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="28">
+                    <alternative condition="&#x5BA1;&#x6279;&#x901A;&#x8FC7;" language="text/javascript">
+                      <call id="a59" endpoint="" a:alt_id="29">
+                        <parameters>
+                          <label>&#x53EF;&#x6267;&#x884C;&#x53D8;&#x66F4;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a63" endpoint="" a:alt_id="30">
+                        <parameters>
+                          <label>&#x5168;&#x7A0B;&#x7559;&#x75D5;&#x5F52;&#x6863;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a65" endpoint="" a:alt_id="31">
+                        <parameters>
+                          <label>&#x6240;&#x6709;&#x5BA1;&#x6279;&#x5355;&#x636E;&#x7EDF;&#x4E00;&#x5F52;&#x6863;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a67" endpoint="" a:alt_id="32">
+                        <parameters>
+                          <label>&#x5B9A;&#x671F;&#x7EDF;&#x8BA1;&#x5BA1;&#x6279;&#x65F6;&#x6548;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a69" endpoint="" a:alt_id="33">
+                        <parameters>
+                          <label>&#x4F18;&#x5316;&#x6D41;&#x7A0B;&#x56FE;&#x8282;&#x70B9;&#x4E0E;&#x89C4;&#x5219;</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="&#x4E0D;&#x901A;&#x8FC7;" language="text/javascript"/>
+                  </choose>
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="&#x4E0D;&#x540C;&#x610F;" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>&#x6CE8;&#x660E;&#x539F;&#x56E0;&#x9000;&#x56DE;&#x7533;&#x8BF7;&#x4EBA;&#x4FEE;&#x6539;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a1" endpoint="" a:alt_id="1">
+                <parameters>
+                  <label>&#x586B;&#x5199;&#x9879;&#x76EE;&#x7533;&#x8BF7;&#x8868;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>&#x81EA;&#x68C0;&#x4FE1;&#x606F;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>&#x63D0;&#x4EA4;&#x81F3;&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x521D;&#x5BA1;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>&#x90E8;&#x95E8;&#x8D1F;&#x8D23;&#x4EBA;&#x63A5;&#x6536;&#x7533;&#x8BF7;</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-03-17T08:58:54.680767+01:00'
+---
+event:
+  concept:instance: 38
+  id:id: ex-ante
+  cpee:instance: 6839db0a-e316-47ff-95d4-95be35df5c7c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '01973adf4fd22ff18072ea7852baa2242a3131cf'
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(å¡«å†™é¡¹ç›®ç”³è¯·è¡¨)
+        1:task:(å¡«å†™é¡¹ç›®ç”³è¯·è¡¨) --> 2:task:(è‡ªæ£€ä¿¡æ¯)
+        2:task:(è‡ªæ£€ä¿¡æ¯) --> 3:task:(æäº¤è‡³éƒ¨é—¨è´Ÿè´£äººåˆå®¡)
+        3:task:(æäº¤è‡³éƒ¨é—¨è´Ÿè´£äººåˆå®¡) --> 4:task:(éƒ¨é—¨è´Ÿè´£äººæŽ¥æ”¶ç”³è¯·)
+        4:task:(éƒ¨é—¨è´Ÿè´£äººæŽ¥æ”¶ç”³è¯·) --> 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> |åŒæ„| 9:task:(é¡¹ç›®æµè½¬è‡³èŒèƒ½éƒ¨é—¨)
+        5:exclusivegateway:{x} --> |ä¸åŒæ„| 6:task:(æ³¨æ˜ŽåŽŸå› é€€å›žç”³è¯·äººä¿®æ”¹)
+        6:task:(æ³¨æ˜ŽåŽŸå› é€€å›žç”³è¯·äººä¿®æ”¹) --> 1:task:(å¡«å†™é¡¹ç›®ç”³è¯·è¡¨)
+        9:task:(é¡¹ç›®æµè½¬è‡³èŒèƒ½éƒ¨é—¨) --> 10:parallelgateway:{AND}
+        10:parallelgateway:{AND} --> 11:task:(è´¢åŠ¡å®¡æ ¸é¢„ç®—åˆè§„æ€§)
+        10:parallelgateway:{AND} --> 12:task:(æ³•åŠ¡å®¡æ ¸åˆåŒä¸Žé£Žé™©æ¡æ¬¾)
+        10:parallelgateway:{AND} --> 13:task:(é£ŽæŽ§å®¡æ ¸é¡¹ç›®æ•´ä½“é£Žé™©)
+        11:task:(è´¢åŠ¡å®¡æ ¸é¢„ç®—åˆè§„æ€§) --> 14:parallelgateway:{AND}
+        12:task:(æ³•åŠ¡å®¡æ ¸åˆåŒä¸Žé£Žé™©æ¡æ¬¾) --> 14:parallelgateway:{AND}
+        13:task:(é£ŽæŽ§å®¡æ ¸é¡¹ç›®æ•´ä½“é£Žé™©) --> 14:parallelgateway:{AND}
+        14:parallelgateway:{AND} --> 15:task:(å…¨éƒ¨é€šè¿‡åŽè¿›å…¥é«˜å±‚å®¡æ‰¹)
+        15:task:(å…¨éƒ¨é€šè¿‡åŽè¿›å…¥é«˜å±‚å®¡æ‰¹) --> 16:task:(æ ¹æ®é¡¹ç›®é‡‘é¢ä¸Žæƒé™åˆ†çº§ä¸ŠæŠ¥)
+        16:task:(æ ¹æ®é¡¹ç›®é‡‘é¢ä¸Žæƒé™åˆ†çº§ä¸ŠæŠ¥) --> 17:exclusivegateway:{x}
+        17:exclusivegateway:{x} --> |å®¡æ‰¹é€šè¿‡| 21:task:(ç³»ç»Ÿè‡ªåŠ¨ç”Ÿæˆæ‰¹å¤æ–‡ä»¶)
+        17:exclusivegateway:{x} --> |ä¸é€šè¿‡| 18:exclusivegateway:{x}
+        18:exclusivegateway:{x} --> |ç»ˆæ­¢æµç¨‹| 19:endevent:(((endevent)))
+        18:exclusivegateway:{x} --> |é€€å›žä¿®æ”¹| 1:task:(å¡«å†™é¡¹ç›®ç”³è¯·è¡¨)
+        21:task:(ç³»ç»Ÿè‡ªåŠ¨ç”Ÿæˆæ‰¹å¤æ–‡ä»¶) --> 22:task:(é€šçŸ¥ç”³è¯·äººä¸Žç›¸å…³éƒ¨é—¨)
+        22:task:(é€šçŸ¥ç”³è¯·äººä¸Žç›¸å…³éƒ¨é—¨) --> 23:task:(é¡¹ç›®è¿›å…¥ç«‹é¡¹å®žæ–½é˜¶æ®µ)
+        23:task:(é¡¹ç›®è¿›å…¥ç«‹é¡¹å®žæ–½é˜¶æ®µ) --> 24:task:(åŒæ­¥å½’æ¡£å®¡æ‰¹è®°å½•)
+        24:task:(åŒæ­¥å½’æ¡£å®¡æ‰¹è®°å½•) --> 25:task:(é¡¹ç›®æ‰§è¡Œä¸­å¦‚éœ€è°ƒæ•´)
+        25:task:(é¡¹ç›®æ‰§è¡Œä¸­å¦‚éœ€è°ƒæ•´) --> 26:task:(æäº¤å˜æ›´ç”³è¯·)
+        26:task:(æäº¤å˜æ›´ç”³è¯·) --> 27:task:(æŒ‰åŽŸå®¡æ‰¹è·¯å¾„é‡æ–°å®¡æ ¸)
+        27:task:(æŒ‰åŽŸå®¡æ‰¹è·¯å¾„é‡æ–°å®¡æ ¸) --> 28:exclusivegateway:{x}
+        28:exclusivegateway:{x} --> |å®¡æ‰¹é€šè¿‡| 29:task:(å¯æ‰§è¡Œå˜æ›´)
+        28:exclusivegateway:{x} --> |ä¸é€šè¿‡| 19:endevent:(((endevent)))
+        29:task:(å¯æ‰§è¡Œå˜æ›´) --> 30:task:(å…¨ç¨‹ç•™ç—•å½’æ¡£)
+        30:task:(å…¨ç¨‹ç•™ç—•å½’æ¡£) --> 31:task:(æ‰€æœ‰å®¡æ‰¹å•æ®ç»Ÿä¸€å½’æ¡£)
+        31:task:(æ‰€æœ‰å®¡æ‰¹å•æ®ç»Ÿä¸€å½’æ¡£) --> 32:task:(å®šæœŸç»Ÿè®¡å®¡æ‰¹æ—¶æ•ˆ)
+        32:task:(å®šæœŸç»Ÿè®¡å®¡æ‰¹æ—¶æ•ˆ) --> 33:task:(ä¼˜åŒ–æµç¨‹å›¾èŠ‚ç‚¹ä¸Žè§„åˆ™)
+        33:task:(ä¼˜åŒ–æµç¨‹å›¾èŠ‚ç‚¹ä¸Žè§„åˆ™) --> 19:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-03-17T08:58:54.680586+01:00'

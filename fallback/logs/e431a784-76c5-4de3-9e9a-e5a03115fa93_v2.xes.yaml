@@ -1,0 +1,1755 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 487
+    cpee:name: Plain Instance
+    cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-19T20:09:47.606597+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2026-03-19T20:09:58.869339+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-19T20:09:58.944622+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7dfb8446c3ab915b600fefc41b66ebe66007f048
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-19T20:18:59.445715+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Mitarbeiter f&#xFC;llt DR-Antrag in SAP aus</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Antrag geht elektronisch an F&#xFC;hrungskraft</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>F&#xFC;hrungskraft pr&#xFC;ft den Antrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="R&#xFC;ckfragen">
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="R&#xFC;ckfragen" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Mitarbeiter erg&#xE4;nzt den DR-Antrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Antrag geht elektronisch an F&#xFC;hrungskraft</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>F&#xFC;hrungskraft pr&#xFC;ft den Antrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Genehmigt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Mitarbeiter erh&#xE4;lt Genehmigung per E-Mail</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Mitarbeiter f&#xFC;hrt Buchungen in Reiseportalen durch</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Mitarbeiter f&#xFC;hrt die Dienstreise durch</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Mitarbeiter macht Reisekostenabrechnung in SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Abgelehnt" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Mitarbeiter erh&#xE4;lt Ablehnung per E-Mail</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 7dfb8446c3ab915b600fefc41b66ebe66007f048
+  time:timestamp: '2026-03-19T20:18:59.445489+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7dfb8446c3ab915b600fefc41b66ebe66007f048
+  cpee:exposition: |-
+    # User Input:
+    Startereignis ist "Dienstreise steht an"Â 
+    Der Mitarbeiter fÃ¼llt einen DR-Antrag in SAP ausÂ 
+    Der Antrag geht elektronisch an seine FÃ¼hrungskraft.Â 
+    Die FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien.Â 
+    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden FÃ¤llen erhÃ¤lt der Mitarbeiter eine RÃ¼ckmeldung per E-Mail (aus SAP).Â 
+    Es gibt den Fall, dass die FÃ¼hrungskraft RÃ¼ckfragen an den Mitarbeiter hat, die geklÃ¤rt werden mÃ¼ssen. Dann ergÃ¤nzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP.Â 
+    Bei Genehmigung fÃ¼hrt der Mitarbeiter in Reiseportalen die Buchungen durch.Â 
+    Dann fÃ¼hrt er die Dienstreise durch. Dabei entstehen Belege als Dokumente.Â 
+    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fÃ¼gt er die elektronischen Belege hinzu.Â 
+    Ende: Dienstreise ist abgerechnet.Â 
+  time:timestamp: '2026-03-19T20:18:59.446330+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7dfb8446c3ab915b600fefc41b66ebe66007f048
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-03-19T20:18:59.446455+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7dfb8446c3ab915b600fefc41b66ebe66007f048
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-19T20:18:59.446538+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7dfb8446c3ab915b600fefc41b66ebe66007f048
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Mitarbeiter fÃ¼llt DR-Antrag in SAP aus)
+    1:task:(Mitarbeiter fÃ¼llt DR-Antrag in SAP aus) --> 2:task:(Antrag geht elektronisch an FÃ¼hrungskraft)
+    2:task:(Antrag geht elektronisch an FÃ¼hrungskraft) --> 3:task:(FÃ¼hrungskraft prÃ¼ft den Antrag)
+    3:task:(FÃ¼hrungskraft prÃ¼ft den Antrag) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Genehmigt| 5:task:(Mitarbeiter erhÃ¤lt Genehmigung per E-Mail)
+    4:exclusivegateway:{x} --> |Abgelehnt| 6:task:(Mitarbeiter erhÃ¤lt Ablehnung per E-Mail)
+    4:exclusivegateway:{x} --> |RÃ¼ckfragen| 7:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag)
+    7:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag) --> 2:task:(Antrag geht elektronisch an FÃ¼hrungskraft)
+    5:task:(Mitarbeiter erhÃ¤lt Genehmigung per E-Mail) --> 8:task:(Mitarbeiter fÃ¼hrt Buchungen in Reiseportalen durch)
+    8:task:(Mitarbeiter fÃ¼hrt Buchungen in Reiseportalen durch) --> 9:task:(Mitarbeiter fÃ¼hrt die Dienstreise durch)
+    9:task:(Mitarbeiter fÃ¼hrt die Dienstreise durch) --> 10:task:(Mitarbeiter macht Reisekostenabrechnung in SAP)
+    10:task:(Mitarbeiter macht Reisekostenabrechnung in SAP) --> 11:endevent:(((endevent)))
+    6:task:(Mitarbeiter erhÃ¤lt Ablehnung per E-Mail) --> 11:endevent:(((endevent)))
+    ```
+
+    This code will generate a BPMN diagram that accurately represents the described business process.
+  time:timestamp: '2026-03-19T20:18:59.446609+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7dfb8446c3ab915b600fefc41b66ebe66007f048
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Mitarbeiter f&#xFC;llt DR-Antrag in SAP aus</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Antrag geht elektronisch an F&#xFC;hrungskraft</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>F&#xFC;hrungskraft pr&#xFC;ft den Antrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="R&#xFC;ckfragen">
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="R&#xFC;ckfragen" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Mitarbeiter erg&#xE4;nzt den DR-Antrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Antrag geht elektronisch an F&#xFC;hrungskraft</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>F&#xFC;hrungskraft pr&#xFC;ft den Antrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Genehmigt" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Mitarbeiter erh&#xE4;lt Genehmigung per E-Mail</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Mitarbeiter f&#xFC;hrt Buchungen in Reiseportalen durch</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Mitarbeiter f&#xFC;hrt die Dienstreise durch</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Mitarbeiter macht Reisekostenabrechnung in SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Abgelehnt" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Mitarbeiter erh&#xE4;lt Ablehnung per E-Mail</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-03-19T20:18:59.446704+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Dienstreise steht an</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Mitarbeiter f&#xFC;llt einen DR-Antrag in SAP aus</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Antrag geht elektronisch an seine F&#xFC;hrungskraft</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>F&#xFC;hrungskraft pr&#xFC;ft den Antrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="R&#xFC;ckfragen">
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="R&#xFC;ckfragen" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Mitarbeiter erg&#xE4;nzt den DR-Antrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Mitarbeiter f&#xFC;llt einen DR-Antrag in SAP aus</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>Antrag geht elektronisch an seine F&#xFC;hrungskraft</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>F&#xFC;hrungskraft pr&#xFC;ft den Antrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Genehmigt" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Mitarbeiter erh&#xE4;lt eine R&#xFC;ckmeldung per E-Mail</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Mitarbeiter f&#xFC;hrt in Reiseportalen die Buchungen durch</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Dienstreise durchf&#xFC;hren</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Mitarbeiter macht in SAP die Reisekostenabrechnung</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Abgelehnt" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Mitarbeiter erh&#xE4;lt eine R&#xFC;ckmeldung per E-Mail</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 6ca02e36f63d0edaff94ad8f5f4b699212e17d27
+  time:timestamp: '2026-03-19T20:19:42.628069+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ca02e36f63d0edaff94ad8f5f4b699212e17d27
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-19T20:19:42.628681+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ca02e36f63d0edaff94ad8f5f4b699212e17d27
+  cpee:exposition: |-
+    # User Input:
+    Startereignis ist "Dienstreise steht an"Â 
+    Der Mitarbeiter fÃ¼llt einen DR-Antrag in SAP ausÂ 
+    Der Antrag geht elektronisch an seine FÃ¼hrungskraft.Â 
+    Die FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien.Â 
+    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden FÃ¤llen erhÃ¤lt der Mitarbeiter eine RÃ¼ckmeldung per E-Mail (aus SAP).Â 
+    Es gibt den Fall, dass die FÃ¼hrungskraft RÃ¼ckfragen an den Mitarbeiter hat, die geklÃ¤rt werden mÃ¼ssen. Dann ergÃ¤nzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP.Â 
+    Bei Genehmigung fÃ¼hrt der Mitarbeiter in Reiseportalen die Buchungen durch.Â 
+    Dann fÃ¼hrt er die Dienstreise durch. Dabei entstehen Belege als Dokumente.Â 
+    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fÃ¼gt er die elektronischen Belege hinzu.Â 
+    Ende: Dienstreise ist abgerechnet.Â 
+  time:timestamp: '2026-03-19T20:19:42.628808+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ca02e36f63d0edaff94ad8f5f4b699212e17d27
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-03-19T20:19:42.628943+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ca02e36f63d0edaff94ad8f5f4b699212e17d27
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-19T20:19:42.629025+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ca02e36f63d0edaff94ad8f5f4b699212e17d27
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Dienstreise steht an)
+    1:task:(Dienstreise steht an) --> 2:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)
+    2:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus) --> 3:task:(Antrag geht elektronisch an seine FÃ¼hrungskraft)
+    3:task:(Antrag geht elektronisch an seine FÃ¼hrungskraft) --> 4:task:(FÃ¼hrungskraft prÃ¼ft den Antrag)
+    4:task:(FÃ¼hrungskraft prÃ¼ft den Antrag) --> 5:exclusivegateway:{x}
+    5:exclusivegateway:{x} --> |Genehmigt| 6:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)
+    5:exclusivegateway:{x} --> |Abgelehnt| 7:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)
+    5:exclusivegateway:{x} --> |RÃ¼ckfragen| 8:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag)
+    6:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail) --> 9:task:(Mitarbeiter fÃ¼hrt in Reiseportalen die Buchungen durch)
+    7:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail) --> 10:endevent:(((endevent)))
+    8:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag) --> 2:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)
+    9:task:(Mitarbeiter fÃ¼hrt in Reiseportalen die Buchungen durch) --> 11:task:(Dienstreise durchfÃ¼hren)
+    11:task:(Dienstreise durchfÃ¼hren) --> 12:task:(Mitarbeiter macht in SAP die Reisekostenabrechnung)
+    12:task:(Mitarbeiter macht in SAP die Reisekostenabrechnung) --> 13:endevent:(((endevent)))
+    ```
+
+    This model represents the described business process. It starts with the event "Dienstreise steht an". The employee fills out a DR application in SAP, which is electronically sent to his supervisor. The supervisor checks the application for completeness, sensibility and other decision criteria. Depending on the review, the trip is either approved or rejected, or the supervisor has questions. In all cases, the employee receives feedback via email. If the trip is approved, the employee makes the bookings in travel portals and carries out the business trip. After the trip, the employee does the travel expense accounting in SAP. The process ends when the trip is accounted for.
+  time:timestamp: '2026-03-19T20:19:42.629128+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6ca02e36f63d0edaff94ad8f5f4b699212e17d27
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Dienstreise steht an</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Mitarbeiter f&#xFC;llt einen DR-Antrag in SAP aus</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Antrag geht elektronisch an seine F&#xFC;hrungskraft</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>F&#xFC;hrungskraft pr&#xFC;ft den Antrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="R&#xFC;ckfragen">
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="R&#xFC;ckfragen" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Mitarbeiter erg&#xE4;nzt den DR-Antrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Mitarbeiter f&#xFC;llt einen DR-Antrag in SAP aus</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>Antrag geht elektronisch an seine F&#xFC;hrungskraft</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>F&#xFC;hrungskraft pr&#xFC;ft den Antrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Genehmigt" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Mitarbeiter erh&#xE4;lt eine R&#xFC;ckmeldung per E-Mail</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Mitarbeiter f&#xFC;hrt in Reiseportalen die Buchungen durch</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Dienstreise durchf&#xFC;hren</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Mitarbeiter macht in SAP die Reisekostenabrechnung</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Abgelehnt" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Mitarbeiter erh&#xE4;lt eine R&#xFC;ckmeldung per E-Mail</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-03-19T20:19:42.629319+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-03-19T20:21:35.854034+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Dienstreise steht an</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Antrag geht elektronisch an seine FÃ¼hrungskraft</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>FÃ¼hrungskraft prÃ¼ft den Antrag</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="RÃ¼ckfragen">
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="RÃ¼ckfragen" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Mitarbeiter ergÃ¤nzt den DR-Antrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>Antrag geht elektronisch an seine FÃ¼hrungskraft</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>FÃ¼hrungskraft prÃ¼ft den Antrag</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Genehmigt" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Mitarbeiter fÃ¼hrt in Reiseportalen die Buchungen durch</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Dienstreise durchfÃ¼hren</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Mitarbeiter macht in SAP die Reisekostenabrechnung</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Abgelehnt" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-03-19T20:21:35.854212+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    Kannst du die erwÃ¤hnten Systeme wie SAP oder E-Mail als eigenstÃ¤ndige Schwimmbahn darstellen?Â 
+    Kannst du die Rollen FÃ¼hrungskraft und Mitarbeiter als Schwimmbahnen darstellen?
+  time:timestamp: '2026-03-19T20:21:35.854634+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-03-19T20:21:35.854844+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Dienstreise steht an)
+    a1:task:(Dienstreise steht an)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)
+    a3:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)-->a5:task:(Antrag geht elektronisch an seine FÃ¼hrungskraft)
+    a5:task:(Antrag geht elektronisch an seine FÃ¼hrungskraft)-->a7:task:(FÃ¼hrungskraft prÃ¼ft den Antrag)
+    a7:task:(FÃ¼hrungskraft prÃ¼ft den Antrag)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"RÃ¼ckfragen"|gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"RÃ¼ckfragen"|a15:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag)
+    a15:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag)-->a3:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)
+    a3:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Genehmigt"|a11:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)
+    a11:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)-->a17:task:(Mitarbeiter fÃ¼hrt in Reiseportalen die Buchungen durch)
+    a17:task:(Mitarbeiter fÃ¼hrt in Reiseportalen die Buchungen durch)-->a23:task:(Dienstreise durchfÃ¼hren)
+    a23:task:(Dienstreise durchfÃ¼hren)-->a25:task:(Mitarbeiter macht in SAP die Reisekostenabrechnung)
+    a25:task:(Mitarbeiter macht in SAP die Reisekostenabrechnung)-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Abgelehnt"|a13:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)
+    a13:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-03-19T20:21:35.854960+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: "%% Output Intermediate\nI'm sorry for the confusion, but Mermaid.js
+    does not support swimlanes or pools in its BPMN modeling. It's a limitation of
+    the library. Therefore, it's not possible to represent systems like SAP or E-Mail,
+    or roles like FÃ¼hrungskraft and Mitarbeiter as separate swimlanes in the Mermaid.js
+    format. \n\nHowever, you can use other BPMN modeling tools that support swimlanes
+    to represent these systems and roles. For example, tools like Bizagi Modeler,
+    Camunda Modeler, or Signavio Process Manager support swimlanes in their BPMN models."
+  time:timestamp: '2026-03-19T20:21:35.855175+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-03-19T20:21:35.855263+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2026-03-19T20:21:59.182265+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-19T20:21:59.274451+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Employee fills out travel request in SAP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Request sent to supervisor electronically</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Supervisor has questions">
+          <choose mode="exclusive" a:alt_id="3">
+            <alternative condition="Supervisor has questions" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Employee updates request and resubmits in SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Request sent to supervisor electronically</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Request approved" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Employee receives approval email from SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Employee books travel through portals</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Employee conducts business trip and collects receipts</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Employee completes expense report in SAP and attaches electronic receipts</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Request denied" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Employee receives denial email from SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: e8a4dd4e858425f399ee3ec4a2d20d7e36aa4e99
+  time:timestamp: '2026-03-19T20:25:08.345120+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8a4dd4e858425f399ee3ec4a2d20d7e36aa4e99
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-03-19T20:25:08.345376+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8a4dd4e858425f399ee3ec4a2d20d7e36aa4e99
+  cpee:exposition: |+
+    # User Input:
+    Startereignis ist "Dienstreise steht an"Â 
+
+    Der Mitarbeiter fÃ¼llt einen DR-Antrag in SAP ausÂ 
+
+    Der Antrag geht elektronisch an seine FÃ¼hrungskraft.Â 
+
+    Die FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien.Â 
+
+    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden FÃ¤llen erhÃ¤lt der Mitarbeiter eine RÃ¼ckmeldung per E-Mail (aus SAP).Â 
+
+    Es gibt den Fall, dass die FÃ¼hrungskraft RÃ¼ckfragen an den Mitarbeiter hat, die geklÃ¤rt werden mÃ¼ssen. Dann ergÃ¤nzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP.Â 
+
+    Bei Genehmigung fÃ¼hrt der Mitarbeiter in Reiseportalen die Buchungen durch.Â 
+
+    Dann fÃ¼hrt er die Dienstreise durch. Dabei entstehen Belege als Dokumente.Â 
+
+    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fÃ¼gt er die elektronischen Belege hinzu.Â 
+
+    Ende: Dienstreise ist abgerechnet.Â 
+
+    Bitte erstelle ein Schwimmbahn-Diagramm mit den Rollen FÃ¼hrungskraft, Mitarbeiter und Systeme.Â 
+    Packe in die Systeme-Schwimmbahn alle Systeme wie SAP, E-Mail etc.Â 
+    Modelliere Dokumente an die AktivitÃ¤ten.Â 
+    Wenn mÃ¶glich modelliere von links nach rechts.Â 
+
+  time:timestamp: '2026-03-19T20:25:08.345746+01:00'
+...
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8a4dd4e858425f399ee3ec4a2d20d7e36aa4e99
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-03-19T20:25:08.346062+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8a4dd4e858425f399ee3ec4a2d20d7e36aa4e99
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-19T20:25:08.346280+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8a4dd4e858425f399ee3ec4a2d20d7e36aa4e99
+  cpee:exposition: |-
+    %% Output Intermediate
+    Mermaid.js does not support swimlane diagrams or the modeling of documents directly attached to activities. However, we can represent the process flow with tasks, gateways, and events. Here is a simplified version of the process:
+
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Employee fills out travel request in SAP)
+    1:task:(Employee fills out travel request in SAP) --> 2:task:(Request sent to supervisor electronically)
+    2:task:(Supervisor checks request for completeness and validity) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Request approved| 4:task:(Employee receives approval email from SAP)
+    3:exclusivegateway:{x} --> |Request denied| 5:task:(Employee receives denial email from SAP)
+    3:exclusivegateway:{x} --> |Supervisor has questions| 6:task:(Employee updates request and resubmits in SAP)
+    4:task:(Employee receives approval email from SAP) --> 7:task:(Employee books travel through portals)
+    7:task:(Employee books travel through portals) --> 8:task:(Employee conducts business trip and collects receipts)
+    8:task:(Employee conducts business trip and collects receipts) --> 9:task:(Employee completes expense report in SAP and attaches electronic receipts)
+    9:task:(Employee completes expense report in SAP and attaches electronic receipts) --> 10:endevent:(((endevent)))
+    5:task:(Employee receives denial email from SAP) --> 10:endevent:(((endevent)))
+    6:task:(Employee updates request and resubmits in SAP) --> 2:task:(Request sent to supervisor electronically)
+    ```
+
+    This code will generate a BPMN diagram that accurately represents the described business process.
+  time:timestamp: '2026-03-19T20:25:08.346516+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8a4dd4e858425f399ee3ec4a2d20d7e36aa4e99
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Employee fills out travel request in SAP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Request sent to supervisor electronically</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Supervisor has questions">
+          <choose mode="exclusive" a:alt_id="3">
+            <alternative condition="Supervisor has questions" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Employee updates request and resubmits in SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Request sent to supervisor electronically</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Request approved" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Employee receives approval email from SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Employee books travel through portals</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Employee conducts business trip and collects receipts</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Employee completes expense report in SAP and attaches electronic receipts</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Request denied" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Employee receives denial email from SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-03-19T20:25:08.346626+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2026-03-19T20:26:06.367428+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-19T20:26:06.459851+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-03-19T20:26:10.362559+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-19T20:26:10.444294+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Der Mitarbeiter f&#xFC;llt einen DR-Antrag in SAP aus</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Der Antrag geht elektronisch an seine F&#xFC;hrungskraft</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Die F&#xFC;hrungskraft pr&#xFC;ft den Antrag auf Vollst&#xE4;ndigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Genehmigt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Der Mitarbeiter erh&#xE4;lt eine Genehmigungs-E-Mail aus SAP</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Der Mitarbeiter f&#xFC;hrt in Reiseportalen die Buchungen durch</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a8">
+            <parameters>
+              <label>Der Mitarbeiter f&#xFC;hrt die Dienstreise durch. Dabei entstehen Belege als Dokumente</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Der Mitarbeiter macht in SAP die Reisekostenabrechnung. Dabei f&#xFC;gt er die elektronischen Belege hinzu</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Abgelehnt" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Der Mitarbeiter erh&#xE4;lt eine Ablehnungs-E-Mail aus SAP</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="R&#xFC;ckfragen" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a6">
+            <parameters>
+              <label>Der Mitarbeiter erg&#xE4;nzt den DR-Antrag und sendet ihn erneut im SAP</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: '0489b1c9763c9cd4f016a9edc65d4cc1a3a93d8a'
+  time:timestamp: '2026-03-19T20:26:40.057194+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0489b1c9763c9cd4f016a9edc65d4cc1a3a93d8a'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Employee fills out travel request in SAP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Request sent to supervisor electronically</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Supervisor has questions">
+          <choose mode="exclusive" a:alt_id="3">
+            <alternative condition="Supervisor has questions" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Employee updates request and resubmits in SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a3" endpoint="" a:alt_id="2">
+                <parameters>
+                  <label>Request sent to supervisor electronically</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <escape a:alt_id="-1"/>
+            </alternative>
+            <alternative condition="Request approved" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Employee receives approval email from SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Employee books travel through portals</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Employee conducts business trip and collects receipts</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Employee completes expense report in SAP and attaches electronic receipts</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Request denied" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Employee receives denial email from SAP</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-03-19T20:26:40.057419+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0489b1c9763c9cd4f016a9edc65d4cc1a3a93d8a'
+  cpee:exposition: |
+    # User Input:
+    Startereignis ist "Dienstreise steht an"Â 
+
+    Der Mitarbeiter fÃ¼llt einen DR-Antrag in SAP ausÂ 
+
+    Der Antrag geht elektronisch an seine FÃ¼hrungskraft.Â 
+
+    Die FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien.Â 
+
+    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden FÃ¤llen erhÃ¤lt der Mitarbeiter eine RÃ¼ckmeldung per E-Mail (aus SAP).Â 
+
+    Es gibt den Fall, dass die FÃ¼hrungskraft RÃ¼ckfragen an den Mitarbeiter hat, die geklÃ¤rt werden mÃ¼ssen. Dann ergÃ¤nzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP.Â 
+
+    Bei Genehmigung fÃ¼hrt der Mitarbeiter in Reiseportalen die Buchungen durch.Â 
+
+    Dann fÃ¼hrt er die Dienstreise durch. Dabei entstehen Belege als Dokumente.Â 
+
+    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fÃ¼gt er die elektronischen Belege hinzu.Â 
+
+    Ende: Dienstreise ist abgerechnet.Â 
+
+    Bitte erstelle ein Schwimmbahn-Diagramm mit den Rollen FÃ¼hrungskraft, Mitarbeiter und Systeme.Â 
+    Packe in die Systeme-Schwimmbahn alle Systeme wie SAP, E-Mail etc.Â 
+    Modelliere Dokumente an die AktivitÃ¤ten.Â 
+    Wenn mÃ¶glich modelliere von links nach rechts.Â 
+  time:timestamp: '2026-03-19T20:26:40.057590+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0489b1c9763c9cd4f016a9edc65d4cc1a3a93d8a'
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-03-19T20:26:40.057748+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0489b1c9763c9cd4f016a9edc65d4cc1a3a93d8a'
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Employee fills out travel request in SAP)
+    a1:task:(Employee fills out travel request in SAP)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Request sent to supervisor electronically)
+    a3:task:(Request sent to supervisor electronically)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Supervisor has questions"|gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Supervisor has questions"|a11:task:(Employee updates request and resubmits in SAP)
+    a11:task:(Employee updates request and resubmits in SAP)-->a3:task:(Request sent to supervisor electronically)
+    a3:task:(Request sent to supervisor electronically)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Request approved"|a7:task:(Employee receives approval email from SAP)
+    a7:task:(Employee receives approval email from SAP)-->a13:task:(Employee books travel through portals)
+    a13:task:(Employee books travel through portals)-->a15:task:(Employee conducts business trip and collects receipts)
+    a15:task:(Employee conducts business trip and collects receipts)-->a17:task:(Employee completes expense report in SAP and attaches electronic receipts)
+    a17:task:(Employee completes expense report in SAP and attaches electronic receipts)-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Request denied"|a9:task:(Employee receives denial email from SAP)
+    a9:task:(Employee receives denial email from SAP)-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-03-19T20:26:40.057943+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0489b1c9763c9cd4f016a9edc65d4cc1a3a93d8a'
+  cpee:exposition: "%% Output Intermediate\nBased on the provided changes, the updated
+    Mermaid.js BPMN model would look like this:\n\n```mermaid\nflowchart LR\nse:startevent:((Dienstreise
+    steht an))-->a1:task:(Der Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)\na1:task:(Der
+    Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)-->a2:task:(Der Antrag geht elektronisch
+    an seine FÃ¼hrungskraft)\na2:task:(Der Antrag geht elektronisch an seine FÃ¼hrungskraft)-->a3:task:(Die
+    FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit, Sinnhaftigkeit und weitere
+    Entscheidungskriterien)\na3:task:(Die FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit,
+    Sinnhaftigkeit und weitere Entscheidungskriterien)-->gw1s:exclusivegateway:{x}\ngw1s:exclusivegateway:{x}-->|\"Genehmigt\"|a4:task:(Der
+    Mitarbeiter erhÃ¤lt eine Genehmigungs-E-Mail aus SAP)\ngw1s:exclusivegateway:{x}-->|\"Abgelehnt\"|a5:task:(Der
+    Mitarbeiter erhÃ¤lt eine Ablehnungs-E-Mail aus SAP)\ngw1s:exclusivegateway:{x}-->|\"RÃ¼ckfragen\"|a6:task:(Der
+    Mitarbeiter ergÃ¤nzt den DR-Antrag und sendet ihn erneut im SAP)\na4:task:(Der
+    Mitarbeiter erhÃ¤lt eine Genehmigungs-E-Mail aus SAP)-->a7:task:(Der Mitarbeiter
+    fÃ¼hrt in Reiseportalen die Buchungen durch)\na7:task:(Der Mitarbeiter fÃ¼hrt in
+    Reiseportalen die Buchungen durch)-->a8:task:(Der Mitarbeiter fÃ¼hrt die Dienstreise
+    durch. Dabei entstehen Belege als Dokumente)\na8:task:(Der Mitarbeiter fÃ¼hrt die
+    Dienstreise durch. Dabei entstehen Belege als Dokumente)-->a9:task:(Der Mitarbeiter
+    macht in SAP die Reisekostenabrechnung. Dabei fÃ¼gt er die elektronischen Belege
+    hinzu)\na9:task:(Der Mitarbeiter macht in SAP die Reisekostenabrechnung. Dabei
+    fÃ¼gt er die elektronischen Belege hinzu)-->ee:endevent:((Dienstreise ist abgerechnet))\n```\n\nPlease
+    note that Mermaid.js does not support swimlanes or lanes, which are used to represent
+    different roles or participants in a BPMN diagram. Therefore, it's not possible
+    to create a swimlane diagram with the roles \"FÃ¼hrungskraft\", \"Mitarbeiter\"
+    and \"Systeme\" in Mermaid.js. \n\nAlso, Mermaid.js does not support modeling
+    of documents attached to activities. However, you can represent documents as tasks
+    or events in the process flow. \n\nThe direction of the process flow is from left
+    to right as per your request."
+  time:timestamp: '2026-03-19T20:26:40.058044+01:00'
+---
+event:
+  concept:instance: 487
+  id:id: ex-ante
+  cpee:instance: e431a784-76c5-4de3-9e9a-e5a03115fa93
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0489b1c9763c9cd4f016a9edc65d4cc1a3a93d8a'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Der Mitarbeiter f&#xFC;llt einen DR-Antrag in SAP aus</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Der Antrag geht elektronisch an seine F&#xFC;hrungskraft</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Die F&#xFC;hrungskraft pr&#xFC;ft den Antrag auf Vollst&#xE4;ndigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Genehmigt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Der Mitarbeiter erh&#xE4;lt eine Genehmigungs-E-Mail aus SAP</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Der Mitarbeiter f&#xFC;hrt in Reiseportalen die Buchungen durch</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a8">
+            <parameters>
+              <label>Der Mitarbeiter f&#xFC;hrt die Dienstreise durch. Dabei entstehen Belege als Dokumente</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Der Mitarbeiter macht in SAP die Reisekostenabrechnung. Dabei f&#xFC;gt er die elektronischen Belege hinzu</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Abgelehnt" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Der Mitarbeiter erh&#xE4;lt eine Ablehnungs-E-Mail aus SAP</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="R&#xFC;ckfragen" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a6">
+            <parameters>
+              <label>Der Mitarbeiter erg&#xE4;nzt den DR-Antrag und sendet ihn erneut im SAP</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-03-19T20:26:40.058136+01:00'

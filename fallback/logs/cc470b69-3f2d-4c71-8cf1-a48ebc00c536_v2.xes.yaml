@@ -1,0 +1,241 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 5130
+    cpee:name: Plain Instance
+    cpee:instance: cc470b69-3f2d-4c71-8cf1-a48ebc00c536
+---
+event:
+  concept:instance: 5130
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cc470b69-3f2d-4c71-8cf1-a48ebc00c536
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T10:41:29.003297+01:00'
+---
+event:
+  concept:instance: 5130
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cc470b69-3f2d-4c71-8cf1-a48ebc00c536
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Scrape Website</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="2">
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Worker 1 Process Data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Worker 2 Process Data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Worker 3 Process Data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a17" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Aggregate Results</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a7fe69b05dd3c0a8d93e22870822c7ad8c9aec75
+  time:timestamp: '2025-11-04T10:42:30.178525+01:00'
+---
+event:
+  concept:instance: 5130
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cc470b69-3f2d-4c71-8cf1-a48ebc00c536
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7fe69b05dd3c0a8d93e22870822c7ad8c9aec75
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-04T10:42:30.178705+01:00'
+---
+event:
+  concept:instance: 5130
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cc470b69-3f2d-4c71-8cf1-a48ebc00c536
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7fe69b05dd3c0a8d93e22870822c7ad8c9aec75
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-preview-05-20
+  time:timestamp: '2025-11-04T10:42:30.178907+01:00'
+---
+event:
+  concept:instance: 5130
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cc470b69-3f2d-4c71-8cf1-a48ebc00c536
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7fe69b05dd3c0a8d93e22870822c7ad8c9aec75
+  cpee:exposition: |-
+    # User Input:
+    i want to scrape a website, then process the data in parallel in 3 workers and then aggregate the results
+  time:timestamp: '2025-11-04T10:42:30.178814+01:00'
+---
+event:
+  concept:instance: 5130
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cc470b69-3f2d-4c71-8cf1-a48ebc00c536
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7fe69b05dd3c0a8d93e22870822c7ad8c9aec75
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((Start)) --> 1:task:(Scrape Website)
+    1:task:(Scrape Website) --> 2:parallelgateway:{AND}
+    2:parallelgateway:{AND} --> 3:task:(Worker 1 Process Data)
+    2:parallelgateway:{AND} --> 4:task:(Worker 2 Process Data)
+    2:parallelgateway:{AND} --> 5:task:(Worker 3 Process Data)
+    3:task:(Worker 1 Process Data) --> 6:parallelgateway:{AND}
+    4:task:(Worker 2 Process Data) --> 6:parallelgateway:{AND}
+    5:task:(Worker 3 Process Data) --> 6:parallelgateway:{AND}
+    6:parallelgateway:{AND} --> 7:task:(Aggregate Results)
+    7:task:(Aggregate Results) --> 8:endevent:(((End)))
+  time:timestamp: '2025-11-04T10:42:30.179112+01:00'
+---
+event:
+  concept:instance: 5130
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cc470b69-3f2d-4c71-8cf1-a48ebc00c536
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7fe69b05dd3c0a8d93e22870822c7ad8c9aec75
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-04T10:42:30.179010+01:00'
+---
+event:
+  concept:instance: 5130
+  id:id: external
+  cpee:activity: external
+  cpee:instance: cc470b69-3f2d-4c71-8cf1-a48ebc00c536
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7fe69b05dd3c0a8d93e22870822c7ad8c9aec75
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Scrape Website</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="2">
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Worker 1 Process Data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Worker 2 Process Data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Worker 3 Process Data</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a17" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Aggregate Results</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T10:42:30.179418+01:00'

@@ -1,0 +1,277 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 890
+    cpee:name: Plain Instance
+    cpee:instance: 2d12be59-d56a-4cac-b562-b098dfac58ae
+---
+event:
+  concept:instance: 890
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2d12be59-d56a-4cac-b562-b098dfac58ae
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-28T12:50:28.106729+01:00'
+---
+event:
+  concept:instance: 890
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2d12be59-d56a-4cac-b562-b098dfac58ae
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Lab Material</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="">
+          <parameters>
+            <label>Check Correctness and Quality</label>
+            <method/>
+            <type>:task</type>
+            <mid>'2'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" language="text/javascript">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Re-prepare/Reprocess Sample) |Sample Unsuitable|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="">
+            <parameters>
+              <label>Check Correctness and Quality</label>
+              <method/>
+              <type>:task</type>
+              <mid>'2'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a6" endpoint="">
+          <parameters>
+            <label>Perform Examination) |Sample Suitable|</label>
+            <method/>
+            <type>:task</type>
+            <mid>'5'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="">
+          <parameters>
+            <label>Create Report</label>
+            <method/>
+            <type>:task</type>
+            <mid>'6'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: a3a3fbfcf520105fbfc7137a5260638ff48798bc
+  time:timestamp: '2025-10-28T12:53:25.066133+01:00'
+---
+event:
+  concept:instance: 890
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2d12be59-d56a-4cac-b562-b098dfac58ae
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3a3fbfcf520105fbfc7137a5260638ff48798bc
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-28T12:53:25.066342+01:00'
+---
+event:
+  concept:instance: 890
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2d12be59-d56a-4cac-b562-b098dfac58ae
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3a3fbfcf520105fbfc7137a5260638ff48798bc
+  cpee:exposition: |-
+    # User Input:
+    The process starts when the lab material is received.
+
+    The material is then checked for correctness and quality. If the check reveals that the sample is unsuitableâ€”for example, the labeling is unclear or the volume is insufficientâ€”the sample is re-prepared or reprocessed, and the check is repeated.
+
+    Once the sample passes the check, the examination is performed. After the examination, a report is created to document the results.
+
+    The process ends when the report is completed.
+  time:timestamp: '2025-10-28T12:53:25.066850+01:00'
+---
+event:
+  concept:instance: 890
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2d12be59-d56a-4cac-b562-b098dfac58ae
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3a3fbfcf520105fbfc7137a5260638ff48798bc
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-28T12:53:25.067534+01:00'
+---
+event:
+  concept:instance: 890
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2d12be59-d56a-4cac-b562-b098dfac58ae
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3a3fbfcf520105fbfc7137a5260638ff48798bc
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-28T12:53:25.067865+01:00'
+---
+event:
+  concept:instance: 890
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2d12be59-d56a-4cac-b562-b098dfac58ae
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3a3fbfcf520105fbfc7137a5260638ff48798bc
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Receive Lab Material)
+      1:task:(Receive Lab Material) --> 2:task:(Check Correctness and Quality)
+      2:task:(Check Correctness and Quality) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> 4:task:(Re-prepare/Reprocess Sample) |Sample Unsuitable|
+      4:task:(Re-prepare/Reprocess Sample) --> 2:task:(Check Correctness and Quality)
+      3:exclusivegateway:{x} --> 5:task:(Perform Examination) |Sample Suitable|
+      5:task:(Perform Examination) --> 6:task:(Create Report)
+      6:task:(Create Report) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-28T12:53:25.068071+01:00'
+---
+event:
+  concept:instance: 890
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2d12be59-d56a-4cac-b562-b098dfac58ae
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3a3fbfcf520105fbfc7137a5260638ff48798bc
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Receive Lab Material</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="">
+          <parameters>
+            <label>Check Correctness and Quality</label>
+            <method/>
+            <type>:task</type>
+            <mid>'2'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" language="text/javascript">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Re-prepare/Reprocess Sample) |Sample Unsuitable|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="">
+            <parameters>
+              <label>Check Correctness and Quality</label>
+              <method/>
+              <type>:task</type>
+              <mid>'2'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a6" endpoint="">
+          <parameters>
+            <label>Perform Examination) |Sample Suitable|</label>
+            <method/>
+            <type>:task</type>
+            <mid>'5'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="">
+          <parameters>
+            <label>Create Report</label>
+            <method/>
+            <type>:task</type>
+            <mid>'6'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-10-28T12:53:25.068178+01:00'
+---
+event:
+  concept:instance: 890
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2d12be59-d56a-4cac-b562-b098dfac58ae
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-10-28T15:33:08.933427+01:00'

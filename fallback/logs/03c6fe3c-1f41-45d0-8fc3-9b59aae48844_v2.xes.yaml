@@ -1,0 +1,1046 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 520
+    cpee:name: Plain Instance
+    cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-23T10:10:48.804189+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a0" endpoint="" a:alt_id="0">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="12">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a29" endpoint="" a:alt_id="13">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="14">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="15">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="16">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="17">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="18">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 777fb257ea5ffce33f20e5789aa1bc1f578709ad
+  time:timestamp: '2026-03-23T10:14:19.390816+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 777fb257ea5ffce33f20e5789aa1bc1f578709ad
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-23T10:14:19.391081+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 777fb257ea5ffce33f20e5789aa1bc1f578709ad
+  cpee:exposition: |
+    # User Input:
+    Rolle:Â Agiere als erfahrener Business Process Engineer.
+    Aufgabe:Â Erstelle ein BPMN 2.0 Diagramm fÃ¼r den Prozess â€žAuftragsabwicklungâ€œ der GreenSupply GmbH basierend auf folgenden Anforderungen:
+    1. Struktur & Beteiligte:
+    â€¢ Verwende einen Pool â€žGreenSupply GmbHâ€œ mit zwei Lanes:Â VertriebÂ undÂ Logistik.Â Â 
+    â€¢Â Start-Ereignis:Â Eingang eines Auftrags (per E-Mail oder Online-Formular) im Vertrieb.Â Â 
+    â€¢Â End-Ereignis:Â AuftragsbestÃ¤tigung an den Kunden versendet.Â Â 
+    2. Prozessschritte im Vertrieb:
+    â€¢Â Auftrag im ERP erfassen.Â Â 
+    â€¢Â Exklusives Gateway (XOR):Â PrÃ¼fen, ob der Kunde bereits im System existiert.Â Â 
+    â€¢ Falls Nein:Â Kundendaten anlegen.Â Â 
+    â€¢ Falls Ja: Weiter zum nÃ¤chsten Schritt.
+    â€¢Â Optionaler Schritt (Bedingung):Â Wenn Auftragswert > X, dannÂ Zahlungsbedingungen anpassen (Vorkasse).Â Â 
+    â€¢Â Auftrag an Logistik weitergeben.Â Â 
+    3. Prozessschritte in der Logistik:
+    â€¢Â MaterialverfÃ¼gbarkeit prÃ¼fen.Â Â 
+    â€¢Â Exklusives Gateway (XOR):Â Ist ausreichend Material vorhanden?.Â Â 
+    â€¢ Falls Nein:Â Nachbestellung auslÃ¶senÂ und aufÂ Materialeingang warten.Â Â 
+    â€¢ Falls Ja: Direkt weiter.
+    â€¢Â Auftrag fÃ¼r Produktion und Versand einplanenÂ undÂ Liefertermin ermitteln.Â Â 
+    â€¢ Hinweis: ExpressauftrÃ¤ge werden hierbei priorisiert (als Annotation oder Attribut am Task â€žEinplanenâ€œ vermerken).Â Â 
+    â€¢ Information Ã¼ber Liefertermin an Vertrieb zurÃ¼ckgeben.
+    4. Abschluss im Vertrieb:
+    â€¢Â AuftragsbestÃ¤tigung versendenÂ (inkl. des ermittelten Liefertermins).Â Â 
+    Technische Vorgaben:
+    â€¢ Nutze korrekte BPMN 2.0 Symbole (Tasks, XOR-Gateways, Sequence Flows).
+    â€¢ Achte auf eine klare Trennung der Verantwortlichkeiten zwischen den Lanes.Â Â 
+    â€¢ Stelle sicher, dass der Prozess erst endet, wenn der Liefertermin feststeht.Â Â 
+    ZusÃ¤tzliche Tipps fÃ¼r deine Ãœbung:
+    â€¢Â Annahme zum Expressauftrag:Â Da die Aufgabenstellung verlangt, dass du entscheidest, wie der Expressauftrag modelliert wird, ist es im Prompt oben alsÂ PriorisierungsregelÂ am Task integriert. Das entspricht der Aussage von Interview B.Â Â 
+  time:timestamp: '2026-03-23T10:14:19.391185+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 777fb257ea5ffce33f20e5789aa1bc1f578709ad
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-pro
+  time:timestamp: '2026-03-23T10:14:19.391297+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 777fb257ea5ffce33f20e5789aa1bc1f578709ad
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-23T10:14:19.391375+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 777fb257ea5ffce33f20e5789aa1bc1f578709ad
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent))
+        1:task:(Auftrag im ERP erfassen)
+        2:exclusivegateway:{x}
+        3:task:(Kundendaten anlegen)
+        4:exclusivegateway:{x}
+        5:exclusivegateway:{x}
+        6:task:(Zahlungsbedingungen anpassen)
+        7:exclusivegateway:{x}
+        8:task:(Auftrag an Logistik weitergeben)
+        9:task:(MaterialverfÃ¼gbarkeit prÃ¼fen)
+        10:exclusivegateway:{x}
+        11:task:(Nachbestellung auslÃ¶sen)
+        12:task:(Auf Materialeingang warten)
+        13:exclusivegateway:{x}
+        14:task:(Auftrag einplanen (Express priorisiert))
+        15:task:(Liefertermin ermitteln)
+        16:task:(Liefertermin an Vertrieb zurÃ¼ckgeben)
+        17:task:(AuftragsbestÃ¤tigung versenden)
+        18:endevent:(((endevent)))
+
+        0 --> 1
+        1 --> 2
+        2 --> |Kunde existiert nicht| 3
+        3 --> 4
+        2 --> |Kunde existiert| 4
+        4 --> 5
+        5 --> |Auftragswert > X| 6
+        6 --> 7
+        5 --> |Auftragswert <= X| 7
+        7 --> 8
+        8 --> 9
+        9 --> 10
+        10 --> |Nicht ausreichend| 11
+        11 --> 12
+        12 --> 13
+        10 --> |Ausreichend| 13
+        13 --> 14
+        14 --> 15
+        15 --> 16
+        16 --> 17
+        17 --> 18
+    ```
+  time:timestamp: '2026-03-23T10:14:19.391453+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 777fb257ea5ffce33f20e5789aa1bc1f578709ad
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a0" endpoint="" a:alt_id="0">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="12">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a29" endpoint="" a:alt_id="13">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="14">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="15">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="16">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="17">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="18">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-03-23T10:14:19.391554+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Auftrag im ERP erfassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Nein" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Kundendaten im System anlegen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Ja" language="text/javascript"/>
+      </choose>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="Ja" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Zahlungsbedingungen auf Vorkasse anpassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Nein" language="text/javascript"/>
+      </choose>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Auftrag an Logistik &#xFC;bermitteln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Materialverf&#xFC;gbarkeit pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="10">
+        <alternative condition="Nein" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Nachbestellung ausl&#xF6;sen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Materialeingang abwarten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Ja" language="text/javascript"/>
+      </choose>
+      <call id="a33" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Produktion und Versand einplanen (Hinweis: Expressauftr&#xE4;ge priorisieren)</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Liefertermin ermitteln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Auftragsbest&#xE4;tigung mit Liefertermin versenden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 7e699b6ce61ea6b1beb9abfa4c68949f208ace76
+  time:timestamp: '2026-03-23T10:16:47.968806+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e699b6ce61ea6b1beb9abfa4c68949f208ace76
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a0" endpoint="" a:alt_id="0">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="12">
+            <parameters>
+              <label/>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+      <call id="a29" endpoint="" a:alt_id="13">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="14">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="15">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="16">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a39" endpoint="" a:alt_id="17">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="18">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-03-23T10:16:47.969025+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e699b6ce61ea6b1beb9abfa4c68949f208ace76
+  cpee:exposition: |
+    # User Input:
+    Pool: GreenSupply GmbH
+    â€¢Â Lane 1: Vertrieb
+    â€¢Â Start:Â "Auftrag eingegangen".Â Â 
+    â€¢Â Task:Â "Auftrag im ERP erfassen".Â Â 
+    â€¢Â Gateway (XOR):Â "Kunde bekannt?".Â Â 
+    â€¢Â Task (Pfad Nein):Â "Kundendaten im System anlegen".Â Â 
+    â€¢Â Gateway (XOR):Â "Wert > X?".Â Â 
+    â€¢Â Task (Pfad Ja):Â "Zahlungsbedingungen auf Vorkasse anpassen".Â Â 
+    â€¢Â Task:Â "Auftrag an Logistik Ã¼bermitteln".Â Â 
+    â€¢Â Lane 2: Logistik
+    â€¢Â Task:Â "MaterialverfÃ¼gbarkeit prÃ¼fen".Â Â 
+    â€¢Â Gateway (XOR):Â "Material vorhanden?".Â Â 
+    â€¢Â Task (Pfad Nein):Â "Nachbestellung auslÃ¶sen".Â Â 
+    â€¢Â Task (Pfad Nein):Â "Materialeingang abwarten".Â Â 
+    â€¢Â Task:Â "Produktion und Versand einplanen" (Hinweis: ExpressauftrÃ¤ge priorisieren).Â Â 
+    â€¢Â Task:Â "Liefertermin ermitteln".Â Â 
+    â€¢Â ZurÃ¼ck zu Lane 1: Vertrieb
+    â€¢Â Task:Â "AuftragsbestÃ¤tigung mit Liefertermin versenden".Â Â 
+    â€¢Â Ende:Â "Prozess abgeschlossen".
+    Formatierungsvorgabe:Â Benutze fÃ¼r alle Schritte den TypÂ "Task"Â oderÂ "User Task", damit die Beschreibungen (z.B. "Material prÃ¼fen") permanent im Diagramm sichtbar sind. Vermeide reine Service-Icons ohne Label.
+  time:timestamp: '2026-03-23T10:16:47.969530+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e699b6ce61ea6b1beb9abfa4c68949f208ace76
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-pro
+  time:timestamp: '2026-03-23T10:16:47.969638+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e699b6ce61ea6b1beb9abfa4c68949f208ace76
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a0:task:()
+    a0:task:()-->a1:task:()
+    a1:task:()-->a3:task:()
+    a3:task:()-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a5:task:()
+    a5:task:()-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a7:task:()
+    a7:task:()-->a11:task:()
+    a11:task:()-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a13:task:()
+    a13:task:()-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a15:task:()
+    a15:task:()-->a19:task:()
+    a19:task:()-->a21:task:()
+    a21:task:()-->a23:task:()
+    a23:task:()-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a25:task:()
+    a25:task:()-->a27:task:()
+    a27:task:()-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->a29:task:()
+    a29:task:()-->a33:task:()
+    a33:task:()-->a35:task:()
+    a35:task:()-->a37:task:()
+    a37:task:()-->a39:task:()
+    a39:task:()-->a41:task:()
+    a41:task:()-->ee:endevent:((endevent))
+  time:timestamp: '2026-03-23T10:16:47.969743+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e699b6ce61ea6b1beb9abfa4c68949f208ace76
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    0:startevent:((Auftrag eingegangen))-->1:task:(Auftrag im ERP erfassen)
+    1:task:(Auftrag im ERP erfassen)-->2:exclusivegateway:{Kunde bekannt?}
+    2:exclusivegateway:{Kunde bekannt?}-->|Nein|3:task:(Kundendaten im System anlegen)
+    3:task:(Kundendaten im System anlegen)-->4:exclusivegateway:{x}
+    2:exclusivegateway:{Kunde bekannt?}-->|Ja|4:exclusivegateway:{x}
+    4:exclusivegateway:{x}-->5:exclusivegateway:{Wert > X?}
+    5:exclusivegateway:{Wert > X?}-->|Ja|6:task:(Zahlungsbedingungen auf Vorkasse anpassen)
+    6:task:(Zahlungsbedingungen auf Vorkasse anpassen)-->7:exclusivegateway:{x}
+    5:exclusivegateway:{Wert > X?}-->|Nein|7:exclusivegateway:{x}
+    7:exclusivegateway:{x}-->8:task:(Auftrag an Logistik Ã¼bermitteln)
+    8:task:(Auftrag an Logistik Ã¼bermitteln)-->9:task:(MaterialverfÃ¼gbarkeit prÃ¼fen)
+    9:task:(MaterialverfÃ¼gbarkeit prÃ¼fen)-->10:exclusivegateway:{Material vorhanden?}
+    10:exclusivegateway:{Material vorhanden?}-->|Nein|11:task:(Nachbestellung auslÃ¶sen)
+    11:task:(Nachbestellung auslÃ¶sen)-->12:task:(Materialeingang abwarten)
+    12:task:(Materialeingang abwarten)-->13:exclusivegateway:{x}
+    10:exclusivegateway:{Material vorhanden?}-->|Ja|13:exclusivegateway:{x}
+    13:exclusivegateway:{x}-->14:task:(Produktion und Versand einplanen (Hinweis: ExpressauftrÃ¤ge priorisieren))
+    14:task:(Produktion und Versand einplanen (Hinweis: ExpressauftrÃ¤ge priorisieren))-->15:task:(Liefertermin ermitteln)
+    15:task:(Liefertermin ermitteln)-->16:task:(AuftragsbestÃ¤tigung mit Liefertermin versenden)
+    16:task:(AuftragsbestÃ¤tigung mit Liefertermin versenden)-->17:endevent:(((Prozess abgeschlossen)))
+  time:timestamp: '2026-03-23T10:16:47.969827+01:00'
+---
+event:
+  concept:instance: 520
+  id:id: ex-ante
+  cpee:instance: 03c6fe3c-1f41-45d0-8fc3-9b59aae48844
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e699b6ce61ea6b1beb9abfa4c68949f208ace76
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Auftrag im ERP erfassen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Nein" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Kundendaten im System anlegen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Ja" language="text/javascript"/>
+      </choose>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="Ja" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Zahlungsbedingungen auf Vorkasse anpassen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Nein" language="text/javascript"/>
+      </choose>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Auftrag an Logistik &#xFC;bermitteln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Materialverf&#xFC;gbarkeit pr&#xFC;fen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="10">
+        <alternative condition="Nein" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Nachbestellung ausl&#xF6;sen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Materialeingang abwarten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Ja" language="text/javascript"/>
+      </choose>
+      <call id="a33" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Produktion und Versand einplanen (Hinweis: Expressauftr&#xE4;ge priorisieren)</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a35" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Liefertermin ermitteln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a37" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Auftragsbest&#xE4;tigung mit Liefertermin versenden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-03-23T10:16:47.969949+01:00'

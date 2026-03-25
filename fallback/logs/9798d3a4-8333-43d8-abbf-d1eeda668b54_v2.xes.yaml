@@ -1,0 +1,226 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 39
+    cpee:name: electricity maintain
+    cpee:instance: 9798d3a4-8333-43d8-abbf-d1eeda668b54
+---
+event:
+  concept:instance: 39
+  id:id: ex-ante
+  cpee:instance: 9798d3a4-8333-43d8-abbf-d1eeda668b54
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-17T09:00:59.493904+01:00'
+---
+event:
+  concept:instance: 39
+  id:id: ex-ante
+  cpee:instance: 9798d3a4-8333-43d8-abbf-d1eeda668b54
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>&#x63A5;&#x6536;&#x5DE1;&#x89C6;&#x8BA1;&#x5212;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>&#x73B0;&#x573A;&#x5DE1;&#x89C6;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>&#x6570;&#x636E;&#x8BB0;&#x5F55;&#x4E0E;&#x62CD;&#x7167;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>&#x7F3A;&#x9677;&#x521D;&#x6B65;&#x5224;&#x5B9A;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>&#x5F55;&#x5165;&#x8FD0;&#x7EF4;&#x7CFB;&#x7EDF;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: acb295cf8c3e0ccb71c03e4d048313b6931066e9
+  time:timestamp: '2026-03-17T09:01:26.346042+01:00'
+---
+event:
+  concept:instance: 39
+  id:id: ex-ante
+  cpee:instance: 9798d3a4-8333-43d8-abbf-d1eeda668b54
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: acb295cf8c3e0ccb71c03e4d048313b6931066e9
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-17T09:01:26.346319+01:00'
+---
+event:
+  concept:instance: 39
+  id:id: ex-ante
+  cpee:instance: 9798d3a4-8333-43d8-abbf-d1eeda668b54
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: acb295cf8c3e0ccb71c03e4d048313b6931066e9
+  cpee:exposition: |-
+    # User Input:
+    è¾“ç”µçº¿è·¯æ—¥å¸¸å·¡è§†æµç¨‹
+    æŒ‰ç…§æµç¨‹å›¾æ‰§è¡Œå‘¨æœŸå·¡è§†ä»»åŠ¡ï¼šæŽ¥æ”¶å·¡è§†è®¡åˆ’â†’çŽ°åœºå·¡è§†ï¼ˆé€šé“ã€æ†å¡”ã€å¯¼åœ°çº¿ã€ç»ç¼˜å­ã€é‡‘å…·ï¼‰â†’æ•°æ®è®°å½•ä¸Žæ‹ç…§â†’ç¼ºé™·åˆæ­¥åˆ¤å®šâ†’å½•å…¥è¿ç»´ç³»ç»Ÿã€‚æµç¨‹å›¾æ˜Žç¡®å·¡è§†ç‚¹ä½ã€å‘¨æœŸã€æ ‡å‡†ï¼Œæœç»æ¼å·¡ã€æ¼è®°ï¼Œä¿éšœåŸºç¡€è´¨é‡ã€‚
+    2. çº¿è·¯ç¼ºé™·åˆ†çº§ä¸Žä¸ŠæŠ¥æµç¨‹
+    ä¾æ®æµç¨‹å›¾å¯¹ç¼ºé™·ç»Ÿä¸€ç®¡ç†ï¼šå‘çŽ°ç¼ºé™·â†’ç­‰çº§åˆ¤å®šï¼ˆä¸€èˆ¬ / ä¸¥é‡ / ç´§æ€¥ï¼‰â†’åˆ†ç±»ç™»è®°â†’é€çº§ä¸ŠæŠ¥â†’ä¸‹è¾¾å¤„ç†æŒ‡ä»¤ã€‚æµç¨‹å›¾ä¸¥æ ¼è§„å®šä¸ŠæŠ¥æ—¶é™ä¸Žå¤„ç½®è¦æ±‚ï¼Œé¿å…ç¼ºé™·æ‰©å¤§å¼•å‘çº¿è·¯æ•…éšœã€‚
+    3. è¾“ç”µçº¿è·¯åœç”µæ£€ä¿®ä½œä¸šæµç¨‹
+    æ£€ä¿®ä½œä¸šä¾ç…§æµç¨‹å›¾æ‰§è¡Œï¼šç”³è¯·åœç”µâ†’åŠžç†å·¥ä½œç¥¨â†’çŽ°åœºå®‰å…¨æŽªæ–½ï¼ˆæŒ‚æŽ¥åœ°çº¿ã€è®¾å›´æ ï¼‰â†’å¼€å·¥æ£€ä¿®â†’æ›´æ¢éƒ¨ä»¶ / ç´§å›ºèžºæ “ / é€šé“æ¸…éšœâ†’è´¨é‡è‡ªæ£€â†’çŽ°åœºéªŒæ”¶â†’æ‹†é™¤å®‰å…¨æŽªæ–½â†’å·¥ä½œç»ˆç»“â†’æ¢å¤é€ç”µã€‚æµç¨‹å›¾å›ºåŒ–å…³é”®è´¨é‡æŽ§åˆ¶ç‚¹ï¼Œé˜²æ­¢æ¼é¡¹ã€é”™é¡¹ï¼Œä¿è¯æ£€ä¿®è´¨é‡ã€‚
+    4. çº¿è·¯æ–½å·¥è´¨é‡è¿‡ç¨‹ç®¡æŽ§æµç¨‹
+    æ–°å»ºã€æ”¹é€ çº¿è·¯æŒ‰æµç¨‹å›¾å¼€å±•è´¨é‡æŽ§åˆ¶ï¼šåŸºç¡€æ–½å·¥æ£€æŸ¥â†’æ†å¡”ç»„ç«‹ç²¾åº¦æ ¡éªŒâ†’å¯¼åœ°çº¿æž¶è®¾å¼ åŠ›æŽ§åˆ¶â†’é™„ä»¶å®‰è£…æ ¸æŸ¥â†’æŽ¥åœ°è£…ç½®æµ‹è¯•â†’ä¸­é—´éªŒæ”¶ã€‚ä¸åˆæ ¼é¡¹æŒ‰æµç¨‹å›¾ç«‹å³æ•´æ”¹ï¼Œå¤æ£€åˆæ ¼åŽæ–¹å¯è¿›å…¥ä¸‹ä¸€å·¥åºã€‚
+    5. ç«£å·¥æŠ•äº§éªŒæ”¶æµç¨‹
+    æŒ‰ç…§æµç¨‹å›¾å®Œæˆæœ€ç»ˆè´¨é‡æŠŠå…³ï¼šèµ„æ–™æ ¸æŸ¥â†’çŽ°åœºå…¨é¢æ£€æŸ¥â†’ç”µæ°”è¯•éªŒï¼ˆç»ç¼˜ã€æŽ¥åœ°ç­‰ï¼‰â†’ç¼ºé™·æ•´æ”¹é—­çŽ¯â†’è´¨é‡è¯„å®šâ†’ç­¾ç½²éªŒæ”¶æ„è§â†’ç§»äº¤æŠ•è¿ã€‚æµç¨‹å›¾ç¡®ä¿éªŒæ”¶æ— é—æ¼ï¼Œçº¿è·¯è¾¾æ ‡åŽæ–¹å¯å…¥ç½‘è¿è¡Œã€‚
+    6. æ•…éšœæŠ¢ä¿®ä¸Žè´¨é‡é—­çŽ¯æµç¨‹
+    çº¿è·¯æ•…éšœæ—¶ä¾ç…§æµç¨‹å›¾å¿«é€Ÿå¤„ç½®ï¼šæ•…éšœå‘Šè­¦â†’æ•…éšœå®šä½â†’ç»„ç»‡æŠ¢ä¿®â†’æ¶ˆé™¤ç¼ºé™·â†’è¯•éªŒæ£€æŸ¥â†’æ¢å¤ä¾›ç”µâ†’åŽŸå› åˆ†æžâ†’åˆ¶å®šé¢„é˜²æŽªæ–½â†’å½’æ¡£ã€‚æµç¨‹å›¾å®žçŽ°æŠ¢ä¿®æ ‡å‡†åŒ–ï¼ŒåŒæ—¶å½¢æˆè´¨é‡é—­çŽ¯ï¼Œé™ä½Žé‡å¤æ•…éšœçŽ‡ã€‚
+  time:timestamp: '2026-03-17T09:01:26.346946+01:00'
+---
+event:
+  concept:instance: 39
+  id:id: ex-ante
+  cpee:instance: 9798d3a4-8333-43d8-abbf-d1eeda668b54
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: acb295cf8c3e0ccb71c03e4d048313b6931066e9
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-03-17T09:01:26.347103+01:00'
+---
+event:
+  concept:instance: 39
+  id:id: ex-ante
+  cpee:instance: 9798d3a4-8333-43d8-abbf-d1eeda668b54
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: acb295cf8c3e0ccb71c03e4d048313b6931066e9
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-17T09:01:26.347209+01:00'
+---
+event:
+  concept:instance: 39
+  id:id: ex-ante
+  cpee:instance: 9798d3a4-8333-43d8-abbf-d1eeda668b54
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: acb295cf8c3e0ccb71c03e4d048313b6931066e9
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(æŽ¥æ”¶å·¡è§†è®¡åˆ’)
+        1:task:(æŽ¥æ”¶å·¡è§†è®¡åˆ’) --> 2:task:(çŽ°åœºå·¡è§†)
+        2:task:(çŽ°åœºå·¡è§†) --> 3:task:(æ•°æ®è®°å½•ä¸Žæ‹ç…§)
+        3:task:(æ•°æ®è®°å½•ä¸Žæ‹ç…§) --> 4:task:(ç¼ºé™·åˆæ­¥åˆ¤å®š)
+        4:task:(ç¼ºé™·åˆæ­¥åˆ¤å®š) --> 5:task:(å½•å…¥è¿ç»´ç³»ç»Ÿ)
+        5:task:(å½•å…¥è¿ç»´ç³»ç»Ÿ) --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-03-17T09:01:26.347329+01:00'
+---
+event:
+  concept:instance: 39
+  id:id: ex-ante
+  cpee:instance: 9798d3a4-8333-43d8-abbf-d1eeda668b54
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: acb295cf8c3e0ccb71c03e4d048313b6931066e9
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>&#x63A5;&#x6536;&#x5DE1;&#x89C6;&#x8BA1;&#x5212;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>&#x73B0;&#x573A;&#x5DE1;&#x89C6;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>&#x6570;&#x636E;&#x8BB0;&#x5F55;&#x4E0E;&#x62CD;&#x7167;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>&#x7F3A;&#x9677;&#x521D;&#x6B65;&#x5224;&#x5B9A;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>&#x5F55;&#x5165;&#x8FD0;&#x7EF4;&#x7CFB;&#x7EDF;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-03-17T09:01:26.347558+01:00'

@@ -175,7 +175,13 @@ $selectedMapping.GetEnumerator() | ForEach-Object {
     $uuid = $_.Value
     
     # Apply prefix based on digit count
-    if ($numLength -eq 3) {
+    if ($numLength -eq 1) {
+        $prefixedKey = "20000$originalNum"
+    }
+    elseif ($numLength -eq 2) {
+        $prefixedKey = "2000$originalNum"
+    }
+    elseif ($numLength -eq 3) {
         $prefixedKey = "200$originalNum"
     } elseif ($numLength -eq 4) {
         $prefixedKey = "20$originalNum"

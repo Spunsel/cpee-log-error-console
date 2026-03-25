@@ -1,0 +1,496 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 5898
+    cpee:name: test
+    cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T19:48:38.752607+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2025-11-04T19:48:41.433778+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2025-11-04T19:48:41.440774+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T19:48:41.659534+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T19:48:41.717798+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2025-11-04T19:48:47.909898+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T19:48:48.058098+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2025-11-04T19:48:48.174233+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-04T19:48:50.263509+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send Requirements to Architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive Draft</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Refine Draft</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Create Material List</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="6">
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Order Materials Online</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Send Messages to Friends</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Process Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Build Tree House</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Send Invitations</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Create Guest List</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Buy Snacks</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 957345e8d775921d44b7dc4a584a026d0e8b708a
+  time:timestamp: '2025-11-04T19:49:31.790309+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 957345e8d775921d44b7dc4a584a026d0e8b708a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-04T19:49:31.790555+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 957345e8d775921d44b7dc4a584a026d0e8b708a
+  cpee:exposition: |+
+    # User Input:
+    Process description:Â 
+
+    You want to build a tree house. First you collect your requirements, and send
+    them to a tree house architect. The architect sends you back a draft, which
+    you refine multiple times with additional requirements. You then create the
+    list of needed materials from the plan. These materials fall into several categories,
+    you order them from several online stores. While the order is processed, you send messages
+    to several of your friends to build the house. After the house is built, you send invitations
+    for a tree house party to your friends. In order to buy the snacks for the party, a list
+    of people that attend the party is created.
+    Additional Information:Â 
+    The Mermaid.js syntax for BPMN models is described as follows:
+    Each mermaid ja node must have the following structure:
+    id:type:shape and text
+    id â€“ it is a unique identifier, Id can be only an integer from n to n.
+    Each node has a unique identifier
+    type â€“ defines the type of element regarding to BPMN 2.0 notation.
+    possible types are:Â 
+    start event, end event, task, subprocess, exclusive, inclusive and parallel gateway.
+    Based on the type of the node following shapes and texts are to be used:
+    startevent:((startevent)) i.e., id:startevent:((startevent))
+    endevent:((endevent)) i.e., endevent:((endevent))
+    task:(task label) i.e., id:task:(task label)
+    subprocess:(subprocess label) i.e., id:subprocess:(subprocess label)
+    exclusivegateway:{x} i.e., id:exclusivegateway:{x}
+    parallelgateway:{AND} i.e., id:parallelgateway:{AND}
+    inclusvegateway:{O} i.e., id: inclusvegateway:{O}
+
+    All gateways must have both a split and a merge point.
+    Each gateway that initiates a split must be properly closed by a merge gateway of the same type (e.g., an exclusive gateway must be merged by another exclusive gateway).
+    It is strictly prohibited to use inly id (i.e. 2) as a reference.
+    All elements are connected with each other with the help of the direction.
+    If there are some conditions or annotations it is necessary to use text on links (i.e., edge labels) edge label: |condition or annotation|
+    Edge label is always located between 2 nodes :
+    id:exclusivegateway:{x} --> |condition or annotation|id:task:(tasklabel)
+    Return only mermaid.js as text without any additional information!
+    Give me just the raw Mermaid.js code without mardown formatting.
+    Example of mermaid.js:
+    flowchart LR
+    Â  0:startevent:((startevent)) --> 1:task:(task A)
+    Â  1:task: --> 2:exclusivegateway:{x}
+    Â  2:exclusivegateway: --> 3:task:(task B)
+    Â  2:exclusivegateway: --> 4:task(task C)
+    Â  3:task: --> 5:exclusivegateway:{x}
+    Â  4:task --> 5:exclusivegateway:
+    Â  5:exclusivegateway: --> 6:task:(task D)
+    Â  6:task: --> 7:endevent:((endevent))
+
+    Your task:Â 
+    Output a valid mermaid.js diagram showing the sequence of tasks and events in the description above.Â 
+
+  time:timestamp: '2025-11-04T19:49:31.790715+01:00'
+...
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 957345e8d775921d44b7dc4a584a026d0e8b708a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-04T19:49:31.791356+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 957345e8d775921d44b7dc4a584a026d0e8b708a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        0:startevent:((startevent)) --> 1:task:(Collect Requirements)
+        1:task:(Collect Requirements) --> 2:task:(Send Requirements to Architect)
+        2:task:(Send Requirements to Architect) --> 3:task:(Receive Draft)
+        3:task:(Receive Draft) --> 4:task:(Refine Draft)
+        4:task:(Refine Draft) --> 5:task:(Create Material List)
+        5:task:(Create Material List) --> 6:parallelgateway:{AND}
+        6:parallelgateway:{AND} --> 7:task:(Order Materials Online)
+        6:parallelgateway:{AND} --> 8:task:(Send Messages to Friends)
+        7:task:(Order Materials Online) --> 9:task:(Process Order)
+        8:task:(Send Messages to Friends) --> 9:task:(Process Order)
+        9:task:(Process Order) --> 10:parallelgateway:{AND}
+        10:parallelgateway:{AND} --> 11:task:(Build Tree House)
+        11:task:(Build Tree House) --> 12:task:(Send Invitations)
+        12:task:(Send Invitations) --> 13:task:(Create Guest List)
+        13:task:(Create Guest List) --> 14:task:(Buy Snacks)
+        14:task:(Buy Snacks) --> 15:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-04T19:49:31.793067+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 957345e8d775921d44b7dc4a584a026d0e8b708a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-04T19:49:31.792828+01:00'
+---
+event:
+  concept:instance: 5898
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 2551ab5b-354f-4a7e-bcb7-17b0b037a98b
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 957345e8d775921d44b7dc4a584a026d0e8b708a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send Requirements to Architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive Draft</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Refine Draft</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Create Material List</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="6">
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Order Materials Online</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Send Messages to Friends</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Process Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Build Tree House</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Send Invitations</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Create Guest List</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Buy Snacks</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-04T19:49:31.793255+01:00'

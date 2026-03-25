@@ -1,0 +1,212 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 45
+    cpee:name: steps
+    cpee:instance: db3ff3d1-6fef-40e4-acef-38d0b24ebaf0
+---
+event:
+  concept:instance: 45
+  id:id: ex-ante
+  cpee:instance: db3ff3d1-6fef-40e4-acef-38d0b24ebaf0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-17T09:44:53.355226+01:00'
+---
+event:
+  concept:instance: 45
+  id:id: ex-ante
+  cpee:instance: db3ff3d1-6fef-40e4-acef-38d0b24ebaf0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Short Introduction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Task 1: B2B Order Processing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Task 2: Real-World Case</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Answer Questions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: aac94d4bb3dd5ee18d23a1df38e349a8d541dd73
+  time:timestamp: '2026-03-17T09:44:59.372385+01:00'
+---
+event:
+  concept:instance: 45
+  id:id: ex-ante
+  cpee:instance: db3ff3d1-6fef-40e4-acef-38d0b24ebaf0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aac94d4bb3dd5ee18d23a1df38e349a8d541dd73
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-17T09:44:59.372777+01:00'
+---
+event:
+  concept:instance: 45
+  id:id: ex-ante
+  cpee:instance: db3ff3d1-6fef-40e4-acef-38d0b24ebaf0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aac94d4bb3dd5ee18d23a1df38e349a8d541dd73
+  cpee:exposition: |-
+    # User Input:
+    This evaluation will consist of a short introduction, followed byÂ two main tasks. The entire session is planned to take approximately one hour.
+
+    Task 1Â is based on a predefined, simple B2B order processing scenario.
+
+    You will be provided with a checklist to guide you through the required steps. The purpose of this task is to help you become familiar with the main features of the tool.
+
+    Task 2Â is based on a real-world case.
+
+    In this task, you will use the tool more independently to create and refine your own model based on the provided documentation.
+
+    Following the tasks, you are required to complete a set of open-ended questions.
+
+    These questions can be answered either after completing Task 1 or at the end of the evaluation after Task 2.
+  time:timestamp: '2026-03-17T09:44:59.372904+01:00'
+---
+event:
+  concept:instance: 45
+  id:id: ex-ante
+  cpee:instance: db3ff3d1-6fef-40e4-acef-38d0b24ebaf0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aac94d4bb3dd5ee18d23a1df38e349a8d541dd73
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-03-17T09:44:59.373103+01:00'
+---
+event:
+  concept:instance: 45
+  id:id: ex-ante
+  cpee:instance: db3ff3d1-6fef-40e4-acef-38d0b24ebaf0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aac94d4bb3dd5ee18d23a1df38e349a8d541dd73
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-17T09:44:59.373306+01:00'
+---
+event:
+  concept:instance: 45
+  id:id: ex-ante
+  cpee:instance: db3ff3d1-6fef-40e4-acef-38d0b24ebaf0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aac94d4bb3dd5ee18d23a1df38e349a8d541dd73
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Short Introduction)
+      1:task:(Short Introduction) --> 2:task:(Task 1: B2B Order Processing)
+      2:task:(Task 1: B2B Order Processing) --> 3:task:(Task 2: Real-World Case)
+      3:task:(Task 2: Real-World Case) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} --> |After Task 1| 5:task:(Answer Questions)
+      4:exclusivegateway:{x} --> |After Task 2| 5:task:(Answer Questions)
+      5:task:(Answer Questions) --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-03-17T09:44:59.373465+01:00'
+---
+event:
+  concept:instance: 45
+  id:id: ex-ante
+  cpee:instance: db3ff3d1-6fef-40e4-acef-38d0b24ebaf0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aac94d4bb3dd5ee18d23a1df38e349a8d541dd73
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Short Introduction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Task 1: B2B Order Processing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Task 2: Real-World Case</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Answer Questions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-03-17T09:44:59.373636+01:00'

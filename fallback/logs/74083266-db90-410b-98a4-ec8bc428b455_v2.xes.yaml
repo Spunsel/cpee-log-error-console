@@ -1,0 +1,454 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9
+    cpee:name: Enter info here
+    cpee:instance: 74083266-db90-410b-98a4-ec8bc428b455
+---
+event:
+  concept:instance: 9
+  id:id: ex-ante
+  cpee:instance: 74083266-db90-410b-98a4-ec8bc428b455
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-16T22:18:07.140026+01:00'
+---
+event:
+  concept:instance: 9
+  id:id: ex-ante
+  cpee:instance: 74083266-db90-410b-98a4-ec8bc428b455
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Purchase Order via EDI</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Parse Order and Verify Details</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Check Credit and Contract</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Create Fulfillment Plan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Lock Inventory</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="7">
+            <alternative condition="Inventory Sufficient" language="text/javascript"/>
+            <alternative condition="Inventory Insufficient" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Emergency Replenishment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Create Wave Plan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Generate Picking List</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Pick Items</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Consolidate and Verify</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Prepare for Shipping</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Generate Shipping Documents</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Arrange Transport</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a35" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Handover to Carrier</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a37" endpoint="" a:alt_id="17">
+            <parameters>
+              <label>Monitor for Exceptions</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a39" endpoint="" a:alt_id="18">
+            <parameters>
+              <label>Reconcile and Settle</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Credit/Contract NOT OK" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 3427c7b52402059597feeebbe68b99eea0dffffe
+  time:timestamp: '2026-03-16T22:18:43.544651+01:00'
+---
+event:
+  concept:instance: 9
+  id:id: ex-ante
+  cpee:instance: 74083266-db90-410b-98a4-ec8bc428b455
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3427c7b52402059597feeebbe68b99eea0dffffe
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-16T22:18:43.544898+01:00'
+---
+event:
+  concept:instance: 9
+  id:id: ex-ante
+  cpee:instance: 74083266-db90-410b-98a4-ec8bc428b455
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3427c7b52402059597feeebbe68b99eea0dffffe
+  cpee:exposition: |-
+    # User Input:
+    B2Bä¼ä¸šä»Žè®¢å•æŽ¥æ”¶åˆ°å‘è´§çš„å…¨æµç¨‹æ¡ˆä¾‹
+    æœ¬æ¡ˆä¾‹ä»¥ä¸€å®¶å‘è¿žé”è¶…å¸‚ä¾›è´§çš„é£Ÿå“åˆ†é”€å•†â€œæ’ä¸°é£Ÿå“â€ä¸ºä¾‹ï¼Œè¯¦ç»†æè¿°å…¶å¤„ç†B2Bå¤§æ‰¹é‡è®¢å•çš„å®Œæ•´æµç¨‹ã€‚ä¸ŽB2Cä¸šåŠ¡ä¸åŒï¼ŒB2Bè®¢å•æ¶‰åŠæ‰˜ç›˜åŒ–è´§ç‰©ã€å¤æ‚çš„ç‰©æµå®‰æŽ’å’Œä¸¥æ ¼çš„åˆè§„æ–‡ä»¶ï¼Œæµç¨‹é«˜åº¦ç»“æž„åŒ–ï¼Œéžå¸¸é€‚åˆç»˜åˆ¶æµç¨‹å›¾ä»¥ä¼˜åŒ–ååŒæ•ˆçŽ‡ã€‚
+    ä¸€ã€é‡‡è´­è®¢å•æŽ¥æ”¶ä¸Žåˆè§„æ€§å®¡æ ¸
+    æ¯å‘¨ä¸€ä¸Šåˆ10ç‚¹ï¼Œæ’ä¸°é£Ÿå“çš„é”€å”®éƒ¨ä¼šæ”¶åˆ°æ¥è‡ªâ€œå®¶ä¹ç¦â€ç­‰å¤§åž‹å•†è¶…é€šè¿‡EDIç”µå­æ•°æ®äº¤æ¢ç³»ç»Ÿå‘é€çš„é‡‡è´­è®¢å•ã€‚é”€å”®ä¸“å‘˜å°çŽ‹è´Ÿè´£åˆæ­¥å¤„ç†ã€‚
+    *Â Â Â è®¢å•è§£æžï¼šç³»ç»Ÿè‡ªåŠ¨å°†æ ‡å‡†çš„EDI 850è®¢å•æ•°æ®è½¬æ¢ä¸ºå†…éƒ¨å¯è§†æ ¼å¼ã€‚å°çŽ‹éœ€æ ¸å¯¹è®¢å•ä¸­çš„å•†å“SKUã€ç®±æ•°æˆ–æ‰˜ç›˜æ•°ã€è¦æ±‚çš„äº¤ä»˜æ—¥æœŸæ˜¯å¦ä¸ŽåˆåŒä¸€è‡´ã€‚ä¾‹å¦‚ï¼Œè®¢å•å¯èƒ½è¦æ±‚â€œå¯å£å¯ä¹24ç½è£…ï¼Œ50ç®±ï¼Œä¸‹å‘¨ä¸‰å‰é€è¾¾å®¶ä¹ç¦æµ‘å—åº—ä»“åº“â€ã€‚
+    *Â Â Â ä¿¡ç”¨ä¸ŽåˆåŒå®¡æ ¸ï¼šè®¢å•éšå³æµè½¬è‡³è´¢åŠ¡éƒ¨å°èµµå¤„ã€‚å°èµµéœ€åœ¨ERPç³»ç»Ÿä¸­æ ¸å¯¹è¯¥å®¢æˆ·çš„ä¿¡ç”¨é¢åº¦ï¼Œç¡®è®¤å…¶è´¦æœŸæœªè¶…é™ã€‚åŒæ—¶ï¼Œæ£€æŸ¥è®¢å•ä¸­çš„ä»·æ ¼æ¡æ¬¾æ˜¯å¦ç¬¦åˆå¹´åº¦ä¾›è´§åè®®ï¼Œè‹¥æœ‰ç‰¹æ®ŠæŠ˜æ‰£ï¼Œéœ€é”€å”®ç»ç†å®¡æ‰¹ã€‚
+    äºŒã€åº“å­˜åˆ†é…ä¸Žå±¥çº¦è®¡åˆ’
+    è´¢åŠ¡å®¡æ ¸é€šè¿‡åŽï¼Œè®¢å•çŠ¶æ€å˜æ›´ä¸ºâ€œå¾…å±¥çº¦â€ã€‚ä»“å‚¨ä¸»ç®¡è€æŽæ ¹æ®è®¢å•éœ€æ±‚åˆ¶å®šå±¥çº¦è®¡åˆ’ã€‚
+    *Â Â Â åº“å­˜é”å®šï¼šWMSä»“åº“ç®¡ç†ç³»ç»Ÿè‡ªåŠ¨æŸ¥è¯¢å¯ç”¨åº“å­˜ã€‚è‹¥åº“å­˜å……è¶³ï¼Œç³»ç»Ÿç«‹å³é”å®šç›¸åº”æ•°é‡çš„è´§ç‰©ï¼Œé˜²æ­¢è¶…å–ã€‚è‹¥åº“å­˜ä¸è¶³ï¼Œç³»ç»Ÿä¼šè§¦å‘è­¦æŠ¥ï¼Œè€æŽéœ€ç«‹å³è”ç³»é‡‡è´­éƒ¨ç´§æ€¥è¡¥è´§ï¼Œå¹¶ä¸Žå®¢æˆ·åå•†åˆ†æ‰¹å‘è´§æˆ–å»¶è¿Ÿäº¤ä»˜ã€‚
+    *Â Â Â æ³¢æ¬¡è®¡åˆ’ï¼šè€æŽæ ¹æ®è®¢å•çš„äº¤ä»˜æ—¥æœŸå’Œé…é€åœ°ç‚¹ï¼Œå°†å¤šä¸ªå®¢æˆ·çš„è®¢å•æ•´åˆä¸ºä¸€ä¸ªâ€œæ³¢æ¬¡â€ã€‚ä¾‹å¦‚ï¼Œå°†æ‰€æœ‰å‘¨ä¸‰å‰éœ€é€è¾¾æµ‘å—åŒºå®¢æˆ·çš„è®¢å•åˆå¹¶å¤„ç†ï¼Œä»¥ä¼˜åŒ–æ‹£è´§è·¯å¾„å’Œè¿è¾“è·¯çº¿ã€‚
+    ä¸‰ã€ä»“åº“æ‹£è´§ä¸Žé›†è´§
+    æ‹£è´§å‘˜å°å¼ æ ¹æ®WMSç³»ç»Ÿç”Ÿæˆçš„æ‹£è´§å•è¿›è¡Œä½œä¸šã€‚
+    *Â Â Â æ•´ç®±/æ•´æ‰˜æ‹£é€‰ï¼šä¸ŽB2Cæ‹£é€‰å•ä»¶å•†å“ä¸åŒï¼ŒB2Bæ‹£è´§é€šå¸¸ä»¥æ•´ç®±æˆ–æ•´æ‰˜ä¸ºå•ä½ã€‚å°å¼ é©¾é©¶å‰è½¦å‰å¾€æŒ‡å®šçš„é‡åž‹è´§æž¶åŒºï¼Œæ‰«æåº“ä½æ¡ç å’Œå•†å“æ¡ç ï¼Œå°†50ç®±å¯ä¹ä»Žå­˜å‚¨åŒºç§»è‡³å‡ºåº“æš‚å­˜åŒºã€‚
+    *Â Â Â é›†è´§ä¸Žæ ¸å¯¹ï¼šæ‰€æœ‰å•†å“æ‹£é€‰å®Œæ¯•åŽï¼Œå°å¼ å°†è´§ç‰©æŒ‰å®¢æˆ·è®¢å•é›†ä¸­å †æ”¾ï¼Œå¹¶ä¸Žå¤æ ¸å‘˜å°åˆ˜è¿›è¡ŒäºŒæ¬¡æ ¸å¯¹ï¼Œç¡®ä¿å•†å“ã€æ•°é‡ã€æ‰¹æ¬¡å·å®Œå…¨å‡†ç¡®ã€‚
+    å››ã€åŒ…è£…ã€è´´æ ‡ä¸Žè£…è¿å‡†å¤‡
+    å¤æ ¸æ— è¯¯åŽï¼Œè´§ç‰©è¿›å…¥è£…è¿å‡†å¤‡åŒºã€‚
+    *Â Â Â æ ‡å‡†åŒ…è£…ï¼šB2Bè´§ç‰©é€šå¸¸ç›´æŽ¥ä½¿ç”¨åŽŸåŽ‚çº¸ç®±ï¼Œæ— éœ€é¢å¤–é›¶å”®åŒ…è£…ã€‚å°åˆ˜ä¼šæ£€æŸ¥çº¸ç®±æ˜¯å¦å®Œå¥½ï¼Œå¿…è¦æ—¶è¿›è¡ŒåŠ å›ºæ‰“åŒ…ï¼Œç¡®ä¿åœ¨é•¿é€”è¿è¾“ä¸­ä¸ç ´æŸã€‚
+    *Â Â Â åˆè§„è´´æ ‡ï¼šè¿™æ˜¯B2Bæµç¨‹çš„å…³é”®çŽ¯èŠ‚ã€‚å°åˆ˜éœ€æ ¹æ®å®¢æˆ·è¦æ±‚æ‰“å°å¹¶ç²˜è´´åˆè§„æ ‡ç­¾ï¼Œå¦‚â€œå®¶ä¹ç¦â€è¦æ±‚çš„UPCæ¡ç ã€æ”¶è´§åº“ä½ç ä»¥åŠåŒ…å«å•†å“ã€æ•°é‡ã€æ‰¹æ¬¡ã€ç”Ÿäº§æ—¥æœŸçš„ç®±å”›ã€‚
+    *Â Â Â ç”Ÿæˆå•æ®ï¼šç³»ç»Ÿè‡ªåŠ¨ç”Ÿæˆæ­¤æ¬¡å‘è´§æ‰€éœ€çš„å…¨å¥—å•æ®ï¼ŒåŒ…æ‹¬æè´§å•ã€è¯¦ç»†çš„è£…ç®±å•å’Œé¢„å‘è¿é€šçŸ¥ï¼Œå‡†å¤‡äº¤æŽ¥ç»™æ‰¿è¿å•†ã€‚
+    äº”ã€è´§è¿åè°ƒä¸Žç‰©æµäº¤æŽ¥
+    ç‰©æµä¸“å‘˜å°é™ˆè´Ÿè´£å®‰æŽ’è¿è¾“ã€‚
+    *Â Â Â æ‰¿è¿å•†å®‰æŽ’ï¼šæ ¹æ®è´§ç‰©ä½“ç§¯å’Œé‡é‡ï¼Œå°é™ˆé€‰æ‹©åˆé€‚çš„æ‰¿è¿å•†å’Œè¿è¾“æ–¹å¼ã€‚å¯¹äºŽ50ç®±è´§ç‰©ï¼Œå¯èƒ½å®‰æŽ’4.2ç±³çš„åŽ¢å¼è´§è½¦è¿›è¡Œé›¶æ‹…è¿è¾“ã€‚å°é™ˆéœ€æå‰ä¸Žå®¢æˆ·ä»“åº“é¢„çº¦æ”¶è´§æ—¶é—´çª—å£ï¼Œä¾‹å¦‚é¢„çº¦ä¸‹å‘¨ä¸‰ä¸Šåˆ9:00-11:00ã€‚
+    *Â Â Â ç å¤´äº¤æŽ¥ï¼šæ‰¿è¿å•†çš„è´§è½¦åˆ°è¾¾åŽï¼Œå°é™ˆä¸Žå¸æœºè¿›è¡ŒçŽ°åœºäº¤æŽ¥ã€‚åŒæ–¹å…±åŒæ¸…ç‚¹æ‰˜ç›˜æˆ–ç®±æ•°ï¼Œæ£€æŸ¥è´§ç‰©å¤–è§‚ï¼Œå¹¶åœ¨æè´§å•ä¸Šç­¾å­—ç¡®è®¤ã€‚è´§ç‰©è£…è½¦å®Œæ¯•ï¼Œç³»ç»Ÿæ›´æ–°çŠ¶æ€ä¸ºâ€œåœ¨é€”â€ï¼Œå¹¶è‡ªåŠ¨å‘å®¢æˆ·å‘é€é¢„å‘è¿é€šçŸ¥ï¼Œå‘ŠçŸ¥å…¶è´§ç‰©å·²å‘å‡ºã€é¢„è®¡åˆ°è¾¾æ—¶é—´åŠå¸æœºè”ç³»æ–¹å¼ã€‚
+    å…­ã€å¼‚å¸¸å¤„ç†ä¸ŽæŒç»­ä¼˜åŒ–
+    å‘è´§åŽï¼Œè®¢å•å¹¶æœªç»“æŸã€‚
+    *Â Â Â å¼‚å¸¸ç›‘æŽ§ï¼šè‹¥è¿è¾“é€”ä¸­å‡ºçŽ°å»¶è¯¯ï¼Œå°é™ˆéœ€åŠæ—¶è”ç³»å®¢æˆ·è¯´æ˜Žæƒ…å†µå¹¶é‡æ–°é¢„çº¦æ”¶è´§æ—¶é—´ï¼Œé¿å…å› é”™è¿‡é¢„çº¦çª—å£è€Œäº§ç”Ÿç½šæ¬¾ã€‚
+    *Â Â Â å¯¹è´¦ä¸Žç»“ç®—ï¼šå®¢æˆ·æ”¶è´§ç¡®è®¤åŽï¼Œç³»ç»Ÿç”Ÿæˆå‘ç¥¨ï¼Œè¿›å…¥è´¢åŠ¡ç»“ç®—æµç¨‹ã€‚
+    *Â Â Â æµç¨‹å¤ç›˜ï¼šæ¯æœˆï¼Œè¿è¥éƒ¨ä¼šåˆ†æžè®¢å•å±¥çº¦å‘¨æœŸã€å‘è´§å‡†ç¡®çŽ‡å’Œè¿è¾“æˆæœ¬ã€‚ä¾‹å¦‚ï¼Œè‹¥å‘çŽ°æŸçº¿è·¯çš„è¿è¾“å»¶è¯¯çŽ‡é«˜ï¼Œä¼šè€ƒè™‘æ›´æ¢æ‰¿è¿å•†æˆ–è°ƒæ•´å‘è½¦æ—¶é—´ã€‚
+    é€šè¿‡ä»¥ä¸Šæµç¨‹ï¼Œæ’ä¸°é£Ÿå“ç¡®ä¿äº†å¤§æ‰¹é‡B2æ¸¸æˆå‰¯æœ¬çš„é«˜æ•ˆã€å‡†ç¡®äº¤ä»˜ï¼Œæ»¡è¶³äº†è¿žé”å•†è¶…å®¢æˆ·å¯¹ä¾›åº”é“¾ç¨³å®šæ€§å’Œåˆè§„æ€§çš„ä¸¥è‹›è¦æ±‚ã€‚è¯¥æµç¨‹é€»è¾‘æ¸…æ™°ï¼Œæ¶‰åŠé”€å”®ã€è´¢åŠ¡ã€ä»“å‚¨ã€ç‰©æµç­‰å¤šä¸ªéƒ¨é—¨çš„ååŒï¼Œéžå¸¸é€‚åˆé€šè¿‡æµç¨‹å›¾è¿›è¡Œå¯è§†åŒ–å‘ˆçŽ°ï¼Œä»¥è¯†åˆ«ç“¶é¢ˆã€ä¼˜åŒ–èµ„æºé…ç½®ã€‚
+  time:timestamp: '2026-03-16T22:18:43.545081+01:00'
+---
+event:
+  concept:instance: 9
+  id:id: ex-ante
+  cpee:instance: 74083266-db90-410b-98a4-ec8bc428b455
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3427c7b52402059597feeebbe68b99eea0dffffe
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-03-16T22:18:43.545382+01:00'
+---
+event:
+  concept:instance: 9
+  id:id: ex-ante
+  cpee:instance: 74083266-db90-410b-98a4-ec8bc428b455
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3427c7b52402059597feeebbe68b99eea0dffffe
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-16T22:18:43.545668+01:00'
+---
+event:
+  concept:instance: 9
+  id:id: ex-ante
+  cpee:instance: 74083266-db90-410b-98a4-ec8bc428b455
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3427c7b52402059597feeebbe68b99eea0dffffe
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Receive Purchase Order via EDI)
+        1:task:(Receive Purchase Order via EDI) --> 2:task:(Parse Order and Verify Details)
+        2:task:(Parse Order and Verify Details) --> 3:task:(Check Credit and Contract)
+        3:task:(Check Credit and Contract) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Credit/Contract OK| 5:task:(Create Fulfillment Plan)
+        4:exclusivegateway:{x} --> |Credit/Contract NOT OK| 19:endevent:(((endevent)))
+        5:task:(Create Fulfillment Plan) --> 6:task:(Lock Inventory)
+        6:task:(Lock Inventory) --> 7:exclusivegateway:{x}
+        7:exclusivegateway:{x} --> |Inventory Sufficient| 8:task:(Create Wave Plan)
+        7:exclusivegateway:{x} --> |Inventory Insufficient| 9:task:(Emergency Replenishment)
+        9:task:(Emergency Replenishment) --> 8:task:(Create Wave Plan)
+        8:task:(Create Wave Plan) --> 10:task:(Generate Picking List)
+        10:task:(Generate Picking List) --> 11:task:(Pick Items)
+        11:task:(Pick Items) --> 12:task:(Consolidate and Verify)
+        12:task:(Consolidate and Verify) --> 13:task:(Prepare for Shipping)
+        13:task:(Prepare for Shipping) --> 14:task:(Generate Shipping Documents)
+        14:task:(Generate Shipping Documents) --> 15:task:(Arrange Transport)
+        15:task:(Arrange Transport) --> 16:task:(Handover to Carrier)
+        16:task:(Handover to Carrier) --> 17:task:(Monitor for Exceptions)
+        17:task:(Monitor for Exceptions) --> 18:task:(Reconcile and Settle)
+        18:task:(Reconcile and Settle) --> 19:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-03-16T22:18:43.545818+01:00'
+---
+event:
+  concept:instance: 9
+  id:id: ex-ante
+  cpee:instance: 74083266-db90-410b-98a4-ec8bc428b455
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3427c7b52402059597feeebbe68b99eea0dffffe
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Purchase Order via EDI</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Parse Order and Verify Details</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Check Credit and Contract</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Create Fulfillment Plan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Lock Inventory</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="7">
+            <alternative condition="Inventory Sufficient" language="text/javascript"/>
+            <alternative condition="Inventory Insufficient" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Emergency Replenishment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Create Wave Plan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Generate Picking List</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Pick Items</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Consolidate and Verify</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Prepare for Shipping</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Generate Shipping Documents</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Arrange Transport</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a35" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Handover to Carrier</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a37" endpoint="" a:alt_id="17">
+            <parameters>
+              <label>Monitor for Exceptions</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a39" endpoint="" a:alt_id="18">
+            <parameters>
+              <label>Reconcile and Settle</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Credit/Contract NOT OK" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-03-16T22:18:43.545939+01:00'

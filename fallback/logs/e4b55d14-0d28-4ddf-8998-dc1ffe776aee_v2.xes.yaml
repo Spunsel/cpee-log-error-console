@@ -1,0 +1,286 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 1126
+    cpee:name: Plain Instance
+    cpee:instance: e4b55d14-0d28-4ddf-8998-dc1ffe776aee
+---
+event:
+  concept:instance: 1126
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e4b55d14-0d28-4ddf-8998-dc1ffe776aee
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-29T14:14:00.531252+01:00'
+---
+event:
+  concept:instance: 1126
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e4b55d14-0d28-4ddf-8998-dc1ffe776aee
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Cycle to gym and fall</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Go to family doctor</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Take medical history and examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Wrist bruised" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Ask about tetanus status</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Tetanus up to date" language="text/javascript"/>
+            <alternative condition="Tetanus not up to date" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Give booster shot and new card</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Wrist fractured" language="text/javascript"/>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Refer for X-ray</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Find radiology practice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 8f24712091dabec1d1c5eab66f060af2801b758c
+  time:timestamp: '2025-10-29T14:17:30.410690+01:00'
+---
+event:
+  concept:instance: 1126
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e4b55d14-0d28-4ddf-8998-dc1ffe776aee
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8f24712091dabec1d1c5eab66f060af2801b758c
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-29T14:17:30.410939+01:00'
+---
+event:
+  concept:instance: 1126
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e4b55d14-0d28-4ddf-8998-dc1ffe776aee
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8f24712091dabec1d1c5eab66f060af2801b758c
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-29T14:17:30.411422+01:00'
+---
+event:
+  concept:instance: 1126
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e4b55d14-0d28-4ddf-8998-dc1ffe776aee
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8f24712091dabec1d1c5eab66f060af2801b758c
+  cpee:exposition: |-
+    # User Input:
+    On a beautiful autumn day, Lothar cycles to the gym. In downtown WÃ¼rzburg, a momentary lapse in concentration causes his front wheel to get caught in the tram tracks and he falls onto his right wrist. He can hardly move it and realizes that something is wrong. He therefore decides to go to his family doctor.
+    His family doctor takes a brief medical history and performs a physical examination. She documents the results on Lothar's paper patient file. The wrist is only slightly swollen and the family doctor suspects only a bruise. Since Lothar also has an abrasion on his knee joint, the family doctor asks about his tetanus status. Lothar has to admit that he has lost his vaccination card and cannot remember when he last had a vaccination. She therefore gives him a booster shot and issues a new paper vaccination card. To rule out a fracture of the right wrist, she refers Lothar for an X-ray.
+    Lothar spends the entire afternoon on the phone and finally finds a radiology practice that can squeeze him in for an appointment the next day.Â 
+
+
+    Translated with DeepL.com (free version)
+  time:timestamp: '2025-10-29T14:17:30.411098+01:00'
+---
+event:
+  concept:instance: 1126
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e4b55d14-0d28-4ddf-8998-dc1ffe776aee
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8f24712091dabec1d1c5eab66f060af2801b758c
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Cycle to gym and fall)
+        1:task:(Cycle to gym and fall) --> 2:task:(Go to family doctor)
+        2:task:(Go to family doctor) --> 3:task:(Take medical history and examination)
+        3:task:(Take medical history and examination) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Wrist bruised| 5:task:(Ask about tetanus status)
+        4:exclusivegateway:{x} --> |Wrist fractured| 8:task:(Refer for X-ray)
+        5:task:(Ask about tetanus status) --> 6:exclusivegateway:{x}
+        6:exclusivegateway:{x} --> |Tetanus up to date| 8:task:(Refer for X-ray)
+        6:exclusivegateway:{x} --> |Tetanus not up to date| 7:task:(Give booster shot and new card)
+        7:task:(Give booster shot and new card) --> 8:task:(Refer for X-ray)
+        8:task:(Refer for X-ray) --> 9:task:(Find radiology practice)
+        9:task:(Find radiology practice) --> 10:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-29T14:17:30.411663+01:00'
+---
+event:
+  concept:instance: 1126
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e4b55d14-0d28-4ddf-8998-dc1ffe776aee
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8f24712091dabec1d1c5eab66f060af2801b758c
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-29T14:17:30.411578+01:00'
+---
+event:
+  concept:instance: 1126
+  id:id: external
+  cpee:activity: external
+  cpee:instance: e4b55d14-0d28-4ddf-8998-dc1ffe776aee
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8f24712091dabec1d1c5eab66f060af2801b758c
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Cycle to gym and fall</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Go to family doctor</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Take medical history and examination</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Wrist bruised" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Ask about tetanus status</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Tetanus up to date" language="text/javascript"/>
+            <alternative condition="Tetanus not up to date" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Give booster shot and new card</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Wrist fractured" language="text/javascript"/>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Refer for X-ray</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Find radiology practice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-29T14:17:30.411745+01:00'

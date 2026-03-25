@@ -1,0 +1,282 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 508
+    cpee:name: Plain Instance
+    cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+---
+event:
+  concept:instance: 508
+  id:id: ex-ante
+  cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-22T16:46:03.130912+01:00'
+---
+event:
+  concept:instance: 508
+  id:id: ex-ante
+  cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Retrieve ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Condition Met" language="text/javascript"/>
+        <alternative condition="Condition Not Met" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Mixing ingredients</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="4">
+            <parallel_branch>
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Adding ice cubes</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Adding a straw</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <loop mode="pre_test" condition="true" a:alt_id="8" language="text/javascript">
+            <choose mode="exclusive" a:alt_id="9">
+              <alternative condition="Customer wants more liquor" language="text/javascript">
+                <call id="a25" endpoint="" a:alt_id="11">
+                  <parameters>
+                    <label>Add additional shot of liquor</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="Customer doesn't want more liquor" language="text/javascript"/>
+            </choose>
+          </loop>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 9eaf734a6ae57b42bd62bd2f5e367552cc42e480
+  time:timestamp: '2026-03-22T16:46:11.028259+01:00'
+---
+event:
+  concept:instance: 508
+  id:id: ex-ante
+  cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eaf734a6ae57b42bd62bd2f5e367552cc42e480
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-22T16:46:11.028446+01:00'
+---
+event:
+  concept:instance: 508
+  id:id: ex-ante
+  cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eaf734a6ae57b42bd62bd2f5e367552cc42e480
+  cpee:exposition: |-
+    # User Input:
+    The process starts with retrieving ingredients. Then, a decision is made. If the condition is met, the process proceeds directly to a merge point. Otherwise, the process continues to mixing ingredients, after which the process splits into two parallel activities: adding ice cubes and adding a straw. Once both activities are completed, the process merges back together, and another decision is made. If the condition is met, the process proceeds directly to a merge point. Otherwise, the process continues to another decision point. If the customer wants more liquor, an additional shot of liquor is added, and then the process merges back. Otherwise, the process proceeds directly to the merge point. From the merge point, the process loops back to the previous decision point. From the merge point, the process merges back, and then the process ends.
+  time:timestamp: '2026-03-22T16:46:11.028542+01:00'
+---
+event:
+  concept:instance: 508
+  id:id: ex-ante
+  cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eaf734a6ae57b42bd62bd2f5e367552cc42e480
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-03-22T16:46:11.028623+01:00'
+---
+event:
+  concept:instance: 508
+  id:id: ex-ante
+  cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eaf734a6ae57b42bd62bd2f5e367552cc42e480
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-22T16:46:11.028698+01:00'
+---
+event:
+  concept:instance: 508
+  id:id: ex-ante
+  cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eaf734a6ae57b42bd62bd2f5e367552cc42e480
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Retrieve ingredients)
+      1:task:(Retrieve ingredients) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Condition Met| 10:inclusivegateway:{O}
+      2:exclusivegateway:{x} --> |Condition Not Met| 3:task:(Mixing ingredients)
+      3:task:(Mixing ingredients) --> 4:parallelgateway:{AND}
+      4:parallelgateway:{AND} --> 5:task:(Adding ice cubes)
+      4:parallelgateway:{AND} --> 6:task:(Adding a straw)
+      5:task:(Adding ice cubes) --> 7:parallelgateway:{AND}
+      6:task:(Adding a straw) --> 7:parallelgateway:{AND}
+      7:parallelgateway:{AND} --> 8:exclusivegateway:{x}
+      8:exclusivegateway:{x} --> |Condition Met| 10:inclusivegateway:{O}
+      8:exclusivegateway:{x} --> |Condition Not Met| 9:exclusivegateway:{x}
+      9:exclusivegateway:{x} --> |Customer wants more liquor| 11:task:(Add additional shot of liquor)
+      9:exclusivegateway:{x} --> |Customer doesn't want more liquor| 12:inclusivegateway:{O}
+      11:task:(Add additional shot of liquor) --> 12:inclusivegateway:{O}
+      12:inclusivegateway:{O} --> 8:exclusivegateway:{x}
+      10:inclusivegateway:{O} --> 13:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-03-22T16:46:11.028780+01:00'
+---
+event:
+  concept:instance: 508
+  id:id: ex-ante
+  cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9eaf734a6ae57b42bd62bd2f5e367552cc42e480
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Retrieve ingredients</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Condition Met" language="text/javascript"/>
+        <alternative condition="Condition Not Met" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Mixing ingredients</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="4">
+            <parallel_branch>
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Adding ice cubes</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Adding a straw</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <loop mode="pre_test" condition="true" a:alt_id="8" language="text/javascript">
+            <choose mode="exclusive" a:alt_id="9">
+              <alternative condition="Customer wants more liquor" language="text/javascript">
+                <call id="a25" endpoint="" a:alt_id="11">
+                  <parameters>
+                    <label>Add additional shot of liquor</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="Customer doesn't want more liquor" language="text/javascript"/>
+            </choose>
+          </loop>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-03-22T16:46:11.028987+01:00'
+---
+event:
+  concept:instance: 508
+  id:id: ex-ante
+  cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2026-03-22T16:46:20.275172+01:00'
+---
+event:
+  concept:instance: 508
+  id:id: ex-ante
+  cpee:instance: f916fd2c-3ced-4c2f-a425-5326b47f4ba7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-22T16:46:20.373216+01:00'

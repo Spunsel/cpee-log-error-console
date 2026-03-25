@@ -1,0 +1,842 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 457
+    cpee:name: Plain Instance
+    cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-10-23T11:08:57.127068+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93936109fab3df3c37320b7f651901e8a00178ce
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-23T11:09:22.798136+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93936109fab3df3c37320b7f651901e8a00178ce
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-23T11:09:22.798790+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Initial Assessment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a4" endpoint="">
+            <parameters>
+              <label>Conservative Treatment) |Not Displaced|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'3'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Surgical Planning) |Displaced|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Pre-operative Assessment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Surgical Intervention</label>
+              <method/>
+              <type>:task</type>
+              <mid>'7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Post-operative Care</label>
+          <method/>
+          <type>:task</type>
+          <mid>'8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Rehabilitation</label>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 93936109fab3df3c37320b7f651901e8a00178ce
+  time:timestamp: '2025-10-23T11:09:22.797914+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93936109fab3df3c37320b7f651901e8a00178ce
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Initial Assessment)
+        1:task:(Initial Assessment) --> 2:exclusivegateway:{x}
+        2:exclusivegateway:{x} --> 3:task:(Conservative Treatment) |Not Displaced|
+        2:exclusivegateway:{x} --> 4:task:(Surgical Planning) |Displaced|
+        3:task:(Conservative Treatment) --> 5:exclusivegateway:{x}
+        4:task:(Surgical Planning) --> 6:task:(Pre-operative Assessment)
+        6:task:(Pre-operative Assessment) --> 7:task:(Surgical Intervention)
+        7:task:(Surgical Intervention) --> 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> 8:task:(Post-operative Care)
+        8:task:(Post-operative Care) --> 9:task:(Rehabilitation)
+        9:task:(Rehabilitation) --> 10:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-23T11:09:22.798972+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93936109fab3df3c37320b7f651901e8a00178ce
+  cpee:exposition: |-
+    # User Input:
+    create a process model for femur fracture
+  time:timestamp: '2025-10-23T11:09:22.798635+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93936109fab3df3c37320b7f651901e8a00178ce
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-23T11:09:22.798869+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93936109fab3df3c37320b7f651901e8a00178ce
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Initial Assessment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a4" endpoint="">
+            <parameters>
+              <label>Conservative Treatment) |Not Displaced|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'3'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Surgical Planning) |Displaced|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Pre-operative Assessment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Surgical Intervention</label>
+              <method/>
+              <type>:task</type>
+              <mid>'7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Post-operative Care</label>
+          <method/>
+          <type>:task</type>
+          <mid>'8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Rehabilitation</label>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-23T11:09:22.799065+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Initial Assessment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a4" endpoint="">
+            <parameters>
+              <label>Conservative Treatment) |Not Displaced|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'3'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Surgical Planning) |Displaced|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="">
+            <parameters>
+              <label>Pre-operative Assessment</label>
+              <method/>
+              <type>:task</type>
+              <mid>'6'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Surgical Intervention</label>
+              <method/>
+              <type>:task</type>
+              <mid>'7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>Post-operative Care</label>
+          <method/>
+          <type>:task</type>
+          <mid>'8'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>Rehabilitation</label>
+          <method/>
+          <type>:task</type>
+          <mid>'9'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-10-23T11:09:57.342727+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2025-10-23T11:09:57.342548+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    # User Input:
+    delete model
+  time:timestamp: '2025-10-23T11:09:57.342850+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-10-23T11:09:57.343169+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-23T11:09:57.342973+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Initial Assessment)
+    a2:task:(Initial Assessment)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|a4:task:(Conservative Treatment\) |Not Displaced|)
+    a4:task:(Conservative Treatment\) |Not Displaced|)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|a5:task:(Surgical Planning\) |Displaced|)
+    a5:task:(Surgical Planning\) |Displaced|)-->a7:task:(Pre-operative Assessment)
+    a7:task:(Pre-operative Assessment)-->a8:task:(Surgical Intervention)
+    a8:task:(Surgical Intervention)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a9:task:(Post-operative Care)
+    a9:task:(Post-operative Care)-->a10:task:(Rehabilitation)
+    a10:task:(Rehabilitation)-->ee:endevent:((endevent))
+  time:timestamp: '2025-10-23T11:09:57.343069+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-23T11:09:57.343303+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-23T11:10:04.826748+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  time:timestamp: '2025-10-23T11:10:04.826552+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-23T11:10:04.827052+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    # User Input:
+    delete everything
+  time:timestamp: '2025-10-23T11:10:04.826875+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-23T11:10:04.827168+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-23T11:10:04.827541+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '08d144d55fbe0964c880f7c35ad5e1b9b6e33e91'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-23T11:10:04.827652+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2aa52066427eed021d0ac24fdc57b8216c60627
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-10-23T11:10:22.129229+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Initial Assessment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a4" endpoint="">
+            <parameters>
+              <label>Medication) |Low Risk|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'3'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Lifestyle Changes) |Medium Risk|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Refer to Specialist) |High Risk|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <loop mode="pre_test" condition="true">
+        <call id="a8" endpoint="">
+          <parameters>
+            <label>Monitor Condition</label>
+            <method/>
+            <type>:task</type>
+            <mid>'7'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" language="text/javascript">
+          <call id="a10" endpoint="">
+            <parameters>
+              <label>Adjust Treatment) |Condition Worsens|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Monitor Condition</label>
+              <method/>
+              <type>:task</type>
+              <mid>'7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="">
+          <parameters>
+            <label>Continue Treatment) |Condition Stable|</label>
+            <method/>
+            <type>:task</type>
+            <mid>'10'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: b2aa52066427eed021d0ac24fdc57b8216c60627
+  time:timestamp: '2025-10-23T11:10:22.128946+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2aa52066427eed021d0ac24fdc57b8216c60627
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-10-23T11:10:22.130126+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2aa52066427eed021d0ac24fdc57b8216c60627
+  cpee:exposition: |-
+    # User Input:
+    create process model for coronary heart disease treatment
+  time:timestamp: '2025-10-23T11:10:22.129959+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2aa52066427eed021d0ac24fdc57b8216c60627
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-10-23T11:10:22.130253+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2aa52066427eed021d0ac24fdc57b8216c60627
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Initial Assessment)
+    1:task:(Initial Assessment) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> 3:task:(Medication) |Low Risk|
+    2:exclusivegateway:{x} --> 4:task:(Lifestyle Changes) |Medium Risk|
+    2:exclusivegateway:{x} --> 5:task:(Refer to Specialist) |High Risk|
+    3:task:(Medication) --> 6:exclusivegateway:{x}
+    4:task:(Lifestyle Changes) --> 6:exclusivegateway:{x}
+    5:task:(Refer to Specialist) --> 6:exclusivegateway:{x}
+    6:exclusivegateway:{x} --> 7:task:(Monitor Condition)
+    7:task:(Monitor Condition) --> 8:exclusivegateway:{x}
+    8:exclusivegateway:{x} --> 9:task:(Adjust Treatment) |Condition Worsens|
+    8:exclusivegateway:{x} --> 10:task:(Continue Treatment) |Condition Stable|
+    9:task:(Adjust Treatment) --> 7:task:(Monitor Condition)
+    10:task:(Continue Treatment) --> 11:exclusivegateway:{x}
+    7:task:(Monitor Condition) --> 11:exclusivegateway:{x} |Condition Improved|
+    11:exclusivegateway:{x} --> 12:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-10-23T11:10:22.130578+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b2aa52066427eed021d0ac24fdc57b8216c60627
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>Initial Assessment</label>
+          <method/>
+          <type>:task</type>
+          <mid>'1'</mid>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="">
+          <call id="a4" endpoint="">
+            <parameters>
+              <label>Medication) |Low Risk|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'3'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a5" endpoint="">
+            <parameters>
+              <label>Lifestyle Changes) |Medium Risk|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'4'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a6" endpoint="">
+            <parameters>
+              <label>Refer to Specialist) |High Risk|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'5'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <loop mode="pre_test" condition="true">
+        <call id="a8" endpoint="">
+          <parameters>
+            <label>Monitor Condition</label>
+            <method/>
+            <type>:task</type>
+            <mid>'7'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" language="text/javascript">
+          <call id="a10" endpoint="">
+            <parameters>
+              <label>Adjust Treatment) |Condition Worsens|</label>
+              <method/>
+              <type>:task</type>
+              <mid>'9'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a8" endpoint="">
+            <parameters>
+              <label>Monitor Condition</label>
+              <method/>
+              <type>:task</type>
+              <mid>'7'</mid>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="">
+          <parameters>
+            <label>Continue Treatment) |Condition Stable|</label>
+            <method/>
+            <type>:task</type>
+            <mid>'10'</mid>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-10-23T11:10:22.130908+02:00'
+---
+event:
+  concept:instance: 457
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 23364b56-8329-4846-b577-a4e0c3a361b9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-11-17T17:39:47.533419+01:00'
