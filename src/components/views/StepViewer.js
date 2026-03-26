@@ -149,16 +149,10 @@ export class StepViewer {
             this.navigator.updateMetadataDisplay(step);
         }
 
-        // Wait for all DOM elements to be finished setting up and formatted correctly
-        // Use multiple requestAnimationFrame calls to ensure DOM updates are complete
+        // Wait for DOM elements to be ready before showing
+        // Single requestAnimationFrame is sufficient (~16ms vs ~48-64ms with triple)
         await new Promise(resolve => {
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        resolve();
-                    });
-                });
-            });
+            requestAnimationFrame(resolve);
         });
 
         // Now that all DOM elements are ready and formatted correctly, show the step viewer
