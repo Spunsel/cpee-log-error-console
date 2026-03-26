@@ -551,6 +551,134 @@ function getNodeId(element, position = 'first') {
     return null;
 }
 
+/**
+ * Get ALL possible entry node IDs for an element.
+ * For choose/parallel elements, returns the first node of each alternative/branch.
+ * For task elements, returns just that task's ID.
+ */
+function getAllEntryNodeIds(element) {
+    if (!element) {
+        return [];
+    }
+    
+    const tagName = element.tagName?.toLowerCase();
+    
+    // Direct task elements
+    if (TASK_ELEMENTS.includes(tagName)) {
+        const id = element.getAttribute('id');
+        return id ? [id] : [];
+    }
+    
+    // Control flow elements
+    if (CONTROL_FLOW_ELEMENTS.includes(tagName)) {
+        const id = getNodeId(element);
+        return id ? [id] : [];
+    }
+    
+    // Choose element: get first node of each alternative recursively
+    if (tagName === 'choose') {
+        const entryIds = [];
+        const alternatives = Array.from(element.querySelectorAll(':scope > alternative'));
+        for (const alt of alternatives) {
+            const altChildren = getFilteredChildren(alt);
+            if (altChildren.length > 0) {
+                entryIds.push(...getAllEntryNodeIds(altChildren[0]));
+            }
+        }
+        return [...new Set(entryIds)]; // Deduplicate
+    }
+    
+    // Parallel element: get first node of each branch
+    if (tagName === 'parallel') {
+        const entryIds = [];
+        const branches = Array.from(element.querySelectorAll(':scope > parallel_branch'));
+        for (const branch of branches) {
+            const branchChildren = getFilteredChildren(branch);
+            if (branchChildren.length > 0) {
+                entryIds.push(...getAllEntryNodeIds(branchChildren[0]));
+            }
+        }
+        return [...new Set(entryIds)];
+    }
+    
+    // Loop element: get entry of first child
+    if (tagName === 'loop') {
+        const children = getFilteredChildren(element);
+        if (children.length > 0) {
+            return getAllEntryNodeIds(children[0]);
+        }
+        return [];
+    }
+    
+    // Other elements: use single ID fallback
+    const id = getNodeId(element, 'first');
+    return id ? [id] : [];
+}
+
+/**
+ * Get ALL possible exit node IDs for an element.
+ * For choose/parallel elements, returns the last node of each alternative/branch.
+ * For task elements, returns just that task's ID.
+ */
+function getAllExitNodeIds(element) {
+    if (!element) {
+        return [];
+    }
+    
+    const tagName = element.tagName?.toLowerCase();
+    
+    // Direct task elements
+    if (TASK_ELEMENTS.includes(tagName)) {
+        const id = element.getAttribute('id');
+        return id ? [id] : [];
+    }
+    
+    // Control flow elements
+    if (CONTROL_FLOW_ELEMENTS.includes(tagName)) {
+        const id = getNodeId(element);
+        return id ? [id] : [];
+    }
+    
+    // Choose element: get last node of each alternative recursively
+    if (tagName === 'choose') {
+        const exitIds = [];
+        const alternatives = Array.from(element.querySelectorAll(':scope > alternative'));
+        for (const alt of alternatives) {
+            const altChildren = getFilteredChildren(alt);
+            if (altChildren.length > 0) {
+                exitIds.push(...getAllExitNodeIds(altChildren[altChildren.length - 1]));
+            }
+        }
+        return [...new Set(exitIds)];
+    }
+    
+    // Parallel element: get last node of each branch
+    if (tagName === 'parallel') {
+        const exitIds = [];
+        const branches = Array.from(element.querySelectorAll(':scope > parallel_branch'));
+        for (const branch of branches) {
+            const branchChildren = getFilteredChildren(branch);
+            if (branchChildren.length > 0) {
+                exitIds.push(...getAllExitNodeIds(branchChildren[branchChildren.length - 1]));
+            }
+        }
+        return [...new Set(exitIds)];
+    }
+    
+    // Loop element: get exit of last child
+    if (tagName === 'loop') {
+        const children = getFilteredChildren(element);
+        if (children.length > 0) {
+            return getAllExitNodeIds(children[children.length - 1]);
+        }
+        return [];
+    }
+    
+    // Other elements: use single ID fallback
+    const id = getNodeId(element, 'last');
+    return id ? [id] : [];
+}
+
 function getFilteredChildren(element) {
     return Array.from(element.children).filter(c => 
         c.tagName.toLowerCase() !== 'condition'
@@ -587,10 +715,20 @@ function findLoopSuccessor(loop) {
 
 function extractSequentialEdges(children, edges, edgeType) {
     for (let i = 0; i < children.length - 1; i++) {
-        const fromId = getNodeId(children[i], 'last');
-        const toId = getNodeId(children[i + 1], 'first');
-        if (fromId && toId) {
-            edges.push({ from: fromId, to: toId, type: edgeType });
+        const fromElement = children[i];
+        const toElement = children[i + 1];
+        
+        // Get ALL possible exit points from the source and ALL entry points to the target
+        const fromIds = getAllExitNodeIds(fromElement);
+        const toIds = getAllEntryNodeIds(toElement);
+        
+        // Create edges from each exit to each entry
+        for (const fromId of fromIds) {
+            for (const toId of toIds) {
+                if (fromId && toId) {
+                    edges.push({ from: fromId, to: toId, type: edgeType });
+                }
+            }
         }
     }
 }
@@ -605,16 +743,8 @@ function getParentContext(element) {
 function extractEdgesFromDescription(desc, edges, _nodeMap, escapeEdges) {
     const children = getFilteredChildren(desc);
     
-    for (let i = 0; i < children.length - 1; i++) {
-        const fromElement = children[i];
-        const toElement = children[i + 1];
-        const fromId = getNodeId(fromElement, 'last');
-        const toId = getNodeId(toElement, 'first');
-        
-        if (fromId && toId) {
-            edges.push({ from: fromId, to: toId, type: 'sequential' });
-        }
-    }
+    // Use extractSequentialEdges which handles multi-entry/exit properly
+    extractSequentialEdges(children, edges, 'sequential');
     
     // Handle escape elements in descriptions
     extractEscapeEdges(desc, edges, escapeEdges);
@@ -656,38 +786,53 @@ function extractEdgesFromChoose(choose, edges, _nodeMap, escapeEdges) {
     
     const predecessor = elementIndex > 0 ? parentChildren[elementIndex - 1] : null;
     const successor = elementIndex < parentChildren.length - 1 ? parentChildren[elementIndex + 1] : null;
-    const predecessorId = predecessor ? getNodeId(predecessor, 'last') : null;
-    const successorId = successor ? getNodeId(successor, 'first') : null;
+    
+    // Get ALL exit IDs from predecessor and ALL entry IDs for successor
+    const predecessorIds = predecessor ? getAllExitNodeIds(predecessor) : [];
+    const successorIds = successor ? getAllEntryNodeIds(successor) : [];
     
     // Special case: if choose is first child of a loop, use loop-back edges instead
-    // The loop's back edge will connect to alternatives, but we need entry edges
     const isFirstInLoop = !predecessor && parent?.tagName?.toLowerCase() === 'loop';
+    
+    // Collect all entry and exit points of this choose for loop back-edges
+    const allChooseEntryIds = [];
+    const allChooseExitIds = [];
     
     for (const alt of alternatives) {
         const altChildren = getFilteredChildren(alt);
         
-        // Edge from predecessor to first element
-        if (altChildren.length > 0 && predecessorId) {
-            const firstAltId = getNodeId(altChildren[0], 'first');
-            if (firstAltId) {
-                edges.push({ from: predecessorId, to: firstAltId, type: 'xor-branch' });
+        if (altChildren.length > 0) {
+            // Get all entry points of this alternative's first element
+            const firstAltIds = getAllEntryNodeIds(altChildren[0]);
+            // Get all exit points of this alternative's last element
+            const lastAltIds = getAllExitNodeIds(altChildren[altChildren.length - 1]);
+            
+            allChooseEntryIds.push(...firstAltIds);
+            allChooseExitIds.push(...lastAltIds);
+            
+            // Edge from ALL predecessor exits to ALL first element entries
+            for (const predId of predecessorIds) {
+                for (const firstAltId of firstAltIds) {
+                    edges.push({ from: predId, to: firstAltId, type: 'xor-branch' });
+                }
             }
-        }
-        
-        // Sequential edges within alternative
-        extractSequentialEdges(altChildren, edges, 'xor-sequential');
-        
-        // Edge from last element to successor
-        if (altChildren.length > 0 && successorId) {
-            const lastAltId = getNodeId(altChildren[altChildren.length - 1], 'last');
-            if (lastAltId) {
-                edges.push({ from: lastAltId, to: successorId, type: 'xor-join' });
+            
+            // Sequential edges within alternative (already handles multi-entry/exit)
+            extractSequentialEdges(altChildren, edges, 'xor-sequential');
+            
+            // Edge from ALL last element exits to ALL successor entries
+            for (const lastAltId of lastAltIds) {
+                for (const succId of successorIds) {
+                    edges.push({ from: lastAltId, to: succId, type: 'xor-join' });
+                }
             }
-        }
-        
-        // Handle empty alternatives (direct predecessor to successor)
-        if (altChildren.length === 0 && predecessorId && successorId) {
-            edges.push({ from: predecessorId, to: successorId, type: 'xor-skip' });
+        } else {
+            // Handle empty alternatives (direct predecessor to successor)
+            for (const predId of predecessorIds) {
+                for (const succId of successorIds) {
+                    edges.push({ from: predId, to: succId, type: 'xor-skip' });
+                }
+            }
         }
         
         // Handle escape elements within alternatives
@@ -695,30 +840,15 @@ function extractEdgesFromChoose(choose, edges, _nodeMap, escapeEdges) {
     }
     
     // For choose as first element in a loop, create back edges from all 
-    // last elements in alternatives back to all first elements
-    if (isFirstInLoop && alternatives.length > 0) {
-        const firstElements = [];
-        const lastElements = [];
+    // exit points back to all entry points
+    if (isFirstInLoop && allChooseEntryIds.length > 0) {
+        const uniqueEntryIds = [...new Set(allChooseEntryIds)];
+        const uniqueExitIds = [...new Set(allChooseExitIds)];
         
-        for (const alt of alternatives) {
-            const altChildren = getFilteredChildren(alt);
-            if (altChildren.length > 0) {
-                const firstId = getNodeId(altChildren[0], 'first');
-                const lastId = getNodeId(altChildren[altChildren.length - 1], 'last');
-                if (firstId) {
-                    firstElements.push(firstId);
-                }
-                if (lastId) {
-                    lastElements.push(lastId);
-                }
-            }
-        }
-        
-        // Create back edges from each last element to each first element (loop iteration)
-        for (const lastId of lastElements) {
-            for (const firstId of firstElements) {
-                if (lastId !== firstId) {
-                    edges.push({ from: lastId, to: firstId, type: 'loop-back' });
+        for (const exitId of uniqueExitIds) {
+            for (const entryId of uniqueEntryIds) {
+                if (exitId !== entryId) {
+                    edges.push({ from: exitId, to: entryId, type: 'loop-back' });
                 }
             }
         }
@@ -731,28 +861,34 @@ function extractEdgesFromParallel(parallel, edges, _nodeMap) {
     
     const predecessor = elementIndex > 0 ? parentChildren[elementIndex - 1] : null;
     const successor = elementIndex < parentChildren.length - 1 ? parentChildren[elementIndex + 1] : null;
-    const predecessorId = predecessor ? getNodeId(predecessor, 'last') : null;
-    const successorId = successor ? getNodeId(successor, 'first') : null;
+    
+    // Get ALL exit IDs from predecessor and ALL entry IDs for successor
+    const predecessorIds = predecessor ? getAllExitNodeIds(predecessor) : [];
+    const successorIds = successor ? getAllEntryNodeIds(successor) : [];
     
     for (const branch of branches) {
         const branchChildren = getFilteredChildren(branch);
         
-        // Edge from predecessor to first element
-        if (branchChildren.length > 0 && predecessorId) {
-            const firstBranchId = getNodeId(branchChildren[0], 'first');
-            if (firstBranchId) {
-                edges.push({ from: predecessorId, to: firstBranchId, type: 'and-branch' });
+        if (branchChildren.length > 0) {
+            // Get all entry points of first element and all exit points of last element
+            const firstBranchIds = getAllEntryNodeIds(branchChildren[0]);
+            const lastBranchIds = getAllExitNodeIds(branchChildren[branchChildren.length - 1]);
+            
+            // Edge from ALL predecessor exits to ALL first element entries
+            for (const predId of predecessorIds) {
+                for (const firstBranchId of firstBranchIds) {
+                    edges.push({ from: predId, to: firstBranchId, type: 'and-branch' });
+                }
             }
-        }
-        
-        // Sequential edges within branch
-        extractSequentialEdges(branchChildren, edges, 'and-sequential');
-        
-        // Edge from last element to successor
-        if (branchChildren.length > 0 && successorId) {
-            const lastBranchId = getNodeId(branchChildren[branchChildren.length - 1], 'last');
-            if (lastBranchId) {
-                edges.push({ from: lastBranchId, to: successorId, type: 'and-join' });
+            
+            // Sequential edges within branch (already handles multi-entry/exit)
+            extractSequentialEdges(branchChildren, edges, 'and-sequential');
+            
+            // Edge from ALL last element exits to ALL successor entries
+            for (const lastBranchId of lastBranchIds) {
+                for (const succId of successorIds) {
+                    edges.push({ from: lastBranchId, to: succId, type: 'and-join' });
+                }
             }
         }
     }
@@ -762,41 +898,48 @@ function extractEdgesFromLoop(loop, edges, backEdges, _nodeMap, escapeEdges) {
     const children = getFilteredChildren(loop);
     const { parentChildren, elementIndex } = getParentContext(loop);
     
-    // Sequential edges within loop body
+    // Sequential edges within loop body (handles multi-entry/exit)
     extractSequentialEdges(children, edges, 'loop-sequential');
     
-    // Back edge: last element connects back to first element
-    // Use 'last' position to get the actual last task in nested structures
+    // Back edges: ALL exit points connect back to ALL entry points
     if (children.length > 0) {
-        const firstChildId = getNodeId(children[0], 'first');
-        const lastChildId = getNodeId(children[children.length - 1], 'last');
+        const firstChildIds = getAllEntryNodeIds(children[0]);
+        const lastChildIds = getAllExitNodeIds(children[children.length - 1]);
         
-        // Only create back edge if first and last are different (avoid self-loops)
-        if (firstChildId && lastChildId && firstChildId !== lastChildId) {
-            const backEdge = { from: lastChildId, to: firstChildId, type: 'loop-back' };
-            edges.push(backEdge);
-            backEdges.push(backEdge);
+        // Create back edges from each exit to each entry (avoiding self-loops)
+        for (const lastId of lastChildIds) {
+            for (const firstId of firstChildIds) {
+                if (lastId !== firstId) {
+                    const backEdge = { from: lastId, to: firstId, type: 'loop-back' };
+                    edges.push(backEdge);
+                    backEdges.push(backEdge);
+                }
+            }
         }
     }
     
     // Connect loop to parent structure
     if (elementIndex > 0 && children.length > 0) {
         const predecessor = parentChildren[elementIndex - 1];
-        const predecessorId = getNodeId(predecessor, 'last');
-        const firstLoopId = getNodeId(children[0], 'first');
+        const predecessorIds = getAllExitNodeIds(predecessor);
+        const firstLoopIds = getAllEntryNodeIds(children[0]);
         
-        if (predecessorId && firstLoopId) {
-            edges.push({ from: predecessorId, to: firstLoopId, type: 'loop-entry' });
+        for (const predId of predecessorIds) {
+            for (const firstLoopId of firstLoopIds) {
+                edges.push({ from: predId, to: firstLoopId, type: 'loop-entry' });
+            }
         }
     }
     
     if (elementIndex < parentChildren.length - 1 && children.length > 0) {
         const successor = parentChildren[elementIndex + 1];
-        const lastLoopId = getNodeId(children[children.length - 1], 'last');
-        const successorId = getNodeId(successor, 'first');
+        const lastLoopIds = getAllExitNodeIds(children[children.length - 1]);
+        const successorIds = getAllEntryNodeIds(successor);
         
-        if (lastLoopId && successorId) {
-            edges.push({ from: lastLoopId, to: successorId, type: 'loop-exit' });
+        for (const lastLoopId of lastLoopIds) {
+            for (const succId of successorIds) {
+                edges.push({ from: lastLoopId, to: succId, type: 'loop-exit' });
+            }
         }
     }
     
