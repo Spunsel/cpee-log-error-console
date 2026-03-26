@@ -60,8 +60,8 @@ function buildCatalogue() {
         'structuralErrorRate',
         'totalErrors',
         'totalErrorRate',
-        'syntaxWarnings',
-        'syntaxWarningRate'
+        'warningCount',
+        'errorCount'
     ];
     
     const rows = [headers.join(',')];
@@ -77,7 +77,8 @@ function buildCatalogue() {
         const syntaxErrors = err.syntaxErrors;
         const conversionErrors = err.conversionErrors;
         const structuralErrors = err.structuralErrors;
-        const syntaxWarnings = err.syntaxWarnings;
+        const warningCount = err.warningCount;
+        const errorCount = err.errorCount;
         
         let totalErrors = null;
         if (syntaxErrors !== null && conversionErrors !== null && structuralErrors !== null) {
@@ -99,8 +100,8 @@ function buildCatalogue() {
             formatValue(calculateRate(structuralErrors, expositionLineCount)),
             formatValue(totalErrors),
             formatValue(calculateRate(totalErrors, expositionLineCount)),
-            formatValue(syntaxWarnings),
-            formatValue(calculateRate(syntaxWarnings, expositionLineCount))
+            formatValue(warningCount),
+            formatValue(errorCount)
         ];
         
         rows.push(row.join(','));

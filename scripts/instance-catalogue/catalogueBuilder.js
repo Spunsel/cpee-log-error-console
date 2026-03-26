@@ -94,7 +94,8 @@ function buildMetadata() {
             syntaxErrors: 0,
             conversionErrors: 0,
             structuralErrors: 0,
-            syntaxWarnings: 0
+            warningCount: 0,
+            errorCount: 0
         };
     }
     
