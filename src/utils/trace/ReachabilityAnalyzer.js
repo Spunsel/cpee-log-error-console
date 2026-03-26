@@ -394,11 +394,21 @@ function buildAdjacencyList(graphStructure, reverse = false) {
     const adj = new Map();
     const { nodes, edges } = graphStructure;
     
-    // Initialize all nodes
+    // Initialize all nodes from the nodes array
     for (const node of nodes) {
         const nodeId = getNodeIdFromElement(node);
         if (nodeId) {
             adj.set(nodeId, []);
+        }
+    }
+    
+    // Also initialize any synthetic nodes referenced in edges (e.g., __workflow_end__)
+    for (const edge of edges) {
+        if (edge.from && !adj.has(edge.from)) {
+            adj.set(edge.from, []);
+        }
+        if (edge.to && !adj.has(edge.to)) {
+            adj.set(edge.to, []);
         }
     }
     
@@ -472,6 +482,7 @@ function findStartNodes(graphStructure, format) {
 
 function findEndNodes(graphStructure, format) {
     const { nodes, edges } = graphStructure;
+    const endNodes = [];
     
     if (format === 'mermaid') {
         const endEvents = nodes
@@ -480,14 +491,28 @@ function findEndNodes(graphStructure, format) {
             .filter(Boolean);
         
         if (endEvents.length > 0) {
-            return endEvents;
+            endNodes.push(...endEvents);
         }
     }
     
+    // Check if __workflow_end__ is used as a target in any edges (escape/cancel edges)
+    const hasWorkflowEndEdges = edges.some(e => e.to === '__workflow_end__');
+    if (hasWorkflowEndEdges) {
+        endNodes.push('__workflow_end__');
+    }
+    
+    // For CPEE and graphs without explicit end events, find nodes without outgoing edges
+    // These are natural end points of the workflow
     const noOutgoingEdges = findNodesWithoutEdges(nodes, edges, 'outgoing');
     if (noOutgoingEdges.length > 0) {
-        return noOutgoingEdges;
+        endNodes.push(...noOutgoingEdges);
     }
+    
+    if (endNodes.length > 0) {
+        return [...new Set(endNodes)];
+    }
+    
+    // Fallback: treat all nodes as potential end nodes
     return nodes.map(n => getNodeIdFromElement(n)).filter(Boolean);
 }
 
@@ -855,7 +880,37 @@ function extractEdgesFromChoose(choose, edges, _nodeMap, escapeEdges) {
     }
 }
 
-function extractEdgesFromParallel(parallel, edges, _nodeMap) {
+function getAllTaskIdsInElement(element) {
+    if (!element) {
+        return [];
+    }
+    const taskIds = [];
+    const tasks = element.querySelectorAll(TASK_ELEMENTS.join(', '));
+    for (const task of tasks) {
+        const id = task.getAttribute('id');
+        if (id) {
+            taskIds.push(id);
+        }
+    }
+    return [...new Set(taskIds)];
+}
+
+function findParallelSuccessor(parallel) {
+    let current = parallel;
+    while (current) {
+        const { parentChildren, elementIndex } = getParentContext(current);
+        if (elementIndex < parentChildren.length - 1) {
+            return parentChildren[elementIndex + 1];
+        }
+        current = current.parentElement;
+        if (current && ['description', 'parallel_branch', 'alternative'].includes(current.tagName?.toLowerCase())) {
+            current = current.parentElement;
+        }
+    }
+    return null;
+}
+
+function extractEdgesFromParallel(parallel, edges, _nodeMap, cancelEdges = []) {
     const branches = Array.from(parallel.querySelectorAll(':scope > parallel_branch'));
     const { parentChildren, elementIndex } = getParentContext(parallel);
     
@@ -865,6 +920,19 @@ function extractEdgesFromParallel(parallel, edges, _nodeMap) {
     // Get ALL exit IDs from predecessor and ALL entry IDs for successor
     const predecessorIds = predecessor ? getAllExitNodeIds(predecessor) : [];
     const successorIds = successor ? getAllEntryNodeIds(successor) : [];
+    
+    // Check if parallel has cancel attribute (branch cancellation semantics)
+    const cancelAttr = parallel.getAttribute('cancel');
+    const hasCancel = cancelAttr && cancelAttr !== 'none';
+    
+    // If cancel is enabled and no immediate successor, look for ancestor's successor
+    let effectiveSuccessorIds = successorIds;
+    if (hasCancel && successorIds.length === 0) {
+        const ancestorSuccessor = findParallelSuccessor(parallel);
+        if (ancestorSuccessor) {
+            effectiveSuccessorIds = getAllEntryNodeIds(ancestorSuccessor);
+        }
+    }
     
     for (const branch of branches) {
         const branchChildren = getFilteredChildren(branch);
@@ -886,8 +954,20 @@ function extractEdgesFromParallel(parallel, edges, _nodeMap) {
             
             // Edge from ALL last element exits to ALL successor entries
             for (const lastBranchId of lastBranchIds) {
-                for (const succId of successorIds) {
+                for (const succId of effectiveSuccessorIds) {
                     edges.push({ from: lastBranchId, to: succId, type: 'and-join' });
+                }
+            }
+            
+            // For parallels with cancel attribute, add cancel edges from all tasks
+            // to the implicit workflow end. This models that any task in a 
+            // cancellable branch can be interrupted when another branch completes.
+            if (hasCancel) {
+                const allBranchTaskIds = getAllTaskIdsInElement(branch);
+                for (const taskId of allBranchTaskIds) {
+                    const cancelEdge = { from: taskId, to: '__workflow_end__', type: 'cancel-exit' };
+                    edges.push(cancelEdge);
+                    cancelEdges.push(cancelEdge);
                 }
             }
         }
@@ -1007,10 +1087,11 @@ function extractCPEEGraphStructure(xmlContent) {
         extractEdgesFromChoose(choose, edges, nodeMap, escapeEdges);
     }
     
-    // Extract edges from parallel structures
+    // Extract edges from parallel structures (with cancel edge tracking)
     const parallelElements = xmlDoc.querySelectorAll('parallel');
+    const cancelEdges = [];
     for (const parallel of parallelElements) {
-        extractEdgesFromParallel(parallel, edges, nodeMap);
+        extractEdgesFromParallel(parallel, edges, nodeMap, cancelEdges);
     }
     
     // Extract edges from loop structures
@@ -1026,11 +1107,13 @@ function extractCPEEGraphStructure(xmlContent) {
         edges: uniqueEdges,
         backEdges,
         escapeEdges,
+        cancelEdges,
         metadata: {
             hasLoops: backEdges.length > 0,
             hasParallel: parallelElements.length > 0,
             hasXOR: chooseElements.length > 0,
-            hasEscapes: escapeEdges.length > 0
+            hasEscapes: escapeEdges.length > 0,
+            hasCancellation: cancelEdges.length > 0
         }
     };
 }
