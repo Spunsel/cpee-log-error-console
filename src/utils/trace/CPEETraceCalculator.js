@@ -1246,8 +1246,8 @@ export class CPEETraceCalculator {
             // Use higher loop iterations and disable semantic restrictions
             const validationOptions = {
                 ...options,
-                maxLoopIterations: 3,  // Allow up to 3 loop iterations for validation
-                validationMode: true   // Enable permissive validation mode
+                maxLoopIterations: 4,
+                validationMode: true
             };
             
             const allTraces = this.calculateAllTracesForValidation(xmlString, validationOptions);
@@ -1407,7 +1407,7 @@ export class CPEETraceCalculator {
         try {
             const validationOptions = {
                 ...options,
-                maxLoopIterations: 3,  // Allow up to 3 loop iterations for validation
+                maxLoopIterations: 4,
                 validationMode: true
             };
             allTraces = this.calculateAllTracesForValidation(xmlString, validationOptions);

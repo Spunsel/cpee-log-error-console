@@ -1377,7 +1377,7 @@ export class MermaidTraceCalculator {
             // Calculate all possible traces with permissive settings for validation
             const validationOptions = {
                 ...options,
-                maxLoopIterations: 3,  // Allow up to 3 loop iterations for validation
+                maxLoopIterations: 4,
                 validationMode: true
             };
             
@@ -1558,7 +1558,7 @@ export class MermaidTraceCalculator {
         try {
             const validationOptions = {
                 ...options,
-                maxLoopIterations: 3,  // Allow up to 3 loop iterations for validation
+                maxLoopIterations: 4,
                 validationMode: true
             };
             allTraces = this.calculateAllTracesForValidation(mermaidString, validationOptions);
