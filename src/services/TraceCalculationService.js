@@ -118,14 +118,36 @@ export class TraceCalculationService {
                     const section = TraceCalculationService.SECTION_CONFIG[sectionId];
                     
                     if (traces.length > 0) {
-                        // Extract all unique tasks from traces to build the "all tasks" list
-                        const allTasksFromTraces = this.extractAllTasksFromTraces(traces);
                         const format = section?.isCPEE ? 'cpee' : 'mermaid';
+                        
+                        // Extract all tasks from the GRAPH (not just traces) for accurate unreachable task detection
+                        let allTasksFromGraph = [];
+                        try {
+                            const rawContent = cpeeStep[section.rawGetter]();
+                            if (rawContent && !rawContent.isEmpty()) {
+                                const contentString = rawContent.getContent();
+                                if (contentString && contentString.trim() !== '') {
+                                    if (section.isCPEE) {
+                                        allTasksFromGraph = CPEETraceCalculator.extractAllTasksFromGraph(contentString);
+                                    } else {
+                                        allTasksFromGraph = MermaidTraceCalculator.extractAllTasksFromGraph(contentString);
+                                    }
+                                }
+                            }
+                        } catch (extractError) {
+                            console.warn(`[TraceCalculationService] Failed to extract all tasks from graph for ${sectionId}, falling back to traces:`, extractError);
+                            allTasksFromGraph = this.extractAllTasksFromTraces(traces);
+                        }
+                        
+                        // Fallback to trace-based extraction if graph extraction failed
+                        if (allTasksFromGraph.length === 0) {
+                            allTasksFromGraph = this.extractAllTasksFromTraces(traces);
+                        }
                         
                         // Perform trace-based reachability analysis
                         const reachabilityResult = analyzeReachabilityFromTraces(
                             traces,
-                            allTasksFromTraces,
+                            allTasksFromGraph,
                             { format }
                         );
                         

@@ -1458,4 +1458,43 @@ export class CPEETraceCalculator {
 
         return { validCount, invalidCount, results };
     }
+
+    /**
+     * Extract all tasks from a CPEE XML graph (not just tasks that appear in traces)
+     * This is needed for accurate reachability analysis to detect unreachable tasks
+     * 
+     * @param {string} xmlString - CPEE XML content
+     * @returns {Array<Object>} Array of task objects with id, alt_id, and task properties
+     */
+    static extractAllTasksFromGraph(xmlString) {
+        if (!xmlString || typeof xmlString !== 'string') {
+            return [];
+        }
+
+        try {
+            const preprocessedXml = this.preprocessXml(xmlString);
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(preprocessedXml, 'text/xml');
+
+            const parserError = xmlDoc.querySelector('parsererror');
+            if (parserError) {
+                return [];
+            }
+
+            const tasks = [];
+            const taskElements = xmlDoc.querySelectorAll('call, manipulate, script');
+
+            for (const element of taskElements) {
+                const task = this.extractTask(element);
+                if (task) {
+                    tasks.push(task);
+                }
+            }
+
+            return tasks;
+        } catch (error) {
+            console.error('[CPEETraceCalculator] Error extracting tasks from graph:', error);
+            return [];
+        }
+    }
 }

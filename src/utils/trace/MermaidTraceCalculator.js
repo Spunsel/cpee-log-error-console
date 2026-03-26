@@ -1609,4 +1609,37 @@ export class MermaidTraceCalculator {
 
         return { validCount, invalidCount, results };
     }
+
+    /**
+     * Extract all tasks from a Mermaid graph (not just tasks that appear in traces)
+     * This is needed for accurate reachability analysis to detect unreachable tasks
+     * 
+     * @param {string} mermaidString - Mermaid flowchart syntax
+     * @returns {Array<Object>} Array of task objects with id, alt_id, and task properties
+     */
+    static extractAllTasksFromGraph(mermaidString) {
+        if (!mermaidString || typeof mermaidString !== 'string') {
+            return [];
+        }
+
+        try {
+            const graph = this.parseMermaid(mermaidString);
+            const tasks = [];
+
+            for (const node of graph.nodes) {
+                if (node.type === 'task') {
+                    tasks.push({
+                        id: node.id,
+                        alt_id: node.id,
+                        task: node.label || ''
+                    });
+                }
+            }
+
+            return tasks;
+        } catch (error) {
+            console.error('[MermaidTraceCalculator] Error extracting tasks from graph:', error);
+            return [];
+        }
+    }
 }

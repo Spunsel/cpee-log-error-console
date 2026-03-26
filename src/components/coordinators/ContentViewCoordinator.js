@@ -320,12 +320,43 @@ export class ContentViewCoordinator {
         try {
             const format = isCPEE ? 'cpee' : 'mermaid';
             
-            // Extract all unique tasks from traces
-            const allTasksFromTraces = this.extractAllTasksFromTraces(traces);
+            // Extract all tasks from the GRAPH (not just traces) for accurate unreachable task detection
+            let allTasksFromGraph = [];
+            try {
+                let rawContent = null;
+                if (sectionId === 'input-cpee') {
+                    rawContent = this.currentStep.getInputCpeeTreeRaw();
+                } else if (sectionId === 'output-cpee') {
+                    rawContent = this.currentStep.getOutputCpeeTreeRaw();
+                } else if (sectionId === 'input-intermediate') {
+                    rawContent = this.currentStep.getInputMermaidRaw();
+                } else if (sectionId === 'output-intermediate') {
+                    rawContent = this.currentStep.getOutputMermaidRaw();
+                }
+                
+                if (rawContent && rawContent.getContent) {
+                    const contentString = rawContent.getContent();
+                    if (contentString && contentString.trim() !== '') {
+                        if (isCPEE) {
+                            allTasksFromGraph = CPEETraceCalculator.extractAllTasksFromGraph(contentString);
+                        } else {
+                            allTasksFromGraph = MermaidTraceCalculator.extractAllTasksFromGraph(contentString);
+                        }
+                    }
+                }
+            } catch (extractError) {
+                console.warn(`[ContentViewCoordinator] Failed to extract all tasks from graph for ${sectionId}, falling back to traces:`, extractError);
+                allTasksFromGraph = this.extractAllTasksFromTraces(traces);
+            }
+            
+            // Fallback to trace-based extraction if graph extraction failed
+            if (allTasksFromGraph.length === 0) {
+                allTasksFromGraph = this.extractAllTasksFromTraces(traces);
+            }
             
             const reachabilityResult = analyzeReachabilityFromTraces(
                 traces,
-                allTasksFromTraces,
+                allTasksFromGraph,
                 { format }
             );
             
@@ -732,12 +763,27 @@ export class ContentViewCoordinator {
                 try {
                     const format = section.isCPEE ? 'cpee' : 'mermaid';
                     
-                    // Extract all unique tasks from traces
-                    const allTasksFromTraces = this.extractAllTasksFromTraces(traces);
+                    // Extract all tasks from the GRAPH (not just traces) for accurate unreachable task detection
+                    let allTasksFromGraph = [];
+                    try {
+                        if (section.isCPEE) {
+                            allTasksFromGraph = CPEETraceCalculator.extractAllTasksFromGraph(contentString);
+                        } else {
+                            allTasksFromGraph = MermaidTraceCalculator.extractAllTasksFromGraph(contentString);
+                        }
+                    } catch (extractError) {
+                        console.warn(`[ContentViewCoordinator] Failed to extract all tasks from graph for ${section.id}, falling back to traces:`, extractError);
+                        allTasksFromGraph = this.extractAllTasksFromTraces(traces);
+                    }
+                    
+                    // Fallback to trace-based extraction if graph extraction failed
+                    if (allTasksFromGraph.length === 0) {
+                        allTasksFromGraph = this.extractAllTasksFromTraces(traces);
+                    }
                     
                     const reachabilityResult = analyzeReachabilityFromTraces(
                         traces,
-                        allTasksFromTraces,
+                        allTasksFromGraph,
                         { format }
                     );
                     
