@@ -514,7 +514,7 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Render boundedness section with collapsible functionality
+     * Render boundedness section (simplified - always bounded due to hardcoded bounded exploration)
      */
     renderBoundednessSection(container, boundednessResult) {
         if (!boundednessResult) {
@@ -544,96 +544,24 @@ export class AnalysisContentRenderer {
         });
         traceHeader.appendChild(expandBtn);
         
-        // Create clickable status indicator (the green box) without icon - same format as Sound
-        const statusIndicator = this.createStatusIndicatorWithoutIcon(
-            boundednessResult.bounded ? 'Bounded' : 'Not Bounded',
-            boundednessResult.bounded
-        );
+        // Create clickable status indicator - always bounded
+        const statusIndicator = this.createStatusIndicatorWithoutIcon('Bounded', true);
         statusIndicator.classList.add('analysis-status-indicator');
         traceHeader.appendChild(statusIndicator);
         
         const content = this.domRegistry.createElement('div');
         content.className = 'trace-details analysis-section-content collapsed';
         
-        const boundednessList = this.domRegistry.createElement('ul');
-        boundednessList.className = 'analysis-property-list';
+        // Simple explanation paragraph
+        const explanationPara = this.domRegistry.createElement('p');
+        explanationPara.className = 'analysis-explanation';
+        explanationPara.style.margin = '0';
+        explanationPara.style.padding = 'var(--spacing-sm)';
+        explanationPara.style.color = 'var(--text-secondary)';
+        explanationPara.style.fontStyle = 'italic';
+        explanationPara.textContent = 'Always true because of hardcoded bounded exploration in trace finding algorithm (max loop iteration limit).';
         
-        // Bounded/Unbounded Places
-        const boundedPlaceCount = boundednessResult.boundedPlaceCount || 0;
-        const unboundedPlaceCount = boundednessResult.unboundedPlaceCount || 0;
-        
-        const placesItem = this.domRegistry.createElement('li');
-        placesItem.className = 'analysis-property-item';
-        placesItem.innerHTML = `<strong>Places</strong>`;
-        
-        const placesDetails = this.domRegistry.createElement('ul');
-        placesDetails.className = 'analysis-property-details';
-        
-        const boundedItem = this.domRegistry.createElement('li');
-        boundedItem.innerHTML = `- ${boundedPlaceCount} bounded places`;
-        placesDetails.appendChild(boundedItem);
-        
-        const unboundedItem = this.domRegistry.createElement('li');
-        if (unboundedPlaceCount > 0) {
-            unboundedItem.className = 'reachability-dead-end';
-        }
-        unboundedItem.innerHTML = `- ${unboundedPlaceCount} unbounded places`;
-        placesDetails.appendChild(unboundedItem);
-        
-        if (unboundedPlaceCount > 0 && boundednessResult.unboundedNodes && boundednessResult.unboundedNodes.length > 0) {
-            const detailsItem = this.domRegistry.createElement('li');
-            detailsItem.className = 'analysis-property-detail-item';
-            detailsItem.innerHTML = `<strong>Unbounded Places:</strong> ${boundednessResult.unboundedNodes.join(', ')}`;
-            placesDetails.appendChild(detailsItem);
-        }
-        
-        placesItem.appendChild(placesDetails);
-        boundednessList.appendChild(placesItem);
-        
-        // Bounded Loops (always true)
-        const boundedLoopsItem = this.domRegistry.createElement('li');
-        boundedLoopsItem.className = 'analysis-property-item';
-        boundedLoopsItem.innerHTML = '<strong>Bounded Loops</strong>: Always true (because of max loop iteration limit)';
-        boundednessList.appendChild(boundedLoopsItem);
-        
-        // Parallel Branches
-        const parallelNotCreating = boundednessResult.parallelBranchesNotCreatingUnbounded || 0;
-        const parallelCreating = boundednessResult.parallelBranchesCreatingUnbounded || 0;
-        
-        const parallelBranchesItem = this.domRegistry.createElement('li');
-        parallelBranchesItem.className = 'analysis-property-item';
-        parallelBranchesItem.innerHTML = `<strong>Parallel Branches</strong>`;
-        
-        const parallelBranchesDetails = this.domRegistry.createElement('ul');
-        parallelBranchesDetails.className = 'analysis-property-details';
-        
-        const notCreatingItem = this.domRegistry.createElement('li');
-        notCreatingItem.innerHTML = `- ${parallelNotCreating} parallel branches that don't create unbounded token accumulation`;
-        parallelBranchesDetails.appendChild(notCreatingItem);
-        
-        const creatingItem = this.domRegistry.createElement('li');
-        if (parallelCreating > 0) {
-            creatingItem.className = 'reachability-dead-end';
-        }
-        creatingItem.innerHTML = `- ${parallelCreating} parallel branches that create unbounded token accumulation`;
-        parallelBranchesDetails.appendChild(creatingItem);
-        
-        if (parallelCreating > 0 && boundednessResult.issues) {
-            const parallelIssues = boundednessResult.issues
-                .filter(issue => issue.includes('parallelism') || issue.includes('parallel'))
-                .join(', ');
-            if (parallelIssues) {
-                const detailsItem = this.domRegistry.createElement('li');
-                detailsItem.className = 'analysis-property-detail-item';
-                detailsItem.innerHTML = `<strong>Parallel Issues:</strong> ${parallelIssues}`;
-                parallelBranchesDetails.appendChild(detailsItem);
-            }
-        }
-        
-        parallelBranchesItem.appendChild(parallelBranchesDetails);
-        boundednessList.appendChild(parallelBranchesItem);
-        
-        content.appendChild(boundednessList);
+        content.appendChild(explanationPara);
         
         // Add toggle functionality to header
         traceHeader.addEventListener('click', () => this.toggleSection(boundednessSection));

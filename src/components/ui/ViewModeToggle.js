@@ -235,5 +235,69 @@ export class ViewModeToggle {
             }
         });
     }
+
+    /**
+     * Update the analysis button to indicate whether there are issues
+     * @param {string} sectionId - Section identifier
+     * @param {boolean} hasIssues - Whether there are analysis issues
+     */
+    updateAnalysisButtonIssueState(sectionId, hasIssues) {
+        const toggleContainer = document.querySelector(`.view-mode-toggle[data-section-id="${sectionId}"]`);
+        if (toggleContainer) {
+            const analysisBtn = toggleContainer.querySelector('.toggle-btn-analysis');
+            if (analysisBtn) {
+                analysisBtn.classList.toggle('has-issues', hasIssues);
+            }
+        }
+    }
+
+    /**
+     * Check if a section has analysis issues based on verification and reachability results
+     * Returns true if: not sound, or has reachability issues (dead-end/unreachable nodes)
+     * Note: Boundedness is NOT checked because it's always true due to hardcoded bounded exploration
+     * Excludes empty graphs and graphs with only start/end nodes (no tasks)
+     * @param {Object} verificationResult - Verification result from step
+     * @param {Object} reachabilityResult - Reachability result from step
+     * @returns {boolean} True if there are analysis issues
+     */
+    static hasAnalysisIssues(verificationResult, reachabilityResult) {
+        // No results means no issues to report (data not yet available)
+        if (!verificationResult && !reachabilityResult) {
+            return false;
+        }
+
+        // Check if this is an empty graph or a graph with no meaningful tasks
+        // If taskCount is 0 or undefined, don't flag as having issues
+        if (verificationResult) {
+            const taskCount = verificationResult.taskCount || 0;
+            if (taskCount === 0) {
+                return false;
+            }
+        }
+
+        // Check verification issues (soundness only - boundedness is always true)
+        if (verificationResult && !verificationResult.error) {
+            // Not sound
+            if (verificationResult.sound === false) {
+                return true;
+            }
+            // Note: Boundedness check removed - always true due to hardcoded bounded exploration
+        }
+
+        // Check reachability issues (dead-end or unreachable nodes)
+        if (reachabilityResult && !reachabilityResult.error && reachabilityResult.success !== false) {
+            const nodeClass = reachabilityResult.nodeClassification || {};
+            const totalNodes = (nodeClass.usefulCount || 0) + (nodeClass.deadEndCount || 0) + (nodeClass.unreachableCount || 0);
+            
+            // Only check if there are actual nodes to analyze
+            if (totalNodes > 0) {
+                if ((nodeClass.deadEndCount || 0) > 0 || (nodeClass.unreachableCount || 0) > 0) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
 

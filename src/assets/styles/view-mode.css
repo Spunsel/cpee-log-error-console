@@ -374,6 +374,68 @@
 
 /* CPEE Section Traces Button - Now consolidated with base toggle button rules above */
 
+/* Analysis button with issues indicator */
+.toggle-btn-analysis.has-issues {
+   background: var(--error-color, #ef4444) !important;
+   color: white !important;
+}
+
+.toggle-btn-analysis.has-issues:hover {
+   background: var(--error-color-dark, #dc2626) !important;
+   color: white !important;
+}
+
+.toggle-btn-analysis.has-issues.active {
+   background: var(--error-color, #ef4444) !important;
+   color: white !important;
+   box-shadow: var(--shadow-md);
+}
+
+.toggle-btn-analysis.has-issues svg {
+   fill: white !important;
+   stroke: white !important;
+   color: white !important;
+}
+
+.toggle-btn-analysis.has-issues svg * {
+   fill: white !important;
+   stroke: white !important;
+   color: white !important;
+}
+
+/* CPEE Section Analysis Button with issues - override CPEE-specific styles */
+.cpee-section .toggle-btn-analysis.has-issues,
+#input-cpee .toggle-btn-analysis.has-issues,
+#output-cpee .toggle-btn-analysis.has-issues {
+   background: var(--error-color, #ef4444) !important;
+   color: white !important;
+}
+
+.cpee-section .toggle-btn-analysis.has-issues:hover,
+#input-cpee .toggle-btn-analysis.has-issues:hover,
+#output-cpee .toggle-btn-analysis.has-issues:hover {
+   background: var(--error-color-dark, #dc2626) !important;
+   color: white !important;
+}
+
+.cpee-section .toggle-btn-analysis.has-issues.active,
+#input-cpee .toggle-btn-analysis.has-issues.active,
+#output-cpee .toggle-btn-analysis.has-issues.active {
+   background: var(--error-color, #ef4444) !important;
+   color: white !important;
+}
+
+.cpee-section .toggle-btn-analysis.has-issues svg,
+.cpee-section .toggle-btn-analysis.has-issues svg *,
+#input-cpee .toggle-btn-analysis.has-issues svg,
+#input-cpee .toggle-btn-analysis.has-issues svg *,
+#output-cpee .toggle-btn-analysis.has-issues svg,
+#output-cpee .toggle-btn-analysis.has-issues svg * {
+   fill: white !important;
+   stroke: white !important;
+   color: white !important;
+}
+
 /* Accessibility */
 .toggle-btn:focus-visible {
    outline: 2px solid var(--primary-color);

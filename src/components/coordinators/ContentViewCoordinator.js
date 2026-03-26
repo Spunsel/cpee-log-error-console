@@ -342,6 +342,9 @@ export class ContentViewCoordinator {
             console.warn(`[ContentViewCoordinator] Reachability re-run failed for ${sectionId}:`, error);
         }
 
+        // Update analysis button issue state after re-running analysis
+        this.updateAnalysisButtonForSection(sectionId, this.currentStep);
+
         // If analysis view is active, re-render it
         const viewModes = this.stateManager.getState('viewModes') || {};
         if (viewModes[sectionId] === 'analysis') {
@@ -599,6 +602,11 @@ export class ContentViewCoordinator {
         // Clear analysis displays and cache when switching to a different step 
         this.analysisContentRenderer.clearAll();
         
+        // Clear analysis button issue states when switching steps
+        this.sectionIds.forEach(sectionId => {
+            this.viewModeToggle.updateAnalysisButtonIssueState(sectionId, false);
+        });
+        
         // Clear reachability results when navigating to new step 
         if (step) {
             step.clearAllReachabilityResults();
@@ -744,6 +752,9 @@ export class ContentViewCoordinator {
                     // Don't fail trace calculation if reachability analysis fails
                 }
                 
+                // Update analysis button issue state after both verification and reachability are complete
+                this.updateAnalysisButtonForSection(section.id, step);
+                
                 // Cache traces in renderer
                 const cacheKey = `${section.id}-${step.stepNumber || 'unknown'}`;
                 this.traceContentRenderer.traceCache.set(cacheKey, traces);
@@ -789,6 +800,37 @@ export class ContentViewCoordinator {
         this.sectionIds.forEach(sectionId => {
             const currentMode = this.getViewMode(sectionId);
             this.viewModeToggle.updateToggleState(sectionId, currentMode);
+        });
+    }
+
+    /**
+     * Update analysis button issue indicator for a specific section
+     * @param {string} sectionId - Section identifier
+     * @param {CPEEStep} step - Current step with verification/reachability results
+     */
+    updateAnalysisButtonForSection(sectionId, step) {
+        if (!step) {
+            return;
+        }
+        
+        const verificationResult = step.getVerificationResult(sectionId);
+        const reachabilityResult = step.getReachabilityResult(sectionId);
+        
+        const hasIssues = ViewModeToggle.hasAnalysisIssues(verificationResult, reachabilityResult);
+        this.viewModeToggle.updateAnalysisButtonIssueState(sectionId, hasIssues);
+    }
+
+    /**
+     * Update analysis button issue indicators for all sections
+     * @param {CPEEStep} step - Current step with verification/reachability results
+     */
+    updateAllAnalysisButtons(step) {
+        if (!step) {
+            return;
+        }
+        
+        this.sectionIds.forEach(sectionId => {
+            this.updateAnalysisButtonForSection(sectionId, step);
         });
     }
 
