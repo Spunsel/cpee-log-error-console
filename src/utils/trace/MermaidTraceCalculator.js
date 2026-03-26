@@ -411,11 +411,24 @@ class TraceSets {
                 })
             );
             
-            // Interleave the branch traces
-            const interleaved = MermaidTraceCalculator.interleave(branchSpecificTraces, timeoutChecker);
+            // Identify shared nodes that appear in multiple branches
+            const sharedNodeIds = this.findSharedNodesInBranches(branchSpecificTraces);
             
-            // Return interleaved traces with common prefix
-            return interleaved.map(interleavedTrace => [...currentFT, ...interleavedTrace]);
+            // Remove shared nodes from branch traces
+            const uniqueBranchTraces = branchSpecificTraces.map(branchTraceArray =>
+                branchTraceArray.map(trace =>
+                    trace.filter(task => !sharedNodeIds.has(task.id || task.alt_id))
+                )
+            );
+            
+            // Extract shared nodes in order
+            const sharedNodes = this.extractSharedNodesInOrder(branchSpecificTraces, sharedNodeIds);
+            
+            // Interleave only the unique parts of branch traces
+            const interleaved = MermaidTraceCalculator.interleave(uniqueBranchTraces, timeoutChecker);
+            
+            // Return interleaved traces with shared nodes appended and common prefix
+            return interleaved.map(interleavedTrace => [...currentFT, ...interleavedTrace, ...sharedNodes]);
         }
         
         // Collect traces through each branch until join gateway
@@ -445,8 +458,25 @@ class TraceSets {
             })
         );
         
-        // Interleave branch-specific traces
-        const interleaved = MermaidTraceCalculator.interleave(branchSpecificTraces, timeoutChecker);
+        // Identify shared nodes that appear in multiple branches
+        // These are nodes where branches converge before the join gateway
+        const sharedNodeIds = this.findSharedNodesInBranches(branchSpecificTraces);
+        
+        // Remove shared nodes from branch traces (they'll be added after interleaving)
+        const uniqueBranchTraces = branchSpecificTraces.map(branchTraceArray =>
+            branchTraceArray.map(trace =>
+                trace.filter(task => !sharedNodeIds.has(task.id || task.alt_id))
+            )
+        );
+        
+        // Extract shared nodes in order (they appear after unique branch tasks)
+        const sharedNodes = this.extractSharedNodesInOrder(branchSpecificTraces, sharedNodeIds);
+        
+        // Interleave only the unique parts of branch traces
+        const interleaved = MermaidTraceCalculator.interleave(uniqueBranchTraces, timeoutChecker);
+        
+        // Append shared nodes to each interleaved trace
+        const interleavedWithShared = interleaved.map(trace => [...trace, ...sharedNodes]);
         
         // Continue from join gateway to target
         if (timeoutChecker) {
@@ -465,7 +495,7 @@ class TraceSets {
         
         // Combine interleaved traces with join traces
         const result = [];
-        for (const interleavedTrace of interleaved) {
+        for (const interleavedTrace of interleavedWithShared) {
             for (const joinTrace of joinTraces) {
                 // Prepend common prefix and combine
                 const combinedTrace = [...currentFT, ...interleavedTrace];
@@ -476,6 +506,94 @@ class TraceSets {
         }
         
         return result;
+    }
+
+    /**
+     * Find nodes that appear in multiple branches (shared/converging nodes)
+     * @param {Array<Array<Array<Object>>>} branchSpecificTraces - Traces for each branch
+     * @returns {Set<string>} Set of shared node IDs
+     */
+    static findSharedNodesInBranches(branchSpecificTraces) {
+        const nodeOccurrences = new Map();
+        
+        // Count in how many branches each node appears
+        for (let branchIdx = 0; branchIdx < branchSpecificTraces.length; branchIdx++) {
+            const branchTraceArray = branchSpecificTraces[branchIdx];
+            const seenInBranch = new Set();
+            
+            for (const trace of branchTraceArray) {
+                for (const task of trace) {
+                    const taskId = task.id || task.alt_id;
+                    if (taskId && !seenInBranch.has(taskId)) {
+                        seenInBranch.add(taskId);
+                        nodeOccurrences.set(taskId, (nodeOccurrences.get(taskId) || 0) + 1);
+                    }
+                }
+            }
+        }
+        
+        // Return nodes that appear in more than one branch
+        const sharedNodes = new Set();
+        for (const [nodeId, count] of nodeOccurrences) {
+            if (count > 1) {
+                sharedNodes.add(nodeId);
+            }
+        }
+        
+        return sharedNodes;
+    }
+
+    /**
+     * Extract shared nodes in their correct order from branch traces
+     * @param {Array<Array<Array<Object>>>} branchSpecificTraces - Traces for each branch
+     * @param {Set<string>} sharedNodeIds - Set of shared node IDs
+     * @returns {Array<Object>} Shared nodes in order
+     */
+    static extractSharedNodesInOrder(branchSpecificTraces, sharedNodeIds) {
+        if (sharedNodeIds.size === 0) {
+            return [];
+        }
+        
+        // Find the first trace that contains all shared nodes (or use the first branch)
+        // This preserves the order of shared nodes as they appear in the workflow
+        for (const branchTraceArray of branchSpecificTraces) {
+            if (branchTraceArray.length > 0) {
+                const trace = branchTraceArray[0];
+                const sharedNodesInOrder = [];
+                const seen = new Set();
+                
+                for (const task of trace) {
+                    const taskId = task.id || task.alt_id;
+                    if (taskId && sharedNodeIds.has(taskId) && !seen.has(taskId)) {
+                        seen.add(taskId);
+                        sharedNodesInOrder.push(task);
+                    }
+                }
+                
+                // If this trace contains all shared nodes, use this order
+                if (seen.size === sharedNodeIds.size) {
+                    return sharedNodesInOrder;
+                }
+            }
+        }
+        
+        // Fallback: collect shared nodes from all branches
+        const sharedNodesInOrder = [];
+        const seen = new Set();
+        
+        for (const branchTraceArray of branchSpecificTraces) {
+            for (const trace of branchTraceArray) {
+                for (const task of trace) {
+                    const taskId = task.id || task.alt_id;
+                    if (taskId && sharedNodeIds.has(taskId) && !seen.has(taskId)) {
+                        seen.add(taskId);
+                        sharedNodesInOrder.push(task);
+                    }
+                }
+            }
+        }
+        
+        return sharedNodesInOrder;
     }
 
     /**
