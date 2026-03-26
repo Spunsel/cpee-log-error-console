@@ -26,7 +26,7 @@ import { TraceComparisonCoordinator } from './TraceComparisonCoordinator.js';
 import { CPEETraceCalculator } from '../../utils/trace/CPEETraceCalculator.js';
 import { MermaidTraceCalculator } from '../../utils/trace/MermaidTraceCalculator.js';
 import { verifySoundnessAndBoundedness } from '../../utils/trace/SoundnessBoundednessVerifier.js';
-import { analyzeReachability } from '../../utils/trace/ReachabilityAnalyzer.js';
+import { analyzeReachabilityFromTraces } from '../../utils/trace/ReachabilityAnalyzer.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 
@@ -316,13 +316,17 @@ export class ContentViewCoordinator {
             console.warn(`[ContentViewCoordinator] Verification re-run failed for ${sectionId}:`, error);
         }
 
-        // Re-run reachability analysis
+        // Re-run trace-based reachability analysis
         try {
             const format = isCPEE ? 'cpee' : 'mermaid';
-            const reachabilityResult = analyzeReachability(
-                contentString,
-                format,
-                { maxLoopIterations: 1, timeout: 5000, computeTransitiveClosure: false }
+            
+            // Extract all unique tasks from traces
+            const allTasksFromTraces = this.extractAllTasksFromTraces(traces);
+            
+            const reachabilityResult = analyzeReachabilityFromTraces(
+                traces,
+                allTasksFromTraces,
+                { format }
             );
             
             this.currentStep.setReachabilityResult(sectionId, reachabilityResult);
@@ -336,10 +340,10 @@ export class ContentViewCoordinator {
             });
             
             if (reachabilityResult.success) {
-                console.log(`[ContentViewCoordinator] Reachability re-run complete for ${sectionId}`);
+                console.log(`[ContentViewCoordinator] Trace-based reachability re-run complete for ${sectionId}`);
             }
         } catch (error) {
-            console.warn(`[ContentViewCoordinator] Reachability re-run failed for ${sectionId}:`, error);
+            console.warn(`[ContentViewCoordinator] Trace-based reachability re-run failed for ${sectionId}:`, error);
         }
 
         // Update analysis button issue state after re-running analysis
@@ -724,17 +728,17 @@ export class ContentViewCoordinator {
                     // Don't fail trace calculation if verification fails
                 }
                 
-                // Perform reachability analysis (, 35.21)
+                // Perform trace-based reachability analysis
                 try {
-                    const format = section.isCPEE ? 'cpee' : 'mermaid';                    
-                    const reachabilityResult = analyzeReachability(
-                        contentString,
-                        format,
-                        { 
-                            maxLoopIterations: options.maxLoopIterations,
-                            timeout: 5000,
-                            computeTransitiveClosure: false // Optional, can be expensive
-                        }
+                    const format = section.isCPEE ? 'cpee' : 'mermaid';
+                    
+                    // Extract all unique tasks from traces
+                    const allTasksFromTraces = this.extractAllTasksFromTraces(traces);
+                    
+                    const reachabilityResult = analyzeReachabilityFromTraces(
+                        traces,
+                        allTasksFromTraces,
+                        { format }
                     );
                     
                     // Store reachability result in step
@@ -747,7 +751,7 @@ export class ContentViewCoordinator {
                         reachabilityResult: reachabilityResult
                     }, { silent: true });
                 } catch (reachabilityError) {
-                    console.error(`[ContentViewCoordinator] Reachability analysis failed for ${section.id}:`, reachabilityError);
+                    console.error(`[ContentViewCoordinator] Trace-based reachability analysis failed for ${section.id}:`, reachabilityError);
                     console.error(`[ContentViewCoordinator] Reachability error stack:`, reachabilityError.stack);
                     // Don't fail trace calculation if reachability analysis fails
                 }
@@ -832,6 +836,39 @@ export class ContentViewCoordinator {
         this.sectionIds.forEach(sectionId => {
             this.updateAnalysisButtonForSection(sectionId, step);
         });
+    }
+
+    /**
+     * Extract all unique tasks from calculated traces
+     * @param {Array<Trace>} traces - Calculated traces
+     * @returns {Array<Object>} Array of unique task objects with id/alt_id properties
+     * @private
+     */
+    extractAllTasksFromTraces(traces) {
+        const taskMap = new Map();
+        
+        if (!traces || !Array.isArray(traces)) {
+            return [];
+        }
+        
+        for (const trace of traces) {
+            // Handle both Trace objects with .path and plain arrays
+            const path = trace?.path || trace;
+            if (Array.isArray(path)) {
+                for (const step of path) {
+                    const taskId = step?.id || step?.alt_id;
+                    if (taskId && !taskMap.has(taskId)) {
+                        taskMap.set(taskId, {
+                            id: step.id,
+                            alt_id: step.alt_id,
+                            task: step.task || step.label
+                        });
+                    }
+                }
+            }
+        }
+        
+        return Array.from(taskMap.values());
     }
 
     /**

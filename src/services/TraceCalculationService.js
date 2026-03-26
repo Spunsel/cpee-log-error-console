@@ -7,7 +7,7 @@
 import { MermaidParser } from '../utils/content/MermaidParser.js';
 import { CPEEParser } from '../utils/content/CPEEParser.js';
 import { verifySoundnessAndBoundedness } from '../utils/trace/SoundnessBoundednessVerifier.js';
-import { analyzeReachability } from '../utils/trace/ReachabilityAnalyzer.js';
+import { analyzeReachabilityFromTraces } from '../utils/trace/ReachabilityAnalyzer.js';
 import { eventBus as defaultEventBus } from '../core/EventBus.js';
 
 export class TraceCalculationService {
@@ -111,89 +111,47 @@ export class TraceCalculationService {
                     // Don't fail trace calculation if verification fails
                 }
                 
-                // Perform reachability analysis 
+                // Perform trace-based reachability analysis 
+                // This derives reachability from calculated traces - simpler and more accurate
                 try {
-                    console.log(`[TraceCalculationService] Starting reachability analysis for ${sectionId}...`);
+                    console.log(`[TraceCalculationService] Starting trace-based reachability analysis for ${sectionId}...`);
                     const section = TraceCalculationService.SECTION_CONFIG[sectionId];
-                    if (!section) {
-                        console.warn(`[TraceCalculationService] No section config found for ${sectionId}, skipping reachability analysis`);
-                    } else {
-                        const rawContent = cpeeStep[section.rawGetter]();
-                        if (!rawContent || rawContent.isEmpty()) {
-                            console.warn(`[TraceCalculationService] No raw content available for ${sectionId}, skipping reachability analysis`);
+                    
+                    if (traces.length > 0) {
+                        // Extract all unique tasks from traces to build the "all tasks" list
+                        const allTasksFromTraces = this.extractAllTasksFromTraces(traces);
+                        const format = section?.isCPEE ? 'cpee' : 'mermaid';
+                        
+                        // Perform trace-based reachability analysis
+                        const reachabilityResult = analyzeReachabilityFromTraces(
+                            traces,
+                            allTasksFromTraces,
+                            { format }
+                        );
+                        
+                        // Store reachability result in step
+                        cpeeStep.setReachabilityResult(sectionId, reachabilityResult);
+                        
+                        if (reachabilityResult.success) {
+                            console.log(`[TraceCalculationService] Trace-based reachability analysis complete for ${sectionId}: useful=${reachabilityResult.nodeClassification?.usefulCount || 0}, deadEnd=${reachabilityResult.nodeClassification?.deadEndCount || 0}, traces analyzed=${reachabilityResult.traceCount || 0}`);
                         } else {
-                            let contentString = rawContent.getContent();
-                            if (!contentString || contentString.trim() === '') {
-                                console.warn(`[TraceCalculationService] Empty content string for ${sectionId}, skipping reachability analysis`);
-                            } else {
-                                // Preprocess content before reachability analysis (for consistency with ContentViewCoordinator)
-                                if (section.isCPEE) {
-                                    try {
-                                        const preprocessedResult = CPEEParser.cleanAndValidate(contentString, true);
-                                        contentString = preprocessedResult.xml;
-                                        console.log(`[TraceCalculationService] Preprocessed CPEE XML for reachability analysis in ${sectionId}`);
-                                    } catch (error) {
-                                        console.warn(`[TraceCalculationService] Failed to preprocess CPEE XML for ${sectionId}, using original:`, error);
-                                        // Continue with original content if preprocessing fails
-                                    }
-                                } else {
-                                    try {
-                                        const preprocessedResult = MermaidParser.cleanAndValidate(contentString, true);
-                                        contentString = preprocessedResult.code;
-                                        console.log(`[TraceCalculationService] Preprocessed Mermaid code for reachability analysis in ${sectionId}`);
-                                    } catch (error) {
-                                        console.warn(`[TraceCalculationService] Failed to preprocess Mermaid for ${sectionId}, using original:`, error);
-                                        // Continue with original content if preprocessing fails
-                                    }
-                                }
-                                
-                                const format = section.isCPEE ? 'cpee' : 'mermaid';
-                                console.log(`[TraceCalculationService] Performing reachability analysis for ${sectionId} (format: ${format}, content length: ${contentString.length})`);
-                                
-                                // Perform reachability analysis
-                                const reachabilityResult = analyzeReachability(
-                                    contentString,
-                                    format,
-                                    { 
-                                        maxLoopIterations: maxLoopIterations,
-                                        timeout: 5000,
-                                        computeTransitiveClosure: false // Optional, can be expensive
-                                    }
-                                );
-                                
-                                // Store reachability result in step
-                                cpeeStep.setReachabilityResult(sectionId, reachabilityResult);
-                                
-                                if (reachabilityResult.success) {
-                                    // Validate trace completeness using reachability information
-                                    if (traces.length > 0) {
-                                        this.validateTraceCompleteness(traces, reachabilityResult, sectionId);
-                                    }
-                                    
-                                    console.log(`[TraceCalculationService] Reachability analysis complete for ${sectionId}: useful=${reachabilityResult.nodeClassification?.usefulCount || 0}, deadEnd=${reachabilityResult.nodeClassification?.deadEndCount || 0}, unreachable=${reachabilityResult.nodeClassification?.unreachableCount || 0}`);
-                                } else {
-                                    console.warn(`[TraceCalculationService] Reachability analysis failed for ${sectionId}: ${reachabilityResult.error || 'Unknown error'}`);
-                                }
-                                
-                                // Emit reachability analysis completion event 
-                                if (this.eventBus) {
-                                    this.eventBus.emit('reachability:analyzed', {
-                                        sectionId: sectionId,
-                                        stepNumber: cpeeStep.stepNumber || 'unknown',
-                                        reachabilityResult: reachabilityResult
-                                    });
-                                    console.log(`[TraceCalculationService] Emitted reachability:analyzed event for ${sectionId} (Step ${cpeeStep.stepNumber || 'unknown'})`);
-                                }
-                                
-                                // State Management :
-                                // Reachability results are stored in the step model (cpeeStep.reachabilityResults)
-                                // Step data is automatically persisted as part of instance data, so no explicit
-                                // state persistence is needed. The results are available when the step is loaded.
-                            }
+                            console.warn(`[TraceCalculationService] Trace-based reachability analysis failed for ${sectionId}: ${reachabilityResult.error || 'Unknown error'}`);
                         }
+                        
+                        // Emit reachability analysis completion event 
+                        if (this.eventBus) {
+                            this.eventBus.emit('reachability:analyzed', {
+                                sectionId: sectionId,
+                                stepNumber: cpeeStep.stepNumber || 'unknown',
+                                reachabilityResult: reachabilityResult
+                            });
+                            console.log(`[TraceCalculationService] Emitted reachability:analyzed event for ${sectionId} (Step ${cpeeStep.stepNumber || 'unknown'})`);
+                        }
+                    } else {
+                        console.log(`[TraceCalculationService] No traces available for ${sectionId}, skipping reachability analysis`);
                     }
                 } catch (reachabilityError) {
-                    console.error(`[TraceCalculationService] Reachability analysis failed for ${sectionId}:`, reachabilityError);
+                    console.error(`[TraceCalculationService] Trace-based reachability analysis failed for ${sectionId}:`, reachabilityError);
                     console.error(`[TraceCalculationService] Error stack:`, reachabilityError.stack);
                     // Don't fail trace calculation if reachability analysis fails
                 }
@@ -336,6 +294,35 @@ export class TraceCalculationService {
         } else {
             console.log(`[TraceCalculationService] Trace coverage for ${sectionId}: 100% of useful nodes covered`);
         }
+    }
+
+    /**
+     * Extract all unique tasks from calculated traces
+     * @param {Array<Trace>} traces - Calculated traces
+     * @returns {Array<Object>} Array of unique task objects with id/alt_id properties
+     * @private
+     */
+    extractAllTasksFromTraces(traces) {
+        const taskMap = new Map();
+        
+        for (const trace of traces) {
+            // Handle both Trace objects with .path and plain arrays
+            const path = trace?.path || trace;
+            if (Array.isArray(path)) {
+                for (const step of path) {
+                    const taskId = step?.id || step?.alt_id;
+                    if (taskId && !taskMap.has(taskId)) {
+                        taskMap.set(taskId, {
+                            id: step.id,
+                            alt_id: step.alt_id,
+                            task: step.task || step.label
+                        });
+                    }
+                }
+            }
+        }
+        
+        return Array.from(taskMap.values());
     }
 }
 
