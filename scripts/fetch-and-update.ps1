@@ -3,7 +3,7 @@
 #   powershell -ExecutionPolicy Bypass -File scripts/fetch-and-update.ps1
 
 # Process numbers to fetch
-$processNumbers = @(1..6000)
+$processNumbers = @(1000..6469)
 
 # Initialize SSL bypass
 Write-Host "Initializing..." -ForegroundColor Cyan

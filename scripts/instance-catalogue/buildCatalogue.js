@@ -28,6 +28,13 @@ function formatValue(value, decimals = 4) {
     return value.toString();
 }
 
+function getBaseInstanceNumber(instanceNum) {
+    if (instanceNum >= 200000) {
+        return instanceNum - 200000;
+    }
+    return instanceNum;
+}
+
 function buildCatalogue() {
     console.log('Building instance catalogue CSV...\n');
     
@@ -71,7 +78,8 @@ function buildCatalogue() {
     
     for (const instanceNum of instanceNumbers) {
         const meta = metadata[instanceNum];
-        const err = errors[instanceNum] || {};
+        const baseInstanceNum = getBaseInstanceNumber(instanceNum);
+        const err = errors[baseInstanceNum] || errors[instanceNum] || {};
         
         const expositionLineCount = meta.expositionEventLineCount;
         const syntaxErrors = err.syntaxErrors;
