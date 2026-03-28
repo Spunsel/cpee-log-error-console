@@ -92,28 +92,28 @@ export class TraceFilter {
         filterContainer.className = 'trace-filter-container';
         
         // Alt ID filter
-        const altIdGroup = this.createFilterInput('alt-id', 'Filter by Alt ID');
+        const altIdGroup = this.createFilterInput('alt-id', '... by AltID');
         filterContainer.appendChild(altIdGroup.container);
         this.altIdInput = altIdGroup.input;
         this.altIdDropdown = altIdGroup.dropdown;
         this.altIdClearBtn = altIdGroup.clearBtn;
         
         // ID filter
-        const idGroup = this.createFilterInput('id', 'Filter by ID');
+        const idGroup = this.createFilterInput('id', '... by ID');
         filterContainer.appendChild(idGroup.container);
         this.idInput = idGroup.input;
         this.idDropdown = idGroup.dropdown;
         this.idClearBtn = idGroup.clearBtn;
         
         // Task Label filter
-        const taskLabelGroup = this.createFilterInput('task-label', 'Filter by task label');
+        const taskLabelGroup = this.createFilterInput('task-label', '... by Label');
         filterContainer.appendChild(taskLabelGroup.container);
         this.taskLabelInput = taskLabelGroup.input;
         this.taskLabelDropdown = taskLabelGroup.dropdown;
         this.taskLabelClearBtn = taskLabelGroup.clearBtn;
         
         // Status filter
-        const statusGroup = this.createFilterInput('status', 'Filter by status');
+        const statusGroup = this.createFilterInput('status', '...by status');
         filterContainer.appendChild(statusGroup.container);
         this.statusInput = statusGroup.input;
         this.statusDropdown = statusGroup.dropdown;

@@ -773,6 +773,12 @@
    border-bottom-right-radius: var(--border-radius-sm);
 }
 
+/* Constrain filter inputs to half the default search-input-group width */
+.trace-filter-container .search-input-group {
+   min-width: 105px;
+   max-width: 105px;
+}
+
 /* Search input font size within trace filter container */
 .trace-filter-container .search-input {
    font-size: 12px;
