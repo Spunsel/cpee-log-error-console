@@ -11,6 +11,7 @@ import { ContentViewCoordinator } from '../components/coordinators/ContentViewCo
 import { CrossGraphHighlightCoordinator } from '../components/coordinators/CrossGraphHighlightCoordinator.js';
 import { BugReportModal } from '../components/ui/BugReportModal.js';
 import { DarkModeToggle } from '../components/ui/DarkModeToggle.js';
+import { DemoTour } from '../components/ui/DemoTour.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
 import { eventBus } from './EventBus.js';
 import { serviceFactory } from './ServiceFactory.js';
@@ -46,6 +47,7 @@ export class CPEEDebugConsole {
         this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager, this.logFetchService, eventProcessingService);
         this.bugReportModal = new BugReportModal(this.serviceFactory);
         this.darkModeToggle = new DarkModeToggle(this.domRegistry, this.eventBus, this.stateManager);
+        this.demoTour = new DemoTour(this.eventBus);
         
         // Track if InstanceLoaderViewer has been shown for the first time
         this.hasShownInstanceLoaderFirstTime = false;
@@ -105,6 +107,12 @@ export class CPEEDebugConsole {
         const darkModeContainer = this.domRegistry.getElement('darkModeToggleContainer');
         if (darkModeContainer) {
             this.darkModeToggle.initialize(darkModeContainer);
+        }
+
+        // Mount demo tour button in header
+        const tourBtnContainer = document.getElementById('tour-btn-container');
+        if (tourBtnContainer) {
+            this.demoTour.mountButton(tourBtnContainer);
         }
         
         this.setupEventListeners();
@@ -377,6 +385,7 @@ export class CPEEDebugConsole {
             const navInfo = this.instanceService.getNavigationInfo();
             await this.stepViewer.displayStep(step, navInfo);
             URLManager.updateURL(this.instanceService.currentUUID, stepIndex + 1);
+            this.eventBus.emit('step:navigated', { uuid: this.instanceService.currentUUID, stepIndex });
         }
     }
 

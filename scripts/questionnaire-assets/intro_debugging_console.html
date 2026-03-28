@@ -293,126 +293,38 @@
 
 <main>
 
-  <!-- ── 1. Overview ── -->
   <section>
     <h2>CPEE LLM Debugging Console</h2>
-    <p>A post-hoc analysis tool that loads a CPEE modification log, reconstructs each LLM modification step, and lets you inspect all five pipeline stages as interactive graphs. Enter a process number or UUID to load an instance; the console fetches the <code>.xes.yaml</code> log, filters <code>description/exposition</code> events, and assembles them into a numbered step sequence. Multiple instances can be loaded simultaneously via sidebar tabs.</p>
-  </section>
+    <p>You will now use the <strong>CPEE LLM Debugging Console</strong> — a tool for inspecting LLM-driven process modifications step by step.</p>
 
-  <!-- ── 2. Step navigation ── -->
-  <section>
-    <h2>Step Navigation</h2>
-    <p>Each step = one user–LLM modification round. Navigate with <strong>Prev / Next</strong> buttons or the step dropdown (includes timestamp).</p>
-  </section>
-
-  <!-- ── 3. View modes ── -->
-  <section>
-    <h2>View Modes</h2>
-    <p>Every section provides five view modes. Switch between them using the tabs above each section:</p>
-
-    <div class="view-modes" style="margin-top:10px;">
-      <span class="vm-chip graph">&#9783; Graph</span>
-      <span class="vm-chip clean">&#10003; Cleaned</span>
-      <span class="vm-chip raw">&#9654; Raw</span>
-      <span class="vm-chip traces">&#8594; Traces</span>
-      <span class="vm-chip analysis">&#9697; Analysis</span>
+    <div class="info-box orange" style="margin-top: 20px;">
+      <p>
+        To get started, click the
+        <strong>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin: 0 2px;">
+            <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+          </svg>
+          tour icon
+        </strong>
+        in the top-right corner of the console to start the <strong>interactive walkthrough</strong>.
+        It will guide you through all relevant features and show you how to identify the three types of errors.
+      </p>
     </div>
 
-    <div class="card-grid" style="margin-top:12px;">
+    <div class="card-grid" style="margin-top: 24px;">
       <div class="card">
-        <h3>Graph</h3>
-        <p>Interactive visual rendering of the process graph — zoomable and clickable.</p>
-      </div>
-      <div class="card">
-        <h3>Cleaned</h3>
-        <p>Source code after preprocessing and syntax-error corrections have been applied.</p>
+        <h3>What the tour covers</h3>
+        <p>Navigation between modification steps, how to switch views, and how to spot syntax, conversion, and structural errors — all shown on a real instance.</p>
       </div>
       <div class="card">
-        <h3>Raw</h3>
-        <p>Exact unmodified content from the <code>cpee:exposition</code> log field — what the LLM actually produced.</p>
-      </div>
-      <div class="card">
-        <h3>Traces</h3>
-        <p>All possible execution paths (start &#8594; end) through the graph, with animated playback.</p>
-      </div>
-      <div class="card">
-        <h3>Analysis</h3>
-        <p>Formal property checks — soundness, boundedness, reachability — with pass / fail status per property.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 4. Cross-graph highlighting ── -->
-  <section>
-    <h2>Cross-Graph Highlighting</h2>
-    <p>Click any task node in a <strong>Graph</strong> view and the console simultaneously highlights the matching node in every other open graph section. Matching uses label similarity to bridge format differences between CPEE XML and Mermaid. This makes it easy to follow a specific task across all five stages of one modification step.</p>
-  </section>
-
-  <!-- ── 5. Trace comparison ── -->
-  <section>
-    <h2>Trace Analysis &amp; Comparison</h2>
-    <p>In <strong>Traces</strong> mode the console computes all execution paths for a graph and — when comparing two stages — classifies each trace as:</p>
-
-    <div class="card-grid" style="margin-top:8px;">
-      <div class="card" style="border-left: 3px solid var(--green);">
-        <h3 class="status-ok">Matching</h3>
-        <p>Path exists in both graphs — preserved by the modification.</p>
-      </div>
-      <div class="card" style="border-left: 3px solid var(--red);">
-        <h3 class="status-err">Unique</h3>
-        <p>Path exists in only one graph — was added or removed by the modification.</p>
-      </div>
-      <div class="card" style="border-left: 3px solid var(--accent);">
-        <h3>Reconciled</h3>
-        <p>Initially classified as unique, but matched under more relaxed label-similarity conditions.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 6. Structural analysis ── -->
-  <section>
-    <h2>Structural Analysis</h2>
-    <p>In <strong>Analysis</strong> mode each graph section is checked for three formal properties independently:</p>
-
-    <div class="prop-grid" style="margin-top:10px;">
-      <div class="prop-card">
-        <h4><span class="status-dot dot-ok"></span>Soundness</h4>
-        <p>Every execution path reaches the end node; no dead-end states exist.</p>
-      </div>
-      <div class="prop-card">
-        <h4><span class="status-dot dot-warn"></span>Boundedness</h4>
-        <p>No unbounded token accumulation at any node — loops are controlled.</p>
-      </div>
-      <div class="prop-card">
-        <h4><span class="status-dot dot-err"></span>Reachability</h4>
-        <p>Classifies each node as reachable, unreachable, or a dead-end.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 7. Identifying errors ── -->
-  <section>
-    <h2>Identifying Errors with the Console</h2>
-    <p>The three error types from the pipeline each leave distinct traces in the console:</p>
-
-    <div class="card-grid">
-      <div class="card" style="border-top: 3px solid var(--red);">
-        <h3>LLM Syntax Errors</h3>
-        <p>Visible in <strong>Section 4 — Output Mermaid</strong>. Switch to <strong>Raw</strong> to see the original LLM output; switch to <strong>Cleaned</strong> to see what was auto-corrected. If the <strong>Graph</strong> view fails to render, the error was severe enough to break parsing entirely.</p>
-      </div>
-      <div class="card" style="border-top: 3px solid var(--accent);">
-        <h3>Structural Errors</h3>
-        <p>Visible in <strong>Analysis</strong> mode on Sections 4 or 5. A failed soundness or reachability check indicates the LLM produced a structurally broken graph. Compare <strong>Traces</strong> between Section 1 and Section 5 to see which execution paths were lost or broken.</p>
-      </div>
-      <div class="card" style="border-top: 3px solid var(--purple);">
-        <h3>Conversion Errors</h3>
-        <p>Visible by comparing <strong>Section 1</strong> and <strong>Section 5</strong> directly. If traces or graph structure differ beyond what the user requested, information was lost during CPEE↔Mermaid conversion. Use <strong>Cross-Graph Highlighting</strong> to pinpoint which tasks changed between formats.</p>
+        <h3>Duration &amp; interaction</h3>
+        <p>The tour is interactive — you will perform actions in the console as part of it. You can exit at any time and resume the questionnaire.</p>
       </div>
     </div>
   </section>
 
   <div style="margin-top: 32px;">
-    <button onclick="doit($('.button'))" style="background: var(--tum-blue); color: #fff; border: none; border-radius: 8px; padding: 10px 28px; font-size: 0.95rem; font-weight: 600; font-family: var(--font); cursor: pointer; letter-spacing: 0.3px;">Continue</button>
+    <button onclick="doit($('.button'))" style="background: var(--tum-blue); color: #fff; border: none; border-radius: 8px; padding: 10px 28px; font-size: 0.95rem; font-weight: 600; font-family: var(--font); cursor: pointer; letter-spacing: 0.3px;">Continue to Console</button>
   </div>
 
 </main>
