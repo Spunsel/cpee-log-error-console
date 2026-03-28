@@ -162,7 +162,7 @@ export function analyzeReachabilityFromTraces(traces, allTasks, options = {}) {
         
     } catch (error) {
         console.error('[ReachabilityAnalyzer] Error during trace-based analysis:', error);
-        return {
+        return { 
             success: false,
             format,
             error: `Trace-based reachability analysis failed: ${error.message}`,
