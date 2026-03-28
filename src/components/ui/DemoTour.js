@@ -401,6 +401,7 @@ export class DemoTour {
         this._cleanup.forEach(fn => fn());
         this._cleanup = [];
         window.removeEventListener('resize', this._onResize);
+        window.removeEventListener('scroll', this._onScroll);
         this._overlay?.remove();
         this._spotlight?.remove();
         this._popover?.remove();
@@ -446,8 +447,10 @@ export class DemoTour {
         this._popover   = this._mkEl('div', 'tour-popover');
         this._popover.setAttribute('role', 'dialog');
 
+        this._onScroll = () => this._spotlight?.classList.add('tour-spotlight--hidden');
         document.body.append(this._overlay, this._spotlight, this._popover);
         window.addEventListener('resize', this._onResize);
+        window.addEventListener('scroll', this._onScroll, { passive: true });
 
         this._showStep(0);
     }
@@ -474,8 +477,8 @@ export class DemoTour {
         /* Position spotlight */
         const targetEl = this._resolve(step.target);
         if (targetEl) {
-            targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            await wait(120);
+            this._scrollToElement(targetEl);
+            await wait(20);
             this._placeSpotlight(targetEl, step.padding ?? 8);
             this._spotlight.classList.remove('tour-spotlight--hidden');
         } else {
@@ -632,8 +635,8 @@ export class DemoTour {
         /* ── Phase 1: click prompt ── */
         const targetEl = this._resolve(step.target);
         if (targetEl) {
-            targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            await wait(100);
+            this._scrollToElement(targetEl);
+            await wait(20);
             this._placeSpotlight(targetEl, step.padding ?? 6);
             this._spotlight.classList.remove('tour-spotlight--hidden');
         }
@@ -673,8 +676,8 @@ export class DemoTour {
 
         const explainEl = this._resolve(cr.explainTarget);
         if (explainEl) {
-            explainEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            await wait(150);
+            this._scrollToElement(explainEl);
+            await wait(20);
             this._placeSpotlight(explainEl, step.padding ?? 8);
         }
 
@@ -707,6 +710,19 @@ export class DemoTour {
             this._placePopover(explainEl.getBoundingClientRect(), 'top');
         } else if (targetEl) {
             this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'bottom');
+        }
+    }
+
+    /* ── Scroll element into the upper viewport ─────────────────────────── */
+
+    _scrollToElement(el) {
+        const r  = el.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const isOffScreen = r.bottom < 0 || r.top > vh;
+        const isLow       = r.top > vh * 0.45;
+        if (isOffScreen || isLow) {
+            const desired = vh * 0.25;
+            window.scrollBy({ top: r.top - desired, behavior: 'instant' });
         }
     }
 
