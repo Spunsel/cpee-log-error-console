@@ -263,7 +263,7 @@
     <h2>Event Logs &#8212; How Modifications Are Recorded</h2>
 
     <p>
-      Each modification step is recorded in a <strong>.xes.yaml</strong> log &#8212; a sequence of YAML documents separated by <code>---</code>, one document per event. Most events record normal process execution (state changes, activity calls). Only events with <code>cpee:lifecycle:transition: description/exposition</code> contain LLM modification data. One modification step produces <strong>one exposition event per pipeline stage</strong>; all share the same <code>cpee:change_uuid</code>, which groups them into a single step.
+      CPEE logs every event in a <strong>.xes.yaml</strong> file (one <code>---</code>-separated document per event). Only <code>description/exposition</code> events carry LLM modification data. One modification step produces one such event per pipeline stage; all share the same <code>cpee:change_uuid</code>, which groups them into a single step.
     </p>
 
     <div class="card-grid" style="margin: 16px 0;">
