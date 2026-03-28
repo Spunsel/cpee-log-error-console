@@ -2,288 +2,160 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Log Viewer — example_instance_log.xes.yaml</title>
+<title>example_instance_log.xes.yaml</title>
 <style>
-  :root {
-    --bg: #f5f7fb;
-    --card: #ffffff;
-    --border: #d0d8e8;
-    --text: #1a1a2e;
-    --mono: 'Consolas', 'Courier New', monospace;
-    --font: 'Segoe UI', system-ui, sans-serif;
-    --tum: #0065BD;
-
-    /* Step background colors */
-    --s1-bg: #e8f0fe; --s1-border: #4285f4;
-    --s2-bg: #e6f4ea; --s2-border: #34a853;
-    --s3-bg: #fff3e0; --s3-border: #fb8c00;
-    --s4-bg: #fce4ec; --s4-border: #e91e63;
-
-    /* Marker highlight colors */
-    --cpee-bg: #dbeafe;   --cpee-fg: #1d4ed8;
-    --mmd-bg:  #dcfce7;   --mmd-fg:  #166534;
-    --usr-bg:  #ffedd5;   --usr-fg:  #9a3412;
-    --llm-bg:  #f3e8ff;   --llm-fg:  #6b21a8;
-  }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #1e1e2e; color: #cdd6f4; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.82rem; line-height: 1.6; }
+  #log { padding: 20px 24px; }
 
-  body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text);
-    font-size: 14px;
-  }
+  .line { white-space: pre; display: block; }
+  .sep  { white-space: pre; display: block; color: #555; }
+  .dim  { opacity: 0.3; }
 
-  header {
-    background: var(--tum);
-    color: #fff;
-    padding: 14px 28px;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
+  .expo-cpee { border: 2px solid #93c5fd; border-radius: 4px; padding: 2px 10px; margin: 1px 0; background: rgba(147,197,253,0.07); }
+  .expo-mmd  { border: 2px solid #86efac; border-radius: 4px; padding: 2px 10px; margin: 1px 0; background: rgba(134,239,172,0.07); }
+  .expo-usr  { border: 2px solid #fdba74; border-radius: 4px; padding: 2px 10px; margin: 1px 0; background: rgba(253,186,116,0.07); }
+  .expo-llm  { border: 2px solid #d8b4fe; border-radius: 4px; padding: 2px 10px; margin: 1px 0; background: rgba(216,180,254,0.07); }
 
-  #legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 14px 28px;
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-    align-items: center;
-  }
-
-  #legend .leg-title {
-    font-weight: 600;
-    font-size: 0.82rem;
-    color: #555;
-    margin-right: 4px;
-  }
-
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    border: 1.5px solid transparent;
-  }
-
-  .chip-s1 { background: var(--s1-bg); border-color: var(--s1-border); color: var(--s1-border); }
-  .chip-s2 { background: var(--s2-bg); border-color: var(--s2-border); color: var(--s2-border); }
-  .chip-s3 { background: var(--s3-bg); border-color: var(--s3-border); color: var(--s3-border); }
-  .chip-s4 { background: var(--s4-bg); border-color: var(--s4-border); color: var(--s4-border); }
-  .chip-cpee { background: var(--cpee-bg); border-color: var(--cpee-fg); color: var(--cpee-fg); }
-  .chip-mmd  { background: var(--mmd-bg);  border-color: var(--mmd-fg);  color: var(--mmd-fg); }
-  .chip-usr  { background: var(--usr-bg);  border-color: var(--usr-fg);  color: var(--usr-fg); }
-  .chip-llm  { background: var(--llm-bg);  border-color: var(--llm-fg);  color: var(--llm-fg); }
-
-  .leg-divider {
-    width: 1px; height: 20px;
-    background: var(--border);
-    margin: 0 4px;
-  }
-
-  #viewer {
-    padding: 24px 28px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .doc-block {
-    display: flex;
-    margin-bottom: 2px;
-  }
-
-  .step-gutter {
-    width: 72px;
-    min-width: 72px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding-right: 10px;
-    padding-top: 6px;
-  }
-
-  .step-badge {
-    font-size: 0.68rem;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 10px;
-    white-space: nowrap;
-    border: 1.5px solid transparent;
-  }
-
-  .badge-s1 { background: var(--s1-bg); border-color: var(--s1-border); color: var(--s1-border); }
-  .badge-s2 { background: var(--s2-bg); border-color: var(--s2-border); color: var(--s2-border); }
-  .badge-s3 { background: var(--s3-bg); border-color: var(--s3-border); color: var(--s3-border); }
-  .badge-s4 { background: var(--s4-bg); border-color: var(--s4-border); color: var(--s4-border); }
-
-  .doc-pre {
-    flex: 1;
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    line-height: 1.55;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 8px 14px;
-    white-space: pre-wrap;
-    word-break: break-all;
-    overflow-x: auto;
-  }
-
-  .doc-pre.step-s1 { background: var(--s1-bg); border-color: var(--s1-border); }
-  .doc-pre.step-s2 { background: var(--s2-bg); border-color: var(--s2-border); }
-  .doc-pre.step-s3 { background: var(--s3-bg); border-color: var(--s3-border); }
-  .doc-pre.step-s4 { background: var(--s4-bg); border-color: var(--s4-border); }
-
-  .sep-block {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: #aaa;
-    padding: 1px 0 1px 82px;
-    user-select: none;
-  }
-
-  /* Marker line highlights */
-  .hl-cpee { background: var(--cpee-bg); color: var(--cpee-fg); font-weight: 600;
-             display: inline-block; width: 100%; border-radius: 2px; padding: 0 2px; }
-  .hl-mmd  { background: var(--mmd-bg);  color: var(--mmd-fg);  font-weight: 600;
-             display: inline-block; width: 100%; border-radius: 2px; padding: 0 2px; }
-  .hl-usr  { background: var(--usr-bg);  color: var(--usr-fg);  font-weight: 600;
-             display: inline-block; width: 100%; border-radius: 2px; padding: 0 2px; }
-  .hl-llm  { background: var(--llm-bg);  color: var(--llm-fg);  font-weight: 600;
-             display: inline-block; width: 100%; border-radius: 2px; padding: 0 2px; }
-
-  #error {
-    color: #c00;
-    padding: 20px 28px;
-    font-size: 0.9rem;
-  }
+  .hl-uuid0 { background: #fde047; color: #000; border-radius: 2px; padding: 0 3px; }
+  .hl-uuid1 { background: #67e8f9; color: #000; border-radius: 2px; padding: 0 3px; }
+  .step-label { font-size: 0.72rem; font-weight: 700; padding: 1px 6px; border-radius: 10px; margin-left: 8px; vertical-align: middle; }
+  .step-label-0 { background: #fde047; color: #000; }
+  .step-label-1 { background: #67e8f9; color: #000; }
 </style>
 </head>
 <body>
-
-<header>Log Viewer — example_instance_log.xes.yaml</header>
-
-<div id="legend">
-  <span class="leg-title">Steps:</span>
-  <span class="chip chip-s1">Step 1</span>
-  <span class="chip chip-s2">Step 2</span>
-  <span class="chip chip-s3">Step 3</span>
-  <span class="chip chip-s4">Step 4</span>
-
-  <div class="leg-divider"></div>
-  <span class="leg-title">Markers:</span>
-  <span class="chip chip-cpee">&lt;!-- … CPEE-Tree --&gt;</span>
-  <span class="chip chip-mmd">%% … Intermediate</span>
-  <span class="chip chip-usr"># User Input:</span>
-  <span class="chip chip-llm"># Used LLM:</span>
-</div>
-
-<div id="viewer"><em style="color:#888;padding:10px 0;display:block">Loading…</em></div>
-
+<div id="log">Loading…</div>
 <script>
-  const STEP_CLASSES = ['step-s1','step-s2','step-s3','step-s4'];
-  const BADGE_CLASSES = ['badge-s1','badge-s2','badge-s3','badge-s4'];
-
-  function classifyLine(line) {
-    const t = line.trim();
-    if (t.startsWith('<!-- Input CPEE-Tree -->') || t.startsWith('<!-- Output CPEE-Tree -->'))
-      return 'hl-cpee';
-    if (t.startsWith('%% Input Intermediate') || t.startsWith('%% Output Intermediate'))
-      return 'hl-mmd';
-    if (t.startsWith('# User Input:'))
-      return 'hl-usr';
-    if (t.startsWith('# Used LLM:'))
-      return 'hl-llm';
-    return null;
-  }
-
-  function buildPre(docText, stepClass) {
-    const pre = document.createElement('pre');
-    pre.className = 'doc-pre' + (stepClass ? ' ' + stepClass : '');
-
-    docText.split('\n').forEach((line, i) => {
-      const cls = classifyLine(line);
-      if (cls) {
-        const span = document.createElement('span');
-        span.className = cls;
-        span.textContent = line;
-        pre.appendChild(span);
-        pre.appendChild(document.createTextNode('\n'));
-      } else {
-        pre.appendChild(document.createTextNode(line + '\n'));
-      }
-    });
-
-    return pre;
-  }
-
   fetch('example_instance_log.xes.yaml')
-    .then(r => {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.text();
-    })
+    .then(r => r.text())
     .then(text => {
-      const viewer = document.getElementById('viewer');
-      viewer.innerHTML = '';
+      const log = document.getElementById('log');
+      log.innerHTML = '';
 
-      // Split on document separators
-      const raw = text.replace(/^\s*---\s*\n/, '');
-      const docs = raw.split(/\n---\n/);
-
-      // First pass: collect unique change_uuids in order
-      const uuids = [];
-      docs.forEach(doc => {
-        const m = doc.match(/cpee:change_uuid:\s*(\S+)/);
-        if (m && !uuids.includes(m[1])) uuids.push(m[1]);
+      // UUID → alternating class + step number
+      const uuidClass = {};
+      const uuidStep  = {};
+      let uuidCount = 0;
+      text.split(/\r?\n/).forEach(line => {
+        const m = line.match(/cpee:change_uuid:\s*(\S+)/);
+        if (m) {
+          const uuid = m[1].trim();
+          if (!(uuid in uuidClass)) {
+            uuidClass[uuid] = 'hl-uuid' + (uuidCount % 2);
+            uuidStep[uuid]  = uuidCount + 1;
+            uuidCount++;
+          }
+        }
       });
 
-      const uuidToStep = {};
-      uuids.forEach((u, i) => { uuidToStep[u] = i; });
+      // Determine exposition box class from document text
+      function expoClass(doc) {
+        if (!doc.includes('description/exposition')) return null;
+        if (doc.includes('<!-- Input CPEE-Tree -->') || doc.includes('<!-- Output CPEE-Tree -->')) return 'expo-cpee';
+        if (doc.includes('%% Input Intermediate')    || doc.includes('%% Output Intermediate'))   return 'expo-mmd';
+        if (doc.includes('# User Input:'))  return 'expo-usr';
+        if (doc.includes('# Used LLM:'))    return 'expo-llm';
+        return null;
+      }
 
-      // Second pass: render
-      docs.forEach((doc, idx) => {
-        const uuidM = doc.match(/cpee:change_uuid:\s*(\S+)/);
-        const stepIdx = uuidM ? uuidToStep[uuidM[1]] : -1;
-        const stepClass = stepIdx >= 0 ? STEP_CLASSES[stepIdx % STEP_CLASSES.length] : '';
-        const badgeClass = stepIdx >= 0 ? BADGE_CLASSES[stepIdx % BADGE_CLASSES.length] : '';
-
-        // Separator before each doc (except first)
-        if (idx > 0) {
-          const sep = document.createElement('div');
-          sep.className = 'sep-block';
-          sep.textContent = '---';
-          viewer.appendChild(sep);
-        }
-
-        const block = document.createElement('div');
-        block.className = 'doc-block';
-
-        // Gutter with step badge
-        const gutter = document.createElement('div');
-        gutter.className = 'step-gutter';
-        if (stepIdx >= 0) {
+      // Render one text line into a container (with optional UUID highlight)
+      function makeLine(text, highlightUuid) {
+        const div = document.createElement('div');
+        div.className = 'line';
+        const uuidM = highlightUuid && text.match(/^(\s*cpee:change_uuid:\s*)(\S+)/);
+        if (uuidM) {
+          const uuid  = uuidM[2].trim();
+          const cls   = uuidClass[uuid] || 'hl-uuid0';
+          const step  = uuidStep[uuid]  || '?';
+          const parity = cls.slice(-1); // '0' or '1'
+          div.appendChild(document.createTextNode(uuidM[1]));
+          const uuidSpan = document.createElement('span');
+          uuidSpan.className = cls;
+          uuidSpan.textContent = uuid;
+          div.appendChild(uuidSpan);
           const badge = document.createElement('span');
-          badge.className = 'step-badge ' + badgeClass;
-          badge.textContent = 'Step ' + (stepIdx + 1);
-          gutter.appendChild(badge);
+          badge.className = 'step-label step-label-' + parity;
+          badge.textContent = 'Step ' + step;
+          div.appendChild(badge);
+          div.appendChild(document.createTextNode(text.slice(uuidM[0].length)));
+        } else {
+          div.textContent = text;
+        }
+        return div;
+      }
+
+      // Render a document block
+      function renderDoc(doc, cls) {
+        const lines = doc.trimEnd().split(/\r?\n/);
+        const frag  = document.createDocumentFragment();
+
+        if (!cls) {
+          // Not an exposition event — render all lines normally
+          lines.forEach(l => frag.appendChild(makeLine(l, false)));
+          return frag;
         }
 
-        block.appendChild(gutter);
-        block.appendChild(buildPre(doc.trimEnd(), stepClass));
-        viewer.appendChild(block);
+        // Find where cpee:exposition starts and where it ends
+        // (ends at the line starting with 'time:timestamp' at the same indent level)
+        let expoStart = -1;
+        let expoEnd   = lines.length;
+        for (let i = 0; i < lines.length; i++) {
+          if (expoStart === -1 && /^\s*cpee:exposition:/.test(lines[i])) {
+            expoStart = i;
+          } else if (expoStart !== -1 && /^\s*time:timestamp:/.test(lines[i])) {
+            expoEnd = i;
+            break;
+          }
+        }
+
+        // Lines before exposition (render with UUID highlight)
+        lines.slice(0, expoStart).forEach(l => frag.appendChild(makeLine(l, true)));
+
+        // Exposition block inside colored box
+        const box = document.createElement('div');
+        box.className = cls;
+        lines.slice(expoStart, expoEnd).forEach(l => {
+          const d = document.createElement('div');
+          d.className = 'line';
+          d.textContent = l;
+          box.appendChild(d);
+        });
+        frag.appendChild(box);
+
+        // Lines after exposition (time:timestamp etc.)
+        lines.slice(expoEnd).forEach(l => frag.appendChild(makeLine(l, false)));
+
+        return frag;
+      }
+
+      // Split YAML into documents
+      const raw  = text.replace(/^\s*---\s*\r?\n/, '');
+      const docs = raw.split(/\r?\n---\r?\n/);
+
+      docs.forEach((doc, idx) => {
+        if (idx > 0) {
+          const cls = expoClass(doc);
+          const isRelevant = cls !== null || doc.includes('description/change');
+          const sep = document.createElement('div');
+          sep.className = 'sep' + (isRelevant ? '' : ' dim');
+          sep.textContent = '---';
+          log.appendChild(sep);
+        }
+
+        const cls = expoClass(doc);
+        const isRelevant = cls !== null || doc.includes('description/change');
+        const frag = renderDoc(doc, cls);
+
+        if (!isRelevant) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'dim';
+          wrapper.appendChild(frag);
+          log.appendChild(wrapper);
+        } else {
+          log.appendChild(frag);
+        }
       });
-    })
-    .catch(err => {
-      document.getElementById('viewer').innerHTML =
-        '<div id="error">Could not load log file: ' + err.message +
-        '<br><small>Make sure this page is served from the same directory as example_instance_log.xes.yaml (e.g. via a local HTTP server).</small></div>';
     });
 </script>
 </body>
