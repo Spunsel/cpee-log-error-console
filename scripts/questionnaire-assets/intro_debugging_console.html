@@ -4,6 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CPEE LLM Debugging Console &mdash; Introduction</title>
+  <script type="text/javascript" src="/js_libs/jquery.min.js"></script>
+  <script type="text/javascript" src="/js_libs/marked.min.js"></script>
+  <script type="text/javascript" src="/js_libs/parsequery.js"></script>
+  <script>
+    function doit(data) {
+      $.ajax({
+        type: "PUT",
+        url: window.name,
+        contentType: "application/json",
+        data: "{}"
+      });
+    }
+  </script>
   <style>
     :root {
       --tum-blue: #0065BD;
