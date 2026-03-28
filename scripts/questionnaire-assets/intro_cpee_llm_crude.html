@@ -195,7 +195,6 @@
     <p>
       A user can request changes to a process in <em>plain natural language</em>. Because LLMs cannot reliably read or produce CPEE XML, the pipeline uses <strong>Mermaid flowchart syntax</strong> as an intermediate format — the process model is converted to Mermaid before being sent to the LLM, and the LLM's output is converted back to CPEE XML. Each user request produces one <strong>modification step</strong>; multiple requests produce a chronological sequence of steps.
     </p>
-    <p style="margin-top:6px;">Every modification step follows an identical five-stage pipeline. Understanding these stages is essential, because the debugging console displays all five for each step.</p>
 
     <div class="pipeline-wrapper" style="margin-top:10px; margin-bottom:28px;">
       <div class="pipeline">
@@ -266,6 +265,10 @@
       CPEE logs every event in a <strong>.xes.yaml</strong> file (one <code>---</code>-separated document per event). Only <code>description/exposition</code> events carry LLM modification data. One modification step produces one such event per pipeline stage; all share the same <code>cpee:change_uuid</code>, which groups them into a single step.
     </p>
 
+    <div class="info-box" style="margin: 16px 0 8px;">
+      <p>Scroll through the shown example log to familiarize yourself with its structure.</p>
+    </div>
+
     <div class="card-grid" style="margin: 16px 0;">
       <div class="card" style="padding: 14px 18px;">
         <p style="font-size:0.8rem; font-weight:700; color:var(--text); margin-bottom:8px;">Key fields</p>
@@ -300,9 +303,6 @@
       </div>
     </div>
 
-    <div class="info-box" style="margin-top: 16px;">
-      <p>Scroll through the shown example log to familiarize yourself with its structure.</p>
-    </div>
   </section>
 
   <section>
