@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPEE LLM Log Example</title>
+  <style>
+    :root {
+      --tum-blue: #0065BD;
+      --tum-blue-light: #e8f0f9;
+      --accent: #E37222;
+      --green: #2d8a4e;
+      --purple: #6a3fa0;
+      --text: #1a1a2e;
+      --text-secondary: #4a4a6a;
+      --border: #d0d8e8;
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --mono: 'Consolas', 'Courier New', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 40px 24px 64px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--tum-blue);
+      border-left: 4px solid var(--tum-blue);
+      padding-left: 14px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 20px 0 8px;
+    }
+
+    p { margin-bottom: 12px; color: var(--text-secondary); }
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.85em;
+      background: rgba(0,101,189,0.08);
+      color: #003f77;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      border-radius: 8px;
+      padding: 18px 20px;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.6;
+      margin: 12px 0;
+    }
+    .cmt { color: #6c7086; font-style: italic; }
+    .key { color: #cba6f7; }
+    .str { color: #a6e3a1; }
+    .val { color: #fab387; }
+
+  </style>
+</head>
+<body>
+
+<main>
+  <h2>Log File Structure</h2>
+
+  <p>A log file is a sequence of YAML documents separated by <code>---</code>. Each document is one event. The events relevant to LLM modifications are those with the lifecycle transition <code>description/exposition</code>.</p>
+
+  <pre><span class="cmt">--- # Event document: one LLM modification step</span>
+<span class="key">cpee:lifecycle:transition</span>: <span class="str">description/exposition</span>
+<span class="key">cpee:change_uuid</span>:          <span class="val">3f8a2b1c-94e6-4d12-b901-7f3c5a8d2e44</span>
+<span class="key">time:timestamp</span>:            <span class="val">2024-11-03T14:27:53.482Z</span>
+<span class="key">cpee:exposition</span>: <span class="str">|
+  &lt;!-- Input CPEE-Tree --&gt;
+  &lt;description&gt;
+    &lt;call id="1" label="Fetch Order"&gt;...&lt;/call&gt;
+    &lt;call id="2" label="Process Payment"&gt;...&lt;/call&gt;
+  &lt;/description&gt;
+
+  %% Input Intermediate
+  flowchart TD
+    1["Fetch Order"]
+    2["Process Payment"]
+    1 --> 2
+
+  # User Input:
+  Add an approval step between Fetch Order and Process Payment.
+
+  %% Output Intermediate
+  flowchart TD
+    1["Fetch Order"]
+    3["Approval Check"]
+    2["Process Payment"]
+    1 --> 3 --> 2
+
+  &lt;!-- Output CPEE-Tree --&gt;
+  &lt;description&gt;
+    &lt;call id="1" label="Fetch Order"&gt;...&lt;/call&gt;
+    &lt;call id="3" label="Approval Check"&gt;...&lt;/call&gt;
+    &lt;call id="2" label="Process Payment"&gt;...&lt;/call&gt;
+  &lt;/description&gt;
+
+  # Used LLM: gpt-4o</span></pre>
+</main>
+
+</body>
+</html>

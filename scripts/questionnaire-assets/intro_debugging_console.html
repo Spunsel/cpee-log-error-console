@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPEE LLM Debugging Console &mdash; Introduction</title>
+  <style>
+    :root {
+      --tum-blue: #0065BD;
+      --tum-blue-dark: #003f77;
+      --tum-blue-light: #e8f0f9;
+      --accent: #E37222;
+      --accent-light: #fdf3ec;
+      --green: #2d8a4e;
+      --green-light: #e8f5ee;
+      --purple: #6a3fa0;
+      --purple-light: #f2ecfa;
+      --red: #c0392b;
+      --red-light: #fdecea;
+      --text: #1a1a2e;
+      --text-secondary: #4a4a6a;
+      --border: #d0d8e8;
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --mono: 'Consolas', 'Courier New', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 40px 24px 64px;
+    }
+
+    section { margin-bottom: 52px; }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--tum-blue);
+      border-left: 4px solid var(--tum-blue);
+      padding-left: 14px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 20px 0 8px;
+    }
+
+    p { margin-bottom: 12px; color: var(--text-secondary); }
+    p strong { color: var(--text); }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── Info box ── */
+    .info-box {
+      border-left: 4px solid var(--tum-blue);
+      background: var(--tum-blue-light);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+    }
+    .info-box.orange { border-color: var(--accent); background: var(--accent-light); }
+    .info-box.green  { border-color: var(--green);  background: var(--green-light);  }
+    .info-box.purple { border-color: var(--purple); background: var(--purple-light); }
+    .info-box.red    { border-color: var(--red);    background: var(--red-light);    }
+    .info-box p { margin: 0; font-size: 0.88rem; }
+
+    /* ── Step navigation diagram ── */
+    .step-nav-demo {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: var(--tum-blue);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: default;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+    .step-select {
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-family: var(--font);
+      color: var(--text);
+      min-width: 160px;
+    }
+
+    /* ── Section cards with color bands ── */
+    .section-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sec-card {
+      display: flex;
+      gap: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .sec-band {
+      width: 6px;
+      flex-shrink: 0;
+    }
+    .sec-body {
+      flex: 1;
+      padding: 14px 18px;
+      background: var(--card-bg);
+    }
+    .sec-body h3 { margin: 0 0 4px; font-size: 0.92rem; }
+    .sec-body p  { margin: 0; font-size: 0.84rem; }
+    .band-blue   { background: var(--tum-blue); }
+    .band-green  { background: var(--green); }
+    .band-orange { background: var(--accent); }
+    .band-purple { background: var(--purple); }
+
+    /* ── View mode chips ── */
+    .view-modes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .vm-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1.5px solid;
+    }
+    .vm-chip.graph   { background: #dbeeff; border-color: var(--tum-blue);  color: var(--tum-blue);  }
+    .vm-chip.clean   { background: #d5f0dc; border-color: var(--green);     color: var(--green);     }
+    .vm-chip.raw     { background: #f0ece8; border-color: #8b7355;           color: #5c4a2a;          }
+    .vm-chip.traces  { background: #fde9d4; border-color: var(--accent);    color: #7a3800;          }
+    .vm-chip.analysis{ background: var(--purple-light); border-color: var(--purple); color: var(--purple); }
+
+    /* ── Trace illustration ── */
+    .trace-example {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      line-height: 1.7;
+      margin: 12px 0;
+    }
+    .tr-match   { color: #a6e3a1; }
+    .tr-unique  { color: #f38ba8; }
+    .tr-reconcile { color: #fab387; }
+    .tr-label   { color: #6c7086; font-size: 0.72rem; display: inline-block; margin-left: 6px; }
+
+    /* ── Property indicator ── */
+    .prop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .prop-card {
+      border-radius: 8px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+    }
+    .prop-card h4 { font-size: 0.85rem; margin-bottom: 4px; }
+    .prop-card p  { font-size: 0.78rem; margin: 0; }
+    .status-ok  { color: var(--green); }
+    .status-err { color: var(--red); }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+    .dot-ok  { background: var(--green); }
+    .dot-err { background: var(--red); }
+    .dot-warn { background: var(--accent); }
+
+    /* ── Highlight diagram ── */
+    .highlight-demo {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .highlight-panel {
+      flex: 1;
+      min-width: 200px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .hl-panel-header {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 12px;
+      color: #fff;
+    }
+    .hl-panel-body { padding: 12px; background: var(--card-bg); }
+    .hl-node {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      font-size: 0.82rem;
+      border: 1px solid transparent;
+    }
+    .hl-node.active {
+      background: #fff3d0;
+      border-color: #e8a800;
+      font-weight: 600;
+    }
+    .hl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .hl-arrow {
+      font-size: 1.5rem;
+      color: var(--accent);
+      align-self: center;
+      flex-shrink: 0;
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.85em;
+      background: rgba(0,101,189,0.08);
+      color: var(--tum-blue-dark);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+  </style>
+</head>
+<body>
+
+<main>
+
+  <!-- ── 1. Purpose ── -->
+  <section>
+    <h2>CPEE LLM Debugging Console</h2>
+    <p>A post-hoc analysis tool that loads a CPEE modification log, reconstructs each LLM modification step, and lets you inspect all five pipeline stages as interactive graphs. Enter a process number or UUID to load an instance; the console fetches the <code>.xes.yaml</code> log, filters <code>description/exposition</code> events, and assembles them into a numbered step sequence. Multiple instances can be loaded simultaneously via sidebar tabs.</p>
+  </section>
+
+  <!-- ── 2. Step navigation ── -->
+  <section>
+    <h2>Step Navigation</h2>
+    <p>Each step = one user–LLM modification round. Navigate with Prev/Next buttons, the step dropdown.</p>
+
+  </section>
+
+  <!-- ── 3. Content sections ── -->
+  <section>
+    <h2>The Five Content Sections</h2>
+    <p>Each step is split into five sections corresponding to the pipeline stages:</p>
+
+    <div class="section-list" style="margin-top:12px;">
+      <div class="sec-card">
+        <div class="sec-band band-blue"></div>
+        <div class="sec-body">
+          <h3>Section 1 &mdash; Input CPEE</h3>
+          <p>Process model before modification, rendered as a native CPEE graph (WfAdaptor).</p>
+        </div>
+      </div>
+      <div class="sec-card">
+        <div class="sec-band band-green"></div>
+        <div class="sec-body">
+          <h3>Section 2 &mdash; Input Mermaid</h3>
+          <p>The Mermaid diagram generated from the Input CPEE and sent to the LLM.</p>
+        </div>
+      </div>
+      <div class="sec-card">
+        <div class="sec-band band-orange"></div>
+        <div class="sec-body">
+          <h3>Section 3 &mdash; User Input</h3>
+          <p>The natural-language instruction the user gave to the LLM.</p>
+        </div>
+      </div>
+      <div class="sec-card">
+        <div class="sec-band band-green"></div>
+        <div class="sec-body">
+          <h3>Section 4 &mdash; Output Mermaid</h3>
+          <p>The LLM's Mermaid output, rendered with automatic syntax-error correction.</p>
+        </div>
+      </div>
+      <div class="sec-card">
+        <div class="sec-band band-blue"></div>
+        <div class="sec-body">
+          <h3>Section 5 &mdash; Output CPEE</h3>
+          <p>Final process model after Mermaid-to-CPEE back-conversion, rendered as a CPEE graph.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. View modes ── -->
+  <section>
+    <h2>View Modes</h2>
+    <p>Each section supports five view modes:</p>
+
+    <div class="view-modes" style="margin-top:10px;">
+      <span class="vm-chip graph">&#9783; Graph</span>
+      <span class="vm-chip clean">&#10003; Cleaned</span>
+      <span class="vm-chip raw">&#9654; Raw</span>
+      <span class="vm-chip traces">&#8594; Traces</span>
+      <span class="vm-chip analysis">&#9697; Analysis</span>
+    </div>
+
+    <div class="card-grid" style="margin-top:12px;">
+      <div class="card">
+        <h3>Graph</h3>
+        <p>Interactive visual graph — zoomable and clickable.</p>
+      </div>
+      <div class="card">
+        <h3>Cleaned</h3>
+        <p>Source code with preprocessing fixes applied.</p>
+      </div>
+      <div class="card">
+        <h3>Raw</h3>
+        <p>Exact unmodified content from the <code>cpee:exposition</code> log field.</p>
+      </div>
+      <div class="card">
+        <h3>Traces</h3>
+        <p>All possible execution paths (start → end). Includes animated playback.</p>
+      </div>
+      <div class="card">
+        <h3>Analysis</h3>
+        <p>Soundness, boundedness, reachability checks with pass/fail status per property.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. Cross-graph highlighting ── -->
+  <section>
+    <h2>Cross-Graph Highlighting</h2>
+    <p>Click any task in a Graph view to highlight the same task across all other open graph sections simultaneously.</p>
+
+  </section>
+
+  <!-- ── 6. Trace analysis ── -->
+  <section>
+    <h2>Trace Analysis &amp; Comparison</h2>
+    <p>Traces are computed for the input-side (Stages 1 &amp; 2) and output-side (Stages 4 &amp; 5) graphs and compared. Each trace is classified as:</p>
+
+
+    <div class="card-grid" style="margin-top:4px;">
+      <div class="card" style="border-left: 3px solid var(--green);">
+        <h3 class="status-ok">Matching</h3>
+        <p>Present in both before and after — modification preserved this path.</p>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--red);">
+        <h3 class="status-err">Unique</h3>
+        <p>Present in only one graph — path was added or removed by the modification.</p>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--accent);">
+        <h3>Reconciled</h3>
+        <p>Initially unique, but matched via more relaxed conditions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. Structural analysis ── -->
+  <section>
+    <h2>Structural Analysis</h2>
+    <p>Each graph section can be checked for four formal properties:</p>
+
+    <div class="prop-grid" style="margin-top:10px;">
+      <div class="prop-card">
+        <h4><span class="status-dot dot-ok"></span>Soundness</h4>
+        <p>Process always terminates; every task is reachable.</p>
+      </div>
+      <div class="prop-card">
+        <h4><span class="status-dot dot-warn"></span>Boundedness</h4>
+        <p>No unbounded token accumulation at any node.</p>
+      </div>
+      <div class="prop-card">
+        <h4><span class="status-dot dot-err"></span>Reachability</h4>
+        <p>Classifies nodes as reachable, unreachable, or dead-end.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>

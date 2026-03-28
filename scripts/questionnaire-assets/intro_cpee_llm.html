@@ -1,72 +1,375 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Introduction: CPEE Conversational Modeling</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Process Modeling in CPEE</title>
   <style>
     :root {
-      --text: #222;
-      --muted: #555;
-      --accent: #004b8d;
-      --bg: #fff;
+      --tum-blue: #0065BD;
+      --tum-blue-light: #e8f0f9;
+      --tum-blue-mid: #5a9fd4;
+      --accent: #E37222;
+      --accent-light: #fdf3ec;
+      --green: #2d8a4e;
+      --green-light: #e8f5ee;
+      --purple: #6a3fa0;
+      --purple-light: #f2ecfa;
+      --text: #1a1a2e;
+      --text-secondary: #4a4a6a;
+      --border: #d0d8e8;
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --mono: 'Consolas', 'Courier New', monospace;
     }
 
-    html, body {
-      margin: 0;
-      padding: 0;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
       background: var(--bg);
       color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.45;
-      font-size: 16px;
+      line-height: 1.7;
+      font-size: 15px;
     }
 
+    /* ── Layout ── */
     main {
-      padding: 14px;
-      max-width: 980px;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 40px 24px 64px;
     }
 
-    h1 {
-      margin: 0 0 10px 0;
-      font-size: 24px;
-      color: var(--accent);
+    section { margin-bottom: 52px; }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--tum-blue);
+      border-left: 4px solid var(--tum-blue);
+      padding-left: 14px;
+      margin-bottom: 20px;
     }
 
-    p {
-      margin: 0 0 10px 0;
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 20px 0 8px;
     }
 
-    .muted {
-      color: var(--muted);
+    p { margin-bottom: 12px; color: var(--text-secondary); }
+    p strong { color: var(--text); }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
     }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── Pipeline ── */
+    .pipeline-wrapper {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 20px;
+      overflow-x: auto;
+    }
+
+    .pipeline {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      min-width: 680px;
+    }
+
+    .pipe-step {
+      flex: 1;
+      position: relative;
+    }
+
+    .pipe-step-inner {
+      border-radius: 8px;
+      padding: 14px 12px;
+      text-align: center;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .pipe-step-number {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+    .pipe-step-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .pipe-step-sub {
+      font-size: 0.72rem;
+      line-height: 1.35;
+      opacity: 0.75;
+    }
+
+    /* Color themes per step */
+    .step-1 .pipe-step-inner { background: #e8f0f9; border: 1.5px solid #5a9fd4; color: #003f77; }
+    .step-2 .pipe-step-inner { background: #eef6f0; border: 1.5px solid #5ab87a; color: #1a5c30; }
+    .step-3 .pipe-step-inner { background: #fdf3ec; border: 1.5px solid #e8903c; color: #7a3800; }
+    .step-4 .pipe-step-inner { background: #eef6f0; border: 1.5px solid #5ab87a; color: #1a5c30; }
+    .step-5 .pipe-step-inner { background: #e8f0f9; border: 1.5px solid #5a9fd4; color: #003f77; }
+
+    .pipe-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+      color: var(--text-secondary);
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .conversion-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-align: center;
+      color: var(--text-secondary);
+      padding: 1px 6px;
+      background: #f0f0f6;
+      border-radius: 4px;
+      margin-top: 0;
+      white-space: nowrap;
+    }
+
+    .pipe-arrow-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0px;
+      flex-shrink: 0;
+    }
+
+    /* ── Conversion arrows ── */
+    .conversion-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--bg);
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+    .conv-arrow { font-size: 1.2rem; color: var(--text-secondary); }
+    .conv-label { font-size: 0.82rem; font-style: italic; color: var(--text-secondary); }
+    .conv-name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+
+    /* ── Info box ── */
+    .info-box {
+      border-left: 4px solid var(--tum-blue);
+      background: var(--tum-blue-light);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+    }
+    .info-box.orange {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+    .info-box.green {
+      border-color: var(--green);
+      background: var(--green-light);
+    }
+    .info-box p { margin: 0; font-size: 0.88rem; }
+
+    /* ── Log format section ── */
+    .log-field {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--bg);
+    }
+    .log-field:last-child { border-bottom: none; }
+    .log-field-key {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--tum-blue);
+      flex-shrink: 0;
+      min-width: 190px;
+      padding-top: 1px;
+    }
+    .log-field-desc { font-size: 0.85rem; color: var(--text-secondary); }
+
+    /* ── UUID ── */
+    .uuid-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+    }
+    .uuid-icon {
+      width: 38px; height: 38px;
+      background: var(--tum-blue-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .uuid-text { font-size: 0.88rem; color: var(--text-secondary); }
+    .uuid-text strong { display: block; font-size: 0.92rem; color: var(--text); margin-bottom: 2px; }
+
   </style>
 </head>
 <body>
-  <main>
-    <h1>CPEE Conversational Process Modeling with LLMs</h1>
+
+<main>
+
+  <!-- ── 2. LLM-driven modification ── -->
+  <section>
+    <h2>LLM-Driven Process Modification</h2>
 
     <p>
-      CPEE supports conversational process modeling with large language models (LLMs).
-      Instead of manually defining every process detail, users can describe intended
-      behavior in natural language and iteratively refine the process through dialogue.
+      A user can request changes to a process in <em>plain natural language</em>. Because LLMs cannot reliably read or produce CPEE XML, the pipeline uses <strong>Mermaid flowchart syntax</strong> as an intermediate format — the process model is converted to Mermaid before being sent to the LLM, and the LLM's output is converted back to CPEE XML. Each user request produces one <strong>modification step</strong>; multiple requests produce a chronological sequence of steps.
     </p>
+    <p style="margin-top:6px;">Every modification step follows an identical five-stage pipeline. Understanding these stages is essential, because the debugging console displays all five for each step.</p>
+
+    <!-- Visual pipeline -->
+    <div class="pipeline-wrapper" style="margin-top:10px; margin-bottom:28px;">
+      <div class="pipeline">
+
+        <div class="pipe-step step-1">
+          <div class="pipe-step-inner">
+            <span class="pipe-step-number">Stage 1</span>
+            <span class="pipe-step-label">Input CPEE</span>
+          </div>
+        </div>
+
+        <div class="pipe-arrow-stack">
+          <div class="pipe-arrow">→</div>
+          <div class="conversion-label">CPEE → Mermaid</div>
+        </div>
+
+        <div class="pipe-step step-2">
+          <div class="pipe-step-inner">
+            <span class="pipe-step-number">Stage 2</span>
+            <span class="pipe-step-label">Input Mermaid</span>
+          </div>
+        </div>
+
+        <div class="pipe-arrow-stack">
+          <div class="pipe-arrow">→</div>
+          <div class="conversion-label">User request + LLM</div>
+        </div>
+
+        <div class="pipe-step step-3">
+          <div class="pipe-step-inner">
+            <span class="pipe-step-number">Stage 3</span>
+            <span class="pipe-step-label">User Input</span>
+          </div>
+        </div>
+
+        <div class="pipe-arrow-stack">
+          <div class="pipe-arrow">→</div>
+          <div class="conversion-label">LLM response</div>
+        </div>
+
+        <div class="pipe-step step-4">
+          <div class="pipe-step-inner">
+            <span class="pipe-step-number">Stage 4</span>
+            <span class="pipe-step-label">Output Mermaid</span>
+          </div>
+        </div>
+
+        <div class="pipe-arrow-stack">
+          <div class="pipe-arrow">→</div>
+          <div class="conversion-label">Mermaid → CPEE</div>
+        </div>
+
+        <div class="pipe-step step-5">
+          <div class="pipe-step-inner">
+            <span class="pipe-step-number">Stage 5</span>
+            <span class="pipe-step-label">Output CPEE</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── 4. Log files ── -->
+  <section>
+    <h2>Event Logs &mdash; How Modifications Are Recorded</h2>
 
     <p>
-      The LLM can assist with structure suggestions, model corrections, and explanations
-      of modeling decisions. This enables faster iteration and makes process modeling more
-      accessible, especially during early design and debugging phases.
+      CPEE records every modification step in a structured <strong>event log</strong>. The log format used here is <strong>XES</strong> (eXtensible Event Stream), serialized as <strong>YAML</strong> — so each file has the extension <code>.xes.yaml</code>.
     </p>
 
-    <p>
-      In this questionnaire, you will inspect process behavior and identify issues using
-      two complementary views: raw execution logs and an interactive debugging console.
-    </p>
+    <h3>Markers Inside <code>cpee:exposition</code></h3>
+    <p>The exposition payload is plain text. Each of the five pipeline stages is delimited by a fixed marker string:</p>
 
-    <p class="muted">
-      Please focus on why the process behaves as shown, then select the answer that best
-      matches your diagnosis.
-    </p>
-  </main>
+    <div class="card" style="padding: 14px 18px;">
+      <div style="display:grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: start;">
+        <code style="color: var(--tum-blue); font-size:0.82rem;">&lt;!-- Input CPEE-Tree --&gt;</code>
+        <span style="font-size:0.84rem; color:var(--text-secondary);">Stage 1</span>
+        <code style="color: var(--green); font-size:0.82rem;">%% Input Intermediate</code>
+        <span style="font-size:0.84rem; color:var(--text-secondary);">Stage 2</span>
+        <code style="color: var(--accent); font-size:0.82rem;"># User Input:</code>
+        <span style="font-size:0.84rem; color:var(--text-secondary);">Stage 3</span>
+        <code style="color: var(--green); font-size:0.82rem;">%% Output Intermediate</code>
+        <span style="font-size:0.84rem; color:var(--text-secondary);">Stage 4</span>
+        <code style="color: var(--tum-blue); font-size:0.82rem;">&lt;!-- Output CPEE-Tree --&gt;</code>
+        <span style="font-size:0.84rem; color:var(--text-secondary);">Stage 5</span>
+        <code style="color: var(--purple); font-size:0.82rem;"># Used LLM:</code>
+        <span style="font-size:0.84rem; color:var(--text-secondary);">Optional</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. Common issues ── -->
+  <section>
+    <h2>Typical Error Patterns to Watch For</h2>
+
+    <p>Because the pipeline involves two format conversions and an LLM as an intermediary, errors can appear at multiple points:</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>LLM Syntax Errors</h3>
+        <p>The LLM produces invalid Mermaid Syntax.</p>
+      </div>
+      <div class="card">
+        <h3>Structural Errors</h3>
+        <p>Structural problems like reachability, soundness, boundedness.</p>
+      </div>
+      <div class="card">
+        <h3>Conversion Errors</h3>
+        <p>During transformation between graph formats.</p>
+      </div>
+    </div>
+  </section>
+
+
+
+</main>
+
 </body>
 </html>
