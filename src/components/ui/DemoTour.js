@@ -373,10 +373,11 @@ export class DemoTour {
         this._active       = false;
         this._cleanup      = [];   // fns to call in end()
 
-        this._overlay   = null;
-        this._spotlight = null;
-        this._popover   = null;
-        this._btn       = null;
+        this._overlay         = null;
+        this._spotlight       = null;
+        this._popover         = null;
+        this._btn             = null;
+        this._resizeObserver  = null;
 
         this._onResize = () => this._reposition();
     }
@@ -402,6 +403,10 @@ export class DemoTour {
         this._cleanup = [];
         window.removeEventListener('resize', this._onResize);
         window.removeEventListener('scroll', this._onScroll);
+        if (this._resizeObserver) {
+            this._resizeObserver.disconnect();
+            this._resizeObserver = null;
+        }
         this._overlay?.remove();
         this._spotlight?.remove();
         this._popover?.remove();
@@ -729,13 +734,26 @@ export class DemoTour {
     /* ── Spotlight ───────────────────────────────────────────────────────── */
 
     _placeSpotlight(el, pad = 8) {
-        const r = el.getBoundingClientRect();
-        Object.assign(this._spotlight.style, {
-            top:    `${r.top    - pad}px`,
-            left:   `${r.left  - pad}px`,
-            width:  `${r.width  + pad * 2}px`,
-            height: `${r.height + pad * 2}px`,
+        const applyRect = () => {
+            const r = el.getBoundingClientRect();
+            Object.assign(this._spotlight.style, {
+                top:    `${r.top    - pad}px`,
+                left:   `${r.left  - pad}px`,
+                width:  `${r.width  + pad * 2}px`,
+                height: `${r.height + pad * 2}px`,
+            });
+        };
+        applyRect();
+
+        /* Re-position whenever the element resizes (e.g. expanded warning/error panels) */
+        if (this._resizeObserver) {
+            this._resizeObserver.disconnect();
+        }
+        this._resizeObserver = new ResizeObserver(() => {
+            if (!this._active) return;
+            applyRect();
         });
+        this._resizeObserver.observe(el);
     }
 
     /* ── Popover positioning ─────────────────────────────────────────────── */
