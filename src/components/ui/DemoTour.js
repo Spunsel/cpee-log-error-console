@@ -154,6 +154,7 @@ const STEPS = [
            <code>preset</code>, <code>id</code>, or <code>presetid</code> —
            changing which labels are shown on graph nodes.`,
     position: 'bottom', padding: 8,
+    scrollToTop: true,
   },
 
   {
@@ -512,7 +513,7 @@ export class DemoTour {
 
         const targetEl = this._resolve(step.target);
         if (targetEl) {
-            await this._focusElement(targetEl, step.padding ?? 8);
+            await this._focusElement(targetEl, step.padding ?? 8, !!step.scrollToTop);
         } else {
             this._spotlight.classList.add('tour-spotlight--hidden');
         }
@@ -660,13 +661,24 @@ export class DemoTour {
 
     /* ── Scroll element into the upper viewport ─────────────────────────── */
 
-    async _scrollToElement(el) {
+    async _scrollToElement(el, scrollToTop = false) {
         const r  = el.getBoundingClientRect();
         const vh = window.innerHeight;
-        if (r.bottom < 0 || r.top > vh || r.top > vh * 0.45) {
+
+        let scrollTarget = null;
+        if (scrollToTop) {
+            /* Scroll just far enough that .header is hidden above the viewport */
+            const header = document.querySelector('.header');
+            const target = header ? header.offsetHeight : 0;
+            if (Math.abs(window.scrollY - target) > 2) scrollTarget = target;
+        } else if (r.bottom < 0 || r.top > vh || r.top > vh * 0.45) {
+            scrollTarget = window.scrollY + r.top - vh * 0.25;
+        }
+
+        if (scrollTarget !== null) {
             this._tourScrolling = true;
             if (this._spotlight) this._spotlight.style.transition = 'none';
-            window.scrollBy({ top: r.top - vh * 0.25, behavior: 'smooth' });
+            window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
             await this._waitForScrollEnd();
             this._tourScrolling = false;
             if (this._spotlight) this._spotlight.style.transition = '';
@@ -685,10 +697,10 @@ export class DemoTour {
 
     /* ── Spotlight ───────────────────────────────────────────────────────── */
 
-    _focusElement(el, pad = 8) {
+    _focusElement(el, pad = 8, scrollToTop = false) {
         this._placeSpotlight(el, pad);
         this._spotlight.classList.remove('tour-spotlight--hidden');
-        return this._scrollToElement(el);
+        return this._scrollToElement(el, scrollToTop);
     }
 
     _placeSpotlight(el, pad = 8) {
