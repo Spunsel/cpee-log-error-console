@@ -109,7 +109,7 @@ export class CPEEDebugConsole {
             this.darkModeToggle.initialize(darkModeContainer);
         }
 
-        // Mount demo tour button in header
+        // Mount demo tour button in header (shown only when instance loader is visible)
         const tourBtnContainer = document.getElementById('tour-btn-container');
         if (tourBtnContainer) {
             this.demoTour.mountButton(tourBtnContainer);

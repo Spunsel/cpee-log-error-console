@@ -297,10 +297,12 @@ const STEPS = [
     title: '18 — Syntax Error (Preprocessing)',
     body: `<span class="tour-error-label">Syntax Error</span>&nbsp;
            The <strong>warning flag</strong> on Input Mermaid means preprocessing detected
-           and auto-corrected a syntax issue.<br><br>
-           Navigate to <strong>Step 5</strong> to continue.`,
+           and auto-corrected a syntax issue. Expand it to see which corrections were applied.`,
     position: 'top', padding: 10,
-    passthroughOverlay: true,
+    thenNavigate: true,
+    thenTarget: '#step-dropdown-trigger',
+    thenBody: `Use the <strong>step dropdown</strong> to navigate to <strong>Step 5</strong> to continue.`,
+    thenPosition: 'bottom',
     waitIndex: 4,
     autoAdvance: true,
   },
@@ -312,10 +314,13 @@ const STEPS = [
     },
     title: '19 — Conversion Error',
     body: `<span class="tour-error-label">Conversion Error</span>&nbsp;
-           Flags structural differences that emerge from conversion (Mermaid ↔ CPEE).<br><br>
-           Navigate to <strong>Step 6</strong> to continue.`,
+           Flags structural differences that emerge from conversion (Mermaid ↔ CPEE).
+           Expand it to inspect which traces diverge.`,
     position: 'top', padding: 10,
-    passthroughOverlay: true,
+    thenNavigate: true,
+    thenTarget: '#step-dropdown-trigger',
+    thenBody: `Use the <strong>step dropdown</strong> to navigate to <strong>Step 6</strong> to continue.`,
+    thenPosition: 'bottom',
     waitIndex: 5,
     autoAdvance: true,
   },
@@ -327,10 +332,12 @@ const STEPS = [
     title: '20 — Syntax Error (Undetected)',
     body: `<span class="tour-error-label">Syntax Error</span>&nbsp;
            This warning was <strong>not caught by preprocessing</strong>.
-           Switch to <em>Raw</em> vs <em>Cleaned</em> to see what differs.<br><br>
-           Navigate to <strong>Step 10</strong> to continue.`,
+           Switch to <em>Raw</em> vs <em>Cleaned</em> to see what differs.`,
     position: 'top', padding: 10,
-    passthroughOverlay: true,
+    thenNavigate: true,
+    thenTarget: '#step-dropdown-trigger',
+    thenBody: `Use the <strong>step dropdown</strong> to navigate to <strong>Step 10</strong> to continue.`,
+    thenPosition: 'bottom',
     waitIndex: 9,
     autoAdvance: true,
   },
@@ -371,15 +378,19 @@ export class DemoTour {
         this.eventBus      = eventBus || defaultEventBus;
         this._stepIndex    = 0;
         this._active       = false;
-        this._cleanup      = [];   // fns to call in end()
+        this._cleanup      = [];
 
-        this._overlay         = null;
-        this._spotlight       = null;
-        this._popover         = null;
-        this._btn             = null;
-        this._resizeObserver  = null;
+        this._overlay             = null;
+        this._spotlight           = null;
+        this._popover             = null;
+        this._btn                 = null;
+        this._resizeObserver      = null;
+        this._tourScrolling       = false;
+        this._currentSpotlightEl  = null;
+        this._currentSpotlightPad = 8;
 
-        this._onResize = () => this._reposition();
+        this._onResize  = () => this._reposition();
+        this._onKeyDown = null;
     }
 
     /* ── Public ──────────────────────────────────────────────────────────── */
@@ -401,12 +412,10 @@ export class DemoTour {
         this._active = false;
         this._cleanup.forEach(fn => fn());
         this._cleanup = [];
-        window.removeEventListener('resize', this._onResize);
-        window.removeEventListener('scroll', this._onScroll);
-        if (this._resizeObserver) {
-            this._resizeObserver.disconnect();
-            this._resizeObserver = null;
-        }
+        window.removeEventListener('resize',  this._onResize);
+        window.removeEventListener('scroll',  this._onScroll);
+        window.removeEventListener('keydown', this._onKeyDown);
+        if (this._resizeObserver) { this._resizeObserver.disconnect(); this._resizeObserver = null; }
         this._overlay?.remove();
         this._spotlight?.remove();
         this._popover?.remove();
@@ -452,289 +461,240 @@ export class DemoTour {
         this._popover   = this._mkEl('div', 'tour-popover');
         this._popover.setAttribute('role', 'dialog');
 
-        this._onScroll = () => this._spotlight?.classList.add('tour-spotlight--hidden');
+        this._onScroll = () => {
+            if (this._tourScrolling) {
+                if (this._currentSpotlightEl && this._spotlight) {
+                    const r   = this._currentSpotlightEl.getBoundingClientRect();
+                    const pad = this._currentSpotlightPad;
+                    Object.assign(this._spotlight.style, {
+                        top:    `${r.top    - pad}px`,
+                        left:   `${r.left   - pad}px`,
+                        width:  `${r.width  + pad * 2}px`,
+                        height: `${r.height + pad * 2}px`,
+                    });
+                }
+                return;
+            }
+            this._spotlight?.classList.add('tour-spotlight--hidden');
+        };
+        this._onKeyDown = (e) => {
+            if (!this._active) return;
+            if (e.key === 'Escape') { this.end(); return; }
+            if (e.key === 'ArrowRight') {
+                const btn = this._popover?.querySelector('#_tp-next');
+                if (btn && !btn.disabled) btn.click();
+            }
+        };
         document.body.append(this._overlay, this._spotlight, this._popover);
-        window.addEventListener('resize', this._onResize);
-        window.addEventListener('scroll', this._onScroll, { passive: true });
+        window.addEventListener('resize',  this._onResize);
+        window.addEventListener('scroll',  this._onScroll,  { passive: true });
+        window.addEventListener('keydown', this._onKeyDown);
 
-        this._showStep(0);
+        /* Skip the load-phase steps if an instance is already in the sidebar */
+        const firstStep = document.querySelector('#instance-tabs .instance-tab') ? 5 : 0;
+        this._showStep(firstStep);
     }
 
     async _showStep(index) {
         if (!this._active || index >= STEPS.length) return;
         this._stepIndex = index;
-
         const step = STEPS[index];
-
-        if (step.clickReveal) {
-            await this._runClickReveal(index);
-        } else {
-            await this._runRegularStep(index);
-        }
+        if      (step.thenNavigate) await this._runThenNavigate(index);
+        else if (step.clickReveal)  await this._runClickReveal(index);
+        else                        await this._runRegularStep(index);
     }
 
     /* ── Regular step ────────────────────────────────────────────────────── */
 
     async _runRegularStep(index) {
-        const step = STEPS[index];
-        const total = STEPS.length;
+        const step   = STEPS[index];
+        const isLast = index === STEPS.length - 1;
 
-        /* Position spotlight */
         const targetEl = this._resolve(step.target);
         if (targetEl) {
-            this._scrollToElement(targetEl);
-            await wait(20);
-            this._placeSpotlight(targetEl, step.padding ?? 8);
-            this._spotlight.classList.remove('tour-spotlight--hidden');
+            await this._focusElement(targetEl, step.padding ?? 8);
         } else {
             this._spotlight.classList.add('tour-spotlight--hidden');
         }
 
-        /* Optional enter hook — receives an advance() callback to progress the step */
         if (step.onEnter) {
             await wait(80);
-            step.onEnter(async () => {
-                if (!this._active || this._stepIndex !== index) return;
-                await wait(150);
-                if (this._active && this._stepIndex === index) {
-                    try { isLast ? this.end() : this._showStep(index + 1); }
-                    catch (e) { console.error('[DemoTour] auto-advance (onEnter) failed:', e); }
-                }
-            });
+            step.onEnter(() => this._autoAdvance(index));
         }
 
-        /* Overlay mode */
-        const passthrough = !!(step.userClick || step.passthroughOverlay);
-        this._overlay.style.pointerEvents = passthrough ? 'none' : 'all';
+        this._overlay.style.pointerEvents = (step.userClick || step.passthroughOverlay) ? 'none' : 'all';
         this._spotlight.classList.toggle('tour-spotlight--pulse', !!step.userClick);
 
-        /* Build popover */
-        const isLast  = index === STEPS.length - 1;
-        const hasNext = (!step.userClick || step.waitEvent) && !step.autoAdvance;
+        const hasNext    = (!step.userClick || step.waitEvent) && !step.autoAdvance;
         const nextLocked = !!(step.waitEvent || step.waitIndex !== undefined);
+        const nextLabel  = hasNext ? (isLast ? 'Done' : 'Next →') : null;
+        const nextBtn    = this._renderPopover(step.title, step.body, index, nextLabel, nextLocked);
 
-        this._popover.innerHTML = `
-          <div class="tour-popover-arrow"></div>
-          <div class="tour-popover-inner">
-            <div class="tour-popover-header">
-              <span class="tour-popover-title">${step.title}</span>
-              <button class="tour-popover-close">${ICON_CLOSE}</button>
-            </div>
-            <p class="tour-popover-body">${step.body}</p>
-          </div>
-          <div class="tour-popover-footer">
-            <span class="tour-step-counter">${index + 1} / ${total}</span>
-            <div class="tour-footer-btns">
-              <button class="tour-btn-secondary" id="_tp-skip">Exit</button>
-              ${hasNext
-                ? `<button class="tour-btn-primary" id="_tp-next"
-                     ${nextLocked ? 'disabled' : ''}>
-                     ${isLast ? 'Done' : 'Next →'}
-                   </button>`
-                : ''}
-            </div>
-          </div>`;
-
-        this._popover.querySelector('.tour-popover-close').onclick = () => this.end();
-        this._popover.querySelector('#_tp-skip').onclick           = () => this.end();
-
-        const nextBtn = this._popover.querySelector('#_tp-next');
-
-        /* Position popover */
         await wait(20);
-        if (targetEl) {
-            this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'bottom');
-        } else {
-            this._centerPopover();
-        }
+        targetEl ? this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'bottom')
+                 : this._centerPopover();
 
-        /* ── userClick: advance when target is clicked ── */
         if (step.userClick) {
             const clickEl = await until(step.clickSel ?? step.target);
             if (clickEl) {
                 const handler = () => {
                     clickEl.removeEventListener('click', handler);
                     if (step.waitEvent) {
-                        /* Restore overlay blocking now that the click was made */
                         this._overlay.style.pointerEvents = 'all';
                         this._spotlight.classList.remove('tour-spotlight--pulse');
-                        /* Wait for the event, then auto-advance or unlock Next */
-                        this._waitForEvent(step.waitEvent).then(async () => {
-                            if (!this._active || this._stepIndex !== index) return;
-                            if (step.autoAdvance) {
-                                await wait(150);
-                                if (this._active && this._stepIndex === index) {
-                                    try { isLast ? this.end() : this._showStep(index + 1); }
-                                    catch (e) { console.error('[DemoTour] auto-advance (userClick+waitEvent) failed:', e); }
-                                }
-                            } else if (nextBtn) {
-                                nextBtn.disabled = false;
-                            }
-                        });
-                        if (!step.autoAdvance && nextBtn) {
-                            nextBtn.onclick = () => {
-                                if (!nextBtn.disabled) {
-                                    isLast ? this.end() : this._showStep(index + 1);
-                                }
-                            };
-                        }
-                    } else {
-                        if (this._active && this._stepIndex === index) {
-                            this._showStep(index + 1);
-                        }
+                        this._waitForEvent(step.waitEvent).then(() =>
+                            step.autoAdvance ? this._autoAdvance(index)
+                                             : nextBtn && (nextBtn.disabled = false)
+                        );
+                        if (!step.autoAdvance && nextBtn)
+                            nextBtn.onclick = () => { if (!nextBtn.disabled) isLast ? this.end() : this._showStep(index + 1); };
+                    } else if (this._active && this._stepIndex === index) {
+                        this._showStep(index + 1);
                     }
                 };
                 clickEl.addEventListener('click', handler);
                 this._cleanup.push(() => clickEl.removeEventListener('click', handler));
             }
-            return;   /* exit — step advances via click handler above */
+            return;
         }
 
-        /* ── waitEvent: unlock Next (or auto-advance) when event fires ── */
-        if (step.waitEvent) {
-            this._waitForEvent(step.waitEvent).then(async () => {
-                if (!this._active || this._stepIndex !== index) return;
-                if (step.autoAdvance) {
-                    await wait(150);
-                    if (this._active && this._stepIndex === index) {
-                        try { isLast ? this.end() : this._showStep(index + 1); }
-                        catch (e) { console.error('[DemoTour] auto-advance (waitEvent) failed:', e); }
-                    }
-                } else if (nextBtn) {
-                    nextBtn.disabled = false;
-                }
-            });
-        }
+        if (step.waitEvent)
+            this._waitForEvent(step.waitEvent).then(() =>
+                step.autoAdvance ? this._autoAdvance(index)
+                                 : nextBtn && (nextBtn.disabled = false)
+            );
 
-        /* ── waitIndex: unlock Next when user reaches target step ── */
-        if (step.waitIndex !== undefined) {
-            this._waitForStepIndex(step.waitIndex).then(async () => {
-                if (!this._active || this._stepIndex !== index) return;
-                if (step.autoAdvance) {
-                    await wait(1000);
-                    if (this._active && this._stepIndex === index) {
-                        try { isLast ? this.end() : this._showStep(index + 1); }
-                        catch (e) { console.error('[DemoTour] auto-advance (waitIndex) failed:', e); }
-                    }
-                } else if (nextBtn) {
-                    nextBtn.disabled = false;
-                }
-            });
-        }
+        if (step.waitIndex !== undefined)
+            this._waitForStepIndex(step.waitIndex).then(() =>
+                step.autoAdvance ? this._autoAdvance(index, 1000)
+                                 : nextBtn && (nextBtn.disabled = false)
+            );
 
-        /* ── Regular Next / Done button ── */
-        if (nextBtn) {
-            nextBtn.onclick = () => isLast ? this.end() : this._showStep(index + 1);
-        }
+        if (nextBtn) nextBtn.onclick = () => isLast ? this.end() : this._showStep(index + 1);
     }
 
     /* ── clickReveal step (two-phase) ────────────────────────────────────── */
 
     async _runClickReveal(index) {
         if (!this._active) return;
-        const step  = STEPS[index];
-        const cr    = step.clickReveal;
-        const total = STEPS.length;
+        const step   = STEPS[index];
+        const cr     = step.clickReveal;
         const isLast = index === STEPS.length - 1;
 
-        /* ── Phase 1: click prompt ── */
+        /* Phase 1: click prompt */
         const targetEl = this._resolve(step.target);
-        if (targetEl) {
-            this._scrollToElement(targetEl);
-            await wait(20);
-            this._placeSpotlight(targetEl, step.padding ?? 6);
-            this._spotlight.classList.remove('tour-spotlight--hidden');
-        }
-
+        if (targetEl) await this._focusElement(targetEl, step.padding ?? 6);
         this._spotlight.classList.add('tour-spotlight--pulse');
         this._overlay.style.pointerEvents = 'none';
 
-        this._popover.innerHTML = `
-          <div class="tour-popover-arrow"></div>
-          <div class="tour-popover-inner">
-            <div class="tour-popover-header">
-              <span class="tour-popover-title">${step.title}</span>
-              <button class="tour-popover-close">${ICON_CLOSE}</button>
-            </div>
-            <p class="tour-popover-body">${step.body}</p>
-          </div>
-          <div class="tour-popover-footer">
-            <span class="tour-step-counter">${index + 1} / ${total}</span>
-            <div class="tour-footer-btns">
-              <button class="tour-btn-secondary" id="_tp-skip">Exit</button>
-            </div>
-          </div>`;
-
-        this._popover.querySelector('.tour-popover-close').onclick = () => this.end();
-        this._popover.querySelector('#_tp-skip').onclick           = () => this.end();
-
+        this._renderPopover(step.title, step.body, index);
         await wait(20);
         if (targetEl) this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'bottom');
 
-        /* Wait for user to click the mode tab */
         await this._waitForClick(cr.clickSel);
         if (!this._active || this._stepIndex !== index) return;
 
-        /* ── Phase 2: explanation ── */
+        /* Phase 2: explanation */
         this._spotlight.classList.remove('tour-spotlight--pulse');
         this._overlay.style.pointerEvents = 'all';
 
         const explainEl = this._resolve(cr.explainTarget);
-        if (explainEl) {
-            this._scrollToElement(explainEl);
-            await wait(20);
-            this._placeSpotlight(explainEl, step.padding ?? 8);
-        }
+        if (explainEl) await this._focusElement(explainEl, step.padding ?? 8);
 
-        this._popover.innerHTML = `
-          <div class="tour-popover-arrow"></div>
-          <div class="tour-popover-inner">
-            <div class="tour-popover-header">
-              <span class="tour-popover-title">${step.title}</span>
-              <button class="tour-popover-close">${ICON_CLOSE}</button>
-            </div>
-            <p class="tour-popover-body">${cr.explainBody}</p>
-          </div>
-          <div class="tour-popover-footer">
-            <span class="tour-step-counter">${index + 1} / ${total}</span>
-            <div class="tour-footer-btns">
-              <button class="tour-btn-secondary" id="_tp-skip">Exit</button>
-              <button class="tour-btn-primary"   id="_tp-next">
-                ${isLast ? 'Done' : 'Next →'}
-              </button>
-            </div>
-          </div>`;
-
-        this._popover.querySelector('.tour-popover-close').onclick = () => this.end();
-        this._popover.querySelector('#_tp-skip').onclick           = () => this.end();
-        this._popover.querySelector('#_tp-next').onclick           =
-            () => isLast ? this.end() : this._showStep(index + 1);
+        const nextBtn = this._renderPopover(step.title, cr.explainBody, index, isLast ? 'Done' : 'Next →');
+        nextBtn.onclick = () => isLast ? this.end() : this._showStep(index + 1);
 
         await wait(20);
-        if (explainEl) {
-            this._placePopover(explainEl.getBoundingClientRect(), 'top');
-        } else if (targetEl) {
-            this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'bottom');
+        if (explainEl)     this._placePopover(explainEl.getBoundingClientRect(), 'top');
+        else if (targetEl) this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'bottom');
+    }
+
+    /* ── thenNavigate step (two-phase: explain → spotlight navigation) ───── */
+
+    async _runThenNavigate(index) {
+        if (!this._active) return;
+        const step   = STEPS[index];
+        const isLast = index === STEPS.length - 1;
+
+        /* Phase 1: spotlight error/warning, explanation + Next */
+        const targetEl = this._resolve(step.target);
+        if (targetEl) {
+            await this._focusElement(targetEl, step.padding ?? 8);
+        } else {
+            this._spotlight.classList.add('tour-spotlight--hidden');
+        }
+        this._overlay.style.pointerEvents = 'none';
+
+        const nextBtn = this._renderPopover(step.title, step.body, index, 'Next →');
+        await wait(20);
+        targetEl ? this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'top')
+                 : this._centerPopover();
+
+        await new Promise(resolve => {
+            nextBtn.onclick = resolve;
+            this._cleanup.push(resolve);
+        });
+        if (!this._active || this._stepIndex !== index) return;
+
+        /* Phase 2: spotlight the step dropdown, navigation instruction */
+        const thenEl = this._resolve(step.thenTarget);
+        if (thenEl) {
+            await this._focusElement(thenEl, step.padding ?? 8);
+            this._spotlight.classList.add('tour-spotlight--pulse');
+        }
+        this._overlay.style.pointerEvents = 'none';
+
+        this._renderPopover(step.title, step.thenBody, index);
+        await wait(20);
+        if (thenEl) this._placePopover(thenEl.getBoundingClientRect(), step.thenPosition ?? 'bottom');
+
+        if (step.waitIndex !== undefined) {
+            await this._waitForStepIndex(step.waitIndex);
+            if (!this._active || this._stepIndex !== index) return;
+            if (step.autoAdvance) {
+                this._spotlight.classList.remove('tour-spotlight--pulse');
+                await this._autoAdvance(index, 1000);
+            }
         }
     }
 
     /* ── Scroll element into the upper viewport ─────────────────────────── */
 
-    _scrollToElement(el) {
+    async _scrollToElement(el) {
         const r  = el.getBoundingClientRect();
         const vh = window.innerHeight;
-        const isOffScreen = r.bottom < 0 || r.top > vh;
-        const isLow       = r.top > vh * 0.45;
-        if (isOffScreen || isLow) {
-            const desired = vh * 0.25;
-            window.scrollBy({ top: r.top - desired, behavior: 'instant' });
+        if (r.bottom < 0 || r.top > vh || r.top > vh * 0.45) {
+            this._tourScrolling = true;
+            if (this._spotlight) this._spotlight.style.transition = 'none';
+            window.scrollBy({ top: r.top - vh * 0.25, behavior: 'smooth' });
+            await this._waitForScrollEnd();
+            this._tourScrolling = false;
+            if (this._spotlight) this._spotlight.style.transition = '';
         }
+    }
+
+    _waitForScrollEnd() {
+        return new Promise(resolve => {
+            let timer;
+            const done = () => { window.removeEventListener('scroll', onScroll); resolve(); };
+            const onScroll = () => { clearTimeout(timer); timer = setTimeout(done, 80); };
+            window.addEventListener('scroll', onScroll, { passive: true });
+            timer = setTimeout(done, 600);
+        });
     }
 
     /* ── Spotlight ───────────────────────────────────────────────────────── */
 
+    _focusElement(el, pad = 8) {
+        this._placeSpotlight(el, pad);
+        this._spotlight.classList.remove('tour-spotlight--hidden');
+        return this._scrollToElement(el);
+    }
+
     _placeSpotlight(el, pad = 8) {
-        const applyRect = () => {
+        this._currentSpotlightEl  = el;
+        this._currentSpotlightPad = pad;
+        const apply = () => {
             const r = el.getBoundingClientRect();
             Object.assign(this._spotlight.style, {
                 top:    `${r.top    - pad}px`,
@@ -743,20 +703,35 @@ export class DemoTour {
                 height: `${r.height + pad * 2}px`,
             });
         };
-        applyRect();
-
-        /* Re-position whenever the element resizes (e.g. expanded warning/error panels) */
-        if (this._resizeObserver) {
-            this._resizeObserver.disconnect();
-        }
-        this._resizeObserver = new ResizeObserver(() => {
-            if (!this._active) return;
-            applyRect();
-        });
+        apply();
+        if (this._resizeObserver) this._resizeObserver.disconnect();
+        this._resizeObserver = new ResizeObserver(() => { if (this._active) apply(); });
         this._resizeObserver.observe(el);
     }
 
-    /* ── Popover positioning ─────────────────────────────────────────────── */
+    /* ── Popover ─────────────────────────────────────────────────────────── */
+
+    _renderPopover(title, body, index, nextLabel = null, nextDisabled = false) {
+        this._popover.innerHTML = `
+          <div class="tour-popover-arrow"></div>
+          <div class="tour-popover-inner">
+            <div class="tour-popover-header">
+              <span class="tour-popover-title">${title}</span>
+              <button class="tour-popover-close">${ICON_CLOSE}</button>
+            </div>
+            <p class="tour-popover-body">${body}</p>
+          </div>
+          <div class="tour-popover-footer">
+            <span class="tour-step-counter">${index + 1} / ${STEPS.length}</span>
+            <div class="tour-footer-btns">
+              <button class="tour-btn-secondary" id="_tp-skip">Exit</button>
+              ${nextLabel ? `<button class="tour-btn-primary" id="_tp-next"${nextDisabled ? ' disabled' : ''}>${nextLabel}</button>` : ''}
+            </div>
+          </div>`;
+        this._popover.querySelector('.tour-popover-close').onclick = () => this.end();
+        this._popover.querySelector('#_tp-skip').onclick           = () => this.end();
+        return this._popover.querySelector('#_tp-next');
+    }
 
     _placePopover(rect, preferred) {
         const GAP  = 12;
@@ -771,10 +746,9 @@ export class DemoTour {
             right:  rect.right  + GAP + popW <= vw,
             left:   rect.left   - GAP - popW >= 0,
         };
-
-        const order  = [preferred, 'bottom', 'top', 'right', 'left']
-            .filter((v, i, a) => a.indexOf(v) === i);
-        const chosen = order.find(p => ok[p]) || 'bottom';
+        const chosen = [preferred, 'bottom', 'top', 'right', 'left']
+            .filter((v, i, a) => a.indexOf(v) === i)
+            .find(p => ok[p]) || 'bottom';
 
         let top, left;
         switch (chosen) {
@@ -783,7 +757,6 @@ export class DemoTour {
             case 'right':  top = rect.top + rect.height / 2 - popH / 2; left = rect.right + GAP; break;
             default:       top = rect.top + rect.height / 2 - popH / 2; left = rect.left - GAP - popW;
         }
-
         Object.assign(this._popover.style, {
             top:       `${Math.max(8, Math.min(top,  vh - popH - 8))}px`,
             left:      `${Math.max(8, Math.min(left, vw - popW - 8))}px`,
@@ -793,9 +766,7 @@ export class DemoTour {
     }
 
     _centerPopover() {
-        Object.assign(this._popover.style, {
-            top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
-        });
+        Object.assign(this._popover.style, { top: '50%', left: '50%', transform: 'translate(-50%,-50%)' });
         this._popover.setAttribute('data-arrow', 'none');
     }
 
@@ -803,12 +774,8 @@ export class DemoTour {
         if (!this._active) return;
         const step = STEPS[this._stepIndex];
         const el   = this._resolve(step.target);
-        if (el) {
-            this._placeSpotlight(el, step.padding ?? 8);
-            this._placePopover(el.getBoundingClientRect(), step.position ?? 'bottom');
-        } else {
-            this._centerPopover();
-        }
+        if (el) { this._placeSpotlight(el, step.padding ?? 8); this._placePopover(el.getBoundingClientRect(), step.position ?? 'bottom'); }
+        else      this._centerPopover();
     }
 
     /* ── Event / click waiters ───────────────────────────────────────────── */
@@ -822,45 +789,40 @@ export class DemoTour {
     }
 
     _waitForStepIndex(targetIdx) {
+        const EVTS = ['step:displayed', 'step:navigated', 'stepViewer:stepChanged'];
         return new Promise(resolve => {
-            const check = (data) => {
-                if (data.stepIndex === targetIdx) {
-                    this.eventBus.off('step:displayed',        check);
-                    this.eventBus.off('step:navigated',        check);
-                    this.eventBus.off('stepViewer:stepChanged', check);
-                    resolve();
-                }
+            const check = ({ stepIndex }) => {
+                if (stepIndex !== targetIdx) return;
+                EVTS.forEach(e => this.eventBus.off(e, check));
+                resolve();
             };
-            this.eventBus.on('step:displayed',        check);
-            this.eventBus.on('step:navigated',        check);
-            this.eventBus.on('stepViewer:stepChanged', check);
-            this._cleanup.push(() => {
-                this.eventBus.off('step:displayed',        check);
-                this.eventBus.off('step:navigated',        check);
-                this.eventBus.off('stepViewer:stepChanged', check);
-            });
+            EVTS.forEach(e => this.eventBus.on(e, check));
+            this._cleanup.push(() => EVTS.forEach(e => this.eventBus.off(e, check)));
         });
     }
 
     _waitForClick(selectorOrFn) {
         return new Promise(resolve => {
-            const tryBind = async () => {
-                const el = await until(selectorOrFn);
+            until(selectorOrFn).then(el => {
                 if (!el || !this._active) { resolve(); return; }
                 const h = () => { el.removeEventListener('click', h); resolve(); };
                 el.addEventListener('click', h);
                 this._cleanup.push(() => el.removeEventListener('click', h));
-            };
-            tryBind();
+            });
         });
     }
 
     /* ── Utilities ───────────────────────────────────────────────────────── */
 
+    async _autoAdvance(index, delay = 150) {
+        await wait(delay);
+        if (this._active && this._stepIndex === index)
+            index === STEPS.length - 1 ? this.end() : this._showStep(index + 1);
+    }
+
     _resolve(targetish) {
         if (!targetish) return null;
-        if (typeof targetish === 'function') return targetish();
-        return document.querySelector(targetish);
+        return typeof targetish === 'function' ? targetish() : document.querySelector(targetish);
     }
 
     _mkEl(tag, cls) {
