@@ -342,3 +342,21 @@
 
 /* Pulsing outline removed — highlighted zones have no border */
 .tour-spotlight--pulse {}
+
+/* ── Action callout — used for "navigate to …" instructions ── */
+.tour-action-hint {
+    display: block;
+    margin-top: var(--spacing-sm);
+    padding: 6px var(--spacing-sm);
+    background: rgba(227, 114, 34, 0.12);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.tour-action-hint--success {
+    background: var(--alert-success-bg);
+    border-left-color: var(--alert-success-border);
+    color: var(--alert-success-text);
+}

@@ -43,25 +43,6 @@ const ICPEE = 'input-cpee';
 const vmSel = (btn) => `.view-mode-toggle[data-section-id="${ICPEE}"] .${btn}`;
 
 /* ── Step definitions ───────────────────────────────────────────────────── */
-/*
-  Fields
-  ──────
-  target      string | () => Element | null   spotlight target
-  title       string                          popover title
-  body        string                          HTML body (shown when NOT waiting for click)
-  position    'top'|'bottom'|'left'|'right'|'none'
-  padding     number                          spotlight inset (px)
-
-  Type-specific fields
-  ─────────────────────
-  userClick           — user clicks target to advance; overlay is passthrough
-  clickReveal         — { clickSel, explainTarget, explainBody }
-                        phase-1 shows `body` as a click-prompt
-                        phase-2 shows `explainBody` after user clicks `clickSel`
-  waitEvent   string  — EventBus event; Next locked until fires
-  waitIndex   number  — locked until step:displayed / step:navigated / stepViewer:stepChanged fires with stepIndex===n
-*/
-
 const STEPS = [
 
   /* ─────────────────────────────── LOAD PHASE ─────────────────────────── */
@@ -69,14 +50,15 @@ const STEPS = [
     target: '.load-single-instance-section',
     title: '1 — Instance Loader',
     body: `Enter a CPEE process number or UUID in the input field and click
-           <strong>Load</strong> to fetch its modification log.`,
+           <strong>Load</strong> to get started.<br>
+           <span class="tour-action-hint">We skip this approach for now, as we work with <strong>ARCHIVED</strong> instances.</span>`,
     position: 'bottom', padding: 12,
   },
 
   {
     target: () => document.querySelector('.advanced-options-header'),
     title: '2 — Advanced Options',
-    body: `Click <strong>Advanced Options</strong> to expand the panel and access archived instances.`,
+    body: `Click <strong>Advanced Options</strong> to expand the panel and access <strong>ARCHIVED</strong> instances.`,
     position: 'bottom', padding: 8,
     userClick: true,
     clickSel: '.advanced-options-header',
@@ -85,7 +67,7 @@ const STEPS = [
   {
     target: '.load-all-instances-section',
     title: '3 — Known Instances',
-    body: `Click <strong>Show Known Instances</strong> to load the archived instance list.`,
+    body: `Click Show Known Instances to load the <strong>ARCHIVED instance list</strong>.`,
     position: 'bottom', padding: 8,
     userClick: true,
     clickSel: '#load-all-instances',
@@ -112,7 +94,7 @@ const STEPS = [
         debounce = setTimeout(() => {
           input.removeEventListener('input', onInput);
           advance();
-        }, 500);
+        }, 150);
       };
       input.addEventListener('input', onInput);
     },
@@ -151,8 +133,7 @@ const STEPS = [
     target: '#theme-selector-wrapper',
     title: '7 — Theme Selector',
     body: `Controls the <strong>CPEE graph rendering theme</strong>:
-           <code>preset</code>, <code>id</code>, or <code>presetid</code> —
-           changing which labels are shown on graph nodes.`,
+           <code>preset</code>, <code>presetId</code>, or <code>presetAltId</code>.`,
     position: 'bottom', padding: 8,
     scrollToTop: true,
   },
@@ -160,8 +141,7 @@ const STEPS = [
   {
     target: '#metadata-display',
     title: '8 — Instance Metadata',
-    body: `Shows the <strong>Change UUID</strong> of the current step — the unique identifier
-           that groups all log events for one modification round — and the
+    body: `Shows the <strong>Change UUID</strong> of the current step (unique identifier that groups all events of one modification step together) and the
            <strong>LLM model</strong> used for that step.`,
     position: 'bottom', padding: 8,
   },
@@ -177,9 +157,8 @@ const STEPS = [
   {
     target: '#step-navigation',
     title: '10 — Step Navigation',
-    body: `Each step = one user–LLM modification round.
-           Use <strong>⏮ ← Prev · Next → ⏭</strong> or the <strong>← →</strong> arrow keys.
-           <br><br>Navigate to <strong>Step 2</strong> to continue.`,
+    body: `Use <strong>⏮ ← Prev · Next → ⏭</strong> or the <strong>← →</strong> arrow keys to navigate through the steps.
+           <span class="tour-action-hint">→ Navigate to <strong>Step 2</strong> to continue.</span>`,
     position: 'bottom', padding: 8,
     passthroughOverlay: true,
     waitIndex: 1,
@@ -210,7 +189,7 @@ const STEPS = [
       explainTarget: () => document.querySelector('#input-cpee'),
       explainBody:
         `Interactive visual — zoom, pan, and click any node to
-         <strong>cross-highlight</strong> it simultaneously across all open graph sections.`,
+         <strong>cross-highlight</strong> it simultaneously across all graph sections.`,
     },
   },
 
@@ -218,7 +197,7 @@ const STEPS = [
   {
     target: () => document.querySelector(vmSel('toggle-btn-raw')),
     title: '13 — Cleaned',
-    body: `Click <strong>Cleaned</strong> to see the auto-corrected source.`,
+    body: `Click <strong>Cleaned</strong> to see the preprocessed source code.`,
     position: 'bottom', padding: 6,
     clickReveal: {
       clickSel: () => document.querySelector(vmSel('toggle-btn-raw')),
@@ -257,7 +236,8 @@ const STEPS = [
          Paths are classified as:<br>
          <strong>Matching</strong>&nbsp;·&nbsp;
          <strong>Unique</strong>&nbsp;·&nbsp;
-         <strong>Reconciled</strong> (relaxed matching conditions)`,
+         <strong>Reconciled</strong> (relaxed matching conditions)<br><br>
+         Traces are filterable by Alt ID, ID, Task Label, and Status.`,
     },
   },
 
@@ -265,7 +245,7 @@ const STEPS = [
   {
     target: () => document.querySelector(vmSel('toggle-btn-analysis')),
     title: '16 — Analysis',
-    body: `Click <strong>Analysis</strong> to run formal property checks.`,
+    body: `Click <strong>Analysis</strong> to inspect the formal property checks.`,
     position: 'bottom', padding: 6,
     clickReveal: {
       clickSel: () => document.querySelector(vmSel('toggle-btn-analysis')),
@@ -275,7 +255,7 @@ const STEPS = [
          <strong>Soundness</strong> — every path reaches the end<br>
          <strong>Boundedness</strong> — no unbounded token accumulation<br>
          <strong>Reachability</strong> — nodes classified as reachable, unreachable, or dead-end<br><br>
-         <span class="tour-error-label">Red</span> = problems introduced by the modification.`,
+         <span class="tour-error-label">Red</span> = Structural errors exist in the graph.`,
     },
   },
 
@@ -283,8 +263,8 @@ const STEPS = [
   {
     target: '#step-dropdown-trigger',
     title: '17 — Step Dropdown',
-    body: `The <strong>dropdown</strong> lets you jump to any step by timestamp.
-           <br><br>Open it and go to <strong>Step 4</strong>.`,
+    body: `The <strong>dropdown</strong> lets you jump to any step.
+           <span class="tour-action-hint">→ Open it and go to <strong>Step 4</strong>.</span>`,
     position: 'bottom', padding: 8,
     passthroughOverlay: true,
     waitIndex: 3,
@@ -301,8 +281,9 @@ const STEPS = [
            and auto-corrected a syntax issue. Expand it to see which corrections were applied.`,
     position: 'top', padding: 10,
     thenNavigate: true,
+    thenTitle: '',
     thenTarget: '#step-dropdown-trigger',
-    thenBody: `Use the <strong>step dropdown</strong> to navigate to <strong>Step 5</strong> to continue.`,
+    thenBody: `<span class="tour-action-hint">navigate to <strong>Step 5</strong>.</span>`,
     thenPosition: 'bottom',
     waitIndex: 4,
     autoAdvance: true,
@@ -316,11 +297,12 @@ const STEPS = [
     title: '19 — Conversion Error',
     body: `<span class="tour-error-label">Conversion Error</span>&nbsp;
            Flags structural differences that emerge from conversion (Mermaid ↔ CPEE).
-           Expand it to inspect which traces diverge.`,
+           Expand it to inspect which traces diverge.<br><br>You can also inspect computed traces in the Traces View of the sections.`,
     position: 'top', padding: 10,
     thenNavigate: true,
+    thenTitle: '',
     thenTarget: '#step-dropdown-trigger',
-    thenBody: `Use the <strong>step dropdown</strong> to navigate to <strong>Step 6</strong> to continue.`,
+    thenBody: `<span class="tour-action-hint">navigate to <strong>Step 6</strong>.</span>`,
     thenPosition: 'bottom',
     waitIndex: 5,
     autoAdvance: true,
@@ -336,8 +318,9 @@ const STEPS = [
            Switch to <em>Raw</em> vs <em>Cleaned</em> to see what differs.`,
     position: 'top', padding: 10,
     thenNavigate: true,
+    thenTitle: '',
     thenTarget: '#step-dropdown-trigger',
-    thenBody: `Use the <strong>step dropdown</strong> to navigate to <strong>Step 10</strong> to continue.`,
+    thenBody: `<span class="tour-action-hint">navigate to <strong>Step 10</strong>.</span>`,
     thenPosition: 'bottom',
     waitIndex: 9,
     autoAdvance: true,
@@ -346,7 +329,7 @@ const STEPS = [
   {
     target: () => document.querySelector('.view-mode-toggle[data-section-id="output-intermediate"] .toggle-btn-analysis'),
     title: '21 — Output Analysis',
-    body: `The <strong>Analysis</strong> button on Output Mermaid is flagged — a mistake was introduced here. Click it to inspect.`,
+    body: `The <strong>Analysis</strong> button on Output Mermaid is flagged: a <span class="tour-error-label">Structural Error</span> exists in the graph.`,
     position: 'bottom', padding: 6,
     clickReveal: {
       clickSel: () => document.querySelector('.view-mode-toggle[data-section-id="output-intermediate"] .toggle-btn-analysis'),
@@ -366,8 +349,8 @@ const STEPS = [
     body: `You have seen the three error types:<br><br>
            <span class="tour-error-label">Syntax</span> — warning on Input Mermaid<br>
            <span class="tour-error-label">Conversion</span> — alert box between stages<br>
-           <span class="tour-error-label">Structural</span> — red results in Analysis<br><br>
-           Now that you are familiar with the console, you may continue with the questionnaire.`,
+           <span class="tour-error-label">Structural</span> — red results in Analysis<br>
+           <span class="tour-action-hint tour-action-hint--success">✓ Now that you are familiar with the console, you may now continue with the questionnaire.</span>`,
     position: 'none',
   },
 ];
@@ -464,16 +447,8 @@ export class DemoTour {
 
         this._onScroll = () => {
             if (this._tourScrolling) {
-                if (this._currentSpotlightEl && this._spotlight) {
-                    const r   = this._currentSpotlightEl.getBoundingClientRect();
-                    const pad = this._currentSpotlightPad;
-                    Object.assign(this._spotlight.style, {
-                        top:    `${r.top    - pad}px`,
-                        left:   `${r.left   - pad}px`,
-                        width:  `${r.width  + pad * 2}px`,
-                        height: `${r.height + pad * 2}px`,
-                    });
-                }
+                if (this._currentSpotlightEl && this._spotlight)
+                    this._applySpotlightRect(this._currentSpotlightEl.getBoundingClientRect(), this._currentSpotlightPad);
                 return;
             }
             this._spotlight?.classList.add('tour-spotlight--hidden');
@@ -577,7 +552,6 @@ export class DemoTour {
     /* ── clickReveal step (two-phase) ────────────────────────────────────── */
 
     async _runClickReveal(index) {
-        if (!this._active) return;
         const step   = STEPS[index];
         const cr     = step.clickReveal;
         const isLast = index === STEPS.length - 1;
@@ -613,9 +587,7 @@ export class DemoTour {
     /* ── thenNavigate step (two-phase: explain → spotlight navigation) ───── */
 
     async _runThenNavigate(index) {
-        if (!this._active) return;
         const step   = STEPS[index];
-        const isLast = index === STEPS.length - 1;
 
         /* Phase 1: spotlight error/warning, explanation + Next */
         const targetEl = this._resolve(step.target);
@@ -645,7 +617,7 @@ export class DemoTour {
         }
         this._overlay.style.pointerEvents = 'none';
 
-        this._renderPopover(step.title, step.thenBody, index);
+        this._renderPopover(step.thenTitle ?? step.title, step.thenBody, index);
         await wait(20);
         if (thenEl) this._placePopover(thenEl.getBoundingClientRect(), step.thenPosition ?? 'bottom');
 
@@ -703,18 +675,19 @@ export class DemoTour {
         return this._scrollToElement(el, scrollToTop);
     }
 
+    _applySpotlightRect(r, pad) {
+        Object.assign(this._spotlight.style, {
+            top:    `${r.top    - pad}px`,
+            left:   `${r.left   - pad}px`,
+            width:  `${r.width  + pad * 2}px`,
+            height: `${r.height + pad * 2}px`,
+        });
+    }
+
     _placeSpotlight(el, pad = 8) {
         this._currentSpotlightEl  = el;
         this._currentSpotlightPad = pad;
-        const apply = () => {
-            const r = el.getBoundingClientRect();
-            Object.assign(this._spotlight.style, {
-                top:    `${r.top    - pad}px`,
-                left:   `${r.left  - pad}px`,
-                width:  `${r.width  + pad * 2}px`,
-                height: `${r.height + pad * 2}px`,
-            });
-        };
+        const apply = () => this._applySpotlightRect(el.getBoundingClientRect(), pad);
         apply();
         if (this._resizeObserver) this._resizeObserver.disconnect();
         this._resizeObserver = new ResizeObserver(() => { if (this._active) apply(); });
