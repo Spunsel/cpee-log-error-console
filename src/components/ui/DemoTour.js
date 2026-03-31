@@ -347,10 +347,10 @@ const STEPS = [
     target: null,
     title: 'Tour Complete',
     body: `You have seen the three error types:<br><br>
-           <span class="tour-error-label">Syntax</span> — warning on Input Mermaid<br>
-           <span class="tour-error-label">Conversion</span> — alert box between stages<br>
-           <span class="tour-error-label">Structural</span> — red results in Analysis<br>
-           <span class="tour-action-hint tour-action-hint--success">✓ Now that you are familiar with the console, you may now continue with the questionnaire.</span>`,
+           <span class="tour-error-label">Syntax</span> — Error / Warning box<br>
+           <span class="tour-error-label">Conversion</span> — Alert Box between stages<br>
+           <span class="tour-error-label">Structural</span> — Problematic Analysis Results<br>
+           <span class="tour-action-hint tour-action-hint--success">✓ Now that you are familiar with the console, you may continue with the questionnaire.</span>`,
     position: 'none',
   },
 ];
