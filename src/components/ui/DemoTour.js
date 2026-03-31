@@ -374,7 +374,22 @@ export class DemoTour {
         this._currentSpotlightPad = 8;
 
         this._onResize  = () => this._reposition();
-        this._onKeyDown = null;
+        this._onScroll  = () => {
+            if (this._tourScrolling) {
+                if (this._currentSpotlightEl && this._spotlight)
+                    this._applySpotlightRect(this._currentSpotlightEl.getBoundingClientRect(), this._currentSpotlightPad);
+                return;
+            }
+            this._spotlight?.classList.add('tour-spotlight--hidden');
+        };
+        this._onKeyDown = (e) => {
+            if (!this._active) return;
+            if (e.key === 'Escape') { this.end(); return; }
+            if (e.key === 'ArrowRight') {
+                const btn = this._popover?.querySelector('#_tp-next');
+                if (btn && !btn.disabled) btn.click();
+            }
+        };
     }
 
     /* ── Public ──────────────────────────────────────────────────────────── */
@@ -445,22 +460,6 @@ export class DemoTour {
         this._popover   = this._mkEl('div', 'tour-popover');
         this._popover.setAttribute('role', 'dialog');
 
-        this._onScroll = () => {
-            if (this._tourScrolling) {
-                if (this._currentSpotlightEl && this._spotlight)
-                    this._applySpotlightRect(this._currentSpotlightEl.getBoundingClientRect(), this._currentSpotlightPad);
-                return;
-            }
-            this._spotlight?.classList.add('tour-spotlight--hidden');
-        };
-        this._onKeyDown = (e) => {
-            if (!this._active) return;
-            if (e.key === 'Escape') { this.end(); return; }
-            if (e.key === 'ArrowRight') {
-                const btn = this._popover?.querySelector('#_tp-next');
-                if (btn && !btn.disabled) btn.click();
-            }
-        };
         document.body.append(this._overlay, this._spotlight, this._popover);
         window.addEventListener('resize',  this._onResize);
         window.addEventListener('scroll',  this._onScroll,  { passive: true });
@@ -731,9 +730,7 @@ export class DemoTour {
             right:  rect.right  + GAP + popW <= vw,
             left:   rect.left   - GAP - popW >= 0,
         };
-        const chosen = [preferred, 'bottom', 'top', 'right', 'left']
-            .filter((v, i, a) => a.indexOf(v) === i)
-            .find(p => ok[p]) || 'bottom';
+        const chosen = [...new Set([preferred, 'bottom', 'top', 'right', 'left'])].find(p => ok[p]) ?? 'bottom';
 
         let top, left;
         switch (chosen) {
@@ -786,14 +783,13 @@ export class DemoTour {
         });
     }
 
-    _waitForClick(selectorOrFn) {
-        return new Promise(resolve => {
-            until(selectorOrFn).then(el => {
-                if (!el || !this._active) { resolve(); return; }
-                const h = () => { el.removeEventListener('click', h); resolve(); };
-                el.addEventListener('click', h);
-                this._cleanup.push(() => el.removeEventListener('click', h));
-            });
+    async _waitForClick(selectorOrFn) {
+        const el = await until(selectorOrFn);
+        if (!el || !this._active) return;
+        await new Promise(resolve => {
+            const h = () => { el.removeEventListener('click', h); resolve(); };
+            el.addEventListener('click', h);
+            this._cleanup.push(() => el.removeEventListener('click', h));
         });
     }
 
