@@ -79,7 +79,7 @@ export function analyzeReachabilityFromTraces(traces, allTasks, options = {}) {
         const usefulCount = usefulTaskIds.length;
         const deadEndCount = unreachableTaskIds.length;
         
-        const forwardCoverage = totalTasks > 0 ? (usefulCount / totalTasks) * 100 : 100;
+        const forwardCoverage = totalTasks > 0 ? (usefulCount / totalTasks) : 1;
         const backwardCoverage = forwardCoverage;
         
         const elapsed = Date.now() - startTime;
@@ -138,7 +138,7 @@ export function analyzeReachabilityFromTraces(traces, allTasks, options = {}) {
                     deadEndCount: deadEndCount,
                     unreachableCount: 0,
                     usefulCoverage: forwardCoverage,
-                    deadEndCoverage: totalTasks > 0 ? (deadEndCount / totalTasks) * 100 : 0,
+                    deadEndCoverage: totalTasks > 0 ? (deadEndCount / totalTasks) : 0,
                     unreachableCoverage: 0
                 }
             },

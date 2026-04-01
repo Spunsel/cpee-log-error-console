@@ -3,7 +3,7 @@
 #   powershell -ExecutionPolicy Bypass -File scripts/fetch-questionnaire-logs.ps1
 
 # Process numbers to scan
-$processNumbers = @(1..9000)
+$processNumbers = @(8654..9000)
 
 $questionnaireLink = "https://spunsel.github.io/cpee-log-error-console/"
 
