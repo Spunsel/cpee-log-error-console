@@ -1,0 +1,2966 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 7402
+    cpee:name: Plain Instance
+    cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-06T05:12:16.861426+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Infrastructure Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Collect Cost Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Calculate Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Cost Allocation Approved" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Update Financial Records</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Cost Allocation Rejected" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Revise Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  time:timestamp: '2025-11-06T05:12:57.317313+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: |-
+    # User Input:
+    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+  time:timestamp: '2025-11-06T05:12:57.317861+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-06T05:12:57.317579+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-06T05:12:57.319084+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-06T05:12:57.318814+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Initiate Infrastructure Cost Allocation)
+      1:task:(Initiate Infrastructure Cost Allocation) --> 2:task:(Collect Cost Data)
+      2:task:(Collect Cost Data) --> 3:task:(Calculate Cost Allocation)
+      3:task:(Calculate Cost Allocation) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} --> |Cost Allocation Approved| 6:task:(Update Financial Records)
+      4:exclusivegateway:{x} --> |Cost Allocation Rejected| 5:task:(Revise Cost Allocation)
+      5:task:(Revise Cost Allocation) --> 7:exclusivegateway:{x}
+      6:task:(Update Financial Records) --> 7:exclusivegateway:{x}
+      7:exclusivegateway:{x} --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-06T05:12:57.319335+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Infrastructure Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Collect Cost Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Calculate Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Cost Allocation Approved" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Update Financial Records</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Cost Allocation Rejected" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Revise Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-06T05:12:57.319552+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-11-06T05:13:27.290218+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete all
+  time:timestamp: '2025-11-06T05:13:27.290592+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Infrastructure Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Collect Cost Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Calculate Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Cost Allocation Approved" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Update Financial Records</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Cost Allocation Rejected" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Revise Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-06T05:13:27.290433+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Initiate Infrastructure Cost Allocation)
+    a1:task:(Initiate Infrastructure Cost Allocation)-->a3:task:(Collect Cost Data)
+    a3:task:(Collect Cost Data)-->a5:task:(Calculate Cost Allocation)
+    a5:task:(Calculate Cost Allocation)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Cost Allocation Approved"|a9:task:(Update Financial Records)
+    a9:task:(Update Financial Records)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Cost Allocation Rejected"|a11:task:(Revise Cost Allocation)
+    a11:task:(Revise Cost Allocation)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-06T05:13:27.291045+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-06T05:13:27.290862+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:13:27.294156+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-11-06T05:13:27.293990+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Infrastructure Usage Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Calculate Infrastructure Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Calculation Correct" language="text/javascript"/>
+        <alternative condition="Recalculation Correct" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a9" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Review Cost Calculation</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a11" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Adjust Cost Calculation</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Recalculation Incorrect" a:alt_id="6" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Review Cost Calculation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Adjust Cost Calculation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a7" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Approve Costs</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+      </choose>
+      <call id="a7" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Approve Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Generate Cost Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Distribute Cost Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 2f7317fc050d5a551e2875f2d4a8ea23a53d50ad
+  time:timestamp: '2025-11-06T05:13:55.587508+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2f7317fc050d5a551e2875f2d4a8ea23a53d50ad
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:13:55.587723+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2f7317fc050d5a551e2875f2d4a8ea23a53d50ad
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2025-11-06T05:13:55.588502+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2f7317fc050d5a551e2875f2d4a8ea23a53d50ad
+  cpee:exposition: |-
+    # User Input:
+    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+  time:timestamp: '2025-11-06T05:13:55.588119+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2f7317fc050d5a551e2875f2d4a8ea23a53d50ad
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((Start))
+      1:task:(Collect Infrastructure Usage Data)
+      2:task:(Calculate Infrastructure Costs)
+      3:exclusivegateway:{x}
+      4:task:(Review Cost Calculation)
+      5:task:(Adjust Cost Calculation)
+      6:exclusivegateway:{x}
+      7:task:(Approve Costs)
+      8:task:(Generate Cost Report)
+      9:task:(Distribute Cost Report)
+      10:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Collect Infrastructure Usage Data)
+      1:task:(Collect Infrastructure Usage Data) --> 2:task:(Calculate Infrastructure Costs)
+      2:task:(Calculate Infrastructure Costs) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Calculation Correct| 7:task:(Approve Costs)
+      3:exclusivegateway:{x} --> |Calculation Incorrect| 4:task:(Review Cost Calculation)
+      4:task:(Review Cost Calculation) --> 5:task:(Adjust Cost Calculation)
+      5:task:(Adjust Cost Calculation) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> |Recalculation Correct| 7:task:(Approve Costs)
+      6:exclusivegateway:{x} --> |Recalculation Incorrect| 4:task:(Review Cost Calculation)
+      7:task:(Approve Costs) --> 8:task:(Generate Cost Report)
+      8:task:(Generate Cost Report) --> 9:task:(Distribute Cost Report)
+      9:task:(Distribute Cost Report) --> 10:endevent:(((End)))
+  time:timestamp: '2025-11-06T05:13:55.589598+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2f7317fc050d5a551e2875f2d4a8ea23a53d50ad
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-06T05:13:55.589271+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2f7317fc050d5a551e2875f2d4a8ea23a53d50ad
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Infrastructure Usage Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Calculate Infrastructure Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Calculation Correct" language="text/javascript"/>
+        <alternative condition="Recalculation Correct" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a9" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Review Cost Calculation</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a11" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Adjust Cost Calculation</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Recalculation Incorrect" a:alt_id="6" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Review Cost Calculation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Adjust Cost Calculation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a7" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Approve Costs</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+      </choose>
+      <call id="a7" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Approve Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Generate Cost Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Distribute Cost Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-06T05:13:55.589779+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-11-06T05:15:02.678200+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Infrastructure Usage Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Calculate Infrastructure Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Calculation Correct" language="text/javascript"/>
+        <alternative condition="Recalculation Correct" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a9" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Review Cost Calculation</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a11" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Adjust Cost Calculation</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Recalculation Incorrect" a:alt_id="6" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Review Cost Calculation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Adjust Cost Calculation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a7" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Approve Costs</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+      </choose>
+      <call id="a7" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Approve Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Generate Cost Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Distribute Cost Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-06T05:15:02.678407+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2025-11-06T05:15:02.679767+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete all
+  time:timestamp: '2025-11-06T05:15:02.679469+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+  time:timestamp: '2025-11-06T05:15:02.680089+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Collect Infrastructure Usage Data)
+    a1:task:(Collect Infrastructure Usage Data)-->a3:task:(Calculate Infrastructure Costs)
+    a3:task:(Calculate Infrastructure Costs)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Calculation Correct"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Recalculation Correct"|gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Recalculation Incorrect"|gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->|"true"|a9:task:(Review Cost Calculation)
+    a9:task:(Review Cost Calculation)-->a11:task:(Adjust Cost Calculation)
+    a11:task:(Adjust Cost Calculation)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->|"Recalculation Incorrect"|a9:task:(Review Cost Calculation)
+    a9:task:(Review Cost Calculation)-->a11:task:(Adjust Cost Calculation)
+    a11:task:(Adjust Cost Calculation)-->gw4s:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->a7:task:(Approve Costs)
+    a7:task:(Approve Costs)-->gw3s:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->|"true"|a7:task:(Approve Costs)
+    a7:task:(Approve Costs)-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->|"true"|a9:task:(Review Cost Calculation)
+    a9:task:(Review Cost Calculation)-->a11:task:(Adjust Cost Calculation)
+    a11:task:(Adjust Cost Calculation)-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->a7:task:(Approve Costs)
+    a7:task:(Approve Costs)-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"Recalculation Incorrect"|a9:task:(Review Cost Calculation)
+    a9:task:(Review Cost Calculation)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw6s:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->a19:task:(Generate Cost Report)
+    a19:task:(Generate Cost Report)-->a21:task:(Distribute Cost Report)
+    a21:task:(Distribute Cost Report)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-06T05:15:02.679915+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:15:02.680384+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Infrastrukturkosten ermitteln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Verteilungsschl&#xFC;ssel definieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Kosten auf Bereiche verteilen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Verrechnungss&#xE4;tze berechnen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Verrechnung durchf&#xFC;hren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Ergebnisse pr&#xFC;fen und freigeben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: da7096d3d7ec784698119ccf5332f821ae06d7fd
+  time:timestamp: '2025-11-06T05:15:08.529390+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da7096d3d7ec784698119ccf5332f821ae06d7fd
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:15:08.529589+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da7096d3d7ec784698119ccf5332f821ae06d7fd
+  cpee:exposition: |-
+    # User Input:
+    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+  time:timestamp: '2025-11-06T05:15:08.529693+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da7096d3d7ec784698119ccf5332f821ae06d7fd
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-06T05:15:08.529980+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da7096d3d7ec784698119ccf5332f821ae06d7fd
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Infrastrukturkosten ermitteln)
+      1:task:(Infrastrukturkosten ermitteln) --> 2:task:(VerteilungsschlÃ¼ssel definieren)
+      2:task:(VerteilungsschlÃ¼ssel definieren) --> 3:task:(Kosten auf Bereiche verteilen)
+      3:task:(Kosten auf Bereiche verteilen) --> 4:task:(VerrechnungssÃ¤tze berechnen)
+      4:task:(VerrechnungssÃ¤tze berechnen) --> 5:task:(Verrechnung durchfÃ¼hren)
+      5:task:(Verrechnung durchfÃ¼hren) --> 6:task:(Ergebnisse prÃ¼fen und freigeben)
+      6:task:(Ergebnisse prÃ¼fen und freigeben) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-06T05:15:08.530284+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da7096d3d7ec784698119ccf5332f821ae06d7fd
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-06T05:15:08.530139+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: da7096d3d7ec784698119ccf5332f821ae06d7fd
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Infrastrukturkosten ermitteln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Verteilungsschl&#xFC;ssel definieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Kosten auf Bereiche verteilen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Verrechnungss&#xE4;tze berechnen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Verrechnung durchf&#xFC;hren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Ergebnisse pr&#xFC;fen und freigeben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-06T05:15:08.530510+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-11-06T05:15:53.907830+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Infrastrukturkosten ermitteln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>VerteilungsschlÃ¼ssel definieren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Kosten auf Bereiche verteilen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>VerrechnungssÃ¤tze berechnen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Verrechnung durchfÃ¼hren</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Ergebnisse prÃ¼fen und freigeben</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-06T05:15:53.908436+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete all
+  time:timestamp: '2025-11-06T05:15:53.909872+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Infrastrukturkosten ermitteln)
+    a1:task:(Infrastrukturkosten ermitteln)-->a3:task:(VerteilungsschlÃ¼ssel definieren)
+    a3:task:(VerteilungsschlÃ¼ssel definieren)-->a5:task:(Kosten auf Bereiche verteilen)
+    a5:task:(Kosten auf Bereiche verteilen)-->a7:task:(VerrechnungssÃ¤tze berechnen)
+    a7:task:(VerrechnungssÃ¤tze berechnen)-->a9:task:(Verrechnung durchfÃ¼hren)
+    a9:task:(Verrechnung durchfÃ¼hren)-->a11:task:(Ergebnisse prÃ¼fen und freigeben)
+    a11:task:(Ergebnisse prÃ¼fen und freigeben)-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-06T05:15:53.911716+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-11-06T05:15:53.912528+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-06T05:15:53.911313+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:15:53.912939+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Infrastructure Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Collect Cost Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Calculate Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Review Cost Allocation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Rejected" a:alt_id="5" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Revise Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Review Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Update Financial Records</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: e8373491abf4d4b0e750f71f614e57f906dafbfd
+  time:timestamp: '2025-11-06T05:15:58.454395+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8373491abf4d4b0e750f71f614e57f906dafbfd
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:15:58.454566+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8373491abf4d4b0e750f71f614e57f906dafbfd
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-06T05:15:58.455136+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8373491abf4d4b0e750f71f614e57f906dafbfd
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Initiate Infrastructure Cost Allocation)
+    1:task:(Initiate Infrastructure Cost Allocation) --> 2:task:(Collect Cost Data)
+    2:task:(Collect Cost Data) --> 3:task:(Calculate Cost Allocation)
+    3:task:(Calculate Cost Allocation) --> 4:task:(Review Cost Allocation)
+    4:task:(Review Cost Allocation) --> 5:exclusivegateway:{x}
+    5:exclusivegateway:{x} --> |Approved| 7:task:(Update Financial Records)
+    5:exclusivegateway:{x} --> |Rejected| 6:task:(Revise Cost Allocation)
+    6:task:(Revise Cost Allocation) --> 4:task:(Review Cost Allocation)
+    7:task:(Update Financial Records) --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-06T05:15:58.455335+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8373491abf4d4b0e750f71f614e57f906dafbfd
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-06T05:15:58.455253+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8373491abf4d4b0e750f71f614e57f906dafbfd
+  cpee:exposition: |-
+    # User Input:
+    Finanzabteilung eines Uniklinikums: mache mir einen BPMN-Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+  time:timestamp: '2025-11-06T05:15:58.454970+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e8373491abf4d4b0e750f71f614e57f906dafbfd
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Infrastructure Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Collect Cost Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Calculate Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Review Cost Allocation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Rejected" a:alt_id="5" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Revise Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Review Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Update Financial Records</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-06T05:15:58.455456+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initiate Infrastructure Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Collect Cost Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Calculate Cost Allocation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Review Cost Allocation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Rejected" a:alt_id="5" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Revise Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Review Cost Allocation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Update Financial Records</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-06T05:16:49.831426+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-11-06T05:16:49.831226+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-06T05:16:49.832266+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete all
+  time:timestamp: '2025-11-06T05:16:49.831577+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Initiate Infrastructure Cost Allocation)
+    a1:task:(Initiate Infrastructure Cost Allocation)-->a3:task:(Collect Cost Data)
+    a3:task:(Collect Cost Data)-->a5:task:(Calculate Cost Allocation)
+    a5:task:(Calculate Cost Allocation)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a7:task:(Review Cost Allocation)
+    a7:task:(Review Cost Allocation)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a11:task:(Update Financial Records)
+    a11:task:(Update Financial Records)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Rejected"|a13:task:(Revise Cost Allocation)
+    a13:task:(Revise Cost Allocation)-->a7:task:(Review Cost Allocation)
+    a7:task:(Review Cost Allocation)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-06T05:16:49.832399+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:16:49.832690+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-11-06T05:16:49.832565+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cbe95c6fe1365df89bf332b6469fd95279a5dfda
+  cpee:exposition: |-
+    # User Input:
+    Finanzabteilung eines Uniklinikums: mache mir einen BPMN-Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+  time:timestamp: '2025-11-06T05:17:15.050020+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Infrastructure Usage Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Calculate Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Correct" language="text/javascript"/>
+        <alternative condition="Incorrect" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Adjust Calculation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Verify Cost Calculation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Not Approved" a:alt_id="5" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Request Additional Information</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Verify Cost Calculation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a15" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Approve Costs</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a21" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Notify Departments</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: cbe95c6fe1365df89bf332b6469fd95279a5dfda
+  time:timestamp: '2025-11-06T05:17:15.048785+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cbe95c6fe1365df89bf332b6469fd95279a5dfda
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:17:15.049015+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cbe95c6fe1365df89bf332b6469fd95279a5dfda
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-06T05:17:15.050755+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cbe95c6fe1365df89bf332b6469fd95279a5dfda
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2025-11-06T05:17:15.050443+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cbe95c6fe1365df89bf332b6469fd95279a5dfda
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((Start))
+    1:task:(Collect Infrastructure Usage Data)
+    2:task:(Calculate Costs)
+    3:exclusivegateway:{x}
+    4:task:(Verify Cost Calculation)
+    5:exclusivegateway:{x}
+    6:task:(Approve Costs)
+    7:task:(Notify Departments)
+    8:endevent:(((End)))
+    9:task:(Adjust Calculation)
+    10:task:(Request Additional Information)
+
+    0:startevent:((Start)) --> 1:task:(Collect Infrastructure Usage Data)
+    1:task:(Collect Infrastructure Usage Data) --> 2:task:(Calculate Costs)
+    2:task:(Calculate Costs) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Correct| 4:task:(Verify Cost Calculation)
+    3:exclusivegateway:{x} --> |Incorrect| 9:task:(Adjust Calculation)
+    9:task:(Adjust Calculation) --> 4:task:(Verify Cost Calculation)
+    4:task:(Verify Cost Calculation) --> 5:exclusivegateway:{x}
+    5:exclusivegateway:{x} --> |Approved| 6:task:(Approve Costs)
+    5:exclusivegateway:{x} --> |Not Approved| 10:task:(Request Additional Information)
+    10:task:(Request Additional Information) --> 4:task:(Verify Cost Calculation)
+    6:task:(Approve Costs) --> 7:task:(Notify Departments)
+    7:task:(Notify Departments) --> 8:endevent:(((End)))
+    ```
+  time:timestamp: '2025-11-06T05:17:15.051059+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cbe95c6fe1365df89bf332b6469fd95279a5dfda
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Infrastructure Usage Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Calculate Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Correct" language="text/javascript"/>
+        <alternative condition="Incorrect" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Adjust Calculation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Verify Cost Calculation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Not Approved" a:alt_id="5" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Request Additional Information</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Verify Cost Calculation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a15" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Approve Costs</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a21" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Notify Departments</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-06T05:17:15.051399+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Infrastructure Usage Data</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Calculate Costs</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Correct" language="text/javascript"/>
+        <alternative condition="Incorrect" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Adjust Calculation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Verify Cost Calculation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Not Approved" a:alt_id="5" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Request Additional Information</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Verify Cost Calculation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a15" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Approve Costs</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a21" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Notify Departments</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-06T05:18:08.521319+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-11-06T05:18:08.521158+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete all
+  time:timestamp: '2025-11-06T05:18:08.521462+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2025-11-06T05:18:08.521554+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+  time:timestamp: '2025-11-06T05:18:08.521749+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Collect Infrastructure Usage Data)
+    a1:task:(Collect Infrastructure Usage Data)-->a3:task:(Calculate Costs)
+    a3:task:(Calculate Costs)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Correct"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Incorrect"|a9:task:(Adjust Calculation)
+    a9:task:(Adjust Calculation)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a7:task:(Verify Cost Calculation)
+    a7:task:(Verify Cost Calculation)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a15:task:(Approve Costs)
+    a15:task:(Approve Costs)-->a21:task:(Notify Departments)
+    a21:task:(Notify Departments)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Not Approved"|a17:task:(Request Additional Information)
+    a17:task:(Request Additional Information)-->a7:task:(Verify Cost Calculation)
+    a7:task:(Verify Cost Calculation)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-06T05:18:08.521632+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:18:08.521828+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aeab9a39a68ff60e3fad87332d79ef379aacfef2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:18:18.832501+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Sammeln der Infrastrukturkosten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Nein" a:alt_id="3" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Korrektur der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Definition der Verteilungsschl&#xFC;ssel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Durchf&#xFC;hrung der Umlage</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Pr&#xFC;fung der Umlageergebnisse</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="Nein" a:alt_id="8" language="text/javascript">
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Korrektur und Neuverteilung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Pr&#xFC;fung der Umlageergebnisse</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Reporting und Freigabe</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: aeab9a39a68ff60e3fad87332d79ef379aacfef2
+  time:timestamp: '2025-11-06T05:18:18.832167+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aeab9a39a68ff60e3fad87332d79ef379aacfef2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-06T05:18:18.833503+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aeab9a39a68ff60e3fad87332d79ef379aacfef2
+  cpee:exposition: "# User Input:\nHier ist ein Vorschlag fÃ¼r einen BPMN-Prozess (Business
+    Process Model and Notation) fÃ¼r die\n\U0001F449 â€žVerrechnung von Infrastrukturkostenâ€œ
+    im UniversitÃ¤tsklinikumskontext.\n\U0001F9E9 Prozessname: Verrechnung von Infrastrukturkosten\nProzessziel:\nZurechnung
+    und Umlage von zentralen Infrastrukturkosten (z. B. IT, GebÃ¤ude, Energie, Reinigung,
+    Verwaltung) auf nutzende Organisationseinheiten (Kliniken, Institute, Forschungsbereiche)
+    gemÃ¤ÃŸ interner Kostenverteilungslogik und Trennungsrechnung.\n\U0001F3D7ï¸ BPMN-Akteure
+    (Swimlanes)\nKostenstellenverantwortliche / Fachabteilungen\n(z. B. Technischer
+    Dienst, IT, Verwaltung)\nFinanzabteilung / Controlling\n(z. B. KLR-Team, Finanzcontrolling)\nDatenmanagement
+    / ERP-System\n(z. B. SAP, BI-System)\nKliniken & Institute (KostentrÃ¤ger)\n(EmpfÃ¤nger
+    der Umlage)\nLeitung Finanzen / Vorstand Verwaltung\n(Freigabe und Reporting)\n\U0001F9ED
+    BPMN-Prozessbeschreibung (Textform)\n1. Start: Periodenbeginn (z. B. Quartal /
+    Jahr)\nEreignis: â€žKostenverteilungsperiode beginntâ€œ\nTrigger: Automatischer Prozessstart
+    im ERP-System oder durch Controlling-Kalender.\n2. Sammeln der Infrastrukturkosten
+    (Kostenstellenverantwortliche)\nAktivitÃ¤ten:\nErfassung der angefallenen Infrastrukturkosten
+    (z. B. IT, Strom, GebÃ¤udereinigung, Verwaltung)\nZuordnung zu Kostenstellen (PrimÃ¤rkosten)\nÃœbermittlung
+    an Controlling\nDatenaustausch: BuchungslÃ¤ufe, Kostenartenberichte\n3. PlausibilitÃ¤tsprÃ¼fung
+    der Daten (Finanzabteilung)\nAktivitÃ¤ten:\nPrÃ¼fung der VollstÃ¤ndigkeit und Korrektheit
+    der Kostenarten\nAbgleich mit Budget- und Vorperiodenwerten\nRÃ¼ckmeldung bei AuffÃ¤lligkeiten
+    an Fachabteilungen\nEntscheidungspunkt: â€žKosten plausibel?â€œ\nNein: RÃ¼ckgabe zur
+    Korrektur\nJa: Weiter\n4. Definition der VerteilungsschlÃ¼ssel (Controlling)\nAktivitÃ¤ten:\nFestlegung
+    oder Aktualisierung der UmlageschlÃ¼ssel (z. B. mÂ², Personalstellen, IT-Nutzer,
+    Laborstunden)\nGenehmigung durch Leitung Finanzen (falls notwendig)\nDatenbasis:
+    Stammdaten, Nutzungsstatistiken, HR-Daten\n5. DurchfÃ¼hrung der Umlage (ERP-System
+    / Controlling)\nAktivitÃ¤ten:\nBerechnung der Umlage auf EmpfÃ¤nger-Kostenstellen
+    gemÃ¤ÃŸ SchlÃ¼ssel\nBuchung der sekundÃ¤ren Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\nSystemereignis:
+    â€žUmlauf abgeschlossenâ€œ\n6. PrÃ¼fung der Umlageergebnisse (Controlling + EmpfÃ¤nger)\nAktivitÃ¤ten:\nEmpfÃ¤nger
+    erhalten Umlageberichte\nKontrolle auf sachliche und rechnerische Richtigkeit\nFeedback
+    an Controlling bei AuffÃ¤lligkeiten\nEntscheidungspunkt: â€žErgebnisse korrekt?â€œ\nNein:
+    Korrektur und Neuverteilung\nJa: Weiter\n7. Reporting und Freigabe (Finanzleitung)\nAktivitÃ¤ten:\nErstellung
+    des Verrechnungsberichts (z. B. je Klinik/Institut)\nVorlage an Leitung Finanzen
+    / Vorstand Verwaltung\nFreigabe und Kommunikation an alle Einheiten\nDokumentation
+    im ERP/BI-System\n8. Ende des Prozesses\nEreignis: â€žUmlage abgeschlossen und freigegebenâ€œ\nOutput:\nBuchungssÃ¤tze
+    im ERP-System\nBericht an Ministerium/UniversitÃ¤t (Trennungsrechnung)\nGrundlage
+    fÃ¼r Budgetplanung und Controlling\n\U0001F9EE Optional: Erweiterungen / Subprozesse\nAutomatisierte
+    DatenÃ¼bernahme aus GebÃ¤udemanagement oder Zeiterfassungssystemen\nTrennungsrechnung:
+    Separate Umlagen fÃ¼r Klinik, Forschung, Lehre\nAuditprozess: Nachgelagerte PrÃ¼fung
+    durch Revision oder Ministerium\nDashboards: Visualisierung der Kostenstruktur
+    und Umlageeffekte\n\n"
+  time:timestamp: '2025-11-06T05:18:18.833198+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aeab9a39a68ff60e3fad87332d79ef379aacfef2
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-06T05:18:18.833641+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aeab9a39a68ff60e3fad87332d79ef379aacfef2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent))
+        1:task:(Sammeln der Infrastrukturkosten)
+        2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+        3:exclusivegateway:{x}
+        4:task:(Korrektur der Daten)
+        5:task:(Definition der VerteilungsschlÃ¼ssel)
+        6:task:(DurchfÃ¼hrung der Umlage)
+        7:task:(PrÃ¼fung der Umlageergebnisse)
+        8:exclusivegateway:{x}
+        9:task:(Korrektur und Neuverteilung)
+        10:task:(Reporting und Freigabe)
+        11:endevent:(((endevent)))
+
+        0:startevent:((startevent)) --> 1:task:(Sammeln der Infrastrukturkosten)
+        1:task:(Sammeln der Infrastrukturkosten) --> 2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+        2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |Nein| 4:task:(Korrektur der Daten)
+        3:exclusivegateway:{x} --> |Ja| 5:task:(Definition der VerteilungsschlÃ¼ssel)
+        4:task:(Korrektur der Daten) --> 2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+        5:task:(Definition der VerteilungsschlÃ¼ssel) --> 6:task:(DurchfÃ¼hrung der Umlage)
+        6:task:(DurchfÃ¼hrung der Umlage) --> 7:task:(PrÃ¼fung der Umlageergebnisse)
+        7:task:(PrÃ¼fung der Umlageergebnisse) --> 8:exclusivegateway:{x}
+        8:exclusivegateway:{x} --> |Nein| 9:task:(Korrektur und Neuverteilung)
+        8:exclusivegateway:{x} --> |Ja| 10:task:(Reporting und Freigabe)
+        9:task:(Korrektur und Neuverteilung) --> 7:task:(PrÃ¼fung der Umlageergebnisse)
+        10:task:(Reporting und Freigabe) --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-06T05:18:18.833884+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aeab9a39a68ff60e3fad87332d79ef379aacfef2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Sammeln der Infrastrukturkosten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Nein" a:alt_id="3" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Korrektur der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Definition der Verteilungsschl&#xFC;ssel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Durchf&#xFC;hrung der Umlage</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Pr&#xFC;fung der Umlageergebnisse</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="Nein" a:alt_id="8" language="text/javascript">
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Korrektur und Neuverteilung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Pr&#xFC;fung der Umlageergebnisse</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Reporting und Freigabe</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-06T05:18:18.834164+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Sammeln der Infrastrukturkosten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>PlausibilitÃ¤tsprÃ¼fung der Daten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Nein" a:alt_id="3" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Korrektur der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>PlausibilitÃ¤tsprÃ¼fung der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Definition der VerteilungsschlÃ¼ssel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>DurchfÃ¼hrung der Umlage</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>PrÃ¼fung der Umlageergebnisse</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="Nein" a:alt_id="8" language="text/javascript">
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Korrektur und Neuverteilung</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>PrÃ¼fung der Umlageergebnisse</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Reporting und Freigabe</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-06T05:19:33.406652+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-06T05:19:33.407174+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-11-06T05:19:33.406486+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-11-06T05:19:33.407412+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete all
+  time:timestamp: '2025-11-06T05:19:33.407063+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Sammeln der Infrastrukturkosten)
+    a1:task:(Sammeln der Infrastrukturkosten)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+    a3:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a9:task:(Definition der VerteilungsschlÃ¼ssel)
+    a9:task:(Definition der VerteilungsschlÃ¼ssel)-->a13:task:(DurchfÃ¼hrung der Umlage)
+    a13:task:(DurchfÃ¼hrung der Umlage)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"true"|a15:task:(PrÃ¼fung der Umlageergebnisse)
+    a15:task:(PrÃ¼fung der Umlageergebnisse)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Nein"|a19:task:(Korrektur und Neuverteilung)
+    a19:task:(Korrektur und Neuverteilung)-->a15:task:(PrÃ¼fung der Umlageergebnisse)
+    a15:task:(PrÃ¼fung der Umlageergebnisse)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->a21:task:(Reporting und Freigabe)
+    a21:task:(Reporting und Freigabe)-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Nein"|a7:task:(Korrektur der Daten)
+    a7:task:(Korrektur der Daten)-->a3:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+    a3:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-06T05:19:33.407298+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:19:33.407505+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7a17d277393271d4cc0fb5de9f1710bdf1e1929
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-06T05:20:03.181996+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Sammeln der Infrastrukturkosten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Nein" a:alt_id="3" language="text/javascript">
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Sammeln der Infrastrukturkosten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Definition der Verteilungsschl&#xFC;ssel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Durchf&#xFC;hrung der Umlage</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Pr&#xFC;fung der Umlageergebnisse</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="Nein" a:alt_id="7" language="text/javascript">
+            <call id="a11" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Durchf&#xFC;hrung der Umlage</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Pr&#xFC;fung der Umlageergebnisse</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+          <call id="a19" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Reporting und Freigabe</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: a7a17d277393271d4cc0fb5de9f1710bdf1e1929
+  time:timestamp: '2025-11-06T05:20:03.181294+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7a17d277393271d4cc0fb5de9f1710bdf1e1929
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2025-11-06T05:20:03.183370+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7a17d277393271d4cc0fb5de9f1710bdf1e1929
+  cpee:exposition: "# User Input:\nHier ist ein Vorschlag fÃ¼r einen BPMN-Prozess (Business
+    Process Model and Notation) fÃ¼r die\n\U0001F449 â€žVerrechnung von Infrastrukturkostenâ€œ
+    im UniversitÃ¤tsklinikumskontext.\n\U0001F9E9 Prozessname: Verrechnung von Infrastrukturkosten\nProzessziel:\nZurechnung
+    und Umlage von zentralen Infrastrukturkosten (z. B. IT, GebÃ¤ude, Energie, Reinigung,
+    Verwaltung) auf nutzende Organisationseinheiten (Kliniken, Institute, Forschungsbereiche)
+    gemÃ¤ÃŸ interner Kostenverteilungslogik und Trennungsrechnung.\n\U0001F3D7ï¸ BPMN-Akteure
+    (Swimlanes)\nKostenstellenverantwortliche / Fachabteilungen\n(z. B. Technischer
+    Dienst, IT, Verwaltung)\nFinanzabteilung / Controlling\n(z. B. KLR-Team, Finanzcontrolling)\nDatenmanagement
+    / ERP-System\n(z. B. SAP, BI-System)\nKliniken & Institute (KostentrÃ¤ger)\n(EmpfÃ¤nger
+    der Umlage)\nLeitung Finanzen / Vorstand Verwaltung\n(Freigabe und Reporting)\n\U0001F9ED
+    BPMN-Prozessbeschreibung (Textform)\n1. Start: Periodenbeginn (z. B. Quartal /
+    Jahr)\nEreignis: â€žKostenverteilungsperiode beginntâ€œ\nTrigger: Automatischer Prozessstart
+    im ERP-System oder durch Controlling-Kalender.\n2. Sammeln der Infrastrukturkosten
+    (Kostenstellenverantwortliche)\nAktivitÃ¤ten:\nErfassung der angefallenen Infrastrukturkosten
+    (z. B. IT, Strom, GebÃ¤udereinigung, Verwaltung)\nZuordnung zu Kostenstellen (PrimÃ¤rkosten)\nÃœbermittlung
+    an Controlling\nDatenaustausch: BuchungslÃ¤ufe, Kostenartenberichte\n3. PlausibilitÃ¤tsprÃ¼fung
+    der Daten (Finanzabteilung)\nAktivitÃ¤ten:\nPrÃ¼fung der VollstÃ¤ndigkeit und Korrektheit
+    der Kostenarten\nAbgleich mit Budget- und Vorperiodenwerten\nRÃ¼ckmeldung bei AuffÃ¤lligkeiten
+    an Fachabteilungen\nEntscheidungspunkt: â€žKosten plausibel?â€œ\nNein: RÃ¼ckgabe zur
+    Korrektur\nJa: Weiter\n4. Definition der VerteilungsschlÃ¼ssel (Controlling)\nAktivitÃ¤ten:\nFestlegung
+    oder Aktualisierung der UmlageschlÃ¼ssel (z. B. mÂ², Personalstellen, IT-Nutzer,
+    Laborstunden)\nGenehmigung durch Leitung Finanzen (falls notwendig)\nDatenbasis:
+    Stammdaten, Nutzungsstatistiken, HR-Daten\n5. DurchfÃ¼hrung der Umlage (ERP-System
+    / Controlling)\nAktivitÃ¤ten:\nBerechnung der Umlage auf EmpfÃ¤nger-Kostenstellen
+    gemÃ¤ÃŸ SchlÃ¼ssel\nBuchung der sekundÃ¤ren Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\nSystemereignis:
+    â€žUmlauf abgeschlossenâ€œ\n6. PrÃ¼fung der Umlageergebnisse (Controlling + EmpfÃ¤nger)\nAktivitÃ¤ten:\nEmpfÃ¤nger
+    erhalten Umlageberichte\nKontrolle auf sachliche und rechnerische Richtigkeit\nFeedback
+    an Controlling bei AuffÃ¤lligkeiten\nEntscheidungspunkt: â€žErgebnisse korrekt?â€œ\nNein:
+    Korrektur und Neuverteilung\nJa: Weiter\n7. Reporting und Freigabe (Finanzleitung)\nAktivitÃ¤ten:\nErstellung
+    des Verrechnungsberichts (z. B. je Klinik/Institut)\nVorlage an Leitung Finanzen
+    / Vorstand Verwaltung\nFreigabe und Kommunikation an alle Einheiten\nDokumentation
+    im ERP/BI-System\n8. Ende des Prozesses\nEreignis: â€žUmlage abgeschlossen und freigegebenâ€œ\nOutput:\nBuchungssÃ¤tze
+    im ERP-System\nBericht an Ministerium/UniversitÃ¤t (Trennungsrechnung)\nGrundlage
+    fÃ¼r Budgetplanung und Controlling\n\U0001F9EE Optional: Erweiterungen / Subprozesse\nAutomatisierte
+    DatenÃ¼bernahme aus GebÃ¤udemanagement oder Zeiterfassungssystemen\nTrennungsrechnung:
+    Separate Umlagen fÃ¼r Klinik, Forschung, Lehre\nAuditprozess: Nachgelagerte PrÃ¼fung
+    durch Revision oder Ministerium\nDashboards: Visualisierung der Kostenstruktur
+    und Umlageeffekte\n\n"
+  time:timestamp: '2025-11-06T05:20:03.182158+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7a17d277393271d4cc0fb5de9f1710bdf1e1929
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((Periodenbeginn))
+      1:task:(Sammeln der Infrastrukturkosten)
+      2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+      3:exclusivegateway:{x}
+      4:task:(Definition der VerteilungsschlÃ¼ssel)
+      5:task:(DurchfÃ¼hrung der Umlage)
+      6:task:(PrÃ¼fung der Umlageergebnisse)
+      7:exclusivegateway:{x}
+      8:task:(Reporting und Freigabe)
+      9:endevent:(((Prozessende)))
+
+      0:startevent:((Periodenbeginn)) --> 1:task:(Sammeln der Infrastrukturkosten)
+      1:task:(Sammeln der Infrastrukturkosten) --> 2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+      2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Nein|1:task:(Sammeln der Infrastrukturkosten)
+      3:exclusivegateway:{x} --> |Ja|4:task:(Definition der VerteilungsschlÃ¼ssel)
+      4:task:(Definition der VerteilungsschlÃ¼ssel) --> 5:task:(DurchfÃ¼hrung der Umlage)
+      5:task:(DurchfÃ¼hrung der Umlage) --> 6:task:(PrÃ¼fung der Umlageergebnisse)
+      6:task:(PrÃ¼fung der Umlageergebnisse) --> 7:exclusivegateway:{x}
+      7:exclusivegateway:{x} --> |Nein|5:task:(DurchfÃ¼hrung der Umlage)
+      7:exclusivegateway:{x} --> |Ja|8:task:(Reporting und Freigabe)
+      8:task:(Reporting und Freigabe) --> 9:endevent:(((Prozessende)))
+  time:timestamp: '2025-11-06T05:20:03.183707+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7a17d277393271d4cc0fb5de9f1710bdf1e1929
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-06T05:20:03.183571+01:00'
+---
+event:
+  concept:instance: 7402
+  id:id: external
+  cpee:activity: external
+  cpee:instance: bec5e7bb-41b6-4d0b-a76c-05031e057b07
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7a17d277393271d4cc0fb5de9f1710bdf1e1929
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Sammeln der Infrastrukturkosten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Nein" a:alt_id="3" language="text/javascript">
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Sammeln der Infrastrukturkosten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Plausibilit&#xE4;tspr&#xFC;fung der Daten</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Definition der Verteilungsschl&#xFC;ssel</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Durchf&#xFC;hrung der Umlage</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Pr&#xFC;fung der Umlageergebnisse</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <loop mode="pre_test" condition="Nein" a:alt_id="7" language="text/javascript">
+            <call id="a11" endpoint="" a:alt_id="5">
+              <parameters>
+                <label>Durchf&#xFC;hrung der Umlage</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Pr&#xFC;fung der Umlageergebnisse</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+          <call id="a19" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Reporting und Freigabe</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2025-11-06T05:20:03.183843+01:00'

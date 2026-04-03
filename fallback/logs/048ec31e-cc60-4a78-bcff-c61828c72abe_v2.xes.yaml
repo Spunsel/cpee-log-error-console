@@ -1,0 +1,920 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 6909
+    cpee:name: https://cpee.org/hub/server/Experiments.dir/LLM.dir/conversations_one.xml
+    cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-05T17:03:08.847863+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-05T17:03:09.068190+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: emails
+    value: nataliia.klievtsova@tum.de, n.klievtsova@gmail.com
+  - name: order
+    value:
+      coffee_beans: '3'
+      coffee_pods: '4'
+      milk: '5'
+      sugar: '6'
+      sweetener: '7'
+  - name: refill
+    value: 'yes'
+  - name: items
+    value: 'coffee_beans: 3, coffee_pods: 4, milk: 5, sugar: 6, sweetener: 7'
+  time:timestamp: '2025-11-05T17:03:09.073200+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: endpoints/change
+  data:
+  - name: timeout
+    value: https://cpee.org/services/timeout.php
+  - name: user
+    value: https-post://cpee.org/services/timeout-user.php
+  - name: auto
+    value: https-post://cpee.org/services/timeout-auto.php
+  - name: subprocess
+    value: https://cpee.org/flow/start/url/
+  - name: send
+    value: https-post://cpee.org/ing/correlators/message/send/
+  - name: receive
+    value: https-get://cpee.org/ing/correlators/message/receive/
+  - name: worklist
+    value: https-post://cpee.org/worklist/server/
+  - name: send_email
+    value: https://cpee.org/~demo/refill/send.php
+  - name: orgmodel
+    value: https://cpee.org/~demo/refill/users.xml
+  time:timestamp: '2025-11-05T17:03:09.075882+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: guarded
+    value: none
+  - name: info
+    value: conversations_one
+  - name: modeltype
+    value: CPEE
+  - name: guarded_id
+    value: ''
+  - name: theme
+    value: dataflow
+  - name: creator
+    value: Christine Ashcreek
+  - name: author
+    value: Christine Ashcreek
+  - name: model_uuid
+    value: f7c66200-1a3c-40c6-83d6-deff50830064
+  - name: model_version
+    value: ''
+  - name: design_stage
+    value: development
+  - name: design_dir
+    value: Experiments.dir/LLM.dir
+  time:timestamp: '2025-11-05T17:03:09.078326+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="worklist">
+        <parameters>
+          <label>Check Coffee Level</label>
+          <arguments>
+            <orgmodel>https://cpee.org/~demo/refill/users.xml</orgmodel>
+            <form>https://cpee.org/~demo/refill/forms/refill.html</form>
+            <role>user</role>
+            <priority>1</priority>
+            <handling>single</handling>
+            <restrictions/>
+            <data/>
+          </arguments>
+        </parameters>
+        <code>
+          <signal_receive>on</signal_receive>
+          <signal_change>on</signal_change>
+          <prepare/>
+          <finalize output="result">data.refill = result["data"]["refill"]</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <call id="a1" endpoint="orgmodel">
+        <parameters>
+          <label>Collect Email Addresses</label>
+          <method>:get</method>
+          <arguments/>
+        </parameters>
+        <code>
+          <signal_receive>on</signal_receive>
+          <signal_change>on</signal_change>
+          <prepare/>
+          <finalize output="result">result.register_namespace 'o', 'http://cpee.org/ns/organisation/1.0'
+    data.emails = result.find("/o:organisation/o:subjects/o:subject/o:email").map{|e| e.text }.uniq.join(', ')</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="data.refill == &quot;no&quot;">
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+          <call id="a4" endpoint="send_email">
+            <parameters>
+              <label>Send No Coffee Email</label>
+              <method>:get</method>
+              <arguments>
+                <emails>!data.emails</emails>
+                <status>!data.refill</status>
+              </arguments>
+            </parameters>
+            <code>
+              <signal_receive>on</signal_receive>
+              <signal_change>on</signal_change>
+              <prepare/>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+        </alternative>
+        <alternative condition="data.refill == &quot;yes&quot;">
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+          <call id="a6" endpoint="worklist">
+            <parameters>
+              <label>Confirm Coffee Preferences</label>
+              <arguments>
+                <orgmodel>https://cpee.org/~demo/refill/users.xml</orgmodel>
+                <form>https://cpee.org/~demo/refill/forms/order.html</form>
+                <role>user</role>
+                <priority>1</priority>
+                <handling>single</handling>
+                <restrictions/>
+                <data/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal_receive>on</signal_receive>
+              <signal_change>on</signal_change>
+              <prepare/>
+              <finalize output="result">data.order = result["data"];
+    data.items = data.order.map { |k, v| "#{k}: #{v}" }.join(', ');</finalize>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <call id="a7" endpoint="send_email">
+            <parameters>
+              <label>Send Confirmation Email to Office</label>
+              <method>:get</method>
+              <arguments>
+                <status>!data.refill</status>
+                <emails>!data.emails</emails>
+                <items>!data.items</items>
+              </arguments>
+            </parameters>
+            <annotations>
+              <_generic/>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+            </documentation>
+          </call>
+        </alternative>
+        <otherwise>
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+        </otherwise>
+      </choose>
+    </description>
+  cpee:change_uuid: f0bd23a3cab0b407d692ead7c6ae299e32e74eaa
+  time:timestamp: '2025-11-05T17:03:09.088407+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-05T17:03:09.354132+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Check Coffee Level</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Collect Email Addresses</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="data.refill == &quot;no&quot;" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Send No Coffee Email</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.refill == &quot;yes&quot;" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a6">
+            <parameters>
+              <label>Confirm Coffee Preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Send Confirmation Email to Office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.refill == null" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="a8">
+            <parameters>
+              <label>Brew Coffee</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 457f7d81988e1a9af8b4f0b1b113c121bae951f2
+  time:timestamp: '2025-11-05T17:03:31.484020+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 457f7d81988e1a9af8b4f0b1b113c121bae951f2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="worklist">
+        <parameters>
+          <label>Check Coffee Level</label>
+          <arguments>
+            <orgmodel>https://cpee.org/~demo/refill/users.xml</orgmodel>
+            <form>https://cpee.org/~demo/refill/forms/refill.html</form>
+            <role>user</role>
+            <priority>1</priority>
+            <handling>single</handling>
+            <restrictions/>
+            <data/>
+          </arguments>
+        </parameters>
+        <code>
+          <signal_receive>on</signal_receive>
+          <signal_change>on</signal_change>
+          <prepare/>
+          <finalize output="result">data.refill = result["data"]["refill"]</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <call id="a1" endpoint="orgmodel">
+        <parameters>
+          <label>Collect Email Addresses</label>
+          <method>:get</method>
+          <arguments/>
+        </parameters>
+        <code>
+          <signal_receive>on</signal_receive>
+          <signal_change>on</signal_change>
+          <prepare/>
+          <finalize output="result">result.register_namespace 'o', 'http://cpee.org/ns/organisation/1.0'
+    data.emails = result.find("/o:organisation/o:subjects/o:subject/o:email").map{|e| e.text }.uniq.join(', ')</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_generic/>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+          <code>
+            <description/>
+          </code>
+        </documentation>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="data.refill == &quot;no&quot;">
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+          <call id="a4" endpoint="send_email">
+            <parameters>
+              <label>Send No Coffee Email</label>
+              <method>:get</method>
+              <arguments>
+                <emails>!data.emails</emails>
+                <status>!data.refill</status>
+              </arguments>
+            </parameters>
+            <code>
+              <signal_receive>on</signal_receive>
+              <signal_change>on</signal_change>
+              <prepare/>
+              <finalize output="result"/>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+        </alternative>
+        <alternative condition="data.refill == &quot;yes&quot;">
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+          <call id="a6" endpoint="worklist">
+            <parameters>
+              <label>Confirm Coffee Preferences</label>
+              <arguments>
+                <orgmodel>https://cpee.org/~demo/refill/users.xml</orgmodel>
+                <form>https://cpee.org/~demo/refill/forms/order.html</form>
+                <role>user</role>
+                <priority>1</priority>
+                <handling>single</handling>
+                <restrictions/>
+                <data/>
+              </arguments>
+            </parameters>
+            <code>
+              <signal_receive>on</signal_receive>
+              <signal_change>on</signal_change>
+              <prepare/>
+              <finalize output="result">data.order = result["data"];
+    data.items = data.order.map { |k, v| "#{k}: #{v}" }.join(', ');</finalize>
+              <update output="result"/>
+              <rescue output="result"/>
+            </code>
+            <annotations>
+              <_generic/>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+              <code>
+                <description/>
+              </code>
+            </documentation>
+          </call>
+          <call id="a7" endpoint="send_email">
+            <parameters>
+              <label>Send Confirmation Email to Office</label>
+              <method>:get</method>
+              <arguments>
+                <status>!data.refill</status>
+                <emails>!data.emails</emails>
+                <items>!data.items</items>
+              </arguments>
+            </parameters>
+            <annotations>
+              <_generic/>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_shifting>
+                <_shifting_type>Duration</_shifting_type>
+              </_shifting>
+              <_context_data_analysis>
+                <probes/>
+                <ips/>
+              </_context_data_analysis>
+              <report>
+                <url/>
+              </report>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <documentation>
+              <input/>
+              <output/>
+              <implementation>
+                <description/>
+              </implementation>
+            </documentation>
+          </call>
+        </alternative>
+        <otherwise>
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+        </otherwise>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-05T17:03:31.484305+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 457f7d81988e1a9af8b4f0b1b113c121bae951f2
+  cpee:exposition: |-
+    # User Input:
+    brew coffee
+  time:timestamp: '2025-11-05T17:03:31.484538+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 457f7d81988e1a9af8b4f0b1b113c121bae951f2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-05T17:03:31.484672+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 457f7d81988e1a9af8b4f0b1b113c121bae951f2
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Check Coffee Level)
+    a2:task:(Check Coffee Level)-->a1:task:(Collect Email Addresses)
+    a1:task:(Collect Email Addresses)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"data.refill == "no""|a4:task:(Send No Coffee Email)
+    a4:task:(Send No Coffee Email)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"data.refill == "yes""|a6:task:(Confirm Coffee Preferences)
+    a6:task:(Confirm Coffee Preferences)-->a7:task:(Send Confirmation Email to Office)
+    a7:task:(Send Confirmation Email to Office)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"|"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-05T17:03:31.485749+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 457f7d81988e1a9af8b4f0b1b113c121bae951f2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Check Coffee Level</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Collect Email Addresses</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="data.refill == &quot;no&quot;" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>Send No Coffee Email</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.refill == &quot;yes&quot;" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="a6">
+            <parameters>
+              <label>Confirm Coffee Preferences</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Send Confirmation Email to Office</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.refill == null" language="text/javascript">
+          <call id="a17" endpoint="" a:alt_id="a8">
+            <parameters>
+              <label>Brew Coffee</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-05T17:03:31.486058+01:00'
+---
+event:
+  concept:instance: 6909
+  id:id: external
+  cpee:activity: external
+  cpee:instance: '048ec31e-cc60-4a78-bcff-c61828c72abe'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 457f7d81988e1a9af8b4f0b1b113c121bae951f2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a2:task:(Check Coffee Level)
+    a2:task:(Check Coffee Level)-->a1:task:(Collect Email Addresses)
+    a1:task:(Collect Email Addresses)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"data.refill == "no""|a4:task:(Send No Coffee Email)
+    a4:task:(Send No Coffee Email)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"data.refill == "yes""|a6:task:(Confirm Coffee Preferences)
+    a6:task:(Confirm Coffee Preferences)-->a7:task:(Send Confirmation Email to Office)
+    a7:task:(Send Confirmation Email to Office)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"data.refill == null"|a8:task:(Brew Coffee)
+    a8:task:(Brew Coffee)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2025-11-05T17:03:31.485881+01:00'

@@ -7,10 +7,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const CSV_PATH = path.join(__dirname, 'instanceCatalogue.csv');
-const OUTPUT_SVG_PATH = path.join(__dirname, 'errorTrends.svg');
-const OUTPUT_SYNTAX_SVG_PATH = path.join(__dirname, 'errorTrends_syntax.svg');
-const OUTPUT_CONVERSION_SVG_PATH = path.join(__dirname, 'errorTrends_conversion.svg');
-const OUTPUT_STRUCTURAL_SVG_PATH = path.join(__dirname, 'errorTrends_structural.svg');
+const GRAPHS_DIR = path.join(__dirname, 'graphs');
+const OUTPUT_SVG_PATH = path.join(GRAPHS_DIR, 'errorTrends.svg');
+const OUTPUT_SYNTAX_SVG_PATH = path.join(GRAPHS_DIR, 'errorTrends_syntax.svg');
+const OUTPUT_CONVERSION_SVG_PATH = path.join(GRAPHS_DIR, 'errorTrends_conversion.svg');
+const OUTPUT_STRUCTURAL_SVG_PATH = path.join(GRAPHS_DIR, 'errorTrends_structural.svg');
 
 async function svgToPng(svgPath) {
     const pngPath = svgPath.replace(/\.svg$/, '.png');
@@ -301,6 +302,10 @@ function calculateAverage(arr) {
 
 async function main() {
     console.log('Generating error trend graphs...\n');
+    
+    if (!fs.existsSync(GRAPHS_DIR)) {
+        fs.mkdirSync(GRAPHS_DIR, { recursive: true });
+    }
     
     if (!fs.existsSync(CSV_PATH)) {
         console.error(`CSV file not found: ${CSV_PATH}`);

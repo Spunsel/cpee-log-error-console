@@ -102,11 +102,23 @@ function buildMetadata() {
     fs.writeFileSync(OUTPUT_METADATA_PATH, JSON.stringify(metadata, null, 2));
     console.log(`\nMetadata saved to: ${OUTPUT_METADATA_PATH}`);
     
-    if (!fs.existsSync(OUTPUT_ERRORS_TEMPLATE_PATH)) {
+    if (fs.existsSync(OUTPUT_ERRORS_TEMPLATE_PATH)) {
+        const existingErrors = JSON.parse(fs.readFileSync(OUTPUT_ERRORS_TEMPLATE_PATH, 'utf-8'));
+        let addedCount = 0;
+        for (const [key, value] of Object.entries(errorsTemplate)) {
+            if (!(key in existingErrors)) {
+                existingErrors[key] = value;
+                addedCount++;
+            }
+        }
+        const sorted = Object.keys(existingErrors).sort((a, b) => Number(a) - Number(b));
+        const merged = {};
+        for (const k of sorted) merged[k] = existingErrors[k];
+        fs.writeFileSync(OUTPUT_ERRORS_TEMPLATE_PATH, JSON.stringify(merged, null, 2));
+        console.log(`Error counts updated: ${addedCount} new entries added (${sorted.length} total)`);
+    } else {
         fs.writeFileSync(OUTPUT_ERRORS_TEMPLATE_PATH, JSON.stringify(errorsTemplate, null, 2));
         console.log(`Error counts template saved to: ${OUTPUT_ERRORS_TEMPLATE_PATH}`);
-    } else {
-        console.log(`Error counts file already exists, not overwriting: ${OUTPUT_ERRORS_TEMPLATE_PATH}`);
     }
     
     console.log(`\nSummary:`);

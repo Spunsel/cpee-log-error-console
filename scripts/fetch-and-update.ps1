@@ -3,7 +3,12 @@
 #   powershell -ExecutionPolicy Bypass -File scripts/fetch-and-update.ps1
 
 # Process numbers to fetch
-$processNumbers = @(1000..6469)
+$processNumbers = @(5919..7676)
+
+# Resolve project root (parent of scripts/)
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$projectRoot = Split-Path -Parent $scriptDir
+Set-Location $projectRoot
 
 # Initialize SSL bypass
 Write-Host "Initializing..." -ForegroundColor Cyan
@@ -90,8 +95,9 @@ if ($needFetch.Count -gt 0) {
     $completed = 0
     $fromEngine = 0
     foreach ($job in $jobs) {
-        $result = $job.PowerShell.EndInvoke($job.Handle)
+        $resultCollection = $job.PowerShell.EndInvoke($job.Handle)
         $job.PowerShell.Dispose()
+        $result = $resultCollection | Select-Object -Last 1
         if ($result.Success) {
             $uuidMapping.TryAdd("$($result.ProcessNumber)", $result.UUID) | Out-Null
             $fromEngine++
@@ -132,16 +138,18 @@ $logRunspacePool = [runspacefactory]::CreateRunspacePool(1, 10)
 $logRunspacePool.Open()
 
 $logJobs = @()
+$absLogDir = (Resolve-Path $tempLogDir).Path
 foreach ($kvp in $uuidMapping.GetEnumerator()) {
-    $ps = [powershell]::Create().AddScript($logScript).AddArgument($kvp.Key).AddArgument($kvp.Value).AddArgument($tempLogDir)
+    $ps = [powershell]::Create().AddScript($logScript).AddArgument($kvp.Key).AddArgument($kvp.Value).AddArgument($absLogDir)
     $ps.RunspacePool = $logRunspacePool
     $logJobs += @{ PowerShell = $ps; Handle = $ps.BeginInvoke() }
 }
 
 $logCompleted = 0
 foreach ($job in $logJobs) {
-    $result = $job.PowerShell.EndInvoke($job.Handle)
+    $resultCollection = $job.PowerShell.EndInvoke($job.Handle)
     $job.PowerShell.Dispose()
+    $result = $resultCollection | Select-Object -Last 1
     if ($result.Success -and $result.Selected) {
         $selectedMapping.TryAdd("$($result.ProcessNumber)", $result.UUID) | Out-Null
     }
@@ -203,7 +211,8 @@ $selectedMapping.GetEnumerator() | ForEach-Object {
 # Save combined mapping
 $sortedKeys = $combinedHash.Keys | Sort-Object { [int]$_ }
 $json = "{" + "`n" + (($sortedKeys | ForEach-Object { "  `"$_`": `"$($combinedHash[$_])`"" }) -join ",`n") + "`n}"
-[System.IO.File]::WriteAllText($fallbackMappingFile, $json)
+$absFallbackMapping = Join-Path (Resolve-Path $fallbackDir).Path "uuid-mapping.json"
+[System.IO.File]::WriteAllText($absFallbackMapping, $json)
 Write-Host "UUID mapping saved to fallback\uuid-mapping.json ($newCount new, $($combinedHash.Count) total)" -ForegroundColor Green
 
 # Copy logs (with _v2 suffix)
