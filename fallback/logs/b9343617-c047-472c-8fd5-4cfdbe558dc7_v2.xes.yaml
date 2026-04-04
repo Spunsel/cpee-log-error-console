@@ -1,0 +1,1231 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 4933
+    cpee:name: Plain Instance
+    cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-26T17:56:29.306712+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Definiere Lernziele</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Erstelle Lernplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Sammle Lernmaterialien</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Lerne Grundlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>&#xDC;be Aufgaben</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Aufgaben gemeistert?">
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Aufgaben gemeistert?" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Wiederhole schwierige Themen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>&#xDC;be Aufgaben</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Ja" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Mache Probeklausur</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="10">
+                <alternative condition="Nein" language="text/javascript">
+                  <call id="a27" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>Analysiere Fehler</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a13" endpoint="" a:alt_id="7">
+                    <parameters>
+                      <label>Wiederhole schwierige Themen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a9" endpoint="" a:alt_id="5">
+                    <parameters>
+                      <label>&#xDC;be Aufgaben</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Bestanden?" language="text/javascript">
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 01c96c3f2dc4e4cb025eeff47bb17e1f72095b27
+  time:timestamp: '2026-03-26T17:56:56.733616+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 01c96c3f2dc4e4cb025eeff47bb17e1f72095b27
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-26T17:56:56.733840+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 01c96c3f2dc4e4cb025eeff47bb17e1f72095b27
+  cpee:exposition: |+
+    # User Input:
+    Erstelle mir einen Lernprozess fÃ¼r das Abtiur bzgl. Mathematik
+
+  time:timestamp: '2026-03-26T17:56:56.734175+01:00'
+...
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 01c96c3f2dc4e4cb025eeff47bb17e1f72095b27
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-03-26T17:56:56.734280+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 01c96c3f2dc4e4cb025eeff47bb17e1f72095b27
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-26T17:56:56.735293+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 01c96c3f2dc4e4cb025eeff47bb17e1f72095b27
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Definiere Lernziele)
+        1:task:(Definiere Lernziele) --> 2:task:(Erstelle Lernplan)
+        2:task:(Erstelle Lernplan) --> 3:task:(Sammle Lernmaterialien)
+        3:task:(Sammle Lernmaterialien) --> 4:task:(Lerne Grundlagen)
+        4:task:(Lerne Grundlagen) --> 5:task:(Ãœbe Aufgaben)
+        5:task:(Ãœbe Aufgaben) --> 6:exclusivegateway:{x}
+        6:exclusivegateway:{x} -->|Aufgaben gemeistert?| 7:task:(Wiederhole schwierige Themen)
+        7:task:(Wiederhole schwierige Themen) --> 5:task:(Ãœbe Aufgaben)
+        6:exclusivegateway:{x} -->|Nein| 7:task:(Wiederhole schwierige Themen)
+        6:exclusivegateway:{x} -->|Ja| 8:exclusivegateway:{x}
+        8:exclusivegateway:{x} --> 9:task:(Mache Probeklausur)
+        9:task:(Mache Probeklausur) --> 10:exclusivegateway:{x}
+        10:exclusivegateway:{x} -->|Bestanden?| 12:endevent:(((endevent)))
+        10:exclusivegateway:{x} -->|Nein| 11:task:(Analysiere Fehler)
+        11:task:(Analysiere Fehler) --> 7:task:(Wiederhole schwierige Themen)
+        7:task:(Wiederhole schwierige Themen) --> 5:task:(Ãœbe Aufgaben)
+        5:task:(Ãœbe Aufgaben) --> 6:exclusivegateway:{x}
+        12:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-03-26T17:56:56.735395+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 01c96c3f2dc4e4cb025eeff47bb17e1f72095b27
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Definiere Lernziele</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Erstelle Lernplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Sammle Lernmaterialien</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Lerne Grundlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>&#xDC;be Aufgaben</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Aufgaben gemeistert?">
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Aufgaben gemeistert?" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Wiederhole schwierige Themen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>&#xDC;be Aufgaben</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Ja" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Mache Probeklausur</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="10">
+                <alternative condition="Nein" language="text/javascript">
+                  <call id="a27" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>Analysiere Fehler</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a13" endpoint="" a:alt_id="7">
+                    <parameters>
+                      <label>Wiederhole schwierige Themen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a9" endpoint="" a:alt_id="5">
+                    <parameters>
+                      <label>&#xDC;be Aufgaben</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Bestanden?" language="text/javascript">
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-03-26T17:56:56.735838+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Definiere Lernziele</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Erstelle Lernplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Sammle Lernmaterialien</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Lerne Grundlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="true" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive" a:alt_id="a9">
+              <alternative condition="">
+                <call id="a11" endpoint="" a:alt_id="a9">
+                  <parameters>
+                    <label>&#xDC;be Aufgaben</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <loop mode="pre_test" condition="Aufgaben gemeistert?">
+                  <choose mode="exclusive" a:alt_id="gw4s">
+                    <alternative condition="Nein" language="text/javascript">
+                      <call id="a17" endpoint="" a:alt_id="a13">
+                        <parameters>
+                          <label>Wiederhole schwierige Themen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a11" endpoint="" a:alt_id="a9">
+                        <parameters>
+                          <label>&#xDC;be Aufgaben</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="Ja" language="text/javascript">
+                      <call id="a23" endpoint="" a:alt_id="a21">
+                        <parameters>
+                          <label>Mache Probeklausur</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="gw5s">
+                        <alternative condition="Nein" language="text/javascript">
+                          <call id="a27" endpoint="" a:alt_id="a27">
+                            <parameters>
+                              <label>Analysiere Fehler</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a17" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Wiederhole schwierige Themen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a11" endpoint="" a:alt_id="a9">
+                            <parameters>
+                              <label>&#xDC;be Aufgaben</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Bestanden?" language="text/javascript">
+                          <choose mode="exclusive" a:alt_id="gw6s">
+                            <alternative condition="Nein" language="text/javascript">
+                              <call id="a27" endpoint="" a:alt_id="a27">
+                                <parameters>
+                                  <label>Analysiere Fehler</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                              <call id="a17" endpoint="" a:alt_id="a13">
+                                <parameters>
+                                  <label>Wiederhole schwierige Themen</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                              <call id="a11" endpoint="" a:alt_id="a9">
+                                <parameters>
+                                  <label>&#xDC;be Aufgaben</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                            </alternative>
+                            <alternative condition="Ja" language="text/javascript">
+                              <escape a:alt_id="-1"/>
+                            </alternative>
+                          </choose>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </loop>
+              </alternative>
+              <alternative condition=""/>
+              <alternative condition=""/>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="false" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 6b3c0e8a027f0296ab0e064a5d121d2aa06fcd96
+  time:timestamp: '2026-03-26T17:58:30.123009+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6b3c0e8a027f0296ab0e064a5d121d2aa06fcd96
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Definiere Lernziele</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Erstelle Lernplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Sammle Lernmaterialien</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Lerne Grundlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Ãœbe Aufgaben</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Aufgaben gemeistert?">
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Aufgaben gemeistert?" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Wiederhole schwierige Themen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Ãœbe Aufgaben</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Ja" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Mache Probeklausur</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="10">
+                <alternative condition="Nein" language="text/javascript">
+                  <call id="a27" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>Analysiere Fehler</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a13" endpoint="" a:alt_id="7">
+                    <parameters>
+                      <label>Wiederhole schwierige Themen</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a9" endpoint="" a:alt_id="5">
+                    <parameters>
+                      <label>Ãœbe Aufgaben</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Bestanden?" language="text/javascript">
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-03-26T17:58:30.123269+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6b3c0e8a027f0296ab0e064a5d121d2aa06fcd96
+  cpee:exposition: |+
+    # User Input:
+    ErklÃ¤re mir in einem Schaubild wie ein Atom entsteht.
+
+  time:timestamp: '2026-03-26T17:58:30.123406+01:00'
+...
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6b3c0e8a027f0296ab0e064a5d121d2aa06fcd96
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-03-26T17:58:30.123577+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6b3c0e8a027f0296ab0e064a5d121d2aa06fcd96
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Definiere Lernziele)
+    a1:task:(Definiere Lernziele)-->a3:task:(Erstelle Lernplan)
+    a3:task:(Erstelle Lernplan)-->a5:task:(Sammle Lernmaterialien)
+    a5:task:(Sammle Lernmaterialien)-->a7:task:(Lerne Grundlagen)
+    a7:task:(Lerne Grundlagen)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a9:task:(Ãœbe Aufgaben)
+    a9:task:(Ãœbe Aufgaben)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Aufgaben gemeistert?"|gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Aufgaben gemeistert?"|a13:task:(Wiederhole schwierige Themen)
+    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Ãœbe Aufgaben)
+    a9:task:(Ãœbe Aufgaben)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Ja"|a21:task:(Mache Probeklausur)
+    a21:task:(Mache Probeklausur)-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"Nein"|a27:task:(Analysiere Fehler)
+    a27:task:(Analysiere Fehler)-->a13:task:(Wiederhole schwierige Themen)
+    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Ãœbe Aufgaben)
+    a9:task:(Ãœbe Aufgaben)-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"Bestanden?"|gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-03-26T17:58:30.123657+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6b3c0e8a027f0296ab0e064a5d121d2aa06fcd96
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Definiere Lernziele)
+    a1:task:(Definiere Lernziele)-->a3:task:(Erstelle Lernplan)
+    a3:task:(Erstelle Lernplan)-->a5:task:(Sammle Lernmaterialien)
+    a5:task:(Sammle Lernmaterialien)-->a7:task:(Lerne Grundlagen)
+    a7:task:(Lerne Grundlagen)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"true"|a9:task:(Ãœbe Aufgaben)
+    a9:task:(Ãœbe Aufgaben)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Aufgaben gemeistert?"|gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Nein"|a13:task:(Wiederhole schwierige Themen)
+    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Ãœbe Aufgaben)
+    a9:task:(Ãœbe Aufgaben)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Ja"|a21:task:(Mache Probeklausur)
+    a21:task:(Mache Probeklausur)-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"Nein"|a27:task:(Analysiere Fehler)
+    a27:task:(Analysiere Fehler)-->a13:task:(Wiederhole schwierige Themen)
+    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Ãœbe Aufgaben)
+    a9:task:(Ãœbe Aufgaben)-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"Bestanden?"|gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Ja"|ee:endevent:(((endevent)))
+    gw6s:exclusivegateway:{x}-->|"Nein"|a27:task:(Analysiere Fehler)
+    a27:task:(Analysiere Fehler)-->a13:task:(Wiederhole schwierige Themen)
+    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Ãœbe Aufgaben)
+    a9:task:(Ãœbe Aufgaben)-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"false"|gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"false"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-03-26T17:58:30.123758+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6b3c0e8a027f0296ab0e064a5d121d2aa06fcd96
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Definiere Lernziele</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Erstelle Lernplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Sammle Lernmaterialien</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Lerne Grundlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="true" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive" a:alt_id="a9">
+              <alternative condition="">
+                <call id="a11" endpoint="" a:alt_id="a9">
+                  <parameters>
+                    <label>&#xDC;be Aufgaben</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <loop mode="pre_test" condition="Aufgaben gemeistert?">
+                  <choose mode="exclusive" a:alt_id="gw4s">
+                    <alternative condition="Nein" language="text/javascript">
+                      <call id="a17" endpoint="" a:alt_id="a13">
+                        <parameters>
+                          <label>Wiederhole schwierige Themen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a11" endpoint="" a:alt_id="a9">
+                        <parameters>
+                          <label>&#xDC;be Aufgaben</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="Ja" language="text/javascript">
+                      <call id="a23" endpoint="" a:alt_id="a21">
+                        <parameters>
+                          <label>Mache Probeklausur</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="gw5s">
+                        <alternative condition="Nein" language="text/javascript">
+                          <call id="a27" endpoint="" a:alt_id="a27">
+                            <parameters>
+                              <label>Analysiere Fehler</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a17" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Wiederhole schwierige Themen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a11" endpoint="" a:alt_id="a9">
+                            <parameters>
+                              <label>&#xDC;be Aufgaben</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Bestanden?" language="text/javascript">
+                          <choose mode="exclusive" a:alt_id="gw6s">
+                            <alternative condition="Nein" language="text/javascript">
+                              <call id="a27" endpoint="" a:alt_id="a27">
+                                <parameters>
+                                  <label>Analysiere Fehler</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                              <call id="a17" endpoint="" a:alt_id="a13">
+                                <parameters>
+                                  <label>Wiederhole schwierige Themen</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                              <call id="a11" endpoint="" a:alt_id="a9">
+                                <parameters>
+                                  <label>&#xDC;be Aufgaben</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                            </alternative>
+                            <alternative condition="Ja" language="text/javascript">
+                              <escape a:alt_id="-1"/>
+                            </alternative>
+                          </choose>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </loop>
+              </alternative>
+              <alternative condition=""/>
+              <alternative condition=""/>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="false" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-03-26T17:58:30.125259+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Definiere Lernziele</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Erstelle Lernplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Sammle Lernmaterialien</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Lerne Grundlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="true" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive" a:alt_id="a9">
+              <alternative condition="">
+                <call id="a11" endpoint="" a:alt_id="a9">
+                  <parameters>
+                    <label>&#xDC;be Aufgaben</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <loop mode="pre_test" condition="Aufgaben gemeistert?">
+                  <choose mode="exclusive" a:alt_id="gw4s">
+                    <alternative condition="Nein" language="text/javascript">
+                      <call id="a17" endpoint="" a:alt_id="a13">
+                        <parameters>
+                          <label>Wiederhole schwierige Themen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a11" endpoint="" a:alt_id="a9">
+                        <parameters>
+                          <label>&#xDC;be Aufgaben</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="Ja" language="text/javascript">
+                      <call id="a23" endpoint="" a:alt_id="a21">
+                        <parameters>
+                          <label>Mache Probeklausur</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="gw5s">
+                        <alternative condition="Nein" language="text/javascript">
+                          <call id="a27" endpoint="" a:alt_id="a27">
+                            <parameters>
+                              <label>Analysiere Fehler</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a17" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Wiederhole schwierige Themen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a11" endpoint="" a:alt_id="a9">
+                            <parameters>
+                              <label>&#xDC;be Aufgaben</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Bestanden?" language="text/javascript">
+                          <choose mode="exclusive" a:alt_id="gw6s">
+                            <alternative condition="Nein" language="text/javascript">
+                              <call id="a27" endpoint="" a:alt_id="a27">
+                                <parameters>
+                                  <label>Analysiere Fehler</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                              <call id="a17" endpoint="" a:alt_id="a13">
+                                <parameters>
+                                  <label>Wiederhole schwierige Themen</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                              <call id="a11" endpoint="" a:alt_id="a9">
+                                <parameters>
+                                  <label>&#xDC;be Aufgaben</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                            </alternative>
+                            <alternative condition="Ja" language="text/javascript">
+                              <escape a:alt_id="-1"/>
+                            </alternative>
+                          </choose>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </loop>
+              </alternative>
+              <alternative condition=""/>
+              <alternative condition=""/>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="false" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 6b3c0e8a027f0296ab0e064a5d121d2aa06fcd96
+  time:timestamp: '2026-03-26T17:58:54.767730+01:00'
+---
+event:
+  concept:instance: 4933
+  id:id: ex-ante
+  cpee:instance: b9343617-c047-472c-8fd5-4cfdbe558dc7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Definiere Lernziele</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Erstelle Lernplan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Sammle Lernmaterialien</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Lerne Grundlagen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="true" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive" a:alt_id="a9">
+              <alternative condition="">
+                <call id="a11" endpoint="" a:alt_id="a9">
+                  <parameters>
+                    <label>&#xDC;be Aufgaben</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <loop mode="pre_test" condition="Aufgaben gemeistert?">
+                  <choose mode="exclusive" a:alt_id="gw4s">
+                    <alternative condition="Nein" language="text/javascript">
+                      <call id="a17" endpoint="" a:alt_id="a13">
+                        <parameters>
+                          <label>Wiederhole schwierige Themen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a11" endpoint="" a:alt_id="a9">
+                        <parameters>
+                          <label>&#xDC;be Aufgaben</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="Ja" language="text/javascript">
+                      <call id="a23" endpoint="" a:alt_id="a21">
+                        <parameters>
+                          <label>Mache Probeklausur</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="gw5s">
+                        <alternative condition="Nein" language="text/javascript">
+                          <call id="a27" endpoint="" a:alt_id="a27">
+                            <parameters>
+                              <label>Analysiere Fehler</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a17" endpoint="" a:alt_id="a13">
+                            <parameters>
+                              <label>Wiederhole schwierige Themen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a11" endpoint="" a:alt_id="a9">
+                            <parameters>
+                              <label>&#xDC;be Aufgaben</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Bestanden?" language="text/javascript">
+                          <choose mode="exclusive" a:alt_id="gw6s">
+                            <alternative condition="Nein" language="text/javascript">
+                              <call id="a27" endpoint="" a:alt_id="a27">
+                                <parameters>
+                                  <label>Analysiere Fehler</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                              <call id="a17" endpoint="" a:alt_id="a13">
+                                <parameters>
+                                  <label>Wiederhole schwierige Themen</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                              <call id="a11" endpoint="" a:alt_id="a9">
+                                <parameters>
+                                  <label>&#xDC;be Aufgaben</label>
+                                  <method/>
+                                  <type>:task</type>
+                                  <arguments/>
+                                </parameters>
+                              </call>
+                            </alternative>
+                            <alternative condition="Ja" language="text/javascript">
+                              <escape a:alt_id="-1"/>
+                            </alternative>
+                          </choose>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </loop>
+              </alternative>
+              <alternative condition=""/>
+              <alternative condition=""/>
+            </choose>
+          </loop>
+        </alternative>
+        <alternative condition="false" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 6b3c0e8a027f0296ab0e064a5d121d2aa06fcd96
+  time:timestamp: '2026-03-26T17:58:55.870184+01:00'

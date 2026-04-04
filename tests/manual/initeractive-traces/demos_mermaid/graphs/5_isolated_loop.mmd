@@ -1,0 +1,8 @@
+graph LR
+1:startevent:((Start))
+1:startevent:((Start)) --> 2:task:(A)
+2:task:(A) --> 3:exclusivegateway:{XOR}
+3:exclusivegateway:{XOR} --> 4:task:(Retry)
+4:task:(Retry) --> 3:exclusivegateway:{XOR}
+3:exclusivegateway:{XOR} --> 5:task:(X)
+5:task:(X) --> 6:endevent:((End))

@@ -1,0 +1,1210 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8609
+    cpee:name: Plain Instance
+    cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:08:36.737902+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aff28cd6c8f93214983661f6dd14d80597637c71
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-30T13:09:59.192800+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Generate Events</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send to Kafka</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Kafka Broker</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Consumer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Write to Raw Table</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Materialized View</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Write to Aggregated Tables</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="8">
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>TTL - Delete/Archive</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>MergeTree - Deduplicate</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <parallel wait="-1" cancel="last" a:alt_id="11">
+        <parallel_branch>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>API</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>BI</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: aff28cd6c8f93214983661f6dd14d80597637c71
+  time:timestamp: '2026-03-30T13:09:59.191528+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aff28cd6c8f93214983661f6dd14d80597637c71
+  cpee:exposition: |-
+    # User Input:
+    Ð£ÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð° Ð³ÐµÐ½ÐµÑ€Ð¸Ñ€ÑƒÑŽÑ‚ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ (Ð¼ÐµÑ‚Ñ€Ð¸ÐºÐ¸) Ð¸ Ð¿ÐµÑ€ÐµÐ´Ð°ÑŽÑ‚ Ð¸Ñ… Ð² ÐºÐ°Ñ„ÐºÑƒ
+    ÐšÐ°Ñ„ÐºÐ° Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ Ð±Ñ€Ð¾ÐºÐµÑ€Ð° Ð²Ñ€ÐµÐ¼ÐµÐ½Ð½Ð¾ Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ
+    ÐšÐ¾Ð½ÑÑŒÑŽÐ¼ÐµÑ€ Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‘Ñ‚ Ð¼ÐµÑ‚Ñ€Ð¸ÐºÐ¸ Ð¸Ð· Ð±Ñ€Ð¾ÐºÐµÑ€Ð° Ð² Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ
+    ÐœÐµÑ‚Ñ€Ð¸ÐºÐ¸ Ð¿Ð¾Ð¿Ð°Ð´Ð°ÑŽÑ‚ Ð² raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ. raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ð° Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ Ð½ÐµÐ¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ (Ð² Ñ‚Ð¾Ð¼ Ð²Ð¸Ð´Ðµ, Ð² ÐºÐ°ÐºÐ¾Ð¼ Ð¾Ð½Ð¸ Ð¿Ð¾ÑÑ‚ÑƒÐ¿Ð¸Ð»Ð¸ Ñ ÑƒÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²)
+    Materialized view Ñ‡Ð¸Ñ‚Ð°ÐµÑ‚ Ð½Ð¾Ð²Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¸Ð· raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹, Ñ‚Ñ€Ð°Ð½ÑÑ„Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÑ‚ Ð¸Ñ…. Ð˜Ð·Ð²Ð»ÐµÐºÐ°ÐµÑ‚ Ð¿Ð¾Ð»Ñ, Ð¿Ñ€ÐµÐ¾Ð±Ñ€Ð°Ð·ÑƒÐµÑ‚ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚ Ð´Ð°Ð½Ð½Ñ‹Ñ…, Ñ„Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÑ‚ Ð°Ð³Ñ€ÐµÐ³Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ (Ð½Ð¾Ñ€Ð¼Ð°Ð»Ð¸Ð·Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ) Ð·Ð°Ð¿Ð¸ÑÐ¸
+    Agregated tables Ñ…Ñ€Ð°Ð½ÑÑ‚ ÑƒÐ¶Ðµ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸, Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ Ð´Ð»Ñ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ¾Ð²
+    TTL Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸ ÑƒÐ´Ð°Ð»ÑÐµÑ‚ Ð¸Ð»Ð¸ Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€ÑƒÐµÑ‚ ÑƒÑÑ‚Ð°Ñ€ÐµÐ²ÑˆÐ¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ
+    (Ð¿Ñ€Ð¸ Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ð¸) MergeTree Ð·Ð°Ð¼ÐµÐ½ÑÐµÑ‚ Ð´ÑƒÐ±Ð»Ð¸ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ð¹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¼ Ð½Ðµ Ð½ÑƒÐ¶Ð½Ð° Ð¸ÑÑ‚Ð¾Ñ€Ð¸ÑÂ 
+    Api Ð¸ BI Ð²Ñ‹Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÑŽÑ‚ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¸Ð· Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹. Api Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‘Ñ‚ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð›ÐšÐŸ, BI Ð°Ð½Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÑ‚ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð²Ð¸Ð´Ðµ Ð´Ð°ÑˆÐ±Ð¾Ñ€Ð´Ð¾Ð²/Ñ‚Ð°Ð±Ð»Ð¸Ñ†/Ð³Ñ€Ð°Ñ„Ð¸ÐºÐ¾Ð²
+  time:timestamp: '2026-03-30T13:09:59.193281+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aff28cd6c8f93214983661f6dd14d80597637c71
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-03-30T13:09:59.193442+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aff28cd6c8f93214983661f6dd14d80597637c71
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-30T13:09:59.193515+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aff28cd6c8f93214983661f6dd14d80597637c71
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Generate Events)
+      1:task:(Generate Events) --> 2:task:(Send to Kafka)
+      2:task:(Send to Kafka) --> 3:task:(Kafka Broker)
+      3:task:(Kafka Broker) --> 4:task:(Consumer)
+      4:task:(Consumer) --> 5:task:(Write to Raw Table)
+      5:task:(Write to Raw Table) --> 6:task:(Materialized View)
+      6:task:(Materialized View) --> 7:task:(Write to Aggregated Tables)
+      7:task:(Write to Aggregated Tables) --> 8:parallelgateway:{AND}
+      8:parallelgateway:{AND} --> 9:task:(TTL - Delete/Archive)
+      8:parallelgateway:{AND} --> 10:task:(MergeTree - Deduplicate)
+      9:task:(TTL - Delete/Archive) --> 11:parallelgateway:{AND}
+      10:task:(MergeTree - Deduplicate) --> 11:parallelgateway:{AND}
+      11:parallelgateway:{AND} --> 12:task:(API)
+      11:parallelgateway:{AND} --> 13:task:(BI)
+      12:task:(API) --> 14:endevent:(((endevent)))
+      13:task:(BI) --> 14:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-03-30T13:09:59.193715+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: aff28cd6c8f93214983661f6dd14d80597637c71
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Generate Events</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send to Kafka</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Kafka Broker</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Consumer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Write to Raw Table</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Materialized View</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Write to Aggregated Tables</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="8">
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>TTL - Delete/Archive</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>MergeTree - Deduplicate</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <parallel wait="-1" cancel="last" a:alt_id="11">
+        <parallel_branch>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>API</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>BI</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-03-30T13:09:59.193802+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>&#x423;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x441;&#x442;&#x432;&#x430; &#x433;&#x435;&#x43D;&#x435;&#x440;&#x438;&#x440;&#x443;&#x44E;&#x442; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F; (&#x43C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438;) &#x438; &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x44E;&#x442; &#x438;&#x445; &#x432; &#x43A;&#x430;&#x444;&#x43A;&#x443;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>&#x41A;&#x430;&#x444;&#x43A;&#x430; &#x432; &#x43A;&#x430;&#x447;&#x435;&#x441;&#x442;&#x432;&#x435; &#x431;&#x440;&#x43E;&#x43A;&#x435;&#x440;&#x430; &#x432;&#x440;&#x435;&#x43C;&#x435;&#x43D;&#x43D;&#x43E; &#x445;&#x440;&#x430;&#x43D;&#x438;&#x442; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>&#x41A;&#x43E;&#x43D;&#x441;&#x44C;&#x44E;&#x43C;&#x435;&#x440; &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x451;&#x442; &#x43C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438; &#x438;&#x437; &#x431;&#x440;&#x43E;&#x43A;&#x435;&#x440;&#x430; &#x432; &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x443;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>&#x41C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438; &#x43F;&#x43E;&#x43F;&#x430;&#x434;&#x430;&#x44E;&#x442; &#x432; raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x443;. raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x430; &#x445;&#x440;&#x430;&#x43D;&#x438;&#x442; &#x43D;&#x435;&#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F; (&#x432; &#x442;&#x43E;&#x43C; &#x432;&#x438;&#x434;&#x435;, &#x432; &#x43A;&#x430;&#x43A;&#x43E;&#x43C; &#x43E;&#x43D;&#x438; &#x43F;&#x43E;&#x441;&#x442;&#x443;&#x43F;&#x438;&#x43B;&#x438; &#x441; &#x443;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x441;&#x442;&#x432;)</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Materialized view &#x447;&#x438;&#x442;&#x430;&#x435;&#x442; &#x43D;&#x43E;&#x432;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438; &#x438;&#x437; raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x44B;, &#x442;&#x440;&#x430;&#x43D;&#x441;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x443;&#x435;&#x442; &#x438;&#x445;. &#x418;&#x437;&#x432;&#x43B;&#x435;&#x43A;&#x430;&#x435;&#x442; &#x43F;&#x43E;&#x43B;&#x44F;, &#x43F;&#x440;&#x435;&#x43E;&#x431;&#x440;&#x430;&#x437;&#x443;&#x435;&#x442; &#x444;&#x43E;&#x440;&#x43C;&#x430;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x445;, &#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x443;&#x435;&#x442; &#x430;&#x433;&#x440;&#x435;&#x433;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435; (&#x43D;&#x43E;&#x440;&#x43C;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435;) &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Agregated tables &#x445;&#x440;&#x430;&#x43D;&#x44F;&#x442; &#x443;&#x436;&#x435; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;, &#x43E;&#x43F;&#x442;&#x438;&#x43C;&#x438;&#x437;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x434;&#x43B;&#x44F; &#x437;&#x430;&#x43F;&#x440;&#x43E;&#x441;&#x43E;&#x432;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="7">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>TTL &#x430;&#x432;&#x442;&#x43E;&#x43C;&#x430;&#x442;&#x438;&#x447;&#x435;&#x441;&#x43A;&#x438; &#x443;&#x434;&#x430;&#x43B;&#x44F;&#x435;&#x442; &#x438;&#x43B;&#x438; &#x430;&#x440;&#x445;&#x438;&#x432;&#x438;&#x440;&#x443;&#x435;&#x442; &#x443;&#x441;&#x442;&#x430;&#x440;&#x435;&#x432;&#x448;&#x438;&#x435; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435;</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>MergeTree &#x437;&#x430;&#x43C;&#x435;&#x43D;&#x44F;&#x435;&#x442; &#x434;&#x443;&#x431;&#x43B;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x43C; &#x43D;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x430; &#x438;&#x441;&#x442;&#x43E;&#x440;&#x438;&#x44F;</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a25" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Api &#x438; BI &#x432;&#x44B;&#x447;&#x438;&#x442;&#x44B;&#x432;&#x430;&#x44E;&#x442; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438; &#x438;&#x437; &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x44B;. Api &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x451;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432; &#x41B;&#x41A;&#x41F;, BI &#x430;&#x43D;&#x430;&#x43B;&#x438;&#x437;&#x438;&#x440;&#x443;&#x435;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432; &#x432;&#x438;&#x434;&#x435; &#x434;&#x430;&#x448;&#x431;&#x43E;&#x440;&#x434;&#x43E;&#x432;/&#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;/&#x433;&#x440;&#x430;&#x444;&#x438;&#x43A;&#x43E;&#x432;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: d00ca20aa11e4b2d4cb85ba2fe52ab822d0a50c9
+  time:timestamp: '2026-03-30T13:10:34.273134+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d00ca20aa11e4b2d4cb85ba2fe52ab822d0a50c9
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Generate Events</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send to Kafka</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Kafka Broker</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Consumer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Write to Raw Table</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Materialized View</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Write to Aggregated Tables</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="8">
+        <parallel_branch>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>TTL - Delete/Archive</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>MergeTree - Deduplicate</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <parallel wait="-1" cancel="last" a:alt_id="11">
+        <parallel_branch>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>API</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>BI</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-03-30T13:10:34.273360+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d00ca20aa11e4b2d4cb85ba2fe52ab822d0a50c9
+  cpee:exposition: |-
+    # User Input:
+    Ð£ÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð° Ð³ÐµÐ½ÐµÑ€Ð¸Ñ€ÑƒÑŽÑ‚ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ (Ð¼ÐµÑ‚Ñ€Ð¸ÐºÐ¸) Ð¸ Ð¿ÐµÑ€ÐµÐ´Ð°ÑŽÑ‚ Ð¸Ñ… Ð² ÐºÐ°Ñ„ÐºÑƒ
+    ÐšÐ°Ñ„ÐºÐ° Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ Ð±Ñ€Ð¾ÐºÐµÑ€Ð° Ð²Ñ€ÐµÐ¼ÐµÐ½Ð½Ð¾ Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ
+    ÐšÐ¾Ð½ÑÑŒÑŽÐ¼ÐµÑ€ Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‘Ñ‚ Ð¼ÐµÑ‚Ñ€Ð¸ÐºÐ¸ Ð¸Ð· Ð±Ñ€Ð¾ÐºÐµÑ€Ð° Ð² Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ
+    ÐœÐµÑ‚Ñ€Ð¸ÐºÐ¸ Ð¿Ð¾Ð¿Ð°Ð´Ð°ÑŽÑ‚ Ð² raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ. raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ð° Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ Ð½ÐµÐ¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ (Ð² Ñ‚Ð¾Ð¼ Ð²Ð¸Ð´Ðµ, Ð² ÐºÐ°ÐºÐ¾Ð¼ Ð¾Ð½Ð¸ Ð¿Ð¾ÑÑ‚ÑƒÐ¿Ð¸Ð»Ð¸ Ñ ÑƒÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²)
+    Materialized view Ñ‡Ð¸Ñ‚Ð°ÐµÑ‚ Ð½Ð¾Ð²Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¸Ð· raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹, Ñ‚Ñ€Ð°Ð½ÑÑ„Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÑ‚ Ð¸Ñ…. Ð˜Ð·Ð²Ð»ÐµÐºÐ°ÐµÑ‚ Ð¿Ð¾Ð»Ñ, Ð¿Ñ€ÐµÐ¾Ð±Ñ€Ð°Ð·ÑƒÐµÑ‚ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚ Ð´Ð°Ð½Ð½Ñ‹Ñ…, Ñ„Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÑ‚ Ð°Ð³Ñ€ÐµÐ³Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ (Ð½Ð¾Ñ€Ð¼Ð°Ð»Ð¸Ð·Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ) Ð·Ð°Ð¿Ð¸ÑÐ¸
+    Agregated tables Ñ…Ñ€Ð°Ð½ÑÑ‚ ÑƒÐ¶Ðµ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸, Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ Ð´Ð»Ñ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ¾Ð²
+    TTL Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸ ÑƒÐ´Ð°Ð»ÑÐµÑ‚ Ð¸Ð»Ð¸ Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€ÑƒÐµÑ‚ ÑƒÑÑ‚Ð°Ñ€ÐµÐ²ÑˆÐ¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ
+    (Ð¿Ñ€Ð¸ Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ð¸) MergeTree Ð·Ð°Ð¼ÐµÐ½ÑÐµÑ‚ Ð´ÑƒÐ±Ð»Ð¸ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ð¹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¼ Ð½Ðµ Ð½ÑƒÐ¶Ð½Ð° Ð¸ÑÑ‚Ð¾Ñ€Ð¸ÑÂ 
+    Api Ð¸ BI Ð²Ñ‹Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÑŽÑ‚ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¸Ð· Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹. Api Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‘Ñ‚ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð›ÐšÐŸ, BI Ð°Ð½Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÑ‚ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð²Ð¸Ð´Ðµ Ð´Ð°ÑˆÐ±Ð¾Ñ€Ð´Ð¾Ð²/Ñ‚Ð°Ð±Ð»Ð¸Ñ†/Ð³Ñ€Ð°Ñ„Ð¸ÐºÐ¾Ð²
+  time:timestamp: '2026-03-30T13:10:34.273461+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d00ca20aa11e4b2d4cb85ba2fe52ab822d0a50c9
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o-mini
+  time:timestamp: '2026-03-30T13:10:34.273596+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d00ca20aa11e4b2d4cb85ba2fe52ab822d0a50c9
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Generate Events)
+    a1:task:(Generate Events)-->a3:task:(Send to Kafka)
+    a3:task:(Send to Kafka)-->a5:task:(Kafka Broker)
+    a5:task:(Kafka Broker)-->a7:task:(Consumer)
+    a7:task:(Consumer)-->a9:task:(Write to Raw Table)
+    a9:task:(Write to Raw Table)-->a11:task:(Materialized View)
+    a11:task:(Materialized View)-->a13:task:(Write to Aggregated Tables)
+    a13:task:(Write to Aggregated Tables)-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a17:task:(TTL - Delete/Archive)
+    a17:task:(TTL - Delete/Archive)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a19:task:(MergeTree - Deduplicate)
+    a19:task:(MergeTree - Deduplicate)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->gw2s:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a25:task:(API)
+    a25:task:(API)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(BI)
+    a27:task:(BI)-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->ee:endevent:((endevent))
+  time:timestamp: '2026-03-30T13:10:34.273674+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d00ca20aa11e4b2d4cb85ba2fe52ab822d0a50c9
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Ð£ÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð° Ð³ÐµÐ½ÐµÑ€Ð¸Ñ€ÑƒÑŽÑ‚ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ (Ð¼ÐµÑ‚Ñ€Ð¸ÐºÐ¸) Ð¸ Ð¿ÐµÑ€ÐµÐ´Ð°ÑŽÑ‚ Ð¸Ñ… Ð² ÐºÐ°Ñ„ÐºÑƒ)
+    1:task:(Ð£ÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð° Ð³ÐµÐ½ÐµÑ€Ð¸Ñ€ÑƒÑŽÑ‚ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ (Ð¼ÐµÑ‚Ñ€Ð¸ÐºÐ¸) Ð¸ Ð¿ÐµÑ€ÐµÐ´Ð°ÑŽÑ‚ Ð¸Ñ… Ð² ÐºÐ°Ñ„ÐºÑƒ) --> 2:task:(ÐšÐ°Ñ„ÐºÐ° Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ Ð±Ñ€Ð¾ÐºÐµÑ€Ð° Ð²Ñ€ÐµÐ¼ÐµÐ½Ð½Ð¾ Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ)
+    2:task:(ÐšÐ°Ñ„ÐºÐ° Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ Ð±Ñ€Ð¾ÐºÐµÑ€Ð° Ð²Ñ€ÐµÐ¼ÐµÐ½Ð½Ð¾ Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ) --> 3:task:(ÐšÐ¾Ð½ÑÑŒÑŽÐ¼ÐµÑ€ Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‘Ñ‚ Ð¼ÐµÑ‚Ñ€Ð¸ÐºÐ¸ Ð¸Ð· Ð±Ñ€Ð¾ÐºÐµÑ€Ð° Ð² Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ)
+    3:task:(ÐšÐ¾Ð½ÑÑŒÑŽÐ¼ÐµÑ€ Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‘Ñ‚ Ð¼ÐµÑ‚Ñ€Ð¸ÐºÐ¸ Ð¸Ð· Ð±Ñ€Ð¾ÐºÐµÑ€Ð° Ð² Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ) --> 4:task:(ÐœÐµÑ‚Ñ€Ð¸ÐºÐ¸ Ð¿Ð¾Ð¿Ð°Ð´Ð°ÑŽÑ‚ Ð² raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ. raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ð° Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ Ð½ÐµÐ¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ (Ð² Ñ‚Ð¾Ð¼ Ð²Ð¸Ð´Ðµ, Ð² ÐºÐ°ÐºÐ¾Ð¼ Ð¾Ð½Ð¸ Ð¿Ð¾ÑÑ‚ÑƒÐ¿Ð¸Ð»Ð¸ Ñ ÑƒÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²))
+    4:task:(ÐœÐµÑ‚Ñ€Ð¸ÐºÐ¸ Ð¿Ð¾Ð¿Ð°Ð´Ð°ÑŽÑ‚ Ð² raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ. raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ð° Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ Ð½ÐµÐ¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ñ (Ð² Ñ‚Ð¾Ð¼ Ð²Ð¸Ð´Ðµ, Ð² ÐºÐ°ÐºÐ¾Ð¼ Ð¾Ð½Ð¸ Ð¿Ð¾ÑÑ‚ÑƒÐ¿Ð¸Ð»Ð¸ Ñ ÑƒÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²)) --> 5:task:(Materialized view Ñ‡Ð¸Ñ‚Ð°ÐµÑ‚ Ð½Ð¾Ð²Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¸Ð· raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹, Ñ‚Ñ€Ð°Ð½ÑÑ„Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÑ‚ Ð¸Ñ…. Ð˜Ð·Ð²Ð»ÐµÐºÐ°ÐµÑ‚ Ð¿Ð¾Ð»Ñ, Ð¿Ñ€ÐµÐ¾Ð±Ñ€Ð°Ð·ÑƒÐµÑ‚ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚ Ð´Ð°Ð½Ð½Ñ‹Ñ…, Ñ„Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÑ‚ Ð°Ð³Ñ€ÐµÐ³Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ (Ð½Ð¾Ñ€Ð¼Ð°Ð»Ð¸Ð·Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ) Ð·Ð°Ð¿Ð¸ÑÐ¸)
+    5:task:(Materialized view Ñ‡Ð¸Ñ‚Ð°ÐµÑ‚ Ð½Ð¾Ð²Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¸Ð· raw Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹, Ñ‚Ñ€Ð°Ð½ÑÑ„Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÑ‚ Ð¸Ñ…. Ð˜Ð·Ð²Ð»ÐµÐºÐ°ÐµÑ‚ Ð¿Ð¾Ð»Ñ, Ð¿Ñ€ÐµÐ¾Ð±Ñ€Ð°Ð·ÑƒÐµÑ‚ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚ Ð´Ð°Ð½Ð½Ñ‹Ñ…, Ñ„Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÑ‚ Ð°Ð³Ñ€ÐµÐ³Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ (Ð½Ð¾Ñ€Ð¼Ð°Ð»Ð¸Ð·Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ) Ð·Ð°Ð¿Ð¸ÑÐ¸) --> 6:task:(Agregated tables Ñ…Ñ€Ð°Ð½ÑÑ‚ ÑƒÐ¶Ðµ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸, Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ Ð´Ð»Ñ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ¾Ð²)
+    6:task:(Agregated tables Ñ…Ñ€Ð°Ð½ÑÑ‚ ÑƒÐ¶Ðµ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸, Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ Ð´Ð»Ñ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ¾Ð²) --> 7:parallelgateway:{AND}
+    7:parallelgateway:{AND} --> 8:task:(TTL Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸ ÑƒÐ´Ð°Ð»ÑÐµÑ‚ Ð¸Ð»Ð¸ Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€ÑƒÐµÑ‚ ÑƒÑÑ‚Ð°Ñ€ÐµÐ²ÑˆÐ¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ)
+    8:task:(TTL Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸ ÑƒÐ´Ð°Ð»ÑÐµÑ‚ Ð¸Ð»Ð¸ Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€ÑƒÐµÑ‚ ÑƒÑÑ‚Ð°Ñ€ÐµÐ²ÑˆÐ¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ) --> 9:parallelgateway:{AND}
+    7:parallelgateway:{AND} --> 10:task:(MergeTree Ð·Ð°Ð¼ÐµÐ½ÑÐµÑ‚ Ð´ÑƒÐ±Ð»Ð¸ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ð¹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¼ Ð½Ðµ Ð½ÑƒÐ¶Ð½Ð° Ð¸ÑÑ‚Ð¾Ñ€Ð¸Ñ)
+    10:task:(MergeTree Ð·Ð°Ð¼ÐµÐ½ÑÐµÑ‚ Ð´ÑƒÐ±Ð»Ð¸ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ð¹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¼ Ð½Ðµ Ð½ÑƒÐ¶Ð½Ð° Ð¸ÑÑ‚Ð¾Ñ€Ð¸Ñ) --> 9:parallelgateway:{AND}
+    9:parallelgateway:{AND} --> 11:parallelgateway:{AND}
+    11:parallelgateway:{AND} --> 12:task:(Api Ð¸ BI Ð²Ñ‹Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÑŽÑ‚ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¸Ð· Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹. Api Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‘Ñ‚ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð›ÐšÐŸ, BI Ð°Ð½Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÑ‚ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð²Ð¸Ð´Ðµ Ð´Ð°ÑˆÐ±Ð¾Ñ€Ð´Ð¾Ð²/Ñ‚Ð°Ð±Ð»Ð¸Ñ†/Ð³Ñ€Ð°Ñ„Ð¸ÐºÐ¾Ð²)
+    12:task:(Api Ð¸ BI Ð²Ñ‹Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÑŽÑ‚ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¸Ð· Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹. Api Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‘Ñ‚ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð›ÐšÐŸ, BI Ð°Ð½Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÑ‚ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð²Ð¸Ð´Ðµ Ð´Ð°ÑˆÐ±Ð¾Ñ€Ð´Ð¾Ð²/Ñ‚Ð°Ð±Ð»Ð¸Ñ†/Ð³Ñ€Ð°Ñ„Ð¸ÐºÐ¾Ð²) --> 13:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-03-30T13:10:34.273766+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d00ca20aa11e4b2d4cb85ba2fe52ab822d0a50c9
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>&#x423;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x441;&#x442;&#x432;&#x430; &#x433;&#x435;&#x43D;&#x435;&#x440;&#x438;&#x440;&#x443;&#x44E;&#x442; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F; (&#x43C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438;) &#x438; &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x44E;&#x442; &#x438;&#x445; &#x432; &#x43A;&#x430;&#x444;&#x43A;&#x443;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>&#x41A;&#x430;&#x444;&#x43A;&#x430; &#x432; &#x43A;&#x430;&#x447;&#x435;&#x441;&#x442;&#x432;&#x435; &#x431;&#x440;&#x43E;&#x43A;&#x435;&#x440;&#x430; &#x432;&#x440;&#x435;&#x43C;&#x435;&#x43D;&#x43D;&#x43E; &#x445;&#x440;&#x430;&#x43D;&#x438;&#x442; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>&#x41A;&#x43E;&#x43D;&#x441;&#x44C;&#x44E;&#x43C;&#x435;&#x440; &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x451;&#x442; &#x43C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438; &#x438;&#x437; &#x431;&#x440;&#x43E;&#x43A;&#x435;&#x440;&#x430; &#x432; &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x443;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>&#x41C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438; &#x43F;&#x43E;&#x43F;&#x430;&#x434;&#x430;&#x44E;&#x442; &#x432; raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x443;. raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x430; &#x445;&#x440;&#x430;&#x43D;&#x438;&#x442; &#x43D;&#x435;&#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F; (&#x432; &#x442;&#x43E;&#x43C; &#x432;&#x438;&#x434;&#x435;, &#x432; &#x43A;&#x430;&#x43A;&#x43E;&#x43C; &#x43E;&#x43D;&#x438; &#x43F;&#x43E;&#x441;&#x442;&#x443;&#x43F;&#x438;&#x43B;&#x438; &#x441; &#x443;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x441;&#x442;&#x432;)</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Materialized view &#x447;&#x438;&#x442;&#x430;&#x435;&#x442; &#x43D;&#x43E;&#x432;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438; &#x438;&#x437; raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x44B;, &#x442;&#x440;&#x430;&#x43D;&#x441;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x443;&#x435;&#x442; &#x438;&#x445;. &#x418;&#x437;&#x432;&#x43B;&#x435;&#x43A;&#x430;&#x435;&#x442; &#x43F;&#x43E;&#x43B;&#x44F;, &#x43F;&#x440;&#x435;&#x43E;&#x431;&#x440;&#x430;&#x437;&#x443;&#x435;&#x442; &#x444;&#x43E;&#x440;&#x43C;&#x430;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x445;, &#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x443;&#x435;&#x442; &#x430;&#x433;&#x440;&#x435;&#x433;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435; (&#x43D;&#x43E;&#x440;&#x43C;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435;) &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Agregated tables &#x445;&#x440;&#x430;&#x43D;&#x44F;&#x442; &#x443;&#x436;&#x435; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;, &#x43E;&#x43F;&#x442;&#x438;&#x43C;&#x438;&#x437;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x434;&#x43B;&#x44F; &#x437;&#x430;&#x43F;&#x440;&#x43E;&#x441;&#x43E;&#x432;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="7">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>TTL &#x430;&#x432;&#x442;&#x43E;&#x43C;&#x430;&#x442;&#x438;&#x447;&#x435;&#x441;&#x43A;&#x438; &#x443;&#x434;&#x430;&#x43B;&#x44F;&#x435;&#x442; &#x438;&#x43B;&#x438; &#x430;&#x440;&#x445;&#x438;&#x432;&#x438;&#x440;&#x443;&#x435;&#x442; &#x443;&#x441;&#x442;&#x430;&#x440;&#x435;&#x432;&#x448;&#x438;&#x435; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435;</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>MergeTree &#x437;&#x430;&#x43C;&#x435;&#x43D;&#x44F;&#x435;&#x442; &#x434;&#x443;&#x431;&#x43B;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x43C; &#x43D;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x430; &#x438;&#x441;&#x442;&#x43E;&#x440;&#x438;&#x44F;</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a25" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Api &#x438; BI &#x432;&#x44B;&#x447;&#x438;&#x442;&#x44B;&#x432;&#x430;&#x44E;&#x442; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438; &#x438;&#x437; &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x44B;. Api &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x451;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432; &#x41B;&#x41A;&#x41F;, BI &#x430;&#x43D;&#x430;&#x43B;&#x438;&#x437;&#x438;&#x440;&#x443;&#x435;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432; &#x432;&#x438;&#x434;&#x435; &#x434;&#x430;&#x448;&#x431;&#x43E;&#x440;&#x434;&#x43E;&#x432;/&#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;/&#x433;&#x440;&#x430;&#x444;&#x438;&#x43A;&#x43E;&#x432;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-03-30T13:10:34.273948+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: dataflow
+  time:timestamp: '2026-03-30T13:11:16.594913+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:11:16.786785+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2026-03-30T13:11:20.187220+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:11:20.384528+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: packed
+  time:timestamp: '2026-03-30T13:11:30.361549+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:11:30.561351+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2026-03-30T13:11:35.784849+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:11:35.989048+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-03-30T13:11:38.952124+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:11:41.072671+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2026-03-30T13:11:46.584041+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:11:46.837740+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Graphviz
+  time:timestamp: '2026-03-30T13:11:56.507499+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:11:56.712604+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>&#x423;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x441;&#x442;&#x432;&#x430; &#x433;&#x435;&#x43D;&#x435;&#x440;&#x438;&#x440;&#x443;&#x44E;&#x442; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F; (&#x43C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438;) &#x438; &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x44E;&#x442; &#x438;&#x445; &#x432; &#x43A;&#x430;&#x444;&#x43A;&#x443;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>&#x41A;&#x430;&#x444;&#x43A;&#x430; &#x432; &#x43A;&#x430;&#x447;&#x435;&#x441;&#x442;&#x432;&#x435; &#x431;&#x440;&#x43E;&#x43A;&#x435;&#x440;&#x430; &#x432;&#x440;&#x435;&#x43C;&#x435;&#x43D;&#x43D;&#x43E; &#x445;&#x440;&#x430;&#x43D;&#x438;&#x442; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>&#x41A;&#x43E;&#x43D;&#x441;&#x44C;&#x44E;&#x43C;&#x435;&#x440; &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x451;&#x442; &#x43C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438; &#x438;&#x437; &#x431;&#x440;&#x43E;&#x43A;&#x435;&#x440;&#x430; &#x432; &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x443;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>&#x41C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438; &#x43F;&#x43E;&#x43F;&#x430;&#x434;&#x430;&#x44E;&#x442; &#x432; raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x443;. raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x430; &#x445;&#x440;&#x430;&#x43D;&#x438;&#x442; &#x43D;&#x435;&#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F; (&#x432; &#x442;&#x43E;&#x43C; &#x432;&#x438;&#x434;&#x435;, &#x432; &#x43A;&#x430;&#x43A;&#x43E;&#x43C; &#x43E;&#x43D;&#x438; &#x43F;&#x43E;&#x441;&#x442;&#x443;&#x43F;&#x438;&#x43B;&#x438; &#x441; &#x443;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x441;&#x442;&#x432;)</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Materialized view &#x447;&#x438;&#x442;&#x430;&#x435;&#x442; &#x43D;&#x43E;&#x432;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438; &#x438;&#x437; raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x44B;, &#x442;&#x440;&#x430;&#x43D;&#x441;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x443;&#x435;&#x442; &#x438;&#x445;. &#x418;&#x437;&#x432;&#x43B;&#x435;&#x43A;&#x430;&#x435;&#x442; &#x43F;&#x43E;&#x43B;&#x44F;, &#x43F;&#x440;&#x435;&#x43E;&#x431;&#x440;&#x430;&#x437;&#x443;&#x435;&#x442; &#x444;&#x43E;&#x440;&#x43C;&#x430;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x445;, &#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x443;&#x435;&#x442; &#x430;&#x433;&#x440;&#x435;&#x433;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435; (&#x43D;&#x43E;&#x440;&#x43C;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435;) &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Agregated tables &#x445;&#x440;&#x430;&#x43D;&#x44F;&#x442; &#x443;&#x436;&#x435; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;, &#x43E;&#x43F;&#x442;&#x438;&#x43C;&#x438;&#x437;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x434;&#x43B;&#x44F; &#x437;&#x430;&#x43F;&#x440;&#x43E;&#x441;&#x43E;&#x432;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="7">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>TTL &#x430;&#x432;&#x442;&#x43E;&#x43C;&#x430;&#x442;&#x438;&#x447;&#x435;&#x441;&#x43A;&#x438; &#x443;&#x434;&#x430;&#x43B;&#x44F;&#x435;&#x442; &#x438;&#x43B;&#x438; &#x430;&#x440;&#x445;&#x438;&#x432;&#x438;&#x440;&#x443;&#x435;&#x442; &#x443;&#x441;&#x442;&#x430;&#x440;&#x435;&#x432;&#x448;&#x438;&#x435; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435;</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>MergeTree &#x437;&#x430;&#x43C;&#x435;&#x43D;&#x44F;&#x435;&#x442; &#x434;&#x443;&#x431;&#x43B;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x43C; &#x43D;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x430; &#x438;&#x441;&#x442;&#x43E;&#x440;&#x438;&#x44F;</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a25" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Api &#x438; BI &#x432;&#x44B;&#x447;&#x438;&#x442;&#x44B;&#x432;&#x430;&#x44E;&#x442; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438; &#x438;&#x437; &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x44B;. Api &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x451;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432; &#x41B;&#x41A;&#x41F;, BI &#x430;&#x43D;&#x430;&#x43B;&#x438;&#x437;&#x438;&#x440;&#x443;&#x435;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432; &#x432;&#x438;&#x434;&#x435; &#x434;&#x430;&#x448;&#x431;&#x43E;&#x440;&#x434;&#x43E;&#x432;/&#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;/&#x433;&#x440;&#x430;&#x444;&#x438;&#x43A;&#x43E;&#x432;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-03-30T13:12:18.366669+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: executionhandler
+    value: eval
+  time:timestamp: '2026-03-30T13:12:18.368164+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:12:18.577825+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>&#x423;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x441;&#x442;&#x432;&#x430; &#x433;&#x435;&#x43D;&#x435;&#x440;&#x438;&#x440;&#x443;&#x44E;&#x442; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F; (&#x43C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438;) &#x438; &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x44E;&#x442; &#x438;&#x445; &#x432; &#x43A;&#x430;&#x444;&#x43A;&#x443;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>&#x41A;&#x430;&#x444;&#x43A;&#x430; &#x432; &#x43A;&#x430;&#x447;&#x435;&#x441;&#x442;&#x432;&#x435; &#x431;&#x440;&#x43E;&#x43A;&#x435;&#x440;&#x430; &#x432;&#x440;&#x435;&#x43C;&#x435;&#x43D;&#x43D;&#x43E; &#x445;&#x440;&#x430;&#x43D;&#x438;&#x442; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>&#x41A;&#x43E;&#x43D;&#x441;&#x44C;&#x44E;&#x43C;&#x435;&#x440; &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x451;&#x442; &#x43C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438; &#x438;&#x437; &#x431;&#x440;&#x43E;&#x43A;&#x435;&#x440;&#x430; &#x432; &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x443;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>&#x41C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438; &#x43F;&#x43E;&#x43F;&#x430;&#x434;&#x430;&#x44E;&#x442; &#x432; raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x443;. raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x430; &#x445;&#x440;&#x430;&#x43D;&#x438;&#x442; &#x43D;&#x435;&#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F; (&#x432; &#x442;&#x43E;&#x43C; &#x432;&#x438;&#x434;&#x435;, &#x432; &#x43A;&#x430;&#x43A;&#x43E;&#x43C; &#x43E;&#x43D;&#x438; &#x43F;&#x43E;&#x441;&#x442;&#x443;&#x43F;&#x438;&#x43B;&#x438; &#x441; &#x443;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x441;&#x442;&#x432;)</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Materialized view &#x447;&#x438;&#x442;&#x430;&#x435;&#x442; &#x43D;&#x43E;&#x432;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438; &#x438;&#x437; raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x44B;, &#x442;&#x440;&#x430;&#x43D;&#x441;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x443;&#x435;&#x442; &#x438;&#x445;. &#x418;&#x437;&#x432;&#x43B;&#x435;&#x43A;&#x430;&#x435;&#x442; &#x43F;&#x43E;&#x43B;&#x44F;, &#x43F;&#x440;&#x435;&#x43E;&#x431;&#x440;&#x430;&#x437;&#x443;&#x435;&#x442; &#x444;&#x43E;&#x440;&#x43C;&#x430;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x445;, &#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x443;&#x435;&#x442; &#x430;&#x433;&#x440;&#x435;&#x433;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435; (&#x43D;&#x43E;&#x440;&#x43C;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435;) &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Agregated tables &#x445;&#x440;&#x430;&#x43D;&#x44F;&#x442; &#x443;&#x436;&#x435; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;, &#x43E;&#x43F;&#x442;&#x438;&#x43C;&#x438;&#x437;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x434;&#x43B;&#x44F; &#x437;&#x430;&#x43F;&#x440;&#x43E;&#x441;&#x43E;&#x432;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="7">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>TTL &#x430;&#x432;&#x442;&#x43E;&#x43C;&#x430;&#x442;&#x438;&#x447;&#x435;&#x441;&#x43A;&#x438; &#x443;&#x434;&#x430;&#x43B;&#x44F;&#x435;&#x442; &#x438;&#x43B;&#x438; &#x430;&#x440;&#x445;&#x438;&#x432;&#x438;&#x440;&#x443;&#x435;&#x442; &#x443;&#x441;&#x442;&#x430;&#x440;&#x435;&#x432;&#x448;&#x438;&#x435; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435;</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>MergeTree &#x437;&#x430;&#x43C;&#x435;&#x43D;&#x44F;&#x435;&#x442; &#x434;&#x443;&#x431;&#x43B;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x43C; &#x43D;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x430; &#x438;&#x441;&#x442;&#x43E;&#x440;&#x438;&#x44F;</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a25" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Api &#x438; BI &#x432;&#x44B;&#x447;&#x438;&#x442;&#x44B;&#x432;&#x430;&#x44E;&#x442; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438; &#x438;&#x437; &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x44B;. Api &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x451;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432; &#x41B;&#x41A;&#x41F;, BI &#x430;&#x43D;&#x430;&#x43B;&#x438;&#x437;&#x438;&#x440;&#x443;&#x435;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432; &#x432;&#x438;&#x434;&#x435; &#x434;&#x430;&#x448;&#x431;&#x43E;&#x440;&#x434;&#x43E;&#x432;/&#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;/&#x433;&#x440;&#x430;&#x444;&#x438;&#x43A;&#x43E;&#x432;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-03-30T13:12:24.895747+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: executionhandler
+    value: rust
+  time:timestamp: '2026-03-30T13:12:24.897207+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:12:25.109587+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>&#x423;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x441;&#x442;&#x432;&#x430; &#x433;&#x435;&#x43D;&#x435;&#x440;&#x438;&#x440;&#x443;&#x44E;&#x442; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F; (&#x43C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438;) &#x438; &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x44E;&#x442; &#x438;&#x445; &#x432; &#x43A;&#x430;&#x444;&#x43A;&#x443;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>&#x41A;&#x430;&#x444;&#x43A;&#x430; &#x432; &#x43A;&#x430;&#x447;&#x435;&#x441;&#x442;&#x432;&#x435; &#x431;&#x440;&#x43E;&#x43A;&#x435;&#x440;&#x430; &#x432;&#x440;&#x435;&#x43C;&#x435;&#x43D;&#x43D;&#x43E; &#x445;&#x440;&#x430;&#x43D;&#x438;&#x442; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>&#x41A;&#x43E;&#x43D;&#x441;&#x44C;&#x44E;&#x43C;&#x435;&#x440; &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x451;&#x442; &#x43C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438; &#x438;&#x437; &#x431;&#x440;&#x43E;&#x43A;&#x435;&#x440;&#x430; &#x432; &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x443;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>&#x41C;&#x435;&#x442;&#x440;&#x438;&#x43A;&#x438; &#x43F;&#x43E;&#x43F;&#x430;&#x434;&#x430;&#x44E;&#x442; &#x432; raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x443;. raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x430; &#x445;&#x440;&#x430;&#x43D;&#x438;&#x442; &#x43D;&#x435;&#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x44F; (&#x432; &#x442;&#x43E;&#x43C; &#x432;&#x438;&#x434;&#x435;, &#x432; &#x43A;&#x430;&#x43A;&#x43E;&#x43C; &#x43E;&#x43D;&#x438; &#x43F;&#x43E;&#x441;&#x442;&#x443;&#x43F;&#x438;&#x43B;&#x438; &#x441; &#x443;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x441;&#x442;&#x432;)</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Materialized view &#x447;&#x438;&#x442;&#x430;&#x435;&#x442; &#x43D;&#x43E;&#x432;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438; &#x438;&#x437; raw &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x44B;, &#x442;&#x440;&#x430;&#x43D;&#x441;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x443;&#x435;&#x442; &#x438;&#x445;. &#x418;&#x437;&#x432;&#x43B;&#x435;&#x43A;&#x430;&#x435;&#x442; &#x43F;&#x43E;&#x43B;&#x44F;, &#x43F;&#x440;&#x435;&#x43E;&#x431;&#x440;&#x430;&#x437;&#x443;&#x435;&#x442; &#x444;&#x43E;&#x440;&#x43C;&#x430;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x445;, &#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x443;&#x435;&#x442; &#x430;&#x433;&#x440;&#x435;&#x433;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435; (&#x43D;&#x43E;&#x440;&#x43C;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435;) &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Agregated tables &#x445;&#x440;&#x430;&#x43D;&#x44F;&#x442; &#x443;&#x436;&#x435; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;, &#x43E;&#x43F;&#x442;&#x438;&#x43C;&#x438;&#x437;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x434;&#x43B;&#x44F; &#x437;&#x430;&#x43F;&#x440;&#x43E;&#x441;&#x43E;&#x432;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="7">
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>TTL &#x430;&#x432;&#x442;&#x43E;&#x43C;&#x430;&#x442;&#x438;&#x447;&#x435;&#x441;&#x43A;&#x438; &#x443;&#x434;&#x430;&#x43B;&#x44F;&#x435;&#x442; &#x438;&#x43B;&#x438; &#x430;&#x440;&#x445;&#x438;&#x432;&#x438;&#x440;&#x443;&#x435;&#x442; &#x443;&#x441;&#x442;&#x430;&#x440;&#x435;&#x432;&#x448;&#x438;&#x435; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435;</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>MergeTree &#x437;&#x430;&#x43C;&#x435;&#x43D;&#x44F;&#x435;&#x442; &#x434;&#x443;&#x431;&#x43B;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x43C; &#x43D;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x430; &#x438;&#x441;&#x442;&#x43E;&#x440;&#x438;&#x44F;</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a25" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Api &#x438; BI &#x432;&#x44B;&#x447;&#x438;&#x442;&#x44B;&#x432;&#x430;&#x44E;&#x442; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438; &#x438;&#x437; &#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;&#x44B;. Api &#x43F;&#x435;&#x440;&#x435;&#x434;&#x430;&#x451;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432; &#x41B;&#x41A;&#x41F;, BI &#x430;&#x43D;&#x430;&#x43B;&#x438;&#x437;&#x438;&#x440;&#x443;&#x435;&#x442; &#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432; &#x432;&#x438;&#x434;&#x435; &#x434;&#x430;&#x448;&#x431;&#x43E;&#x440;&#x434;&#x43E;&#x432;/&#x442;&#x430;&#x431;&#x43B;&#x438;&#x446;/&#x433;&#x440;&#x430;&#x444;&#x438;&#x43A;&#x43E;&#x432;</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-03-30T13:12:29.162839+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: executionhandler
+    value: ruby
+  time:timestamp: '2026-03-30T13:12:29.164294+02:00'
+---
+event:
+  concept:instance: 8609
+  id:id: ex-ante
+  cpee:instance: b07b153f-cc0d-474c-abb7-060a878b2014
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-30T13:12:29.411510+02:00'

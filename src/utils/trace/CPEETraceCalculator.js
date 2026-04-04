@@ -147,7 +147,6 @@ class TraceSets {
             }
             
             case 'choose': {
-                // XOR Gateway: union of alternatives (including otherwise as default branch)
                 const alternatives = TopologyIterators.forwardIterator(node)
                     .filter(child => {
                         const tag = child.tagName.toLowerCase();
@@ -158,7 +157,16 @@ class TraceSets {
                     return [];
                 }
                 
-                // Process each alternative with same forward trace set
+                const mode = (node.getAttribute('mode') || '').toLowerCase();
+                
+                if (mode === 'inclusive') {
+                    // OR Gateway: one or more branches taken simultaneously
+                    return this.handleInclusiveChoose(
+                        alternatives, currentFT, depth, maxLoopIterations, timeoutChecker
+                    );
+                }
+                
+                // XOR Gateway: union of alternatives (including otherwise as default branch)
                 const alternativeTraces = alternatives.flatMap(alt => 
                     this.forwardTrace(alt, currentFT, depth + 1, maxLoopIterations, timeoutChecker)
                 );
@@ -166,31 +174,9 @@ class TraceSets {
                 return alternativeTraces;
             }
             
-            case 'otherwise': {
-                // Otherwise branch (default case): process children sequentially
-                // Filter out metadata elements like _probability
-                const children = TopologyIterators.forwardIterator(node)
-                    .filter(child => {
-                        const tag = child.tagName.toLowerCase();
-                        return !tag.startsWith('_') && tag !== 'condition';
-                    });
-                
-                if (children.length === 0) {
-                    // Empty otherwise branch - return current trace as-is
-                    return [currentFT];
-                }
-                
-                return this.combineSequentialForwardTrace(
-                    children,
-                    currentFT,
-                    depth + 1,
-                    maxLoopIterations,
-                    timeoutChecker
-                );
-            }
-            
+            case 'otherwise':
             case 'alternative': {
-                // Alternative branch: process children sequentially
+                // Alternative/otherwise branch: process children sequentially
                 // Filter out condition and metadata elements (those starting with _)
                 const children = TopologyIterators.forwardIterator(node)
                     .filter(child => {
@@ -198,16 +184,19 @@ class TraceSets {
                         return !tag.startsWith('_') && tag !== 'condition';
                     });
                 
+                if (children.length === 0) {
+                    // Empty branch - return current trace as-is (skip)
+                    return [currentFT];
+                }
+                
                 // Check for escape with alt_id="-1" (indicates trace should end)
                 const escapeIndex = children.findIndex(child => {
                     if (child.tagName.toLowerCase() !== 'escape') {
                         return false;
                     }
-                    // Check if escape has alt_id="-1" (or any escape if alt_id is not specified)
                     const altId = child.getAttributeNS('http://cpee.org/ns/annotation/1.0', 'alt_id') || 
                                   child.getAttribute('a:alt_id') ||
                                   child.getAttribute('alt_id');
-                    // If alt_id is "-1" or not specified, treat as end node
                     return altId === '-1' || altId === null || altId === undefined;
                 });
                 
@@ -326,6 +315,63 @@ class TraceSets {
                 return [];
             }
         }
+    }
+
+    /**
+     * Handle inclusive choose (OR gateway) - generates traces for all non-empty
+     * subsets of alternative branches.
+     * Single-branch subsets behave like XOR, multi-branch subsets are interleaved.
+     *
+     * @param {Array<Element>} alternatives - Alternative/otherwise child elements
+     * @param {Array<Object>} currentFT - Current forward trace set
+     * @param {number} depth - Recursion depth
+     * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker
+     * @returns {Array<Array<Object>>} Array of forward trace arrays
+     */
+    static handleInclusiveChoose(alternatives, currentFT, depth, maxLoopIterations, timeoutChecker) {
+        // Collect traces for each individual branch
+        const perBranchTraces = alternatives.map(alt => {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+            return this.forwardTrace(alt, currentFT, depth + 1, maxLoopIterations, timeoutChecker);
+        });
+
+        // Strip common prefix from each branch's traces
+        const perBranchSpecific = perBranchTraces.map(branchTraceArray =>
+            branchTraceArray.map(trace => trace.slice(currentFT.length))
+        );
+
+        // Generate all non-empty subsets of branch indices
+        const subsets = CPEETraceCalculator.generateNonEmptySubsets(
+            alternatives.map((_, i) => i)
+        );
+
+        const allTraces = [];
+
+        for (const subset of subsets) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+
+            if (subset.length === 1) {
+                // Single branch (XOR-like): use that branch's traces directly
+                const branchIdx = subset[0];
+                for (const branchTrace of perBranchSpecific[branchIdx]) {
+                    allTraces.push([...currentFT, ...branchTrace]);
+                }
+            } else {
+                // Multiple branches (parallel-like): interleave them
+                const selectedBranches = subset.map(idx => perBranchSpecific[idx]);
+                const interleaved = CPEETraceCalculator.interleave(selectedBranches, timeoutChecker);
+                for (const interleavedTrace of interleaved) {
+                    allTraces.push([...currentFT, ...interleavedTrace]);
+                }
+            }
+        }
+
+        return allTraces;
     }
 
     /**
@@ -620,6 +666,14 @@ class TraceSetsValidation {
                     return [];
                 }
                 
+                const mode = (node.getAttribute('mode') || '').toLowerCase();
+                
+                if (mode === 'inclusive') {
+                    return this.handleInclusiveChoose(
+                        alternatives, currentFT, depth, maxLoopIterations, timeoutChecker
+                    );
+                }
+                
                 const alternativeTraces = alternatives.flatMap(alt => 
                     this.forwardTrace(alt, currentFT, depth + 1, maxLoopIterations, timeoutChecker)
                 );
@@ -627,7 +681,8 @@ class TraceSetsValidation {
                 return alternativeTraces;
             }
             
-            case 'otherwise': {
+            case 'otherwise':
+            case 'alternative': {
                 const children = TopologyIterators.forwardIterator(node)
                     .filter(child => {
                         const tag = child.tagName.toLowerCase();
@@ -637,22 +692,6 @@ class TraceSetsValidation {
                 if (children.length === 0) {
                     return [currentFT];
                 }
-                
-                return this.combineSequentialForwardTrace(
-                    children,
-                    currentFT,
-                    depth + 1,
-                    maxLoopIterations,
-                    timeoutChecker
-                );
-            }
-            
-            case 'alternative': {
-                const children = TopologyIterators.forwardIterator(node)
-                    .filter(child => {
-                        const tag = child.tagName.toLowerCase();
-                        return !tag.startsWith('_') && tag !== 'condition';
-                    });
                 
                 const escapeIndex = children.findIndex(child => {
                     if (child.tagName.toLowerCase() !== 'escape') {
@@ -762,6 +801,50 @@ class TraceSetsValidation {
                 return [];
             }
         }
+    }
+
+    /**
+     * Handle inclusive choose (OR gateway) for validation mode.
+     * Same logic as TraceSets.handleInclusiveChoose.
+     */
+    static handleInclusiveChoose(alternatives, currentFT, depth, maxLoopIterations, timeoutChecker) {
+        const perBranchTraces = alternatives.map(alt => {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+            return this.forwardTrace(alt, currentFT, depth + 1, maxLoopIterations, timeoutChecker);
+        });
+
+        const perBranchSpecific = perBranchTraces.map(branchTraceArray =>
+            branchTraceArray.map(trace => trace.slice(currentFT.length))
+        );
+
+        const subsets = CPEETraceCalculator.generateNonEmptySubsets(
+            alternatives.map((_, i) => i)
+        );
+
+        const allTraces = [];
+
+        for (const subset of subsets) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+
+            if (subset.length === 1) {
+                const branchIdx = subset[0];
+                for (const branchTrace of perBranchSpecific[branchIdx]) {
+                    allTraces.push([...currentFT, ...branchTrace]);
+                }
+            } else {
+                const selectedBranches = subset.map(idx => perBranchSpecific[idx]);
+                const interleaved = CPEETraceCalculator.interleave(selectedBranches, timeoutChecker);
+                for (const interleavedTrace of interleaved) {
+                    allTraces.push([...currentFT, ...interleavedTrace]);
+                }
+            }
+        }
+
+        return allTraces;
     }
 
     /**
@@ -1097,6 +1180,27 @@ export class CPEETraceCalculator {
             }
             return result;
         }, [[]]);
+    }
+
+    /**
+     * Generate all non-empty subsets of an array.
+     * For [0,1,2] returns: [[0],[1],[2],[0,1],[0,2],[1,2],[0,1,2]]
+     * @param {Array} arr - Input array
+     * @returns {Array<Array>} All non-empty subsets
+     */
+    static generateNonEmptySubsets(arr) {
+        const result = [];
+        const n = arr.length;
+        for (let mask = 1; mask < (1 << n); mask++) {
+            const subset = [];
+            for (let i = 0; i < n; i++) {
+                if (mask & (1 << i)) {
+                    subset.push(arr[i]);
+                }
+            }
+            result.push(subset);
+        }
+        return result;
     }
 
     /**

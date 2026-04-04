@@ -12,6 +12,8 @@ const OUTPUT_SVG_PATH = path.join(GRAPHS_DIR, 'errorTrends.svg');
 const OUTPUT_SYNTAX_SVG_PATH = path.join(GRAPHS_DIR, 'errorTrends_syntax.svg');
 const OUTPUT_CONVERSION_SVG_PATH = path.join(GRAPHS_DIR, 'errorTrends_conversion.svg');
 const OUTPUT_STRUCTURAL_SVG_PATH = path.join(GRAPHS_DIR, 'errorTrends_structural.svg');
+const OUTPUT_SIZE_SVG_PATH = path.join(GRAPHS_DIR, 'instanceSizeTrends.svg');
+const OUTPUT_COMBINED_TOTAL_SVG_PATH = path.join(GRAPHS_DIR, 'errorTrends_withTotal.svg');
 
 async function svgToPng(svgPath) {
     const pngPath = svgPath.replace(/\.svg$/, '.png');
@@ -199,6 +201,109 @@ function generateCombinedSVG(data, syntaxMA, conversionMA, structuralMA) {
 </svg>`;
 }
 
+function generateCombinedWithTotalSVG(data, syntaxMA, conversionMA, structuralMA, totalMA) {
+    const width = 2400;
+    const height = 1300;
+    const margin = { top: 100, right: 340, bottom: 300, left: 220 };
+    const plotWidth = width - margin.left - margin.right;
+    const plotHeight = height - margin.top - margin.bottom;
+    
+    const allValues = [...syntaxMA, ...conversionMA, ...structuralMA, ...totalMA]
+        .filter(v => v !== null && !isNaN(v) && isFinite(v));
+    const maxY = allValues.length > 0 ? Math.max(...allValues) * 1.1 : 1;
+    
+    const xScale = (idx) => margin.left + (idx / (data.length - 1)) * plotWidth;
+    const yScale = (val) => {
+        if (val === null || isNaN(val) || !isFinite(val)) return null;
+        return margin.top + plotHeight - (val / maxY) * plotHeight;
+    };
+    
+    function createPath(values, color, strokeWidth, opacity = 1) {
+        let d = '';
+        let started = false;
+        for (let i = 0; i < values.length; i++) {
+            const val = values[i];
+            if (val !== null && !isNaN(val) && isFinite(val)) {
+                const x = xScale(i);
+                const y = yScale(val);
+                if (y !== null) {
+                    if (!started) {
+                        d += `M ${x} ${y}`;
+                        started = true;
+                    } else {
+                        d += ` L ${x} ${y}`;
+                    }
+                }
+            }
+        }
+        if (!d) return '';
+        return `<path d="${d}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" opacity="${opacity}"/>`;
+    }
+    
+    const gridLines = [];
+    const yTicks = 5;
+    for (let i = 0; i <= yTicks; i++) {
+        const y = margin.top + (i / yTicks) * plotHeight;
+        const value = maxY > 0 ? (maxY * (yTicks - i) / yTicks).toFixed(2) : '0.00';
+        gridLines.push(`<line x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}" stroke="#e0e0e0" stroke-width="1.5"/>`);
+        gridLines.push(`<text x="${margin.left - 20}" y="${y + 10}" text-anchor="end" font-size="36" fill="#333" font-family="'Times New Roman', Times, serif">${value}</text>`);
+    }
+    
+    const xAxisLabels = generateXAxisLabels(data, margin, plotWidth, plotHeight, height);
+    
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+    <style>
+        .title { font: bold 48px 'Times New Roman', Times, serif; }
+        .axis-label { font: 40px 'Times New Roman', Times, serif; }
+        .legend-text { font: 34px 'Times New Roman', Times, serif; }
+    </style>
+    
+    <!-- Background -->
+    <rect width="${width}" height="${height}" fill="white"/>
+    
+    <!-- Title -->
+    <text x="${width/2}" y="65" text-anchor="middle" class="title">Error Rate Trends (${MA_WINDOW_LARGE}-point Centered Moving Average)</text>
+    
+    <!-- Grid lines -->
+    ${gridLines.join('\n    ')}
+    
+    <!-- Axes -->
+    <line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + plotHeight}" stroke="#333" stroke-width="2.5"/>
+    <line x1="${margin.left}" y1="${margin.top + plotHeight}" x2="${width - margin.right}" y2="${margin.top + plotHeight}" stroke="#333" stroke-width="2.5"/>
+    
+    <!-- X-axis labels -->
+    ${xAxisLabels}
+    <text x="${(margin.left + width - margin.right) / 2}" y="${height - 80}" text-anchor="middle" class="axis-label">Instance Number</text>
+    
+    <!-- Y-axis label -->
+    <text x="55" y="${(margin.top + margin.top + plotHeight) / 2}" text-anchor="middle" class="axis-label" transform="rotate(-90, 55, ${(margin.top + margin.top + plotHeight) / 2})">${Y_AXIS_LABEL}</text>
+    
+    <!-- Data lines -->
+    ${createPath(totalMA, '#888', 5, 0.6)}
+    ${createPath(syntaxMA, '#E37222', 5)}
+    ${createPath(conversionMA, '#64A0C8', 5)}
+    ${createPath(structuralMA, '#A2AD00', 5)}
+    
+    <!-- Legend -->
+    <g transform="translate(${width - margin.right + 25}, ${margin.top + 20})">
+        <text x="0" y="-10" class="legend-text" font-weight="bold">Error Types</text>
+
+        <line x1="0" y1="30" x2="50" y2="30" stroke="#E37222" stroke-width="5"/>
+        <text x="65" y="40" class="legend-text">Syntax</text>
+        
+        <line x1="0" y1="85" x2="50" y2="85" stroke="#64A0C8" stroke-width="5"/>
+        <text x="65" y="95" class="legend-text">Conversion</text>
+        
+        <line x1="0" y1="140" x2="50" y2="140" stroke="#A2AD00" stroke-width="5"/>
+        <text x="65" y="150" class="legend-text">Structural</text>
+        
+        <line x1="0" y1="195" x2="50" y2="195" stroke="#888" stroke-width="5" opacity="0.6"/>
+        <text x="65" y="205" class="legend-text" fill="#888">Overall</text>
+    </g>
+</svg>`;
+}
+
 function generateIndividualSVG(data, maSmall, maLarge, title, color) {
     const width = 2400;
     const height = 1100;
@@ -294,6 +399,125 @@ function generateIndividualSVG(data, maSmall, maLarge, title, color) {
 </svg>`;
 }
 
+function generateSizeCorrelationSVG(data, sizeMA, syntaxMA, conversionMA, structuralMA) {
+    const TUM_BLUE = '#0065BD';
+    const width = 2400;
+    const height = 1300;
+    const margin = { top: 100, right: 340, bottom: 300, left: 220 };
+    const plotWidth = width - margin.left - margin.right;
+    const plotHeight = height - margin.top - margin.bottom;
+
+    const sizeValues = sizeMA.filter(v => v !== null && !isNaN(v) && isFinite(v));
+    const maxYLeft = sizeValues.length > 0 ? Math.max(...sizeValues) * 1.1 : 1;
+
+    const errorValues = [...syntaxMA, ...conversionMA, ...structuralMA]
+        .filter(v => v !== null && !isNaN(v) && isFinite(v));
+    const maxYRight = errorValues.length > 0 ? Math.max(...errorValues) * 1.1 : 1;
+
+    const xScale = (idx) => margin.left + (idx / (data.length - 1)) * plotWidth;
+    const yScaleLeft = (val) => {
+        if (val === null || isNaN(val) || !isFinite(val)) return null;
+        return margin.top + plotHeight - (val / maxYLeft) * plotHeight;
+    };
+    const yScaleRight = (val) => {
+        if (val === null || isNaN(val) || !isFinite(val)) return null;
+        return margin.top + plotHeight - (val / maxYRight) * plotHeight;
+    };
+
+    function createPath(values, scaleFn, color, strokeWidth, dashArray = '', opacity = 1) {
+        let d = '';
+        let started = false;
+        for (let i = 0; i < values.length; i++) {
+            const val = values[i];
+            if (val !== null && !isNaN(val) && isFinite(val)) {
+                const x = xScale(i);
+                const y = scaleFn(val);
+                if (y !== null) {
+                    if (!started) {
+                        d += `M ${x} ${y}`;
+                        started = true;
+                    } else {
+                        d += ` L ${x} ${y}`;
+                    }
+                }
+            }
+        }
+        if (!d) return '';
+        const dash = dashArray ? ` stroke-dasharray="${dashArray}"` : '';
+        return `<path d="${d}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" opacity="${opacity}"${dash}/>`;
+    }
+
+    const gridLines = [];
+    const yTicks = 5;
+    for (let i = 0; i <= yTicks; i++) {
+        const y = margin.top + (i / yTicks) * plotHeight;
+        const value = maxYLeft > 0 ? Math.round(maxYLeft * (yTicks - i) / yTicks) : 0;
+        gridLines.push(`<line x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}" stroke="#e0e0e0" stroke-width="1.5"/>`);
+        gridLines.push(`<text x="${margin.left - 20}" y="${y + 10}" text-anchor="end" font-size="36" fill="#333" font-family="'Times New Roman', Times, serif">${value}</text>`);
+    }
+
+    const xAxisLabels = generateXAxisLabels(data, margin, plotWidth, plotHeight, height);
+
+    const rightAxisX = width - margin.right;
+    const leftAxisLabelX = 55;
+    const yCenter = (margin.top + margin.top + plotHeight) / 2;
+
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+    <style>
+        .title { font: bold 48px 'Times New Roman', Times, serif; }
+        .axis-label { font: 40px 'Times New Roman', Times, serif; }
+        .legend-text { font: 34px 'Times New Roman', Times, serif; }
+    </style>
+    
+    <!-- Background -->
+    <rect width="${width}" height="${height}" fill="white"/>
+    
+    <!-- Title -->
+    <text x="${width/2}" y="65" text-anchor="middle" class="title">Instance Size vs. Error Rate Trends (${MA_WINDOW_LARGE}-point Centered Moving Average)</text>
+    
+    <!-- Grid lines -->
+    ${gridLines.join('\n    ')}
+    
+    <!-- Y-axis -->
+    <line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + plotHeight}" stroke="#333" stroke-width="2.5"/>
+    <!-- X-axis -->
+    <line x1="${margin.left}" y1="${margin.top + plotHeight}" x2="${rightAxisX}" y2="${margin.top + plotHeight}" stroke="#333" stroke-width="2.5"/>
+    
+    <!-- X-axis labels -->
+    ${xAxisLabels}
+    <text x="${(margin.left + rightAxisX) / 2}" y="${height - 80}" text-anchor="middle" class="axis-label">Instance Number</text>
+    
+    <!-- Y-axis label -->
+    <text x="${leftAxisLabelX}" y="${yCenter}" text-anchor="middle" class="axis-label" transform="rotate(-90, ${leftAxisLabelX}, ${yCenter})">Exposition Event Lines</text>
+    
+    <!-- Error rate lines (grayed out, scaled to plot area) -->
+    ${createPath(syntaxMA, yScaleRight, '#999', 3.5, '', 0.7)}
+    ${createPath(conversionMA, yScaleRight, '#999', 3.5, '20,10', 0.7)}
+    ${createPath(structuralMA, yScaleRight, '#999', 3.5, '6,8', 0.7)}
+    
+    <!-- Instance size line (TUM Blue, left axis) -->
+    ${createPath(sizeMA, yScaleLeft, TUM_BLUE, 5)}
+    
+    <!-- Legend -->
+    <g transform="translate(${width - margin.right + 25}, ${margin.top + 20})">
+        <text x="0" y="-10" class="legend-text" font-weight="bold">Legend</text>
+
+        <line x1="0" y1="30" x2="50" y2="30" stroke="${TUM_BLUE}" stroke-width="5"/>
+        <text x="65" y="40" class="legend-text" fill="${TUM_BLUE}">Instance Size</text>
+        
+        <line x1="0" y1="95" x2="50" y2="95" stroke="#999" stroke-width="3.5" opacity="0.7"/>
+        <text x="65" y="105" class="legend-text" fill="#999">Syntax Rate</text>
+        
+        <line x1="0" y1="150" x2="50" y2="150" stroke="#999" stroke-width="3.5" opacity="0.7" stroke-dasharray="20,10"/>
+        <text x="65" y="160" class="legend-text" fill="#999">Conversion Rate</text>
+        
+        <line x1="0" y1="205" x2="50" y2="205" stroke="#999" stroke-width="3.5" opacity="0.7" stroke-dasharray="6,8"/>
+        <text x="65" y="215" class="legend-text" fill="#999">Structural Rate</text>
+    </g>
+</svg>`;
+}
+
 function calculateAverage(arr) {
     const valid = arr.filter(v => v !== null && !isNaN(v));
     if (valid.length === 0) return 0;
@@ -326,6 +550,8 @@ async function main() {
     const syntaxRates = data.map(d => safeNumber(d.syntaxErrorRate));
     const conversionRates = data.map(d => safeNumber(d.conversionErrorRate));
     const structuralRates = data.map(d => safeNumber(d.structuralErrorRate));
+    const totalRates = data.map(d => safeNumber(d.totalErrorRate));
+    const instanceSizes = data.map(d => safeNumber(d.expositionEventLineCount));
     
     console.log(`Calculating ${MA_WINDOW_SMALL}-point and ${MA_WINDOW_LARGE}-point moving averages...`);
     
@@ -339,11 +565,19 @@ async function main() {
     
     const svgPaths = [];
 
+    const totalMA30 = calculateMovingAverage(totalRates, MA_WINDOW_LARGE);
+
     console.log('Generating combined SVG (30-point MA)...');
     const combinedSvg = generateCombinedSVG(data, syntaxMA30, conversionMA30, structuralMA30);
     fs.writeFileSync(OUTPUT_SVG_PATH, combinedSvg);
     svgPaths.push(OUTPUT_SVG_PATH);
     console.log(`  Saved: ${OUTPUT_SVG_PATH}`);
+
+    console.log('Generating combined SVG with overall rate...');
+    const combinedTotalSvg = generateCombinedWithTotalSVG(data, syntaxMA30, conversionMA30, structuralMA30, totalMA30);
+    fs.writeFileSync(OUTPUT_COMBINED_TOTAL_SVG_PATH, combinedTotalSvg);
+    svgPaths.push(OUTPUT_COMBINED_TOTAL_SVG_PATH);
+    console.log(`  Saved: ${OUTPUT_COMBINED_TOTAL_SVG_PATH}`);
     
     console.log('Generating individual SVGs...');
     
@@ -361,6 +595,13 @@ async function main() {
     fs.writeFileSync(OUTPUT_STRUCTURAL_SVG_PATH, structuralSvg);
     svgPaths.push(OUTPUT_STRUCTURAL_SVG_PATH);
     console.log(`  Saved: ${OUTPUT_STRUCTURAL_SVG_PATH}`);
+
+    console.log('Generating instance size correlation SVG...');
+    const sizeMA30 = calculateMovingAverage(instanceSizes, MA_WINDOW_LARGE);
+    const sizeSvg = generateSizeCorrelationSVG(data, sizeMA30, syntaxMA30, conversionMA30, structuralMA30);
+    fs.writeFileSync(OUTPUT_SIZE_SVG_PATH, sizeSvg);
+    svgPaths.push(OUTPUT_SIZE_SVG_PATH);
+    console.log(`  Saved: ${OUTPUT_SIZE_SVG_PATH}`);
 
     console.log('\nConverting SVGs to PNG (300 DPI)...');
     for (const svgPath of svgPaths) {

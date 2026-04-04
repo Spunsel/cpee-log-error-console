@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Trace Building Algorithm - Interactive Demo</title>
+    <style>
+        :root {
+            --bg: #0f172a; --surface: #1e293b; --surface-alt: #162032;
+            --border: #334155; --text: #e2e8f0; --text-muted: #94a3b8;
+            --accent: #3b82f6; --green: #22c55e; --green-dim: rgba(34,197,94,0.15);
+            --red: #ef4444; --red-dim: rgba(239,68,68,0.12);
+            --yellow: #eab308; --orange: #f97316; --purple: #a855f7; --cyan: #06b6d4;
+        }
+        * { box-sizing: border-box; }
+        html, body, div, h1, h2, h3, p, span, button { margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; overflow-x: hidden; }
+
+        .app { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr auto auto; height: 100vh; }
+
+        .header { grid-column: 1/-1; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0.6rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; }
+        .header h1 { font-size: 1rem; font-weight: 600; white-space: nowrap; }
+        .step-nav { display: flex; align-items: center; gap: 0.4rem; }
+        .step-nav button { padding: 0.3rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface-alt); color: var(--text); font-size: 0.8rem; cursor: pointer; transition: all 0.15s; }
+        .step-nav button:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); }
+        .step-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+        .step-label { font-size: 0.8rem; color: var(--text-muted); min-width: 80px; text-align: center; }
+        .progress-bar { display: flex; gap: 2px; flex: 1; max-width: 350px; }
+        .progress-dot { flex: 1; height: 3px; border-radius: 2px; background: var(--border); transition: background 0.2s; }
+        .progress-dot.done { background: var(--green); }
+        .progress-dot.current { background: var(--accent); }
+
+        .graph-panel { grid-column: 1; grid-row: 2; background: #fff; border-right: 1px solid var(--border); overflow: auto; position: relative; }
+        .graph-panel-header {
+            position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e2e8f0;
+            padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+        }
+        .graph-panel-title { font-weight: 600; font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-right: auto; }
+        .graph-tabs { display: flex; gap: 3px; flex-wrap: wrap; }
+        .graph-tab {
+            padding: 0.25rem 0.6rem; border-radius: 5px; font-size: 0.7rem; font-weight: 600;
+            border: 1px solid #cbd5e1; background: #f1f5f9; color: #475569; cursor: pointer; transition: all 0.15s; white-space: nowrap;
+        }
+        .graph-tab:hover { background: #e2e8f0; }
+        .graph-tab.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+        #mermaid-graph-container { padding: 1rem; min-height: 300px; display: flex; align-items: center; justify-content: center; }
+        #mermaid-graph-container svg { max-width: 100%; height: auto; }
+
+        .traces-panel { grid-column: 2; grid-row: 2; overflow: auto; padding: 0.75rem 1.2rem; }
+        .traces-panel-header { font-weight: 600; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .trace-count-badge { background: var(--accent); color: #fff; font-size: 0.65rem; padding: 0.1rem 0.45rem; border-radius: 99px; font-weight: 700; }
+
+        .trace-list { display: flex; flex-direction: column; gap: 0.3rem; }
+        .trace-row {
+            display: flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.55rem; border-radius: 5px;
+            border: 1.5px solid transparent; font-size: 0.78rem;
+            font-family: 'Cascadia Code','Fira Code','Consolas',monospace;
+            background: var(--surface); transition: all 0.2s; flex-wrap: wrap;
+        }
+        .trace-row.tr-active { border-color: var(--accent); background: rgba(59,130,246,0.08); }
+        .trace-row.tr-terminated { border-color: var(--red); background: var(--red-dim); }
+        .trace-row.tr-terminated::after { content: 'ESC'; font-size: 0.55rem; color: var(--red); font-weight: 700; letter-spacing: 0.04em; margin-left: auto; }
+        .trace-idx { color: var(--text-muted); font-size: 0.65rem; min-width: 20px; }
+        .trace-task {
+            padding: 0.12rem 0.4rem; border-radius: 4px; background: var(--surface-alt);
+            border: 1px solid var(--border); color: var(--text); transition: all 0.2s;
+        }
+        .trace-task.hl { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+        .trace-arrow { color: var(--text-muted); font-size: 0.65rem; }
+
+        .explanation-panel { grid-column: 1/-1; grid-row: 4; background: var(--surface); border-top: 1px solid var(--border); padding: 0.75rem 1.2rem; min-height: 70px; max-height: 200px; overflow-y: auto; }
+        .explanation-panel h3 { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+        .explanation-text { font-size: 0.85rem; line-height: 1.55; }
+        .explanation-text code { background: var(--bg); padding: 0.1rem 0.35rem; border-radius: 3px; font-family: 'Cascadia Code','Fira Code',monospace; font-size: 0.82em; color: var(--cyan); }
+        .explanation-plain { margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+        .explanation-text .tag { display: inline-block; padding: 0.08rem 0.4rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-right: 0.2rem; }
+        .tag-seq { background: rgba(59,130,246,0.15); color: var(--accent); }
+        .tag-xor { background: rgba(234,179,8,0.15); color: var(--yellow); }
+        .tag-par { background: rgba(168,85,247,0.15); color: var(--purple); }
+        .tag-loop { background: rgba(249,115,22,0.15); color: var(--orange); }
+        .tag-esc { background: var(--red-dim); color: var(--red); }
+        .tag-pre { background: rgba(34,197,94,0.15); color: var(--green); }
+        .tag-dedup { background: rgba(6,182,212,0.15); color: var(--cyan); }
+
+        .source-box { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.6rem 0.8rem; margin-top: 0.5rem; font-family: 'Cascadia Code','Fira Code',monospace; font-size: 0.75rem; color: var(--text-muted); white-space: pre-wrap; line-height: 1.5; max-height: 200px; overflow-y: auto; }
+
+        /* ── Algorithm State Panel ── */
+        .algo-panel { grid-column: 1/-1; grid-row: 3; background: var(--surface-alt); border-top: 1px solid var(--border); display: flex; gap: 0; max-height: 180px; overflow: hidden; }
+        .algo-section { flex: 1; padding: 0.5rem 0.8rem; overflow-y: auto; border-right: 1px solid var(--border); }
+        .algo-section:last-child { border-right: none; }
+        .algo-section-title { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+        .adj-list { font-family: 'Cascadia Code','Fira Code',monospace; font-size: 0.7rem; line-height: 1.6; color: var(--text-muted); }
+        .adj-row { display: flex; gap: 0.3rem; align-items: baseline; }
+        .adj-node { color: var(--text); font-weight: 600; min-width: 2.5rem; }
+        .adj-node.adj-active { color: var(--orange); }
+        .adj-arrow { color: var(--border); }
+        .adj-target { color: var(--text-muted); }
+        .adj-target.adj-active { color: var(--orange); font-weight: 600; }
+        .algo-state { font-family: 'Cascadia Code','Fira Code',monospace; font-size: 0.7rem; line-height: 1.7; }
+        .algo-state-row { display: flex; gap: 0.4rem; }
+        .algo-state-label { color: var(--text-muted); min-width: 3rem; }
+        .algo-state-value { color: var(--cyan); }
+        .algo-state-value.val-orange { color: var(--orange); }
+        .algo-state-value.val-green { color: var(--green); }
+        .algo-state-value.val-red { color: var(--red); }
+        .algo-state-value.val-yellow { color: var(--yellow); }
+
+        /* ── SVG Node Highlighting ── */
+        .mermaid-hl-node .label-container, .mermaid-hl-node rect, .mermaid-hl-node circle,
+        .mermaid-hl-node polygon, .mermaid-hl-node .outer { stroke: var(--orange) !important; stroke-width: 3px !important; }
+        .mermaid-hl-node .label { font-weight: 700 !important; }
+
+        .loading-spinner { display: flex; align-items: center; justify-content: center; padding: 2rem; color: var(--text-muted); gap: 0.4rem; font-size: 0.85rem; }
+        .spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>Mermaid Trace Algorithm</h1>
+        <div class="progress-bar" id="progress-bar"></div>
+        <div class="step-nav">
+            <button id="btn-prev" onclick="prevStep()" disabled>&larr;</button>
+            <span class="step-label" id="step-label">0 / 0</span>
+            <button id="btn-next" onclick="nextStep()">&rarr;</button>
+        </div>
+    </div>
+    <div class="graph-panel">
+        <div class="graph-panel-header">
+            <span class="graph-panel-title">Mermaid Graph</span>
+            <div class="graph-tabs" id="graph-tabs"></div>
+        </div>
+        <div id="mermaid-graph-container">
+            <div class="loading-spinner"><div class="spinner"></div><span>Loading...</span></div>
+        </div>
+    </div>
+    <div class="traces-panel">
+        <div class="traces-panel-header">Traces <span class="trace-count-badge" id="trace-count">0</span></div>
+        <div class="trace-list" id="trace-list"></div>
+    </div>
+    <div class="algo-panel" id="algo-panel">
+        <div class="algo-section">
+            <div class="algo-section-title">Adjacency List</div>
+            <div class="adj-list" id="adj-list"></div>
+        </div>
+        <div class="algo-section">
+            <div class="algo-section-title">Algorithm State</div>
+            <div class="algo-state" id="algo-state"></div>
+        </div>
+    </div>
+    <div class="explanation-panel">
+        <h3>Explanation</h3>
+        <div class="explanation-text" id="explanation">Select a graph above, then press <strong>&rarr;</strong> to step through.</div>
+    </div>
+</div>
+
+<script type="module">
+import { MermaidTraceCalculator } from '../../../src/utils/trace/MermaidTraceCalculator.js';
+import { Trace } from '../../../src/models/Trace.js';
+
+const GRAPHS = [
+    { id: 'seq',      file: 'graphs/1_sequential.mmd',   tab: '1. Sequential' },
+    { id: 'xor',      file: 'graphs/2_xor.mmd',          tab: '2. XOR' },
+    { id: 'par',      file: 'graphs/3_parallel.mmd',      tab: '3. Parallel' },
+    { id: 'loop',     file: 'graphs/4_loop.mmd',          tab: '4. Loop' },
+    { id: 'isolated',  file: 'graphs/5_isolated_loop.mmd', tab: '5. Isolated Loop' },
+    { id: 'escalate', file: 'graphs/6_escalate.mmd',      tab: '6. Escalate' },
+    { id: 'parxor',   file: 'graphs/7_parallel_xor.mmd',  tab: '7. Parallel+XOR' },
+];
+
+let activeGraphIdx = 0;
+let graphCode = '';
+let currentStep = -1;
+let steps = [];
+let mermaidReady = false;
+let currentGraph = null;
+
+async function ensureMermaid() {
+    if (mermaidReady) return;
+    if (!window.mermaid) {
+        await new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+            s.onload = resolve; s.onerror = reject;
+            document.head.appendChild(s);
+        });
+    }
+    window.mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose' });
+    mermaidReady = true;
+}
+
+async function renderGraph(code) {
+    await ensureMermaid();
+    const container = document.getElementById('mermaid-graph-container');
+    container.innerHTML = '';
+    try {
+        const id = 'mermaid-demo-' + Date.now();
+        const { svg } = await window.mermaid.render(id, code);
+        container.innerHTML = svg;
+    } catch (e) {
+        container.innerHTML = `<div style="color:#ef4444;padding:1rem;font-size:0.85rem">Render error: ${e.message}</div>`;
+    }
+}
+
+// ═══════════════════════════════════════
+//  ADJACENCY LIST & ALGORITHM STATE
+// ═══════════════════════════════════════
+function buildGraph(code) {
+    const graph = MermaidTraceCalculator.parseMermaid(code);
+    currentGraph = graph;
+    return graph;
+}
+
+function renderAdjList(graph, activeNodeId) {
+    const el = document.getElementById('adj-list');
+    if (!graph) { el.innerHTML = ''; return; }
+    let html = '';
+    for (const node of graph.nodes) {
+        const edges = graph.adjacencyList.get(node.id) || [];
+        const isActive = activeNodeId && node.id === activeNodeId;
+        const nCls = isActive ? 'adj-node adj-active' : 'adj-node';
+        const label = node.label ? ` (${node.label})` : '';
+        const type = node.type === 'task' || node.type.endsWith('task') ? '' : `<span style="color:var(--text-muted);font-size:0.6rem"> ${node.type}</span>`;
+        html += `<div class="adj-row"><span class="${nCls}">${node.id}${type}</span>`;
+        if (edges.length > 0) {
+            html += `<span class="adj-arrow">→</span> `;
+            html += edges.map(e => {
+                const tActive = activeNodeId && e.to === activeNodeId;
+                const cls = tActive ? 'adj-target adj-active' : 'adj-target';
+                const edgeLbl = e.label ? ` <span style="color:var(--border);font-size:0.6rem">|${e.label}|</span>` : '';
+                return `<span class="${cls}">${e.to}${edgeLbl}</span>`;
+            }).join(', ');
+        }
+        html += '</div>';
+    }
+    el.innerHTML = html;
+}
+
+function renderAlgoState(state) {
+    const el = document.getElementById('algo-state');
+    if (!state) { el.innerHTML = '<span style="color:var(--text-muted);font-size:0.7rem">Step through to see algorithm state.</span>'; return; }
+    let html = '';
+    for (const [key, val] of Object.entries(state)) {
+        const cls = val.cls || '';
+        html += `<div class="algo-state-row"><span class="algo-state-label">${key}:</span><span class="algo-state-value ${cls}">${val.v}</span></div>`;
+    }
+    el.innerHTML = html;
+}
+
+function highlightSvgNode(nodeId) {
+    const container = document.getElementById('mermaid-graph-container');
+    if (!container) return;
+    container.querySelectorAll('.mermaid-hl-node').forEach(el => el.classList.remove('mermaid-hl-node'));
+    if (!nodeId) return;
+    const svgNodes = container.querySelectorAll('.node');
+    for (const g of svgNodes) {
+        const id = g.getAttribute('id') || '';
+        const dataId = g.getAttribute('data-id') || '';
+        if (id.startsWith('flowchart-' + nodeId + '-') || id === nodeId || dataId === nodeId) {
+            g.classList.add('mermaid-hl-node');
+            return;
+        }
+        const titleEl = g.querySelector('title');
+        if (titleEl && titleEl.textContent.trim() === nodeId) {
+            g.classList.add('mermaid-hl-node');
+            return;
+        }
+        const spanEl = g.querySelector('.nodeLabel');
+        if (spanEl) {
+            const text = spanEl.textContent.trim();
+            if (text === nodeId || text === `(${nodeId})` || text === `{${nodeId}}`) {
+                g.classList.add('mermaid-hl-node');
+                return;
+            }
+        }
+    }
+}
+
+// ═══════════════════════════════════════
+//  TRACE LIST RENDERING
+// ═══════════════════════════════════════
+function renderTraceList(traces, hlLabels) {
+    const el = document.getElementById('trace-list');
+    const hlSet = new Set(hlLabels || []);
+    let html = '';
+    (traces || []).forEach((tr, i) => {
+        const labels = tr.labels || tr;
+        const term = tr.terminated || false;
+        let cls = 'trace-row' + (term ? ' tr-terminated' : ' tr-active');
+        html += `<div class="${cls}"><span class="trace-idx">${i+1}.</span>`;
+        labels.forEach((l, j) => {
+            if (j > 0) html += '<span class="trace-arrow">&rarr;</span>';
+            html += `<span class="trace-task${hlSet.has(l) ? ' hl' : ''}">${l}</span>`;
+        });
+        html += '</div>';
+    });
+    el.innerHTML = html;
+    document.getElementById('trace-count').textContent = (traces || []).length;
+}
+
+// ═══════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════
+function T(labels, terminated = false) { return { labels, terminated }; }
+
+function allTracesForDisplay(traces) {
+    return traces.map(tr => {
+        const labels = tr.path.map(p => p.task);
+        return T(labels, false);
+    });
+}
+
+// ═══════════════════════════════════════
+//  PER-GRAPH STEP DEFINITIONS
+// ═══════════════════════════════════════
+function stepsForGraph(id, traces) {
+    const n = traces.length;
+    const all = allTracesForDisplay(traces);
+
+    const S = (obj) => obj; // state helper
+
+    if (id === 'seq') return [
+        { traces: [], hl: [], activeNode: null, state: null,
+          ex: `<strong>Sequential Flow</strong> — Start → A → B → C → End. ${n} trace. Press &rarr;`,
+          plain: `The simplest case: a linear chain of tasks. The algorithm traverses start → A → B → C → end, appending each task to FT.` },
+        { traces: [T(['A'])], hl: ['A'], activeNode: '2', state: S({ n: {v:'2 (A)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A]', cls:'val-green'}, V: {v:'∅'}, target: {v:'5 (End)'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>A</strong>. <code>FT = [A]</code>. Start event passed through.`,
+          plain: `Start event is pass-through. Task A appends itself: FT' = FT ∪ {A}. Visited set V reset to ∅ after task.` },
+        { traces: [T(['A','B'])], hl: ['B'], activeNode: '3', state: S({ n: {v:'3 (B)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A, B]', cls:'val-green'}, V: {v:'∅'}, target: {v:'5 (End)'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>B</strong>. <code>FT = [A, B]</code>.`,
+          plain: `B appended. Single successor → continue sequentially.` },
+        { traces: [T(['A','B','C'])], hl: ['C'], activeNode: '4', state: S({ n: {v:'4 (C)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A, B, C]', cls:'val-green'}, V: {v:'∅'}, target: {v:'5 (End)'}, check: {v:'n=5 (End) → complete ✓', cls:'val-green'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>C</strong>. <code>FT = [A, B, C]</code>. Next node is End → trace complete.`,
+          plain: `When n = target, the accumulated FT is returned as a complete trace.` },
+        { traces: all, hl: [], activeNode: null, state: S({ result: {v: `${n} trace(s)`, cls:'val-green'} }),
+          ex: `Final: <strong>${n} trace</strong>.`, plain: `A linear workflow produces exactly one trace.` },
+    ];
+
+    if (id === 'xor') return [
+        { traces: [], hl: [], activeNode: null, state: null,
+          ex: `<strong>XOR Gateway</strong> — A → XOR(B, C, D) → X → End. ${n} traces. Press &rarr;`,
+          plain: `An exclusive gateway computes the union of traces from all successor paths.` },
+        { traces: [T(['A'])], hl: ['A'], activeNode: '2', state: S({ n: {v:'2 (A)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A]', cls:'val-green'}, V: {v:'∅ (reset after task)'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
+          plain: `V is reset to ∅ after each task, since task-level cycles use the cotree check on FT.` },
+        { traces: [T(['A','B']), T(['A','C']), T(['A','D'])], hl: ['B','C','D'], activeNode: '3', state: S({ n: {v:'3 (XOR split)', cls:'val-orange'}, type: {v:'exclusivegateway', cls:'val-yellow'}, FT: {v:'[A]'}, V: {v:'{3}'}, succ: {v:'4(B), 5(C), 6(D)', cls:'val-yellow'}, action: {v:'union of 3 paths'} }),
+          ex: `<span class="tag tag-xor">XOR</span> Gateway splits into 3 paths: <strong>B</strong>, <strong>C</strong>, <strong>D</strong>. Each processed with same <code>FT = [A]</code>.`,
+          plain: `XOR passes FT unchanged to each successor and collects the union. V' inherits {3} to detect gateway cycles.` },
+        { traces: all, hl: ['X'], activeNode: '8', state: S({ n: {v:'8 (X)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A, B/C/D, X]', cls:'val-green'}, V: {v:'∅'}, result: {v:`${n} traces`, cls:'val-green'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>X</strong> appended. Final: <strong>${n} traces</strong>.`,
+          plain: `All paths converge at the join XOR and continue to X → End.` },
+    ];
+
+    if (id === 'par') return [
+        { traces: [], hl: [], activeNode: null, state: null,
+          ex: `<strong>Parallel Gateway</strong> — A → AND(B, C) → X → End. ${n} traces. Press &rarr;`,
+          plain: `A parallel gateway generates every possible serialization of branch order.` },
+        { traces: [T(['A'])], hl: ['A'], activeNode: '2', state: S({ n: {v:'2 (A)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A]', cls:'val-green'}, V: {v:'∅'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>A</strong>. <code>FT = [A]</code>.`, plain: `Task A before the parallel split.` },
+        { traces: [T(['A','B','C']), T(['A','C','B'])], hl: ['B','C'], activeNode: '3', state: S({ n: {v:'3 (AND split)', cls:'val-orange'}, type: {v:'parallelgateway', cls:'val-purple'}, succ: {v:'4(B), 5(C) → split', cls:'val-purple'}, join: {v:'6 (AND join)', cls:'val-purple'}, branch1: {v:'[B]'}, branch2: {v:'[C]'}, interleave: {v:'2! × (1×1) = 2', cls:'val-purple'} }),
+          ex: `<span class="tag tag-par">PARALLEL</span> Split detected (2 successors). Join found at node 6. Interleave: 2! = <strong>2 traces</strong>.`,
+          plain: `Split vs join distinguished by successor count. FindJoinGateway searches for a parallel gateway reachable from all branches.` },
+        { traces: all, hl: ['X'], activeNode: '7', state: S({ n: {v:'7 (X)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A, B/C, C/B, X]', cls:'val-green'}, result: {v:`${n} traces`, cls:'val-green'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>X</strong> appended. Final: <strong>${n} traces</strong>.`,
+          plain: `After interleaving, the algorithm continues from the join to X → End.` },
+    ];
+
+    if (id === 'loop') return [
+        { traces: [], hl: [], activeNode: null, state: null,
+          ex: `<strong>Loop (Cotree Check)</strong> — A → XOR ⇄ B → X → End. ${n} traces. Press &rarr;`,
+          plain: `Loops are back-edges detected by the cotree check: if a task's count in FT exceeds maxLoopIterations, the path is terminated.` },
+        { traces: [T(['A'])], hl: ['A'], activeNode: '2', state: S({ n: {v:'2 (A)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A]', cls:'val-green'}, V: {v:'∅'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>A</strong>. <code>FT = [A]</code>.`, plain: `Task A before the loop.` },
+        { traces: [T(['A','B'])], hl: ['B'], activeNode: '4', state: S({ n: {v:'4 (B)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A, B]', cls:'val-green'}, cotree: {v:'B in FT? No (count=0) → pass ✓', cls:'val-green'}, max: {v:'maxLoopIterations = 1'} }),
+          ex: `<span class="tag tag-loop">LOOP</span> <span class="tag tag-pre">PRE-CHECK</span> First visit to <strong>B</strong>. Cotree: count=0 ≤ max=1 → pass. <code>FT = [A, B]</code>.`,
+          plain: `Cotree check counts B in FT. Count=0, does not exceed max=1.` },
+        { traces: [T(['A','B','B']), T(['A','B'])], hl: ['B'], activeNode: '4', state: S({ n: {v:'4 (B) — 2nd visit', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A, B, B]', cls:'val-orange'}, cotree: {v:'B in FT? Yes (count=1) ≤ max=1 → pass ✓', cls:'val-green'}, next: {v:'3rd visit: count=2 > max=1 → BLOCKED ✗', cls:'val-red'} }),
+          ex: `<span class="tag tag-loop">LOOP</span> XOR back-edge: revisit B → count=1 ≤ max → <strong>allowed</strong>. 3rd visit would be count=2 > max → blocked.`,
+          plain: `The check is count > max. count=1 equals max=1 but does not exceed it, so it passes. A third B would have count=2 > 1.` },
+        { traces: all, hl: ['X'], activeNode: '6', state: S({ n: {v:'6 (X)', cls:'val-orange'}, FT: {v:'[A,B,B,X] and [A,B,X]', cls:'val-green'}, result: {v:`${n} traces`, cls:'val-green'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>X</strong>. Final: <strong>${n} traces</strong>.`,
+          plain: `Both the looped [A,B,B,X] and direct [A,B,X] paths reach the end.` },
+    ];
+
+    if (id === 'isolated') return [
+        { traces: [], hl: [], activeNode: null, state: null,
+          ex: `<strong>Isolated Loop Task</strong> — A → XOR ⇄ Retry → X → End. ${n} traces. Press &rarr;`,
+          plain: `An isolated loop task has exactly one incoming and one outgoing edge, both to the same XOR gateway. Consecutive repetition is blocked.` },
+        { traces: [T(['A'])], hl: ['A'], activeNode: '2', state: S({ n: {v:'2 (A)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A]', cls:'val-green'}, V: {v:'∅'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>A</strong>. <code>FT = [A]</code>.`, plain: `Task A before the XOR.` },
+        { traces: [T(['A','Retry']), T(['A'])], hl: ['Retry'], activeNode: '4', state: S({ n: {v:'4 (Retry)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A, Retry]', cls:'val-green'}, isolated: {v:'isIsolatedLoopTask = true', cls:'val-yellow'}, reason: {v:'in=3(XOR), out=3(XOR) → same gateway', cls:'val-yellow'} }),
+          ex: `<span class="tag tag-loop">LOOP</span> <strong>Retry</strong> detected as isolated loop task: sole in/out edges both connect to XOR node 3.`,
+          plain: `isIsolatedLoopTask checks: exactly 1 incoming edge, exactly 1 outgoing edge, both point to the same exclusive gateway.` },
+        { traces: [T(['A','Retry']), T(['A'])], hl: ['Retry'], activeNode: '4', state: S({ n: {v:'4 (Retry) — 2nd visit', cls:'val-orange'}, cotree: {v:'count=1 ≤ max=1 → pass ✓', cls:'val-green'}, guard: {v:'last task in FT = Retry → BLOCKED ✗', cls:'val-red'}, result: {v:'No [A, Retry, Retry] trace', cls:'val-red'} }),
+          ex: `<span class="tag tag-loop">LOOP</span> <span class="tag tag-pre">PRE-CHECK</span> Cotree passes (count=1 ≤ max). But <strong>isolated guard</strong>: last FT task = Retry → <strong>blocked</strong>.`,
+          plain: `The cotree check alone would allow it, but the isolated loop guard prevents consecutive repetition of the same task.` },
+        { traces: all, hl: ['X'], activeNode: '5', state: S({ result: {v:`${n} traces: [A,Retry,X] and [A,X]`, cls:'val-green'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>X</strong>. Final: <strong>${n} traces</strong>.`,
+          plain: `The skip path [A,X] comes from the XOR going directly to X.` },
+    ];
+
+    if (id === 'escalate') return [
+        { traces: [], hl: [], activeNode: null, state: null,
+          ex: `<strong>Escalate Node</strong> — A → XOR(B → X, Escalate). ${n} trace(s). Press &rarr;`,
+          plain: `An escalate node terminates the current trace immediately, returning FT as a complete execution path.` },
+        { traces: [T(['A'])], hl: ['A'], activeNode: '2', state: S({ n: {v:'2 (A)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A]', cls:'val-green'}, V: {v:'∅'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>A</strong>. <code>FT = [A]</code>.`, plain: `Task A before the XOR.` },
+        { traces: [T(['A','B']), T(['A'],true)], hl: ['B'], activeNode: '3', state: S({ n: {v:'3 (XOR)', cls:'val-orange'}, type: {v:'exclusivegateway', cls:'val-yellow'}, succ: {v:'4(B), 5(Escalate)', cls:'val-yellow'}, path_B: {v:'→ 4(B) → 6(X) → 7(End) ✓', cls:'val-green'}, path_esc: {v:'→ 5(Escalate) → return FT=[A] ✓', cls:'val-red'} }),
+          ex: `<span class="tag tag-xor">XOR</span> Two paths: <strong>B</strong> → X → End, or <strong>Escalate</strong> → returns <code>[A]</code>. <span class="tag tag-esc">ESC</span>`,
+          plain: `The escalate handler returns [[...FT]] immediately — the trace ends without reaching the end event.` },
+        { traces: all, hl: ['X'], activeNode: null, state: S({ result: {v:`${n} trace(s)`, cls:'val-green'} }),
+          ex: `Final: <strong>${n} trace(s)</strong>.`,
+          plain: `The B path reaches the end event. The escalate trace is an early termination.` },
+    ];
+
+    if (id === 'parxor') return [
+        { traces: [], hl: [], activeNode: null, state: null,
+          ex: `<strong>Parallel + Nested XOR</strong> — A → AND(B, XOR(C,D)) → X → End. ${n} traces. Press &rarr;`,
+          plain: `Parallel with a nested XOR inside one branch. Interleaving × cartesian product.` },
+        { traces: [T(['A'])], hl: ['A'], activeNode: '2', state: S({ n: {v:'2 (A)', cls:'val-orange'}, type: {v:'task'}, FT: {v:'[A]', cls:'val-green'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>A</strong>. <code>FT = [A]</code>.`, plain: `Task A before the split.` },
+        { traces: [T(['A','B','C']), T(['A','B','D']), T(['A','C','B']), T(['A','D','B'])],
+          hl: ['B','C','D'], activeNode: '3', state: S({ n: {v:'3 (AND split)', cls:'val-orange'}, type: {v:'parallelgateway', cls:'val-purple'}, join: {v:'9 (AND join)', cls:'val-purple'}, br1: {v:'[B] — 1 trace'}, br2: {v:'[C] or [D] — 2 traces (XOR)', cls:'val-yellow'}, interleave: {v:'2! × (1×2) = 4', cls:'val-purple'} }),
+          ex: `<span class="tag tag-par">PARALLEL</span> Branch 1: [B]. Branch 2: XOR → [C] or [D]. Interleave: 2! × 2 = <strong>4 traces</strong>.`,
+          plain: `The cartesian product expands XOR variants within each branch permutation.` },
+        { traces: all, hl: ['X'], activeNode: '10', state: S({ result: {v:`${n} traces`, cls:'val-green'} }),
+          ex: `<span class="tag tag-seq">TASK</span> Task <strong>X</strong>. Final: <strong>${n} traces</strong>.`,
+          plain: `Join → X → End for all 4 interleaved combinations.` },
+    ];
+
+    return [{ traces: all, hl: [], ex: `${n} traces.` }];
+}
+
+// ═══════════════════════════════════════
+//  SWITCH GRAPH
+// ═══════════════════════════════════════
+async function switchGraph(idx) {
+    activeGraphIdx = idx;
+    const g = GRAPHS[idx];
+    document.querySelectorAll('.graph-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+    graphCode = await (await fetch(g.file)).text();
+    const graph = buildGraph(graphCode);
+    const traces = MermaidTraceCalculator.calculateAllTraces(graphCode, { maxLoopIterations: 1 });
+    steps = stepsForGraph(g.id, traces);
+    currentStep = 0;
+    renderAdjList(graph, null);
+    renderAlgoState(null);
+    renderStep();
+    renderGraph(graphCode).catch(err => {
+        document.getElementById('mermaid-graph-container').innerHTML = `<div style="color:#ef4444;padding:0.75rem;font-size:0.85rem">Graph render failed: ${err.message}</div>`;
+    });
+}
+
+// ═══════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════
+function renderStep() {
+    if (currentStep < 0 || currentStep >= steps.length) return;
+    const s = steps[currentStep];
+    document.getElementById('btn-prev').disabled = currentStep <= 0;
+    document.getElementById('btn-next').disabled = currentStep >= steps.length - 1;
+    document.getElementById('step-label').textContent = `${currentStep} / ${steps.length - 1}`;
+    document.getElementById('progress-bar').innerHTML = steps.map((_, i) => `<div class="progress-dot ${i<currentStep?'done':i===currentStep?'current':''}"></div>`).join('');
+    document.getElementById('explanation').innerHTML = s.ex + (s.plain ? `<div class="explanation-plain">${s.plain}</div>` : '');
+    highlightSvgNode(s.activeNode || null);
+    renderAdjList(currentGraph, s.activeNode || null);
+    renderAlgoState(s.state || null);
+    renderTraceList(s.traces, s.hl);
+}
+
+window.nextStep = () => { if (currentStep < steps.length-1) { currentStep++; renderStep(); } };
+window.prevStep = () => { if (currentStep > 0) { currentStep--; renderStep(); } };
+document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); window.nextStep(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); window.prevStep(); }
+});
+
+// ═══════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════
+async function init() {
+    try {
+        const tabContainer = document.getElementById('graph-tabs');
+        GRAPHS.forEach((g, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'graph-tab' + (i === 0 ? ' active' : '');
+            btn.textContent = g.tab;
+            btn.onclick = () => switchGraph(i);
+            tabContainer.appendChild(btn);
+        });
+        await switchGraph(0);
+    } catch(err) {
+        console.error('Init error:', err);
+        document.getElementById('explanation').innerHTML = `<span style="color:var(--red)">Init error: ${err.message}</span>`;
+    }
+}
+init();
+</script>
+</body>
+</html>

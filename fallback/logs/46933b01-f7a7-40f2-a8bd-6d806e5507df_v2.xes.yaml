@@ -1,0 +1,1140 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8734
+    cpee:name: Enter info here
+    cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-02T17:49:50.711894+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-04-02T17:49:52.224265+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-04-02T17:49:52.422189+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-02T17:49:52.623270+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-02T17:49:52.657015+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="data.x == 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.x == 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.x == 3" language="text/javascript"/>
+      </choose>
+      <call id="a7" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Task D</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="6">
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Task E</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a23" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Task F</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Task G</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <loop mode="pre_test" condition="true">
+        <call id="a29" endpoint="" a:alt_id="10">
+          <parameters>
+            <label>Task H</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="data.count &gt; 0" a:alt_id="18" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Task H</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <loop mode="pre_test" condition="true" a:alt_id="12" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="13">
+            <alternative condition="data.action == 'approve'" language="text/javascript">
+              <call id="a39" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Task I</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="data.action == 'reject'" language="text/javascript">
+              <call id="a43" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Task J</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="data.action == 'cancel'" language="text/javascript"/>
+            <alternative condition="">
+              <call id="a49" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Task K</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 830d1a5de35e0423bb4dca9f551cc3ca0d666444
+  time:timestamp: '2026-04-02T17:49:58.880417+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830d1a5de35e0423bb4dca9f551cc3ca0d666444
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-02T17:49:58.880692+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830d1a5de35e0423bb4dca9f551cc3ca0d666444
+  cpee:exposition: |-
+    # User Input:
+    <description xmlns="http://cpee.org/ns/description/1.0"
+    Â  Â  Â  Â  Â  Â  Â xmlns:a="http://cpee.org/ns/annotation/1.0">
+
+
+    Â  <!-- A: Simple task (call) â€” covers task accumulation -->
+    Â  <call id="1" a:alt_id="A">
+    Â  Â  <parameters><label>"Task A"</label></parameters>
+    Â  </call>
+
+
+    Â  <!-- XOR gateway with 3 branches â€” covers choose, alternative, otherwise, escape -->
+    Â  <choose id="2">
+
+
+    Â  Â  <!-- Branch 1: alternative with normal tasks (no escape) -->
+    Â  Â  <alternative condition="data.x == 1">
+    Â  Â  Â  <call id="3" a:alt_id="B">
+    Â  Â  Â  Â  <parameters><label>"Task B"</label></parameters>
+    Â  Â  Â  </call>
+    Â  Â  </alternative>
+
+
+    Â  Â  <!-- Branch 2: alternative with task before escape -->
+    Â  Â  <alternative condition="data.x == 2">
+    Â  Â  Â  <call id="4" a:alt_id="C">
+    Â  Â  Â  Â  <parameters><label>"Task C"</label></parameters>
+    Â  Â  Â  </call>
+    Â  Â  Â  <escape a:alt_id="-1"/>
+    Â  Â  </alternative>
+
+
+    Â  Â  <!-- Branch 3: alternative with escape immediately (no tasks before) -->
+    Â  Â  <alternative condition="data.x == 3">
+    Â  Â  Â  <escape a:alt_id="-1"/>
+    Â  Â  </alternative>
+
+
+    Â  Â  <!-- Branch 4: empty otherwise (returns FT unchanged) -->
+    Â  Â  <otherwise/>
+
+
+    Â  </choose>
+
+
+    Â  <!-- D: Task after choose â€” demonstrates escape propagation:
+    Â  Â  Â  Â traces terminated by escape in branches 2/3 skip this task -->
+    Â  <call id="5" a:alt_id="D">
+    Â  Â  <parameters><label>"Task D"</label></parameters>
+    Â  </call>
+
+
+    Â  <!-- Parallel gateway with 2 branches â€” covers interleaving -->
+    Â  <parallel id="6">
+    Â  Â  <parallel_branch>
+    Â  Â  Â  <call id="7" a:alt_id="E">
+    Â  Â  Â  Â  <parameters><label>"Task E"</label></parameters>
+    Â  Â  Â  </call>
+    Â  Â  </parallel_branch>
+    Â  Â  <parallel_branch>
+    Â  Â  Â  <call id="8" a:alt_id="F">
+    Â  Â  Â  Â  <parameters><label>"Task F"</label></parameters>
+    Â  Â  Â  </call>
+    Â  Â  Â  <manipulate id="9" a:alt_id="G" label="Task G"/>
+    Â  Â  </parallel_branch>
+    Â  </parallel>
+
+
+    Â  <!-- Conditional loop (condition != "true") â€” covers allow-0-iterations path -->
+    Â  <loop id="10" condition="data.count &gt; 0">
+    Â  Â  <call id="11" a:alt_id="H">
+    Â  Â  Â  <parameters><label>"Task H"</label></parameters>
+    Â  Â  </call>
+    Â  </loop>
+
+
+    Â  <!-- Unconditional loop with escape inside XOR â€” covers:
+    Â  Â  Â  Â - mandatory first iteration (condition="true", body not in FT)
+    Â  Â  Â  Â - cotree exit (body in FT on re-encounter)
+    Â  Â  Â  Â - escape path raises min iterations to 2
+    Â  Â  Â  Â - 2-iteration constraints (no same XOR branch, escape-only 2nd)
+    Â  Â  Â  Â - multiple non-escape XOR paths (lifts escape-only restriction) -->
+    Â  <loop id="12" condition="true">
+    Â  Â  <choose id="13">
+    Â  Â  Â  <alternative condition="data.action == 'approve'">
+    Â  Â  Â  Â  <call id="14" a:alt_id="I">
+    Â  Â  Â  Â  Â  <parameters><label>"Task I"</label></parameters>
+    Â  Â  Â  Â  </call>
+    Â  Â  Â  </alternative>
+    Â  Â  Â  <alternative condition="data.action == 'reject'">
+    Â  Â  Â  Â  <call id="15" a:alt_id="J">
+    Â  Â  Â  Â  Â  <parameters><label>"Task J"</label></parameters>
+    Â  Â  Â  Â  </call>
+    Â  Â  Â  </alternative>
+    Â  Â  Â  <alternative condition="data.action == 'cancel'">
+    Â  Â  Â  Â  <escape a:alt_id="-1"/>
+    Â  Â  Â  </alternative>
+    Â  Â  Â  <otherwise>
+    Â  Â  Â  Â  <call id="16" a:alt_id="K">
+    Â  Â  Â  Â  Â  <parameters><label>"Task K"</label></parameters>
+    Â  Â  Â  Â  </call>
+    Â  Â  Â  </otherwise>
+    Â  Â  </choose>
+    Â  </loop>
+
+
+    </description>
+  time:timestamp: '2026-04-02T17:49:58.880814+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830d1a5de35e0423bb4dca9f551cc3ca0d666444
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-02T17:49:58.881001+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830d1a5de35e0423bb4dca9f551cc3ca0d666444
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-02T17:49:58.881110+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830d1a5de35e0423bb4dca9f551cc3ca0d666444
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Task A)
+      1:task:(Task A) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |data.x == 1| 3:task:(Task B)
+      3:task:(Task B) --> 5:task:(Task D)
+      2:exclusivegateway:{x} --> |data.x == 2| 4:task:(Task C)
+      4:task:(Task C) --> 5:task:(Task D)
+      2:exclusivegateway:{x} --> |data.x == 3| 5:task:(Task D)
+      2:exclusivegateway:{x} --> 5:task:(Task D)
+      5:task:(Task D) --> 6:parallelgateway:{AND}
+      6:parallelgateway:{AND} --> 7:task:(Task E)
+      7:task:(Task E) --> 17:parallelgateway:{AND}
+      6:parallelgateway:{AND} --> 8:task:(Task F)
+      8:task:(Task F) --> 9:task:(Task G)
+      9:task:(Task G) --> 17:parallelgateway:{AND}
+      17:parallelgateway:{AND} --> 10:task:(Task H)
+      10:task:(Task H) --> 18:exclusivegateway:{x}
+      18:exclusivegateway:{x} --> |data.count > 0| 10:task:(Task H)
+      18:exclusivegateway:{x} --> |else| 12:exclusivegateway:{x}
+      12:exclusivegateway:{x} --> 13:exclusivegateway:{x}
+      13:exclusivegateway:{x} --> |data.action == 'approve'| 14:task:(Task I)
+      14:task:(Task I) --> 12:exclusivegateway:{x}
+      13:exclusivegateway:{x} --> |data.action == 'reject'| 15:task:(Task J)
+      15:task:(Task J) --> 12:exclusivegateway:{x}
+      13:exclusivegateway:{x} --> |data.action == 'cancel'| 12:exclusivegateway:{x}
+      13:exclusivegateway:{x} --> 16:task:(Task K)
+      16:task:(Task K) --> 12:exclusivegateway:{x}
+      12:exclusivegateway:{x} --> 19:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-02T17:49:58.881244+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 830d1a5de35e0423bb4dca9f551cc3ca0d666444
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="data.x == 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.x == 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.x == 3" language="text/javascript"/>
+      </choose>
+      <call id="a7" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Task D</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="6">
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Task E</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a23" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Task F</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Task G</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <loop mode="pre_test" condition="true">
+        <call id="a29" endpoint="" a:alt_id="10">
+          <parameters>
+            <label>Task H</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="data.count &gt; 0" a:alt_id="18" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Task H</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <loop mode="pre_test" condition="true" a:alt_id="12" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="13">
+            <alternative condition="data.action == 'approve'" language="text/javascript">
+              <call id="a39" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Task I</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="data.action == 'reject'" language="text/javascript">
+              <call id="a43" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Task J</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="data.action == 'cancel'" language="text/javascript"/>
+            <alternative condition="">
+              <call id="a49" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Task K</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-02T17:49:58.881991+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="data.x == 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.x == 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.x == 3" language="text/javascript"/>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Task D</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Task E</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Task F</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Task G</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw3e">
+          <alternative condition="true" language="text/javascript">
+            <call id="a33" endpoint="" a:alt_id="a29">
+              <parameters>
+                <label>Task H</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="0">
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="gw4s">
+                  <alternative condition="">
+                    <choose mode="exclusive" a:alt_id="gw5s">
+                      <alternative condition=""/>
+                      <alternative condition="">
+                        <choose mode="exclusive" a:alt_id="gw6s">
+                          <alternative condition="data.action == 'approve'" language="text/javascript">
+                            <call id="a43" endpoint="" a:alt_id="a39">
+                              <parameters>
+                                <label>Task I</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="data.action == 'reject'" language="text/javascript">
+                            <call id="a47" endpoint="" a:alt_id="a43">
+                              <parameters>
+                                <label>Task J</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="data.action == 'cancel'" language="text/javascript"/>
+                          <alternative condition="">
+                            <call id="a53" endpoint="" a:alt_id="a49">
+                              <parameters>
+                                <label>Task K</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition=""/>
+                          <alternative condition=""/>
+                        </choose>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition="data.count &gt; 0" language="text/javascript">
+                    <call id="a33" endpoint="" a:alt_id="a29">
+                      <parameters>
+                        <label>Task H</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="0">
+                  <alternative condition=""/>
+                  <alternative condition=""/>
+                </choose>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: 93a9b6d76b5befffd2bbf565e9ad70c003f1a322
+  time:timestamp: '2026-04-02T17:56:56.017435+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93a9b6d76b5befffd2bbf565e9ad70c003f1a322
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="data.x == 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.x == 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.x == 3" language="text/javascript"/>
+      </choose>
+      <call id="a7" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Task D</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="6">
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Task E</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a23" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Task F</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Task G</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <loop mode="pre_test" condition="true">
+        <call id="a29" endpoint="" a:alt_id="10">
+          <parameters>
+            <label>Task H</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="data.count &gt; 0" a:alt_id="18" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Task H</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <loop mode="pre_test" condition="true" a:alt_id="12" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="13">
+            <alternative condition="data.action == 'approve'" language="text/javascript">
+              <call id="a39" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Task I</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="data.action == 'reject'" language="text/javascript">
+              <call id="a43" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Task J</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="data.action == 'cancel'" language="text/javascript"/>
+            <alternative condition="">
+              <call id="a49" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Task K</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-02T17:56:56.017729+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93a9b6d76b5befffd2bbf565e9ad70c003f1a322
+  cpee:exposition: |+
+    # User Input:
+    the escape in the 3rd branch of the last parallelity is missing.
+
+  time:timestamp: '2026-04-02T17:56:56.018368+02:00'
+...
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93a9b6d76b5befffd2bbf565e9ad70c003f1a322
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-02T17:56:56.018582+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93a9b6d76b5befffd2bbf565e9ad70c003f1a322
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"data.x == 1"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"data.x == 2"|a9:task:(Task C)
+    a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"data.x == 3"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a7:task:(Task D)
+    a7:task:(Task D)-->gw2s:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a19:task:(Task E)
+    a19:task:(Task E)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Task F)
+    a23:task:(Task F)-->a25:task:(Task G)
+    a25:task:(Task G)-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->|"true"|a29:task:(Task H)
+    a29:task:(Task H)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"data.action == 'approve'"|a39:task:(Task I)
+    a39:task:(Task I)-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"data.action == 'reject'"|a43:task:(Task J)
+    a43:task:(Task J)-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"data.action == 'cancel'"|gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->a49:task:(Task K)
+    a49:task:(Task K)-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->-1:escalate:((^))
+    -1:escalate:((^))-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"data.count > 0"|a29:task:(Task H)
+    a29:task:(Task H)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-02T17:56:56.018676+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93a9b6d76b5befffd2bbf565e9ad70c003f1a322
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Task A)
+        a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"data.x == 1"|a5:task:(Task B)
+        a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"data.x == 2"|a9:task:(Task C)
+        a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"data.x == 3"|gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->a7:task:(Task D)
+        a7:task:(Task D)-->gw2s:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a19:task:(Task E)
+        a19:task:(Task E)-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a23:task:(Task F)
+        a23:task:(Task F)-->a25:task:(Task G)
+        a25:task:(Task G)-->gw2e:parallelgateway:{AND}
+        gw2e:parallelgateway:{AND}-->gw3s:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+        gw3e:exclusivegateway:{x}-->|"true"|a29:task:(Task H)
+        a29:task:(Task H)-->gw4s:exclusivegateway:{x}
+        gw4s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+        gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+        gw5s:exclusivegateway:{x}-->gw6s:exclusivegateway:{x}
+        gw6s:exclusivegateway:{x}-->|"data.action == 'approve'"|a39:task:(Task I)
+        a39:task:(Task I)-->gw6e:exclusivegateway:{x}
+        gw6s:exclusivegateway:{x}-->|"data.action == 'reject'"|a43:task:(Task J)
+        a43:task:(Task J)-->gw6e:exclusivegateway:{x}
+        gw6s:exclusivegateway:{x}-->|"data.action == 'cancel'"|-1:escalate:((^))
+        gw6s:exclusivegateway:{x}-->a49:task:(Task K)
+        a49:task:(Task K)-->gw6e:exclusivegateway:{x}
+        gw6e:exclusivegateway:{x}-->-1:escalate:((^))
+        -1:escalate:((^))-->gw5e:exclusivegateway:{x}
+        gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+        gw4s:exclusivegateway:{x}-->|"data.count > 0"|a29:task:(Task H)
+        a29:task:(Task H)-->-1:escalate:((^))
+        -1:escalate:((^))-->gw4e:exclusivegateway:{x}
+        gw4e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+        gw3e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2026-04-02T17:56:56.018776+02:00'
+---
+event:
+  concept:instance: 8734
+  id:id: ex-ante
+  cpee:instance: 46933b01-f7a7-40f2-a8bd-6d806e5507df
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 93a9b6d76b5befffd2bbf565e9ad70c003f1a322
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="data.x == 1" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.x == 2" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="data.x == 3" language="text/javascript"/>
+      </choose>
+      <call id="a15" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Task D</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+        <parallel_branch>
+          <call id="a19" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Task E</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Task F</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Task G</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw3e">
+          <alternative condition="true" language="text/javascript">
+            <call id="a33" endpoint="" a:alt_id="a29">
+              <parameters>
+                <label>Task H</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="0">
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="gw4s">
+                  <alternative condition="">
+                    <choose mode="exclusive" a:alt_id="gw5s">
+                      <alternative condition=""/>
+                      <alternative condition="">
+                        <choose mode="exclusive" a:alt_id="gw6s">
+                          <alternative condition="data.action == 'approve'" language="text/javascript">
+                            <call id="a43" endpoint="" a:alt_id="a39">
+                              <parameters>
+                                <label>Task I</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="data.action == 'reject'" language="text/javascript">
+                            <call id="a47" endpoint="" a:alt_id="a43">
+                              <parameters>
+                                <label>Task J</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="data.action == 'cancel'" language="text/javascript"/>
+                          <alternative condition="">
+                            <call id="a53" endpoint="" a:alt_id="a49">
+                              <parameters>
+                                <label>Task K</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition=""/>
+                          <alternative condition=""/>
+                        </choose>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition="data.count &gt; 0" language="text/javascript">
+                    <call id="a33" endpoint="" a:alt_id="a29">
+                      <parameters>
+                        <label>Task H</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="0">
+                  <alternative condition=""/>
+                  <alternative condition=""/>
+                </choose>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-02T17:56:56.018888+02:00'

@@ -182,7 +182,7 @@ class TraceSets {
         }
         
         // Check if this non-task node was already visited in this path (cycle through gateways)
-        const isTaskType = node.type === 'task' || node.type.endsWith('task');
+        const isTaskType = node.type === 'task' || node.type.endsWith('task') || node.type === 'subprocess';
         if (!isTaskType && visitedNodes.has(currentNodeId)) {
             // Cycle detected through non-task nodes (e.g., gateways)
             // This prevents infinite loops between gateways
@@ -301,6 +301,20 @@ class TraceSets {
             case 'parallelgateway': {
                 // AND Gateway: interleave parallel branches
                 return this.handleParallelGateway(
+                    graph,
+                    currentNodeId,
+                    targetNodeId,
+                    currentFT,
+                    depth,
+                    maxLoopIterations,
+                    timeoutChecker,
+                    newVisitedNodes
+                );
+            }
+            
+            case 'inclusivegateway': {
+                // OR Gateway: one or more outgoing paths taken simultaneously
+                return this.handleInclusiveGateway(
                     graph,
                     currentNodeId,
                     targetNodeId,
@@ -502,6 +516,140 @@ class TraceSets {
                 // Remove common prefix from join trace and append
                 const joinTraceSuffix = joinTrace.slice(currentFT.length);
                 result.push([...combinedTrace, ...joinTraceSuffix]);
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Handle inclusive gateway (OR gateway) - generates traces for all non-empty
+     * subsets of outgoing branches. Single-branch subsets behave like XOR,
+     * multi-branch subsets behave like parallel (interleaved).
+     * 
+     * @param {Object} graph - Graph object
+     * @param {string} splitGatewayId - Inclusive split gateway node ID
+     * @param {string} targetNodeId - Target end node ID
+     * @param {Array<Object>} currentFT - Current forward trace set
+     * @param {number} depth - Current depth
+     * @param {number} maxLoopIterations - Maximum loop iterations
+     * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
+     * @param {Set<string>} visitedNodes - Set of visited node IDs
+     * @returns {Array<Array<Object>>} Array of trace arrays
+     */
+    static handleInclusiveGateway(graph, splitGatewayId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker = null, visitedNodes = new Set()) {
+        const outgoingEdges = graph.adjacencyList.get(splitGatewayId) || [];
+        
+        if (outgoingEdges.length === 0) {
+            return [];
+        }
+        
+        // JOIN gateway (single outgoing edge) - pass through
+        if (outgoingEdges.length === 1) {
+            return this.forwardTrace(
+                graph,
+                outgoingEdges[0].to,
+                targetNodeId,
+                currentFT,
+                depth + 1,
+                maxLoopIterations,
+                timeoutChecker,
+                visitedNodes
+            );
+        }
+        
+        const branchStartIds = outgoingEdges.map(e => e.to);
+        const joinGateway = MermaidTraceCalculator.findJoinGateway(graph, splitGatewayId, branchStartIds);
+        
+        // The effective target for each branch: either the join gateway or the final target
+        const branchTarget = joinGateway || targetNodeId;
+        
+        // Collect traces for each individual branch (split -> join segment)
+        const perBranchTraces = branchStartIds.map(branchStartId => {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+            return this.forwardTrace(
+                graph,
+                branchStartId,
+                branchTarget,
+                currentFT,
+                depth + 1,
+                maxLoopIterations,
+                timeoutChecker,
+                new Set(visitedNodes)
+            );
+        });
+        
+        // Strip the common prefix from each branch's traces
+        const perBranchSpecific = perBranchTraces.map(branchTraceArray =>
+            branchTraceArray.map(trace => trace.slice(currentFT.length))
+        );
+        
+        // Generate all non-empty subsets of branch indices
+        const subsets = MermaidTraceCalculator.generateNonEmptySubsets(branchStartIds.map((_, i) => i));
+        
+        const allTraces = [];
+        
+        for (const subset of subsets) {
+            if (timeoutChecker) {
+                timeoutChecker.check();
+            }
+            
+            if (subset.length === 1) {
+                // Single branch selected (XOR-like): use that branch's traces directly
+                const branchIdx = subset[0];
+                for (const branchTrace of perBranchSpecific[branchIdx]) {
+                    allTraces.push([...currentFT, ...branchTrace]);
+                }
+            } else {
+                // Multiple branches selected (parallel-like): interleave them
+                const selectedBranches = subset.map(idx => perBranchSpecific[idx]);
+                
+                const sharedNodeIds = this.findSharedNodesInBranches(selectedBranches);
+                
+                const uniqueBranches = selectedBranches.map(branchTraceArray =>
+                    branchTraceArray.map(trace =>
+                        trace.filter(task => !sharedNodeIds.has(task.id || task.alt_id))
+                    )
+                );
+                
+                const sharedNodes = this.extractSharedNodesInOrder(selectedBranches, sharedNodeIds);
+                
+                const interleaved = MermaidTraceCalculator.interleave(uniqueBranches, timeoutChecker);
+                
+                for (const interleavedTrace of interleaved) {
+                    allTraces.push([...currentFT, ...interleavedTrace, ...sharedNodes]);
+                }
+            }
+        }
+        
+        // If there's no join gateway, we already traced to the final target
+        if (!joinGateway) {
+            return allTraces;
+        }
+        
+        // Continue from join gateway to the final target
+        if (timeoutChecker) {
+            timeoutChecker.check();
+        }
+        const joinTraces = this.forwardTrace(
+            graph,
+            joinGateway,
+            targetNodeId,
+            currentFT,
+            depth + 1,
+            maxLoopIterations,
+            timeoutChecker,
+            new Set(visitedNodes)
+        );
+        
+        // Combine each inclusive trace with each post-join trace
+        const result = [];
+        for (const inclusiveTrace of allTraces) {
+            for (const joinTrace of joinTraces) {
+                const joinTraceSuffix = joinTrace.slice(currentFT.length);
+                result.push([...inclusiveTrace, ...joinTraceSuffix]);
             }
         }
         
@@ -868,14 +1016,35 @@ export class MermaidTraceCalculator {
     }
 
     /**
+     * Generate all non-empty subsets of an array.
+     * For [0,1,2] returns: [[0],[1],[2],[0,1],[0,2],[1,2],[0,1,2]]
+     * @param {Array} arr - Input array
+     * @returns {Array<Array>} All non-empty subsets
+     */
+    static generateNonEmptySubsets(arr) {
+        const result = [];
+        const n = arr.length;
+        // Iterate bitmask from 1 to 2^n - 1 (skip 0 = empty set)
+        for (let mask = 1; mask < (1 << n); mask++) {
+            const subset = [];
+            for (let i = 0; i < n; i++) {
+                if (mask & (1 << i)) {
+                    subset.push(arr[i]);
+                }
+            }
+            result.push(subset);
+        }
+        return result;
+    }
+
+    /**
      * Extract task information from task node
      * @param {Object} node - Node object
      * @returns {Object|null} Task object: {id, alt_id, task} or null
      */
     static extractTask(node) {
         try {
-            // Accept any task type (task, scripttask, servicetask, usertask, etc.)
-            if (!node || (node.type !== 'task' && !node.type.endsWith('task'))) {
+            if (!node || (node.type !== 'task' && node.type !== 'subprocess' && !node.type.endsWith('task'))) {
                 return null;
             }
             
@@ -1627,7 +1796,7 @@ export class MermaidTraceCalculator {
             const tasks = [];
 
             for (const node of graph.nodes) {
-                if (node.type === 'task') {
+                if (node.type === 'task' || node.type === 'subprocess' || node.type.endsWith('task')) {
                     tasks.push({
                         id: node.id,
                         alt_id: node.id,

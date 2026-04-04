@@ -1,0 +1,878 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8731
+    cpee:name: Enter info here
+    cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-02T17:40:24.529623+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-04-02T17:40:26.632423+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-04-02T17:40:26.836988+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-02T17:40:27.072380+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-02T17:40:27.114975+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Task A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: a7f530abc8a13da10104aa4fad89542814a61ddc
+  time:timestamp: '2026-04-02T17:40:32.307239+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7f530abc8a13da10104aa4fad89542814a61ddc
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-02T17:40:32.307827+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7f530abc8a13da10104aa4fad89542814a61ddc
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-02T17:40:32.308294+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7f530abc8a13da10104aa4fad89542814a61ddc
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-02T17:40:32.308469+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7f530abc8a13da10104aa4fad89542814a61ddc
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:parallelgateway:{AND}
+      1:parallelgateway:{AND} --> 2:task:(Task A)
+      1:parallelgateway:{AND} --> 3:task:(Task B)
+      2:task:(Task A) --> 4:parallelgateway:{AND}
+      3:task:(Task B) --> 4:parallelgateway:{AND}
+      4:parallelgateway:{AND} --> 5:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-02T17:40:32.308859+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7f530abc8a13da10104aa4fad89542814a61ddc
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Task A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-04-02T17:40:32.308980+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a7f530abc8a13da10104aa4fad89542814a61ddc
+  cpee:exposition: |+
+    # User Input:
+    Erstelle einen Parralelen Prozess
+
+  time:timestamp: '2026-04-02T17:40:32.308115+02:00'
+...
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Task A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: 1c8f3783a140f864700451c99b56353714ddf658
+  time:timestamp: '2026-04-02T17:41:41.937720+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c8f3783a140f864700451c99b56353714ddf658
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Task A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-04-02T17:41:41.937897+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c8f3783a140f864700451c99b56353714ddf658
+  cpee:exposition: |+
+    # User Input:
+    FÃ¼ge eine task hinter dem xor join ein
+
+  time:timestamp: '2026-04-02T17:41:41.938008+02:00'
+...
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c8f3783a140f864700451c99b56353714ddf658
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-02T17:41:41.938095+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c8f3783a140f864700451c99b56353714ddf658
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a3:task:(Task A)
+    a3:task:(Task A)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-02T17:41:41.938222+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c8f3783a140f864700451c99b56353714ddf658
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a3:task:(Task A)
+    a3:task:(Task A)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-02T17:41:41.938347+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c8f3783a140f864700451c99b56353714ddf658
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Task A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-04-02T17:41:41.938475+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Task A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a11" endpoint="" a:alt_id="taskC">
+        <parameters>
+          <label>Task C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: e716f560beee295dc3e7d91a8d51d949c58d1b19
+  time:timestamp: '2026-04-02T17:41:59.482802+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e716f560beee295dc3e7d91a8d51d949c58d1b19
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Task A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-04-02T17:41:59.482987+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e716f560beee295dc3e7d91a8d51d949c58d1b19
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-02T17:41:59.483174+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e716f560beee295dc3e7d91a8d51d949c58d1b19
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a3:task:(Task A)
+    a3:task:(Task A)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a7:task:(Task B)
+    a7:task:(Task B)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-02T17:41:59.483249+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e716f560beee295dc3e7d91a8d51d949c58d1b19
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a3:task:(Task A)
+    a3:task:(Task A)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a7:task:(Task B)
+    a7:task:(Task B)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->taskC:task:(Task C)
+    taskC:task:(Task C)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2026-04-02T17:41:59.483319+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e716f560beee295dc3e7d91a8d51d949c58d1b19
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Task A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a11" endpoint="" a:alt_id="taskC">
+        <parameters>
+          <label>Task C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-02T17:41:59.483398+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e716f560beee295dc3e7d91a8d51d949c58d1b19
+  cpee:exposition: |+
+    # User Input:
+    fÃ¼ge einen task C hinter dem xor join ein
+
+  time:timestamp: '2026-04-02T17:41:59.483083+02:00'
+...
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+          <parallel_branch>
+            <call id="a3" endpoint="" a:alt_id="a3">
+              <parameters>
+                <label>Task A</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a7" endpoint="" a:alt_id="a7">
+              <parameters>
+                <label>Task B</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <call id="a11" endpoint="" a:alt_id="a11">
+          <parameters>
+            <label>Task C</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="newTask">
+          <parameters>
+            <label>Wenn neue Task ausgef&#xFC;hrt wurde</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="gw2s" language="text/javascript">
+          <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+            <parallel_branch>
+              <call id="a3" endpoint="" a:alt_id="a3">
+                <parameters>
+                  <label>Task A</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a7" endpoint="" a:alt_id="a7">
+                <parameters>
+                  <label>Task B</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="newTask">
+            <parameters>
+              <label>Wenn neue Task ausgef&#xFC;hrt wurde</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 74729edd0f97d29058c578afed5d06e893fb4203
+  time:timestamp: '2026-04-02T17:43:09.682724+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74729edd0f97d29058c578afed5d06e893fb4203
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Task A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a11" endpoint="" a:alt_id="taskC">
+        <parameters>
+          <label>Task C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-02T17:43:09.683047+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74729edd0f97d29058c578afed5d06e893fb4203
+  cpee:exposition: |
+    # User Input:
+    Wenn new task ausgefÃƒÂ¼hrt wurde soll entschieden werden ob man den prozess beendet oder an den anfang zurÃƒÂ¼ck geht
+  time:timestamp: '2026-04-02T17:43:09.683684+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74729edd0f97d29058c578afed5d06e893fb4203
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-02T17:43:09.683810+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74729edd0f97d29058c578afed5d06e893fb4203
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a3:task:(Task A)
+    a3:task:(Task A)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a7:task:(Task B)
+    a7:task:(Task B)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a11:task:(Task C)
+    a11:task:(Task C)-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-02T17:43:09.683948+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74729edd0f97d29058c578afed5d06e893fb4203
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a3:task:(Task A)
+    a3:task:(Task A)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a7:task:(Task B)
+    a7:task:(Task B)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a11:task:(Task C)
+    a11:task:(Task C)-->newTask:task:(Wenn neue Task ausgefÃ¼hrt wurde)
+    newTask:task:(Wenn neue Task ausgefÃ¼hrt wurde)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|Ja|se:startevent:
+    gw2s:exclusivegateway:{x}-->|Nein|ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-02T17:43:09.684054+02:00'
+---
+event:
+  concept:instance: 8731
+  id:id: ex-ante
+  cpee:instance: b8e5d33b-66e2-4d45-a52a-e782940e9ef5
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74729edd0f97d29058c578afed5d06e893fb4203
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+          <parallel_branch>
+            <call id="a3" endpoint="" a:alt_id="a3">
+              <parameters>
+                <label>Task A</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a7" endpoint="" a:alt_id="a7">
+              <parameters>
+                <label>Task B</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <call id="a11" endpoint="" a:alt_id="a11">
+          <parameters>
+            <label>Task C</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="newTask">
+          <parameters>
+            <label>Wenn neue Task ausgef&#xFC;hrt wurde</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="gw2s" language="text/javascript">
+          <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+            <parallel_branch>
+              <call id="a3" endpoint="" a:alt_id="a3">
+                <parameters>
+                  <label>Task A</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a7" endpoint="" a:alt_id="a7">
+                <parameters>
+                  <label>Task B</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="newTask">
+            <parameters>
+              <label>Wenn neue Task ausgef&#xFC;hrt wurde</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-02T17:43:09.684159+02:00'

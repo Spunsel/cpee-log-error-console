@@ -1,0 +1,219 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8695
+    cpee:name: Enter info here
+    cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-01T16:59:58.560257+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-04-01T17:00:00.057212+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-04-01T17:00:02.080224+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-01T17:00:02.336672+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-01T17:00:02.369573+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Task 1</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task 2</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: 6a8e7778c00ebb62620e992e72615b05b1a511bd
+  time:timestamp: '2026-04-01T17:00:15.481132+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a8e7778c00ebb62620e992e72615b05b1a511bd
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-01T17:00:15.481317+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a8e7778c00ebb62620e992e72615b05b1a511bd
+  cpee:exposition: |-
+    # User Input:
+    add 2 parallel tasks: task 1 and task 2
+  time:timestamp: '2026-04-01T17:00:15.481655+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a8e7778c00ebb62620e992e72615b05b1a511bd
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-01T17:00:15.481835+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a8e7778c00ebb62620e992e72615b05b1a511bd
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-01T17:00:15.482048+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a8e7778c00ebb62620e992e72615b05b1a511bd
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:parallelgateway:{AND}
+      1:parallelgateway:{AND} --> 2:task:(Task 1)
+      1:parallelgateway:{AND} --> 3:task:(Task 2)
+      2:task:(Task 1) --> 4:parallelgateway:{AND}
+      3:task:(Task 2) --> 4:parallelgateway:{AND}
+      4:parallelgateway:{AND} --> 5:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-01T17:00:15.482170+02:00'
+---
+event:
+  concept:instance: 8695
+  id:id: ex-ante
+  cpee:instance: 2314d5dc-58f3-407d-aeb3-71d4eb0c48f0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6a8e7778c00ebb62620e992e72615b05b1a511bd
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Task 1</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task 2</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-04-01T17:00:15.482282+02:00'

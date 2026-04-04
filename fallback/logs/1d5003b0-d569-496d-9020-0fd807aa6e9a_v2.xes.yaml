@@ -1,0 +1,286 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 4455
+    cpee:name: Plain Instance
+    cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-26T12:23:49.885921+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Confirm Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Needs Fast Tracking" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Fast Track Fulfillment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Fast Tracking" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Add to Backlog</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 1f460266f099e46e11cef6e53a58f3857c7aee6d
+  time:timestamp: '2026-03-26T12:25:01.242749+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f460266f099e46e11cef6e53a58f3857c7aee6d
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-26T12:25:01.242921+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f460266f099e46e11cef6e53a58f3857c7aee6d
+  cpee:exposition: |+
+    # User Input:
+    Once an order is confirmed, the warehouse clerk decides if it needs fast tracking or not. If it needs fast tracking it gets fulfilled immediately, else, it will be added to the backlog
+
+  time:timestamp: '2026-03-26T12:25:01.243023+01:00'
+...
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f460266f099e46e11cef6e53a58f3857c7aee6d
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-03-26T12:25:01.243106+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f460266f099e46e11cef6e53a58f3857c7aee6d
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-26T12:25:01.243181+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f460266f099e46e11cef6e53a58f3857c7aee6d
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Start))
+      1:task:(Confirm Order)
+      2:exclusivegateway:{x}
+      3:task:(Fast Track Fulfillment)
+      4:task:(Add to Backlog)
+      5:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Confirm Order)
+      1:task:(Confirm Order) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Needs Fast Tracking|3:task:(Fast Track Fulfillment)
+      2:exclusivegateway:{x} --> |No Fast Tracking|4:task:(Add to Backlog)
+      3:task:(Fast Track Fulfillment) --> 5:endevent:(((End)))
+      4:task:(Add to Backlog) --> 5:endevent:(((End)))
+    ```
+  time:timestamp: '2026-03-26T12:25:01.243260+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f460266f099e46e11cef6e53a58f3857c7aee6d
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Confirm Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Needs Fast Tracking" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Fast Track Fulfillment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Fast Tracking" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Add to Backlog</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-03-26T12:25:01.243345+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2026-03-26T12:25:58.767922+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-26T12:25:58.925766+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Confirm Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Needs Fast Tracking" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Fast Track Fulfillment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Fast Tracking" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Add to Backlog</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-03-26T12:27:31.279570+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: executionhandler
+    value: rust
+  time:timestamp: '2026-03-26T12:27:31.284475+01:00'
+---
+event:
+  concept:instance: 4455
+  id:id: ex-ante
+  cpee:instance: 1d5003b0-d569-496d-9020-0fd807aa6e9a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-26T12:27:31.436933+01:00'

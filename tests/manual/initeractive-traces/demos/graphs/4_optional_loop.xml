@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="a1" endpoint="">
+    <parameters><label>A</label><method>:post</method><arguments/></parameters>
+  </call>
+  <loop mode="pre_test" condition="something">
+    <call id="a9" endpoint="">
+      <parameters><label>H</label><method>:post</method><arguments/></parameters>
+    </call>
+    <choose mode="exclusive">
+      <alternative>
+        <call id="a10" endpoint="">
+          <parameters><label>I</label><method>:post</method><arguments/></parameters>
+        </call>
+      </alternative>
+      <alternative condition="">
+        <call id="a11" endpoint="">
+          <parameters><label>J</label><method>:post</method><arguments/></parameters>
+        </call>
+      </alternative>
+      <alternative condition="">
+        <call id="a12" endpoint="">
+          <parameters><label>K</label><method>:post</method><arguments/></parameters>
+        </call>
+      </alternative>
+      <otherwise>
+        <call id="a13" endpoint="">
+          <parameters><label>L</label><method>:post</method><arguments/></parameters>
+        </call>
+        <escape alt_id="-1"/>
+      </otherwise>
+    </choose>
+  </loop>
+  <call id="a99" endpoint="">
+    <parameters><label>X</label><method>:post</method><arguments/></parameters>
+  </call>
+</description>

@@ -1,0 +1,215 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 4450
+    cpee:name: Plain Instance
+    cpee:instance: a87f3256-a7b2-4ecd-9c1e-9af2808aa33f
+---
+event:
+  concept:instance: 4450
+  id:id: ex-ante
+  cpee:instance: a87f3256-a7b2-4ecd-9c1e-9af2808aa33f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-03-26T11:50:32.826313+01:00'
+---
+event:
+  concept:instance: 4450
+  id:id: ex-ante
+  cpee:instance: a87f3256-a7b2-4ecd-9c1e-9af2808aa33f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Incident Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Problem Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Change Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Service Request Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Access Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 02ad7f3c5abd946f1644a086c9ed412811fbaa45
+  time:timestamp: '2026-03-26T11:50:48.958324+01:00'
+---
+event:
+  concept:instance: 4450
+  id:id: ex-ante
+  cpee:instance: a87f3256-a7b2-4ecd-9c1e-9af2808aa33f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 02ad7f3c5abd946f1644a086c9ed412811fbaa45
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-03-26T11:50:48.958520+01:00'
+---
+event:
+  concept:instance: 4450
+  id:id: ex-ante
+  cpee:instance: a87f3256-a7b2-4ecd-9c1e-9af2808aa33f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 02ad7f3c5abd946f1644a086c9ed412811fbaa45
+  cpee:exposition: |-
+    # User Input:
+    Zeichne mir die 5 wichtigsten PRozesse in einer IT-Abteilung
+  time:timestamp: '2026-03-26T11:50:48.958608+01:00'
+---
+event:
+  concept:instance: 4450
+  id:id: ex-ante
+  cpee:instance: a87f3256-a7b2-4ecd-9c1e-9af2808aa33f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 02ad7f3c5abd946f1644a086c9ed412811fbaa45
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-03-26T11:50:48.958694+01:00'
+---
+event:
+  concept:instance: 4450
+  id:id: ex-ante
+  cpee:instance: a87f3256-a7b2-4ecd-9c1e-9af2808aa33f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 02ad7f3c5abd946f1644a086c9ed412811fbaa45
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-03-26T11:50:48.959021+01:00'
+---
+event:
+  concept:instance: 4450
+  id:id: ex-ante
+  cpee:instance: a87f3256-a7b2-4ecd-9c1e-9af2808aa33f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 02ad7f3c5abd946f1644a086c9ed412811fbaa45
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Incident Management)
+      1:task:(Incident Management) --> 2:task:(Problem Management)
+      2:task:(Problem Management) --> 3:task:(Change Management)
+      3:task:(Change Management) --> 4:task:(Service Request Management)
+      4:task:(Service Request Management) --> 5:task:(Access Management)
+      5:task:(Access Management) --> 6:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-03-26T11:50:48.959095+01:00'
+---
+event:
+  concept:instance: 4450
+  id:id: ex-ante
+  cpee:instance: a87f3256-a7b2-4ecd-9c1e-9af2808aa33f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 02ad7f3c5abd946f1644a086c9ed412811fbaa45
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Incident Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Problem Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Change Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Service Request Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Access Management</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-03-26T11:50:48.959212+01:00'

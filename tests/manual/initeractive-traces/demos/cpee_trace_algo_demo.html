@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPEE Trace Building Algorithm - Interactive Demo</title>
+    <style>
+        :root {
+            --bg: #0f172a; --surface: #1e293b; --surface-alt: #162032;
+            --border: #334155; --text: #e2e8f0; --text-muted: #94a3b8;
+            --accent: #3b82f6; --green: #22c55e; --green-dim: rgba(34,197,94,0.15);
+            --red: #ef4444; --red-dim: rgba(239,68,68,0.12);
+            --yellow: #eab308; --orange: #f97316; --purple: #a855f7; --cyan: #06b6d4;
+        }
+        * { box-sizing: border-box; }
+        html, body, div, h1, h2, h3, p, span, button { margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; overflow-x: hidden; }
+
+        .app { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr auto; height: 100vh; }
+
+        /* ── Header ── */
+        .header { grid-column: 1/-1; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0.6rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; }
+        .header h1 { font-size: 1rem; font-weight: 600; white-space: nowrap; }
+        .step-nav { display: flex; align-items: center; gap: 0.4rem; }
+        .step-nav button { padding: 0.3rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface-alt); color: var(--text); font-size: 0.8rem; cursor: pointer; transition: all 0.15s; }
+        .step-nav button:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); }
+        .step-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+        .step-label { font-size: 0.8rem; color: var(--text-muted); min-width: 80px; text-align: center; }
+        .progress-bar { display: flex; gap: 2px; flex: 1; max-width: 350px; }
+        .progress-dot { flex: 1; height: 3px; border-radius: 2px; background: var(--border); transition: background 0.2s; }
+        .progress-dot.done { background: var(--green); }
+        .progress-dot.current { background: var(--accent); }
+
+        /* ── Left: CPEE Graph ── */
+        .graph-panel { grid-column: 1; grid-row: 2; background: #fff; border-right: 1px solid var(--border); overflow: auto; position: relative; }
+        .graph-panel-header {
+            position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e2e8f0;
+            padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+        }
+        .graph-panel-title { font-weight: 600; font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-right: auto; }
+        .graph-tabs { display: flex; gap: 3px; }
+        .graph-tab {
+            padding: 0.25rem 0.6rem; border-radius: 5px; font-size: 0.7rem; font-weight: 600;
+            border: 1px solid #cbd5e1; background: #f1f5f9; color: #475569; cursor: pointer; transition: all 0.15s; white-space: nowrap;
+        }
+        .graph-tab:hover { background: #e2e8f0; }
+        .graph-tab.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+        #cpee-graph-container { padding: 0.5rem; min-height: 300px; min-width: 100%; width: max-content; position: relative; }
+        #cpee-graph-container svg { width: auto !important; max-width: none !important; display: block; }
+        #cpee-graph-container [id*="modelling-"] { width: 100%; height: auto; position: relative; }
+        #cpee-graph-container [id*="graphgrid-"] { width: 100%; height: auto; }
+
+        /* ── Right: Trace List ── */
+        .traces-panel { grid-column: 2; grid-row: 2; overflow: auto; padding: 0.75rem 1.2rem; }
+        .traces-panel-header { font-weight: 600; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .trace-count-badge { background: var(--accent); color: #fff; font-size: 0.65rem; padding: 0.1rem 0.45rem; border-radius: 99px; font-weight: 700; }
+
+        .trace-list { display: flex; flex-direction: column; gap: 0.3rem; }
+        .trace-row {
+            display: flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.55rem; border-radius: 5px;
+            border: 1.5px solid transparent; font-size: 0.78rem;
+            font-family: 'Cascadia Code','Fira Code','Consolas',monospace;
+            background: var(--surface); transition: all 0.2s; flex-wrap: wrap;
+        }
+        .trace-row.tr-active { border-color: var(--accent); background: rgba(59,130,246,0.08); }
+        .trace-row.tr-terminated { border-color: var(--red); background: var(--red-dim); }
+        .trace-row.tr-terminated::after { content: 'ESC'; font-size: 0.55rem; color: var(--red); font-weight: 700; letter-spacing: 0.04em; margin-left: auto; }
+        .trace-idx { color: var(--text-muted); font-size: 0.65rem; min-width: 20px; }
+        .trace-task {
+            padding: 0.12rem 0.4rem; border-radius: 4px; background: var(--surface-alt);
+            border: 1px solid var(--border); color: var(--text); transition: all 0.2s;
+        }
+        .trace-task.hl { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+        .trace-arrow { color: var(--text-muted); font-size: 0.65rem; }
+
+        /* ── Bottom: Explanation ── */
+        .explanation-panel { grid-column: 1/-1; grid-row: 3; background: var(--surface); border-top: 1px solid var(--border); padding: 0.75rem 1.2rem; min-height: 70px; max-height: 200px; overflow-y: auto; }
+        .explanation-panel h3 { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+        .explanation-text { font-size: 0.85rem; line-height: 1.55; }
+        .explanation-text code { background: var(--bg); padding: 0.1rem 0.35rem; border-radius: 3px; font-family: 'Cascadia Code','Fira Code',monospace; font-size: 0.82em; color: var(--cyan); }
+        .explanation-plain { margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+        .explanation-text .tag { display: inline-block; padding: 0.08rem 0.4rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-right: 0.2rem; }
+        .tag-seq { background: rgba(59,130,246,0.15); color: var(--accent); }
+        .tag-xor { background: rgba(234,179,8,0.15); color: var(--yellow); }
+        .tag-par { background: rgba(168,85,247,0.15); color: var(--purple); }
+        .tag-loop { background: rgba(249,115,22,0.15); color: var(--orange); }
+        .tag-esc { background: var(--red-dim); color: var(--red); }
+        .tag-dedup { background: rgba(6,182,212,0.15); color: var(--cyan); }
+
+        .trace-row.tr-dup { opacity: 0.4; text-decoration: line-through; border-color: var(--border); background: var(--surface-alt); }
+        .trace-row.tr-dup::after { content: 'DUP'; font-size: 0.55rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.04em; margin-left: auto; }
+
+        /* SVG highlighting — task: orange border on the box rects */
+        .demo-hl-task rect.execstyle,
+        .demo-hl-task .part-start rect,
+        .demo-hl-task .part-end rect {
+            stroke: var(--orange) !important;
+            stroke-width: 2.5px !important;
+        }
+        .demo-hl-task .part-middle rect {
+            stroke: var(--orange) !important;
+            stroke-width: 0 !important;
+        }
+        .demo-hl-task .part-middle .standline {
+            stroke: var(--orange) !important;
+            stroke-width: 2.5px !important;
+        }
+        /* SVG highlighting — structure: dashed yellow border */
+        .demo-hl-struct > rect, .demo-hl-struct > circle, .demo-hl-struct > path,
+        .demo-hl-struct > polygon, .demo-hl-struct > line {
+            stroke: var(--yellow) !important; stroke-width: 2.5px !important; stroke-dasharray: 6 3 !important;
+        }
+
+        .loading-spinner { display: flex; align-items: center; justify-content: center; padding: 2rem; color: var(--text-muted); gap: 0.4rem; font-size: 0.85rem; }
+        .spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>CPEE Trace Algorithm</h1>
+        <div class="progress-bar" id="progress-bar"></div>
+        <div class="step-nav">
+            <button id="btn-prev" onclick="prevStep()" disabled>&larr;</button>
+            <span class="step-label" id="step-label">0 / 0</span>
+            <button id="btn-next" onclick="nextStep()">&rarr;</button>
+        </div>
+    </div>
+    <div class="graph-panel">
+        <div class="graph-panel-header">
+            <span class="graph-panel-title">CPEE Graph</span>
+            <div class="graph-tabs" id="graph-tabs"></div>
+        </div>
+        <div id="cpee-graph-container">
+            <div class="loading-spinner"><div class="spinner"></div><span>Loading...</span></div>
+        </div>
+    </div>
+    <div class="traces-panel">
+        <div class="traces-panel-header">Traces <span class="trace-count-badge" id="trace-count">0</span></div>
+        <div class="trace-list" id="trace-list"></div>
+    </div>
+    <div class="explanation-panel">
+        <h3>Explanation</h3>
+        <div class="explanation-text" id="explanation">Select a graph above, then press <strong>&rarr;</strong> to step through.</div>
+    </div>
+</div>
+
+<script type="module">
+import { CPEETraceCalculator } from '../../../src/utils/trace/CPEETraceCalculator.js';
+import { Trace } from '../../../src/models/Trace.js';
+import { CPEEParser } from '../../../src/utils/content/CPEEParser.js';
+import { JQueryExtensions } from '../../../src/utils/system/JQueryExtensions.js';
+
+const WF_CSS = 'https://cpee.org/flow/css/wfadaptor.css';
+const WF_BASE = 'https://cpee.org/flow/themes/base.js';
+const WF_THEME = 'https://cpee.org/flow/themes/preset/theme.js';
+const WF_JS = 'https://cpee.org/flow/js/wfadaptor.js';
+
+// ═══════════════════════════════════════
+//  GRAPH DEFINITIONS
+// ═══════════════════════════════════════
+const GRAPHS = [
+    { id: 'xor',     file: 'graphs/1_xor.xml',                      tab: '1. XOR' },
+    { id: 'par',     file: 'graphs/2_parallel.xml',                  tab: '2. Parallel' },
+    { id: 'mloop',   file: 'graphs/3_mandatory_loop.xml',            tab: '3. Loop (true)' },
+    { id: 'oloop',   file: 'graphs/4_optional_loop.xml',             tab: '4. Loop + Esc' },
+    { id: 'mloopxor',file: 'graphs/5_mandatory_loop_xor_escape.xml', tab: '5. Loop+XOR+Esc' },
+    { id: 'esconly', file: 'graphs/6_loop_escape_only.xml',          tab: '6. Esc-Only 2nd' },
+    { id: 'dedup',  file: 'graphs/7_dedup.xml',                     tab: '7. Dedup' },
+];
+
+let activeGraphIdx = 0;
+let graphXml = '';
+let currentStep = -1;
+let steps = [];
+let wfReady = false;
+
+// ═══════════════════════════════════════
+//  WFADAPTOR BOOTSTRAP (once)
+// ═══════════════════════════════════════
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const s = document.createElement('script'); s.src = src; s.onload = resolve;
+        s.onerror = () => reject(new Error('Failed: ' + src)); document.head.appendChild(s);
+    });
+}
+
+async function ensureWfAdaptor() {
+    if (wfReady) return;
+    if (typeof $ === 'undefined') { await loadScript('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'); JQueryExtensions.initialize(); }
+    window.save = function(){};
+    const fb = '../../../fallback/cpee-themes';
+    const toL = u => { const m = u.match(/\/flow\/themes\/(.+)$/); return m ? `${fb}/${m[1]}` : null; };
+    const isC = u => u && (u.startsWith('https://cpee.org/') || u.startsWith('http://cpee.org/')) && /\.(rng|svg|js)$/.test(u);
+    const oA = window.$.ajax;
+    window.$.ajax = function(url, o) { if (typeof url==='object'){o=url;url=o.url;} o=o||{}; if(typeof url==='string')o.url=url; if(isC(o.url||'')){const l=toL(o.url);if(l){o.url=l;return oA.call(this,o);}} return oA.call(this,o); };
+    const oG = window.$.get;
+    window.$.get = function(url,...a) { if(typeof url==='string'&&isC(url)){const l=toL(url);if(l)return oG.call(this,l,...a);} return oG.call(this,url,...a); };
+    if (!document.querySelector('link[href*="wfadaptor.css"]')) { const lk=document.createElement('link'); lk.rel='stylesheet'; lk.href=WF_CSS; document.head.appendChild(lk); }
+    await loadScript(WF_BASE); await loadScript(WF_THEME); await loadScript(WF_JS);
+    await new Promise(r => setTimeout(r, 150));
+    wfReady = true;
+}
+
+async function renderGraph(xml) {
+    await ensureWfAdaptor();
+    const container = document.getElementById('cpee-graph-container');
+    let cleaned = xml;
+    try { cleaned = CPEEParser.cleanAndValidate(xml, true).xml; } catch(e) {}
+    container.innerHTML = '';
+    const bg = '#ffffff';
+    const mD = document.createElement('div'); mD.id='modelling-cpee-graph-container'; mD.style.cssText=`width:100%;height:auto;position:relative;min-height:300px;background:${bg}`;
+    const gD = document.createElement('div'); gD.id='graphgrid-cpee-graph-container'; gD.style.cssText=`width:100%;height:auto;min-height:300px;background:${bg}`;
+    const sv = document.createElementNS('http://www.w3.org/2000/svg','svg'); sv.id='graphcanvas-cpee-graph-container';
+    sv.setAttribute('xmlns','http://www.w3.org/2000/svg'); sv.setAttribute('version','1.1'); sv.setAttribute('xmlns:x','http://www.w3.org/1999/xlink');
+    sv.style.cssText=`display:block;width:auto;height:auto;background-color:${bg}`;
+    gD.appendChild(sv); mD.appendChild(gD); container.appendChild(mD);
+    new window.WfAdaptor(WF_THEME, gr => {
+        try {
+            gr.set_svg_container(window.$(sv));
+            const lb=window.$('<div id="graph-labels" style="display:none"></div>'); window.$('#modelling-cpee-graph-container').append(lb); gr.illustrator.svg.label_container=lb;
+            const doc=new DOMParser().parseFromString(cleaned,'text/xml'); const jd=window.$(doc),d=jd.find('description');
+            if(d.length) gr.set_description(jd,true);
+            else if(doc.documentElement?.tagName==='description') gr.set_description(window.$('<xml></xml>').append(window.$(doc.documentElement).clone()),true);
+            setTimeout(()=>{try{const b=sv.getBBox();if(b?.height>0){const h=b.height+30;sv.setAttribute('height',h);sv.style.height=h+'px';}}catch(e){}},500);
+        } catch(e) { container.innerHTML=`<div style="color:#ef4444;padding:1rem">Render error: ${e.message}</div>`; }
+    });
+}
+
+// ═══════════════════════════════════════
+//  SVG HIGHLIGHTING
+// ═══════════════════════════════════════
+function clearHighlights() { document.querySelectorAll('.demo-hl-task,.demo-hl-struct').forEach(el => el.classList.remove('demo-hl-task','demo-hl-struct')); }
+function applyHighlights(tasks, structs) {
+    clearHighlights();
+    const c = document.getElementById('cpee-graph-container'); if(!c) return;
+    (tasks||[]).forEach(l => {
+        c.querySelectorAll('title').forEach(title => {
+            if (title.textContent.trim() === l) {
+                const activityG = title.parentElement;
+                if (activityG) activityG.classList.add('demo-hl-task');
+            }
+        });
+    });
+    (structs||[]).forEach(type => c.querySelectorAll('g[class]').forEach(g => { const cls=(g.getAttribute('class')||'').toLowerCase(); if((type==='choose'&&cls.includes('exclusive'))||(type==='parallel'&&cls.includes('parallel'))||(type==='loop'&&cls.includes('loop'))) g.classList.add('demo-hl-struct'); }));
+}
+
+// ═══════════════════════════════════════
+//  TRACE LIST RENDERING
+// ═══════════════════════════════════════
+function renderTraceList(traces, hlLabels) {
+    const el = document.getElementById('trace-list');
+    const hlSet = new Set(hlLabels || []);
+    let html = '';
+    (traces || []).forEach((tr, i) => {
+        const labels = tr.labels || tr;
+        const term = tr.terminated || false;
+        const dup = tr.dup || false;
+        let cls = 'trace-row' + (dup ? ' tr-dup' : term ? ' tr-terminated' : ' tr-active');
+        html += `<div class="${cls}"><span class="trace-idx">${i+1}.</span>`;
+        labels.forEach((l, j) => {
+            if (j > 0) html += '<span class="trace-arrow">&rarr;</span>';
+            html += `<span class="trace-task${hlSet.has(l) ? ' hl' : ''}">${l}</span>`;
+        });
+        html += '</div>';
+    });
+    el.innerHTML = html;
+    document.getElementById('trace-count').textContent = (traces || []).length;
+}
+
+// ═══════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════
+function T(labels, terminated = false, dup = false) { return { labels, terminated, dup }; }
+
+function allTracesForDisplay(traces) {
+    return traces.map(tr => {
+        const labels = tr.path.map(p => p.task);
+        return T(labels, !labels.includes('X'));
+    });
+}
+
+// ═══════════════════════════════════════
+//  PER-GRAPH STEP DEFINITIONS
+// ═══════════════════════════════════════
+function stepsForGraph(id, traces) {
+    const n = traces.length;
+    const all = allTracesForDisplay(traces);
+
+    if (id === 'xor') return [
+        { traces: [], hl: [], hlT: [], hlS: [],
+          ex: `<strong>XOR Gateway Demo</strong> — A <code>&lt;choose&gt;</code> with 4 branches: B, C, escape, empty otherwise. ${n} traces total. Press &rarr;`,
+          plain: `An exclusive-or (XOR) gateway means the workflow takes exactly one branch at runtime. We need one trace per possible branch to cover every scenario the process could follow.` },
+        { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong> — start node. <code>FT = [A]</code>.`,
+          plain: `The first task in the workflow is always added to every trace. It is the starting point that all branches share.` },
+        { traces: [T(['A','B']), T(['A','C']), T(['A'],true), T(['A'])], hl: ['B','C'], hlT: ['B','C'], hlS: ['choose'],
+          ex: `<span class="tag tag-xor">XOR</span> <code>&lt;choose&gt;</code> forks into 4: <strong>B</strong>, <strong>C</strong>, <strong>escape</strong> (terminated), <strong>otherwise</strong> (skip — no task added).`,
+          plain: `Each branch of the XOR creates a separate trace because only one can run. The escape branch means the surrounding loop is exited early, so that trace is marked as terminated — nothing after it will execute. The empty otherwise branch adds no tasks, so the trace stays as [A] but continues normally.` },
+        { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
+          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong> appended to non-terminated traces. Escaped trace <code>[A]</code> never reaches X.`,
+          plain: `Tasks after the XOR are appended to every trace that is still active. Terminated traces are frozen — they represent executions that ended early, so they never see later tasks.` },
+    ];
+
+    if (id === 'par') return [
+        { traces: [], hl: [], hlT: [], hlS: [],
+          ex: `<strong>Parallel Gateway Demo</strong> — <code>&lt;parallel&gt;</code> with Branch 1: <strong>B</strong>, Branch 2: <strong>C → XOR(D, E)</strong>. ${n} traces total.`,
+          plain: `Parallel branches run at the same time, but in a log we see tasks one after another. We need traces for every possible ordering of branches, because we do not know which branch's tasks appear first in the log.` },
+        { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
+          plain: `Task A runs before the parallel split, so it appears at the start of every trace.` },
+        { traces: [T(['A','B','C','D']), T(['A','B','C','E']), T(['A','C','D','B']), T(['A','C','E','B'])],
+          hl: ['B','C','D','E'], hlT: ['B','C','D','E'], hlS: ['parallel','choose'],
+          ex: `<span class="tag tag-par">PARALLEL</span> Branch 1: <strong>B</strong> (1 trace). Branch 2: <strong>C → XOR(D, E)</strong> (2 traces: [C,D] and [C,E]). <code>interleave()</code> generates 2! = 2 branch orderings. Within each ordering, the <strong>Cartesian product</strong> of branch traces is computed: 1 × 2 = 2 combos per ordering. Total: 2 × 2 = <strong>4 traces</strong>.`,
+          plain: `Tasks within each branch stay in their original order, but branches can appear in any relative order. We generate all permutations of which branch comes first. Branch 2 itself has a XOR inside, so it produces two sub-traces. We combine every branch ordering with every sub-trace combination (Cartesian product), giving us all possible serializations of the parallel execution.` },
+        { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
+          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong> appended.`,
+          plain: `X comes after the parallel join, so it is appended to every trace. All parallel branches must finish before X can run.` },
+    ];
+
+    if (id === 'mloop') return [
+        { traces: [], hl: [], hlT: [], hlS: [],
+          ex: `<strong>Mandatory Loop Demo</strong> — <code>condition="true"</code> loop with same task G (id="a8") before and inside. ${n} traces total.`,
+          plain: `This shows what happens when a loop's body contains a task that already appeared earlier in the workflow. The algorithm detects the overlap to avoid forcing an unnecessary iteration.` },
+        { traces: [T(['G'])], hl: ['G'], hlT: ['G'], hlS: [],
+          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>G</strong> (<code>id="a8"</code>). <code>FT = [G]</code>.`,
+          plain: `Task G runs before the loop. Its task ID (a8) is now recorded in the current trace.` },
+        { traces: [T(['G']), T(['G','G'])], hl: ['G'], hlT: ['G'], hlS: ['loop'],
+          ex: `<span class="tag tag-loop">LOOP</span> <code>condition="true"</code> — normally must execute ≥1 time. <strong>But</strong> G (id="a8") already in trace → <code>hasBodyTaskInTrace()=true</code> → 0 iterations allowed. Forks: skip (0 iter) or repeat G (1 iter).`,
+          plain: `A loop with condition "true" normally must execute at least once. But the algorithm checks whether any task from the loop body already appears in the trace so far. Since G is already there, the work the loop would do has effectively already happened, so we allow skipping the loop entirely. We still generate both possibilities: zero iterations (skip) and one iteration (repeat G).` },
+        { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
+          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong>. Traces: <code>[G,X]</code> (0 iter) and <code>[G,G,X]</code> (1 iter).`,
+          plain: `X is appended to both traces. The final set covers the scenario where the loop was skipped and the scenario where it ran once.` },
+    ];
+
+    if (id === 'oloop') {
+        // Build the correct intermediate traces from the algorithm logic:
+        // condition="something" → shouldSkipZeroIterations=false → 0 iter allowed
+        // Body traces: [H,I], [H,J], [H,K], [H,L](esc)
+        // hasEscapePath=true, shouldSkipZeroIterations=false → minIterForEscape=2
+        // maxIter = max(min(1,2), 2) = 2
+        // hasMultipleNonEscapePaths=true (I,J,K) → secondIterationIsForEscapeOnly=false
+        // → ALL 2nd-iter combos allowed (not just escape ones)
+        const iter0 = [T(['A'])];
+        const iter1 = [T(['A','H','I']), T(['A','H','J']), T(['A','H','K']), T(['A','H','L'],true)];
+        // 2nd iter: each non-terminated 1st × each different body trace
+        const iter2 = [
+            T(['A','H','I','H','J']), T(['A','H','I','H','K']), T(['A','H','I','H','L'],true),
+            T(['A','H','J','H','I']), T(['A','H','J','H','K']), T(['A','H','J','H','L'],true),
+            T(['A','H','K','H','I']), T(['A','H','K','H','J']), T(['A','H','K','H','L'],true),
+        ];
+        return [
+            { traces: [], hl: [], hlT: [], hlS: [],
+              ex: `<strong>Optional Loop + Escape Demo</strong> — <code>condition="something"</code> loop with body H → XOR(I,J,K, L→escape). ${n} traces total.`,
+              plain: `This is the most complex scenario: a loop that can be skipped, has multiple normal branches, and also has an escape path that exits the loop early. The algorithm needs to capture all combinations of "how many times did the loop run" and "which branch was taken each time".` },
+            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
+              plain: `Task A runs before the loop.` },
+            { traces: [...iter0, ...iter1], hl: ['H','I','J','K','L'], hlT: ['H','I','J','K','L'], hlS: ['loop','choose'],
+              ex: `<span class="tag tag-loop">LOOP</span> <code>condition="something"</code> → 0 iter allowed (skip path). Body: <strong>H</strong> then XOR(I, J, K, <strong>L→escape</strong>). <code>hasEscapePath=true</code> → <code>minIterForEscape=2</code> → <code>maxIter=2</code>. 0 iter: <code>[A]</code>. 1st iter: H+I, H+J, H+K, or H+L (terminated).`,
+              plain: `The condition is not "true", so the loop might never execute — we include a skip-trace [A]. For one iteration, the body runs H then picks one XOR branch. If it picks L, the escape fires and the trace is terminated — the loop and everything after it are abandoned. We also know an escape path exists, so we need at least 2 iterations to capture "do one normal iteration, then escape on the second".` },
+            { traces: [...iter0, ...iter1, ...iter2], hl: ['H','I','J','K','L'], hlT: ['H','I','J','K','L'], hlS: ['loop','choose'],
+              ex: `<span class="tag tag-loop">LOOP 2nd iter</span> <code>hasMultipleNonEscapePaths=true</code> (I,J,K) → <code>secondIterationIsForEscapeOnly=false</code> → ALL cross-branch combos allowed. E.g. <code>[A,H,I,H,J]</code>, <code>[A,H,I,H,L]</code> (escape). Escape-terminated 1st iters (H+L) do NOT get a 2nd iteration.`,
+              plain: `For the second iteration, each non-terminated first-iteration trace is combined with every different body trace. Since there are multiple normal branches (I, J, K), the second iteration is not restricted to escape-only — it also covers switching between normal branches (e.g. I then J). Traces that already escaped in the first iteration cannot continue to a second iteration, because the escape ended the execution.` },
+            { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong> appended to non-terminated traces. Escaped traces (ending in L) never reach X.`,
+              plain: `Task X follows the loop. Only traces that did not escape get X appended. Escaped traces represent executions that ended early, so they remain frozen.` },
+        ];
+    }
+
+    if (id === 'mloopxor') {
+        // condition="true", no body tasks in trace → shouldSkipZeroIterations=true
+        // Body traces: [M], [N](esc), [](empty otherwise)
+        // hasEscapePath=true, but shouldSkipZeroIterations=true → minIterForEscape=1
+        // maxIter = max(min(1,2), 1) = 1
+        // Empty otherwise body trace [] combined with [A] gives [A] — passes through to get X.
+        return [
+            { traces: [], hl: [], hlT: [], hlS: [],
+              ex: `<strong>Mandatory Loop + XOR + Escape Demo</strong> — <code>condition="true"</code> loop, body = XOR(M, N→escape, empty otherwise). ${n} traces total. Press &rarr;`,
+              plain: `A mandatory loop (condition "true") that must run at least once. The body has a XOR with a normal branch, an escape branch, and an empty otherwise. The algorithm must handle all three while respecting the mandatory-execution constraint.` },
+            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
+              plain: `Task A runs before the loop.` },
+            { traces: [T(['A','M']), T(['A','N'],true), T(['A'])], hl: ['M','N'], hlT: ['M','N'], hlS: ['loop','choose'],
+              ex: `<span class="tag tag-loop">LOOP</span><span class="tag tag-esc">ESC</span> <code>condition="true"</code> → must execute ≥1 time (<code>shouldSkipZeroIterations=true</code>). Body = XOR(M, N→escape, empty otherwise). <code>hasEscapePath=true</code> but <code>shouldSkipZeroIterations=true</code> → <code>minIterForEscape=1</code> (no inflation). <code>maxIter = 1</code>. 1st iter: M, N (terminated), or empty otherwise (body trace <code>[]</code> → combined trace stays <code>[A]</code>, no new tasks added).`,
+              plain: `Because the loop is mandatory, we do not add a "skip" trace (no 0 iterations). The body runs once and picks one XOR branch: M (normal), N then escape (terminated), or the empty otherwise (no tasks added, so the trace stays [A]). Even though there is an escape path, we do not inflate to 2 iterations for mandatory loops — doing so would cause trace explosion without adding useful coverage, since the first iteration is already guaranteed.` },
+            { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong>. Non-terminated traces get X: <code>[A,M,X]</code> and <code>[A,X]</code> (from empty otherwise path). Escape path (via N) stays <code>[A,N]</code> — never reaches X.`,
+              plain: `X is appended to the two non-terminated traces. The escape trace [A,N] is frozen and represents an execution that ended early.` },
+        ];
+    }
+
+    if (id === 'esconly') {
+        // condition="something" → shouldSkipZeroIterations=false
+        // Body: XOR([B], [C→esc]) → hasEscapePath=true
+        // nonEscapeTraces=[[B]] → hasMultipleNonEscapePaths=false
+        // minIterForEscape=2, iterationLimit=1, maxIter=2
+        // secondIterationIsForEscapeOnly = (1<2 && 2>=2 && !false) = TRUE
+        // 2nd iter: only escape body traces allowed as bodyTrace2
+        return [
+            { traces: [], hl: [], hlT: [], hlS: [],
+              ex: `<strong>Escape-Only 2nd Iteration Demo</strong> — <code>condition="something"</code> loop, body = XOR(B, C→escape). Only <strong>1 non-escape path</strong> (B). ${n} traces total.`,
+              plain: `This example shows a special optimization: when the loop has only one normal branch and the only reason to allow a second iteration is to capture the "run once then escape" pattern, the algorithm restricts the second iteration to escape-only traces to avoid generating useless duplicates.` },
+            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
+              plain: `Task A runs before the loop.` },
+            { traces: [T(['A']), T(['A','B']), T(['A','C'],true)],
+              hl: ['B','C'], hlT: ['B','C'], hlS: ['loop','choose'],
+              ex: `<span class="tag tag-loop">LOOP</span> <code>condition="something"</code> → 0 iter allowed. Body: XOR(B, C→escape). <code>hasEscapePath=true</code> → <code>minIterForEscape=2</code>. <code>nonEscapeTraces=[[B]]</code> → <code>hasMultipleNonEscapePaths=false</code>. 0 iter: <code>[A]</code>. 1st iter: <code>[A,B]</code> or <code>[A,C]</code> (terminated).`,
+              plain: `The loop can be skipped (0 iterations). For one iteration, the body picks B (normal) or C then escape (terminated). The algorithm detects an escape path exists, so it needs at least 2 iterations to cover the scenario "do B in the first iteration, then escape via C in the second". There is only one non-escape branch (B), which is important for the next step.` },
+            { traces: [T(['A']), T(['A','B']), T(['A','C'],true), T(['A','B','C'],true)],
+              hl: ['B','C'], hlT: ['B','C'], hlS: ['loop','choose'],
+              ex: `<span class="tag tag-loop">LOOP 2nd iter</span><span class="tag tag-esc">ESC</span> <code>secondIterationIsForEscapeOnly = true</code> — since there's only 1 non-escape path (B), expanding to 2 iterations was done <em>solely</em> to capture "iterate then escape". Therefore the 2nd iteration <strong>only allows escape body traces</strong>. Result: <code>[A,B,C]</code> (B first, then escape via C). Combo B+B is skipped (same branch). Non-escape 2nd iterations (like B+B) are blocked.`,
+              plain: `Because there is only one non-escape branch, the only new scenario a second iteration can capture is "B then escape". Allowing B followed by B again would be a repeat of the same branch — not useful. So the algorithm restricts the second iteration to escape-only body traces. This avoids trace explosion while still covering the important "iterate then escape" pattern.` },
+            { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong> appended to non-terminated traces. Escaped traces never reach X.`,
+              plain: `X is appended to traces that did not escape. The escaped traces [A,C] and [A,B,C] are frozen.` },
+        ];
+    }
+
+    if (id === 'dedup') {
+        // Graph: A → parallel(B/a2, B/a2) → choose(C/a3, otherwise C/a3) → X
+        //
+        // Parallel produces raw interleavings:
+        //   Perm [0,1]: B,B  and  Perm [1,0]: B,B  → 2 identical traces [B,B]
+        //   filterDuplicateTraces collapses to 1: [B,B]
+        //
+        // Choose produces:
+        //   alternative → C   and   otherwise → C   → 2 identical traces
+        //   filterDuplicateTraces collapses to 1: [C]
+        //
+        // Combined after dedup: [A, B, B, C, X] → only 1 unique trace
+        //
+        // Before dedup the algorithm sees:
+        //   parallel gives 2 raw traces: [B,B], [B,B]
+        //   × choose gives 2 raw: [C], [C]
+        //   combined: 4 raw traces, all identical → deduped to 1
+
+        const rawParallel = [T(['A','B','B']), T(['A','B','B'], false, true)];
+        const rawChoose = [
+            T(['A','B','B','C']), T(['A','B','B','C'], false, true),
+            T(['A','B','B','C'], false, true), T(['A','B','B','C'], false, true),
+        ];
+        return [
+            { traces: [], hl: [], hlT: [], hlS: [],
+              ex: `<strong>Trace Deduplication Demo</strong> — Shows how <code>filterDuplicateTraces()</code> removes identical traces produced by parallel interleaving and XOR branch overlap. Press &rarr;`,
+              plain: `The core algorithm can produce duplicate traces when different structural paths lead to the same task sequence. Deduplication is the final cleanup step that removes these redundant results.` },
+            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
+              plain: `Task A runs first.` },
+            { traces: rawParallel, hl: ['B'], hlT: ['B'], hlS: ['parallel'],
+              ex: `<span class="tag tag-par">PARALLEL</span> Both branches contain <strong>B</strong> (same <code>id="a2"</code>). <code>interleave()</code> generates 2! = 2 branch-order permutations: [B,B] and [B,B]. These are <strong>structurally identical</strong>. <span class="tag tag-dedup">DEDUP</span> <code>filterDuplicateTraces()</code> serializes each trace as JSON by <code>{id, alt_id, task}</code> and uses a Set — the second <code>[B,B]</code> is dropped. <strong>2 raw → 1 unique</strong>.`,
+              plain: `The parallel gateway generates all orderings of its branches. When both branches contain the same task, swapping the order produces an identical trace. The deduplication step serializes each trace to a JSON string and uses a Set to detect and discard duplicates.` },
+            { traces: rawChoose, hl: ['C'], hlT: ['C'], hlS: ['choose'],
+              ex: `<span class="tag tag-xor">XOR</span> <code>&lt;choose&gt;</code> has <strong>C</strong> (<code>id="a3"</code>) in both the alternative <em>and</em> the otherwise. Each produces <code>[…, C]</code>. Combined with the 1 parallel trace: 1 × 2 = 2 raw traces — both identical. <span class="tag tag-dedup">DEDUP</span> Collapsed to <strong>1 unique</strong>. The dedup also <strong>skips empty traces</strong> (e.g. from an empty otherwise body) since <code>cleanTrace.length === 0</code> is filtered out.`,
+              plain: `Similarly, when an alternative and the otherwise branch both contain the same task, the XOR produces two identical traces. After multiplying with the parallel result, we get 4 raw traces that are all the same. The dedup collapses them to 1. It also removes any empty traces that could result from branches with no tasks.` },
+            { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong> appended. Final result: <strong>${n} unique trace(s)</strong>. Without dedup, the raw algorithm would have produced 4 traces (2 from parallel × 2 from choose), all identical. <code>filterDuplicateTraces()</code> ensures each unique <code>[{id, alt_id, task}, …]</code> sequence appears only once.`,
+              plain: `The final result is a single unique trace. Deduplication is essential because the combinatorial nature of parallel interleaving and XOR branching can produce many structurally identical traces. Without it, the trace count would grow unnecessarily.` },
+        ];
+    }
+
+    return [{ traces: all, hl: [], hlT: [], hlS: [], ex: `${n} traces.` }];
+}
+
+// ═══════════════════════════════════════
+//  SWITCH GRAPH
+// ═══════════════════════════════════════
+async function switchGraph(idx) {
+    activeGraphIdx = idx;
+    const g = GRAPHS[idx];
+    document.querySelectorAll('.graph-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+    graphXml = await (await fetch(g.file)).text();
+    const traces = CPEETraceCalculator.calculateAllTraces(graphXml, { maxLoopIterations: 1 });
+    steps = stepsForGraph(g.id, traces);
+    currentStep = 0;
+    renderStep();
+    renderGraph(graphXml).catch(err => {
+        document.getElementById('cpee-graph-container').innerHTML = `<div style="color:#ef4444;padding:0.75rem;font-size:0.85rem">Graph render failed: ${err.message}</div>`;
+    });
+}
+
+// ═══════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════
+function renderStep() {
+    if (currentStep < 0 || currentStep >= steps.length) return;
+    const s = steps[currentStep];
+    document.getElementById('btn-prev').disabled = currentStep <= 0;
+    document.getElementById('btn-next').disabled = currentStep >= steps.length - 1;
+    document.getElementById('step-label').textContent = `${currentStep} / ${steps.length - 1}`;
+    document.getElementById('progress-bar').innerHTML = steps.map((_, i) => `<div class="progress-dot ${i<currentStep?'done':i===currentStep?'current':''}"></div>`).join('');
+    document.getElementById('explanation').innerHTML = s.ex + (s.plain ? `<div class="explanation-plain">${s.plain}</div>` : '');
+    applyHighlights(s.hlT, s.hlS);
+    renderTraceList(s.traces, s.hl);
+}
+
+window.nextStep = () => { if (currentStep < steps.length-1) { currentStep++; renderStep(); } };
+window.prevStep = () => { if (currentStep > 0) { currentStep--; renderStep(); } };
+document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); window.nextStep(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); window.prevStep(); }
+});
+
+// ═══════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════
+async function init() {
+    try {
+        // Build tabs
+        const tabContainer = document.getElementById('graph-tabs');
+        GRAPHS.forEach((g, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'graph-tab' + (i === 0 ? ' active' : '');
+            btn.textContent = g.tab;
+            btn.onclick = () => switchGraph(i);
+            tabContainer.appendChild(btn);
+        });
+
+        await switchGraph(0);
+    } catch(err) {
+        console.error('Init error:', err);
+        document.getElementById('explanation').innerHTML = `<span style="color:var(--red)">Init error: ${err.message}</span>`;
+    }
+}
+init();
+</script>
+</body>
+</html>

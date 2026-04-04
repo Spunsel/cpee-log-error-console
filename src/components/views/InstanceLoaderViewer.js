@@ -503,13 +503,11 @@ export class InstanceLoaderViewer {
         const cpeeService = serviceFactory.get('CPEEService');
         
         try {
-            // Fetch UUID from fallback only (known instances use local data)
-            const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber, { source: 'fallback' });
+            const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber, { source: 'server' });
             const uuid = result.uuid;
             
             try {
-                // Fetch and parse log from fallback only
-                const logResult = await this.logFetchService.fetchAndParseLog(uuid, { source: 'fallback' });
+                const logResult = await this.logFetchService.fetchAndParseLog(uuid, { source: 'server' });
                 const logData = logResult.events;
                 
                 // Use lightweight check instead of full parsing
@@ -521,8 +519,7 @@ export class InstanceLoaderViewer {
                     stepCount
                 };
             } catch (error) {
-                // Log fetch/parse failed, but we have the UUID
-                console.warn(`No fallback log for instance ${processNumber}:`, error.message);
+                console.warn(`Failed to fetch log for instance ${processNumber}:`, error.message);
                 return {
                     hasSteps: false,
                     processNumber,
@@ -531,7 +528,6 @@ export class InstanceLoaderViewer {
                 };
             }
         } catch (error) {
-            // No fallback data for this process number
             return {
                 hasSteps: false,
                 processNumber,
@@ -694,9 +690,8 @@ export class InstanceLoaderViewer {
         box.title = `Click to load instance ${instance.processNumber}`;
         box.dataset.processNumber = instance.processNumber;
         
-        // Add click handler to simulate "load instance"
         box.addEventListener('click', () => {
-            this.loadInstanceForProcessNumber(instance.processNumber, instance.uuid);
+            this.loadInstanceForProcessNumber(instance.processNumber, instance.uuid, 'server');
         });
         
         // Insert in sorted order (by process number)
@@ -752,8 +747,9 @@ export class InstanceLoaderViewer {
      * Simulates "load instance" by setting inputs and triggering load
      * @param {number} processNumber - Process instance number
      * @param {string} uuid - Process UUID
+     * @param {string} [source='fallback'] - Data source: 'server' for scanned instances, 'fallback' for known instances
      */
-    loadInstanceForProcessNumber(processNumber, uuid) {
+    loadInstanceForProcessNumber(processNumber, uuid, source = 'fallback') {
         const processNumberInput = this.getElement('processNumberInput');
         const uuidInput = this.getElement('uuidInput');
         
@@ -767,9 +763,8 @@ export class InstanceLoaderViewer {
             uuidInput.dataset.processNumber = processNumber.toString();
         }
         
-        // Trigger load instance event (known instances use fallback only)
         this.stateManager.setState('ui.loading', true);
-        this.eventBus.emit('instanceLoader:loadInstance', { uuid, source: 'fallback' });
+        this.eventBus.emit('instanceLoader:loadInstance', { uuid, source });
     }
 
     /**
