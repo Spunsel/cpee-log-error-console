@@ -95,24 +95,27 @@ Each content section supports switching between views:
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org) >= 18.0.0
-- npm >= 8.0.0
+- [Python 3](https://www.python.org) (for serving the application)
+- [Node.js](https://nodejs.org) >= 18.0.0 (optional, for development tooling: tests, linting, Vite dev server)
 
-### Installation
+### Quick Start
 
 ```bash
 git clone https://github.com/Spunsel/cpee-log-error-console.git
 cd cpee-log-error-console
-npm install
-```
-
-### Running
-
-```bash
-npm run dev
+python3 -m http.server 8000
 ```
 
 The console opens at **http://localhost:8000**.
+
+### Development Setup (Optional)
+
+For hot reload, linting, and testing:
+
+```bash
+npm install
+npm run dev
+```
 
 ### Fallback Data (Optional)
 
@@ -207,11 +210,13 @@ The application follows a layered architecture:
 
 ## Development
 
+The development tooling requires Node.js and npm (`npm install` to set up).
+
 ### Commands
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Development server with hot reload |
+| `npm run dev` | Vite dev server with hot reload |
 | `npm run build` | Production build |
 | `npm run preview` | Preview production build |
 | `npm test` | Run all tests |
