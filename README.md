@@ -1,372 +1,261 @@
-# CPEE Log Error Console
+# CPEE LLM Debugging Console
 
-The fundamental goal of this project is to address the \"black box\" problem inherent in the LLM-driven workflow modification pipeline within the Cloud Process Execution Engine (CPEE), by providing a visual console for transparency, traceability, and systematic debugging capabilities.
+A web-based debugging console for the LLM-driven workflow modification pipeline within the [Cloud Process Execution Engine (CPEE)](https://cpee.org). It provides visual transparency, traceability, and systematic debugging capabilities for each step of the LLM process modification cycle.
+
+## Table of Contents
+
+- [Motivation](#motivation)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Architecture](#architecture)
+- [Development](#development)
+- [Technologies](#technologies)
+- [License](#license)
+
+## Motivation
+
+When an LLM modifies a CPEE workflow, the transformation passes through several stages: input CPEE tree, intermediate Mermaid representation, user input, output intermediate, and output CPEE tree. Without tooling, this pipeline is a black box. This console makes every stage inspectable, comparable, and verifiable.
 
 ## Features
 
-### Visual Workflow Analysis
-- **CPEE Graphs**: Native CPEE WfAdaptor integration for process visualization
-- **Mermaid Diagrams**: Rendering of intermediate graph format with error handling
-- **Multi-Instance Support**: Debug multiple CPEE processes simultaneously
-- **Trace Analysis**: Execution trace calculation and comparison across different graph formats
-- **Property Verification**: Soundness, boundedness, reachability, and SCC analysis
+### Instance Loading and Multi-Instance Support
 
-### Step-by-Step Debugging
-- **Process Navigation**: Navigate through execution steps with step controls
-- **Content Sections**: Organized display of input CPEE trees, intermediate states, user inputs, and output CPEE trees
-- **Analysis Views**: Comprehensive analysis content rendering with trace comparisons
-- **Log Viewing**: Raw log content viewing with syntax highlighting
+- Load CPEE instances by **process number** or **UUID**
+- **Scan** a range of process numbers to discover available instances
+- Load from a **pre-configured list** of known instances
+- **Sidebar** for managing and switching between multiple loaded instances
+- **Fallback support** with locally cached logs and UUID mappings for offline access
 
-### Advanced Features
-- **Cross-Graph Highlighting**: Synchronized highlighting across CPEE and Mermaid views
-- **Node Mapping**: Intelligent mapping of nodes/tasks across different formats
-- **Dark Mode**: Theme support with dark/light mode toggle
-- **Bug Reporting**: Integrated bug reporting system
-- **Search & Filter**: Content search and filtering functionality
-- **Trace Playback**: Auto-play functionality for trace visualization with highlighting
-- **Fallback Support**: Local caching for offline access to logs and UUID mappings
-- **Trace Reconciliation**: Validation of traces across graph formats with reconciliation
-- **Code Minimap**: Visual navigation aid for large code sections
-- **SVG Export**: Export graph visualizations as SVG files
+### Step-by-Step Navigation
+
+- Browse through each modification step in an instance's lifecycle
+- **Step navigator** with forward, backward, start, and end controls
+- **Step dropdown** for direct access to any step
+- **Keyboard navigation** with arrow keys
+- **Deep linking** via URL parameters for sharing specific steps
+
+### Visual Workflow Rendering
+
+- **CPEE WfAdaptor graphs** rendered natively for process visualization
+- **Mermaid diagrams** for the intermediate graph format
+- **Scalable SVG** output with zoom controls
+- **SVG export** for saving graph visualizations to file
+
+### Five Content View Modes
+
+Each content section supports switching between views:
+
+| Mode | Description |
+|------|-------------|
+| **Visual** | Rendered SVG graph (CPEE or Mermaid) |
+| **Raw** | Preprocessed source content with syntax highlighting |
+| **Log** | Untouched original log content |
+| **Traces** | Calculated execution traces with filtering |
+| **Analysis** | Soundness, boundedness, and reachability verification |
+
+### Cross-Graph Highlighting
+
+- Click a node in any graph to highlight the **corresponding node** in all other views
+- Synchronized highlighting across CPEE trees and Mermaid diagrams
+- Gateway-aware highlighting that resolves structural differences between formats
+
+### Execution Trace Analysis
+
+- **Trace calculation** for both CPEE and Mermaid graph formats
+- **Trace comparison** between input and output pairs
+- **Trace filtering** to isolate specific execution paths
+- **Trace playback** with auto-play controls and adjustable speed
+- **Reconciliation** to validate trace consistency across formats
+
+### Property Verification
+
+- **Soundness** verification (proper completion)
+- **Boundedness** verification (no unbounded paths)
+- **Reachability** analysis (all nodes reachable from start)
+- **Strongly Connected Component (SCC)** detection
+
+### Search and Navigation
+
+- Full-text **search** across all content sections
+- **Code minimap** for navigating large content blocks
+- **Section expand/collapse** for managing screen space
+
+### Additional Features
+
+- **Dark mode** with persistent preference
+- **Syntax highlighting** via Prism.js with theme support
+- **Copy to clipboard** for any content section
+- **Download** raw content sections
+- **Bug reporting** modal with email integration
+- **Interactive demo tour** for new users
+- **Recent changes** feed from GitHub issues
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org) >= 18.0.0
+- npm >= 8.0.0
+
+### Installation
+
+```bash
+git clone https://github.com/Spunsel/cpee-log-error-console.git
+cd cpee-log-error-console
+npm install
+```
+
+### Running
+
+```bash
+npm run dev
+```
+
+The console opens at **http://localhost:8000**.
+
+### Fallback Data (Optional)
+
+To enable offline access with locally cached data:
+
+```bash
+# Generate local UUID mappings
+./scripts/fetch-uuids.ps1
+
+# Download log files into fallback/logs/
+./scripts/fetch-logs.ps1
+```
+
+## Usage
+
+1. **Load an instance** &mdash; Enter a CPEE process number or UUID and click *Load Instance*.
+2. **Navigate steps** &mdash; Use the step controls or arrow keys to move through modification steps.
+3. **Inspect content** &mdash; Each step shows five sections: Input CPEE-Tree, Input Intermediate, User Input, Output Intermediate, and Output CPEE-Tree.
+4. **Switch view modes** &mdash; Toggle between Visual, Raw, Log, Traces, and Analysis views per section.
+5. **Highlight across graphs** &mdash; Click any node to see it highlighted across all graph views.
+6. **Analyze traces** &mdash; View execution traces, compare input/output pairs, or use trace playback.
+7. **Verify properties** &mdash; Run soundness, boundedness, and reachability checks from the Analysis view.
+8. **Search** &mdash; Use the search bar within Raw or Log views to find content.
+9. **Export** &mdash; Download SVGs or copy content from any section.
 
 ## Architecture
 
-### Project Structure
 ```
-.
-├── .eslintrc.json
-├── .gitignore
-├── .prettierignore
-├── .prettierrc.json
-├── index.html
-├── package.json
-├── README.md
-├── docs/
-│   └── ... (documentation files)
-├── fallback/
-│   ├── cpee-themes/
-│   │   ├── base.js
-│   │   ├── default
-│   │   ├── preset/
-│   │   ├── presetaltid/
-│   │   └── presetid/
-│   ├── logs/
-│   │   └── ... (local log files)
-│   └── uuid-mapping.json
-├── scripts/
-│   ├── fetch-logs.ps1
-│   ├── fetch-uuids.ps1
-│   └── temp/
-├── src/
-│   ├── app.js
-│   ├── assets/
-│   │   ├── fonts/
-│   │   ├── icons.js
-│   │   ├── legacy_style.css
-│   │   └── styles/
-│   ├── components/
-│   │   ├── coordinators/
-│   │   │   ├── ContentViewCoordinator.js
-│   │   │   ├── ContentVisualizationCoordinator.js
-│   │   │   ├── CrossGraphHighlightCoordinator.js
-│   │   │   ├── TraceComparisonCoordinator.js
-|   |   |   └── TracePlaybackCoordinator.js 
-│   │   ├── renderers/
-│   │   │   ├── AnalysisContentRenderer.js
-│   │   │   ├── CPEEWfAdaptorRenderer.js
-│   │   │   ├── LogContentRenderer.js
-│   │   │   ├── MermaidRenderer.js
-│   │   │   ├── RawContentRenderer.js
-│   │   │   └── TraceContentRenderer.js
-│   │   ├── ui/
-│   │   │   ├── ActionBar.js
-│   │   │   ├── BoundednessDisplay.js
-│   │   │   ├── BugReportModal.js
-│   │   │   ├── CodeMinimap.js
-│   │   │   ├── ComparisonInfoBox.js
-│   │   │   ├── CopyButton.js
-│   │   │   ├── DarkModeToggle.js
-│   │   │   ├── DownloadButton.js
-│   │   │   ├── IssuesList.js
-│   │   │   ├── NodeClassificationList.js
-│   │   │   ├── PropertyStatusIndicator.js
-│   │   │   ├── ReachabilityDisplay.js
-│   │   │   ├── ReachabilityMetrics.js
-│   │   │   ├── RecentAdditionsAndFixes.js
-│   │   │   ├── ScaleDisplay.js
-│   │   │   ├── SCCDisplay.js
-│   │   │   ├── SearchBar.js
-│   │   │   ├── SectionExpandCollapse.js
-│   │   │   ├── Sidebar.js
-│   │   │   ├── SoundnessDisplay.js
-│   │   │   ├── StepDropdown.js
-│   │   │   ├── StepNavigator.js
-│   │   │   ├── StepSection.js
-│   │   │   ├── ThemeSelector.js
-│   │   │   ├── TraceDisplay.js
-│   │   │   ├── TraceFilter.js
-│   │   │   ├── VerificationStatusCard.js
-│   │   │   └── ViewModeToggle.js
-│   │   └── views/
-│   │       ├── InstanceLoaderViewer.js
-│   │       ├── LogViewer.js
-│   │       └── StepViewer.js
-│   ├── config/
-│   │   └── ConfigManager.js
-│   ├── core/
-│   │   ├── CPEEDebugConsole.js
-│   │   ├── DOMRegistry.js
-│   │   ├── EventBus.js
-│   │   ├── ServiceFactory.js
-│   │   └── StateManager.js
-│   ├── models/
-│   │   ├── CPEEInstance.js
-│   │   ├── CPEEStep.js
-│   │   ├── CPEETreeRaw.js
-│   │   ├── MermaidRaw.js
-│   │   ├── NodeIdentifier.js
-│   │   ├── Trace.js
-│   │   └── UserInputRaw.js
-│   ├── services/
-│   │   ├── ContentProcessingService.js
-│   │   ├── CPEEService.js
-│   │   ├── EmailService.js
-│   │   ├── EventProcessingService.js
-│   │   ├── HighlightingService.js
-│   │   ├── InstanceFallbackService.js
-│   │   ├── InstanceService.js
-│   │   ├── LogFetchService.js
-│   │   ├── NodeMappingService.js
-│   │   ├── SearchService.js
-│   │   ├── StepAssemblyService.js
-│   │   ├── SyntaxHighlightingService.js
-│   │   ├── TraceCalculationService.js
-│   │   └── TraceReconciliationService.js
-│   └── utils/
-│       ├── content/
-│       │   ├── CPEEParser.js
-│       │   ├── CPEEWarningHandler.js
-│       │   ├── LogParser.js
-│       │   ├── MermaidErrorHandler.js
-│       │   ├── MermaidParser.js
-│       │   └── MermaidWarningHandler.js
-│       ├── dom/
-│       │   ├── DOMStatusManager.js
-│       │   ├── SVGProcessor.js
-│       │   └── SVGScaleUtility.js
-│       ├── extraction/
-│       │   ├── CPEENodeExtractor.js
-│       │   ├── MermaidNodeExtractor.js
-│       │   └── SVGNodeExtractor.js
-│       ├── interaction/
-│       │   ├── CPEESVGClickHandler.js
-│       │   ├── MermaidSVGClickHandler.js
-│       │   └── SVGClickDetector.js
-│       ├── similarity/
-│       │   └── StringSimilarity.js
-│       ├── system/
-│       │   ├── JQueryExtensions.js
-│       │   ├── LibraryLoader.js
-│       │   └── URLManager.js
-│       └── trace/
-│           ├── CPEETraceCalculator.js
-│           ├── MermaidTraceCalculator.js
-│           ├── ReachabilityAnalyzer.js
-│           ├── SoundnessBoundednessVerifier.js
-│           └── TraceComparison.js
-├── tests/
-│   ├── ARCHITECTURE.md
-│   ├── QUICK_START.md
-│   ├── README.md
-│   ├── setup.js
-│   ├── config/
-│   │   └── ConfigManager.test.js
-│   ├── helpers/
-│   │   ├── dom-helpers.js
-│   │   ├── mock-factory.js
-│   │   ├── mock-helpers.js
-│   │   └── test-helpers.js
-│   ├── manual/
-│   │   ├── cross-view-task-highlighting/
-│   │   ├── renders/
-│   │   ├── trace-calculation/
-│   │   └── viewmode/
-│   └── unit/
-│       ├── core/
-│       └── trace/
-└── ... (other directories like node_modules/ not shown)
+src/
+├── app.js                        # Application entry point
+├── assets/                       # Icons, fonts, stylesheets
+├── config/                       # Centralized configuration
+├── core/                         # Application backbone
+│   ├── CPEEDebugConsole.js       #   Main controller
+│   ├── DOMRegistry.js            #   DOM element management
+│   ├── EventBus.js               #   Event-driven messaging
+│   ├── ServiceFactory.js         #   Lazy service instantiation
+│   └── StateManager.js           #   State and persistence
+├── models/                       # Domain models
+│   ├── CPEEInstance.js            
+│   ├── CPEEStep.js                
+│   ├── CPEETreeRaw.js / MermaidRaw.js / UserInputRaw.js
+│   ├── NodeIdentifier.js         
+│   └── Trace.js                   
+├── services/                     # Business logic
+│   ├── LogFetchService.js        #   Log retrieval and parsing
+│   ├── StepAssemblyService.js    #   Step construction from logs
+│   ├── InstanceService.js        #   Multi-instance management
+│   ├── NodeMappingService.js     #   Cross-format node mapping
+│   ├── TraceCalculationService.js
+│   ├── TraceReconciliationService.js
+│   ├── HighlightingService.js     
+│   ├── SearchService.js           
+│   └── ...                        
+├── components/
+│   ├── coordinators/             # High-level orchestration
+│   │   ├── ContentViewCoordinator.js
+│   │   ├── ContentVisualizationCoordinator.js
+│   │   ├── CrossGraphHighlightCoordinator.js
+│   │   ├── TraceComparisonCoordinator.js
+│   │   └── TracePlaybackCoordinator.js
+│   ├── renderers/                # Content rendering
+│   │   ├── CPEEWfAdaptorRenderer.js
+│   │   ├── MermaidRenderer.js
+│   │   ├── RawContentRenderer.js
+│   │   ├── LogContentRenderer.js
+│   │   ├── TraceContentRenderer.js
+│   │   └── AnalysisContentRenderer.js
+│   ├── ui/                       # Reusable UI components
+│   └── views/                    # Top-level view containers
+│       ├── InstanceLoaderViewer.js
+│       ├── StepViewer.js
+│       └── LogViewer.js
+└── utils/                        # Pure utilities
+    ├── content/                  #   Parsers and error handlers
+    ├── dom/                      #   SVG processing, DOM helpers
+    ├── extraction/               #   Node extraction from graphs
+    ├── interaction/              #   Click detection on SVGs
+    ├── similarity/               #   String similarity algorithms
+    ├── system/                   #   Library loading, URL management
+    └── trace/                    #   Trace calculation, comparison,
+                                  #   reachability, soundness/boundedness
 ```
 
-### Core Architecture
+The application follows a layered architecture:
 
-#### Core Layer
-- **CPEEDebugConsole**: Main application controller coordinating all components
-- **DOMRegistry**: Centralized DOM element management and manipulation
-- **EventBus**: Event-driven communication system for component coordination
-- **ServiceFactory**: Factory pattern for service instantiation and dependency injection
-- **StateManager**: Application state management and persistence
+- **Core** manages lifecycle, state, events, and dependency injection.
+- **Models** represent domain objects (instances, steps, traces, raw content).
+- **Services** contain business logic with no DOM dependencies.
+- **Components** handle rendering, UI interaction, and coordination.
+- **Utils** provide stateless helper functions.
 
-#### Models Layer
-- **CPEEStep & CPEEInstance**: Object-oriented representation of CPEE instance and user modification step
-- **Raw Content Models**: Specialized models for different content types (CPEETreeRaw, MermaidRaw, UserInputRaw)
-- **NodeIdentifier**: Standardized model for identifying and mapping nodes/tasks across different views and formats (replaces TaskIdentifier)
-- **Trace**: Model representing execution traces with path information and metadata
+## Development
 
-#### Service Layer  
-- **LogFetchService**: YAML log fetching and parsing with CORS handling and proxy rotation
-- **EventProcessingService**: Event filtering, grouping, and processing operations
-- **StepAssemblyService**: Orchestrates step creation from log events
-- **NodeMappingService**: Node/task extraction and cross-format mapping (replaces TaskMappingService)
-- **TraceCalculationService**: Execution trace calculation for graph sections
-- **InstanceService**: Multi-instance management and navigation state
-- **CPEEService**: CPEE server communication and UUID resolution
-- **HighlightingService**: Cross-view node highlighting and visual coordination
-- **SearchService**: Content search and filtering functionality
-- **ContentProcessingService**: Centralized content processing orchestration
-- **SyntaxHighlightingService**: Syntax highlighting for code content (Prism.js integration)
-- **EmailService**: Email functionality for bug reporting
-- **InstanceFallbackService**: Local fallback for instance data and logs when remote API is unavailable
-- **TraceReconciliationService**: Validation and reconciliation of execution traces between CPEE and Mermaid formats
+### Commands
 
-#### Component Layer
-- **UI Components**: Comprehensive interface elements including:
-  - Navigation: Action bar, sidebar, step navigator, step dropdown
-  - Display: Property status indicators, trace displays, verification cards
-  - Analysis: Boundedness, soundness, reachability, SCC displays
-  - Interaction: Search bar, copy button, dark mode toggle, theme selector
-  - Specialized: Bug report modal, issues list, comparison info boxes, download button
-- **Views**: Main view components (instance loader, log viewing, step navigation)
-- **Renderers**: Graph rendering components:
-  - **CPEEWfAdaptorRenderer**: CPEE WfAdaptor integration
-  - **MermaidRenderer**: Mermaid.js integration
-  - **RawContentRenderer**: Raw content display with syntax highlighting
-  - **AnalysisContentRenderer**: Comprehensive analysis content rendering
-  - **LogContentRenderer**: Log content rendering
-  - **TraceContentRenderer**: Trace visualization
-- **Coordinators**: Content coordination and section management:
-  - **ContentVisualizationCoordinator**: Main visualization coordination
-  - **ContentViewCoordinator**: View mode coordination
-  - **CrossGraphHighlightCoordinator**: Cross-graph highlighting synchronization
-  - **TraceComparisonCoordinator**: Trace comparison coordination
-  - **TracePlaybackCoordinator**: Trace auto-play and highlighting coordination
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Development server with hot reload |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build |
+| `npm test` | Run all tests |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run test:coverage` | Run tests with coverage |
+| `npm run lint` | Lint source code |
+| `npm run lint:fix` | Auto-fix lint issues |
+| `npm run format` | Format code with Prettier |
+| `npm run format:check` | Check formatting |
+| `npm run validate` | Lint + format check + test |
+| `npm run docs` | Generate JSDoc documentation |
 
-#### Utility Layer
-- **Content Processing**: CPEE, log, and Mermaid parsing utilities with error/warning handling
-- **DOM Utilities**: DOM manipulation, status management, and SVG processing
-- **Node Extraction**: Specialized extractors for CPEE, Mermaid, and SVG node identification
-- **User Interaction**: Click handlers and interaction detection for different graph types
-- **Trace Utilities**: Trace calculation, comparison, reachability analysis, and property verification
-- **Similarity Utilities**: String similarity calculation for node matching
-- **System Utilities**: Library loading, jQuery extensions, and URL management
+### Testing
 
-### Technologies Used
-- **Frontend**: JavaScript (ES6+), HTML5, CSS3
-- **Build Tool**: Vite for development and production builds
-- **Graph Rendering**: Mermaid.js, CPEE WfAdaptor
-- **Syntax Highlighting**: Prism.js with theme support
-- **Data Processing**: Custom YAML/XML parsers with content cleaning
-- **DOM Management**: Centralized DOM registry pattern
-- **Testing**: Node.js test runner with jsdom for DOM testing
-- **Architecture**: Component-based design with clear separation of concerns
+Tests use the Node.js built-in test runner with jsdom for DOM simulation:
 
-## Quick Start
-
-### Setup
 ```bash
-# Clone the repository
-git clone https://github.com/Spunsel/cpee-log-error-console.git
-cd cpee-log-error-console
-
-# Install dependencies
-npm install
-
-# Start development server (Vite)
-npm run dev
-
-# The application will be available at http://localhost:8000
-```
-
-### Fallback Data Setup (Optional)
-To enable offline fallback mode with local data:
-- Run `scripts/fetch-uuids.ps1` (PowerShell) to generate local UUID mappings
-- Run `scripts/fetch-logs.ps1` (PowerShell) to download local log files into fallback/logs/
-
-### Alternative Setup (Simple HTTP Server)
-```bash
-# For simple static file serving (without Vite features)
-npm run serve
-# or
-python -m http.server 8000
-```
-
-### Usage
-1. **Load Process**: Enter CPEE process number or UUID to load an instance
-2. **Navigate Steps**: Use next/previous buttons or step dropdown to explore user LLM modifications
-3. **View Graphs**: Automatic rendering of CPEE trees and Mermaid diagrams
-4. **Analyze Traces**: View execution traces and compare them across different graph formats
-5. **Trace Playback**: Use auto-play controls to automatically step through trace execution
-6. **Debug Issues**: Examine intermediate states, error messages, and property verifications
-7. **Cross-Graph Highlighting**: Click nodes in one view to see them highlighted in other views
-8. **Search & Filter**: Use the search bar to find specific content across all sections
-9. **Export Visualizations**: Export graph SVGs for documentation or analysis
-
-### Development Commands
-```bash
-# Development server with hot reload
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Run tests
+# All tests
 npm test
 
-# Run tests in watch mode
-npm run test:watch
+# Unit tests only
+npm run test:unit
 
-# Run tests with coverage
-npm run test:coverage
-
-# Lint code
-npm run lint
-
-# Fix linting issues
-npm run lint:fix
-
-# Format code
-npm run format
-
-# Check code formatting
-npm run format:check
-
-# Validate (lint + format + test)
-npm run validate
+# Single file
+npm run test:file -- tests/unit/trace/TraceComparison.test.js
 ```
 
-## Dependencies
+## Technologies
 
-### Runtime Dependencies
-- **Mermaid.js**: Diagram and flowchart rendering
-- **CPEE WfAdaptor**: Authentic CPEE graph visualization  
-- **Prism.js**: Syntax highlighting for code content
-- **jQuery**: DOM manipulation and utilities (legacy, being modernized)
-
-### Development Dependencies
-- **Vite**: Build tool and development server
-- **ESLint**: Code linting
-- **Prettier**: Code formatting
-- **jsdom**: DOM implementation for testing
-- **@testing-library/dom**: DOM testing utilities
-- **@testing-library/user-event**: User interaction testing
-- **jsdoc**: API documentation generation
+| Category | Technology |
+|----------|-----------|
+| Language | JavaScript (ES6+ modules) |
+| Build | [Vite](https://vite.dev) |
+| Graph rendering | [Mermaid.js](https://mermaid.js.org), CPEE WfAdaptor |
+| Syntax highlighting | [Prism.js](https://prismjs.com) |
+| Testing | Node.js test runner, [jsdom](https://github.com/jsdom/jsdom), [@testing-library](https://testing-library.com) |
+| Linting | ESLint, Prettier |
 
 ## License
 
-This project is part of a Bachelor's thesis at TUM (Technical University of Munich).
+MIT
 
 ## Author
 
-Christian Horne <christian.horne@tum.de>
+Christian Horne &lt;christian.horne@tum.de&gt;
+
+Part of a Bachelor's thesis at the Technical University of Munich (TUM).
