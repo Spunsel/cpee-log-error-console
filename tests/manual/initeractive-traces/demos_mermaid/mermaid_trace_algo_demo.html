@@ -46,6 +46,44 @@
         #mermaid-graph-container { padding: 1rem; min-height: 300px; display: flex; align-items: center; justify-content: center; }
         #mermaid-graph-container svg { max-width: 100%; height: auto; }
 
+        /* CPEE Debugging Console Mermaid Styling */
+        #mermaid-graph-container svg text,
+        #mermaid-graph-container svg tspan,
+        #mermaid-graph-container svg .nodeLabel {
+            font-family: 'Segoe UI', system-ui, sans-serif !important;
+        }
+        #mermaid-graph-container .node circle,
+        #mermaid-graph-container .node rect,
+        #mermaid-graph-container .node polygon,
+        #mermaid-graph-container .node path,
+        #mermaid-graph-container .node ellipse {
+            fill: #ffffff !important;
+            stroke: #000000 !important;
+            stroke-width: 2px !important;
+        }
+        #mermaid-graph-container g[id*="startevent"] circle,
+        #mermaid-graph-container g[id*="endevent"] circle,
+        #mermaid-graph-container g[id*="task"] rect {
+            fill: #ffffff !important;
+            stroke: #000000 !important;
+            stroke-width: 2px !important;
+        }
+        #mermaid-graph-container g[id*="gateway"] *,
+        #mermaid-graph-container g[id*="decision"] * {
+            fill: #ffffff !important;
+            stroke: #000000 !important;
+            stroke-width: 2px !important;
+        }
+        #mermaid-graph-container svg .edgePath path,
+        #mermaid-graph-container svg .flowchart-link {
+            stroke: #000000 !important;
+            fill: none !important;
+        }
+        #mermaid-graph-container svg marker * {
+            fill: #000000 !important;
+            stroke: #000000 !important;
+        }
+
         .traces-panel { grid-column: 2; grid-row: 2; overflow: auto; padding: 0.75rem 1.2rem; }
         .traces-panel-header { font-weight: 600; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
         .trace-count-badge { background: var(--accent); color: #fff; font-size: 0.65rem; padding: 0.1rem 0.45rem; border-radius: 99px; font-weight: 700; }
@@ -187,7 +225,39 @@ async function ensureMermaid() {
             document.head.appendChild(s);
         });
     }
-    window.mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose' });
+    window.mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        securityLevel: 'loose',
+        fontFamily: 'Segoe UI, system-ui, sans-serif',
+        fontSize: 14,
+        suppressErrorRendering: true,
+        themeVariables: {
+            fontSize: '14px',
+            primaryColor: '#ffffff',
+            primaryBorderColor: '#000000',
+            primaryTextColor: '#000000',
+            mainBkg: '#ffffff',
+            secondBkg: '#ffffff',
+            tertiaryColor: '#ffffff',
+            altBackground: '#ffffff',
+            nodeBorder: '#000000',
+            secondaryBorderColor: '#000000',
+            tertiaryBorderColor: '#000000',
+            secondaryTextColor: '#000000',
+            tertiaryTextColor: '#000000',
+            clusterBkg: 'none',
+            clusterBorder: '#000000'
+        },
+        flowchart: {
+            htmlLabels: true,
+            curve: 'basis',
+            padding: 15,
+            nodeSpacing: 25,
+            rankSpacing: 35,
+            useMaxWidth: false
+        }
+    });
     mermaidReady = true;
 }
 

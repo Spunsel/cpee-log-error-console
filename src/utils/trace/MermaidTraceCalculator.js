@@ -162,17 +162,17 @@ class TraceSets {
      * @param {number} depth - Recursion depth
      * @param {number} maxLoopIterations - Maximum loop iterations
      * @param {TimeoutChecker} timeoutChecker - Timeout checker
-     * @param {Set<string>} visitedNodes - Set of visited node IDs (for cycle detection in non-task nodes)
+     * @param {number} nonTaskSteps - Consecutive non-task steps without encountering a task (for gateway-only cycle detection)
      * @returns {Array<Array<Object>>} Array of forward trace arrays
      */
-    static forwardTrace(graph, currentNodeId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker, visitedNodes = new Set()) {
+    static forwardTrace(graph, currentNodeId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker, nonTaskSteps = 0) {
         if (timeoutChecker) {
             timeoutChecker.check();
         }
         
         // Check if we reached the target
         if (currentNodeId === targetNodeId) {
-            return [[...currentFT]]; // Return current forward trace set
+            return [[...currentFT]];
         }
         
         // Get node info
@@ -181,75 +181,56 @@ class TraceSets {
             return [];
         }
         
-        // Check if this non-task node was already visited in this path (cycle through gateways)
         const isTaskType = node.type === 'task' || node.type.endsWith('task') || node.type === 'subprocess';
-        if (!isTaskType && visitedNodes.has(currentNodeId)) {
-            // Cycle detected through non-task nodes (e.g., gateways)
-            // This prevents infinite loops between gateways
-            return [];
+        
+        // Gateway-only cycle detection: if we've traversed more consecutive non-task
+        // nodes than exist in the graph, we must be in a cycle -- skip it
+        if (!isTaskType) {
+            if (nonTaskSteps > graph.nodes.length) {
+                return [];
+            }
         }
         
         // Check if loop detected (cotree edge) for task nodes
         const isCotreeEdge = TopologyIterators.cotreeIterator(currentNodeId, currentFT);
         if (isCotreeEdge) {
-            // Loop detected - apply bounded iteration
-            // Count how many times this node appears in current trace (before adding current visit)
             const visitCount = currentFT.filter(task => {
                 const taskId = task.id || task.alt_id;
                 return taskId === currentNodeId;
             }).length;
             
-            // Block if visitCount exceeds maxLoopIterations (safety check)
             if (visitCount > maxLoopIterations) {
-                return []; // Loop limit reached - cannot repeat loop more than 1 time
+                return [];
             }
             
-            // Special case: Block consecutive repetition of "isolated loop tasks"
-            // An isolated loop task is one that ONLY connects to a single XOR gateway (loops back to same gateway)
-            // For these tasks, don't allow "A → A" (same task twice in a row)
             if (isTaskType && TopologyIterators.isIsolatedLoopTask(graph, currentNodeId)) {
-                // Check if this task was the last task in the trace
                 if (currentFT.length > 0) {
                     const lastTask = currentFT[currentFT.length - 1];
                     const lastTaskId = lastTask.id || lastTask.alt_id;
                     if (lastTaskId === currentNodeId) {
-                        // Block consecutive repetition of isolated loop task
                         return [];
                     }
                 }
             }
         }
         
-        // Create new visited set with current node (for non-task nodes)
-        const newVisitedNodes = new Set(visitedNodes);
-        if (!isTaskType) {
-            newVisitedNodes.add(currentNodeId);
-        }
-        
         // Get outgoing edges (forward iterator)
         const nextNodeIds = TopologyIterators.forwardIterator(graph, currentNodeId);
         
         if (nextNodeIds.length === 0) {
-            // Dead end (not the target)
             return [];
         }
         
         // Handle different node types
         if (isTaskType) {
-            // Task node: add to forward trace set
             const task = MermaidTraceCalculator.extractTask(node);
             if (!task) {
                 return [];
             }
             
-            // Create new forward trace set: FT_new = FT ∪ {task}
             const newFT = [...currentFT, task];
             
-            // If task has multiple outgoing edges, treat them as XOR alternatives (union)
-            // This handles cases like self-loops where a task can either loop back or continue
             if (nextNodeIds.length > 1) {
-                // Process each alternative path with same forward trace set
-                // Reset visitedNodes for task nodes (they use currentFT for cycle detection)
                 const alternativeTraces = nextNodeIds.flatMap(nextNodeId => 
                     this.forwardTrace(
                         graph,
@@ -259,12 +240,11 @@ class TraceSets {
                         depth + 1,
                         maxLoopIterations,
                         timeoutChecker,
-                        new Set() // Reset visited for new path after task
+                        0
                     )
                 );
                 return alternativeTraces;
             } else {
-                // Single outgoing edge: process sequentially
                 return this.combineSequentialForwardTrace(
                     graph,
                     nextNodeIds,
@@ -273,15 +253,15 @@ class TraceSets {
                     depth + 1,
                     maxLoopIterations,
                     timeoutChecker,
-                    new Set() // Reset visited for new path after task
+                    0
                 );
             }
         }
         
+        const nextNonTaskSteps = nonTaskSteps + 1;
+        
         switch (node.type) {
             case 'exclusivegateway': {
-                // XOR Gateway: union of alternatives
-                // Process each alternative with same forward trace set
                 const alternativeTraces = nextNodeIds.flatMap(nextNodeId => 
                     this.forwardTrace(
                         graph,
@@ -291,7 +271,7 @@ class TraceSets {
                         depth + 1,
                         maxLoopIterations,
                         timeoutChecker,
-                        newVisitedNodes
+                        nextNonTaskSteps
                     )
                 );
                 
@@ -299,7 +279,6 @@ class TraceSets {
             }
             
             case 'parallelgateway': {
-                // AND Gateway: interleave parallel branches
                 return this.handleParallelGateway(
                     graph,
                     currentNodeId,
@@ -307,13 +286,11 @@ class TraceSets {
                     currentFT,
                     depth,
                     maxLoopIterations,
-                    timeoutChecker,
-                    newVisitedNodes
+                    timeoutChecker
                 );
             }
             
             case 'inclusivegateway': {
-                // OR Gateway: one or more outgoing paths taken simultaneously
                 return this.handleInclusiveGateway(
                     graph,
                     currentNodeId,
@@ -321,14 +298,12 @@ class TraceSets {
                     currentFT,
                     depth,
                     maxLoopIterations,
-                    timeoutChecker,
-                    newVisitedNodes
+                    timeoutChecker
                 );
             }
             
             case 'startevent':
             case 'endevent': {
-                // Start/end events: pass through (no task added)
                 return this.combineSequentialForwardTrace(
                     graph,
                     nextNodeIds,
@@ -337,17 +312,15 @@ class TraceSets {
                     depth + 1,
                     maxLoopIterations,
                     timeoutChecker,
-                    newVisitedNodes
+                    nextNonTaskSteps
                 );
             }
             
             case 'escalate': {
-                // Return current forward trace as a complete trace (don't continue forward)
                 return [[...currentFT]];
             }
             
             default: {
-                // Unknown node type: treat as pass-through
                 return this.combineSequentialForwardTrace(
                     graph,
                     nextNodeIds,
@@ -356,7 +329,7 @@ class TraceSets {
                     depth + 1,
                     maxLoopIterations,
                     timeoutChecker,
-                    newVisitedNodes
+                    nextNonTaskSteps
                 );
             }
         }
@@ -371,20 +344,16 @@ class TraceSets {
      * @param {number} depth - Current depth
      * @param {number} maxLoopIterations - Maximum loop iterations
      * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
-     * @param {Set<string>} visitedNodes - Set of visited node IDs
      * @returns {Array<Array<Object>>} Array of trace arrays
      */
-    static handleParallelGateway(graph, splitGatewayId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker = null, visitedNodes = new Set()) {
+    static handleParallelGateway(graph, splitGatewayId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker = null) {
         const outgoingEdges = graph.adjacencyList.get(splitGatewayId) || [];
         
         if (outgoingEdges.length === 0) {
             return [];
         }
         
-        // Check if this is a JOIN gateway (single outgoing edge) vs SPLIT gateway (multiple outgoing edges)
-        // JOIN gateways converge multiple paths into one - they should be treated as pass-through
         if (outgoingEdges.length === 1) {
-            // This is a JOIN gateway (or single path through) - just continue to the next node
             return this.forwardTrace(
                 graph,
                 outgoingEdges[0].to,
@@ -392,18 +361,14 @@ class TraceSets {
                 currentFT,
                 depth + 1,
                 maxLoopIterations,
-                timeoutChecker,
-                visitedNodes
+                timeoutChecker
             );
         }
         
-        // Find the join gateway (parallel gateway that all branches connect to)
         const branchStartIds = outgoingEdges.map(e => e.to);
         const joinGateway = MermaidTraceCalculator.findJoinGateway(graph, splitGatewayId, branchStartIds);
         
         if (!joinGateway) {
-            // No explicit join gateway found - still interleave branches to target
-            // (parallel branches should be interleaved, not treated as XOR alternatives)
             const branchTraces = branchStartIds.map(branchStartId => 
                 this.forwardTrace(
                     graph,
@@ -412,12 +377,10 @@ class TraceSets {
                     currentFT,
                     depth + 1,
                     maxLoopIterations,
-                    timeoutChecker,
-                    new Set(visitedNodes)
+                    timeoutChecker
                 )
             );
             
-            // Extract branch-specific traces (remove common prefix)
             const branchSpecificTraces = branchTraces.map(branchTraceArray => 
                 branchTraceArray.map(trace => {
                     const prefixLength = currentFT.length;
@@ -425,28 +388,21 @@ class TraceSets {
                 })
             );
             
-            // Identify shared nodes that appear in multiple branches
             const sharedNodeIds = this.findSharedNodesInBranches(branchSpecificTraces);
             
-            // Remove shared nodes from branch traces
             const uniqueBranchTraces = branchSpecificTraces.map(branchTraceArray =>
                 branchTraceArray.map(trace =>
                     trace.filter(task => !sharedNodeIds.has(task.id || task.alt_id))
                 )
             );
             
-            // Extract shared nodes in order
             const sharedNodes = this.extractSharedNodesInOrder(branchSpecificTraces, sharedNodeIds);
             
-            // Interleave only the unique parts of branch traces
             const interleaved = MermaidTraceCalculator.interleave(uniqueBranchTraces, timeoutChecker);
             
-            // Return interleaved traces with shared nodes appended and common prefix
             return interleaved.map(interleavedTrace => [...currentFT, ...interleavedTrace, ...sharedNodes]);
         }
         
-        // Collect traces through each branch until join gateway
-        // Each branch processes with same forward trace set
         const branchTraces = branchStartIds.map(branchStartId => {
             if (timeoutChecker) {
                 timeoutChecker.check();
@@ -458,41 +414,31 @@ class TraceSets {
                 currentFT,
                 depth + 1,
                 maxLoopIterations,
-                timeoutChecker,
-                new Set(visitedNodes)
+                timeoutChecker
             );
         });
         
-        // Extract only the new tasks from each branch (remove the common prefix)
         const branchSpecificTraces = branchTraces.map(branchTraceArray => 
             branchTraceArray.map(trace => {
-                // Remove the common prefix (currentFT) from each trace
                 const prefixLength = currentFT.length;
                 return trace.slice(prefixLength);
             })
         );
         
-        // Identify shared nodes that appear in multiple branches
-        // These are nodes where branches converge before the join gateway
         const sharedNodeIds = this.findSharedNodesInBranches(branchSpecificTraces);
         
-        // Remove shared nodes from branch traces (they'll be added after interleaving)
         const uniqueBranchTraces = branchSpecificTraces.map(branchTraceArray =>
             branchTraceArray.map(trace =>
                 trace.filter(task => !sharedNodeIds.has(task.id || task.alt_id))
             )
         );
         
-        // Extract shared nodes in order (they appear after unique branch tasks)
         const sharedNodes = this.extractSharedNodesInOrder(branchSpecificTraces, sharedNodeIds);
         
-        // Interleave only the unique parts of branch traces
         const interleaved = MermaidTraceCalculator.interleave(uniqueBranchTraces, timeoutChecker);
         
-        // Append shared nodes to each interleaved trace
         const interleavedWithShared = interleaved.map(trace => [...trace, ...sharedNodes]);
         
-        // Continue from join gateway to target
         if (timeoutChecker) {
             timeoutChecker.check();
         }
@@ -503,17 +449,13 @@ class TraceSets {
             currentFT,
             depth + 1,
             maxLoopIterations,
-            timeoutChecker,
-            new Set(visitedNodes)
+            timeoutChecker
         );
         
-        // Combine interleaved traces with join traces
         const result = [];
         for (const interleavedTrace of interleavedWithShared) {
             for (const joinTrace of joinTraces) {
-                // Prepend common prefix and combine
                 const combinedTrace = [...currentFT, ...interleavedTrace];
-                // Remove common prefix from join trace and append
                 const joinTraceSuffix = joinTrace.slice(currentFT.length);
                 result.push([...combinedTrace, ...joinTraceSuffix]);
             }
@@ -534,17 +476,15 @@ class TraceSets {
      * @param {number} depth - Current depth
      * @param {number} maxLoopIterations - Maximum loop iterations
      * @param {TimeoutChecker} timeoutChecker - Timeout checker instance
-     * @param {Set<string>} visitedNodes - Set of visited node IDs
      * @returns {Array<Array<Object>>} Array of trace arrays
      */
-    static handleInclusiveGateway(graph, splitGatewayId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker = null, visitedNodes = new Set()) {
+    static handleInclusiveGateway(graph, splitGatewayId, targetNodeId, currentFT, depth, maxLoopIterations, timeoutChecker = null) {
         const outgoingEdges = graph.adjacencyList.get(splitGatewayId) || [];
         
         if (outgoingEdges.length === 0) {
             return [];
         }
         
-        // JOIN gateway (single outgoing edge) - pass through
         if (outgoingEdges.length === 1) {
             return this.forwardTrace(
                 graph,
@@ -553,18 +493,15 @@ class TraceSets {
                 currentFT,
                 depth + 1,
                 maxLoopIterations,
-                timeoutChecker,
-                visitedNodes
+                timeoutChecker
             );
         }
         
         const branchStartIds = outgoingEdges.map(e => e.to);
         const joinGateway = MermaidTraceCalculator.findJoinGateway(graph, splitGatewayId, branchStartIds);
         
-        // The effective target for each branch: either the join gateway or the final target
         const branchTarget = joinGateway || targetNodeId;
         
-        // Collect traces for each individual branch (split -> join segment)
         const perBranchTraces = branchStartIds.map(branchStartId => {
             if (timeoutChecker) {
                 timeoutChecker.check();
@@ -576,17 +513,14 @@ class TraceSets {
                 currentFT,
                 depth + 1,
                 maxLoopIterations,
-                timeoutChecker,
-                new Set(visitedNodes)
+                timeoutChecker
             );
         });
         
-        // Strip the common prefix from each branch's traces
         const perBranchSpecific = perBranchTraces.map(branchTraceArray =>
             branchTraceArray.map(trace => trace.slice(currentFT.length))
         );
         
-        // Generate all non-empty subsets of branch indices
         const subsets = MermaidTraceCalculator.generateNonEmptySubsets(branchStartIds.map((_, i) => i));
         
         const allTraces = [];
@@ -597,13 +531,11 @@ class TraceSets {
             }
             
             if (subset.length === 1) {
-                // Single branch selected (XOR-like): use that branch's traces directly
                 const branchIdx = subset[0];
                 for (const branchTrace of perBranchSpecific[branchIdx]) {
                     allTraces.push([...currentFT, ...branchTrace]);
                 }
             } else {
-                // Multiple branches selected (parallel-like): interleave them
                 const selectedBranches = subset.map(idx => perBranchSpecific[idx]);
                 
                 const sharedNodeIds = this.findSharedNodesInBranches(selectedBranches);
@@ -624,12 +556,10 @@ class TraceSets {
             }
         }
         
-        // If there's no join gateway, we already traced to the final target
         if (!joinGateway) {
             return allTraces;
         }
         
-        // Continue from join gateway to the final target
         if (timeoutChecker) {
             timeoutChecker.check();
         }
@@ -640,11 +570,9 @@ class TraceSets {
             currentFT,
             depth + 1,
             maxLoopIterations,
-            timeoutChecker,
-            new Set(visitedNodes)
+            timeoutChecker
         );
         
-        // Combine each inclusive trace with each post-join trace
         const result = [];
         for (const inclusiveTrace of allTraces) {
             for (const joinTrace of joinTraces) {
@@ -755,18 +683,16 @@ class TraceSets {
      * @param {number} depth - Recursion depth
      * @param {number} maxLoopIterations - Maximum loop iterations
      * @param {TimeoutChecker} timeoutChecker - Timeout checker
-     * @param {Set<string>} visitedNodes - Set of visited node IDs
+     * @param {number} nonTaskSteps - Consecutive non-task steps counter
      * @returns {Array<Array<Object>>} Combined trace arrays
      */
-    static combineSequentialForwardTrace(graph, nextNodeIds, targetNodeId, initialFT, depth, maxLoopIterations, timeoutChecker, visitedNodes = new Set()) {
+    static combineSequentialForwardTrace(graph, nextNodeIds, targetNodeId, initialFT, depth, maxLoopIterations, timeoutChecker, nonTaskSteps = 0) {
         if (nextNodeIds.length === 0) {
             return [[...initialFT]];
         }
         
-        // Start with initial forward trace set
         let currentTraces = [[...initialFT]];
         
-        // Process each next node sequentially, accumulating forward trace set
         for (const nextNodeId of nextNodeIds) {
             if (timeoutChecker) {
                 timeoutChecker.check();
@@ -774,13 +700,11 @@ class TraceSets {
             
             const newTraces = [];
             
-            // For each current trace, process next node and accumulate
             for (const currentTrace of currentTraces) {
                 if (timeoutChecker) {
                     timeoutChecker.check();
                 }
                 
-                // Process next node with current accumulated trace set
                 const nextTraces = this.forwardTrace(
                     graph,
                     nextNodeId,
@@ -789,10 +713,9 @@ class TraceSets {
                     depth + 1,
                     maxLoopIterations,
                     timeoutChecker,
-                    visitedNodes
+                    nonTaskSteps
                 );
                 
-                // Accumulate next traces
                 newTraces.push(...nextTraces);
             }
             
