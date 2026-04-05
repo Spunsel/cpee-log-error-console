@@ -4,19 +4,6 @@
  * Handles Raw View rendering, search functionality, and action bar management
  * 
  * This is the "Raw View" - shows original, un-preprocessed content from the log
- * 
- * Responsibilities:
- * - Render original/raw content into DOM elements
- * - Provide DOM structure for Raw View display
- * - Handle search highlighting and navigation
- * - Manage action bars for raw content
- * - Handle content restoration and hiding
- * - Mark preprocessing lines for Mermaid content
- * 
- * View Mode Separation:
- * - Graph View: ContentSectionManager (graph rendering)
- * - Cleaned View: RawContentRenderer (preprocessed content)
- * - Raw View: This renderer (untouched original content)
  */
 
 import { ActionBar } from '../ui/ActionBar.js';
@@ -24,18 +11,79 @@ import { serviceFactory } from '../../core/ServiceFactory.js';
 import { configManager } from '../../config/ConfigManager.js';
 
 export class LogContentRenderer {
-    constructor(domRegistry = null, _eventBus = null, contentProcessingService = null) {
+    constructor(domRegistry = null) {
         this.domRegistry = domRegistry;
-        this.contentProcessingService = contentProcessingService || serviceFactory.get('ContentProcessingService');
-        
-        // Search service
+        this.contentProcessingService = serviceFactory.get('ContentProcessingService');
         this.searchService = serviceFactory.get('SearchService');
-        
-        // Action bars per section
         this.actionBars = new Map();
-        
-        // Store original content per section (for copy functionality)
-        this.originalContent = new Map();
+    }
+
+    /**
+     * Hide elements matching a selector within a container
+     */
+    hideContentType(container, selector) {
+        for (const el of container.querySelectorAll(selector)) {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+            el.style.pointerEvents = 'none';
+        }
+    }
+
+    /**
+     * Find or create the raw content container, hiding visual and traces elements.
+     * @returns {HTMLElement} The log container
+     */
+    ensureLogContainer(container) {
+        this.hideContentType(container, '[data-content-type="visual"]');
+        this.hideContentType(container, '[data-content-type="traces"]');
+
+        let logContainer = container.querySelector('[data-content-type="raw"]');
+        if (!logContainer) {
+            logContainer = document.createElement('div');
+            logContainer.setAttribute('data-content-type', 'raw');
+            container.style.position = 'relative';
+            container.appendChild(logContainer);
+        }
+
+        logContainer.style.display = 'block';
+        logContainer.style.visibility = 'visible';
+        logContainer.style.pointerEvents = 'auto';
+
+        return logContainer;
+    }
+
+    /**
+     * Extract copyable content from a raw content object.
+     */
+    extractContent(rawContent) {
+        if (rawContent.getRawExposition) { return rawContent.getRawExposition(); }
+        if (rawContent.getContent) { return rawContent.getContent(); }
+        if (rawContent.getText) { return rawContent.getText(); }
+        return null;
+    }
+
+    /**
+     * Detect preprocessing line numbers by running the preprocessor
+     * and collecting which lines would be affected.
+     * @param {Function} preprocessFn - Function that returns { appliedSteps }
+     * @returns {number[]} Sorted, deduplicated line numbers
+     */
+    detectPreprocessingLines(preprocessFn) {
+        try {
+            const result = preprocessFn();
+            if (!result.appliedSteps || result.appliedSteps.length === 0) { return []; }
+
+            const lines = new Set();
+            for (const step of result.appliedSteps) {
+                if (step.lineNumbers && Array.isArray(step.lineNumbers)) {
+                    for (const n of step.lineNumbers) { lines.add(n); }
+                }
+            }
+            return Array.from(lines).sort((a, b) => a - b);
+        } catch (error) {
+            console.warn('Failed to detect preprocessing steps for Raw View:', error);
+            return [];
+        }
     }
 
     /**
@@ -43,29 +91,23 @@ export class LogContentRenderer {
      * @param {string} sectionId - Section identifier
      * @param {HTMLElement} container - Content container
      * @param {Object} step - Current step object
-     * @param {Object} options - Rendering options
      */
-    display(sectionId, container, step, _options = {}) {
-        if (!step || !container) {
-            return;
-        }
+    display(sectionId, container, step) {
+        if (!step || !container) { return; }
 
         let rawContent = null;
         let renderer = null;
 
-        // Get raw content based on section
         switch (sectionId) {
             case 'input-cpee':
                 rawContent = step.getInputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
-                    // CPEE sections: log mode shows original with preprocessing line markers
                     renderer = () => this.renderLogCPEETree(rawContent.getContent());
                 }
                 break;
             case 'input-intermediate':
                 rawContent = step.getInputMermaidRaw();
                 if (rawContent) {
-                    // Mermaid sections: use log renderer with rawExposition
                     renderer = () => this.renderLogMermaid(
                         rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(),
                         { type: 'input' }
@@ -75,7 +117,6 @@ export class LogContentRenderer {
             case 'output-intermediate':
                 rawContent = step.getOutputMermaidRaw();
                 if (rawContent) {
-                    // Mermaid sections: use log renderer with rawExposition
                     renderer = () => this.renderLogMermaid(
                         rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(),
                         { type: 'output' }
@@ -85,558 +126,304 @@ export class LogContentRenderer {
             case 'output-cpee':
                 rawContent = step.getOutputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
-                    // CPEE sections: log mode shows original with preprocessing line markers
                     renderer = () => this.renderLogCPEETree(rawContent.getContent());
                 }
                 break;
         }
 
         if (!rawContent || !renderer) {
-            // Don't destroy visual content - create proper container and show message
-            // This preserves visual content so it can be restored when switching back
-            let logContainer = container.querySelector('[data-content-type="raw"]');
-            if (!logContainer) {
-                logContainer = document.createElement('div');
-                logContainer.setAttribute('data-content-type', 'raw');
-                container.style.position = 'relative';
-                container.appendChild(logContainer);
-            }
-            
-            // Hide the original visual content (don't destroy it)
-            const visualElements = container.querySelectorAll('[data-content-type="visual"]');
-            visualElements.forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                el.style.pointerEvents = 'none';
-            });
-            
-            // Hide traces content as well
-            const tracesElements = container.querySelectorAll('[data-content-type="traces"]');
-            tracesElements.forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                el.style.pointerEvents = 'none';
-            });
-            
-            // Show the "no content" message in the log container
+            const logContainer = this.ensureLogContainer(container);
             logContainer.innerHTML = '<pre><code class="no-content">No log content available</code></pre>';
-            logContainer.style.display = 'block';
-            logContainer.style.visibility = 'visible';
-            logContainer.style.pointerEvents = 'auto';
-            
             return;
         }
 
         try {
-            // Hide traces content when switching to log
-            const tracesElements = container.querySelectorAll('[data-content-type="traces"]');
-            tracesElements.forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                el.style.pointerEvents = 'none';
-            });
-
-            // Check if log content container already exists
-            let logContainer = container.querySelector('[data-content-type="raw"]');
-            if (!logContainer) {
-                logContainer = document.createElement('div');
-                logContainer.setAttribute('data-content-type', 'raw');
-                container.style.position = 'relative';
-                container.appendChild(logContainer);
-            }
-
-            // Hide the original visual content
-            const visualElements = container.querySelectorAll('[data-content-type="visual"]');
-            visualElements.forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                el.style.pointerEvents = 'none';
-            });
-
-            // Hide parent container's scrollbar (log container will handle scrolling)
+            const logContainer = this.ensureLogContainer(container);
             container.style.overflow = 'hidden';
 
-            // Ensure log container is visible and interactive
-            logContainer.style.display = 'block';
-            logContainer.style.visibility = 'visible';
-            logContainer.style.pointerEvents = 'auto';
-
-            // ALWAYS add/ensure action bar exists BEFORE clearing content
+            // Ensure action bar exists
             if (rawContent.getLength && rawContent.getLength() > 0) {
-                // First, clear any existing action bars from the row (from other renderers)
                 const sectionElement = document.getElementById(sectionId);
-                let actionBarRow = sectionElement?.querySelector('.action-bar-row');
-                if (actionBarRow) {
-                    actionBarRow.innerHTML = '';
-                }
-                
+                const actionBarRow = sectionElement?.querySelector('.action-bar-row');
+                if (actionBarRow) { actionBarRow.innerHTML = ''; }
+
                 if (!this.actionBars.has(sectionId)) {
-                    // Create new action bar and attach to action bar row
                     this.addActionBar(logContainer, sectionId, rawContent);
                 } else {
-                    // Action bar instance exists - re-attach it
-                    const actionBar = this.actionBars.get(sectionId);
-                    
-                    if (actionBar) {
-                        // Remove from old parent if attached elsewhere
-                        actionBar.removeFromDOM();
-                        // Find or create the action bar row
-                        if (!actionBarRow && sectionElement) {
-                            const sectionHeader = sectionElement.querySelector('h3');
-                            if (sectionHeader) {
-                                actionBarRow = document.createElement('div');
-                                actionBarRow.className = 'action-bar-row';
-                                sectionHeader.insertAdjacentElement('afterend', actionBarRow);
-                            }
-                        }
-                        if (actionBarRow) {
-                            actionBar.appendToContainer(actionBarRow);
-                            // Make sure action bar row is visible
-                            actionBarRow.style.display = 'flex';
-                        } else {
-                            // Fallback to log container
-                            actionBar.appendToContainer(logContainer);
-                        }
-                        
-                        // Update view log URL for current instance (fixes stale URL bug)
-                        try {
-                            const instanceService = serviceFactory.get('InstanceService');
-                            const currentInstance = instanceService.getCurrentInstance();
-                            if (currentInstance && currentInstance.uuid) {
-                                const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${currentInstance.uuid}.xes.yaml`;
-                                actionBar.setViewLogUrl(logUrl);
-                            }
-                        } catch (error) {
-                            console.warn('LogContentRenderer: Could not update view log URL', error);
-                        }
-                        
-                        // Show the action bar
-                        actionBar.show();
-                    }
+                    this.reattachActionBar(sectionId, sectionElement, actionBarRow, logContainer);
                 }
             }
-            
-            // Set download metadata for action bar
-            try {
-                const instanceService = serviceFactory.get('InstanceService');
-                const currentInstance = instanceService.getCurrentInstance();
-                if (currentInstance && currentInstance.processNumber && step) {
-                    const actionBar = this.actionBars.get(sectionId);
-                    if (actionBar) {
-                        actionBar.setDownloadMetadata(currentInstance.processNumber, step.stepNumber);
-                    }
-                }
-            } catch (error) {
-                console.warn('LogContentRenderer: Could not get instance number for download filename', error);
-            }
-            
-            // Now clear ONLY the content area (preserve action bar)
+
+            this.updateDownloadMetadata(sectionId, step);
+
             logContainer.innerHTML = '';
-            
-            // Render new content and add it
-            const logElement = renderer();
-            logContainer.appendChild(logElement);
-            
-            // Trigger syntax highlighting using SyntaxHighlightingService
-            // Exclude user input from syntax highlighting
-            if (sectionId !== 'user-input') {
-                try {
-                    const syntaxService = serviceFactory.get('SyntaxHighlightingService');
-                    syntaxService.highlightCodeBlocks(logContainer);
-                    // Mark preprocessing lines after syntax highlighting (for log mode)
-                    this.waitForLineNumbersAndMark(logContainer, 0, 10);
-                } catch (_) {
-                    // Fallback to direct Prism highlighting if service not available
-                    try {
-                        const sh = configManager.get('syntaxHighlighting', { enabled: true, highlightOnRender: true });
-                        if (sh.enabled && sh.highlightOnRender) {
-                            const codeBlocks = logContainer.querySelectorAll('pre code');
-                            if (window.Prism && typeof window.Prism.highlightElement === 'function') {
-                                codeBlocks.forEach(block => {
-                                    window.Prism.highlightElement(block);
-                                });
-                            }
-                        }
-                        // Mark preprocessing lines after Prism highlighting (for log mode)
-                        this.waitForLineNumbersAndMark(logContainer, 0, 10);
-                    } catch (__) {
-                        // No-op if Prism/config not available
-                    }
-                }
-            }
-            
-            // Set up minimap after syntax highlighting
-            if (this.actionBars.has(sectionId)) {
-                const actionBar = this.actionBars.get(sectionId);
-                if (actionBar) {
-                    // Get the content-box parent for minimap attachment
-                    const contentBox = container.closest('.content-box') || container;
-                    // Delay minimap setup to ensure syntax highlighting is complete
-                    requestAnimationFrame(() => {
-                        actionBar.setMinimapCodeContainer(logContainer, contentBox);
-                        actionBar.refreshMinimap();
-                    });
-                }
-            }
-            
-            // Update copy and download content based on currently displayed content
-            // Extract text from the rendered DOM to ensure we copy/download exactly what's shown
-            if (this.actionBars.has(sectionId)) {
-                const actionBar = this.actionBars.get(sectionId);
-                if (actionBar) {
-                    // Extract the actual text content from the rendered code element
-                    const codeElement = logContainer.querySelector('pre code');
-                    if (codeElement) {
-                        // Get the text content (this will be the actual displayed text)
-                        const displayedText = codeElement.textContent || codeElement.innerText || '';
-                        if (displayedText) {
-                            actionBar.setCopyContent(displayedText);
-                            actionBar.setDownloadContent(displayedText);
-                        }
-                    } else {
-                        // Fallback: determine content to copy/download based on content type
-                        if (rawContent) {
-                            let contentToCopy = null;
-                            if (rawContent.getRawExposition) {
-                                // Log mode: use raw exposition for Mermaid sections
-                                contentToCopy = rawContent.getRawExposition();
-                            } else if (rawContent.getContent) {
-                                // CPEE sections: use regular content
-                                contentToCopy = rawContent.getContent();
-                            } else if (rawContent.getText) {
-                                // Fallback to getText
-                                contentToCopy = rawContent.getText();
-                            }
-                            
-                            // Update the copy and download buttons with the current content
-                            if (contentToCopy) {
-                                actionBar.setCopyContent(contentToCopy);
-                                actionBar.setDownloadContent(contentToCopy);
-                            }
-                        }
-                    }
-                }
-            }
+            logContainer.appendChild(renderer());
+
+            this.applySyntaxHighlighting(sectionId, logContainer);
+            this.setupMinimap(sectionId, container, logContainer);
+            this.updateCopyDownloadContent(sectionId, logContainer, rawContent);
+
         } catch (error) {
             console.error(`Error rendering log content for ${sectionId}:`, error);
-            
-            // Don't destroy visual content on error - show error in log container
-            let logContainer = container.querySelector('[data-content-type="raw"]');
-            if (!logContainer) {
-                logContainer = document.createElement('div');
-                logContainer.setAttribute('data-content-type', 'raw');
-                container.style.position = 'relative';
-                container.appendChild(logContainer);
-            }
-            
-            // Hide the original visual content (don't destroy it)
-            const visualElements = container.querySelectorAll('[data-content-type="visual"]');
-            visualElements.forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                el.style.pointerEvents = 'none';
-            });
-            
-            // Show the error message in the log container
+            const logContainer = this.ensureLogContainer(container);
             logContainer.innerHTML = '<pre><code class="error">Error rendering log content</code></pre>';
-            logContainer.style.display = 'block';
-            logContainer.style.visibility = 'visible';
-            logContainer.style.pointerEvents = 'auto';
         }
     }
 
     /**
-     * Render log Mermaid content with minimal processing
-     * Only removes: %% Input/Output Intermediate comment, ```mermaid markers, and fixes indentation
-     * Uses ContentProcessingService.processMermaidForLogView() for minimal cleaning
-     * @param {string} mermaidText - Raw Mermaid diagram text from logs (rawExposition)
-     * @param {Object} options - Rendering options (can include 'type' for input/output)
-     * @returns {HTMLElement} Container with rendered content
+     * Re-attach an existing action bar to its section.
+     */
+    reattachActionBar(sectionId, sectionElement, actionBarRow, logContainer) {
+        const actionBar = this.actionBars.get(sectionId);
+        if (!actionBar) { return; }
+
+        actionBar.removeFromDOM();
+
+        let row = actionBarRow;
+        if (!row && sectionElement) {
+            const sectionHeader = sectionElement.querySelector('h3');
+            if (sectionHeader) {
+                row = document.createElement('div');
+                row.className = 'action-bar-row';
+                sectionHeader.insertAdjacentElement('afterend', row);
+            }
+        }
+
+        if (row) {
+            actionBar.appendToContainer(row);
+            row.style.display = 'flex';
+        } else {
+            actionBar.appendToContainer(logContainer);
+        }
+
+        try {
+            const instanceService = serviceFactory.get('InstanceService');
+            const currentInstance = instanceService.getCurrentInstance();
+            if (currentInstance && currentInstance.uuid) {
+                const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${currentInstance.uuid}.xes.yaml`;
+                actionBar.setViewLogUrl(logUrl);
+            }
+        } catch (error) {
+            console.warn('LogContentRenderer: Could not update view log URL', error);
+        }
+
+        actionBar.show();
+    }
+
+    /**
+     * Set download metadata on the action bar for current instance/step.
+     */
+    updateDownloadMetadata(sectionId, step) {
+        try {
+            const instanceService = serviceFactory.get('InstanceService');
+            const currentInstance = instanceService.getCurrentInstance();
+            if (currentInstance && currentInstance.processNumber && step) {
+                const actionBar = this.actionBars.get(sectionId);
+                if (actionBar) {
+                    actionBar.setDownloadMetadata(currentInstance.processNumber, step.stepNumber);
+                }
+            }
+        } catch (error) {
+            console.warn('LogContentRenderer: Could not get instance number for download filename', error);
+        }
+    }
+
+    /**
+     * Apply syntax highlighting and mark preprocessing lines.
+     */
+    applySyntaxHighlighting(sectionId, logContainer) {
+        if (sectionId === 'user-input') { return; }
+
+        try {
+            const syntaxService = serviceFactory.get('SyntaxHighlightingService');
+            syntaxService.highlightCodeBlocks(logContainer);
+        } catch (_) {
+            try {
+                const sh = configManager.get('syntaxHighlighting', { enabled: true, highlightOnRender: true });
+                if (sh.enabled && sh.highlightOnRender && window.Prism) {
+                    for (const block of logContainer.querySelectorAll('pre code')) {
+                        window.Prism.highlightElement(block);
+                    }
+                }
+            } catch (__) { /* no-op */ }
+        }
+
+        this.waitForLineNumbersAndMark(logContainer, 0, 10);
+    }
+
+    /**
+     * Setup minimap after rendering.
+     */
+    setupMinimap(sectionId, container, logContainer) {
+        const actionBar = this.actionBars.get(sectionId);
+        if (!actionBar) { return; }
+
+        const contentBox = container.closest('.content-box') || container;
+        requestAnimationFrame(() => {
+            actionBar.setMinimapCodeContainer(logContainer, contentBox);
+            actionBar.refreshMinimap();
+        });
+    }
+
+    /**
+     * Update copy and download content on the action bar.
+     */
+    updateCopyDownloadContent(sectionId, logContainer, rawContent) {
+        const actionBar = this.actionBars.get(sectionId);
+        if (!actionBar) { return; }
+
+        const codeElement = logContainer.querySelector('pre code');
+        const displayedText = codeElement ? (codeElement.textContent || codeElement.innerText || '') : null;
+
+        const content = displayedText || this.extractContent(rawContent);
+        if (content) {
+            actionBar.setCopyContent(content);
+            actionBar.setDownloadContent(content);
+        }
+    }
+
+    /**
+     * Render log Mermaid content with minimal processing.
+     * Only removes comments, markdown markers, and fixes indentation.
      */
     renderLogMermaid(mermaidText, options = {}) {
         const container = this.domRegistry.createElement('div', {
             className: 'raw-content-container mermaid-log'
         });
 
-        // Apply minimal cleaning: remove comments, markdown markers, and fix indentation
-        const type = options.type || 'output'; // Default to output, can be set to 'input'
+        const type = options.type || 'output';
         let processedText = mermaidText || '';
-        
+
         try {
             processedText = this.contentProcessingService.processMermaidForLogView(processedText, type);
         } catch (error) {
             console.warn('Failed to clean log Mermaid content, using raw text:', error);
-            // Fallback to raw text if cleaning fails
             processedText = mermaidText || '';
         }
 
-        // Detect which lines would have preprocessing fixes applied
-        // Parse with preprocessing to get appliedSteps, but don't use the processed code
-        let affectedLineNumbers = [];
-        try {
-            const cleanResult = this.contentProcessingService.processAndValidateMermaid(processedText, true);
-            if (cleanResult.appliedSteps && cleanResult.appliedSteps.length > 0) {
-                // Collect all line numbers from all applied steps
-                cleanResult.appliedSteps.forEach(step => {
-                    if (step.lineNumbers && Array.isArray(step.lineNumbers)) {
-                        affectedLineNumbers.push(...step.lineNumbers);
-                    }
-                });
-                // Remove duplicates and sort
-                affectedLineNumbers = Array.from(new Set(affectedLineNumbers)).sort((a, b) => a - b);
-            }
-        } catch (error) {
-            // If parsing fails, just continue without marking lines
-            console.warn('Failed to detect preprocessing steps for Raw View:', error);
+        const affectedLines = this.detectPreprocessingLines(
+            () => this.contentProcessingService.processAndValidateMermaid(processedText, true)
+        );
+
+        if (affectedLines.length > 0) {
+            container.setAttribute('data-preprocessing-lines', affectedLines.join(','));
         }
 
-        // Store affected line numbers in data attribute for later marking
-        if (affectedLineNumbers.length > 0) {
-            container.setAttribute('data-preprocessing-lines', affectedLineNumbers.join(','));
-        }
-
-        const codeElement = this.domRegistry.createElement('pre', {
-            className: 'raw-code-block'
-        });
-
-        const codeContent = this.domRegistry.createElement('code', {
+        const pre = this.domRegistry.createElement('pre', { className: 'raw-code-block' });
+        pre.appendChild(this.domRegistry.createElement('code', {
             className: 'language-mermaid',
             textContent: processedText
-        });
-
-        codeElement.appendChild(codeContent);
-        container.appendChild(codeElement);
+        }));
+        container.appendChild(pre);
 
         return container;
     }
 
     /**
-     * Wait for line numbers to be added, then mark preprocessing lines (log mode only)
-     * Works for both Mermaid and CPEE log containers
-     * @param {HTMLElement} container - Container with rendered content
-     * @param {number} attempt - Current attempt number
-     * @param {number} maxAttempts - Maximum number of attempts
+     * Wait for line numbers to be added by Prism, then mark preprocessing lines.
      */
     waitForLineNumbersAndMark(container, attempt = 0, maxAttempts = 10) {
-        if (!container || attempt >= maxAttempts) {
-            return;
-        }
+        if (!container || attempt >= maxAttempts) { return; }
 
-        // Check if line numbers have been added - supports both mermaid-log and cpee-log
         const logContainer = container.querySelector('.mermaid-log') || container.querySelector('.cpee-log') || container;
-        const lineNumberElements = logContainer.querySelectorAll('.raw-code-line-number');
-        
-        if (lineNumberElements.length > 0) {
-            // Line numbers are present, mark preprocessing lines
+        if (logContainer.querySelectorAll('.raw-code-line-number').length > 0) {
             this.markPreprocessingLines(container);
         } else {
-            // Line numbers not yet added, retry after a short delay
-            setTimeout(() => {
-                this.waitForLineNumbersAndMark(container, attempt + 1, maxAttempts);
-            }, 50); // 50ms delay between attempts
+            setTimeout(() => this.waitForLineNumbersAndMark(container, attempt + 1, maxAttempts), 50);
         }
     }
 
     /**
-     * Mark line numbers with background highlight for lines that have preprocessing fixes applied (log mode only)
-     * Works for both Mermaid and CPEE log containers
-     * @param {HTMLElement} container - Container with rendered content
+     * Mark line numbers with background highlight for lines with preprocessing fixes.
      */
     markPreprocessingLines(container) {
-        if (!container) {
-            return;
-        }
+        if (!container) { return; }
 
-        // Find the log container (might be nested) - supports both mermaid-log and cpee-log
         const logContainer = container.querySelector('.mermaid-log') || container.querySelector('.cpee-log') || container;
         const preprocessingLinesAttr = logContainer.getAttribute('data-preprocessing-lines');
-        
-        if (!preprocessingLinesAttr) {
-            return; // No preprocessing lines to mark
-        }
+        if (!preprocessingLinesAttr) { return; }
 
-        // Parse line numbers from data attribute
-        const affectedLineNumbers = preprocessingLinesAttr.split(',').map(num => parseInt(num, 10)).filter(num => !isNaN(num) && num > 0);
-        
-        if (affectedLineNumbers.length === 0) {
-            return; // No valid line numbers
-        }
+        const affectedLineNumbers = preprocessingLinesAttr.split(',').map(n => parseInt(n, 10)).filter(n => !isNaN(n) && n > 0);
+        if (affectedLineNumbers.length === 0) { return; }
 
-        // Find all line number elements
-        const lineNumberElements = logContainer.querySelectorAll('.raw-code-line-number');
-        
-        // Mark each affected line number with background highlight
-        lineNumberElements.forEach(lineNumberEl => {
+        const lineSet = new Set(affectedLineNumbers);
+        for (const lineNumberEl of logContainer.querySelectorAll('.raw-code-line-number')) {
             const lineNumber = parseInt(lineNumberEl.getAttribute('data-line'), 10);
-            if (!isNaN(lineNumber) && affectedLineNumbers.includes(lineNumber)) {
+            if (!isNaN(lineNumber) && lineSet.has(lineNumber)) {
                 lineNumberEl.classList.add('preprocessing-line-number');
             }
-        });
+        }
     }
 
     /**
-     * Render log CPEE XML content as plain text
-     * Shows original (unprocessed) content with line number markers for preprocessing
-     * @param {string} xmlText - Raw CPEE XML text
-     * @param {Object} options - Rendering options
-     * @returns {HTMLElement} Container with rendered content
+     * Render log CPEE XML content as plain text with preprocessing line markers.
      */
-    renderLogCPEETree(xmlText, _options = {}) {
+    renderLogCPEETree(xmlText) {
         const container = this.domRegistry.createElement('div', {
             className: 'raw-content-container cpee-log'
         });
 
-        // Keep original text for display
         const originalText = xmlText || '';
 
-        // Detect which lines would have preprocessing fixes applied
-        // Use preprocessCPEEOnly to avoid validation errors
-        let affectedLineNumbers = [];
-        try {
-            const cleanResult = this.contentProcessingService.preprocessCPEEOnly(originalText);
-            if (cleanResult.appliedSteps && cleanResult.appliedSteps.length > 0) {
-                // Collect all line numbers from all applied steps
-                cleanResult.appliedSteps.forEach(step => {
-                    if (step.lineNumbers && Array.isArray(step.lineNumbers)) {
-                        affectedLineNumbers.push(...step.lineNumbers);
-                    }
-                });
-                // Remove duplicates and sort
-                affectedLineNumbers = Array.from(new Set(affectedLineNumbers)).sort((a, b) => a - b);
-            }
-        } catch (error) {
-            // If parsing fails, just continue without marking lines
-            console.warn('Failed to detect CPEE preprocessing steps for Raw View:', error);
+        const affectedLines = this.detectPreprocessingLines(
+            () => this.contentProcessingService.preprocessCPEEOnly(originalText)
+        );
+
+        if (affectedLines.length > 0) {
+            container.setAttribute('data-preprocessing-lines', affectedLines.join(','));
         }
 
-        // Store affected line numbers in data attribute for later marking
-        if (affectedLineNumbers.length > 0) {
-            container.setAttribute('data-preprocessing-lines', affectedLineNumbers.join(','));
-        }
-
-        const codeElement = this.domRegistry.createElement('pre', {
-            className: 'raw-code-block'
-        });
-
-        const codeContent = this.domRegistry.createElement('code', {
+        const pre = this.domRegistry.createElement('pre', { className: 'raw-code-block' });
+        pre.appendChild(this.domRegistry.createElement('code', {
             className: 'language-xml',
             textContent: originalText
-        });
-
-        codeElement.appendChild(codeContent);
-        container.appendChild(codeElement);
-
-        return container;
-    }
-
-    /**
-     * Render raw CPEE XML content as plain text (used for CPEE sections in raw mode)
-     * Shows preprocessed content
-     * @param {string} xmlText - Raw CPEE XML text
-     * @param {Object} options - Rendering options
-     * @returns {HTMLElement} Container with rendered content
-     */
-    renderRawCPEETree(xmlText, _options = {}) {
-        const container = this.domRegistry.createElement('div', {
-            className: 'raw-content-container cpee-raw'
-        });
-
-        const codeElement = this.domRegistry.createElement('pre', {
-            className: 'raw-code-block'
-        });
-
-        const codeContent = this.domRegistry.createElement('code', {
-            className: 'language-xml',
-            textContent: xmlText
-        });
-
-        codeElement.appendChild(codeContent);
-        container.appendChild(codeElement);
+        }));
+        container.appendChild(pre);
 
         return container;
     }
 
     /**
      * Hide log content when switching to visual mode
-     * @param {HTMLElement} container - Content container
      */
     hideLogContent(container) {
-        if (!container) {
-            return;
-        }
+        if (!container) { return; }
 
-        // Hide log content elements
-        const logElements = container.querySelectorAll('[data-content-type="raw"]');
-        logElements.forEach(el => {
-            el.style.display = 'none';
-            el.style.visibility = 'hidden';
-            el.style.pointerEvents = 'none';
-        });
+        this.hideContentType(container, '[data-content-type="raw"]');
 
-        // Hide action bar for this section and clear search
         const sectionId = container.closest('[id]')?.id;
         if (sectionId && this.actionBars.has(sectionId)) {
             const actionBar = this.actionBars.get(sectionId);
             if (actionBar) {
-                // Clear search before hiding
                 actionBar.clearSearch();
                 actionBar.hide();
-                // Hide minimap as well
                 actionBar.hideMinimap();
             }
-            // Also hide action bar row if it exists
             const sectionElement = document.getElementById(sectionId);
             const actionBarRow = sectionElement?.querySelector('.action-bar-row');
-            if (actionBarRow) {
-                actionBarRow.style.display = 'none';
-            }
+            if (actionBarRow) { actionBarRow.style.display = 'none'; }
         }
     }
 
     /**
-     * Add action bar (copy button + search bar) to log content container
-     * @param {HTMLElement} container - Container element (log container)
-     * @param {string} sectionId - Section identifier
-     * @param {Object} rawContent - Raw content object
+     * Add action bar (copy, search, minimap, download, view log) to log content container.
      */
     addActionBar(container, sectionId, rawContent) {
-        // Get content to copy (use rawExposition for Mermaid, regular content for CPEE)
-        let contentToCopy = null;
-        if (rawContent.getRawExposition) {
-            // Mermaid sections: use raw exposition for log mode
-            contentToCopy = rawContent.getRawExposition();
-        } else if (rawContent.getContent) {
-            // CPEE sections: use regular content
-            contentToCopy = rawContent.getContent();
-        } else if (rawContent.getText) {
-            contentToCopy = rawContent.getText();
-        }
+        const contentToCopy = this.extractContent(rawContent);
 
-        // Store original content for this section
-        if (contentToCopy) {
-            this.originalContent.set(sectionId, contentToCopy);
-        }
-        
-        // Initialize search state for this section using SearchService
         this.searchService.initializeSearchState(sectionId);
 
-        // Determine content type for minimap (cpee sections use XML, intermediate uses mermaid)
         const isCPEE = sectionId.includes('cpee');
-        const minimapContentType = isCPEE ? 'cpee' : 'mermaid';
-        
-        // Create action bar with SearchService, always visible for log sections
         const actionBar = new ActionBar(this.domRegistry, this.searchService, sectionId, {
             collapsedByDefault: false,
             showViewLog: true,
             showMinimap: true,
-            minimapContentType: minimapContentType,
-            showPreprocessingInMinimap: true // Raw View shows preprocessing markers
+            minimapContentType: isCPEE ? 'cpee' : 'mermaid',
+            showPreprocessingInMinimap: true
         });
-        
-        // Store action bar for this section
+
         this.actionBars.set(sectionId, actionBar);
-        
-        // Get instance info (view log URL set after attachToContainer)
+
         let currentInstance = null;
         try {
             const instanceService = serviceFactory.get('InstanceService');
@@ -644,195 +431,112 @@ export class LogContentRenderer {
         } catch (error) {
             console.warn('LogContentRenderer: Could not get instance info', error);
         }
-        
-        // Set up copy functionality
-        actionBar.setOnCopy((content) => {
-            console.log(`✓ Copied ${sectionId}:`, content.substring(0, 50) + '...');
-        });
-        
-        // Set up search functionality
-        actionBar.setOnSearch((searchTerm) => {
-            this.performSearch(sectionId, searchTerm, contentToCopy);
-        });
 
-        // Set up search clear
-        actionBar.setOnClear(() => {
-            this.clearSearch(sectionId);
-        });
-        
-        // Set up search navigation (direction only - SearchService handles index)
-        actionBar.setOnNavigate((direction) => {
-            console.log(`Navigate ${direction} in ${sectionId}`);
-            this.navigateToMatch(sectionId, direction);
-        });
+        actionBar.setOnSearch((searchTerm) => this.performSearch(sectionId, searchTerm));
+        actionBar.setOnClear(() => this.clearSearch(sectionId));
+        actionBar.setOnNavigate((direction) => this.navigateToMatch(sectionId, direction));
 
-        // Attach to a separate action bar row below the section header
         const sectionElement = document.getElementById(sectionId);
         const sectionHeader = sectionElement?.querySelector('h3');
-        
+
         if (sectionHeader) {
-            // Create or find the action bar row container
             let actionBarRow = sectionElement.querySelector('.action-bar-row');
             if (!actionBarRow) {
                 actionBarRow = document.createElement('div');
                 actionBarRow.className = 'action-bar-row';
-                // Insert after the h3 header, before the content-box
                 sectionHeader.insertAdjacentElement('afterend', actionBarRow);
             } else {
-                // Clear existing action bars from other renderers
                 actionBarRow.innerHTML = '';
             }
-            // Ensure action bar row is visible
             actionBarRow.style.display = 'flex';
             actionBar.attachToContainer(actionBarRow);
         } else {
-            // Fallback: attach to content-box if section header structure not found
-            const parentContainer = container.closest('.content-box') || container.parentElement;
-            if (parentContainer) {
-                actionBar.attachToContainer(parentContainer);
-            } else {
-                actionBar.attachToContainer(container);
-            }
+            const parentContainer = container.closest('.content-box') || container.parentElement || container;
+            actionBar.attachToContainer(parentContainer);
         }
-        
-        // Set copy content after attaching
+
         if (contentToCopy) {
             actionBar.setCopyContent(contentToCopy);
             actionBar.setDownloadContent(contentToCopy);
         }
-        
-        // Set view log URL after attaching (requires viewLogButtonContainer to exist)
+
         if (currentInstance && currentInstance.uuid) {
             const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${currentInstance.uuid}.xes.yaml`;
             actionBar.setViewLogUrl(logUrl);
         }
-        
-        // Show the action bar
+
         actionBar.show();
     }
 
     /**
-     * Get container element for a section
-     * @param {string} sectionId - Section identifier
-     * @returns {HTMLElement|null} Container element or null
+     * Get raw-content-container element for a section.
      */
     getContainerForSection(sectionId) {
-        // Try to get section element via DOMRegistry first
-        const sectionElement = this.domRegistry 
+        const sectionElement = this.domRegistry
             ? (this.domRegistry.getElementSafe(sectionId) || document.getElementById(sectionId))
             : document.getElementById(sectionId);
-        
-        if (sectionElement) {
-            return sectionElement.querySelector('.raw-content-container');
-        }
-        
-        // Fallback to querySelector
-        return document.querySelector(`#${sectionId} .raw-content-container`);
+
+        return sectionElement ? sectionElement.querySelector('.raw-content-container') : null;
     }
 
     /**
-     * Perform search in log content (delegates to SearchService combined workflow)
-     * @param {string} sectionId - Section identifier
-     * @param {string} searchTerm - Search term
-     * @param {string} _content - Content to search in (unused, kept for compatibility)
+     * Perform search in log content.
      */
-    performSearch(sectionId, searchTerm, _content) {
-        if (!searchTerm) {
-            return;
-        }
+    performSearch(sectionId, searchTerm) {
+        if (!searchTerm) { return; }
 
-        // Find the log content container for this section
         const container = this.getContainerForSection(sectionId);
-        if (!container) {
-            console.warn(`LogContentRenderer: No log content container found for ${sectionId}`);
-            return;
-        }
+        if (!container) { return; }
 
-        // Get search options from state
         const searchState = this.searchService.getSearchState(sectionId);
         const options = {
             caseSensitive: searchState?.caseSensitive || false,
             wholeWord: searchState?.wholeWord || false
         };
 
-        // Use SearchService's combined workflow
         const matches = this.searchService.performSearch(sectionId, container, searchTerm, options);
-        
-        // Update search UI after search completes
         this.updateSearchUI(sectionId);
 
-        // Scroll to first match if any matches found
         if (matches.length > 0) {
             this.searchService.scrollToMatch(container, 0);
         }
-        
-        // Update minimap search markers
+
         const actionBar = this.actionBars.get(sectionId);
-        if (actionBar) {
-            actionBar.updateMinimapSearchMarkers(matches);
-        }
+        if (actionBar) { actionBar.updateMinimapSearchMarkers(matches); }
     }
 
     /**
-     * Clear search highlighting (delegates to SearchService combined workflow)
-     * @param {string} sectionId - Section identifier
+     * Clear search highlighting.
      */
     clearSearch(sectionId) {
-        // Find the log content container for this section
         const container = this.getContainerForSection(sectionId);
-        if (!container) {
-            console.warn(`LogContentRenderer: No log content container found for ${sectionId}`);
-            return;
-        }
+        if (!container) { return; }
 
-        // Use SearchService's combined workflow
         this.searchService.clearSearch(sectionId, container);
-
-        // Update UI after clear
         this.updateSearchUI(sectionId);
-        
-        // Clear minimap search markers
+
         const actionBar = this.actionBars.get(sectionId);
-        if (actionBar) {
-            actionBar.updateMinimapSearchMarkers([]);
-        }
+        if (actionBar) { actionBar.updateMinimapSearchMarkers([]); }
     }
 
     /**
-     * Navigate to specific match (delegates to SearchService combined workflow)
-     * @param {string} sectionId - Section identifier
-     * @param {string} direction - 'next' or 'prev'
+     * Navigate to next/previous match.
      */
     navigateToMatch(sectionId, direction) {
-        console.log(`LogContentRenderer: Navigating ${direction} in ${sectionId}`);
-        
-        // Find the log content container for this section
         const container = this.getContainerForSection(sectionId);
-        if (!container) {
-            console.warn(`LogContentRenderer: No log content container found for ${sectionId}`);
-            return;
-        }
+        if (!container) { return; }
 
-        // Use SearchService's combined workflow methods
-        const success = direction === 'next' 
-            ? this.searchService.navigateToNextMatch(sectionId, container)
-            : this.searchService.navigateToPreviousMatch(sectionId, container);
-        
-        if (success) {
-            const searchState = this.searchService.getSearchState(sectionId);
-            const currentIndex = searchState?.currentMatchIndex ?? -1;
-            console.log(`LogContentRenderer: Successfully navigated to match ${currentIndex + 1}`);
+        if (direction === 'next') {
+            this.searchService.navigateToNextMatch(sectionId, container);
         } else {
-            console.warn(`LogContentRenderer: Failed to navigate ${direction}`);
+            this.searchService.navigateToPreviousMatch(sectionId, container);
         }
 
-        // Update UI after navigation
         this.updateSearchUI(sectionId);
     }
 
     /**
-     * Update search UI from SearchService state
-     * @param {string} sectionId - Section identifier
+     * Update search UI from SearchService state.
      */
     updateSearchUI(sectionId) {
         const actionBar = this.actionBars.get(sectionId);
@@ -842,63 +546,34 @@ export class LogContentRenderer {
     }
 
     /**
-     * Check if we have original content stored for a section
-     * @param {string} sectionId - Section identifier
-     * @returns {boolean} True if original content exists
+     * Clear search state for a specific section.
      */
-    hasOriginalContent(sectionId) {
-        return this.originalContent.has(sectionId);
-    }
-
-    /**
-     * Restore original content when switching modes
-     * @param {string} sectionId - Section identifier
-     */
-    restoreOriginalContent(sectionId) {
-        const originalContent = this.originalContent.get(sectionId);
-        if (!originalContent) {
-            // No original content stored - this is normal when switching to a new step
-            return;
-        }
-
-        // Find the log content container for this section
+    clearSectionSearch(sectionId) {
         const container = this.getContainerForSection(sectionId);
-        if (!container) {
-            console.warn(`LogContentRenderer: No log content container found for ${sectionId}`);
-            return;
+        if (container) {
+            this.searchService.clearSearch(sectionId, container);
         }
-
-        // Use SearchService's combined workflow to clear search
-        this.searchService.clearSearch(sectionId, container);
     }
 
     /**
-     * Clear all search states (called when navigating to a different step)
+     * Clear all search states (called when navigating to a different step).
      */
     clearAllSearchStates() {
-        // Clear all search states using SearchService
         this.searchService.clearAllSearchStates();
-        
-        // Clear stored original text (important when switching steps - content changes)
         this.searchService.clearAllOriginalText();
-        
-        // Clear highlighting from all containers using SearchService combined method
-        const sectionIds = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
-        sectionIds.forEach(sectionId => {
+
+        for (const sectionId of this.actionBars.keys()) {
             const container = this.getContainerForSection(sectionId);
             if (container) {
-                // Use combined method - it will clear highlighting if state exists
                 this.searchService.clearSearchHighlighting(container);
             }
-        });
+        }
     }
 
     /**
-     * Clean up resources
+     * Clean up resources.
      */
     destroy() {
         this.actionBars.clear();
-        this.originalContent.clear();
     }
 }
-

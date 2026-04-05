@@ -43,7 +43,7 @@ export class ContentViewCoordinator {
         
         // Instantiate all renderers for different view modes
         this.rawContentRenderer = new RawContentRenderer(domRegistry, this.eventBus, contentProcessingService);
-        this.logContentRenderer = new LogContentRenderer(domRegistry, this.eventBus, contentProcessingService);
+        this.logContentRenderer = new LogContentRenderer(domRegistry);
         this.traceContentRenderer = new TraceContentRenderer(domRegistry, this.eventBus, contentProcessingService);
         this.analysisContentRenderer = new AnalysisContentRenderer(domRegistry, this.eventBus);
         
@@ -595,9 +595,7 @@ export class ContentViewCoordinator {
             if (this.rawContentRenderer.hasOriginalContent(sectionId)) {
                 this.rawContentRenderer.restoreOriginalContent(sectionId);
             }
-            if (this.logContentRenderer.hasOriginalContent(sectionId)) {
-                this.logContentRenderer.restoreOriginalContent(sectionId);
-            }
+            this.logContentRenderer.clearSectionSearch(sectionId);
             
             // Delegate visual content restoration to ContentVisualizationCoordinator
             if (this.contentSectionCoordinator) {
