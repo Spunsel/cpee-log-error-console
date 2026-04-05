@@ -301,6 +301,16 @@
    flex-shrink: 0;
 }
 
+.analysis-section-description {
+   font-style: italic;
+   color: var(--text-secondary, #888);
+   font-size: 0.85em;
+   margin-left: 8px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
 .analysis-section-content.collapsed {
    max-height: 0 !important;
    padding-top: 0 !important;

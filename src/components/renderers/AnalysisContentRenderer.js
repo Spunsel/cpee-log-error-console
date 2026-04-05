@@ -379,7 +379,13 @@ export class AnalysisContentRenderer {
         );
         // Make status indicator only as wide as its content (not flex: 1)
         statusIndicator.classList.add('analysis-status-indicator');
+
         traceHeader.appendChild(statusIndicator);
+
+        const soundnessDesc = this.domRegistry.createElement('span');
+        soundnessDesc.className = 'analysis-section-description';
+        soundnessDesc.textContent = 'Every execution can complete, and no task is dead.';
+        traceHeader.appendChild(soundnessDesc);
         
         // Create collapsible content (initially hidden) - matching trace-details structure
         const content = this.domRegistry.createElement('div');
@@ -548,6 +554,11 @@ export class AnalysisContentRenderer {
         const statusIndicator = this.createStatusIndicatorWithoutIcon('Bounded', true);
         statusIndicator.classList.add('analysis-status-indicator');
         traceHeader.appendChild(statusIndicator);
+
+        const boundednessDesc = this.domRegistry.createElement('span');
+        boundednessDesc.className = 'analysis-section-description';
+        boundednessDesc.textContent = 'No unbounded growth of tokens or infinite loops.';
+        traceHeader.appendChild(boundednessDesc);
         
         const content = this.domRegistry.createElement('div');
         content.className = 'trace-details analysis-section-content collapsed';
@@ -622,6 +633,11 @@ export class AnalysisContentRenderer {
         );
         statusIndicator.classList.add('analysis-status-indicator');
         traceHeader.appendChild(statusIndicator);
+
+        const reachabilityDesc = this.domRegistry.createElement('span');
+        reachabilityDesc.className = 'analysis-section-description';
+        reachabilityDesc.textContent = 'Every task is reachable from start and can reach the end.';
+        traceHeader.appendChild(reachabilityDesc);
 
         // Create collapsible content (initially hidden)
         const content = this.domRegistry.createElement('div');

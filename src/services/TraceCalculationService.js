@@ -111,26 +111,33 @@ export class TraceCalculationService {
                     // Don't fail trace calculation if verification fails
                 }
                 
-                // Perform trace-based reachability analysis 
-                // This derives reachability from calculated traces - simpler and more accurate
+                // Perform reachability analysis (graph-based for Mermaid, trace-based fallback)
                 try {
-                    console.log(`[TraceCalculationService] Starting trace-based reachability analysis for ${sectionId}...`);
+                    console.log(`[TraceCalculationService] Starting reachability analysis for ${sectionId}...`);
                     const section = TraceCalculationService.SECTION_CONFIG[sectionId];
                     
                     if (traces.length > 0) {
                         const format = section?.isCPEE ? 'cpee' : 'mermaid';
                         
-                        // Extract all tasks from the GRAPH (not just traces) for accurate unreachable task detection
+                        const CPEECalc = (typeof this.cpeeTraceCalculator?.extractAllTasksFromGraph === 'function')
+                            ? this.cpeeTraceCalculator
+                            : this.cpeeTraceCalculator?.constructor;
+                        const MermaidCalc = (typeof this.mermaidTraceCalculator?.extractAllTasksFromGraph === 'function')
+                            ? this.mermaidTraceCalculator
+                            : this.mermaidTraceCalculator?.constructor;
+                        
                         let allTasksFromGraph = [];
+                        let graphContent = null;
                         try {
                             const rawContent = cpeeStep[section.rawGetter]();
                             if (rawContent && !rawContent.isEmpty()) {
                                 const contentString = rawContent.getContent();
                                 if (contentString && contentString.trim() !== '') {
+                                    graphContent = contentString;
                                     if (section.isCPEE) {
-                                        allTasksFromGraph = CPEETraceCalculator.extractAllTasksFromGraph(contentString);
+                                        allTasksFromGraph = CPEECalc.extractAllTasksFromGraph(contentString);
                                     } else {
-                                        allTasksFromGraph = MermaidTraceCalculator.extractAllTasksFromGraph(contentString);
+                                        allTasksFromGraph = MermaidCalc.extractAllTasksFromGraph(contentString);
                                     }
                                 }
                             }
@@ -139,16 +146,18 @@ export class TraceCalculationService {
                             allTasksFromGraph = this.extractAllTasksFromTraces(traces);
                         }
                         
-                        // Fallback to trace-based extraction if graph extraction failed
                         if (allTasksFromGraph.length === 0) {
                             allTasksFromGraph = this.extractAllTasksFromTraces(traces);
                         }
                         
-                        // Perform trace-based reachability analysis
                         const reachabilityResult = analyzeReachabilityFromTraces(
                             traces,
                             allTasksFromGraph,
-                            { format }
+                            {
+                                format,
+                                graphContent: !section.isCPEE ? graphContent : undefined,
+                                MermaidTraceCalculator: !section.isCPEE ? MermaidCalc : undefined
+                            }
                         );
                         
                         // Store reachability result in step

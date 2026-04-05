@@ -316,12 +316,12 @@ export class ContentViewCoordinator {
             console.warn(`[ContentViewCoordinator] Verification re-run failed for ${sectionId}:`, error);
         }
 
-        // Re-run trace-based reachability analysis
+        // Re-run reachability analysis (graph-based for Mermaid, trace-based fallback)
         try {
             const format = isCPEE ? 'cpee' : 'mermaid';
             
-            // Extract all tasks from the GRAPH (not just traces) for accurate unreachable task detection
             let allTasksFromGraph = [];
+            let graphContent = null;
             try {
                 let rawContent = null;
                 if (sectionId === 'input-cpee') {
@@ -337,6 +337,7 @@ export class ContentViewCoordinator {
                 if (rawContent && rawContent.getContent) {
                     const contentString = rawContent.getContent();
                     if (contentString && contentString.trim() !== '') {
+                        graphContent = contentString;
                         if (isCPEE) {
                             allTasksFromGraph = CPEETraceCalculator.extractAllTasksFromGraph(contentString);
                         } else {
@@ -349,7 +350,6 @@ export class ContentViewCoordinator {
                 allTasksFromGraph = this.extractAllTasksFromTraces(traces);
             }
             
-            // Fallback to trace-based extraction if graph extraction failed
             if (allTasksFromGraph.length === 0) {
                 allTasksFromGraph = this.extractAllTasksFromTraces(traces);
             }
@@ -357,12 +357,15 @@ export class ContentViewCoordinator {
             const reachabilityResult = analyzeReachabilityFromTraces(
                 traces,
                 allTasksFromGraph,
-                { format }
+                {
+                    format,
+                    graphContent: !isCPEE ? graphContent : undefined,
+                    MermaidTraceCalculator: !isCPEE ? MermaidTraceCalculator : undefined
+                }
             );
             
             this.currentStep.setReachabilityResult(sectionId, reachabilityResult);
             
-            // Emit reachability completion event
             this.eventBus.emit('reachability:analyzed', {
                 sectionId,
                 stepNumber: this.currentStep.stepNumber || 'unknown',
@@ -371,10 +374,10 @@ export class ContentViewCoordinator {
             });
             
             if (reachabilityResult.success) {
-                console.log(`[ContentViewCoordinator] Trace-based reachability re-run complete for ${sectionId}`);
+                console.log(`[ContentViewCoordinator] Reachability re-run complete for ${sectionId}`);
             }
         } catch (error) {
-            console.warn(`[ContentViewCoordinator] Trace-based reachability re-run failed for ${sectionId}:`, error);
+            console.warn(`[ContentViewCoordinator] Reachability re-run failed for ${sectionId}:`, error);
         }
 
         // Update analysis button issue state after re-running analysis
@@ -740,11 +743,10 @@ export class ContentViewCoordinator {
                     // Don't fail trace calculation if verification fails
                 }
                 
-                // Perform trace-based reachability analysis
+                // Perform reachability analysis (graph-based for Mermaid, trace-based fallback)
                 try {
                     const format = section.isCPEE ? 'cpee' : 'mermaid';
                     
-                    // Extract all tasks from the GRAPH (not just traces) for accurate unreachable task detection
                     let allTasksFromGraph = [];
                     try {
                         if (section.isCPEE) {
@@ -757,7 +759,6 @@ export class ContentViewCoordinator {
                         allTasksFromGraph = this.extractAllTasksFromTraces(traces);
                     }
                     
-                    // Fallback to trace-based extraction if graph extraction failed
                     if (allTasksFromGraph.length === 0) {
                         allTasksFromGraph = this.extractAllTasksFromTraces(traces);
                     }
@@ -765,22 +766,23 @@ export class ContentViewCoordinator {
                     const reachabilityResult = analyzeReachabilityFromTraces(
                         traces,
                         allTasksFromGraph,
-                        { format }
+                        {
+                            format,
+                            graphContent: !section.isCPEE ? contentString : undefined,
+                            MermaidTraceCalculator: !section.isCPEE ? MermaidTraceCalculator : undefined
+                        }
                     );
                     
-                    // Store reachability result in step
                     step.setReachabilityResult(section.id, reachabilityResult);
                     
-                    // Emit reachability analysis completion event 
                     this.eventBus.emit('reachability:analyzed', {
                         sectionId: section.id,
                         stepNumber: step.stepNumber || 'unknown',
                         reachabilityResult: reachabilityResult
                     }, { silent: true });
                 } catch (reachabilityError) {
-                    console.error(`[ContentViewCoordinator] Trace-based reachability analysis failed for ${section.id}:`, reachabilityError);
+                    console.error(`[ContentViewCoordinator] Reachability analysis failed for ${section.id}:`, reachabilityError);
                     console.error(`[ContentViewCoordinator] Reachability error stack:`, reachabilityError.stack);
-                    // Don't fail trace calculation if reachability analysis fails
                 }
                 
                 // Update analysis button issue state after both verification and reachability are complete
