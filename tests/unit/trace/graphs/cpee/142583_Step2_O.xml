@@ -1,0 +1,147 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Customer Places Order</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Enter Order in POS</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a5" endpoint="" a:alt_id="3">
+    <parameters>
+      <label>Confirm Order with Customer</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a7" endpoint="" a:alt_id="4">
+    <parameters>
+      <label>Customer Pays</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a9" endpoint="" a:alt_id="5">
+    <parameters>
+      <label>Send Order to Kitchen</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <parallel wait="-1" cancel="last" a:alt_id="6">
+    <parallel_branch>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Receive Order in Kitchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="8">
+        <alternative condition="Ingredients Available" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Check Inventory</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="10">
+            <alternative condition="Proceed with Preparation" language="text/javascript"/>
+            <alternative condition="Ingredients Missing" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Notify Cashier of Shortage</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a33" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Request Restock or Substitute</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Ingredients Missing" language="text/javascript">
+          <call id="a21" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Notify Cashier of Shortage</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Request Restock or Substitute</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Prepare Food</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Plate and Quality Check</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Runner Takes Food to Counter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="a15" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Barista Makes Drink</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+  </parallel>
+  <call id="a41" endpoint="" a:alt_id="18">
+    <parameters>
+      <label>Customer Receives Order</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>

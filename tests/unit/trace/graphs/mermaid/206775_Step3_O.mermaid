@@ -1,0 +1,10 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Initiate Infrastructure Cost Allocation)
+1:task:(Initiate Infrastructure Cost Allocation) --> 2:task:(Collect Cost Data)
+2:task:(Collect Cost Data) --> 3:task:(Calculate Cost Allocation)
+3:task:(Calculate Cost Allocation) --> 4:task:(Review Cost Allocation)
+4:task:(Review Cost Allocation) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> |Approved| 7:task:(Update Financial Records)
+5:exclusivegateway:{x} --> |Rejected| 6:task:(Revise Cost Allocation)
+6:task:(Revise Cost Allocation) --> 4:task:(Review Cost Allocation)
+7:task:(Update Financial Records) --> 8:endevent:(((endevent)))

@@ -1,0 +1,13 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Cycle to gym and fall)
+1:task:(Cycle to gym and fall) --> 2:task:(Go to family doctor)
+2:task:(Go to family doctor) --> 3:task:(Take medical history and examination)
+3:task:(Take medical history and examination) --> 4:exclusivegateway:{x}
+4:exclusivegateway:{x} --> |Wrist bruised| 5:task:(Ask about tetanus status)
+4:exclusivegateway:{x} --> |Wrist fractured| 8:task:(Refer for X-ray)
+5:task:(Ask about tetanus status) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Tetanus up to date| 8:task:(Refer for X-ray)
+6:exclusivegateway:{x} --> |Tetanus not up to date| 7:task:(Give booster shot and new card)
+7:task:(Give booster shot and new card) --> 8:task:(Refer for X-ray)
+8:task:(Refer for X-ray) --> 9:task:(Find radiology practice)
+9:task:(Find radiology practice) --> 10:endevent:(((endevent)))

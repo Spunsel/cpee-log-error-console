@@ -1,0 +1,13 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Retrieve Ingredients)
+a1:task:(Retrieve Ingredients)-->a3:task:(Mix Ingredients)
+a3:task:(Mix Ingredients)-->pg1s:parallelgateway:{AND}
+pg1s:parallelgateway:{AND}-->a5:task:(Add Ice Cubes)
+pg1s:parallelgateway:{AND}-->a9:task:(Add Straw)
+a5:task:(Add Ice Cubes)-->pg1e:parallelgateway:{AND}
+a9:task:(Add Straw)-->pg1e:parallelgateway:{AND}
+pg1e:parallelgateway:{AND}-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Customer wants more liquor"|a17:task:(Add Liquor Shot)
+a17:task:(Add Liquor Shot)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"No"|gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->ee:endevent:(((endevent)))

@@ -3,7 +3,7 @@
 #   powershell -ExecutionPolicy Bypass -File scripts/fetch-and-update.ps1
 
 # Process numbers to fetch
-$processNumbers = @(7677..8735)
+$processNumbers = @(8736..8752)
 
 # Resolve project root (parent of scripts/)
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition

@@ -597,13 +597,7 @@ class TraceSets {
                         if (timeoutChecker) {
                             timeoutChecker.check();
                         }
-                        
-                        // Preserve termination flag
-                        if (childTrace._terminatedByEscape) {
-                            newTraces.push(childTrace);
-                        } else {
-                            newTraces.push(childTrace);
-                        }
+                        newTraces.push(childTrace);
                     }
                 }
             }

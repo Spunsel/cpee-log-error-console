@@ -1,0 +1,15 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Define Cell Line)
+1:task:(Define Cell Line) --> 2:task:(Seed Bioreactor)
+2:task:(Seed Bioreactor) --> 3:task:(Cell Culture)
+3:task:(Cell Culture) --> 4:task:(Cell Growth Monitoring)
+4:task:(Cell Growth Monitoring) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} -->|Growth Optimal| 6:task:(Antibody Production)
+5:exclusivegateway:{x} -->|Growth Not Optimal| 2:task:(Seed Bioreactor)
+6:task:(Antibody Production) --> 7:task:(Harvest Culture Fluid)
+7:task:(Harvest Culture Fluid) --> 8:task:(Primary Recovery)
+8:task:(Primary Recovery) --> 9:task:(Purification)
+9:task:(Purification) --> 10:task:(Viral inactivation)
+10:task:(Viral inactivation) --> 11:task:(Formulation)
+11:task:(Formulation) --> 12:task:(Fill and Finish)
+12:task:(Fill and Finish) --> 13:endevent:(((endevent)))

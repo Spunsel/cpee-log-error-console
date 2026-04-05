@@ -1,0 +1,15 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Insert Cup)
+a1:task:(Insert Cup)-->a3:task:(Select Drink)
+a3:task:(Select Drink)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Ingredients Available"|a7:task:(Process Payment)
+a7:task:(Process Payment)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Payment Declined"|a16:task:(Show Payment Error)
+a16:task:(Show Payment Error)-->a7:task:(Process Payment)
+gw2s:exclusivegateway:{x}-->|"Payment Successful"|a9:task:(Brew Coffee)
+a9:task:(Brew Coffee)-->a11:task:(Serve Coffee)
+a11:task:(Serve Coffee)-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Out of Stock"|a15:task:(Display Out of Stock)
+a15:task:(Display Out of Stock)-->a17:task:(Eject Cup)
+a17:task:(Eject Cup)-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))

@@ -1,0 +1,21 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Nome)
+1:task:(Nome) --> 2:task:(E-mail)
+2:task:(E-mail) --> 3:task:(Telefone)
+3:task:(Telefone) --> 4:task:(DescriÃ§Ã£o)
+4:task:(DescriÃ§Ã£o) --> 5:task:(Clique continua)
+5:task:(Clique continua) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |NÃ£o| 7:task:(Erro)
+6:exclusivegateway:{x} --> |Sim| 8:task:(E-mail de Valida)
+8:task:(E-mail de Valida) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> |NÃ£o| 7:task:(Erro)
+9:exclusivegateway:{x} --> |Sim| 10:task:(Valida telefone)
+10:task:(Valida telefone) --> 11:exclusivegateway:{x}
+11:exclusivegateway:{x} --> |NÃ£o| 7:task:(Erro)
+11:exclusivegateway:{x} --> |Sim| 12:task:(Verifica duplicado)
+12:task:(Verifica duplicado) --> 13:exclusivegateway:{x}
+13:exclusivegateway:{x} --> |NÃ£o| 14:task:(Salvar)
+13:exclusivegateway:{x} --> |Sim| 7:task:(Erro)
+14:task:(Salvar) --> 15:task:(ConfirmaÃ§Ã£o)
+15:task:(ConfirmaÃ§Ã£o) --> 16:endevent:(((endevent)))
+7:task:(Erro) --> 16:endevent:(((endevent)))

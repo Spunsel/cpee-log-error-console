@@ -3,27 +3,19 @@
   <call id="a1" endpoint="">
     <parameters><label>A</label><method>:post</method><arguments/></parameters>
   </call>
-  <choose mode="exclusive">
+  <choose mode="inclusive">
     <alternative condition="">
       <call id="a2" endpoint="">
         <parameters><label>B</label><method>:post</method><arguments/></parameters>
       </call>
     </alternative>
-    <alternative>
+    <alternative condition="">
       <call id="a3" endpoint="">
         <parameters><label>C</label><method>:post</method><arguments/></parameters>
       </call>
     </alternative>
-    <alternative condition="">
-      <call id="a4" endpoint="">
-        <parameters><label>D</label><method>:post</method><arguments/></parameters>
-      </call>
-      <escape alt_id="-1"/>
-    </alternative>
-    <otherwise>
-    </otherwise>
   </choose>
   <call id="a99" endpoint="">
-    <parameters><label>E</label><method>:post</method><arguments/></parameters>
+    <parameters><label>D</label><method>:post</method><arguments/></parameters>
   </call>
 </description>

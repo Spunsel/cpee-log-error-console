@@ -1,0 +1,190 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <loop mode="pre_test" condition="true">
+    <call id="a1" endpoint="" a:alt_id="1">
+      <parameters>
+        <label>Initial Task</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <choose mode="exclusive" a:alt_id="2">
+      <alternative condition="Condition A" language="text/javascript">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Task A</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="5">
+          <alternative condition="Condition D" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Task D</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Condition E" language="text/javascript">
+            <call id="a17" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Task E</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </alternative>
+      <alternative condition="Condition B" language="text/javascript">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Task B</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="5">
+          <alternative condition="Condition D" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Task D</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Condition E" language="text/javascript">
+            <call id="a17" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Task E</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </alternative>
+      <alternative condition="Condition C" language="text/javascript"/>
+    </choose>
+    <choose mode="exclusive" a:alt_id="8">
+      <alternative condition="Condition F" language="text/javascript">
+        <call id="a23" endpoint="" a:alt_id="9">
+          <parameters>
+            <label>Task F</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </alternative>
+      <alternative condition="Condition G" language="text/javascript"/>
+    </choose>
+    <loop mode="pre_test" condition="Condition I" a:alt_id="10" language="text/javascript">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Initial Task</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Condition A" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Condition D" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Task D</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Condition E" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Task E</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Condition B" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Condition D" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Task D</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Condition E" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Task E</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Condition C" language="text/javascript"/>
+      </choose>
+      <choose mode="exclusive" a:alt_id="8">
+        <alternative condition="Condition F" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Task F</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Condition G" language="text/javascript"/>
+      </choose>
+    </loop>
+    <call id="a29" endpoint="" a:alt_id="11">
+      <parameters>
+        <label>Task H</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+  </loop>
+</description>

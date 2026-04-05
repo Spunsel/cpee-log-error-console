@@ -1,0 +1,1076 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8743
+    cpee:name: Plain Instance
+    cpee:instance: b3372d66-955a-4a84-8867-d72ead493990
+---
+event:
+  concept:instance: 8743
+  id:id: ex-ante
+  cpee:instance: b3372d66-955a-4a84-8867-d72ead493990
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-04T14:32:12.901700+02:00'
+---
+event:
+  concept:instance: 8743
+  id:id: ex-ante
+  cpee:instance: b3372d66-955a-4a84-8867-d72ead493990
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dd5c7a2a003026c439b49970b9c14cfcde788b0d
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-04T14:35:37.127464+02:00'
+---
+event:
+  concept:instance: 8743
+  id:id: ex-ante
+  cpee:instance: b3372d66-955a-4a84-8867-d72ead493990
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dd5c7a2a003026c439b49970b9c14cfcde788b0d
+  cpee:exposition: |-
+    # User Input:
+
+
+
+    Proces: Start-up onderneming zoekt financiering (AS-IS)
+
+    Pool: Start-up onderneming (Ã©Ã©n pool, drie swimlanes)
+
+    Swimlane 1 â€” Hoofdproces (founder) Het proces start met een startgebeurtenis. De founder doorloopt achtereenvolgens: (1) Valideer idee en markt, (2) Uitwerken financieel plan, (3) Bepaal financiÃ«le behoeften, (4) Verzamel ecosysteemondersteuning. Daarna volgt een exclusieve gateway "Voldoende?": bij Ja eindigt het proces met "Geen funding nodig"; bij Nee gaat de flow naar een inclusieve gateway die twee parallelle subprocessen activeert: "Werken met de overheid" en "Zoeken op private markt". Na beide subprocessen convergeert de flow naar "Funding proces afgerond".
+
+    Swimlane 2 â€” Subproces: Werken met de overheid
+
+    De subproces start met een inclusieve gateway "Soort investeringsmechanisme?" met vijf uitgaande paden: Tax Shelter, Winwinlening, LRM, PMV, VLAIO.
+
+    Pad Tax Shelter:
+
+    Voorwaarden onderzoeken
+    Investeerders zoeken
+    Fiscaal attest opmaken per investeerder
+    Attesten indienen bij fiscus (Belcotax-on-web)
+    Exclusieve gateway "Goedgekeurd?": Ja â†’ Kapitaalverhoging doorvoeren â†’ Uitgeven aandelen aan investeerders â†’ eindgebeurtenis "Fiscaal voordeel"; Nee â†’ eindgebeurtenis "Geen fiscaal voordeel"
+
+    Pad Winwinlening:
+
+    Particuliere kredietgever zoeken
+    VLAIO dossier samenstellen & indienen
+    Leningsakte aanmaken
+    Akte & aflossingstabel digitaal bezorgen
+    Leningsakte ondertekenen
+    Exclusieve gateway "Goedgekeurd?": Ja â†’ eindgebeurtenis "Financiering verkregen"; Nee â†’ eindgebeurtenis "Geen lening ontvangen"
+
+    Pad LRM:
+
+    Intakegesprek met LRM
+    Financieel plan indienen
+    Exclusieve gateway "Goedgekeurd?": Ja â†’ Ingaan op voorstel â†’ eindgebeurtenis "Financiering verkregen"; Nee â†’ eindgebeurtenis "Geen financiering"
+
+    Pad PMV:
+
+    Aanvraag indienen via platform
+    Financieel plan indienen
+    Exclusieve gateway "Goedgekeurd?": Ja â†’ eindgebeurtenis "Financiering verkregen"; Nee â†’ eindgebeurtenis "Geen financiering"
+
+    Pad VLAIO:
+
+    Nagaan voorwaarden
+    Exclusieve gateway "Voldaan?": Ja â†’ Plan indienen â†’ exclusieve gateway "Goedgekeurd?": Ja â†’ eindgebeurtenis "Financiering verkregen"; Nee â†’ eindgebeurtenis "Geen financiering"; Nee â†’ eindgebeurtenis "Geen financiering"
+
+    Swimlane 3 â€” Subproces: Zoeken op private markt
+
+    De subproces start met een exclusieve gateway met drie uitgaande paden: Business angels, Venture capital, Banken.
+
+    Pad Business angels:
+
+    Identificeer potentiÃ«le business angels
+    Pitchen voor Investment Forum
+    Exclusieve gateway "Positief?": Ja â†’ Onderhandelen over deal â†’ Ondertekenen fundingcontract â†’ eindgebeurtenis "Financiering ontvangen"; Nee â†’ eindgebeurtenis "Geen funding ontvangen"
+
+    Pad Venture capital:
+
+    Identificeer geschikte VC fondsen
+    Voorbereiden pitch
+    Screening- en partner meeting (timer: 4-8 weken)
+    Exclusieve gateway "Positief?": Ja â†’ Term sheet reviewen â†’ Onderhandelen voorwaarden en waardering â†’ Closing en post-closing afspraken â†’ eindgebeurtenis "Financiering ontvangen"; Nee â†’ eindgebeurtenis "Geen funding ontvangen"
+
+    Pad Banken:
+
+    Selecteer geschikte bank
+    Aanvragen banklening
+    Gesprek met bankadviseur
+    Aanvraag indienen via platform
+    Exclusieve gateway "Goedgekeurd?" (timer: 2 weken): Ja â†’ Ondertekenen leningsovereenkomst â†’ eindgebeurtenis "Krediet ontvangen"; Nee â†’ eindgebeurtenis "Geen lening ontvangen"
+
+    Timers aanwezig in het diagram:
+
+    Due diligence business angels: 2-6 weken
+    Due diligence VC: 4-8 weken
+    Bankbeoordeling: 2 weken
+    PMV: Â±4 weken
+    VLAIO: Â±8 weken
+    LRM: Â±10 dagen
+  time:timestamp: '2026-04-04T14:35:37.128227+02:00'
+---
+event:
+  concept:instance: 8743
+  id:id: ex-ante
+  cpee:instance: b3372d66-955a-4a84-8867-d72ead493990
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dd5c7a2a003026c439b49970b9c14cfcde788b0d
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-04T14:35:37.128357+02:00'
+---
+event:
+  concept:instance: 8743
+  id:id: ex-ante
+  cpee:instance: b3372d66-955a-4a84-8867-d72ead493990
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Valideer idee en markt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Uitwerken financieel plan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Bepaal financi&#xEB;le behoeften</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Verzamel ecosysteemondersteuning</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="Ja" language="text/javascript"/>
+        <alternative condition="Nee" language="text/javascript">
+          <choose mode="inclusive" a:alt_id="7">
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="0">
+                <alternative condition="">
+                  <call id="a23" endpoint="" a:alt_id="47">
+                    <parameters>
+                      <label>Funding proces afgerond</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="inclusive" a:alt_id="9">
+                    <alternative condition="">
+                      <call id="a29" endpoint="" a:alt_id="10">
+                        <parameters>
+                          <label>Voorwaarden onderzoeken</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a39" endpoint="" a:alt_id="11">
+                        <parameters>
+                          <label>Investeerders zoeken</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a41" endpoint="" a:alt_id="12">
+                        <parameters>
+                          <label>Fiscaal attest opmaken per investeerder</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a43" endpoint="" a:alt_id="13">
+                        <parameters>
+                          <label>Attesten indienen bij fiscus (Belcotax-on-web)</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="49">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a47" endpoint="" a:alt_id="50">
+                            <parameters>
+                              <label>Kapitaalverhoging doorvoeren</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a51" endpoint="" a:alt_id="52">
+                            <parameters>
+                              <label>Uitgeven aandelen aan investeerders</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Ja" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="14">
+                        <parameters>
+                          <label>Particuliere kredietgever zoeken</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a55" endpoint="" a:alt_id="15">
+                        <parameters>
+                          <label>VLAIO dossier samenstellen &amp; indienen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a57" endpoint="" a:alt_id="16">
+                        <parameters>
+                          <label>Leningsakte aanmaken</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a59" endpoint="" a:alt_id="17">
+                        <parameters>
+                          <label>Akte &amp; aflossingstabel digitaal bezorgen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a61" endpoint="" a:alt_id="54">
+                        <parameters>
+                          <label>Leningsakte ondertekenen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="55">
+                        <alternative condition="Ja" language="text/javascript"/>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a33" endpoint="" a:alt_id="18">
+                        <parameters>
+                          <label>Intakegesprek met LRM</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a69" endpoint="" a:alt_id="19">
+                        <parameters>
+                          <label>Financieel plan indienen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="58">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a73" endpoint="" a:alt_id="59">
+                            <parameters>
+                              <label>Ingaan op voorstel</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Ja" language="text/javascript">
+                      <call id="a35" endpoint="" a:alt_id="20">
+                        <parameters>
+                          <label>Aanvraag indienen via platform</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a79" endpoint="" a:alt_id="21">
+                        <parameters>
+                          <label>Financieel plan indienen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="62">
+                        <alternative condition="Ja" language="text/javascript"/>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a37" endpoint="" a:alt_id="22">
+                        <parameters>
+                          <label>Nagaan voorwaarden</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="65">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a89" endpoint="" a:alt_id="23">
+                            <parameters>
+                              <label>Plan indienen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <choose mode="exclusive" a:alt_id="67">
+                            <alternative condition="Ja" language="text/javascript"/>
+                            <alternative condition="Nee" language="text/javascript"/>
+                          </choose>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="0">
+                <alternative condition="">
+                  <call id="a23" endpoint="" a:alt_id="47">
+                    <parameters>
+                      <label>Funding proces afgerond</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="25">
+                    <alternative condition="">
+                      <call id="a101" endpoint="" a:alt_id="26">
+                        <parameters>
+                          <label>Identificeer potenti&#xEB;le business angels</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a107" endpoint="" a:alt_id="27">
+                        <parameters>
+                          <label>Pitchen voor Investment Forum</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="28">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a111" endpoint="" a:alt_id="29">
+                            <parameters>
+                              <label>Onderhandelen over deal</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a115" endpoint="" a:alt_id="30">
+                            <parameters>
+                              <label>Ondertekenen fundingcontract</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a103" endpoint="" a:alt_id="32">
+                        <parameters>
+                          <label>Identificeer geschikte VC fondsen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a119" endpoint="" a:alt_id="33">
+                        <parameters>
+                          <label>Voorbereiden pitch</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a121" endpoint="" a:alt_id="34">
+                        <parameters>
+                          <label>Screening- en partner meeting</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="35">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a125" endpoint="" a:alt_id="38">
+                            <parameters>
+                              <label>Term sheet reviewen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a131" endpoint="" a:alt_id="40">
+                            <parameters>
+                              <label>Onderhandelen voorwaarden en waardering</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a135" endpoint="" a:alt_id="42">
+                            <parameters>
+                              <label>Closing en post-closing afspraken</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a105" endpoint="" a:alt_id="37">
+                        <parameters>
+                          <label>Selecteer geschikte bank</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a129" endpoint="" a:alt_id="39">
+                        <parameters>
+                          <label>Aanvragen banklening</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a133" endpoint="" a:alt_id="41">
+                        <parameters>
+                          <label>Gesprek met bankadviseur</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a137" endpoint="" a:alt_id="43">
+                        <parameters>
+                          <label>Aanvraag indienen via platform</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="70">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a143" endpoint="" a:alt_id="71">
+                            <parameters>
+                              <label>Ondertekenen leningsovereenkomst</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: dd5c7a2a003026c439b49970b9c14cfcde788b0d
+  time:timestamp: '2026-04-04T14:35:37.126986+02:00'
+---
+event:
+  concept:instance: 8743
+  id:id: ex-ante
+  cpee:instance: b3372d66-955a-4a84-8867-d72ead493990
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dd5c7a2a003026c439b49970b9c14cfcde788b0d
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-04T14:35:37.128448+02:00'
+---
+event:
+  concept:instance: 8743
+  id:id: ex-ante
+  cpee:instance: b3372d66-955a-4a84-8867-d72ead493990
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dd5c7a2a003026c439b49970b9c14cfcde788b0d
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Valideer idee en markt)
+        1:task:(Valideer idee en markt) --> 2:task:(Uitwerken financieel plan)
+        2:task:(Uitwerken financieel plan) --> 3:task:(Bepaal financiÃ«le behoeften)
+        3:task:(Bepaal financiÃ«le behoeften) --> 4:task:(Verzamel ecosysteemondersteuning)
+        4:task:(Verzamel ecosysteemondersteuning) --> 5:exclusivegateway:{x}
+        5:exclusivegateway:{x} --> |Ja| 6:endevent:(((endevent)))
+        5:exclusivegateway:{x} --> |Nee| 7:inclusivegateway:{O}
+        7:inclusivegateway:{O} --> 8:subprocess:(Werken met de overheid)
+        7:inclusivegateway:{O} --> 24:subprocess:(Zoeken op private markt)
+        8:subprocess:(Werken met de overheid) --> 46:inclusivegateway:{O}
+        24:subprocess:(Zoeken op private markt) --> 46:inclusivegateway:{O}
+        46:inclusivegateway:{O} --> 47:task:(Funding proces afgerond)
+        47:task:(Funding proces afgerond) --> 48:endevent:(((endevent)))
+        8:subprocess:(Werken met de overheid) --> 9:inclusivegateway:{O}
+        9:inclusivegateway:{O} --> 10:task:(Voorwaarden onderzoeken)
+        9:inclusivegateway:{O} --> 14:task:(Particuliere kredietgever zoeken)
+        9:inclusivegateway:{O} --> 18:task:(Intakegesprek met LRM)
+        9:inclusivegateway:{O} --> 20:task:(Aanvraag indienen via platform)
+        9:inclusivegateway:{O} --> 22:task:(Nagaan voorwaarden)
+        10:task:(Voorwaarden onderzoeken) --> 11:task:(Investeerders zoeken)
+        11:task:(Investeerders zoeken) --> 12:task:(Fiscaal attest opmaken per investeerder)
+        12:task:(Fiscaal attest opmaken per investeerder) --> 13:task:(Attesten indienen bij fiscus (Belcotax-on-web))
+        13:task:(Attesten indienen bij fiscus (Belcotax-on-web)) --> 49:exclusivegateway:{x}
+        49:exclusivegateway:{x} --> |Ja| 50:task:(Kapitaalverhoging doorvoeren)
+        49:exclusivegateway:{x} --> |Nee| 51:endevent:(((endevent)))
+        50:task:(Kapitaalverhoging doorvoeren) --> 52:task:(Uitgeven aandelen aan investeerders)
+        52:task:(Uitgeven aandelen aan investeerders) --> 53:endevent:(((endevent)))
+        14:task:(Particuliere kredietgever zoeken) --> 15:task:(VLAIO dossier samenstellen & indienen)
+        15:task:(VLAIO dossier samenstellen & indienen) --> 16:task:(Leningsakte aanmaken)
+        16:task:(Leningsakte aanmaken) --> 17:task:(Akte & aflossingstabel digitaal bezorgen)
+        17:task:(Akte & aflossingstabel digitaal bezorgen) --> 54:task:(Leningsakte ondertekenen)
+        54:task:(Leningsakte ondertekenen) --> 55:exclusivegateway:{x}
+        55:exclusivegateway:{x} --> |Ja| 56:endevent:(((endevent)))
+        55:exclusivegateway:{x} --> |Nee| 57:endevent:(((endevent)))
+        18:task:(Intakegesprek met LRM) --> 19:task:(Financieel plan indienen)
+        19:task:(Financieel plan indienen) --> 58:exclusivegateway:{x}
+        58:exclusivegateway:{x} --> |Ja| 59:task:(Ingaan op voorstel)
+        58:exclusivegateway:{x} --> |Nee| 60:endevent:(((endevent)))
+        59:task:(Ingaan op voorstel) --> 61:endevent:(((endevent)))
+        20:task:(Aanvraag indienen via platform) --> 21:task:(Financieel plan indienen)
+        21:task:(Financieel plan indienen) --> 62:exclusivegateway:{x}
+        62:exclusivegateway:{x} --> |Ja| 63:endevent:(((endevent)))
+        62:exclusivegateway:{x} --> |Nee| 64:endevent:(((endevent)))
+        22:task:(Nagaan voorwaarden) --> 65:exclusivegateway:{x}
+        65:exclusivegateway:{x} --> |Ja| 23:task:(Plan indienen)
+        65:exclusivegateway:{x} --> |Nee| 66:endevent:(((endevent)))
+        23:task:(Plan indienen) --> 67:exclusivegateway:{x}
+        67:exclusivegateway:{x} --> |Ja| 68:endevent:(((endevent)))
+        67:exclusivegateway:{x} --> |Nee| 69:endevent:(((endevent)))
+        24:subprocess:(Zoeken op private markt) --> 25:exclusivegateway:{x}
+        25:exclusivegateway:{x} --> 26:task:(Identificeer potentiÃ«le business angels)
+        25:exclusivegateway:{x} --> 32:task:(Identificeer geschikte VC fondsen)
+        25:exclusivegateway:{x} --> 37:task:(Selecteer geschikte bank)
+        26:task:(Identificeer potentiÃ«le business angels) --> 27:task:(Pitchen voor Investment Forum)
+        27:task:(Pitchen voor Investment Forum) --> 28:exclusivegateway:{x}
+        28:exclusivegateway:{x} --> |Ja| 29:task:(Onderhandelen over deal)
+        28:exclusivegateway:{x} --> |Nee| 31:endevent:(((endevent)))
+        29:task:(Onderhandelen over deal) --> 30:task:(Ondertekenen fundingcontract)
+        30:task:(Ondertekenen fundingcontract) --> 36:endevent:(((endevent)))
+        32:task:(Identificeer geschikte VC fondsen) --> 33:task:(Voorbereiden pitch)
+        33:task:(Voorbereiden pitch) --> 34:task:(Screening- en partner meeting)
+        34:task:(Screening- en partner meeting) --> 35:exclusivegateway:{x}
+        35:exclusivegateway:{x} --> |Ja| 38:task:(Term sheet reviewen)
+        35:exclusivegateway:{x} --> |Nee| 45:endevent:(((endevent)))
+        37:task:(Selecteer geschikte bank) --> 39:task:(Aanvragen banklening)
+        38:task:(Term sheet reviewen) --> 40:task:(Onderhandelen voorwaarden en waardering)
+        39:task:(Aanvragen banklening) --> 41:task:(Gesprek met bankadviseur)
+        40:task:(Onderhandelen voorwaarden en waardering) --> 42:task:(Closing en post-closing afspraken)
+        41:task:(Gesprek met bankadviseur) --> 43:task:(Aanvraag indienen via platform)
+        42:task:(Closing en post-closing afspraken) --> 44:endevent:(((endevent)))
+        43:task:(Aanvraag indienen via platform) --> 70:exclusivegateway:{x}
+        70:exclusivegateway:{x} --> |Ja| 71:task:(Ondertekenen leningsovereenkomst)
+        70:exclusivegateway:{x} --> |Nee| 72:endevent:(((endevent)))
+        71:task:(Ondertekenen leningsovereenkomst) --> 73:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-04T14:35:37.128535+02:00'
+---
+event:
+  concept:instance: 8743
+  id:id: ex-ante
+  cpee:instance: b3372d66-955a-4a84-8867-d72ead493990
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dd5c7a2a003026c439b49970b9c14cfcde788b0d
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Valideer idee en markt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Uitwerken financieel plan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Bepaal financi&#xEB;le behoeften</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Verzamel ecosysteemondersteuning</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="Ja" language="text/javascript"/>
+        <alternative condition="Nee" language="text/javascript">
+          <choose mode="inclusive" a:alt_id="7">
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="0">
+                <alternative condition="">
+                  <call id="a23" endpoint="" a:alt_id="47">
+                    <parameters>
+                      <label>Funding proces afgerond</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="inclusive" a:alt_id="9">
+                    <alternative condition="">
+                      <call id="a29" endpoint="" a:alt_id="10">
+                        <parameters>
+                          <label>Voorwaarden onderzoeken</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a39" endpoint="" a:alt_id="11">
+                        <parameters>
+                          <label>Investeerders zoeken</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a41" endpoint="" a:alt_id="12">
+                        <parameters>
+                          <label>Fiscaal attest opmaken per investeerder</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a43" endpoint="" a:alt_id="13">
+                        <parameters>
+                          <label>Attesten indienen bij fiscus (Belcotax-on-web)</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="49">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a47" endpoint="" a:alt_id="50">
+                            <parameters>
+                              <label>Kapitaalverhoging doorvoeren</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a51" endpoint="" a:alt_id="52">
+                            <parameters>
+                              <label>Uitgeven aandelen aan investeerders</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Ja" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="14">
+                        <parameters>
+                          <label>Particuliere kredietgever zoeken</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a55" endpoint="" a:alt_id="15">
+                        <parameters>
+                          <label>VLAIO dossier samenstellen &amp; indienen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a57" endpoint="" a:alt_id="16">
+                        <parameters>
+                          <label>Leningsakte aanmaken</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a59" endpoint="" a:alt_id="17">
+                        <parameters>
+                          <label>Akte &amp; aflossingstabel digitaal bezorgen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a61" endpoint="" a:alt_id="54">
+                        <parameters>
+                          <label>Leningsakte ondertekenen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="55">
+                        <alternative condition="Ja" language="text/javascript"/>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a33" endpoint="" a:alt_id="18">
+                        <parameters>
+                          <label>Intakegesprek met LRM</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a69" endpoint="" a:alt_id="19">
+                        <parameters>
+                          <label>Financieel plan indienen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="58">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a73" endpoint="" a:alt_id="59">
+                            <parameters>
+                              <label>Ingaan op voorstel</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Ja" language="text/javascript">
+                      <call id="a35" endpoint="" a:alt_id="20">
+                        <parameters>
+                          <label>Aanvraag indienen via platform</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a79" endpoint="" a:alt_id="21">
+                        <parameters>
+                          <label>Financieel plan indienen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="62">
+                        <alternative condition="Ja" language="text/javascript"/>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a37" endpoint="" a:alt_id="22">
+                        <parameters>
+                          <label>Nagaan voorwaarden</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="65">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a89" endpoint="" a:alt_id="23">
+                            <parameters>
+                              <label>Plan indienen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <choose mode="exclusive" a:alt_id="67">
+                            <alternative condition="Ja" language="text/javascript"/>
+                            <alternative condition="Nee" language="text/javascript"/>
+                          </choose>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="0">
+                <alternative condition="">
+                  <call id="a23" endpoint="" a:alt_id="47">
+                    <parameters>
+                      <label>Funding proces afgerond</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="25">
+                    <alternative condition="">
+                      <call id="a101" endpoint="" a:alt_id="26">
+                        <parameters>
+                          <label>Identificeer potenti&#xEB;le business angels</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a107" endpoint="" a:alt_id="27">
+                        <parameters>
+                          <label>Pitchen voor Investment Forum</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="28">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a111" endpoint="" a:alt_id="29">
+                            <parameters>
+                              <label>Onderhandelen over deal</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a115" endpoint="" a:alt_id="30">
+                            <parameters>
+                              <label>Ondertekenen fundingcontract</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a103" endpoint="" a:alt_id="32">
+                        <parameters>
+                          <label>Identificeer geschikte VC fondsen</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a119" endpoint="" a:alt_id="33">
+                        <parameters>
+                          <label>Voorbereiden pitch</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a121" endpoint="" a:alt_id="34">
+                        <parameters>
+                          <label>Screening- en partner meeting</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="35">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a125" endpoint="" a:alt_id="38">
+                            <parameters>
+                              <label>Term sheet reviewen</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a131" endpoint="" a:alt_id="40">
+                            <parameters>
+                              <label>Onderhandelen voorwaarden en waardering</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                          <call id="a135" endpoint="" a:alt_id="42">
+                            <parameters>
+                              <label>Closing en post-closing afspraken</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a105" endpoint="" a:alt_id="37">
+                        <parameters>
+                          <label>Selecteer geschikte bank</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a129" endpoint="" a:alt_id="39">
+                        <parameters>
+                          <label>Aanvragen banklening</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a133" endpoint="" a:alt_id="41">
+                        <parameters>
+                          <label>Gesprek met bankadviseur</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a137" endpoint="" a:alt_id="43">
+                        <parameters>
+                          <label>Aanvraag indienen via platform</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="70">
+                        <alternative condition="Ja" language="text/javascript">
+                          <call id="a143" endpoint="" a:alt_id="71">
+                            <parameters>
+                              <label>Ondertekenen leningsovereenkomst</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Nee" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-04T14:35:37.128660+02:00'

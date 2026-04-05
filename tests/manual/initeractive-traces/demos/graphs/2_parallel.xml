@@ -13,21 +13,12 @@
       <call id="a5" endpoint="">
         <parameters><label>C</label><method>:post</method><arguments/></parameters>
       </call>
-      <choose mode="exclusive">
-        <alternative condition="">
-          <call id="a6" endpoint="">
-            <parameters><label>D</label><method>:post</method><arguments/></parameters>
-          </call>
-        </alternative>
-        <alternative>
-          <call id="a7" endpoint="">
-            <parameters><label>E</label><method>:post</method><arguments/></parameters>
-          </call>
-        </alternative>
-      </choose>
+      <call id="a6" endpoint="">
+        <parameters><label>D</label><method>:post</method><arguments/></parameters>
+      </call>
     </parallel_branch>
   </parallel>
   <call id="a99" endpoint="">
-    <parameters><label>X</label><method>:post</method><arguments/></parameters>
+    <parameters><label>E</label><method>:post</method><arguments/></parameters>
   </call>
 </description>

@@ -1,0 +1,29 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Customer Registration)
+a1:task:(Customer Registration)-->a3:task:(Customer Screening)
+a3:task:(Customer Screening)-->gw1s:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->a7:task:(Customer Gives Specifications)
+a7:task:(Customer Gives Specifications)-->a9:task:(Evaluate Specifications)
+a9:task:(Evaluate Specifications)-->gw2s:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Evaluation Passed"|a13:task:(Make and Send Order)
+a13:task:(Make and Send Order)-->a15:task:(Make Payment)
+a15:task:(Make Payment)-->gw3s:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"50% chance"|a19:task:(Deliver Product)
+a19:task:(Deliver Product)-->gw3e:exclusivegateway:{x}
+gw3s:exclusivegateway:{x}-->|"50% chance"|a27:task:(Customer Lynched)
+a27:task:(Customer Lynched)-->a29:task:(Arrange Funeral)
+a29:task:(Arrange Funeral)-->a31:task:(Bill Family)
+a31:task:(Bill Family)-->gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->|"Yes"|gw4e:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->|"No"|gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+gw2s:exclusivegateway:{x}-->|"Evaluation Failed"|gw2e:exclusivegateway:{x}
+gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1s:exclusivegateway:{x}-->|"Screening Failed"|a27:task:(Customer Lynched)
+a31:task:(Bill Family)-->gw5s:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->|"Yes"|gw5e:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->|"No"|gw5e:exclusivegateway:{x}
+gw5e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+gw1e:exclusivegateway:{x}-->a32:task:(ALec the cloedt gets notified)
+a32:task:(ALec the cloedt gets notified)-->ee:endevent:((endevent))

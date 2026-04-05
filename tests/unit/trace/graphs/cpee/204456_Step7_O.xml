@@ -1,0 +1,139 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Customer Registration</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="a3">
+    <parameters>
+      <label>Customer Screening</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="gw1s">
+    <alternative condition="">
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Customer Gives Specifications</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Evaluate Specifications</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="Evaluation Passed" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Make and Send Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Make Payment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="50% chance" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Deliver Product</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="50% chance" language="text/javascript">
+              <call id="a23" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Customer Lynched</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Arrange Funeral</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a31">
+                <parameters>
+                  <label>Bill Family</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="0">
+                <alternative condition=""/>
+                <alternative condition=""/>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Evaluation Failed" language="text/javascript"/>
+      </choose>
+    </alternative>
+    <alternative condition="Screening Failed" language="text/javascript">
+      <call id="a23" endpoint="" a:alt_id="a27">
+        <parameters>
+          <label>Customer Lynched</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="a29">
+        <parameters>
+          <label>Arrange Funeral</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="a31">
+        <parameters>
+          <label>Bill Family</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition=""/>
+        <alternative condition=""/>
+      </choose>
+    </alternative>
+  </choose>
+  <call id="a57" endpoint="" a:alt_id="a32">
+    <parameters>
+      <label>ALec the cloedt gets notified</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>

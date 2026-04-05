@@ -1,0 +1,18 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Initial Task)
+1:task:(Initial Task) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Condition A| 3:task:(Task A)
+2:exclusivegateway:{x} --> |Condition B| 4:task:(Task B)
+2:exclusivegateway:{x} --> |Condition C| 8:exclusivegateway:{x}
+3:task:(Task A) --> 5:exclusivegateway:{x}
+4:task:(Task B) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> |Condition D| 6:task:(Task D)
+5:exclusivegateway:{x} --> |Condition E| 7:task:(Task E)
+6:task:(Task D) --> 8:exclusivegateway:{x}
+7:task:(Task E) --> 8:exclusivegateway:{x}
+8:exclusivegateway:{x} --> |Condition F| 9:task:(Task F)
+8:exclusivegateway:{x} --> |Condition G| 10:exclusivegateway:{x}
+9:task:(Task F) --> 10:exclusivegateway:{x}
+10:exclusivegateway:{x} --> |Condition H| 11:task:(Task H)
+10:exclusivegateway:{x} --> |Condition I| 1:task:(Initial Task)
+11:task:(Task H) --> 12:endevent:(((endevent)))

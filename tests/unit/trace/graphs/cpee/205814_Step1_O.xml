@@ -1,0 +1,202 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Customer provides properties</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="a3">
+    <parameters>
+      <label>Inform customer about start of production</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <parallel wait="-1" cancel="last" a:alt_id="gw1s">
+    <parallel_branch>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Order parts from online source 1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="a13">
+        <parameters>
+          <label>Receive parts from source 1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="a9" endpoint="" a:alt_id="a9">
+        <parameters>
+          <label>Order parts from online source 2</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="a15">
+        <parameters>
+          <label>Receive parts from source 2</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <call id="a11" endpoint="" a:alt_id="a11">
+        <parameters>
+          <label>Order parts from online source N</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="a17">
+        <parameters>
+          <label>Receive parts from source N</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+  </parallel>
+  <call id="a25" endpoint="" a:alt_id="a25">
+    <parameters>
+      <label>Manual inspection of all parts</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+    <parallel_branch>
+      <call id="a29" endpoint="" a:alt_id="a29">
+        <parameters>
+          <label>Assemble first chainsaw</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="a33">
+        <parameters>
+          <label>Send first chainsaw to customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </parallel_branch>
+    <parallel_branch>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw3e">
+          <alternative condition="true" language="text/javascript">
+            <call id="a39" endpoint="" a:alt_id="a31">
+              <parameters>
+                <label>Send regular update to customer</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw4s">
+              <alternative condition=""/>
+              <alternative condition="Still assembling/producing?" language="text/javascript">
+                <call id="a39" endpoint="" a:alt_id="a31">
+                  <parameters>
+                    <label>Send regular update to customer</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </parallel_branch>
+  </parallel>
+  <choose mode="exclusive" a:alt_id="gw5s">
+    <alternative condition="Customer likes saw" language="text/javascript">
+      <parallel wait="-1" cancel="last" a:alt_id="gw6s">
+        <parallel_branch>
+          <call id="a57" endpoint="" a:alt_id="a49">
+            <parameters>
+              <label>Produce rest of the order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a61" endpoint="" a:alt_id="a53">
+            <parameters>
+              <label>Deliver rest of the order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <loop mode="pre_test" condition="true">
+            <choose mode="exclusive" a:alt_id="gw7e">
+              <alternative condition="true" language="text/javascript">
+                <call id="a67" endpoint="" a:alt_id="a51">
+                  <parameters>
+                    <label>Send regular update to customer</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="gw8s">
+                  <alternative condition=""/>
+                  <alternative condition="Still assembling/producing?" language="text/javascript">
+                    <call id="a67" endpoint="" a:alt_id="a51">
+                      <parameters>
+                        <label>Send regular update to customer</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <escape a:alt_id="-1"/>
+              </alternative>
+            </choose>
+          </loop>
+        </parallel_branch>
+      </parallel>
+    </alternative>
+    <alternative condition="Customer dislikes saw" language="text/javascript">
+      <call id="a55" endpoint="" a:alt_id="a47">
+        <parameters>
+          <label>Inform customer about end of production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+  </choose>
+</description>

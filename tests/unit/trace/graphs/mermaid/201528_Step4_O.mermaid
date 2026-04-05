@@ -1,0 +1,5 @@
+flowchart LR
+se:startevent:((startevent)) --> a1:task:(Receive Customer Requirements)
+a1:task:(Receive Customer Requirements) --> eg1:exclusivegateway:{x}
+eg1:exclusivegateway:{x} --> |Meets Requirements| ee:endevent:(((endevent)))
+eg1:exclusivegateway:{x} --> |Doesn't Meet Requirements| a1:task:(Receive Customer Requirements)

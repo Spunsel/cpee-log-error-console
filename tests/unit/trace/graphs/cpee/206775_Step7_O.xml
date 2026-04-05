@@ -1,0 +1,90 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <loop mode="pre_test" condition="true">
+    <call id="a1" endpoint="" a:alt_id="1">
+      <parameters>
+        <label>Sammeln der Infrastrukturkosten</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <call id="a3" endpoint="" a:alt_id="2">
+      <parameters>
+        <label>Plausibilitätsprüfung der Daten</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="Nein" a:alt_id="3" language="text/javascript">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Sammeln der Infrastrukturkosten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Plausibilitätsprüfung der Daten</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </loop>
+    <call id="a9" endpoint="" a:alt_id="4">
+      <parameters>
+        <label>Definition der Verteilungsschlüssel</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="true">
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Durchführung der Umlage</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Prüfung der Umlageergebnisse</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="Nein" a:alt_id="7" language="text/javascript">
+        <call id="a11" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Durchführung der Umlage</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Prüfung der Umlageergebnisse</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Reporting und Freigabe</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </loop>
+  </loop>
+</description>

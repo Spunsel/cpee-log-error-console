@@ -1,0 +1,17 @@
+graph LR
+0:startevent:((Start))
+1:task:(Receive Lab Material)
+2:task:(Check Material)
+3:exclusivegateway:{x}
+4:task:(Reprocess Sample)
+5:task:(Perform Examination)
+6:task:(Create Report)
+7:endevent:(((End)))
+0:startevent:((Start)) --> 1:task:(Receive Lab Material)
+1:task:(Receive Lab Material) --> 2:task:(Check Material)
+2:task:(Check Material) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Suitable| 5:task:(Perform Examination)
+3:exclusivegateway:{x} --> |Unsuitable| 4:task:(Reprocess Sample)
+4:task:(Reprocess Sample) --> 2:task:(Check Material)
+5:task:(Perform Examination) --> 6:task:(Create Report)
+6:task:(Create Report) --> 7:endevent:(((End)))

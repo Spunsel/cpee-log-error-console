@@ -1,0 +1,44 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <loop mode="pre_test" condition="true">
+    <call id="a1" endpoint="" a:alt_id="1">
+      <parameters>
+        <label>Receive Properties</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+    <loop mode="pre_test" condition="Less than 5" a:alt_id="2" language="text/javascript">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Properties</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </loop>
+    <parallel wait="-1" cancel="last" a:alt_id="3">
+      <parallel_branch>
+        <call id="a9" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Order Part 1 Online</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </parallel_branch>
+      <parallel_branch>
+        <call id="a11" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Order Part 2 Online</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </parallel_branch>
+    </parallel>
+  </loop>
+</description>

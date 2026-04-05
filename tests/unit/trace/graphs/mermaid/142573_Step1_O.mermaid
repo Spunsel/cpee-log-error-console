@@ -1,0 +1,18 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(New IT Software Request)
+1:task:(New IT Software Request) --> 2:task:(Initial Review)
+2:task:(Initial Review) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Approved| 4:task:(Security Risk Assessment)
+3:exclusivegateway:{x} --> |Rejected| 14:endevent:(((endevent)))
+4:task:(Security Risk Assessment) --> 5:task:(Compliance Check)
+5:task:(Compliance Check) --> 6:exclusivegateway:{x}
+6:exclusivegateway:{x} --> |Compliant| 7:task:(Data Protection Impact Assessment)
+6:exclusivegateway:{x} --> |Non-Compliant| 14:endevent:(((endevent)))
+7:task:(Data Protection Impact Assessment) --> 8:task:(Final Approval)
+8:task:(Final Approval) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} --> |Approved| 10:task:(Implementation)
+9:exclusivegateway:{x} --> |Rejected| 14:endevent:(((endevent)))
+10:task:(Implementation) --> 11:task:(Security Testing)
+11:task:(Security Testing) --> 12:task:(Deployment)
+12:task:(Deployment) --> 13:task:(Post-Implementation Review)
+13:task:(Post-Implementation Review) --> 14:endevent:(((endevent)))

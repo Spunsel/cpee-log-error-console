@@ -1,0 +1,14 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(a)
+a1:task:(a)-->gw1s:inclusivegateway:{O}
+gw1s:inclusivegateway:{O}-->a5:task:(b)
+a5:task:(b)-->gw1e:inclusivegateway:{O}
+gw1s:inclusivegateway:{O}-->a9:task:(c)
+a9:task:(c)-->gw1e:inclusivegateway:{O}
+gw1e:inclusivegateway:{O}-->a13:task:(d)
+a13:task:(d)-->gw2s:parallelgateway:{AND}
+gw2s:parallelgateway:{AND}-->a17:task:(e)
+a17:task:(e)-->gw2e:parallelgateway:{AND}
+gw2s:parallelgateway:{AND}-->a19:task:(f)
+a19:task:(f)-->gw2e:parallelgateway:{AND}
+gw2e:parallelgateway:{AND}-->ee:endevent:((endevent))

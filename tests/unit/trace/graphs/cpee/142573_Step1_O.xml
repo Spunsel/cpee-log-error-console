@@ -1,0 +1,97 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>New IT Software Request</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Initial Review</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="3">
+    <alternative condition="Approved" language="text/javascript">
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Security Risk Assessment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Compliance Check</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="Compliant" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Data Protection Impact Assessment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Final Approval</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="9">
+            <alternative condition="Approved" language="text/javascript">
+              <call id="a23" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Implementation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Security Testing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Deployment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a31" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Post-Implementation Review</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Rejected" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Non-Compliant" language="text/javascript"/>
+      </choose>
+    </alternative>
+    <alternative condition="Rejected" language="text/javascript"/>
+  </choose>
+</description>

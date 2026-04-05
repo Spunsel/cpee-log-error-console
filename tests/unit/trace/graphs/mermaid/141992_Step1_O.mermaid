@@ -1,0 +1,15 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Prepare Cell Suspension)
+1:task:(Prepare Cell Suspension) --> 2:task:(Choose Disruption Method)
+2:task:(Choose Disruption Method) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} -->|Homogenization| 4:task:(Perform Homogenization)
+3:exclusivegateway:{x} -->|Sonication| 5:task:(Perform Sonication)
+3:exclusivegateway:{x} -->|Enzymatic Lysis| 6:task:(Perform Enzymatic Lysis)
+4:task:(Perform Homogenization) --> 7:exclusivegateway:{x}
+5:task:(Perform Sonication) --> 7:exclusivegateway:{x}
+6:task:(Perform Enzymatic Lysis) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> 8:task:(Verify Cell Disruption)
+8:task:(Verify Cell Disruption) --> 9:exclusivegateway:{x}
+9:exclusivegateway:{x} -->|Yes| 10:task:(Collect Lysate)
+9:exclusivegateway:{x} -->|No| 2:task:(Choose Disruption Method)
+10:task:(Collect Lysate) --> 11:endevent:(((endevent)))

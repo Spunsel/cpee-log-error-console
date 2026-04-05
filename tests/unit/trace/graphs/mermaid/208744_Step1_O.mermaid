@@ -1,0 +1,9 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(a)
+1:task:(a) --> 2:inclusivegateway:{O}
+2:inclusivegateway:{O} --> 3:task:(b)
+2:inclusivegateway:{O} --> 4:task:(c)
+3:task:(b) --> 5:inclusivegateway:{O}
+4:task:(c) --> 5:inclusivegateway:{O}
+5:inclusivegateway:{O} --> 6:task:(d)
+6:task:(d) --> 7:endevent:(((endevent)))

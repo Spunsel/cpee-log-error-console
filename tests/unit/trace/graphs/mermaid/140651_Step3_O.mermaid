@@ -1,0 +1,14 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Start Brewing Coffee)
+1:task:(Start Brewing Coffee) --> 2:exclusivegateway:{x}
+2:exclusivegateway:{x} --> |Water Ready| 3:task:(Add Coffee Grounds)
+2:exclusivegateway:{x} --> |Water Not Ready| 10:exclusivegateway:{x}
+3:task:(Add Coffee Grounds) --> 4:task:(Brew Coffee)
+4:task:(Brew Coffee) --> 5:exclusivegateway:{x}
+5:exclusivegateway:{x} --> |Coffee brewed| 6:task:(Pour Coffee)
+5:exclusivegateway:{x} --> |Coffee not brewed| 4:task:(Brew Coffee)
+6:task:(Pour Coffee) --> 7:task:(Add Milk and Sugar)
+7:task:(Add Milk and Sugar) --> 8:exclusivegateway:{x}
+8:exclusivegateway:{x} --> |Done| 9:endevent:(((endevent)))
+8:exclusivegateway:{x} --> |Not Done| 7:task:(Add Milk and Sugar)
+10:exclusivegateway:{x} --> 1:task:(Start Brewing Coffee)

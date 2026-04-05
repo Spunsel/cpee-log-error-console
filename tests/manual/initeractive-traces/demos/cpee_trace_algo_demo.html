@@ -85,6 +85,7 @@
         .tag-par { background: rgba(168,85,247,0.15); color: var(--purple); }
         .tag-loop { background: rgba(249,115,22,0.15); color: var(--orange); }
         .tag-esc { background: var(--red-dim); color: var(--red); }
+        .tag-inc { background: rgba(34,197,94,0.15); color: var(--green); }
         .tag-dedup { background: rgba(6,182,212,0.15); color: var(--cyan); }
 
         .trace-row.tr-dup { opacity: 0.4; text-decoration: line-through; border-color: var(--border); background: var(--surface-alt); }
@@ -148,10 +149,10 @@
 </div>
 
 <script type="module">
-import { CPEETraceCalculator } from '../../../src/utils/trace/CPEETraceCalculator.js';
-import { Trace } from '../../../src/models/Trace.js';
-import { CPEEParser } from '../../../src/utils/content/CPEEParser.js';
-import { JQueryExtensions } from '../../../src/utils/system/JQueryExtensions.js';
+import { CPEETraceCalculator } from '../../../../src/utils/trace/CPEETraceCalculator.js';
+import { Trace } from '../../../../src/models/Trace.js';
+import { CPEEParser } from '../../../../src/utils/content/CPEEParser.js';
+import { JQueryExtensions } from '../../../../src/utils/system/JQueryExtensions.js';
 
 const WF_CSS = 'https://cpee.org/flow/css/wfadaptor.css';
 const WF_BASE = 'https://cpee.org/flow/themes/base.js';
@@ -164,11 +165,13 @@ const WF_JS = 'https://cpee.org/flow/js/wfadaptor.js';
 const GRAPHS = [
     { id: 'xor',     file: 'graphs/1_xor.xml',                      tab: '1. XOR' },
     { id: 'par',     file: 'graphs/2_parallel.xml',                  tab: '2. Parallel' },
-    { id: 'mloop',   file: 'graphs/3_mandatory_loop.xml',            tab: '3. Loop (true)' },
-    { id: 'oloop',   file: 'graphs/4_optional_loop.xml',             tab: '4. Loop + Esc' },
-    { id: 'mloopxor',file: 'graphs/5_mandatory_loop_xor_escape.xml', tab: '5. Loop+XOR+Esc' },
-    { id: 'esconly', file: 'graphs/6_loop_escape_only.xml',          tab: '6. Esc-Only 2nd' },
+    { id: 'loop1',   file: 'graphs/3_loop1.xml',                     tab: '3. Loop (opt)' },
+    { id: 'loop2',   file: 'graphs/4_loop2.xml',                     tab: '4. Loop (true)' },
+    { id: 'loop3',   file: 'graphs/5_loop3.xml',                     tab: '5. Loop (overlap)' },
+    { id: 'loop4',   file: 'graphs/6_loop4.xml',                     tab: '6. Loop+XOR+Esc' },
     { id: 'dedup',  file: 'graphs/7_dedup.xml',                     tab: '7. Dedup' },
+    { id: 'incl',   file: 'graphs/8_inclusive.xml',                  tab: '8. Inclusive' },
+    { id: 'complex', file: 'graphs/9_complex.xml',                  tab: '9. Combined' },
 ];
 
 let activeGraphIdx = 0;
@@ -191,7 +194,7 @@ async function ensureWfAdaptor() {
     if (wfReady) return;
     if (typeof $ === 'undefined') { await loadScript('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'); JQueryExtensions.initialize(); }
     window.save = function(){};
-    const fb = '../../../fallback/cpee-themes';
+    const fb = '../../../../fallback/cpee-themes';
     const toL = u => { const m = u.match(/\/flow\/themes\/(.+)$/); return m ? `${fb}/${m[1]}` : null; };
     const isC = u => u && (u.startsWith('https://cpee.org/') || u.startsWith('http://cpee.org/')) && /\.(rng|svg|js)$/.test(u);
     const oA = window.$.ajax;
@@ -244,7 +247,7 @@ function applyHighlights(tasks, structs) {
             }
         });
     });
-    (structs||[]).forEach(type => c.querySelectorAll('g[class]').forEach(g => { const cls=(g.getAttribute('class')||'').toLowerCase(); if((type==='choose'&&cls.includes('exclusive'))||(type==='parallel'&&cls.includes('parallel'))||(type==='loop'&&cls.includes('loop'))) g.classList.add('demo-hl-struct'); }));
+    (structs||[]).forEach(type => c.querySelectorAll('g[class]').forEach(g => { const cls=(g.getAttribute('class')||'').toLowerCase(); if((type==='choose'&&cls.includes('exclusive'))||(type==='inclusive'&&cls.includes('inclusive'))||(type==='parallel'&&cls.includes('parallel'))||(type==='loop'&&cls.includes('loop'))) g.classList.add('demo-hl-struct'); }));
 }
 
 // ═══════════════════════════════════════
@@ -275,10 +278,10 @@ function renderTraceList(traces, hlLabels) {
 // ═══════════════════════════════════════
 function T(labels, terminated = false, dup = false) { return { labels, terminated, dup }; }
 
-function allTracesForDisplay(traces) {
+function allTracesForDisplay(traces, endTask = 'X') {
     return traces.map(tr => {
         const labels = tr.path.map(p => p.task);
-        return T(labels, !labels.includes('X'));
+        return T(labels, !labels.includes(endTask));
     });
 }
 
@@ -287,136 +290,130 @@ function allTracesForDisplay(traces) {
 // ═══════════════════════════════════════
 function stepsForGraph(id, traces) {
     const n = traces.length;
-    const all = allTracesForDisplay(traces);
+    const endTask = id === 'xor' || id === 'par' || id === 'loop4' ? 'E' : id === 'incl' || id === 'loop1' || id === 'loop2' || id === 'loop3' ? 'D' : id === 'complex' ? 'G' : 'X';
+    const all = allTracesForDisplay(traces, endTask);
 
     if (id === 'xor') return [
         { traces: [], hl: [], hlT: [], hlS: [],
-          ex: `<strong>XOR Gateway Demo</strong> — A <code>&lt;choose&gt;</code> with 4 branches: B, C, escape, empty otherwise. ${n} traces total. Press &rarr;`,
+          ex: `<strong>XOR Gateway Demo</strong> — A <code>&lt;choose&gt;</code> with 4 branches: B, C, D→escape, empty otherwise. ${n} traces total. Press &rarr;`,
           plain: `An exclusive-or (XOR) gateway means the workflow takes exactly one branch at runtime. We need one trace per possible branch to cover every scenario the process could follow.` },
         { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
           ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong> — start node. <code>FT = [A]</code>.`,
           plain: `The first task in the workflow is always added to every trace. It is the starting point that all branches share.` },
-        { traces: [T(['A','B']), T(['A','C']), T(['A'],true), T(['A'])], hl: ['B','C'], hlT: ['B','C'], hlS: ['choose'],
-          ex: `<span class="tag tag-xor">XOR</span> <code>&lt;choose&gt;</code> forks into 4: <strong>B</strong>, <strong>C</strong>, <strong>escape</strong> (terminated), <strong>otherwise</strong> (skip — no task added).`,
-          plain: `Each branch of the XOR creates a separate trace because only one can run. The escape branch means the surrounding loop is exited early, so that trace is marked as terminated — nothing after it will execute. The empty otherwise branch adds no tasks, so the trace stays as [A] but continues normally.` },
-        { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
-          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong> appended to non-terminated traces. Escaped trace <code>[A]</code> never reaches X.`,
+        { traces: [T(['A','B']), T(['A','C']), T(['A','D'],true), T(['A'])], hl: ['B','C','D'], hlT: ['B','C','D'], hlS: ['choose'],
+          ex: `<span class="tag tag-xor">XOR</span> <code>&lt;choose&gt;</code> forks into 4: <strong>B</strong>, <strong>C</strong>, <strong>D→escape</strong> (D is processed, then trace is terminated), <strong>otherwise</strong> (skip — no task added).`,
+          plain: `Each branch of the XOR creates a separate trace because only one can run. The escape branch first processes task D, then marks the trace as terminated — nothing after it will execute. The empty otherwise branch adds no tasks, so the trace stays as [A] but continues normally.` },
+        { traces: all, hl: ['E'], hlT: ['E'], hlS: [],
+          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>E</strong> appended to non-terminated traces. Escaped trace <code>[A,D]</code> never reaches E.`,
           plain: `Tasks after the XOR are appended to every trace that is still active. Terminated traces are frozen — they represent executions that ended early, so they never see later tasks.` },
     ];
 
     if (id === 'par') return [
         { traces: [], hl: [], hlT: [], hlS: [],
-          ex: `<strong>Parallel Gateway Demo</strong> — <code>&lt;parallel&gt;</code> with Branch 1: <strong>B</strong>, Branch 2: <strong>C → XOR(D, E)</strong>. ${n} traces total.`,
+          ex: `<strong>Parallel Gateway Demo</strong> — <code>&lt;parallel&gt;</code> with Branch 1: <strong>B</strong>, Branch 2: <strong>C → D</strong>. ${n} traces total.`,
           plain: `Parallel branches run at the same time, but in a log we see tasks one after another. We need traces for every possible ordering of branches, because we do not know which branch's tasks appear first in the log.` },
         { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
           ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
           plain: `Task A runs before the parallel split, so it appears at the start of every trace.` },
-        { traces: [T(['A','B','C','D']), T(['A','B','C','E']), T(['A','C','D','B']), T(['A','C','E','B'])],
-          hl: ['B','C','D','E'], hlT: ['B','C','D','E'], hlS: ['parallel','choose'],
-          ex: `<span class="tag tag-par">PARALLEL</span> Branch 1: <strong>B</strong> (1 trace). Branch 2: <strong>C → XOR(D, E)</strong> (2 traces: [C,D] and [C,E]). <code>interleave()</code> generates 2! = 2 branch orderings. Within each ordering, the <strong>Cartesian product</strong> of branch traces is computed: 1 × 2 = 2 combos per ordering. Total: 2 × 2 = <strong>4 traces</strong>.`,
-          plain: `Tasks within each branch stay in their original order, but branches can appear in any relative order. We generate all permutations of which branch comes first. Branch 2 itself has a XOR inside, so it produces two sub-traces. We combine every branch ordering with every sub-trace combination (Cartesian product), giving us all possible serializations of the parallel execution.` },
-        { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
-          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong> appended.`,
-          plain: `X comes after the parallel join, so it is appended to every trace. All parallel branches must finish before X can run.` },
+        { traces: [T(['A','B','C','D']), T(['A','C','B','D']), T(['A','C','D','B'])],
+          hl: ['B','C','D'], hlT: ['B','C','D'], hlS: ['parallel'],
+          ex: `<span class="tag tag-par">PARALLEL</span> Branch 1: <strong>B</strong> (1 trace: [B]). Branch 2: <strong>C → D</strong> (1 trace: [C,D]). <code>interleave([[B],[C,D]])</code> generates all valid orderings where intra-branch order is preserved: <code>[B,C,D]</code>, <code>[C,B,D]</code>, <code>[C,D,B]</code>. Total: <strong>3 traces</strong>.`,
+          plain: `Tasks within each branch stay in their original order, but branches can appear in any relative order. B can be placed before C, between C and D, or after D — giving 3 valid interleavings. The key constraint is that C must always come before D, since they are in the same branch.` },
+        { traces: all, hl: ['E'], hlT: ['E'], hlS: [],
+          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>E</strong> appended.`,
+          plain: `E comes after the parallel join, so it is appended to every trace. All parallel branches must finish before E can run.` },
     ];
 
-    if (id === 'mloop') return [
-        { traces: [], hl: [], hlT: [], hlS: [],
-          ex: `<strong>Mandatory Loop Demo</strong> — <code>condition="true"</code> loop with same task G (id="a8") before and inside. ${n} traces total.`,
-          plain: `This shows what happens when a loop's body contains a task that already appeared earlier in the workflow. The algorithm detects the overlap to avoid forcing an unnecessary iteration.` },
-        { traces: [T(['G'])], hl: ['G'], hlT: ['G'], hlS: [],
-          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>G</strong> (<code>id="a8"</code>). <code>FT = [G]</code>.`,
-          plain: `Task G runs before the loop. Its task ID (a8) is now recorded in the current trace.` },
-        { traces: [T(['G']), T(['G','G'])], hl: ['G'], hlT: ['G'], hlS: ['loop'],
-          ex: `<span class="tag tag-loop">LOOP</span> <code>condition="true"</code> — normally must execute ≥1 time. <strong>But</strong> G (id="a8") already in trace → <code>hasBodyTaskInTrace()=true</code> → 0 iterations allowed. Forks: skip (0 iter) or repeat G (1 iter).`,
-          plain: `A loop with condition "true" normally must execute at least once. But the algorithm checks whether any task from the loop body already appears in the trace so far. Since G is already there, the work the loop would do has effectively already happened, so we allow skipping the loop entirely. We still generate both possibilities: zero iterations (skip) and one iteration (repeat G).` },
-        { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
-          ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong>. Traces: <code>[G,X]</code> (0 iter) and <code>[G,G,X]</code> (1 iter).`,
-          plain: `X is appended to both traces. The final set covers the scenario where the loop was skipped and the scenario where it ran once.` },
-    ];
+    if (id === 'loop1') {
+        // condition="X" (not "true") → shouldSkipZeroIterations=false → 0 iter allowed
+        // Body: [B,C] — single body trace, no escape
+        // maxIter=1
+        // 0 iter: [A], 1 iter: [A,B,C]
+        return [
+            { traces: [], hl: [], hlT: [], hlS: [],
+              ex: `<strong>Optional Loop Demo</strong> — <code>condition="X"</code> loop with body: <strong>B → C</strong>. ${n} traces total. Press &rarr;`,
+              plain: `A loop with a non-"true" condition can be skipped entirely (the condition might be false from the start). The algorithm generates traces for both possibilities: the loop never executes, or it executes once.` },
+            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
+              plain: `Task A runs before the loop.` },
+            { traces: [T(['A']), T(['A','B','C'])], hl: ['B','C'], hlT: ['B','C'], hlS: ['loop'],
+              ex: `<span class="tag tag-loop">LOOP</span> <code>condition="X"</code> → not "true", so 0 iterations allowed. Body: <strong>B → C</strong>. 0 iter: <code>[A]</code> (loop skipped). 1 iter: <code>[A,B,C]</code>.`,
+              plain: `Because the condition is not literally "true", the loop might never execute. We include a skip-trace [A] for the case where the condition is false from the start, and a one-iteration trace [A,B,C] for the case where the loop runs once.` },
+            { traces: all, hl: ['D'], hlT: ['D'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>D</strong> appended to all traces. Final: <code>[A,D]</code> (skipped) and <code>[A,B,C,D]</code> (1 iter).`,
+              plain: `D comes after the loop, so it is appended to both traces.` },
+        ];
+    }
 
-    if (id === 'oloop') {
-        // Build the correct intermediate traces from the algorithm logic:
-        // condition="something" → shouldSkipZeroIterations=false → 0 iter allowed
-        // Body traces: [H,I], [H,J], [H,K], [H,L](esc)
+    if (id === 'loop2') {
+        // condition="true" → isConditionTrue=true
+        // No body tasks in trace → hasBodyTaskInTrace=false → shouldSkipZeroIterations=true
+        // Body: [B,C], no escape → maxIter=1
+        // Only 1 iter: [A,B,C]
+        return [
+            { traces: [], hl: [], hlT: [], hlS: [],
+              ex: `<strong>Mandatory Loop Demo</strong> — <code>condition="true"</code> loop with body: <strong>B → C</strong>. ${n} traces total. Press &rarr;`,
+              plain: `A loop with condition "true" must execute at least once — the condition is always satisfied, so the loop body always runs. With maxLoopIterations=1, this produces exactly one trace.` },
+            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
+              plain: `Task A runs before the loop.` },
+            { traces: [T(['A','B','C'])], hl: ['B','C'], hlT: ['B','C'], hlS: ['loop'],
+              ex: `<span class="tag tag-loop">LOOP</span> <code>condition="true"</code> → must execute ≥1 time (<code>shouldSkipZeroIterations=true</code>). No body task IDs overlap with current trace → no skip allowed. 1 iter: <code>[A,B,C]</code>.`,
+              plain: `Because the condition is "true" and no task from the loop body has appeared earlier in the trace, the loop must execute at least once. The 0-iteration skip trace is not generated. With one iteration, the body runs B then C.` },
+            { traces: all, hl: ['D'], hlT: ['D'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>D</strong> appended. Final: <code>[A,B,C,D]</code>.`,
+              plain: `D comes after the loop and is appended to the single trace.` },
+        ];
+    }
+
+    if (id === 'loop3') {
+        // condition="true", body contains A(id=a1) which is already in trace
+        // hasBodyTaskInTrace=true → shouldSkipZeroIterations=false (even though condition is "true")
+        // Body: [A,B] — 0 iter: [A], 1 iter: [A,A,B]
+        return [
+            { traces: [], hl: [], hlT: [], hlS: [],
+              ex: `<strong>Mandatory Loop + Overlap Demo</strong> — <code>condition="true"</code> loop with body: <strong>A → B</strong>. Task A (<code>id="a1"</code>) appears both before and inside the loop. ${n} traces total. Press &rarr;`,
+              plain: `This shows what happens when a mandatory loop's body contains a task that already appeared earlier in the workflow. The algorithm detects the overlap and allows skipping the loop, even though the condition is "true".` },
+            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong> (<code>id="a1"</code>). <code>FT = [A]</code>.`,
+              plain: `Task A runs before the loop. Its task ID (a1) is now recorded in the current trace.` },
+            { traces: [T(['A']), T(['A','A','B'])], hl: ['A','B'], hlT: ['A','B'], hlS: ['loop'],
+              ex: `<span class="tag tag-loop">LOOP</span> <code>condition="true"</code> — normally must execute ≥1 time. <strong>But</strong> A (<code>id="a1"</code>) already in trace → <code>hasBodyTaskInTrace()=true</code> → 0 iterations allowed despite <code>condition="true"</code>. 0 iter: <code>[A]</code>. 1 iter: <code>[A,A,B]</code>.`,
+              plain: `A loop with condition "true" normally must execute at least once. But the algorithm checks whether any task from the loop body already appears in the trace so far. Since A (id=a1) is already there, the work the loop would start with has effectively already happened, so we allow skipping the loop entirely. We still generate both possibilities: zero iterations (skip) and one iteration (A,B appended).` },
+            { traces: all, hl: ['D'], hlT: ['D'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>D</strong> appended. Traces: <code>[A,D]</code> (0 iter) and <code>[A,A,B,D]</code> (1 iter).`,
+              plain: `D is appended to both traces. The final set covers the scenario where the loop was skipped (because A already ran) and the scenario where it ran once.` },
+        ];
+    }
+
+    if (id === 'loop4') {
+        // condition="X" → shouldSkipZeroIterations=false → 0 iter allowed
+        // Body: B → XOR(C, D+escape)
+        // Body traces: [B,C], [B,D](esc)
         // hasEscapePath=true, shouldSkipZeroIterations=false → minIterForEscape=2
-        // maxIter = max(min(1,2), 2) = 2
-        // hasMultipleNonEscapePaths=true (I,J,K) → secondIterationIsForEscapeOnly=false
-        // → ALL 2nd-iter combos allowed (not just escape ones)
+        // iterationLimit=1, maxIter = max(min(1,2), 2) = 2
+        // nonEscapeTraces: [[B,C]] → hasMultipleNonEscapePaths=false
+        // secondIterationIsForEscapeOnly = (1<2 && 2>=2 && !false) = true
+        // 2nd iter: only escape body traces allowed
         const iter0 = [T(['A'])];
-        const iter1 = [T(['A','H','I']), T(['A','H','J']), T(['A','H','K']), T(['A','H','L'],true)];
-        // 2nd iter: each non-terminated 1st × each different body trace
-        const iter2 = [
-            T(['A','H','I','H','J']), T(['A','H','I','H','K']), T(['A','H','I','H','L'],true),
-            T(['A','H','J','H','I']), T(['A','H','J','H','K']), T(['A','H','J','H','L'],true),
-            T(['A','H','K','H','I']), T(['A','H','K','H','J']), T(['A','H','K','H','L'],true),
-        ];
+        const iter1 = [T(['A','B','C']), T(['A','B','D'],true)];
+        const iter2 = [T(['A','B','C','B','D'],true)];
         return [
             { traces: [], hl: [], hlT: [], hlS: [],
-              ex: `<strong>Optional Loop + Escape Demo</strong> — <code>condition="something"</code> loop with body H → XOR(I,J,K, L→escape). ${n} traces total.`,
-              plain: `This is the most complex scenario: a loop that can be skipped, has multiple normal branches, and also has an escape path that exits the loop early. The algorithm needs to capture all combinations of "how many times did the loop run" and "which branch was taken each time".` },
+              ex: `<strong>Loop + XOR + Escape Demo</strong> — <code>condition="X"</code> loop, body = B → XOR(C, D→escape). ${n} traces total. Press &rarr;`,
+              plain: `This combines an optional loop with a XOR that includes an escape path. The escape exits the loop early. The algorithm uses a second iteration to capture the "iterate normally, then escape" pattern.` },
             { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
               ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
               plain: `Task A runs before the loop.` },
-            { traces: [...iter0, ...iter1], hl: ['H','I','J','K','L'], hlT: ['H','I','J','K','L'], hlS: ['loop','choose'],
-              ex: `<span class="tag tag-loop">LOOP</span> <code>condition="something"</code> → 0 iter allowed (skip path). Body: <strong>H</strong> then XOR(I, J, K, <strong>L→escape</strong>). <code>hasEscapePath=true</code> → <code>minIterForEscape=2</code> → <code>maxIter=2</code>. 0 iter: <code>[A]</code>. 1st iter: H+I, H+J, H+K, or H+L (terminated).`,
-              plain: `The condition is not "true", so the loop might never execute — we include a skip-trace [A]. For one iteration, the body runs H then picks one XOR branch. If it picks L, the escape fires and the trace is terminated — the loop and everything after it are abandoned. We also know an escape path exists, so we need at least 2 iterations to capture "do one normal iteration, then escape on the second".` },
-            { traces: [...iter0, ...iter1, ...iter2], hl: ['H','I','J','K','L'], hlT: ['H','I','J','K','L'], hlS: ['loop','choose'],
-              ex: `<span class="tag tag-loop">LOOP 2nd iter</span> <code>hasMultipleNonEscapePaths=true</code> (I,J,K) → <code>secondIterationIsForEscapeOnly=false</code> → ALL cross-branch combos allowed. E.g. <code>[A,H,I,H,J]</code>, <code>[A,H,I,H,L]</code> (escape). Escape-terminated 1st iters (H+L) do NOT get a 2nd iteration.`,
-              plain: `For the second iteration, each non-terminated first-iteration trace is combined with every different body trace. Since there are multiple normal branches (I, J, K), the second iteration is not restricted to escape-only — it also covers switching between normal branches (e.g. I then J). Traces that already escaped in the first iteration cannot continue to a second iteration, because the escape ended the execution.` },
-            { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
-              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong> appended to non-terminated traces. Escaped traces (ending in L) never reach X.`,
-              plain: `Task X follows the loop. Only traces that did not escape get X appended. Escaped traces represent executions that ended early, so they remain frozen.` },
-        ];
-    }
-
-    if (id === 'mloopxor') {
-        // condition="true", no body tasks in trace → shouldSkipZeroIterations=true
-        // Body traces: [M], [N](esc), [](empty otherwise)
-        // hasEscapePath=true, but shouldSkipZeroIterations=true → minIterForEscape=1
-        // maxIter = max(min(1,2), 1) = 1
-        // Empty otherwise body trace [] combined with [A] gives [A] — passes through to get X.
-        return [
-            { traces: [], hl: [], hlT: [], hlS: [],
-              ex: `<strong>Mandatory Loop + XOR + Escape Demo</strong> — <code>condition="true"</code> loop, body = XOR(M, N→escape, empty otherwise). ${n} traces total. Press &rarr;`,
-              plain: `A mandatory loop (condition "true") that must run at least once. The body has a XOR with a normal branch, an escape branch, and an empty otherwise. The algorithm must handle all three while respecting the mandatory-execution constraint.` },
-            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
-              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
-              plain: `Task A runs before the loop.` },
-            { traces: [T(['A','M']), T(['A','N'],true), T(['A'])], hl: ['M','N'], hlT: ['M','N'], hlS: ['loop','choose'],
-              ex: `<span class="tag tag-loop">LOOP</span><span class="tag tag-esc">ESC</span> <code>condition="true"</code> → must execute ≥1 time (<code>shouldSkipZeroIterations=true</code>). Body = XOR(M, N→escape, empty otherwise). <code>hasEscapePath=true</code> but <code>shouldSkipZeroIterations=true</code> → <code>minIterForEscape=1</code> (no inflation). <code>maxIter = 1</code>. 1st iter: M, N (terminated), or empty otherwise (body trace <code>[]</code> → combined trace stays <code>[A]</code>, no new tasks added).`,
-              plain: `Because the loop is mandatory, we do not add a "skip" trace (no 0 iterations). The body runs once and picks one XOR branch: M (normal), N then escape (terminated), or the empty otherwise (no tasks added, so the trace stays [A]). Even though there is an escape path, we do not inflate to 2 iterations for mandatory loops — doing so would cause trace explosion without adding useful coverage, since the first iteration is already guaranteed.` },
-            { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
-              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong>. Non-terminated traces get X: <code>[A,M,X]</code> and <code>[A,X]</code> (from empty otherwise path). Escape path (via N) stays <code>[A,N]</code> — never reaches X.`,
-              plain: `X is appended to the two non-terminated traces. The escape trace [A,N] is frozen and represents an execution that ended early.` },
-        ];
-    }
-
-    if (id === 'esconly') {
-        // condition="something" → shouldSkipZeroIterations=false
-        // Body: XOR([B], [C→esc]) → hasEscapePath=true
-        // nonEscapeTraces=[[B]] → hasMultipleNonEscapePaths=false
-        // minIterForEscape=2, iterationLimit=1, maxIter=2
-        // secondIterationIsForEscapeOnly = (1<2 && 2>=2 && !false) = TRUE
-        // 2nd iter: only escape body traces allowed as bodyTrace2
-        return [
-            { traces: [], hl: [], hlT: [], hlS: [],
-              ex: `<strong>Escape-Only 2nd Iteration Demo</strong> — <code>condition="something"</code> loop, body = XOR(B, C→escape). Only <strong>1 non-escape path</strong> (B). ${n} traces total.`,
-              plain: `This example shows a special optimization: when the loop has only one normal branch and the only reason to allow a second iteration is to capture the "run once then escape" pattern, the algorithm restricts the second iteration to escape-only traces to avoid generating useless duplicates.` },
-            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
-              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
-              plain: `Task A runs before the loop.` },
-            { traces: [T(['A']), T(['A','B']), T(['A','C'],true)],
-              hl: ['B','C'], hlT: ['B','C'], hlS: ['loop','choose'],
-              ex: `<span class="tag tag-loop">LOOP</span> <code>condition="something"</code> → 0 iter allowed. Body: XOR(B, C→escape). <code>hasEscapePath=true</code> → <code>minIterForEscape=2</code>. <code>nonEscapeTraces=[[B]]</code> → <code>hasMultipleNonEscapePaths=false</code>. 0 iter: <code>[A]</code>. 1st iter: <code>[A,B]</code> or <code>[A,C]</code> (terminated).`,
-              plain: `The loop can be skipped (0 iterations). For one iteration, the body picks B (normal) or C then escape (terminated). The algorithm detects an escape path exists, so it needs at least 2 iterations to cover the scenario "do B in the first iteration, then escape via C in the second". There is only one non-escape branch (B), which is important for the next step.` },
-            { traces: [T(['A']), T(['A','B']), T(['A','C'],true), T(['A','B','C'],true)],
-              hl: ['B','C'], hlT: ['B','C'], hlS: ['loop','choose'],
-              ex: `<span class="tag tag-loop">LOOP 2nd iter</span><span class="tag tag-esc">ESC</span> <code>secondIterationIsForEscapeOnly = true</code> — since there's only 1 non-escape path (B), expanding to 2 iterations was done <em>solely</em> to capture "iterate then escape". Therefore the 2nd iteration <strong>only allows escape body traces</strong>. Result: <code>[A,B,C]</code> (B first, then escape via C). Combo B+B is skipped (same branch). Non-escape 2nd iterations (like B+B) are blocked.`,
-              plain: `Because there is only one non-escape branch, the only new scenario a second iteration can capture is "B then escape". Allowing B followed by B again would be a repeat of the same branch — not useful. So the algorithm restricts the second iteration to escape-only body traces. This avoids trace explosion while still covering the important "iterate then escape" pattern.` },
-            { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
-              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong> appended to non-terminated traces. Escaped traces never reach X.`,
-              plain: `X is appended to traces that did not escape. The escaped traces [A,C] and [A,B,C] are frozen.` },
+            { traces: [...iter0, ...iter1], hl: ['B','C','D'], hlT: ['B','C','D'], hlS: ['loop','choose'],
+              ex: `<span class="tag tag-loop">LOOP</span> <code>condition="X"</code> → 0 iter allowed. Body: <strong>B</strong> → XOR(<strong>C</strong>, <strong>D→escape</strong>). <code>hasEscapePath=true</code> → <code>minIterForEscape=2</code> → <code>maxIter=2</code>. 0 iter: <code>[A]</code>. 1st iter: <code>[A,B,C]</code> or <code>[A,B,D]</code> (terminated).`,
+              plain: `The condition is not "true", so the loop can be skipped (0 iterations). For one iteration, the body runs B then picks a XOR branch: C (normal) or D followed by escape (terminated). Because an escape path exists, the algorithm needs 2 iterations to capture "iterate normally then escape on the second round".` },
+            { traces: [...iter0, ...iter1, ...iter2], hl: ['B','C','D'], hlT: ['B','C','D'], hlS: ['loop','choose'],
+              ex: `<span class="tag tag-loop">LOOP 2nd iter</span><span class="tag tag-esc">ESC</span> <code>secondIterationIsForEscapeOnly = true</code> — only 1 non-escape path (B→C), so the 2nd iteration exists <em>solely</em> to capture "iterate then escape". Only escape body traces allowed. From <code>[A,B,C]</code>: ×[B,D]→<code>[A,B,C,B,D]</code>(esc). [B,C]×[B,C] skipped (same branch). Escaped 1st iter <code>[A,B,D]</code> gets no 2nd iteration.`,
+              plain: `Because there is only one non-escape branch (B→C), the only new scenario a second iteration can capture is "run normally first, then escape". The algorithm restricts the second iteration to escape-only body traces. This gives [A,B,C,B,D] — one normal iteration followed by an escape. Traces that already escaped cannot continue.` },
+            { traces: all, hl: ['E'], hlT: ['E'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>E</strong> appended to non-terminated traces. Escaped traces (ending in D) never reach E.`,
+              plain: `E comes after the loop. Only traces that did not escape get E appended. Escaped traces are frozen.` },
         ];
     }
 
@@ -459,6 +456,85 @@ function stepsForGraph(id, traces) {
             { traces: all, hl: ['X'], hlT: ['X'], hlS: [],
               ex: `<span class="tag tag-seq">SEQ</span> Task <strong>X</strong> appended. Final result: <strong>${n} unique trace(s)</strong>. Without dedup, the raw algorithm would have produced 4 traces (2 from parallel × 2 from choose), all identical. <code>filterDuplicateTraces()</code> ensures each unique <code>[{id, alt_id, task}, …]</code> sequence appears only once.`,
               plain: `The final result is a single unique trace. Deduplication is essential because the combinatorial nature of parallel interleaving and XOR branching can produce many structurally identical traces. Without it, the trace count would grow unnecessarily.` },
+        ];
+    }
+
+    if (id === 'incl') {
+        // Inclusive (OR) gateway with 2 branches: B and C
+        // Non-empty subsets of {0,1}: {0}, {1}, {0,1}
+        // Subset {0} → [B]  (XOR-like, single branch)
+        // Subset {1} → [C]  (XOR-like, single branch)
+        // Subset {0,1} → interleave([B],[C]) → [B,C] and [C,B]
+        // Total: 4 traces after appending A prefix and D suffix
+        return [
+            { traces: [], hl: [], hlT: [], hlS: [],
+              ex: `<strong>Inclusive Gateway Demo</strong> — <code>&lt;choose mode="inclusive"&gt;</code> with 2 branches: <strong>B</strong> (left) and <strong>C</strong> (right). ${n} traces total. Press &rarr;`,
+              plain: `An inclusive gateway (OR gateway) means one or more branches can be taken simultaneously. Unlike XOR (exactly one) or Parallel (all), the inclusive gateway covers every non-empty subset of branches — some branches may run alone, or multiple branches may run together.` },
+            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
+              plain: `Task A runs before the inclusive split, so it appears at the start of every trace.` },
+            { traces: [T(['A','B']), T(['A','C']), T(['A','B','C']), T(['A','C','B'])],
+              hl: ['B','C'], hlT: ['B','C'], hlS: ['inclusive'],
+              ex: `<span class="tag tag-inc">INCLUSIVE</span> <code>&lt;choose mode="inclusive"&gt;</code> generates all <strong>non-empty subsets</strong> of branch indices {0, 1}. <code>generateNonEmptySubsets([0,1])</code> → <strong>{0}, {1}, {0,1}</strong>. Single-branch subsets behave like XOR: {0}→<code>[B]</code>, {1}→<code>[C]</code>. Multi-branch subset {0,1} behaves like Parallel: <code>interleave([[B],[C]])</code> → <code>[B,C]</code> and <code>[C,B]</code>. Total: <strong>4 traces</strong>.`,
+              plain: `The inclusive gateway computes all non-empty subsets of branches. For 2 branches, that gives 3 subsets: branch B alone, branch C alone, or both together. Single-branch subsets are treated like an XOR — the trace simply includes that branch's tasks. Multi-branch subsets are treated like a parallel gateway — the tasks from the selected branches are interleaved in all possible orderings. This covers every possible runtime behavior: maybe only B runs, maybe only C runs, or maybe both run concurrently.` },
+            { traces: all, hl: ['D'], hlT: ['D'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>D</strong> appended to all traces. Final result: <strong>${n} unique traces</strong>.`,
+              plain: `D comes after the inclusive join, so it is appended to every trace. All selected branches must finish before D can run.` },
+        ];
+    }
+
+    if (id === 'complex') {
+        // A → XOR(B → Parallel(C,D), E) → Loop(cond="X"){ XOR(F, H→escape) } → G
+        //
+        // After XOR: 3 traces (B+Par gives 2 interleavings, E gives 1)
+        // Loop body: XOR(F, H→esc) → [F], [H]esc
+        //   hasEscape=true, nonEscape=[F] (1), secondIterOnlyEscape=true, maxIter=2
+        //   Per trace: 0 iter (skip), 1×F, 1×H(esc), 2×F+H(esc) → 4 variants
+        // 3 × 4 = 12 traces, G appended to non-escaped only
+        const xorPar = [
+            T(['A','B','C','D']),
+            T(['A','B','D','C']),
+            T(['A','E']),
+        ];
+        const loopSkip = [
+            T(['A','B','C','D']),
+            T(['A','B','D','C']),
+            T(['A','E']),
+        ];
+        const loop1 = [
+            ...loopSkip,
+            T(['A','B','C','D','F']),
+            T(['A','B','D','C','F']),
+            T(['A','E','F']),
+            T(['A','B','C','D','H'], true),
+            T(['A','B','D','C','H'], true),
+            T(['A','E','H'], true),
+        ];
+        const loop2 = [
+            ...loop1,
+            T(['A','B','C','D','F','H'], true),
+            T(['A','B','D','C','F','H'], true),
+            T(['A','E','F','H'], true),
+        ];
+        return [
+            { traces: [], hl: [], hlT: [], hlS: [],
+              ex: `<strong>Combined Demo</strong> — A → XOR(B → Parallel(C, D),  E) → Loop(<code>cond="X"</code>){ XOR(F, H→escape) } → G. Combines <em>sequential tasks, XOR branching, parallel interleaving, optional loop with escape, and 2nd-iteration escape pattern</em>. ${n} traces total. Press &rarr;`,
+              plain: `This graph exercises all major algorithm concepts in a single workflow. An XOR gateway feeds into a parallel split, whose interleavings are then passed through a loop that itself contains a XOR with an escape path. Each concept multiplies the trace count, but the algorithm keeps it bounded.` },
+            { traces: [T(['A'])], hl: ['A'], hlT: ['A'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>A</strong>. <code>FT = [A]</code>.`,
+              plain: `Task A runs first and is shared by every trace.` },
+            { traces: xorPar, hl: ['B','C','D','E'], hlT: ['B','C','D','E'], hlS: ['choose','parallel'],
+              ex: `<span class="tag tag-xor">XOR</span> Two branches: <strong>B → Parallel(C, D)</strong> or <strong>E</strong>. <span class="tag tag-par">PARALLEL</span> Inside the first branch, C and D run concurrently → <code>interleave([[C],[D]])</code> = <code>[C,D]</code>, <code>[D,C]</code>. Combined: <strong>3 traces</strong>.`,
+              plain: `The XOR splits into two paths. The first path runs B then a parallel split of C and D, producing 2 interleavings. The second path runs E alone. That gives 3 distinct traces entering the loop.` },
+            { traces: loop1, hl: ['F','H'], hlT: ['F','H'], hlS: ['loop','choose'],
+              ex: `<span class="tag tag-loop">LOOP</span> <code>condition="X"</code> → 0 iter allowed. Body: XOR(<strong>F</strong>, <strong>H→escape</strong>). <code>hasEscapePath=true</code> → <code>maxIter=2</code>. 0 iter: 3 traces unchanged. 1st iter: each trace × 2 body paths → +3 with F, +3 with H (terminated). Total so far: <strong>9 traces</strong>.`,
+              plain: `The loop can be skipped (0 iterations) or run once. Running once picks either F (normal) or H+escape (terminated). Each of the 3 incoming traces branches into 3 variants: skip, F, or H. Escaped traces never see tasks after the loop.` },
+            { traces: loop2, hl: ['F','H'], hlT: ['F','H'], hlS: ['loop','choose'],
+              ex: `<span class="tag tag-loop">LOOP 2nd iter</span><span class="tag tag-esc">ESC</span> <code>secondIterationIsForEscapeOnly=true</code> (only 1 non-escape body path). From each 1st-iter F trace: ×[H]→escaped. +3 traces: <code>[…,F,H]</code>. Total: <strong>12 traces</strong>.`,
+              plain: `Because there is only one non-escape body path (F), the second iteration exists solely to capture "iterate normally, then escape". Each trace that completed one normal iteration (F) gets a second escape iteration (H), producing 3 more terminated traces. Traces that already escaped in the first iteration do not continue.` },
+            { traces: all, hl: ['G'], hlT: ['G'], hlS: [],
+              ex: `<span class="tag tag-seq">SEQ</span> Task <strong>G</strong> appended to non-terminated traces. 6 traces reach G (skip + 1×F variants), 6 traces are escaped (ending in H). Final: <strong>${n} unique traces</strong>.`,
+              plain: `G comes after the loop. Only traces that did not escape receive G. The 6 escaped traces (ending in H) are frozen. The final 12 traces cover every combination of XOR branch, parallel ordering, and loop iteration/escape behavior.` },
         ];
     }
 

@@ -1,0 +1,10 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Proximale Femurfraktur erkennen)
+1:task:(Proximale Femurfraktur erkennen) --> 2:task:(Diagnose bestÃ¤tigen)
+2:task:(Diagnose bestÃ¤tigen) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Ja| 4:task:(Patienten vorbereiten)
+3:exclusivegateway:{x} --> |Nein| 5:task:(Weitere Untersuchungen)
+4:task:(Patienten vorbereiten) --> 6:task:(Operation durchfÃ¼hren)
+5:task:(Weitere Untersuchungen) --> 3:exclusivegateway:{x}
+6:task:(Operation durchfÃ¼hren) --> 7:task:(Postoperative Pflege)
+7:task:(Postoperative Pflege) --> 8:endevent:(((endevent)))

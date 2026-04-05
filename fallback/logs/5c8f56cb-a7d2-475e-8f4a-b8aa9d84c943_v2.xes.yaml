@@ -1,0 +1,1358 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8737
+    cpee:name: Enter info here
+    cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-03T13:33:00.538037+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-04-03T13:33:03.749644+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-04-03T13:33:03.950218+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-03T13:33:04.166597+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-03T13:33:04.196450+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Call a1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Manipulate a2</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Script a3</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Alternative 1" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Call b1</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Alternative 2" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Call b2</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Alternative 3" language="text/javascript"/>
+      </choose>
+      <parallel wait="-1" cancel="last" a:alt_id="10">
+        <parallel_branch>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Call c1</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Call c2</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="13">
+            <alternative condition="Alternative" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Call c3</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Otherwise" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Manipulate c4</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a41" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Call d1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Call d1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="Condition: data.x &gt; 0" a:alt_id="20" language="text/javascript">
+        <call id="a47" endpoint="" a:alt_id="21">
+          <parameters>
+            <label>Call d2</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+      <loop mode="pre_test" condition="Condition: data.y &gt; 0" a:alt_id="22" language="text/javascript">
+        <choose mode="exclusive" a:alt_id="23">
+          <alternative condition="Alternative" language="text/javascript">
+            <call id="a55" endpoint="" a:alt_id="24">
+              <parameters>
+                <label>Call d3</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Alternative" language="text/javascript">
+            <call id="a59" endpoint="" a:alt_id="25">
+              <parameters>
+                <label>Call d4</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <loop mode="pre_test" condition="true" a:alt_id="27" language="text/javascript">
+        <choose mode="exclusive" a:alt_id="28">
+          <alternative condition="">
+            <call id="a69" endpoint="" a:alt_id="29">
+              <parameters>
+                <label>Call e1</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="">
+            <call id="a73" endpoint="" a:alt_id="30">
+              <parameters>
+                <label>Call e2</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </loop>
+      <call id="a79" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Call final</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 7f1a5457fb18b5c345aa52babfd2f1e159e2b9d0
+  time:timestamp: '2026-04-03T13:33:27.420474+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7f1a5457fb18b5c345aa52babfd2f1e159e2b9d0
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-03T13:33:27.420731+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7f1a5457fb18b5c345aa52babfd2f1e159e2b9d0
+  cpee:exposition: |-
+    # User Input:
+    create a process model of this structure:
+
+    <description>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  // (2) sequential container
+    Â  <call id="a1" />Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â // (1) call task
+    Â  <manipulate id="a2" />Â  Â  Â  Â  Â  Â  Â  Â // (1) manipulate task
+    Â  <script id="a3" />Â  Â  Â  Â  Â  Â  Â  Â  Â  Â // (1) script task
+    Â  <choose>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â // (3) XOR gateway
+    Â  Â  <alternative>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  //Â  Â branch with tasks
+    Â  Â  Â  <call id="b1" />
+    Â  Â  </alternative>
+    Â  Â  <alternative>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  //Â  Â branch with escape (terminates trace)
+    Â  Â  Â  <call id="b2" />
+    Â  Â  Â  <escape alt_id="-1" />
+    Â  Â  </alternative>
+    Â  Â  <alternative>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  //Â  Â empty escape (immediate termination)
+    Â  Â  Â  <escape alt_id="-1" />
+    Â  Â  </alternative>
+    Â  Â  <otherwise>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  //Â  Â default branch (empty = skip path)
+    Â  Â  </otherwise>
+    Â  </choose>
+    Â  <parallel>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â // (4) AND gateway (interleaving)
+    Â  Â  <parallel_branch>
+    Â  Â  Â  <call id="c1" />
+    Â  Â  </parallel_branch>
+    Â  Â  <parallel_branch>
+    Â  Â  Â  <call id="c2" />
+    Â  Â  Â  <choose>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â //Â  Â nested XOR inside parallel
+    Â  Â  Â  Â  <alternative>
+    Â  Â  Â  Â  Â  <call id="c3" />
+    Â  Â  Â  Â  </alternative>
+    Â  Â  Â  Â  <otherwise>
+    Â  Â  Â  Â  Â  <manipulate id="c4" />
+    Â  Â  Â  Â  </otherwise>
+    Â  Â  Â  </choose>
+    Â  Â  </parallel_branch>
+    Â  </parallel>
+    Â  <loop condition="true">Â  Â  Â  Â  Â  Â  Â  // (5) mandatory loop (condition="true")
+    Â  Â  <call id="d1" />
+    Â  </loop>
+    Â  <loop condition="data.x > 0">Â  Â  Â  Â // (5) optional loop (can skip)
+    Â  Â  <call id="d2" />
+    Â  </loop>
+    Â  <loop condition="data.y > 0">Â  Â  Â  Â // (5) loop with escape path inside XOR
+    Â  Â  <choose>
+    Â  Â  Â  <alternative>
+    Â  Â  Â  Â  <call id="d3" />Â  Â  Â  Â  Â  Â  Â  //Â  Â normal path
+    Â  Â  Â  </alternative>
+    Â  Â  Â  <alternative>
+    Â  Â  Â  Â  <call id="d4" />
+    Â  Â  Â  Â  <escape alt_id="-1" />Â  Â  Â  Â  //Â  Â escape path -> forces 2 iterations
+    Â  Â  Â  </alternative>
+    Â  Â  </choose>
+    Â  </loop>
+    Â  <loop condition="true">Â  Â  Â  Â  Â  Â  Â // (5) mandatory loop with multiple XOR paths
+    Â  Â  <choose>
+    Â  Â  Â  <alternative>
+    Â  Â  Â  Â  <call id="e1" />Â  Â  Â  Â  Â  Â  Â //Â  Â path A
+    Â  Â  Â  </alternative>
+    Â  Â  Â  <alternative>
+    Â  Â  Â  Â  <call id="e2" />Â  Â  Â  Â  Â  Â  Â //Â  Â path B
+    Â  Â  Â  </alternative>
+    Â  Â  Â  <alternative>
+    Â  Â  Â  Â  <escape alt_id="-1" />Â  Â  Â  Â //Â  Â escape path
+    Â  Â  Â  </alternative>
+    Â  Â  </choose>
+    Â  </loop>
+    Â  <call id="final" />Â  Â  Â  Â  Â  Â  Â  Â  Â // final sequential task
+    </description>
+  time:timestamp: '2026-04-03T13:33:27.421297+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7f1a5457fb18b5c345aa52babfd2f1e159e2b9d0
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-03T13:33:27.421448+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7f1a5457fb18b5c345aa52babfd2f1e159e2b9d0
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-03T13:33:27.421529+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7f1a5457fb18b5c345aa52babfd2f1e159e2b9d0
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Call a1)
+        1:task:(Call a1) --> 2:task:(Manipulate a2)
+        2:task:(Manipulate a2) --> 3:task:(Script a3)
+        3:task:(Script a3) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Alternative 1| 5:task:(Call b1)
+        5:task:(Call b1) --> 9:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Alternative 2| 6:task:(Call b2)
+        6:task:(Call b2) --> 9:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Alternative 3| 9:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Otherwise| 9:exclusivegateway:{x}
+        9:exclusivegateway:{x} --> 10:parallelgateway:{AND}
+        10:parallelgateway:{AND} --> 11:task:(Call c1)
+        10:parallelgateway:{AND} --> 12:task:(Call c2)
+        12:task:(Call c2) --> 13:exclusivegateway:{x}
+        13:exclusivegateway:{x} --> |Alternative| 14:task:(Call c3)
+        14:task:(Call c3) --> 15:exclusivegateway:{x}
+        13:exclusivegateway:{x} --> |Otherwise| 16:task:(Manipulate c4)
+        16:task:(Manipulate c4) --> 15:exclusivegateway:{x}
+        11:task:(Call c1) --> 17:parallelgateway:{AND}
+        15:exclusivegateway:{x} --> 17:parallelgateway:{AND}
+        17:parallelgateway:{AND} --> 18:task:(Call d1)
+        18:task:(Call d1) --> 19:task:(Call d1)
+        19:task:(Call d1) --> 20:exclusivegateway:{x}
+        20:exclusivegateway:{x} --> |Condition: data.x > 0| 21:task:(Call d2)
+        21:task:(Call d2) --> 20:exclusivegateway:{x}
+        20:exclusivegateway:{x} --> |Otherwise| 22:exclusivegateway:{x}
+        22:exclusivegateway:{x} --> |Condition: data.y > 0| 23:exclusivegateway:{x}
+        23:exclusivegateway:{x} --> |Alternative| 24:task:(Call d3)
+        24:task:(Call d3) --> 22:exclusivegateway:{x}
+        23:exclusivegateway:{x} --> |Alternative| 25:task:(Call d4)
+        25:task:(Call d4) --> 22:exclusivegateway:{x}
+        22:exclusivegateway:{x} --> |Otherwise| 26:exclusivegateway:{x}
+        26:exclusivegateway:{x} --> 27:exclusivegateway:{x}
+        27:exclusivegateway:{x} --> 28:exclusivegateway:{x}
+        28:exclusivegateway:{x} --> 29:task:(Call e1)
+        29:task:(Call e1) --> 27:exclusivegateway:{x}
+        28:exclusivegateway:{x} --> 30:task:(Call e2)
+        30:task:(Call e2) --> 27:exclusivegateway:{x}
+        28:exclusivegateway:{x} --> 27:exclusivegateway:{x}
+        27:exclusivegateway:{x} --> 31:task:(Call final)
+        31:task:(Call final) --> 32:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-03T13:33:27.421594+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7f1a5457fb18b5c345aa52babfd2f1e159e2b9d0
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Call a1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Manipulate a2</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Script a3</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Alternative 1" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Call b1</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Alternative 2" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Call b2</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Alternative 3" language="text/javascript"/>
+      </choose>
+      <parallel wait="-1" cancel="last" a:alt_id="10">
+        <parallel_branch>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Call c1</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Call c2</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="13">
+            <alternative condition="Alternative" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Call c3</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Otherwise" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Manipulate c4</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a41" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Call d1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Call d1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="Condition: data.x &gt; 0" a:alt_id="20" language="text/javascript">
+        <call id="a47" endpoint="" a:alt_id="21">
+          <parameters>
+            <label>Call d2</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+      <loop mode="pre_test" condition="Condition: data.y &gt; 0" a:alt_id="22" language="text/javascript">
+        <choose mode="exclusive" a:alt_id="23">
+          <alternative condition="Alternative" language="text/javascript">
+            <call id="a55" endpoint="" a:alt_id="24">
+              <parameters>
+                <label>Call d3</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Alternative" language="text/javascript">
+            <call id="a59" endpoint="" a:alt_id="25">
+              <parameters>
+                <label>Call d4</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <loop mode="pre_test" condition="true" a:alt_id="27" language="text/javascript">
+        <choose mode="exclusive" a:alt_id="28">
+          <alternative condition="">
+            <call id="a69" endpoint="" a:alt_id="29">
+              <parameters>
+                <label>Call e1</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="">
+            <call id="a73" endpoint="" a:alt_id="30">
+              <parameters>
+                <label>Call e2</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </loop>
+      <call id="a79" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Call final</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-03T13:33:27.421688+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Call A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Manipulate B</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Script C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Alternative 1" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Call D</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Alternative 2" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Call E</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Alternative 3" language="text/javascript"/>
+      </choose>
+      <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+        <parallel_branch>
+          <call id="a21" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Call F</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a25" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Call G</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Alternative" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Call H</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Otherwise" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="a33">
+                <parameters>
+                  <label>Manipulate I</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a39" endpoint="" a:alt_id="a41">
+        <parameters>
+          <label>Call J</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="a43">
+        <parameters>
+          <label>Call J</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw4e">
+          <alternative condition="Condition: data.x &gt; 0" language="text/javascript">
+            <call id="a47" endpoint="" a:alt_id="a47">
+              <parameters>
+                <label>Call K</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="">
+            <choose mode="exclusive" a:alt_id="gw5e">
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="gw6s">
+                  <alternative condition="Alternative" language="text/javascript">
+                    <call id="a57" endpoint="" a:alt_id="a55">
+                      <parameters>
+                        <label>Call L</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="Alternative" language="text/javascript">
+                    <call id="a61" endpoint="" a:alt_id="a59">
+                      <parameters>
+                        <label>Call M</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="gw7e">
+                  <alternative condition="">
+                    <choose mode="exclusive" a:alt_id="gw8s">
+                      <alternative condition="">
+                        <call id="a73" endpoint="" a:alt_id="a69">
+                          <parameters>
+                            <label>Call N</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="">
+                        <call id="a77" endpoint="" a:alt_id="a73">
+                          <parameters>
+                            <label>Call O</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition=""/>
+                    </choose>
+                  </alternative>
+                  <alternative condition="">
+                    <call id="a85" endpoint="" a:alt_id="a79">
+                      <parameters>
+                        <label>Call P</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                </choose>
+              </alternative>
+            </choose>
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: c616bb5c4d3dc228c44576e6f96d56fe5b7227e3
+  time:timestamp: '2026-04-03T13:34:13.960653+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c616bb5c4d3dc228c44576e6f96d56fe5b7227e3
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Call a1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Manipulate a2</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Script a3</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Alternative 1" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Call b1</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Alternative 2" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Call b2</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Alternative 3" language="text/javascript"/>
+      </choose>
+      <parallel wait="-1" cancel="last" a:alt_id="10">
+        <parallel_branch>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Call c1</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Call c2</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="13">
+            <alternative condition="Alternative" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Call c3</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Otherwise" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Manipulate c4</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a41" endpoint="" a:alt_id="18">
+        <parameters>
+          <label>Call d1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a43" endpoint="" a:alt_id="19">
+        <parameters>
+          <label>Call d1</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="Condition: data.x &gt; 0" a:alt_id="20" language="text/javascript">
+        <call id="a47" endpoint="" a:alt_id="21">
+          <parameters>
+            <label>Call d2</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+      <loop mode="pre_test" condition="Condition: data.y &gt; 0" a:alt_id="22" language="text/javascript">
+        <choose mode="exclusive" a:alt_id="23">
+          <alternative condition="Alternative" language="text/javascript">
+            <call id="a55" endpoint="" a:alt_id="24">
+              <parameters>
+                <label>Call d3</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Alternative" language="text/javascript">
+            <call id="a59" endpoint="" a:alt_id="25">
+              <parameters>
+                <label>Call d4</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+      <loop mode="pre_test" condition="true" a:alt_id="27" language="text/javascript">
+        <choose mode="exclusive" a:alt_id="28">
+          <alternative condition="">
+            <call id="a69" endpoint="" a:alt_id="29">
+              <parameters>
+                <label>Call e1</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="">
+            <call id="a73" endpoint="" a:alt_id="30">
+              <parameters>
+                <label>Call e2</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition=""/>
+        </choose>
+      </loop>
+      <call id="a79" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Call final</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-03T13:34:13.960968+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c616bb5c4d3dc228c44576e6f96d56fe5b7227e3
+  cpee:exposition: |+
+    # User Input:
+    only use alphabetical characetrs for task labels.
+
+  time:timestamp: '2026-04-03T13:34:13.961118+02:00'
+...
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c616bb5c4d3dc228c44576e6f96d56fe5b7227e3
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-03T13:34:13.961198+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c616bb5c4d3dc228c44576e6f96d56fe5b7227e3
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Call a1)
+    a1:task:(Call a1)-->a3:task:(Manipulate a2)
+    a3:task:(Manipulate a2)-->a5:task:(Script a3)
+    a5:task:(Script a3)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Alternative 1"|a9:task:(Call b1)
+    a9:task:(Call b1)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Alternative 2"|a13:task:(Call b2)
+    a13:task:(Call b2)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Alternative 3"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->gw2s:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Call c1)
+    a23:task:(Call c1)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a25:task:(Call c2)
+    a25:task:(Call c2)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Alternative"|a29:task:(Call c3)
+    a29:task:(Call c3)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Otherwise"|a33:task:(Manipulate c4)
+    a33:task:(Manipulate c4)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->a41:task:(Call d1)
+    a41:task:(Call d1)-->a43:task:(Call d1)
+    a43:task:(Call d1)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->|"Condition: data.x > 0"|a47:task:(Call d2)
+    a47:task:(Call d2)-->gw4s:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->|"true"|gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Alternative"|a55:task:(Call d3)
+    a55:task:(Call d3)-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Alternative"|a59:task:(Call d4)
+    a59:task:(Call d4)-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->|"true"|gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->a69:task:(Call e1)
+    a69:task:(Call e1)-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->a73:task:(Call e2)
+    a73:task:(Call e2)-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8e:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->a79:task:(Call final)
+    a79:task:(Call final)-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-03T13:34:13.961301+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c616bb5c4d3dc228c44576e6f96d56fe5b7227e3
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Call A)
+    a1:task:(Call A)-->a3:task:(Manipulate B)
+    a3:task:(Manipulate B)-->a5:task:(Script C)
+    a5:task:(Script C)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Alternative 1"|a9:task:(Call D)
+    a9:task:(Call D)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Alternative 2"|a13:task:(Call E)
+    a13:task:(Call E)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Alternative 3"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->gw2s:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Call F)
+    a23:task:(Call F)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a25:task:(Call G)
+    a25:task:(Call G)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Alternative"|a29:task:(Call H)
+    a29:task:(Call H)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Otherwise"|a33:task:(Manipulate I)
+    a33:task:(Manipulate I)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->a41:task:(Call J)
+    a41:task:(Call J)-->a43:task:(Call J)
+    a43:task:(Call J)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->|"Condition: data.x > 0"|a47:task:(Call K)
+    a47:task:(Call K)-->gw4s:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->|"true"|gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Alternative"|a55:task:(Call L)
+    a55:task:(Call L)-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Alternative"|a59:task:(Call M)
+    a59:task:(Call M)-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->|"true"|gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->a69:task:(Call N)
+    a69:task:(Call N)-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->a73:task:(Call O)
+    a73:task:(Call O)-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8e:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->a79:task:(Call P)
+    a79:task:(Call P)-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-03T13:34:13.961409+02:00'
+---
+event:
+  concept:instance: 8737
+  id:id: ex-ante
+  cpee:instance: 5c8f56cb-a7d2-475e-8f4a-b8aa9d84c943
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c616bb5c4d3dc228c44576e6f96d56fe5b7227e3
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Call A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Manipulate B</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Script C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Alternative 1" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Call D</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Alternative 2" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Call E</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Alternative 3" language="text/javascript"/>
+      </choose>
+      <parallel wait="-1" cancel="last" a:alt_id="gw2s">
+        <parallel_branch>
+          <call id="a21" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Call F</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a25" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Call G</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Alternative" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Call H</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Otherwise" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="a33">
+                <parameters>
+                  <label>Manipulate I</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <call id="a39" endpoint="" a:alt_id="a41">
+        <parameters>
+          <label>Call J</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a41" endpoint="" a:alt_id="a43">
+        <parameters>
+          <label>Call J</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw4e">
+          <alternative condition="Condition: data.x &gt; 0" language="text/javascript">
+            <call id="a47" endpoint="" a:alt_id="a47">
+              <parameters>
+                <label>Call K</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="">
+            <choose mode="exclusive" a:alt_id="gw5e">
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="gw6s">
+                  <alternative condition="Alternative" language="text/javascript">
+                    <call id="a57" endpoint="" a:alt_id="a55">
+                      <parameters>
+                        <label>Call L</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="Alternative" language="text/javascript">
+                    <call id="a61" endpoint="" a:alt_id="a59">
+                      <parameters>
+                        <label>Call M</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="gw7e">
+                  <alternative condition="">
+                    <choose mode="exclusive" a:alt_id="gw8s">
+                      <alternative condition="">
+                        <call id="a73" endpoint="" a:alt_id="a69">
+                          <parameters>
+                            <label>Call N</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="">
+                        <call id="a77" endpoint="" a:alt_id="a73">
+                          <parameters>
+                            <label>Call O</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition=""/>
+                    </choose>
+                  </alternative>
+                  <alternative condition="">
+                    <call id="a85" endpoint="" a:alt_id="a79">
+                      <parameters>
+                        <label>Call P</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                </choose>
+              </alternative>
+            </choose>
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-03T13:34:13.961534+02:00'

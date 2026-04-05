@@ -1,0 +1,39 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="a1">
+    <parameters>
+      <label>Task A</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <choose mode="exclusive" a:alt_id="gw1s">
+    <alternative condition="">
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Task B</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Task C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </alternative>
+    <alternative condition="true" language="text/javascript"/>
+  </choose>
+  <call id="a11" endpoint="" a:alt_id="a13">
+    <parameters>
+      <label>Task D</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>

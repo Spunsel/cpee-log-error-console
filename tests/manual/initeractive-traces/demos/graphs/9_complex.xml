@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="a1" endpoint="">
+    <parameters><label>A</label><method>:post</method><arguments/></parameters>
+  </call>
+  <choose mode="exclusive">
+    <alternative condition="">
+      <call id="a2" endpoint="">
+        <parameters><label>B</label><method>:post</method><arguments/></parameters>
+      </call>
+      <parallel wait="-1" cancel="last">
+        <parallel_branch>
+          <call id="a3" endpoint="">
+            <parameters><label>C</label><method>:post</method><arguments/></parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a4" endpoint="">
+            <parameters><label>D</label><method>:post</method><arguments/></parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+    </alternative>
+    <alternative condition="">
+      <call id="a5" endpoint="">
+        <parameters><label>E</label><method>:post</method><arguments/></parameters>
+      </call>
+    </alternative>
+  </choose>
+  <loop mode="pre_test" condition="X">
+    <choose mode="exclusive">
+      <alternative condition="">
+        <call id="a6" endpoint="">
+          <parameters><label>F</label><method>:post</method><arguments/></parameters>
+        </call>
+      </alternative>
+      <otherwise>
+        <call id="a7" endpoint="">
+          <parameters><label>H</label><method>:post</method><arguments/></parameters>
+        </call>
+        <escape alt_id="-1"/>
+      </otherwise>
+    </choose>
+  </loop>
+  <call id="a99" endpoint="">
+    <parameters><label>G</label><method>:post</method><arguments/></parameters>
+  </call>
+</description>

@@ -1,0 +1,26 @@
+graph LR
+0:startevent:((Kostenverteilungsperiode beginnt))
+1:task:(Sammeln der Infrastrukturkosten)
+2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+3:exclusivegateway:{x}
+4:task:(Definition der VerteilungsschlÃ¼ssel)
+5:task:(DurchfÃ¼hrung der Umlage)
+6:task:(PrÃ¼fung der Umlageergebnisse)
+7:exclusivegateway:{x}
+8:task:(Reporting und Freigabe)
+9:endevent:(((Umlage abgeschlossen und freigegeben)))
+10:task:(Korrektur der Daten)
+11:task:(Korrektur und Neuverteilung)
+0:startevent:((Kostenverteilungsperiode beginnt)) --> 1:task:(Sammeln der Infrastrukturkosten)
+1:task:(Sammeln der Infrastrukturkosten) --> 2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Kosten plausibel?| 4:task:(Definition der VerteilungsschlÃ¼ssel)
+3:exclusivegateway:{x} --> |Nein| 10:task:(Korrektur der Daten)
+10:task:(Korrektur der Daten) --> 2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+4:task:(Definition der VerteilungsschlÃ¼ssel) --> 5:task:(DurchfÃ¼hrung der Umlage)
+5:task:(DurchfÃ¼hrung der Umlage) --> 6:task:(PrÃ¼fung der Umlageergebnisse)
+6:task:(PrÃ¼fung der Umlageergebnisse) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Ergebnisse korrekt?| 8:task:(Reporting und Freigabe)
+7:exclusivegateway:{x} --> |Nein| 11:task:(Korrektur und Neuverteilung)
+11:task:(Korrektur und Neuverteilung) --> 6:task:(PrÃ¼fung der Umlageergebnisse)
+8:task:(Reporting und Freigabe) --> 9:endevent:(((Umlage abgeschlossen und freigegeben)))

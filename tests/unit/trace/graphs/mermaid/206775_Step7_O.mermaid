@@ -1,0 +1,12 @@
+graph LR
+0:startevent:((startevent)) --> 1:task:(Sammeln der Infrastrukturkosten)
+1:task:(Sammeln der Infrastrukturkosten) --> 2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten) --> 3:exclusivegateway:{x}
+3:exclusivegateway:{x} --> |Nein| 1:task:(Sammeln der Infrastrukturkosten)
+3:exclusivegateway:{x} --> |Ja| 4:task:(Definition der VerteilungsschlÃ¼ssel)
+4:task:(Definition der VerteilungsschlÃ¼ssel) --> 5:task:(DurchfÃ¼hrung der Umlage)
+5:task:(DurchfÃ¼hrung der Umlage) --> 6:task:(PrÃ¼fung der Umlageergebnisse)
+6:task:(PrÃ¼fung der Umlageergebnisse) --> 7:exclusivegateway:{x}
+7:exclusivegateway:{x} --> |Nein| 5:task:(DurchfÃ¼hrung der Umlage)
+7:exclusivegateway:{x} --> |Ja| 8:task:(Reporting und Freigabe)
+8:task:(Reporting und Freigabe) --> 9:endevent:(((endevent)))

@@ -1,0 +1,43 @@
+flowchart LR
+se:startevent:((startevent))-->a1:task:(Customer provides properties)
+a1:task:(Customer provides properties)-->a3:task:(Inform customer about start of production)
+a3:task:(Inform customer about start of production)-->gw1s:parallelgateway:{AND}
+gw1s:parallelgateway:{AND}-->a7:task:(Order parts from online source 1)
+gw1s:parallelgateway:{AND}-->a9:task:(Order parts from online source 2)
+gw1s:parallelgateway:{AND}-->a11:task:(Order parts from online source N)
+a7:task:(Order parts from online source 1)-->a13:task:(Receive parts from source 1)
+a9:task:(Order parts from online source 2)-->a15:task:(Receive parts from source 2)
+a11:task:(Order parts from online source N)-->a17:task:(Receive parts from source N)
+a13:task:(Receive parts from source 1)-->gw1e:parallelgateway:{AND}
+a15:task:(Receive parts from source 2)-->gw1e:parallelgateway:{AND}
+a17:task:(Receive parts from source N)-->gw1e:parallelgateway:{AND}
+gw1e:parallelgateway:{AND}-->a25:task:(Manual inspection of all parts)
+a25:task:(Manual inspection of all parts)-->gw2s:parallelgateway:{AND}
+gw2s:parallelgateway:{AND}-->a29:task:(Assemble first chainsaw)
+gw2s:parallelgateway:{AND}-->gw3s:exclusivegateway:{x}
+a29:task:(Assemble first chainsaw)-->a33:task:(Send first chainsaw to customer)
+a33:task:(Send first chainsaw to customer)-->gw2e:parallelgateway:{AND}
+gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->|"true"|a31:task:(Send regular update to customer)
+a31:task:(Send regular update to customer)-->gw4s:exclusivegateway:{x}
+gw4s:exclusivegateway:{x}-->|"Still assembling/producing?"|a31:task:(Send regular update to customer)
+gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+gw4e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+gw3e:exclusivegateway:{x}-->gw2e:parallelgateway:{AND}
+gw2e:parallelgateway:{AND}-->gw5s:exclusivegateway:{x}
+gw5s:exclusivegateway:{x}-->|"Customer likes saw"|gw6s:parallelgateway:{AND}
+gw5s:exclusivegateway:{x}-->|"Customer dislikes saw"|a47:task:(Inform customer about end of production)
+gw6s:parallelgateway:{AND}-->a49:task:(Produce rest of the order)
+gw6s:parallelgateway:{AND}-->gw7s:exclusivegateway:{x}
+a49:task:(Produce rest of the order)-->a53:task:(Deliver rest of the order)
+a53:task:(Deliver rest of the order)-->gw6e:parallelgateway:{AND}
+gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+gw7e:exclusivegateway:{x}-->|"true"|a51:task:(Send regular update to customer)
+a51:task:(Send regular update to customer)-->gw8s:exclusivegateway:{x}
+gw8s:exclusivegateway:{x}-->|"Still assembling/producing?"|a51:task:(Send regular update to customer)
+gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+gw8e:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
+gw7e:exclusivegateway:{x}-->gw6e:parallelgateway:{AND}
+gw6e:parallelgateway:{AND}-->gw5e:exclusivegateway:{x}
+a47:task:(Inform customer about end of production)-->gw5e:exclusivegateway:{x}
+gw5e:exclusivegateway:{x}-->ee:endevent:(((endevent)))

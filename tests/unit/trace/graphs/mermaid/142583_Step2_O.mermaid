@@ -1,0 +1,43 @@
+graph LR
+0:startevent:((Start))
+1:task:(Customer Places Order)
+2:task:(Enter Order in POS)
+3:task:(Confirm Order with Customer)
+4:task:(Customer Pays)
+5:task:(Send Order to Kitchen)
+6:parallelgateway:{AND}
+7:task:(Receive Order in Kitchen)
+8:exclusivegateway:{x}
+9:task:(Check Inventory)
+10:exclusivegateway:{x}
+11:task:(Prepare Food)
+12:task:(Plate and Quality Check)
+13:task:(Notify Cashier of Shortage)
+14:task:(Request Restock or Substitute)
+15:task:(Runner Takes Food to Counter)
+16:task:(Barista Makes Drink)
+17:parallelgateway:{AND}
+18:task:(Customer Receives Order)
+19:endevent:(((End)))
+0:startevent:((Start)) --> 1:task:(Customer Places Order)
+1:task:(Customer Places Order) --> 2:task:(Enter Order in POS)
+2:task:(Enter Order in POS) --> 3:task:(Confirm Order with Customer)
+3:task:(Confirm Order with Customer) --> 4:task:(Customer Pays)
+4:task:(Customer Pays) --> 5:task:(Send Order to Kitchen)
+5:task:(Send Order to Kitchen) --> 6:parallelgateway:{AND}
+6:parallelgateway:{AND} --> 7:task:(Receive Order in Kitchen)
+6:parallelgateway:{AND} --> 16:task:(Barista Makes Drink)
+7:task:(Receive Order in Kitchen) --> 8:exclusivegateway:{x}
+8:exclusivegateway:{x} --> |Ingredients Available| 9:task:(Check Inventory)
+8:exclusivegateway:{x} --> |Ingredients Missing| 13:task:(Notify Cashier of Shortage)
+9:task:(Check Inventory) --> 10:exclusivegateway:{x}
+10:exclusivegateway:{x} --> |Proceed with Preparation| 11:task:(Prepare Food)
+10:exclusivegateway:{x} --> |Ingredients Missing| 13:task:(Notify Cashier of Shortage)
+11:task:(Prepare Food) --> 12:task:(Plate and Quality Check)
+12:task:(Plate and Quality Check) --> 15:task:(Runner Takes Food to Counter)
+13:task:(Notify Cashier of Shortage) --> 14:task:(Request Restock or Substitute)
+14:task:(Request Restock or Substitute) --> 11:task:(Prepare Food)
+15:task:(Runner Takes Food to Counter) --> 17:parallelgateway:{AND}
+16:task:(Barista Makes Drink) --> 17:parallelgateway:{AND}
+17:parallelgateway:{AND} --> 18:task:(Customer Receives Order)
+18:task:(Customer Receives Order) --> 19:endevent:(((End)))

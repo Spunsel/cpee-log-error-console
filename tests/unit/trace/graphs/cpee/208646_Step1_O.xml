@@ -1,0 +1,52 @@
+<description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+  <call id="a1" endpoint="" a:alt_id="1">
+    <parameters>
+      <label>Proximale Femurfraktur erkennen</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a3" endpoint="" a:alt_id="2">
+    <parameters>
+      <label>Diagnose bestätigen</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <loop mode="pre_test" condition="Nein" a:alt_id="3" language="text/javascript">
+    <call id="a9" endpoint="" a:alt_id="5">
+      <parameters>
+        <label>Weitere Untersuchungen</label>
+        <method/>
+        <type>:task</type>
+        <arguments/>
+      </parameters>
+    </call>
+  </loop>
+  <call id="a7" endpoint="" a:alt_id="4">
+    <parameters>
+      <label>Patienten vorbereiten</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a11" endpoint="" a:alt_id="6">
+    <parameters>
+      <label>Operation durchführen</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+  <call id="a15" endpoint="" a:alt_id="7">
+    <parameters>
+      <label>Postoperative Pflege</label>
+      <method/>
+      <type>:task</type>
+      <arguments/>
+    </parameters>
+  </call>
+</description>
