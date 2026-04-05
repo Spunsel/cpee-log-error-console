@@ -41,9 +41,6 @@ export class TraceContentRenderer {
         // Trace filters per section
         this.traceFilters = new Map();
         
-        // Copy buttons for traces per section (legacy, for backwards compatibility)
-        this.traceCopyButtons = new Map();
-        
         // Store comparison results per section pair for trace coloring
         this.comparisonResults = {
             input: null,
@@ -85,32 +82,38 @@ export class TraceContentRenderer {
     }
 
     /**
+     * Hide elements matching a selector within a container.
+     */
+    hideContentType(container, selector) {
+        for (const el of container.querySelectorAll(selector)) {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+            el.style.pointerEvents = 'none';
+        }
+    }
+
+    /**
+     * Get section IDs for a section pair.
+     */
+    getSectionIdsForPair(sectionPair) {
+        return sectionPair === 'input'
+            ? ['input-cpee', 'input-intermediate']
+            : ['output-cpee', 'output-intermediate'];
+    }
+
+    /**
      * Display traces for a section
      * @param {string} sectionId - Section identifier
      * @param {HTMLElement} container - Content container
      * @param {Object} step - Current step object
-     * @param {Object} options - Rendering options
      */
-    display(sectionId, container, step, _options = {}) {
+    display(sectionId, container, step) {
         if (!step || !container) {
             return;
         }
 
-        // Hide visual content
-        const visualElements = container.querySelectorAll('[data-content-type="visual"]');
-        visualElements.forEach(el => {
-            el.style.display = 'none';
-            el.style.visibility = 'hidden';
-            el.style.pointerEvents = 'none';
-        });
-
-        // Hide raw/log content
-        const rawElements = container.querySelectorAll('[data-content-type="raw"]');
-        rawElements.forEach(el => {
-            el.style.display = 'none';
-            el.style.visibility = 'hidden';
-            el.style.pointerEvents = 'none';
-        });
+        this.hideContentType(container, '[data-content-type="visual"]');
+        this.hideContentType(container, '[data-content-type="raw"]');
 
         // Restore container overflow (traces container handles its own scrolling)
         container.style.overflow = 'visible';
@@ -168,17 +171,14 @@ export class TraceContentRenderer {
         // Check cache first
         const cacheKey = `${sectionId}-${step.stepNumber || 'unknown'}`;
         if (this.traceCache.has(cacheKey)) {
-            const cachedTraces = this.traceCache.get(cacheKey);
-            return this.renderCachedTraces(sectionId, container, cachedTraces);
+            return this.renderTraces(sectionId, container, this.traceCache.get(cacheKey));
         }
 
         // Check if step has pre-calculated traces (e.g., after reconciliation)
-        // These traces may have isReconciled flags that would be lost if we recalculate
         const stepTraces = step.getTraces(sectionId);
         if (stepTraces && Array.isArray(stepTraces) && stepTraces.length > 0) {
-            // Use step's stored traces - they may have reconciled traces added
             this.traceCache.set(cacheKey, stepTraces);
-            return this.renderCachedTraces(sectionId, container, stepTraces);
+            return this.renderTraces(sectionId, container, stepTraces);
         }
 
         // Extract raw content based on section type
@@ -275,25 +275,6 @@ export class TraceContentRenderer {
     }
 
     /**
-     * Render cached traces
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} container - Content container
-     * @param {Array} traces - Cached traces
-     * @returns {HTMLElement} Trace display container
-     */
-    renderCachedTraces(sectionId, container, traces) {
-        // Emit traces:calculated event for cached traces  - silent if no listeners (informational event)
-        this.eventBus.emit('traces:calculated', {
-            sectionId,
-            traceCount: traces.length,
-            traces,
-            cached: true
-        }, { silent: true });
-        
-        return this.renderTraces(sectionId, container, traces);
-    }
-
-    /**
      * Render traces using merged TraceRenderer functionality
      * @param {string} sectionId - Section identifier
      * @param {HTMLElement} container - Content container (traces container)
@@ -308,20 +289,11 @@ export class TraceContentRenderer {
             this.traceDisplays.set(sectionId, traceDisplay);
         }
 
-        // Clear container first
         container.innerHTML = '';
 
-        // Create trace display container
-        if (!traceDisplay.getContainer()) {
-            traceDisplay.createContainer();
-        } else {
-            // Reuse existing container but clear it
-            const existingContainer = traceDisplay.getContainer();
-            if (existingContainer.parentNode) {
-                existingContainer.parentNode.removeChild(existingContainer);
-            }
-            traceDisplay.createContainer();
-        }
+        const existing = traceDisplay.getContainer();
+        if (existing?.parentNode) { existing.remove(); }
+        traceDisplay.createContainer();
 
         container.appendChild(traceDisplay.getContainer());
 
@@ -639,99 +611,6 @@ export class TraceContentRenderer {
     }
 
     /**
-     * Format trace as JSON-like string for details view (merged from TraceRenderer)
-     * @param {Trace} trace - Trace object
-     * @returns {string} JSON-formatted string
-     */
-    formatTraceAsJSON(trace) {
-        if (trace.path.length === 0) {
-            return '[]';
-        }
-
-        const jsonLines = trace.path.map(task => {
-            const taskObj = {
-                id: task.id,
-                alt_id: task.alt_id,
-                task: task.task
-            };
-            return '    ' + JSON.stringify(taskObj, null, 0);
-        });
-
-        return '[\n' + jsonLines.join(',\n') + '\n]';
-    }
-
-    /**
-     * Mark task string tokens in JSON for CSS styling (merged from TraceRenderer)
-     * @param {HTMLElement} codeElement - Code element with Prism tokens
-     * @returns {boolean} True if tokens were found and marked, false otherwise
-     */
-    markTaskStringTokens(codeElement) {
-        if (!codeElement) {
-            return false;
-        }
-
-        const propertyTokens = codeElement.querySelectorAll('.token.property');
-        let markedCount = 0;
-        
-        propertyTokens.forEach(propertyToken => {
-            if (propertyToken.textContent.trim() === '"task"') {
-                let current = propertyToken.nextSibling;
-                let foundOperator = false;
-                
-                while (current) {
-                    if (current.nodeType === Node.ELEMENT_NODE) {
-                        if (current.classList.contains('token') && current.classList.contains('operator')) {
-                            foundOperator = true;
-                            current = current.nextSibling;
-                            break;
-                        }
-                    }
-                    current = current.nextSibling;
-                }
-                
-                if (foundOperator) {
-                    while (current) {
-                        if (current.nodeType === Node.ELEMENT_NODE) {
-                            if (current.classList.contains('token') && current.classList.contains('string')) {
-                                current.classList.add('token-task-string');
-                                markedCount++;
-                                break;
-                            }
-                        }
-                        current = current.nextSibling;
-                    }
-                }
-            }
-        });
-        
-        return markedCount > 0;
-    }
-
-    /**
-     * Mark task string tokens with retry mechanism to handle timing issues
-     * @param {HTMLElement} codeElement - Code element with Prism tokens
-     * @param {number} maxRetries - Maximum number of retries (default: 3)
-     * @param {number} delay - Delay between retries in milliseconds (default: 100)
-     */
-    markTaskStringTokensWithRetry(codeElement, maxRetries = 3, delay = 100) {
-        if (!codeElement) {
-            return;
-        }
-
-        let retries = 0;
-        const tryMark = () => {
-            const success = this.markTaskStringTokens(codeElement);
-            if (!success && retries < maxRetries) {
-                retries++;
-                setTimeout(tryMark, delay);
-            }
-        };
-        
-        // Start with a small delay to allow Prism to finish highlighting
-        setTimeout(tryMark, 50);
-    }
-
-    /**
      * Create metadata display element (merged from TraceRenderer)
      * @param {Object} metadata - Trace metadata
      * @returns {HTMLElement} Metadata element
@@ -764,21 +643,6 @@ export class TraceContentRenderer {
 
         metadataEl.appendChild(metadataList);
         return metadataEl;
-    }
-
-    /**
-     * Get human-readable label for trace type (merged from TraceRenderer)
-     * @param {string} type - Trace type
-     * @returns {string} Human-readable label
-     */
-    getTypeLabel(type) {
-        const typeLabels = {
-            'sequential': 'Sequential',
-            'parallel': 'Parallel',
-            'loop': 'Loop',
-            'conditional': 'Conditional'
-        };
-        return typeLabels[type] || type;
     }
 
     /**
@@ -1047,9 +911,7 @@ export class TraceContentRenderer {
      * @param {string} sectionPair - Section pair identifier ('input' or 'output')
      */
     clearTraceCacheForSectionPair(sectionPair) {
-        const sectionIds = sectionPair === 'input' 
-            ? ['input-cpee', 'input-intermediate']
-            : ['output-cpee', 'output-intermediate'];
+        const sectionIds = this.getSectionIdsForPair(sectionPair);
 
         // Clear cache entries for these sections
         for (const key of this.traceCache.keys()) {
@@ -1067,9 +929,7 @@ export class TraceContentRenderer {
      * @param {string} sectionPair - Section pair identifier ('input' or 'output')
      */
     reRenderTracesForSectionPair(sectionPair) {
-        const sectionIds = sectionPair === 'input' 
-            ? ['input-cpee', 'input-intermediate']
-            : ['output-cpee', 'output-intermediate'];
+        const sectionIds = this.getSectionIdsForPair(sectionPair);
 
         for (const sectionId of sectionIds) {
             const container = document.getElementById(sectionId);
@@ -1102,88 +962,41 @@ export class TraceContentRenderer {
      * @param {string} sectionPair - Section pair identifier ('input' or 'output')
      */
     updateTraceColorsForSectionPair(sectionPair) {
-        const comparisonResult = this.comparisonResults[sectionPair];
+        const sectionIds = this.getSectionIdsForPair(sectionPair);
 
-        // Determine which sections belong to this pair
-        const sectionIds = sectionPair === 'input' 
-            ? ['input-cpee', 'input-intermediate']
-            : ['output-cpee', 'output-intermediate'];
-
-        sectionIds.forEach(sectionId => {
+        for (const sectionId of sectionIds) {
             const container = document.getElementById(sectionId);
-            if (!container) {
-                return;
-            }
+            if (!container) { continue; }
 
             const tracesContainer = container.querySelector('[data-content-type="traces"]');
-            if (!tracesContainer) {
-                return;
-            }
+            if (!tracesContainer) { continue; }
+
+            const cacheKey = this.findCacheKey(sectionId);
+            const cachedTraces = cacheKey ? this.traceCache.get(cacheKey) : null;
 
             const traceItems = tracesContainer.querySelectorAll('.trace-item');
             traceItems.forEach((traceItem, index) => {
                 const traceNumberEl = traceItem.querySelector('.trace-number');
-                if (!traceNumberEl) {
-                    return;
-                }
+                if (!traceNumberEl) { return; }
 
-                // Determine if this is a CPEE or Mermaid section
-                const isCPEE = sectionId.includes('cpee');
-                const traceIndex = index; // 0-based
+                const trace = cachedTraces?.[index];
+                const status = this.getTraceStatus(sectionId, index, trace);
 
-                // Check if this trace is reconciled (from the trace data)
-                // We need to get the trace from the cache or step
-                const cacheKey = Array.from(this.traceCache.keys()).find(k => k.startsWith(sectionId));
-                const cachedTraces = cacheKey ? this.traceCache.get(cacheKey) : null;
-                const trace = cachedTraces?.[traceIndex];
-                const isReconciled = trace?.isReconciled === true;
-
-                // Determine trace status from comparison result
-                let isMatching = false;
-                let isProblematic = false;
-
-                if (comparisonResult) {
-                    if (isCPEE) {
-                        // For CPEE traces, check details array
-                        const detail = comparisonResult.details?.[traceIndex];
-                        if (detail) {
-                            isMatching = detail.match === true;
-                            isProblematic = detail.match === false;
-                        }
-                    } else {
-                        // For Mermaid traces, check if it's in uniqueMermaidTraces (problematic)
-                        const isUnique = comparisonResult.uniqueMermaidTraces?.some(
-                            uniqueTrace => uniqueTrace.traceIndex === traceIndex
-                        );
-                        if (isUnique) {
-                            isProblematic = true;
-                        } else {
-                            // Mermaid trace is matching if it was matched by a CPEE trace
-                            // Check if any detail has this Mermaid trace index as its match
-                            isMatching = comparisonResult.details?.some(
-                                detail => detail.mermaidTraceIndex === traceIndex && detail.match === true
-                            ) || false;
-                        }
-                    }
-                }
-
-                // Apply color classes for matching, problematic, and reconciled traces
                 traceNumberEl.classList.remove(
-                    'trace-number--matching', 
+                    'trace-number--matching',
                     'trace-number--problematic',
                     'trace-number--reconciled'
                 );
 
-                // Reconciled traces get special styling (warning colors)
-                if (isReconciled) {
+                if (status === 'RECONCILED') {
                     traceNumberEl.classList.add('trace-number--reconciled');
-                } else if (isMatching) {
+                } else if (status === 'MATCHING') {
                     traceNumberEl.classList.add('trace-number--matching');
-                } else if (isProblematic) {
+                } else if (status === 'UNIQUE') {
                     traceNumberEl.classList.add('trace-number--problematic');
                 }
             });
-        });
+        }
     }
 
     /**
@@ -1222,13 +1035,8 @@ export class TraceContentRenderer {
         const statusFilter = filters.status?.trim() || '';
         const hasFilters = altIdFilter || idFilter || taskLabelFilter || statusFilter;
         
-        // Get traces from cache - cache key is `${sectionId}-${stepNumber}`
-        // Find the cache key that starts with this sectionId
-        let traces = null;
-        const cacheKey = Array.from(this.traceCache.keys()).find(key => key.startsWith(`${sectionId}-`));
-        if (cacheKey) {
-            traces = this.traceCache.get(cacheKey);
-        }
+        const cacheKey = this.findCacheKey(sectionId);
+        const traces = cacheKey ? this.traceCache.get(cacheKey) : null;
         
         if (!traces || traces.length === 0) {
             // If no traces in cache, show all items
@@ -1350,9 +1158,8 @@ export class TraceContentRenderer {
         const taskLabelFilter = filters.taskLabel?.trim();
         const statusFilter = filters.status?.trim();
         
-        // If no filters, return false (shouldn't happen, but safety check)
         if (!altIdFilter && !idFilter && !taskLabelFilter && !statusFilter) {
-            return false;
+            return true;
         }
         
         // AND logic: trace matches if ALL non-empty filters match at least one task in the trace
@@ -1411,16 +1218,20 @@ export class TraceContentRenderer {
     }
 
     /**
-     * Get section pair identifier for a section
-     * @param {string} sectionId - Section identifier
-     * @returns {string|null} Section pair identifier ('input' or 'output') or null
+     * Get section pair identifier for a section.
      */
     getSectionPair(sectionId) {
-        if (sectionId === 'input-cpee' || sectionId === 'input-intermediate') {
-            return 'input';
-        }
-        if (sectionId === 'output-cpee' || sectionId === 'output-intermediate') {
-            return 'output';
+        if (sectionId === 'input-cpee' || sectionId === 'input-intermediate') { return 'input'; }
+        if (sectionId === 'output-cpee' || sectionId === 'output-intermediate') { return 'output'; }
+        return null;
+    }
+
+    /**
+     * Find the cache key for a given section ID.
+     */
+    findCacheKey(sectionId) {
+        for (const key of this.traceCache.keys()) {
+            if (key.startsWith(`${sectionId}-`)) { return key; }
         }
         return null;
     }
@@ -1430,17 +1241,9 @@ export class TraceContentRenderer {
      * @param {HTMLElement} container - Content container
      */
     hideTraceContent(container) {
-        if (!container) {
-            return;
-        }
+        if (!container) { return; }
 
-        // Hide traces content elements
-        const tracesElements = container.querySelectorAll('[data-content-type="traces"]');
-        tracesElements.forEach(el => {
-            el.style.display = 'none';
-            el.style.visibility = 'hidden';
-            el.style.pointerEvents = 'none';
-        });
+        this.hideContentType(container, '[data-content-type="traces"]');
         
         // Hide action bar for this section
         const sectionId = container.closest('[id]')?.id;
@@ -1459,7 +1262,6 @@ export class TraceContentRenderer {
         this.clearTraceCache();
         this.traceActionBars.clear();
         this.traceFilters.clear();
-        this.traceCopyButtons.clear();
     }
 }
 
