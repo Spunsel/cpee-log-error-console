@@ -1,20 +1,6 @@
 /**
  * RawContentRenderer
- * Renders preprocessed content (Mermaid, CPEE XML, user input) as plain text
- * Single responsibility: Cleaned View rendering only
- * 
- * Responsibilities:
- * - Render cleaned/preprocessed content into DOM elements
- * - Provide DOM structure for Cleaned View display
- * - Handle search highlighting and navigation for Cleaned View
- * - Manage action bars for cleaned content
- * - Handle content restoration and hiding
- * 
- * View Mode Separation:
- * - Graph View: ContentSectionManager (graph rendering)
- * - Cleaned View: This renderer (preprocessed content)
- * - Raw View: LogContentRenderer (untouched original content)
- * - Traces View: TraceContentRenderer (execution traces)
+ * Renders preprocessed content (Mermaid, CPEE XML) as plain text (Cleaned View)
  */
 
 import { ActionBar } from '../ui/ActionBar.js';
@@ -22,147 +8,103 @@ import { serviceFactory } from '../../core/ServiceFactory.js';
 import { configManager } from '../../config/ConfigManager.js';
 
 export class RawContentRenderer {
-    constructor(domRegistry = null, _eventBus = null, contentProcessingService = null) {
+    constructor(domRegistry = null) {
         this.domRegistry = domRegistry;
-        this.contentProcessingService = contentProcessingService || serviceFactory.get('ContentProcessingService');
-        
-        // Search service
+        this.contentProcessingService = serviceFactory.get('ContentProcessingService');
         this.searchService = serviceFactory.get('SearchService');
-        
-        // Action bars per section
         this.actionBars = new Map();
-        
-        // Store original content per section (for copy functionality)
-        this.originalContent = new Map();
     }
 
     /**
-     * Render Mermaid content as plain text with preprocessing applied
-     * The Cleaned View should show the preprocessed content (same as what would be rendered in Graph View)
-     * @param {string} mermaidText - Raw Mermaid diagram text
-     * @param {Object} options - Rendering options
-     * @returns {HTMLElement} Container with rendered content
+     * Hide elements matching a selector within a container.
      */
-    renderRawMermaid(mermaidText, _options = {}) {
-        const container = this.domRegistry.createElement('div', {
-            className: 'raw-content-container mermaid-raw'
-        });
+    hideContentType(container, selector) {
+        for (const el of container.querySelectorAll(selector)) {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+            el.style.pointerEvents = 'none';
+        }
+    }
 
-        // Apply preprocessing to match what Graph View shows
-        // Cleaned View should only show preprocessed code, not error indicators
-        // Errors are displayed in the Graph View only
+    /**
+     * Find or create the raw content container, hiding visual elements.
+     */
+    ensureRawContainer(container) {
+        this.hideContentType(container, '[data-content-type="visual"]');
+
+        let rawContainer = container.querySelector('[data-content-type="raw"]');
+        if (!rawContainer) {
+            rawContainer = document.createElement('div');
+            rawContainer.setAttribute('data-content-type', 'raw');
+            container.style.position = 'relative';
+            container.appendChild(rawContainer);
+        }
+
+        rawContainer.style.display = 'block';
+        rawContainer.style.visibility = 'visible';
+        rawContainer.style.pointerEvents = 'auto';
+
+        return rawContainer;
+    }
+
+    /**
+     * Extract copyable content from a raw content object.
+     */
+    extractContent(rawContent) {
+        if (rawContent.getContent) { return rawContent.getContent(); }
+        if (rawContent.getText) { return rawContent.getText(); }
+        return null;
+    }
+
+    /**
+     * Render Mermaid content as plain text with preprocessing applied.
+     */
+    renderRawMermaid(mermaidText) {
+        const container = this.domRegistry.createElement('div', { className: 'raw-content-container mermaid-raw' });
+
         let processedText = mermaidText || '';
         try {
-            const cleanResult = this.contentProcessingService.processAndValidateMermaid(processedText, true);
-            processedText = cleanResult.code;
+            processedText = this.contentProcessingService.processAndValidateMermaid(processedText, true).code;
         } catch (error) {
             console.warn('Failed to preprocess raw Mermaid content, using original text:', error);
-            // Fallback to original text if preprocessing fails
             processedText = mermaidText || '';
         }
 
-        const codeElement = this.domRegistry.createElement('pre', {
-            className: 'raw-code-block'
-        });
-
-        const codeContent = this.domRegistry.createElement('code', {
-            className: 'language-mermaid',
-            textContent: processedText
-        });
-
-        codeElement.appendChild(codeContent);
-        container.appendChild(codeElement);
-
+        const pre = this.domRegistry.createElement('pre', { className: 'raw-code-block' });
+        pre.appendChild(this.domRegistry.createElement('code', { className: 'language-mermaid', textContent: processedText }));
+        container.appendChild(pre);
         return container;
     }
 
     /**
-     * Render CPEE XML content as plain text with preprocessing applied
-     * The Cleaned View should show the preprocessed content (same as what would be rendered in Graph View)
-     * @param {string} xmlText - Raw CPEE XML text
-     * @param {Object} options - Rendering options
-     * @returns {HTMLElement} Container with rendered content
+     * Render CPEE XML content as plain text with preprocessing applied.
      */
-    renderRawCPEETree(xmlText, _options = {}) {
-        const container = this.domRegistry.createElement('div', {
-            className: 'raw-content-container cpee-raw'
-        });
+    renderRawCPEETree(xmlText) {
+        const container = this.domRegistry.createElement('div', { className: 'raw-content-container cpee-raw' });
 
-        // Apply preprocessing to match what Graph View shows
-        // Use preprocessCPEEOnly to avoid validation errors - we just want preprocessed content
         let processedText = xmlText || '';
         try {
-            const cleanResult = this.contentProcessingService.preprocessCPEEOnly(processedText);
-            processedText = cleanResult.xml;
+            processedText = this.contentProcessingService.preprocessCPEEOnly(processedText).xml;
         } catch (error) {
             console.warn('Failed to preprocess raw CPEE content, using original text:', error);
-            // Fallback to original text if preprocessing fails
             processedText = xmlText || '';
         }
 
-        const codeElement = this.domRegistry.createElement('pre', {
-            className: 'raw-code-block'
-        });
-
-        const codeContent = this.domRegistry.createElement('code', {
-            className: 'language-xml',
-            textContent: processedText
-        });
-
-        codeElement.appendChild(codeContent);
-        container.appendChild(codeElement);
-
+        const pre = this.domRegistry.createElement('pre', { className: 'raw-code-block' });
+        pre.appendChild(this.domRegistry.createElement('code', { className: 'language-xml', textContent: processedText }));
+        container.appendChild(pre);
         return container;
     }
 
     /**
-     * Render raw user input text
-     * @param {string} userInputText - User input text
-     * @param {Object} options - Rendering options
-     * @returns {HTMLElement} Container with rendered content
+     * Display cleaned content for a section.
      */
-    renderRawUserInput(userInputText, _options = {}) {
-        const container = this.domRegistry.createElement('div', {
-            className: 'raw-content-container user-input-raw'
-        });
-
-        const textElement = this.domRegistry.createElement('pre', {
-            className: 'raw-text-block'
-        });
-
-        const textContent = this.domRegistry.createElement('code', {
-            className: 'language-text',
-            textContent: userInputText
-        });
-
-        textElement.appendChild(textContent);
-        container.appendChild(textElement);
-
-        return container;
-    }
-
-
-    /**
-     * Display cleaned content for a section
-     * Renders preprocessed content (Mermaid, CPEE XML, user input) in Cleaned View mode
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} container - Content container
-     * @param {Object} step - Current step object
-     * @param {Object} _options - Rendering options (unused, kept for consistency with other renderers)
-     * @note Log mode is handled by LogContentRenderer, traces mode by TraceContentRenderer
-     */
-    display(sectionId, container, step, _options = {}) {
-        if (!step || !container) {
-            return;
-        }
-
-        // This renderer only handles raw mode
-        // Mode validation is handled by ContentViewCoordinator
+    display(sectionId, container, step) {
+        if (!step || !container) { return; }
 
         let rawContent = null;
         let renderer = null;
 
-        // Get raw content based on section
         switch (sectionId) {
             case 'input-cpee':
                 rawContent = step.getInputCpeeTreeRaw();
@@ -191,308 +133,195 @@ export class RawContentRenderer {
         }
 
         if (!rawContent || !renderer) {
-            // Don't destroy visual content - create proper container and show message
-            // This preserves visual content so it can be restored when switching back
-            let rawContainer = container.querySelector('[data-content-type="raw"]');
-            if (!rawContainer) {
-                rawContainer = document.createElement('div');
-                rawContainer.setAttribute('data-content-type', 'raw');
-                container.style.position = 'relative';
-                container.appendChild(rawContainer);
-            }
-            
-            // Hide the original visual content (don't destroy it)
-            const visualElements = container.querySelectorAll('[data-content-type="visual"]');
-            visualElements.forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                el.style.pointerEvents = 'none';
-            });
-            
-            // Show the "no content" message in the raw container
+            const rawContainer = this.ensureRawContainer(container);
             rawContainer.innerHTML = '<pre><code class="no-content">No raw content available</code></pre>';
-            rawContainer.style.display = 'block';
-            rawContainer.style.visibility = 'visible';
-            rawContainer.style.pointerEvents = 'auto';
-            
             return;
         }
 
         try {
-            // Check if raw content container already exists
-            let rawContainer = container.querySelector('[data-content-type="raw"]');
-            if (!rawContainer) {
-                rawContainer = document.createElement('div');
-                rawContainer.setAttribute('data-content-type', 'raw');
-                // CSS handles the positioning styles
-                container.style.position = 'relative';
-                container.appendChild(rawContainer);
-            }
-
-            // Hide the original visual content
-            const visualElements = container.querySelectorAll('[data-content-type="visual"]');
-            visualElements.forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                el.style.pointerEvents = 'none';
-            });
-
-            // Hide parent container's scrollbar (raw container will handle scrolling)
+            const rawContainer = this.ensureRawContainer(container);
             container.style.overflow = 'hidden';
 
-            // Ensure raw container is visible and interactive
-            rawContainer.style.display = 'block';
-            rawContainer.style.visibility = 'visible';
-            rawContainer.style.pointerEvents = 'auto';
-
-            // ALWAYS add/ensure action bar exists BEFORE clearing content
+            // Ensure action bar exists
             if (rawContent.getLength && rawContent.getLength() > 0) {
-                // First, clear any existing action bars from the row (from other renderers)
                 const sectionElement = document.getElementById(sectionId);
-                let actionBarRow = sectionElement?.querySelector('.action-bar-row');
-                if (actionBarRow) {
-                    actionBarRow.innerHTML = '';
-                }
-                
+                const actionBarRow = sectionElement?.querySelector('.action-bar-row');
+                if (actionBarRow) { actionBarRow.innerHTML = ''; }
+
                 if (!this.actionBars.has(sectionId)) {
-                    // Create new action bar and attach to action bar row
                     this.addActionBar(rawContainer, sectionId, rawContent, step);
                 } else {
-                    // Action bar instance exists - re-attach it
-                    const actionBar = this.actionBars.get(sectionId);
-                    
-                    if (actionBar) {
-                        // Remove from old parent if attached elsewhere
-                        actionBar.removeFromDOM();
-                        // Find or create the action bar row
-                        if (!actionBarRow && sectionElement) {
-                            const sectionHeader = sectionElement.querySelector('h3');
-                            if (sectionHeader) {
-                                actionBarRow = document.createElement('div');
-                                actionBarRow.className = 'action-bar-row';
-                                sectionHeader.insertAdjacentElement('afterend', actionBarRow);
-                            }
-                        }
-                        if (actionBarRow) {
-                            actionBar.appendToContainer(actionBarRow);
-                            // Make sure action bar row is visible
-                            actionBarRow.style.display = 'flex';
-                        } else {
-                            // Fallback to raw container
-                            actionBar.appendToContainer(rawContainer);
-                        }
-                        
-                        // Update view log URL for current instance (fixes stale URL bug)
-                        try {
-                            const instanceService = serviceFactory.get('InstanceService');
-                            const currentInstance = instanceService.getCurrentInstance();
-                            if (currentInstance && currentInstance.uuid) {
-                                const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${currentInstance.uuid}.xes.yaml`;
-                                actionBar.setViewLogUrl(logUrl);
-                            }
-                        } catch (error) {
-                            console.warn('RawContentRenderer: Could not update view log URL', error);
-                        }
-                        
-                        // Show the action bar
-                        actionBar.show();
-                    }
+                    this.reattachActionBar(sectionId, sectionElement, actionBarRow, rawContainer);
                 }
             }
-            
-            // Now clear ONLY the content area (preserve action bar)
-            // Action bar is in parent container, so we can safely clear raw container
+
+            this.updateDownloadMetadata(sectionId, step);
+
             rawContainer.innerHTML = '';
-            
-            // Render new content and add it
-            const rawElement = renderer();
-            rawContainer.appendChild(rawElement);
-            
-            // Trigger syntax highlighting using SyntaxHighlightingService
-            // Exclude user input from syntax highlighting
-            if (sectionId !== 'user-input') {
-                try {
-                    const syntaxService = serviceFactory.get('SyntaxHighlightingService');
-                    syntaxService.highlightCodeBlocks(rawContainer);
-                } catch (_) {
-                    // Fallback to direct Prism highlighting if service not available
-                    try {
-                        const sh = configManager.get('syntaxHighlighting', { enabled: true, highlightOnRender: true });
-                        if (sh.enabled && sh.highlightOnRender) {
-                            const codeBlocks = rawContainer.querySelectorAll('pre code');
-                            if (window.Prism && typeof window.Prism.highlightElement === 'function') {
-                                codeBlocks.forEach(block => {
-                                    window.Prism.highlightElement(block);
-                                });
-                            }
-                        }
-                    } catch (__) {
-                        // No-op if Prism/config not available
-                    }
-                }
-            }
-            
-            // Set up minimap after syntax highlighting
-            if (this.actionBars.has(sectionId)) {
-                const actionBar = this.actionBars.get(sectionId);
-                if (actionBar) {
-                    // Get the content-box parent for minimap attachment
-                    const contentBox = container.closest('.content-box') || container;
-                    // Delay minimap setup to ensure syntax highlighting is complete
-                    requestAnimationFrame(() => {
-                        actionBar.setMinimapCodeContainer(rawContainer, contentBox);
-                        actionBar.refreshMinimap();
-                    });
-                }
-            }
-            
-            // Update copy and download content based on currently displayed content
-            // Extract text from the rendered DOM to ensure we copy/download exactly what's shown
-            if (this.actionBars.has(sectionId)) {
-                const actionBar = this.actionBars.get(sectionId);
-                if (actionBar) {
-                    // Update download metadata (in case step changed)
-                    try {
-                        const instanceService = serviceFactory.get('InstanceService');
-                        const currentInstance = instanceService.getCurrentInstance();
-                        if (currentInstance && currentInstance.processNumber && step) {
-                            actionBar.setDownloadMetadata(currentInstance.processNumber, step.stepNumber);
-                        }
-                    } catch (error) {
-                        // Silently ignore - download button just won't appear
-                    }
-                    
-                    // Extract the actual text content from the rendered code element
-                    // This ensures we copy exactly what's displayed, including any processing
-                    const codeElement = rawContainer.querySelector('pre code');
-                    if (codeElement) {
-                        // Get the text content (this will be the actual displayed text)
-                        const displayedText = codeElement.textContent || codeElement.innerText || '';
-                        if (displayedText) {
-                            actionBar.setCopyContent(displayedText);
-                            actionBar.setDownloadContent(displayedText);
-                        }
-                    } else {
-                        // Fallback: determine content to copy/download
-                        if (rawContent) {
-                            let contentToCopy = null;
-                            if (rawContent.getContent) {
-                                // Use regular content
-                                contentToCopy = rawContent.getContent();
-                            } else if (rawContent.getText) {
-                                // Fallback to getText
-                                contentToCopy = rawContent.getText();
-                            }
-                            
-                            // Update the copy and download buttons with the current content
-                            if (contentToCopy) {
-                                actionBar.setCopyContent(contentToCopy);
-                                actionBar.setDownloadContent(contentToCopy);
-                            }
-                        }
-                    }
-                }
-            }
+            rawContainer.appendChild(renderer());
+
+            this.applySyntaxHighlighting(sectionId, rawContainer);
+            this.setupMinimap(sectionId, container, rawContainer);
+            this.updateCopyDownloadContent(sectionId, rawContainer, rawContent);
+
         } catch (error) {
             console.error(`Error rendering raw content for ${sectionId}:`, error);
-            
-            // Don't destroy visual content on error - show error in raw container
-            let rawContainer = container.querySelector('[data-content-type="raw"]');
-            if (!rawContainer) {
-                rawContainer = document.createElement('div');
-                rawContainer.setAttribute('data-content-type', 'raw');
-                container.style.position = 'relative';
-                container.appendChild(rawContainer);
-            }
-            
-            // Hide the original visual content (don't destroy it)
-            const visualElements = container.querySelectorAll('[data-content-type="visual"]');
-            visualElements.forEach(el => {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                el.style.pointerEvents = 'none';
-            });
-            
-            // Show the error message in the raw container
+            const rawContainer = this.ensureRawContainer(container);
             rawContainer.innerHTML = '<pre><code class="error">Error rendering raw content</code></pre>';
-            rawContainer.style.display = 'block';
-            rawContainer.style.visibility = 'visible';
-            rawContainer.style.pointerEvents = 'auto';
         }
     }
 
-
     /**
-     * Hide raw content when switching to visual mode
-     * @param {HTMLElement} container - Content container
+     * Re-attach an existing action bar to its section.
      */
-    hideRawContent(container) {
-        if (!container) {
-            return;
+    reattachActionBar(sectionId, sectionElement, actionBarRow, rawContainer) {
+        const actionBar = this.actionBars.get(sectionId);
+        if (!actionBar) { return; }
+
+        actionBar.removeFromDOM();
+
+        let row = actionBarRow;
+        if (!row && sectionElement) {
+            const sectionHeader = sectionElement.querySelector('h3');
+            if (sectionHeader) {
+                row = document.createElement('div');
+                row.className = 'action-bar-row';
+                sectionHeader.insertAdjacentElement('afterend', row);
+            }
         }
 
-        // Hide raw content elements
-        const rawElements = container.querySelectorAll('[data-content-type="raw"]');
-        rawElements.forEach(el => {
-            el.style.display = 'none';
-            el.style.visibility = 'hidden';
-            el.style.pointerEvents = 'none';
-        });
+        if (row) {
+            actionBar.appendToContainer(row);
+            row.style.display = 'flex';
+        } else {
+            actionBar.appendToContainer(rawContainer);
+        }
 
-        // Hide action bar for this section and clear search
+        try {
+            const instanceService = serviceFactory.get('InstanceService');
+            const currentInstance = instanceService.getCurrentInstance();
+            if (currentInstance && currentInstance.uuid) {
+                const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${currentInstance.uuid}.xes.yaml`;
+                actionBar.setViewLogUrl(logUrl);
+            }
+        } catch (error) {
+            console.warn('RawContentRenderer: Could not update view log URL', error);
+        }
+
+        actionBar.show();
+    }
+
+    /**
+     * Set download metadata on the action bar for current instance/step.
+     */
+    updateDownloadMetadata(sectionId, step) {
+        try {
+            const instanceService = serviceFactory.get('InstanceService');
+            const currentInstance = instanceService.getCurrentInstance();
+            if (currentInstance && currentInstance.processNumber && step) {
+                const actionBar = this.actionBars.get(sectionId);
+                if (actionBar) {
+                    actionBar.setDownloadMetadata(currentInstance.processNumber, step.stepNumber);
+                }
+            }
+        } catch (error) {
+            // Silently ignore
+        }
+    }
+
+    /**
+     * Apply syntax highlighting.
+     */
+    applySyntaxHighlighting(sectionId, rawContainer) {
+        if (sectionId === 'user-input') { return; }
+
+        try {
+            const syntaxService = serviceFactory.get('SyntaxHighlightingService');
+            syntaxService.highlightCodeBlocks(rawContainer);
+        } catch (_) {
+            try {
+                const sh = configManager.get('syntaxHighlighting', { enabled: true, highlightOnRender: true });
+                if (sh.enabled && sh.highlightOnRender && window.Prism) {
+                    for (const block of rawContainer.querySelectorAll('pre code')) {
+                        window.Prism.highlightElement(block);
+                    }
+                }
+            } catch (__) { /* no-op */ }
+        }
+    }
+
+    /**
+     * Setup minimap after rendering.
+     */
+    setupMinimap(sectionId, container, rawContainer) {
+        const actionBar = this.actionBars.get(sectionId);
+        if (!actionBar) { return; }
+
+        const contentBox = container.closest('.content-box') || container;
+        requestAnimationFrame(() => {
+            actionBar.setMinimapCodeContainer(rawContainer, contentBox);
+            actionBar.refreshMinimap();
+        });
+    }
+
+    /**
+     * Update copy and download content on the action bar.
+     */
+    updateCopyDownloadContent(sectionId, rawContainer, rawContent) {
+        const actionBar = this.actionBars.get(sectionId);
+        if (!actionBar) { return; }
+
+        const codeElement = rawContainer.querySelector('pre code');
+        const displayedText = codeElement ? (codeElement.textContent || codeElement.innerText || '') : null;
+
+        const content = displayedText || this.extractContent(rawContent);
+        if (content) {
+            actionBar.setCopyContent(content);
+            actionBar.setDownloadContent(content);
+        }
+    }
+
+    /**
+     * Hide raw content when switching to visual mode.
+     */
+    hideRawContent(container) {
+        if (!container) { return; }
+
+        this.hideContentType(container, '[data-content-type="raw"]');
+
         const sectionId = container.closest('[id]')?.id;
         if (sectionId && this.actionBars.has(sectionId)) {
             const actionBar = this.actionBars.get(sectionId);
             if (actionBar) {
-                // Clear search before hiding
                 actionBar.clearSearch();
                 actionBar.hide();
-                // Hide minimap as well
                 actionBar.hideMinimap();
             }
-            // Also hide action bar row if it exists
             const sectionElement = document.getElementById(sectionId);
             const actionBarRow = sectionElement?.querySelector('.action-bar-row');
-            if (actionBarRow) {
-                actionBarRow.style.display = 'none';
-            }
+            if (actionBarRow) { actionBarRow.style.display = 'none'; }
         }
     }
 
     /**
-     * Add action bar (copy button + download button + search bar) to raw content container
-     * @param {HTMLElement} container - Container element (raw container)
-     * @param {string} sectionId - Section identifier
-     * @param {Object} rawContent - Raw content object
-     * @param {Object} step - Current step object
+     * Add action bar (copy, search, minimap, download, view log) to raw content container.
      */
     addActionBar(container, sectionId, rawContent, step) {
-        // Get content to copy
-        const contentToCopy = rawContent.getContent ? rawContent.getContent() : rawContent.getText();
+        const contentToCopy = this.extractContent(rawContent);
 
-        // Store original content for this section
-        this.originalContent.set(sectionId, contentToCopy);
-        
-        // Initialize search state for this section using SearchService
         this.searchService.initializeSearchState(sectionId);
 
-        // Determine content type for minimap (cpee sections use XML, intermediate uses mermaid)
         const isCPEE = sectionId.includes('cpee');
-        const minimapContentType = isCPEE ? 'cpee' : 'mermaid';
-        
-        // Create action bar with SearchService, always visible for raw/log sections
         const actionBar = new ActionBar(this.domRegistry, this.searchService, sectionId, {
             collapsedByDefault: false,
             showViewLog: true,
             showMinimap: true,
-            minimapContentType: minimapContentType,
-            showPreprocessingInMinimap: false // Cleaned View doesn't show preprocessing markers
+            minimapContentType: isCPEE ? 'cpee' : 'mermaid',
+            showPreprocessingInMinimap: false
         });
-        
-        // Store action bar for this section
+
         this.actionBars.set(sectionId, actionBar);
-        
-        // Get instance info for download filename (view log URL set after attachToContainer)
+
         let currentInstance = null;
         try {
             const instanceService = serviceFactory.get('InstanceService');
@@ -503,189 +332,112 @@ export class RawContentRenderer {
         } catch (error) {
             console.warn('RawContentRenderer: Could not get instance info for action bar', error);
         }
-        
-        
-        // Set up search functionality
-        actionBar.setOnSearch((searchTerm) => {
-            this.performSearch(sectionId, searchTerm, contentToCopy);
-        });
-        
-        // Set up search clear
-        actionBar.setOnClear(() => {
-            this.clearSearch(sectionId);
-        });
-        
-        // Set up search navigation (direction only - SearchService handles index)
-        actionBar.setOnNavigate((direction) => {
-            this.navigateToMatch(sectionId, direction);
-        });
 
-        // Attach to a separate action bar row below the section header
+        actionBar.setOnSearch((searchTerm) => this.performSearch(sectionId, searchTerm));
+        actionBar.setOnClear(() => this.clearSearch(sectionId));
+        actionBar.setOnNavigate((direction) => this.navigateToMatch(sectionId, direction));
+
         const sectionElement = document.getElementById(sectionId);
         const sectionHeader = sectionElement?.querySelector('h3');
-        
+
         if (sectionHeader) {
-            // Create or find the action bar row container
             let actionBarRow = sectionElement.querySelector('.action-bar-row');
             if (!actionBarRow) {
                 actionBarRow = document.createElement('div');
                 actionBarRow.className = 'action-bar-row';
-                // Insert after the h3 header, before the content-box
                 sectionHeader.insertAdjacentElement('afterend', actionBarRow);
             } else {
-                // Clear existing action bars from other renderers
                 actionBarRow.innerHTML = '';
             }
-            // Ensure action bar row is visible
             actionBarRow.style.display = 'flex';
             actionBar.attachToContainer(actionBarRow);
         } else {
-            // Fallback: attach to content-box if section header structure not found
-            const parentContainer = container.closest('.content-box') || container.parentElement;
-            if (parentContainer) {
-                actionBar.attachToContainer(parentContainer);
-            } else {
-                actionBar.attachToContainer(container);
-            }
+            const parentContainer = container.closest('.content-box') || container.parentElement || container;
+            actionBar.attachToContainer(parentContainer);
         }
-        
-        // Set copy content after attaching
-        actionBar.setCopyContent(contentToCopy);
-        
-        // Set download content after attaching
-        actionBar.setDownloadContent(contentToCopy);
-        
-        // Set view log URL after attaching (requires viewLogButtonContainer to exist)
+
+        if (contentToCopy) {
+            actionBar.setCopyContent(contentToCopy);
+            actionBar.setDownloadContent(contentToCopy);
+        }
+
         if (currentInstance && currentInstance.uuid) {
             const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${currentInstance.uuid}.xes.yaml`;
             actionBar.setViewLogUrl(logUrl);
         }
-        
-        // Show the action bar
+
         actionBar.show();
     }
 
     /**
-     * Get container element for a section
-     * @param {string} sectionId - Section identifier
-     * @returns {HTMLElement|null} Container element or null
+     * Get raw-content-container element for a section.
      */
     getContainerForSection(sectionId) {
-        // Try to get section element via DOMRegistry first
-        // Use getElementSafe for dynamic section IDs to avoid warnings
-        const sectionElement = this.domRegistry 
+        const sectionElement = this.domRegistry
             ? (this.domRegistry.getElementSafe(sectionId) || document.getElementById(sectionId))
             : document.getElementById(sectionId);
-        
-        if (sectionElement) {
-            return sectionElement.querySelector('.raw-content-container');
-        }
-        
-        // Fallback to querySelector
-        return document.querySelector(`#${sectionId} .raw-content-container`);
+
+        return sectionElement ? sectionElement.querySelector('.raw-content-container') : null;
     }
 
     /**
-     * Perform search in raw content (delegates to SearchService combined workflow)
-     * @param {string} sectionId - Section identifier
-     * @param {string} searchTerm - Search term
-     * @param {string} _content - Content to search in (unused, kept for compatibility)
+     * Perform search in raw content.
      */
-    performSearch(sectionId, searchTerm, _content) {
-        if (!searchTerm) {
-            return;
-        }
+    performSearch(sectionId, searchTerm) {
+        if (!searchTerm) { return; }
 
-        // Find the raw content container for this section
         const container = this.getContainerForSection(sectionId);
-        if (!container) {
-            console.warn(`RawContentRenderer: No raw content container found for ${sectionId}`);
-            return;
-        }
+        if (!container) { return; }
 
-        // Get search options from state
         const searchState = this.searchService.getSearchState(sectionId);
         const options = {
             caseSensitive: searchState?.caseSensitive || false,
             wholeWord: searchState?.wholeWord || false
         };
 
-        // Use SearchService's combined workflow
         const matches = this.searchService.performSearch(sectionId, container, searchTerm, options);
-        
-        // Update search UI after search completes
         this.updateSearchUI(sectionId);
 
-        // Scroll to first match if any matches found
         if (matches.length > 0) {
             this.searchService.scrollToMatch(container, 0);
         }
-        
-        // Update minimap search markers
+
         const actionBar = this.actionBars.get(sectionId);
-        if (actionBar) {
-            actionBar.updateMinimapSearchMarkers(matches);
-        }
+        if (actionBar) { actionBar.updateMinimapSearchMarkers(matches); }
     }
 
     /**
-     * Clear search highlighting (delegates to SearchService combined workflow)
-     * @param {string} sectionId - Section identifier
+     * Clear search highlighting.
      */
     clearSearch(sectionId) {
-        // Find the raw content container for this section
         const container = this.getContainerForSection(sectionId);
-        if (!container) {
-            console.warn(`RawContentRenderer: No raw content container found for ${sectionId}`);
-            return;
-        }
+        if (!container) { return; }
 
-        // Use SearchService's combined workflow
         this.searchService.clearSearch(sectionId, container);
-
-        // Update UI after clear
         this.updateSearchUI(sectionId);
-        
-        // Clear minimap search markers
+
         const actionBar = this.actionBars.get(sectionId);
-        if (actionBar) {
-            actionBar.updateMinimapSearchMarkers([]);
-        }
+        if (actionBar) { actionBar.updateMinimapSearchMarkers([]); }
     }
 
     /**
-     * Navigate to specific match (delegates to SearchService combined workflow)
-     * @param {string} sectionId - Section identifier
-     * @param {string} direction - 'next' or 'prev'
+     * Navigate to next/previous match.
      */
-    navigateToMatch(sectionId, direction) {        
-        // Find the raw content container for this section
+    navigateToMatch(sectionId, direction) {
         const container = this.getContainerForSection(sectionId);
-        if (!container) {
-            console.warn(`RawContentRenderer: No raw content container found for ${sectionId}`);
-            return;
-        }
+        if (!container) { return; }
 
-        // Use SearchService's combined workflow methods
-        const success = direction === 'next' 
-            ? this.searchService.navigateToNextMatch(sectionId, container)
-            : this.searchService.navigateToPreviousMatch(sectionId, container);
-        
-        if (success) {
-            const searchState = this.searchService.getSearchState(sectionId);
-            const currentIndex = searchState?.currentMatchIndex ?? -1;
-            console.log(`RawContentRenderer: Successfully navigated to match ${currentIndex + 1}`);
+        if (direction === 'next') {
+            this.searchService.navigateToNextMatch(sectionId, container);
         } else {
-            console.warn(`RawContentRenderer: Failed to navigate ${direction}`);
+            this.searchService.navigateToPreviousMatch(sectionId, container);
         }
 
-        // Update UI after navigation
         this.updateSearchUI(sectionId);
     }
 
     /**
-     * Update search UI from SearchService state
-     * @param {string} sectionId - Section identifier
+     * Update search UI from SearchService state.
      */
     updateSearchUI(sectionId) {
         const actionBar = this.actionBars.get(sectionId);
@@ -695,63 +447,34 @@ export class RawContentRenderer {
     }
 
     /**
-     * Check if we have original content stored for a section
-     * @param {string} sectionId - Section identifier
-     * @returns {boolean} True if original content exists
+     * Clear search state for a specific section.
      */
-    hasOriginalContent(sectionId) {
-        return this.originalContent.has(sectionId);
-    }
-
-    /**
-     * Restore original content when switching modes
-     * @param {string} sectionId - Section identifier
-     */
-    restoreOriginalContent(sectionId) {
-        const originalContent = this.originalContent.get(sectionId);
-        if (!originalContent) {
-            // No original content stored - this is normal when switching to a new step
-            return;
-        }
-
-        // Find the raw content container for this section
+    clearSectionSearch(sectionId) {
         const container = this.getContainerForSection(sectionId);
-        if (!container) {
-            console.warn(`RawContentRenderer: No raw content container found for ${sectionId}`);
-            return;
+        if (container) {
+            this.searchService.clearSearch(sectionId, container);
         }
-
-        // Use SearchService's combined workflow to clear search
-        this.searchService.clearSearch(sectionId, container);
     }
 
     /**
-     * Clear all search states (called when navigating to a different step)
+     * Clear all search states (called when navigating to a different step).
      */
     clearAllSearchStates() {
-        // Clear all search states using SearchService
         this.searchService.clearAllSearchStates();
-        
-        // Clear stored original text (important when switching steps - content changes)
         this.searchService.clearAllOriginalText();
-        
-        // Clear highlighting from all containers using SearchService combined method
-        const sectionIds = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
-        sectionIds.forEach(sectionId => {
+
+        for (const sectionId of this.actionBars.keys()) {
             const container = this.getContainerForSection(sectionId);
             if (container) {
-                // Use combined method - it will clear highlighting if state exists
-                // But since we already cleared state, just clear highlighting directly
                 this.searchService.clearSearchHighlighting(container);
             }
-        });
+        }
     }
 
     /**
-     * Clean up resources
+     * Clean up resources.
      */
     destroy() {
         this.actionBars.clear();
-        this.originalContent.clear();
     }
 }

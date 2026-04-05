@@ -42,7 +42,7 @@ export class ContentViewCoordinator {
         this.viewModeToggle = new ViewModeToggle(domRegistry, this.eventBus, this.stateManager);
         
         // Instantiate all renderers for different view modes
-        this.rawContentRenderer = new RawContentRenderer(domRegistry, this.eventBus, contentProcessingService);
+        this.rawContentRenderer = new RawContentRenderer(domRegistry);
         this.logContentRenderer = new LogContentRenderer(domRegistry);
         this.traceContentRenderer = new TraceContentRenderer(domRegistry, this.eventBus, contentProcessingService);
         this.analysisContentRenderer = new AnalysisContentRenderer(domRegistry, this.eventBus);
@@ -592,9 +592,7 @@ export class ContentViewCoordinator {
             this.analysisContentRenderer.hideAnalysisContent(contentContainer);
             
             // Only restore original content if we have it stored (i.e., if we were in raw/log mode)
-            if (this.rawContentRenderer.hasOriginalContent(sectionId)) {
-                this.rawContentRenderer.restoreOriginalContent(sectionId);
-            }
+            this.rawContentRenderer.clearSectionSearch(sectionId);
             this.logContentRenderer.clearSectionSearch(sectionId);
             
             // Delegate visual content restoration to ContentVisualizationCoordinator
