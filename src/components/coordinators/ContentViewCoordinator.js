@@ -488,21 +488,6 @@ export class ContentViewCoordinator {
 
 
     /**
-     * Initialize raw content features for a section
-     * Adds toggle button and sets up raw content rendering
-     * @param {string} sectionId - Section identifier
-     * @param {HTMLElement} sectionElement - Section container
-     */
-    initializeSection(sectionId, sectionElement) {
-        if (!sectionElement) {
-            return;
-        }
-
-        // Toggle button is now handled via EventBus in setupViewModeIntegration()
-        // No need to set up direct callbacks here
-    }
-
-    /**
      * Update section display based on view mode
      * @param {string} sectionId - Section identifier
      * @param {string} mode - View mode (visual, raw, log, traces, or analysis)
@@ -864,20 +849,6 @@ export class ContentViewCoordinator {
         
         const hasIssues = ViewModeToggle.hasAnalysisIssues(verificationResult, reachabilityResult);
         this.viewModeToggle.updateAnalysisButtonIssueState(sectionId, hasIssues);
-    }
-
-    /**
-     * Update analysis button issue indicators for all sections
-     * @param {CPEEStep} step - Current step with verification/reachability results
-     */
-    updateAllAnalysisButtons(step) {
-        if (!step) {
-            return;
-        }
-        
-        this.sectionIds.forEach(sectionId => {
-            this.updateAnalysisButtonForSection(sectionId, step);
-        });
     }
 
     /**

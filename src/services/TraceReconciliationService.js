@@ -255,34 +255,5 @@ export class TraceReconciliationService {
 
         return result;
     }
-
-    /**
-     * Get validation status color based on results
-     * @param {number} validCount - Number of valid traces
-     * @param {number} totalCount - Total number of traces
-     * @returns {string} Status color: 'green', 'orange', or 'red'
-     */
-    static getStatusColor(validCount, totalCount) {
-        if (totalCount === 0) {
-            return 'green'; // No traces to validate
-        }
-        if (validCount === totalCount) {
-            return 'green'; // All valid
-        }
-        if (validCount === 0) {
-            return 'red'; // None valid
-        }
-        return 'orange'; // Some valid
-    }
-
-    /**
-     * Format validation result for display
-     * @param {number} validCount - Number of valid traces
-     * @param {number} totalCount - Total number of traces
-     * @returns {string} Formatted string like "8/10"
-     */
-    static formatValidationResult(validCount, totalCount) {
-        return `${validCount}/${totalCount}`;
-    }
 }
 

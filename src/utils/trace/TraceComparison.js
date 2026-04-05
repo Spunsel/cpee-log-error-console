@@ -34,7 +34,7 @@
  * // Input: { path: [{ alt_id: 'A' }, { alt_id: 'B' }, { alt_id: null }] }
  * // Output: ['A', 'B', null]
  */
-export function extractMermaidSequence(mermaidTrace) {
+function extractMermaidSequence(mermaidTrace) {
     if (!mermaidTrace || !mermaidTrace.path || !Array.isArray(mermaidTrace.path)) {
         return [];
     }
@@ -60,7 +60,7 @@ export function extractMermaidSequence(mermaidTrace) {
  * // Input: { path: [{ alt_id: 'A', id: 'A1' }, { id: 'B1' }, {}] }
  * // Output: ['A', 'B1', null]
  */
-export function extractCPEESequence(cpeeTrace) {
+function extractCPEESequence(cpeeTrace) {
     if (!cpeeTrace || !cpeeTrace.path || !Array.isArray(cpeeTrace.path)) {
         return [];
     }
@@ -286,13 +286,4 @@ export function compareTraces(cpeeTraces, mermaidTraces) {
     };
     return result;
 }
-
-/**
- * Default export for convenience
- */
-export default {
-    compareTraces,
-    extractMermaidSequence,
-    extractCPEESequence
-};
 

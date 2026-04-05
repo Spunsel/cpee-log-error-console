@@ -1,7 +1,6 @@
 /**
  * Service Factory
  * Centralized service creation and dependency injection
- * Provides singleton management and service lifecycle control
  * Uses registry pattern with lazy loading for better extensibility
  */
 
@@ -24,9 +23,6 @@ export class ServiceFactory {
             'EmailService',
             'ContentProcessingService'
         ]);
-        this.serviceConfigs = new Map();
-        this.debugMode = false;
-        
         // Service registry: maps service names to factory functions
         // Factory functions use lazy loading (dynamic imports) to load service classes only when needed
         this.serviceRegistry = new Map();
@@ -36,9 +32,6 @@ export class ServiceFactory {
         
         // Cache for import promises to avoid duplicate imports
         this.importPromises = new Map();
-        
-        // Track loading promises to avoid duplicate loads
-        this.loadingPromises = new Map();
         
         this.initializeServiceRegistry();
         
@@ -56,34 +49,15 @@ export class ServiceFactory {
      * @returns {Object} Service instance
      */
     get(serviceName, ...args) {
-        if (this.debugMode) {
-            console.log(`[ServiceFactory] Getting service: ${serviceName}`, args);
-        }
-
         // Return existing singleton instance
         if (this.singletons.has(serviceName) && this.services.has(serviceName)) {
-            if (this.debugMode) {
-                console.log(`[ServiceFactory] Returning existing singleton: ${serviceName}`);
-            }
             return this.services.get(serviceName);
         }
 
         // Get factory function from registry (should be cached after first load)
         const factory = this.serviceClasses.get(serviceName);
         
-        // If service not yet loaded, provide helpful error
         if (!factory) {
-            // Check if service is currently loading
-            if (this.loadingPromises.has(serviceName)) {
-                throw new Error(
-                    `ServiceFactory: Service "${serviceName}" is currently loading. ` +
-                    `Please wait for initialization to complete or ensure services are pre-loaded.`
-                );
-            }
-            
-            // Service not loaded - this means initialization hasn't completed yet
-            // In a properly initialized app, this shouldn't happen
-            // But for robustness, we provide a helpful error message
             throw new Error(
                 `ServiceFactory: Service "${serviceName}" not yet loaded. ` +
                 `Services are being loaded asynchronously. ` +
@@ -95,12 +69,8 @@ export class ServiceFactory {
         // Create service instance using cached factory
         const service = factory(...args);
         
-        // Store singleton instances
         if (this.singletons.has(serviceName)) {
             this.services.set(serviceName, service);
-            if (this.debugMode) {
-                console.log(`[ServiceFactory] Created and stored singleton: ${serviceName}`);
-            }
         }
 
         return service;
@@ -158,10 +128,6 @@ export class ServiceFactory {
         await Promise.all(phase1Services.map(name => this.loadServiceClass(name)));
         await Promise.all(phase2Services.map(name => this.loadServiceClass(name)));
         await Promise.all(phase3Services.map(name => this.loadServiceClass(name)));
-        
-        if (this.debugMode) {
-            console.log('[ServiceFactory] All services loaded and cached');
-        }
     }
 
     /**
@@ -406,134 +372,6 @@ export class ServiceFactory {
         });
     }
 
-    /**
-     * Register a custom service configuration
-     * @param {string} serviceName - Name of the service
-     * @param {Object} config - Service configuration
-     */
-    registerConfig(serviceName, config) {
-        this.serviceConfigs.set(serviceName, config);
-        if (this.debugMode) {
-            console.log(`[ServiceFactory] Registered config for: ${serviceName}`, config);
-        }
-    }
-
-    /**
-     * Get service configuration
-     * @param {string} serviceName - Name of the service
-     * @returns {Object|null} Service configuration or null
-     */
-    getConfig(serviceName) {
-        return this.serviceConfigs.get(serviceName) || null;
-    }
-
-    /**
-     * Check if a service is registered as singleton
-     * @param {string} serviceName - Name of the service
-     * @returns {boolean} True if singleton
-     */
-    isSingleton(serviceName) {
-        return this.singletons.has(serviceName);
-    }
-
-    /**
-     * Add a service to singleton list
-     * @param {string} serviceName - Name of the service
-     */
-    addSingleton(serviceName) {
-        this.singletons.add(serviceName);
-        if (this.debugMode) {
-            console.log(`[ServiceFactory] Added singleton: ${serviceName}`);
-        }
-    }
-
-    /**
-     * Remove a service from singleton list
-     * @param {string} serviceName - Name of the service
-     */
-    removeSingleton(serviceName) {
-        this.singletons.delete(serviceName);
-        if (this.debugMode) {
-            console.log(`[ServiceFactory] Removed singleton: ${serviceName}`);
-        }
-    }
-
-    /**
-     * Clear all singleton instances
-     */
-    clearSingletons() {
-        this.services.clear();
-        if (this.debugMode) {
-            console.log('[ServiceFactory] Cleared all singleton instances');
-        }
-    }
-
-    /**
-     * Get all registered services
-     * @returns {Array} Array of service names
-     */
-    getRegisteredServices() {
-        return Array.from(this.services.keys());
-    }
-
-    /**
-     * Get service statistics
-     * @returns {Object} Service statistics
-     */
-    getStats() {
-        return {
-            totalServices: this.services.size,
-            singletons: Array.from(this.singletons),
-            registeredServices: this.getRegisteredServices(),
-            configs: Array.from(this.serviceConfigs.keys())
-        };
-    }
-
-    /**
-     * Enable debug mode
-     * @param {boolean} enabled - Whether to enable debug mode
-     */
-    setDebugMode(enabled) {
-        this.debugMode = enabled;
-        if (this.debugMode) {
-            console.log('[ServiceFactory] Debug mode enabled');
-        }
-    }
-
-    /**
-     * Destroy a specific service
-     * @param {string} serviceName - Name of the service
-     */
-    destroyService(serviceName) {
-        if (this.services.has(serviceName)) {
-            const service = this.services.get(serviceName);
-            
-            // Call destroy method if it exists
-            if (typeof service.destroy === 'function') {
-                service.destroy();
-            }
-            
-            this.services.delete(serviceName);
-            if (this.debugMode) {
-                console.log(`[ServiceFactory] Destroyed service: ${serviceName}`);
-            }
-        }
-    }
-
-    /**
-     * Destroy all services
-     */
-    destroyAll() {
-        for (const [_serviceName, service] of this.services) {
-            if (typeof service.destroy === 'function') {
-                service.destroy();
-            }
-        }
-        this.services.clear();
-        if (this.debugMode) {
-            console.log('[ServiceFactory] Destroyed all services');
-        }
-    }
 }
 
 // Export singleton instance

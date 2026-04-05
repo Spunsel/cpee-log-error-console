@@ -119,22 +119,6 @@ export class CPEEStep {
     }
 
     /**
-     * Get all available content sections
-     * @returns {string[]} Array of section names that have content
-     */
-    getAvailableContentSections() {
-        return Object.keys(this.content).filter(section => this.hasContent(section));
-    }
-
-    /**
-     * Get total number of content sections with data
-     * @returns {number} Number of sections with content
-     */
-    getContentSectionCount() {
-        return this.getAvailableContentSections().length;
-    }
-
-    /**
      * Convert step to plain object (for serialization)
      * @returns {Object} Plain object representation
      */
@@ -201,20 +185,6 @@ export class CPEEStep {
         }
         
         return step;
-    }
-
-    /**
-     * Get step summary information
-     * @returns {Object} Summary information
-     */
-    getSummary() {
-        return {
-            stepNumber: this.stepNumber,
-            changeUuid: this.changeUuid,
-            timestamp: this.getFormattedTimestamp(),
-            contentSections: this.getContentSectionCount(),
-            availableSections: this.getAvailableContentSections()
-        };
     }
 
     /**
@@ -305,55 +275,6 @@ export class CPEEStep {
         return this.rawContent.userInputRaw;
     }
 
-    /**
-     * Get all raw content
-     * @returns {Object} Object containing all raw content objects
-     */
-    getAllRawContent() {
-        return { ...this.rawContent };
-    }
-
-    /**
-     * Check if step has any raw content stored
-     * @returns {boolean} True if any raw content is not empty
-     */
-    hasRawContent() {
-        return !this.rawContent.inputMermaidRaw.isEmpty() ||
-               !this.rawContent.inputCpeeTreeRaw.isEmpty() ||
-               !this.rawContent.userInputRaw.isEmpty ||
-               !this.rawContent.outputMermaidRaw.isEmpty() ||
-               !this.rawContent.outputCpeeTreeRaw.isEmpty();
-    }
-
-    /**
-     * Get statistics about raw content
-     * @returns {Object} Statistics object
-     */
-    getRawContentStats() {
-        return {
-            hasInputMermaid: !this.rawContent.inputMermaidRaw.isEmpty(),
-            hasInputCpeeTree: !this.rawContent.inputCpeeTreeRaw.isEmpty(),
-            hasUserInput: !this.rawContent.userInputRaw.isEmpty,
-            hasOutputMermaid: !this.rawContent.outputMermaidRaw.isEmpty(),
-            hasOutputCpeeTree: !this.rawContent.outputCpeeTreeRaw.isEmpty(),
-            totalRawSize: this.calculateRawContentSize()
-        };
-    }
-
-    /**
-     * Calculate total size of raw content
-     * @returns {number} Total bytes of raw content
-     */
-    calculateRawContentSize() {
-        let total = 0;
-        total += this.rawContent.inputMermaidRaw.getLength();
-        total += this.rawContent.inputCpeeTreeRaw.getLength();
-        total += this.rawContent.userInputRaw.getLength();
-        total += this.rawContent.outputMermaidRaw.getLength();
-        total += this.rawContent.outputCpeeTreeRaw.getLength();
-        return total;
-    }
-
     // ===================================================================
     // Task Mapping Methods
     // ===================================================================
@@ -425,51 +346,6 @@ export class CPEEStep {
         return this.taskMapping.getTask(taskId, format);
     }
 
-    /**
-     * Get all tasks in a specific format
-     * @param {string} format - Format key ('input-cpee', 'input-intermediate', etc.)
-     * @returns {string[]} Array of task IDs in that format
-     */
-    getTasksInFormat(format) {
-        if (!this.taskMapping) {
-            return [];
-        }
-        
-        return this.taskMapping.getTasksInFormat(format);
-    }
-
-    /**
-     * Get mapping statistics
-     * @returns {Object|null} Statistics about task mappings, or null if no mapping
-     */
-    getTaskMappingStats() {
-        if (!this.taskMapping) {
-            return null;
-        }
-        
-        const formats = ['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'];
-        const stats = {
-            totalTasks: 0,
-            totalMappings: this.taskMapping.getMappingCount(),
-            tasksByFormat: {}
-        };
-        
-        formats.forEach(format => {
-            const count = this.taskMapping.getTasksInFormat(format).length;
-            stats.tasksByFormat[format] = count;
-            stats.totalTasks += count;
-        });
-        
-        return stats;
-    }
-
-    /**
-     * Clear task mapping
-     */
-    clearTaskMapping() {
-        this.taskMapping = null;
-    }
-
     // ===================================================================
     // Trace Calculation Methods 
     // ===================================================================
@@ -513,58 +389,6 @@ export class CPEEStep {
         }
         
         return this.traces[sectionId] !== null && Array.isArray(this.traces[sectionId]);
-    }
-
-    /**
-     * Get all traces for all sections
-     * @returns {Object} Object with traces for each section
-     */
-    getAllTraces() {
-        return { ...this.traces };
-    }
-
-    /**
-     * Clear traces for a specific section
-     * @param {string} sectionId - Section identifier
-     */
-    clearTraces(sectionId) {
-        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
-            return;
-        }
-        
-        this.traces[sectionId] = null;
-    }
-
-    /**
-     * Clear all traces for all sections
-     */
-    clearAllTraces() {
-        this.traces = {
-            'input-cpee': null,
-            'input-intermediate': null,
-            'output-intermediate': null,
-            'output-cpee': null
-        };
-    }
-
-    /**
-     * Get trace statistics for a specific section
-     * @param {string} sectionId - Section identifier
-     * @returns {Object|null} Statistics object or null if no traces
-     */
-    getTraceStats(sectionId) {
-        const traces = this.getTraces(sectionId);
-        if (!traces || traces.length === 0) {
-            return null;
-        }
-        
-        return {
-            count: traces.length,
-            totalLength: traces.reduce((sum, trace) => sum + trace.path.length, 0),
-            avgLength: traces.reduce((sum, trace) => sum + trace.path.length, 0) / traces.length,
-            minLength: Math.min(...traces.map(trace => trace.path.length)),
-            maxLength: Math.max(...traces.map(trace => trace.path.length))
-        };
     }
 
     // ===================================================================
@@ -612,38 +436,6 @@ export class CPEEStep {
         return this.verificationResults[sectionId] !== null;
     }
 
-    /**
-     * Get all verification results for all sections
-     * @returns {Object} Object with verification results for each section
-     */
-    getAllVerificationResults() {
-        return { ...this.verificationResults };
-    }
-
-    /**
-     * Clear verification result for a specific section
-     * @param {string} sectionId - Section identifier
-     */
-    clearVerificationResult(sectionId) {
-        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
-            return;
-        }
-        
-        this.verificationResults[sectionId] = null;
-    }
-
-    /**
-     * Clear all verification results for all sections
-     */
-    clearAllVerificationResults() {
-        this.verificationResults = {
-            'input-cpee': null,
-            'input-intermediate': null,
-            'output-intermediate': null,
-            'output-cpee': null
-        };
-    }
-
     // ===================================================================
     // Reachability Analysis Methods 
     // ===================================================================
@@ -689,73 +481,15 @@ export class CPEEStep {
         return this.reachabilityResults[sectionId] !== null;
     }
 
-    /**
-     * Get all reachability results for all sections
-     * @returns {Object} Object with reachability results for each section
-     */
-    getAllReachabilityResults() {
-        return { ...this.reachabilityResults };
-    }
-
-    /**
-     * Clear reachability result for a specific section
-     * @param {string} sectionId - Section identifier
-     */
-    clearReachabilityResult(sectionId) {
-        if (!['input-cpee', 'input-intermediate', 'output-intermediate', 'output-cpee'].includes(sectionId)) {
-            return;
-        }
-        
-        this.reachabilityResults[sectionId] = null;
-    }
-
-    /**
-     * Clear all reachability results for all sections
-     */
     clearAllReachabilityResults() {
-        this.reachabilityResults = {
-            'input-cpee': null,
-            'input-intermediate': null,
-            'output-intermediate': null,
-            'output-cpee': null
-        };
+        for (const key of Object.keys(this.reachabilityResults)) {
+            this.reachabilityResults[key] = null;
+        }
     }
 
     // ===================================================================
     // Trace Comparison Methods 
     // ===================================================================
-
-    /**
-     * Get input CPEE traces
-     * @returns {Array<Trace>|null} Array of Trace objects or null if not calculated
-     */
-    getInputCPEETraces() {
-        return this.getTraces('input-cpee');
-    }
-
-    /**
-     * Get input Mermaid traces
-     * @returns {Array<Trace>|null} Array of Trace objects or null if not calculated
-     */
-    getInputMermaidTraces() {
-        return this.getTraces('input-intermediate');
-    }
-
-    /**
-     * Get output CPEE traces
-     * @returns {Array<Trace>|null} Array of Trace objects or null if not calculated
-     */
-    getOutputCPEETraces() {
-        return this.getTraces('output-cpee');
-    }
-
-    /**
-     * Get output Mermaid traces
-     * @returns {Array<Trace>|null} Array of Trace objects or null if not calculated
-     */
-    getOutputMermaidTraces() {
-        return this.getTraces('output-intermediate');
-    }
 
     /**
      * Get comparison results for a section pair
@@ -785,49 +519,4 @@ export class CPEEStep {
         this.comparisonResults[sectionPair] = comparisonResult;
     }
 
-    /**
-     * Get all comparison results
-     * @returns {Object} Object with comparison results for both input and output pairs
-     */
-    getAllComparisonResults() {
-        return {
-            input: this.comparisonResults.input,
-            output: this.comparisonResults.output
-        };
-    }
-
-    /**
-     * Clear comparison results for a specific section pair
-     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
-     */
-    clearComparisonResults(sectionPair) {
-        if (sectionPair !== 'input' && sectionPair !== 'output') {
-            return;
-        }
-        
-        this.comparisonResults[sectionPair] = null;
-    }
-
-    /**
-     * Clear all comparison results
-     */
-    clearAllComparisonResults() {
-        this.comparisonResults = {
-            input: null,
-            output: null
-        };
-    }
-
-    /**
-     * Check if comparison results exist for a section pair
-     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
-     * @returns {boolean} True if comparison results exist
-     */
-    hasComparisonResults(sectionPair) {
-        if (sectionPair !== 'input' && sectionPair !== 'output') {
-            return false;
-        }
-        
-        return this.comparisonResults[sectionPair] !== null;
-    }
 }

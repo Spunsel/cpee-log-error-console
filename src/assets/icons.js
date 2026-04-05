@@ -18,7 +18,7 @@
  * Copy icon - Overlapping rectangles representing clipboard/copy action
  * ChatGPT style - 20x20px for copy buttons
  */
-export const ICON_COPY = `
+const ICON_COPY = `
     <svg viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" aria-hidden="true">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M17.676 14.248C17.676 15.8651 16.3651 17.176 14.748 17.176H7.428C5.81091 17.176 4.5 15.8651 4.5 14.248V6.928C4.5 5.31091 5.81091 4 7.428 4H14.748C16.3651 4 17.676 5.31091 17.676 6.928V14.248Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="M10.252 20H17.572C19.1891 20 20.5 18.689 20.5 17.072V9.75195" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -29,7 +29,7 @@ export const ICON_COPY = `
  * Checkmark icon - Success/copied state indicator
  * ChatGPT style - 20x20px for copy buttons
  */
-export const ICON_CHECK = `
+const ICON_CHECK = `
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M5 12.5l5 5L20 7.5"></path>
     </svg>
@@ -40,7 +40,7 @@ export const ICON_CHECK = `
  * Represents graph/visual view mode - 16x16px for toggle buttons
  * Network/graph icon representing visual connections and relationships
  */
-export const ICON_VISUAL = `
+const ICON_VISUAL = `
     <svg fill="currentColor" viewBox="-1.28 -1.28 34.56 34.56" width="16" height="16" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="0.8640000000000001">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -55,7 +55,7 @@ export const ICON_VISUAL = `
  * Represents cleaned/preprocessed code view mode - 16x16px for toggle buttons
  * Shows preprocessed content (same as what would be rendered visually)
  */
-export const ICON_RAW = `
+const ICON_RAW = `
     <svg fill="currentColor" width="16" height="16" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.999 511.999" xml:space="preserve">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -88,7 +88,7 @@ export const ICON_RAW = `
  * Log mode icon - Document/file icon
  * Represents raw view mode - displays un-preprocessed/original code - 16x16px for toggle buttons
  */
-export const ICON_LOG = `
+const ICON_LOG = `
     <svg fill="currentColor" width="16" height="16" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 548.291 548.291" xml:space="preserve">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -106,7 +106,7 @@ export const ICON_LOG = `
  * Represents traces view mode - displays all possible execution paths through workflow - 16x16px for toggle buttons
  * Design: Four horizontal lines of varying lengths representing different execution traces
  */
-export const ICON_TRACES = `
+const ICON_TRACES = `
     <svg fill="currentColor" width="16" height="16" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 463.59 463.59" xml:space="preserve">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -127,7 +127,7 @@ export const ICON_TRACES = `
  * Navigation Forward icon - Triangle pointing right
  * For next/forward step navigation - 16x16px
  */
-export const ICON_NAV_FORWARD = `
+const ICON_NAV_FORWARD = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
         <path d="M4.25 3l1.166-.624 8 5.333v1.248l-8 5.334-1.166-.624V3z"></path>
     </svg>
@@ -137,7 +137,7 @@ export const ICON_NAV_FORWARD = `
  * Navigation Backward icon - Triangle pointing left
  * For previous/back step navigation - 16x16px
  */
-export const ICON_NAV_BACKWARD = `
+const ICON_NAV_BACKWARD = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" transform="matrix(-1, 0, 0, 1, 0, 0)">
         <path d="M4.25 3l1.166-.624 8 5.333v1.248l-8 5.334-1.166-.624V3z"></path>
     </svg>
@@ -147,7 +147,7 @@ export const ICON_NAV_BACKWARD = `
  * Navigation Start icon - Skip to beginning
  * For jump to first step - 16x16px
  */
-export const ICON_NAV_START = `
+const ICON_NAV_START = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" transform="matrix(-1, 0, 0, 1, 0, 0)">
         <path d="M2.125 2H4.375v12H2.125V2z"></path>
         <path d="M6.25 3l1.186-.61 7 5v1.22l-7 5L6.25 13V3z"></path>
@@ -158,7 +158,7 @@ export const ICON_NAV_START = `
  * Navigation End icon - Skip to end
  * For jump to last step - 16x16px
  */
-export const ICON_NAV_END = `
+const ICON_NAV_END = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
         <path d="M2.125 2H4.375v12H2.125V2z"></path>
         <path d="M6.25 3l1.186-.61 7 5v1.22l-7 5L6.25 13V3z"></path>
@@ -170,7 +170,7 @@ export const ICON_NAV_END = `
  * Represents skipping/jumping to a specific step - 16x16px
  * Design: Forward arrow with location pin representing jump-to functionality
  */
-export const ICON_NAV_SKIP = `
+const ICON_NAV_SKIP = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -185,7 +185,7 @@ export const ICON_NAV_SKIP = `
  * Represents scaling/resizing functionality for graphs - 24x24px
  * Design: Document with scaling arrows
  */
-export const ICON_GRAPH_SCALE = `
+const ICON_GRAPH_SCALE = `
     <svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" fill="currentColor">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -208,7 +208,7 @@ export const ICON_GRAPH_SCALE = `
  * Represents theme selection functionality - 20x20px
  * Design: Blue book with "CSS" text
  */
-export const ICON_THEME = `
+const ICON_THEME = `
     <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet" fill="currentColor" width="20" height="20">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -224,7 +224,7 @@ export const ICON_THEME = `
  * Represents search/find functionality - 16x16px
  * Design: Magnifying glass with search circle
  */
-export const ICON_SEARCH = `
+const ICON_SEARCH = `
     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -239,7 +239,7 @@ export const ICON_SEARCH = `
  * Used in trace filter inputs - 16x16px
  * Design: Filter/funnel icon
  */
-export const ICON_FILTER = `
+const ICON_FILTER = `
     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -256,7 +256,7 @@ export const ICON_FILTER = `
  * Represents clearing/canceling search - 16x16px
  * Design: Simple X mark
  */
-export const ICON_CLEAR_SEARCH = `
+const ICON_CLEAR_SEARCH = `
     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -272,7 +272,7 @@ export const ICON_CLEAR_SEARCH = `
  * Represents navigating to next search result - 16x16px
  * Design: Right-pointing arrow
  */
-export const ICON_SEARCH_NEXT = `
+const ICON_SEARCH_NEXT = `
     <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path d="M6 4L10 8L6 12L4.5 10.5L7 8L4.5 5.5L6 4Z"/>
     </svg>
@@ -283,7 +283,7 @@ export const ICON_SEARCH_NEXT = `
  * Represents navigating to previous search result - 16x16px
  * Design: Left-pointing arrow
  */
-export const ICON_SEARCH_PREV = `
+const ICON_SEARCH_PREV = `
     <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path d="M10 4L6 8L10 12L11.5 10.5L9 8L11.5 5.5L10 4Z"/>
     </svg>
@@ -293,7 +293,7 @@ export const ICON_SEARCH_PREV = `
  * Simple Less Than icon - < symbol
  * Represents previous/left navigation - 16x16px
  */
-export const ICON_LT = `
+const ICON_LT = `
     <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </svg>
@@ -303,7 +303,7 @@ export const ICON_LT = `
  * Simple Greater Than icon - > symbol
  * Represents next/right navigation - 16x16px
  */
-export const ICON_GT = `
+const ICON_GT = `
     <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </svg>
@@ -366,7 +366,7 @@ export const ICON_SIDEBAR_EXPAND = `
  * Represents collapsing/hiding the sidebar - 16x16px
  * Design: Double chevrons pointing inward representing sidebar collapse
  */
-export const ICON_ACTIONBAR_EXPAND = `
+const ICON_ACTIONBAR_EXPAND = `
     <svg viewBox="-32 0 512 512" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
         <path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"></path>
     </svg>
@@ -377,7 +377,7 @@ export const ICON_ACTIONBAR_EXPAND = `
  * Represents expanding/showing the sidebar - 16x16px
  * Design: Double chevrons pointing outward representing sidebar expansion
  */
-export const ICON_ACTIONBAR_COLLAPSE = `
+const ICON_ACTIONBAR_COLLAPSE = `
     <svg viewBox="-32 0 512 512" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" transform="scale(-1, 1)">
         <path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"></path>
     </svg>
@@ -387,7 +387,7 @@ export const ICON_ACTIONBAR_COLLAPSE = `
  * App Console Debug Icon - Terminal with debugging symbols
  * Represents the debug console application - 64x64px (200% of original)
  */
-export const ICON_APP = `
+const ICON_APP = `
     <svg viewBox="-5.08 -5.08 60.96 60.96" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="#000000" stroke="#000000" width="64" height="64">
         <g id="SVGRepo_bgCarrier" stroke-width="0" transform="translate(0,0), scale(1)">
             <rect x="-5.08" y="-5.08" width="60.96" height="60.96" rx="30.48" fill="#c2d1ff" strokewidth="0"></rect>
@@ -407,7 +407,7 @@ export const ICON_APP = `
  * App Favicon Icon - 32x32px version of app icon for browser tab
  * Same design as ICON_APP but optimized for small favicon sizes
  */
-export const ICON_APP_FAVICON = `
+const ICON_APP_FAVICON = `
     <svg viewBox="-5.08 -5.08 60.96 60.96" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="#000000" stroke="#000000" width="32" height="32">
         <g id="SVGRepo_bgCarrier" stroke-width="0" transform="translate(0,0), scale(1)">
             <rect x="-5.08" y="-5.08" width="60.96" height="60.96" rx="30.48" fill="#c2d1ff" strokewidth="0"></rect>
@@ -463,7 +463,7 @@ export const ICON_WARNING = `
  * Represents dark mode/theme - 20x20px for dark mode toggle
  * Design: Crescent moon
  */
-export const ICON_MOON = `
+const ICON_MOON = `
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -478,7 +478,7 @@ export const ICON_MOON = `
  * Represents light mode/theme - 20x20px for dark mode toggle
  * Design: Sun with rays
  */
-export const ICON_SUN = `
+const ICON_SUN = `
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -500,7 +500,7 @@ export const ICON_SUN = `
  * Info icon - Information indicator
  * Represents information/help content - 20x20px for info buttons
  */
-export const ICON_INFO = `
+const ICON_INFO = `
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -565,7 +565,7 @@ export const ICON_SECTION_EXPAND = `
  * Represents expanding trace details - used when trace is collapsed (shows expand icon)
  * 16x16px for trace toggle buttons
  */
-export const ICON_EXPAND_TRACE = `
+const ICON_EXPAND_TRACE = `
     <svg fill="currentColor" viewBox="-6.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -581,7 +581,7 @@ export const ICON_EXPAND_TRACE = `
  * Represents collapsing trace details - used when trace is expanded (shows collapse icon)
  * 16x16px for trace toggle buttons
  */
-export const ICON_COLLAPSE_TRACE = `
+const ICON_COLLAPSE_TRACE = `
     <svg fill="currentColor" viewBox="-6.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" transform="matrix(1, 0, 0, -1, 0, 0)">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -596,7 +596,7 @@ export const ICON_COLLAPSE_TRACE = `
  * Expand Section icon - Vertical expand arrows
  * Represents expanding a section to fill browser height - 20x20px for section expand buttons
  */
-export const ICON_EXPAND_SECTION = `
+const ICON_EXPAND_SECTION = `
     <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="20" height="20">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -622,7 +622,7 @@ export const ICON_EXPAND_SECTION = `
  * Collapse Section icon - Collapse arrows
  * Represents collapsing a section to restore previous size - 20x20px for section collapse buttons
  */
-export const ICON_COLLAPSE_SECTION = `
+const ICON_COLLAPSE_SECTION = `
     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" stroke-width="0.352" width="20" height="20">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -637,7 +637,7 @@ export const ICON_COLLAPSE_SECTION = `
  * Represents a closed/fixed issue - 16x16px for issue status indicators
  * GitHub-style closed issue icon
  */
-export const ICON_ISSUE_CLOSED = `
+const ICON_ISSUE_CLOSED = `
     <svg color="var(--fgColor-done)" aria-hidden="true" focusable="false" aria-label="" class="octicon octicon-issue-closed" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align: text-bottom;">
         <path d="M11.28 6.78a.75.75 0 0 0-1.06-1.06L7.25 8.69 5.78 7.22a.75.75 0 0 0-1.06 1.06l2 2a.75.75 0 0 0 1.06 0l3.5-3.5Z"></path>
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-1.5 0a6.5 6.5 0 1 0-13 0 6.5 6.5 0 0 0 13 0Z"></path>
@@ -649,7 +649,7 @@ export const ICON_ISSUE_CLOSED = `
  * Represents an open issue - 16x16px for issue status indicators
  * GitHub-style open issue icon
  */
-export const ICON_ISSUE_OPEN = `
+const ICON_ISSUE_OPEN = `
     <svg color="var(--fgColor-open)" aria-hidden="true" focusable="false" aria-label="" class="octicon octicon-issue-opened" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align: text-bottom;">
         <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
         <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"></path>
@@ -676,7 +676,7 @@ export const ICON_COMPARISON_INFO = `
  * Represents file download functionality - 20x20px for download buttons
  * Design: Document with downward arrow
  */
-export const ICON_DOWNLOAD = `
+const ICON_DOWNLOAD = `
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -692,7 +692,7 @@ export const ICON_DOWNLOAD = `
  * Represents minimap visibility toggle - 20x20px for action bar buttons
  * Design: Simplified code view with scroll indicator
  */
-export const ICON_MINIMAP = `
+const ICON_MINIMAP = `
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -712,7 +712,7 @@ export const ICON_MINIMAP = `
  * Represents link to view the original log file on cpee.org - 20x20px for action bar buttons
  * Design: Document with LOG text
  */
-export const ICON_VIEW_LOG = `
+const ICON_VIEW_LOG = `
     <svg fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 548.291 548.291" xml:space="preserve" width="20" height="20">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -730,7 +730,7 @@ export const ICON_VIEW_LOG = `
  * Represents analysis view mode - displays soundness and boundedness verification results - 16x16px for toggle buttons
  * Design: Magnifying glass with search circle representing analysis/verification
  */
-export const ICON_ANALYSIS = `
+const ICON_ANALYSIS = `
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve" width="16" height="16" fill="currentColor" aria-hidden="true">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -745,7 +745,7 @@ export const ICON_ANALYSIS = `
  * Used for auto-play trace functionality - 16x16px
  * Design: Circle outline with play triangle inside
  */
-export const ICON_PLAY_TRACE = `
+const ICON_PLAY_TRACE = `
     <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -760,7 +760,7 @@ export const ICON_PLAY_TRACE = `
  * Used for auto-play trace functionality - 16x16px
  * Design: Circle outline with two pause bars inside
  */
-export const ICON_PAUSE_TRACE = `
+const ICON_PAUSE_TRACE = `
     <svg fill="currentColor" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -775,7 +775,7 @@ export const ICON_PAUSE_TRACE = `
  * Used for controlling auto-play speed in trace view - 16x16px
  * Design: Circular clock with pointer and partial arc
  */
-export const ICON_SPEED_CONTROL = `
+const ICON_SPEED_CONTROL = `
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
         <path d="M4.51555 7C3.55827 8.4301 3 10.1499 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3V6M12 12L8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
@@ -844,61 +844,6 @@ export const ICONS = {
 };
 
 /**
- * Get icon by name (string-based access)
- * @param {string} iconName - Name of the icon
- * @returns {string} Complete SVG markup
- */
-export function getIcon(iconName) {
-    const iconMap = {
-        'copy': ICON_COPY,
-        'check': ICON_CHECK,
-        'visual': ICON_VISUAL,
-        'raw': ICON_RAW,
-        'log': ICON_LOG,
-        'traces': ICON_TRACES,
-        'nav-forward': ICON_NAV_FORWARD,
-        'nav-backward': ICON_NAV_BACKWARD,
-        'nav-start': ICON_NAV_START,
-        'nav-end': ICON_NAV_END,
-        'nav-skip': ICON_NAV_SKIP,
-        'sidebar-collapse': ICON_SIDEBAR_COLLAPSE,
-        'sidebar-expand': ICON_SIDEBAR_EXPAND,
-        'app': ICON_APP,
-        'app-favicon': ICON_APP_FAVICON,
-        // Search functionality icons
-        'search': ICON_SEARCH,
-        'filter': ICON_FILTER,
-        'clear-search': ICON_CLEAR_SEARCH,
-        'search-next': ICON_SEARCH_NEXT,
-        'search-prev': ICON_SEARCH_PREV,
-        'error': ICON_ERROR,
-        'warning': ICON_WARNING,
-        'theme': ICON_THEME,
-        'moon': ICON_MOON,
-        'sun': ICON_SUN,
-        'info': ICON_INFO,
-        'section-collapse': ICON_SECTION_COLLAPSE,
-        'section-expand': ICON_SECTION_EXPAND,
-        'expand-trace': ICON_EXPAND_TRACE,
-        'collapse-trace': ICON_COLLAPSE_TRACE,
-        'expand-section': ICON_EXPAND_SECTION,
-        'collapse-section': ICON_COLLAPSE_SECTION,
-        'issue-closed': ICON_ISSUE_CLOSED,
-        'issue-open': ICON_ISSUE_OPEN,
-        'comparison-info': ICON_COMPARISON_INFO,
-        'analysis': ICON_ANALYSIS,
-        'download': ICON_DOWNLOAD,
-        'view-log': ICON_VIEW_LOG,
-        'minimap': ICON_MINIMAP,
-        'play-trace': ICON_PLAY_TRACE,
-        'pause-trace': ICON_PAUSE_TRACE,
-        'speed-control': ICON_SPEED_CONTROL
-    };
-
-    return iconMap[iconName.toLowerCase()] || '';
-}
-
-/**
  * Create step number icon SVG element
  * Generates a blue circular icon with white step number text
  * Supports unlimited step numbers (1, 2, 3, ..., 100, etc.)
@@ -937,6 +882,4 @@ export function createStepNumberIcon(stepNumber) {
     return svg;
 }
 
-// Default export for convenience
-export default ICONS;
 

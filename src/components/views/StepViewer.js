@@ -200,14 +200,6 @@ export class StepViewer {
     }
 
     /**
-     * Get content manager component
-     * @returns {ContentSectionManager} Content manager instance
-     */
-    getContentManager() {
-        return this.contentManager;
-    }
-
-    /**
      * Get all renderer instances (for debugging or external access)
      * @returns {Object} Object containing all renderer instances
      */

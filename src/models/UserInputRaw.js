@@ -20,16 +20,6 @@ export class UserInput {
     }
 
     /**
-     * Set the user input text
-     * @param {string} text - User input text
-     */
-    setText(text) {
-        this.text = text || '';
-        this.isEmpty = this.text.trim().length === 0;
-        this.extractedAt = new Date();
-    }
-
-    /**
      * Get trimmed user input (whitespace removed)
      * @returns {string} Trimmed text
      */
@@ -70,14 +60,6 @@ export class UserInput {
     }
 
     /**
-     * Get first line (useful for summaries)
-     * @returns {string} First line of user input
-     */
-    getFirstLine() {
-        return this.text.split('\n')[0] || '';
-    }
-
-    /**
      * Get preview of user input
      * @param {number} length - Maximum characters to show
      * @returns {string} Preview text
@@ -88,41 +70,6 @@ export class UserInput {
             return trimmed;
         }
         return trimmed.substring(0, length) + '...';
-    }
-
-    /**
-     * Check if user input contains certain keywords
-     * @param {string[]} keywords - Keywords to search for
-     * @returns {boolean} True if any keyword found
-     */
-    containsKeywords(keywords) {
-        const lowerText = this.text.toLowerCase();
-        return keywords.some(keyword => lowerText.includes(keyword.toLowerCase()));
-    }
-
-    /**
-     * Extract potential actions from user input (case-insensitive)
-     * @returns {string[]} Array of action keywords found
-     */
-    extractActions() {
-        const actions = ['add', 'remove', 'modify', 'change', 'insert', 'delete', 'replace', 'move', 'reorder', 'rename', 'create', 'update'];
-        const foundActions = [];
-
-        actions.forEach(action => {
-            if (this.text.toLowerCase().includes(action)) {
-                foundActions.push(action);
-            }
-        });
-
-        return foundActions;
-    }
-
-    /**
-     * Normalize whitespace (multiple spaces to single space)
-     * @returns {string} Normalized text
-     */
-    normalize() {
-        return this.text.replace(/\s+/g, ' ').trim();
     }
 
     /**
@@ -140,14 +87,6 @@ export class UserInput {
     isCommand() {
         const commandPatterns = /^(add|remove|modify|change|insert|delete|replace|move|create|update|set|get|do|make)\b/i;
         return commandPatterns.test(this.getTrimmed());
-    }
-
-    /**
-     * Clone this user input object
-     * @returns {UserInput} New UserInput instance with same text
-     */
-    clone() {
-        return new UserInput(this.text);
     }
 
     /**
@@ -188,14 +127,4 @@ export class UserInput {
         return new UserInput('');
     }
 
-    /**
-     * Create UserInput from multiple text fragments
-     * @param {string[]} fragments - Array of text fragments
-     * @param {string} separator - Text to join fragments
-     * @returns {UserInput} New UserInput with joined text
-     */
-    static fromFragments(fragments, separator = ' ') {
-        const text = fragments.join(separator);
-        return new UserInput(text);
-    }
 }

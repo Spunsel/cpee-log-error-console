@@ -584,21 +584,6 @@ export class MermaidParser {
     }
 
     /**
-     * Validate Mermaid code structure
-     * @param {string} code - Mermaid code to validate
-     * @returns {boolean} True if valid flowchart
-     */
-    static isValidStructure(code) {
-        if (!code || typeof code !== 'string') {
-            return false;
-        }
-
-        // Check for flowchart diagram type (graph or flowchart)
-        const lowerCode = code.toLowerCase();
-        return lowerCode.includes('flowchart') || lowerCode.includes('graph');
-    }
-
-    /**
      * Extract diagram type from Mermaid code
      * Only extracts workflow/process-relevant diagram types for CPEE transformations
      * @param {string} code - Mermaid code
@@ -729,48 +714,6 @@ export class MermaidParser {
     }
 
     /**
-     * Clean Mermaid code (basic cleaning without validation)
-     * 
-     * @param {string} code - Raw mermaid code
-     * @returns {string} Cleaned mermaid code
-     * @throws {Error} If code is invalid
-     */
-    static cleanMermaidCode(code) {
-        if (!code || typeof code !== 'string') {
-            const error = new Error('Invalid Mermaid code input');
-            error.name = 'MermaidValidationError';
-            error.validationType = 'invalidInput';
-            error.details = 'Input must be a non-empty string';
-            throw error;
-        }
-
-        // Remove HTML comments and extra whitespace
-        let cleanedCode = code.replace(/<!--[\s\S]*?-->/g, '').trim();
-
-        // Remove CPEE-style comments
-        cleanedCode = cleanedCode.replace(/^\s*%%.*$/gm, '').trim();
-
-        // Extract Mermaid code from markdown code blocks
-        const mermaidBlockMatch = cleanedCode.match(/```mermaid\s*\n([\s\S]*?)\n\s*```/);
-        if (mermaidBlockMatch) {
-            cleanedCode = mermaidBlockMatch[1].trim();
-        }
-
-        // Remove any remaining markdown code block syntax
-        cleanedCode = cleanedCode.replace(/^```.*$/gm, '').trim();
-        cleanedCode = cleanedCode.replace(/```\s*$/gm, '').trim();
-
-        // Remove any leading/trailing whitespace and normalize line endings
-        cleanedCode = cleanedCode.replace(/^\s+|\s+$/g, '');
-        cleanedCode = cleanedCode.replace(/\r\n/g, '\n');
-
-        // Apply syntax preprocessing
-        cleanedCode = this.preprocessSyntax(cleanedCode);
-
-        return cleanedCode;
-    }
-
-    /**
      * Clean Mermaid content from log exposition
      * Removes all indentation: all lines start at column 0
      * 
@@ -873,47 +816,4 @@ export class MermaidParser {
         return cleaned;
     }
 
-    /**
-     * Extract content from markdown code blocks
-     * Common utility for handling ```mermaid blocks
-     * 
-     * @param {string} content - Content containing markdown blocks
-     * @param {string} language - Language identifier (e.g., 'mermaid')
-     * @returns {string} Extracted content or original if no blocks found
-     */
-    static extractFromMarkdownBlocks(content, language = 'mermaid') {
-        if (!content) {
-            return content;
-        }
-
-        const pattern = new RegExp(`\`\`\`${language}\\s*\\n([\\s\\S]*?)\\n\\s*\`\`\``);
-        const match = content.match(pattern);
-        
-        if (match) {
-            return match[1].trim();
-        }
-        
-        return content;
-    }
-
-    /**
-     * Normalize whitespace and line endings
-     * Common utility for consistent formatting
-     * 
-     * @param {string} content - Content to normalize
-     * @returns {string} Normalized content
-     */
-    static normalizeWhitespace(content) {
-        if (!content) {
-            return content;
-        }
-        
-        // Remove leading/trailing whitespace
-        let normalized = content.replace(/^\s+|\s+$/g, '');
-        
-        // Normalize line endings
-        normalized = normalized.replace(/\r\n/g, '\n');
-        
-        return normalized;
-    }
 }

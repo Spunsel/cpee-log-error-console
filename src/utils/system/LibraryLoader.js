@@ -153,28 +153,6 @@ export class LibraryLoader {
     }
 
     /**
-     * Check if library is loaded
-     * @param {string} libraryName - Library name
-     * @returns {boolean} True if library is loaded
-     */
-    static isLoaded(libraryName) {
-        return this.loadedLibraries.has(libraryName);
-    }
-
-    /**
-     * Load multiple scripts in parallel
-     * @param {Array} scripts - Array of {url, name} objects
-     * @returns {Promise} Promise that resolves when all scripts are loaded
-     */
-    static loadMultiple(scripts) {
-        const promises = scripts.map(script => 
-            this.loadScript(script.url, script.name || script.url)
-        );
-        
-        return Promise.all(promises);
-    }
-
-    /**
      * Clear cache (useful for testing)
      */
     static clearCache() {

@@ -117,34 +117,6 @@ export class CPEEService {
     }
     
     /**
-     * Get the CPEE graph URL for a process instance number
-     * @param {number} processNumber - CPEE process instance number
-     * @returns {string} CPEE graph URL
-     * @throws {Error} If process number is invalid
-     */
-    getCPEEGraphURL(processNumber) {
-        if (!this.isValidProcessNumber(processNumber)) {
-            throw new Error('CPEEService: Invalid process number - must be a positive integer');
-        }
-        
-        return `${this.configManager.get('api.endpoints.cpeeGraph')}?monitor=${this.configManager.get('api.endpoints.cpeeBase')}/${processNumber}/`;
-    }
-    
-    /**
-     * Get the CPEE engine URL for a process instance number
-     * @param {number} processNumber - CPEE process instance number
-     * @returns {string} CPEE engine URL
-     * @throws {Error} If process number is invalid
-     */
-    getCPEEEngineURL(processNumber) {
-        if (!this.isValidProcessNumber(processNumber)) {
-            throw new Error('CPEEService: Invalid process number - must be a positive integer');
-        }
-        
-        return `${this.configManager.get('api.endpoints.cpeeBase')}/${processNumber}/`;
-    }
-    
-    /**
      * Validate UUID format
      * @param {string} uuid - UUID string to validate
      * @returns {boolean} True if valid UUID format
@@ -159,20 +131,6 @@ export class CPEEService {
     }
     
     /**
-     * Extract process number from CPEE engine URL
-     * @param {string} url - CPEE engine URL
-     * @returns {number|null} Process number or null if not found
-     */
-    extractProcessNumberFromURL(url) {
-        if (!url || typeof url !== 'string') {
-            return null;
-        }
-        
-        const match = url.match(/\/flow\/engine\/(\d+)\//);
-        return match ? parseInt(match[1], 10) : null;
-    }
-    
-    /**
      * Validate process number
      * @param {number} processNumber - Process number to validate
      * @returns {boolean} True if valid process number
@@ -181,17 +139,6 @@ export class CPEEService {
         return typeof processNumber === 'number' && 
                processNumber > 0 && 
                Number.isInteger(processNumber);
-    }
-
-    /**
-     * Get service statistics
-     * @returns {Object} Service statistics
-     */
-    getStats() {
-        return {
-            debugMode: this.debugMode,
-            configManager: this.configManager ? 'available' : 'not available'
-        };
     }
 
     /**

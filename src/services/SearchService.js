@@ -122,22 +122,6 @@ export class SearchService {
     }
 
     /**
-     * Escape HTML special characters
-     * @param {string} text - Text to escape
-     * @returns {string} HTML-escaped text
-     */
-    escapeHtml(text) {
-        const map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, char => map[char]);
-    }
-
-    /**
      * Build regex from search term with proper escaping
      * @param {string} searchTerm - Search term
      * @param {Object} options - Search options

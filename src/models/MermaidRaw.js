@@ -99,32 +99,6 @@ export class MermaidRaw {
     }
 
     /**
-     * Extract direction from graph declaration
-     * @returns {string|null} Direction (TD, LR, etc.) or null
-     */
-    getDirection() {
-        const dirMatch = this.content.match(/(?:graph|flowchart)\s+(TD|LR|RL|BT|TB)/i);
-        return dirMatch ? dirMatch[1] : null;
-    }
-
-    /**
-     * Get preview (first few lines)
-     * @param {number} lines - Number of lines to preview
-     * @returns {string} Preview of content
-     */
-    getPreview(lines = 3) {
-        return this.content.split('\n').slice(0, lines).join('\n');
-    }
-
-    /**
-     * Clone this Mermaid raw object
-     * @returns {MermaidRaw} New MermaidRaw instance with same content
-     */
-    clone() {
-        return new MermaidRaw(this.content);
-    }
-
-    /**
      * Convert to plain object (for serialization)
      * @returns {Object} Plain object representation
      */

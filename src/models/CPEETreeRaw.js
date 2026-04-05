@@ -20,16 +20,6 @@ export class CPEETreeRaw {
     }
 
     /**
-     * Set the raw CPEE tree content
-     * @param {string} content - CPEE tree XML
-     */
-    setContent(content) {
-        this.content = content || '';
-        this.extractedAt = new Date();
-        this.isValid = this.validateXmlStructure();
-    }
-
-    /**
      * Validate basic XML/CPEE tree structure
      * @returns {boolean} True if content appears to be valid CPEE tree
      */
@@ -80,92 +70,12 @@ export class CPEETreeRaw {
     }
 
     /**
-     * Extract CPEE namespace
-     * @returns {string|null} Namespace URI or null
-     */
-    getNamespace() {
-        const nsMatch = this.content.match(/xmlns\s*=\s*["']([^"']+)["']/);
-        return nsMatch ? nsMatch[1] : null;
-    }
-
-    /**
      * Get count of elements (rough estimate)
      * @returns {number} Approximate number of XML elements
      */
     getElementCount() {
         const matches = this.content.match(/<[\w-]+/g);
         return matches ? matches.length : 0;
-    }
-
-    /**
-     * Extract CPEE attributes
-     * @returns {Object} Object with various CPEE attributes
-     */
-    extractAttributes() {
-        const attributes = {};
-        
-        // Extract common CPEE attributes
-        const idMatch = this.content.match(/\sid\s*=\s*["']([^"']+)["']/);
-        if (idMatch) {
-            attributes.id = idMatch[1];
-        }
-
-        const labelMatch = this.content.match(/<label>([^<]+)<\/label>/);
-        if (labelMatch) { 
-            attributes.label = labelMatch[1];
-        }
-
-        const endpointMatch = this.content.match(/\sendpoint\s*=\s*["']([^"']+)["']/);
-        if (endpointMatch) { 
-            attributes.endpoint = endpointMatch[1];
-        }
-
-        return attributes;
-    }
-
-    /**
-     * Get preview (first few lines)
-     * @param {number} lines - Number of lines to preview
-     * @returns {string} Preview of content
-     */
-    getPreview(lines = 5) {
-        return this.content.split('\n').slice(0, lines).join('\n');
-    }
-
-    /**
-     * Pretty print XML (basic formatting)
-     * @returns {string} Formatted XML
-     */
-    prettyPrint() {
-        let formatted = '';
-        let indent = 0;
-        const regex = /(<[^/>]+>)|(<\/[^>]+>)|([^<>]+)/g;
-
-        let match;
-        while ((match = regex.exec(this.content)) !== null) {
-            const str = match[0];
-            if (str.startsWith('</')) {
-                indent--;
-                formatted += '\n' + '  '.repeat(indent) + str;
-            } else if (str.startsWith('<') && !str.endsWith('/>')) {
-                formatted += '\n' + '  '.repeat(indent) + str;
-                if (!str.endsWith('</')) { 
-                    indent++;
-                }
-            } else if (str.trim()) {
-                formatted += str.trim();
-            }
-        }
-
-        return formatted.trim();
-    }
-
-    /**
-     * Clone this CPEE tree raw object
-     * @returns {CPEETreeRaw} New CPEETreeRaw instance with same content
-     */
-    clone() {
-        return new CPEETreeRaw(this.content);
     }
 
     /**

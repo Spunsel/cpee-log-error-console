@@ -89,30 +89,6 @@ export class DOMRegistry {
     }
 
     /**
-     * Get all registered keys
-     * @returns {Array<string>} Array of registered keys
-     */
-    getKeys() {
-        return Array.from(this.elements.keys());
-    }
-
-    /**
-     * Clear all cached elements
-     * Useful when DOM structure changes significantly
-     */
-    clearCache() {
-        this.elementCache.clear();
-    }
-
-    /**
-     * Enable or disable warning messages
-     * @param {boolean} enabled - Whether to show warnings
-     */
-    setWarningsEnabled(enabled) {
-        this.warningsEnabled = enabled;
-    }
-
-    /**
      * Batch register multiple elements
      * @param {Object} mappings - Object with key-elementId pairs
      */
@@ -246,68 +222,6 @@ export class DOMRegistry {
             Object.entries(styles).forEach(([property, value]) => {
                 element.style[property] = value;
             });
-        }
-    }
-
-    /**
-     * Create SVG element with proper namespace
-     * @param {string} tag - SVG tag name
-     * @param {Object} attributes - SVG attributes
-     * @returns {SVGElement} Created SVG element
-     */
-    createSVGElement(tag, attributes = {}) {
-        const element = document.createElementNS('http://www.w3.org/2000/svg', tag);
-        
-        Object.entries(attributes).forEach(([key, value]) => {
-            element.setAttribute(key, value);
-        });
-
-        return element;
-    }
-
-    /**
-     * Update element content safely
-     * @param {string} key - Element key or ID
-     * @param {string} content - Content to set
-     * @param {boolean} isHTML - Whether content is HTML (default: false)
-     */
-    updateContent(key, content, isHTML = false) {
-        const element = this.getElementSafe(key);
-        if (element) {
-            if (isHTML) {
-                element.innerHTML = content;
-            } else {
-                element.textContent = content;
-            }
-        }
-    }
-
-    /**
-     * Toggle element visibility
-     * @param {string} key - Element key or ID
-     * @param {boolean} visible - Whether element should be visible
-     */
-    setVisibility(key, visible) {
-        const element = this.getElementSafe(key);
-        if (element) {
-            if (visible) {
-                element.classList.remove('hidden');
-            } else {
-                element.classList.add('hidden');
-            }
-        }
-    }
-
-    /**
-     * Add event listener to element
-     * @param {string} key - Element key or ID
-     * @param {string} event - Event type
-     * @param {Function} handler - Event handler
-     */
-    addEventListener(key, event, handler) {
-        const element = this.getElementSafe(key);
-        if (element) {
-            element.addEventListener(event, handler);
         }
     }
 

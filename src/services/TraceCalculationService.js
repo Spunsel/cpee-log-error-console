@@ -264,61 +264,6 @@ export class TraceCalculationService {
     }
 
     /**
-     * Validate trace completeness using reachability information
-     * Checks if all reachable nodes appear in traces and flags missing coverage
-     * 
-     * @param {Array<Trace>} traces - Calculated traces
-     * @param {Object} reachabilityResult - Reachability analysis result
-     * @param {string} sectionId - Section identifier
-     * @private
-     */
-    validateTraceCompleteness(traces, reachabilityResult, sectionId) {
-        if (!reachabilityResult.success || !reachabilityResult.nodeClassification) {
-            return;
-        }
-        
-        // Collect all node IDs that appear in traces
-        const nodesInTraces = new Set();
-        traces.forEach(trace => {
-            if (trace && trace.path) {
-                trace.path.forEach(task => {
-                    const nodeId = task.id || task.alt_id;
-                    if (nodeId) {
-                        nodesInTraces.add(nodeId);
-                    }
-                });
-            }
-        });
-        
-        // Check if all useful nodes appear in traces
-        const usefulNodes = new Set(reachabilityResult.nodeClassification.usefulNodes || []);
-        const missingUsefulNodes = Array.from(usefulNodes).filter(nodeId => !nodesInTraces.has(nodeId));
-        
-        if (missingUsefulNodes.length > 0) {
-            console.warn(`[TraceCalculationService] Trace completeness issue for ${sectionId}: ${missingUsefulNodes.length} useful nodes not covered by traces:`, missingUsefulNodes);
-        }
-        
-        // Check if traces cover all reachable paths (forward reachability)
-        const forwardReachableNodes = new Set(reachabilityResult.forwardReachability?.reachableNodes || []);
-        const missingReachableNodes = Array.from(forwardReachableNodes).filter(nodeId => !nodesInTraces.has(nodeId));
-        
-        if (missingReachableNodes.length > 0) {
-            console.warn(`[TraceCalculationService] Trace completeness issue for ${sectionId}: ${missingReachableNodes.length} forward-reachable nodes not covered by traces:`, missingReachableNodes);
-        }
-        
-        // Calculate coverage percentage
-        const totalUsefulNodes = usefulNodes.size;
-        const coveredUsefulNodes = Array.from(usefulNodes).filter(nodeId => nodesInTraces.has(nodeId)).length;
-        const usefulCoverage = totalUsefulNodes > 0 ? (coveredUsefulNodes / totalUsefulNodes) * 100 : 100;
-        
-        if (usefulCoverage < 100) {
-            console.warn(`[TraceCalculationService] Trace coverage for ${sectionId}: ${usefulCoverage.toFixed(1)}% of useful nodes covered (${coveredUsefulNodes}/${totalUsefulNodes})`);
-        } else {
-            console.log(`[TraceCalculationService] Trace coverage for ${sectionId}: 100% of useful nodes covered`);
-        }
-    }
-
-    /**
      * Extract all unique tasks from calculated traces
      * @param {Array<Trace>} traces - Calculated traces
      * @returns {Array<Object>} Array of unique task objects with id/alt_id properties

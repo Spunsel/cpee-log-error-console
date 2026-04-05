@@ -49,8 +49,6 @@ export class CPEEDebugConsole {
         this.darkModeToggle = new DarkModeToggle(this.domRegistry, this.eventBus, this.stateManager);
         this.demoTour = new DemoTour(this.eventBus);
         
-        // Track if InstanceLoaderViewer has been shown for the first time
-        this.hasShownInstanceLoaderFirstTime = false;
         
         this.setupEventBusListeners();
         
@@ -133,13 +131,8 @@ export class CPEEDebugConsole {
             // Show default state (instance loader) - first time only
             this.instanceLoaderViewer.show();
             this.stepViewer.showDefaultState();
-            // Show theme toggle only on first load of InstanceLoaderViewer
-            if (!this.hasShownInstanceLoaderFirstTime) {
-                this.hasShownInstanceLoaderFirstTime = true;
-                this.darkModeToggle.show();
-            } else {
-                this.darkModeToggle.hide();
-            }
+
+            this.darkModeToggle.show();
         }
         
         console.log('CPEE Debug Console initialized');
@@ -376,36 +369,6 @@ export class CPEEDebugConsole {
     }
 
     /**
-     * Navigate to specific step
-     * @param {number} stepIndex - Step index
-     */
-    async goToStep(stepIndex) {
-        if (this.instanceService.goToStep(stepIndex)) {
-            const step = this.instanceService.getCurrentStep();
-            const navInfo = this.instanceService.getNavigationInfo();
-            await this.stepViewer.displayStep(step, navInfo);
-            URLManager.updateURL(this.instanceService.currentUUID, stepIndex + 1);
-            this.eventBus.emit('step:navigated', { uuid: this.instanceService.currentUUID, stepIndex });
-        }
-    }
-
-    /**
-     * Get current application state
-     * @returns {Object} Current state
-     */
-    getCurrentState() {
-        return {
-            currentUUID: this.stateManager.getState('currentInstance'),
-            currentStepIndex: this.stateManager.getState('currentStepIndex'),
-            loadedInstances: this.stateManager.getState('instances'),
-            navigationInfo: this.instanceService.getNavigationInfo(),
-            ui: this.stateManager.getState('ui'),
-            search: this.stateManager.getState('search'),
-            viewModes: this.stateManager.getState('viewModes')
-        };
-    }
-
-    /**
      * Return to home page (default state)
      */
     returnToHome() {
@@ -446,19 +409,4 @@ export class CPEEDebugConsole {
         this.instanceLoaderViewer.focusProcessNumberInput();
     }
 
-    /**
-     * Clear all data and reset to default state
-     */
-    reset() {
-        this.instanceService.clear();
-        this.sidebar.clearAllTabs();
-        this.instanceLoaderViewer.show();
-        this.stepViewer.showDefaultState();
-        this.logViewer.hideRawLog();
-        // Hide theme toggle when resetting (only show on first load)
-        this.darkModeToggle.hide();
-        URLManager.clearURLParameters();
-        
-        this.instanceLoaderViewer.clearInputs();
-    }
 }

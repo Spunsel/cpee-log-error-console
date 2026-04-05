@@ -586,7 +586,7 @@ function createErrorResult(errorMessage) {
  * @param {Object} options - Verification options
  * @returns {Object} Verification result
  */
-export function verifyCPEESoundnessAndBoundedness(traces, cpeeXml, options = {}) {
+function verifyCPEESoundnessAndBoundedness(traces, cpeeXml, options = {}) {
     return verifySoundnessAndBoundedness(traces, cpeeXml, 'cpee', options);
 }
 
@@ -597,16 +597,7 @@ export function verifyCPEESoundnessAndBoundedness(traces, cpeeXml, options = {})
  * @param {Object} options - Verification options
  * @returns {Object} Verification result
  */
-export function verifyMermaidSoundnessAndBoundedness(traces, mermaidSyntax, options = {}) {
+function verifyMermaidSoundnessAndBoundedness(traces, mermaidSyntax, options = {}) {
     return verifySoundnessAndBoundedness(traces, mermaidSyntax, 'mermaid', options);
 }
-
-/**
- * Default export
- */
-export default {
-    verifySoundnessAndBoundedness,
-    verifyCPEESoundnessAndBoundedness,
-    verifyMermaidSoundnessAndBoundedness
-};
 

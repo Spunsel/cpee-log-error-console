@@ -15,24 +15,6 @@ export class HighlightingService {
         this.highlightedElements = new Set();
         this.clickableElements = new Set();
         this.originalStyles = new Map();
-        //this.animationEnabled = true;
-        //this.animationDuration = 300;
-    }
-
-    /**
-     * Enable or disable highlighting animations
-     * @param {boolean} enabled - Whether to enable animations
-     */
-    setAnimationEnabled(enabled) {
-        this.animationEnabled = enabled;
-    }
-
-    /**
-     * Set animation duration
-     * @param {number} duration - Animation duration in milliseconds
-     */
-    setAnimationDuration(duration) {
-        this.animationDuration = duration;
     }
 
     /**
@@ -135,15 +117,6 @@ export class HighlightingService {
             }
         }
         
-        // Debug logging
-        console.log('[HighlightingService] highlightCPEEGateway:', {
-            elementId: gatewayGroup.getAttribute('element-id'),
-            startFound: !!startDiamondRect,
-            endFound: !!endDiamondRect,
-            partEndExists: !!gatewayGroup.querySelector('.part-end'),
-            allRotatedRects: gatewayGroup.querySelectorAll('rect[transform*="rotate"]').length
-        });
-        
         let foundDiamond = false;
         
         // Highlight the start diamond (opening gateway)
@@ -158,7 +131,6 @@ export class HighlightingService {
             this.applyElementHighlight(endDiamondRect, 'cpee-gateway-highlighted', isActive);
             this.applyInlineHighlightStyle(endDiamondRect, isActive);
             foundDiamond = true;
-            console.log('[HighlightingService] ✓ Also highlighted end diamond');
         }
         
         if (foundDiamond) {
@@ -614,20 +586,6 @@ export class HighlightingService {
         }
         
         return null;
-    }
-
-    /**
-     * Get service statistics
-     * @returns {Object} Service statistics
-     */
-    getStats() {
-        return {
-            highlightedElementsCount: this.highlightedElements.size,
-            clickableElementsCount: this.clickableElements.size,
-            originalStylesCount: this.originalStyles.size,
-            animationEnabled: this.animationEnabled,
-            animationDuration: this.animationDuration
-        };
     }
 
     /**

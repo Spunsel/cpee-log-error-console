@@ -67,41 +67,6 @@ export class CPEENodeExtractor {
     }
 
     /**
-     * Extract tasks from multiple XML documents
-     * @param {string[]} xmlStrings - Array of XML strings
-     * @returns {NodeIdentifier[][]} Array of task arrays
-     */
-    static extractFromMultiple(xmlStrings) {        
-        const results = xmlStrings.map((xml) => {
-            return this.extract(xml);
-        });
-        
-        return results;
-    }
-
-    /**
-     * Fix common XML issues
-     * @param {string} xmlString - XML string to fix
-     * @returns {string} Fixed XML string
-     */
-    static fixXMLIssues(xmlString) {
-        let fixedXml = xmlString;
-        
-        // Escape unescaped < and > in attribute values
-        fixedXml = fixedXml.replace(/=("([^"]*)<\s*([^"]*))"/g, (match) => match.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
-        
-        fixedXml = fixedXml.replace(/=('([^']*)<\s*([^']*))'/g, (match) => match.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
-        
-        // Fix comparison operators in condition attributes
-        fixedXml = fixedXml.replace(/condition="([^"]*)\s*<\s*([^"]*)"/g, 'condition="$1 &lt; $2"');
-        fixedXml = fixedXml.replace(/condition="([^"]*)\s*>\s*([^"]*)"/g, 'condition="$1 &gt; $2"');
-        fixedXml = fixedXml.replace(/condition="([^"]*)\s*<=\s*([^"]*)"/g, 'condition="$1 &lt;= $2"');
-        fixedXml = fixedXml.replace(/condition="([^"]*)\s*>=\s*([^"]*)"/g, 'condition="$1 &gt;= $2"');
-        
-        return fixedXml;
-    }
-
-    /**
      * Find all task elements in XML document
      * @param {Document} xmlDoc - Parsed XML document
      * @returns {Element[]} Array of task elements

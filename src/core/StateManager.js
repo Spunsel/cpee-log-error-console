@@ -9,8 +9,6 @@ export class StateManager {
         this.state = this.getInitialState();
         this.listeners = new Map();
         this.debugMode = false;
-        this.history = [];
-        this.maxHistorySize = 50;
         this.persistedPaths = new Set(); // Paths that should persist to localStorage
         this.storagePrefix = 'cpee-debug-console-state-';
         
@@ -36,8 +34,7 @@ export class StateManager {
                 activeView: 'home', // 'home', 'instance', 'log'
                 darkMode: false, // Dark mode preference (persisted)
                 theme: 'presetaltid', // CPEE theme preference (persisted) - shows alt_id in labels
-                scale: 1.0, // Graph scale preference (persisted)
-                graphScale: 1.0 // Default graph scale: 1x (100%) - legacy, use ui.scale
+                scale: 1.0 // Graph scale preference (persisted)
             },
             search: {
                 active: false,
@@ -53,8 +50,7 @@ export class StateManager {
                 'output-cpee': 'visual'
             },
             // Optional: Cache trace calculation results per section 
-            traceCache: {}, // Structure: { 'sectionId-stepNumber': Trace[] }
-            graphScale: 1.0 // Default graph scale: 1x (100%) - legacy, use ui.scale
+            traceCache: {} // Structure: { 'sectionId-stepNumber': Trace[] }
         };
     }
 
@@ -93,15 +89,6 @@ export class StateManager {
     }
 
     /**
-     * Limit history size to maxHistorySize
-     */
-    limitHistorySize() {
-        if (this.history.length > this.maxHistorySize) {
-            this.history = this.history.slice(0, this.maxHistorySize);
-        }
-    }
-
-    /**
      * Get state value by path
      * @param {string|Array} path - Dot notation path or array of keys
      * @returns {*} State value
@@ -116,18 +103,13 @@ export class StateManager {
      * @param {string|Array} path - Dot notation path or array of keys
      * @param {*} value - Value to set
      * @param {Object} options - Additional options
-     * @param {boolean} options.silent - Don't add to history or notify listeners
+     * @param {boolean} options.silent - Don't notify listeners
      * @param {boolean} options.persist - Persist to localStorage (default: auto-detect based on persistedPaths)
      */
     setState(path, value, options = {}) {
         this.logDebug(`Setting state: ${path} =`, value);
 
         const oldValue = this.getNestedValue(this.state, path);
-        
-        // Add to history if not silent
-        if (!options.silent) {
-            this.addToHistory(path, oldValue, value);
-        }
 
         this.setNestedValue(this.state, path, value);
         
@@ -141,7 +123,9 @@ export class StateManager {
             this.persistToStorage(pathKey, value);
         }
         
-        this.notifyListeners(path, value, oldValue);
+        if (!options.silent) {
+            this.notifyListeners(path, value, oldValue);
+        }
     }
 
     /**
@@ -287,214 +271,6 @@ export class StateManager {
     }
 
     /**
-     * Add state change to history
-     * @param {string|Array} path - Path that changed
-     * @param {*} oldValue - Old value
-     * @param {*} newValue - New value
-     */
-    addToHistory(path, oldValue, newValue) {
-        const historyEntry = {
-            timestamp: Date.now(),
-            path: this.normalizePath(path),
-            oldValue,
-            newValue
-        };
-
-        this.history.unshift(historyEntry);
-        this.limitHistorySize();
-    }
-
-    /**
-     * Get state history
-     * @param {number} limit - Maximum number of entries to return
-     * @returns {Array} State history
-     */
-    getHistory(limit = 10) {
-        return this.history.slice(0, limit);
-    }
-
-    /**
-     * Clear state history
-     */
-    clearHistory() {
-        this.history = [];
-        this.logDebug('Cleared state history');
-    }
-
-    /**
-     * Reset state to initial values
-     * @param {Object} options - Reset options
-     */
-    reset(options = {}) {
-        const initialState = this.getInitialState();
-
-        if (options.preserveInstances) {
-            initialState.instances = this.state.instances;
-        }
-
-        this.state = initialState;
-        
-        if (!options.silent) {
-            this.notifyListeners('*', this.state, null); // Notify all listeners
-        }
-
-        this.logDebug('State reset');
-    }
-
-    /**
-     * Get all state as a plain object
-     * @returns {Object} State object
-     */
-    getStateSnapshot() {
-        return JSON.parse(JSON.stringify(this.state));
-    }
-
-    /**
-     * Restore state from snapshot
-     * @param {Object} snapshot - State snapshot
-     * @param {Object} options - Restore options
-     */
-    restoreState(snapshot, _options = {}) {
-        if (!_options.silent) {
-            this.addToHistory('*', this.state, snapshot);
-        }
-
-        this.state = JSON.parse(JSON.stringify(snapshot));
-        
-        if (!_options.silent) {
-            this.notifyListeners('*', this.state, null);
-        }
-
-        this.logDebug('State restored from snapshot');
-    }
-
-    /**
-     * Get state statistics
-     * @returns {Object} State statistics
-     */
-    getStats() {
-        return {
-            totalListeners: Array.from(this.listeners.values()).reduce((sum, listeners) => sum + listeners.length, 0),
-            listenerPaths: Array.from(this.listeners.keys()),
-            historySize: this.history.length,
-            stateSize: JSON.stringify(this.state).length,
-            instancesCount: this.state.instances.size
-        };
-    }
-
-    /**
-     * Enable debug mode
-     * @param {boolean} enabled - Whether to enable debug mode
-     */
-    setDebugMode(enabled) {
-        this.debugMode = enabled;
-        if (this.debugMode) {
-            console.log('[StateManager] Debug mode enabled');
-        }
-    }
-
-    /**
-     * Batch multiple state updates
-     * @param {Array} updates - Array of {path, value} objects
-     * @param {Object} options - Batch options
-     */
-    batchUpdate(updates, _options = {}) {
-        this.logDebug(`Batch updating ${updates.length} state changes`);
-
-        const oldValues = {};
-        
-        // Collect old values
-        updates.forEach(update => {
-            oldValues[update.path] = this.getNestedValue(this.state, update.path);
-        });
-
-        // Apply all updates
-        updates.forEach(update => {
-            this.setNestedValue(this.state, update.path, update.value);
-        });
-
-        // Notify listeners for all changes
-        updates.forEach(update => {
-            this.notifyListeners(update.path, update.value, oldValues[update.path]);
-        });
-
-        this.logDebug('Batch update completed');
-    }
-
-    /**
-     * Validate view mode value
-     * @param {string} mode - View mode to validate
-     * @returns {boolean} True if mode is valid
-     */
-    isValidViewMode(mode) {
-        return mode === 'visual' || mode === 'raw' || mode === 'log' || mode === 'traces' || mode === 'analysis';
-    }
-
-    /**
-     * Get all valid view modes
-     * @returns {Array<string>} Array of valid view mode values
-     */
-    getValidViewModes() {
-        return ['visual', 'raw', 'log', 'traces', 'analysis'];
-    }
-
-    /**
-     * Get trace cache for a section 
-     * @param {string} sectionId - Section identifier
-     * @param {number} stepNumber - Step number
-     * @returns {Array|null} Cached traces or null
-     */
-    getTraceCache(sectionId, stepNumber) {
-        const cacheKey = `${sectionId}-${stepNumber}`;
-        return this.state.traceCache?.[cacheKey] || null;
-    }
-
-    /**
-     * Set trace cache for a section 
-     * @param {string} sectionId - Section identifier
-     * @param {number} stepNumber - Step number
-     * @param {Array} traces - Traces to cache
-     */
-    setTraceCache(sectionId, stepNumber, traces) {
-        if (!this.state.traceCache) {
-            this.state.traceCache = {};
-        }
-        const cacheKey = `${sectionId}-${stepNumber}`;
-        this.state.traceCache[cacheKey] = traces;
-        this.logDebug(`Cached traces for ${cacheKey}: ${traces?.length || 0} traces`);
-    }
-
-    /**
-     * Clear trace cache for a section 
-     * @param {string} sectionId - Section identifier (optional, clears all if not provided)
-     * @param {number} stepNumber - Step number (optional)
-     */
-    clearTraceCache(sectionId = null, stepNumber = null) {
-        if (!this.state.traceCache) {
-            return;
-        }
-
-        if (sectionId && stepNumber !== null) {
-            // Clear specific section-step cache
-            const cacheKey = `${sectionId}-${stepNumber}`;
-            delete this.state.traceCache[cacheKey];
-            this.logDebug(`Cleared trace cache for ${cacheKey}`);
-        } else if (sectionId) {
-            // Clear all caches for a section
-            Object.keys(this.state.traceCache).forEach(key => {
-                if (key.startsWith(`${sectionId}-`)) {
-                    delete this.state.traceCache[key];
-                }
-            });
-            this.logDebug(`Cleared trace cache for section ${sectionId}`);
-        } else {
-            // Clear all trace caches
-            this.state.traceCache = {};
-            this.logDebug('Cleared all trace caches');
-        }
-    }
-
-    /**
      * Register a path for localStorage persistence
      * @param {string|Array} path - Path to persist
      */
@@ -502,16 +278,6 @@ export class StateManager {
         const pathKey = this.normalizePath(path);
         this.persistedPaths.add(pathKey);
         this.logDebug(`Registered persisted path: ${pathKey}`);
-    }
-
-    /**
-     * Unregister a path from localStorage persistence
-     * @param {string|Array} path - Path to stop persisting
-     */
-    unregisterPersistedPath(path) {
-        const pathKey = this.normalizePath(path);
-        this.persistedPaths.delete(pathKey);
-        this.logDebug(`Unregistered persisted path: ${pathKey}`);
     }
 
     /**
@@ -605,45 +371,6 @@ export class StateManager {
         });
     }
 
-    /**
-     * Clear persisted state from localStorage
-     * @param {string|Array} path - Path to clear (optional, clears all if not provided)
-     */
-    clearPersistedState(path = null) {
-        if (path) {
-            const pathKey = this.normalizePath(path);
-            const storageKey = this.getStorageKey(pathKey);
-            try {
-                localStorage.removeItem(storageKey);
-                this.logDebug(`Cleared persisted state: ${pathKey}`);
-            } catch (error) {
-                console.warn(`[StateManager] Failed to clear persisted state for ${pathKey}:`, error);
-            }
-        } else {
-            // Clear all persisted state
-            this.persistedPaths.forEach(pathKey => {
-                const storageKey = this.getStorageKey(pathKey);
-                try {
-                    localStorage.removeItem(storageKey);
-                } catch (error) {
-                    console.warn(`[StateManager] Failed to clear persisted state for ${pathKey}:`, error);
-                }
-            });
-            this.logDebug('Cleared all persisted state');
-        }
-    }
-
-    /**
-     * Destroy the state manager
-     */
-    destroy() {
-        this.listeners.clear();
-        this.history = [];
-        this.state = {};
-        this.persistedPaths.clear();
-        
-        this.logDebug('Destroyed');
-    }
 }
 
 // Export singleton instance

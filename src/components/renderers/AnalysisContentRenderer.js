@@ -989,36 +989,6 @@ export class AnalysisContentRenderer {
     }
 
     /**
-     * Update analysis view when verification results change
-     */
-    updateAnalysisView(sectionId, step) {
-        if (!step) {
-            console.warn('[AnalysisContentRenderer] Missing step for analysis view update');
-            return;
-        }
-
-        const stepNumber = step.stepNumber || 'unknown';
-        
-        // Invalidate cache for this section
-        this.invalidateCache(sectionId, stepNumber);
-        
-        // Check if analysis view is currently displayed
-        const analysisDisplay = this.analysisDisplays.get(sectionId);
-        if (analysisDisplay && analysisDisplay.parentElement) {
-            // Re-render the analysis content
-            const container = analysisDisplay.parentElement;
-            this.renderAnalysisContent(sectionId, container, step);
-            
-            // Emit analysis view updated event 
-            this.eventBus.emit('analysis:updated', {
-                sectionId: sectionId,
-                stepNumber: stepNumber,
-                timestamp: new Date().toISOString()
-            });
-        }
-    }
-
-    /**
      * Clear all analysis displays and cache
      */
     clearAll() {

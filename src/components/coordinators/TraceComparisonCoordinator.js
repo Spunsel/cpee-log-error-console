@@ -311,15 +311,6 @@ export class TraceComparisonCoordinator {
     }
     
     /**
-     * Get cached comparison result for a section pair
-     * @param {string} sectionPair - Section pair identifier ('input' or 'output')
-     * @returns {Object|null} Cached comparison result or null
-     */
-    getCachedResult(sectionPair) {
-        return this.comparisonCache[sectionPair] || null;
-    }
-    
-    /**
      * Clear comparison cache
      */
     clearCache() {
@@ -327,25 +318,6 @@ export class TraceComparisonCoordinator {
             input: null,
             output: null
         };
-    }
-    
-    /**
-     * Compare traces for both input and output pairs
-     * @param {Object} traceData - Object with input and output traces
-     * @param {Array} traceData.inputCpeeTraces - Input CPEE traces
-     * @param {Array} traceData.inputMermaidTraces - Input Mermaid traces
-     * @param {Array} traceData.outputCpeeTraces - Output CPEE traces
-     * @param {Array} traceData.outputMermaidTraces - Output Mermaid traces
-     * @param {number|null} stepNumber - Optional step number for event context
-     */
-    compareAllTraces(traceData, stepNumber = null) {
-        if (traceData.inputCpeeTraces && traceData.inputMermaidTraces) {
-            this.compareInputTraces(traceData.inputCpeeTraces, traceData.inputMermaidTraces, stepNumber);
-        }
-        
-        if (traceData.outputCpeeTraces && traceData.outputMermaidTraces) {
-            this.compareOutputTraces(traceData.outputCpeeTraces, traceData.outputMermaidTraces, stepNumber);
-        }
     }
     
     /**

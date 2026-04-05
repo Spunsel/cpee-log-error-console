@@ -713,36 +713,6 @@ export class InstanceLoaderViewer {
     }
 
     /**
-     * Display list of instances with steps as clickable boxes
-     * @param {Array<{processNumber: number, uuid: string}>} instances - Array of instances with steps
-     */
-    displayInstanceList(instances) {
-        const instanceList = this.getElement('instanceList');
-        if (!instanceList) {
-            return;
-        }
-        
-        // Sort by process number
-        instances.sort((a, b) => a.processNumber - b.processNumber);
-        
-        instanceList.innerHTML = '';
-        
-        instances.forEach((instance) => {
-            const box = document.createElement('div');
-            box.className = 'instance-number-box';
-            box.textContent = instance.processNumber.toString();
-            box.title = `Click to load instance ${instance.processNumber}`;
-            
-            // Add click handler to simulate "load instance"
-            box.addEventListener('click', () => {
-                this.loadInstanceForProcessNumber(instance.processNumber, instance.uuid);
-            });
-            
-            instanceList.appendChild(box);
-        });
-    }
-
-    /**
      * Load instance for a given process number and UUID
      * Simulates "load instance" by setting inputs and triggering load
      * @param {number} processNumber - Process instance number

@@ -383,31 +383,6 @@ export class TracePlaybackCoordinator {
         return this.autoPlayState.playbackSpeed;
     }
 
-    /**
-     * Get current playback state
-     * @returns {Object} Current playback state
-     */
-    getPlaybackState() {
-        return {
-            isPlaying: this.autoPlayState.isPlaying,
-            currentTraceKey: this.autoPlayState.currentTraceKey,
-            currentTaskIndex: this.autoPlayState.currentTaskIndex,
-            totalTasks: this.autoPlayState.trace?.path?.length || 0,
-            playbackSpeed: this.autoPlayState.playbackSpeed
-        };
-    }
-
-    /**
-     * Check if a specific trace is currently playing
-     * @param {string} sectionId - Section identifier
-     * @param {number} traceNumber - Trace number
-     * @returns {boolean}
-     */
-    isTracePlaying(sectionId, traceNumber) {
-        const traceKey = `${sectionId}:${traceNumber}`;
-        return this.autoPlayState.isPlaying && this.autoPlayState.currentTraceKey === traceKey;
-    }
-
     // ========================================
     // HIGHLIGHT FUNCTIONALITY
     // ========================================
@@ -514,22 +489,6 @@ export class TracePlaybackCoordinator {
             row.classList.remove('trace-row-highlighted');
         });
         this.highlightedRows.clear();
-    }
-
-    /**
-     * Get the currently highlighted task key
-     * @returns {string|null}
-     */
-    getHighlightedTaskKey() {
-        return this.highlightedTaskKey;
-    }
-
-    /**
-     * Check if any rows are currently highlighted
-     * @returns {boolean}
-     */
-    hasHighlights() {
-        return this.highlightedRows.size > 0;
     }
 
     // ========================================

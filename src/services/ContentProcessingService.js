@@ -29,16 +29,6 @@ export class ContentProcessingService {
     }
 
     /**
-     * Process and validate CPEE XML for rendering
-     * @param {string} cpeeXML - Raw CPEE XML
-     * @returns {string} Cleaned and validated XML
-     * @throws {Error} If XML is invalid
-     */
-    processAndValidateCPEEXML(cpeeXML) {
-        return CPEEParser.cleanAndValidateXML(cpeeXML);
-    }
-
-    /**
      * Process and validate CPEE XML with optional preprocessing
      * @param {string} cpeeXML - Raw CPEE XML
      * @param {boolean} preprocess - Whether to apply syntax preprocessing (default: true)

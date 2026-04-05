@@ -95,38 +95,10 @@ export class JQueryExtensions {
     }
     
     /**
-     * Verify that all extensions are properly registered
-     * @returns {boolean} True if all extensions are available
-     */
-    static verifyExtensions() {
-        const checks = [
-            typeof window.$X === 'function',
-            typeof window.$.fn.serializeXML === 'function',
-            typeof window.$.fn.serializePrettyXML === 'function',
-            typeof window.$.parseQuerySimple === 'function'
-        ];
-        
-        return checks.every(check => check === true);
-    }
-    
-    /**
      * Reset initialization state (mainly for testing)
      * Warning: This does not remove the actual extensions from global scope
      */
     static reset() {
         this.initialized = false;
-    }
-    
-    /**
-     * Get list of extensions that would be added
-     * @returns {Array} List of extension names
-     */
-    static getExtensionList() {
-        return [
-            'window.$X',
-            '$.fn.serializeXML',
-            '$.fn.serializePrettyXML',
-            '$.parseQuerySimple'
-        ];
     }
 }

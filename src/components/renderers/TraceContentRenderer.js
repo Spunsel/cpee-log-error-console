@@ -285,7 +285,7 @@ export class TraceContentRenderer {
         // Get or create trace display for this section (thin UI wrapper)
         let traceDisplay = this.traceDisplays.get(sectionId);
         if (!traceDisplay) {
-            traceDisplay = new TraceDisplay(this.domRegistry, this);
+            traceDisplay = new TraceDisplay(this.domRegistry);
             this.traceDisplays.set(sectionId, traceDisplay);
         }
 

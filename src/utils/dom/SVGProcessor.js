@@ -183,12 +183,4 @@ export class SVGProcessor {
         this.cache = {};
     }
     
-    /**
-     * Check if an element is non-visual
-     * @param {string} elementName - Name of the element
-     * @returns {boolean} True if element is non-visual
-     */
-    isNonVisualElement(elementName) {
-        return this.nonVisualElements.includes(elementName);
-    }
 }

@@ -212,39 +212,6 @@ export class SVGClickDetector {
     }
     
     /**
-     * Get all clickable elements in container
-     * @param {Element} container - SVG container
-     * @returns {Element[]} Array of clickable elements
-     */
-    getClickableElements(container) {
-        const elements = [];
-        
-        // Find all CPEE tasks
-        const cpeeTasks = container.querySelectorAll('g.element[element-id]');
-        cpeeTasks.forEach(task => elements.push(task));
-        
-        // Find all Mermaid nodes
-        const mermaidNodes = container.querySelectorAll('g.node');
-        mermaidNodes.forEach(node => elements.push(node));
-                
-        return elements;
-    }
-    
-    /**
-     * Add visual indicator for clickable elements
-     * @param {Element} container - SVG container
-     * @param {string} cursorStyle - CSS cursor style (default: 'pointer')
-     */
-    makeElementsClickable(container, cursorStyle = 'pointer') {
-        const elements = this.getClickableElements(container);
-        
-        elements.forEach(element => {
-            element.style.cursor = cursorStyle;
-        });
-        
-    }
-    
-    /**
      * Remove all active listeners
      */
     cleanup() {
@@ -254,17 +221,6 @@ export class SVGClickDetector {
         
         this.activeListeners.clear();
         this.clickCount = 0;
-    }
-    
-    /**
-     * Get statistics about click detection
-     * @returns {Object} Statistics
-     */
-    getStats() {
-        return {
-            activeListeners: this.activeListeners.size,
-            totalClicks: this.clickCount
-        };
     }
     
     // ==================== Click Target Classification Methods ====================

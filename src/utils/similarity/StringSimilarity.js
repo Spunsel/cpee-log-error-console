@@ -11,7 +11,7 @@
  * @param {string} str2 - Second string
  * @returns {number} Jaro distance (0-1), where 1 is identical
  */
-export function calculateJaro(str1, str2) {
+function calculateJaro(str1, str2) {
     if (str1 === str2) {
         return 1.0;
     }

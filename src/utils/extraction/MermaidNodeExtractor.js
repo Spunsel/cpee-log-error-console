@@ -88,18 +88,6 @@ export class MermaidNodeExtractor {
     }
 
     /**
-     * Extract both nodes and connections from Mermaid syntax
-     * @param {string} mermaidSyntax - Mermaid flowchart code
-     * @returns {Object} Object with nodes and connections arrays
-     */
-    static extractNodesAndConnections(mermaidSyntax) {
-        return {
-            nodes: this.extract(mermaidSyntax),
-            connections: this.extractConnections(mermaidSyntax)
-        };
-    }
-
-    /**
      * Extract nodes from a single line of Mermaid syntax
      * @param {string} line - Line of Mermaid code
      * @param {number} basePosition - Base position for this line's nodes
@@ -149,26 +137,6 @@ export class MermaidNodeExtractor {
         return nodes;
     }
 
-    /**
-     * Map Mermaid shape to generic task type
-     * @param {string} shape - Mermaid shape name
-     * @returns {string} Generic task type
-     */
-    static mapShapeToType(shape) {
-        const shapeTypeMap = {
-            'rectangle': 'task',
-            'rounded': 'event',
-            'diamond': 'decision',
-            'circle': 'event',
-            'hexagon': 'task',
-            'parallelogram': 'input',
-            'trapezoid': 'output',
-            'stadium': 'event'
-        };
-        
-        return shapeTypeMap[shape] || 'task';
-    }
-    
     // ==================== Gateway Utility Methods ====================
     
     /**

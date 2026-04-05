@@ -32,15 +32,6 @@ export class CPEEInstance {
     }
 
     /**
-     * Get shortened UUID for display
-     * @param {number} length - Length of shortened UUID (default: 8)
-     * @returns {string} Shortened UUID
-     */
-    getShortUUID(length = 8) {
-        return this.uuid.substring(0, length);
-    }
-
-    /**
      * Get current step
      * @returns {CPEEStep|null} Current step or null
      */
@@ -61,14 +52,6 @@ export class CPEEInstance {
             return this.steps[index];
         }
         return null;
-    }
-
-    /**
-     * Get all steps
-     * @returns {CPEEStep[]} Array of all steps
-     */
-    getAllSteps() {
-        return [...this.steps];
     }
 
     /**
@@ -163,30 +146,6 @@ export class CPEEInstance {
     }
 
     /**
-     * Get instance summary information
-     * @returns {Object} Summary information
-     */
-    getSummary() {
-        return {
-            uuid: this.uuid,
-            shortUUID: this.getShortUUID(),
-            processNumber: this.processNumber,
-            stepCount: this.getStepCount(),
-            currentStep: this.currentStepIndex + 1,
-            loadedAt: this.loadedAt.toLocaleString(),
-            hasSteps: this.hasSteps()
-        };
-    }
-
-    /**
-     * Get formatted load time
-     * @returns {string} Formatted load time
-     */
-    getFormattedLoadTime() {
-        return this.loadedAt.toLocaleString();
-    }
-
-    /**
      * Convert instance to plain object (for serialization)
      * @returns {Object} Plain object representation
      */
@@ -230,25 +189,4 @@ export class CPEEInstance {
         return instance;
     }
 
-    /**
-     * Find step by change UUID
-     * @param {string} changeUuid - Change UUID to search for
-     * @returns {CPEEStep|null} Step with matching change UUID or null
-     */
-    findStepByChangeUuid(changeUuid) {
-        return this.steps.find(step => step.changeUuid === changeUuid) || null;
-    }
-
-    /**
-     * Get steps within a time range
-     * @param {Date} startTime - Start time
-     * @param {Date} endTime - End time
-     * @returns {CPEEStep[]} Steps within the time range
-     */
-    getStepsInTimeRange(startTime, endTime) {
-        return this.steps.filter(step => {
-            const stepTime = new Date(step.timestamp);
-            return stepTime >= startTime && stepTime <= endTime;
-        });
-    }
 }
