@@ -210,9 +210,7 @@ export class ContentVisualizationCoordinator {
                 }
             });
             
-            // Initialize with proper parameters (containerId, statusId, xmlInputId)
-            // For embedded graphs, we don't need status or input elements
-            await this.inputGraphRenderer.initialize(graphContainer.id, null, null);
+            await this.inputGraphRenderer.initialize(graphContainer.id);
             await this.inputGraphRenderer.renderGraph(cpeeXml);
             
             // Setup graph action bar for SVG export
@@ -274,8 +272,7 @@ export class ContentVisualizationCoordinator {
             });
             
             // Initialize with proper parameters (containerId, statusId, xmlInputId)
-            // For embedded graphs, we don't need status or input elements
-            await this.outputGraphRenderer.initialize(graphContainer.id, null, null);
+            await this.outputGraphRenderer.initialize(graphContainer.id);
             await this.outputGraphRenderer.renderGraph(cpeeXml);
             
             // Setup graph action bar for SVG export

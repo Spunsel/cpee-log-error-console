@@ -22,118 +22,53 @@ export class CPEEWfAdaptorRenderer {
         this.isRendered = false;
         this.container = null;
         this.svgContainer = null;
-        
-        this.statusManager = null; // Will be initialized in initialize()
-        this.svgProcessor = new SVGProcessor(); // Handles SVG element processing and caching
-        
-        // Render generation counter to guard against stale WfAdaptor callbacks
+        this.statusManager = null;
+        this.svgProcessor = new SVGProcessor();
         this._renderGeneration = 0;
-        
-        // Post-render callback for highlighting integration
         this.postRenderCallback = null;
-        
-        // Content processing service
         this.contentProcessingService = contentProcessingService || serviceFactory.get('ContentProcessingService');
-        
-        // Scale management
         this.eventBus = eventBus || defaultEventBus;
         this.stateManager = stateManager || defaultStateManager;
         this.defaultScale = configManager.get('rendering.scaling.default') || 1.0;
+        this.currentScale = this.defaultScale;
+        this.currentSvgElement = null;
         
-        // Load scale from StateManager (which loads from localStorage)
-        const storedScale = this.stateManager.getState('ui.scale');
-        this.currentScale = storedScale && SVGScaleUtility.isValidScale(storedScale) 
-            ? storedScale 
-            : this.defaultScale;
-        this.currentSvgElement = null; // Track current SVG container for scale updates
-        
-        // Listen for scale change events
-        this.setupScaleListener();
-    }
-    
-    /**
-     * Setup event listener for scale changes
-     */
-    setupScaleListener() {
         this.eventBus.on('scaleDisplay:scaleChanged', (data) => {
             const newScale = data.scale;
             if (typeof newScale === 'number' && newScale !== this.currentScale) {
                 this.currentScale = newScale;
-                this.applyScaleToCurrentGraph();
+                if (this.container && this.currentSvgElement) {
+                    SVGScaleUtility.applyScale(this.currentSvgElement, this.currentScale, 'cpee');
+                }
             }
         });
     }
     
     /**
-     * Apply scale to the current SVG graph if it exists
+     * Initialize the CPEE WfAdaptor renderer
+     * @param {string} containerId - ID of the container element
      */
-    applyScaleToCurrentGraph() {
-        if (!this.container || !this.currentSvgElement) {
-            return;
-        }
-        
-        this.applyScaleTransform(this.currentSvgElement);
-    }
-    
-    /**
-     * Apply scale transform to CPEE SVG container
-     * CPEE graphs use nested SVG structure, so we apply transform to the outer SVG
-     * Uses SVGScaleUtility for consistent scaling
-     * @param {HTMLElement} svgContainer - SVG container element
-     */
-    applyScaleTransform(svgContainer) {
-        if (!svgContainer) {
-            return;
-        }
-        
-        // Use utility function for consistent scaling with CPEE structure
-        SVGScaleUtility.applyScale(svgContainer, this.currentScale, 'cpee');
-    }
-    
-    /**
-     * Load current scale from StateManager
-     */
-    loadCurrentScale() {
+    async initialize(containerId) {
+        // Load scale from StateManager (persisted in localStorage)
         const storedScale = this.stateManager.getState('ui.scale');
         if (storedScale && SVGScaleUtility.isValidScale(storedScale)) {
             this.currentScale = storedScale;
         }
-    }
-    
-    /**
-     * Initialize the CPEE WfAdaptor renderer
-     * @param {string} containerId - ID of the container element
-     * @param {string} statusId - ID of the status element  
-     * @param {string} xmlInputId - ID of the XML input textarea
-     */
-    async initialize(containerId, statusId, xmlInputId) {
-        // Load current scale from StateManager
-        this.loadCurrentScale();
         
-        // Use DOMRegistry if available, otherwise fallback to getElementById
-        // Use getElementSafe for dynamic IDs to avoid warnings
         if (this.domRegistry) {
             this.container = this.domRegistry.getElementSafe(containerId) || document.getElementById(containerId);
-            this.statusElement = statusId ? (this.domRegistry.getElementSafe(statusId) || document.getElementById(statusId)) : null;
-            this.xmlInput = xmlInputId ? (this.domRegistry.getElementSafe(xmlInputId) || document.getElementById(xmlInputId)) : null;
         } else {
             this.container = document.getElementById(containerId);
-            this.statusElement = statusId ? document.getElementById(statusId) : null;
-            this.xmlInput = xmlInputId ? document.getElementById(xmlInputId) : null;
         }
         
         if (!this.container) {
             throw new Error(`CPEEWfAdaptorRenderer: Container with ID ${containerId} not found`);
         }
         
-        this.statusManager = new DOMStatusManager(this.statusElement);
+        this.statusManager = new DOMStatusManager(null);
         
-        // Wait for jQuery to be available
         await this.waitForJQuery();
-        
-        // Setup container
         this.setupContainer();
-        
     }
     
     /**
@@ -145,11 +80,8 @@ export class CPEEWfAdaptorRenderer {
             'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',
             () => typeof $ !== 'undefined'
         );
-        
-        // Initialize essential jQuery extensions for CPEE
-            JQueryExtensions.initialize();
+        JQueryExtensions.initialize();
     }
-    
     
     /**
      * Setup container with proper structure for CPEE graph
@@ -157,11 +89,9 @@ export class CPEEWfAdaptorRenderer {
     setupContainer() {
         this.container.innerHTML = '';
         
-        // Get background color from CSS variable
         const root = document.documentElement;
         const backgroundColor = getComputedStyle(root).getPropertyValue('--surface-color').trim() || (configManager.get('rendering.containers.graphContainer.background') || '#ffffff');
         
-        // Don't override container styling - let parent determine size
         this.container.style.cssText = `
             background: ${backgroundColor};
             position: relative;
@@ -169,7 +99,6 @@ export class CPEEWfAdaptorRenderer {
             height: auto;
         `;
         
-        // Create SVG container matching CPEE structure with unique IDs
         const graphDiv = document.createElement('div');
         graphDiv.id = `modelling-${this.container.id}`;
         const minHeight = configManager.get('rendering.containers.graphContainer.minHeight');
@@ -179,7 +108,6 @@ export class CPEEWfAdaptorRenderer {
         gridDiv.id = `graphgrid-${this.container.id}`;
         gridDiv.style.cssText = `width: 100%; height: auto; min-height: ${minHeight}; background: ${backgroundColor};`;
         
-        // Create SVG element for CPEE rendering with unique ID
         this.svgContainer = document.createElementNS(configManager.get('rendering.svg.namespace'), 'svg');
         this.svgContainer.id = `graphcanvas-${this.container.id}`;
         this.svgContainer.setAttribute('xmlns', configManager.get('rendering.svg.namespace'));
@@ -202,7 +130,6 @@ export class CPEEWfAdaptorRenderer {
         
         const descElement = jqueryXmlDoc.find('description');
         if (descElement.length === 0) {
-            // Description is root element
             if (xmlDoc.documentElement && xmlDoc.documentElement.tagName === 'description') {
                 const rootDesc = window.$(xmlDoc.documentElement);
                 const wrapperDoc = window.$('<xml></xml>').append(rootDesc.clone());
@@ -220,57 +147,39 @@ export class CPEEWfAdaptorRenderer {
      * @param {string} cpeeXML - CPEE XML description
      */
     async renderGraph(cpeeXML) {
-        // Increment generation so any in-flight WfAdaptor callback from a prior
-        // renderGraph call becomes a no-op when it eventually fires.
         const renderGen = ++this._renderGeneration;
         
         try {
             this.showStatus('Loading CPEE WfAdaptor...', 'loading');
             
-            // Process and validate XML with preprocessing
             const cleanResult = this.contentProcessingService.processAndValidateCPEE(cpeeXML, true);
             const cleanedXML = cleanResult.xml;
             const appliedSteps = cleanResult.appliedSteps || [];
             
-            // Display warning panel if preprocessing steps were applied
             if (appliedSteps.length > 0) {
                 CPEEWarningHandler.displayWarningIndicator(this.container, appliedSteps);
             } else {
                 CPEEWarningHandler.removeWarningIndicator(this.container);
             }
             
-            // Load the WfAdaptor and theme system
             await this.loadWfAdaptor();
             
-            // Bail out if a newer renderGraph call was made while we were loading
-            if (renderGen !== this._renderGeneration) {
-                return;
-            }
-                        
-            // Store reference to self for use in callback
-            const self = this;
+            if (renderGen !== this._renderGeneration) { return; }
             
-            // Get theme path from configuration (config is under 'cpee.wfadaptor' key)
+            const self = this;
             const themePath = configManager.get('cpee.wfadaptor.themePath');
             
-            // Create WfAdaptor instance
             this.adaptor = new window.WfAdaptor(themePath, (graphrealization) => {
-                // Stale callback guard: if a newer render was started, abandon this one
-                if (renderGen !== self._renderGeneration) {
-                    return;
-                }
+                if (renderGen !== self._renderGeneration) { return; }
                 
                 try {
-                    // Get and validate SVG container element
                     const svgElementId = `graphcanvas-${self.container.id}`;
-                    // SVG elements are dynamically created, so use getElementById directly
                     const svgElement = document.getElementById(svgElementId);
                     
                     if (!svgElement) {
                         throw new Error(`CPEEWfAdaptorRenderer: SVG container with ID '${svgElementId}' not found`);
                     }
                     
-                    // Store reference to current SVG for scale updates
                     self.currentSvgElement = svgElement;
                     
                     const jquerySvgContainer = window.$(svgElement);
@@ -278,45 +187,30 @@ export class CPEEWfAdaptorRenderer {
                         throw new Error(`CPEEWfAdaptorRenderer: jQuery could not wrap SVG element with ID '${svgElementId}'`);
                     }
                     
-                    // Process SVG elements using dedicated processor (handles caching and validation)
                     const illustratorElements = graphrealization.illustrator.elements;
-                    // manifestation is available as a global variable set by wfadaptor.js after theme loading
                     const manifestation = window.manifestation || null;
                     const success = self.svgProcessor.transferAndValidateElements(
-                        illustratorElements, 
-                        manifestation, 
-                        self.svgProcessor.getCache()
+                        illustratorElements, manifestation, self.svgProcessor.getCache()
                     );
                     
                     if (!success) {
                         throw new Error('CPEEWfAdaptorRenderer: Failed to process SVG elements');
                     }
                     
-                    // Final validation to prevent wfadaptor.js split() errors
                     self.svgProcessor.validateClassAttributes(illustratorElements);
-                    
-                    // Set SVG container
                     graphrealization.set_svg_container(jquerySvgContainer);
                     
-                    // Initialize label container for hover functionality
                     const labelContainer = window.$(`<div id="graph-labels-${self.container.id}" style="display: none;"></div>`);
                     window.$(`#modelling-${self.container.id}`).append(labelContainer);
                     graphrealization.illustrator.svg.label_container = labelContainer;
             
-                    // Parse and set XML description using helper method
                     self.setGraphDescription(graphrealization, cleanedXML);
-                    
-                    // Namespace all IDs and references to prevent collisions between input/output graphs
                     self.namespaceSVGIds(svgElement);
                     
-                    // Mark as rendered and adjust height
                     self.isRendered = true;
                     self.adjustSVGHeight();
+                    SVGScaleUtility.applyScale(svgElement, self.currentScale, 'cpee');
                     
-                    // Apply current scale to the rendered graph
-                    self.applyScaleTransform(svgElement);
-                    
-                    // Call post-render callback if set
                     if (self.postRenderCallback) {
                         self.postRenderCallback(self.container.id, svgElement);
                     }
@@ -324,14 +218,16 @@ export class CPEEWfAdaptorRenderer {
                 } catch (error) {
                     console.error('Graph rendering error:', error.message);
                     self.showStatus(`Failed to render graph: ${error.message}`, 'error');
-                    self.resetContainer();
+                    self.isRendered = false;
+                    self.setupContainer();
                 }
             });
             
         } catch (error) {
             console.error('CPEE graph error:', error.message);
             this.showStatus(`Failed to render graph: ${error.message}`, 'error');
-            this.resetContainer();
+            this.isRendered = false;
+            this.setupContainer();
         }
     }
     
@@ -341,12 +237,10 @@ export class CPEEWfAdaptorRenderer {
     async loadWfAdaptor() {
         const promises = [];
         
-        // Get paths from configuration (config is under 'cpee.wfadaptor' key)
         const cssPath = configManager.get('cpee.wfadaptor.cssPath');
         const baseThemePath = configManager.get('cpee.wfadaptor.baseThemePath');
         const wfadaptorPath = configManager.get('cpee.wfadaptor.wfadaptorPath');
         
-        // Load CSS (non-blocking)
         if (!document.querySelector('link[href*="wfadaptor.css"]')) {
             const cssLink = document.createElement('link');
             cssLink.rel = 'stylesheet';
@@ -354,58 +248,44 @@ export class CPEEWfAdaptorRenderer {
             document.head.appendChild(cssLink);
         }
         
-        // Load base theme if needed
         if (typeof WFAdaptorManifestationBase === 'undefined') {
             promises.push(new Promise((resolve, reject) => {
                 const baseScript = document.createElement('script');
                 baseScript.src = baseThemePath;
-                baseScript.onload = () => {
-                    resolve();
-                };
+                baseScript.onload = () => resolve();
                 baseScript.onerror = () => reject(new Error('Failed to load base theme'));
                 document.head.appendChild(baseScript);
             }));
         }
         
-        // Load WfAdaptor if needed
         if (typeof WfAdaptor === 'undefined') {
             promises.push(new Promise((resolve, reject) => {
                 const wfScript = document.createElement('script');
                 wfScript.src = wfadaptorPath;
-                wfScript.onload = () => {
-                    resolve();
-                };
+                wfScript.onload = () => resolve();
                 wfScript.onerror = () => reject(new Error('Failed to load WfAdaptor'));
                 document.head.appendChild(wfScript);
             }));
         }
         
-        // Wait for all dependencies to load
         if (promises.length > 0) {
             await Promise.all(promises);
         }
         
-        // Install jQuery AJAX interceptor to route cpee.org requests through CORS proxy
         this.installCorsProxyInterceptor();
     }
     
     /**
-     * Install jQuery AJAX interceptor to route cpee.org theme requests through CORS proxy
-     * with local fallback when proxy fails.
-     * This is needed because WfAdaptor internally uses jQuery.ajax() to fetch rngs/*.rng and symbols/*.svg
-     * and cpee.org doesn't have CORS headers enabled for those files
+     * Install jQuery AJAX interceptor to route cpee.org theme requests through
+     * CORS proxy with local fallback when proxy fails.
      */
     installCorsProxyInterceptor() {
-        // Only install once
-        if (window._cpeeProxyInterceptorInstalled) {
-            return;
-        }
+        if (window._cpeeProxyInterceptorInstalled) { return; }
         
         const corsProxy = configManager.get('api.cors.proxy');
         const fallbackBasePath = './fallback/cpee-themes';
         const useFallbackDirectly = configManager.get('cpee.rendering.useFallbackDirectly', false);
         
-        // Consolidated message tracking
         const fallbackTracker = {
             successFiles: [],
             failedFiles: [],
@@ -415,20 +295,14 @@ export class CPEEWfAdaptorRenderer {
                 this.successFiles.push(file);
                 this.scheduleReport();
             },
-            
             addFailure(file) {
                 this.failedFiles.push(file);
                 this.scheduleReport();
             },
-            
             scheduleReport() {
-                // Debounce: wait for requests to settle before reporting
-                if (this.reportTimeout) {
-                    clearTimeout(this.reportTimeout);
-                }
+                if (this.reportTimeout) { clearTimeout(this.reportTimeout); }
                 this.reportTimeout = setTimeout(() => this.report(), 500);
             },
-            
             report() {
                 if (this.successFiles.length > 0) {
                     console.warn(`[CPEEWfAdaptorRenderer] Using FALLBACK theme`);
@@ -445,176 +319,89 @@ export class CPEEWfAdaptorRenderer {
             }
         };
         
-        /**
-         * Convert cpee.org theme URL to local fallback path
-         * @param {string} url - Original cpee.org URL
-         * @returns {string} Local fallback path
-         */
         const getLocalFallbackUrl = (url) => {
-            // Extract path after /flow/themes/
             const themePathMatch = url.match(/\/flow\/themes\/(.+)$/);
-            if (themePathMatch) {
-                return `${fallbackBasePath}/${themePathMatch[1]}`;
-            }
-            return null;
+            return themePathMatch ? `${fallbackBasePath}/${themePathMatch[1]}` : null;
         };
         
-        /**
-         * Extract filename from URL for consolidated reporting
-         * @param {string} url - URL to extract from
-         * @returns {string} Filename
-         */
         const getFilename = (url) => {
             const match = url.match(/\/([^/]+)$/);
             return match ? match[1] : url;
         };
         
-        /**
-         * Check if URL is a cpee.org theme resource (not a proxy URL)
-         * @param {string} url - URL to check
-         * @returns {boolean} True if it's a direct cpee.org theme resource
-         */
         const isCpeeThemeResource = (url) => {
-            if (!url) {
-                return false;
-            }
-            // Must be a direct cpee.org URL, not a proxy URL that contains cpee.org in query string
+            if (!url) { return false; }
             const isCpeeUrl = url.startsWith('https://cpee.org/') || url.startsWith('http://cpee.org/');
             const isThemeFile = url.endsWith('.rng') || url.endsWith('.svg') || url.endsWith('.js');
             return isCpeeUrl && isThemeFile;
         };
         
-        // Override jQuery.ajax to intercept cpee.org requests with fallback
+        /**
+         * Intercept a jQuery request: try proxy (or fallback directly), then local fallback.
+         * @param {Function} originalFn - Original $.ajax or $.get
+         * @param {string} requestUrl - The cpee.org URL to intercept
+         * @param {Function} makeOriginalCall - Callback to make the original request with a given URL
+         * @returns {Object} jQuery promise
+         */
+        const interceptCpeeRequest = (requestUrl, makeOriginalCall) => {
+            const localFallbackUrl = getLocalFallbackUrl(requestUrl);
+            const filename = getFilename(requestUrl);
+            const deferred = window.$.Deferred();
+            
+            const tryFallback = () => {
+                if (localFallbackUrl) {
+                    makeOriginalCall(localFallbackUrl)
+                        .done((data, textStatus, jqXHR) => {
+                            fallbackTracker.addSuccess(filename);
+                            deferred.resolve(data, textStatus, jqXHR);
+                        })
+                        .fail((jqXHR, textStatus, errorThrown) => {
+                            fallbackTracker.addFailure(filename);
+                            deferred.reject(jqXHR, textStatus, errorThrown);
+                        });
+                } else {
+                    fallbackTracker.addFailure(filename);
+                    deferred.reject();
+                }
+            };
+            
+            if (useFallbackDirectly) {
+                tryFallback();
+            } else {
+                const proxyUrl = corsProxy ? corsProxy + encodeURIComponent(requestUrl) : requestUrl;
+                makeOriginalCall(proxyUrl)
+                    .done((data, textStatus, jqXHR) => deferred.resolve(data, textStatus, jqXHR))
+                    .fail(() => tryFallback());
+            }
+            
+            return deferred.promise();
+        };
+        
         const originalAjax = window.$.ajax;
         window.$.ajax = function(url, options) {
-            // Handle both $.ajax(url, options) and $.ajax(options) signatures
             if (typeof url === 'object') {
                 options = url;
                 url = options.url;
             }
             options = options || {};
-            if (typeof url === 'string') {
-                options.url = url;
-            }
+            if (typeof url === 'string') { options.url = url; }
             
             const requestUrl = options.url || '';
             
-            // Check if this is a cpee.org theme request
             if (isCpeeThemeResource(requestUrl)) {
-                const localFallbackUrl = getLocalFallbackUrl(requestUrl);
-                const filename = getFilename(requestUrl);
-                
-                // Return a new deferred that handles fallback
-                const deferred = window.$.Deferred();
-                const self = this;
-                
-                // If switch is ON, use fallback directly; otherwise try proxy first
-                if (useFallbackDirectly) {
-                    // Switch ON: Use fallback directly
-                    if (localFallbackUrl) {
-                        const fallbackOptions = { ...options, url: localFallbackUrl };
-                        originalAjax.call(self, fallbackOptions)
-                            .done((data2, textStatus2, jqXHR2) => {
-                                fallbackTracker.addSuccess(filename);
-                                deferred.resolve(data2, textStatus2, jqXHR2);
-                            })
-                            .fail((jqXHR3, textStatus3, errorThrown3) => {
-                                fallbackTracker.addFailure(filename);
-                                deferred.reject(jqXHR3, textStatus3, errorThrown3);
-                            });
-                    } else {
-                        fallbackTracker.addFailure(filename);
-                        deferred.reject();
-                    }
-                } else {
-                    // Switch OFF: First try CORS proxy, then fallback
-                    const proxyUrl = corsProxy ? corsProxy + encodeURIComponent(requestUrl) : requestUrl;
-                    const proxyOptions = { ...options, url: proxyUrl };
-                    
-                    originalAjax.call(self, proxyOptions)
-                        .done((data, textStatus, jqXHR) => {
-                            deferred.resolve(data, textStatus, jqXHR);
-                        })
-                        .fail(() => {
-                            // Proxy failed, try local fallback
-                            if (localFallbackUrl) {
-                                const fallbackOptions = { ...options, url: localFallbackUrl };
-                                originalAjax.call(self, fallbackOptions)
-                                    .done((data2, textStatus2, jqXHR2) => {
-                                        fallbackTracker.addSuccess(filename);
-                                        deferred.resolve(data2, textStatus2, jqXHR2);
-                                    })
-                                    .fail((jqXHR3, textStatus3, errorThrown3) => {
-                                        fallbackTracker.addFailure(filename);
-                                        deferred.reject(jqXHR3, textStatus3, errorThrown3);
-                                    });
-                            } else {
-                                fallbackTracker.addFailure(filename);
-                                deferred.reject();
-                            }
-                        });
-                }
-                
-                return deferred.promise();
+                return interceptCpeeRequest(requestUrl, (targetUrl) => 
+                    originalAjax.call(this, { ...options, url: targetUrl })
+                );
             }
-            
             return originalAjax.call(this, options);
         };
         
-        // Also intercept $.get with fallback support
         const originalGet = window.$.get;
         window.$.get = function(url, ...args) {
             if (typeof url === 'string' && isCpeeThemeResource(url)) {
-                const localFallbackUrl = getLocalFallbackUrl(url);
-                const filename = getFilename(url);
-                
-                const deferred = window.$.Deferred();
-                const self = this;
-                
-                // If switch is ON, use fallback directly; otherwise try proxy first
-                if (useFallbackDirectly) {
-                    // Switch ON: Use fallback directly
-                    if (localFallbackUrl) {
-                        originalGet.call(self, localFallbackUrl, ...args)
-                            .done((data2, textStatus2, jqXHR2) => {
-                                fallbackTracker.addSuccess(filename);
-                                deferred.resolve(data2, textStatus2, jqXHR2);
-                            })
-                            .fail((jqXHR3, textStatus3, errorThrown3) => {
-                                fallbackTracker.addFailure(filename);
-                                deferred.reject(jqXHR3, textStatus3, errorThrown3);
-                            });
-                    } else {
-                        fallbackTracker.addFailure(filename);
-                        deferred.reject();
-                    }
-                } else {
-                    // Switch OFF: First try CORS proxy, then fallback
-                    const proxyUrl = corsProxy ? corsProxy + encodeURIComponent(url) : url;
-                    
-                    originalGet.call(self, proxyUrl, ...args)
-                        .done((data, textStatus, jqXHR) => {
-                            deferred.resolve(data, textStatus, jqXHR);
-                        })
-                        .fail(() => {
-                            if (localFallbackUrl) {
-                                originalGet.call(self, localFallbackUrl, ...args)
-                                    .done((data2, textStatus2, jqXHR2) => {
-                                        fallbackTracker.addSuccess(filename);
-                                        deferred.resolve(data2, textStatus2, jqXHR2);
-                                    })
-                                    .fail((jqXHR3, textStatus3, errorThrown3) => {
-                                        fallbackTracker.addFailure(filename);
-                                        deferred.reject(jqXHR3, textStatus3, errorThrown3);
-                                    });
-                            } else {
-                                fallbackTracker.addFailure(filename);
-                                deferred.reject();
-                            }
-                        });
-                }
-                
-                return deferred.promise();
+                return interceptCpeeRequest(url, (targetUrl) => 
+                    originalGet.call(this, targetUrl, ...args)
+                );
             }
             return originalGet.call(this, url, ...args);
         };
@@ -631,88 +418,51 @@ export class CPEEWfAdaptorRenderer {
     }
 
     /**
-     * Reset container to initial state
-     */
-    resetContainer() {
-        this.isRendered = false;
-        this.setupContainer();
-    }
-
-    /**
      * Namespace all IDs and references within an SVG to prevent collisions
-     * between input and output graphs. This ensures clipPaths, masks, filters,
-     * and other referenced elements are unique per graph.
+     * between input and output graphs.
      * @param {SVGElement} svgElement - The SVG element to namespace
      */
     namespaceSVGIds(svgElement) {
-        if (!svgElement) {
-            return;
-        }
+        if (!svgElement) { return; }
 
         try {
-            // Generate unique prefix based on container ID
             const prefix = `${this.container.id}-`;
             
-            // Find all elements with IDs (including the SVG element itself)
-            const elementsWithIds = [];
-            if (svgElement.hasAttribute('id')) {
-                elementsWithIds.push(svgElement);
-            }
-            // Add all descendant elements with IDs
-            const descendantElements = svgElement.querySelectorAll('*[id]');
-            elementsWithIds.push(...Array.from(descendantElements));
+            const elementsWithIds = svgElement.hasAttribute('id') ? [svgElement] : [];
+            elementsWithIds.push(...svgElement.querySelectorAll('*[id]'));
             
             const idMap = new Map();
             
-            // First pass: collect all IDs and create new namespaced IDs
-            elementsWithIds.forEach(element => {
+            for (const element of elementsWithIds) {
                 const oldId = element.getAttribute('id');
                 if (oldId && !oldId.startsWith(prefix)) {
                     const newId = prefix + oldId;
                     idMap.set(oldId, newId);
                     element.setAttribute('id', newId);
                 }
-            });
-            
-            // If no IDs to namespace, skip the rest
-            if (idMap.size === 0) {
-                return;
             }
             
-            // Second pass: update all references to these IDs
-            // This includes clip-path, mask, filter, fill, stroke, xlink:href, etc.
+            if (idMap.size === 0) { return; }
+            
             const referenceAttributes = [
-                'clip-path',
-                'mask',
-                'filter',
-                'fill',
-                'stroke',
-                'marker-start',
-                'marker-end',
-                'marker-mid'
+                'clip-path', 'mask', 'filter', 'fill', 'stroke',
+                'marker-start', 'marker-end', 'marker-mid'
             ];
             
-            // Get all elements in the SVG (including the SVG element itself)
-            const allElements = [svgElement, ...Array.from(svgElement.querySelectorAll('*'))];
+            const allElements = [svgElement, ...svgElement.querySelectorAll('*')];
             
-            allElements.forEach(element => {
-                // Update attribute-based references (url(#id))
-                referenceAttributes.forEach(attr => {
+            for (const element of allElements) {
+                for (const attr of referenceAttributes) {
                     const value = element.getAttribute(attr);
                     if (value && typeof value === 'string' && value.includes('url(#')) {
-                        // Match url(#id) pattern, handling potential whitespace
-                        const urlMatch = value.match(/url\s*\(\s*#([^)]+)\s*\)/);
-                        if (urlMatch && idMap.has(urlMatch[1])) {
-                            const newValue = value.replace(
-                                /url\s*\(\s*#([^)]+)\s*\)/,
-                                (match, id) => idMap.has(id) ? `url(#${idMap.get(id)})` : match
-                            );
-                            element.setAttribute(attr, newValue);
-                        }
+                        const newValue = value.replace(
+                            /url\s*\(\s*#([^)]+)\s*\)/,
+                            (match, id) => idMap.has(id) ? `url(#${idMap.get(id)})` : match
+                        );
+                        if (newValue !== value) { element.setAttribute(attr, newValue); }
                     }
-                });
+                }
                 
-                // Update xlink:href references
                 const xlinkHref = element.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
                 if (xlinkHref && xlinkHref.startsWith('#')) {
                     const idRef = xlinkHref.substring(1);
@@ -721,7 +471,6 @@ export class CPEEWfAdaptorRenderer {
                     }
                 }
                 
-                // Update href references (SVG 2.0)
                 const href = element.getAttribute('href');
                 if (href && href.startsWith('#')) {
                     const idRef = href.substring(1);
@@ -729,41 +478,32 @@ export class CPEEWfAdaptorRenderer {
                         element.setAttribute('href', `#${idMap.get(idRef)}`);
                     }
                 }
-            });
+            }
                         
         } catch (error) {
             console.error('[CPEEWfAdaptorRenderer] Error namespacing SVG IDs:', error);
-            // Don't throw - continue with rendering even if namespacing fails
         }
     }
 
     /**
-     * Dynamically adjust SVG height based on actual content dimensions
-     * Fixed to handle negative bbox.y values correctly
+     * Dynamically adjust SVG height based on actual content dimensions.
+     * Handles negative bbox.y values correctly.
      */
     adjustSVGHeight() {
-        if (!this.svgContainer) {
-            return;
-        }
+        if (!this.svgContainer) { return; }
 
         try {
-            // Get the SVG element
             const svg = this.svgContainer;
             
-            // Check if SVG has any content before trying to get bbox
-            const svgChildren = svg.children;
-            if (!svgChildren || svgChildren.length === 0) {
+            if (!svg.children || svg.children.length === 0) {
                 svg.setAttribute('height', '400');
                 svg.style.height = '400px';
                 return;
             }
             
-            // Get the bounding box of all SVG content
             const bbox = svg.getBBox();
             
-            // Validate bbox
             if (!bbox || isNaN(bbox.height) || bbox.height <= 0) {
-                // Check for viewBox as fallback
                 const viewBox = svg.getAttribute('viewBox');
                 if (viewBox) {
                     const vbValues = viewBox.split(/\s+/);
@@ -781,95 +521,29 @@ export class CPEEWfAdaptorRenderer {
                 return;
             }
             
-            // Calculate required height correctly handling negative bbox.y
-            // If bbox.y is negative, we need to add its absolute value to height
-            // Formula: height = max(bbox.height, bbox.y + bbox.height) + padding
-            const contentTop = bbox.y;
-            const contentBottom = bbox.y + bbox.height;
-            const requiredHeight = Math.max(
-                bbox.height,                    // Content height
-                contentBottom - Math.min(0, contentTop)  // Height accounting for negative y
-            ) + 20; // 20px padding
-            
-            // Ensure minimum height
+            const requiredHeight = Math.max(0, bbox.y) + bbox.height + 20;
             const finalHeight = Math.max(requiredHeight, 100);
             
-            // Update SVG height attributes
             svg.setAttribute('height', finalHeight.toString());
             svg.style.height = finalHeight + 'px';
             
-            
         } catch (error) {
-            // Fallback to a reasonable default height
             this.svgContainer.setAttribute('height', '400');
             this.svgContainer.style.height = '400px';
         }
     }
 
     /**
-     * Show status message
-     * @param {string} message - Status message
-     * @param {string} type - Message type (loading, success, error)
+     * Show status message via StatusManager
      */
     showStatus(message, type = 'info') {
-        // Use StatusManager utility if available
-        if (this.statusManager) {
-            switch (type) {
-                case 'loading':
-                    this.statusManager.showLoading(message);
-                    break;
-                case 'success':
-                    this.statusManager.showSuccess(message);
-                    break;
-                case 'error':
-                    this.statusManager.showError(message);
-                    break;
-                default:
-                    this.statusManager.showInfo(message);
-            }
-            return;
-        }
+        if (!this.statusManager) { return; }
         
-        // Fallback: Direct DOM manipulation if StatusManager not initialized
-        if (!this.statusElement) {
-            return;
+        switch (type) {
+            case 'loading': this.statusManager.showLoading(message); break;
+            case 'success': this.statusManager.showSuccess(message); break;
+            case 'error': this.statusManager.showError(message); break;
+            default: this.statusManager.showInfo(message);
         }
-        
-        this.statusElement.textContent = message;
-        this.statusElement.className = `alert alert-${type === 'loading' ? 'info' : type === 'success' ? 'success' : 'danger'}`;
-        this.statusElement.style.display = 'block';
-        
-        // Auto-hide success messages
-        if (type === 'success') {
-            setTimeout(() => {
-                if (this.statusElement) {
-                    this.statusElement.style.display = 'none';
-                }
-            }, 3000);
-        }
-    }
-    
-    /**
-     * Clear the current graph
-     */
-    clearGraph() {
-        this.resetContainer();
-        if (this.statusElement) {
-            this.statusElement.style.display = 'none';
-        }
-    }
-    
-    /**
-     * Get current graph state
-     */
-    getGraphState() {
-        if (!this.adaptor || !this.isRendered) {
-            return null;
-        }
-        
-        return {
-            xml: this.xmlInput ? this.xmlInput.value : null,
-            svg: this.svgContainer ? new XMLSerializer().serializeToString(this.svgContainer) : null
-        };
     }
 }
