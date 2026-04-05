@@ -26,6 +26,9 @@ export class CPEEWfAdaptorRenderer {
         this.statusManager = null; // Will be initialized in initialize()
         this.svgProcessor = new SVGProcessor(); // Handles SVG element processing and caching
         
+        // Render generation counter to guard against stale WfAdaptor callbacks
+        this._renderGeneration = 0;
+        
         // Post-render callback for highlighting integration
         this.postRenderCallback = null;
         
@@ -217,6 +220,10 @@ export class CPEEWfAdaptorRenderer {
      * @param {string} cpeeXML - CPEE XML description
      */
     async renderGraph(cpeeXML) {
+        // Increment generation so any in-flight WfAdaptor callback from a prior
+        // renderGraph call becomes a no-op when it eventually fires.
+        const renderGen = ++this._renderGeneration;
+        
         try {
             this.showStatus('Loading CPEE WfAdaptor...', 'loading');
             
@@ -234,6 +241,11 @@ export class CPEEWfAdaptorRenderer {
             
             // Load the WfAdaptor and theme system
             await this.loadWfAdaptor();
+            
+            // Bail out if a newer renderGraph call was made while we were loading
+            if (renderGen !== this._renderGeneration) {
+                return;
+            }
                         
             // Store reference to self for use in callback
             const self = this;
@@ -243,6 +255,11 @@ export class CPEEWfAdaptorRenderer {
             
             // Create WfAdaptor instance
             this.adaptor = new window.WfAdaptor(themePath, (graphrealization) => {
+                // Stale callback guard: if a newer render was started, abandon this one
+                if (renderGen !== self._renderGeneration) {
+                    return;
+                }
+                
                 try {
                     // Get and validate SVG container element
                     const svgElementId = `graphcanvas-${self.container.id}`;
